@@ -191,6 +191,11 @@ const HomeTemplate = (): JSX.Element => {
           </Col>
         </Row>
       </Container>
+
+      <footer className='content text-center'>
+        <hr />
+        {/* <p className='footer-margin'>Copyright <a href='https://goodcycle.net/' target='_blank' rel='noreferrer'></a> {new Date().getFullYear()}</p> */}
+      </footer>
     </Container>
   )
 }  

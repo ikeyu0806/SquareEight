@@ -47,10 +47,23 @@ a {
   margin-top: 50px;
 }
 
+.mb20 {
+  margin-bottom: 20px;
+}
+
 .mb30 {
   margin-bottom: 30px;
 }
 
 .mb50 {
   margin-bottom: 50px;
+}
+
+.mr10 {
+  margin-right: 10px;
+}
+
+
+.ml10 {
+  margin-left: 10px;
 }
