@@ -1,12 +1,19 @@
 import React from 'react'
+import FeaturesMolecules from '../molecules/FeaturesMolecules'
+import { FeaturesOrganismProps } from '../../intefaces/FeaturesOrganismProps'
 import { Container,
          Row,
          Col,
          Card } from 'react-bootstrap'
 
-const Features = (): JSX.Element => {
+const Features = ({featuresMoleculeProps, selectable}: FeaturesOrganismProps): JSX.Element => {
   return (
     <Container>
+      {featuresMoleculeProps.map((prop, i) => {
+        return (
+          <FeaturesMolecules headerText={prop.headerText} FeatureAtomProps1={prop.FeatureAtomProps1} FeatureAtomProps2={prop.FeatureAtomProps2} FeatureAtomProps3={prop.FeatureAtomProps3} selectable={prop.selectable} key={i} />
+        )
+      })}
       <div className='text-center mt20 mb20'>
         <h3>ホームページ作成</h3>
       </div>

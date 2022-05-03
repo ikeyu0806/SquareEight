@@ -1,5 +1,5 @@
 import React from 'react'
-import Features from '../organisms/Features'
+import FeaturesTemplates from './FeaturesTemplates'
 import { Container,
          Navbar,
          Nav,
@@ -47,7 +47,7 @@ const HomeTemplate = (): JSX.Element => {
       <div className='text-center mt50 mb50' id='features'>
         <h2>充実の機能であなたのビジネスをサポート</h2>
       </div>
-      <Features />
+      <FeaturesTemplates />
 
       <footer className='content text-center'>
         <hr />
