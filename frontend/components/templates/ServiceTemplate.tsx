@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Container,
          Col,
          Card,
+         Button,
          Row } from 'react-bootstrap'
 
 const ServiceTemplate = (): JSX.Element => {
@@ -15,6 +16,9 @@ const ServiceTemplate = (): JSX.Element => {
   return (
     <>
       <Container>
+        <div className='text-center mt50 mb50'>
+          <h2>作成するサービスを選択してください</h2>
+        </div>
         <Row>
           <Col onClick={() => setSelectedService(SERVICE.HomepageWithReserve)}>
             <Card border={selectedService === SERVICE.HomepageWithReserve ? 'primary' : ''}>
@@ -56,6 +60,9 @@ const ServiceTemplate = (): JSX.Element => {
             </Card>
           </Col>
         </Row>
+        <div className='text-center mt30 mb30'>
+          <Button variant='primary' size='lg' href={selectedService === SERVICE.HomepageWithReserve ? '/introduction/homepage_with_reserve' : selectedService === SERVICE.Homepage ? '/introduction/homepage' : '/introduction/reserve'}>次へ</Button>
+        </div>
       </Container>
     </>
   )
