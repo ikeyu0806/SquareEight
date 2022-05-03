@@ -1,21 +1,18 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { FeatureAtomProps } from '../../intefaces/FeatureAtomProps'
 import { Col,
-         Card } from 'react-bootstrap'
-
-type Props = {
-  selectable?: boolean
-  title: string
-  text: string
-}        
+         Card } from 'react-bootstrap'  
 
 const FeaturesAtoms = ({selectable, title, text}: FeatureAtomProps): JSX.Element => {
+
+  const [isCheck, setIsCheck] = useState(false)
+
   return (
-    <Col>
-      <Card>
+    <Col onClick={() => setIsCheck(!isCheck)}>
+      <Card border={isCheck ? 'primary' : ''}>
         <Card.Body>
           <Card.Title>
-           {selectable && <input className='form-check-input mr10' type='checkbox' />}
+           {selectable && <input className='form-check-input mr10' type='checkbox' checked={isCheck} />}
            {title}
           </Card.Title>
           <Card.Text>
