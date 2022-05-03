@@ -9,9 +9,9 @@ const FeaturesTemplates = ({selectable}: Props): JSX.Element => {
   return (
     <>
       <FeaturesMolecules headerText='ホームページ作成'
-                         FeatureAtomProps1={{title: 'ホームページ作成', text: '専門知識不要でホームページを作成できます'}}
-                         FeatureAtomProps2={{title: 'カラーパレット設定', text: '好きな配色を選んでいただければ自動でサイト全体の配色を設定できます'}}
-                         FeatureAtomProps3={{title: '独自ドメイン設定', text: '独自ドメインを設定できます'}}
+                         FeatureAtomProps1={{title: 'ブログ', text: 'ホームページにブログを投稿できます'}}
+                         FeatureAtomProps2={{title: 'カラーパレット', text: '好きな配色を選んでいただければ自動でサイト全体の配色を設定できます'}}
+                         FeatureAtomProps3={{title: '独自ドメイン', text: '独自ドメインを設定できます'}}
                          selectable={selectable} />
       <FeaturesMolecules headerText='予約管理'
                           FeatureAtomProps1={{title: 'オンライン予約', text: 'カレンダーから24時間予約受付できます'}}

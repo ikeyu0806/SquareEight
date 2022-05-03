@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
-import FeaturesTemplates from '../../components/templates/FeaturesTemplates'
+import ServiceTemplate from '../../components/templates/ServiceTemplate'
 import { Container,
          Navbar,
          Button } from 'react-bootstrap'
 
-const Feature: NextPage = () => {
+const Service: NextPage = () => {
   return (
     <>
       <Navbar collapseOnSelect expand='lg'>
@@ -13,14 +13,14 @@ const Feature: NextPage = () => {
         </Container>
       </Navbar>
       <div className='text-center mt50 mb50'>
-        <h2>追加したい機能を選択してください</h2>
+        <h2>作成するサービスを選択してください</h2>
       </div>
-      <FeaturesTemplates selectable={true} />
-      <div className='text-center mb30'>
+      <ServiceTemplate/>
+      <div className='text-center mt30 mb30'>
         <Button variant='primary' size='lg'>次へ</Button>
       </div>
     </>
   )
 }
 
-export default Feature
+export default Service

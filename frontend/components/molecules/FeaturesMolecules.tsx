@@ -1,10 +1,9 @@
 import React from 'react'
-import FeatureAtoms from '../atoms/FeatureAtoms'
+import CardAtoms from '../atoms/CardAtoms'
 import { FeaturesMoleculeProps } from '../../intefaces/FeaturesMoleculeProps'
 import { Container,
          Row,
-         Col,
-         Card } from 'react-bootstrap'
+         Col } from 'react-bootstrap'
 
 const FeaturesMolecules = ({headerText, FeatureAtomProps1, FeatureAtomProps2, FeatureAtomProps3, selectable}: FeaturesMoleculeProps): JSX.Element => {
   return (
@@ -14,9 +13,9 @@ const FeaturesMolecules = ({headerText, FeatureAtomProps1, FeatureAtomProps2, Fe
       </div>
       <Container>
         <Row>
-          <FeatureAtoms title={FeatureAtomProps1.title} text={FeatureAtomProps1.text} selectable={selectable} />
-          {FeatureAtomProps2 && <FeatureAtoms title={FeatureAtomProps2.title} text={FeatureAtomProps2.text} selectable={selectable} />}
-          {FeatureAtomProps3 && <FeatureAtoms title={FeatureAtomProps3.title} text={FeatureAtomProps3.text} selectable={selectable} />}
+          <CardAtoms title={FeatureAtomProps1.title} text={FeatureAtomProps1.text} selectable={selectable} />
+          {FeatureAtomProps2 ? <CardAtoms title={FeatureAtomProps2.title} text={FeatureAtomProps2.text} selectable={selectable} /> : <Col></Col>}
+          {FeatureAtomProps3 ? <CardAtoms title={FeatureAtomProps3.title} text={FeatureAtomProps3.text} selectable={selectable} /> : <Col></Col>}
         </Row>
       </Container>
     </>
