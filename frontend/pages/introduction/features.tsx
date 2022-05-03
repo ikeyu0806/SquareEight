@@ -1,10 +1,10 @@
 import type { NextPage } from 'next'
-import SelectFeatureTemplate from '../../components/templates/SelectFeatureTemplate'
+import SelectFeature from '../../components/templates/SelectFeature'
 
 const Home: NextPage = () => {
   return (
     <>
-      <SelectFeatureTemplate/>
+      <SelectFeature/>
     </>
   )
 }
