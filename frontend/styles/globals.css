@@ -67,3 +67,13 @@ a {
 .ml10 {
   margin-left: 10px;
 }
+
+.fc-col-header-cell-cushion {
+  color: black;
+  text-decoration: none;
+}
+
+.fc-daygrid-day-number {
+  color: black;
+  text-decoration: none;
+}
