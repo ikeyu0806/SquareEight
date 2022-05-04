@@ -14,6 +14,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
   const [showModal, setShowModal] = useState(false)
   const [repeatReserveMenu, setRepeatReserveMenu] = useState(false)
   const [selectedRepeatPeriod, setSelectedRepeatPeriod] = useState(REPEAT_PERIOD.Day)
+  const [isSetPrice, setIsSetPrice] = useState(true)
 
   return(
     <>
@@ -33,16 +34,18 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                 <Col>
                   <Form.Group className='mb-3' controlId='menuName'>
                     <Form.Label>メニュー名</Form.Label>
-                    <Form.Control placeholder='メニュー名' />
+                    <Form.Control placeholder='例 フィットネス60分レッスン' />
                   </Form.Group>
                 </Col>
                 <Col>
                 </Col>
               </Row>
+
               <Form.Group className='mb-3' controlId='menuText'>
                 <Form.Label>メニュー説明文</Form.Label>
-                <Form.Control placeholder='メニュー説明文' as='textarea' rows={3} />
+                <Form.Control placeholder='メニューの説明を入力してください' as='textarea' rows={3} />
               </Form.Group>
+
               <Form.Group className='mb-3' controlId='menuText'>
 
               <Form.Label>開始日時</Form.Label>
@@ -269,6 +272,58 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                   </Row>
                 </Form.Group>
               </div>}
+
+              <Form.Group className='mb-3' controlId='startDate'>
+                <Row>
+                  <Form.Label>料金</Form.Label>
+                  <Col>
+                    <Form.Check type='checkbox'
+                                label='設定する'
+                                inline
+                                name='price'
+                                onChange={() => setIsSetPrice(true)}
+                                checked={isSetPrice} />
+                    <Form.Check type='checkbox'
+                                label='設定しない'
+                                inline
+                                name='price'
+                                onChange={() => setIsSetPrice(false)}
+                                checked={!isSetPrice} />
+                  </Col>
+                  <Col></Col>
+                  <Col></Col>
+                </Row>
+                {isSetPrice && 
+                <Row>
+                  <Col>
+                  <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                    <Col sm={3}>
+                      <Form.Control type='number' min='0' />
+                    </Col>
+                    <Form.Label column sm={2}>
+                      円
+                    </Form.Label>
+                  </Form.Group>
+                </Col>
+              </Row>}
+            </Form.Group>
+
+            <Row>
+              <Col>
+                <Form.Group className='mb-3' controlId='menuName'>
+                  <Form.Label>公開設定</Form.Label>
+                  <Form.Select placeholder='メニュー名'>
+                    <option value='unpublish' selected>非公開</option>
+                    <option value='publish'>公開</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+            </Row>
+
           </Modal.Body>
 
           <Modal.Footer>
