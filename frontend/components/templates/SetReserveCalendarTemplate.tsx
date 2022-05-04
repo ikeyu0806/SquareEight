@@ -5,8 +5,15 @@ import interactionPlugin from '@fullcalendar/interaction'
 import { Container, Modal, Button, Form, Col, Row } from 'react-bootstrap'
 
 const SetReserveCalendarTemplate = (): JSX.Element => {
+  enum REPEAT_PERIOD {
+    Day = 0,
+    Week = 1,
+    Month = 2,
+  }
+
   const [showModal, setShowModal] = useState(false)
   const [repeatReserveMenu, setRepeatReserveMenu] = useState(false)
+  const [selectedRepeatPeriod, setSelectedRepeatPeriod] = useState(REPEAT_PERIOD.Day)
 
   return(
     <>
@@ -150,16 +157,54 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                 </Form.Group>
               </Form>
 
-              <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+              <Form.Group className='mb-3' controlId='repeatReserveCheckbox'>
                 <Form.Check type='checkbox' label='繰り返し設定を行う' checked={repeatReserveMenu} onClick={() => setRepeatReserveMenu(!repeatReserveMenu)} />
               </Form.Group>
 
               {repeatReserveMenu && <div className='ml20'>
-                <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-                  <Form.Check type='checkbox' label='日ごと' inline />
-                  <Form.Check type='checkbox' label='週ごと' inline />
-                  <Form.Check type='checkbox' label='月ごと' inline />
+                <Form.Group className='mb-3' controlId='repeatPeriodCheckbox'>
+                  <Form.Check type='checkbox'
+                              label='日ごと'
+                              inline
+                              name='repeatPeriod'
+                              value={REPEAT_PERIOD.Day}
+                              onChange={() => setSelectedRepeatPeriod(REPEAT_PERIOD.Day)}
+                              checked={selectedRepeatPeriod === REPEAT_PERIOD.Day} />
+                  <Form.Check type='checkbox'
+                              label='週ごと'
+                              inline
+                              value={REPEAT_PERIOD.Week}
+                              name='repeatPeriod'
+                              onChange={() => setSelectedRepeatPeriod(REPEAT_PERIOD.Week)}
+                              checked={selectedRepeatPeriod === REPEAT_PERIOD.Week} />
+                  <Form.Check type='checkbox'
+                              label='月ごと'
+                              inline
+                              value={REPEAT_PERIOD.Month}
+                              name='repeatPeriod'
+                              onChange={() => setSelectedRepeatPeriod(REPEAT_PERIOD.Month)}
+                              checked={selectedRepeatPeriod === REPEAT_PERIOD.Month} />
                 </Form.Group>
+                {selectedRepeatPeriod === REPEAT_PERIOD.Day &&
+                  <>
+                    <Row>
+                      <Col>
+                      <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                        <Form.Label column sm={1}>
+                          間隔
+                        </Form.Label>
+                        <Col sm={2}>
+                          <Form.Control type='number' placeholder='1' />
+                        </Col>
+                        <Form.Label column sm={2}>
+                          日ごと
+                        </Form.Label>
+                      </Form.Group>
+                      
+                      </Col>
+                    </Row>
+                  </>
+                }
                 <Form.Group className='mb-3' controlId='startDate'>
                   <Row>
                     <Form.Label>繰り返し開始日時</Form.Label>
