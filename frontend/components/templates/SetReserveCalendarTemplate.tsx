@@ -6,6 +6,7 @@ import { Container, Modal, Button, Form, Col, Row } from 'react-bootstrap'
 
 const SetReserveCalendarTemplate = (): JSX.Element => {
   const [showModal, setShowModal] = useState(false)
+  const [repeatReserveMenu, setRepeatReserveMenu] = useState(false)
 
   return(
     <>
@@ -147,7 +148,40 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                     <Col></Col>
                   </Row>
                 </Form.Group>
-            </Form>
+              </Form>
+
+              <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+                <Form.Check type='checkbox' label='繰り返し設定を行う' checked={repeatReserveMenu} onClick={() => setRepeatReserveMenu(!repeatReserveMenu)} />
+              </Form.Group>
+
+              {repeatReserveMenu && <div className='ml20'>
+                <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+                  <Form.Check type='checkbox' label='日ごと' inline />
+                  <Form.Check type='checkbox' label='週ごと' inline />
+                  <Form.Check type='checkbox' label='月ごと' inline />
+                </Form.Group>
+                <Form.Group className='mb-3' controlId='startDate'>
+                  <Row>
+                    <Form.Label>繰り返し開始日時</Form.Label>
+                    <Col>
+                      <Form.Control placeholder='実施日時' type='date' />
+                    </Col>
+                    <Col></Col>
+                    <Col></Col>
+                  </Row>
+                </Form.Group>
+
+                <Form.Group className='mb-3' controlId='startDate'>
+                  <Row>
+                    <Form.Label>繰り返し終了日時</Form.Label>
+                    <Col>
+                      <Form.Control placeholder='実施日時' type='date' />
+                    </Col>
+                    <Col></Col>
+                    <Col></Col>
+                  </Row>
+                </Form.Group>
+              </div>}
           </Modal.Body>
 
           <Modal.Footer>
