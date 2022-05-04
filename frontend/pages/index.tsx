@@ -7,6 +7,7 @@ import { Container,
          Button,
          Row,
          Col } from 'react-bootstrap'
+
 const Home: NextPage = () => {
   return (
     <Container>
@@ -22,10 +23,10 @@ const Home: NextPage = () => {
               <Nav.Link href='#inquiry'>お問い合わせ</Nav.Link>
             </Nav>
             <Nav>
-              <Nav.Link href='#deets'>
+              <Nav.Link href='/login'>
                 <Button>ログイン</Button>
               </Nav.Link>
-              <Nav.Link href='#memes'>
+              <Nav.Link href='/signup'>
                 <Button>無料でお試し</Button>
               </Nav.Link>
             </Nav>

@@ -1,16 +1,11 @@
 import type { NextPage } from 'next'
 import ServiceTemplate from '../../components/templates/ServiceTemplate'
-import { Container,
-         Navbar } from 'react-bootstrap'
+import IntroductionNavbar from '../../components/atoms/IntroductionNavbar'
 
 const Service: NextPage = () => {
   return (
     <>
-      <Navbar collapseOnSelect expand='lg'>
-        <Container>
-          <Navbar.Brand href='#home'>SmartLesson</Navbar.Brand>
-        </Container>
-      </Navbar>
+      <IntroductionNavbar />
       <ServiceTemplate/>
     </>
   )

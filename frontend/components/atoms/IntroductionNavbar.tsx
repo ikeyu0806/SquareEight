@@ -5,7 +5,7 @@ const IntroductionNavbar = () => {
     <>
       <Navbar collapseOnSelect expand='lg'>
         <Container>
-          <Navbar.Brand href='#home'>SmartLesson</Navbar.Brand>
+          <Navbar.Brand href='/'>SmartLesson</Navbar.Brand>
         </Container>
       </Navbar>
     </>
