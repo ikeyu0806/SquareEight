@@ -205,6 +205,48 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                     </Row>
                   </>
                 }
+                {selectedRepeatPeriod === REPEAT_PERIOD.Week &&
+                  <>
+                    <Row>
+                      <Col>
+                      <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                        <Form.Label column sm={1}>
+                          間隔
+                        </Form.Label>
+                        <Col sm={2}>
+                          <Form.Control type='number' placeholder='1' />
+                        </Col>
+                        <Form.Label column sm={2}>
+                          週ごと
+                        </Form.Label>
+                      </Form.Group>
+                      
+                      </Col>
+                    </Row>
+                  </>
+                }
+                {selectedRepeatPeriod === REPEAT_PERIOD.Month &&
+                  <>
+                    <Row>
+                      <Col>
+                        <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                          <Col sm={2}>
+                            <Form.Control type='number' />
+                          </Col>
+                          <Form.Label column sm={2}>
+                            ヶ月ごとの
+                          </Form.Label>
+                          <Col sm={2}>
+                            <Form.Control type='number' />
+                          </Col>
+                          <Form.Label column sm={2}>
+                            日に設定
+                          </Form.Label>
+                        </Form.Group>
+                      </Col>
+                    </Row>
+                  </>
+                }
                 <Form.Group className='mb-3' controlId='startDate'>
                   <Row>
                     <Form.Label>繰り返し開始日時</Form.Label>
