@@ -1,7 +1,7 @@
 import { FeatureAtomProps } from './FeatureAtomProps'
 
 export type FeaturesMoleculeProps = {
-  headerText: string
+  headerText?: string
   FeatureAtomProps1: FeatureAtomProps
   FeatureAtomProps2?: FeatureAtomProps
   FeatureAtomProps3?: FeatureAtomProps
