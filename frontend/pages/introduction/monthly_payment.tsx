@@ -1,8 +1,11 @@
+import React, { useState } from 'react'
 import type { NextPage } from 'next'
 import IntroductionNavbar from '../../components/atoms/IntroductionNavbar'
-import { Container, Table, Button, FormControl, Row, Col } from 'react-bootstrap'
+import { Container, Table, Button, FormControl, Row, Col, Modal, Form } from 'react-bootstrap'
 
 const MonthlyPayment: NextPage = () => {
+  const [showModal, setShowModal] = useState(false)
+
   return (
     <>
       <IntroductionNavbar />
@@ -35,11 +38,47 @@ const MonthlyPayment: NextPage = () => {
                 />
               </td>
               <td>1ヶ月間予約し放題
-                <a onClick={() => alert('aaa')}>（変更する）</a>
+                <a onClick={() => setShowModal(true)}>（変更する）</a>
               </td>
             </tr>
           </tbody>
         </Table>
+        <Modal show={showModal} size='lg'>
+          <Modal.Header>
+            <Modal.Title>予約受付設定</Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+            <Row>
+              <Col>
+                <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                  <Col sm={2}>
+                    <Form.Control type='number' placeholder='1' />
+                  </Col>
+                  <Col>
+                    <Form.Select sm={2}>
+                      <option value='00'>日</option>
+                      <option value='01'>週</option>
+                      <option value='02'>月</option>
+                    </Form.Select>
+                  </Col>
+                  <Form.Label column sm={2}>
+                    ごとに
+                  </Form.Label>
+                  <Col sm={2}>
+                    <Form.Control type='number' />
+                  </Col>
+                  <Form.Label column sm={2}>
+                    回予約可能
+                  </Form.Label>
+                </Form.Group>        
+              </Col>
+            </Row>
+          </Modal.Body>
+          <Modal.Footer>
+            <Button variant='secondary' onClick={() => setShowModal(false)}>閉じる</Button>
+            <Button variant='primary'>登録する</Button>
+          </Modal.Footer>
+        </Modal>
       </Container>
       <Row>
         <Col></Col>
