@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import IntroductionNavbar from '../../components/atoms/IntroductionNavbar'
-import { Container, Table, Button, FormControl } from 'react-bootstrap'
+import { Container, Table, Button, FormControl, Row, Col } from 'react-bootstrap'
 
 const Resource: NextPage = () => {
   return (
@@ -24,14 +24,14 @@ const Resource: NextPage = () => {
             <tr>
               <td>
                 <FormControl
-                  placeholder="ヨガマット、〇〇先生など"
-                  aria-label="リソース名"
+                  placeholder='ヨガマット、〇〇先生など'
+                  aria-label='リソース名'
                 />
               </td>
               <td>
                 <FormControl
-                  placeholder="1"
-                  aria-label="リソース名"
+                  placeholder='1'
+                  aria-label='リソース名'
                 />
               </td>
               <td>営業時間に準じる
@@ -42,9 +42,24 @@ const Resource: NextPage = () => {
           </tbody>
         </Table>
       </Container>
-      <div className='text-center mb30'>
-        <Button variant='primary' size='lg'>次へ</Button>
-      </div>
+      <Row>
+        <Col></Col>
+        <Col>
+          <Button variant='outline-primary' size='lg'>戻る</Button>
+        </Col>
+        <Col></Col>
+        <Col></Col>
+        <Col>
+          <Button variant='primary' size='lg'>次へ</Button>
+        </Col>
+        <Col></Col>
+        <Col></Col>
+        <Col>
+          <Button variant='outline-primary' size='lg'>スキップ</Button>
+        </Col>
+        <Col></Col>
+      </Row>
+
     </>
   )
 }
