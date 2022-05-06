@@ -15,6 +15,10 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
   const [repeatReserveMenu, setRepeatReserveMenu] = useState(false)
   const [selectedRepeatPeriod, setSelectedRepeatPeriod] = useState(REPEAT_PERIOD.Day)
   const [isSetPrice, setIsSetPrice] = useState(true)
+  const [deadlineToday, setDeadlineToday] = useState(true)
+  const [enableLocalPayment, setEnableLocalPayment] = useState(false)
+  const [enableMonthlyPayment, setEnableMonthlyPayment] = useState(false)
+  const [enableReservationTicket, setEnableReservationTicket] = useState(false)
 
   return(
     <>
@@ -277,35 +281,90 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                 <Row>
                   <Form.Label>料金</Form.Label>
                   <Col>
+                  <Form.Group>
                     <Form.Check type='checkbox'
-                                label='設定する'
-                                inline
-                                name='price'
-                                onChange={() => setIsSetPrice(true)}
-                                checked={isSetPrice} />
+                                  label='設定する'
+                                  inline
+                                  name='price'
+                                  onChange={() => setIsSetPrice(true)}
+                                  checked={isSetPrice} />
                     <Form.Check type='checkbox'
                                 label='設定しない'
                                 inline
                                 name='price'
                                 onChange={() => setIsSetPrice(false)}
                                 checked={!isSetPrice} />
+                  </Form.Group>
                   </Col>
                   <Col></Col>
                   <Col></Col>
                 </Row>
-                {isSetPrice && 
-                <Row>
-                  <Col>
-                  <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
-                    <Col sm={3}>
-                      <Form.Control type='number' min='0' />
+                {isSetPrice &&
+                <div className='ml10'>
+                  <Form.Check label='月額課金' checked={enableLocalPayment} onChange={() => setEnableLocalPayment(!enableLocalPayment)}></Form.Check>
+                  {enableLocalPayment && <Row>
+                    <Col>
+                      <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                        <Col sm={3}>
+                          <Form.Control type='number' min='0' />
+                        </Col>
+                        <Form.Label column sm={2}>
+                          円
+                        </Form.Label>
+                      </Form.Group>
                     </Col>
-                    <Form.Label column sm={2}>
-                      円
-                    </Form.Label>
-                  </Form.Group>
-                </Col>
-              </Row>}
+                  </Row>}
+                  <Form.Check label='月謝払い' checked={enableMonthlyPayment} onChange={() => setEnableMonthlyPayment(!enableMonthlyPayment)}></Form.Check>
+                  {enableMonthlyPayment && 
+                    <div className='ml20'>
+                      <Row>
+                        <Col>
+                          <Form.Group>
+                            <Form.Check type='checkbox'
+                                          label='隔週プラン'
+                                          inline
+                                          name='week'
+                                          onChange={() => setIsSetPrice(true)}
+                                          checked={isSetPrice} />
+                            <br />
+                            <Form.Check type='checkbox'
+                                        label='週1プラン'
+                                        inline
+                                        name='oneWeek'
+                                        onChange={() => setIsSetPrice(false)}
+                                        checked={!isSetPrice} />
+                          </Form.Group>
+                        </Col>
+                      </Row>
+                    </div>
+                  }
+                  <Form.Check label='回数券' checked={enableReservationTicket} onChange={() => setEnableReservationTicket(!enableReservationTicket)}></Form.Check>
+                  {enableReservationTicket && 
+                    <div className='ml20'>
+                      <Form.Check type='checkbox'
+                                        label='10000円 レッスン5回チケット'
+                                        inline
+                                        name='oneWeek'
+                                        onChange={() => setIsSetPrice(false)}
+                                        checked={!isSetPrice} />
+                      <Row>
+                        <Col>
+                        <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                          <Form.Label column sm={2}>
+                            消費枚数
+                          </Form.Label>
+                          <Col sm={2}>
+                            <Form.Control type='number' placeholder='1' />
+                          </Col>
+                          <Form.Label column sm={2}>
+                            枚
+                          </Form.Label>
+                        </Form.Group>
+                        </Col>
+                      </Row>
+                    </div>
+                  }
+                </div>}
             </Form.Group>
 
             <Row>
@@ -323,6 +382,83 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
               <Col>
               </Col>
             </Row>
+
+            <Row>
+              <Col>
+                <Form.Group className='mb-3' controlId='menuName'>
+                  <Form.Label>受付設定</Form.Label>
+                  <Form.Select placeholder='メニュー名'>
+                    <option value='unpublish' selected>即時予約</option>
+                    <option value='publish'>仮予約</option>
+                    <option value='publish'>電話のみ予約</option>
+                  </Form.Select>
+                </Form.Group>
+              </Col>
+              <Col>
+              </Col>
+              <Col>
+              </Col>
+            </Row>
+
+            <Row>
+              <Col>
+                <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                  <Form.Label>受付開始</Form.Label>
+                  <Col sm={2}>
+                    <Form.Control type='number' />
+                  </Col>
+                  <Form.Label column sm={2}>
+                    日前から
+                  </Form.Label>
+                </Form.Group>        
+              </Col>
+            </Row>
+
+            <Form.Group className='mb-3' controlId='startDate'>
+              <Row>
+                <Form.Label>受付締め切り</Form.Label>
+                <Col>
+                  <Form.Check type='checkbox'
+                              label='当日まで受付する'
+                              inline
+                              name='deadline'
+                              onChange={() => setDeadlineToday(true)}
+                              checked={deadlineToday} />
+                  <Form.Check type='checkbox'
+                              label='前日以前を指定する'
+                              inline
+                              name='deadline'
+                              onChange={() => setDeadlineToday(false)}
+                              checked={!deadlineToday} />
+                </Col>
+              </Row>
+              {deadlineToday ? 
+                <Row>
+                  <Col>
+                  <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                    <Col sm={2}>
+                      <Form.Control type='number' min='0' />
+                    </Col>
+                    <Form.Label column sm={4}>
+                      時間前まで受付をする
+                    </Form.Label>
+                  </Form.Group>
+                </Col>
+              </Row> :
+                <Row>
+                <Col>
+                <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                  <Col sm={2}>
+                    <Form.Control type='number' min='0' />
+                  </Col>
+                  <Form.Label column sm={4}>
+                    日前まで受付をする
+                  </Form.Label>
+                </Form.Group>
+              </Col>
+            </Row>
+              }
+            </Form.Group>
 
           </Modal.Body>
 
