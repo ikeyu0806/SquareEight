@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
 import IntroductionNavbar from '../components/atoms/IntroductionNavbar'
 
-const Signup: NextPage = () => {
+const Login: NextPage = () => {
   return (
     <>
       <IntroductionNavbar />
@@ -11,7 +11,7 @@ const Signup: NextPage = () => {
           <Col></Col>
           <Col>
             <Card>
-              <Card.Header>ユーザ登録</Card.Header>
+              <Card.Header>ログイン</Card.Header>
               <Card.Body>
                 <Form>
                   <Form.Group className='mb-3' controlId='formEmail'>
@@ -22,10 +22,6 @@ const Signup: NextPage = () => {
 
                   <Form.Group className='mb-3' controlId='formPassword'>
                     <Form.Label>パスワード</Form.Label>
-                    <Form.Control type='password' placeholder='パスワード' />
-                  </Form.Group>
-                  <Form.Group className='mb-3' controlId='formPassword'>
-                    <Form.Label>パスワード(確認)</Form.Label>
                     <Form.Control type='password' placeholder='パスワード' />
                   </Form.Group>
                   <Form.Group className='mb-3' controlId='formBasicCheckbox'>
@@ -47,4 +43,4 @@ const Signup: NextPage = () => {
   )
 }
 
-export default Signup
+export default Login
