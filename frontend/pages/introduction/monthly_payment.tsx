@@ -5,6 +5,7 @@ import { Container, Table, Button, FormControl, Row, Col, Modal, Form } from 're
 
 const MonthlyPayment: NextPage = () => {
   const [showModal, setShowModal] = useState(false)
+  const [isReserveLimited, setIsReserveLimited] = useState(true)
 
   return (
     <>
@@ -38,7 +39,7 @@ const MonthlyPayment: NextPage = () => {
                 />
               </td>
               <td>1ヶ月間予約し放題
-                <a onClick={() => setShowModal(true)}>（変更する）</a>
+                <a className='link-text' onClick={() => setShowModal(true)}>（変更する）</a>
               </td>
             </tr>
           </tbody>
@@ -48,21 +49,37 @@ const MonthlyPayment: NextPage = () => {
             <Modal.Title>予約受付設定</Modal.Title>
           </Modal.Header>
           <Modal.Body>
-            <Row>
+            <Form>
+              <Form.Label>予約可能数</Form.Label>
+              <Form.Check 
+                type='radio'
+                id='unlimited'
+                label='無制限'
+                onChange={() => setIsReserveLimited(!isReserveLimited)}
+                checked={isReserveLimited}
+              />
+              <Form.Check 
+                type='radio'
+                id='limited'
+                label='制限あり'
+                onChange={() => setIsReserveLimited(!isReserveLimited)}
+                checked={!isReserveLimited}
+              />
+            </Form>
+            {!isReserveLimited && <Row>
               <Col>
                 <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
                   <Col sm={2}>
                     <Form.Control type='number' placeholder='1' />
                   </Col>
                   <Col>
-                    <Form.Select sm={2}>
+                    <Form.Select>
                       <option value='00'>日</option>
                       <option value='01'>週</option>
-                      <option value='02'>月</option>
                     </Form.Select>
                   </Col>
                   <Form.Label column sm={2}>
-                    ごとに
+                    に
                   </Form.Label>
                   <Col sm={2}>
                     <Form.Control type='number' />
@@ -72,7 +89,7 @@ const MonthlyPayment: NextPage = () => {
                   </Form.Label>
                 </Form.Group>        
               </Col>
-            </Row>
+            </Row>}
           </Modal.Body>
           <Modal.Footer>
             <Button variant='secondary' onClick={() => setShowModal(false)}>閉じる</Button>
