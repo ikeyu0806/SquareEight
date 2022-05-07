@@ -1,10 +1,11 @@
 import type { NextPage } from 'next'
-import { Container, Button, Row, Col, Card } from 'react-bootstrap'
+import { Container, Button, Row, Col, Card, Alert } from 'react-bootstrap'
 
 const PaymentMethod: NextPage = () => {
   return (
     <>
       <Container>
+        <Alert>予約を確定しました。hoge@gmail.comに確認メールを送信しました。</Alert>
         <div className='text-center mt50 mb50'>
           <h2>以下の内容で仮予約します。内容を確認してください</h2>
         </div>
