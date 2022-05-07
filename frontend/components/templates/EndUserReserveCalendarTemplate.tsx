@@ -28,8 +28,8 @@ const EndUserReserveCalendar = (): JSX.Element => {
                       selectable={true}
                       locale='ja'
                       events={[
-                        { title: 'event 1', date: '2022-05-11', url: '/1/reserve/payment_method' },
-                        { title: 'event 2', date: '2022-05-12', url: '/2/reserve/payment_method' }
+                        { title: 'event 1', date: '2022-05-11', url: '/reserve/public_id/payment_method' },
+                        { title: 'event 2', date: '2022-05-12', url: '/reserve/public_id/payment_method' }
                       ]} />
         <Modal show={showModal} size='lg'>
           <Modal.Header> 

@@ -43,7 +43,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                       select={() => setShowModal(true)}
                       locale='ja' />
         <Modal show={showModal} size='lg'>
-          <Modal.Header>
+          <Modal.Header> 
             <Modal.Title>新規予約枠登録</Modal.Title>
           </Modal.Header>
           <Modal.Body>
