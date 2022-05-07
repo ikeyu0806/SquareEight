@@ -59,7 +59,6 @@ const Resource: NextPage = () => {
         </Col>
         <Col></Col>
       </Row>
-
     </>
   )
 }
