@@ -35,7 +35,7 @@ const Register: NextPage = () => {
                   </Form.Group>
                   <Form.Group className='mb-3' controlId='formPassword'>
                     <Form.Label>名前</Form.Label>
-                    <Form.Control type='password' placeholder='CVC番号' />
+                    <Form.Control type='password' placeholder='名前' />
                   </Form.Group>
                   <div className='text-center'>
                     <Button variant='primary' type='submit' href='/introduction/services'>
@@ -49,6 +49,22 @@ const Register: NextPage = () => {
           <Col></Col>
         </Row>
       </Container>
+      <Row>
+        <Col></Col>
+        <Col>
+          <Button variant='outline-primary' size='lg'>戻る</Button>
+        </Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col></Col>
+        <Col>
+          <Button variant='outline-primary' size='lg'>スキップ</Button>
+        </Col>
+        <Col></Col>
+      </Row>
+      <br />
     </>
   )
 }
