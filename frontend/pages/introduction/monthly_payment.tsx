@@ -105,7 +105,7 @@ const MonthlyPayment: NextPage = () => {
         <Col></Col>
         <Col></Col>
         <Col>
-          <Button variant='primary' size='lg'>次へ</Button>
+          <Button variant='primary' size='lg' href='/'>次へ</Button>
         </Col>
         <Col></Col>
         <Col></Col>
