@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import { Container, Table, Button, FormControl, Row, Col, Form } from 'react-bootstrap'
+import { Container, Button, Row, Col, Form } from 'react-bootstrap'
 
 const PaymentMethod: NextPage = () => {
   return (
@@ -29,7 +29,7 @@ const PaymentMethod: NextPage = () => {
           <Col></Col>
           <Col></Col>
           <Col>
-            <Button>
+            <Button href='/reserve/aaa/confirm'>
               次へ
             </Button>
           </Col>
