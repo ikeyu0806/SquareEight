@@ -8,7 +8,7 @@ const Register: NextPage = () => {
       <IntroductionNavbar />
       <div className='text-center mt50 mb50'>
        <h2>クレジットカードを登録してください</h2>
-        <span className='mt10'>有料プランへの申し込み、クレジットカード決済、月額課金、回数券発行を使用する場合は必須となります</span>
+        <span className='mt10'>予約ページの支払いにクレジットカード決済、月額課金、回数券を使用する場合は必須となります</span>
       </div>
       <Container></Container>
       <Container>
