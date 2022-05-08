@@ -3,6 +3,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { Container, Modal, Button, Form, Col, Row } from 'react-bootstrap'
+import { useRouter } from 'next/router'
 
 const SetReserveCalendarTemplate = (): JSX.Element => {
   enum REPEAT_PERIOD {
@@ -10,6 +11,8 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
     Week = 1,
     Month = 2,
   }
+
+  const router = useRouter()
 
   const [showModal, setShowModal] = useState(false)
   const [repeatReserveMenu, setRepeatReserveMenu] = useState(false)
@@ -29,14 +32,21 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
         <Row>
           <Col></Col>
           <Col>
-            <Button variant='outline-primary' size='lg'>戻る</Button>
+            <Button variant='outline-primary' size='lg' onClick={() => router.back()}>戻る</Button>
           </Col>
           <Col></Col>
+          <Col></Col>
           <Col>
-            <Button variant='primary' size='lg'>次へ</Button>
+            <Button variant='primary' size='lg' href='/introduction/set_reserve_calendar'>次へ</Button>
+          </Col>
+          <Col></Col>
+          <Col></Col>
+          <Col>
+            <Button variant='outline-primary' size='lg' href='/introduction/set_reserve_calendar'>スキップ</Button>
           </Col>
           <Col></Col>
         </Row>
+        <br />
         <FullCalendar plugins={[dayGridPlugin, interactionPlugin]}
                       initialView='dayGridMonth'
                       selectable={true}
