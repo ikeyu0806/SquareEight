@@ -3,6 +3,7 @@ import IntroductionNavbar from '../../components/atoms/IntroductionNavbar'
 import { Button, Container, Card, Row, Col, Form, Navbar } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import PencilAquareIcon from '../../components/atoms/PencilAquareIcon'
+import PlusCircleIcon from '../../components/atoms/PlusCircleIcon'
 
 const CreateHomepage: NextPage = () => {
   const router = useRouter()
@@ -26,7 +27,9 @@ const CreateHomepage: NextPage = () => {
             </Navbar>
             </Card.Body>
           </Card>
-
+          <div className='text-center mt30 mb30'>
+          <PlusCircleIcon width={40} height={40} fill={'#0000FF'} />
+          </div>
         </Col>
         <Col>
         </Col>
