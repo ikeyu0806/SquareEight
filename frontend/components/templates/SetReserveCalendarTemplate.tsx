@@ -325,7 +325,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                 </Row>
                 {isSetPrice &&
                 <div className='ml10'>
-                  <Form.Check label='月額課金' checked={enableLocalPayment} onChange={() => setEnableLocalPayment(!enableLocalPayment)}></Form.Check>
+                  <Form.Check label='現地払い' checked={enableLocalPayment} onChange={() => setEnableLocalPayment(!enableLocalPayment)}></Form.Check>
                   {enableLocalPayment && <Row>
                     <Col>
                       <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
@@ -338,7 +338,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                       </Form.Group>
                     </Col>
                   </Row>}
-                  <Form.Check label='月謝払い' checked={enableMonthlyPayment} onChange={() => setEnableMonthlyPayment(!enableMonthlyPayment)}></Form.Check>
+                  <Form.Check label='月額課金' checked={enableMonthlyPayment} onChange={() => setEnableMonthlyPayment(!enableMonthlyPayment)}></Form.Check>
                   {enableMonthlyPayment && 
                     <div className='ml20'>
                       <Row>
