@@ -2,11 +2,12 @@ import React, { useState } from 'react'
 import type { NextPage } from 'next'
 import IntroductionNavbar from '../../components/atoms/IntroductionNavbar'
 import { Container, Table, Button, FormControl, Row, Col, Modal, Form } from 'react-bootstrap'
+import { useRouter } from 'next/router'
 
 const MonthlyPayment: NextPage = () => {
   const [showModal, setShowModal] = useState(false)
   const [isReserveLimited, setIsReserveLimited] = useState(true)
-
+  const router = useRouter()
   return (
     <>
       <IntroductionNavbar />
@@ -100,17 +101,17 @@ const MonthlyPayment: NextPage = () => {
       <Row>
         <Col></Col>
         <Col>
-          <Button variant='outline-primary' size='lg'>戻る</Button>
+          <Button variant='outline-primary' size='lg' onClick={() => router.back()}>戻る</Button>
         </Col>
         <Col></Col>
         <Col></Col>
         <Col>
-          <Button variant='primary' size='lg' href='/'>次へ</Button>
+          <Button variant='primary' size='lg' href='/introduction/ticket'>次へ</Button>
         </Col>
         <Col></Col>
         <Col></Col>
         <Col>
-          <Button variant='outline-primary' size='lg'>スキップ</Button>
+          <Button variant='outline-primary' size='lg' href='/introduction/ticket'>スキップ</Button>
         </Col>
         <Col></Col>
       </Row>

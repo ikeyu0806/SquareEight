@@ -1,8 +1,10 @@
 import type { NextPage } from 'next'
 import IntroductionNavbar from '../../components/atoms/IntroductionNavbar'
 import { Button, Container, Card, Row, Col, Form } from 'react-bootstrap'
-
+import { useRouter } from 'next/router'
 const Register: NextPage = () => {
+  const router = useRouter()
+
   return (
     <>
       <IntroductionNavbar />
@@ -49,18 +51,21 @@ const Register: NextPage = () => {
           <Col></Col>
         </Row>
       </Container>
+      <br />
       <Row>
         <Col></Col>
         <Col>
-          <Button variant='outline-primary' size='lg'>戻る</Button>
+          <Button variant='outline-primary' size='lg' onClick={() => router.back()}>戻る</Button>
         </Col>
         <Col></Col>
         <Col></Col>
-        <Col></Col>
+        <Col>
+          <Button variant='primary' size='lg' href='/introduction/set_reserve_calendar'>次へ</Button>
+        </Col>
         <Col></Col>
         <Col></Col>
         <Col>
-          <Button variant='outline-primary' size='lg'>スキップ</Button>
+          <Button variant='outline-primary' size='lg' href='/introduction/set_reserve_calendar'>スキップ</Button>
         </Col>
         <Col></Col>
       </Row>

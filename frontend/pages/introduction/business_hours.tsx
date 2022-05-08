@@ -116,12 +116,12 @@ const BusinessHours: NextPage = () => {
         <Col></Col>
         <Col></Col>
         <Col>
-          <Button variant='primary' size='lg' href='/monthly_payment'>次へ</Button>
+          <Button variant='primary' size='lg' href='/introduction/monthly_payment'>次へ</Button>
         </Col>
         <Col></Col>
         <Col></Col>
         <Col>
-          <Button variant='outline-primary' size='lg' href='/monthly_payment'>スキップ</Button>
+          <Button variant='outline-primary' size='lg' href='/introduction/monthly_payment'>スキップ</Button>
         </Col>
         <Col></Col>
       </Row>
