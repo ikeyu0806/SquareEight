@@ -1,6 +1,6 @@
 import React from 'react'
 import CardAtoms from '../atoms/CardAtoms'
-import { FeaturesMoleculeProps } from '../../intefaces/FeaturesMoleculeProps'
+import { FeaturesMoleculeProps } from '../../interfaces/FeaturesMoleculeProps'
 import { Container,
          Row,
          Col } from 'react-bootstrap'
