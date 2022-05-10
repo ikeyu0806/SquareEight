@@ -97,3 +97,7 @@ a {
   color: blue;
   text-decoration: underline;
 }
+
+.bg-lightgreen {
+  background-color: #DDFB9B;
+}

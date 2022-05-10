@@ -5,13 +5,14 @@ import { Container,
          Navbar,
          Nav,
          Button,
+         Card,
          Row,
          Col } from 'react-bootstrap'
 
 const Home: NextPage = () => {
   return (
-    <Container>
-      <Navbar collapseOnSelect expand='lg'>
+    <>
+      <Navbar collapseOnSelect expand='lg' bg='light'>
         <Container>
           <Navbar.Brand href='#home'>SmartLesson</Navbar.Brand>
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
@@ -45,16 +46,51 @@ const Home: NextPage = () => {
           </Col>
         </Row>
       </Container>
-      <div className='text-center mt50 mb50' id='features'>
-        <h2>充実の機能であなたのビジネスをサポート</h2>
-      </div>
-      <FeaturesTemplates />
 
+      <div className='bg-lightgreen'>
+        <div className='text-center' id='features'>
+          <h2 className=' mt50 mb50'>充実の機能であなたのビジネスをサポート</h2>
+        </div>
+        <FeaturesTemplates />
+      </div>
+
+      <Container>
+        <div className='text-center mt50 mb50' id='features'>
+          <h2>選べる料金プラン</h2>
+            <Row>
+            <Col>
+              <Card>
+                <Card.Header>フリー</Card.Header>
+                <Card.Body>
+                  <h4>月額 0円</h4>
+                </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Card>
+                  <Card.Header>スタンダード</Card.Header>
+                  <Card.Body>
+                    <h4>月額 980円</h4>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Card>
+                  <Card.Header>オーダーメイド</Card.Header>
+                  <Card.Body>
+                    <h4>お問い合わせ</h4>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+        </div>
+      </Container>
       <footer className='content text-center'>
         <hr />
         {/* <p className='footer-margin'>Copyright <a href='https://goodcycle.net/' target='_blank' rel='noreferrer'></a> {new Date().getFullYear()}</p> */}
-      </footer>
-    </Container>
+      </footer>  
+    </>
+
   )
 }
 
