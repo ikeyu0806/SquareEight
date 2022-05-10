@@ -45,13 +45,16 @@ const Home: NextPage = () => {
             <img src='/images/use_pc_woman.jpg' alt='use_pc_woman'></img>
           </Col>
         </Row>
+        &thinsp;
       </Container>
 
       <div className='bg-lightgreen'>
+      &thinsp;
         <div className='text-center' id='features'>
-          <h2 className=' mt50 mb50'>充実の機能であなたのビジネスをサポート</h2>
+          <h2 className='mt50 mb50'>充実の機能であなたのビジネスをサポート</h2>
         </div>
         <FeaturesTemplates />
+        &thinsp;
       </div>
 
       <Container>
@@ -83,6 +86,7 @@ const Home: NextPage = () => {
                 </Card>
               </Col>
             </Row>
+            &thinsp;
         </div>
       </Container>
       <footer className='content text-center'>
