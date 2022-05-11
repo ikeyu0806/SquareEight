@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import React from 'react'
 import FeaturesTemplates from '../components/templates/FeaturesTemplates'
+import CheckIcon from '../components/atoms/CheckIcon'
 import { Container,
          Navbar,
          Nav,
@@ -60,28 +61,48 @@ const Home: NextPage = () => {
       <Container>
         <div className='text-center mt50 mb50' id='features'>
           <h2>選べる料金プラン</h2>
+            <div className='mt30 mb30'>
+              <li>初期費用無料</li>
+              <li>作成したホームページに独自ドメインを設定する場合は別途料金がかかります</li>
+            </div>
             <Row>
             <Col>
               <Card>
                 <Card.Header>フリー</Card.Header>
                 <Card.Body>
                   <h4>月額 0円</h4>
+                  <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>月間予約件数50件</span>
                 </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Card>
+                  <Card.Header>スタート</Card.Header>
+                  <Card.Body>
+                    <h4>月額 980円</h4>
+                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>フリープランの全機能</span><br />
+                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>月間予約件数500件</span><br />
+                  </Card.Body>
                 </Card>
               </Col>
               <Col>
                 <Card>
                   <Card.Header>スタンダード</Card.Header>
                   <Card.Body>
-                    <h4>月額 980円</h4>
+                    <h4>2980円</h4>
+                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>スタンダードプランの全機能</span><br />
+                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>月間予約件数1000件</span><br />
+                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>広告非表示</span><br />
                   </Card.Body>
                 </Card>
               </Col>
               <Col>
                 <Card>
-                  <Card.Header>オーダーメイド</Card.Header>
+                  <Card.Header>プレミアム</Card.Header>
                   <Card.Body>
-                    <h4>お問い合わせ</h4>
+                    <h4>4980円~</h4>
+                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>月間予約件数が1000件を超えた場合 10件につき+100円</span><br />
+                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>お問い合わせ優先対応・電話対応</span><br />
                   </Card.Body>
                 </Card>
               </Col>
