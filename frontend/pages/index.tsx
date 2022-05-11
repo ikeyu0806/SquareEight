@@ -62,26 +62,34 @@ const Home: NextPage = () => {
         <div className='text-center mt50 mb50' id='features'>
           <h2>選べる料金プラン</h2>
             <div className='mt30 mb30'>
-              <li>初期費用無料</li>
-              <li>作成したホームページに独自ドメインを設定する場合は別途料金がかかります</li>
+              <div>初期費用無料</div>
+              <div>作成したホームページに独自ドメインを設定する場合は別途料金がかかります</div>
             </div>
             <Row>
-            <Col>
-              <Card>
-                <Card.Header>フリー</Card.Header>
-                <Card.Body>
-                  <h4>月額 0円</h4>
-                  <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>月間予約件数50件</span>
-                </Card.Body>
-                </Card>
-              </Col>
+              <Col>
+                <Card>
+                  <Card.Header>フリー</Card.Header>
+                  <Card.Body>
+                    <h4>月額 0円</h4>
+                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>月間予約件数50件</span>
+                  </Card.Body>
+                  </Card>
+                </Col>
               <Col>
                 <Card>
                   <Card.Header>スタート</Card.Header>
                   <Card.Body>
                     <h4>月額 980円</h4>
-                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>フリープランの全機能</span><br />
-                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>月間予約件数500件</span><br />
+                    <Row>
+                      <Col></Col>
+                      <Col xs={11}>
+                        <Card.Text className="text-start">
+                          <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>フリープランの全機能</span><br />
+                          <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>月間予約件数500件</span><br />
+                        </Card.Text>
+                      </Col>
+                      <Col></Col>
+                    </Row>
                   </Card.Body>
                 </Card>
               </Col>
@@ -90,9 +98,17 @@ const Home: NextPage = () => {
                   <Card.Header>スタンダード</Card.Header>
                   <Card.Body>
                     <h4>2980円</h4>
-                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>スタンダードプランの全機能</span><br />
-                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>月間予約件数1000件</span><br />
-                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>広告非表示</span><br />
+                    <Row>
+                      <Col></Col>
+                      <Col xs={11}>
+                        <Card.Text className="text-start">
+                          <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>スタートプランの全機能</span><br />
+                          <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>月間予約件数1000件</span><br />
+                          <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>広告非表示</span><br />
+                        </Card.Text>
+                      </Col>
+                      <Col></Col>
+                    </Row>
                   </Card.Body>
                 </Card>
               </Col>
@@ -100,9 +116,18 @@ const Home: NextPage = () => {
                 <Card>
                   <Card.Header>プレミアム</Card.Header>
                   <Card.Body>
-                    <h4>4980円~</h4>
-                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>月間予約件数が1000件を超えた場合 10件につき+100円</span><br />
-                    <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>お問い合わせ優先対応・電話対応</span><br />
+                    <h4>4980円</h4>
+                    <Row>
+                      <Col></Col>
+                      <Col xs={11}>
+                        <Card.Text className="text-start">
+                          <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>スタンダードプランの全機能</span><br />
+                          <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>月間予約件数1000件</span><br />
+                          <CheckIcon width={20} height={20} fill={'#39FA05'} /><span className='ml10'>広告非表示</span><br />
+                        </Card.Text>
+                      </Col>
+                      <Col></Col>
+                    </Row>
                   </Card.Body>
                 </Card>
               </Col>
