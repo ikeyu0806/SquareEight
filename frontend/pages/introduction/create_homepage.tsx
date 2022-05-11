@@ -1,13 +1,14 @@
+import React, { useState } from 'react'
 import type { NextPage } from 'next'
 import IntroductionNavbar from '../../components/atoms/IntroductionNavbar'
-import { Button, Container, Card, Row, Col, Carousel, Navbar } from 'react-bootstrap'
+import { Button, Container, Card, Row, Col, Carousel, Navbar, Modal } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import PencilAquareIcon from '../../components/atoms/PencilAquareIcon'
 import PlusCircleIcon from '../../components/atoms/PlusCircleIcon'
 
 const CreateHomepage: NextPage = () => {
   const router = useRouter()
-
+  const [showBlockModal, setShowBlockModal] = useState(false)
   return (
     <>
       <IntroductionNavbar />
@@ -68,7 +69,7 @@ const CreateHomepage: NextPage = () => {
             </Card.Body>
             <div className='text-center mt30 mb30'>
               <span className='mr10'>ブロックを追加</span>
-              <PlusCircleIcon width={40} height={40} fill={'#0000FF'} />
+              <a onClick={() => setShowBlockModal(true)}><PlusCircleIcon width={40} height={40} fill={'#0000FF'} /></a>
             </div>
             <Card.Footer className="text-muted text-center">Copyright SmartLesson Inc. 2022</Card.Footer>
           </Card>
@@ -101,6 +102,16 @@ const CreateHomepage: NextPage = () => {
         <Col></Col>
         <Col></Col>
       </Row>
+      <Modal show={showBlockModal} size='lg'>
+        <Modal.Header> 
+          <Modal.Title>ブロック種別を選択してください</Modal.Title>
+        </Modal.Header>
+        <Modal.Body></Modal.Body>
+        <Modal.Footer>
+          <Button variant='secondary' onClick={() => setShowBlockModal(false)}>閉じる</Button>
+          <Button variant='primary'>登録する</Button>
+        </Modal.Footer>
+      </Modal>
     </>
   )
 }
