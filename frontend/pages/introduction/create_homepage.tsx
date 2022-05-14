@@ -104,9 +104,56 @@ const CreateHomepage: NextPage = () => {
       </Row>
       <Modal show={showBlockModal} size='lg'>
         <Modal.Header> 
-          <Modal.Title>ブロック種別を選択してください</Modal.Title>
+          <Modal.Title>追加したいブロックを選択してください</Modal.Title>
         </Modal.Header>
-        <Modal.Body></Modal.Body>
+        <Modal.Body>
+          <Row>
+            <Col>
+              <Card>
+                <Card.Body>
+                  <input className='form-check-input mr10' type='checkbox' />
+                  <span>テキスト+画像</span>
+                </Card.Body>
+              </Card>
+              <br />
+              <Card>
+                <Card.Body>
+                  <input className='form-check-input mr10' type='checkbox' />
+                  <span>画像スライド</span>
+                </Card.Body>
+              </Card>
+              <br />
+              <Card>
+                <Card.Body>
+                  <input className='form-check-input mr10' type='checkbox' />
+                  <span>お知らせ・ ニュース</span>
+                </Card.Body>
+              </Card>
+              <br />
+              <Card>
+                <Card.Body>
+                  <input className='form-check-input mr10' type='checkbox' />
+                  <span>お問い合わせフォーム</span>
+                </Card.Body>
+              </Card>
+              <br />
+              <Card>
+                <Card.Body>
+                  <input className='form-check-input mr10' type='checkbox' />
+                  <span>ページリンク一覧</span>
+                </Card.Body>
+              </Card>
+              <br />
+              <Card>
+                <Card.Body>
+                  <input className='form-check-input mr10' type='checkbox' />
+                  <span>アクセス案内</span>
+                </Card.Body>
+              </Card>
+              <br />
+            </Col>
+          </Row>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant='secondary' onClick={() => setShowBlockModal(false)}>閉じる</Button>
           <Button variant='primary'>登録する</Button>

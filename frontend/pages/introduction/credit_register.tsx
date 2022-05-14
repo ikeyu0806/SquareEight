@@ -39,36 +39,29 @@ const Register: NextPage = () => {
                     <Form.Label>名前</Form.Label>
                     <Form.Control type='password' placeholder='名前' />
                   </Form.Group>
-                  <div className='text-center'>
-                    <Button variant='primary' type='submit' href='/introduction/services'>
-                      登録する
-                    </Button>
-                  </div>
                 </Form>
               </Card.Body>
             </Card>
           </Col>
           <Col></Col>
         </Row>
+        <br />
+        <Row>
+          <Col></Col>
+          <Col>
+            <Button variant='outline-primary' size='lg' onClick={() => router.back()}>戻る</Button>
+          </Col>
+          <Col></Col>
+          <Col sm={2}>
+            <Button variant='primary' size='lg' href='/introduction/set_reserve_calendar'>登録して次へ</Button>
+          </Col>
+          <Col></Col>
+          <Col>
+            <Button variant='outline-primary' size='lg' href='/introduction/set_reserve_calendar'>スキップ</Button>
+          </Col>
+          <Col></Col>
+        </Row>
       </Container>
-      <br />
-      <Row>
-        <Col></Col>
-        <Col>
-          <Button variant='outline-primary' size='lg' onClick={() => router.back()}>戻る</Button>
-        </Col>
-        <Col></Col>
-        <Col></Col>
-        <Col>
-          <Button variant='primary' size='lg' href='/introduction/set_reserve_calendar'>次へ</Button>
-        </Col>
-        <Col></Col>
-        <Col></Col>
-        <Col>
-          <Button variant='outline-primary' size='lg' href='/introduction/set_reserve_calendar'>スキップ</Button>
-        </Col>
-        <Col></Col>
-      </Row>
       <br />
     </>
   )
