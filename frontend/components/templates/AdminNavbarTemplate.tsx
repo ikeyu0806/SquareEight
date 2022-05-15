@@ -1,7 +1,7 @@
 import React from 'react'
 import { Nav, Navbar, NavDropdown, Container } from 'react-bootstrap'
 
-const AdminNavbar = (): JSX.Element => {
+const AdminNavbarTemplate = (): JSX.Element => {
   return (
     <Navbar bg='dark'  variant='dark' expand='lg'>
       <Container>
@@ -46,4 +46,4 @@ const AdminNavbar = (): JSX.Element => {
   )
 }
 
-export default AdminNavbar
+export default AdminNavbarTemplate

@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import AdminNavbar from '../../components/templates/AdminNavBar'
+import AdminNavbar from '../../components/templates/AdminNavbarTemplate'
 import  { Container, Row, Col, ListGroup, Button } from 'react-bootstrap'
 
 const Dashboard: NextPage = () => {
