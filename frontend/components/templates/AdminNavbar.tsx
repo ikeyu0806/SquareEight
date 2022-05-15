@@ -13,10 +13,12 @@ const AdminNavbar = (): JSX.Element => {
           <NavDropdown title='ホームページ' id='homepage-nav-dropdown'>
             <NavDropdown.Item href='#action/3.1'>一覧</NavDropdown.Item>
             <NavDropdown.Item href='#action/3.2'>新規作成</NavDropdown.Item>
+            <NavDropdown.Item href='#action/3.2'>オーダメイド開発依頼</NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title='予約' id='homepage-nav-dropdown'>
             <NavDropdown.Item href='#action/3.1'>カレンダー</NavDropdown.Item>
             <NavDropdown.Item href='#action/3.1'>一覧</NavDropdown.Item>
+            <NavDropdown.Item href='#action/3.1'>営業時間設定</NavDropdown.Item>
             <NavDropdown.Item href='#action/3.1'>リソース登録</NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title='顧客' id='homepage-nav-dropdown'>
@@ -29,12 +31,13 @@ const AdminNavbar = (): JSX.Element => {
             <NavDropdown.Item href='#action/3.1'>月額課金プラン作成</NavDropdown.Item>
             <NavDropdown.Item href='#action/3.1'>回数券マスタ一覧</NavDropdown.Item>
             <NavDropdown.Item href='#action/3.1'>回数券作成</NavDropdown.Item>
-            <NavDropdown.Item href='#action/3.1'>クレジットカード情報</NavDropdown.Item>
+          </NavDropdown>
+          <NavDropdown title='アカウント設定' id='homepage-nav-dropdown'>
+            <NavDropdown.Item href='#action/3.1'>クレジットカード登録・変更</NavDropdown.Item>
+            <NavDropdown.Item href='#action/3.1'>プラン変更・退会</NavDropdown.Item>
           </NavDropdown>
           <NavDropdown title='その他' id='homepage-nav-dropdown'>
             <NavDropdown.Item href='#action/3.1'>お問い合わせ</NavDropdown.Item>
-            <NavDropdown.Item href='#action/3.1'>プラン変更</NavDropdown.Item>
-            <NavDropdown.Item href='#action/3.1'>退会</NavDropdown.Item>
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
