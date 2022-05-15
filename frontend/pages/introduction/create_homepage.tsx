@@ -7,6 +7,15 @@ import PencilAquareIcon from '../../components/atoms/PencilAquareIcon'
 import PlusCircleIcon from '../../components/atoms/PlusCircleIcon'
 
 const CreateHomepage: NextPage = () => {
+  enum BLOCK_TYPE {
+    TextImage = 0,
+    ImageSlide = 1,
+    Notification = 2,
+    Inquiry = 3,
+    PageLinks = 4,
+    Access = 5
+  }
+
   const router = useRouter()
   const [showBlockModal, setShowBlockModal] = useState(false)
   return (
@@ -112,13 +121,6 @@ const CreateHomepage: NextPage = () => {
               <Card>
                 <Card.Body>
                   <input className='form-check-input mr10' type='checkbox' />
-                  <span>カスタマイズ</span>
-                </Card.Body>
-              </Card>
-              <br />
-              <Card>
-                <Card.Body>
-                  <input className='form-check-input mr10' type='checkbox' />
                   <span>テキスト+画像</span>
                 </Card.Body>
               </Card>
@@ -163,7 +165,7 @@ const CreateHomepage: NextPage = () => {
         </Modal.Body>
         <Modal.Footer>
           <Button variant='secondary' onClick={() => setShowBlockModal(false)}>閉じる</Button>
-          <Button variant='primary'>登録する</Button>
+          <Button variant='primary'>次へ</Button>
         </Modal.Footer>
       </Modal>
     </>
