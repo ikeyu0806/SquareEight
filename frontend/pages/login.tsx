@@ -28,7 +28,7 @@ const Login: NextPage = () => {
                     <Form.Check type='checkbox' label='プライバシーポリシーに同意しました' />
                   </Form.Group>
                   <div className='text-center'>
-                    <Button variant='primary' type='submit' href='/introduction/services'>
+                    <Button variant='primary' type='submit' href='/admin/dashboard'>
                       送信
                     </Button>
                   </div>

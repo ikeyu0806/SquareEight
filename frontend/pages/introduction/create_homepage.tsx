@@ -112,6 +112,13 @@ const CreateHomepage: NextPage = () => {
               <Card>
                 <Card.Body>
                   <input className='form-check-input mr10' type='checkbox' />
+                  <span>カスタマイズ</span>
+                </Card.Body>
+              </Card>
+              <br />
+              <Card>
+                <Card.Body>
+                  <input className='form-check-input mr10' type='checkbox' />
                   <span>テキスト+画像</span>
                 </Card.Body>
               </Card>
