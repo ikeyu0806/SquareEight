@@ -1,41 +1,9 @@
 import type { NextPage } from 'next'
-import { Nav, Navbar, NavDropdown, Container, ListGroup, ListGroupItem, Button, Row, Col, Card, Alert } from 'react-bootstrap'
-
+import AdminNavbar from '../../components/templates/AdminNavBar'
 const Dashboard: NextPage = () => {
   return (
     <>
-      <Navbar bg='dark'  variant='dark' expand='lg'>
-        <Container>
-          <Navbar.Brand href='#home'>SmartLesson Admin</Navbar.Brand>
-          <Navbar.Toggle aria-controls='basic-navbar-nav' />
-          <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='me-auto'>
-              <Nav.Link href='/admin/dashboard'>ダッシュボード</Nav.Link>
-              <NavDropdown title='ホームページ' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='#action/3.1'>一覧</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.2'>新規作成</NavDropdown.Item>
-              </NavDropdown>
-              <NavDropdown title='予約' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='#action/3.1'>カレンダー</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>一覧</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>リソース登録</NavDropdown.Item>
-              </NavDropdown>
-              <NavDropdown title='顧客' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='#action/3.1'>一覧</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>新規登録</NavDropdown.Item>
-              </NavDropdown>
-              <NavDropdown title='お支払い・決済' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='#action/3.1'>決済履歴</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>月額課金プランマスタ一覧</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>月額課金プラン作成</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>回数券マスタ一覧</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>回数券作成</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>クレジットカード情報</NavDropdown.Item>
-              </NavDropdown>
-            </Nav>
-          </Navbar.Collapse>
-        </Container>
-      </Navbar>
+      <AdminNavbar></AdminNavbar>
     </>
   )
 }
