@@ -2,9 +2,14 @@ import React, { useState } from 'react'
 import { Button, Container, Card, Row, Col, Carousel, Navbar, Modal } from 'react-bootstrap'
 import PencilAquareIcon from '../../components/atoms/PencilAquareIcon'
 import PlusCircleIcon from '../../components/atoms/PlusCircleIcon'
+import { RootState } from '../../redux/store'
+import { useSelector, useDispatch } from 'react-redux'
+import { blockTypeChanged } from '../../redux/homepageSlice'
 
 const CreateHomepageTemplate = (): JSX.Element => {
   const [showBlockModal, setShowBlockModal] = useState(false)
+
+  const blockType = useSelector((state: RootState) => state.homepage.blockType)
 
   return(
     <>
