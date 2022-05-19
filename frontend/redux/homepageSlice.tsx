@@ -6,6 +6,7 @@ export const homepageSlice = createSlice({
     blockType: '',
     headerTitle: '',
     footerCopyright: '',
+    showBlockModal: false,
   },
   reducers: {
     blockTypeChanged: (state, action: PayloadAction<string>) => {
@@ -17,11 +18,15 @@ export const homepageSlice = createSlice({
     footerCopyrightChanged: (state, action: PayloadAction<string>) => {
       state.footerCopyright = action.payload
     },
+    showBlockModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showBlockModal = action.payload
+    },
   },
 })
 
 export const { blockTypeChanged } = homepageSlice.actions
 export const { headerTitleChanged } = homepageSlice.actions
 export const { footerCopyrightChanged } = homepageSlice.actions
+export const { showBlockModalChanged } = homepageSlice.actions
 
 export default homepageSlice.reducer
