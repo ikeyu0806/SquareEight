@@ -14,7 +14,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
 
   const [showBlockModal, setShowBlockModal] = useState(false)
   const [selectedBlockedType, setSelectedBlockedType] = useState('')
-  const [image, setImage] = useState('')
+  const [image, setImage] = useState('/images/noimage.jpeg')
 
   const blockType = useSelector((state: RootState) => state.homepage.blockType)
 
