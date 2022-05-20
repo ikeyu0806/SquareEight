@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import SelectHomepageBlockModal from '../molecules/SelectHomepageBlockModal'
 import EditTextImageBlockModal from '../molecules/EditTextImageBlockModal'
+import ExternalLinksModal from '../molecules/ExternalLinksModal'
 
 const CreateBlockModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -19,6 +20,7 @@ const CreateBlockModal = (): JSX.Element => {
       <Modal show={showBlockModal} size='lg'>
         {blockType === '' && <SelectHomepageBlockModal></SelectHomepageBlockModal>}
         {blockType === 'textImage' && <EditTextImageBlockModal></EditTextImageBlockModal>}
+        {blockType === 'externalLinks' && <ExternalLinksModal></ExternalLinksModal>}
       </Modal>
     </>
   )

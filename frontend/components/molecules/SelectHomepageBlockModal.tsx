@@ -38,6 +38,13 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <br />
             <Card>
               <Card.Body>
+                <input className='form-check-input mr10' type='checkbox' onChange={() => setSelectedBlockedType('externalLinks')}  />
+                <span>外部ページリンク</span>
+              </Card.Body>
+            </Card>
+            <br />
+            <Card>
+              <Card.Body>
                 <input className='form-check-input mr10' type='checkbox' />
                 <span>お知らせ・ ニュース</span>
               </Card.Body>
@@ -53,14 +60,14 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <Card>
               <Card.Body>
                 <input className='form-check-input mr10' type='checkbox' />
-                <span>ページリンク一覧</span>
+                <span>予約ページ一覧</span>
               </Card.Body>
             </Card>
             <br />
             <Card>
               <Card.Body>
                 <input className='form-check-input mr10' type='checkbox' />
-                <span>アクセス案内</span>
+                <span>アクセス案内、地図の設置</span>
               </Card.Body>
             </Card>
             <br />
