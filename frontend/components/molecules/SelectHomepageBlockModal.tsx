@@ -25,7 +25,33 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <Card>
               <Card.Body>
                 <input className='form-check-input mr10' type='checkbox' onChange={() => setSelectedBlockedType('textImage')} />
+                <span>カスタマイズ</span>
+                <div className='mt10'>構成要素を細かく選択してブロックを作成します</div>
+              </Card.Body>
+            </Card>
+            <br />
+            <Card>
+              <Card.Body>
+                <input className='form-check-input mr10' type='checkbox' onChange={() => setSelectedBlockedType('textImage')} />
                 <span>テキスト+画像</span>
+                <div className='mt10'>テキストと画像で構成されたブロックを追加します。画像にはページリンクを設定できます</div>
+                <br />
+                <hr />
+                <Row>
+                  <Col>
+                    <h2>見出し</h2>
+                    <div>
+                      本文
+                    </div>
+                  </Col>
+                  <Col>
+                  <img
+                    className='d-block w-100'
+                    src='/images/classroom.jpg'
+                    alt='image'
+                  />
+                  </Col>
+                </Row>
               </Card.Body>
             </Card>
             <br />
@@ -33,13 +59,15 @@ const SelectHomepageBlockModal = (): JSX.Element => {
               <Card.Body>
                 <input className='form-check-input mr10' type='checkbox' />
                 <span>画像スライド</span>
+                <div className='mt10'>画像スライドを追加します</div>
               </Card.Body>
             </Card>
             <br />
             <Card>
               <Card.Body>
                 <input className='form-check-input mr10' type='checkbox' onChange={() => setSelectedBlockedType('externalLinks')}  />
-                <span>外部ページリンク</span>
+                <span>ページリンク</span>
+                <div className='mt10'>ページリンク集を追加します</div>
               </Card.Body>
             </Card>
             <br />
@@ -47,6 +75,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
               <Card.Body>
                 <input className='form-check-input mr10' type='checkbox' />
                 <span>お知らせ・ ニュース</span>
+                <div className='mt10'>画像スライドを追加します</div>
               </Card.Body>
             </Card>
             <br />
@@ -54,6 +83,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
               <Card.Body>
                 <input className='form-check-input mr10' type='checkbox' />
                 <span>お問い合わせフォーム</span>
+                <div className='mt10'>お問い合わせフォームを追加します</div>
               </Card.Body>
             </Card>
             <br />
@@ -61,13 +91,31 @@ const SelectHomepageBlockModal = (): JSX.Element => {
               <Card.Body>
                 <input className='form-check-input mr10' type='checkbox' />
                 <span>予約ページ一覧</span>
+                <div className='mt10'>SmartLessonで作成した予約ページへのリンクを追加します。</div>
               </Card.Body>
             </Card>
             <br />
             <Card>
               <Card.Body>
                 <input className='form-check-input mr10' type='checkbox' />
-                <span>アクセス案内、地図の設置</span>
+                <span>月額課金プラン一覧</span>
+                <div className='mt10'>SmartLessonで作成した月額課金プラン加入ページへのリンクを追加します。</div>
+              </Card.Body>
+            </Card>
+            <br />
+            <Card>
+              <Card.Body>
+                <input className='form-check-input mr10' type='checkbox' />
+                <span>回数券一覧</span>
+                <div className='mt10'>SmartLessonで作成した回数券購入ページへのリンクを追加します。</div>
+              </Card.Body>
+            </Card>
+            <br />
+            <Card>
+              <Card.Body>
+                <input className='form-check-input mr10' type='checkbox' />
+                <span>アクセス案内</span>
+                <div className='mt10'>Google Mapでアクセス案内を設置できます</div>
               </Card.Body>
             </Card>
             <br />
