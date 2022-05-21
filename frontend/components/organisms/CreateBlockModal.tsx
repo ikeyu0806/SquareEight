@@ -3,7 +3,7 @@ import { Button, Container, Card, Row, Col, Modal } from 'react-bootstrap'
 import { showBlockModalChanged, blockTypeChanged } from '../../redux/homepageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
-import SelectHomepageBlockModal from '../molecules/SelectHomepageBlockModal'
+import SelectHomepageBlockModal from './SelectHomepageBlockModal'
 import EditTextImageBlockModal from '../molecules/EditTextImageBlockModal'
 import ExternalLinksModal from '../molecules/ExternalLinksModal'
 
