@@ -1,11 +1,10 @@
-import React, { useState } from 'react'
-import { Button, Container, Card, Row, Col, Modal } from 'react-bootstrap'
-import { showBlockModalChanged, blockTypeChanged } from '../../redux/homepageSlice'
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
+import { Modal } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import SelectHomepageBlockModal from './SelectHomepageBlockModal'
 import EditTextImageBlockModal from '../molecules/EditTextImageBlockModal'
-import ExternalLinksModal from '../molecules/ExternalLinksModal'
+import EditExternalLinksModal from '../molecules/EditExternalLinksModal'
 
 const CreateBlockModal = (): JSX.Element => {
   const showBlockModal = useSelector((state: RootState) => state.homepage.showBlockModal)
@@ -19,7 +18,7 @@ const CreateBlockModal = (): JSX.Element => {
       <Modal show={showBlockModal} size='lg'>
         {blockType === '' && <SelectHomepageBlockModal></SelectHomepageBlockModal>}
         {blockType === 'textImage' && <EditTextImageBlockModal></EditTextImageBlockModal>}
-        {blockType === 'externalLinks' && <ExternalLinksModal></ExternalLinksModal>}
+        {blockType === 'externalLinks' && <EditExternalLinksModal></EditExternalLinksModal>}
       </Modal>
     </>
   )

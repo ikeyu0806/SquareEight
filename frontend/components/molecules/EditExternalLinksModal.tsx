@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import PencilAquareIcon from '../atoms/PencilAquareIcon'
 
-const ExternalLinksModal = (): JSX.Element => {
+const EditExternalLinksModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const showBlockModal = useSelector((state: RootState) => state.homepage.showBlockModal)
 
@@ -27,4 +27,4 @@ const ExternalLinksModal = (): JSX.Element => {
   )
 }
 
-export default ExternalLinksModal
+export default EditExternalLinksModal
