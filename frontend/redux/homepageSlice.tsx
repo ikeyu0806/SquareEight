@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export const homepageSlice = createSlice({
   name: 'homepage',
   initialState: {
+    html: '',
     selectedBlockType: '',
     blockType: '',
     headerTitle: '',
@@ -10,6 +11,9 @@ export const homepageSlice = createSlice({
     showBlockModal: false,
   },
   reducers: {
+    selectedHtmlChanged: (state, action: PayloadAction<string>) => {
+      state.html = action.payload
+    },
     selectedBlockTypeChanged: (state, action: PayloadAction<string>) => {
       state.selectedBlockType = action.payload
     },
@@ -28,6 +32,7 @@ export const homepageSlice = createSlice({
   },
 })
 
+export const { selectedHtmlChanged } = homepageSlice.actions
 export const { selectedBlockTypeChanged } = homepageSlice.actions
 export const { blockTypeChanged } = homepageSlice.actions
 export const { headerTitleChanged } = homepageSlice.actions

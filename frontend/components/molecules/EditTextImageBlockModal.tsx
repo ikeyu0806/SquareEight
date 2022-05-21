@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Button, Container, Card, Row, Col, Modal, Form } from 'react-bootstrap'
+import { Button, Row, Col, Modal, Form } from 'react-bootstrap'
 import { showBlockModalChanged, blockTypeChanged } from '../../redux/homepageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
