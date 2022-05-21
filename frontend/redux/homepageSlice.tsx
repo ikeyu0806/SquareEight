@@ -1,8 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PageContentState } from '../interfaces/PageState'
 
 export const homepageSlice = createSlice({
   name: 'homepage',
   initialState: {
+    pageContent: [] as PageContentState[],
     html: '',
     selectedBlockType: '',
     blockType: '',
@@ -11,6 +13,9 @@ export const homepageSlice = createSlice({
     showBlockModal: false,
   },
   reducers: {
+    pageContentChanged: (state, action: PayloadAction<PageContentState[]>) => {
+      state.pageContent = action.payload
+    },
     selectedHtmlChanged: (state, action: PayloadAction<string>) => {
       state.html = action.payload
     },
@@ -32,6 +37,7 @@ export const homepageSlice = createSlice({
   },
 })
 
+export const { pageContentChanged } = homepageSlice.actions
 export const { selectedHtmlChanged } = homepageSlice.actions
 export const { selectedBlockTypeChanged } = homepageSlice.actions
 export const { blockTypeChanged } = homepageSlice.actions

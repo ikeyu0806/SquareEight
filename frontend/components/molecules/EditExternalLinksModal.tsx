@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import PencilAquareIcon from '../atoms/PencilAquareIcon'
 
-type BlockType = {
+type BlockStateType = {
   text: string
   url: string
 }
@@ -17,12 +17,14 @@ const EditExternalLinksModal = (): JSX.Element => {
   const [inputLink, setInputLink] = useState('')
   const showBlockModal = useSelector((state: RootState) => state.homepage.showBlockModal)
   const [selectedBlockedType, setSelectedBlockedType] = useState('')
-  const [blockContent, setBlockContent] = useState<BlockType[]>([])
+  const [blockContent, setBlockContent] = useState<BlockStateType[]>([])
 
   const onClickAddLinkButton = () => {
-    let updateBlockContent: BlockType[]
+    let updateBlockContent: BlockStateType[]
     updateBlockContent = [...blockContent, {text: inputLinkText, url: inputLink}]
     setBlockContent(updateBlockContent)
+    setInputLinkText('')
+    setInputLink('')
   }
 
   return (
