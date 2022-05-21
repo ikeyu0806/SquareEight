@@ -1,17 +1,17 @@
 import React, { useState } from 'react'
 import { Button, Carousel, Card, Row, Col, Modal, ListGroup, Form } from 'react-bootstrap'
-import { showBlockModalChanged, blockTypeChanged } from '../../redux/homepageSlice'
+import { showBlockModalChanged, blockTypeChanged, selectedBlockTypeChanged } from '../../redux/homepageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 
 const SelectHomepageBlockModal = (): JSX.Element => {
   const dispatch = useDispatch()
+  const selectedBlockType = useSelector((state: RootState) => state.homepage.selectedBlockType)
   const showBlockModal = useSelector((state: RootState) => state.homepage.showBlockModal)
   const BLOCKTYPE = {
     TextImage: 'textImage'
   }
 
-  const [selectedBlockedType, setSelectedBlockedType] = useState('')
   return (
     <>
       <Modal.Header> 
@@ -24,7 +24,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
           <Col>
             <Card>
               <Card.Body>
-                <input className='form-check-input mr10' type='checkbox' onChange={() => setSelectedBlockedType('textImage')} />
+                <input className='form-check-input mr10' type='radio' onChange={() => dispatch(selectedBlockTypeChanged('custom'))} />
                 <span>カスタマイズ</span>
                 <div className='mt10'>構成要素を細かく選択してブロックを作成します</div>
               </Card.Body>
@@ -32,7 +32,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <br />
             <Card>
               <Card.Body>
-                <input className='form-check-input mr10' type='checkbox' onChange={() => setSelectedBlockedType('textImage')} />
+                <input className='form-check-input mr10' type='radio'onChange={() => dispatch(selectedBlockTypeChanged('textImage'))} />
                 <span>テキスト+画像</span>
                 <div className='mt10'>テキストと画像で構成されたブロックを追加します。画像にはページリンクを設定できます</div>
                 <br />
@@ -57,7 +57,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <br />
             <Card>
               <Card.Body>
-                <input className='form-check-input mr10' type='checkbox' />
+                <input className='form-check-input mr10' type='radio' />
                 <span>画像スライド</span>
                 <div className='mt10'>画像スライドを追加します</div>
                 <br />
@@ -104,7 +104,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <br />
             <Card>
               <Card.Body>
-                <input className='form-check-input mr10' type='checkbox' onChange={() => setSelectedBlockedType('externalLinks')}  />
+                <input className='form-check-input mr10' type='radio' onChange={() => dispatch(selectedBlockTypeChanged('externalLink'))} />
                 <span>ページリンク</span>
                 <div className='mt10'>ページリンク集を追加します。SmartLessonで作成したページの他、外部サイトのリンクも設定できます。</div>
                 <br />
@@ -120,7 +120,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <br />
             <Card>
               <Card.Body>
-                <input className='form-check-input mr10' type='checkbox' />
+                <input className='form-check-input mr10' type='radio' />
                 <span>お知らせ・ ニュース</span>
                 <div className='mt10'>お知らせ・ニュースを追加します。投稿内容と公開開始日、終了日は管理画面から設定できます。</div>
                 <br />
@@ -136,7 +136,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <br />
             <Card>
               <Card.Body>
-                <input className='form-check-input mr10' type='checkbox' />
+                <input className='form-check-input mr10' type='radio' />
                 <span>お問い合わせフォーム</span>
                 <div className='mt10'>お問い合わせフォームを追加します。</div>
                 <br />
@@ -162,7 +162,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <br />
             <Card>
               <Card.Body>
-                <input className='form-check-input mr10' type='checkbox' />
+                <input className='form-check-input mr10' type='radio' />
                 <span>予約ページ一覧</span>
                 <div className='mt10'>SmartLessonで作成した予約ページへのリンクを追加します。</div>
                 <br/>
@@ -178,7 +178,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <br />
             <Card>
               <Card.Body>
-                <input className='form-check-input mr10' type='checkbox' />
+                <input className='form-check-input mr10' type='radio' />
                 <span>月額課金プラン一覧</span>
                 <div className='mt10'>SmartLessonで作成した月額課金プラン加入ページへのリンクを追加します。</div>
                 <br/>
@@ -194,7 +194,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <br />
             <Card>
               <Card.Body>
-                <input className='form-check-input mr10' type='checkbox' />
+                <input className='form-check-input mr10' type='radio' />
                 <span>回数券一覧</span>
                 <div className='mt10'>SmartLessonで作成した回数券購入ページへのリンクを追加します。</div>
                 <br/>
@@ -210,7 +210,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <br />
             <Card>
               <Card.Body>
-                <input className='form-check-input mr10' type='checkbox' />
+                <input className='form-check-input mr10' type='radio' />
                 <span>アクセス案内</span>
                 <div className='mt10'>Google Mapでアクセス案内を設置できます</div>
               </Card.Body>
@@ -221,7 +221,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant='secondary' onClick={() => { dispatch(showBlockModalChanged(false)); dispatch(blockTypeChanged(''))}}>閉じる</Button>
-        <Button variant='primary' onClick={() => dispatch(blockTypeChanged(selectedBlockedType))}>次へ</Button>
+        <Button variant='primary' onClick={() => dispatch(blockTypeChanged(selectedBlockType))}>次へ</Button>
       </Modal.Footer>
     </>
   )

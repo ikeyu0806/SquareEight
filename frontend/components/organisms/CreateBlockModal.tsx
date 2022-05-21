@@ -8,7 +8,6 @@ import EditTextImageBlockModal from '../molecules/EditTextImageBlockModal'
 import ExternalLinksModal from '../molecules/ExternalLinksModal'
 
 const CreateBlockModal = (): JSX.Element => {
-  const dispatch = useDispatch()
   const showBlockModal = useSelector((state: RootState) => state.homepage.showBlockModal)
   const blockType = useSelector((state: RootState) => state.homepage.blockType)
 

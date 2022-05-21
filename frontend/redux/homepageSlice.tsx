@@ -1,14 +1,18 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export const homepageSlice = createSlice({
-  name: 'company',
+  name: 'homepage',
   initialState: {
+    selectedBlockType: '',
     blockType: '',
     headerTitle: '',
     footerCopyright: '',
     showBlockModal: false,
   },
   reducers: {
+    selectedBlockTypeChanged: (state, action: PayloadAction<string>) => {
+      state.selectedBlockType = action.payload
+    },
     blockTypeChanged: (state, action: PayloadAction<string>) => {
       state.blockType = action.payload
     },
@@ -24,6 +28,7 @@ export const homepageSlice = createSlice({
   },
 })
 
+export const { selectedBlockTypeChanged } = homepageSlice.actions
 export const { blockTypeChanged } = homepageSlice.actions
 export const { headerTitleChanged } = homepageSlice.actions
 export const { footerCopyrightChanged } = homepageSlice.actions
