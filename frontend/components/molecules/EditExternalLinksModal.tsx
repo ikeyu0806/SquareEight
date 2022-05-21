@@ -4,11 +4,27 @@ import { showBlockModalChanged, blockTypeChanged } from '../../redux/homepageSli
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import PencilAquareIcon from '../atoms/PencilAquareIcon'
+
+type BlockType = {
+  text: string
+  url: string
+}
+
 const EditExternalLinksModal = (): JSX.Element => {
   const dispatch = useDispatch()
-  const showBlockModal = useSelector((state: RootState) => state.homepage.showBlockModal)
 
+  const [inputLinkText, setInputLinkText] = useState('')
+  const [inputLink, setInputLink] = useState('')
+  const showBlockModal = useSelector((state: RootState) => state.homepage.showBlockModal)
   const [selectedBlockedType, setSelectedBlockedType] = useState('')
+  const [blockContent, setBlockContent] = useState<BlockType[]>([])
+
+  const onClickAddLinkButton = () => {
+    let updateBlockContent: BlockType[]
+    updateBlockContent = [...blockContent, {text: inputLinkText, url: inputLink}]
+    setBlockContent(updateBlockContent)
+  }
+
   return (
     <>
       <Modal.Header> 
@@ -20,17 +36,24 @@ const EditExternalLinksModal = (): JSX.Element => {
         <Form>
           <Form.Group>
             <Form.Text>リンク表示名</Form.Text>
-            <Form.Control placeholder='企業情報'></Form.Control>
+            <Form.Control placeholder='企業情報'
+                          value={inputLinkText}
+                          onChange={(e) => setInputLinkText(e.target.value)}></Form.Control>
             <Form.Text>URL</Form.Text>
-            <Form.Control placeholder='https://sample.com'></Form.Control>
-            <Button className='mt20'>追加</Button>
+            <Form.Control placeholder='https://sample.com'
+                          value={inputLink}
+                          onChange={(e) => setInputLink(e.target.value)}></Form.Control>
+            <Button className='mt20' onClick={onClickAddLinkButton}>追加</Button>
           </Form.Group>
           <br />
           <h4>
             店舗案内
             <PencilAquareIcon width={20} height={20} fill={'#0000FF'} />
           </h4>
-          <a href="https://google.com" data-rr-ui-event-key="https://google.com" className="list-group-item list-group-item-action" target="_blank" rel="noreferrer">施設案内</a>
+          {blockContent.map((json, i) => {
+            return (<a href={json.url} className="list-group-item list-group-item-action" target="_blank" rel="noreferrer" key={i}>{json.text}</a>)
+          })}
+         
         </Form>
       </Modal.Body>
       <Modal.Footer>
