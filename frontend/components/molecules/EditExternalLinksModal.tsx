@@ -1,9 +1,10 @@
 import React, { useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
-import { showBlockModalChanged, blockTypeChanged } from '../../redux/homepageSlice'
+import { pageContentChanged, showBlockModalChanged, blockTypeChanged } from '../../redux/homepageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import PencilAquareIcon from '../atoms/PencilAquareIcon'
+import { PageContentState } from '../../interfaces/PageContentState'
 
 type BlockStateType = {
   text: string
@@ -15,7 +16,7 @@ const EditExternalLinksModal = (): JSX.Element => {
 
   const [inputLinkText, setInputLinkText] = useState('')
   const [inputLink, setInputLink] = useState('')
-  const showBlockModal = useSelector((state: RootState) => state.homepage.showBlockModal)
+  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
   const [selectedBlockedType, setSelectedBlockedType] = useState('')
   const [blockContent, setBlockContent] = useState<BlockStateType[]>([])
 
@@ -25,6 +26,14 @@ const EditExternalLinksModal = (): JSX.Element => {
     setBlockContent(updateBlockContent)
     setInputLinkText('')
     setInputLink('')
+  }
+
+  const completeEdit = () => {
+    let updatePageContentState: PageContentState[]
+    updatePageContentState = [...pageContent, {blockType: 'externalLinks', blockState: blockContent}]
+    dispatch(pageContentChanged(updatePageContentState))
+    dispatch(showBlockModalChanged(false))
+    dispatch(blockTypeChanged(''))
   }
 
   return (
@@ -60,7 +69,7 @@ const EditExternalLinksModal = (): JSX.Element => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant='secondary' onClick={() => { dispatch(showBlockModalChanged(false)); dispatch(blockTypeChanged(''))}}>閉じる</Button>
-        <Button variant='primary' onClick={() => dispatch(blockTypeChanged(selectedBlockedType))}>編集を終えてブロックを追加</Button>
+        <Button variant='primary' onClick={completeEdit}>編集を終えてブロックを追加</Button>
       </Modal.Footer>
     </>
   )

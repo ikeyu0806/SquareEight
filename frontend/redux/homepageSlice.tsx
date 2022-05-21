@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { PageContentState } from '../interfaces/PageState'
+import { PageContentState } from '../interfaces/PageContentState'
 
 export const homepageSlice = createSlice({
   name: 'homepage',

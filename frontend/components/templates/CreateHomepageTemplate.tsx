@@ -10,6 +10,8 @@ import CreateBlockModal from '../organisms/CreateBlockModal'
 const CreateHomepageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
 
+  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+
   return(
     <>
       <Container>
