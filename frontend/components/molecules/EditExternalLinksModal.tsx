@@ -4,7 +4,7 @@ import { pageContentChanged, showBlockModalChanged, blockTypeChanged } from '../
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
-import { BlockContentStateType } from '../../interfaces/BlockStateType'
+import { ExternalLinkBlockContentStateType } from '../../interfaces/ExternalLinkBlockStateType'
 
 const EditExternalLinksModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -12,10 +12,10 @@ const EditExternalLinksModal = (): JSX.Element => {
   const [inputLinkText, setInputLinkText] = useState('')
   const [inputLink, setInputLink] = useState('')
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-  const [blockContent, setBlockContent] = useState<BlockContentStateType[]>([])
+  const [blockContent, setBlockContent] = useState<ExternalLinkBlockContentStateType[]>([])
 
   const onClickAddLinkButton = () => {
-    let updateBlockContent: BlockContentStateType[]
+    let updateBlockContent: ExternalLinkBlockContentStateType[]
     updateBlockContent = [...blockContent, {text: inputLinkText, url: inputLink}]
     setBlockContent(updateBlockContent)
     setInputLinkText('')

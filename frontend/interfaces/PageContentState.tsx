@@ -1,7 +1,7 @@
 
-import { BlockStateType } from "./BlockStateType"
+import { ExternalLinkBlockStateType } from "./ExternalLinkBlockStateType"
 
 export type PageContentState = {
   blockType: string
-  blockState: BlockStateType
+  blockState: ExternalLinkBlockStateType
 }
