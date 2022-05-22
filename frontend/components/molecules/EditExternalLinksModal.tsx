@@ -5,11 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import PencilAquareIcon from '../atoms/PencilAquareIcon'
 import { PageContentState } from '../../interfaces/PageContentState'
-
-type BlockStateType = {
-  text: string
-  url: string
-}
+import { BlockStateType } from '../../interfaces/BlockStateType'
 
 const EditExternalLinksModal = (): JSX.Element => {
   const dispatch = useDispatch()

@@ -24,47 +24,59 @@ const CreateHomepageTemplate = (): JSX.Element => {
           </div>
           <Card>
             <Card.Body>
-            <Navbar>
-              サイトタイトル
-              <PencilAquareIcon width={20} height={20} fill={'#0000FF'} />
-            </Navbar>
-            <Carousel>
-              <Carousel.Item>
-                <img
-                  className='d-block w-100'
-                  src='/images/wait_training.jpg'
-                  alt='First slide'
-                />
-                <Carousel.Caption>
-                  <h3>編集してください</h3>
-                  <p>編集してください</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-              <Carousel.Item>
-                <img
-                  className='d-block w-100'
-                  src='/images/meeting.jpg'
-                  alt='Second slide'
-                />
+              <Navbar>
+                サイトタイトル
+                <PencilAquareIcon width={20} height={20} fill={'#0000FF'} />
+              </Navbar>
+              <Carousel>
+                <Carousel.Item>
+                  <img
+                    className='d-block w-100'
+                    src='/images/wait_training.jpg'
+                    alt='First slide'
+                  />
+                  <Carousel.Caption>
+                    <h3>編集してください</h3>
+                    <p>編集してください</p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className='d-block w-100'
+                    src='/images/meeting.jpg'
+                    alt='Second slide'
+                  />
 
-                <Carousel.Caption>
-                  <h3>編集してください</h3>
-                  <p>編集してください</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-              <Carousel.Item>
-                <img
-                  className='d-block w-100'
-                  src='/images/classroom.jpg'
-                  alt='Third slide'
-                />
+                  <Carousel.Caption>
+                    <h3>編集してください</h3>
+                    <p>編集してください</p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+                <Carousel.Item>
+                  <img
+                    className='d-block w-100'
+                    src='/images/classroom.jpg'
+                    alt='Third slide'
+                  />
 
-                <Carousel.Caption>
-                  <h3>編集してください</h3>
-                  <p>編集してください</p>
-                </Carousel.Caption>
-              </Carousel.Item>
-            </Carousel>
+                  <Carousel.Caption>
+                    <h3>編集してください</h3>
+                    <p>編集してください</p>
+                  </Carousel.Caption>
+                </Carousel.Item>
+              </Carousel>
+              <>
+                {pageContent.map((content, i) => {
+                  if ( content.blockType === 'externalLinks') {
+                    return (content.blockState.map((block, i) => {
+                      return (
+                        <a href={block.url} className="list-group-item list-group-item-action" target="_blank" rel="noreferrer" key={i}>{block.text}</a>
+                      )
+                    })
+                  )
+                  }
+                })}
+              </>
             </Card.Body>
             <div className='text-center mt30 mb30'>
               <span className='mr10'>ブロックを追加</span>
