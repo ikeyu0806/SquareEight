@@ -3,14 +3,12 @@ import { Button, Modal, Form } from 'react-bootstrap'
 import { pageContentChanged, showBlockModalChanged, blockTypeChanged } from '../../redux/homepageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
-import PencilAquareIcon from '../atoms/PencilAquareIcon'
 import { PageContentState } from '../../interfaces/PageContentState'
-import { BlockStateType, BlockContentStateType } from '../../interfaces/BlockStateType'
+import { BlockContentStateType } from '../../interfaces/BlockStateType'
 
 const EditExternalLinksModal = (): JSX.Element => {
   const dispatch = useDispatch()
 
-  const [inputTitle, setInputTitle] = useState('')
   const [inputLinkText, setInputLinkText] = useState('')
   const [inputLink, setInputLink] = useState('')
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
@@ -26,7 +24,7 @@ const EditExternalLinksModal = (): JSX.Element => {
 
   const completeEdit = () => {
     let updatePageContentState: PageContentState[]
-    updatePageContentState = [...pageContent, {blockType: 'externalLinks', blockState: {title: inputTitle, content: blockContent}}]
+    updatePageContentState = [...pageContent, {blockType: 'externalLinks', blockState: {content: blockContent}}]
     dispatch(pageContentChanged(updatePageContentState))
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))
@@ -53,15 +51,9 @@ const EditExternalLinksModal = (): JSX.Element => {
             <Button className='mt20' onClick={onClickAddLinkButton}>追加</Button>
           </Form.Group>
           <br />
-          <h4>
-            {inputTitle}
-            <PencilAquareIcon width={20} height={20} fill={'#0000FF'} />
-          </h4>
-          <Form.Control onChange={(e) => setInputTitle(e.target.value)}></Form.Control>
           {blockContent.map((json, i) => {
-            return (<a href={json.url} className="list-group-item list-group-item-action" target="_blank" rel="noreferrer" key={i}>{json.text}</a>)
+            return (<a href={json.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{json.text}</a>)
           })}
-         
         </Form>
       </Modal.Body>
       <Modal.Footer>

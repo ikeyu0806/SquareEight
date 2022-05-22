@@ -13,9 +13,6 @@ const SelectExternalLinksModal = (): JSX.Element => {
       <div className='mt10'>ページリンク集を追加します。SmartLessonで作成したページの他、外部サイトのリンクも設定できます。</div>
       <br />
       <hr />
-      <h4>
-        店舗案内
-      </h4>
       <ListGroup>
         <ListGroup.Item action href="https://google.com">施設案内</ListGroup.Item>
         <ListGroup.Item>資料請求</ListGroup.Item>

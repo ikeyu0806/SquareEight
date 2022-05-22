@@ -4,6 +4,5 @@ export type BlockContentStateType = {
 }
 
 export type BlockStateType = {
-  title: string
   content: BlockContentStateType[]
 }

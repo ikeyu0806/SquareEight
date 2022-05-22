@@ -27,20 +27,20 @@ const CreateHomepageTemplate = (): JSX.Element => {
               <Navbar>
                 サイトタイトル
                 <PencilAquareIcon width={20} height={20} fill={'#0000FF'} />
-              </Navbar>
-              <>
-                {console.log("!!!", pageContent)}
-                {pageContent.map((content, i) => {
-                  if ( content.blockType === 'externalLinks') {
-                    return (content.blockState.content.map((block, i) => {
-                      return (
-                        <a href={block.url} className="list-group-item list-group-item-action" target="_blank" rel="noreferrer" key={i}>{block.text}</a>
-                      )
-                    })
-                  )
-                  }
-                })}
-              </>
+              </Navbar>            
+              {pageContent.map((page, i) =>
+                {
+                  if ( page.blockType === 'externalLinks') {
+                    return (
+                      page.blockState.content.map((block, i) => {
+                        return (
+                          <a href={block.url} className="list-group-item list-group-item-action" target="_blank" rel="noreferrer" key={i}>{block.text}</a>
+                        )
+                      }
+                    )
+                  )}
+                }
+              )}
             </Card.Body>
             <div className='text-center mt30 mb30'>
               <span className='mr10'>ブロックを追加</span>
