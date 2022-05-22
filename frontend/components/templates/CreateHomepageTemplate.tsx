@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Button, Container, Card, Row, Col, Carousel, Navbar, Modal, Form } from 'react-bootstrap'
+import React from 'react'
+import { Container, Card, Row, Col, Navbar } from 'react-bootstrap'
 import PencilAquareIcon from '../../components/atoms/PencilAquareIcon'
 import PlusCircleIcon from '../../components/atoms/PlusCircleIcon'
 import { RootState } from '../../redux/store'
@@ -28,47 +28,11 @@ const CreateHomepageTemplate = (): JSX.Element => {
                 サイトタイトル
                 <PencilAquareIcon width={20} height={20} fill={'#0000FF'} />
               </Navbar>
-              <Carousel>
-                <Carousel.Item>
-                  <img
-                    className='d-block w-100'
-                    src='/images/wait_training.jpg'
-                    alt='First slide'
-                  />
-                  <Carousel.Caption>
-                    <h3>編集してください</h3>
-                    <p>編集してください</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className='d-block w-100'
-                    src='/images/meeting.jpg'
-                    alt='Second slide'
-                  />
-
-                  <Carousel.Caption>
-                    <h3>編集してください</h3>
-                    <p>編集してください</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-                <Carousel.Item>
-                  <img
-                    className='d-block w-100'
-                    src='/images/classroom.jpg'
-                    alt='Third slide'
-                  />
-
-                  <Carousel.Caption>
-                    <h3>編集してください</h3>
-                    <p>編集してください</p>
-                  </Carousel.Caption>
-                </Carousel.Item>
-              </Carousel>
               <>
+                {console.log("!!!", pageContent)}
                 {pageContent.map((content, i) => {
                   if ( content.blockType === 'externalLinks') {
-                    return (content.blockState.map((block, i) => {
+                    return (content.blockState.content.map((block, i) => {
                       return (
                         <a href={block.url} className="list-group-item list-group-item-action" target="_blank" rel="noreferrer" key={i}>{block.text}</a>
                       )
