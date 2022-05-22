@@ -2,13 +2,14 @@ import React from 'react'
 import { Card, ListGroup } from 'react-bootstrap'
 import { selectedBlockTypeChanged } from '../../redux/homepageSlice'
 import { useDispatch } from 'react-redux'
+import { BLOCK_TYPE } from '../../constants/blockType'
 
 const SelectExternalLinksModal = (): JSX.Element => {
   const dispatch = useDispatch()
   return (
     <Card>
     <Card.Body>
-      <input className='form-check-input mr10' type='radio' onChange={() => dispatch(selectedBlockTypeChanged('externalLinks'))} />
+      <input className='form-check-input mr10' type='radio' onChange={() => dispatch(selectedBlockTypeChanged(BLOCK_TYPE.EXTERNAL_LINKS))} />
       <span>ページリンク</span>
       <div className='mt10'>ページリンク集を追加します。SmartLessonで作成したページの他、外部サイトのリンクも設定できます。</div>
       <br />

@@ -5,6 +5,7 @@ import { RootState } from '../../redux/store'
 import SelectHomepageBlockModal from './SelectHomepageBlockModal'
 import EditTextImageBlockModal from '../molecules/EditTextImageBlockModal'
 import EditExternalLinksModal from '../molecules/EditExternalLinksModal'
+import { BLOCK_TYPE } from '../../constants/blockType'
 
 const CreateBlockModal = (): JSX.Element => {
   const showBlockModal = useSelector((state: RootState) => state.homepage.showBlockModal)
@@ -17,8 +18,8 @@ const CreateBlockModal = (): JSX.Element => {
     <>
       <Modal show={showBlockModal} size='lg'>
         {blockType === '' && <SelectHomepageBlockModal></SelectHomepageBlockModal>}
-        {blockType === 'textImage' && <EditTextImageBlockModal></EditTextImageBlockModal>}
-        {blockType === 'externalLinks' && <EditExternalLinksModal></EditExternalLinksModal>}
+        {blockType === BLOCK_TYPE.TEXT_IMAGE && <EditTextImageBlockModal></EditTextImageBlockModal>}
+        {blockType === BLOCK_TYPE.EXTERNAL_LINKS && <EditExternalLinksModal></EditExternalLinksModal>}
       </Modal>
     </>
   )
