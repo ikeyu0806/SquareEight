@@ -12,6 +12,7 @@ import SelectReservationPageModal from '../molecules/SelectReservationPageModal'
 import SelectMonthlyPaymentModal from '../molecules/SelectMonthlyPaymentModal'
 import SelectTicketPageModal from '../molecules/SelectTicketPageModal'
 import SelectAccessModal from '../molecules/SelectAccessModal'
+import SelectHeadingModal from '../molecules/SelectHeadingModal'
 
 const SelectHomepageBlockModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -37,14 +38,16 @@ const SelectHomepageBlockModal = (): JSX.Element => {
         </Form>
         <Row>
           <Col>
-            <Card>
+            <SelectHeadingModal></SelectHeadingModal>
+            <br />
+            {/* <Card>
               <Card.Body>
                 <input className='form-check-input mr10' type='radio' onChange={() => dispatch(selectedBlockTypeChanged('custom'))} />
                 <span>カスタマイズ</span>
                 <div className='mt10'>構成要素を細かく選択してブロックを作成します</div>
               </Card.Body>
             </Card>
-            <br />
+            <br /> */}
             <SelectImageSlideModal></SelectImageSlideModal>
             <br />
             <SelectTextImageModal></SelectTextImageModal>
