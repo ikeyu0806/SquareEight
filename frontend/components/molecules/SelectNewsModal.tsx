@@ -16,14 +16,14 @@ const SelectNewsModal = (): JSX.Element => {
       <div className='mt10'>お知らせ・ニュースを追加します。投稿内容と公開開始日、終了日は管理画面から設定できます。</div>
       {showBlockSample &&
       <>
+        <br />
+        <hr />
         <ListGroup>
           <ListGroup.Item>月額課金新プランのお知らせ</ListGroup.Item>
           <ListGroup.Item>レッスン新規プランのお知らせ</ListGroup.Item>
           <ListGroup.Item>臨時休業日のお知らせ</ListGroup.Item>
         </ListGroup>
       </>}
-      <br />
-      <hr />
     </Card.Body>
   </Card>
   )

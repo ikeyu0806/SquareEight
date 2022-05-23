@@ -45,9 +45,9 @@ const SelectHomepageBlockModal = (): JSX.Element => {
               </Card.Body>
             </Card>
             <br />
-            <SelectTextImageModal></SelectTextImageModal>
-            <br />
             <SelectImageSlideModal></SelectImageSlideModal>
+            <br />
+            <SelectTextImageModal></SelectTextImageModal>
             <br />
             <SelectExternalLinksModal></SelectExternalLinksModal>
             <br />
