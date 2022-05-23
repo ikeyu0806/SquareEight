@@ -5,8 +5,8 @@ export const homepageSlice = createSlice({
   name: 'homepage',
   initialState: {
     pageContent: [] as PageContentState[],
-    html: '',
     selectedBlockType: '',
+    showBlockSample: true,
     blockType: '',
     headerTitle: '',
     footerCopyright: '',
@@ -16,8 +16,8 @@ export const homepageSlice = createSlice({
     pageContentChanged: (state, action: PayloadAction<PageContentState[]>) => {
       state.pageContent = action.payload
     },
-    selectedHtmlChanged: (state, action: PayloadAction<string>) => {
-      state.html = action.payload
+    showBlockSampleChanged: (state, action: PayloadAction<boolean>) => {
+      state.showBlockSample = action.payload
     },
     selectedBlockTypeChanged: (state, action: PayloadAction<string>) => {
       state.selectedBlockType = action.payload
@@ -38,7 +38,7 @@ export const homepageSlice = createSlice({
 })
 
 export const { pageContentChanged } = homepageSlice.actions
-export const { selectedHtmlChanged } = homepageSlice.actions
+export const { showBlockSampleChanged } = homepageSlice.actions
 export const { selectedBlockTypeChanged } = homepageSlice.actions
 export const { blockTypeChanged } = homepageSlice.actions
 export const { headerTitleChanged } = homepageSlice.actions

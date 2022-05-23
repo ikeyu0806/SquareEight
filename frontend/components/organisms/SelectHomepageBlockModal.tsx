@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Carousel, Card, Row, Col, Modal, ListGroup, Form } from 'react-bootstrap'
-import { showBlockModalChanged, blockTypeChanged, selectedBlockTypeChanged } from '../../redux/homepageSlice'
+import { showBlockModalChanged, blockTypeChanged, selectedBlockTypeChanged, showBlockSampleChanged } from '../../redux/homepageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import SelectExternalLinksModal from '../molecules/SelectEcternalLinkModal'
@@ -8,10 +8,7 @@ import SelectExternalLinksModal from '../molecules/SelectEcternalLinkModal'
 const SelectHomepageBlockModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const selectedBlockType = useSelector((state: RootState) => state.homepage.selectedBlockType)
-  const showBlockModal = useSelector((state: RootState) => state.homepage.showBlockModal)
-  const BLOCKTYPE = {
-    TextImage: 'textImage'
-  }
+  const showBlockSample = useSelector((state: RootState) => state.homepage.showBlockSample)
 
   return (
     <>
@@ -21,6 +18,15 @@ const SelectHomepageBlockModal = (): JSX.Element => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+        <Form className='mb20'>
+          <Form.Check 
+            type='switch'
+            id='show-sample'
+            label='サンプルを表示'
+            checked={showBlockSample}
+            onChange={() => dispatch(showBlockSampleChanged(!showBlockSample))}
+          />
+        </Form>
         <Row>
           <Col>
             <Card>
