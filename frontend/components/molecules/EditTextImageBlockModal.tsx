@@ -24,6 +24,7 @@ const EditTextImageBlockModal = (): JSX.Element => {
     let updatePageContentState: PageContentState[]
     updatePageContentState = [...pageContent, {blockType: 'textImage', blockState: { title: title, text: text, image: image }}]
     dispatch(pageContentChanged(updatePageContentState))
+    dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))
   }
 
