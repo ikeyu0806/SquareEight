@@ -4,6 +4,9 @@ import { showBlockModalChanged, blockTypeChanged, selectedBlockTypeChanged, show
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import SelectExternalLinksModal from '../molecules/SelectEcternalLinkModal'
+import SelectTextImageModal from '../molecules/SelectTextImageModal'
+import SelectImageSlideModal from '../molecules/SelectImageSlideModal'
+import SelectNewsModal from '../molecules/SelectNewsModal'
 
 const SelectHomepageBlockModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -37,95 +40,13 @@ const SelectHomepageBlockModal = (): JSX.Element => {
               </Card.Body>
             </Card>
             <br />
-            <Card>
-              <Card.Body>
-                <input className='form-check-input mr10' type='radio'onChange={() => dispatch(selectedBlockTypeChanged('textImage'))} />
-                <span>テキスト+画像</span>
-                <div className='mt10'>テキストと画像で構成されたブロックを追加します。画像にはページリンクを設定できます</div>
-                <br />
-                <hr />
-                <Row>
-                  <Col>
-                    <h2>見出し</h2>
-                    <div>
-                      本文
-                    </div>
-                  </Col>
-                  <Col>
-                  <img
-                    className='d-block w-100'
-                    src='/images/classroom.jpg'
-                    alt='image'
-                  />
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
+            <SelectTextImageModal></SelectTextImageModal>
             <br />
-            <Card>
-              <Card.Body>
-                <input className='form-check-input mr10' type='radio' />
-                <span>画像スライド</span>
-                <div className='mt10'>画像スライドを追加します</div>
-                <br />
-                <hr />
-                <Carousel>
-                  <Carousel.Item>
-                    <img
-                      className='d-block w-100'
-                      src='/images/wait_training.jpg'
-                      alt='First slide'
-                    />
-                    <Carousel.Caption>
-                      <h3>見出し</h3>
-                      <p>本文</p>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <img
-                      className='d-block w-100'
-                      src='/images/meeting.jpg'
-                      alt='Second slide'
-                    />
-
-                    <Carousel.Caption>
-                      <h3>見出し</h3>
-                      <p>本文</p>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-                  <Carousel.Item>
-                    <img
-                      className='d-block w-100'
-                      src='/images/classroom.jpg'
-                      alt='Third slide'
-                    />
-
-                    <Carousel.Caption>
-                      <h3>見出し</h3>
-                      <p>本文</p>
-                    </Carousel.Caption>
-                  </Carousel.Item>
-                </Carousel>
-              </Card.Body>
-            </Card>
+            <SelectImageSlideModal></SelectImageSlideModal>
             <br />
             <SelectExternalLinksModal></SelectExternalLinksModal>
             <br />
-            <Card>
-              <Card.Body>
-                <input className='form-check-input mr10' type='radio' />
-                <span>お知らせ・ ニュース</span>
-                <div className='mt10'>お知らせ・ニュースを追加します。投稿内容と公開開始日、終了日は管理画面から設定できます。</div>
-                <br />
-                <hr />
-                <h4>店舗からのお知らせ</h4>
-                <ListGroup>
-                  <ListGroup.Item>月額課金新プランのお知らせ</ListGroup.Item>
-                  <ListGroup.Item>レッスン新規プランのお知らせ</ListGroup.Item>
-                  <ListGroup.Item>臨時休業日のお知らせ</ListGroup.Item>
-                </ListGroup>
-              </Card.Body>
-            </Card>
+            <SelectNewsModal></SelectNewsModal>
             <br />
             <Card>
               <Card.Body>
