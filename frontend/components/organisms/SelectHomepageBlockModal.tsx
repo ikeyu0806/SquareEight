@@ -7,6 +7,11 @@ import SelectExternalLinksModal from '../molecules/SelectEcternalLinkModal'
 import SelectTextImageModal from '../molecules/SelectTextImageModal'
 import SelectImageSlideModal from '../molecules/SelectImageSlideModal'
 import SelectNewsModal from '../molecules/SelectNewsModal'
+import SelectInquiryModal from '../molecules/SelectInquiryModal'
+import SelectReservationPageModal from '../molecules/SelectReservationPageModal'
+import SelectMonthlyPaymentModal from '../molecules/SelectMonthlyPaymentModal'
+import SelectTicketPageModal from '../molecules/SelectTicketPageModal'
+import SelectAccessModal from '../molecules/SelectAccessModal'
 
 const SelectHomepageBlockModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -48,87 +53,15 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <br />
             <SelectNewsModal></SelectNewsModal>
             <br />
-            <Card>
-              <Card.Body>
-                <input className='form-check-input mr10' type='radio' />
-                <span>お問い合わせフォーム</span>
-                <div className='mt10'>お問い合わせフォームを追加します。</div>
-                <br />
-                <hr />
-                <Form>
-                  <Form.Group className='mb-3' controlId='formBasicEmail'>
-                    <Form.Label>メールアドレス</Form.Label>
-                    <Form.Control type='email' disabled />
-                    <Form.Text className='text-muted'>
-                    </Form.Text>
-                  </Form.Group>
-
-                  <Form.Group className='mb-3' controlId='formBasicPassword'>
-                    <Form.Label>お問い合わせ内容</Form.Label>
-                    <Form.Control as='textarea' rows={10} disabled />
-                  </Form.Group>
-                  <Button variant='primary' type='submit' disabled>
-                    送信
-                  </Button>
-                </Form>
-              </Card.Body>
-            </Card>
+            <SelectInquiryModal></SelectInquiryModal>
             <br />
-            <Card>
-              <Card.Body>
-                <input className='form-check-input mr10' type='radio' />
-                <span>予約ページ一覧</span>
-                <div className='mt10'>SmartLessonで作成した予約ページへのリンクを追加します。</div>
-                <br/>
-                <hr />
-                <h4>予約ページ一覧</h4>
-                <ListGroup>
-                  <ListGroup.Item>ヨガ60分レッスン</ListGroup.Item>
-                  <ListGroup.Item>キックボクシング60分レッスン</ListGroup.Item>
-                  <ListGroup.Item>臨時休業日のお知らせ</ListGroup.Item>
-                </ListGroup>
-              </Card.Body>
-            </Card>
+            <SelectReservationPageModal></SelectReservationPageModal>
             <br />
-            <Card>
-              <Card.Body>
-                <input className='form-check-input mr10' type='radio' />
-                <span>月額課金プラン一覧</span>
-                <div className='mt10'>SmartLessonで作成した月額課金プラン加入ページへのリンクを追加します。</div>
-                <br/>
-                <hr />
-                <h4>月額課金プラン一覧</h4>
-                <ListGroup>
-                  <ListGroup.Item>受講し放題プラン</ListGroup.Item>
-                  <ListGroup.Item>隔週受講プラン</ListGroup.Item>
-                  <ListGroup.Item>週１受講プラン</ListGroup.Item>
-                </ListGroup>
-              </Card.Body>
-            </Card>
+            <SelectMonthlyPaymentModal></SelectMonthlyPaymentModal>
             <br />
-            <Card>
-              <Card.Body>
-                <input className='form-check-input mr10' type='radio' />
-                <span>回数券一覧</span>
-                <div className='mt10'>SmartLessonで作成した回数券購入ページへのリンクを追加します。</div>
-                <br/>
-                <hr />
-                <h4>回数券一覧</h4>
-                <ListGroup>
-                  <ListGroup.Item>レッスン5回受講券</ListGroup.Item>
-                  <ListGroup.Item>レッスン10回受講券</ListGroup.Item>
-                  <ListGroup.Item>レッスン100回受講券</ListGroup.Item>
-                </ListGroup>
-              </Card.Body>
-            </Card>
+            <SelectTicketPageModal></SelectTicketPageModal>
             <br />
-            <Card>
-              <Card.Body>
-                <input className='form-check-input mr10' type='radio' />
-                <span>アクセス案内</span>
-                <div className='mt10'>Google Mapでアクセス案内を設置できます</div>
-              </Card.Body>
-            </Card>
+            <SelectAccessModal></SelectAccessModal>
             <br />
           </Col>
         </Row>
