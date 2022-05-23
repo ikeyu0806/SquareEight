@@ -1,14 +1,19 @@
 import React, { useState } from 'react'
 import { Button, Row, Col, Modal, Form } from 'react-bootstrap'
-import { showBlockModalChanged, blockTypeChanged } from '../../redux/homepageSlice'
-import { useDispatch } from 'react-redux'
+import { showBlockModalChanged, blockTypeChanged, pageContentChanged } from '../../redux/homepageSlice'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from '../../redux/store'
+import { PageContentState } from '../../interfaces/PageContentState'
 
 const EditTextImageBlockModal = (): JSX.Element => {
+  const dispatch = useDispatch()
+
   const [image, setImage] = useState('/images/noimage.jpeg')
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
 
-  const dispatch = useDispatch()
+  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -16,6 +21,9 @@ const EditTextImageBlockModal = (): JSX.Element => {
   }
 
   const completeEdit = () => {
+    let updatePageContentState: PageContentState[]
+    updatePageContentState = [...pageContent, {blockType: 'textImage', blockState: { title: title, text: text, image: image }}]
+    dispatch(pageContentChanged(updatePageContentState))
     dispatch(blockTypeChanged(''))
   }
 

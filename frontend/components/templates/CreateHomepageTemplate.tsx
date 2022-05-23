@@ -6,6 +6,7 @@ import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { showBlockModalChanged } from '../../redux/homepageSlice'
 import CreateBlockModal from '../organisms/CreateBlockModal'
+import { ExternalLinkBlockStateType } from '../../interfaces/ExternalLinkBlockStateType'
 
 const CreateHomepageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -32,7 +33,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                 {
                   if ( page.blockType === 'externalLinks') {
                     return (
-                      page.blockState.content.map((block, i) => {
+                      (page.blockState as ExternalLinkBlockStateType).content.map((block, i) => {
                         return (
                           <a href={block.url} className="list-group-item list-group-item-action" target="_blank" rel="noreferrer" key={i}>{block.text}</a>
                         )

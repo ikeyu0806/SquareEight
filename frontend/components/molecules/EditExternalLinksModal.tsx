@@ -11,9 +11,9 @@ const EditExternalLinksModal = (): JSX.Element => {
 
   const [inputLinkText, setInputLinkText] = useState('')
   const [inputLink, setInputLink] = useState('')
-  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
   const [blockContent, setBlockContent] = useState<ExternalLinkBlockContentStateType[]>([])
-
+  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+  
   const onClickAddLinkButton = () => {
     let updateBlockContent: ExternalLinkBlockContentStateType[]
     updateBlockContent = [...blockContent, {text: inputLinkText, url: inputLink}]
