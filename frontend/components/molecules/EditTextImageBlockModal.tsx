@@ -1,25 +1,26 @@
 import React, { useState } from 'react'
 import { Button, Row, Col, Modal, Form } from 'react-bootstrap'
 import { showBlockModalChanged, blockTypeChanged } from '../../redux/homepageSlice'
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../redux/store'
-import PencilAquareIcon from '../atoms/PencilAquareIcon'
+import { useDispatch } from 'react-redux'
 
 const EditTextImageBlockModal = (): JSX.Element => {
   const [image, setImage] = useState('/images/noimage.jpeg')
+  const [title, setTitle] = useState('')
+  const [text, setText] = useState('')
 
   const dispatch = useDispatch()
-  const showBlockModal = useSelector((state: RootState) => state.homepage.showBlockModal)
-  const BLOCKTYPE = {
-    Small: 'small'
-  }
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
     setImage(window.URL.createObjectURL(files[0]))
   }
 
+  const completeEdit = () => {
+    dispatch(blockTypeChanged(''))
+  }
+
   const [selectedBlockedType, setSelectedBlockedType] = useState('')
+
   return (
     <>
       <Modal.Header> 
@@ -30,10 +31,14 @@ const EditTextImageBlockModal = (): JSX.Element => {
       <Modal.Body>
         <Row>
           <Col>
-            <h2>見出し<PencilAquareIcon width={20} height={20} fill={'#0000FF'} /></h2>
-            <div>
-              本文を入力<PencilAquareIcon width={20} height={20} fill={'#0000FF'} />
-            </div>
+            <Form>
+              <Form.Group>
+                <Form.Label>見出し</Form.Label>
+                <Form.Control onChange={(e) => setTitle(e.target.value)}></Form.Control>
+                <Form.Label>本文</Form.Label>
+                <Form.Control as='textarea' rows={10} onChange={(e) => setText(e.target.value)}></Form.Control>
+              </Form.Group>
+            </Form>
           </Col>
           <Col>
           <img
@@ -50,7 +55,7 @@ const EditTextImageBlockModal = (): JSX.Element => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant='secondary' onClick={() => { dispatch(showBlockModalChanged(false)); dispatch(blockTypeChanged(''))}}>閉じる</Button>
-        <Button variant='primary' onClick={() => dispatch(blockTypeChanged(selectedBlockedType))}>編集を終えてブロックを追加</Button>
+        <Button variant='primary' onClick={completeEdit}>編集を終えてブロックを追加</Button>
       </Modal.Footer>
     </>
   )
