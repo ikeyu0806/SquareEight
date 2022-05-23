@@ -7,6 +7,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { showBlockModalChanged } from '../../redux/homepageSlice'
 import CreateBlockModal from '../organisms/CreateBlockModal'
 import { ExternalLinkBlockStateType } from '../../interfaces/ExternalLinkBlockStateType'
+import { TextImageBlockStateType } from '../../interfaces/TextImageBlockStateType'
+import { BLOCK_TYPE } from '../../constants/blockType'
 
 const CreateHomepageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -30,16 +32,37 @@ const CreateHomepageTemplate = (): JSX.Element => {
                 <PencilAquareIcon width={20} height={20} fill={'#0000FF'} />
               </Navbar>            
               {pageContent.map((page, i) =>
-                {
-                  if ( page.blockType === 'externalLinks') {
-                    return (
-                      (page.blockState as ExternalLinkBlockStateType).content.map((block, i) => {
-                        return (
-                          <a href={block.url} className="list-group-item list-group-item-action" target="_blank" rel="noreferrer" key={i}>{block.text}</a>
-                        )
-                      }
-                    )
-                  )}
+                {          
+                  switch (page.blockType) {
+                    case BLOCK_TYPE.TEXT_IMAGE:
+                      return (
+                        <Row>
+                        <Col>
+                          <h2>{(page.blockState as TextImageBlockStateType).title}</h2>
+                          <div>
+                            {(page.blockState as TextImageBlockStateType).text}
+                          </div>
+                        </Col>
+                        <Col>
+                        <img
+                          className='d-block w-100'
+                          src={(page.blockState as TextImageBlockStateType).image}
+                          alt='image'
+                        />
+                        </Col>
+                      </Row>
+                      )
+                    case BLOCK_TYPE.EXTERNAL_LINKS:
+                      return (
+                        (page.blockState as ExternalLinkBlockStateType).content.map((block, i) => {
+                          return (
+                            <a href={block.url} className="list-group-item list-group-item-action" target="_blank" rel="noreferrer" key={i}>{block.text}</a>
+                          )
+                        }
+                      ))
+                    default:
+                      console.log('invalid block')
+                  }
                 }
               )}
             </Card.Body>
