@@ -50,7 +50,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                       )
                     case BLOCK_TYPE.TEXT_IMAGE:
                       return (
-                        <Row>
+                        <Row className='mt10 mb10'>
                         <Col>
                           <h2>{(page.blockState as TextImageBlockStateType).title}</h2>
                           <div>
