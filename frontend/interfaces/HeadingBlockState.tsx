@@ -1,4 +1,5 @@
 export type HeadingBlockState = {
+  text: string
   placement: placementType
   size: headingSizeType
 }

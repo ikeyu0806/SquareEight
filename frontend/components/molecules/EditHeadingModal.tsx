@@ -5,26 +5,21 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
 import { HeadingBlockState, placementType, headingSizeType } from '../../interfaces/HeadingBlockState'
+import { BLOCK_TYPE } from '../../constants/blockType'
 
 const EditHeadingModal = (): JSX.Element => {
   const dispatch = useDispatch()
 
   const [inputHeading, setInputeHeading] = useState('')
-
   const [placement, setPlacement] = useState<placementType>('left')
   const [headingSize, setHeadingSize] = useState<headingSizeType>(1)
   const [blockContent, setBlockContent] = useState<HeadingBlockState>()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-  
-  const onClickAddLinkButton = () => {
-    // let updateBlockContent: HeadingBlockState
-    // setBlockContent(updateBlockContent)
-    setInputeHeading('')
-  }
 
   const completeEdit = () => {
-    // let updatePageContentState: PageContentState[]
-    // dispatch(pageContentChanged(updatePageContentState))
+    let updatePageContentState: PageContentState[]
+    updatePageContentState = [...pageContent, {blockType: BLOCK_TYPE.HEADING, blockState: { text: inputHeading, placement: placement, size: headingSize }}]
+    dispatch(pageContentChanged(updatePageContentState))
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))
   }

@@ -9,6 +9,7 @@ import CreateBlockModal from '../organisms/CreateBlockModal'
 import { ExternalLinkBlockStateType } from '../../interfaces/ExternalLinkBlockStateType'
 import { TextImageBlockStateType } from '../../interfaces/TextImageBlockStateType'
 import { BLOCK_TYPE } from '../../constants/blockType'
+import { HeadingBlockState } from '../../interfaces/HeadingBlockState'
 
 const CreateHomepageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -34,6 +35,19 @@ const CreateHomepageTemplate = (): JSX.Element => {
               {pageContent.map((page, i) =>
                 {          
                   switch (page.blockType) {
+                    case BLOCK_TYPE.HEADING:
+                      return (
+                        <>
+                          <div className={((page.blockState) as HeadingBlockState).placement === 'left' ? 'text-left' : ((page.blockState) as HeadingBlockState).placement === 'center' ? 'text-center' : 'text-right'}>
+                            {((page.blockState) as HeadingBlockState).size === 1 && <h1>{((page.blockState) as HeadingBlockState).text}</h1>}
+                            {((page.blockState) as HeadingBlockState).size === 2 && <h2>{((page.blockState) as HeadingBlockState).text}</h2>}
+                            {((page.blockState) as HeadingBlockState).size === 3 && <h3>{((page.blockState) as HeadingBlockState).text}</h3>}
+                            {((page.blockState) as HeadingBlockState).size === 4 && <h4>{((page.blockState) as HeadingBlockState).text}</h4>}
+                            {((page.blockState) as HeadingBlockState).size === 5 && <h5>{((page.blockState) as HeadingBlockState).text}</h5>}
+                            {((page.blockState) as HeadingBlockState).size === 6 && <h6>{((page.blockState) as HeadingBlockState).text}</h6>}
+                          </div>
+                        </>
+                      )
                     case BLOCK_TYPE.TEXT_IMAGE:
                       return (
                         <Row>
