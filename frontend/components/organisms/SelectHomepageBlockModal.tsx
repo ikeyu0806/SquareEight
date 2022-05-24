@@ -3,7 +3,7 @@ import { Button, Carousel, Card, Row, Col, Modal, ListGroup, Form } from 'react-
 import { showBlockModalChanged, blockTypeChanged, selectedBlockTypeChanged, showBlockSampleChanged } from '../../redux/homepageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
-import SelectExternalLinksModal from '../molecules/SelectEcternalLinkModal'
+import SelectExternalLinksModal from '../molecules/SelectExternalLinkModal'
 import SelectTextImageModal from '../molecules/SelectTextImageModal'
 import SelectImageSlideModal from '../molecules/SelectImageSlideModal'
 import SelectNewsModal from '../molecules/SelectNewsModal'

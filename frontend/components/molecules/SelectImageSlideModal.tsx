@@ -3,6 +3,7 @@ import { Card, Carousel } from 'react-bootstrap'
 import { selectedBlockTypeChanged } from '../../redux/homepageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
+import { BLOCK_TYPE } from '../../constants/blockType'
 
 const SelectImageSlideModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -11,7 +12,7 @@ const SelectImageSlideModal = (): JSX.Element => {
   return (
     <Card>
     <Card.Body>
-      <input className='form-check-input mr10' type='radio' />
+      <input className='form-check-input mr10' type='radio'　onChange={() => dispatch(selectedBlockTypeChanged(BLOCK_TYPE.IMAGE_SLIDE))} />
       <span>画像スライド</span>
       <div className='mt10'>画像スライドを追加します</div>
       {showBlockSample &&
