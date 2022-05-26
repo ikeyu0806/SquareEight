@@ -12,7 +12,7 @@ const SelectImageSlideModal = (): JSX.Element => {
   return (
     <Card>
     <Card.Body>
-      <input className='form-check-input mr10' type='radio'　onChange={() => dispatch(selectedBlockTypeChanged(BLOCK_TYPE.IMAGE_SLIDE))} />
+      <input className='form-check-input mr10' type='radio' onChange={() => dispatch(selectedBlockTypeChanged(BLOCK_TYPE.IMAGE_SLIDE))} />
       <span>画像スライド</span>
       <div className='mt10'>画像スライドを追加します</div>
       {showBlockSample &&
