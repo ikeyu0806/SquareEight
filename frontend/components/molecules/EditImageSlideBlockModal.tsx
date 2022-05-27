@@ -13,6 +13,7 @@ const EditImageSlideBlockModal = (): JSX.Element => {
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
   const [imageSlideChild, setImageSlideChild] = useState<ImageSlideChildState>({title: title, text: text, image: image})
+  const [imageSlide, setImageSlide] = useState<ImageSlideState>()
 
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
 
@@ -22,13 +23,21 @@ const EditImageSlideBlockModal = (): JSX.Element => {
   }
 
   const addImageSlideChild = () => {
-    setImageSlideChild({title: title, text: text, image: image})
+    let updateImageSlideChild: ImageSlideChildState[]
+    if (imageSlide) {
+      updateImageSlideChild = [...imageSlide.imageSlide, { title: title, text: text, image: image }]
+      setImageSlide({imageSlide: updateImageSlideChild})
+    } else {
+      setImageSlide({imageSlide: [{ title: title, text: text, image: image }]})
+    }
   }
 
   const completeEdit = () => {
     let updatePageContentState: PageContentState[]
-    updatePageContentState = [...pageContent, {blockType: 'textImage', blockState: { title: title, text: text, image: image }}]
-    dispatch(pageContentChanged(updatePageContentState))
+    if (imageSlide !== undefined) {
+      updatePageContentState = [...pageContent, {blockType: 'imageSlide', blockState: imageSlide }]
+      dispatch(pageContentChanged(updatePageContentState))
+    }
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))
   }
