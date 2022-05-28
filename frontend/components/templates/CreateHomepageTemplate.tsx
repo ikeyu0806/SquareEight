@@ -1,5 +1,5 @@
 import React from 'react'
-import { Container, Card, Row, Col, Navbar } from 'react-bootstrap'
+import { Container, Card, Row, Col, Navbar, Carousel } from 'react-bootstrap'
 import PencilAquareIcon from '../../components/atoms/PencilAquareIcon'
 import PlusCircleIcon from '../../components/atoms/PlusCircleIcon'
 import { RootState } from '../../redux/store'
@@ -8,6 +8,7 @@ import { showBlockModalChanged } from '../../redux/homepageSlice'
 import CreateBlockModal from '../organisms/CreateBlockModal'
 import { ExternalLinkBlockStateType } from '../../interfaces/ExternalLinkBlockStateType'
 import { TextImageBlockStateType } from '../../interfaces/TextImageBlockStateType'
+import { ImageSlideState } from '../../interfaces/ImageSlideState'
 import { BLOCK_TYPE } from '../../constants/blockType'
 import { HeadingBlockState } from '../../interfaces/HeadingBlockState'
 
@@ -47,6 +48,26 @@ const CreateHomepageTemplate = (): JSX.Element => {
                             {((page.blockState) as HeadingBlockState).size === 6 && <h6>{((page.blockState) as HeadingBlockState).text}</h6>}
                           </div>
                         </>
+                      )
+                    case BLOCK_TYPE.IMAGE_SLIDE:
+                      return (
+                        <Carousel>
+                        {(page.blockState as ImageSlideState).imageSlide != undefined && (page.blockState as ImageSlideState).imageSlide.map((slide, i) => {
+                          return (
+                            <Carousel.Item key={i}>
+                              <img
+                                className='d-block w-100'
+                                src={slide.image}
+                                alt={slide + String(i)}
+                              />
+                              <Carousel.Caption>
+                                <h3>{slide.title}</h3>
+                                <p>{slide.text}</p>
+                              </Carousel.Caption>
+                            </Carousel.Item>
+                          )
+                        })}
+                      </Carousel>
                       )
                     case BLOCK_TYPE.TEXT_IMAGE:
                       return (
