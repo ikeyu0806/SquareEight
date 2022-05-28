@@ -1,7 +1,8 @@
 import React from 'react'
 import { Container, Card, Row, Col, Navbar, Carousel } from 'react-bootstrap'
-import PencilAquareIcon from '../../components/atoms/PencilAquareIcon'
+import PencilSquareIcon from '../atoms/PencilSquareIcon'
 import PlusCircleIcon from '../../components/atoms/PlusCircleIcon'
+import TrashIcon from '../atoms/TrashIcon'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { showBlockModalChanged } from '../../redux/homepageSlice'
@@ -31,7 +32,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
             <Card.Body>
               <Navbar>
                 サイトタイトル
-                <PencilAquareIcon width={20} height={20} fill={'#0000FF'} />
+                <PencilSquareIcon width={20} height={20} fill={'#0000FF'} />
               </Navbar>            
               {pageContent.map((page, i) =>
                 {          
@@ -88,13 +89,14 @@ const CreateHomepageTemplate = (): JSX.Element => {
                       </Row>
                       )
                     case BLOCK_TYPE.EXTERNAL_LINKS:
-                      return (
+                      return [
                         (page.blockState as ExternalLinkBlockStateType).content.map((block, i) => {
                           return (
                             <a href={block.url} className="list-group-item list-group-item-action" target="_blank" rel="noreferrer" key={i}>{block.text}</a>
                           )
-                        }
-                      ))
+                        }),
+                        <a key={i}><TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>ブロックを削除</a>
+                      ]
                     default:
                       console.log('invalid block')
                   }
