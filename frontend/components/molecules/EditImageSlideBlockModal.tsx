@@ -78,17 +78,21 @@ const EditImageSlideBlockModal = (): JSX.Element => {
         </div>
         <h4>プレビュー</h4>
         <Carousel>
-          <Carousel.Item>
-            <img
-              className='d-block w-100'
-              src='/images/wait_training.jpg'
-              alt='First slide'
-            />
-            <Carousel.Caption>
-              <h3>見出し</h3>
-              <p>本文</p>
-            </Carousel.Caption>
-          </Carousel.Item>    
+          {imageSlide != undefined && imageSlide.imageSlide.map((slide, i) => {
+            return (
+              <Carousel.Item key={i}>
+                <img
+                  className='d-block w-100'
+                  src={slide.image}
+                  alt={slide + String(i)}
+                />
+                <Carousel.Caption>
+                  <h3>{slide.title}</h3>
+                  <p>{slide.text}</p>
+                </Carousel.Caption>
+              </Carousel.Item>
+            )
+          })}
         </Carousel>
       </Modal.Body>
       <Modal.Footer>
