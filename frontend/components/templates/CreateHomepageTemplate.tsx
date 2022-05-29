@@ -48,7 +48,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                             {((page.blockState) as HeadingBlockState).size === 5 && <h5>{((page.blockState) as HeadingBlockState).text}</h5>}
                             {((page.blockState) as HeadingBlockState).size === 6 && <h6>{((page.blockState) as HeadingBlockState).text}</h6>}
                           </div>
-                          <UpdateBlockStateIcons></UpdateBlockStateIcons>
+                          <UpdateBlockStateIcons blockID={page.blockID} sortOrder={page.sortOrder}></UpdateBlockStateIcons>
                         </>
                       )
                     case BLOCK_TYPE.IMAGE_SLIDE:
@@ -71,7 +71,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                               )
                             })}
                           </Carousel>
-                          <UpdateBlockStateIcons></UpdateBlockStateIcons>
+                          <UpdateBlockStateIcons blockID={page.blockID} sortOrder={page.sortOrder}></UpdateBlockStateIcons>
                         </>
                     )
                     case BLOCK_TYPE.TEXT_IMAGE:
@@ -92,7 +92,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                             />
                             </Col>
                           </Row>
-                          <UpdateBlockStateIcons></UpdateBlockStateIcons>
+                          <UpdateBlockStateIcons blockID={page.blockID} sortOrder={page.sortOrder}></UpdateBlockStateIcons>
                         </>
                       )
                     case BLOCK_TYPE.EXTERNAL_LINKS:
@@ -102,7 +102,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                             <a href={block.url} className="list-group-item list-group-item-action" target="_blank" rel="noreferrer" key={i}>{block.text}</a>
                           )
                         }),
-                        <UpdateBlockStateIcons key={i}></UpdateBlockStateIcons>
+                        <UpdateBlockStateIcons blockID={page.blockID} sortOrder={page.sortOrder} key={i}></UpdateBlockStateIcons>
                       ]
                     default:
                       console.log('invalid block')

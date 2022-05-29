@@ -2,8 +2,9 @@ import React from 'react'
 import CaretUpSquare from '../atoms/CaretUpSquare'
 import CaretDownSquare from '../atoms/CaretDownSquare'
 import TrashIcon from '../atoms/TrashIcon'
+import { UpdateBlockStateIconsProps } from '../../interfaces/UpdateBlockStateIconsProps'
 
-const UpdateBlockStateIcons = (): JSX.Element => {
+const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProps): JSX.Element => {
   return (
     <>
       <a className='mr10 color-black none-under-decoration'><CaretUpSquare width={20} height={20} fill={'#5AFF19'}></CaretUpSquare>上に移動</a>
