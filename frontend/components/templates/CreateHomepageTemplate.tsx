@@ -35,7 +35,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                 <PencilSquareIcon width={20} height={20} fill={'#0000FF'} />
               </Navbar>            
               {pageContent.map((page, i) =>
-                {          
+                {
                   switch (page.blockType) {
                     case BLOCK_TYPE.HEADING:
                       return (

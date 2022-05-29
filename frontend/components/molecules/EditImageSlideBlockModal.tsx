@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Carousel, Row, Col, Modal, Form } from 'react-bootstrap'
-import { showBlockModalChanged, blockTypeChanged, pageContentChanged } from '../../redux/homepageSlice'
+import { showBlockModalChanged, blockTypeChanged, pageContentChanged, currentMaxSortOrderChanged } from '../../redux/homepageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
@@ -44,6 +44,7 @@ const EditImageSlideBlockModal = (): JSX.Element => {
     }
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))
+    dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
   }
 
   return (

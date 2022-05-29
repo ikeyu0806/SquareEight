@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
-import { pageContentChanged, showBlockModalChanged, blockTypeChanged } from '../../redux/homepageSlice'
+import { pageContentChanged, showBlockModalChanged, blockTypeChanged, currentMaxSortOrderChanged } from '../../redux/homepageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
@@ -32,6 +32,7 @@ const EditExternalLinksModal = (): JSX.Element => {
     dispatch(pageContentChanged(updatePageContentState))
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))
+    dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
   }
 
   return (
