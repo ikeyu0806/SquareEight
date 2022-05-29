@@ -24,7 +24,7 @@ const EditExternalLinksModal = (): JSX.Element => {
 
   const completeEdit = () => {
     let updatePageContentState: PageContentState[]
-    updatePageContentState = [...pageContent, {blockType: 'externalLinks', blockState: {content: blockContent}}]
+    updatePageContentState = [...pageContent, {blockID: new Date().getTime().toString(16),  blockType: 'externalLinks', blockState: {content: blockContent}}]
     dispatch(pageContentChanged(updatePageContentState))
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))

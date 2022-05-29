@@ -22,7 +22,7 @@ const EditTextImageBlockModal = (): JSX.Element => {
 
   const completeEdit = () => {
     let updatePageContentState: PageContentState[]
-    updatePageContentState = [...pageContent, {blockType: 'textImage', blockState: { title: title, text: text, image: image }}]
+    updatePageContentState = [...pageContent, {blockID: new Date().getTime().toString(16), blockType: 'textImage', blockState: { title: title, text: text, image: image }}]
     dispatch(pageContentChanged(updatePageContentState))
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))

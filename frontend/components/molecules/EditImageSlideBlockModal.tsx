@@ -35,7 +35,7 @@ const EditImageSlideBlockModal = (): JSX.Element => {
   const completeEdit = () => {
     let updatePageContentState: PageContentState[]
     if (imageSlide !== undefined) {
-      updatePageContentState = [...pageContent, {blockType: 'imageSlide', blockState: imageSlide }]
+      updatePageContentState = [...pageContent, {blockID: new Date().getTime().toString(16), blockType: 'imageSlide', blockState: imageSlide }]
       dispatch(pageContentChanged(updatePageContentState))
     }
     dispatch(showBlockModalChanged(false))

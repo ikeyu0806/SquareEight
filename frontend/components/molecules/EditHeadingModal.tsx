@@ -18,7 +18,7 @@ const EditHeadingModal = (): JSX.Element => {
 
   const completeEdit = () => {
     let updatePageContentState: PageContentState[]
-    updatePageContentState = [...pageContent, {blockType: BLOCK_TYPE.HEADING, blockState: { text: inputHeading, placement: placement, size: headingSize }}]
+    updatePageContentState = [...pageContent, {blockID: new Date().getTime().toString(16), blockType: BLOCK_TYPE.HEADING, blockState: { text: inputHeading, placement: placement, size: headingSize }}]
     dispatch(pageContentChanged(updatePageContentState))
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))

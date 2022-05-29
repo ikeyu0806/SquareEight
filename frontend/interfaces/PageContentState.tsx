@@ -8,5 +8,5 @@ export type PageContentState = {
   blockID: string
   blockType: string
   blockState: ExternalLinkBlockStateType | TextImageBlockStateType | HeadingBlockState | ImageSlideState
-  sortOrder: number
+  sortOrder?: number
 }
