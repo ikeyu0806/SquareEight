@@ -39,7 +39,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                   switch (page.blockType) {
                     case BLOCK_TYPE.HEADING:
                       return (
-                        <>
+                        <span key={i}>
                           <div className={((page.blockState) as HeadingBlockState).placement === 'left' ? 'text-left' : ((page.blockState) as HeadingBlockState).placement === 'center' ? 'text-center' : 'text-right'}>
                             {((page.blockState) as HeadingBlockState).size === 1 && <h1>{((page.blockState) as HeadingBlockState).text}</h1>}
                             {((page.blockState) as HeadingBlockState).size === 2 && <h2>{((page.blockState) as HeadingBlockState).text}</h2>}
@@ -49,7 +49,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                             {((page.blockState) as HeadingBlockState).size === 6 && <h6>{((page.blockState) as HeadingBlockState).text}</h6>}
                           </div>
                           <UpdateBlockStateIcons blockID={page.blockID} sortOrder={page.sortOrder}></UpdateBlockStateIcons>
-                        </>
+                        </span>
                       )
                     case BLOCK_TYPE.IMAGE_SLIDE:
                       return (
