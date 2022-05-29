@@ -23,7 +23,7 @@ const EditHeadingModal = (): JSX.Element => {
                                                 blockType: BLOCK_TYPE.HEADING,
                                                 blockState: { text: inputHeading, placement: placement, size: headingSize },
                                                 sortOrder: currentMaxSortOrder + 1 }]
-    dispatch(pageContentChanged(updatePageContentState))
+    dispatch(pageContentChanged(updatePageContentState.sort(function(a, b) { return a.sortOrder < b.sortOrder ? -1 : 1 })))
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))
     dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))

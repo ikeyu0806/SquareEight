@@ -26,7 +26,7 @@ const EditTextImageBlockModal = (): JSX.Element => {
                                                 blockType: 'textImage',
                                                 blockState: { title: title, text: text, image: image },
                                                 sortOrder: currentMaxSortOrder + 1 }]
-    dispatch(pageContentChanged(updatePageContentState))
+    dispatch(pageContentChanged(updatePageContentState.sort(function(a, b) { return a.sortOrder < b.sortOrder ? -1 : 1 })))
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))
     dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))

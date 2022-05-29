@@ -93,9 +93,17 @@ a {
   text-decoration: none;
 }
 
+.color-black {
+  color: black;
+}
+
 .link-text {
   color: blue;
   text-decoration: underline;
+}
+
+.none-under-decoration {
+  text-decoration:none;
 }
 
 .bg-lightgreen {

@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Card, Row, Col, Navbar, Carousel } from 'react-bootstrap'
 import PencilSquareIcon from '../atoms/PencilSquareIcon'
 import PlusCircleIcon from '../../components/atoms/PlusCircleIcon'
-import TrashIcon from '../atoms/TrashIcon'
+import UpdateBlockStateIcons from '../organisms/UpdateBlockStateIcons'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { showBlockModalChanged } from '../../redux/homepageSlice'
@@ -48,7 +48,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                             {((page.blockState) as HeadingBlockState).size === 5 && <h5>{((page.blockState) as HeadingBlockState).text}</h5>}
                             {((page.blockState) as HeadingBlockState).size === 6 && <h6>{((page.blockState) as HeadingBlockState).text}</h6>}
                           </div>
-                          <a key={i}><TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>ブロックを削除</a>
+                          <UpdateBlockStateIcons></UpdateBlockStateIcons>
                         </>
                       )
                     case BLOCK_TYPE.IMAGE_SLIDE:
@@ -71,7 +71,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                               )
                             })}
                           </Carousel>
-                          <a key={i}><TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>ブロックを削除</a>
+                          <UpdateBlockStateIcons></UpdateBlockStateIcons>
                         </>
                     )
                     case BLOCK_TYPE.TEXT_IMAGE:
@@ -92,7 +92,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                             />
                             </Col>
                           </Row>
-                          <a><TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>ブロックを削除</a>
+                          <UpdateBlockStateIcons></UpdateBlockStateIcons>
                         </>
                       )
                     case BLOCK_TYPE.EXTERNAL_LINKS:
@@ -102,7 +102,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                             <a href={block.url} className="list-group-item list-group-item-action" target="_blank" rel="noreferrer" key={i}>{block.text}</a>
                           )
                         }),
-                        <a key={i}><TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>ブロックを削除</a>
+                        <UpdateBlockStateIcons key={i}></UpdateBlockStateIcons>
                       ]
                     default:
                       console.log('invalid block')
