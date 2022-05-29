@@ -14,6 +14,7 @@ const EditImageSlideBlockModal = (): JSX.Element => {
   const [text, setText] = useState('')
   const [imageSlideChild, setImageSlideChild] = useState<ImageSlideChildState>({title: title, text: text, image: image})
   const [imageSlide, setImageSlide] = useState<ImageSlideState>()
+  const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
 
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
 
@@ -35,7 +36,10 @@ const EditImageSlideBlockModal = (): JSX.Element => {
   const completeEdit = () => {
     let updatePageContentState: PageContentState[]
     if (imageSlide !== undefined) {
-      updatePageContentState = [...pageContent, {blockID: new Date().getTime().toString(16), blockType: 'imageSlide', blockState: imageSlide }]
+      updatePageContentState = [...pageContent, { blockID: new Date().getTime().toString(16),
+                                                  blockType: 'imageSlide',
+                                                  blockState: imageSlide,
+                                                  sortOrder: currentMaxSortOrder + 1 }]
       dispatch(pageContentChanged(updatePageContentState))
     }
     dispatch(showBlockModalChanged(false))

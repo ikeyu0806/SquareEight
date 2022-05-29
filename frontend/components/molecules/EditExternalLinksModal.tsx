@@ -13,10 +13,11 @@ const EditExternalLinksModal = (): JSX.Element => {
   const [inputLink, setInputLink] = useState('')
   const [blockContent, setBlockContent] = useState<ExternalLinkBlockContentStateType[]>([])
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+  const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
   
   const onClickAddLinkButton = () => {
     let updateBlockContent: ExternalLinkBlockContentStateType[]
-    updateBlockContent = [...blockContent, {text: inputLinkText, url: inputLink}]
+    updateBlockContent = [...blockContent, {text: inputLinkText, url: inputLink }]
     setBlockContent(updateBlockContent)
     setInputLinkText('')
     setInputLink('')
@@ -24,7 +25,10 @@ const EditExternalLinksModal = (): JSX.Element => {
 
   const completeEdit = () => {
     let updatePageContentState: PageContentState[]
-    updatePageContentState = [...pageContent, {blockID: new Date().getTime().toString(16),  blockType: 'externalLinks', blockState: {content: blockContent}}]
+    updatePageContentState = [...pageContent, { blockID: new Date().getTime().toString(16),
+                                                blockType: 'externalLinks',
+                                                blockState: {content: blockContent},
+                                                sortOrder: currentMaxSortOrder + 1}]
     dispatch(pageContentChanged(updatePageContentState))
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))

@@ -11,7 +11,7 @@ const EditTextImageBlockModal = (): JSX.Element => {
   const [image, setImage] = useState('/images/noimage.jpeg')
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
-
+  const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
 
 
@@ -22,7 +22,10 @@ const EditTextImageBlockModal = (): JSX.Element => {
 
   const completeEdit = () => {
     let updatePageContentState: PageContentState[]
-    updatePageContentState = [...pageContent, {blockID: new Date().getTime().toString(16), blockType: 'textImage', blockState: { title: title, text: text, image: image }}]
+    updatePageContentState = [...pageContent, { blockID: new Date().getTime().toString(16),
+                                                blockType: 'textImage',
+                                                blockState: { title: title, text: text, image: image },
+                                                sortOrder: currentMaxSortOrder + 1 }]
     dispatch(pageContentChanged(updatePageContentState))
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))

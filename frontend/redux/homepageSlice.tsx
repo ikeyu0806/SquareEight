@@ -11,6 +11,7 @@ export const homepageSlice = createSlice({
     headerTitle: '',
     footerCopyright: '',
     showBlockModal: false,
+    currentMaxSortOrder: 0,
   },
   reducers: {
     pageContentChanged: (state, action: PayloadAction<PageContentState[]>) => {
@@ -34,6 +35,9 @@ export const homepageSlice = createSlice({
     showBlockModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showBlockModal = action.payload
     },
+    currentMaxSortOrderChanged: (state, action: PayloadAction<number>) => {
+      state.currentMaxSortOrder = action.payload
+    },
   },
 })
 
@@ -44,5 +48,6 @@ export const { blockTypeChanged } = homepageSlice.actions
 export const { headerTitleChanged } = homepageSlice.actions
 export const { footerCopyrightChanged } = homepageSlice.actions
 export const { showBlockModalChanged } = homepageSlice.actions
+export const { currentMaxSortOrderChanged } = homepageSlice.actions
 
 export default homepageSlice.reducer

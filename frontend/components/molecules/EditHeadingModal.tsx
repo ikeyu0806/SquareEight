@@ -15,10 +15,14 @@ const EditHeadingModal = (): JSX.Element => {
   const [headingSize, setHeadingSize] = useState<headingSizeType>(1)
   const [blockContent, setBlockContent] = useState<HeadingBlockState>()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+  const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
 
   const completeEdit = () => {
     let updatePageContentState: PageContentState[]
-    updatePageContentState = [...pageContent, {blockID: new Date().getTime().toString(16), blockType: BLOCK_TYPE.HEADING, blockState: { text: inputHeading, placement: placement, size: headingSize }}]
+    updatePageContentState = [...pageContent, { blockID: new Date().getTime().toString(16),
+                                                blockType: BLOCK_TYPE.HEADING,
+                                                blockState: { text: inputHeading, placement: placement, size: headingSize },
+                                                sortOrder: currentMaxSortOrder + 1 }]
     dispatch(pageContentChanged(updatePageContentState))
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))
