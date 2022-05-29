@@ -5,7 +5,7 @@ import { HeadingBlockState } from './HeadingBlockState'
 import { ImageSlideState } from './ImageSlideState'
 
 export type PageContentState = {
-  blockID: number
+  blockID: string
   blockType: string
   blockState: ExternalLinkBlockStateType | TextImageBlockStateType | HeadingBlockState | ImageSlideState
   sortOrder: number

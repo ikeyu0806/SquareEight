@@ -48,45 +48,52 @@ const CreateHomepageTemplate = (): JSX.Element => {
                             {((page.blockState) as HeadingBlockState).size === 5 && <h5>{((page.blockState) as HeadingBlockState).text}</h5>}
                             {((page.blockState) as HeadingBlockState).size === 6 && <h6>{((page.blockState) as HeadingBlockState).text}</h6>}
                           </div>
+                          <a key={i}><TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>ブロックを削除</a>
                         </>
                       )
                     case BLOCK_TYPE.IMAGE_SLIDE:
                       return (
-                        <Carousel>
-                        {(page.blockState as ImageSlideState).imageSlide != undefined && (page.blockState as ImageSlideState).imageSlide.map((slide, i) => {
-                          return (
-                            <Carousel.Item key={i}>
-                              <img
-                                className='d-block w-100'
-                                src={slide.image}
-                                alt={slide + String(i)}
-                              />
-                              <Carousel.Caption>
-                                <h3>{slide.title}</h3>
-                                <p>{slide.text}</p>
-                              </Carousel.Caption>
-                            </Carousel.Item>
-                          )
-                        })}
-                      </Carousel>
-                      )
+                        <>
+                          <Carousel key={i}>
+                            {(page.blockState as ImageSlideState).imageSlide != undefined && (page.blockState as ImageSlideState).imageSlide.map((slide, i) => {
+                              return (
+                                <Carousel.Item key={i}>
+                                  <img
+                                    className='d-block w-100'
+                                    src={slide.image}
+                                    alt={slide + String(i)}
+                                  />
+                                  <Carousel.Caption>
+                                    <h3>{slide.title}</h3>
+                                    <p>{slide.text}</p>
+                                  </Carousel.Caption>
+                                </Carousel.Item>
+                              )
+                            })}
+                          </Carousel>
+                          <a key={i}><TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>ブロックを削除</a>
+                        </>
+                    )
                     case BLOCK_TYPE.TEXT_IMAGE:
                       return (
-                        <Row className='mt10 mb10'>
-                        <Col>
-                          <h2>{(page.blockState as TextImageBlockStateType).title}</h2>
-                          <div>
-                            {(page.blockState as TextImageBlockStateType).text}
-                          </div>
-                        </Col>
-                        <Col>
-                        <img
-                          className='d-block w-100'
-                          src={(page.blockState as TextImageBlockStateType).image}
-                          alt='image'
-                        />
-                        </Col>
-                      </Row>
+                        <>
+                          <Row className='mt10 mb10'>
+                            <Col>
+                              <h2>{(page.blockState as TextImageBlockStateType).title}</h2>
+                              <div>
+                                {(page.blockState as TextImageBlockStateType).text}
+                              </div>
+                            </Col>
+                            <Col>
+                            <img
+                              className='d-block w-100'
+                              src={(page.blockState as TextImageBlockStateType).image}
+                              alt='image'
+                            />
+                            </Col>
+                          </Row>
+                          <a><TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>ブロックを削除</a>
+                        </>
                       )
                     case BLOCK_TYPE.EXTERNAL_LINKS:
                       return [
