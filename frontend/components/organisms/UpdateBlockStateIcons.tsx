@@ -40,7 +40,30 @@ const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProp
   }
 
   const moveDownBlock = () => {
-
+    let updatePageContentState: PageContentState[]
+    const incrementSortOrder = sortOrder + 1
+    let moveUpPageContent = pageContent.find(content => content.sortOrder === sortOrder)
+    let moveDownPageContent = pageContent.find(content => content.sortOrder === incrementSortOrder)
+    updatePageContentState = pageContent.filter(content => content.sortOrder !== sortOrder)
+    updatePageContentState = updatePageContentState.filter(content => content.sortOrder !== incrementSortOrder)
+    dispatch(pageContentChanged(updatePageContentState))
+    if (moveUpPageContent !== undefined) {
+      let updateMoveUpPageContent = { blockID: moveUpPageContent.blockID,
+                                        blockType: moveUpPageContent.blockType,
+                                        blockState: moveUpPageContent.blockState,
+                                        sortOrder: incrementSortOrder
+                                      }
+      updatePageContentState = [...updatePageContentState, updateMoveUpPageContent]
+    }
+    if (moveDownPageContent !== undefined) {
+      let updateMoveUpPageContent = { blockID: moveDownPageContent.blockID,
+                                      blockType: moveDownPageContent.blockType,
+                                      blockState: moveDownPageContent.blockState,
+                                      sortOrder: sortOrder
+                                    }
+      updatePageContentState = [...updatePageContentState, updateMoveUpPageContent]
+    }
+    dispatch(pageContentChanged(updatePageContentState.sort(function(a, b) { return a.sortOrder < b.sortOrder ? -1 : 1 })))
   }
 
   const deleteBlock = () => {
