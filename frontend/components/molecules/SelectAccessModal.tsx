@@ -1,21 +1,27 @@
 import React from 'react'
-import { Card, Form, Button } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import { selectedBlockTypeChanged } from '../../redux/homepageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
+import { BLOCK_TYPE } from '../../constants/blockType'
 
 const SelectAccessModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const showBlockSample = useSelector((state: RootState) => state.homepage.showBlockSample)
+  const selectedBlockType = useSelector((state: RootState) => state.homepage.selectedBlockType)
 
   return (
-    <Card>
-      <Card.Body>
-        <input className='form-check-input mr10' type='radio' />
-        <span>アクセス案内</span>
-        <div className='mt10'>Google Mapでアクセス案内を設置できます</div>
-      </Card.Body>
-    </Card>
+    <div onClick={() => dispatch(selectedBlockTypeChanged(BLOCK_TYPE.ACCESS))}>
+      <Card>
+        <Card.Body>
+          <input className='form-check-input mr10'
+                 type='radio'
+                 checked={selectedBlockType === BLOCK_TYPE.ACCESS} />
+          <span>アクセス案内</span>
+          <div className='mt10'>Google Mapでアクセス案内を設置できます</div>
+        </Card.Body>
+      </Card>
+    </div>
   )
 }
 
