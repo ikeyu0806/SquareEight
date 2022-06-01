@@ -13,6 +13,22 @@ services:
       - 3111:3000
     networks:
       - smartlesson_network
-
+  smartlesson_rails_api:
+    container_name: smartlesson_rails_api
+    build:
+      context: rails_api
+      dockerfile: docker/app/Dockerfile
+    env_file: ./rails_api/docker/docker_local.env
+    command: bash -c "/app/rails/docker/app/docker_rails_init_dev.sh"
+    volumes:
+      - ./rails_api:/app/rails
+    tty: true
+    stdin_open: true
+    ports:
+      - 3222:3000
+    # depends_on:
+    #   - goocoid_postgresql
+    networks:
+      - smartlesson_network
 networks:
   smartlesson_network:
