@@ -43,7 +43,11 @@ const Home: NextPage = () => {
             <h4>ホームページ作成、予約管理、決済、顧客とのコミュニケーションをサポートします</h4>
           </Col>
           <Col>
-            <img src='/images/use_pc_woman.jpg' alt='use_pc_woman'></img>
+            <img src='/images/classroom.jpg'
+                 alt='ビジネス運営をサポート'
+                 width='100%'
+                 height='100%'>
+            </img>
           </Col>
         </Row>
         &thinsp;

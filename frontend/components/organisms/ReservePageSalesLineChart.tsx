@@ -29,24 +29,24 @@ export const options = {
     },
     title: {
       display: true,
-      text: 'Chart.js Line Chart',
+      text: '予約ページごと週間売り上げ',
     },
   },
 }
 
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July']
+const labels = ['1日', '2日', '3日', '4日', '5日', '6日', '7日']
 
 export const data = {
   labels,
   datasets: [
     {
-      label: 'Dataset 1',
+      label: '筋トレメソッド',
       data: [100, 300, 700, 400, 200, 300, 200],
       borderColor: 'rgb(255, 99, 132)',
       backgroundColor: 'rgba(255, 99, 132, 0.5)',
     },
     {
-      label: 'Dataset 2',
+      label: 'ボディリメイク',
       data: [400, 500, 200, 900, 600, 900, 1000],
       borderColor: 'rgb(53, 162, 235)',
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
@@ -54,10 +54,10 @@ export const data = {
   ],
 }
 
-const SalesLineChart = (): JSX.Element => {
+const ReservePageSalesLineChart = (): JSX.Element => {
   return (
     <Line options={options} data={data} />
   )
 }
 
-export default SalesLineChart
+export default ReservePageSalesLineChart

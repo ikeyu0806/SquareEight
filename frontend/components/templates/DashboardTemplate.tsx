@@ -1,6 +1,7 @@
 import React from 'react'
 import  { Container, Row, Col, ListGroup, Button } from 'react-bootstrap'
-import SalesLineChart from '../organisms/SalesLineChart'
+import ReservePageSalesLineChart from '../organisms/ReservePageSalesLineChart'
+import MonthlyPaymentTicketLineChart from '../organisms/MonthlyPaymentTicketLineChart'
 
 const DashboardTemplate = (): JSX.Element => {
   return (
@@ -12,16 +13,16 @@ const DashboardTemplate = (): JSX.Element => {
               通知一覧
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              1月1日 12:00からhogeさんの予約が入っています
+              8月2日 12:00から筋トレメソッドに3名の予約が入っています
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              hogeさんが100回回数券 10000円を購入しました。
+              池谷さんが100回回数券 10000円を購入しました。
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              hogeさんが隔週予約プランを購入しました。
+              池谷さんが隔週受講プランに加入しました。 
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              1月1日 12:00からhogeさんの予約が入っています
+              8月1日 12:00からボディメイクに3名の予約が入っています
             </ListGroup.Item>
           </ListGroup>
           <div className='text-center mt10'>
@@ -31,19 +32,19 @@ const DashboardTemplate = (): JSX.Element => {
         <Col>
           <ListGroup as="ul">
             <ListGroup.Item as="li" active>
-              運営企業からのお知らせ
+              運営からのお知らせ
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              ホームページをプロに依頼
+              ホームページ作成をプロに依頼しませんか？
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              hoge機能をリリースしました
+              ホームページへの住所追加機能をリリースしました
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              hoge機能をリリースしました
+              回数券機能をリリースしました
             </ListGroup.Item>
             <ListGroup.Item as="li">
-              hoge機能をリリースしました
+              顧客メモ機能をリリースしました
             </ListGroup.Item>
             <div className='text-center mt10'>
               <Button>もっと見る</Button>
@@ -54,10 +55,10 @@ const DashboardTemplate = (): JSX.Element => {
       <br />
       <Row>
         <Col>
-          <SalesLineChart></SalesLineChart>
+          <ReservePageSalesLineChart></ReservePageSalesLineChart>
         </Col>
         <Col>
-          <SalesLineChart></SalesLineChart>
+          <MonthlyPaymentTicketLineChart></MonthlyPaymentTicketLineChart>
         </Col>
       </Row>
     </Container>
