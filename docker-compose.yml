@@ -27,7 +27,19 @@ services:
     ports:
       - 3222:3000
     # depends_on:
-    #   - goocoid_postgresql
+    #   - smartlesson_postgresql
+    networks:
+      - smartlesson_network
+  smartlesson_postgresql:
+    container_name: smartlesson_postgresql
+    build:
+      context: rails_api
+      dockerfile: docker/postgresql/Dockerfile
+    env_file: ./rails_api/docker/docker_local.env
+    volumes:
+      - ./rails_api/cache/postgres/data:/var/lib/postgresql/data
+    ports:
+      - "54322:5432"
     networks:
       - smartlesson_network
 networks:
