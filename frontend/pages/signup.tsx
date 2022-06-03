@@ -12,11 +12,23 @@ const Signup: NextPage = () => {
 
   const onSubmit = () => {
     axios.post(
-      `${process.env.BACKEND_URL}/api/internal/session`,
+      `${process.env.BACKEND_URL}/api/internal/users`,
       {
-        
+        businessName: businessName,
+        email: email,
+        password: password
       }
     )
+    .then(res => {
+      console.log({res})
+    })
+    .catch(error => {
+      console.log({error})
+    })
+  }
+
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
   }
 
   return (
@@ -29,7 +41,7 @@ const Signup: NextPage = () => {
             <Card>
               <Card.Header>ユーザ登録</Card.Header>
               <Card.Body>
-                <Form>
+                <Form onSubmit={handleSubmit}>
                   <Form.Group className='mb-3' controlId='formEmail'>
                       <Form.Label>ビジネス名称</Form.Label>
                       <Form.Control type='text'
@@ -60,8 +72,6 @@ const Signup: NextPage = () => {
                   </Form.Group>
                   <div className='text-center'>
                     <Button variant='primary'
-                            type='submit'
-                            href='/introduction/services'
                             onClick={onSubmit}>
                       送信
                     </Button>

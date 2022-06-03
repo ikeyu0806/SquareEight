@@ -11,4 +11,7 @@ const withTM = require('next-transpile-modules')([
 
 module.exports = withTM({
   reactStrictMode: true,
+  env: {
+    ...require(`./config/${process.env.APP_ENV || 'local'}.json`),
+  },
 })

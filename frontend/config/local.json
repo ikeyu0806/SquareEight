@@ -1,0 +1,4 @@
+{
+  "FRONTEND_URL": "http://localhost:3111",
+  "BACKEND_URL": "http://localhost:3222"
+}
