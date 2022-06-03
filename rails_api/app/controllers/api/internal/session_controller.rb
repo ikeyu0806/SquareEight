@@ -6,8 +6,8 @@ class Api::Internal::SessionsController < ApplicationController
                    email: user.email,
                    user: user,
                    error: nil }, status: 200
-  rescue => e
-    render json: { statue: 'fail', error: e }, status: 401
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 401
   end
 
   def destroy

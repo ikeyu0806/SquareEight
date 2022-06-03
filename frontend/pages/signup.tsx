@@ -14,9 +14,11 @@ const Signup: NextPage = () => {
     axios.post(
       `${process.env.BACKEND_URL}/api/internal/users`,
       {
-        businessName: businessName,
-        email: email,
-        password: password
+        user: {
+          email: email,
+          password: password,
+          password_confirmation: confirmPassword
+        }
       }
     )
     .then(res => {

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     namespace :internal do
       post 'sessions', to: 'sessions#create'
       post 'users', to: 'users#create'
+      post 'users', to: 'users#signup'
     end
   end
 end

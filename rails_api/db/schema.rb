@@ -21,10 +21,11 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_022017) do
   end
 
   create_table "users", force: :cascade do |t|
+    t.integer "account_id", comment: "アカウントID"
     t.string "email", null: false, comment: "Email"
     t.string "name", comment: "名前"
     t.string "name_kana", comment: "名前カナ"
-    t.string "encrypted_password", comment: "ハッシュ化パスワード"
+    t.string "password_digest", comment: "ハッシュ化パスワード"
     t.integer "authority_category", default: 0, comment: "権限区分"
     t.boolean "is_introduction_complete", comment: "イントロダクション終了状況"
     t.string "verification_code", comment: "検証コード"
