@@ -13,7 +13,7 @@ class Api::Internal::UsersController < ApplicationController
       user.password = user_params[:password]
       user.save!
       encode_email = Base64.urlsafe_encode64(user.email)
-      UserMailer.send_verification_code(user.email, encode_email, user.verification_code)
+      UserMailer.send_verification_code(user.email, encode_email, user.verification_code).deliver_later
     end
     render json: { status: 'success' }, states: 200
   rescue => error
