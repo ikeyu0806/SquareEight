@@ -1,8 +1,14 @@
+import React, { useState } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
 import IntroductionNavbar from '../components/atoms/IntroductionNavbar'
 
 const Signup: NextPage = () => {
+  const [businessName, setBusinessName] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
+  const [confirmPassword, setConfirmPassword] = useState('')
+
   return (
     <>
       <IntroductionNavbar />
@@ -16,21 +22,28 @@ const Signup: NextPage = () => {
                 <Form>
                   <Form.Group className='mb-3' controlId='formEmail'>
                       <Form.Label>ビジネス名称</Form.Label>
-                      <Form.Control type='text' placeholder='企業名、店舗名、教室名など' />
+                      <Form.Control type='text'
+                                    placeholder='企業名、店舗名、教室名など' 
+                                    onChange={(e) => setBusinessName(e.target.value)}/>
                       <Form.Text className='text-muted'></Form.Text>
                     </Form.Group>
                   <Form.Group className='mb-3' controlId='formEmail'>
                     <Form.Label>メールアドレス</Form.Label>
-                    <Form.Control type='email' placeholder='必須' />
+                    <Form.Control type='email'
+                                  placeholder='必須'
+                                  onChange={(e) => setEmail(e.target.value)}/>
                     <Form.Text className='text-muted'></Form.Text>
                   </Form.Group>
                   <Form.Group className='mb-3' controlId='formPassword'>
                     <Form.Label>パスワード</Form.Label>
-                    <Form.Control type='password' placeholder='必須' />
+                    <Form.Control type='password'
+                                  placeholder='必須'
+                                  onChange={(e) => setPassword(e.target.value)}/>
                   </Form.Group>
                   <Form.Group className='mb-3' controlId='formPassword'>
                     <Form.Label>パスワード(確認)</Form.Label>
-                    <Form.Control type='password' />
+                    <Form.Control type='password'
+                                  onChange={(e) => setConfirmPassword(e.target.value)}/>
                   </Form.Group>
                   <Form.Group className='mb-3' controlId='formBasicCheckbox'>
                     <Form.Check type='checkbox' label='プライバシーポリシーに同意しました' />
