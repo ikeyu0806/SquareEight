@@ -2,12 +2,22 @@ import React, { useState } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
 import IntroductionNavbar from '../components/atoms/IntroductionNavbar'
+import axios from 'axios'
 
 const Signup: NextPage = () => {
   const [businessName, setBusinessName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+
+  const onSubmit = () => {
+    axios.post(
+      `${process.env.BACKEND_URL}/api/internal/session`,
+      {
+        
+      }
+    )
+  }
 
   return (
     <>
@@ -49,7 +59,10 @@ const Signup: NextPage = () => {
                     <Form.Check type='checkbox' label='プライバシーポリシーに同意しました' />
                   </Form.Group>
                   <div className='text-center'>
-                    <Button variant='primary' type='submit' href='/introduction/services'>
+                    <Button variant='primary'
+                            type='submit'
+                            href='/introduction/services'
+                            onClick={onSubmit}>
                       送信
                     </Button>
                   </div>
