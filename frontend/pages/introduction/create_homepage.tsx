@@ -4,6 +4,7 @@ import IntroductionNavbar from '../../components/atoms/IntroductionNavbar'
 import { useRouter } from 'next/router'
 import { Button, Container, Card, Row, Col, Carousel, Navbar, Modal } from 'react-bootstrap'
 import CreateHomepageTemplate from '../../components/templates/CreateHomepageTemplate'
+import RegularFooter from '../../components/organisms/RegularFooter'
 
 const CreateHomepage: NextPage = () => {
   const router = useRouter()
@@ -35,6 +36,7 @@ const CreateHomepage: NextPage = () => {
         <Col></Col>
         <Col></Col>
       </Row>
+      <RegularFooter></RegularFooter>
     </>
   )
 }

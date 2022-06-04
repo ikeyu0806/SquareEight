@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
 import IntroductionNavbar from '../components/atoms/IntroductionNavbar'
+import RegularFooter from '../components/organisms/RegularFooter'
 
 const Login: NextPage = () => {
   return (
@@ -38,6 +39,7 @@ const Login: NextPage = () => {
           <Col></Col>
         </Row>
       </Container>
+      <RegularFooter></RegularFooter>
     </>
   )
 }

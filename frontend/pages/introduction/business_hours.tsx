@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import IntroductionNavbar from '../../components/atoms/IntroductionNavbar'
 import EditBusinessHours from '../../components/templates/EditBusinessHours'
+import RegularFooter from '../../components/organisms/RegularFooter'
 import { Row, Col, Button } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 
@@ -32,6 +33,7 @@ const BusinessHours: NextPage = () => {
         <Col></Col>
       </Row>
       <br />
+      <RegularFooter></RegularFooter>
     </>
   )
 }

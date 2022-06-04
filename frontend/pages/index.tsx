@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import React from 'react'
 import FeaturesTemplates from '../components/templates/FeaturesTemplates'
+import RegularFooter from '../components/organisms/RegularFooter'
 import CheckIcon from '../components/atoms/CheckIcon'
 import { Container,
          Navbar,
@@ -139,10 +140,7 @@ const Home: NextPage = () => {
             &thinsp;
         </div>
       </Container>
-      <footer className='content text-center'>
-        <hr />
-        {/* <p className='footer-margin'>Copyright <a href='https://goodcycle.net/' target='_blank' rel='noreferrer'></a> {new Date().getFullYear()}</p> */}
-      </footer>  
+      <RegularFooter></RegularFooter>
     </>
 
   )

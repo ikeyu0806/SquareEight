@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { Container, Button, Row, Col, Form } from 'react-bootstrap'
+import RegularFooter from '../../../components/organisms/RegularFooter'
 
 const PaymentMethod: NextPage = () => {
   return (
@@ -36,6 +37,7 @@ const PaymentMethod: NextPage = () => {
           <Col></Col>
         </Row>
       </Container>
+      <RegularFooter></RegularFooter>
     </>
   )
 }

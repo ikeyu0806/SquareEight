@@ -3,6 +3,7 @@ import type { NextPage } from 'next'
 import IntroductionNavbar from '../../components/atoms/IntroductionNavbar'
 import { Container, Table, Button, FormControl, Row, Col, Modal, Form } from 'react-bootstrap'
 import { useRouter } from 'next/router'
+import RegularFooter from '../../components/organisms/RegularFooter'
 
 const TIcket: NextPage = () => {
   const router = useRouter()
@@ -123,6 +124,7 @@ const TIcket: NextPage = () => {
         </Col>
         <Col></Col>
       </Row>
+      <RegularFooter></RegularFooter>
     </>
   )
 }
