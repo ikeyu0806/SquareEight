@@ -6,7 +6,6 @@ const RegularFooter = (): JSX.Element => {
       <hr />
       <p className='footer-margin'>Copyright SmartLesson {new Date().getFullYear()}</p>
     </footer>
-
   )
 }
 

@@ -1,5 +1,7 @@
 class Api::Internal::SessionsController < ApplicationController
   def create
+    user = User.find_by(email: user_params[:email])
+    raise "メールアドレスとパスワードが一致しません" unless user.authenticate(user_params[:password])
     session['user_id'] = user.id
     render json: { status: 'success',
                    session_id: session.id,
@@ -21,6 +23,6 @@ class Api::Internal::SessionsController < ApplicationController
   private
 
   def user_params
-    params.require(:user).permit(:subject, :company_key)
+    params.require(:user).permit(:email, :password)
   end
 end
