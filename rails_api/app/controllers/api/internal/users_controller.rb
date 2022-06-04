@@ -26,7 +26,8 @@ class Api::Internal::UsersController < ApplicationController
     raise "不正な検証コードです" if user.verification_code != user_params[:verification_code]
     raise "検証コードの期限が切れています" if user.verification_code_expired_at < Time.zone.now
     user.update!(authentication_status: 'Enabled')
-    render json: { status: 'success' }, states: 200
+    session['user_id'] = user.id
+    render json: { status: 'success', session_id: session.id, }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

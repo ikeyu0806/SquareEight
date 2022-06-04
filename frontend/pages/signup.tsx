@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import type { NextPage } from 'next'
-import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
 import IntroductionNavbar from '../components/atoms/IntroductionNavbar'
 import axios from 'axios'
 
@@ -9,6 +9,7 @@ const Signup: NextPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
+  const [alertMessage, setAlertMessage] = useState('')
 
   const onSubmit = () => {
     axios.post(
@@ -21,8 +22,8 @@ const Signup: NextPage = () => {
         }
       }
     )
-    .then(res => {
-      console.log({res})
+    .then(response => {
+      setAlertMessage(`${email}に検証コードを送信しました。確認して登録を完了してください`)
     })
     .catch(error => {
       console.log({error})
@@ -35,6 +36,7 @@ const Signup: NextPage = () => {
 
   return (
     <>
+      {alertMessage != '' && <Alert variant='success' onClose={() => setAlertMessage('')} dismissible>{alertMessage}</Alert>}
       <IntroductionNavbar />
       <Container>
         <Row>
