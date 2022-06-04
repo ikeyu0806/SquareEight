@@ -27,7 +27,6 @@ const Login: NextPage = () => {
     }).catch(error => {
       setAlertMessage(error.response.data.error)
     })
-
   }
 
   return (

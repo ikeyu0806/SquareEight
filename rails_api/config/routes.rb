@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       post 'sessions', to: 'sessions#create'
       post 'users/confirm_verification_code', to: 'users#confirm_verification_code'
       post 'users', to: 'users#create'
+      post 'homepages/create_web_page', to: 'homepages#create_web_page'
     end
   end
 

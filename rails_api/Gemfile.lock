@@ -190,6 +190,7 @@ DEPENDENCIES
   bootsnap
   debug
   letter_opener_web
+  nokogiri
   pg (~> 1.1)
   pry-byebug
   pry-rails
