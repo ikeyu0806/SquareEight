@@ -21,11 +21,23 @@ class Api::Internal::UsersController < ApplicationController
   end
 
   def confirm_verification_code
+    email = Base64.urlsafe_decode64(user_params[:email])
+    user = User.find_by(email: email)
+    raise "不正な検証コードです" if user.verification_code != user_params[:verification_code]
+    raise "検証コードの期限が切れています" if user.verification_code_expired_at < Time.zone.now
+    user.update!(authentication_status: 'Enabled')
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
   end
 
   private
 
   def user_params
-    params.require(:user).permit(:id, :email, :password, :password_confirmation)
+    params.require(:user).permit(:id,
+                                 :email,
+                                 :password,
+                                 :password_confirmation,
+                                 :verification_code)
   end
 end
