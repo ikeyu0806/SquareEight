@@ -4,6 +4,7 @@ import { showBlockModalChanged, blockTypeChanged, pageContentChanged, currentMax
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
+import { Buffer } from 'buffer'
 
 const EditTextImageBlockModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -11,6 +12,7 @@ const EditTextImageBlockModal = (): JSX.Element => {
   const [image, setImage] = useState('/images/noimage.jpeg')
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
+  const [base64Image, setBase64image] = useState<any>()
   const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
 
@@ -18,13 +20,25 @@ const EditTextImageBlockModal = (): JSX.Element => {
   const handleChangeFile = (e: any) => {
     const { files } = e.target
     setImage(window.URL.createObjectURL(files[0]))
+    getBase64(files[0]).then(
+      data => setBase64image(data)
+    )
+  }
+
+  const getBase64 = (file: any)  => {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader()
+      reader.readAsDataURL(file)
+      reader.onload = () => resolve(reader.result)
+      reader.onerror = error => reject(error)
+    })
   }
 
   const completeEdit = () => {
     let updatePageContentState: PageContentState[]
     updatePageContentState = [...pageContent, { blockID: new Date().getTime().toString(16),
                                                 blockType: 'textImage',
-                                                blockState: { title: title, text: text, image: image },
+                                                blockState: { title: title, text: text, image: image, base64Image: base64Image },
                                                 sortOrder: currentMaxSortOrder + 1 }]
     dispatch(pageContentChanged(updatePageContentState.sort(function(a, b) { return a.sortOrder < b.sortOrder ? -1 : 1 })))
     dispatch(showBlockModalChanged(false))
