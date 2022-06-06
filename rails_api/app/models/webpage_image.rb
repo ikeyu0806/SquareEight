@@ -1,0 +1,2 @@
+class WebpageImage < ApplicationRecord
+end

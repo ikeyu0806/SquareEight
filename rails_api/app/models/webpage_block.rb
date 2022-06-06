@@ -1,0 +1,2 @@
+class WebpageBlock < ApplicationRecord
+end
