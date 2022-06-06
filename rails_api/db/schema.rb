@@ -20,7 +20,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_022017) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "merchant_users", force: :cascade do |t|
     t.integer "account_id", comment: "アカウントID"
     t.string "email", null: false, comment: "Email"
     t.string "name", comment: "名前"
@@ -33,7 +33,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_03_022017) do
     t.integer "authentication_status", comment: "認証ステータスのenum"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["email"], name: "index_users_on_email", unique: true
+    t.index ["email"], name: "index_merchant_users_on_email", unique: true
   end
 
 end

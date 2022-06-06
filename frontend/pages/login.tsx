@@ -17,7 +17,7 @@ const Login: NextPage = () => {
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/sessions`,
     {
-      user: {
+      merchant_user: {
         email: email,
         password: password
       }

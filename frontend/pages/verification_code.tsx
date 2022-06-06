@@ -14,9 +14,9 @@ const VerificationCode: NextPage = () => {
 
   const onSubmit = () => {
     axios.post(
-      `${process.env.BACKEND_URL}/api/internal/users/confirm_verification_code`,
+      `${process.env.BACKEND_URL}/api/internal/merchant_users/confirm_verification_code`,
       {
-        user: {
+        merchant_user: {
           email: router.query.email,
           verification_code: verificationCode
         }

@@ -14,9 +14,9 @@ const Signup: NextPage = () => {
 
   const onSubmit = () => {
     axios.post(
-      `${process.env.BACKEND_URL}/api/internal/users`,
+      `${process.env.BACKEND_URL}/api/internal/merchant_users`,
       {
-        user: {
+        merchant_user: {
           email: email,
           password: password,
           password_confirmation: confirmPassword

@@ -1,6 +1,6 @@
-class CreateUsers < ActiveRecord::Migration[7.0]
+class CreateMerchantUsers < ActiveRecord::Migration[7.0]
   def change
-    create_table :users do |t|
+    create_table :merchant_users do |t|
       t.integer :account_id, comment: 'アカウントID'
       t.string :email, null: false, comment: 'Email'
       t.string :name, comment: '名前'
@@ -14,6 +14,6 @@ class CreateUsers < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    add_index :users, :email, unique: true
+    add_index :merchant_users, :email, unique: true
   end
 end

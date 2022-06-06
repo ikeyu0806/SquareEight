@@ -6,8 +6,8 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :internal do
       post 'sessions', to: 'sessions#create'
-      post 'users/confirm_verification_code', to: 'users#confirm_verification_code'
-      post 'users', to: 'users#create'
+      post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'
+      post 'merchant_users', to: 'merchant_users#create'
       post 'homepages/create_web_page', to: 'homepages#create_web_page'
     end
   end

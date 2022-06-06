@@ -4,7 +4,6 @@ import { showBlockModalChanged, blockTypeChanged, pageContentChanged, currentMax
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
-import { Buffer } from 'buffer'
 
 const EditTextImageBlockModal = (): JSX.Element => {
   const dispatch = useDispatch()

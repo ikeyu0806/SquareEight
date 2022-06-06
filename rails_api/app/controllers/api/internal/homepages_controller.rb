@@ -28,7 +28,6 @@ class Api::Internal::HomepagesController < ApplicationController
           end
         end
       when "textImage" then
-        binding.pry
         Nokogiri::HTML::Builder.with(root) do |t|
           t.h2 content["blockState"]["title"]
           t.div content["blockState"]["text"]

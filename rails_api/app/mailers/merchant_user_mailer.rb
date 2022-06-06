@@ -1,4 +1,4 @@
-class UserMailer < ApplicationMailer
+class MerchantUserMailer < ApplicationMailer
   def send_verification_code(email, encode_email, verification_code)
     @email = email
     @verification_code = verification_code
