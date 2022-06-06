@@ -28,3 +28,6 @@
 # Ignore master key for decrypting credentials and more.
 /config/master.key
 cache/
+
+docker/docker_local.env
+.DS_Store
