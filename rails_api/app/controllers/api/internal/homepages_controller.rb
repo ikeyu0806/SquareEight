@@ -28,6 +28,16 @@ class Api::Internal::HomepagesController < ApplicationController
           end
         end
       when "textImage" then
+        s3 = Aws::S3::Resource.new(
+          access_key_id: ENV['AWS_ACCESS_KEY'],
+          secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+          region: "ap-northeast-1"
+        )
+        file_name = Time.zone.now.strftime('%Y%m%d%H%M%S%3N-')
+        bucket = s3.bucket("smartlesson-webpage-image-bucket-develop")
+        obj_name = "develop"
+        obj = bucket.object(obj_name)
+        obj.put(acl: "public-read", body: content["blockState"]["base64Image"], content_type: 'binary/octet-stream', content_encoding: 'base64')
         Nokogiri::HTML::Builder.with(root) do |t|
           t.h2 content["blockState"]["title"]
           t.div content["blockState"]["text"]
@@ -48,4 +58,3 @@ class Api::Internal::HomepagesController < ApplicationController
     params.require(:homepage).permit!
   end
 end
-# <div class="text-left"><h1>見出し</h1></div>
