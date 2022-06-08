@@ -33,11 +33,14 @@ class Api::Internal::HomepagesController < ApplicationController
           secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
           region: "ap-northeast-1"
         )
-        file_name = Time.zone.now.strftime('%Y%m%d%H%M%S%3N-')
+        image_data = content["blockState"]["base64Image"].gsub(/^data:\w+\/\w+;base64,/, "")
+        decode_image =Base64.decode64(image_data)
+        extension = content["blockState"]["base64Image"].split("/")[1].split(";")[0]
+        content_type = content["blockState"]["base64Image"].split(":")[1].split(";")[0]
         bucket = s3.bucket("smartlesson-webpage-image-bucket-develop")
-        obj_name = "develop"
+        obj_name =  "website_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
         obj = bucket.object(obj_name)
-        obj.put(acl: "public-read", body: content["blockState"]["base64Image"], content_type: 'binary/octet-stream', content_encoding: 'base64')
+        obj.put(acl: "public-read", body: decode_image, content_type: content_type)
         Nokogiri::HTML::Builder.with(root) do |t|
           t.h2 content["blockState"]["title"]
           t.div content["blockState"]["text"]

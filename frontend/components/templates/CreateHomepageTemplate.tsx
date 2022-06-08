@@ -33,7 +33,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
               <Navbar>
                 サイトタイトル
                 <PencilSquareIcon width={20} height={20} fill={'#0000FF'} />
-              </Navbar>            
+              </Navbar>
               {pageContent.map((page, i) =>
                 {
                   switch (page.blockType) {
