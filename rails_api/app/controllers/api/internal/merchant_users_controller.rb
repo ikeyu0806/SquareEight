@@ -6,8 +6,14 @@ class Api::Internal::MerchantUsersController < ApplicationController
   # 同じメールアドレスのユーザが存在していればパスワード上書きして再送信
   def create
     ActiveRecord::Base.transaction do
-      merchant_user = MerchantUser.new(merchant_user_params)
+      if merchant_user_params[:is_create_account]
+        account = Account.new(business_name: merchant_user_params["business_name"])
+        merchant_user = account.merchant_users.new(merchant_user_params.except(:business_name, :is_create_account))
+      else
+        merchant_user = MerchantUser.new(merchant_user_params.except(:business_name, :is_create_account))
+      end
       merchant_user.authentication_status = 'Disabled'
+      merchant_user.authority_category = merchant_user_params["authority_category"]
       merchant_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
       merchant_user.verification_code_expired_at = Time.zone.now + 1.hours
       merchant_user.password = merchant_user_params[:password]
@@ -36,9 +42,12 @@ class Api::Internal::MerchantUsersController < ApplicationController
 
   def merchant_user_params
     params.require(:merchant_user).permit(:id,
-                                 :email,
-                                 :password,
-                                 :password_confirmation,
-                                 :verification_code)
+                                          :email,
+                                          :password,
+                                          :password_confirmation,
+                                          :authority_category,
+                                          :verification_code,
+                                          :business_name,
+                                          :is_create_account)
   end
 end
