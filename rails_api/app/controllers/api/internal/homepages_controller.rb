@@ -7,9 +7,22 @@ class Api::Internal::HomepagesController < ApplicationController
         website = current_merchant_user.account.websites.create!
       end
       web_page = website.webpages.new
+      web_page.path = homepage_params[:path]
+      web_page.tag = homepage_params[:tag]
       page_content = JSON.parse(homepage_params[:page_content].to_json)
-      root = Nokogiri::HTML::DocumentFragment.parse('')
-      page_content.each do |content|
+      web_page.save!
+    end
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def complete_create_homepage
+    website = Website.find(homepage_params[:id])
+    root = Nokogiri::HTML::DocumentFragment.parse('')
+    website.webpages.each do |webpage|
+      webpage.webpage_blocks.each do |block|
+        content = block.content_json
         case content["blockType"]
         when "heading" then
           Nokogiri::HTML::Builder.with(root) do |t|
@@ -57,12 +70,8 @@ class Api::Internal::HomepagesController < ApplicationController
           raise "不正なブロックタイプが含まれています"
         end
       end
-      root.to_html
-      web_page.save!
     end
-    render json: { status: 'success' }, states: 200
-  rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    root.to_html
   end
 
   private

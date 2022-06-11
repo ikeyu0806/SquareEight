@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'
       post 'merchant_users', to: 'merchant_users#create'
       post 'homepages/create_web_page', to: 'homepages#create_web_page'
+      post 'homepages/complete_create_homepage', to: 'homepages#complete_create_homepage'
     end
   end
 
