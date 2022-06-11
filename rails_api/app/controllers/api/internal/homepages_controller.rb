@@ -4,9 +4,9 @@ class Api::Internal::HomepagesController < ApplicationController
       if homepage_params[:website_id].present?
         website = Website.find(homepage_params[:website_id])
       else
-        website = current_merchant_user.account.websites.new
+        website = current_merchant_user.account.websites.create!
       end
-      web_page = website.webpages
+      web_page = website.webpages.new
       page_content = JSON.parse(homepage_params[:page_content].to_json)
       root = Nokogiri::HTML::DocumentFragment.parse('')
       page_content.each do |content|
@@ -58,6 +58,7 @@ class Api::Internal::HomepagesController < ApplicationController
         end
       end
       root.to_html
+      web_page.save!
     end
     render json: { status: 'success' }, states: 200
   rescue => error
