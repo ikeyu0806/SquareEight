@@ -1,6 +1,5 @@
-import React from 'react'
-import { Container, Card, Row, Col, Navbar, Carousel } from 'react-bootstrap'
-import PencilSquareIcon from '../atoms/PencilSquareIcon'
+import React, { useState } from 'react'
+import { Container, Card, Row, Col, Navbar, Carousel, Form } from 'react-bootstrap'
 import PlusCircleIcon from '../../components/atoms/PlusCircleIcon'
 import UpdateBlockStateIcons from '../organisms/UpdateBlockStateIcons'
 import { RootState } from '../../redux/store'
@@ -15,6 +14,8 @@ import { HeadingBlockState } from '../../interfaces/HeadingBlockState'
 
 const CreateHomepageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
+  const [path, setPath] = useState('/')
+  const [tag, setTag] = useState('')
 
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
 
@@ -26,13 +27,24 @@ const CreateHomepageTemplate = (): JSX.Element => {
           </Col>
           <Col sm={9}>
           <div className='mb20'>
-            トップページ サイト内パス: /
+            <Form.Group className='mb-3'>
+              <Form.Label>
+                ホームページ内パス(必須)<br></br>
+                「/」から始まる英文字を入力してください。トップページに設定する場合は「/」のみ入力してください。</Form.Label>
+              <Form.Control placeholder=''
+                            onChange={(e) => setPath(e.target.value)}
+                            value={path} />
+            </Form.Group>
+            <Form.Group className='mb-3'>
+              <Form.Label>管理用の識別タグを入力してください。</Form.Label>
+              <Form.Control placeholder=''
+                            onChange={(e) => setTag(e.target.value)}
+                            value={tag} />
+            </Form.Group>
           </div>
           <Card>
             <Card.Body>
               <Navbar>
-                サイトタイトル
-                <PencilSquareIcon width={20} height={20} fill={'#0000FF'} />
               </Navbar>
               {pageContent.map((page, i) =>
                 {
@@ -99,7 +111,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                       return [
                         (page.blockState as ExternalLinkBlockStateType).content.map((block, i) => {
                           return (
-                            <a href={block.url} className="list-group-item list-group-item-action" target="_blank" rel="noreferrer" key={i}>{block.text}</a>
+                            <a href={block.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{block.text}</a>
                           )
                         }),
                         <UpdateBlockStateIcons blockID={page.blockID} sortOrder={page.sortOrder} key={i}></UpdateBlockStateIcons>
@@ -116,10 +128,6 @@ const CreateHomepageTemplate = (): JSX.Element => {
             </div>
             <Card.Footer className='text-muted text-center'>Copyright SmartLesson Inc. 2022</Card.Footer>
           </Card>
-          <div className='text-center mt30 mb30'>
-            <span className='mr10'>ページを追加</span>
-            <PlusCircleIcon width={40} height={40} fill={'#0000FF'} />
-          </div>
         </Col>
         <Col>
         </Col>
