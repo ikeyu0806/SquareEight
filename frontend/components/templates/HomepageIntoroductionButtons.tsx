@@ -11,6 +11,24 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
   const [cookies] = useCookies(['_smartlesson_session'])
 
   const completeCreateHomepage = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/complete_create_homepage`,
+    {
+      homepage: {
+        website_id: router.query.website_id,
+        page_content: pageContent
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._smartlesson_session
+      }
+    }).then(response => {
+      // router.push('/admin/dashboard')
+    }).catch(error => {
+    })
+  }
+
+  const createWebpage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/create_web_page`,
     {
       homepage: {
@@ -22,7 +40,7 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
         'Session-Id': cookies._smartlesson_session
       }
     }).then(response => {
-      // router.push('/admin/dashboard')
+      router.push(`/introduction/${response.data.website_id}/create_homepage`)
     }).catch(error => {
     })
   }
@@ -40,7 +58,7 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
         </Col>
         <Col></Col>
         <Col sm={2}>
-          <Button variant='primary' size='lg' href='/introduction/set_reserve_calendar'>ページを追加</Button>
+          <Button variant='primary' size='lg' onClick={createWebpage}>ページを追加</Button>
         </Col>
         <Col></Col>
         <Col sm={2}>

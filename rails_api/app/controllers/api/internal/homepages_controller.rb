@@ -12,13 +12,13 @@ class Api::Internal::HomepagesController < ApplicationController
       page_content = JSON.parse(homepage_params[:page_content].to_json)
       web_page.save!
     end
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success', website_id: website.id }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def complete_create_homepage
-    website = Website.find(homepage_params[:id])
+    website = Website.find(homepage_params[:website_id])
     root = Nokogiri::HTML::DocumentFragment.parse('')
     website.webpages.each do |webpage|
       webpage.webpage_blocks.each do |block|
