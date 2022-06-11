@@ -2,9 +2,7 @@ class Api::Internal::SessionsController < ApplicationController
   def create
     merchant_user = MerchantUser.find_by(email: merchant_user_params[:email])
     raise "メールアドレスとパスワードが一致しません" unless merchant_user.authenticate(merchant_user_params[:password])
-    # session['merchant_user_id'] = merchant_user.id
-    # TODO: なぜかsessionがRedisを使ってくれない。ので直接書いてるけど直す
-    Rails.cache.write('_session_id:2::' + Digest::SHA256.hexdigest(session.id.to_s), {"merchant_user_id": merchant_user.id})
+    session['merchant_user_id'] = merchant_user.id
     render json: { status: 'success',
                    session_id: session.id,
                    email: merchant_user.email,

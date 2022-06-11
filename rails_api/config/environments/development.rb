@@ -57,7 +57,7 @@ Rails.application.configure do
   config.active_record.verbose_query_logs = true
 
   config.cache_store = :redis_cache_store, { expires_in: 1.day, host: ENV["REDIS_HOST"], port: 6379 }
-  config.session_store :redis_store, key: "smartlesson_session", expire_after: 1.day
+  # config.session_store :redis_store, key: "smartlesson_session", expire_after: 1.day
   # Raises error for missing translations.
   # config.i18n.raise_on_missing_translations = true
 
