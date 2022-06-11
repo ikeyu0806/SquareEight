@@ -186,6 +186,16 @@ GEM
       thor (~> 1.0)
       zeitwerk (~> 2.5)
     rake (13.0.6)
+    redis (4.6.0)
+    redis-actionpack (5.3.0)
+      actionpack (>= 5, < 8)
+      redis-rack (>= 2.1.0, < 3)
+      redis-store (>= 1.1.0, < 2)
+    redis-rack (2.1.4)
+      rack (>= 2.0.8, < 3)
+      redis-store (>= 1.2, < 2)
+    redis-store (1.9.1)
+      redis (>= 4, < 5)
     reline (0.3.1)
       io-console (~> 0.5)
     rexml (3.2.5)
@@ -215,6 +225,8 @@ DEPENDENCIES
   puma (~> 5.0)
   rack-cors
   rails (~> 7.0.3)
+  redis
+  redis-actionpack
   tzinfo-data
 
 RUBY VERSION
