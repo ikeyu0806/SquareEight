@@ -8,16 +8,23 @@ import RegularFooter from '../../components/organisms/RegularFooter'
 import axios from 'axios'
 import { RootState } from '../../redux/store'
 import { useSelector } from 'react-redux'
+import { useCookies } from 'react-cookie'
 
 const CreateHomepage: NextPage = () => {
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+  const [cookies] = useCookies(['_smartlesson_session'])
 
   const completeCreateHomepage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/create_web_page`,
     {
       homepage: {
         page_content: pageContent
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._smartlesson_session
       }
     }).then(response => {
       // router.push('/admin/dashboard')

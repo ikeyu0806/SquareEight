@@ -1,6 +1,6 @@
 class Api::Internal::SessionsController < ApplicationController
   def create
-    merchant_user = Merchant_user.find_by(email: merchant_user_params[:email])
+    merchant_user = MerchantUser.find_by(email: merchant_user_params[:email])
     raise "メールアドレスとパスワードが一致しません" unless merchant_user.authenticate(merchant_user_params[:password])
     session['merchant_user_id'] = merchant_user.id
     render json: { status: 'success',
