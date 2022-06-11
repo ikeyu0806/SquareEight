@@ -39,7 +39,7 @@ const VerificationCode: NextPage = () => {
       <IntroductionNavbar></IntroductionNavbar>
       <Container>
         <Row>
-          <Col></Col>
+          <Col lg={4} md={3}></Col>
             <Col>
               <Card>
                 <Card.Header>検証コードを入力してください</Card.Header>
@@ -59,7 +59,7 @@ const VerificationCode: NextPage = () => {
                 </Card.Body>
               </Card>
             </Col>
-          <Col></Col>
+          <Col lg={4} md={3}></Col>
         </Row>
       </Container>
     </>

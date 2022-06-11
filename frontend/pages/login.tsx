@@ -35,7 +35,7 @@ const Login: NextPage = () => {
       {alertMessage != '' && <Alert variant='danger' onClose={() => setAlertMessage('')} dismissible>{alertMessage}</Alert>}
       <Container>
         <Row>
-          <Col></Col>
+          <Col lg={4} md={3}></Col>
             <Col>
               <Card>
                 <Card.Header>ログイン</Card.Header>
@@ -62,7 +62,7 @@ const Login: NextPage = () => {
                 </Card.Body>
               </Card>
             </Col>
-          <Col></Col>
+          <Col lg={4} md={3}></Col>
         </Row>
       </Container>
       <RegularFooter></RegularFooter>

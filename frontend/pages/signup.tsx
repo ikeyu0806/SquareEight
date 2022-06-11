@@ -44,7 +44,7 @@ const Signup: NextPage = () => {
       <IntroductionNavbar />
       <Container>
         <Row>
-          <Col></Col>
+          <Col lg={4} md={3}></Col>
           <Col>
             <Card>
               <Card.Header>ユーザ登録</Card.Header>
@@ -88,7 +88,7 @@ const Signup: NextPage = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col></Col>
+          <Col lg={4} md={3}></Col>
         </Row>
       </Container>
       <RegularFooter></RegularFooter>
