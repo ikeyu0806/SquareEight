@@ -1,37 +1,37 @@
 import type { NextPage } from 'next'
-import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
+import AdminNavbar from '../../../../components/templates/AdminNavbarTemplate'
 import React, { useEffect, useState } from 'react'
-import RegularFooter from '../../../components/organisms/RegularFooter'
+import RegularFooter from '../../../../components/organisms/RegularFooter'
 import { Container, Table, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { WebsiteParam } from '../../../interfaces/WebsiteParam'
+import { WebpageParam } from '../../../../interfaces/WebpageParam'
 
 const Dashboard: NextPage = () => {
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
-  const [websites, setWebsites] = useState<WebsiteParam[]>([])
+  const [webpages, setWebpages] = useState<WebpageParam[]>([])
 
   useEffect(() => {
-    const fetchHomepages = async () => {
+    const fetchWebpages = async () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/homepages`, {
+        `${process.env.BACKEND_URL}/api/internal/homepages/webpages?website_id=${router.query.website_id}`, {
           headers: { 
             'Session-Id': cookies._smartlesson_session
           },
         }
       )
       .then(function (response) {
-        const websiteResponse: WebsiteParam[] = response.data.websites
-        setWebsites(websiteResponse)
+        const websiteResponse: WebpageParam[] = response.data.webpages
+        setWebpages(websiteResponse)
       })
       .catch(error => {
         console.log(error)
       })
     }
-    fetchHomepages()
-  }, [router.query.id, cookies._smartlesson_session])
+    fetchWebpages()
+  }, [router.query.id, cookies._smartlesson_session, router.query.website_id])
 
   return (
     <>
@@ -42,23 +42,17 @@ const Dashboard: NextPage = () => {
           <thead>
             <tr>
               <th className='text-center'>タグ</th>
-              <th className='text-center'>公開設定</th>
-              <th className='text-center'>作成日時</th>
+              <th className='text-center'>パス</th>
               <th className='text-center'></th>
             </tr>
           </thead>
           <tbody>
-            {websites.map((website, i) => {
+            {webpages.map((webpage, i) => {
               return (
                 <tr key={i}>
-                  <td className='text-center'>{website.tag}</td>
-                  <td className='text-center'></td>
-                  <td className='text-center'>{website.display_created_at}</td>
-                  <td className='text-center'>
-                    <Button onClick={() => router.push(`/admin/homepage/${website.id}/webpages`)}>
-                      ページ一覧
-                    </Button>
-                  </td>
+                  <td className='text-center'>{webpage.tag}</td>
+                  <td className='text-center'>{webpage.path}</td>
+                  <td className='text-center'><Button>編集</Button></td>
                 </tr>
               )
             })}
