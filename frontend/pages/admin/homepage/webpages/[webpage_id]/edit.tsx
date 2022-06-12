@@ -17,7 +17,7 @@ const Edit: NextPage = () => {
   const [webpage, setWebpage] = useState<WebpageParam>()
 
   useEffect(() => {
-    const fetchHomepages = async () => {
+    const fetchHomepages = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/webpages/edit?id=${router.query.webpage_id}`, {
           headers: { 

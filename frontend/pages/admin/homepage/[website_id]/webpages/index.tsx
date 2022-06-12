@@ -14,7 +14,7 @@ const Index: NextPage = () => {
   const [webpages, setWebpages] = useState<WebpageParam[]>([])
 
   useEffect(() => {
-    const fetchWebpages = async () => {
+    const fetchWebpages = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/homepages/webpages?website_id=${router.query.website_id}`, {
           headers: { 
