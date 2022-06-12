@@ -4,7 +4,7 @@ import PlusCircleIcon from '../../components/atoms/PlusCircleIcon'
 import UpdateBlockStateIcons from '../organisms/UpdateBlockStateIcons'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
-import { showBlockModalChanged } from '../../redux/homepageSlice'
+import { showBlockModalChanged, webpagePathChanged, webpageTagChanged } from '../../redux/homepageSlice'
 import CreateBlockModal from '../organisms/CreateBlockModal'
 import { ExternalLinkBlockStateType } from '../../interfaces/ExternalLinkBlockStateType'
 import { TextImageBlockStateType } from '../../interfaces/TextImageBlockStateType'
@@ -14,10 +14,10 @@ import { HeadingBlockState } from '../../interfaces/HeadingBlockState'
 
 const CreateHomepageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
-  const [path, setPath] = useState('/')
-  const [tag, setTag] = useState('')
 
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+  const webpagePath = useSelector((state: RootState) => state.homepage.webpagePath)
+  const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
 
   return(
     <>
@@ -32,14 +32,14 @@ const CreateHomepageTemplate = (): JSX.Element => {
                 ホームページ内パス(必須)<br></br>
                 「/」から始まる英文字を入力してください。トップページに設定する場合は「/」のみ入力してください。</Form.Label>
               <Form.Control placeholder=''
-                            onChange={(e) => setPath(e.target.value)}
-                            value={path} />
+                            onChange={(e) => dispatch(webpagePathChanged(e.target.value))}
+                            value={webpagePath} />
             </Form.Group>
             <Form.Group className='mb-3'>
               <Form.Label>管理用の識別タグを入力してください。</Form.Label>
               <Form.Control placeholder=''
-                            onChange={(e) => setTag(e.target.value)}
-                            value={tag} />
+                            onChange={(e) => dispatch(webpageTagChanged(e.target.value))}
+                            value={webpageTag} />
             </Form.Group>
           </div>
           <Card>

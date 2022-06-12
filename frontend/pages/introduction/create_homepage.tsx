@@ -10,7 +10,7 @@ const CreateHomepage: NextPage = () => {
     <>
       <IntroductionNavbar />
       <div className='text-center mt50 mb50'>
-        <h2>ホームページを作成します</h2>
+        <h2>Webページを作成してください</h2>
       </div>
       <CreateHomepageTemplate></CreateHomepageTemplate>
       <br />

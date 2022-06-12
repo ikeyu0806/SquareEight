@@ -8,6 +8,8 @@ import { useRouter } from 'next/router'
 const HomepageIntoroductionButtons = (): JSX.Element => {
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+  const webpagePath = useSelector((state: RootState) => state.homepage.webpagePath)
+  const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
   const [cookies] = useCookies(['_smartlesson_session'])
 
   const completeCreateHomepage = () => {
@@ -15,7 +17,9 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
     {
       homepage: {
         website_id: router.query.website_id,
-        page_content: pageContent
+        page_content: pageContent,
+        path: webpagePath,
+        tag: webpageTag
       }
     },
     {
@@ -23,7 +27,7 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
         'Session-Id': cookies._smartlesson_session
       }
     }).then(response => {
-      // router.push('/admin/dashboard')
+      router.push('/admin/dashboard')
     }).catch(error => {
     })
   }
@@ -32,7 +36,9 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/create_web_page`,
     {
       homepage: {
-        page_content: pageContent
+        page_content: pageContent,
+        path: webpagePath,
+        tag: webpageTag
       }
     },
     {

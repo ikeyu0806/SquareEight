@@ -9,8 +9,10 @@ class Api::Internal::HomepagesController < ApplicationController
       web_page = website.webpages.new
       web_page.path = homepage_params[:path]
       web_page.tag = homepage_params[:tag]
-      page_content = JSON.parse(homepage_params[:page_content].to_json)
       web_page.save!
+      JSON.parse(homepage_params[:page_content].to_json).each do |json|
+        web_page.webpage_blocks.create!(content_json: json.to_s, block_type: json["blockType"])
+      end
     end
     render json: { status: 'success', website_id: website.id }, states: 200
   rescue => error
