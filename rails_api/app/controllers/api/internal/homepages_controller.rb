@@ -6,13 +6,7 @@ class Api::Internal::HomepagesController < ApplicationController
       else
         website = current_merchant_user.account.websites.create!
       end
-      web_page = website.webpages.new
-      web_page.path = homepage_params[:path]
-      web_page.tag = homepage_params[:tag]
-      web_page.save!
-      JSON.parse(homepage_params[:page_content].to_json).each do |json|
-        web_page.webpage_blocks.create!(content_json: json.to_s, block_type: json["blockType"])
-      end
+      website.create_webpages(homepage_params[:page_content], homepage_params[:path], homepage_params[:tag])
       render json: { status: 'success', website_id: website.id }, states: 200
     end
   rescue => error
@@ -22,13 +16,7 @@ class Api::Internal::HomepagesController < ApplicationController
   def complete_create_homepage
     website = Website.find(homepage_params[:website_id])
     # webページ作成
-    web_page = website.webpages.new
-    web_page.path = homepage_params[:path]
-    web_page.tag = homepage_params[:tag]
-    web_page.save!
-    JSON.parse(homepage_params[:page_content].to_json).each do |json|
-      web_page.webpage_blocks.create!(content_json: json.to_s, block_type: json["blockType"])
-    end
+    website.create_webpages(homepage_params[:page_content], homepage_params[:path], homepage_params[:tag])
     # HTML生成
     root = Nokogiri::HTML::DocumentFragment.parse('')
     website.webpages.each do |webpage|

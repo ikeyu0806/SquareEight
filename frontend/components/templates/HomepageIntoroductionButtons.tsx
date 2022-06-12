@@ -38,6 +38,7 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/create_web_page`,
     {
       homepage: {
+        website_id: router.query.website_id,
         page_content: pageContent,
         path: webpagePath,
         tag: webpageTag
@@ -48,7 +49,7 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
         'Session-Id': cookies._smartlesson_session
       }
     }).then(response => {
-      dispatch(webpagePathChanged(''))
+      dispatch(webpagePathChanged('/'))
       dispatch(webpageTagChanged(''))
       dispatch(pageContentChanged([]))
       router.push(`/introduction/${response.data.website_id}/create_homepage`)
