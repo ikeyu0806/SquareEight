@@ -12,4 +12,8 @@ class Website < ApplicationRecord
       web_page.webpage_blocks.create!(content_json: json.to_s, block_type: json["blockType"])
     end
   end
+
+  def display_created_at
+    created_at.strftime("%Y/%m/%d")
+  end
 end

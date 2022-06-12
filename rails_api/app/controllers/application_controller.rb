@@ -10,4 +10,10 @@ class ApplicationController < ActionController::API
   rescue => error
     Rails.logger.error error
   end
+
+  def login_only!
+    raise "ログインしてください" if !current_merchant_user.class == MerchantUser
+  rescue => error
+    Rails.logger.error error
+  end
 end

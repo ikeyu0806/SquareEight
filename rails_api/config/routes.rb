@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       post 'sessions', to: 'sessions#create'
       post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'
       post 'merchant_users', to: 'merchant_users#create'
+      get 'homepages', to: 'homepages#index'
       post 'homepages/create_web_page', to: 'homepages#create_web_page'
       post 'homepages/complete_create_homepage', to: 'homepages#complete_create_homepage'
     end

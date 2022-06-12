@@ -4,8 +4,31 @@ import React, { useEffect } from 'react'
 import RegularFooter from '../../../components/organisms/RegularFooter'
 import { Container, Table } from 'react-bootstrap'
 import axios from 'axios'
+import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
 
 const Dashboard: NextPage = () => {
+  const [cookies] = useCookies(['_smartlesson_session'])
+  const router = useRouter()
+
+  useEffect(() => {
+    const fetchPharmacies = async () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/homepages`, {
+          headers: { 
+            'Session-Id': cookies._smartlesson_session
+          },
+        }
+      )
+      .then(function (response) {
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchPharmacies()
+  }, [router.query.id, cookies._smartlesson_session])
+
   return (
     <>
       <AdminNavbar></AdminNavbar>
