@@ -15,7 +15,6 @@ const EditTextImageBlockModal = (): JSX.Element => {
   const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
 
-
   const handleChangeFile = (e: any) => {
     const { files } = e.target
     setImage(window.URL.createObjectURL(files[0]))

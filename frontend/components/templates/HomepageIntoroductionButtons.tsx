@@ -1,11 +1,13 @@
 import { Button, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import { RootState } from '../../redux/store'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { pageContentChanged, webpagePathChanged, webpageTagChanged } from '../../redux/homepageSlice'
 
 const HomepageIntoroductionButtons = (): JSX.Element => {
+  const dispatch = useDispatch()
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
   const webpagePath = useSelector((state: RootState) => state.homepage.webpagePath)
@@ -46,6 +48,9 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
         'Session-Id': cookies._smartlesson_session
       }
     }).then(response => {
+      dispatch(webpagePathChanged(''))
+      dispatch(webpageTagChanged(''))
+      dispatch(pageContentChanged([]))
       router.push(`/introduction/${response.data.website_id}/create_homepage`)
     }).catch(error => {
     })
