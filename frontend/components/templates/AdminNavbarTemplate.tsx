@@ -11,7 +11,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
         <Nav className='me-auto'>
           <Nav.Link href='/admin/dashboard'>ダッシュボード</Nav.Link>
           <NavDropdown title='ホームページ' id='homepage-nav-dropdown'>
-            <NavDropdown.Item href='#action/3.1'>一覧</NavDropdown.Item>
+            <NavDropdown.Item href='/admin/homepage'>一覧</NavDropdown.Item>
             <NavDropdown.Item href='#action/3.2'>新規作成</NavDropdown.Item>
             <NavDropdown.Item href='#action/3.2'>オーダメイド開発依頼</NavDropdown.Item>
           </NavDropdown>
