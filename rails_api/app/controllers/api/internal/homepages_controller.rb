@@ -2,8 +2,7 @@ class Api::Internal::HomepagesController < ApplicationController
   before_action :login_only!
 
   def index
-    current_merchant_user.websites
-    websites_json = websites: current_merchant_user.websites.to_json(methods: :display_created_at)
+    websites_json = JSON.parse current_merchant_user.account.websites.to_json(methods: :display_created_at)
     render json: { status: 'success', websites: websites_json }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

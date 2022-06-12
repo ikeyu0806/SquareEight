@@ -1,18 +1,20 @@
 import type { NextPage } from 'next'
 import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import RegularFooter from '../../../components/organisms/RegularFooter'
-import { Container, Table } from 'react-bootstrap'
+import { Container, Table, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { WebsiteParam } from '../../../interfaces/WebsiteParam'
 
 const Dashboard: NextPage = () => {
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
+  const [websites, setWebsites] = useState<WebsiteParam[]>([])
 
   useEffect(() => {
-    const fetchPharmacies = async () => {
+    const fetchHomepages = async () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/homepages`, {
           headers: { 
@@ -21,12 +23,14 @@ const Dashboard: NextPage = () => {
         }
       )
       .then(function (response) {
+        const websiteResponse: WebsiteParam[] = response.data.websites
+        setWebsites(websiteResponse)
       })
       .catch(error => {
         console.log(error)
       })
     }
-    fetchPharmacies()
+    fetchHomepages()
   }, [router.query.id, cookies._smartlesson_session])
 
   return (
@@ -43,14 +47,18 @@ const Dashboard: NextPage = () => {
               <th></th>
             </tr>
           </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>1</td>
-              <td>1</td>
-              <td>1</td>
-            </tr>
-          </tbody>
+          {websites.map((website, i) => {
+            return (
+                <tbody key={i}>
+                  <tr>
+                    <td>{website.tag}</td>
+                    <td></td>
+                    <td>{website.display_created_at}</td>
+                    <td><Button>ページ一覧</Button></td>
+                  </tr>
+                </tbody>
+            )
+          })}
         </Table>
       </Container>
       <br/>
