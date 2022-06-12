@@ -1,14 +1,14 @@
 import type { NextPage } from 'next'
-import AdminNavbar from '../../../../components/templates/AdminNavbarTemplate'
+import AdminNavbar from '../../../../../components/templates/AdminNavbarTemplate'
 import React, { useEffect, useState } from 'react'
-import RegularFooter from '../../../../components/organisms/RegularFooter'
+import RegularFooter from '../../../../../components/organisms/RegularFooter'
 import { Container, Table, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { WebpageParam } from '../../../../interfaces/WebpageParam'
+import { WebpageParam } from '../../../../../interfaces/WebpageParam'
 
-const Dashboard: NextPage = () => {
+const Index: NextPage = () => {
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
   const [webpages, setWebpages] = useState<WebpageParam[]>([])
@@ -67,4 +67,4 @@ const Dashboard: NextPage = () => {
   )
 }
 
-export default Dashboard
+export default Index

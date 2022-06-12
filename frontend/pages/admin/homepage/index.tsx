@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { WebsiteParam } from '../../../interfaces/WebsiteParam'
 
-const Dashboard: NextPage = () => {
+const Index: NextPage = () => {
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
   const [websites, setWebsites] = useState<WebsiteParam[]>([])
@@ -73,4 +73,4 @@ const Dashboard: NextPage = () => {
   )
 }
 
-export default Dashboard
+export default Index
