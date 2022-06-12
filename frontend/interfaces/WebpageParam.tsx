@@ -1,6 +1,8 @@
+import { PageContentState } from "./PageContentState"
 export interface WebpageParam {
   id: number
-  tag?: string
+  tag: string
   path: string
-  content?: string
+  content: string
+  content_json?: PageContentState[]
 }
