@@ -38,27 +38,27 @@ const Dashboard: NextPage = () => {
       <AdminNavbar></AdminNavbar>
       <br />
       <Container>
-        <Table>
+        <Table bordered>
           <thead>
             <tr>
-              <th>タグ</th>
-              <th>公開設定</th>
-              <th>作成日時</th>
-              <th></th>
+              <th className='text-center'>タグ</th>
+              <th className='text-center'>公開設定</th>
+              <th className='text-center'>作成日時</th>
+              <th className='text-center'></th>
             </tr>
           </thead>
-          {websites.map((website, i) => {
-            return (
-                <tbody key={i}>
-                  <tr>
-                    <td>{website.tag}</td>
-                    <td></td>
-                    <td>{website.display_created_at}</td>
-                    <td><Button>ページ一覧</Button></td>
-                  </tr>
-                </tbody>
-            )
-          })}
+          <tbody>
+            {websites.map((website, i) => {
+              return (
+                <tr key={i}>
+                  <td className='text-center'>{website.tag}</td>
+                  <td className='text-center'></td>
+                  <td className='text-center'>{website.display_created_at}</td>
+                  <td className='text-center'><Button>ページ一覧</Button></td>
+                </tr>
+              )
+            })}
+          </tbody>
         </Table>
       </Container>
       <br/>
