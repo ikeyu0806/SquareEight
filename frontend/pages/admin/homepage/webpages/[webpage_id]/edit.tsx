@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
 import CreateHomepageTemplate from '../../../../../components/templates/CreateHomepageTemplate'
 import RegularFooter from '../../../../../components/organisms/RegularFooter'
@@ -6,14 +6,19 @@ import AdminNavbarTemplate from '../../../../../components/templates/AdminNavbar
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
+import { RootState } from '../../../../../redux/store'
+import { useSelector, useDispatch } from 'react-redux'
 import { WebpageParam } from '../../../../../interfaces/WebpageParam'
 import { webpagePathChanged, webpageTagChanged, pageContentChanged } from '../../../../../redux/homepageSlice'
+import { Button } from 'react-bootstrap'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
+  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+  const webpagePath = useSelector((state: RootState) => state.homepage.webpagePath)
+  const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
 
   useEffect(() => {
     const fetchHomepages = () => {
@@ -38,6 +43,26 @@ const Edit: NextPage = () => {
     fetchHomepages()
   }, [router.query.id, cookies._smartlesson_session, router.query.webpage_id, dispatch])
 
+  const updateWebpage = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/webpages/update`,
+    {
+      webpage: {
+        id: router.query.webpage_id,
+        page_content: pageContent,
+        path: webpagePath,
+        tag: webpageTag
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._smartlesson_session
+      }
+    }).then(response => {
+      // router.push('/admin/homepage/')
+    }).catch(error => {
+    })
+  }
+
   return (
     <>
       <AdminNavbarTemplate></AdminNavbarTemplate>
@@ -46,6 +71,9 @@ const Edit: NextPage = () => {
       <br/>
       <br/>
       <br/>
+      <div className='text-center'>
+        <Button onClick={updateWebpage}>更新する</Button>
+      </div>
       <RegularFooter></RegularFooter>
     </>
   )
