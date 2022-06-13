@@ -53,7 +53,7 @@ const Index: NextPage = () => {
                   <td className='text-center'>{webpage.tag}</td>
                   <td className='text-center'>{webpage.path}</td>
                   <td className='text-center'>
-                    <Button onClick={() => router.push(`/admin/homepage/${webpage.id}/edit`)}>
+                    <Button onClick={() => router.push(`/admin/homepage/webpages/${webpage.id}/edit`)}>
                       編集
                     </Button>
                   </td>

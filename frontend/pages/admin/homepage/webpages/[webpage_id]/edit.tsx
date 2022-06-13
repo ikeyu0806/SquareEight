@@ -14,7 +14,6 @@ const Edit: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
-  const [webpage, setWebpage] = useState<WebpageParam>()
 
   useEffect(() => {
     const fetchHomepages = () => {
