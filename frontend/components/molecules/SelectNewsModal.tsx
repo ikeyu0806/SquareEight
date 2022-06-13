@@ -15,6 +15,7 @@ const SelectNewsModal = (): JSX.Element => {
         <Card.Body>
           <input className='form-check-input mr10'
                  type='radio'
+                 onChange={() => console.log('checked')}
                  checked={selectedBlockType === BLOCK_TYPE.NEWS} />
           <span>お知らせ・ ニュース</span>
           <div className='mt10'>お知らせ・ニュースを追加します。投稿内容と公開開始日、終了日は管理画面から設定できます。</div>

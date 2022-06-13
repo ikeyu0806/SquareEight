@@ -16,6 +16,7 @@ const SelectInquiryModal = (): JSX.Element => {
         <Card.Body>
           <input className='form-check-input mr10'
                  type='radio'
+                 onChange={() => console.log('checked')}
                  checked={selectedBlockType === BLOCK_TYPE.INQUIRY} />
           <span>お問い合わせフォーム</span>
           <div className='mt10'>お問い合わせフォームを追加します。</div>

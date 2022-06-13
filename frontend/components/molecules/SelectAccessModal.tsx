@@ -16,6 +16,7 @@ const SelectAccessModal = (): JSX.Element => {
         <Card.Body>
           <input className='form-check-input mr10'
                  type='radio'
+                 onChange={() => console.log('checked')}
                  checked={selectedBlockType === BLOCK_TYPE.ACCESS} />
           <span>アクセス案内</span>
           <div className='mt10'>Google Mapでアクセス案内を設置できます</div>

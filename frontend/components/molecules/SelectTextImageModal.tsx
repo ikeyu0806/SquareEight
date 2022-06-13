@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Row, Col } from 'react-bootstrap'
-import { selectedBlockTypeChanged } from '../../redux/homepageSlice'
+import { selectedBlockTypeChanged, blockTypeChanged } from '../../redux/homepageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { BLOCK_TYPE } from '../../constants/blockType'
@@ -16,6 +16,7 @@ const SelectTextImageModal = (): JSX.Element => {
         <Card.Body>
           <input className='form-check-input mr10'
                  type='radio'
+                 onChange={() => dispatch(blockTypeChanged(BLOCK_TYPE.IMAGE_SLIDE))}
                  checked={selectedBlockType === BLOCK_TYPE.TEXT_IMAGE} />
           <span>テキスト+画像</span>
           <div className='mt10'>テキストと画像で構成されたブロックを追加します。画像にはページリンクを設定できます</div>
