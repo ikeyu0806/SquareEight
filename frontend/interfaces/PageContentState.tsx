@@ -7,6 +7,8 @@ import { ImageSlideState } from './ImageSlideState'
 export type PageContentState = {
   blockID: string
   blockType: string
-  blockState: ExternalLinkBlockStateType | TextImageBlockStateType | HeadingBlockState | ImageSlideState
+  blockState: blockStateType
   sortOrder: number
 }
+
+export type blockStateType = ExternalLinkBlockStateType | TextImageBlockStateType | HeadingBlockState | ImageSlideState

@@ -25,11 +25,11 @@ const Edit: NextPage = () => {
         }
       )
       .then(function (response) {
-        console.log({response})
         const webpageResponse: WebpageParam = response.data.webpage
+        console.log({webpageResponse})
         dispatch(webpagePathChanged(webpageResponse.path))
         dispatch(webpageTagChanged(webpageResponse.tag))
-        dispatch(pageContentChanged(webpageResponse.content_json || []))
+        dispatch(pageContentChanged(webpageResponse.block_contents || []))
       })
       .catch(error => {
         console.log(error)
