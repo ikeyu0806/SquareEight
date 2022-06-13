@@ -65,8 +65,8 @@ const CreateHomepageTemplate = (): JSX.Element => {
                       )
                     case BLOCK_TYPE.IMAGE_SLIDE:
                       return (
-                        <>
-                          <Carousel key={i}>
+                        <div key={i}>
+                          <Carousel>
                             {(page.blockState as ImageSlideState).imageSlide != undefined && (page.blockState as ImageSlideState).imageSlide.map((slide, i) => {
                               return (
                                 <Carousel.Item key={i}>
@@ -84,11 +84,11 @@ const CreateHomepageTemplate = (): JSX.Element => {
                             })}
                           </Carousel>
                           <UpdateBlockStateIcons blockID={page.blockID} sortOrder={page.sortOrder}></UpdateBlockStateIcons>
-                        </>
+                        </div>
                     )
                     case BLOCK_TYPE.TEXT_IMAGE:
                       return (
-                        <>
+                        <div key={i}>
                           <Row className='mt10 mb10'>
                             <Col>
                               <h2>{(page.blockState as TextImageBlockStateType).title}</h2>
@@ -105,7 +105,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
                             </Col>
                           </Row>
                           <UpdateBlockStateIcons blockID={page.blockID} sortOrder={page.sortOrder}></UpdateBlockStateIcons>
-                        </>
+                        </div>
                       )
                     case BLOCK_TYPE.EXTERNAL_LINKS:
                       return [
