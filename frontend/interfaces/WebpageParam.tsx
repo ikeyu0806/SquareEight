@@ -5,5 +5,5 @@ export interface WebpageParam {
   tag: string
   path: string
   content: string
-  block_contents: blockStateType
+  block_contents: PageContentState[]
 }
