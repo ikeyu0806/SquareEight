@@ -33,6 +33,23 @@ class Api::Internal::WebpagesController < ApplicationController
                                     page_content: [:blockID,
                                                    :blockType,
                                                    :sortOrder,
-                                                   blockState:[:text, :placement, :size]])
+                                                   blockState:[:text, # 見出し
+                                                               :placement,
+                                                               :size,
+                                                               # 画像+テキスト
+                                                               :title,
+                                                               :image,
+                                                               :base64Image,
+                                                               # ページリンク  
+                                                               content: [
+                                                                 :text,
+                                                                 :url
+                                                               ],
+                                                               # 画像スライド
+                                                               imageSlide: [
+                                                                 :title,
+                                                                 :text,
+                                                                 :image
+                                                               ]]])
   end
 end
