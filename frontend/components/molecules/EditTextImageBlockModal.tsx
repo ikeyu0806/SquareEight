@@ -79,6 +79,7 @@ const EditTextImageBlockModal = (): JSX.Element => {
         </Row>
       </Modal.Body>
       <Modal.Footer>
+        <Button variant='secondary' onClick={() => dispatch(blockTypeChanged(''))}>戻る</Button>
         <Button variant='secondary' onClick={() => { dispatch(showBlockModalChanged(false)); dispatch(blockTypeChanged(''))}}>閉じる</Button>
         <Button variant='primary' onClick={completeEdit}>編集を終えてブロックを追加</Button>
       </Modal.Footer>

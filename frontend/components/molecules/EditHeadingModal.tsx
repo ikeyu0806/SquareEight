@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
-import { pageContentChanged, showBlockModalChanged, blockTypeChanged, currentMaxSortOrderChanged } from '../../redux/homepageSlice'
+import { pageContentChanged,
+         showBlockModalChanged,
+         blockTypeChanged,
+         currentMaxSortOrderChanged } from '../../redux/homepageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
-import { HeadingBlockState, placementType, headingSizeType } from '../../interfaces/HeadingBlockState'
+import { placementType, headingSizeType } from '../../interfaces/HeadingBlockState'
 import { BLOCK_TYPE } from '../../constants/blockType'
 
 const EditHeadingModal = (): JSX.Element => {
@@ -13,7 +16,6 @@ const EditHeadingModal = (): JSX.Element => {
   const [inputHeading, setInputeHeading] = useState('')
   const [placement, setPlacement] = useState<placementType>('left')
   const [headingSize, setHeadingSize] = useState<headingSizeType>(1)
-  const [blockContent, setBlockContent] = useState<HeadingBlockState>()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
   const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
 
@@ -92,6 +94,7 @@ const EditHeadingModal = (): JSX.Element => {
         </div>
       </Modal.Body>
       <Modal.Footer>
+        <Button variant='secondary' onClick={() => dispatch(blockTypeChanged(''))}>戻る</Button>
         <Button variant='secondary' onClick={() => { dispatch(showBlockModalChanged(false)); dispatch(blockTypeChanged(''))}}>閉じる</Button>
         <Button variant='primary' onClick={completeEdit}>編集を終えてブロックを追加</Button>
       </Modal.Footer>
