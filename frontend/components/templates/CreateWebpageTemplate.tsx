@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Container, Card, Row, Col, Navbar, Carousel, Form } from 'react-bootstrap'
-import PlusCircleIcon from '../../components/atoms/PlusCircleIcon'
+import PlusCircleIcon from '../atoms/PlusCircleIcon'
 import UpdateBlockStateIcons from '../organisms/UpdateBlockStateIcons'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,7 +12,7 @@ import { ImageSlideState } from '../../interfaces/ImageSlideState'
 import { BLOCK_TYPE } from '../../constants/blockType'
 import { HeadingBlockState } from '../../interfaces/HeadingBlockState'
 
-const CreateHomepageTemplate = (): JSX.Element => {
+const CreateWebpageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
 
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
@@ -138,4 +138,4 @@ const CreateHomepageTemplate = (): JSX.Element => {
   )
 }
 
-export default CreateHomepageTemplate
+export default CreateWebpageTemplate

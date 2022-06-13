@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
-import CreateHomepageTemplate from '../../../../../components/templates/CreateHomepageTemplate'
+import CreateWebpageTemplate from '../../../../../components/templates/CreateWebpageTemplate'
 import RegularFooter from '../../../../../components/organisms/RegularFooter'
 import AdminNavbarTemplate from '../../../../../components/templates/AdminNavbarTemplate'
 import axios from 'axios'
@@ -67,7 +67,7 @@ const Edit: NextPage = () => {
     <>
       <AdminNavbarTemplate></AdminNavbarTemplate>
       <div className='mt30'></div>
-      <CreateHomepageTemplate></CreateHomepageTemplate>
+      <CreateWebpageTemplate></CreateWebpageTemplate>
       <br/>
       <br/>
       <br/>
