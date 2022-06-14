@@ -1,14 +1,15 @@
 import type { NextPage } from 'next'
 import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
 import RegularFooter from '../../../components/organisms/RegularFooter'
-
-const Create: NextPage = () => {
+import CreateHomepageTemplate from '../../../components/templates/CreateHomepageTemplate'
+const New: NextPage = () => {
   return (
     <>
       <AdminNavbar></AdminNavbar>
+      <CreateHomepageTemplate></CreateHomepageTemplate>
       <RegularFooter></RegularFooter>
     </>
   )
 }
 
-export default Create
+export default New
