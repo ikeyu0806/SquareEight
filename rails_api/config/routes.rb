@@ -10,11 +10,11 @@ Rails.application.routes.draw do
       post 'merchant_users', to: 'merchant_users#create'
       get 'homepages/webpages', to: 'homepages#webpages'
       get 'homepages', to: 'homepages#index'
-      post 'homepages/create_web_page', to: 'homepages#create_web_page'
-      post 'homepages/complete_create_homepage', to: 'homepages#complete_create_homepage'
       post 'homepages', to: 'homepages#create'
       get 'webpages/edit', to: 'webpages#edit'
+      post 'webpages/complete_create_homepage', to: 'webpages#complete_create_homepage'
       post 'webpages/update', to: 'webpages#update'
+      post 'webpages', to: 'webpages#create'
     end
   end
 

@@ -15,9 +15,9 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
   const [cookies] = useCookies(['_smartlesson_session'])
 
   const completeCreateHomepage = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/complete_create_homepage`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/webpages/complete_create_homepage`,
     {
-      homepage: {
+      webpage: {
         website_id: router.query.website_id,
         page_content: pageContent,
         path: webpagePath,
@@ -35,9 +35,9 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
   }
 
   const createWebpage = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/create_web_page`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/webpages`,
     {
-      homepage: {
+      webpage: {
         website_id: router.query.website_id,
         page_content: pageContent,
         path: webpagePath,
