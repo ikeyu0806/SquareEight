@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import type { NextPage } from 'next'
 import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
 import RegularFooter from '../../../components/organisms/RegularFooter'
@@ -6,15 +6,16 @@ import CreateHomepageTemplate from '../../../components/templates/CreateHomepage
 import { Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../../redux/store'
 import { useCookies } from 'react-cookie'
+import { alertChanged } from '../../../redux/alertSlice'
 
 const New: NextPage = () => {
+  const dispatch = useDispatch()
   const router = useRouter()
   const [cookies] = useCookies(['_smartlesson_session'])
   const websiteTag = useSelector((state: RootState) => state.homepage.websiteTag)
-  const [alertMessage, setAlertMessage] = useState('')
 
   const createHomepage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/homepages`,
@@ -30,7 +31,7 @@ const New: NextPage = () => {
     }).then(response => {
       router.push(`/admin/homepage/${response.data.website_id}/webpages/new`)
     }).catch(error => {
-      setAlertMessage(error.response.data.error)
+      dispatch(alertChanged(error.response.data.error))
     })
   }
 
