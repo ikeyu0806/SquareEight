@@ -36,8 +36,8 @@ const CreateWebpageTemplate = (): JSX.Element => {
                             value={webpagePath} />
             </Form.Group>
             <Form.Group className='mb-3'>
-              <Form.Label>管理用の識別タグを入力してください。</Form.Label>
-              <Form.Control placeholder=''
+              <Form.Label>管理用のページ名称を入力してください。</Form.Label>
+              <Form.Control placeholder='トップページ、採用情報ページなど'
                             onChange={(e) => dispatch(webpageTagChanged(e.target.value))}
                             value={webpageTag} />
             </Form.Group>

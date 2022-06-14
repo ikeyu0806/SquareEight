@@ -19,7 +19,7 @@ const CreateHomepageTemplate = (): JSX.Element => {
             <div className='mt20 mb20'>
               <Form.Group className='mb-3'>
                 <Form.Label>管理用のホームページ名称を入力してください。</Form.Label>
-                <Form.Control placeholder='〇〇事務所ホームページ　〇〇イベントページなど'
+                <Form.Control placeholder='〇〇事務所ホームページ　〇〇イベントサイトなど'
                               onChange={(e) => dispatch(websiteTagChanged(e.target.value))}
                               value={websiteTag} />
               </Form.Group>
