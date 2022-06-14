@@ -8,6 +8,13 @@ class Api::Internal::HomepagesController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def create
+    website = current_merchant_user.account.websites.create!(tag: homepage_params[:website_tag])
+    render json: { status: 'success', website_id: website.id }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def webpages
     webpages = Website.find(params[:website_id]).webpages
     render json: { status: 'success', webpages: webpages }, states: 200
