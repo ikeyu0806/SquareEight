@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import SetReserveCalendarTemplate from '../../components/templates/SetReserveCalendarTemplate'
-import IntroductionNavbar from '../../components/atoms/IntroductionNavbar'
+import IntroductionNavbar from '../../components/templates/IntroductionNavbar'
 import RegularFooter from '../../components/organisms/RegularFooter'
 
 const Service: NextPage = () => {

@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import ReserveFeatures from '../../../components/organisms/ReserveFeatures'
-import IntroductionNavbar from '../../../components/atoms/IntroductionNavbar'
+import IntroductionNavbar from '../../../components/templates/IntroductionNavbar'
 import RegularFooter from '../../../components/organisms/RegularFooter'
 import { Button } from 'react-bootstrap'
 

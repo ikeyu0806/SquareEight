@@ -1,6 +1,6 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import IntroductionNavbar from '../../../components/atoms/IntroductionNavbar'
+import IntroductionNavbar from '../../../components/templates/IntroductionNavbar'
 import CreateWebpageTemplate from '../../../components/templates/CreateWebpageTemplate'
 import RegularFooter from '../../../components/organisms/RegularFooter'
 import HomepageIntoroductionButtons from '../../../components/templates/HomepageIntoroductionButtons'

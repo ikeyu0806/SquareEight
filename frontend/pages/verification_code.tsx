@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import React, { useState } from 'react'
 import axios from 'axios'
 import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
-import IntroductionNavbar from '../components/atoms/IntroductionNavbar'
+import IntroductionNavbar from '../components/templates/IntroductionNavbar'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
-import IntroductionNavbar from '../components/atoms/IntroductionNavbar'
+import IntroductionNavbar from '../components/templates/IntroductionNavbar'
 import RegularFooter from '../components/organisms/RegularFooter'
 import axios from 'axios'
 

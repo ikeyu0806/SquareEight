@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import FeaturesTemplates from '../../components/templates/FeaturesTemplates'
 import RegularFooter from '../../components/organisms/RegularFooter'
-import IntroductionNavbar from '../../components/atoms/IntroductionNavbar'
+import IntroductionNavbar from '../../components/templates/IntroductionNavbar'
 import { Button } from 'react-bootstrap'
 
 const Feature: NextPage = () => {

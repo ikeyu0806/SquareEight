@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import IntroductionNavbar from '../../components/atoms/IntroductionNavbar'
+import IntroductionNavbar from '../../components/templates/IntroductionNavbar'
 import RegularFooter from '../../components/organisms/RegularFooter'
 import { Button, Container, Card, Row, Col, Form } from 'react-bootstrap'
 import { useRouter } from 'next/router'
