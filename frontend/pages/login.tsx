@@ -5,13 +5,15 @@ import IntroductionNavbar from '../components/templates/IntroductionNavbar'
 import RegularFooter from '../components/organisms/RegularFooter'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
+import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
+import { alertChanged } from '../redux/alertSlice'
 
 const Login: NextPage = () => {
+  const dispatch = useDispatch()
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [alertMessage, setAlertMessage] = useState('')
   const [cookies, setCookie, removeCookie] = useCookies(['_smartlesson_session'])
 
   const onSubmit = () => {
@@ -25,14 +27,13 @@ const Login: NextPage = () => {
       setCookie('_smartlesson_session', response.data.session_id.public_id, { path: '/'})
       router.push('/admin/dashboard')
     }).catch(error => {
-      setAlertMessage(error.response.data.error)
+      dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
     })
   }
 
   return (
     <>
       <IntroductionNavbar />
-      {alertMessage != '' && <Alert variant='danger' onClose={() => setAlertMessage('')} dismissible>{alertMessage}</Alert>}
       <Container>
         <Row>
           <Col lg={4} md={3}></Col>

@@ -4,8 +4,11 @@ import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
 import IntroductionNavbar from '../components/templates/IntroductionNavbar'
 import RegularFooter from '../components/organisms/RegularFooter'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import { alertChanged } from '../redux/alertSlice'
 
 const Signup: NextPage = () => {
+  const dispatch = useDispatch()
   const [businessName, setBusinessName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -28,6 +31,7 @@ const Signup: NextPage = () => {
     )
     .then(response => {
       setAlertMessage(`${email}に検証コードを送信しました。確認して登録を完了してください`)
+      dispatch(alertChanged({message: `${email}に検証コードを送信しました。確認して登録を完了してください`, show: true}))
     })
     .catch(error => {
       console.log({error})

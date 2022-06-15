@@ -5,11 +5,13 @@ import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
 import IntroductionNavbar from '../components/templates/IntroductionNavbar'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
+import { useDispatch } from 'react-redux'
+import { alertChanged } from '../redux/alertSlice'
 
 const VerificationCode: NextPage = () => {
+  const dispatch = useDispatch()
   const router = useRouter()
   const [verificationCode, setVerificationCode] = useState('')
-  const [alertMessage, setAlertMessage] = useState('')
   const [cookies, setCookie, removeCookie] = useCookies(['_smartlesson_session'])
 
   const onSubmit = () => {
@@ -28,14 +30,12 @@ const VerificationCode: NextPage = () => {
       router.push('/introduction/services?status=verify_code')
     })
     .catch(error => {
-      console.log(error.response.data.error)
-      setAlertMessage(error.response.data.error)
+      dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
     })
   }
 
   return (
     <>
-      {alertMessage != '' && <Alert variant="danger" onClose={() => setAlertMessage('')} dismissible>{alertMessage}</Alert>}
       <IntroductionNavbar></IntroductionNavbar>
       <Container>
         <Row>
