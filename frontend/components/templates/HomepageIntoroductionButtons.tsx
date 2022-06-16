@@ -52,7 +52,7 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
       dispatch(webpagePathChanged('/'))
       dispatch(webpageTagChanged(''))
       dispatch(pageContentChanged([]))
-      router.push(`/introduction/${response.data.website_id}/create_homepage`)
+      router.push(`/introduction/${response.data.website_id}/create_webpage`)
     }).catch(error => {
     })
   }

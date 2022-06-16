@@ -16,7 +16,7 @@ const SelectTextImageModal = (): JSX.Element => {
         <Card.Body>
           <input className='form-check-input mr10'
                  type='radio'
-                 onChange={() => dispatch(blockTypeChanged(BLOCK_TYPE.IMAGE_SLIDE))}
+                 onChange={() => dispatch(blockTypeChanged(BLOCK_TYPE.TEXT_IMAGE))}
                  checked={selectedBlockType === BLOCK_TYPE.TEXT_IMAGE} />
           <span>テキスト+画像</span>
           <div className='mt10'>テキストと画像で構成されたブロックを追加します。画像にはページリンクを設定できます</div>
