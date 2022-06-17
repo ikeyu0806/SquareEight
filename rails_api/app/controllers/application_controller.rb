@@ -14,6 +14,7 @@ class ApplicationController < ActionController::API
 
 
   def login_only!
-    render json: { errMessage: "ログインしてください" }, status: 401 and return unless current_merchant_user.blank?
+    render json: { errMessage: "ログインしてください" }, status: 401 and return if current_merchant_user.blank?
+    true
   end
 end

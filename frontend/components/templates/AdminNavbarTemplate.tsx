@@ -19,7 +19,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
         'Session-Id': cookies._smartlesson_session
       }
     })
-    dispatch(alertChanged({message: 'ログアウトしました'}))
+    dispatch(alertChanged({message: 'ログアウトしました', show: true}))
     router.push('/login')
   }
 
