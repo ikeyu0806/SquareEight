@@ -34,6 +34,40 @@ const Index: NextPage = () => {
     fetchHomepages()
   }, [router.query.id, cookies._smartlesson_session])
 
+  const publishWebsite = (websiteId: number) => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/publish`,
+    {
+      homepage: {
+        website_id: websiteId
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._smartlesson_session
+      }
+    }).then(response => {
+      location.reload()
+    }).catch(error => {
+    })
+  }
+
+  const unpublishWebsite = (websiteId: number) => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/unpublish`,
+    {
+      homepage: {
+        website_id: websiteId
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._smartlesson_session
+      }
+    }).then(response => {
+      location.reload()
+    }).catch(error => {
+    })
+  }
+
   return (
     <>
       <AdminNavbar></AdminNavbar>
@@ -62,12 +96,12 @@ const Index: NextPage = () => {
                       ?
                       <>
                         <span className='color-red'>非公開&ensp;</span>
-                        <Button>公開する</Button>
+                        <Button onClick={() => publishWebsite(website.id)}>公開する</Button>
                       </>
                       :
                       <>
                         <span className='color-green'>公開&ensp;</span>
-                        <Button variant="danger">非公開にする</Button>
+                        <Button variant='danger' onClick={() => unpublishWebsite(website.id)}>非公開にする</Button>
                       </>
                     }
                     

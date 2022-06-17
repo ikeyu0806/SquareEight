@@ -22,6 +22,18 @@ class Api::Internal::HomepagesController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def publish
+    Website.find(homepage_params[:website_id]).update!(publish_status: 'Publish')
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def unpublish
+    Website.find(homepage_params[:website_id]).update!(publish_status: 'Unpublish')
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def homepage_params

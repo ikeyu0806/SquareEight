@@ -12,6 +12,8 @@ Rails.application.routes.draw do
       get 'homepages/webpages', to: 'homepages#webpages'
       get 'homepages', to: 'homepages#index'
       post 'homepages', to: 'homepages#create'
+      post 'homepages/publish', to: 'homepages#publish'
+      post 'homepages/unpublish', to: 'homepages#unpublish'
       get 'webpages/edit', to: 'webpages#edit'
       get 'webpages/:id', to: 'webpages#show'
       post 'webpages/complete_create_homepage', to: 'webpages#complete_create_homepage'
