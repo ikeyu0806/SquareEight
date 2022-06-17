@@ -4,6 +4,8 @@ echo "start rails initial script..."
 cd /app/rails
 
 bundle exec rails tmp:create
+bundle exec rails db:migrate
+bundle exec rails db:seed
 bundle exec rails tmp:clear
 # rails tmp:clearじゃ削除されない
 rm /app/rails/tmp/pids/server.pid

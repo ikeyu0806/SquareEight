@@ -5,3 +5,16 @@
 #
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
+
+account = Account.first_or_create!(
+  business_name: "管理ユーザ"
+)
+
+MerchantUser.first_or_create!(
+  account_id: account.id,
+  email: "merchant_user@develop.com",
+  password: "Pass1234",
+  name: "開発用ビジネスユーザ",
+  authority_category: "MerchantAdmin",
+  authentication_status: "Enabled"
+)
