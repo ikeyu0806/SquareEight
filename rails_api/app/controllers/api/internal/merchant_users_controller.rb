@@ -29,8 +29,8 @@ class Api::Internal::MerchantUsersController < ApplicationController
   def confirm_verification_code
     email = Base64.urlsafe_decode64(merchant_user_params[:email])
     merchant_user = MerchantUser.find_by(email: email)
-    render_401 and return "不正な検証コードです" if merchant_user.verification_code != merchant_user_params[:verification_code]
-    render_401 and return "検証コードの期限が切れています" if merchant_user.verification_code_expired_at < Time.zone.now
+    render json: { errMessage: "不正な検証コードです" }, status: 401 and return if merchant_user.verification_code != merchant_user_params[:verification_code]
+    render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if merchant_user.verification_code_expired_at < Time.zone.now
     merchant_user.update!(authentication_status: 'Enabled')
     session['merchant_user_id'] = merchant_user.id
     render json: { status: 'success', session_id: session.id, }, states: 200

@@ -12,15 +12,8 @@ class ApplicationController < ActionController::API
     nil
   end
 
-  def render_401
-    render status: 401
-  end
-
-  def render_500
-    render status: 500
-  end
 
   def login_only!
-    render_401 and return unless current_merchant_user.blank?
+    render json: { errMessage: "ログインしてください" }, status: 401 and return unless current_merchant_user.blank?
   end
 end
