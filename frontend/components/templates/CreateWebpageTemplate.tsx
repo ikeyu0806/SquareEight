@@ -4,7 +4,7 @@ import PlusCircleIcon from '../atoms/PlusCircleIcon'
 import UpdateBlockStateIcons from '../organisms/UpdateBlockStateIcons'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
-import { showBlockModalChanged, webpagePathChanged, webpageTagChanged } from '../../redux/homepageSlice'
+import { showBlockModalChanged, webpageTagChanged } from '../../redux/homepageSlice'
 import CreateBlockModal from '../organisms/CreateBlockModal'
 import { ExternalLinkBlockStateType } from '../../interfaces/ExternalLinkBlockStateType'
 import { TextImageBlockStateType } from '../../interfaces/TextImageBlockStateType'
@@ -16,7 +16,6 @@ const CreateWebpageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
 
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-  const webpagePath = useSelector((state: RootState) => state.homepage.webpagePath)
   const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
 
   return(
@@ -27,14 +26,6 @@ const CreateWebpageTemplate = (): JSX.Element => {
           </Col>
           <Col sm={9}>
           <div className='mb20'>
-            <Form.Group className='mb-3'>
-              <Form.Label>
-                ホームページ内パス(必須)<br></br>
-                「/」から始まる英文字を入力してください。トップページに設定する場合は「/」のみ入力してください。</Form.Label>
-              <Form.Control placeholder=''
-                            onChange={(e) => dispatch(webpagePathChanged(e.target.value))}
-                            value={webpagePath} />
-            </Form.Group>
             <Form.Group className='mb-3'>
               <Form.Label>管理用のページ名称を入力してください。</Form.Label>
               <Form.Control placeholder='トップページ、採用情報ページなど'

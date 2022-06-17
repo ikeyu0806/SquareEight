@@ -13,7 +13,6 @@ export const homepageSlice = createSlice({
     showBlockModal: false,
     currentMaxSortOrder: 0,
     websiteTag: '',
-    webpagePath: '/',
     webpageTag: ''
   },
   reducers: {
@@ -44,9 +43,6 @@ export const homepageSlice = createSlice({
     websiteTagChanged: (state, action: PayloadAction<string>) => {
       state.websiteTag = action.payload
     },
-    webpagePathChanged: (state, action: PayloadAction<string>) => {
-      state.webpagePath = action.payload
-    },
     webpageTagChanged: (state, action: PayloadAction<string>) => {
       state.webpageTag = action.payload
     },
@@ -62,7 +58,6 @@ export const { footerCopyrightChanged } = homepageSlice.actions
 export const { showBlockModalChanged } = homepageSlice.actions
 export const { currentMaxSortOrderChanged } = homepageSlice.actions
 export const { websiteTagChanged } = homepageSlice.actions
-export const { webpagePathChanged } = homepageSlice.actions
 export const { webpageTagChanged } = homepageSlice.actions
 
 export default homepageSlice.reducer

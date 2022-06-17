@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import { RootState } from '../../../../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { WebpageParam } from '../../../../../interfaces/WebpageParam'
-import { webpagePathChanged, webpageTagChanged, pageContentChanged } from '../../../../../redux/homepageSlice'
+import { webpageTagChanged, pageContentChanged } from '../../../../../redux/homepageSlice'
 import { Button } from 'react-bootstrap'
 
 const Edit: NextPage = () => {
@@ -17,7 +17,6 @@ const Edit: NextPage = () => {
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-  const webpagePath = useSelector((state: RootState) => state.homepage.webpagePath)
   const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
 
   useEffect(() => {
@@ -32,7 +31,6 @@ const Edit: NextPage = () => {
       .then(function (response) {
         const webpageResponse: WebpageParam = response.data.webpage
         console.log({webpageResponse})
-        dispatch(webpagePathChanged(webpageResponse.path))
         dispatch(webpageTagChanged(webpageResponse.tag))
         dispatch(pageContentChanged(webpageResponse.block_contents || []))
       })
@@ -49,7 +47,6 @@ const Edit: NextPage = () => {
       webpage: {
         id: router.query.webpage_id,
         page_content: pageContent,
-        path: webpagePath,
         tag: webpageTag
       }
     },

@@ -4,13 +4,12 @@ import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { pageContentChanged, webpagePathChanged, webpageTagChanged } from '../../redux/homepageSlice'
+import { pageContentChanged, webpageTagChanged } from '../../redux/homepageSlice'
 
 const HomepageIntoroductionButtons = (): JSX.Element => {
   const dispatch = useDispatch()
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-  const webpagePath = useSelector((state: RootState) => state.homepage.webpagePath)
   const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
   const [cookies] = useCookies(['_smartlesson_session'])
 
@@ -20,7 +19,6 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
       webpage: {
         website_id: router.query.website_id,
         page_content: pageContent,
-        path: webpagePath,
         tag: webpageTag
       }
     },
@@ -40,7 +38,6 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
       webpage: {
         website_id: router.query.website_id,
         page_content: pageContent,
-        path: webpagePath,
         tag: webpageTag
       }
     },
@@ -49,7 +46,6 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
         'Session-Id': cookies._smartlesson_session
       }
     }).then(response => {
-      dispatch(webpagePathChanged('/'))
       dispatch(webpageTagChanged(''))
       dispatch(pageContentChanged([]))
       router.push(`/introduction/${response.data.website_id}/create_webpage`)

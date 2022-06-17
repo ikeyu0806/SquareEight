@@ -63,7 +63,7 @@ class Api::Internal::WebpagesController < ApplicationController
       else
         website = current_merchant_user.account.websites.create!
       end
-      website.create_webpages(webpage_params[:page_content], webpage_params[:path], webpage_params[:tag])
+      website.create_webpages(webpage_params[:page_content], webpage_params[:tag])
       render json: { status: 'success', website_id: website.id }, states: 200
     end
   rescue => error
@@ -81,7 +81,6 @@ class Api::Internal::WebpagesController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       webpage = Webpage.find(webpage_params[:id])
-      webpage.path = webpage_params[:path]
       webpage.tag = webpage_params[:tag]
       webpage.save!
       webpage.webpage_blocks.delete_all
@@ -99,7 +98,6 @@ class Api::Internal::WebpagesController < ApplicationController
 
   def webpage_params
     params.require(:webpage).permit(:id,
-                                    :path,
                                     :tag,
                                     :website_id,
                                     page_content: [:blockID,
