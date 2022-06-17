@@ -7,6 +7,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { WebsiteParam } from '../../../interfaces/WebsiteParam'
+import PencilSquareIcon from '../../../components/atoms/PencilSquareIcon'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_smartlesson_session'])
@@ -44,21 +45,29 @@ const Index: NextPage = () => {
               <th className='text-center'>タグ</th>
               <th className='text-center'>公開設定</th>
               <th className='text-center'>作成日時</th>
-              <th className='text-center'></th>
+              <th></th>
+              <th></th>
             </tr>
           </thead>
           <tbody>
             {websites.map((website, i) => {
               return (
                 <tr key={i}>
-                  <td className='text-center'>{website.tag}</td>
-                  <td className='text-center'></td>
+                  <td className='text-center'>
+                    <span>{website.tag}</span>
+                    <PencilSquareIcon width={20} height={20} fill={'green'}></PencilSquareIcon>
+                  </td>
+                  <td className='text-center'>
+                    <span className='color-red'>非公開&ensp;</span>
+                    <Button>公開する</Button>
+                  </td>
                   <td className='text-center'>{website.display_created_at}</td>
                   <td className='text-center'>
                     <Button onClick={() => router.push(`/admin/homepage/${website.id}/webpages`)}>
                       ページ一覧
                     </Button>
                   </td>
+                  <td className='text-center'><Button>プレビュー</Button></td>
                 </tr>
               )
             })}
