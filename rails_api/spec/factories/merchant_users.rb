@@ -3,7 +3,7 @@ FactoryBot.define do
     email { 'merchant_user@develop.com' }
     name { 'GCS管理者' }
     password { 'Pass1234' }
-    authority_category { 'gcs_admin' }
+    authority_category { 'MerchantAdmin' }
     authentication_status { 'Enabled' }
   end
 end

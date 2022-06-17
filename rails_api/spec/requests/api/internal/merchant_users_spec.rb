@@ -36,4 +36,28 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
       end
     end
   end
+
+  describe 'POST /api/internal/merchant_users/confirm_verification_code' do
+    let(:account) { create(:business_account) }
+    let!(:merchant_user) {
+      create(:business_user,
+              account: account,
+              verification_code: "123456",
+              verification_code_expired_at: Time.zone.now + 1.days)
+    }
+
+    let(:params) {
+      {
+        merchant_user: {
+         email: Base64.urlsafe_encode64(merchant_user.email),
+         verification_code: merchant_user.verification_code
+       }
+      }
+    }
+
+    it 'should return 200' do
+      post "/api/internal/merchant_users/confirm_verification_code", params: params
+      expect(response.status).to eq 200
+    end
+  end
 end
