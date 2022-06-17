@@ -14,7 +14,7 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
   const [cookies] = useCookies(['_smartlesson_session'])
 
   const completeCreateHomepage = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/webpages/complete_create_homepage`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/webpages`,
     {
       webpage: {
         website_id: router.query.website_id,
@@ -27,6 +27,8 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
         'Session-Id': cookies._smartlesson_session
       }
     }).then(response => {
+      dispatch(webpageTagChanged(''))
+      dispatch(pageContentChanged([]))
       router.push('/admin/dashboard')
     }).catch(error => {
     })

@@ -2,10 +2,9 @@ class Website < ApplicationRecord
   belongs_to :account
   has_many :webpages
 
-  def create_webpages(webpage_content_string, path, tag)
+  def create_webpages(webpage_content_string, tag)
     ActiveRecord::Base.transaction do
       web_page = self.webpages.new
-      web_page.path = path
       web_page.tag = tag
       web_page.save!
       webpage_content_json = JSON.parse(webpage_content_string.to_json)
