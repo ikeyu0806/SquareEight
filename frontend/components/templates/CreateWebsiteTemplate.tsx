@@ -4,7 +4,7 @@ import { websiteTagChanged } from '../../redux/homepageSlice'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 
-const CreateHomepageTemplate = (): JSX.Element => {
+const CreateWebsiteTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
   const websiteTag = useSelector((state: RootState) => state.homepage.websiteTag)
 
@@ -33,4 +33,4 @@ const CreateHomepageTemplate = (): JSX.Element => {
   )
 }
 
-export default CreateHomepageTemplate
+export default CreateWebsiteTemplate

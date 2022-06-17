@@ -2,7 +2,7 @@ import React from 'react'
 import type { NextPage } from 'next'
 import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
 import RegularFooter from '../../../components/organisms/RegularFooter'
-import CreateHomepageTemplate from '../../../components/templates/CreateHomepageTemplate'
+import CreateWebsiteTemplate from '../../../components/templates/CreateWebsiteTemplate'
 import { Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -38,7 +38,7 @@ const New: NextPage = () => {
   return (
     <>
       <AdminNavbar></AdminNavbar>
-      <CreateHomepageTemplate></CreateHomepageTemplate>
+      <CreateWebsiteTemplate></CreateWebsiteTemplate>
       <div className='text-center'>
         <Button onClick={createHomepage}>次へ</Button>
       </div>
