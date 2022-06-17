@@ -18,5 +18,22 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
       post "/api/internal/merchant_users", params: params
       expect(response.status).to eq 200
     end
+
+    context 'email is nil' do
+      let(:params) {
+        {
+          merchant_user: {
+           name: "登録エラーテスト",
+           password: "Pass1234",
+           authority_category: "MerchantAdmin",
+           is_create_account: true
+         }
+        }
+      }
+      it 'should return 500' do
+        post "/api/internal/merchant_users", params: params
+        expect(response.status).to eq 500
+      end
+    end
   end
 end
