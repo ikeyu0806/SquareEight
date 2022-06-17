@@ -58,8 +58,19 @@ const Index: NextPage = () => {
                     <PencilSquareIcon width={20} height={20} fill={'green'}></PencilSquareIcon>
                   </td>
                   <td className='text-center'>
-                    <span className='color-red'>非公開&ensp;</span>
-                    <Button>公開する</Button>
+                    {website.publish_status === 'Unpublish'
+                      ?
+                      <>
+                        <span className='color-red'>非公開&ensp;</span>
+                        <Button>公開する</Button>
+                      </>
+                      :
+                      <>
+                        <span className='color-green'>公開&ensp;</span>
+                        <Button variant="danger">非公開にする</Button>
+                      </>
+                    }
+                    
                   </td>
                   <td className='text-center'>{website.display_created_at}</td>
                   <td className='text-center'>

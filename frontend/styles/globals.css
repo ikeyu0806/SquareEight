@@ -101,6 +101,10 @@ a {
   color: red;
 }
 
+.color-green {
+  color: green;
+}
+
 .link-text {
   color: blue;
   text-decoration: underline;

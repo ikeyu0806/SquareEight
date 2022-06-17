@@ -2,6 +2,8 @@ class Website < ApplicationRecord
   belongs_to :account
   has_many :webpages
 
+  enum publish_status: { Unpublish: 0, Publish: 1 }
+
   def create_webpages(webpage_content_string, tag)
     ActiveRecord::Base.transaction do
       web_page = self.webpages.new
