@@ -59,5 +59,20 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
       post "/api/internal/merchant_users/confirm_verification_code", params: params
       expect(response.status).to eq 200
     end
+
+    context 'verification_code is invalid' do
+      let(:params) {
+        {
+          merchant_user: {
+           email: Base64.urlsafe_encode64(merchant_user.email),
+           verification_code: "123123"
+         }
+        }
+      }
+      it 'should return 401' do
+        post "/api/internal/merchant_users/confirm_verification_code", params: params
+        expect(response.status).to eq 401
+      end
+    end
   end
 end
