@@ -9,13 +9,18 @@ class ApplicationController < ActionController::API
     user
   rescue => error
     Rails.logger.error error
-    return nil
+    nil
+  end
+
+  def render_401
+    render status: 401
+  end
+
+  def render_500
+    render status: 500
   end
 
   def login_only!
-    raise "ログインしてください" unless current_merchant_user.class == MerchantUser
-  rescue => error
-    Rails.logger.error error
-    return nil
+    render_401 and return unless current_merchant_user.blank?
   end
 end
