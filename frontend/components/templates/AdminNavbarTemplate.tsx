@@ -3,10 +3,25 @@ import { Nav, Navbar, NavDropdown, Container, Alert } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { alertChanged } from '../../redux/alertSlice'
 import { RootState } from '../../redux/store'
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
 
 const AdminNavbarTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
-  const alert =  useSelector((state: RootState) => state.alert.alert)
+  const [cookies] = useCookies(['_smartlesson_session'])
+  const router = useRouter()
+  const alertState =  useSelector((state: RootState) => state.alert.alert)
+
+  const logout = () => {
+    axios.delete(`${process.env.BACKEND_URL}/api/internal/sessions`, {
+      headers: { 
+        'Session-Id': cookies._smartlesson_session
+      }
+    })
+    dispatch(alertChanged({message: 'ログアウトしました'}))
+    router.push('/login')
+  }
 
   return (
     <>
@@ -22,35 +37,36 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/homepage/new'>新規作成</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='予約' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='#action/3.1'>カレンダー</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>一覧</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>営業時間設定</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>リソース登録</NavDropdown.Item>
+                <NavDropdown.Item href=''>カレンダー</NavDropdown.Item>
+                <NavDropdown.Item href=''>一覧</NavDropdown.Item>
+                <NavDropdown.Item href=''>営業時間設定</NavDropdown.Item>
+                <NavDropdown.Item href=''>リソース登録</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='顧客' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='#action/3.1'>一覧</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>新規登録</NavDropdown.Item>
+                <NavDropdown.Item href=''>一覧</NavDropdown.Item>
+                <NavDropdown.Item href=''>新規登録</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='お支払い・決済' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='#action/3.1'>決済履歴</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>月額課金プランマスタ一覧</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>月額課金プラン作成</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>回数券マスタ一覧</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>回数券作成</NavDropdown.Item>
+                <NavDropdown.Item href=''>決済履歴</NavDropdown.Item>
+                <NavDropdown.Item href=''>月額課金プランマスタ一覧</NavDropdown.Item>
+                <NavDropdown.Item href=''>月額課金プラン作成</NavDropdown.Item>
+                <NavDropdown.Item href=''>回数券マスタ一覧</NavDropdown.Item>
+                <NavDropdown.Item href=''>回数券作成</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='アカウント設定' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='#action/3.1'>クレジットカード登録・変更</NavDropdown.Item>
-                <NavDropdown.Item href='#action/3.1'>プラン変更・退会</NavDropdown.Item>
+                <NavDropdown.Item href=''>クレジットカード登録・変更</NavDropdown.Item>
+                <NavDropdown.Item href=''>プラン変更・退会</NavDropdown.Item>
+                <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='その他' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='#action/3.1'>お問い合わせ</NavDropdown.Item>
+                <NavDropdown.Item href=''>お問い合わせ</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      {alert.show && <Alert variant={alert.type} onClose={() => dispatch(alertChanged({message: '', show: false}))} dismissible>
-        {alert.message}
+      {alertState.show && <Alert variant={alertState.type} onClose={() => dispatch(alertChanged({message: '', show: false}))} dismissible>
+        {alertState.message}
       </Alert>}
     </>
   )

@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :internal do
       post 'sessions', to: 'sessions#create'
+      delete 'sessions', to: 'sessions#destroy'
       post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'
       post 'merchant_users', to: 'merchant_users#create'
       get 'homepages/webpages', to: 'homepages#webpages'
