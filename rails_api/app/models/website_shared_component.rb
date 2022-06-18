@@ -1,0 +1,2 @@
+class WebsiteSharedComponent < ApplicationRecord
+end
