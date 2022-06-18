@@ -42,7 +42,6 @@ const Index: NextPage = () => {
           <thead>
             <tr>
               <th className='text-center'>タグ</th>
-              <th className='text-center'>パス</th>
               <th className='text-center'></th>
             </tr>
           </thead>
@@ -51,7 +50,6 @@ const Index: NextPage = () => {
               return (
                 <tr key={i}>
                   <td className='text-center'>{webpage.tag}</td>
-                  <td className='text-center'>{webpage.path}</td>
                   <td className='text-center'>
                     <Button onClick={() => router.push(`/admin/homepage/webpages/${webpage.id}/edit`)}>
                       編集

@@ -8,6 +8,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { WebsiteParam } from '../../../interfaces/WebsiteParam'
 import PencilSquareIcon from '../../../components/atoms/PencilSquareIcon'
+import { swalWithBootstrapButtons } from '../../../constants/swalWithBootstrapButtons'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_smartlesson_session'])
@@ -68,6 +69,34 @@ const Index: NextPage = () => {
     })
   }
 
+  const updateTag = (websiteId: number) => {
+    swalWithBootstrapButtons.fire({
+      input: 'text',
+      confirmButtonText: '更新する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/update_tag`,
+        {
+          homepage: {
+            website_id: websiteId,
+            tag: result.value
+          }
+        },
+        {
+          headers: {
+            'Session-Id': cookies._smartlesson_session
+          }
+        }).then(response => {
+          location.reload()
+        }).catch(error => {
+        })
+      }
+    })
+  }
+
   return (
     <>
       <AdminNavbar></AdminNavbar>
@@ -76,7 +105,7 @@ const Index: NextPage = () => {
         <Table bordered>
           <thead>
             <tr>
-              <th className='text-center'>タグ</th>
+              <th className='text-center'>サイト名</th>
               <th className='text-center'>公開設定</th>
               <th className='text-center'>作成日時</th>
               <th></th>
@@ -89,7 +118,9 @@ const Index: NextPage = () => {
                 <tr key={i}>
                   <td className='text-center'>
                     <span>{website.tag}</span>
-                    <PencilSquareIcon width={20} height={20} fill={'green'}></PencilSquareIcon>
+                    <a onClick={() => updateTag(website.id)}>
+                      <PencilSquareIcon width={20} height={20} fill={'green'}></PencilSquareIcon>
+                    </a>
                   </td>
                   <td className='text-center'>
                     {website.publish_status === 'Unpublish'
