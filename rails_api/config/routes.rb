@@ -14,6 +14,7 @@ Rails.application.routes.draw do
       post 'homepages/update_tag', to: 'homepages#update_tag'
       post 'homepages/publish', to: 'homepages#publish'
       post 'homepages/unpublish', to: 'homepages#unpublish'
+      post 'homepages/update_shared_component', to: 'homepages#update_shared_component'
       post 'homepages', to: 'homepages#create'
       get 'webpages/edit', to: 'webpages#edit'
       get 'webpages/:id', to: 'webpages#show'

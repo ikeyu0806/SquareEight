@@ -43,7 +43,12 @@ class Api::Internal::HomepagesController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
-  def update_website_shared_component
+  def update_shared_component
+    Website.find(homepage_params[:website_id])
+           .update!(default_header_content: [:default_header_content], default_footer_content: [:default_footer_content])
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
   end
 
   private

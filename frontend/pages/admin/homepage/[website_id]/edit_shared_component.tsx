@@ -11,9 +11,15 @@ import { showEditHeaderModalChanged,
 import { RootState } from '../../../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { navbarLink } from '../../../../interfaces/WebsiteHeaderType'
+import axios from 'axios'
+import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie'
 
 const EditSharedComponent: NextPage = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
+  const [cookies] = useCookies(['_smartlesson_session'])
+  
   const showEditHeaderModal = useSelector((state: RootState) => state.homepage.showEditHeaderModal)
   const showEditFooterModal = useSelector((state: RootState) => state.homepage.showEditFooterModal)
   const websiteHeader = useSelector((state: RootState) => state.homepage.websiteHeader)
@@ -23,6 +29,7 @@ const EditSharedComponent: NextPage = () => {
   const [inputLink, setInputLink] = useState('')
   const [navbarLinks, setNavbarLinks] = useState<navbarLink[]>([])
   const [footerText, setFooterText] = useState('')
+
 
   const onClickAddLinkButton = () => {
     let updateNavbarLinks: navbarLink[]
@@ -40,6 +47,25 @@ const EditSharedComponent: NextPage = () => {
   const updateWebsiteFooter = () => {
     dispatch((websiteFooterChanged({text: footerText})))
     dispatch(showEditFooterModalChanged(false))
+  }
+
+  const updateSharedComponent = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/update_shared_component`,
+    {
+      homepage: {
+        website_id: router.query.website_id,
+        default_header_content: websiteHeader,
+        default_footer_content: websiteFooter
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._smartlesson_session
+      }
+    }).then(response => {
+      router.push('/admin/dashboard')
+    }).catch(error => {
+    })
   }
 
   return (
@@ -167,7 +193,7 @@ const EditSharedComponent: NextPage = () => {
       </Container>
       <br />
       <div className='text-center'>
-        <Button>編集を完了</Button>
+        <Button onClick={updateSharedComponent}>編集を完了</Button>
       </div>
       <Container></Container>
       <RegularFooter></RegularFooter>
