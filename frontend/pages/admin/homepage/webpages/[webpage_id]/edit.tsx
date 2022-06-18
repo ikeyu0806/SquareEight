@@ -20,7 +20,7 @@ const Edit: NextPage = () => {
   const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
 
   useEffect(() => {
-    const fetchHomepages = () => {
+    const fetchWebpage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/webpages/edit?id=${router.query.webpage_id}`, {
           headers: { 
@@ -38,7 +38,7 @@ const Edit: NextPage = () => {
         console.log(error)
       })
     }
-    fetchHomepages()
+    fetchWebpage()
   }, [router.query.id, cookies._smartlesson_session, router.query.webpage_id, dispatch])
 
   const updateWebpage = () => {
