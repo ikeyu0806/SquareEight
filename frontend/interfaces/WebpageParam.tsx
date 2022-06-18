@@ -1,5 +1,4 @@
 import { PageContentState } from './PageContentState'
-import { blockStateType } from './PageContentState'
 export interface WebpageParam {
   id: number
   tag: string
