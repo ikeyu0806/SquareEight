@@ -6,7 +6,8 @@ import RegularFooter from '../../../../components/organisms/RegularFooter'
 import PencilSquareIcon from '../../../../components/atoms/PencilSquareIcon'
 import { showEditHeaderModalChanged,
          showEditFooterModalChanged,
-         websiteHeaderChanged } from '../../../../redux/homepageSlice'
+         websiteHeaderChanged,
+         websiteFooterChanged } from '../../../../redux/homepageSlice'
 import { RootState } from '../../../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { navbarLink } from '../../../../interfaces/WebsiteHeaderType'
@@ -16,10 +17,12 @@ const EditSharedComponent: NextPage = () => {
   const showEditHeaderModal = useSelector((state: RootState) => state.homepage.showEditHeaderModal)
   const showEditFooterModal = useSelector((state: RootState) => state.homepage.showEditFooterModal)
   const websiteHeader = useSelector((state: RootState) => state.homepage.websiteHeader)
+  const websiteFooter = useSelector((state: RootState) => state.homepage.websiteFooter)
   const [title, setTitle] = useState('')
   const [inputLinkText, setInputLinkText] = useState('')
   const [inputLink, setInputLink] = useState('')
   const [navbarLinks, setNavbarLinks] = useState<navbarLink[]>([])
+  const [footerText, setFooterText] = useState('')
 
   const onClickAddLinkButton = () => {
     let updateNavbarLinks: navbarLink[]
@@ -32,6 +35,11 @@ const EditSharedComponent: NextPage = () => {
   const updateWebsiteHeader = () => {
     dispatch((websiteHeaderChanged({brandText: title, bodyContent: navbarLinks})))
     dispatch(showEditHeaderModalChanged(false))
+  }
+
+  const updateWebsiteFooter = () => {
+    dispatch((websiteFooterChanged({text: footerText})))
+    dispatch(showEditFooterModalChanged(false))
   }
 
   return (
@@ -122,26 +130,38 @@ const EditSharedComponent: NextPage = () => {
         <h2 className='mt20 mb20'>フッタプレビュー</h2>
         <footer className='content text-center'>
           <hr />
-          <p className='footer-margin'>Copyright SampleCompany {new Date().getFullYear()}</p>
+          <p className='footer-margin'>{websiteFooter.text}</p>
         </footer>
         <div onClick={() => dispatch(showEditFooterModalChanged(true))} className='mt30'>
           <h4>フッタを編集<PencilSquareIcon height={30} width={30} fill={'green'}></PencilSquareIcon></h4>
         </div>
         <Modal show={showEditFooterModal} size='lg'>
-          <Modal.Header closeButton>
+          <Modal.Header>
             <Modal.Title>フッタを編集してください</Modal.Title>
           </Modal.Header>
 
           <Modal.Body>
+          <Form.Group>
+            <Form.Text>フッタテキスト</Form.Text>
+              <Form.Control placeholder={'Copyright SampleCompany ' + new Date().getFullYear()}
+                            value={footerText}
+                            onChange={(e) => setFooterText(e.target.value)}></Form.Control>
+          </Form.Group>
+          <h3 className='mt10 mb10'>サンプル</h3>
             <footer className='content text-center'>
               <hr />
               <p className='footer-margin'>Copyright SampleCompany {new Date().getFullYear()}</p>
+            </footer>
+            <h3 className='mt10 mb10'>プレビュー</h3>
+            <footer className='content text-center'>
+              <hr />
+              <p className='footer-margin'>{footerText}</p>
             </footer>
           </Modal.Body>
 
           <Modal.Footer>
             <Button variant='secondary' onClick={() => dispatch(showEditFooterModalChanged(false))}>閉じる</Button>
-            <Button variant='primary'>編集を完了</Button>
+            <Button variant='primary' onClick={updateWebsiteFooter}>編集を完了</Button>
           </Modal.Footer>
         </Modal>
       </Container>

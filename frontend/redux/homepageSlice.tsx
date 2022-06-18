@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { PageContentState } from '../interfaces/PageContentState'
 import { WebsiteHeaderType } from '../interfaces/WebsiteHeaderType'
+import { WebsiteFooterType } from '../interfaces/WebsiteFooterType'
 
 export const homepageSlice = createSlice({
   name: 'homepage',
@@ -17,7 +18,8 @@ export const homepageSlice = createSlice({
     webpageTag: '',
     showEditHeaderModal: false,
     showEditFooterModal: false,
-    websiteHeader: {} as WebsiteHeaderType
+    websiteHeader: {} as WebsiteHeaderType,
+    websiteFooter: {} as WebsiteFooterType
   },
   reducers: {
     pageContentChanged: (state, action: PayloadAction<PageContentState[]>) => {
@@ -59,6 +61,9 @@ export const homepageSlice = createSlice({
     websiteHeaderChanged: (state, action: PayloadAction<WebsiteHeaderType>) => {
       state.websiteHeader = action.payload
     },
+    websiteFooterChanged: (state, action: PayloadAction<WebsiteFooterType>) => {
+      state.websiteFooter = action.payload
+    },
   },
 })
 
@@ -75,5 +80,6 @@ export const { webpageTagChanged } = homepageSlice.actions
 export const { showEditHeaderModalChanged } = homepageSlice.actions
 export const { showEditFooterModalChanged } = homepageSlice.actions
 export const { websiteHeaderChanged } = homepageSlice.actions
+export const { websiteFooterChanged } = homepageSlice.actions
 
 export default homepageSlice.reducer
