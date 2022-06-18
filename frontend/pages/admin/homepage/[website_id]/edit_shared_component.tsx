@@ -4,7 +4,9 @@ import { Container, Navbar, Nav, Button, Modal, Form } from 'react-bootstrap'
 import AdminNavbarTemplate from '../../../../components/templates/AdminNavbarTemplate'
 import RegularFooter from '../../../../components/organisms/RegularFooter'
 import PencilSquareIcon from '../../../../components/atoms/PencilSquareIcon'
-import { showEditHeaderModalChanged, showEditFooterModalChanged } from '../../../../redux/homepageSlice'
+import { showEditHeaderModalChanged,
+         showEditFooterModalChanged,
+         websiteHeaderChanged } from '../../../../redux/homepageSlice'
 import { RootState } from '../../../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { navbarLink } from '../../../../interfaces/WebsiteHeaderType'
@@ -13,6 +15,7 @@ const EditSharedComponent: NextPage = () => {
   const dispatch = useDispatch()
   const showEditHeaderModal = useSelector((state: RootState) => state.homepage.showEditHeaderModal)
   const showEditFooterModal = useSelector((state: RootState) => state.homepage.showEditFooterModal)
+  const websiteHeader = useSelector((state: RootState) => state.homepage.websiteHeader)
   const [title, setTitle] = useState('')
   const [inputLinkText, setInputLinkText] = useState('')
   const [inputLink, setInputLink] = useState('')
@@ -26,6 +29,11 @@ const EditSharedComponent: NextPage = () => {
     setInputLink('')
   }
 
+  const updateWebsiteHeader = () => {
+    dispatch((websiteHeaderChanged({brandText: title, bodyContent: navbarLinks})))
+    dispatch(showEditHeaderModalChanged(false))
+  }
+
   return (
     <>
       <AdminNavbarTemplate></AdminNavbarTemplate>
@@ -33,21 +41,26 @@ const EditSharedComponent: NextPage = () => {
         <h2 className='mt20 mb20'>ヘッダプレビュー</h2>
         <Navbar bg='light' expand='lg'>
           <Container>
-            <Navbar.Brand href='#home'>見出しを入力</Navbar.Brand>
-            <Navbar.Toggle aria-controls='basic-navbar-nav' />
-            <Navbar.Collapse id='basic-navbar-nav'>
-              <Nav className='me-auto'>
-                <Nav.Link href='#home'>リンク1</Nav.Link>
-                <Nav.Link href='#link'>リンク2</Nav.Link>
-              </Nav>
-            </Navbar.Collapse>
+            <Navbar.Brand>{title}</Navbar.Brand>
+            <Navbar.Toggle />
+              <Navbar.Collapse>
+                <Nav>
+                  {websiteHeader.bodyContent && websiteHeader.bodyContent.map((link: any, i) => {
+                    return (
+                      <Nav.Link href={link.link} key={i}>
+                        {link.text}
+                      </Nav.Link>
+                    )
+                  })}
+                </Nav>
+              </Navbar.Collapse>
           </Container>
         </Navbar>
         <div onClick={() => dispatch(showEditHeaderModalChanged(true))} className='mt30'>
           <h4>ヘッダを編集<PencilSquareIcon height={30} width={30} fill={'green'}></PencilSquareIcon></h4>
         </div>
         <Modal show={showEditHeaderModal} size='lg'>
-          <Modal.Header closeButton>
+          <Modal.Header>
             <Modal.Title>ヘッダを編集してください</Modal.Title>
           </Modal.Header>
 
@@ -102,7 +115,7 @@ const EditSharedComponent: NextPage = () => {
 
           <Modal.Footer>
             <Button variant='secondary' onClick={() => dispatch(showEditHeaderModalChanged(false))}>閉じる</Button>
-            <Button variant='primary'>編集を完了</Button>
+            <Button variant='primary' onClick={updateWebsiteHeader}>編集を完了</Button>
           </Modal.Footer>
         </Modal>
         <br />

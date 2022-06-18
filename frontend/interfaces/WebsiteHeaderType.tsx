@@ -1,6 +1,6 @@
 export interface WebsiteHeaderType {
   brandText: string
-  brandImage: any
+  brandImage?: any
   bodyContent: navbarLink[] | navbarDropDownLink[]
 }
 
