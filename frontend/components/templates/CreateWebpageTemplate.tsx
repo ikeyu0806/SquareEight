@@ -21,7 +21,7 @@ const CreateWebpageTemplate = (): JSX.Element => {
           <div className='mb20'>
             <Form.Group className='mb-3'>
               <Form.Label>管理用のページ名称を入力してください。</Form.Label>
-              <Form.Control placeholder='トップページ、採用情報ページなど'
+              <Form.Control placeholder='企業情報ページ、採用情報ページなど'
                             onChange={(e) => dispatch(webpageTagChanged(e.target.value))}
                             value={webpageTag} />
             </Form.Group>

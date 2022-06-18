@@ -10,11 +10,7 @@ class Api::Internal::WebpagesController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      if webpage_params[:website_id].present?
-        website = Website.find(webpage_params[:website_id])
-      else
-        website = current_merchant_user.account.websites.create!
-      end
+      website = Website.find(webpage_params[:website_id])
       website.create_webpages(webpage_params[:page_content], webpage_params[:tag])
       render json: { status: 'success', website_id: website.id }, states: 200
     end

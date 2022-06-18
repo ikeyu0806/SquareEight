@@ -38,6 +38,11 @@ const Index: NextPage = () => {
       <AdminNavbar></AdminNavbar>
       <br />
       <Container>
+        <Button onClick={() => router.push('/admin/homepage/webpages/new')}>
+          新規ページ作成
+        </Button>
+        <br />
+        <br />
         <Table bordered>
           <thead>
             <tr>
