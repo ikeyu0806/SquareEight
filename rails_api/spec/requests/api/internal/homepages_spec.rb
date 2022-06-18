@@ -36,4 +36,66 @@ RSpec.describe 'Api::Internal::HomepagesController', type: :request do
       end
     end
   end
+
+  describe 'GET /api/internal/homepages/webpages' do
+    context 'login' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        get api_internal_homepages_webpages_path(website_id: fitness_website.id)
+        expect(response.status).to eq 200
+      end
+    end
+  end
+
+  describe 'POST /api/internal/homepages/update_tag' do
+    let(:params) {
+      {
+        homepage: {
+          website_id: fitness_website.id,
+          tag: 'testサイト更新'
+       }
+      }
+    }
+    context 'login' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        post api_internal_homepages_update_tag_path(params: params)
+        expect(response.status).to eq 200
+      end
+    end
+  end
+
+  describe 'POST /api/internal/homepages/publish' do
+    let(:params) {
+      {
+        homepage: {
+          website_id: fitness_website.id
+       }
+      }
+    }
+    context 'login' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        post api_internal_homepages_publish_path(params: params)
+        expect(response.status).to eq 200
+      end
+    end
+  end
+
+  describe 'POST /api/internal/homepages/unpublish' do
+    let(:params) {
+      {
+        homepage: {
+          website_id: fitness_website.id
+       }
+      }
+    }
+    context 'login' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        post api_internal_homepages_unpublish_path(params: params)
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end
