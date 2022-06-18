@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_18_135005) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_18_135439) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -51,19 +51,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_18_135005) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "website_shared_components", force: :cascade do |t|
-    t.text "header_content_json", comment: "ヘッダ内容json"
-    t.text "footer_content_json", comment: "フッタ内容json"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "websites", force: :cascade do |t|
     t.integer "account_id", null: false, comment: "アカウントID"
     t.string "tag", null: false, comment: "タグ"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "publish_status", default: 0, comment: "公開ステータス"
+    t.text "default_footer_content", comment: "デフォルトヘッダ"
+    t.text "default_header_content", comment: "デフォルトフッタ"
   end
 
 end

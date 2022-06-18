@@ -43,6 +43,9 @@ class Api::Internal::HomepagesController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def update_website_shared_component
+  end
+
   private
 
   def homepage_params
