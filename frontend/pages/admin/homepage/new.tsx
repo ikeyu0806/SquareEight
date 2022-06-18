@@ -31,7 +31,7 @@ const New: NextPage = () => {
     }).then(response => {
       router.push(`/admin/homepage/${response.data.website_id}/webpages/new`)
     }).catch(error => {
-      dispatch(alertChanged(error.response.data.error))
+      dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })
   }
 

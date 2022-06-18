@@ -14,6 +14,7 @@ import { navbarLink } from '../../../../interfaces/WebsiteHeaderType'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
+import { alertChanged } from '../../../../redux/alertSlice'
 
 const EditSharedComponent: NextPage = () => {
   const dispatch = useDispatch()
@@ -63,8 +64,10 @@ const EditSharedComponent: NextPage = () => {
         'Session-Id': cookies._smartlesson_session
       }
     }).then(response => {
-      router.push('/admin/dashboard')
+      router.push('/admin/homepage')
+      dispatch(alertChanged({message: '登録完了しました', show: true}))
     }).catch(error => {
+      dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })
   }
 
