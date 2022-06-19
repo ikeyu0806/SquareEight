@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Row, Col, Navbar, Carousel, Container, Form } from 'react-bootstrap'
+import { Card, Row, Col, Navbar, Container, Form } from 'react-bootstrap'
 import { webpageTagChanged, isTopPageChanged } from '../../redux/homepageSlice'
 import CreateBlockModal from '../organisms/CreateBlockModal'
 import { useSelector, useDispatch } from 'react-redux'
@@ -91,7 +91,6 @@ const CreateWebpageTemplate = (): JSX.Element => {
               <span className='mr10'>ブロックを追加</span>
               <a onClick={() => dispatch(showBlockModalChanged(true))}><PlusCircleIcon width={40} height={40} fill={'#0000FF'} /></a>
             </div>
-            <Card.Footer className='text-muted text-center'>Copyright SmartLesson Inc. 2022</Card.Footer>
           </Card>
         </Col>
         <Col>

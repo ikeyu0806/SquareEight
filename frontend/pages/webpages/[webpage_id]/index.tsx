@@ -1,22 +1,36 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import axios from 'axios'
+import { Container, Navbar, Nav, Button, Modal, Form } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../../../redux/store'
 import { WebpageParam } from '../../../interfaces/WebpageParam'
 import { webpageTagChanged, pageContentChanged } from '../../../redux/homepageSlice'
-import CreateWebpageTemplate from '../../../components/templates/CreateWebpageTemplate'
+import { HeadingBlockState } from '../../../interfaces/HeadingBlockState'
+import HeadingBlock from '../../../components/organisms/HeadingBlock'
+import TextImageBlock from '../../../components/organisms/TextImageBlock'
+import ImageSlideBlock from '../../../components/organisms/ImageSlideBlock'
+import { BLOCK_TYPE } from '../../../constants/blockType'
+import { ExternalLinkBlockStateType } from '../../../interfaces/ExternalLinkBlockStateType'
+import { TextImageBlockStateType } from '../../../interfaces/TextImageBlockStateType'
+import { WebsiteHeaderType } from '../../../interfaces/WebsiteHeaderType'
+import { WebsiteFooterType } from '../../../interfaces/WebsiteFooterType'
+import { ImageSlideState } from '../../../interfaces/ImageSlideState'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
+  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+  const [header, setHeader] = useState<WebsiteHeaderType>()
+  const [footer, setFooter] = useState<WebsiteFooterType>()
 
   useEffect(() => {
     const fetchWebpage = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/webpages/edit?id=${router.query.webpage_id}`, {
+        `${process.env.BACKEND_URL}/api/internal/webpages/${router.query.webpage_id}`, {
           headers: { 
             'Session-Id': cookies._smartlesson_session
           },
@@ -24,9 +38,9 @@ const Index: NextPage = () => {
       )
       .then(function (response) {
         const webpageResponse: WebpageParam = response.data.webpage
-        console.log({webpageResponse})
         dispatch(webpageTagChanged(webpageResponse.tag))
         dispatch(pageContentChanged(webpageResponse.block_contents || []))
+        setHeader(response.data.webpage.website.default_header_content)
       })
       .catch(error => {
         console.log(error)
@@ -37,7 +51,57 @@ const Index: NextPage = () => {
 
   return (
     <>
-      <CreateWebpageTemplate></CreateWebpageTemplate>
+      <Navbar bg='light' expand='lg'>
+        <Container>
+          <Navbar.Brand>{}</Navbar.Brand>
+          <Navbar.Toggle />
+            <Navbar.Collapse>
+              <Nav>
+                {header && header.bodyContent.map((link: any, i) => {
+                  return (
+                    <Nav.Link href={link.link} key={i}>
+                      {link.text}
+                    </Nav.Link>
+                  )
+                })}
+              </Nav>
+            </Navbar.Collapse>
+        </Container>
+      </Navbar>
+      {pageContent.map((page, i) =>
+        {
+          switch (page.blockType) {
+            case BLOCK_TYPE.HEADING:
+              return (
+                <span key={i}>
+                  <HeadingBlock blockState={(page.blockState) as HeadingBlockState}></HeadingBlock>
+                </span>
+              )
+            case BLOCK_TYPE.IMAGE_SLIDE:
+              return (
+                <div key={i}>
+                  <ImageSlideBlock blockState={(page.blockState) as ImageSlideState}></ImageSlideBlock>
+                </div>
+            )
+            case BLOCK_TYPE.TEXT_IMAGE:
+              return (
+                <div key={i}>
+                  <TextImageBlock blockState={(page.blockState) as TextImageBlockStateType}></TextImageBlock>
+                </div>
+              )
+            case BLOCK_TYPE.EXTERNAL_LINKS:
+              return [
+                (page.blockState as ExternalLinkBlockStateType).content.map((block, i) => {
+                  return (
+                    <a href={block.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{block.text}</a>
+                  )
+                }),
+              ]
+            default:
+              console.log('invalid block')
+          }
+        }
+      )}
     </>
   )
 }
