@@ -4,13 +4,14 @@ import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { pageContentChanged, webpageTagChanged } from '../../redux/homepageSlice'
+import { pageContentChanged, webpageTagChanged, isTopPageChanged } from '../../redux/homepageSlice'
 
 const HomepageIntoroductionButtons = (): JSX.Element => {
   const dispatch = useDispatch()
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
   const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
+  const isTopPage = useSelector((state: RootState) => state.homepage.isTopPage)
   const [cookies] = useCookies(['_smartlesson_session'])
 
   const completeCreateHomepage = () => {
@@ -40,7 +41,8 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
       webpage: {
         website_id: router.query.website_id,
         page_content: pageContent,
-        tag: webpageTag
+        tag: webpageTag,
+        is_top_page: isTopPage
       }
     },
     {
