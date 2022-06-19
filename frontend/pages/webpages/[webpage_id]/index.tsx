@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import axios from 'axios'
-import { Container, Navbar, Nav, Button, Modal, Form } from 'react-bootstrap'
+import { Container, Navbar, Nav } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
@@ -42,6 +42,7 @@ const Index: NextPage = () => {
         dispatch(pageContentChanged(webpageResponse.block_contents || []))
         if (webpageResponse.header_json !== undefined) {
           setHeader(webpageResponse.header_json)
+          setFooter(webpageResponse.footer_json)
         }
       })
       .catch(error => {
@@ -53,59 +54,64 @@ const Index: NextPage = () => {
 
   return (
     <>
-
-{console.log("!!!", header.brandText, header["brandText"], header)}
       <Navbar bg='light' expand='lg'>
         <Container>
           <Navbar.Brand>{header.brandText}</Navbar.Brand>
           <Navbar.Toggle />
             <Navbar.Collapse>
               <Nav>
-                {/* {header && header.bodyContent.map((link: any, i) => {
+                {header.bodyContent.map((link: any, i) => {
                   return (
                     <Nav.Link href={link.link} key={i}>
                       {link.text}
                     </Nav.Link>
                   )
-                })} */}
+                })}
               </Nav>
             </Navbar.Collapse>
         </Container>
       </Navbar>
-      {pageContent.map((page, i) =>
-        {
-          switch (page.blockType) {
-            case BLOCK_TYPE.HEADING:
-              return (
-                <span key={i}>
-                  <HeadingBlock blockState={(page.blockState) as HeadingBlockState}></HeadingBlock>
-                </span>
+      <br />
+      <Container>
+        {pageContent.map((page, i) =>
+          {
+            switch (page.blockType) {
+              case BLOCK_TYPE.HEADING:
+                return (
+                  <span key={i}>
+                    <HeadingBlock blockState={(page.blockState) as HeadingBlockState}></HeadingBlock>
+                  </span>
+                )
+              case BLOCK_TYPE.IMAGE_SLIDE:
+                return (
+                  <div key={i}>
+                    <ImageSlideBlock blockState={(page.blockState) as ImageSlideState}></ImageSlideBlock>
+                  </div>
               )
-            case BLOCK_TYPE.IMAGE_SLIDE:
-              return (
-                <div key={i}>
-                  <ImageSlideBlock blockState={(page.blockState) as ImageSlideState}></ImageSlideBlock>
-                </div>
-            )
-            case BLOCK_TYPE.TEXT_IMAGE:
-              return (
-                <div key={i}>
-                  <TextImageBlock blockState={(page.blockState) as TextImageBlockStateType}></TextImageBlock>
-                </div>
-              )
-            case BLOCK_TYPE.EXTERNAL_LINKS:
-              return [
-                (page.blockState as ExternalLinkBlockStateType).content.map((block, i) => {
-                  return (
-                    <a href={block.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{block.text}</a>
-                  )
-                }),
-              ]
-            default:
-              console.log('invalid block')
+              case BLOCK_TYPE.TEXT_IMAGE:
+                return (
+                  <div key={i}>
+                    <TextImageBlock blockState={(page.blockState) as TextImageBlockStateType}></TextImageBlock>
+                  </div>
+                )
+              case BLOCK_TYPE.EXTERNAL_LINKS:
+                return [
+                  (page.blockState as ExternalLinkBlockStateType).content.map((block, i) => {
+                    return (
+                      <a href={block.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{block.text}</a>
+                    )
+                  }),
+                ]
+              default:
+                console.log('invalid block')
+            }
           }
-        }
-      )}
+        )}
+      </Container>
+      <footer className='content text-center'>
+        <hr />
+        <p className='footer-margin'>{footer?.text}</p>
+      </footer>
     </>
   )
 }
