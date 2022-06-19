@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import { RootState } from '../../../../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { WebpageParam } from '../../../../../interfaces/WebpageParam'
-import { webpageTagChanged, pageContentChanged } from '../../../../../redux/homepageSlice'
+import { webpageTagChanged, pageContentChanged, isTopPageChanged } from '../../../../../redux/homepageSlice'
 import { Button } from 'react-bootstrap'
 
 const Edit: NextPage = () => {
@@ -18,6 +18,7 @@ const Edit: NextPage = () => {
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
   const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
+  const isTopPage = useSelector((state: RootState) => state.homepage.isTopPage)
 
   useEffect(() => {
     const fetchWebpage = () => {
@@ -32,6 +33,7 @@ const Edit: NextPage = () => {
         const webpageResponse: WebpageParam = response.data.webpage
         console.log({webpageResponse})
         dispatch(webpageTagChanged(webpageResponse.tag))
+        dispatch(isTopPageChanged(webpageResponse.is_top_page))
         dispatch(pageContentChanged(webpageResponse.block_contents || []))
       })
       .catch(error => {
@@ -47,7 +49,8 @@ const Edit: NextPage = () => {
       webpage: {
         id: router.query.webpage_id,
         page_content: pageContent,
-        tag: webpageTag
+        tag: webpageTag,
+        is_top_page: isTopPage
       }
     },
     {
@@ -55,7 +58,7 @@ const Edit: NextPage = () => {
         'Session-Id': cookies._smartlesson_session
       }
     }).then(response => {
-      // router.push('/admin/homepage/')
+      router.push(`/admin/homepage/${router.query.website_id}/webpages`)
     }).catch(error => {
     })
   }

@@ -19,7 +19,8 @@ export const homepageSlice = createSlice({
     showEditHeaderModal: false,
     showEditFooterModal: false,
     websiteHeader: {} as WebsiteHeaderType,
-    websiteFooter: {} as WebsiteFooterType
+    websiteFooter: {} as WebsiteFooterType,
+    isTopPage: false
   },
   reducers: {
     pageContentChanged: (state, action: PayloadAction<PageContentState[]>) => {
@@ -64,6 +65,9 @@ export const homepageSlice = createSlice({
     websiteFooterChanged: (state, action: PayloadAction<WebsiteFooterType>) => {
       state.websiteFooter = action.payload
     },
+    isTopPageChanged: (state, action: PayloadAction<boolean>) => {
+      state.isTopPage = action.payload
+    },
   },
 })
 
@@ -81,5 +85,6 @@ export const { showEditHeaderModalChanged } = homepageSlice.actions
 export const { showEditFooterModalChanged } = homepageSlice.actions
 export const { websiteHeaderChanged } = homepageSlice.actions
 export const { websiteFooterChanged } = homepageSlice.actions
+export const { isTopPageChanged } = homepageSlice.actions
 
 export default homepageSlice.reducer

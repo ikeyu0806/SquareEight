@@ -2,7 +2,7 @@ import React from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
-import { webpageTagChanged } from '../../redux/homepageSlice'
+import { webpageTagChanged, isTopPageChanged } from '../../redux/homepageSlice'
 import CreateBlockModal from '../organisms/CreateBlockModal'
 import MerchantWebpage from '../organisms/MerchantWebpage'
 
@@ -10,6 +10,7 @@ const CreateWebpageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
 
   const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
+  const isTopPage = useSelector((state: RootState) => state.homepage.isTopPage)
 
   return(
     <>
@@ -26,6 +27,12 @@ const CreateWebpageTemplate = (): JSX.Element => {
                             value={webpageTag} />
             </Form.Group>
           </div>
+          <Form.Check 
+            type='switch'
+            label='トップページに設定する'
+            checked={isTopPage}
+            onChange={() => dispatch(isTopPageChanged(!isTopPage))}
+          />
           <MerchantWebpage></MerchantWebpage>
         </Col>
         <Col>

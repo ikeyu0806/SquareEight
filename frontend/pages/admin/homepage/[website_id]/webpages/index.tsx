@@ -65,7 +65,7 @@ const Index: NextPage = () => {
                     {webpage.tag} {webpage.is_top_page && <Button variant='outline-info' size='sm'>トップページに設定されています</Button>}
                   </td>
                   <td className='text-center'>
-                    <Button onClick={() => router.push(`/admin/homepage/webpages/${webpage.id}/edit`)}>
+                    <Button onClick={() => router.push(`/admin/homepage/webpages/${webpage.id}/edit?website_id=${router.query.website_id}`)}>
                       編集
                     </Button>
                   </td>

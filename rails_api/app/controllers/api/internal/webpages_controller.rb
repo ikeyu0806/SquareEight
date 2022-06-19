@@ -30,6 +30,10 @@ class Api::Internal::WebpagesController < ApplicationController
     ActiveRecord::Base.transaction do
       webpage = Webpage.find(webpage_params[:id])
       webpage.tag = webpage_params[:tag]
+      if webpage_params[:is_top_page]
+        webpage.website.webpages.where(is_top_page: true).update_all(is_top_page: false)
+        webpage.is_top_page = true
+      end
       webpage.save!
       webpage.webpage_blocks.delete_all
       webpage_content_json = JSON.parse(webpage_params[:page_content].to_json)
@@ -48,6 +52,7 @@ class Api::Internal::WebpagesController < ApplicationController
     params.require(:webpage).permit(:id,
                                     :tag,
                                     :website_id,
+                                    :is_top_page,
                                     page_content: [:blockID,
                                                    :blockType,
                                                    :sortOrder,

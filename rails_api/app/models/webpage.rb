@@ -1,7 +1,6 @@
 class Webpage < ApplicationRecord
   belongs_to :website
-  has_many :webpage_blocks
-  has_many :webpage_images
+  has_many :webpage_blocks, dependent: :delete_all
 
   def block_contents
     result = []
