@@ -13,6 +13,7 @@ import { showBlockModalChanged } from '../../redux/homepageSlice'
 import PlusCircleIcon from '../atoms/PlusCircleIcon'
 import UpdateBlockStateIcons from '../organisms/UpdateBlockStateIcons'
 import HeadingBlock from '../organisms/HeadingBlock'
+import TextImageBlock from '../organisms/TextImageBlock'
 
 const CreateWebpageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -82,21 +83,7 @@ const CreateWebpageTemplate = (): JSX.Element => {
                     case BLOCK_TYPE.TEXT_IMAGE:
                       return (
                         <div key={i}>
-                          <Row className='mt10 mb10'>
-                            <Col>
-                              <h2>{(page.blockState as TextImageBlockStateType).title}</h2>
-                              <div>
-                                {(page.blockState as TextImageBlockStateType).text}
-                              </div>
-                            </Col>
-                            <Col>
-                            <img
-                              className='d-block w-100'
-                              src={(page.blockState as TextImageBlockStateType).image}
-                              alt='image'
-                            />
-                            </Col>
-                          </Row>
+                          <TextImageBlock blockState={(page.blockState) as TextImageBlockStateType}></TextImageBlock>
                           <UpdateBlockStateIcons blockID={page.blockID} sortOrder={page.sortOrder}></UpdateBlockStateIcons>
                         </div>
                       )
