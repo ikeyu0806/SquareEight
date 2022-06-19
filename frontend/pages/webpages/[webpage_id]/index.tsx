@@ -6,7 +6,7 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { WebpageParam } from '../../../interfaces/WebpageParam'
 import { webpageTagChanged, pageContentChanged } from '../../../redux/homepageSlice'
-import MerchantWebpage from '../../../components/organisms/MerchantWebpage'
+import CreateWebpageTemplate from '../../../components/templates/CreateWebpageTemplate'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -37,7 +37,7 @@ const Index: NextPage = () => {
 
   return (
     <>
-      <MerchantWebpage></MerchantWebpage>
+      <CreateWebpageTemplate></CreateWebpageTemplate>
     </>
   )
 }

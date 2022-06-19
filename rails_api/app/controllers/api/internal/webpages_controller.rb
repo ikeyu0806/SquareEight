@@ -72,7 +72,8 @@ class Api::Internal::WebpagesController < ApplicationController
                                                                imageSlide: [
                                                                  :title,
                                                                  :text,
-                                                                 :image
+                                                                 :image,
+                                                                 :base64Image,
                                                                ]]])
   end
 end
