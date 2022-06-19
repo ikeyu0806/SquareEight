@@ -24,7 +24,7 @@ const Index: NextPage = () => {
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-  const [header, setHeader] = useState<WebsiteHeaderType>()
+  const [header, setHeader] = useState<WebsiteHeaderType>({brandText: '', brandImage: '', bodyContent: []})
   const [footer, setFooter] = useState<WebsiteFooterType>()
 
   useEffect(() => {
@@ -40,7 +40,9 @@ const Index: NextPage = () => {
         const webpageResponse: WebpageParam = response.data.webpage
         dispatch(webpageTagChanged(webpageResponse.tag))
         dispatch(pageContentChanged(webpageResponse.block_contents || []))
-        setHeader(response.data.webpage.website.default_header_content)
+        if (webpageResponse.header_json !== undefined) {
+          setHeader(webpageResponse.header_json)
+        }
       })
       .catch(error => {
         console.log(error)
@@ -51,19 +53,21 @@ const Index: NextPage = () => {
 
   return (
     <>
+
+{console.log("!!!", header.brandText, header["brandText"], header)}
       <Navbar bg='light' expand='lg'>
         <Container>
-          <Navbar.Brand>{}</Navbar.Brand>
+          <Navbar.Brand>{header.brandText}</Navbar.Brand>
           <Navbar.Toggle />
             <Navbar.Collapse>
               <Nav>
-                {header && header.bodyContent.map((link: any, i) => {
+                {/* {header && header.bodyContent.map((link: any, i) => {
                   return (
                     <Nav.Link href={link.link} key={i}>
                       {link.text}
                     </Nav.Link>
                   )
-                })}
+                })} */}
               </Nav>
             </Navbar.Collapse>
         </Container>

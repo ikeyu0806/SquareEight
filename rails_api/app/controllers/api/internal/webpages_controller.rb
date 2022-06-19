@@ -3,7 +3,7 @@ class Api::Internal::WebpagesController < ApplicationController
 
   def show
     webpage = Webpage.find(params[:id])
-    webpage_json = JSON.parse(webpage.to_json(methods: :block_contents, include: :website))
+    webpage_json = JSON.parse(webpage.to_json(methods: [:block_contents, :header_json, :footer_json]))
     render json: { status: 'success', webpage: webpage_json }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
