@@ -11,6 +11,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { WebpageParam } from '../../../../../interfaces/WebpageParam'
 import { webpageTagChanged, pageContentChanged, isTopPageChanged } from '../../../../../redux/homepageSlice'
 import { Button } from 'react-bootstrap'
+import { alertChanged } from '../../../../../redux/alertSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -35,8 +36,10 @@ const Edit: NextPage = () => {
         dispatch(webpageTagChanged(webpageResponse.tag))
         dispatch(isTopPageChanged(webpageResponse.is_top_page))
         dispatch(pageContentChanged(webpageResponse.block_contents || []))
+        dispatch(alertChanged({message: '更新しました', show: true}))
       })
       .catch(error => {
+        dispatch(alertChanged({message: error, show: true, type: 'danger'}))
         console.log(error)
       })
     }
