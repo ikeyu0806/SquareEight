@@ -58,9 +58,12 @@ const Index: NextPage = () => {
           </thead>
           <tbody>
             {webpages.map((webpage, i) => {
+              console.log({webpage})
               return (
                 <tr key={i}>
-                  <td className='text-center'>{webpage.tag}</td>
+                  <td className='text-center'>
+                    {webpage.tag} {webpage.is_top_page && <Button variant='outline-info' size='sm'>トップページに設定されています</Button>}
+                  </td>
                   <td className='text-center'>
                     <Button onClick={() => router.push(`/admin/homepage/webpages/${webpage.id}/edit`)}>
                       編集

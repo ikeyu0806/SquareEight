@@ -4,5 +4,6 @@ export interface WebpageParam {
   tag: string
   path: string
   content: string
+  is_top_page: boolean
   block_contents: PageContentState[]
 }
