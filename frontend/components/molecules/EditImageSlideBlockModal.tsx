@@ -5,14 +5,16 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
 import { ImageSlideState, ImageSlideChildState } from '../../interfaces/ImageSlideState'
+import { getBase64 } from '../../functions/getBase64'
 
 const EditImageSlideBlockModal = (): JSX.Element => {
   const dispatch = useDispatch()
 
   const [image, setImage] = useState('/images/noimage.jpeg')
+  const [base64Image, setBase64Image] = useState<any>('')
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
-  const [imageSlideChild, setImageSlideChild] = useState<ImageSlideChildState>({title: title, text: text, image: image})
+  const [imageSlideChild, setImageSlideChild] = useState<ImageSlideChildState>({title: title, text: text, image: image, base64Image: base64Image})
   const [imageSlide, setImageSlide] = useState<ImageSlideState>()
   const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
 
@@ -21,15 +23,18 @@ const EditImageSlideBlockModal = (): JSX.Element => {
   const handleChangeFile = (e: any) => {
     const { files } = e.target
     setImage(window.URL.createObjectURL(files[0]))
+    getBase64(files[0]).then(
+      data => setBase64Image(data)
+    )
   }
 
   const addImageSlideChild = () => {
     let updateImageSlideChild: ImageSlideChildState[]
     if (imageSlide) {
-      updateImageSlideChild = [...imageSlide.imageSlide, { title: title, text: text, image: image }]
+      updateImageSlideChild = [...imageSlide.imageSlide, { title: title, text: text, image: image, base64Image: base64Image}]
       setImageSlide({imageSlide: updateImageSlideChild})
     } else {
-      setImageSlide({imageSlide: [{ title: title, text: text, image: image }]})
+      setImageSlide({imageSlide: [{ title: title, text: text, image: image, base64Image: base64Image }]})
     }
   }
 

@@ -6,4 +6,5 @@ export type ImageSlideChildState = {
   title?: string
   text?: string
   image: any
+  base64Image: any
 }

@@ -4,6 +4,7 @@ import { showBlockModalChanged, blockTypeChanged, pageContentChanged, currentMax
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
+import { getBase64 } from '../../functions/getBase64'
 
 const EditTextImageBlockModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -21,15 +22,6 @@ const EditTextImageBlockModal = (): JSX.Element => {
     getBase64(files[0]).then(
       data => setBase64image(data)
     )
-  }
-
-  const getBase64 = (file: any)  => {
-    return new Promise((resolve, reject) => {
-      const reader = new FileReader()
-      reader.readAsDataURL(file)
-      reader.onload = () => resolve(reader.result)
-      reader.onerror = error => reject(error)
-    })
   }
 
   const completeEdit = () => {

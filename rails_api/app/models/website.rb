@@ -28,6 +28,11 @@ class Website < ApplicationRecord
           content["blockState"]["base64Image"] = ""
           content["blockState"]["image"] = obj.public_url
         end
+
+        if content["blockType"] == "imageSlide"
+          
+        end
+
         web_page.webpage_blocks.create!(content_json: content.to_s, block_type: content["blockType"])
       end
     end

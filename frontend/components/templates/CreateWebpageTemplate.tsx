@@ -14,6 +14,7 @@ import PlusCircleIcon from '../atoms/PlusCircleIcon'
 import UpdateBlockStateIcons from '../organisms/UpdateBlockStateIcons'
 import HeadingBlock from '../organisms/HeadingBlock'
 import TextImageBlock from '../organisms/TextImageBlock'
+import ImageSlideBlock from '../organisms/ImageSlideBlock'
 
 const CreateWebpageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -60,23 +61,7 @@ const CreateWebpageTemplate = (): JSX.Element => {
                     case BLOCK_TYPE.IMAGE_SLIDE:
                       return (
                         <div key={i}>
-                          <Carousel>
-                            {(page.blockState as ImageSlideState).imageSlide != undefined && (page.blockState as ImageSlideState).imageSlide.map((slide, i) => {
-                              return (
-                                <Carousel.Item key={i}>
-                                  <img
-                                    className='d-block w-100'
-                                    src={slide.image}
-                                    alt={slide + String(i)}
-                                  />
-                                  <Carousel.Caption>
-                                    <h3>{slide.title}</h3>
-                                    <p>{slide.text}</p>
-                                  </Carousel.Caption>
-                                </Carousel.Item>
-                              )
-                            })}
-                          </Carousel>
+                          <ImageSlideBlock blockState={(page.blockState) as ImageSlideState}></ImageSlideBlock>
                           <UpdateBlockStateIcons blockID={page.blockID} sortOrder={page.sortOrder}></UpdateBlockStateIcons>
                         </div>
                     )
