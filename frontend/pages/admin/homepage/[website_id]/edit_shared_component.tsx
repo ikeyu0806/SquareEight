@@ -1,16 +1,16 @@
 import type { NextPage } from 'next'
 import { Container, Button } from 'react-bootstrap'
 import AdminNavbarTemplate from '../../../../components/templates/AdminNavbarTemplate'
+import EditSharedComponent from '../../../../components/templates/EditSharedComponent'
 import RegularFooter from '../../../../components/organisms/RegularFooter'
 import { RootState } from '../../../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
-import { navbarLink } from '../../../../interfaces/WebsiteHeaderType'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from '../../../../redux/alertSlice'
 
-const EditSharedComponent: NextPage = () => {
+const EditSharedComponentPage: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [cookies] = useCookies(['_smartlesson_session'])
@@ -42,7 +42,7 @@ const EditSharedComponent: NextPage = () => {
   return (
     <>
       <AdminNavbarTemplate></AdminNavbarTemplate>
-
+      <EditSharedComponent></EditSharedComponent>
       <br />
       <div className='text-center'>
         <Button onClick={updateSharedComponent}>編集を完了</Button>
@@ -53,4 +53,4 @@ const EditSharedComponent: NextPage = () => {
   )
 }
 
-export default EditSharedComponent
+export default EditSharedComponentPage

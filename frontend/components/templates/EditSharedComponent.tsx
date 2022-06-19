@@ -138,12 +138,12 @@ const EditSharedComponent = (): JSX.Element => {
         </Modal.Header>
 
         <Modal.Body>
-        <Form.Group>
-          <Form.Text>フッタテキスト</Form.Text>
+          <Form.Group>
+            <Form.Text>フッタテキスト</Form.Text>
             <Form.Control placeholder={'Copyright SampleCompany ' + new Date().getFullYear()}
                           value={footerText}
                           onChange={(e) => setFooterText(e.target.value)}></Form.Control>
-        </Form.Group>
+          </Form.Group>
         <h3 className='mt10 mb10'>サンプル</h3>
           <footer className='content text-center'>
             <hr />
