@@ -9,6 +9,7 @@ Rails.application.routes.draw do
       delete 'sessions', to: 'sessions#destroy'
       post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'
       post 'merchant_users', to: 'merchant_users#create'
+      get 'homepages/:id/shared_component', to: 'homepages#shared_component'
       get 'homepages/webpages', to: 'homepages#webpages'
       get 'homepages', to: 'homepages#index'
       post 'homepages/update_tag', to: 'homepages#update_tag'

@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
 import { Container, Button } from 'react-bootstrap'
 import AdminNavbarTemplate from '../../../../components/templates/AdminNavbarTemplate'
@@ -9,6 +10,8 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from '../../../../redux/alertSlice'
+import { WebpageParam } from '../../../../interfaces/WebpageParam'
+import { websiteHeaderChanged, websiteFooterChanged } from '../../../../redux/homepageSlice'
 
 const EditSharedComponentPage: NextPage = () => {
   const dispatch = useDispatch()
@@ -17,6 +20,27 @@ const EditSharedComponentPage: NextPage = () => {
   
   const websiteHeader = useSelector((state: RootState) => state.homepage.websiteHeader)
   const websiteFooter = useSelector((state: RootState) => state.homepage.websiteFooter)
+
+  useEffect(() => {
+    const fetchWebpage = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/homepages/${router.query.website_id}/shared_component`, {
+          headers: { 
+            'Session-Id': cookies._smartlesson_session
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response)
+        dispatch(websiteHeaderChanged(response.data.header_json))
+        dispatch(websiteFooterChanged(response.data.footer_json))
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchWebpage()
+  }, [router.query.id, cookies._smartlesson_session, router.query.website_id, dispatch])
 
   const updateSharedComponent = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/update_shared_component`,

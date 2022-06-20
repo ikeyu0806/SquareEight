@@ -52,4 +52,12 @@ class Website < ApplicationRecord
   def display_created_at
     created_at.strftime("%Y/%m/%d")
   end
+
+  def header_json
+    JSON.parse(default_header_content)
+  end
+
+  def footer_json
+    JSON.parse(default_footer_content)
+  end
 end
