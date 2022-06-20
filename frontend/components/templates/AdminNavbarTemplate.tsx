@@ -54,7 +54,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href=''>回数券作成</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='アカウント設定' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href=''>クレジットカード登録・変更</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/payment_method'>クレジットカード登録・変更</NavDropdown.Item>
                 <NavDropdown.Item href=''>プラン変更・退会</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
               </NavDropdown>
