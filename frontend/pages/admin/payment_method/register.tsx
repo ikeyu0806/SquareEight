@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import React from 'react'
 import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
 import RegularFooter from '../../../components/organisms/RegularFooter'
-import CheckoutForm from '../../../components/templates/CheckoutForm'
+import RegisterCardForm from '../../../components/templates/RegisterCardForm'
 import {loadStripe} from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 
@@ -15,7 +15,7 @@ const Register: NextPage = () => {
         <br/>
         <br/>
         <Elements stripe={stripePromise}>     
-          <CheckoutForm />
+          <RegisterCardForm />
         </Elements>
       <RegularFooter></RegularFooter>
     </>

@@ -12,7 +12,7 @@ import { useDispatch } from 'react-redux'
 import { alertChanged } from 'redux/alertSlice'
 import { useRouter } from 'next/router'
 
-const CheckoutForm = () => {
+const RegisterCardForm = () => {
   const stripe = useStripe()
   const elements = useElements()
   const [cookies, setCookie, removeCookie] = useCookies(['_smartlesson_session'])
@@ -28,7 +28,7 @@ const CheckoutForm = () => {
       elements!.getElement(CardNumberElement)!
     ).then((result) => {
       console.log(result.token)
-      axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_customer`,
+      axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_credit_card`,
       {
         account: {
           token: result.token
@@ -39,8 +39,7 @@ const CheckoutForm = () => {
           'Session-Id': cookies._smartlesson_session
         }
       }).then(response => {
-        setCookie('_smartlesson_session', response.data.session_id.public_id, { path: '/'})
-        dispatch(alertChanged({message: '', show: false}))
+        dispatch(alertChanged({message: '登録しました', show: true}))
         router.push('/admin/payment_method')
       }).catch(error => {
         dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
@@ -83,4 +82,4 @@ const CheckoutForm = () => {
   )
 }
 
-export default CheckoutForm
+export default RegisterCardForm

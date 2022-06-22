@@ -1,7 +1,7 @@
 class Api::Internal::AccountsController < ApplicationController
   before_action :login_only!
 
-  def register_stripe_customer
+  def register_credit_card
     account = current_merchant_user.account
     if account.stripe_customer_id.blank?
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
