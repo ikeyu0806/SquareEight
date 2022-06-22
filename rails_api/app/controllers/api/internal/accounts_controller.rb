@@ -9,7 +9,6 @@ class Api::Internal::AccountsController < ApplicationController
         source: account_params[:card_token],
       })
       account.update!(stripe_customer_id: customer.id)
-    else
     end
 
     render json: { status: 'success' }, states: 200
@@ -20,6 +19,6 @@ class Api::Internal::AccountsController < ApplicationController
   private
 
   def account_params
-    params.require(:account).permit(:id, :token)
+    params.require(:account).permit(:id, :token, :card_id)
   end
 end

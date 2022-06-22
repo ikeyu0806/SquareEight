@@ -1,3 +1,10 @@
+import React, { useState } from 'react'
+import { Container, Row, Col, Card, Form } from 'react-bootstrap'
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
+import { useDispatch } from 'react-redux'
+import { alertChanged } from 'redux/alertSlice'
+import { useRouter } from 'next/router'
 import {
   CardNumberElement,
   CardExpiryElement,
@@ -5,14 +12,9 @@ import {
   useStripe,
   useElements,
 } from '@stripe/react-stripe-js'
-import { Container, Row, Col, Card, Form } from 'react-bootstrap'
-import axios from 'axios'
-import { useCookies } from 'react-cookie'
-import { useDispatch } from 'react-redux'
-import { alertChanged } from 'redux/alertSlice'
-import { useRouter } from 'next/router'
 
 const RegisterCardForm = () => {
+  const [token, setToken] = useState<any>()
   const stripe = useStripe()
   const elements = useElements()
   const [cookies, setCookie, removeCookie] = useCookies(['_smartlesson_session'])
@@ -27,23 +29,32 @@ const RegisterCardForm = () => {
     await stripe!.createToken(
       elements!.getElement(CardNumberElement)!
     ).then((result) => {
-      console.log(result.token)
-      axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_credit_card`,
-      {
-        account: {
-          token: result.token
-        }
-      },
-      {
-        headers: {
-          'Session-Id': cookies._smartlesson_session
-        }
-      }).then(response => {
-        dispatch(alertChanged({message: '登録しました', show: true}))
-        router.push('/admin/payment_method')
-      }).catch(error => {
-        dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
-      })
+      setToken(result.token)
+      const cardNumberElement = elements?.getElement(CardNumberElement)
+        stripe!.createPaymentMethod({
+          type: 'card',
+          card: cardNumberElement!
+        })
+        .then(function(result: any) {
+          axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_credit_card`,
+          {
+            account: {
+              token: token,
+              card_id: result.id
+            }
+          },
+          {
+            headers: {
+              'Session-Id': cookies._smartlesson_session
+            }
+          }).then(response => {
+            
+            dispatch(alertChanged({message: '登録しました', show: true}))
+            router.push('/admin/payment_method')
+          }).catch(error => {
+            dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
+          })
+        })
     })
   }
 
