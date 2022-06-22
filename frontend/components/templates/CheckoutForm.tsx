@@ -43,7 +43,7 @@ const CheckoutForm = () => {
         dispatch(alertChanged({message: '', show: false}))
         router.push('/admin/payment_method')
       }).catch(error => {
-        dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
+        dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
       })
     })
   }
