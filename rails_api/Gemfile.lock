@@ -222,6 +222,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.0)
+    stripe (6.4.0)
     strscan (3.0.3)
     thor (1.2.1)
     timeout (0.3.0)
@@ -252,6 +253,7 @@ DEPENDENCIES
   redis
   redis-actionpack
   rspec-rails
+  stripe
   tzinfo-data
 
 RUBY VERSION

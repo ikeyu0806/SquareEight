@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   namespace :api do
     namespace :internal do
+      post 'accounts/register_stripe_customer', to: 'accounts#register_stripe_customer'
       post 'sessions', to: 'sessions#create'
       delete 'sessions', to: 'sessions#destroy'
       post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'

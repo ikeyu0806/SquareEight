@@ -4,13 +4,20 @@ import {
   CardCvcElement,
   useStripe,
   useElements,
-  CardElementComponent,
 } from '@stripe/react-stripe-js'
 import { Container, Row, Col, Card, Form } from 'react-bootstrap'
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
+import { useDispatch } from 'react-redux'
+import { alertChanged } from 'redux/alertSlice'
+import { useRouter } from 'next/router'
 
 const CheckoutForm = () => {
   const stripe = useStripe()
   const elements = useElements()
+  const [cookies, setCookie, removeCookie] = useCookies(['_smartlesson_session'])
+  const dispatch = useDispatch()
+  const router = useRouter()
 
   const registerCard = async () => {
     if (elements == null) {
@@ -20,7 +27,24 @@ const CheckoutForm = () => {
     await stripe!.createToken(
       elements!.getElement(CardNumberElement)!
     ).then((result) => {
-      console.log(result)
+      console.log(result.token)
+      axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_customer`,
+      {
+        account: {
+          token: result.token
+        }
+      },
+      {
+        headers: {
+          'Session-Id': cookies._smartlesson_session
+        }
+      }).then(response => {
+        setCookie('_smartlesson_session', response.data.session_id.public_id, { path: '/'})
+        dispatch(alertChanged({message: '', show: false}))
+        router.push('/admin/payment_method')
+      }).catch(error => {
+        dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
+      })
     })
   }
 
