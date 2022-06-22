@@ -21,7 +21,7 @@ const MyDocument = () => {
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='format-detection' content='telephone=no' />
         <link rel='apple-touch-icon' href='/apple-touch-icon.png' />
-        <script src='https://js.stripe.com/v2/'></script>
+        <script src="https://js.stripe.com/v3/"></script>
       </Head>
       <body>
         <Main />
