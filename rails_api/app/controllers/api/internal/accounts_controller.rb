@@ -11,7 +11,10 @@ class Api::Internal::AccountsController < ApplicationController
         })
         account.update!(stripe_customer_id: customer.id)
       end
-      account.payment_methods.create!(stripe_card_id: account_params[:card_id], payment_type: :stripeCard)
+      selected = account.payment_methods.count.positive? ? false : true
+      account.payment_methods.create!(stripe_card_id: account_params[:card_id],
+                                      payment_type: :stripeCard,
+                                      selected: selected)
   
       render json: { status: 'success' }, states: 200
     end
