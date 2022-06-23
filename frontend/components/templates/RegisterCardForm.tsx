@@ -36,8 +36,6 @@ const RegisterCardForm = () => {
           card: cardNumberElement!
         })
         .then(function(result: any) {
-          console.log("!!token", token)
-          console.log("!!result", result)
           axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_credit_card`,
           {
             account: {

@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   namespace :api do
     namespace :internal do
+      get 'accounts/payment_methods', to: 'accounts#payment_methods'
       post 'accounts/register_credit_card', to: 'accounts#register_credit_card'
       post 'sessions', to: 'sessions#create'
       delete 'sessions', to: 'sessions#destroy'
