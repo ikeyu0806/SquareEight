@@ -17,7 +17,7 @@ const RegisterCardForm = () => {
   const [token, setToken] = useState<any>()
   const stripe = useStripe()
   const elements = useElements()
-  const [cookies, setCookie, removeCookie] = useCookies(['_smartlesson_session'])
+  const [cookies] = useCookies(['_smartlesson_session'])
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -29,18 +29,20 @@ const RegisterCardForm = () => {
     await stripe!.createToken(
       elements!.getElement(CardNumberElement)!
     ).then((result) => {
-      setToken(result.token)
+      setToken(result.token!.id)
       const cardNumberElement = elements?.getElement(CardNumberElement)
         stripe!.createPaymentMethod({
           type: 'card',
           card: cardNumberElement!
         })
         .then(function(result: any) {
+          console.log("!!token", token)
+          console.log("!!result", result.paymentMethod.id)
           axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_credit_card`,
           {
             account: {
               token: token,
-              card_id: result.id
+              card_id: result.paymentMethod.id
             }
           },
           {
@@ -48,7 +50,6 @@ const RegisterCardForm = () => {
               'Session-Id': cookies._smartlesson_session
             }
           }).then(response => {
-            
             dispatch(alertChanged({message: '登録しました', show: true}))
             router.push('/admin/payment_method')
           }).catch(error => {
