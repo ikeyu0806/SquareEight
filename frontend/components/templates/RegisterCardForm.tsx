@@ -37,12 +37,12 @@ const RegisterCardForm = () => {
         })
         .then(function(result: any) {
           console.log("!!token", token)
-          console.log("!!result", result.paymentMethod.id)
+          console.log("!!result", result)
           axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_credit_card`,
           {
             account: {
               token: token,
-              card_id: result.paymentMethod.id
+              payment_method_id: result.paymentMethod.id
             }
           },
           {

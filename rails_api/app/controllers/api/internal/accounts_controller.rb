@@ -11,11 +11,10 @@ class Api::Internal::AccountsController < ApplicationController
         })
         account.update!(stripe_customer_id: customer.id)
       end
-      selected = account.payment_methods.count.positive? ? false : true
-      account.payment_methods.create!(stripe_card_id: account_params[:card_id],
-                                      payment_type: :stripeCard,
-                                      selected: selected)
-  
+      Stripe::PaymentMethod.attach(
+        account_params[:payment_method_id],
+        {customer: account.stripe_customer_id},
+      )
       render json: { status: 'success' }, states: 200
     end
   rescue => error
@@ -25,6 +24,6 @@ class Api::Internal::AccountsController < ApplicationController
   private
 
   def account_params
-    params.require(:account).permit(:id, :token, :card_id)
+    params.require(:account).permit(:id, :token, :payment_method_id)
   end
 end
