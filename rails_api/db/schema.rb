@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_06_22_140428) do
+ActiveRecord::Schema[7.0].define(version: 2022_06_22_110134) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -35,15 +35,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_06_22_140428) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_merchant_users_on_email", unique: true
-  end
-
-  create_table "payment_methods", force: :cascade do |t|
-    t.integer "account_id", null: false, comment: "AccountID"
-    t.string "stripe_card_id", comment: "StripeカードID"
-    t.integer "payment_type", null: false, comment: "支払い種別"
-    t.boolean "selected", default: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
   end
 
   create_table "webpage_blocks", force: :cascade do |t|
