@@ -6,7 +6,7 @@ class Api::Internal::AccountsController < ApplicationController
       current_merchant_user.account.stripe_customer_id,
       {type: 'card'},
     )
-    payment_methods = JSON.parse(payment_methods["data"][0].to_json)
+    payment_methods = payment_methods["data"].map{ |data| JSON.parse(data.to_json) }
     render json: { status: 'success', payment_methods: payment_methods }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
