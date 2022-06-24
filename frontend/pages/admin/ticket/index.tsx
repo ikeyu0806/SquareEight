@@ -38,17 +38,7 @@ const Index: NextPage = () => {
       <AdminNavbar></AdminNavbar>
       <br />
       <Container>
-        <Button
-         onClick={() => router.push(`/admin/homepage/${router.query.website_id}/webpages/new`)}
-         className='mr10'>
-          新規ページ作成
-        </Button>
-        <Button
-          onClick={() => router.push(`/admin/homepage/${router.query.website_id}/edit_shared_component`)}>
-          ヘッダ・フッタ編集
-        </Button>
-        <br />
-        <br />
+        <h2>回数券一覧</h2>
         <Table bordered>
           <thead>
             <tr>
