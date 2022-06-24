@@ -1,8 +1,8 @@
 class CreateWebsites < ActiveRecord::Migration[7.0]
   def change
     create_table :websites do |t|
-      t.integer :account_id, null: false, comment: 'アカウントID'
-      t.string :tag, null: false, comment: 'タグ'
+      t.integer :account_id, null: false
+      t.string :tag, null: false
       t.timestamps
     end
   end
