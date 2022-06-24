@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
 import RegularFooter from '../../../components/organisms/RegularFooter'
-import { Container, Card, Button, Row, Col } from 'react-bootstrap'
+import { Container, Card, Button, Row, Col, ListGroup } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
@@ -40,8 +40,8 @@ const Index: NextPage = () => {
       <br />
       <Container>
         <Row>
-          <Col lg={2} md={3}></Col>
-          <Col lg={9} md={8}>
+          <Col lg={3} md={3}></Col>
+          <Col lg={6} md={8}>
             <h2>決済方法</h2>
             <Card>
               <Card.Header>登録クレジットカード</Card.Header>
@@ -50,18 +50,24 @@ const Index: NextPage = () => {
                   {
                    !paymentMethods?.length && <>カードが登録されていません</>
                   }
-                  {paymentMethods?.length && paymentMethods?.map((pay, i) => {
-                    return (
-                      <span key={i}>
-                        <div>{pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month}/2{pay.card.exp_year}）</div>
-                      </span>
-                    )
-                  })}
+                  {paymentMethods?.length &&
+                    <ListGroup>
+                      {paymentMethods?.map((pay, i) => {
+                        return (
+                          <ListGroup.Item key={i}>
+                            {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
+                          </ListGroup.Item>
+                        )
+                      })}
+                    </ListGroup>
+                    }
                 </Card.Text>
-                <Button variant='primary'
-                        onClick={() => router.push('/admin/payment_method/register')}>
-                  カードを登録する
-                </Button>
+                <div className='text-center mt10'>
+                  <Button variant='primary'
+                          onClick={() => router.push('/admin/payment_method/register')}>
+                    カードを登録する
+                  </Button>
+                </div>
               </Card.Body>
             </Card>
           </Col>
