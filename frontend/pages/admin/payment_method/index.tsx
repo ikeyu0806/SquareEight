@@ -12,6 +12,7 @@ const Index: NextPage = () => {
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
   const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
+  const [defaultPaymentMethodId, setDefaultPaymentMethodId] = useState('')
 
   useEffect(() => {
     const fetchCustomerId = () => {
@@ -25,6 +26,7 @@ const Index: NextPage = () => {
       .then(function (response) {
         const paymentMethodsResponse: StripePaymentMethodsParam[] = response.data.payment_methods
         setPaymentMethods(paymentMethodsResponse)
+        setDefaultPaymentMethodId(response.data.default_payment_method_id)
       })
       .catch(error => {
         console.log(error)
@@ -56,6 +58,7 @@ const Index: NextPage = () => {
                         return (
                           <ListGroup.Item key={i}>
                             {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
+                            {defaultPaymentMethodId === pay.id && <span className='ml10'>デフォルト</span>}
                           </ListGroup.Item>
                         )
                       })}

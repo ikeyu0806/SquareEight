@@ -2,12 +2,16 @@ class Api::Internal::AccountsController < ApplicationController
   before_action :login_only!
 
   def payment_methods
+    customer = Stripe::Customer.retrieve(current_merchant_user.account.stripe_customer_id)
+    default_payment_method_id = customer["invoice_settings"]["default_payment_method"]
     payment_methods = Stripe::Customer.list_payment_methods(
       current_merchant_user.account.stripe_customer_id,
       {type: 'card'},
     )
     payment_methods = payment_methods["data"].map{ |data| JSON.parse(data.to_json) }
-    render json: { status: 'success', payment_methods: payment_methods }, states: 200
+    render json: { status: 'success',
+                   payment_methods: payment_methods,
+                   default_payment_method_id: default_payment_method_id }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
