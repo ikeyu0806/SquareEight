@@ -3,10 +3,15 @@ import { Container, Row, Col, Form } from 'react-bootstrap'
 import { websiteTagChanged } from '../../redux/homepageSlice'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
+import { ticketMasterSlice } from 'redux/ticketMasterSlice'
+import { nameChanged, issueNumberChanged, priceChanged } from 'redux/ticketMasterSlice'
 
 const CreateTicketTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
-  const websiteTag = useSelector((state: RootState) => state.homepage.websiteTag)
+
+  const name = useSelector((state: RootState) => state.ticketMaster.name)
+  const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
+  const price = useSelector((state: RootState) => state.ticketMaster.price)
 
   return (
     <>
@@ -20,19 +25,21 @@ const CreateTicketTemplate = (): JSX.Element => {
                 <Form.Label>表示名</Form.Label>
                 <Form.Control placeholder='表示名'
                               onChange={(e) => dispatch(websiteTagChanged(e.target.value))}
-                              value={websiteTag} />
+                              value={name} />
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label>発行枚数</Form.Label>
                 <Form.Control placeholder='発行枚数'
-                              onChange={(e) => dispatch(websiteTagChanged(e.target.value))}
-                              value={websiteTag} />
+                              type='number'
+                              onChange={(e) => dispatch(issueNumberChanged(Number(e.target.value)))}
+                              value={issueNumber} />
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label>値段</Form.Label>
                 <Form.Control placeholder='値段'
-                              onChange={(e) => dispatch(websiteTagChanged(e.target.value))}
-                              value={websiteTag} />
+                              type='number'
+                              onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
+                              value={price} />
               </Form.Group>
             </div>
           </Col>
