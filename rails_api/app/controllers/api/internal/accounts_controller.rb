@@ -21,11 +21,22 @@ class Api::Internal::AccountsController < ApplicationController
           source: account_params[:card_token],
         })
         account.update!(stripe_customer_id: customer.id)
+        Stripe::PaymentMethod.attach(
+          account_params[:payment_method_id],
+          {customer: account.stripe_customer_id},
+        )
+        Stripe::Customer.update(
+          account.stripe_customer_id,
+          invoice_settings: {
+            default_payment_method: account_params[:payment_method_id],
+          },
+        )
+      else
+        Stripe::PaymentMethod.attach(
+          account_params[:payment_method_id],
+          {customer: account.stripe_customer_id},
+        )
       end
-      Stripe::PaymentMethod.attach(
-        account_params[:payment_method_id],
-        {customer: account.stripe_customer_id},
-      )
       render json: { status: 'success' }, states: 200
     end
   rescue => error
