@@ -48,10 +48,10 @@ const AdminNavbarTemplate = (): JSX.Element => {
               </NavDropdown>
               <NavDropdown title='お支払い・決済' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href=''>決済履歴</NavDropdown.Item>
-                <NavDropdown.Item href=''>月額課金プランマスタ一覧</NavDropdown.Item>
+                <NavDropdown.Item href=''>月額課金プラン一覧</NavDropdown.Item>
                 <NavDropdown.Item href=''>月額課金プラン作成</NavDropdown.Item>
-                <NavDropdown.Item href=''>回数券マスタ一覧</NavDropdown.Item>
-                <NavDropdown.Item href=''>回数券作成</NavDropdown.Item>
+                <NavDropdown.Item href=''>回数券一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/ticket/new'>回数券作成</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='アカウント設定' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/payment_method'>クレジットカード登録・変更</NavDropdown.Item>
