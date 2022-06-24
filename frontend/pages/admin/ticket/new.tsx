@@ -5,12 +5,14 @@ import RegularFooter from '../../../components/organisms/RegularFooter'
 import CreateTicketTemplate from 'components/templates/CreateTicketTemplate'
 import { Button } from 'react-bootstrap'
 import { RootState } from 'redux/store'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { alertChanged } from 'redux/alertSlice'
 
 const New: NextPage = () => {
+  const dispatch = useDispatch()
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
   const name = useSelector((state: RootState) => state.ticketMaster.name)
@@ -31,7 +33,8 @@ const New: NextPage = () => {
         'Session-Id': cookies._smartlesson_session
       }
     }).then(response => {
-      alert('success')
+      dispatch(alertChanged({message: '登録しました', show: true}))
+      router.push('/admin/ticket')
     }).catch(error => {
     })
   }
