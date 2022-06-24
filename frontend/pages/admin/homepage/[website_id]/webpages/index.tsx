@@ -59,7 +59,6 @@ const Index: NextPage = () => {
           </thead>
           <tbody>
             {webpages.map((webpage, i) => {
-              console.log({webpage})
               return (
                 <tr key={i}>
                   <td className='text-center'>

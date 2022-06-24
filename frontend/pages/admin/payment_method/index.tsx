@@ -37,7 +37,6 @@ const Index: NextPage = () => {
 
   return (
     <>
-    {console.log(paymentMethods, " {paymentMethods}")}
       <AdminNavbar></AdminNavbar>
       <br />
       <Container>
@@ -46,7 +45,7 @@ const Index: NextPage = () => {
           <Col lg={6} md={8}>
             <h2>決済方法</h2>
             <Card>
-              <Card.Header>登録クレジットカード</Card.Header>
+              <Card.Header>クレジットカード一覧</Card.Header>
               <Card.Body>
                 <Card.Text>
                   {
@@ -58,19 +57,22 @@ const Index: NextPage = () => {
                         return (
                           <ListGroup.Item key={i}>
                             {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
-                            {defaultPaymentMethodId === pay.id && <span className='ml10'>デフォルト</span>}
+                            {defaultPaymentMethodId === pay.id && <><br/><Button variant='outline-info' size='sm' className='mt5'>お支払いカードに設定されています</Button></>}
                           </ListGroup.Item>
                         )
                       })}
                     </ListGroup>
                     }
                 </Card.Text>
-                <div className='text-center mt10'>
                   <Button variant='primary'
                           onClick={() => router.push('/admin/payment_method/register')}>
-                    カードを登録する
+                    新規カード登録
                   </Button>
-                </div>
+                  <Button variant='primary'
+                          className='ml10'
+                          onClick={() => router.push('/admin/payment_method/register')}>
+                    お支払いカードの変更・登録削除
+                  </Button>
               </Card.Body>
             </Card>
           </Col>
