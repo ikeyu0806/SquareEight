@@ -6,10 +6,12 @@ import { Container, Card, Button, Row, Col } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
+import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
+  const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
 
   useEffect(() => {
     const fetchCustomerId = () => {
@@ -21,7 +23,8 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
-        console.log(response)
+        const paymentMethodsResponse: StripePaymentMethodsParam[] = response.data.payment_methods
+        setPaymentMethods(paymentMethodsResponse)
       })
       .catch(error => {
         console.log(error)
@@ -32,6 +35,7 @@ const Index: NextPage = () => {
 
   return (
     <>
+    {console.log(paymentMethods, " {paymentMethods}")}
       <AdminNavbar></AdminNavbar>
       <br />
       <Container>
@@ -43,7 +47,16 @@ const Index: NextPage = () => {
               <Card.Header>登録クレジットカード</Card.Header>
               <Card.Body>
                 <Card.Text>
-                  カードが登録されていません
+                  {
+                   !paymentMethods?.length && <>カードが登録されていません</>
+                  }
+                  {paymentMethods?.length && paymentMethods?.map((pay, i) => {
+                    return (
+                      <span key={i}>
+                        <div>{pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month}/2{pay.card.exp_year}）</div>
+                      </span>
+                    )
+                  })}
                 </Card.Text>
                 <Button variant='primary'
                         onClick={() => router.push('/admin/payment_method/register')}>
