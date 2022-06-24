@@ -23,8 +23,8 @@ const CreateTicketTemplate = (): JSX.Element => {
             <div className='mt20 mb20'>
               <Form.Group className='mb-3'>
                 <Form.Label>表示名</Form.Label>
-                <Form.Control placeholder='表示名'
-                              onChange={(e) => dispatch(websiteTagChanged(e.target.value))}
+                <Form.Control placeholder='レッスン10回受講券など'
+                              onChange={(e) => dispatch(nameChanged(e.target.value))}
                               value={name} />
               </Form.Group>
               <Form.Group className='mb-3'>
