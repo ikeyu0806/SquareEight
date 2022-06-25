@@ -14,7 +14,7 @@ const Register: NextPage = () => {
       <AdminNavbar></AdminNavbar>
         <br/>
         <br/>
-        <Elements stripe={stripePromise}>     
+        <Elements stripe={stripePromise}>
           <RegisterCardForm />
         </Elements>
       <RegularFooter></RegularFooter>
