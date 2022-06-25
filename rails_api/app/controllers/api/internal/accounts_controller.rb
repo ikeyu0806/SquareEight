@@ -47,7 +47,7 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
-  def register_stripe_connected_account
+  def register_stripe_connected_account_business_info
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     stripe_account = Stripe::Account.create({
       type: 'custom',
@@ -64,6 +64,25 @@ class Api::Internal::AccountsController < ApplicationController
   private
 
   def account_params
-    params.require(:account).permit(:id, :token, :payment_method_id)
+    params.require(:account)
+          .permit(:id,
+                  :token,
+                  :payment_method_id,
+                  :individual_first_name_kanji,
+                  :individual_last_name_kanji,
+                  :individual_last_name_kana,
+                  :individual_portal_code_kanji,
+                  :individual_state_kanji,
+                  :individual_city_kanji,
+                  :individual_town_kanji,
+                  :individual_line1_kanji,
+                  :individual_line2_kanji,
+                  :individual_state_kana,
+                  :individual_town_kana,
+                  :individual_city_kana,
+                  :individual_line1_kana,
+                  :individual_line2_kana,
+                  :individual_phone_number,
+                  :individual_birthDay)
   end
 end
