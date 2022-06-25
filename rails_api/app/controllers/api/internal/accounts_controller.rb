@@ -17,10 +17,10 @@ class Api::Internal::AccountsController < ApplicationController
   end
 
   def register_credit_card
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
     ActiveRecord::Base.transaction do
       account = current_merchant_user.account
       if account.stripe_customer_id.blank?
-        Stripe.api_key = Rails.configuration.stripe[:secret_key]
         customer = Stripe::Customer.create({
           source: account_params[:card_token],
         })
@@ -43,6 +43,20 @@ class Api::Internal::AccountsController < ApplicationController
       end
       render json: { status: 'success' }, states: 200
     end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def register_stripe_connected_account
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    stripe_account = Stripe::Account.create({
+      type: 'custom',
+      country: 'JP',
+      capabilities: {
+        card_payments: {requested: true},
+        transfers: {requested: true},
+      },
+    })
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

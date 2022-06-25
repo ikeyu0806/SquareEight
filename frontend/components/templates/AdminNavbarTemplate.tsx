@@ -46,16 +46,21 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href=''>一覧</NavDropdown.Item>
                 <NavDropdown.Item href=''>新規登録</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='お支払い・決済' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href=''>決済履歴</NavDropdown.Item>
+              <NavDropdown title='売り上げ' id='homepage-nav-dropdown'>
+                <NavDropdown.Item href=''>売り上げ履歴</NavDropdown.Item>
+                <NavDropdown.Item href=''>月額課金プラン一覧</NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title='売り上げ管理' id='homepage-nav-dropdown'>
+                <NavDropdown.Item href='/admin/sales_transfer/'>振込先口座</NavDropdown.Item>
                 <NavDropdown.Item href=''>月額課金プラン一覧</NavDropdown.Item>
                 <NavDropdown.Item href=''>月額課金プラン作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/ticket'>回数券一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/ticket/new'>回数券作成</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='アカウント設定' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/payment_method'>クレジットカード登録・変更</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
                 <NavDropdown.Item href=''>プラン変更・退会</NavDropdown.Item>
+                <NavDropdown.Item href=''>お支払い履歴</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='その他' id='homepage-nav-dropdown'>
