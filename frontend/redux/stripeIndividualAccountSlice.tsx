@@ -87,6 +87,7 @@ export const stripeIndividualAccountSlice = createSlice({
 export const { individualFirstNameKanjiChanged } = stripeIndividualAccountSlice.actions
 export const { individualLastNameKanjiChanged } = stripeIndividualAccountSlice.actions
 export const { individualFirstNameKanaChanged } = stripeIndividualAccountSlice.actions
+export const { individualLastNameKanaChanged } = stripeIndividualAccountSlice.actions
 export const { individualPortalCodeKanjiChanged } = stripeIndividualAccountSlice.actions
 export const { individualStateKanjiChanged } = stripeIndividualAccountSlice.actions
 export const { individualCityKanjiChanged } = stripeIndividualAccountSlice.actions

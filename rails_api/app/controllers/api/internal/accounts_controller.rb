@@ -47,16 +47,41 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
-  def register_stripe_connected_account_business_info
+  def register_stripe_business_info
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
-    stripe_account = Stripe::Account.create({
-      type: 'custom',
-      country: 'JP',
-      capabilities: {
-        card_payments: {requested: true},
-        transfers: {requested: true},
-      },
-    })
+    if current_merchant_user.account.stripe_account_id.blank?
+      stripe_account = Stripe::Account.create({
+        type: 'custom',
+        country: 'JP',
+        capabilities: {
+          card_payments: {requested: true},
+          transfers: {requested: true},
+        },
+      })
+    else
+      stripe_account = Stripe::Account.retrieve(current_merchant_user.account.stripe_account_id)
+    end
+    stripe_account.legal_entity.type = "individual"
+    stripe_account.last_name_kana = account_params[:last_name_kana]
+    stripe_account.last_name_kanji = account_params[:last_name_kanji]
+    stripe_account.last_name_kana = account_params[:individual_last_name_kana]
+    stripe_account.portal_code_kanji = account_params[:individual_portal_code_kanji]
+    stripe_account.state_kanji = account_params[:individual_state_kanji]
+    stripe_account.city_kanji = account_params[:individual_city_kanji]
+    stripe_account.town_kanji = account_params[:individual_town_kanji]
+    stripe_account.line1_kanji = account_params[:individual_line1_kanji]
+    stripe_account.line2_kanji = account_params[:individual_line2_kanji]
+    stripe_account.state_kana = account_params[:individual_state_kana]
+    stripe_account.town_kana = account_params[:individual_town_kana]
+    stripe_account.city_kana = account_params[:individual_city_kana]
+    stripe_account.line1_kana = account_params[:individual_line1_kana]
+    stripe_account.line2_kana = account_params[:individual_line2_kana]
+    stripe_account.phone_number = account_params[:indiphone_number]
+    split_birth_date = account_params["individual_birth_day"].split("-")
+    stripe_account.year = split_birth_date[0]
+    stripe_account.month = split_birth_date[1]
+    stripe_account.day = split_birth_date[2]
+    stripe_account.save
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -83,6 +108,6 @@ class Api::Internal::AccountsController < ApplicationController
                   :individual_line1_kana,
                   :individual_line2_kana,
                   :individual_phone_number,
-                  :individual_birthDay)
+                  :individual_birth_day)
   end
 end

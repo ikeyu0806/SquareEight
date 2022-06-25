@@ -4,6 +4,7 @@ import { RootState } from 'redux/store'
 import {  individualFirstNameKanjiChanged,
           individualLastNameKanjiChanged,
           individualFirstNameKanaChanged,
+          individualLastNameKanaChanged,
           individualBirthDayChanged,
           individualPortalCodeKanjiChanged,
           individualStateKanjiChanged,
@@ -46,17 +47,17 @@ const StripeIndividualAccountForm = (): JSX.Element => {
   return (
     <>
       <Form.Label className='mt10'>事業主様の姓（漢字）</Form.Label>
-      <Form.Control onChange={(e) => dispatch(individualFirstNameKanjiChanged(e.target.value))}
-                    value={individualFirstNameKanji}></Form.Control>
-      <Form.Label className='mt10'>事業主様の姓（カナ）</Form.Label>
       <Form.Control onChange={(e) => dispatch(individualLastNameKanjiChanged(e.target.value))}
-                    value={individualFirstNameKanji}></Form.Control>
-      <Form.Label className='mt10'>事業主様のお名前（漢字）</Form.Label>
-      <Form.Control onChange={(e) => dispatch(individualFirstNameKanaChanged(e.target.value))}
                     value={individualLastNameKanji}></Form.Control>
-      <Form.Label className='mt10'>事業主様のお名前（カナ）</Form.Label>
-      <Form.Control onChange={(e) => dispatch(individualFirstNameKanjiChanged(e.target.value))}
+      <Form.Label className='mt10'>事業主様の姓（カナ）</Form.Label>
+      <Form.Control onChange={(e) => dispatch(individualLastNameKanaChanged(e.target.value))}
                     value={individualLastNameKana}></Form.Control>
+      <Form.Label className='mt10'>事業主様のお名前（漢字）</Form.Label>
+      <Form.Control onChange={(e) => dispatch(individualFirstNameKanjiChanged(e.target.value))}
+                    value={individualFirstNameKanji}></Form.Control>
+      <Form.Label className='mt10'>事業主様のお名前（カナ）</Form.Label>
+      <Form.Control onChange={(e) => dispatch(individualFirstNameKanaChanged(e.target.value))}
+                    value={individualFirstNameKana}></Form.Control>
       <Form.Label className='mt10'>事業責任者の生年月日</Form.Label>
       <Form.Control type='date' onChange={(e) => dispatch(individualBirthDayChanged(e.target.value))}
                     value={individualBirthDay}></Form.Control>

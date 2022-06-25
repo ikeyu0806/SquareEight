@@ -35,7 +35,7 @@ const RegisterMerchantInfoForm = () => {
 
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/account/register_stripe_connected_account_business_info`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
     {
       account: {
         individual_first_name_kanji: individualFirstNameKanji,
@@ -53,7 +53,7 @@ const RegisterMerchantInfoForm = () => {
         individual_line1_kana: individualLine1Kana,
         individual_line2_kana: individualLine2Kana,
         individual_phone_number: individualPhoneNumber,
-        individual_birthDay: individualBirthDay,
+        individual_birth_day: individualBirthDay,
       },
     },
     {
@@ -80,7 +80,7 @@ const RegisterMerchantInfoForm = () => {
             <option value='company'>法人（株式会社/合同会社/NPOなど）</option>
           </Form.Select>
           {businessType === 'individual' && <StripeIndividualAccountForm></StripeIndividualAccountForm>}
-          <Button onClick={onSubmit}>登録する</Button>
+          <Button onClick={onSubmit} className='mt10'>登録する</Button>
           </Col>
           <Col></Col>
         </Row>
