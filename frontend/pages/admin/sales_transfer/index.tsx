@@ -13,7 +13,7 @@ const Index: NextPage = () => {
       <AdminNavbar></AdminNavbar>
         <br/>
         <br/>
-        <Button onClick={() => router.push('/admin/sales_transfer/register')}>振込先口座登録</Button>
+        <Button onClick={() => router.push('/admin/sales_transfer/register_business_info')}>振込先口座登録</Button>
       <RegularFooter></RegularFooter>
     </>
   )

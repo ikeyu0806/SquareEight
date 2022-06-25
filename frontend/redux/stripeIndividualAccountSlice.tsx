@@ -19,6 +19,7 @@ export const stripeIndividualAccountSlice = createSlice({
     individualTownKana: '',
     individualLine1Kana: '',
     individualLine2Kana: '',
+    individualPhoneNumber: '',
   },
   reducers: {
     individualFirstNameKanjiChanged: (state, action: PayloadAction<string>) => {
@@ -69,6 +70,9 @@ export const stripeIndividualAccountSlice = createSlice({
     individualLine2KanaChanged: (state, action: PayloadAction<string>) => {
       state.individualLine2Kana = action.payload
     },
+    individualPhoneNumberChanged: (state, action: PayloadAction<string>) => {
+      state.individualPhoneNumber = action.payload
+    },
   },
 })
 
@@ -87,5 +91,6 @@ export const { individualCityKanaChanged } = stripeIndividualAccountSlice.action
 export const { individualTownKanaChanged } = stripeIndividualAccountSlice.actions
 export const { individualLine1KanaChanged } = stripeIndividualAccountSlice.actions
 export const { individualLine2KanaChanged } = stripeIndividualAccountSlice.actions
+export const { individualPhoneNumberChanged } = stripeIndividualAccountSlice.actions
 
 export default stripeIndividualAccountSlice.reducer
