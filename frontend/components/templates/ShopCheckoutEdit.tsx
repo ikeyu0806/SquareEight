@@ -18,12 +18,12 @@ const ShopCheckoutEdit = (): JSX.Element => {
           <Col lg={6}>
             <Card>
               <Card.Body>
-              <div>ご購入にはユーザ登録が必要となります</div>
+              <h4>ご購入にはユーザ登録が必要となります</h4>
                 <hr />
-                <div>SmartLessonアカウントをお持ちの方</div>
-                <Button className='mt10' variant='dark'>SmartLessonアカウントで支払う</Button>
+                <h5>SmartLessonIDをお持ちの方</h5>
+                <Button className='mt10' variant='dark'>SmartLessonIDで支払う</Button>
                 <hr />
-                <div>SmartLessonアカウントをお持ちでない方</div>
+                <h5>SmartLessonIDをお持ちでない方</h5>
                 <Form.Label className='mt30'>メールアドレス</Form.Label>
                 <Form.Control></Form.Control>
                 <Form.Label className='mt10'>パスワード</Form.Label>
@@ -31,8 +31,8 @@ const ShopCheckoutEdit = (): JSX.Element => {
                 <Form.Label className='mt10'>パスワード(確認)</Form.Label>
                 <Form.Control></Form.Control>
                 <hr />
-                <div>お支払いクレジットカードを登録してください</div>
-                <Form.Label>カード番号</Form.Label>
+                <h5>お支払いクレジットカードを登録してください</h5>
+                <Form.Label className='mt20'>カード番号</Form.Label>
                 <CardNumberElement className="form-control" />
                 <Form.Label className='mt10'>有効期限</Form.Label>
                 <CardExpiryElement className="form-control" />
