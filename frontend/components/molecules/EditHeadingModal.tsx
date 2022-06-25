@@ -7,7 +7,7 @@ import { pageContentChanged,
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
-import { placementType, headingSizeType } from '../../interfaces/HeadingBlockState'
+import { placementType, headingSizeType } from '../../types/HeadingBlockState'
 import { BLOCK_TYPE } from '../../constants/blockType'
 
 const EditHeadingModal = (): JSX.Element => {
