@@ -4,7 +4,7 @@ import { showBlockModalChanged, blockTypeChanged, pageContentChanged, currentMax
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
-import { ImageSlideState, ImageSlideChildState } from '../../interfaces/ImageSlideState'
+import { ImageSlideState, ImageSlideChildState } from '../../types/ImageSlideState'
 import { getBase64 } from '../../functions/getBase64'
 
 const EditImageSlideBlockModal = (): JSX.Element => {

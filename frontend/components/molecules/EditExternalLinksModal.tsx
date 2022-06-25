@@ -4,7 +4,7 @@ import { pageContentChanged, showBlockModalChanged, blockTypeChanged, currentMax
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
-import { ExternalLinkBlockContentStateType } from '../../interfaces/ExternalLinkBlockStateType'
+import { ExternalLinkBlockContentStateType } from '../../types/ExternalLinkBlockStateType'
 
 const EditExternalLinksModal = (): JSX.Element => {
   const dispatch = useDispatch()

@@ -1,4 +1,4 @@
-import { FeatureAtomProps } from './FeatureAtomProps'
+import { FeatureAtomProps } from '../types/FeatureAtomProps'
 
 export type FeaturesMoleculeProps = {
   headerText?: string

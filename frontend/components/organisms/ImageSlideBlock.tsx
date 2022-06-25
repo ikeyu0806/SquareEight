@@ -1,4 +1,4 @@
-import { ImageSlideState } from '../../interfaces/ImageSlideState'
+import { ImageSlideState } from '../../types/ImageSlideState'
 import { Carousel } from 'react-bootstrap'
 
 type propType = {

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { FeatureAtomProps } from '../../interfaces/FeatureAtomProps'
+import { FeatureAtomProps } from '../../types/FeatureAtomProps'
 import { Col,
          Card } from 'react-bootstrap'  
 

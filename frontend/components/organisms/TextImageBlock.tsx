@@ -1,4 +1,4 @@
-import { TextImageBlockStateType } from '../../interfaces/TextImageBlockStateType'
+import { TextImageBlockStateType } from '../../types/TextImageBlockStateType'
 import { Row, Col } from 'react-bootstrap'
 
 type propType = {

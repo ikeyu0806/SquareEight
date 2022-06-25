@@ -1,5 +1,5 @@
 import React from 'react'
-import { FeaturesOrganismProps } from '../../interfaces/FeaturesOrganismProps'
+import { FeaturesOrganismProps } from '../../types/FeaturesOrganismProps'
 import FeaturesMolecules from '../molecules/FeaturesMolecules'
 
 const ReserveFeatures = ({selectable}: FeaturesOrganismProps): JSX.Element => {

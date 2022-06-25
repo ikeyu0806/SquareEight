@@ -1,8 +1,8 @@
 
-import { ExternalLinkBlockStateType } from './ExternalLinkBlockStateType'
-import { TextImageBlockStateType } from './TextImageBlockStateType'
+import { ExternalLinkBlockStateType } from '../types/ExternalLinkBlockStateType'
+import { TextImageBlockStateType } from '../types/TextImageBlockStateType'
 import { HeadingBlockState } from './HeadingBlockState'
-import { ImageSlideState } from './ImageSlideState'
+import { ImageSlideState } from '../types/ImageSlideState'
 
 export type PageContentState = {
   blockID: string

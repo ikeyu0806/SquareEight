@@ -13,11 +13,11 @@ import HeadingBlock from '../../../components/organisms/HeadingBlock'
 import TextImageBlock from '../../../components/organisms/TextImageBlock'
 import ImageSlideBlock from '../../../components/organisms/ImageSlideBlock'
 import { BLOCK_TYPE } from '../../../constants/blockType'
-import { ExternalLinkBlockStateType } from '../../../interfaces/ExternalLinkBlockStateType'
-import { TextImageBlockStateType } from '../../../interfaces/TextImageBlockStateType'
+import { ExternalLinkBlockStateType } from '../../../types/ExternalLinkBlockStateType'
+import { TextImageBlockStateType } from '../../../types/TextImageBlockStateType'
 import { WebsiteHeaderType } from '../../../interfaces/WebsiteHeaderType'
 import { WebsiteFooterType } from '../../../interfaces/WebsiteFooterType'
-import { ImageSlideState } from '../../../interfaces/ImageSlideState'
+import { ImageSlideState } from '../../../types/ImageSlideState'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
