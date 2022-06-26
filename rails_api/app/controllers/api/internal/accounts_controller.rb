@@ -53,6 +53,7 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account = Stripe::Account.create({
         type: 'custom',
         country: 'JP',
+        email: current_merchant_user.email,
         capabilities: {
           card_payments: {requested: true},
           transfers: {requested: true},
@@ -72,7 +73,7 @@ class Api::Internal::AccountsController < ApplicationController
     stripe_account.legal_entity.address_kanji.town = account_params[:individual_town_kanji]
     stripe_account.legal_entity.address_kanji.line1 = account_params[:individual_line1_kanji]
     stripe_account.legal_entity.address_kanji.line2 = account_params[:individual_line2_kanji] if account_params[:individual_line2_kanji].present?
-    stripe_account.legal_entity.address_kana.postal_code = account_params[:individual_postal_code_kana]
+    stripe_account.legal_entity.address_kana.postal_code = account_params[:individual_postal_code_kanji]
     stripe_account.legal_entity.address_kana.state = account_params[:individual_state_kana]
     stripe_account.legal_entity.address_kana.city = account_params[:individual_city_kana]
     stripe_account.legal_entity.address_kana.town = account_params[:individual_town_kana]
