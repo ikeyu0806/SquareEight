@@ -31,3 +31,4 @@ cache/
 
 docker/docker_local.env
 .DS_Store
+*identification_image*

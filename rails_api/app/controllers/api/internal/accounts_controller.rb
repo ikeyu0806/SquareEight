@@ -92,10 +92,11 @@ class Api::Internal::AccountsController < ApplicationController
     extension = account_params[:identification_image].split("/")[1].split(";")[0]
     content_type = account_params[:identification_image].split(":")[1].split(";")[0]
     obj_name =  "identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
+
     File.open(obj_name, 'wb') do |file|
       file.write(decode_image)
     end
-    identification_image_file = File.open(identification_image_file, "r")
+    identification_image_file = File.open(obj_name, "r")
     verification_document = Stripe::File.create(
       {
         purpose: 'identity_document',
