@@ -1,5 +1,7 @@
+import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { getBase64 } from 'functions/getBase64'
 import { RootState } from 'redux/store'
 import {  individualFirstNameKanjiChanged,
           individualLastNameKanjiChanged,
@@ -19,10 +21,20 @@ import {  individualFirstNameKanjiChanged,
           individualLine1KanaChanged,
           individualLine2KanaChanged,
           individualPhoneNumberChanged,
-          individualGenderChanged } from 'redux/stripeIndividualAccountSlice'
+          individualGenderChanged,
+          identificationImageChanged } from 'redux/stripeIndividualAccountSlice'
 
 const StripeIndividualAccountForm = (): JSX.Element => {
   const dispatch = useDispatch()
+  const [image, setImage] = useState('')
+
+  const handleChangeFile = (e: any) => {
+    const { files } = e.target
+    setImage(window.URL.createObjectURL(files[0]))
+    getBase64(files[0]).then(
+      data => dispatch(identificationImageChanged(data))
+    )
+  }
 
   const individualFirstNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualFirstNameKanji)
   const individualLastNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLastNameKanji)
@@ -43,6 +55,7 @@ const StripeIndividualAccountForm = (): JSX.Element => {
   const individualPhoneNumber = useSelector((state: RootState) => state.stripeIndividualAccount.individualPhoneNumber)
   const individualBirthDay = useSelector((state: RootState) => state.stripeIndividualAccount.individualBirthDay)
   const individualGender = useSelector((state: RootState) => state.stripeIndividualAccount.individualGender)
+  const identificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
 
   return (
     <>
@@ -102,6 +115,17 @@ const StripeIndividualAccountForm = (): JSX.Element => {
       <Form.Label className='mt10'>建物・部屋番号・その他 （カナ）</Form.Label>
       <Form.Control onChange={(e) => dispatch(individualLine2KanaChanged(e.target.value))}
                     value={individualLine2Kana}></Form.Control>
+      <Form.Group controlId='formFile' className='mt10'>
+        <Form.Label>
+          本人確認書類。以下のいずれかをアップロードしてください<br/>
+          &emsp;1. 運転免許書<br/>
+          &emsp;2. パスポート<br/>
+          &emsp;3. 外国国籍を持つ方の場合は在留カード<br/>
+          &emsp;4. 住基カード(顔写真入り)<br/>
+          &emsp;5. マイナンバーカード(顔写真入り)
+        </Form.Label>
+        <Form.Control type='file' onChange={handleChangeFile} />
+      </Form.Group>
     </>
   )
 }

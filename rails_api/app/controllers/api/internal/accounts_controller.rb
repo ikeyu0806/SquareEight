@@ -86,10 +86,20 @@ class Api::Internal::AccountsController < ApplicationController
     stripe_account.legal_entity.dob.day = split_birth_date[2]
     stripe_account.tos_acceptance.date = Time.now.to_i
     stripe_account.tos_acceptance.ip = request.remote_ip
-    verification_document = Stripe::FileUpload.create(
+
+    image_data = account_params[:identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
+    decode_image = Base64.decode64(image_data)
+    extension = account_params[:identification_image].split("/")[1].split(";")[0]
+    content_type = account_params[:identification_image].split(":")[1].split(";")[0]
+    obj_name =  "identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
+    File.open(obj_name, 'wb') do |file|
+      file.write(decode_image)
+    end
+    identification_image_file = File.open(identification_image_file, "r")
+    verification_document = Stripe::File.create(
       {
         purpose: 'identity_document',
-        file: File.new("./verification_success.png")
+        file: identification_image_file
       },
       {
         stripe_account: stripe_account.id
@@ -128,6 +138,7 @@ class Api::Internal::AccountsController < ApplicationController
                   :individual_line2_kana,
                   :individual_phone_number,
                   :individual_birth_day,
-                  :individual_gender)
+                  :individual_gender,
+                  :identification_image)
   end
 end

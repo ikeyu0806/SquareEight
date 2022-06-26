@@ -33,7 +33,7 @@ const RegisterMerchantInfoForm = () => {
   const individualPhoneNumber = useSelector((state: RootState) => state.stripeIndividualAccount.individualPhoneNumber)
   const individualBirthDay = useSelector((state: RootState) => state.stripeIndividualAccount.individualBirthDay)
   const individualGender = useSelector((state: RootState) => state.stripeIndividualAccount.individualGender)
-
+  const identificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
@@ -56,7 +56,8 @@ const RegisterMerchantInfoForm = () => {
         individual_line2_kana: individualLine2Kana,
         individual_phone_number: individualPhoneNumber,
         individual_birth_day: individualBirthDay,
-        individual_gender: individualGender
+        individual_gender: individualGender,
+        identification_image: identificationImage
       },
     },
     {
