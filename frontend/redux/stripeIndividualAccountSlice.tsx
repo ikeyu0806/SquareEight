@@ -20,7 +20,7 @@ export const stripeIndividualAccountSlice = createSlice({
     individualLine1Kana: '',
     individualLine2Kana: '',
     individualPhoneNumber: '',
-    individualBirthDay: '',
+    individualBirthDay: '2000-01-01',
     individualGender: 'male',
   },
   reducers: {

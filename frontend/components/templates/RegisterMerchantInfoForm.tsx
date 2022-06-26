@@ -7,6 +7,7 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { alertChanged } from 'redux/alertSlice'
+import StripeTerm from 'components/organisms/StripeTerm'
 
 const RegisterMerchantInfoForm = () => {
   const [businessType, setBusinessType] = useState('individual')
@@ -82,6 +83,7 @@ const RegisterMerchantInfoForm = () => {
             <option value='company'>法人（株式会社/合同会社/NPOなど）</option>
           </Form.Select>
           {businessType === 'individual' && <StripeIndividualAccountForm></StripeIndividualAccountForm>}
+          <StripeTerm></StripeTerm>
           <Button onClick={onSubmit} className='mt10'>登録する</Button>
           </Col>
           <Col></Col>

@@ -84,6 +84,19 @@ class Api::Internal::AccountsController < ApplicationController
     stripe_account.legal_entity.dob.year = split_birth_date[0]
     stripe_account.legal_entity.dob.month = split_birth_date[1]
     stripe_account.legal_entity.dob.day = split_birth_date[2]
+    stripe_account.tos_acceptance.date = Time.now.to_i
+    stripe_account.tos_acceptance.ip = request.remote_ip
+    verification_document = Stripe::FileUpload.create(
+      {
+        purpose: 'identity_document',
+        file: File.new("./verification_success.png")
+      },
+      {
+        stripe_account: stripe_account.id
+      }
+    )
+
+    stripe_account.legal_entity.verification.document = verification_document.id
     stripe_account.save
     render json: { status: 'success' }, states: 200
   rescue => error
