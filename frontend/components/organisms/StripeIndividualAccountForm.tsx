@@ -6,13 +6,13 @@ import {  individualFirstNameKanjiChanged,
           individualFirstNameKanaChanged,
           individualLastNameKanaChanged,
           individualBirthDayChanged,
-          individualPortalCodeKanjiChanged,
+          individualPostalCodeKanjiChanged,
           individualStateKanjiChanged,
           individualCityKanjiChanged,
           individualTownKanjiChanged,
           individualLine1KanjiChanged,
           individualLine2KanjiChanged,
-          individualPorttalCodeKanaChanged,
+          individualPostalCodeKanaChanged,
           individualStateKanaChanged,
           individualCityKanaChanged,
           individualTownKanaChanged,
@@ -28,13 +28,13 @@ const StripeIndividualAccountForm = (): JSX.Element => {
   const individualLastNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLastNameKanji)
   const individualFirstNameKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualFirstNameKana)
   const individualLastNameKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualLastNameKana)
-  const individualPortalCodeKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualPortalCodeKanji)
+  const individualPortalCodeKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualPostalCodeKanji)
   const individualStateKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualStateKanji)
   const individualCityKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualCityKanji)
   const individualTownKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualTownKanji)
   const individualLine1Kanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLine1Kanji)
   const individualLine2Kanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLine2Kanji)
-  const individualPorttalCodeKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualPorttalCodeKana)
+  const individualPorttalCodeKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualPostalCodeKana)
   const individualStateKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualStateKana)
   const individualTownKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualTownKana)
   const individualCityKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualCityKana)
@@ -63,14 +63,14 @@ const StripeIndividualAccountForm = (): JSX.Element => {
                     value={individualBirthDay}></Form.Control>
       <Form.Label className='mt10'>事業責任者の姓別</Form.Label>
       <Form.Select onChange={(e) => dispatch(individualGenderChanged(e.target.value))}>
-        <option value='man'>男</option>
-        <option value='woman'>女</option>
+        <option value='male'>男</option>
+        <option value='female'>女</option>
       </Form.Select>
       <Form.Label className='mt10'>事業責任者の電話番号</Form.Label>
       <Form.Control onChange={(e) => dispatch(individualPhoneNumberChanged(e.target.value))}
                     value={individualPhoneNumber}></Form.Control>
       <Form.Label className='mt10'>郵便番号</Form.Label>
-      <Form.Control onChange={(e) => dispatch(individualPortalCodeKanjiChanged(e.target.value))}
+      <Form.Control onChange={(e) => dispatch(individualPostalCodeKanjiChanged(e.target.value))}
                     value={individualPortalCodeKanji}></Form.Control>
       <Form.Label className='mt10'>都道府県（漢字）</Form.Label>
       <Form.Control onChange={(e) => dispatch(individualStateKanjiChanged(e.target.value))}

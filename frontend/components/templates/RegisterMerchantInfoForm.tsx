@@ -17,13 +17,13 @@ const RegisterMerchantInfoForm = () => {
   const individualLastNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLastNameKanji)
   const individualFirstNameKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualFirstNameKana)
   const individualLastNameKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualLastNameKana)
-  const individualPortalCodeKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualPortalCodeKanji)
+  const individualPostalCodeKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualPostalCodeKanji)
   const individualStateKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualStateKanji)
   const individualCityKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualCityKanji)
   const individualTownKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualTownKanji)
   const individualLine1Kanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLine1Kanji)
   const individualLine2Kanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLine2Kanji)
-  const individualPorttalCodeKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualPorttalCodeKana)
+  const individualPosttalCodeKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualPostalCodeKana)
   const individualStateKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualStateKana)
   const individualTownKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualTownKana)
   const individualCityKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualCityKana)
@@ -39,14 +39,15 @@ const RegisterMerchantInfoForm = () => {
     {
       account: {
         individual_first_name_kanji: individualFirstNameKanji,
+        individual_first_name_kana: individualFirstNameKana,
         individual_last_name_kanji: individualLastNameKanji,
         individual_last_name_kana: individualLastNameKana,
-        individual_portal_code_kanji: individualPortalCodeKanji,
+        individual_postal_code_kanji: individualPostalCodeKanji,
         individual_state_kanji: individualStateKanji,
         individual_city_kanji: individualCityKanji,
         individual_town_kanji: individualTownKanji,
         individual_line1_kanji: individualLine1Kanji,
-        individual_line2_kanji: individualLine2Kanji,
+        individual_line2_kanji: individualLine2Kana,
         individual_state_kana: individualStateKana,
         individual_town_kana: individualTownKana,
         individual_city_kana: individualCityKana,
@@ -54,6 +55,7 @@ const RegisterMerchantInfoForm = () => {
         individual_line2_kana: individualLine2Kana,
         individual_phone_number: individualPhoneNumber,
         individual_birth_day: individualBirthDay,
+        individual_gender: individualGender
       },
     },
     {

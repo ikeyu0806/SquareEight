@@ -7,13 +7,13 @@ export const stripeIndividualAccountSlice = createSlice({
     individualLastNameKanji: '',
     individualFirstNameKana: '',
     individualLastNameKana: '',
-    individualPortalCodeKanji: '',
+    individualPostalCodeKanji: '',
     individualStateKanji: '',
     individualCityKanji: '',
     individualTownKanji: '',
     individualLine1Kanji: '',
     individualLine2Kanji: '',
-    individualPorttalCodeKana: '',
+    individualPostalCodeKana: '',
     individualStateKana: '',
     individualCityKana: '',
     individualTownKana: '',
@@ -21,7 +21,7 @@ export const stripeIndividualAccountSlice = createSlice({
     individualLine2Kana: '',
     individualPhoneNumber: '',
     individualBirthDay: '',
-    individualGender: '',
+    individualGender: 'male',
   },
   reducers: {
     individualFirstNameKanjiChanged: (state, action: PayloadAction<string>) => {
@@ -36,8 +36,8 @@ export const stripeIndividualAccountSlice = createSlice({
     individualLastNameKanaChanged: (state, action: PayloadAction<string>) => {
       state.individualLastNameKana = action.payload
     },
-    individualPortalCodeKanjiChanged: (state, action: PayloadAction<string>) => {
-      state.individualPortalCodeKanji = action.payload
+    individualPostalCodeKanjiChanged: (state, action: PayloadAction<string>) => {
+      state.individualPostalCodeKanji = action.payload
     },
     individualStateKanjiChanged: (state, action: PayloadAction<string>) => {
       state.individualStateKanji = action.payload
@@ -54,8 +54,8 @@ export const stripeIndividualAccountSlice = createSlice({
     individualLine2KanjiChanged: (state, action: PayloadAction<string>) => {
       state.individualLine2Kanji = action.payload
     },
-    individualPorttalCodeKanaChanged: (state, action: PayloadAction<string>) => {
-      state.individualPorttalCodeKana = action.payload
+    individualPostalCodeKanaChanged: (state, action: PayloadAction<string>) => {
+      state.individualPostalCodeKana = action.payload
     },
     individualStateKanaChanged: (state, action: PayloadAction<string>) => {
       state.individualStateKana = action.payload
@@ -88,13 +88,13 @@ export const { individualFirstNameKanjiChanged } = stripeIndividualAccountSlice.
 export const { individualLastNameKanjiChanged } = stripeIndividualAccountSlice.actions
 export const { individualFirstNameKanaChanged } = stripeIndividualAccountSlice.actions
 export const { individualLastNameKanaChanged } = stripeIndividualAccountSlice.actions
-export const { individualPortalCodeKanjiChanged } = stripeIndividualAccountSlice.actions
+export const { individualPostalCodeKanjiChanged } = stripeIndividualAccountSlice.actions
 export const { individualStateKanjiChanged } = stripeIndividualAccountSlice.actions
 export const { individualCityKanjiChanged } = stripeIndividualAccountSlice.actions
 export const { individualTownKanjiChanged } = stripeIndividualAccountSlice.actions
 export const { individualLine1KanjiChanged } = stripeIndividualAccountSlice.actions
 export const { individualLine2KanjiChanged } = stripeIndividualAccountSlice.actions
-export const { individualPorttalCodeKanaChanged } = stripeIndividualAccountSlice.actions
+export const { individualPostalCodeKanaChanged } = stripeIndividualAccountSlice.actions
 export const { individualStateKanaChanged } = stripeIndividualAccountSlice.actions
 export const { individualCityKanaChanged } = stripeIndividualAccountSlice.actions
 export const { individualTownKanaChanged } = stripeIndividualAccountSlice.actions
