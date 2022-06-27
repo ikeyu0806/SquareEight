@@ -6,7 +6,7 @@ export const stripeExternalAccountsSlice = createSlice({
     accountNumber: '',
     bankCode: '',
     branchCode: '',
-    accountHolderNameChanged: ''
+    accountHolderName: ''
   },
   reducers: {
     accountNumberChanged: (state, action: PayloadAction<string>) => {
@@ -19,7 +19,7 @@ export const stripeExternalAccountsSlice = createSlice({
       state.branchCode = action.payload
     },
     accountHolderNameChanged: (state, action: PayloadAction<string>) => {
-      state.accountHolderNameChanged = action.payload
+      state.accountHolderName = action.payload
     },
   },
 })

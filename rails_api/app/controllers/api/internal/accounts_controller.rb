@@ -115,6 +115,21 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def register_stripe_bank_account
+    # account = stripe.Account.retrieve(current_merchant_user.account.stripe_account_id)
+    # account.external_accounts.create(external_account= {
+    #   'object':'bank_account',
+    #   'account_number': '00012345',
+    #   'routing_number': '1100001',
+    #   'account_holder_name':'トクテスト(カ',
+    #   'currency':'jpy',
+    #   'country':'jp',
+    # })
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def account_params
@@ -141,6 +156,10 @@ class Api::Internal::AccountsController < ApplicationController
                   :individual_phone_number,
                   :individual_birth_day,
                   :individual_gender,
-                  :identification_image)
+                  :identification_image,
+                  :account_number,
+                  :bank_code,
+                  :branch_code,
+                  :account_holder_name)
   end
 end

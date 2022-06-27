@@ -8,7 +8,7 @@ import { ExternalLinkBlockStateType } from '../../types/ExternalLinkBlockStateTy
 import { TextImageBlockStateType } from '../../types/TextImageBlockStateType'
 import { ImageSlideState } from '../../types/ImageSlideState'
 import { BLOCK_TYPE } from '../../constants/blockType'
-import { HeadingBlockState } from '../../interfaces/HeadingBlockState'
+import { HeadingBlockState } from '../../types/HeadingBlockState'
 import { showBlockModalChanged } from '../../redux/homepageSlice'
 import PlusCircleIcon from '../atoms/PlusCircleIcon'
 import UpdateBlockStateIcons from '../organisms/UpdateBlockStateIcons'

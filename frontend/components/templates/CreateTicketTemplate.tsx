@@ -1,9 +1,7 @@
 import React from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap'
-import { websiteTagChanged } from '../../redux/homepageSlice'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
-import { ticketMasterSlice } from 'redux/ticketMasterSlice'
 import { nameChanged, issueNumberChanged, priceChanged } from 'redux/ticketMasterSlice'
 
 const CreateTicketTemplate = (): JSX.Element => {
