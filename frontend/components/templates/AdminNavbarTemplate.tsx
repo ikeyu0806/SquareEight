@@ -46,12 +46,13 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href=''>一覧</NavDropdown.Item>
                 <NavDropdown.Item href=''>新規登録</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='売り上げ' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href=''>売り上げ履歴</NavDropdown.Item>
-                <NavDropdown.Item href=''>月額課金プラン一覧</NavDropdown.Item>
+              <NavDropdown title='売上' id='homepage-nav-dropdown'>
+                <NavDropdown.Item href=''>売り上げ一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/sales_transfer/register_bank_account'>振込先口座登録</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/sales_transfer/register_business_info'>振込先事業情報登録</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='売り上げ管理' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/sales_transfer/'>振込先口座</NavDropdown.Item>
+              <NavDropdown title='商品' id='homepage-nav-dropdown'>
+                <NavDropdown.Item href='/admin/sales_transfer/'></NavDropdown.Item>
                 <NavDropdown.Item href=''>月額課金プラン一覧</NavDropdown.Item>
                 <NavDropdown.Item href=''>月額課金プラン作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/ticket'>回数券一覧</NavDropdown.Item>
