@@ -116,15 +116,20 @@ class Api::Internal::AccountsController < ApplicationController
   end
 
   def register_stripe_bank_account
-    # account = stripe.Account.retrieve(current_merchant_user.account.stripe_account_id)
-    # account.external_accounts.create(external_account= {
-    #   'object':'bank_account',
-    #   'account_number': '00012345',
-    #   'routing_number': '1100001',
-    #   'account_holder_name':'トクテスト(カ',
-    #   'currency':'jpy',
-    #   'country':'jp',
-    # })
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe::Account.create_external_account(
+      current_merchant_user.account.stripe_account_id,
+      {
+        external_account: {
+          object: 'bank_account',
+          account_number: account_params[:account_number],
+          routing_number: account_params[:bank_code] + account_params[:branch_code],
+          account_holder_name: account_params[:account_holder_name],
+          currency:'jpy',
+          country:'jp',
+        },
+      },
+    )
     render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

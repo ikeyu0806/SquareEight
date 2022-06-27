@@ -24,7 +24,7 @@ const RegisterMerchantBank = () => {
   const registerBankAccount = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_bank_account`,
     {
-      homepage: {
+      account: {
         account_number: accountNumber,
         bank_code: bankCode,
         branch_code: branchCode,
@@ -50,14 +50,14 @@ const RegisterMerchantBank = () => {
         <Form.Control onChange={(e) => dispatch((accountNumberChanged(e.target.value)))}
                       value={accountNumber}></Form.Control>
         <Form.Label className='mt10'>口座名義人</Form.Label>
-        <Form.Control onChange={(e) => dispatch((bankCodeChanged(e.target.value)))}
-                      value={bankCode}></Form.Control>
-        <Form.Label className='mt10'>銀行コード</Form.Label>
-        <Form.Control onChange={(e) => dispatch((branchCodeChanged(e.target.value)))}
-                      value={branchCode}></Form.Control>
-        <Form.Label className='mt10'>支店コード</Form.Label>
         <Form.Control onChange={(e) => dispatch((accountHolderNameChanged(e.target.value)))}
                       value={accountHolderName}></Form.Control>
+        <Form.Label className='mt10'>銀行コード</Form.Label>
+        <Form.Control onChange={(e) => dispatch((bankCodeChanged(e.target.value)))}
+                      value={bankCode}></Form.Control>
+        <Form.Label className='mt10'>支店コード</Form.Label>
+        <Form.Control onChange={(e) => dispatch((branchCodeChanged(e.target.value)))}
+                      value={branchCode}></Form.Control>
         <div className='text-center mt20'>
           <Button onClick={registerBankAccount}>登録する</Button>
         </div>
