@@ -33,6 +33,9 @@ const RegisterMerchantInfoForm = () => {
   const individualPhoneNumber = useSelector((state: RootState) => state.stripeIndividualAccount.individualPhoneNumber)
   const individualBirthDay = useSelector((state: RootState) => state.stripeIndividualAccount.individualBirthDay)
   const individualGender = useSelector((state: RootState) => state.stripeIndividualAccount.individualGender)
+  const individualEmail = useSelector((state: RootState) => state.stripeIndividualAccount.individualEmail)
+  const individualBusinessUrl = useSelector((state: RootState) => state.stripeIndividualAccount.individualBusinessUrl)
+  const individualProductDescription = useSelector((state: RootState) => state.stripeIndividualAccount.individualProductDescription)
   const identificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
 
   const onSubmit = () => {
@@ -57,6 +60,9 @@ const RegisterMerchantInfoForm = () => {
         individual_phone_number: individualPhoneNumber,
         individual_birth_day: individualBirthDay,
         individual_gender: individualGender,
+        individual_email: individualEmail,
+        individual_business_url: individualBusinessUrl,
+        individual_product_description: individualProductDescription,
         identification_image: identificationImage
       },
     },

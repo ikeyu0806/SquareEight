@@ -22,6 +22,9 @@ export const stripeIndividualAccountSlice = createSlice({
     individualPhoneNumber: '',
     individualBirthDay: '2000-01-01',
     individualGender: 'male',
+    individualEmail: '',
+    individualBusinessUrl: '',
+    individualProductDescription: '',
     identificationImage: '',
   },
   reducers: {
@@ -82,6 +85,15 @@ export const stripeIndividualAccountSlice = createSlice({
     individualGenderChanged: (state, action: PayloadAction<string>) => {
       state.individualBirthDay = action.payload
     },
+    individualEmailChanged: (state, action: PayloadAction<string>) => {
+      state.individualEmail = action.payload
+    },
+    individualBusinessUrlChanged: (state, action: PayloadAction<string>) => {
+      state.individualBusinessUrl = action.payload
+    },
+    individualProductDescriptionChanged: (state, action: PayloadAction<string>) => {
+      state.individualProductDescription = action.payload
+    },
     identificationImageChanged: (state, action: PayloadAction<any>) => {
       state.identificationImage = action.payload
     },
@@ -107,6 +119,9 @@ export const { individualLine2KanaChanged } = stripeIndividualAccountSlice.actio
 export const { individualPhoneNumberChanged } = stripeIndividualAccountSlice.actions
 export const { individualBirthDayChanged } = stripeIndividualAccountSlice.actions
 export const { individualGenderChanged } = stripeIndividualAccountSlice.actions
+export const { individualEmailChanged } = stripeIndividualAccountSlice.actions
+export const { individualBusinessUrlChanged } = stripeIndividualAccountSlice.actions
+export const { individualProductDescriptionChanged } = stripeIndividualAccountSlice.actions
 export const { identificationImageChanged } = stripeIndividualAccountSlice.actions
 
 export default stripeIndividualAccountSlice.reducer

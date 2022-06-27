@@ -21,6 +21,9 @@ import {  individualFirstNameKanjiChanged,
           individualLine1KanaChanged,
           individualLine2KanaChanged,
           individualPhoneNumberChanged,
+          individualEmailChanged,
+          individualBusinessUrlChanged,
+          individualProductDescriptionChanged,
           individualGenderChanged,
           identificationImageChanged } from 'redux/stripeIndividualAccountSlice'
 
@@ -55,6 +58,9 @@ const StripeIndividualAccountForm = (): JSX.Element => {
   const individualPhoneNumber = useSelector((state: RootState) => state.stripeIndividualAccount.individualPhoneNumber)
   const individualBirthDay = useSelector((state: RootState) => state.stripeIndividualAccount.individualBirthDay)
   const individualGender = useSelector((state: RootState) => state.stripeIndividualAccount.individualGender)
+  const individualEmail = useSelector((state: RootState) => state.stripeIndividualAccount.individualEmail)
+  const individualBusinessUrl = useSelector((state: RootState) => state.stripeIndividualAccount.individualBusinessUrl)
+  const individualProductDescription = useSelector((state: RootState) => state.stripeIndividualAccount.individualProductDescription)
   const identificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
 
   return (
@@ -82,6 +88,23 @@ const StripeIndividualAccountForm = (): JSX.Element => {
       <Form.Label className='mt10'>事業責任者の電話番号</Form.Label>
       <Form.Control onChange={(e) => dispatch(individualPhoneNumberChanged(e.target.value))}
                     value={individualPhoneNumber}></Form.Control>
+      <Form.Label className='mt10'>事業責任者のメールアドレス</Form.Label>
+      <Form.Control onChange={(e) => dispatch(individualEmailChanged(e.target.value))}
+                    value={individualEmail}></Form.Control>
+      <Form.Label className='mt10'>
+        事業のウェブサイト<br/>
+        Web サイトをお持ちでない場合は、ソーシャルメディアのページ、LinkedIn、またはその他の関連リンクを入力してください。
+      </Form.Label>
+      <Form.Control onChange={(e) => dispatch(individualBusinessUrlChanged(e.target.value))}
+                    value={individualBusinessUrl}></Form.Control>
+      <Form.Label className='mt10'>
+        商品、サービス内容の詳細<br/>
+        1 ～ 2 行でご説明ください。通常顧客に請求するタイミング (購入中、または 3 日後など) を必ずご記入ください。
+      </Form.Label>
+      <Form.Control onChange={(e) => dispatch(individualProductDescriptionChanged(e.target.value))}
+                    value={individualProductDescription}
+                    as='textarea'
+                    rows={2}></Form.Control>
       <Form.Label className='mt10'>郵便番号</Form.Label>
       <Form.Control onChange={(e) => dispatch(individualPostalCodeKanjiChanged(e.target.value))}
                     value={individualPortalCodeKanji}></Form.Control>

@@ -59,6 +59,7 @@ class Api::Internal::AccountsController < ApplicationController
           transfers: {requested: true},
         },
       })
+      current_merchant_user.account.update!(stripe_account_id: stripe_account.id)
     else
       stripe_account = Stripe::Account.retrieve(current_merchant_user.account.stripe_account_id)
     end
@@ -79,7 +80,11 @@ class Api::Internal::AccountsController < ApplicationController
     stripe_account.legal_entity.address_kana.town = account_params[:individual_town_kana]
     stripe_account.legal_entity.address_kana.line1 = account_params[:individual_line1_kana]
     stripe_account.legal_entity.address_kana.line2 = account_params[:individual_line2_kana] if account_params[:individual_line2_kana].present?
-    stripe_account.legal_entity.phone_number = account_params[:individual_phone_number]
+    stripe_account.legal_entity.personal_email = account_params[:individual_email]
+    stripe_account.legal_entity.phone_number = '+81' + account_params[:individual_phone_number]
+    stripe_account.legal_entity.personal_phone_number = '+81' + account_params[:individual_phone_number]
+    stripe_account.business_url = account_params[:individual_business_url]
+    stripe_account.product_description = account_params[:individual_product_description]
     stripe_account.legal_entity.gender = account_params[:individual_gender]
     split_birth_date = account_params["individual_birth_day"].split("-")
     stripe_account.legal_entity.dob.year = split_birth_date[0]
@@ -161,6 +166,9 @@ class Api::Internal::AccountsController < ApplicationController
                   :individual_phone_number,
                   :individual_birth_day,
                   :individual_gender,
+                  :individual_email,
+                  :individual_business_url,
+                  :individual_product_description,
                   :identification_image,
                   :account_number,
                   :bank_code,
