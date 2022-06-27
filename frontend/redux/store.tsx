@@ -4,6 +4,7 @@ import alertReducer from './alertSlice'
 import ticketMasterReducer from './ticketMasterSlice'
 import stripeCompanyAccountSlice from './stripeCompanyAccountSlice'
 import stripeIndividualAccountSlice from './stripeIndividualAccountSlice'
+import stripeExternalAccountsSlice from './stripeExternalAccountsSlice'
 
 export const store = configureStore({
   reducer: {
@@ -11,7 +12,8 @@ export const store = configureStore({
     alert: alertReducer,
     ticketMaster: ticketMasterReducer,
     stripeCompanyAccount: stripeCompanyAccountSlice,
-    stripeIndividualAccount: stripeIndividualAccountSlice
+    stripeIndividualAccount: stripeIndividualAccountSlice,
+    stripeExternalAccount: stripeExternalAccountsSlice
   },
 })
 
