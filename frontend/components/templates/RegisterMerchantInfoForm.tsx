@@ -71,7 +71,7 @@ const RegisterMerchantInfoForm = () => {
         'Session-Id': cookies._smartlesson_session
       }
     }).then(response => {
-      // router.push(`/admin/homepage/${response.data.website_id}/webpages/new`)
+      router.push('/admin/sales_transfer')
     }).catch(error => {
       dispatch(alertChanged({message: '登録失敗しました', show: true, type: 'danger'}))
     })

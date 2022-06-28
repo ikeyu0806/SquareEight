@@ -36,7 +36,7 @@ const RegisterMerchantBank = () => {
         'Session-Id': cookies._smartlesson_session
       }
     }).then(response => {
-      router.push(`/admin/dashboard`)
+      router.push('/admin/sales_transfer')
     }).catch(error => {
       dispatch(alertChanged({message: '登録失敗しました', show: true, type: 'danger'}))
     })

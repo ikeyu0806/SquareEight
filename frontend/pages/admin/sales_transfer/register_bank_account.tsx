@@ -10,8 +10,8 @@ import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 const stripePromise = loadStripe('pk_test_pzo8bTj4ggDEV52y7gnVsdWt')
 
 const Register: NextPage = () => {
-  const handleSubmit = () => {
-    console.log('test')
+  const handleSubmit = (e: any) => {
+    e.preventDefault()
   }
   return (
     <>
