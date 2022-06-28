@@ -64,6 +64,7 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account = Stripe::Account.retrieve(current_merchant_user.account.stripe_account_id)
     end
     stripe_account.legal_entity.type = "individual"
+    stripe_account.mcc = '5734'
     stripe_account.legal_entity.last_name_kanji = account_params[:individual_last_name_kanji]
     stripe_account.legal_entity.last_name_kana = account_params[:individual_last_name_kana]
     stripe_account.legal_entity.first_name_kanji = account_params[:individual_first_name_kanji]
