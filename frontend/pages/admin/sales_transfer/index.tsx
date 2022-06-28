@@ -114,7 +114,8 @@ const Index: NextPage = () => {
                   })}           
                   <br/>
                   <br/>
-                  <a href='/admin/sales_transfer/register_bank_account' className='btn btn-primary'>振込先口座登録</a>
+                  <a href='/admin/sales_transfer/register_bank_account' className='btn btn-primary'>新規口座登録</a>
+                  <a href='/admin/sales_transfer/edit_bank_accounts' className='btn btn-primary ml10'>口座編集</a>
                 </Card.Body>
               </Card>
             </Col>
