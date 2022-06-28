@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   namespace :api do
     namespace :internal do
+      get 'accounts/stripe_connected_account', to: 'accounts#stripe_connected_account'
       get 'accounts/payment_methods', to: 'accounts#payment_methods'
       post 'accounts/register_credit_card', to: 'accounts#register_credit_card'
       post 'accounts/register_stripe_business_info', to: 'accounts#register_stripe_business_info'

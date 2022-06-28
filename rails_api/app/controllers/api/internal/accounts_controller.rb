@@ -16,6 +16,14 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def stripe_connected_account
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    stripe_account = Stripe::Account.retrieve(current_merchant_user.account.stripe_account_id)
+    render json: { status: 'success', stripe_account: JSON.parse(stripe_account.to_json) }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def register_credit_card
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     ActiveRecord::Base.transaction do

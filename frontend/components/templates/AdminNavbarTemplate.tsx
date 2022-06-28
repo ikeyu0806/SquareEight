@@ -48,8 +48,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
               </NavDropdown>
               <NavDropdown title='売上' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href=''>売り上げ一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/sales_transfer/register_bank_account'>振込先口座登録</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/sales_transfer/register_business_info'>振込先事業情報登録</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/sales_transfer'>振込先口座情報</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='商品' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/sales_transfer/'></NavDropdown.Item>
