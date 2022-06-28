@@ -3,7 +3,6 @@ import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
 import RegularFooter from '../../../components/organisms/RegularFooter'
-import { Button } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
@@ -97,8 +96,18 @@ const Index: NextPage = () => {
             </Col>
             <Col>
               <Card className='mt20'>
-                <Card.Header>振込先口座情報</Card.Header>
-                <Card.Body>           
+                <Card.Header>売上振込先口座情報</Card.Header>
+                <Card.Body>
+                  {stripeAccount?.external_accounts?.data.map((account_data, i) => {
+                    return (
+                      <span key={i}>
+                        <Card.Title>銀行名</Card.Title>
+                        <Card.Text>{account_data.bank_name}</Card.Text>
+                        <Card.Title>口座番号</Card.Title>
+                        <Card.Text>{"********"}{account_data.last4}</Card.Text>
+                      </span>
+                    )
+                  })}           
                   <br/>
                   <br/>
                   <a href='/admin/sales_transfer/register_bank_account' className='btn btn-primary'>振込先口座登録</a>

@@ -6,6 +6,6 @@ export interface StripeAccountParam {
   product_description: string
   display_name: string
   email: string
-  external_accounts?: StripeExternalAccountParam[]
+  external_accounts?: StripeExternalAccountParam
   legal_entity: StripeIndividualAccountParam
 }
