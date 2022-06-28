@@ -131,7 +131,7 @@ class Api::Internal::AccountsController < ApplicationController
 
   def register_stripe_bank_account
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
-    Stripe::Account.create_external_account(
+    external_account = Stripe::Account.create_external_account(
       current_merchant_user.account.stripe_account_id,
       {
         external_account: {
@@ -144,6 +144,9 @@ class Api::Internal::AccountsController < ApplicationController
         },
       },
     )
+    if current_merchant_user.account.selected_external_account_id.blank?
+      current_merchant_user.account.update!(selected_external_account_id: external_account.id)
+    end
     render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

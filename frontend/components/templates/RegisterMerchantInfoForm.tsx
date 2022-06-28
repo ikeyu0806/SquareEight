@@ -5,6 +5,7 @@ import { Button } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
 import { alertChanged } from 'redux/alertSlice'
 import StripeTerm from 'components/organisms/StripeTerm'
@@ -13,6 +14,7 @@ const RegisterMerchantInfoForm = () => {
   const [businessType, setBusinessType] = useState('individual')
   const [cookies] = useCookies(['_smartlesson_session'])
   const dispatch = useDispatch()
+  const router = useRouter()
 
   const individualFirstNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualFirstNameKanji)
   const individualLastNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLastNameKanji)
