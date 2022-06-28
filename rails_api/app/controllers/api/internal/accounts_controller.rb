@@ -19,7 +19,9 @@ class Api::Internal::AccountsController < ApplicationController
   def stripe_connected_account
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     stripe_account = Stripe::Account.retrieve(current_merchant_user.account.stripe_account_id)
-    render json: { status: 'success', stripe_account: JSON.parse(stripe_account.to_json) }, states: 200
+    render json: { status: 'success',
+                   stripe_account: JSON.parse(stripe_account.to_json),
+                   selected_external_account_id: current_merchant_user.account.selected_external_account_id }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

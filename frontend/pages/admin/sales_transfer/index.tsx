@@ -6,7 +6,7 @@ import RegularFooter from '../../../components/organisms/RegularFooter'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
-import { Container, Row, Col, Card } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import { StripeAccountParam } from 'interfaces/StripeAccountParam'
 
 const Index: NextPage = () => {
@@ -15,9 +15,10 @@ const Index: NextPage = () => {
   const router = useRouter()
 
   const [stripeAccount, setStripeAccount] = useState<StripeAccountParam>()
+  const [selectedExternalAccountId, setSelectedExternalAccountId] = useState('')
 
   useEffect(() => {
-    const fetchWebpage = () => {
+    const fetchStripeConnectedAccount = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/accounts/stripe_connected_account`, {
           headers: { 
@@ -27,15 +28,16 @@ const Index: NextPage = () => {
       )
       .then(function (response) {
         const stripeAccountResponse: StripeAccountParam = response.data.stripe_account
-        console.log(stripeAccountResponse)
+        console.log(response.data)
         setStripeAccount(stripeAccountResponse)
+        setSelectedExternalAccountId(response.data.selected_external_account_id)
       })
       .catch(error => {
         console.log(error)
       })
     }
-    fetchWebpage()
-  }, [router.query.id, cookies._smartlesson_session, router.query.webpage_id, dispatch])
+    fetchStripeConnectedAccount()
+  }, [router.query.id, cookies._smartlesson_session, dispatch])
 
   return (
     <>
@@ -105,6 +107,8 @@ const Index: NextPage = () => {
                         <Card.Text>{account_data.bank_name}</Card.Text>
                         <Card.Title>口座番号</Card.Title>
                         <Card.Text>{"********"}{account_data.last4}</Card.Text>
+                        {selectedExternalAccountId === account_data.id && <><Button variant='outline-info' size='sm'>振込先口座に設定されています</Button></>}
+                        <hr />
                       </span>
                     )
                   })}           
