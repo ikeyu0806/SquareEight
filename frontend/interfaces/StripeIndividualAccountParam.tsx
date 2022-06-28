@@ -5,7 +5,7 @@ import { StripeVerificationParam } from "./StripeVerificationParam"
 export interface StripeIndividualAccountParam {
   first_name: string
   last_name: string
-  first_name_lana: string
+  first_name_kana: string
   last_name_kana: string
   personal_email: string
   personal_phone_number: string
