@@ -5,6 +5,7 @@ import ticketMasterReducer from './ticketMasterSlice'
 import stripeCompanyAccountSlice from './stripeCompanyAccountSlice'
 import stripeIndividualAccountSlice from './stripeIndividualAccountSlice'
 import stripeExternalAccountsSlice from './stripeExternalAccountsSlice'
+import monthlyPaymentPlanReducer from './monthlyPaymentPlanSlice'
 
 export const store = configureStore({
   reducer: {
@@ -13,7 +14,8 @@ export const store = configureStore({
     ticketMaster: ticketMasterReducer,
     stripeCompanyAccount: stripeCompanyAccountSlice,
     stripeIndividualAccount: stripeIndividualAccountSlice,
-    stripeExternalAccount: stripeExternalAccountsSlice
+    stripeExternalAccount: stripeExternalAccountsSlice,
+    monthlyPaymentPlan: monthlyPaymentPlanReducer
   },
 })
 
