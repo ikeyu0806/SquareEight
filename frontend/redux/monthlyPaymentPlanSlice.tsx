@@ -3,11 +3,11 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export const monthlyPaymentPlanSlice = createSlice({
   name: 'alert',
   initialState: {
-    price: 0,
+    price: 1000,
     reserveIsUnlimited: true,
-    reserveIntervalNumber: 0,
-    reserveIntervalUnit: 0,
-    enableReserveCount: 0
+    reserveIntervalNumber: 1,
+    reserveIntervalUnit: 'Day',
+    enableReserveCount: 1
 
   },
   reducers: {
@@ -20,7 +20,7 @@ export const monthlyPaymentPlanSlice = createSlice({
     reserveIntervalNumberChanged: (state, action: PayloadAction<number>) => {
       state.reserveIntervalNumber = action.payload
     },
-    reserveIntervalUnitChanged: (state, action: PayloadAction<number>) => {
+    reserveIntervalUnitChanged: (state, action: PayloadAction<string>) => {
       state.reserveIntervalUnit = action.payload
     },
     enableReserveCountChanged: (state, action: PayloadAction<number>) => {

@@ -1,10 +1,21 @@
 import React, { useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 import { Container, Table, Button, FormControl, Row, Col, Modal, Form } from 'react-bootstrap'
+import { priceChanged,
+         reserveIsUnlimitedChanged,
+         reserveIntervalNumberChanged,
+         reserveIntervalUnitChanged,
+         enableReserveCountChanged } from 'redux/monthlyPaymentPlanSlice'
 
 const CreateMonthlyPayment = (): JSX.Element => {
+  const dispatch = useDispatch()
   const [showModal, setShowModal] = useState(false)
-  const [isReserveLimited, setIsReserveLimited] = useState(true)
-
+  const price = useSelector((state: RootState) => state.monthlyPaymentPlan.price)
+  const reserveIsUnlimited = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIsUnlimited)
+  const reserveIntervalNumber = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalNumber)
+  const reserveIntervalUnit = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalUnit)
+  const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   return (
     <>
       <Container>
@@ -31,11 +42,13 @@ const CreateMonthlyPayment = (): JSX.Element => {
               </td>
               <td>
                 <FormControl
+                  value={price}
+                  onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
                   placeholder='10000'
                   aria-label='10000'
                 />
               </td>
-              <td>無制限
+              <td>{reserveIsUnlimited ? '無制限' : String(reserveIntervalNumber) + (reserveIntervalUnit === 'Day' ? '日'  : '週') + 'に' + String(enableReserveCount) + '回予約可能'}
                 <a className='link-text' onClick={() => setShowModal(true)}>（変更する）</a>
               </td>
             </tr>
@@ -47,36 +60,41 @@ const CreateMonthlyPayment = (): JSX.Element => {
           </Modal.Header>
           <Modal.Body>
             <Form>
-              <Form.Label>予約可能数</Form.Label>
+              <Form.Label>予約可能数{reserveIsUnlimited}</Form.Label>
               <Form.Check 
                 type='radio'
                 id='unlimited'
                 label='無制限'
-                onChange={() => setIsReserveLimited(!isReserveLimited)}
-                checked={isReserveLimited}
+                onChange={() => dispatch(reserveIsUnlimitedChanged(!reserveIsUnlimited))}
+                checked={reserveIsUnlimited}
               />
               <Form.Check 
                 type='radio'
                 id='limited'
                 label='制限あり'
-                onChange={() => setIsReserveLimited(!isReserveLimited)}
-                checked={!isReserveLimited}
+                onChange={() => dispatch(reserveIsUnlimitedChanged(!reserveIsUnlimited))}
+                checked={!reserveIsUnlimited}
               />
             </Form>
-            {!isReserveLimited &&
+            {!reserveIsUnlimited &&
             <Row>
                 <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
                   <Col sm={2}>
-                    <Form.Control type='number' placeholder='1' />
+                    <Form.Control type='number'
+                                  value={reserveIntervalNumber}
+                                  onChange={(e) => dispatch(reserveIntervalNumberChanged(Number(e.target.value)))}
+                                  placeholder='1' />
                   </Col>
                   <Col xs={2}>
-                    <Form.Select>
-                      <option value='00'>日に</option>
-                      <option value='01'>週間に</option>
+                    <Form.Select onChange={(e) => dispatch(reserveIntervalUnitChanged(e.target.value))}>
+                      <option value='Day'>日に</option>
+                      <option value='Week'>週間に</option>
                     </Form.Select>
                   </Col>
                   <Col sm={2}>
-                    <Form.Control type='number' />
+                    <Form.Control type='number'
+                                  value={enableReserveCount}
+                                  onChange={(e) => dispatch(enableReserveCountChanged(Number(e.target.value)))} />
                   </Col>
                   <Form.Label column sm={2}>
                     回予約可能
@@ -86,7 +104,7 @@ const CreateMonthlyPayment = (): JSX.Element => {
           </Modal.Body>
           <Modal.Footer>
             <Button variant='secondary' onClick={() => setShowModal(false)}>閉じる</Button>
-            <Button variant='primary'>登録する</Button>
+            <Button variant='primary' onClick={() => setShowModal(false)}>登録する</Button>
           </Modal.Footer>
         </Modal>
       </Container>
