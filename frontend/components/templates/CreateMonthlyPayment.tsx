@@ -35,7 +35,7 @@ const CreateMonthlyPayment = (): JSX.Element => {
                   aria-label='10000'
                 />
               </td>
-              <td>1ヶ月間予約し放題
+              <td>無制限
                 <a className='link-text' onClick={() => setShowModal(true)}>（変更する）</a>
               </td>
             </tr>
@@ -63,29 +63,25 @@ const CreateMonthlyPayment = (): JSX.Element => {
                 checked={!isReserveLimited}
               />
             </Form>
-            {!isReserveLimited && <Row>
-              <Col>
+            {!isReserveLimited &&
+            <Row>
                 <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
                   <Col sm={2}>
                     <Form.Control type='number' placeholder='1' />
                   </Col>
-                  <Col>
+                  <Col xs={2}>
                     <Form.Select>
-                      <option value='00'>日</option>
-                      <option value='01'>週</option>
+                      <option value='00'>日に</option>
+                      <option value='01'>週間に</option>
                     </Form.Select>
                   </Col>
-                  <Form.Label column sm={2}>
-                    に
-                  </Form.Label>
                   <Col sm={2}>
                     <Form.Control type='number' />
                   </Col>
                   <Form.Label column sm={2}>
                     回予約可能
                   </Form.Label>
-                </Form.Group>        
-              </Col>
+                </Form.Group>
             </Row>}
           </Modal.Body>
           <Modal.Footer>
