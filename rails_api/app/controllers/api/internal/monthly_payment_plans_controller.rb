@@ -1,6 +1,6 @@
 class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   def create
-    MontlyPaymentPlan.create!(:monthly_payment_plan_params)
+    MonthlyPaymentPlan.create!(monthly_payment_plan_params)
     render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

@@ -23,9 +23,9 @@ const New: NextPage = () => {
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/webpages`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans`,
     {
-      webpage: {
+      monthly_payment_plans: {
         price: price,
         reserve_is_unlimited: reserveIsUnlimited,
         reserve_interval_number: reserveIntervalNumber,
