@@ -1,0 +1,2 @@
+class MonthlyPaymentPlan < ApplicationRecord
+end
