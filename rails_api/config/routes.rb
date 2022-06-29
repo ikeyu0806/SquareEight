@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       post 'accounts/register_credit_card', to: 'accounts#register_credit_card'
       post 'accounts/register_stripe_business_info', to: 'accounts#register_stripe_business_info'
       post 'accounts/register_stripe_bank_account', to: 'accounts#register_stripe_bank_account'
+      delete 'accounts/delete_bank_account/:external_account_id', to: 'accounts#delete_bank_account'
       post 'sessions', to: 'sessions#create'
       delete 'sessions', to: 'sessions#destroy'
       post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'

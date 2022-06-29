@@ -8,6 +8,7 @@ import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import { StripeAccountParam } from 'interfaces/StripeAccountParam'
+import { swalWithBootstrapButtons } from '../../../constants/swalWithBootstrapButtons'
 
 const EditBankAccounts: NextPage = () => {
   const dispatch = useDispatch()
@@ -39,6 +40,29 @@ const EditBankAccounts: NextPage = () => {
     fetchStripeConnectedAccount()
   }, [router.query.id, cookies._smartlesson_session, dispatch])
 
+  const deleteBankAccount = (externalAccountId: string) => {
+    swalWithBootstrapButtons.fire({
+      title: '登録解除します',
+      html: `登録解除登録します。<br />よろしいですか？`,
+      confirmButtonText: '登録解除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/accounts/delete_bank_account/${externalAccountId}`,
+        {
+          headers: {
+            'Session-Id': cookies._smartlesson_session
+          }
+        }).then(response => {
+          location.reload()
+        }).catch(error => {
+        })
+      }
+    })
+  }
+
   return (
     <>
       <AdminNavbar></AdminNavbar>
@@ -55,8 +79,11 @@ const EditBankAccounts: NextPage = () => {
                   <Card.Text>{"********"}{account_data.last4}</Card.Text>
                   {selectedExternalAccountId === account_data.id 
                   ? <><Button variant='outline-info' size='sm'>振込先口座に設定されています</Button></>
-                  : <><Button size='sm'>振込先口座に設定する</Button></>}
-                  <><Button variant='danger' size='sm' className='ml10'>登録解除</Button></>
+                  : <><Button size='sm'>振込先口座に設定する</Button>
+                       <Button variant='danger'
+                               size='sm'
+                               className='ml10'
+                               onClick={() => deleteBankAccount(account_data.id)}>登録解除</Button></>}
                   <hr />
                 </span>
               )

@@ -154,6 +154,17 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def delete_bank_account
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe::Account.delete_external_account(
+      current_merchant_user.account.stripe_account_id,
+      params[:external_account_id],
+    )
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def account_params
