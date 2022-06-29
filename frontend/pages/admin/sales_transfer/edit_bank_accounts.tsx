@@ -63,6 +63,34 @@ const EditBankAccounts: NextPage = () => {
     })
   }
 
+  const updateSelectedBankAccount = (externalAccountId: string) => {
+    swalWithBootstrapButtons.fire({
+      title: '送金先口座を変更します',
+      html: `選択された口座を送金先に設定します。<br />よろしいですか？`,
+      confirmButtonText: '設定する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/update_selected_bank_account/`,
+        {
+          account: {
+            external_account_id: externalAccountId
+          }
+        },
+        {
+          headers: {
+            'Session-Id': cookies._smartlesson_session
+          },
+        }).then(response => {
+          location.reload()
+        }).catch(error => {
+        })
+      }
+    })
+  }
+
   return (
     <>
       <AdminNavbar></AdminNavbar>
@@ -79,7 +107,7 @@ const EditBankAccounts: NextPage = () => {
                   <Card.Text>{"********"}{account_data.last4}</Card.Text>
                   {selectedExternalAccountId === account_data.id 
                   ? <><Button variant='outline-info' size='sm'>振込先口座に設定されています</Button></>
-                  : <><Button size='sm'>振込先口座に設定する</Button>
+                  : <><Button size='sm' onClick={() => updateSelectedBankAccount(account_data.id)}>振込先口座に設定する</Button>
                        <Button variant='danger'
                                size='sm'
                                className='ml10'

@@ -154,6 +154,13 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def update_selected_bank_account
+    current_merchant_user.account.update!(selected_external_account_id: account_params[:external_account_id])
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def delete_bank_account
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe::Account.delete_external_account(
@@ -198,6 +205,7 @@ class Api::Internal::AccountsController < ApplicationController
                   :account_number,
                   :bank_code,
                   :branch_code,
-                  :account_holder_name)
+                  :account_holder_name,
+                  :external_account_id)
   end
 end
