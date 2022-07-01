@@ -33,6 +33,7 @@ Rails.application.routes.draw do
       get 'ticket_masters', to: 'ticket_masters#index'
       post 'ticket_masters/:id/update', to: 'ticket_masters#update'
       post 'ticket_masters', to: 'ticket_masters#create'
+      get 'monthly_payment_plans', to: 'monthly_payment_plans#index'
       post 'monthly_payment_plans', to: 'monthly_payment_plans#create'
     end
   end

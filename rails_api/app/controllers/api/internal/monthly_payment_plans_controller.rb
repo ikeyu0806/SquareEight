@@ -1,6 +1,14 @@
 class Api::Internal::MonthlyPaymentPlansController < ApplicationController
+
+  def index
+    monthly_payment_plans = current_merchant_user.account.monthly_payment_plans
+    render json: { status: 'success', monthly_payment_plans: monthly_payment_plans }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def create
-    MonthlyPaymentPlan.create!(monthly_payment_plan_params)
+    current_merchant_user.account.monthly_payment_plans.create!(monthly_payment_plan_params)
     render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
