@@ -18,6 +18,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def monthly_payment_plan_params
     params.require(:monthly_payment_plans).permit(:id,
+                                                  :name,
                                                   :price,
                                                   :reserve_is_unlimited,
                                                   :reserve_interval_number,

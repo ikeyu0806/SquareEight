@@ -52,7 +52,7 @@ const Index: NextPage = () => {
               <tr key={i}>
                 <td className='text-center'>{plan.name}</td>
                 <td className='text-center'>{plan.price}</td>
-                <td className='text-center'>{plan.reserve_is_unlimited ? '無制限' : String(plan.reserve_interval_number) + (plan.reserve_interval_unit === 'Day' ? '日' : '週' + '辺り') + String(enable_reserve_count) + '回予約可能' }</td>
+                <td className='text-center'>{plan.reserve_is_unlimited ? '無制限' : String(plan.reserve_interval_number) + (plan.reserve_interval_unit === 'Day' ? '日に' : '週に') + String(plan.enable_reserve_count) + '回予約可能' }</td>
               </tr>
             )
           })}

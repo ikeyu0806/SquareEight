@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { Container, Table, Button, FormControl, Row, Col, Modal, Form } from 'react-bootstrap'
 import { priceChanged,
+         nameChanged,
          reserveIsUnlimitedChanged,
          reserveIntervalNumberChanged,
          reserveIntervalUnitChanged,
@@ -11,6 +12,7 @@ import { priceChanged,
 const CreateMonthlyPayment = (): JSX.Element => {
   const dispatch = useDispatch()
   const [showModal, setShowModal] = useState(false)
+  const name = useSelector((state: RootState) => state.monthlyPaymentPlan.name)
   const price = useSelector((state: RootState) => state.monthlyPaymentPlan.price)
   const reserveIsUnlimited = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIsUnlimited)
   const reserveIntervalNumber = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalNumber)
@@ -36,6 +38,8 @@ const CreateMonthlyPayment = (): JSX.Element => {
             <tr>
               <td>
                 <FormControl
+                  value={name}
+                  onChange={(e) => dispatch(nameChanged(e.target.value))}
                   placeholder='週2レッスンプラン 受講し放題プランなど'
                   aria-label='リソース名'
                 />

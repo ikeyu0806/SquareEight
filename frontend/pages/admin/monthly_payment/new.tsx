@@ -16,6 +16,7 @@ const New: NextPage = () => {
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
 
+  const name = useSelector((state: RootState) => state.monthlyPaymentPlan.name)
   const price = useSelector((state: RootState) => state.monthlyPaymentPlan.price)
   const reserveIsUnlimited = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIsUnlimited)
   const reserveIntervalNumber = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalNumber)
@@ -26,6 +27,7 @@ const New: NextPage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans`,
     {
       monthly_payment_plans: {
+        name: name,
         price: price,
         reserve_is_unlimited: reserveIsUnlimited,
         reserve_interval_number: reserveIntervalNumber,

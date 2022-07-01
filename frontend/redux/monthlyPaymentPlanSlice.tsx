@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export const monthlyPaymentPlanSlice = createSlice({
   name: 'alert',
   initialState: {
+    name: '',
     price: 1000,
     reserveIsUnlimited: true,
     reserveIntervalNumber: 1,
@@ -11,6 +12,9 @@ export const monthlyPaymentPlanSlice = createSlice({
 
   },
   reducers: {
+    nameChanged: (state, action: PayloadAction<string>) => {
+      state.name = action.payload
+    },
     priceChanged: (state, action: PayloadAction<number>) => {
       state.price = action.payload
     },
@@ -29,6 +33,7 @@ export const monthlyPaymentPlanSlice = createSlice({
   },
 })
 
+export const { nameChanged } = monthlyPaymentPlanSlice.actions
 export const { priceChanged } = monthlyPaymentPlanSlice.actions
 export const { reserveIsUnlimitedChanged } = monthlyPaymentPlanSlice.actions
 export const { reserveIntervalNumberChanged } = monthlyPaymentPlanSlice.actions
