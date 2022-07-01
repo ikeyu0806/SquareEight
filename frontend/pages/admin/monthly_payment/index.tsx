@@ -23,7 +23,6 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
-        console.log('!!!', response.data.monthly_payment_plans)
         const montylyPaymentPlanResponse: MonthlyPaymentPlanParam[] = response.data.monthly_payment_plans
         setMonthlyPaymentPlans(montylyPaymentPlanResponse)
       })
@@ -36,28 +35,29 @@ const Index: NextPage = () => {
   return (
     <>
       <AdminNavbarTemplate></AdminNavbarTemplate>
+        <br />
         <Container>
-        <Table bordered>
-          <thead>
-            <tr>
-              <th className='text-center'>プラン名</th>
-              <th className='text-center'>月額料金</th>
-              <th className='text-center'>予約受付設定</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-          {monthlyPaymentPlans.map((plan, i) => {
-            return (
-              <tr key={i}>
-                <td className='text-center'>{plan.name}</td>
-                <td className='text-center'>{plan.price}</td>
-                <td className='text-center'>{plan.reserve_is_unlimited ? '無制限' : String(plan.reserve_interval_number) + (plan.reserve_interval_unit === 'Day' ? '日に' : '週に') + String(plan.enable_reserve_count) + '回予約可能' }</td>
+          <Table bordered>
+            <thead>
+              <tr>
+                <th className='text-center'>プラン名</th>
+                <th className='text-center'>月額料金</th>
+                <th className='text-center'>予約受付設定</th>
+                <th></th>
               </tr>
-            )
-          })}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+            {monthlyPaymentPlans.map((plan, i) => {
+              return (
+                <tr key={i}>
+                  <td className='text-center'>{plan.name}</td>
+                  <td className='text-center'>{plan.price}</td>
+                  <td className='text-center'>{plan.reserve_is_unlimited ? '無制限' : String(plan.reserve_interval_number) + (plan.reserve_interval_unit === 'Day' ? '日に' : '週に') + String(plan.enable_reserve_count) + '回予約可能' }</td>
+                </tr>
+              )
+            })}
+            </tbody>
+          </Table>
         </Container>
       <RegularFooter></RegularFooter>
     </>
