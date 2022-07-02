@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import CreateMonthlyPayment from 'components/templates/CreateMonthlyPayment'
+import CreateResource from 'components/templates/CreateResource'
 import { Container } from 'react-bootstrap'
 import AdminNavbarTemplate from 'components/templates/AdminNavbarTemplate'
 import RegularFooter from '../../../components/organisms/RegularFooter'
@@ -16,25 +16,10 @@ const New: NextPage = () => {
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
 
-  const name = useSelector((state: RootState) => state.monthlyPaymentPlan.name)
-  const price = useSelector((state: RootState) => state.monthlyPaymentPlan.price)
-  const reserveIsUnlimited = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIsUnlimited)
-  const reserveIntervalNumber = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalNumber)
-  const reserveIntervalUnit = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalUnit)
-  const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
-  const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
-
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/resources`,
     {
-      monthly_payment_plans: {
-        name: name,
-        price: price,
-        reserve_is_unlimited: reserveIsUnlimited,
-        reserve_interval_number: reserveIntervalNumber,
-        reserve_interval_unit: reserveIntervalUnit,
-        enable_reserve_count: enableReserveCount,
-        description: description
+      resources: {
       }
     },
     {
@@ -53,7 +38,7 @@ const New: NextPage = () => {
     <>
       <AdminNavbarTemplate></AdminNavbarTemplate>
       <Container>
-        <CreateMonthlyPayment></CreateMonthlyPayment>
+        <CreateResource></CreateResource>
       </Container>
       <div className='text-center'>
         <Button onClick={onSubmit} className='mt10'>登録する</Button>
