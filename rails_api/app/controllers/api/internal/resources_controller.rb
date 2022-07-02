@@ -8,6 +8,13 @@ class Api::Internal::ResourcesController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def edit
+    resource = current_merchant_user.account.resources.find(params[:id])
+    render json: { status: 'success', resource: resource }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def create
     current_merchant_user.account.resources.create!(resource_params)
     render json: { status: 'success' }, states: 200

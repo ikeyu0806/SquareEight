@@ -37,6 +37,7 @@ Rails.application.routes.draw do
       get 'monthly_payment_plans', to: 'monthly_payment_plans#index'
       post 'monthly_payment_plans/:id/update', to: 'monthly_payment_plans#update'
       post 'monthly_payment_plans', to: 'monthly_payment_plans#create'
+      get 'resources/:id/edit', to: 'resources#edit'
       get 'resources', to: 'resources#index'
       post 'resources', to: 'resources#create'
     end
