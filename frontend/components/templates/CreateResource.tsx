@@ -1,5 +1,6 @@
 import React from 'react'
-import { Container, Row, Col, Table, FormControl, Form } from 'react-bootstrap'
+import EditBusinessHours from 'components/organisms/EditBusinessHours'
+import { Container, Row, Col, FormControl, Form } from 'react-bootstrap'
 
 const CreateResource = (): JSX.Element => {
   return (
@@ -11,8 +12,8 @@ const CreateResource = (): JSX.Element => {
           <br />
         </div>
         <Row>
-          <Col lg={3} md={3}></Col>
-          <Col lg={6} md={6}>
+          <Col lg={2} md={3}></Col>
+          <Col lg={8} md={6}>
             <Form.Label>リソース名</Form.Label>
             <FormControl
               // value={name}
@@ -44,6 +45,8 @@ const CreateResource = (): JSX.Element => {
               label='個別に設定する'
               onChange={() => console.log('!')}
               checked={!false} />
+            <div className='mt10 mb10'>予約受付可能時間を設定してください</div>
+            <EditBusinessHours></EditBusinessHours>
           </Col>
         </Row>
       </Container>

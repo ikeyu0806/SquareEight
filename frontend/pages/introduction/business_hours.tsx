@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import IntroductionNavbar from '../../components/templates/IntroductionNavbar'
-import EditBusinessHours from '../../components/templates/EditBusinessHours'
+import EditBusinessHours from '../../components/organisms/EditBusinessHours'
 import RegularFooter from '../../components/organisms/RegularFooter'
 import { Row, Col, Button } from 'react-bootstrap'
 import { useRouter } from 'next/router'
@@ -14,8 +14,11 @@ const BusinessHours: NextPage = () => {
         <h2>営業時間を設定してください</h2>
         <div>設定した営業時間にオンライン予約を受け付けます</div>
       </div>
-      <EditBusinessHours></EditBusinessHours>
       <Row>
+        <Col></Col>
+        <Col xs={9}>
+          <EditBusinessHours></EditBusinessHours>
+        </Col>
         <Col></Col>
         <Col>
           <Button variant='outline-primary' size='lg' onClick={() => router.back()}>戻る</Button>
