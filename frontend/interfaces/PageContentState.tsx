@@ -1,7 +1,7 @@
 
 import { ExternalLinkBlockStateType } from '../types/ExternalLinkBlockStateType'
 import { TextImageBlockStateType } from '../types/TextImageBlockStateType'
-import { HeadingBlockState } from './HeadingBlockState'
+import { HeadingBlockState } from '../types/HeadingBlockState'
 import { ImageSlideState } from '../types/ImageSlideState'
 
 export type PageContentState = {

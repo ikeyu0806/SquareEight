@@ -1,6 +1,13 @@
 class Api::Internal::ResourcesController < ApplicationController
   before_action :login_only!
 
+  def index
+    resources = current_merchant_user.account.resources
+    render json: { status: 'success', resources: resources }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def create
     current_merchant_user.account.resources.create!(resource_params)
     render json: { status: 'success' }, states: 200

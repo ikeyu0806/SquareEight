@@ -40,6 +40,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href=''>カレンダー</NavDropdown.Item>
                 <NavDropdown.Item href=''>一覧</NavDropdown.Item>
                 <NavDropdown.Item href=''>営業時間設定</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/resource'>リソース一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/resource/new'>リソース登録</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='顧客' id='homepage-nav-dropdown'>
