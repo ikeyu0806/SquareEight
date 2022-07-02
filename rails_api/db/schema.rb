@@ -71,6 +71,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_02_055420) do
     t.time "sun_end"
     t.time "holiday_start"
     t.time "holiday_end"
+    t.time "mon_break_start"
+    t.time "mon_break_end"
+    t.time "tue_break_start"
+    t.time "tue_break_end"
+    t.time "wed_break_start"
+    t.time "wed_break_end"
+    t.time "thu_break_start"
+    t.time "thu_break_end"
+    t.time "fri_break_start"
+    t.time "fri_break_end"
+    t.time "sat_break_start"
+    t.time "sat_break_end"
+    t.time "sun_break_start"
+    t.time "sun_break_end"
+    t.time "holiday_break_start"
+    t.time "holiday_break_end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
