@@ -52,6 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_02_055420) do
   end
 
   create_table "resources", force: :cascade do |t|
+    t.integer "account_id", null: false
     t.string "name", null: false
     t.integer "quantity", null: false
     t.integer "reception_time_setting"

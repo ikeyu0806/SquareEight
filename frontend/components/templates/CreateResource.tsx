@@ -3,13 +3,14 @@ import EditBusinessHours from 'components/organisms/EditBusinessHours'
 import { Container, Row, Col, FormControl, Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { nameChanged, priceChanged, receptionTimeSettingChanged } from 'redux/resourceSlice'
+import { nameChanged, quantityChanged, receptionTimeSettingChanged } from 'redux/resourceSlice'
 
 const CreateResource = (): JSX.Element => {
   const dispatch = useDispatch()
   const name = useSelector((state: RootState) => state.resource.name)
-  const price = useSelector((state: RootState) => state.resource.price)
+  const quantity = useSelector((state: RootState) => state.resource.quantity)
   const receptionTimeSetting = useSelector((state: RootState) => state.resource.receptionTimeSetting)
+
   return (
     <>
       <Container>
@@ -29,8 +30,8 @@ const CreateResource = (): JSX.Element => {
               aria-label='リソース名' />
             <Form.Label className='mt10'>月額料金</Form.Label>
             <FormControl
-              value={price}
-              onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
+              value={quantity}
+              onChange={(e) => dispatch(quantityChanged(Number(e.target.value)))}
               placeholder=''
               aria-label='月額料金' />
             <Form.Label className='mt10'>曜日別予約受付設定</Form.Label>
