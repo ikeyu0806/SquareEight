@@ -8,7 +8,8 @@ export const monthlyPaymentPlanSlice = createSlice({
     reserveIsUnlimited: true,
     reserveIntervalNumber: 1,
     reserveIntervalUnit: 'Day',
-    enableReserveCount: 1
+    enableReserveCount: 1,
+    description: ''
 
   },
   reducers: {
@@ -30,6 +31,9 @@ export const monthlyPaymentPlanSlice = createSlice({
     enableReserveCountChanged: (state, action: PayloadAction<number>) => {
       state.enableReserveCount = action.payload
     },
+    descriptionChanged: (state, action: PayloadAction<string>) => {
+      state.description = action.payload
+    },
   },
 })
 
@@ -39,5 +43,6 @@ export const { reserveIsUnlimitedChanged } = monthlyPaymentPlanSlice.actions
 export const { reserveIntervalNumberChanged } = monthlyPaymentPlanSlice.actions
 export const { reserveIntervalUnitChanged } = monthlyPaymentPlanSlice.actions
 export const { enableReserveCountChanged } = monthlyPaymentPlanSlice.actions
+export const { descriptionChanged } = monthlyPaymentPlanSlice.actions
 
 export default monthlyPaymentPlanSlice.reducer

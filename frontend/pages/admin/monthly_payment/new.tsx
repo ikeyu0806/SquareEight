@@ -22,7 +22,8 @@ const New: NextPage = () => {
   const reserveIntervalNumber = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalNumber)
   const reserveIntervalUnit = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalUnit)
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
-  
+  const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
+
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans`,
     {
@@ -32,7 +33,8 @@ const New: NextPage = () => {
         reserve_is_unlimited: reserveIsUnlimited,
         reserve_interval_number: reserveIntervalNumber,
         reserve_interval_unit: reserveIntervalUnit,
-        enable_reserve_count: enableReserveCount
+        enable_reserve_count: enableReserveCount,
+        description: description
       }
     },
     {
@@ -53,10 +55,10 @@ const New: NextPage = () => {
       <Container>
         <CreateMonthlyPayment></CreateMonthlyPayment>
       </Container>
-      <RegularFooter></RegularFooter>
       <div className='text-center'>
-        <Button onClick={onSubmit}>登録する</Button>
+        <Button onClick={onSubmit} className='mt10'>登録する</Button>
       </div>
+      <RegularFooter></RegularFooter>
     </>
   )
 }
