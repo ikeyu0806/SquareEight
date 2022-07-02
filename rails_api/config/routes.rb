@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       get 'resources/:id/edit', to: 'resources#edit'
       get 'resources', to: 'resources#index'
       post 'resources', to: 'resources#create'
+      post 'business_hours/register', to: 'business_hours#register'
     end
   end
 

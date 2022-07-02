@@ -12,7 +12,6 @@ const BusinessHours: NextPage = () => {
       <IntroductionNavbar />
       <div className='text-center mt50 mb50'>
         <h2>営業時間を設定してください</h2>
-        <div>設定した営業時間にオンライン予約を受け付けます</div>
       </div>
       <Row>
         <Col></Col>
