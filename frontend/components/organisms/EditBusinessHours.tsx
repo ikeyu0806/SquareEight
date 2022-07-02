@@ -2,7 +2,6 @@ import React from 'react'
 import { Table, Col, Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { nameChanged, priceChanged, receptionTimeSettingChanged } from 'redux/resourceSlice'
 import { monStartChanged,
          monEndChanged,
          tueStartChanged,
@@ -37,9 +36,8 @@ import { monStartChanged,
          holidayBreakEndChanged,  } from 'redux/businessHourSlice'
 
 const EditBusinessHours = (): JSX.Element => {
-  const name = useSelector((state: RootState) => state.resource.name)
-  const price = useSelector((state: RootState) => state.resource.price)
-  const receptionTimeSetting = useSelector((state: RootState) => state.resource.receptionTimeSetting)
+  const dispatch = useDispatch()
+
   const monStart = useSelector((state: RootState) => state.businessHour.monStart)
   const monEnd = useSelector((state: RootState) => state.businessHour.monEnd)
   const tueStart = useSelector((state: RootState) => state.businessHour.tueStart)
@@ -73,7 +71,7 @@ const EditBusinessHours = (): JSX.Element => {
   const holidayBreakStart = useSelector((state: RootState) => state.businessHour.holidayBreakStart)
   const holidayBreakEnd = useSelector((state: RootState) => state.businessHour.holidayBreakEnd)
 
-  return( 
+  return (
     <>
       <Table bordered>
         <thead>
@@ -88,90 +86,250 @@ const EditBusinessHours = (): JSX.Element => {
           <tr>
             <td rowSpan={2} className='text-center'>日曜日</td>
             <td className='text-center'>営業時間</td>
-            <td><Form.Control type='time' defaultValue={monStart} /></td>
-            <td><Form.Control type='time'defaultValue={monEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(sunStartChanged(e.target.value))}
+                defaultValue={sunStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(sunEndChanged(e.target.value))}
+                defaultValue={sunEnd} />
+            </td>
           </tr>
           <tr>
             <td className='text-center'>休憩時間</td>
-            <td><Form.Control type='time' defaultValue={monBreakStart} /></td>
-            <td><Form.Control type='time'defaultValue={monBreakEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(sunBreakStartChanged(e.target.value))}
+                defaultValue={sunBreakStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(sunBreakEndChanged(e.target.value))}
+                defaultValue={sunBreakEnd} />
+            </td>
           </tr>
           <tr>
             <td rowSpan={2} className='text-center'>月曜日</td>
             <td className='text-center'>営業時間</td>
-            <td><Form.Control type='time' defaultValue={tueStart} /></td>
-            <td><Form.Control type='time'defaultValue={tueEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(monStartChanged(e.target.value))}
+                defaultValue={monStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(monEndChanged(e.target.value))}
+                defaultValue={monEnd} />
+            </td>
           </tr>
           <tr>
             <td className='text-center'>休憩時間</td>
-            <td><Form.Control type='time' defaultValue={monStart} /></td>
-            <td><Form.Control type='time'defaultValue={monEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(monBreakStartChanged(e.target.value))}
+                defaultValue={monBreakStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(monBreakEndChanged(e.target.value))}
+                defaultValue={monBreakEnd} />
+            </td>
           </tr>
           <tr>
             <td rowSpan={2} className='text-center'>火曜日</td>
             <td className='text-center'>営業時間</td>
-            <td><Form.Control type='time' defaultValue={tueStart} /></td>
-            <td><Form.Control type='time'defaultValue={tueEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(tueStartChanged(e.target.value))}
+                defaultValue={tueStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(tueEndChanged(e.target.value))}
+                defaultValue={tueEnd} />
+            </td>
           </tr>
           <tr>
             <td className='text-center'>休憩時間</td>
-            <td><Form.Control type='time' defaultValue={tueBreakStart} /></td>
-            <td><Form.Control type='time'defaultValue={tueBreakEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(tueBreakStartChanged(e.target.value))}
+                defaultValue={tueBreakStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(tueBreakEndChanged(e.target.value))}
+                defaultValue={tueBreakEnd} />
+            </td>
           </tr>
           <tr>
             <td rowSpan={2} className='text-center'>水曜日</td>
             <td className='text-center'>営業時間</td>
-            <td><Form.Control type='time' defaultValue={wedStart} /></td>
-            <td><Form.Control type='time'defaultValue={wedEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(wedStartChanged(e.target.value))}
+                defaultValue={wedStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(wedEndChanged(e.target.value))}
+                defaultValue={wedEnd} />
+            </td>
           </tr>
           <tr>
             <td className='text-center'>休憩時間</td>
-            <td><Form.Control type='time' defaultValue={wedBreakStart} /></td>
-            <td><Form.Control type='time'defaultValue={wedBreakEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(wedBreakStartChanged(e.target.value))}
+                defaultValue={wedBreakStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(wedBreakEndChanged(e.target.value))}
+                defaultValue={wedBreakEnd} />
+            </td>
           </tr>
           <tr>
             <td rowSpan={2} className='text-center'>木曜日</td>
             <td className='text-center'>営業時間</td>
-            <td><Form.Control type='time' defaultValue={thuStart} /></td>
-            <td><Form.Control type='time'defaultValue={thuEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(thuStartChanged(e.target.value))}
+                defaultValue={thuStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(thuEndChanged(e.target.value))}
+                defaultValue={thuEnd} />
+            </td>
           </tr>
           <tr>
             <td className='text-center'>休憩時間</td>
-            <td><Form.Control type='time' defaultValue={thuBreakStart} /></td>
-            <td><Form.Control type='time'defaultValue={thuBreakEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(thuBreakStartChanged(e.target.value))}
+                defaultValue={thuBreakStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(thuBreakEndChanged(e.target.value))}
+                defaultValue={thuBreakEnd} />
+            </td>
           </tr>
           <tr>
             <td rowSpan={2} className='text-center'>金曜日</td>
             <td className='text-center'>営業時間</td>
-            <td><Form.Control type='time' defaultValue={friStart} /></td>
-            <td><Form.Control type='time'defaultValue={friEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(friStartChanged(e.target.value))}
+                defaultValue={friStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(friEndChanged(e.target.value))}
+                defaultValue={friEnd} />
+            </td>
           </tr>
           <tr>
             <td className='text-center'>休憩時間</td>
-            <td><Form.Control type='time' defaultValue={friBreakStart} /></td>
-            <td><Form.Control type='time'defaultValue={friBreakEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(friBreakStartChanged(e.target.value))}
+                defaultValue={friBreakStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(friBreakEndChanged(e.target.value))}
+                defaultValue={friBreakEnd} />
+            </td>
           </tr>
           <tr>
             <td rowSpan={2} className='text-center'>土曜日</td>
             <td className='text-center'>営業時間</td>
-            <td><Form.Control type='time' defaultValue={satStart} /></td>
-            <td><Form.Control type='time'defaultValue={satEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(satStartChanged(e.target.value))}
+                defaultValue={satStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(satEndChanged(e.target.value))}
+                defaultValue={satEnd} />
+            </td>
           </tr>
           <tr>
             <td className='text-center'>休憩時間</td>
-            <td><Form.Control type='time' defaultValue={satStart} /></td>
-            <td><Form.Control type='time'defaultValue={satEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(satBreakStartChanged(e.target.value))}
+                defaultValue={satBreakStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(satBreakEndChanged(e.target.value))}
+                defaultValue={satBreakEnd} />
+            </td>
           </tr>
           <tr>
             <td rowSpan={2} className='text-center'>祝日</td>
             <td className='text-center'>営業時間</td>
-            <td><Form.Control type='time' defaultValue={holidayStart} /></td>
-            <td><Form.Control type='time'defaultValue={holidayEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(holidayStartChanged(e.target.value))}
+                defaultValue={holidayStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(holidayEndChanged(e.target.value))}
+                defaultValue={holidayEnd} />
+            </td>
           </tr>
           <tr>
             <td className='text-center'>休憩時間</td>
-            <td><Form.Control type='time' defaultValue={holidayBreakStart} /></td>
-            <td><Form.Control type='time'defaultValue={holidayBreakEnd} /></td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(holidayBreakStartChanged(e.target.value))}
+                defaultValue={holidayBreakStart} />
+            </td>
+            <td>
+              <Form.Control
+                type='time'
+                onChange={(e) => dispatch(holidayBreakEndChanged(e.target.value))}
+                defaultValue={holidayBreakEnd} />
+            </td>
           </tr>
         </tbody>
       </Table>
