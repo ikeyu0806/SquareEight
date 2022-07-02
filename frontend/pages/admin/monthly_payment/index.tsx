@@ -4,7 +4,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import AdminNavbarTemplate from 'components/templates/AdminNavbarTemplate'
 import RegularFooter from '../../../components/organisms/RegularFooter'
-import { Container, Table } from 'react-bootstrap'
+import { Container, Table, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 
@@ -53,6 +53,11 @@ const Index: NextPage = () => {
                   <td className='text-center'>{plan.name}</td>
                   <td className='text-center'>{plan.price}</td>
                   <td className='text-center'>{plan.reserve_is_unlimited ? '無制限' : String(plan.reserve_interval_number) + (plan.reserve_interval_unit === 'Day' ? '日に' : '週に') + String(plan.enable_reserve_count) + '回予約可能' }</td>
+                  <td>
+                    <div className='text-center'>
+                      <a className='btn btn-primary' href={`/admin/monthly_payment/${plan.id}/edit`}>編集</a>
+                    </div>
+                  </td>
                 </tr>
               )
             })}

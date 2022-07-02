@@ -14,6 +14,21 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def edit
+    monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find(params[:id])
+    render json: { status: 'success', monthly_payment_plan: monthly_payment_plan }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def update
+    monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find(params[:id])
+    monthly_payment_plan.update!(monthly_payment_plan_params)
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def monthly_payment_plan_params
