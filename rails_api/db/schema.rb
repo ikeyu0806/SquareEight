@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_02_143319) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_03_105317) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -87,6 +87,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_02_143319) do
     t.datetime "updated_at", null: false
     t.integer "account_id"
     t.text "description"
+  end
+
+  create_table "reserve_frames", force: :cascade do |t|
+    t.datetime "start_at", null: false
+    t.datetime "end_at"
+    t.string "title", null: false
+    t.boolean "is_repeat"
+    t.integer "repeat_interval"
+    t.integer "capacity", default: 1, null: false
+    t.integer "local_payment_price"
+    t.integer "publish_status", default: 0
+    t.integer "reception_type", default: 0
+    t.integer "reception_start_day_before"
+    t.integer "cancel_reception", default: 0
+    t.integer "cancel_reseption_day_before"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "resources", force: :cascade do |t|

@@ -1,0 +1,2 @@
+class ReserveFrame < ApplicationRecord
+end
