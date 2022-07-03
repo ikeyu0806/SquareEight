@@ -30,7 +30,7 @@ const Index: NextPage = () => {
       }
     }).then(response => {
       dispatch(alertChanged({message: '登録しました', show: true}))
-      router.push('/admin/ticket')
+      router.push('/admin/dashboard')
     }).catch(error => {
     })
   }
@@ -64,7 +64,7 @@ const Index: NextPage = () => {
               </Form.Group>
             </Form>
             <div className='text-center'>
-              <Button size='lg' onClick={onSubmit}>送信</Button>
+              <Button size='lg' onClick={onSubmit} disabled={!email || !content}>送信</Button>
             </div>
           </Col>
         </Row>
