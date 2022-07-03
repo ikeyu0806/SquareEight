@@ -93,6 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_105317) do
     t.datetime "start_at", null: false
     t.datetime "end_at"
     t.string "title", null: false
+    t.text "description"
     t.boolean "is_repeat"
     t.integer "repeat_interval"
     t.integer "capacity", default: 1, null: false

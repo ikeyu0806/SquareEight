@@ -4,8 +4,12 @@ import { Modal, Button, Form, Col, Row } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import {  showReserveFrameModalChanged,
-          startAtChanged,endAtChanged,titleChanged,
-          isRepeatChanged,repeatIntervalChanged,
+          startAtChanged,
+          endAtChanged,
+          titleChanged,
+          descriptionChanged,
+          isRepeatChanged,
+          repeatIntervalChanged,
           capacityChanged,
           localPaymentPriceChanged,
           publishStatusChanged,
@@ -25,6 +29,8 @@ const ReserveFrameModal = (): JSX.Element => {
   const dispatch = useDispatch()
 
   const showeserveFrameModal = useSelector((state: RootState) => state.reserveFrame.showeserveFrameModal)
+  const title = useSelector((state: RootState) => state.reserveFrame.title)
+
   const [repeatReserveMenu, setRepeatReserveMenu] = useState(false)
   const [selectedRepeatPeriod, setSelectedRepeatPeriod] = useState(REPEAT_PERIOD.Day)
   const [isSetPrice, setIsSetPrice] = useState(true)
@@ -45,7 +51,10 @@ const ReserveFrameModal = (): JSX.Element => {
               <Col>
                 <Form.Group className='mb-3'>
                   <Form.Label>メニュー名</Form.Label>
-                  <Form.Control placeholder='例 フィットネス60分レッスン' />
+                  <Form.Control
+                    value={title}
+                    onChange={(e) => dispatch(titleChanged(e.target.value))}
+                    placeholder='例 フィットネス60分レッスン' />
                 </Form.Group>
               </Col>
               <Col>

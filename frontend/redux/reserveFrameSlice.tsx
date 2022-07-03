@@ -7,6 +7,7 @@ export const reserveFrameSlice = createSlice({
     startAt: '',
     endAt: '',
     title: '',
+    description: '',
     isRepeat: false,
     repeatInterval: 1,
     capacity: 1,
@@ -29,6 +30,9 @@ export const reserveFrameSlice = createSlice({
     },
     titleChanged: (state, action: PayloadAction<string>) => {
       state.title = action.payload
+    },
+    descriptionChanged: (state, action: PayloadAction<string>) => {
+      state.description = action.payload
     },
     isRepeatChanged: (state, action: PayloadAction<boolean>) => {
       state.isRepeat = action.payload
@@ -64,6 +68,7 @@ export const { showReserveFrameModalChanged } = reserveFrameSlice.actions
 export const { startAtChanged } = reserveFrameSlice.actions
 export const { endAtChanged } = reserveFrameSlice.actions
 export const { titleChanged } = reserveFrameSlice.actions
+export const { descriptionChanged } = reserveFrameSlice.actions
 export const { isRepeatChanged } = reserveFrameSlice.actions
 export const { repeatIntervalChanged } = reserveFrameSlice.actions
 export const { capacityChanged } = reserveFrameSlice.actions
