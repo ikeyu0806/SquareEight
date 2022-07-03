@@ -33,26 +33,33 @@ const AdminNavbarTemplate = (): JSX.Element => {
             <Nav className='me-auto'>
               <Nav.Link href='/admin/dashboard'>ダッシュボード</Nav.Link>
               <NavDropdown title='ホームページ' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/homepage'>一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/homepage/new'>新規作成</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/homepage'>ホームページ一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/homepage/new'>ホームページ新規作成</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/homepage/new'>ブログ記事一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/homepage/new'>ブログ記事投稿</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='予約' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href=''>カレンダー</NavDropdown.Item>
-                <NavDropdown.Item href=''>一覧</NavDropdown.Item>
+                <NavDropdown.Item href=''>予約ページ一覧</NavDropdown.Item>
+                <NavDropdown.Item href=''>予約ページ登録</NavDropdown.Item>
+                <NavDropdown.Item href=''>予約一覧（カレンダー）</NavDropdown.Item>
+                <NavDropdown.Item href=''>予約一覧（リスト）</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/business_hour'>営業時間設定</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/resource'>リソース一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/resource/new'>リソース登録</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='顧客' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href=''>一覧</NavDropdown.Item>
-                <NavDropdown.Item href=''>新規登録</NavDropdown.Item>
+                <NavDropdown.Item href=''>顧客一覧</NavDropdown.Item>
+                <NavDropdown.Item href=''>顧客新規登録</NavDropdown.Item>
+                <NavDropdown.Item href=''>アンケート一覧</NavDropdown.Item>
+                <NavDropdown.Item href=''>アンケート登録</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='売上' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href=''>売り上げ一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/sales_transfer'>振込先口座情報</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='商品' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/sales_transfer/'></NavDropdown.Item>
+                <NavDropdown.Item href='/admin/'>物販商品一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/'>物販商品登録</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/monthly_payment/'>月額課金プラン一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/monthly_payment/new'>月額課金プラン作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/ticket'>回数券一覧</NavDropdown.Item>
