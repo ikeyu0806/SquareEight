@@ -29,23 +29,6 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
         <div className='text-center mt50 mb50'>
           <h2>対象の日付を選択して予約メニューを設定してください</h2>
         </div>
-        <Row>
-          <Col></Col>
-          <Col>
-            <Button variant='outline-primary' size='lg' onClick={() => router.back()}>戻る</Button>
-          </Col>
-          <Col></Col>
-          <Col></Col>
-          <Col>
-            <Button variant='primary' size='lg' href='/introduction/set_reserve_calendar'>次へ</Button>
-          </Col>
-          <Col></Col>
-          <Col></Col>
-          <Col>
-            <Button variant='outline-primary' size='lg' href='/introduction/set_reserve_calendar'>スキップ</Button>
-          </Col>
-          <Col></Col>
-        </Row>
         <br />
         <FullCalendar plugins={[dayGridPlugin, interactionPlugin]}
                       initialView='dayGridMonth'
