@@ -282,6 +282,17 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                     <Col></Col>
                   </Row>
                 </Form.Group>
+
+                <Row>
+                  <Form.Label>予約受付不可日</Form.Label>
+                  <div className='mt10 mb10'>なし</div>
+                  <Col>
+                    <Form.Control placeholder='実施日時' type='date' />
+                    <Button className='mt10'>予約受付不可日を追加</Button>
+                  </Col>
+                  <Col></Col>
+                  
+                </Row>
               </div>}
 
               <Form.Group className='mb-3' controlId='startDate'>
@@ -463,8 +474,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                   </Form.Label>
                 </Form.Group>
               </Col>
-            </Row>
-              }
+            </Row>}
             </Form.Group>
 
           </Modal.Body>
