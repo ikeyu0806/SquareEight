@@ -44,7 +44,6 @@ const Signup: NextPage = () => {
 
   return (
     <>
-      {alertMessage != '' && <Alert variant='success' onClose={() => setAlertMessage('')} dismissible>{alertMessage}</Alert>}
       <IntroductionNavbar />
       <Container>
         <Row>
