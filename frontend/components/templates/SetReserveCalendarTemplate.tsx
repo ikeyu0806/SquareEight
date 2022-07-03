@@ -43,7 +43,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
             <Form>
               <Row>
                 <Col>
-                  <Form.Group className='mb-3' controlId='menuName'>
+                  <Form.Group className='mb-3'>
                     <Form.Label>メニュー名</Form.Label>
                     <Form.Control placeholder='例 フィットネス60分レッスン' />
                   </Form.Group>
@@ -52,12 +52,12 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                 </Col>
               </Row>
 
-              <Form.Group className='mb-3' controlId='menuText'>
+              <Form.Group className='mb-3'>
                 <Form.Label>メニュー説明文</Form.Label>
                 <Form.Control placeholder='メニューの説明を入力してください' as='textarea' rows={3} />
               </Form.Group>
 
-              <Form.Group className='mb-3' controlId='menuText'>
+              <Form.Group className='mb-3'>
 
               <Form.Label>開始日時</Form.Label>
                 <Row>
@@ -113,7 +113,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                 </Row>
               </Form.Group>
 
-              <Form.Group className='mb-3' controlId='menuText'>
+              <Form.Group className='mb-3'>
                 <Form.Label>終了日時</Form.Label>
                   <Row>
                     <Col>
@@ -171,12 +171,26 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                 </Form.Group>
               </Form>
 
-              <Form.Group className='mb-3' controlId='repeatReserveCheckbox'>
+              <Row>
+                <Col>
+                <Form.Group as={Row} className='mb-3'>
+                  <Form.Label column sm={1}>
+                    定員
+                  </Form.Label>
+                  <Col sm={2}>
+                    <Form.Control type='number' placeholder='1' />
+                  </Col>
+                </Form.Group>
+                
+                </Col>
+              </Row>
+
+              <Form.Group className='mb-3'>
                 <Form.Check type='checkbox' label='繰り返し設定を行う' checked={repeatReserveMenu} onClick={() => setRepeatReserveMenu(!repeatReserveMenu)} />
               </Form.Group>
 
               {repeatReserveMenu && <div className='ml20'>
-                <Form.Group className='mb-3' controlId='repeatPeriodCheckbox'>
+                <Form.Group className='mb-3'>
                   <Form.Check type='checkbox'
                               label='日ごと'
                               inline
@@ -203,7 +217,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                   <>
                     <Row>
                       <Col>
-                      <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                      <Form.Group as={Row} className='mb-3'>
                         <Form.Label column sm={1}>
                           間隔
                         </Form.Label>
@@ -223,7 +237,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                   <>
                     <Row>
                       <Col>
-                      <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                      <Form.Group as={Row} className='mb-3'>
                         <Form.Label column sm={1}>
                           間隔
                         </Form.Label>
@@ -243,7 +257,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                   <>
                     <Row>
                       <Col>
-                        <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                        <Form.Group as={Row} className='mb-3'>
                           <Col sm={2}>
                             <Form.Control type='number' />
                           </Col>
@@ -261,18 +275,8 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                     </Row>
                   </>
                 }
-                <Form.Group className='mb-3' controlId='startDate'>
-                  <Row>
-                    <Form.Label>繰り返し開始日時</Form.Label>
-                    <Col>
-                      <Form.Control placeholder='実施日時' type='date' />
-                    </Col>
-                    <Col></Col>
-                    <Col></Col>
-                  </Row>
-                </Form.Group>
 
-                <Form.Group className='mb-3' controlId='startDate'>
+                <Form.Group className='mb-3'>
                   <Row>
                     <Form.Label>繰り返し終了日時</Form.Label>
                     <Col>
@@ -288,14 +292,14 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                   <div className='mt10 mb10'>なし</div>
                   <Col>
                     <Form.Control placeholder='実施日時' type='date' />
-                    <Button className='mt10'>予約受付不可日を追加</Button>
+                    <Button className='mt10'>予約受付不可日に追加</Button>
                   </Col>
                   <Col></Col>
                   
                 </Row>
               </div>}
 
-              <Form.Group className='mb-3' controlId='startDate'>
+              <Form.Group className='mb-3'>
                 <Row>
                   <Form.Label>料金</Form.Label>
                   <Col>
@@ -322,7 +326,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                   <Form.Check label='現地払い' checked={enableLocalPayment} onChange={() => setEnableLocalPayment(!enableLocalPayment)}></Form.Check>
                   {enableLocalPayment && <Row>
                     <Col>
-                      <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                      <Form.Group as={Row} className='mb-3'>
                         <Col sm={3}>
                           <Form.Control type='number' min='0' />
                         </Col>
@@ -367,7 +371,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                                         checked={!isSetPrice} />
                       <Row>
                         <Col>
-                        <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                        <Form.Group as={Row} className='mb-3'>
                           <Form.Label column sm={2}>
                             消費枚数
                           </Form.Label>
@@ -387,7 +391,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
 
             <Row>
               <Col>
-                <Form.Group className='mb-3' controlId='menuName'>
+                <Form.Group className='mb-3'>
                   <Form.Label>公開設定</Form.Label>
                   <Form.Select placeholder='メニュー名'>
                     <option value='unpublish' selected>非公開</option>
@@ -403,7 +407,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
 
             <Row>
               <Col>
-                <Form.Group className='mb-3' controlId='menuName'>
+                <Form.Group className='mb-3'>
                   <Form.Label>受付設定</Form.Label>
                   <Form.Select placeholder='メニュー名'>
                     <option value='unpublish' selected>即時予約</option>
@@ -420,7 +424,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
 
             <Row>
               <Col>
-                <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                <Form.Group as={Row} className='mb-3'>
                   <Form.Label>受付開始</Form.Label>
                   <Col sm={2}>
                     <Form.Control type='number' />
@@ -432,7 +436,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
               </Col>
             </Row>
 
-            <Form.Group className='mb-3' controlId='startDate'>
+            <Form.Group className='mb-3'>
               <Row>
                 <Form.Label>受付締め切り</Form.Label>
                 <Col>
@@ -453,7 +457,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
               {deadlineToday ? 
                 <Row>
                   <Col>
-                  <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                  <Form.Group as={Row} className='mb-3'>
                     <Col sm={2}>
                       <Form.Control type='number' min='0' />
                     </Col>
@@ -465,7 +469,7 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
               </Row> :
                 <Row>
                 <Col>
-                <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
+                <Form.Group as={Row} className='mb-3'>
                   <Col sm={2}>
                     <Form.Control type='number' min='0' />
                   </Col>
@@ -475,6 +479,12 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
                 </Form.Group>
               </Col>
             </Row>}
+            </Form.Group>
+
+            <Form.Group className='mb-3'>
+              <Form.Label>リソース設定</Form.Label>
+              <br />
+              リソースが設定されていません
             </Form.Group>
 
           </Modal.Body>
