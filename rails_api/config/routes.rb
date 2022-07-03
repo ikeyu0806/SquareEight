@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       get 'resources', to: 'resources#index'
       post 'resources', to: 'resources#create'
       post 'business_hours/register', to: 'business_hours#register'
+      post 'inquiry', to: 'inquiry#send_mail_to_admin'
     end
   end
 

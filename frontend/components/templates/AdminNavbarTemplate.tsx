@@ -65,7 +65,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='その他' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href=''>お問い合わせ</NavDropdown.Item>
+                <NavDropdown.Item href='/inquiry'>お問い合わせ</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>
