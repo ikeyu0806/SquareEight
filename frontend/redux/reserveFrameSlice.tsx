@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export const reserveFrameSlice = createSlice({
   name: 'alert',
   initialState: {
+    showeserveFrameModal: false,
     startAt: '',
     endAt: '',
     title: '',
@@ -17,6 +18,9 @@ export const reserveFrameSlice = createSlice({
     cancelReseptionDayBefore: 1,
   },
   reducers: {
+    showReserveFrameModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showeserveFrameModal = action.payload
+    },
     startAtChanged: (state, action: PayloadAction<string>) => {
       state.startAt = action.payload
     },
@@ -56,6 +60,7 @@ export const reserveFrameSlice = createSlice({
   },
 })
 
+export const { showReserveFrameModalChanged } = reserveFrameSlice.actions
 export const { startAtChanged } = reserveFrameSlice.actions
 export const { endAtChanged } = reserveFrameSlice.actions
 export const { titleChanged } = reserveFrameSlice.actions

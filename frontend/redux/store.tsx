@@ -8,6 +8,7 @@ import stripeExternalAccountsSlice from './stripeExternalAccountsSlice'
 import monthlyPaymentPlanReducer from './monthlyPaymentPlanSlice'
 import businessHourReducer from './businessHourSlice'
 import resourceReducer from './resourceSlice'
+import reserveFrameReducer from './reserveFrameSlice'
 
 export const store = configureStore({
   reducer: {
@@ -20,6 +21,7 @@ export const store = configureStore({
     monthlyPaymentPlan: monthlyPaymentPlanReducer,
     businessHour: businessHourReducer,
     resource: resourceReducer,
+    reserveFrame: reserveFrameReducer
   },
 })
 
