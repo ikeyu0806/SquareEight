@@ -4,8 +4,10 @@ export const reserveFrameSlice = createSlice({
   name: 'alert',
   initialState: {
     showeserveFrameModal: false,
-    startAt: '',
-    endAt: '',
+    startDate: '',
+    startTime: '',
+    endDate: '',
+    endTime: '',
     title: '',
     description: '',
     isRepeat: false,
@@ -22,11 +24,17 @@ export const reserveFrameSlice = createSlice({
     showReserveFrameModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showeserveFrameModal = action.payload
     },
-    startAtChanged: (state, action: PayloadAction<string>) => {
-      state.startAt = action.payload
+    startDateChanged: (state, action: PayloadAction<string>) => {
+      state.startDate = action.payload
     },
-    endAtChanged: (state, action: PayloadAction<string>) => {
-      state.endAt = action.payload
+    startTimeChanged: (state, action: PayloadAction<string>) => {
+      state.startTime = action.payload
+    },
+    endDateChanged: (state, action: PayloadAction<string>) => {
+      state.endDate = action.payload
+    },
+    endTimeChanged: (state, action: PayloadAction<string>) => {
+      state.endTime = action.payload
     },
     titleChanged: (state, action: PayloadAction<string>) => {
       state.title = action.payload
@@ -65,8 +73,10 @@ export const reserveFrameSlice = createSlice({
 })
 
 export const { showReserveFrameModalChanged } = reserveFrameSlice.actions
-export const { startAtChanged } = reserveFrameSlice.actions
-export const { endAtChanged } = reserveFrameSlice.actions
+export const { startDateChanged } = reserveFrameSlice.actions
+export const { startTimeChanged } = reserveFrameSlice.actions
+export const { endDateChanged } = reserveFrameSlice.actions
+export const { endTimeChanged } = reserveFrameSlice.actions
 export const { titleChanged } = reserveFrameSlice.actions
 export const { descriptionChanged } = reserveFrameSlice.actions
 export const { isRepeatChanged } = reserveFrameSlice.actions
