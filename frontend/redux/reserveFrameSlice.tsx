@@ -11,7 +11,8 @@ export const reserveFrameSlice = createSlice({
     title: '',
     description: '',
     isRepeat: false,
-    repeatInterval: 1,
+    repeatInterval: '',
+    repeatIntervalNumber: 1,
     capacity: 1,
     localPaymentPrice: 1000,
     publishStatus: 'Unpublish',
@@ -45,8 +46,11 @@ export const reserveFrameSlice = createSlice({
     isRepeatChanged: (state, action: PayloadAction<boolean>) => {
       state.isRepeat = action.payload
     },
-    repeatIntervalChanged: (state, action: PayloadAction<number>) => {
+    repeatIntervalChanged: (state, action: PayloadAction<string>) => {
       state.repeatInterval = action.payload
+    },
+    repeatIntervalNumberChanged: (state, action: PayloadAction<number>) => {
+      state.repeatIntervalNumber = action.payload
     },
     capacityChanged: (state, action: PayloadAction<number>) => {
       state.capacity = action.payload
@@ -81,6 +85,7 @@ export const { titleChanged } = reserveFrameSlice.actions
 export const { descriptionChanged } = reserveFrameSlice.actions
 export const { isRepeatChanged } = reserveFrameSlice.actions
 export const { repeatIntervalChanged } = reserveFrameSlice.actions
+export const { repeatIntervalNumberChanged } = reserveFrameSlice.actions
 export const { capacityChanged } = reserveFrameSlice.actions
 export const { localPaymentPriceChanged } = reserveFrameSlice.actions
 export const { publishStatusChanged } = reserveFrameSlice.actions

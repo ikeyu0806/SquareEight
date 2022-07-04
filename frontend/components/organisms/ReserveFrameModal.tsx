@@ -12,6 +12,7 @@ import {  showReserveFrameModalChanged,
           descriptionChanged,
           isRepeatChanged,
           repeatIntervalChanged,
+          repeatIntervalNumberChanged,
           capacityChanged,
           localPaymentPriceChanged,
           publishStatusChanged,
@@ -37,6 +38,10 @@ const ReserveFrameModal = (): JSX.Element => {
   const startTime = useSelector((state: RootState) => state.reserveFrame.startTime)
   const endDate = useSelector((state: RootState) => state.reserveFrame.endDate)
   const endTime = useSelector((state: RootState) => state.reserveFrame.endTime)
+  const capacity = useSelector((state: RootState) => state.reserveFrame.capacity)
+  const isRepeat = useSelector((state: RootState) => state.reserveFrame.isRepeat)
+  const repeatInterval = useSelector((state: RootState) => state.reserveFrame.repeatInterval)
+  const repeatIntervalNumber = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumber)
 
   const [repeatReserveMenu, setRepeatReserveMenu] = useState(false)
   const [selectedRepeatPeriod, setSelectedRepeatPeriod] = useState(REPEAT_PERIOD.Day)
@@ -127,41 +132,46 @@ const ReserveFrameModal = (): JSX.Element => {
                     定員
                   </Form.Label>
                   <Col sm={2}>
-                    <Form.Control type='number' placeholder='1' />
+                    <Form.Control
+                      type='number'
+                      value={capacity}
+                      onChange={(e) => dispatch(capacityChanged(Number(e.target.value)))}
+                      placeholder='1' />
                   </Col>
                 </Form.Group>
               </Col>
             </Row>
 
             <Form.Group className='mb-3'>
-              <Form.Check type='checkbox' label='繰り返し設定を行う' checked={repeatReserveMenu} onClick={() => setRepeatReserveMenu(!repeatReserveMenu)} />
+              <Form.Check
+                type='checkbox'
+                label='繰り返し設定を行う'
+                checked={isRepeat}
+                onClick={() => dispatch(isRepeatChanged(!isRepeat))} />
             </Form.Group>
 
-            {repeatReserveMenu && <div className='ml20'>
+            {isRepeat && <div className='ml20'>
               <Form.Group className='mb-3'>
                 <Form.Check type='checkbox'
                             label='日ごと'
                             inline
                             name='repeatPeriod'
-                            value={REPEAT_PERIOD.Day}
-                            onChange={() => setSelectedRepeatPeriod(REPEAT_PERIOD.Day)}
-                            checked={selectedRepeatPeriod === REPEAT_PERIOD.Day} />
+                            onChange={() => dispatch(repeatIntervalChanged('Day'))}
+                            checked={repeatInterval === 'Day'} />
                 <Form.Check type='checkbox'
                             label='週ごと'
                             inline
-                            value={REPEAT_PERIOD.Week}
                             name='repeatPeriod'
-                            onChange={() => setSelectedRepeatPeriod(REPEAT_PERIOD.Week)}
-                            checked={selectedRepeatPeriod === REPEAT_PERIOD.Week} />
+                            onChange={() => dispatch(repeatIntervalChanged('Week'))}
+                            checked={repeatInterval === 'Week'} />
                 <Form.Check type='checkbox'
                             label='月ごと'
                             inline
-                            value={REPEAT_PERIOD.Month}
                             name='repeatPeriod'
-                            onChange={() => setSelectedRepeatPeriod(REPEAT_PERIOD.Month)}
-                            checked={selectedRepeatPeriod === REPEAT_PERIOD.Month} />
+                            onChange={() => dispatch(repeatIntervalChanged('Month'))}
+                            checked={repeatInterval === 'Month'} />
               </Form.Group>
-              {selectedRepeatPeriod === REPEAT_PERIOD.Day &&
+              {repeatInterval === 'Day' &&
                 <>
                   <Row>
                     <Col>
@@ -170,7 +180,10 @@ const ReserveFrameModal = (): JSX.Element => {
                         間隔
                       </Form.Label>
                       <Col sm={2}>
-                        <Form.Control type='number' placeholder='1' />
+                        <Form.Control
+                          type='number'
+                          value={repeatIntervalNumber}
+                          placeholder='1' />
                       </Col>
                       <Form.Label column sm={2}>
                         日ごと
@@ -181,7 +194,7 @@ const ReserveFrameModal = (): JSX.Element => {
                   </Row>
                 </>
               }
-              {selectedRepeatPeriod === REPEAT_PERIOD.Week &&
+              {repeatInterval === 'Week' &&
                 <>
                   <Row>
                     <Col>
@@ -201,7 +214,7 @@ const ReserveFrameModal = (): JSX.Element => {
                   </Row>
                 </>
               }
-              {selectedRepeatPeriod === REPEAT_PERIOD.Month &&
+              {repeatInterval === 'Month' &&
                 <>
                   <Row>
                     <Col>

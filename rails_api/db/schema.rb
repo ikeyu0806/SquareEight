@@ -96,6 +96,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_105317) do
     t.text "description"
     t.boolean "is_repeat"
     t.integer "repeat_interval"
+    t.integer "repeat_interval_number"
     t.integer "capacity", default: 1, null: false
     t.integer "local_payment_price"
     t.integer "publish_status", default: 0
