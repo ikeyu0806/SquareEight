@@ -20,7 +20,8 @@ export const reserveFrameSlice = createSlice({
     receptionType: 'Immediate',
     receptionStartDayBefore: 1,
     cancelReception: 'OnlyOnTheDay',
-    cancelReseptionDayBefore: 1,
+    cancelReceptionHourBefore: 1,
+    cancelReceptionDayBefore: 1,
   },
   reducers: {
     showReserveFrameModalChanged: (state, action: PayloadAction<boolean>) => {
@@ -74,8 +75,11 @@ export const reserveFrameSlice = createSlice({
     cancelReceptionChanged: (state, action: PayloadAction<string>) => {
       state.cancelReception = action.payload
     },
-    cancelReseptionDayBeforeChanged: (state, action: PayloadAction<number>) => {
-      state.cancelReseptionDayBefore = action.payload
+    cancelReceptionHourBeforeChanged: (state, action: PayloadAction<number>) => {
+      state.cancelReceptionHourBefore = action.payload
+    },
+    cancelReceptionDayBeforeChanged: (state, action: PayloadAction<number>) => {
+      state.cancelReceptionDayBefore = action.payload
     },
   },
 })
@@ -97,6 +101,7 @@ export const { publishStatusChanged } = reserveFrameSlice.actions
 export const { receptionTypeChanged } = reserveFrameSlice.actions
 export const { receptionStartDayBeforeChanged } = reserveFrameSlice.actions
 export const { cancelReceptionChanged } = reserveFrameSlice.actions
-export const { cancelReseptionDayBeforeChanged } = reserveFrameSlice.actions
+export const { cancelReceptionHourBeforeChanged } = reserveFrameSlice.actions
+export const { cancelReceptionDayBeforeChanged } = reserveFrameSlice.actions
 
 export default reserveFrameSlice.reducer
