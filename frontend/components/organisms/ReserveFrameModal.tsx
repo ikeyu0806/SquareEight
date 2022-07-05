@@ -14,18 +14,13 @@ import {  showReserveFrameModalChanged,
           repeatIntervalChanged,
           repeatIntervalNumberChanged,
           capacityChanged,
+          repeatEndDateChanged,
           localPaymentPriceChanged,
           publishStatusChanged,
           receptionTypeChanged,
           receptionStartDayBeforeChanged,
           cancelReceptionChanged,
-          cancelStartDayBeforeChanged } from 'redux/reserveFrameSlice'
-
-enum REPEAT_PERIOD {
-  Day = 0,
-  Week = 1,
-  Month = 2,
-}
+          cancelReseptionDayBeforeChanged } from 'redux/reserveFrameSlice'
 
 const ReserveFrameModal = (): JSX.Element => {
   const router = useRouter()
@@ -42,9 +37,14 @@ const ReserveFrameModal = (): JSX.Element => {
   const isRepeat = useSelector((state: RootState) => state.reserveFrame.isRepeat)
   const repeatInterval = useSelector((state: RootState) => state.reserveFrame.repeatInterval)
   const repeatIntervalNumber = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumber)
+  const repeatEndDate = useSelector((state: RootState) => state.reserveFrame.repeatEndDate)
+  const localPaymentPrice = useSelector((state: RootState) => state.reserveFrame.localPaymentPrice)
+  const publishStatus = useSelector((state: RootState) => state.reserveFrame.publishStatus)
+  const receptionType = useSelector((state: RootState) => state.reserveFrame.receptionType)
+  const receptionStartDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionStartDayBefore)
+  const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
+  const cancelReseptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReseptionDayBefore)
 
-  const [repeatReserveMenu, setRepeatReserveMenu] = useState(false)
-  const [selectedRepeatPeriod, setSelectedRepeatPeriod] = useState(REPEAT_PERIOD.Day)
   const [isSetPrice, setIsSetPrice] = useState(true)
   const [deadlineToday, setDeadlineToday] = useState(true)
   const [enableLocalPayment, setEnableLocalPayment] = useState(false)
@@ -183,6 +183,7 @@ const ReserveFrameModal = (): JSX.Element => {
                         <Form.Control
                           type='number'
                           value={repeatIntervalNumber}
+                          onChange={(e) => dispatch(repeatIntervalNumberChanged(Number(e.target.value)))}
                           placeholder='1' />
                       </Col>
                       <Form.Label column sm={2}>
@@ -241,7 +242,10 @@ const ReserveFrameModal = (): JSX.Element => {
                 <Row>
                   <Form.Label>繰り返し終了日時</Form.Label>
                   <Col>
-                    <Form.Control placeholder='実施日時' type='date' />
+                    <Form.Control
+                      value={repeatEndDate}
+                      onChange={(e) => dispatch(repeatEndDateChanged(e.target.value))}
+                      placeholder='実施日時' type='date' />
                   </Col>
                   <Col></Col>
                   <Col></Col>
@@ -289,7 +293,11 @@ const ReserveFrameModal = (): JSX.Element => {
                   <Col>
                     <Form.Group as={Row} className='mb-3'>
                       <Col sm={3}>
-                        <Form.Control type='number' min='0' />
+                        <Form.Control
+                          value={localPaymentPrice}
+                          onChange={(e) => dispatch(localPaymentPriceChanged(Number(e.target.value)))}
+                          type='number'
+                          min='0' />
                       </Col>
                       <Form.Label column sm={2}>
                         円
@@ -354,9 +362,9 @@ const ReserveFrameModal = (): JSX.Element => {
             <Col>
               <Form.Group className='mb-3'>
                 <Form.Label>公開設定</Form.Label>
-                <Form.Select placeholder='メニュー名'>
-                  <option value='unpublish' selected>非公開</option>
-                  <option value='publish'>公開</option>
+                <Form.Select placeholder='メニュー名' onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
+                  <option value='Unpublish'>非公開</option>
+                  <option value='Publish'>公開</option>
                 </Form.Select>
               </Form.Group>
             </Col>
@@ -370,10 +378,12 @@ const ReserveFrameModal = (): JSX.Element => {
             <Col>
               <Form.Group className='mb-3'>
                 <Form.Label>受付設定</Form.Label>
-                <Form.Select placeholder='メニュー名'>
-                  <option value='unpublish' selected>即時予約</option>
-                  <option value='publish'>仮予約</option>
-                  <option value='publish'>電話のみ予約</option>
+                <Form.Select
+                  placeholder='メニュー名'
+                  onChange={(e) => dispatch(receptionTypeChanged(e.target.value))} >
+                  <option value='Immediate'>即時予約</option>
+                  <option value='Temporary'>仮予約</option>
+                  <option value='PhoneOnly'>電話のみ予約</option>
                 </Form.Select>
               </Form.Group>
             </Col>
@@ -388,7 +398,10 @@ const ReserveFrameModal = (): JSX.Element => {
               <Form.Group as={Row} className='mb-3'>
                 <Form.Label>受付開始</Form.Label>
                 <Col sm={2}>
-                  <Form.Control type='number' />
+                  <Form.Control
+                    value={receptionStartDayBefore}
+                    onChange={(e) => dispatch(receptionStartDayBeforeChanged(Number(e.target.value)))}
+                    type='number' />
                 </Col>
                 <Form.Label column sm={2}>
                   日前から
@@ -405,17 +418,16 @@ const ReserveFrameModal = (): JSX.Element => {
                             label='当日まで受付する'
                             inline
                             name='deadline'
-                            onChange={() => setDeadlineToday(true)}
-                            checked={deadlineToday} />
+                            checked={cancelReception === 'OnlyOnTheDay'}
+                            onChange={() => dispatch(cancelReceptionChanged('OnlyOnTheDay'))} />
                 <Form.Check type='checkbox'
                             label='前日以前を指定する'
                             inline
-                            name='deadline'
-                            onChange={() => setDeadlineToday(false)}
-                            checked={!deadlineToday} />
+                            checked={cancelReception === 'PossibleBeforeTheDay'}
+                            onChange={() => dispatch(cancelReceptionChanged('PossibleBeforeTheDay'))} />
               </Col>
             </Row>
-            {deadlineToday ? 
+            {cancelReception === 'OnlyOnTheDay' ? 
               <Row>
                 <Col>
                 <Form.Group as={Row} className='mb-3'>
@@ -432,7 +444,9 @@ const ReserveFrameModal = (): JSX.Element => {
               <Col>
               <Form.Group as={Row} className='mb-3'>
                 <Col sm={2}>
-                  <Form.Control type='number' min='0' />
+                  <Form.Control
+                    type='number'
+                    min='0' />
                 </Col>
                 <Form.Label column sm={4}>
                   日前まで受付をする

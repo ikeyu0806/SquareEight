@@ -14,6 +14,7 @@ export const reserveFrameSlice = createSlice({
     repeatInterval: '',
     repeatIntervalNumber: 1,
     capacity: 1,
+    repeatEndDate: '',
     localPaymentPrice: 1000,
     publishStatus: 'Unpublish',
     receptionType: 'Immediate',
@@ -55,6 +56,9 @@ export const reserveFrameSlice = createSlice({
     capacityChanged: (state, action: PayloadAction<number>) => {
       state.capacity = action.payload
     },
+    repeatEndDateChanged: (state, action: PayloadAction<string>) => {
+      state.repeatEndDate = action.payload
+    },
     localPaymentPriceChanged: (state, action: PayloadAction<number>) => {
       state.localPaymentPrice = action.payload
     },
@@ -70,7 +74,7 @@ export const reserveFrameSlice = createSlice({
     cancelReceptionChanged: (state, action: PayloadAction<string>) => {
       state.cancelReception = action.payload
     },
-    cancelStartDayBeforeChanged: (state, action: PayloadAction<number>) => {
+    cancelReseptionDayBeforeChanged: (state, action: PayloadAction<number>) => {
       state.cancelReseptionDayBefore = action.payload
     },
   },
@@ -87,11 +91,12 @@ export const { isRepeatChanged } = reserveFrameSlice.actions
 export const { repeatIntervalChanged } = reserveFrameSlice.actions
 export const { repeatIntervalNumberChanged } = reserveFrameSlice.actions
 export const { capacityChanged } = reserveFrameSlice.actions
+export const { repeatEndDateChanged } = reserveFrameSlice.actions
 export const { localPaymentPriceChanged } = reserveFrameSlice.actions
 export const { publishStatusChanged } = reserveFrameSlice.actions
 export const { receptionTypeChanged } = reserveFrameSlice.actions
 export const { receptionStartDayBeforeChanged } = reserveFrameSlice.actions
 export const { cancelReceptionChanged } = reserveFrameSlice.actions
-export const { cancelStartDayBeforeChanged } = reserveFrameSlice.actions
+export const { cancelReseptionDayBeforeChanged } = reserveFrameSlice.actions
 
 export default reserveFrameSlice.reducer
