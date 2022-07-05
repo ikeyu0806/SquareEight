@@ -74,14 +74,12 @@ const ReserveFrameModal = (): JSX.Element => {
         is_repeat: isRepeat,
         repeat_interval: repeatInterval,
         repeat_interval_number: repeatIntervalNumber,
-        repeat_end_date: repeatEndDate,
         local_payment_price: localPaymentPrice,
         publish_status: publishStatus,
         reception_type: receptionType,
         reception_start_day_before: receptionStartDayBefore,
         cancel_reception: cancelReception,
-        cancel_reception_hour_before: cancelReceptionHourBefore,
-        cancel_reception_day_before: cancelReceptionDayBefore
+        unreservable_frames: unreservableFrames
       },
     },
     {
@@ -97,7 +95,9 @@ const ReserveFrameModal = (): JSX.Element => {
   }
 
   const addUnreservableFrames = () => {
-    dispatch((unreservableFramesChanged([...unreservableFrames, { start_at: unreservableFramesStartDate + unreservableFramesStartTime, end_at: unreservableFramesEndDate +  unreservableFramesEndTime}])))
+    const startAt = unreservableFramesStartDate + ' ' + unreservableFramesStartTime
+    const endAt = unreservableFramesEndDate + ' ' + unreservableFramesEndTime
+    dispatch((unreservableFramesChanged([...unreservableFrames, { start_at: startAt, end_at: endAt }])))
   }
 
   return (
@@ -309,7 +309,7 @@ const ReserveFrameModal = (): JSX.Element => {
                     {unreservableFrames.map((frame, i) => {
                       return (
                         <span key={i}>
-                          <span>開始日時: {frame.start_at}</span>
+                          <span>開始日時: {frame.start_at}</span><br/>
                           <span>終了日時: {frame.end_at}</span>
                         </span>
                       )
