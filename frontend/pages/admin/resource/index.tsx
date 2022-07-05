@@ -4,7 +4,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import AdminNavbar from 'components/templates/AdminNavbarTemplate'
 import RegularFooter from '../../../components/organisms/RegularFooter'
-import { Container, Table, Button } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { ResourceParam } from 'interfaces/ResourceParam'
 

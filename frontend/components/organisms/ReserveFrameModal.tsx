@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { Modal, Button, Form, Col, Row } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie'
 import { RootState } from '../../redux/store'
 import axios from 'axios'
 import { alertChanged } from 'redux/alertSlice'
+import { ResourceParam } from 'interfaces/ResourceParam'
 import {  showReserveFrameModalChanged,
           startDateChanged,
           startTimeChanged,
@@ -29,6 +30,7 @@ import {  showReserveFrameModalChanged,
           cancelReceptionHourBeforeChanged,
           cancelReceptionDayBeforeChanged,
           unreservableFramesChanged } from 'redux/reserveFrameSlice'
+import resourceSlice from 'redux/resourceSlice'
 
 const ReserveFrameModal = (): JSX.Element => {
   const router = useRouter()
@@ -67,6 +69,27 @@ const ReserveFrameModal = (): JSX.Element => {
   const [unreservableFramesStartTime, setUnreservableFramesStartTime] = useState('')
   const [unreservableFramesEndDate, setUnreservableFramesEndDate] = useState('')
   const [unreservableFramesEndTime, setUnreservableFramesEndTime] = useState('')
+  const [resources, setResources] = useState<ResourceParam[]>([])
+
+  useEffect(() => {
+    const fetchResources = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/resources`, {
+          headers: { 
+            'Session-Id': cookies._smartlesson_session
+          },
+        }
+      )
+      .then(function (response) {
+        const resourceResponse: ResourceParam[] = response.data.resources
+        setResources(resourceResponse)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchResources()
+  }, [router.query.id, cookies._smartlesson_session])
 
   const createReserveFrame = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames`,
@@ -583,7 +606,19 @@ const ReserveFrameModal = (): JSX.Element => {
           <Form.Group className='mb-3'>
             <Form.Label>リソース設定</Form.Label>
             <br />
-            リソースが設定されていません
+            {resourceSlice.length
+            ?
+              <>
+                {resources.map((resource, i) => {
+                return (
+                    <span key={i}>
+                      <div>{resource.name}</div><br />
+                    </span>
+                  )
+                })}
+              </>
+            :
+              <>リソースが登録されていません</>}
           </Form.Group>
 
         </Modal.Body>
