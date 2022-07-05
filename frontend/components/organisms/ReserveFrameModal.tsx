@@ -57,7 +57,6 @@ const ReserveFrameModal = (): JSX.Element => {
   const [enableMonthlyPayment, setEnableMonthlyPayment] = useState(false)
   const [enableReservationTicket, setEnableReservationTicket] = useState(false)
 
-
   const createReserveFrame = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames`,
     {

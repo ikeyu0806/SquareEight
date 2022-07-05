@@ -1,13 +1,15 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { getZeroPaddingDate, getZeroPaddingTime } from 'functions/getZeroPaddingDatetime'
+
 
 export const reserveFrameSlice = createSlice({
   name: 'alert',
   initialState: {
     showeserveFrameModal: false,
-    startDate: '',
-    startTime: '',
-    endDate: '',
-    endTime: '',
+    startDate: getZeroPaddingDate(),
+    startTime: getZeroPaddingTime(),
+    endDate: getZeroPaddingDate(),
+    endTime: getZeroPaddingTime(),
     title: '',
     description: '',
     isRepeat: false,
