@@ -2,7 +2,10 @@ import React, { useState } from 'react'
 import { useRouter } from 'next/router'
 import { Modal, Button, Form, Col, Row } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
+import { useCookies } from 'react-cookie'
 import { RootState } from '../../redux/store'
+import axios from 'axios'
+import { alertChanged } from 'redux/alertSlice'
 import {  showReserveFrameModalChanged,
           startDateChanged,
           startTimeChanged,
@@ -26,6 +29,7 @@ import {  showReserveFrameModalChanged,
 const ReserveFrameModal = (): JSX.Element => {
   const router = useRouter()
   const dispatch = useDispatch()
+  const [cookies] = useCookies(['_smartlesson_session'])
 
   const showeserveFrameModal = useSelector((state: RootState) => state.reserveFrame.showeserveFrameModal)
   const title = useSelector((state: RootState) => state.reserveFrame.title)
@@ -52,6 +56,41 @@ const ReserveFrameModal = (): JSX.Element => {
   const [enableLocalPayment, setEnableLocalPayment] = useState(false)
   const [enableMonthlyPayment, setEnableMonthlyPayment] = useState(false)
   const [enableReservationTicket, setEnableReservationTicket] = useState(false)
+
+
+  const createReserveFrame = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames`,
+    {
+      reserve_frame: {
+        start_at: startDate + ' ' + startTime,
+        end_at: endDate + ' ' + endTime,
+        title: title,
+        description: description,
+        capacity: capacity,
+        is_repeat: isRepeat,
+        repeat_interval: repeatInterval,
+        repeat_interval_number: repeatIntervalNumber,
+        repeat_end_date: repeatEndDate,
+        local_payment_price: localPaymentPrice,
+        publish_status: publishStatus,
+        reception_type: receptionType,
+        reception_start_day_before: receptionStartDayBefore,
+        cancel_reception: cancelReception,
+        cancel_reception_hour_before: cancelReceptionHourBefore,
+        cancel_reception_day_before: cancelReceptionDayBefore
+      },
+    },
+    {
+      headers: { 
+        'Session-Id': cookies._smartlesson_session
+      }
+    }).then(response => {
+      dispatch(alertChanged({message: '予約枠を登録しました', show: true}))
+      dispatch(showReserveFrameModalChanged(false))
+    }).catch(error => {
+      dispatch(alertChanged({message: error, show: true, type: 'danger'}))
+    })
+  }
 
   return (
     <>
@@ -474,7 +513,7 @@ const ReserveFrameModal = (): JSX.Element => {
 
         <Modal.Footer>
           <Button variant='secondary' onClick={() => dispatch(showReserveFrameModalChanged(false))}>閉じる</Button>
-          <Button variant='primary'>登録する</Button>
+          <Button variant='primary' onClick={createReserveFrame}>登録する</Button>
         </Modal.Footer>
       </Modal>
     </>
