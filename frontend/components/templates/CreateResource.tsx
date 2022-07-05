@@ -28,7 +28,7 @@ const CreateResource = (): JSX.Element => {
               onChange={(e) => dispatch(nameChanged(e.target.value))}
               placeholder=''
               aria-label='リソース名' />
-            <Form.Label className='mt10'>月額料金</Form.Label>
+            <Form.Label className='mt10'>予約受付数</Form.Label>
             <FormControl
               value={quantity}
               onChange={(e) => dispatch(quantityChanged(Number(e.target.value)))}

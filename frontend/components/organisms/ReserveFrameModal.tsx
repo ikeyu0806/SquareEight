@@ -612,7 +612,9 @@ const ReserveFrameModal = (): JSX.Element => {
                 {resources.map((resource, i) => {
                 return (
                     <span key={i}>
-                      <div>{resource.name}</div><br />
+                      <Form.Check
+                        label={resource.name}
+                        type='checkbox'></Form.Check>
                     </span>
                   )
                 })}
