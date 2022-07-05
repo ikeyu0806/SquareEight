@@ -15,7 +15,10 @@ export const reserveFrameSlice = createSlice({
     description: '',
     isRepeat: false,
     repeatInterval: '',
-    repeatIntervalNumber: 1,
+    repeatIntervalNumberDay: 1,
+    repeatIntervalNumberWeek: 1,
+    repeatIntervalNumberMonth: 1,
+    repeatIntervalMonthDate: 1,
     capacity: 1,
     repeatEndDate: '',
     localPaymentPrice: 1000,
@@ -55,8 +58,17 @@ export const reserveFrameSlice = createSlice({
     repeatIntervalChanged: (state, action: PayloadAction<string>) => {
       state.repeatInterval = action.payload
     },
-    repeatIntervalNumberChanged: (state, action: PayloadAction<number>) => {
-      state.repeatIntervalNumber = action.payload
+    repeatIntervalNumberDayChanged: (state, action: PayloadAction<number>) => {
+      state.repeatIntervalNumberDay = action.payload
+    },
+    repeatIntervalNumberWeekChanged: (state, action: PayloadAction<number>) => {
+      state.repeatIntervalNumberWeek = action.payload
+    },
+    repeatIntervalNumberMonthChanged: (state, action: PayloadAction<number>) => {
+      state.repeatIntervalNumberMonth = action.payload
+    },
+    repeatIntervalMonthDateChanged: (state, action: PayloadAction<number>) => {
+      state.repeatIntervalMonthDate = action.payload
     },
     capacityChanged: (state, action: PayloadAction<number>) => {
       state.capacity = action.payload
@@ -100,7 +112,10 @@ export const { titleChanged } = reserveFrameSlice.actions
 export const { descriptionChanged } = reserveFrameSlice.actions
 export const { isRepeatChanged } = reserveFrameSlice.actions
 export const { repeatIntervalChanged } = reserveFrameSlice.actions
-export const { repeatIntervalNumberChanged } = reserveFrameSlice.actions
+export const { repeatIntervalNumberDayChanged } = reserveFrameSlice.actions
+export const { repeatIntervalNumberWeekChanged } = reserveFrameSlice.actions
+export const { repeatIntervalNumberMonthChanged } = reserveFrameSlice.actions
+export const { repeatIntervalMonthDateChanged } = reserveFrameSlice.actions
 export const { capacityChanged } = reserveFrameSlice.actions
 export const { repeatEndDateChanged } = reserveFrameSlice.actions
 export const { localPaymentPriceChanged } = reserveFrameSlice.actions

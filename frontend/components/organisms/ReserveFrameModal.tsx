@@ -15,7 +15,10 @@ import {  showReserveFrameModalChanged,
           descriptionChanged,
           isRepeatChanged,
           repeatIntervalChanged,
-          repeatIntervalNumberChanged,
+          repeatIntervalNumberDayChanged,
+          repeatIntervalNumberWeekChanged,
+          repeatIntervalNumberMonthChanged,
+          repeatIntervalMonthDateChanged,
           capacityChanged,
           repeatEndDateChanged,
           localPaymentPriceChanged,
@@ -42,7 +45,10 @@ const ReserveFrameModal = (): JSX.Element => {
   const capacity = useSelector((state: RootState) => state.reserveFrame.capacity)
   const isRepeat = useSelector((state: RootState) => state.reserveFrame.isRepeat)
   const repeatInterval = useSelector((state: RootState) => state.reserveFrame.repeatInterval)
-  const repeatIntervalNumber = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumber)
+  const repeatIntervalNumberDay = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberDay)
+  const repeatIntervalNumberWeek = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberWeek)
+  const repeatIntervalNumberMonth = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberMonth)
+  const repeatIntervalMonthDate = useSelector((state: RootState) => state.reserveFrame.repeatIntervalMonthDate)
   const repeatEndDate = useSelector((state: RootState) => state.reserveFrame.repeatEndDate)
   const localPaymentPrice = useSelector((state: RootState) => state.reserveFrame.localPaymentPrice)
   const publishStatus = useSelector((state: RootState) => state.reserveFrame.publishStatus)
@@ -73,7 +79,7 @@ const ReserveFrameModal = (): JSX.Element => {
         capacity: capacity,
         is_repeat: isRepeat,
         repeat_interval: repeatInterval,
-        repeat_interval_number: repeatIntervalNumber,
+        repeat_interval_number_day: repeatIntervalNumberDay,
         local_payment_price: localPaymentPrice,
         publish_status: publishStatus,
         reception_type: receptionType,
@@ -230,9 +236,11 @@ const ReserveFrameModal = (): JSX.Element => {
                       </Form.Label>
                       <Col sm={2}>
                         <Form.Control
+                          min={1}
+                          max={31}
                           type='number'
-                          value={repeatIntervalNumber}
-                          onChange={(e) => dispatch(repeatIntervalNumberChanged(Number(e.target.value)))}
+                          value={repeatIntervalNumberDay}
+                          onChange={(e) => dispatch(repeatIntervalNumberDayChanged(Number(e.target.value)))}
                           placeholder='1' />
                       </Col>
                       <Form.Label column sm={2}>
@@ -253,7 +261,12 @@ const ReserveFrameModal = (): JSX.Element => {
                         間隔
                       </Form.Label>
                       <Col sm={2}>
-                        <Form.Control type='number' placeholder='1' />
+                        <Form.Control
+                          min={1}
+                          type='number'
+                          value={repeatIntervalNumberWeek}
+                          onChange={(e) => dispatch(repeatIntervalNumberWeekChanged(Number(e.target.value)))}
+                          placeholder='1' />
                       </Col>
                       <Form.Label column sm={2}>
                         週ごと
@@ -270,13 +283,23 @@ const ReserveFrameModal = (): JSX.Element => {
                     <Col>
                       <Form.Group as={Row} className='mb-3'>
                         <Col sm={2}>
-                          <Form.Control type='number' />
+                          <Form.Control
+                            min={1}
+                            max={12}
+                            value={repeatIntervalNumberMonth}
+                            onChange={(e) => dispatch(repeatIntervalNumberMonthChanged(Number(e.target.value)))}
+                            type='number' />
                         </Col>
                         <Form.Label column sm={2}>
                           ヶ月ごとの
                         </Form.Label>
                         <Col sm={2}>
-                          <Form.Control type='number' />
+                          <Form.Control
+                            min={1}
+                            max={31}
+                            value={repeatIntervalMonthDate}
+                            onChange={(e) => dispatch(repeatIntervalMonthDateChanged(Number(e.target.value)))}
+                            type='number' />
                         </Col>
                         <Form.Label column sm={2}>
                           日に設定
