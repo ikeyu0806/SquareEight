@@ -8,7 +8,10 @@ class CreateReserveFrames < ActiveRecord::Migration[7.0]
       t.text :description
       t.boolean :is_repeat
       t.integer :repeat_interval
-      t.integer :repeat_interval_number
+      t.integer :repeat_interval_number_day
+      t.integer :repeat_interval_number_week
+      t.integer :repeat_interval_number_month
+      t.integer :repeat_interval_month_date
       t.integer :capacity, default: 1, null: false
       t.integer :local_payment_price
       t.integer :publish_status, default: 0
