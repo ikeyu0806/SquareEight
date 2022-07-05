@@ -42,6 +42,7 @@ Rails.application.routes.draw do
       post 'resources', to: 'resources#create'
       post 'business_hours/register', to: 'business_hours#register'
       post 'inquiry', to: 'inquiry#send_mail_to_admin'
+      post 'reserve_frames', to: 'reserve_frames#create'
     end
   end
 

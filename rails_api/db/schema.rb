@@ -90,6 +90,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_105317) do
   end
 
   create_table "reserve_frames", force: :cascade do |t|
+    t.integer "account_id", null: false
     t.datetime "start_at", null: false
     t.datetime "end_at"
     t.string "title", null: false
