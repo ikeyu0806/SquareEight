@@ -28,7 +28,8 @@ export const reserveFrameSlice = createSlice({
     cancelReception: 'OnlyOnTheDay',
     cancelReceptionHourBefore: 1,
     cancelReceptionDayBefore: 1,
-    unreservableFrames: [] as UnreservableFrameParam[]
+    unreservableFrames: [] as UnreservableFrameParam[],
+    resourceIds: [] as number[]
   },
   reducers: {
     showReserveFrameModalChanged: (state, action: PayloadAction<boolean>) => {
@@ -100,6 +101,9 @@ export const reserveFrameSlice = createSlice({
     unreservableFramesChanged: (state, action: PayloadAction<UnreservableFrameParam[]>) => {
       state.unreservableFrames = action.payload
     },
+    resourceIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.resourceIds = action.payload
+    },
   },
 })
 
@@ -126,5 +130,6 @@ export const { cancelReceptionChanged } = reserveFrameSlice.actions
 export const { cancelReceptionHourBeforeChanged } = reserveFrameSlice.actions
 export const { cancelReceptionDayBeforeChanged } = reserveFrameSlice.actions
 export const { unreservableFramesChanged } = reserveFrameSlice.actions
+export const { resourceIdsChanged } = reserveFrameSlice.actions
 
 export default reserveFrameSlice.reducer

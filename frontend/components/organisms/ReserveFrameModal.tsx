@@ -29,7 +29,8 @@ import {  showReserveFrameModalChanged,
           cancelReceptionChanged,
           cancelReceptionHourBeforeChanged,
           cancelReceptionDayBeforeChanged,
-          unreservableFramesChanged } from 'redux/reserveFrameSlice'
+          unreservableFramesChanged, 
+          resourceIdsChanged} from 'redux/reserveFrameSlice'
 import resourceSlice from 'redux/resourceSlice'
 
 const ReserveFrameModal = (): JSX.Element => {
@@ -60,6 +61,7 @@ const ReserveFrameModal = (): JSX.Element => {
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
+  const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
 
   const [isSetPrice, setIsSetPrice] = useState(true)
   const [enableLocalPayment, setEnableLocalPayment] = useState(false)
@@ -108,7 +110,8 @@ const ReserveFrameModal = (): JSX.Element => {
         reception_type: receptionType,
         reception_start_day_before: receptionStartDayBefore,
         cancel_reception: cancelReception,
-        unreservable_frames: unreservableFrames
+        unreservable_frames: unreservableFrames,
+        resource_ids: resourceIds
       },
     },
     {
@@ -127,6 +130,16 @@ const ReserveFrameModal = (): JSX.Element => {
     const startAt = unreservableFramesStartDate + ' ' + unreservableFramesStartTime
     const endAt = unreservableFramesEndDate + ' ' + unreservableFramesEndTime
     dispatch((unreservableFramesChanged([...unreservableFrames, { start_at: startAt, end_at: endAt }])))
+  }
+
+  const updateResourceIds = (resourceId: number) => {
+    let filterResourceIds: number[]
+    if (resourceIds.includes(resourceId)) {
+      filterResourceIds = resourceIds.filter((id) => id !== resourceId)
+    } else {
+      filterResourceIds = [...resourceIds, resourceId]
+    }
+    dispatch(resourceIdsChanged(filterResourceIds))
   }
 
   return (
@@ -613,7 +626,9 @@ const ReserveFrameModal = (): JSX.Element => {
                 return (
                     <span key={i}>
                       <Form.Check
+                        checked={resourceIds.includes(resource.id)}
                         label={resource.name}
+                        onChange={() => updateResourceIds(resource.id)}
                         type='checkbox'></Form.Check>
                     </span>
                   )
