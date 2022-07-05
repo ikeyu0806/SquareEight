@@ -3,9 +3,14 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { Container } from 'react-bootstrap'
-import {  showReserveFrameModalChanged } from 'redux/reserveFrameSlice'
+import {  showReserveFrameModalChanged,
+          startDateChanged,
+          endDateChanged,
+          repeatEndDateChanged } from 'redux/reserveFrameSlice'
+
 import { useDispatch } from 'react-redux'
 import ReserveFrameModal from 'components/organisms/ReserveFrameModal'
+import allLocales from '@fullcalendar/core/locales-all'
 
 const SetReserveCalendarTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -20,7 +25,13 @@ const SetReserveCalendarTemplate = (): JSX.Element => {
         <FullCalendar plugins={[dayGridPlugin, interactionPlugin]}
                       initialView='dayGridMonth'
                       selectable={true}
-                      select={() => dispatch(showReserveFrameModalChanged(true))}
+                      select={(e) => {
+                        dispatch(showReserveFrameModalChanged(true))
+                        dispatch(startDateChanged(e.startStr))
+                        dispatch(endDateChanged(e.startStr))
+                        dispatch(repeatEndDateChanged(e.startStr))
+                      }}
+                      locales={allLocales}
                       locale='ja' />
         <ReserveFrameModal></ReserveFrameModal>
       </Container>

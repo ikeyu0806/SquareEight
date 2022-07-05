@@ -3,6 +3,7 @@ import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { Container, Modal, Button, Form, Col, Row } from 'react-bootstrap'
+import allLocales from '@fullcalendar/core/locales-all'
 
 const EndUserReserveCalendar = (): JSX.Element => {
   enum REPEAT_PERIOD {
@@ -26,6 +27,7 @@ const EndUserReserveCalendar = (): JSX.Element => {
         <FullCalendar plugins={[dayGridPlugin, interactionPlugin]}
                       initialView='dayGridMonth'
                       selectable={true}
+                      locales={allLocales}
                       locale='ja'
                       events={[
                         { title: 'event 1', date: '2022-05-11', url: '/reserve/public_id/payment_method' },
