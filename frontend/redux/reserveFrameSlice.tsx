@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { UnreservableFrameParam } from 'interfaces/UnreservableFrameParam'
 import { getZeroPaddingDate, getZeroPaddingTime } from 'functions/getZeroPaddingDatetime'
 
 
@@ -24,6 +25,7 @@ export const reserveFrameSlice = createSlice({
     cancelReception: 'OnlyOnTheDay',
     cancelReceptionHourBefore: 1,
     cancelReceptionDayBefore: 1,
+    unreservableFrames: [] as UnreservableFrameParam[]
   },
   reducers: {
     showReserveFrameModalChanged: (state, action: PayloadAction<boolean>) => {
@@ -83,6 +85,9 @@ export const reserveFrameSlice = createSlice({
     cancelReceptionDayBeforeChanged: (state, action: PayloadAction<number>) => {
       state.cancelReceptionDayBefore = action.payload
     },
+    unreservableFramesChanged: (state, action: PayloadAction<UnreservableFrameParam[]>) => {
+      state.unreservableFrames = action.payload
+    },
   },
 })
 
@@ -105,5 +110,6 @@ export const { receptionStartDayBeforeChanged } = reserveFrameSlice.actions
 export const { cancelReceptionChanged } = reserveFrameSlice.actions
 export const { cancelReceptionHourBeforeChanged } = reserveFrameSlice.actions
 export const { cancelReceptionDayBeforeChanged } = reserveFrameSlice.actions
+export const { unreservableFramesChanged } = reserveFrameSlice.actions
 
 export default reserveFrameSlice.reducer

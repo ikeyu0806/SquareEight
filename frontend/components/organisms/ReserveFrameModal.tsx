@@ -24,7 +24,8 @@ import {  showReserveFrameModalChanged,
           receptionStartDayBeforeChanged,
           cancelReceptionChanged,
           cancelReceptionHourBeforeChanged,
-          cancelReceptionDayBeforeChanged } from 'redux/reserveFrameSlice'
+          cancelReceptionDayBeforeChanged,
+          unreservableFramesChanged } from 'redux/reserveFrameSlice'
 
 const ReserveFrameModal = (): JSX.Element => {
   const router = useRouter()
@@ -50,12 +51,16 @@ const ReserveFrameModal = (): JSX.Element => {
   const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
+  const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
 
   const [isSetPrice, setIsSetPrice] = useState(true)
-  const [deadlineToday, setDeadlineToday] = useState(true)
   const [enableLocalPayment, setEnableLocalPayment] = useState(false)
   const [enableMonthlyPayment, setEnableMonthlyPayment] = useState(false)
   const [enableReservationTicket, setEnableReservationTicket] = useState(false)
+  const [unreservableFramesStartDate, setUnreservableFramesStartDate] = useState('')
+  const [unreservableFramesStartTime, setUnreservableFramesStartTime] = useState('')
+  const [unreservableFramesEndDate, setUnreservableFramesEndDate] = useState('')
+  const [unreservableFramesEndTime, setUnreservableFramesEndTime] = useState('')
 
   const createReserveFrame = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames`,
@@ -89,6 +94,10 @@ const ReserveFrameModal = (): JSX.Element => {
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })
+  }
+
+  const addUnreservableFrames = () => {
+    dispatch((unreservableFramesChanged([...unreservableFrames, { start_at: unreservableFramesStartDate + unreservableFramesStartTime, end_at: unreservableFramesEndDate +  unreservableFramesEndTime}])))
   }
 
   return (
@@ -293,14 +302,60 @@ const ReserveFrameModal = (): JSX.Element => {
               </Form.Group>
 
               <Row>
-                <Form.Label>予約受付不可日</Form.Label>
-                <div className='mt10 mb10'>なし</div>
+                <Form.Label>予約受付不可日時</Form.Label>
+                {unreservableFrames.length
+                ?
+                  <>
+                    {unreservableFrames.map((frame, i) => {
+                      return (
+                        <span key={i}>
+                          <span>開始日時: {frame.start_at}</span>
+                          <span>終了日時: {frame.end_at}</span>
+                        </span>
+                      )
+                    })}
+                  </>
+                :
+                  <div className='mt10 mb10'>なし</div>
+                }
                 <Col>
-                  <Form.Control placeholder='実施日時' type='date' />
-                  <Button className='mt10'>予約受付不可日に追加</Button>
+                  <Form.Group>
+                  <Form.Label>予約不可開始日時</Form.Label>
+                    <Row>
+                      <Col>
+                        <Form.Control
+                          type='date'
+                          value={unreservableFramesStartDate}
+                          onChange={(e) =>  setUnreservableFramesStartDate(e.target.value)} />
+                      </Col>
+                      <Col>
+                        <Form.Control
+                          value={unreservableFramesStartTime}
+                          type='time'
+                          onChange={(e) =>  setUnreservableFramesStartTime(e.target.value)} />
+                      </Col>
+                    </Row>
+                  </Form.Group>
+                  <Form.Group className='mb-3'>
+                    <Form.Label>予約不可終了日時</Form.Label>
+                    <Row>
+                      <Col>
+                        <Form.Control
+                          type='date'
+                          value={unreservableFramesEndDate}
+                          onChange={(e) =>  setUnreservableFramesEndDate(e.target.value)} />
+                      </Col>
+                      <Col>
+                        <Form.Control
+                          value={unreservableFramesEndTime}
+                          type='time'
+                          onChange={(e) =>  setUnreservableFramesEndTime(e.target.value)} />
+                      </Col>
+                    </Row>
+                  </Form.Group>
+                  <Button className='mt10' onClick={addUnreservableFrames}>予約受付不可日時に追加</Button>
                 </Col>
                 <Col></Col>
-                
               </Row>
             </div>}
 
