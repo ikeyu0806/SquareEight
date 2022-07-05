@@ -1,0 +1,2 @@
+class UnreservableFrame < ApplicationRecord
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_03_105317) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_05_051410) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -156,6 +156,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_03_105317) do
     t.integer "account_id"
     t.integer "issue_number"
     t.integer "price"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "unreservable_frames", force: :cascade do |t|
+    t.integer "reserve_frame_id"
+    t.datetime "start_at"
+    t.datetime "end_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
