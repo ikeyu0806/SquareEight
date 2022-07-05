@@ -6,6 +6,12 @@ class Api::Internal::ReserveFramesController < ApplicationController
     reserve_frame_params[:unreservable_frames].each do |frame|
       reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
     end
+    if reserve_frame_params[:resource_ids].present?
+      reserve_frame.reserve_frame_resorces.delete_all
+      reserve_frame_params[:resource_ids].each do |resource_id|
+        reserve_frame.reserve_frame_resorces.new(resource_id: resource_id)
+      end
+    end
     reserve_frame.save!
     render json: { status: 'success' }, states: 200
   rescue => error
@@ -35,7 +41,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :cancel_reception,
                   :cancel_reseption_hour_before,
                   :cancel_reseption_day_before,
-                  :resource_ids,
+                  resource_ids: [],
                   unreservable_frames: [:start_at, :end_at])
   end
 end

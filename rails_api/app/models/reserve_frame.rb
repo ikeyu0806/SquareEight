@@ -1,6 +1,7 @@
 class ReserveFrame < ApplicationRecord
   belongs_to :account
   has_many :unreservable_frames
+  has_many :reserve_frame_resorces
 
   enum repeat_interval: { Day: 0, Week: 1, Month: 2 }
   enum publish_status: { Unpublish: 0, Publish: 1 }
