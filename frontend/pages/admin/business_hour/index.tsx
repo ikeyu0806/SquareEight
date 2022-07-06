@@ -15,9 +15,6 @@ const New: NextPage = () => {
   const [cookies] = useCookies(['_smartlesson_session'])
   const router = useRouter()
 
-  const name = useSelector((state: RootState) => state.resource.name)
-  const quantity = useSelector((state: RootState) => state.resource.quantity)
-  const receptionTimeSetting = useSelector((state: RootState) => state.resource.receptionTimeSetting)
   const monStart = useSelector((state: RootState) => state.businessHour.monStart)
   const monEnd = useSelector((state: RootState) => state.businessHour.monEnd)
   const tueStart = useSelector((state: RootState) => state.businessHour.tueStart)

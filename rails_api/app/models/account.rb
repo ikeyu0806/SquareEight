@@ -15,17 +15,13 @@ class Account < ApplicationRecord
         case frame.repeat_interval_type
         when 'Day' then
           (Date.parse(frame.start_at)..Date.parse(frame.repeat_interval_month_date)).each do |date|
-            result << {
-              start: date,
-              title: frame:title,
-              id: frame.id
-            }
+            result << { start: date, title: frame.title, id: frame.id }
           end
         when 'Week' then
           (Date.parse(frame.start_at)..Date.parse(frame.repeat_interval_month_date)).select{|d| d.wday == frame.start_at.wday}.each do |date|
             result << {
               start: date,
-              title: frame:title,
+              title: frame.title,
               id: frame.id
             }
           end
@@ -33,17 +29,14 @@ class Account < ApplicationRecord
           (Date.parse(frame.start_at)..Date.parse(frame.repeat_interval_month_date)).select{|d| d.day == repeat.repeat_interval_month_date}.each do |date|
             result << {
               start: date,
-              title: frame:title,
+              title: frame.title,
               id: frame.id
             }
           end
+        else
         end
       else
-        result << {
-          start: frame.start_at,
-          title: frame:title,
-          id: frame.id
-        }
+        result << { start: frame.start_at, title: frame.title, id: frame.id }
       end
     end
     result

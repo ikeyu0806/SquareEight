@@ -4,6 +4,8 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { Container, Modal, Button, Form, Col, Row } from 'react-bootstrap'
 import allLocales from '@fullcalendar/core/locales-all'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 
 const EndUserReserveCalendar = (): JSX.Element => {
   enum REPEAT_PERIOD {
@@ -11,6 +13,8 @@ const EndUserReserveCalendar = (): JSX.Element => {
     Week = 1,
     Month = 2,
   }
+
+  const events = useSelector((state: RootState) => state.reserveFrame.reserveEvents)
 
   const [showModal, setShowModal] = useState(false)
   const [repeatReserveMenu, setRepeatReserveMenu] = useState(false)
@@ -29,10 +33,7 @@ const EndUserReserveCalendar = (): JSX.Element => {
                       selectable={true}
                       locales={allLocales}
                       locale='ja'
-                      events={[
-                        { title: 'event 1', date: '2022-05-11', url: '/reserve/public_id/payment_method' },
-                        { title: 'event 2', date: '2022-05-12', url: '/reserve/public_id/payment_method' }
-                      ]} />
+                      events={events} />
         <Modal show={showModal} size='lg'>
           <Modal.Header> 
             <Modal.Title>新規予約枠登録</Modal.Title>
