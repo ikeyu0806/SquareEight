@@ -33,6 +33,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :repeat_interval_number_week,
                   :repeat_interval_number_month,
                   :repeat_interval_month_date,
+                  :repeat_end_date,
                   :capacity,
                   :local_payment_price,
                   :publish_status,

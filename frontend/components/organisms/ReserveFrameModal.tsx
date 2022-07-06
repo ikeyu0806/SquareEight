@@ -20,6 +20,7 @@ import {  showReserveFrameModalChanged,
           repeatIntervalNumberWeekChanged,
           repeatIntervalNumberMonthChanged,
           repeatIntervalMonthDateChanged,
+          repeatIntervalEndDateChanged,
           capacityChanged,
           repeatEndDateChanged,
           localPaymentPriceChanged,
@@ -52,6 +53,7 @@ const ReserveFrameModal = (): JSX.Element => {
   const repeatIntervalNumberWeek = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberWeek)
   const repeatIntervalNumberMonth = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberMonth)
   const repeatIntervalMonthDate = useSelector((state: RootState) => state.reserveFrame.repeatIntervalMonthDate)
+  const repeatIntervalEndDate = useSelector((state: RootState) => state.reserveFrame.repeatIntervalEndDate)
   const repeatEndDate = useSelector((state: RootState) => state.reserveFrame.repeatEndDate)
   const localPaymentPrice = useSelector((state: RootState) => state.reserveFrame.localPaymentPrice)
   const publishStatus = useSelector((state: RootState) => state.reserveFrame.publishStatus)
@@ -105,6 +107,10 @@ const ReserveFrameModal = (): JSX.Element => {
         is_repeat: isRepeat,
         repeat_interval_type: repeatIntervalType,
         repeat_interval_number_day: repeatIntervalNumberDay,
+        repeat_interval_number_week: repeatIntervalNumberWeek,
+        repeat_interval_number_month: repeatIntervalNumberMonth,
+        repeat_interval_number_month_date: repeatIntervalMonthDate,
+        repeat_interval_end_date: repeatIntervalEndDate,
         local_payment_price: localPaymentPrice,
         publish_status: publishStatus,
         reception_type: receptionType,
@@ -352,7 +358,7 @@ const ReserveFrameModal = (): JSX.Element => {
                   <Col>
                     <Form.Control
                       value={repeatEndDate}
-                      onChange={(e) => dispatch(repeatEndDateChanged(e.target.value))}
+                      onChange={(e) => dispatch(repeatIntervalEndDateChanged(e.target.value))}
                       placeholder='実施日時' type='date' />
                   </Col>
                   <Col></Col>

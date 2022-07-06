@@ -19,6 +19,7 @@ export const reserveFrameSlice = createSlice({
     repeatIntervalNumberWeek: 1,
     repeatIntervalNumberMonth: 1,
     repeatIntervalMonthDate: 1,
+    repeatIntervalEndDate: '',
     capacity: 1,
     repeatEndDate: '',
     localPaymentPrice: 1000,
@@ -71,6 +72,9 @@ export const reserveFrameSlice = createSlice({
     repeatIntervalMonthDateChanged: (state, action: PayloadAction<number>) => {
       state.repeatIntervalMonthDate = action.payload
     },
+    repeatIntervalEndDateChanged: (state, action: PayloadAction<string>) => {
+      state.repeatIntervalEndDate = action.payload
+    },
     capacityChanged: (state, action: PayloadAction<number>) => {
       state.capacity = action.payload
     },
@@ -120,6 +124,7 @@ export const { repeatIntervalNumberDayChanged } = reserveFrameSlice.actions
 export const { repeatIntervalNumberWeekChanged } = reserveFrameSlice.actions
 export const { repeatIntervalNumberMonthChanged } = reserveFrameSlice.actions
 export const { repeatIntervalMonthDateChanged } = reserveFrameSlice.actions
+export const { repeatIntervalEndDateChanged } = reserveFrameSlice.actions
 export const { capacityChanged } = reserveFrameSlice.actions
 export const { repeatEndDateChanged } = reserveFrameSlice.actions
 export const { localPaymentPriceChanged } = reserveFrameSlice.actions

@@ -108,6 +108,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_130930) do
     t.integer "repeat_interval_number_week"
     t.integer "repeat_interval_number_month"
     t.integer "repeat_interval_month_date"
+    t.datetime "repeat_end_date"
     t.integer "capacity", default: 1, null: false
     t.integer "local_payment_price"
     t.integer "publish_status", default: 0
