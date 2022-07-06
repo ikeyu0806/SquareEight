@@ -28,7 +28,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :title,
                   :description,
                   :is_repeat,
-                  :repeat_interval,
+                  :repeat_interval_type,
                   :repeat_interval_number_day,
                   :repeat_interval_number_week,
                   :repeat_interval_number_month,

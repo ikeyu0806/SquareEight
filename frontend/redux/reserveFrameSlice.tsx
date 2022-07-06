@@ -14,7 +14,7 @@ export const reserveFrameSlice = createSlice({
     title: '',
     description: '',
     isRepeat: false,
-    repeatInterval: '',
+    repeatIntervalType: '',
     repeatIntervalNumberDay: 1,
     repeatIntervalNumberWeek: 1,
     repeatIntervalNumberMonth: 1,
@@ -56,8 +56,8 @@ export const reserveFrameSlice = createSlice({
     isRepeatChanged: (state, action: PayloadAction<boolean>) => {
       state.isRepeat = action.payload
     },
-    repeatIntervalChanged: (state, action: PayloadAction<string>) => {
-      state.repeatInterval = action.payload
+    repeatIntervalTypeChanged: (state, action: PayloadAction<string>) => {
+      state.repeatIntervalType = action.payload
     },
     repeatIntervalNumberDayChanged: (state, action: PayloadAction<number>) => {
       state.repeatIntervalNumberDay = action.payload
@@ -115,7 +115,7 @@ export const { endTimeChanged } = reserveFrameSlice.actions
 export const { titleChanged } = reserveFrameSlice.actions
 export const { descriptionChanged } = reserveFrameSlice.actions
 export const { isRepeatChanged } = reserveFrameSlice.actions
-export const { repeatIntervalChanged } = reserveFrameSlice.actions
+export const { repeatIntervalTypeChanged } = reserveFrameSlice.actions
 export const { repeatIntervalNumberDayChanged } = reserveFrameSlice.actions
 export const { repeatIntervalNumberWeekChanged } = reserveFrameSlice.actions
 export const { repeatIntervalNumberMonthChanged } = reserveFrameSlice.actions

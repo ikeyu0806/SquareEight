@@ -15,7 +15,7 @@ import {  showReserveFrameModalChanged,
           titleChanged,
           descriptionChanged,
           isRepeatChanged,
-          repeatIntervalChanged,
+          repeatIntervalTypeChanged,
           repeatIntervalNumberDayChanged,
           repeatIntervalNumberWeekChanged,
           repeatIntervalNumberMonthChanged,
@@ -47,7 +47,7 @@ const ReserveFrameModal = (): JSX.Element => {
   const endTime = useSelector((state: RootState) => state.reserveFrame.endTime)
   const capacity = useSelector((state: RootState) => state.reserveFrame.capacity)
   const isRepeat = useSelector((state: RootState) => state.reserveFrame.isRepeat)
-  const repeatInterval = useSelector((state: RootState) => state.reserveFrame.repeatInterval)
+  const repeatIntervalType = useSelector((state: RootState) => state.reserveFrame.repeatIntervalType)
   const repeatIntervalNumberDay = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberDay)
   const repeatIntervalNumberWeek = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberWeek)
   const repeatIntervalNumberMonth = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberMonth)
@@ -103,7 +103,7 @@ const ReserveFrameModal = (): JSX.Element => {
         description: description,
         capacity: capacity,
         is_repeat: isRepeat,
-        repeat_interval: repeatInterval,
+        repeat_interval_type: repeatIntervalType,
         repeat_interval_number_day: repeatIntervalNumberDay,
         local_payment_price: localPaymentPrice,
         publish_status: publishStatus,
@@ -247,22 +247,22 @@ const ReserveFrameModal = (): JSX.Element => {
                             label='日ごと'
                             inline
                             name='repeatPeriod'
-                            onChange={() => dispatch(repeatIntervalChanged('Day'))}
-                            checked={repeatInterval === 'Day'} />
+                            onChange={() => dispatch(repeatIntervalTypeChanged('Day'))}
+                            checked={repeatIntervalType === 'Day'} />
                 <Form.Check type='checkbox'
                             label='週ごと'
                             inline
                             name='repeatPeriod'
-                            onChange={() => dispatch(repeatIntervalChanged('Week'))}
-                            checked={repeatInterval === 'Week'} />
+                            onChange={() => dispatch(repeatIntervalTypeChanged('Week'))}
+                            checked={repeatIntervalType === 'Week'} />
                 <Form.Check type='checkbox'
                             label='月ごと'
                             inline
                             name='repeatPeriod'
-                            onChange={() => dispatch(repeatIntervalChanged('Month'))}
-                            checked={repeatInterval === 'Month'} />
+                            onChange={() => dispatch(repeatIntervalTypeChanged('Month'))}
+                            checked={repeatIntervalType === 'Month'} />
               </Form.Group>
-              {repeatInterval === 'Day' &&
+              {repeatIntervalType === 'Day' &&
                 <>
                   <Row>
                     <Col>
@@ -288,7 +288,7 @@ const ReserveFrameModal = (): JSX.Element => {
                   </Row>
                 </>
               }
-              {repeatInterval === 'Week' &&
+              {repeatIntervalType === 'Week' &&
                 <>
                   <Row>
                     <Col>
@@ -313,7 +313,7 @@ const ReserveFrameModal = (): JSX.Element => {
                   </Row>
                 </>
               }
-              {repeatInterval === 'Month' &&
+              {repeatIntervalType === 'Month' &&
                 <>
                   <Row>
                     <Col>

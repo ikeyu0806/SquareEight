@@ -7,4 +7,20 @@ class Account < ApplicationRecord
   has_many :monthly_payment_plans
   has_many :resources
   has_many :reserve_frames
+
+  def reserve_calendar_json
+    result = []
+    self.reserve_frames.each do |frame|
+      if frame.is_repeat
+        
+      else
+        result << {
+          start: frame.start_at,
+          title: frame:title,
+          id: frame.id
+        }
+      end
+    end
+    result
+  end
 end
