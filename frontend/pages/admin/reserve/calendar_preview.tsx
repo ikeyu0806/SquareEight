@@ -31,7 +31,7 @@ const CalendarPreview: NextPage = () => {
       })
     }
     fetchEvents()
-  }, [router.query.account_id, dispatch])
+  }, [router.query.account_id, dispatch, cookies])
   return (
     <>
       <IntroductionNavbar />
