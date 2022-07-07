@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import EndUserReserveCalendarTemplate from '../../../components/templates/EndUserReserveCalendarTemplate'
-import IntroductionNavbar from '../../../components/templates/IntroductionNavbar'
+import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
 import RegularFooter from '../../../components/organisms/RegularFooter'
 import axios from 'axios'
 import { reserveEventsChanged } from 'redux/reserveFrameSlice'
@@ -34,8 +34,9 @@ const CalendarPreview: NextPage = () => {
   }, [router.query.account_id, dispatch, cookies])
   return (
     <>
-      <IntroductionNavbar />
-      <EndUserReserveCalendarTemplate/>
+      <AdminNavbar></AdminNavbar>
+        <br />
+        <EndUserReserveCalendarTemplate/>
       <RegularFooter></RegularFooter>
     </>
   )
