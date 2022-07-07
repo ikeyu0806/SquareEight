@@ -18,7 +18,6 @@ const Calendar: NextPage = () => {
         `${process.env.BACKEND_URL}/api/internal/reserve_frames/reserve_events?account_id=${router.query.account_id}`
       )
       .then(function (response) {
-        console.log("!!!", response)
         dispatch(reserveEventsChanged(response.data.events))
       })
       .catch(error => {
