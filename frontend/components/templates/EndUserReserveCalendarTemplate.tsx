@@ -8,6 +8,7 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import axios from 'axios'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
+import reserveFrameSlice from 'redux/reserveFrameSlice'
 
 const EndUserReserveCalendar = (): JSX.Element => {
   const events = useSelector((state: RootState) => state.reserveFrame.reserveEvents)
@@ -42,15 +43,16 @@ const EndUserReserveCalendar = (): JSX.Element => {
                       locale='ja'
                       events={events} />
         <Modal show={showModal} size='lg'>
-          <Modal.Header> 
-            <Modal.Title>新規予約枠登録</Modal.Title>
-          </Modal.Header>
           <Modal.Body>
             <h2>{reserveFrame.title}</h2>
+            <br />
+            <div>{reserveFrame.start_at && <>開始日時 {reserveFrame?.start_at || ''}</>}</div>
+            <div>{reserveFrame.description}</div>
+            <br />
+            <Button variant='primary'>予約する</Button>
           </Modal.Body>
           <Modal.Footer>
             <Button variant='secondary' onClick={() => setShowModal(false)}>閉じる</Button>
-            <Button variant='primary'>登録する</Button>
           </Modal.Footer>
         </Modal>
       </Container>
