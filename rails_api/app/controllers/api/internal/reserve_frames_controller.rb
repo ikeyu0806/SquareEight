@@ -1,5 +1,12 @@
 class Api::Internal::ReserveFramesController < ApplicationController
-  before_action :login_only!, except: :reserve_events
+  before_action :login_only!, except: [:reserve_events, :show]
+
+  def show
+    reserve_frame = ReserveFrame.find(params[:id])
+    render json: { status: 'success', reserve_frame: reserve_frame }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
 
   def create
     reserve_frame = current_merchant_user.account.reserve_frames.new(reserve_frame_params.except(:unreservable_frames, :resource_ids))

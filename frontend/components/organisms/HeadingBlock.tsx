@@ -1,4 +1,4 @@
-import { HeadingBlockState } from "../../interfaces/HeadingBlockState"
+import { HeadingBlockState } from "../../types/HeadingBlockState"
 
 type propType = {
   blockState: HeadingBlockState
