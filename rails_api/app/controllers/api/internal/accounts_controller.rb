@@ -172,6 +172,13 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def reserve_events
+    events = current_merchant_user.account.reserve_calendar_json
+    render json: { status: 'success', events: events }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def account_params
