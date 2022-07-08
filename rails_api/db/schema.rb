@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_05_130930) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_08_001248) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -89,6 +89,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_130930) do
     t.text "description"
   end
 
+  create_table "reserve_frame_monthly_payment_plans", force: :cascade do |t|
+    t.integer "reserve_frame_id"
+    t.integer "monthly_payment_plan_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "reserve_frame_resorces", force: :cascade do |t|
     t.integer "reserve_frame_id"
     t.integer "resource_id"
@@ -96,20 +103,33 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_05_130930) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "reserve_frame_ticket_masters", force: :cascade do |t|
+    t.integer "reserve_frame_id"
+    t.integer "ticket_master_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "reserve_frames", force: :cascade do |t|
+    t.integer "account_id", null: false
     t.datetime "start_at", null: false
     t.datetime "end_at"
     t.string "title", null: false
     t.text "description"
     t.boolean "is_repeat"
-    t.integer "repeat_interval"
-    t.integer "repeat_interval_number"
+    t.integer "repeat_interval_type"
+    t.integer "repeat_interval_number_day"
+    t.integer "repeat_interval_number_week"
+    t.integer "repeat_interval_number_month"
+    t.integer "repeat_interval_month_date"
+    t.datetime "repeat_end_date"
     t.integer "capacity", default: 1, null: false
     t.integer "local_payment_price"
     t.integer "publish_status", default: 0
     t.integer "reception_type", default: 0
     t.integer "reception_start_day_before"
     t.integer "cancel_reception", default: 0
+    t.integer "cancel_reseption_hour_before"
     t.integer "cancel_reseption_day_before"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

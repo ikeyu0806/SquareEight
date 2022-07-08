@@ -1,0 +1,2 @@
+class ReserveFrameMonthlyPaymentPlan < ApplicationRecord
+end

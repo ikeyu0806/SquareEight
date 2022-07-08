@@ -1,0 +1,2 @@
+class ReserveFrameTicketMaster < ApplicationRecord
+end
