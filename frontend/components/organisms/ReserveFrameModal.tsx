@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, ChangeEvent } from 'react'
 import { useRouter } from 'next/router'
 import { Modal, Button, Form, Col, Row } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
@@ -32,7 +32,8 @@ import {  showReserveFrameModalChanged,
           cancelReceptionHourBeforeChanged,
           cancelReceptionDayBeforeChanged,
           unreservableFramesChanged, 
-          resourceIdsChanged } from 'redux/reserveFrameSlice'
+          resourceIdsChanged,
+          monthlyPaymentPlanIdsChanged } from 'redux/reserveFrameSlice'
 import resourceSlice from 'redux/resourceSlice'
 
 const ReserveFrameModal = (): JSX.Element => {
@@ -64,7 +65,7 @@ const ReserveFrameModal = (): JSX.Element => {
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
-  const monthlyPaymentPlans = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlans)
+  const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
 
   const [isSetPrice, setIsSetPrice] = useState(true)
   const [enableLocalPayment, setEnableLocalPayment] = useState(false)
@@ -126,7 +127,7 @@ const ReserveFrameModal = (): JSX.Element => {
         cancel_reception: cancelReception,
         unreservable_frames: unreservableFrames,
         resource_ids: resourceIds,
-        monthly_payment_plans: monthlyPaymentPlans
+        monthly_payment_plan_ids: monthlyPaymentPlanIds
       },
     },
     {
@@ -147,8 +148,17 @@ const ReserveFrameModal = (): JSX.Element => {
     dispatch((unreservableFramesChanged([...unreservableFrames, { start_at: startAt, end_at: endAt }])))
   }
 
-  const updateMonthlyPaymentPlans = (planId: number) => {
-
+  const updateMonthlyPaymentPlans = (e: ChangeEvent) => {
+    const target = e.target as any
+    let monthlyPaymentPlanData: number[]
+    const planId = target.value
+    if (target.checked === true) {
+      monthlyPaymentPlanData = [...monthlyPaymentPlanIds, Number(planId)]
+      dispatch(monthlyPaymentPlanIdsChanged(monthlyPaymentPlanData))
+    } else {
+      monthlyPaymentPlanData = monthlyPaymentPlanIds.filter(id => id !== Number(planId))
+      dispatch(monthlyPaymentPlanIdsChanged(monthlyPaymentPlanData))
+    }
   }
 
   const updateTicketMasters = (ticketId: number) => {
@@ -489,15 +499,15 @@ const ReserveFrameModal = (): JSX.Element => {
                     <Row>
                       <Col>
                         <Form.Group>
-                          {selectableTicketMasters.map((ticket, i) => {
+                          {selectableMonthlyPaymentPlans.map((plan, i) => {
                             return (
                               <span key={i}>
                                 <Form.Check type='checkbox'
-                                            label={ticket.name}
+                                            label={plan.name}
                                             inline
-                                            name='week'
-                                            onChange={() => updateTicketMasters(ticket.id)}
-                                            checked={isSetPrice} />
+                                            value={plan.id}
+                                            onChange={(e) => updateMonthlyPaymentPlans(e)}
+                                            checked={monthlyPaymentPlanIds.includes(plan.id)} />
                                 <br />
                               </span>
                             )

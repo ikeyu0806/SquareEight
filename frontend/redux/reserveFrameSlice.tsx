@@ -31,7 +31,7 @@ export const reserveFrameSlice = createSlice({
     unreservableFrames: [] as UnreservableFrameParam[],
     resourceIds: [] as number[],
     reserveEvents: [],
-    monthlyPaymentPlans: [],
+    monthlyPaymentPlanIds: [] as number[],
     reservableFrameTicketMaster: [] as ReservableFrameTicketMasterParam[]
   },
   reducers: {
@@ -110,8 +110,8 @@ export const reserveFrameSlice = createSlice({
     reserveEventsChanged: (state, action: PayloadAction<[]>) => {
       state.reserveEvents = action.payload
     },
-    monthlyPaymentPlansChanged: (state, action: PayloadAction<[]>) => {
-      state.monthlyPaymentPlans = action.payload
+    monthlyPaymentPlanIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.monthlyPaymentPlanIds = action.payload
     },
     reservableFrameTicketMasterChanged: (state, action: PayloadAction<[]>) => {
       state.reservableFrameTicketMaster = action.payload
@@ -144,7 +144,7 @@ export const { cancelReceptionDayBeforeChanged } = reserveFrameSlice.actions
 export const { unreservableFramesChanged } = reserveFrameSlice.actions
 export const { resourceIdsChanged } = reserveFrameSlice.actions
 export const { reserveEventsChanged } = reserveFrameSlice.actions
-export const { monthlyPaymentPlansChanged } = reserveFrameSlice.actions
+export const { monthlyPaymentPlanIdsChanged } = reserveFrameSlice.actions
 export const { reservableFrameTicketMasterChanged } = reserveFrameSlice.actions
 
 export default reserveFrameSlice.reducer
