@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { UnreservableFrameParam } from 'interfaces/UnreservableFrameParam'
+import { ReservableFrameTicketMasterParam } from 'interfaces/ReservableFrameTicketMasterParam'
 import { getZeroPaddingDate, getZeroPaddingTime } from 'functions/getZeroPaddingDatetime'
-
 
 export const reserveFrameSlice = createSlice({
   name: 'alert',
@@ -30,7 +30,9 @@ export const reserveFrameSlice = createSlice({
     cancelReceptionDayBefore: 1,
     unreservableFrames: [] as UnreservableFrameParam[],
     resourceIds: [] as number[],
-    reserveEvents: []
+    reserveEvents: [],
+    monthlyPaymentPlans: [],
+    reservableFrameTicketMaster: [] as ReservableFrameTicketMasterParam[]
   },
   reducers: {
     showReserveFrameModalChanged: (state, action: PayloadAction<boolean>) => {
@@ -108,6 +110,12 @@ export const reserveFrameSlice = createSlice({
     reserveEventsChanged: (state, action: PayloadAction<[]>) => {
       state.reserveEvents = action.payload
     },
+    monthlyPaymentPlansChanged: (state, action: PayloadAction<[]>) => {
+      state.monthlyPaymentPlans = action.payload
+    },
+    reservableFrameTicketMasterChanged: (state, action: PayloadAction<[]>) => {
+      state.reservableFrameTicketMaster = action.payload
+    },
   },
 })
 
@@ -136,5 +144,7 @@ export const { cancelReceptionDayBeforeChanged } = reserveFrameSlice.actions
 export const { unreservableFramesChanged } = reserveFrameSlice.actions
 export const { resourceIdsChanged } = reserveFrameSlice.actions
 export const { reserveEventsChanged } = reserveFrameSlice.actions
+export const { monthlyPaymentPlansChanged } = reserveFrameSlice.actions
+export const { reservableFrameTicketMasterChanged } = reserveFrameSlice.actions
 
 export default reserveFrameSlice.reducer

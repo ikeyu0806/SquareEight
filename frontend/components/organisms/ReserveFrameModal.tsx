@@ -64,6 +64,7 @@ const ReserveFrameModal = (): JSX.Element => {
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
+  const monthlyPaymentPlans = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlans)
 
   const [isSetPrice, setIsSetPrice] = useState(true)
   const [enableLocalPayment, setEnableLocalPayment] = useState(false)
@@ -124,7 +125,8 @@ const ReserveFrameModal = (): JSX.Element => {
         reception_start_day_before: receptionStartDayBefore,
         cancel_reception: cancelReception,
         unreservable_frames: unreservableFrames,
-        resource_ids: resourceIds
+        resource_ids: resourceIds,
+        monthly_payment_plans: monthlyPaymentPlans
       },
     },
     {
@@ -143,6 +145,14 @@ const ReserveFrameModal = (): JSX.Element => {
     const startAt = unreservableFramesStartDate + ' ' + unreservableFramesStartTime
     const endAt = unreservableFramesEndDate + ' ' + unreservableFramesEndTime
     dispatch((unreservableFramesChanged([...unreservableFrames, { start_at: startAt, end_at: endAt }])))
+  }
+
+  const updateMonthlyPaymentPlans = (planId: number) => {
+
+  }
+
+  const updateTicketMasters = (ticketId: number) => {
+
   }
 
   const updateResourceIds = (resourceId: number) => {
@@ -486,7 +496,7 @@ const ReserveFrameModal = (): JSX.Element => {
                                             label={ticket.name}
                                             inline
                                             name='week'
-                                            onChange={() => setIsSetPrice(true)}
+                                            onChange={() => updateTicketMasters(ticket.id)}
                                             checked={isSetPrice} />
                                 <br />
                               </span>
@@ -500,20 +510,20 @@ const ReserveFrameModal = (): JSX.Element => {
                 <Form.Check label='回数券' checked={enableReservationTicket} onChange={() => setEnableReservationTicket(!enableReservationTicket)}></Form.Check>
                 {enableReservationTicket && 
                   <div className='ml20'>
-                    {selectableMonthlyPaymentPlans.map((plan, i) => {
+                    {selectableTicketMasters.map((ticket, i) => {
                       return (
                         <span key={i}>
                           <Form.Check type='checkbox'
-                                      label={plan.name}
+                                      label={ticket.name}
                                       inline
                                       name='oneWeek'
-                                      onChange={() => setIsSetPrice(false)}
+                                      onChange={() => updateTicketMasters(ticket.id)}
                                       checked={!isSetPrice} />
                           <Row>
                             <Col>
                             <Form.Group as={Row} className='mb-3'>
                               <Form.Label column sm={2}>
-                                予約後消費枚数
+                                消費枚数
                               </Form.Label>
                               <Col sm={2}>
                                 <Form.Control type='number' placeholder='1' />
