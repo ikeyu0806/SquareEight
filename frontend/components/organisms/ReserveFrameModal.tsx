@@ -32,7 +32,7 @@ import {  showReserveFrameModalChanged,
           cancelReceptionHourBeforeChanged,
           cancelReceptionDayBeforeChanged,
           unreservableFramesChanged, 
-          resourceIdsChanged} from 'redux/reserveFrameSlice'
+          resourceIdsChanged } from 'redux/reserveFrameSlice'
 import resourceSlice from 'redux/resourceSlice'
 
 const ReserveFrameModal = (): JSX.Element => {
@@ -73,9 +73,9 @@ const ReserveFrameModal = (): JSX.Element => {
   const [unreservableFramesStartTime, setUnreservableFramesStartTime] = useState('')
   const [unreservableFramesEndDate, setUnreservableFramesEndDate] = useState('')
   const [unreservableFramesEndTime, setUnreservableFramesEndTime] = useState('')
-  const [resources, setResources] = useState<ResourceParam[]>([])
-  const [ticketMasters, setTicketMasters] = useState<TicketMasterParam[]>([])
-  const [monthlyPaymentPlans, setMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam[]>([])
+  const [selectableResources, setSelectableResources] = useState<ResourceParam[]>([])
+  const [selectableTicketMasters, setSelectableTicketMasters] = useState<TicketMasterParam[]>([])
+  const [selectableMonthlyPaymentPlans, setSelectableMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam[]>([])
 
   useEffect(() => {
     const fetchResources = () => {
@@ -87,12 +87,13 @@ const ReserveFrameModal = (): JSX.Element => {
         }
       )
       .then(function (response) {
+        console.log(response)
         const resourceResponse: ResourceParam[] = response.data.resources
-        setResources(resourceResponse)
+        setSelectableResources(resourceResponse)
         const ticketMasterResponse: TicketMasterParam[] = response.data.ticket_masters
-        setTicketMasters(ticketMasterResponse)
+        setSelectableTicketMasters(ticketMasterResponse)
         const monthlyPaymentPlanResponse: MonthlyPaymentPlanParam[] = response.data.monthly_payment_plans
-        setMonthlyPaymentPlans(monthlyPaymentPlanResponse)
+        setSelectableMonthlyPaymentPlans(monthlyPaymentPlanResponse)
       })
       .catch(error => {
         console.log(error)
@@ -478,19 +479,19 @@ const ReserveFrameModal = (): JSX.Element => {
                     <Row>
                       <Col>
                         <Form.Group>
-                          <Form.Check type='checkbox'
-                                        label='隔週プラン'
-                                        inline
-                                        name='week'
-                                        onChange={() => setIsSetPrice(true)}
-                                        checked={isSetPrice} />
-                          <br />
-                          <Form.Check type='checkbox'
-                                      label='週1プラン'
-                                      inline
-                                      name='oneWeek'
-                                      onChange={() => setIsSetPrice(false)}
-                                      checked={!isSetPrice} />
+                          {selectableTicketMasters.map((ticket, i) => {
+                            return (
+                              <span key={i}>
+                                <Form.Check type='checkbox'
+                                            label={ticket.name}
+                                            inline
+                                            name='week'
+                                            onChange={() => setIsSetPrice(true)}
+                                            checked={isSetPrice} />
+                                <br />
+                              </span>
+                            )
+                          })}
                         </Form.Group>
                       </Col>
                     </Row>
@@ -499,27 +500,33 @@ const ReserveFrameModal = (): JSX.Element => {
                 <Form.Check label='回数券' checked={enableReservationTicket} onChange={() => setEnableReservationTicket(!enableReservationTicket)}></Form.Check>
                 {enableReservationTicket && 
                   <div className='ml20'>
-                    <Form.Check type='checkbox'
-                                      label='10000円 レッスン5回チケット'
+                    {selectableMonthlyPaymentPlans.map((plan, i) => {
+                      return (
+                        <span key={i}>
+                          <Form.Check type='checkbox'
+                                      label={plan.name}
                                       inline
                                       name='oneWeek'
                                       onChange={() => setIsSetPrice(false)}
                                       checked={!isSetPrice} />
-                    <Row>
-                      <Col>
-                      <Form.Group as={Row} className='mb-3'>
-                        <Form.Label column sm={2}>
-                          消費枚数
-                        </Form.Label>
-                        <Col sm={2}>
-                          <Form.Control type='number' placeholder='1' />
-                        </Col>
-                        <Form.Label column sm={2}>
-                          枚
-                        </Form.Label>
-                      </Form.Group>
-                      </Col>
-                    </Row>
+                          <Row>
+                            <Col>
+                            <Form.Group as={Row} className='mb-3'>
+                              <Form.Label column sm={2}>
+                                予約後消費枚数
+                              </Form.Label>
+                              <Col sm={2}>
+                                <Form.Control type='number' placeholder='1' />
+                              </Col>
+                              <Form.Label column sm={2}>
+                                枚
+                              </Form.Label>
+                            </Form.Group>
+                            </Col>
+                          </Row>
+                        </span>
+                      )
+                    })}
                   </div>
                 }
               </div>}
@@ -635,7 +642,7 @@ const ReserveFrameModal = (): JSX.Element => {
             {resourceSlice.length
             ?
               <>
-                {resources.map((resource, i) => {
+                {selectableResources.map((resource, i) => {
                 return (
                     <span key={i}>
                       <Form.Check
