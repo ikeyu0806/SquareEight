@@ -32,6 +32,19 @@ class Api::Internal::ReserveFramesController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def settable_relation_data
+    account = current_merchant_user.account
+    resources = account.resources
+    ticket_masters = account.ticket_masters
+    monthly_payment_plans = account.monthly_payment_plans
+    render json: { status: 'success',
+                   resources: resources,
+                   ticket_masters: ticket_masters,
+                   monthly_payment_plans: monthly_payment_plans }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def reserve_frame_params

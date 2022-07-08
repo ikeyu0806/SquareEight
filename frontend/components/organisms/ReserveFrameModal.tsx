@@ -7,6 +7,8 @@ import { RootState } from '../../redux/store'
 import axios from 'axios'
 import { alertChanged } from 'redux/alertSlice'
 import { ResourceParam } from 'interfaces/ResourceParam'
+import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
+import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import {  showReserveFrameModalChanged,
           startDateChanged,
           startTimeChanged,
@@ -72,11 +74,13 @@ const ReserveFrameModal = (): JSX.Element => {
   const [unreservableFramesEndDate, setUnreservableFramesEndDate] = useState('')
   const [unreservableFramesEndTime, setUnreservableFramesEndTime] = useState('')
   const [resources, setResources] = useState<ResourceParam[]>([])
+  const [ticketMasters, setTicketMasters] = useState<TicketMasterParam[]>([])
+  const [monthlyPaymentPlans, setMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam[]>([])
 
   useEffect(() => {
     const fetchResources = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/resources`, {
+        `${process.env.BACKEND_URL}/api/internal/reserve_frames/settable_relation_data`, {
           headers: { 
             'Session-Id': cookies._smartlesson_session
           },
@@ -85,6 +89,10 @@ const ReserveFrameModal = (): JSX.Element => {
       .then(function (response) {
         const resourceResponse: ResourceParam[] = response.data.resources
         setResources(resourceResponse)
+        const ticketMasterResponse: TicketMasterParam[] = response.data.ticket_masters
+        setTicketMasters(ticketMasterResponse)
+        const monthlyPaymentPlanResponse: MonthlyPaymentPlanParam[] = response.data.monthly_payment_plans
+        setMonthlyPaymentPlans(monthlyPaymentPlanResponse)
       })
       .catch(error => {
         console.log(error)

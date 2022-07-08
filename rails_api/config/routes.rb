@@ -43,8 +43,9 @@ Rails.application.routes.draw do
       post 'resources', to: 'resources#create'
       post 'business_hours/register', to: 'business_hours#register'
       post 'inquiry', to: 'inquiry#send_mail_to_admin'
-      get 'reserve_frames/:id', to: 'reserve_frames#show'
       get 'reserve_frames/reserve_events', to: 'reserve_frames#reserve_events'
+      get 'reserve_frames/settable_relation_data', to: 'reserve_frames#settable_relation_data'
+      get 'reserve_frames/:id', to: 'reserve_frames#show'
       post 'reserve_frames', to: 'reserve_frames#create'
     end
   end
