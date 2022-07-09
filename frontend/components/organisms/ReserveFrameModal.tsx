@@ -180,10 +180,9 @@ const ReserveFrameModal = (): JSX.Element => {
 
   const updateTicketMasterConsumeNumber = (ticketId: number, ticketRefNumber: number) => {
     let reservableFrameTicketMasterData: ReservableFrameTicketMasterParam[]
-    reservableFrameTicketMasterData = reservableFrameTicketMaster
-    if (reservableFrameTicketMasterData.find(ticketMaster => ticketMaster.ticket_master_id === ticketId) !== undefined) {
-      reservableFrameTicketMasterData.find(ticketMaster => ticketMaster.ticket_master_id === ticketId).consume_number = ticketRefNumber
-    }
+    reservableFrameTicketMasterData = reservableFrameTicketMaster.filter(ticketMaster => ticketMaster.ticket_master_id !== ticketId)
+    reservableFrameTicketMasterData.push({ticket_master_id: ticketId, consume_number: ticketRefNumber})
+    dispatch(reservableFrameTicketMasterChanged(reservableFrameTicketMasterData))
   }
 
   const updateResourceIds = (resourceId: number) => {
