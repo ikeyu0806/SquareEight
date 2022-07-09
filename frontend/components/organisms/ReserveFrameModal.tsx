@@ -178,6 +178,14 @@ const ReserveFrameModal = (): JSX.Element => {
     }
   }
 
+  const updateTicketMasterConsumeNumber = (ticketId: number, ticketRefNumber: number) => {
+    let reservableFrameTicketMasterData: ReservableFrameTicketMasterParam[]
+    reservableFrameTicketMasterData = reservableFrameTicketMaster
+    if (reservableFrameTicketMasterData.find(ticketMaster => ticketMaster.ticket_master_id === ticketId) !== undefined) {
+      reservableFrameTicketMasterData.find(ticketMaster => ticketMaster.ticket_master_id === ticketId).consume_number = ticketRefNumber
+    }
+  }
+
   const updateResourceIds = (resourceId: number) => {
     let filterResourceIds: number[]
     if (resourceIds.includes(resourceId)) {
@@ -554,6 +562,7 @@ const ReserveFrameModal = (): JSX.Element => {
                                   ref={ticketRefs.current[i]}
                                   defaultValue={1}
                                   type='number'
+                                  onChange={() => updateTicketMasterConsumeNumber(ticket.id, i)}
                                   min={1} />
                               </Col>
                               <Form.Label column sm={2}>
