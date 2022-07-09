@@ -21,7 +21,7 @@ import { ImageSlideState } from '../../../types/ImageSlideState'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_smartlesson_session'])
+  const [cookies] = useCookies(['_gybuilder_session'])
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
   const [header, setHeader] = useState<WebsiteHeaderType>({brandText: '', brandImage: '', bodyContent: []})
@@ -32,7 +32,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/webpages/${router.query.webpage_id}`, {
           headers: { 
-            'Session-Id': cookies._smartlesson_session
+            'Session-Id': cookies._gybuilder_session
           },
         }
       )
@@ -50,7 +50,7 @@ const Index: NextPage = () => {
       })
     }
     fetchWebpage()
-  }, [router.query.id, cookies._smartlesson_session, router.query.webpage_id, dispatch])
+  }, [router.query.id, cookies._gybuilder_session, router.query.webpage_id, dispatch])
 
   return (
     <>

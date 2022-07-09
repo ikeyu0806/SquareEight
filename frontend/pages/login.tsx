@@ -14,7 +14,7 @@ const Login: NextPage = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [cookies, setCookie, removeCookie] = useCookies(['_smartlesson_session'])
+  const [cookies, setCookie, removeCookie] = useCookies(['_gybuilder_session'])
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/sessions`,
@@ -24,7 +24,7 @@ const Login: NextPage = () => {
         password: password
       }
     }).then(response => {
-      setCookie('_smartlesson_session', response.data.session_id.public_id, { path: '/'})
+      setCookie('_gybuilder_session', response.data.session_id.public_id, { path: '/'})
       dispatch(alertChanged({message: '', show: false}))
       router.push('/admin/dashboard')
     }).catch(error => {

@@ -15,7 +15,7 @@ import { alertChanged } from '../../../../../redux/alertSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_smartlesson_session'])
+  const [cookies] = useCookies(['_gybuilder_session'])
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
   const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
@@ -26,7 +26,7 @@ const Edit: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/webpages/edit?id=${router.query.webpage_id}`, {
           headers: { 
-            'Session-Id': cookies._smartlesson_session
+            'Session-Id': cookies._gybuilder_session
           },
         }
       )
@@ -44,7 +44,7 @@ const Edit: NextPage = () => {
       })
     }
     fetchWebpage()
-  }, [router.query.id, cookies._smartlesson_session, router.query.webpage_id, dispatch])
+  }, [router.query.id, cookies._gybuilder_session, router.query.webpage_id, dispatch])
 
   const updateWebpage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/webpages/update`,
@@ -58,7 +58,7 @@ const Edit: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._smartlesson_session
+        'Session-Id': cookies._gybuilder_session
       }
     }).then(response => {
       router.push(`/admin/homepage/${router.query.website_id}/webpages`)

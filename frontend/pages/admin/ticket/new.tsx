@@ -13,7 +13,7 @@ import { alertChanged } from 'redux/alertSlice'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_smartlesson_session'])
+  const [cookies] = useCookies(['_gybuilder_session'])
   const router = useRouter()
   const name = useSelector((state: RootState) => state.ticketMaster.name)
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
@@ -30,7 +30,7 @@ const New: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._smartlesson_session
+        'Session-Id': cookies._gybuilder_session
       }
     }).then(response => {
       dispatch(alertChanged({message: '登録しました', show: true}))

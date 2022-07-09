@@ -16,7 +16,7 @@ const Home: NextPage = () => {
     <>
       <Navbar collapseOnSelect expand='lg' bg='light'>
         <Container>
-          <Navbar.Brand href='#home'>SmartLesson</Navbar.Brand>
+          <Navbar.Brand href='#home'>GYBuilder</Navbar.Brand>
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
           <Navbar.Collapse id='responsive-navbar-nav'>
             <Nav className='me-auto'>

@@ -20,10 +20,10 @@ const ShopCheckoutEdit = (): JSX.Element => {
               <Card.Body>
               <h4>ご購入にはユーザ登録が必要となります</h4>
                 <hr />
-                <h5>SmartLessonIDをお持ちの方</h5>
-                <Button className='mt10' variant='dark'>SmartLessonIDで支払う</Button>
+                <h5>GYBuilderIDをお持ちの方</h5>
+                <Button className='mt10' variant='dark'>GYBuilderIDで支払う</Button>
                 <hr />
-                <h5>SmartLessonIDをお持ちでない方</h5>
+                <h5>GYBuilderIDをお持ちでない方</h5>
                 <Form.Label className='mt30'>メールアドレス</Form.Label>
                 <Form.Control></Form.Control>
                 <Form.Label className='mt10'>パスワード</Form.Label>

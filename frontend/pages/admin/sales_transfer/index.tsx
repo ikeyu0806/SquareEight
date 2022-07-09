@@ -11,7 +11,7 @@ import { StripeAccountParam } from 'interfaces/StripeAccountParam'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_smartlesson_session'])
+  const [cookies] = useCookies(['_gybuilder_session'])
   const router = useRouter()
 
   const [stripeAccount, setStripeAccount] = useState<StripeAccountParam>()
@@ -22,7 +22,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/accounts/stripe_connected_account`, {
           headers: { 
-            'Session-Id': cookies._smartlesson_session
+            'Session-Id': cookies._gybuilder_session
           },
         }
       )
@@ -37,7 +37,7 @@ const Index: NextPage = () => {
       })
     }
     fetchStripeConnectedAccount()
-  }, [router.query.id, cookies._smartlesson_session, dispatch])
+  }, [router.query.id, cookies._gybuilder_session, dispatch])
 
   return (
     <>

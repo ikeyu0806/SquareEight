@@ -11,7 +11,7 @@ const CommonNavbar = () => {
     <>
       <Navbar collapseOnSelect expand='lg'>
         <Container>
-          <Navbar.Brand href='/'>SmartLesson</Navbar.Brand>
+          <Navbar.Brand href='/'>GYBuilder</Navbar.Brand>
         </Container>
       </Navbar>
       {alert.show && <Alert variant={alert.type} onClose={() => dispatch(alertChanged({message: '', show: false}))} dismissible>

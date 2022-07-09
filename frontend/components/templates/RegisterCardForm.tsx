@@ -17,7 +17,7 @@ const RegisterCardForm = () => {
   const [token, setToken] = useState<any>()
   const stripe = useStripe()
   const elements = useElements()
-  const [cookies] = useCookies(['_smartlesson_session'])
+  const [cookies] = useCookies(['_gybuilder_session'])
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -45,7 +45,7 @@ const RegisterCardForm = () => {
           },
           {
             headers: {
-              'Session-Id': cookies._smartlesson_session
+              'Session-Id': cookies._gybuilder_session
             }
           }).then(response => {
             dispatch(alertChanged({message: '登録しました', show: true}))

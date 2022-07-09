@@ -1,8 +1,8 @@
 version: '3'
 
 services:
-  smartlesson_frontend:
-    container_name: smartlesson_frontend
+  gybuilder_frontend:
+    container_name: gybuilder_frontend
     build:
       context: frontend
       dockerfile: docker/Dockerfile
@@ -12,9 +12,9 @@ services:
     ports:
       - 3111:3000
     networks:
-      - smartlesson_network
-  smartlesson_rails_api:
-    container_name: smartlesson_rails_api
+      - gybuilder_network
+  gybuilder_rails_api:
+    container_name: gybuilder_rails_api
     build:
       context: rails_api
       dockerfile: docker/app/Dockerfile
@@ -27,11 +27,11 @@ services:
     ports:
       - 3222:3000
     # depends_on:
-    #   - smartlesson_postgresql
+    #   - gybuilder_postgresql
     networks:
-      - smartlesson_network
-  smartlesson_postgresql:
-    container_name: smartlesson_postgresql
+      - gybuilder_network
+  gybuilder_postgresql:
+    container_name: gybuilder_postgresql
     build:
       context: rails_api
       dockerfile: docker/postgresql/Dockerfile
@@ -41,9 +41,9 @@ services:
     ports:
       - "54322:5432"
     networks:
-      - smartlesson_network
+      - gybuilder_network
   redis:
-    container_name: smartlesson_redis
+    container_name: gybuilder_redis
     build:
       context: ./rails_api
       dockerfile: docker/redis/Dockerfile
@@ -52,7 +52,7 @@ services:
     ports:
       - "26379:6379"
     networks:
-      - smartlesson_network
+      - gybuilder_network
 
 networks:
-  smartlesson_network:
+  gybuilder_network:

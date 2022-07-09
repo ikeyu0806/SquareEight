@@ -14,7 +14,7 @@ import { alertChanged } from '../../redux/alertSlice'
 const CreateHomepage: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const [cookies] = useCookies(['_smartlesson_session'])
+  const [cookies] = useCookies(['_gybuilder_session'])
   const websiteTag = useSelector((state: RootState) => state.homepage.websiteTag)
 
   const createHomepage = () => {
@@ -26,7 +26,7 @@ const CreateHomepage: NextPage = () => {
     },
     {
       headers: { 
-        'Session-Id': cookies._smartlesson_session
+        'Session-Id': cookies._gybuilder_session
       }
     }).then(response => {
       router.push(`/introduction/${response.data.website_id}/create_webpage`)

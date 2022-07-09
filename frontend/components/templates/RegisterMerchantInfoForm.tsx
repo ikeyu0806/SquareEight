@@ -12,7 +12,7 @@ import StripeTerm from 'components/organisms/StripeTerm'
 
 const RegisterMerchantInfoForm = () => {
   const [businessType, setBusinessType] = useState('individual')
-  const [cookies] = useCookies(['_smartlesson_session'])
+  const [cookies] = useCookies(['_gybuilder_session'])
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -70,7 +70,7 @@ const RegisterMerchantInfoForm = () => {
     },
     {
       headers: { 
-        'Session-Id': cookies._smartlesson_session
+        'Session-Id': cookies._gybuilder_session
       }
     }).then(response => {
       router.push('/admin/sales_transfer')
