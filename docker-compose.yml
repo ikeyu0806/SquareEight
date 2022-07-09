@@ -26,8 +26,8 @@ services:
     stdin_open: true
     ports:
       - 3222:3000
-    # depends_on:
-    #   - gybuilder_postgresql
+    depends_on:
+      - gybuilder_postgresql
     networks:
       - gybuilder_network
   gybuilder_postgresql:
