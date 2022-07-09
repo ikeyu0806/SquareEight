@@ -1,4 +1,4 @@
-import React, { useState, useEffect, ChangeEvent } from 'react'
+import React, { useState, useEffect, ChangeEvent, useRef, createRef } from 'react'
 import { useRouter } from 'next/router'
 import { Modal, Button, Form, Col, Row } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
@@ -9,6 +9,7 @@ import { alertChanged } from 'redux/alertSlice'
 import { ResourceParam } from 'interfaces/ResourceParam'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
+import { ReservableFrameTicketMasterParam } from 'interfaces/ReservableFrameTicketMasterParam'
 import {  showReserveFrameModalChanged,
           startDateChanged,
           startTimeChanged,
@@ -33,7 +34,8 @@ import {  showReserveFrameModalChanged,
           cancelReceptionDayBeforeChanged,
           unreservableFramesChanged, 
           resourceIdsChanged,
-          monthlyPaymentPlanIdsChanged } from 'redux/reserveFrameSlice'
+          monthlyPaymentPlanIdsChanged,
+          reservableFrameTicketMasterChanged } from 'redux/reserveFrameSlice'
 import resourceSlice from 'redux/resourceSlice'
 
 const ReserveFrameModal = (): JSX.Element => {
@@ -66,6 +68,7 @@ const ReserveFrameModal = (): JSX.Element => {
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
+  const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
 
   const [isSetPrice, setIsSetPrice] = useState(true)
   const [enableLocalPayment, setEnableLocalPayment] = useState(false)
@@ -78,6 +81,7 @@ const ReserveFrameModal = (): JSX.Element => {
   const [selectableResources, setSelectableResources] = useState<ResourceParam[]>([])
   const [selectableTicketMasters, setSelectableTicketMasters] = useState<TicketMasterParam[]>([])
   const [selectableMonthlyPaymentPlans, setSelectableMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam[]>([])
+  const ticketRefs = useRef<any>([])
 
   useEffect(() => {
     const fetchResources = () => {
@@ -96,6 +100,7 @@ const ReserveFrameModal = (): JSX.Element => {
         setSelectableTicketMasters(ticketMasterResponse)
         const monthlyPaymentPlanResponse: MonthlyPaymentPlanParam[] = response.data.monthly_payment_plans
         setSelectableMonthlyPaymentPlans(monthlyPaymentPlanResponse)
+        ticketRefs.current = ticketMasterResponse.map((_, i) => ticketRefs.current[i] ?? createRef())
       })
       .catch(error => {
         console.log(error)
@@ -161,8 +166,16 @@ const ReserveFrameModal = (): JSX.Element => {
     }
   }
 
-  const updateTicketMasters = (ticketId: number) => {
-
+  const updateTicketMasters = (e: ChangeEvent, ticketId: number, ticketRefNumber: number) => {
+    const target = e.target as any
+    let reservableFrameTicketMasterData: ReservableFrameTicketMasterParam[]
+    if (target.checked === true) {
+      reservableFrameTicketMasterData = [...reservableFrameTicketMaster, { ticket_master_id: ticketId, consume_number: ticketRefs.current[ticketRefNumber].current?.value }]
+      dispatch(reservableFrameTicketMasterChanged(reservableFrameTicketMasterData))
+    } else {
+      reservableFrameTicketMasterData = reservableFrameTicketMaster.filter(ticketMaster => ticketMaster.ticket_master_id !== ticketId)
+      dispatch(reservableFrameTicketMasterChanged(reservableFrameTicketMasterData))
+    }
   }
 
   const updateResourceIds = (resourceId: number) => {
@@ -170,6 +183,7 @@ const ReserveFrameModal = (): JSX.Element => {
     if (resourceIds.includes(resourceId)) {
       filterResourceIds = resourceIds.filter((id) => id !== resourceId)
     } else {
+
       filterResourceIds = [...resourceIds, resourceId]
     }
     dispatch(resourceIdsChanged(filterResourceIds))
@@ -527,8 +541,8 @@ const ReserveFrameModal = (): JSX.Element => {
                                       label={ticket.name}
                                       inline
                                       name='oneWeek'
-                                      onChange={() => updateTicketMasters(ticket.id)}
-                                      checked={!isSetPrice} />
+                                      onChange={(e) => updateTicketMasters(e, ticket.id, i)}
+                                      checked={reservableFrameTicketMaster.map((json) => json.ticket_master_id).includes(ticket.id)} />
                           <Row>
                             <Col>
                             <Form.Group as={Row} className='mb-3'>
@@ -536,7 +550,11 @@ const ReserveFrameModal = (): JSX.Element => {
                                 消費枚数
                               </Form.Label>
                               <Col sm={2}>
-                                <Form.Control type='number' placeholder='1' />
+                                <Form.Control
+                                  ref={ticketRefs.current[i]}
+                                  defaultValue={1}
+                                  type='number'
+                                  min={1} />
                               </Col>
                               <Form.Label column sm={2}>
                                 枚

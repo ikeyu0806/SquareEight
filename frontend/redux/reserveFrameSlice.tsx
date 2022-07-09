@@ -113,7 +113,7 @@ export const reserveFrameSlice = createSlice({
     monthlyPaymentPlanIdsChanged: (state, action: PayloadAction<number[]>) => {
       state.monthlyPaymentPlanIds = action.payload
     },
-    reservableFrameTicketMasterChanged: (state, action: PayloadAction<[]>) => {
+    reservableFrameTicketMasterChanged: (state, action: PayloadAction<ReservableFrameTicketMasterParam[]>) => {
       state.reservableFrameTicketMaster = action.payload
     },
   },
