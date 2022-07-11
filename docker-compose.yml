@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  gybuilder_frontend:
+  frontend:
     container_name: gybuilder_frontend
     build:
       context: frontend
@@ -13,7 +13,7 @@ services:
       - 3111:3000
     networks:
       - gybuilder_network
-  gybuilder_rails_api:
+  rails_api:
     container_name: gybuilder_rails_api
     build:
       context: rails_api
@@ -27,10 +27,11 @@ services:
     ports:
       - 3222:3000
     depends_on:
-      - gybuilder_postgresql
+      - postgresql
+      - redis
     networks:
       - gybuilder_network
-  gybuilder_postgresql:
+  postgresql:
     container_name: gybuilder_postgresql
     build:
       context: rails_api
