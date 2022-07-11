@@ -9,18 +9,31 @@ class Api::Internal::ReserveFramesController < ApplicationController
   end
 
   def create
-    reserve_frame = current_merchant_user.account.reserve_frames.new(reserve_frame_params.except(:unreservable_frames, :resource_ids, :reservable_frame_ticket_master))
-    reserve_frame_params[:unreservable_frames].each do |frame|
-      reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
-    end
-    if reserve_frame_params[:resource_ids].present?
-      reserve_frame.reserve_frame_resorces.delete_all
-      reserve_frame_params[:resource_ids].each do |resource_id|
-        reserve_frame.reserve_frame_resorces.new(resource_id: resource_id)
+    ActiveRecord::Base.transaction do
+      reserve_frame = current_merchant_user.account.reserve_frames
+                      .new(reserve_frame_params.except(:unreservable_frames,
+                                                       :repeat_interval_number_month_date,
+                                                       :resource_ids,
+                                                       :monthly_payment_plan_ids,
+                                                       :reservable_frame_ticket_master))
+      reserve_frame_params[:unreservable_frames].each do |frame|
+        reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
       end
+      if reserve_frame_params[:resource_ids].present?
+        reserve_frame.reserve_frame_resorces.delete_all
+        reserve_frame_params[:resource_ids].each do |resource_id|
+          reserve_frame.reserve_frame_resorces.new(resource_id: resource_id)
+        end
+      end
+      reserve_frame_params[:monthly_payment_plan_ids].each do |plan_id|
+        reserve_frame.reserve_frame_monthly_payment_plans.new(monthly_payment_plan_id: plan_id)
+      end
+      reserve_frame_params[:reservable_frame_ticket_master].each do |ticket_master|
+        reserve_frame.reserve_frame_ticket_masters.new(ticket_master)
+      end
+      reserve_frame.save!
+      render json: { status: 'success' }, states: 200
     end
-    reserve_frame.save!
-    render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -60,6 +73,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :repeat_interval_number_week,
                   :repeat_interval_number_month,
                   :repeat_interval_month_date,
+                  :repeat_interval_number_month_date,
                   :repeat_end_date,
                   :capacity,
                   :local_payment_price,
@@ -70,6 +84,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :cancel_reseption_hour_before,
                   :cancel_reseption_day_before,
                   resource_ids: [],
+                  monthly_payment_plan_ids: [],
                   unreservable_frames: [:start_at, :end_at],
                   reservable_frame_ticket_master: [:ticket_master_id, :consume_number])
   end
