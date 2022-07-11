@@ -32,6 +32,9 @@ import {  showReserveFrameModalChanged,
           cancelReceptionChanged,
           cancelReceptionHourBeforeChanged,
           cancelReceptionDayBeforeChanged,
+          isLocalPaymentEnableChanged,
+          isTicketPaymentEnableChanged,
+          isMonthlyPlanPaymentEnableChanged,
           unreservableFramesChanged, 
           resourceIdsChanged,
           monthlyPaymentPlanIdsChanged,
@@ -66,6 +69,9 @@ const ReserveFrameModal = (): JSX.Element => {
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
+  const isLocalPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isLocalPaymentEnable)
+  const isTicketPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isTicketPaymentEnable)
+  const isMonthlyPlanPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isMonthlyPlanPaymentEnable)
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
@@ -93,7 +99,6 @@ const ReserveFrameModal = (): JSX.Element => {
         }
       )
       .then(function (response) {
-        console.log(response)
         const resourceResponse: ResourceParam[] = response.data.resources
         setSelectableResources(resourceResponse)
         const ticketMasterResponse: TicketMasterParam[] = response.data.ticket_masters
@@ -132,6 +137,9 @@ const ReserveFrameModal = (): JSX.Element => {
         cancel_reception: cancelReception,
         unreservable_frames: unreservableFrames,
         resource_ids: resourceIds,
+        is_local_payment_enable: isLocalPaymentEnable,
+        is_ticket_payment_enable: isTicketPaymentEnable,
+        is_monthly_plan_payment_enable: isMonthlyPlanPaymentEnable,
         monthly_payment_plan_ids: monthlyPaymentPlanIds,
         reservable_frame_ticket_master: reservableFrameTicketMaster
       },
@@ -498,8 +506,8 @@ const ReserveFrameModal = (): JSX.Element => {
               </Row>
               {isSetPrice &&
               <div className='ml10'>
-                <Form.Check label='現地払い' checked={enableLocalPayment} onChange={() => setEnableLocalPayment(!enableLocalPayment)}></Form.Check>
-                {enableLocalPayment && <Row>
+                <Form.Check label='現地払い' checked={isLocalPaymentEnable} onChange={() => dispatch(isLocalPaymentEnableChanged(!isLocalPaymentEnable))}></Form.Check>
+                {isLocalPaymentEnable && <Row>
                   <Col>
                     <Form.Group as={Row} className='mb-3'>
                       <Col sm={3}>
@@ -515,8 +523,8 @@ const ReserveFrameModal = (): JSX.Element => {
                     </Form.Group>
                   </Col>
                 </Row>}
-                <Form.Check label='月額課金' checked={enableMonthlyPayment} onChange={() => setEnableMonthlyPayment(!enableMonthlyPayment)}></Form.Check>
-                {enableMonthlyPayment && 
+                <Form.Check label='月額課金' checked={isMonthlyPlanPaymentEnable} onChange={() => dispatch(isMonthlyPlanPaymentEnableChanged(!isMonthlyPlanPaymentEnable))}></Form.Check>
+                {isMonthlyPlanPaymentEnable && 
                   <div className='ml20'>
                     <Row>
                       <Col>
@@ -539,8 +547,8 @@ const ReserveFrameModal = (): JSX.Element => {
                     </Row>
                   </div>
                 }
-                <Form.Check label='回数券' checked={enableReservationTicket} onChange={() => setEnableReservationTicket(!enableReservationTicket)}></Form.Check>
-                {enableReservationTicket && 
+                <Form.Check label='回数券' checked={isTicketPaymentEnable} onChange={() => dispatch(isTicketPaymentEnableChanged(!isTicketPaymentEnable))}></Form.Check>
+                {isTicketPaymentEnable && 
                   <div className='ml20'>
                     {selectableTicketMasters.map((ticket, i) => {
                       return (

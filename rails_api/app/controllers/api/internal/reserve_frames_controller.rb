@@ -10,6 +10,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
+      binding.pry
       reserve_frame = current_merchant_user.account.reserve_frames
                       .new(reserve_frame_params.except(:unreservable_frames,
                                                        :repeat_interval_number_month_date,
@@ -25,11 +26,15 @@ class Api::Internal::ReserveFramesController < ApplicationController
           reserve_frame.reserve_frame_resorces.new(resource_id: resource_id)
         end
       end
-      reserve_frame_params[:monthly_payment_plan_ids].each do |plan_id|
-        reserve_frame.reserve_frame_monthly_payment_plans.new(monthly_payment_plan_id: plan_id)
+      if reserve_frame.reserve_frame.is_monthly_plan_payment_enable?
+        reserve_frame_params[:monthly_payment_plan_ids].each do |plan_id|
+          reserve_frame.reserve_frame_monthly_payment_plans.new(monthly_payment_plan_id: plan_id)
+        end
       end
-      reserve_frame_params[:reservable_frame_ticket_master].each do |ticket_master|
-        reserve_frame.reserve_frame_ticket_masters.new(ticket_master)
+      if reserve_frame.is_ticket_payment_enable?
+        reserve_frame_params[:reservable_frame_ticket_master].each do |ticket_master|
+          reserve_frame.reserve_frame_ticket_masters.new(ticket_master)
+        end
       end
       reserve_frame.save!
       render json: { status: 'success' }, states: 200
@@ -83,6 +88,9 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :cancel_reception,
                   :cancel_reseption_hour_before,
                   :cancel_reseption_day_before,
+                  :is_local_payment_enable,
+                  :is_ticket_payment_enable,
+                  :is_monthly_plan_payment_enable,
                   resource_ids: [],
                   monthly_payment_plan_ids: [],
                   unreservable_frames: [:start_at, :end_at],
