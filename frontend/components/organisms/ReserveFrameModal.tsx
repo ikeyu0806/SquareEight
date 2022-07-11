@@ -132,7 +132,8 @@ const ReserveFrameModal = (): JSX.Element => {
         cancel_reception: cancelReception,
         unreservable_frames: unreservableFrames,
         resource_ids: resourceIds,
-        monthly_payment_plan_ids: monthlyPaymentPlanIds
+        monthly_payment_plan_ids: monthlyPaymentPlanIds,
+        reservable_frame_ticket_master: reservableFrameTicketMaster
       },
     },
     {
@@ -181,7 +182,7 @@ const ReserveFrameModal = (): JSX.Element => {
   const updateTicketMasterConsumeNumber = (ticketId: number, ticketRefNumber: number) => {
     let reservableFrameTicketMasterData: ReservableFrameTicketMasterParam[]
     reservableFrameTicketMasterData = reservableFrameTicketMaster.filter(ticketMaster => ticketMaster.ticket_master_id !== ticketId)
-    reservableFrameTicketMasterData.push({ticket_master_id: ticketId, consume_number: ticketRefNumber})
+    reservableFrameTicketMasterData.push({ticket_master_id: ticketId, consume_number: ticketRefs.current[ticketRefNumber].current?.value })
     dispatch(reservableFrameTicketMasterChanged(reservableFrameTicketMasterData))
   }
 

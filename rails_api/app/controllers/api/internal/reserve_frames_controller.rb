@@ -9,7 +9,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
   end
 
   def create
-    reserve_frame = current_merchant_user.account.reserve_frames.new(reserve_frame_params.except(:unreservable_frames, :resource_ids))
+    reserve_frame = current_merchant_user.account.reserve_frames.new(reserve_frame_params.except(:unreservable_frames, :resource_ids, :reservable_frame_ticket_master))
     reserve_frame_params[:unreservable_frames].each do |frame|
       reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
     end
@@ -70,6 +70,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :cancel_reseption_hour_before,
                   :cancel_reseption_day_before,
                   resource_ids: [],
-                  unreservable_frames: [:start_at, :end_at])
+                  unreservable_frames: [:start_at, :end_at],
+                  reservable_frame_ticket_master: [:ticket_master_id, :consume_number])
   end
 end

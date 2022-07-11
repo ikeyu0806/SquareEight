@@ -4,8 +4,8 @@ export const ticketMasterSlice = createSlice({
   name: 'alert',
   initialState: {
     name: '',
-    price: 0,
-    issueNumber: 0
+    price: 1000,
+    issueNumber: 100
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
