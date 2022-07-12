@@ -8,12 +8,13 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import axios from 'axios'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
-import reserveFrameSlice from 'redux/reserveFrameSlice'
+import { ReserveFramePaymentMethodParam } from 'interfaces/ReserveFramePaymentMethodParam'
 
 const EndUserReserveCalendar = (): JSX.Element => {
   const events = useSelector((state: RootState) => state.reserveFrame.reserveEvents)
   const [showModal, setShowModal] = useState(false)
   const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>({title: '', description: ''})
+  const [reserveFramePaymentMethod, setReserveFramePaymentMethod] = useState<ReserveFramePaymentMethodParam>()
 
   const onEventClick = (eventId: string) => {
     const fetchReserveFrame = () => {
@@ -24,6 +25,7 @@ const EndUserReserveCalendar = (): JSX.Element => {
         const reserveFrameResponse: ReserveFrameParam = response.data.reserve_frame
         setReserveFrame(reserveFrameResponse)
         setShowModal(true)
+        setReserveFramePaymentMethod(response.data.payment_method)
       })
       .catch(error => {
         console.log(error)
@@ -49,6 +51,8 @@ const EndUserReserveCalendar = (): JSX.Element => {
             <div>{reserveFrame.start_at && <>開始日時 {reserveFrame?.start_at || ''}</>}</div>
             <div>{reserveFrame.description}</div>
             <br />
+            {reserveFramePaymentMethod?.local_payment_price && 
+            <label>現地払い料金: {reserveFramePaymentMethod?.local_payment_price}</label>}
             <Button variant='primary'>予約する</Button>
           </Modal.Body>
           <Modal.Footer>
