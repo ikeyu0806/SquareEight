@@ -10,7 +10,6 @@ class Api::Internal::ReserveFramesController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      binding.pry
       reserve_frame = current_merchant_user.account.reserve_frames
                       .new(reserve_frame_params.except(:unreservable_frames,
                                                        :repeat_interval_number_month_date,

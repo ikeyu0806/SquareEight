@@ -18,7 +18,7 @@ class Account < ApplicationRecord
             result << {
               start: date,
               title: frame.title,
-              id: frame.id
+              url: '/reserve/' + frame.id.to_s
             }
           end
         when 'Week' then
@@ -26,7 +26,7 @@ class Account < ApplicationRecord
             result << {
               start: date,
               title: frame.title,
-              id: frame.id
+              url: '/reserve/' + frame.id.to_s
             }
           end
         when 'Month' then
@@ -34,7 +34,7 @@ class Account < ApplicationRecord
             result << {
               start: date,
               title: frame.title,
-              id: frame.id
+              url: '/reserve/' + frame.id.to_s
             }
           end
         else
@@ -43,7 +43,7 @@ class Account < ApplicationRecord
         result << {
           start: frame.start_at,
           title: frame.title,
-          id: frame.id
+          url: '/reserve/' + frame.id.to_s
         }
       end
     end

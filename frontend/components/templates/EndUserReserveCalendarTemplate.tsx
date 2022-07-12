@@ -16,31 +16,12 @@ const EndUserReserveCalendar = (): JSX.Element => {
   const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>({title: '', description: ''})
   const [reserveFramePaymentMethod, setReserveFramePaymentMethod] = useState<ReserveFramePaymentMethodParam>()
 
-  const onEventClick = (eventId: string) => {
-    const fetchReserveFrame = () => {
-      axios.get(
-        `${process.env.BACKEND_URL}/api/internal/reserve_frames/${eventId}`
-      )
-      .then(function (response) {
-        const reserveFrameResponse: ReserveFrameParam = response.data.reserve_frame
-        setReserveFrame(reserveFrameResponse)
-        setShowModal(true)
-        setReserveFramePaymentMethod(response.data.payment_method)
-      })
-      .catch(error => {
-        console.log(error)
-      })
-    }
-    fetchReserveFrame()
-  }
-
   return(
     <>
       <Container>
         <FullCalendar plugins={[dayGridPlugin, interactionPlugin]}
                       initialView='dayGridMonth'
                       selectable={true}
-                      eventClick={(info) => onEventClick(info.event.id)}
                       locales={allLocales}
                       locale='ja'
                       events={events} />
