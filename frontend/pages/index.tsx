@@ -26,10 +26,10 @@ const Home: NextPage = () => {
               <Nav.Link href='#inquiry'>お問い合わせ</Nav.Link>
             </Nav>
             <Nav>
-              <Nav.Link href='/login'>
+              <Nav.Link href='/merchant/login'>
                 <Button>ログイン</Button>
               </Nav.Link>
-              <Nav.Link href='/signup'>
+              <Nav.Link href='/merchant/signup'>
                 <Button>無料でお試し</Button>
               </Nav.Link>
             </Nav>

@@ -1,13 +1,13 @@
 import React, { useState } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
-import IntroductionNavbar from '../components/templates/IntroductionNavbar'
-import RegularFooter from '../components/organisms/RegularFooter'
+import IntroductionNavbar from '../../components/templates/IntroductionNavbar'
+import RegularFooter from '../../components/organisms/RegularFooter'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
-import { alertChanged } from '../redux/alertSlice'
+import { alertChanged } from '../../redux/alertSlice'
 
 const Login: NextPage = () => {
   const dispatch = useDispatch()
