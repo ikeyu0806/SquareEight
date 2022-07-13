@@ -1,4 +1,4 @@
-class Api::Internal::SessionsController < ApplicationController
+class Api::Internal::Merchant::SessionsController < ApplicationController
   def create
     merchant_user = MerchantUser.find_by(email: merchant_user_params[:email])
     raise "メールアドレスとパスワードが一致しません" unless merchant_user.authenticate(merchant_user_params[:password])

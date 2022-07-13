@@ -14,19 +14,19 @@ const Login: NextPage = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [cookies, setCookie, removeCookie] = useCookies(['_gybuilder_session'])
+  const [cookies, setCookie] = useCookies(['_gybuilder_end_user_session'])
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/merchant/sessions`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/sessions`,
     {
-      merchant_user: {
+      end_user: {
         email: email,
         password: password
       }
     }).then(response => {
-      setCookie('_gybuilder_session', response.data.session_id.public_id, { path: '/'})
+      setCookie('_gybuilder_end_user_session', response.data.session_id.public_id, { path: '/'})
       dispatch(alertChanged({message: '', show: false}))
-      router.push('/admin/dashboard')
+      router.push('/customer_admin/dashboard')
     }).catch(error => {
       dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
     })

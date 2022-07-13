@@ -13,8 +13,6 @@ Rails.application.routes.draw do
       post 'accounts/register_stripe_bank_account', to: 'accounts#register_stripe_bank_account'
       post 'accounts/update_selected_bank_account', to: 'accounts#update_selected_bank_account'
       delete 'accounts/delete_bank_account/:external_account_id', to: 'accounts#delete_bank_account'
-      post 'sessions', to: 'sessions#create'
-      delete 'sessions', to: 'sessions#destroy'
       post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'
       post 'merchant_users', to: 'merchant_users#create'
       get 'homepages/:id/shared_component', to: 'homepages#shared_component'
@@ -47,6 +45,14 @@ Rails.application.routes.draw do
       get 'reserve_frames/settable_relation_data', to: 'reserve_frames#settable_relation_data'
       get 'reserve_frames/:id', to: 'reserve_frames#show'
       post 'reserve_frames', to: 'reserve_frames#create'
+      namespace :merchant do
+        post 'sessions', to: 'sessions#create'
+        delete 'sessions', to: 'sessions#destroy'
+      end
+      namespace :end_user do
+        post 'sessions', to: 'sessions#create'
+        delete 'sessions', to: 'sessions#destroy'
+      end
     end
   end
 

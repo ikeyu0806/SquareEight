@@ -27,7 +27,7 @@ const Home: NextPage = () => {
             </Nav>
             <Nav>
               <Nav.Link href='/merchant/login'>
-                <Button>ログイン</Button>
+                <Button>ビジネスアカウントログイン</Button>
               </Nav.Link>
               <Nav.Link href='/merchant/signup'>
                 <Button>無料でお試し</Button>
@@ -39,7 +39,7 @@ const Home: NextPage = () => {
       <Container className='mt20' id='about'>
         <Row>
           <Col>
-            <h2>習い事・教室・レッスン運営支援サービス</h2>
+            <h2>ノーコードホームページ作成サービス</h2>
             <br />
             <h4>ホームページ作成、予約管理、決済、顧客とのコミュニケーションをサポートします</h4>
           </Col>
