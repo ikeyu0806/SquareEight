@@ -1,10 +1,9 @@
-class CreateMerchantUsers < ActiveRecord::Migration[7.0]
+class CreateEndUsers < ActiveRecord::Migration[7.0]
   def change
-    create_table :merchant_users do |t|
-      t.integer :account_id
+    create_table :end_users do |t|
       t.string :email, null: false
-      t.string :phone_number
       t.string :name
+      t.string :phone_number
       t.string :password_digest
       t.integer :authority_category, default: 0
       t.boolean :is_introduction_complete
@@ -14,6 +13,6 @@ class CreateMerchantUsers < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
-    add_index :merchant_users, :email, unique: true
+    add_index :end_users, :email, unique: true
   end
 end
