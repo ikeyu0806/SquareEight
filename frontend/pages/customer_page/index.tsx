@@ -16,10 +16,10 @@ const Index: NextPage = () => {
                 <Card.Body>
                   <table className='table'>
                     <tbody>
-                    <tr>
-                      <td scope='row'>メールアドレス</td>
-                      <td className='text-center'>sample.com</td>
-                    </tr>
+                      <tr>
+                        <td scope='row'>メールアドレス</td>
+                        <td className='text-center'>sample.com</td>
+                      </tr>
                     </tbody>
                   </table>
                 </Card.Body>

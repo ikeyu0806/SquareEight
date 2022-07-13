@@ -31,15 +31,12 @@ const CustomerPageNavbar = (): JSX.Element => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='me-auto'>
-              <Nav.Link href='/admin/dashboard'>ダッシュボード</Nav.Link>
-              <NavDropdown title='ホームページ' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/homepage'>ホームページ一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/homepage/new'>ホームページ新規作成</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/homepage/new'>ブログ記事一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/homepage/new'>ブログ記事投稿</NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link href='/customer_page/ticket'>回数券</Nav.Link>
+              <Nav.Link href='/customer_page/monthly_payment_plan'>月額課金</Nav.Link>
+              <Nav.Link href='/customer_page/reserve'>予約確認</Nav.Link>
+              <Nav.Link href='/customer_page/book_mark'>ブックマーク</Nav.Link>
               <NavDropdown title='アカウント設定' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
+                <NavDropdown.Item href='/customer_page/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
                 <NavDropdown.Item href=''>プラン変更・退会</NavDropdown.Item>
                 <NavDropdown.Item href=''>お支払い履歴</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
