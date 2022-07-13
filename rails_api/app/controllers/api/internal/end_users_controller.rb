@@ -38,6 +38,7 @@ class Api::Internal::EndUsersController < ApplicationController
     params.require(:end_user).permit(:id,
                                      :email,
                                      :password,
-                                     :password_confirmation)
+                                     :password_confirmation,
+                                     :verification_code)
   end
 end
