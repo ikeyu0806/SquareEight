@@ -11,7 +11,7 @@ const Index: NextPage = () => {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
   const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>({title: '', description: ''})
-  const [reserveFramePaymentMethod, setReserveFramePaymentMethod] = useState<ReserveFramePaymentMethodParam>()
+  const [reserveFramePaymentMethod, setReserveFramePaymentMethod] = useState<ReserveFramePaymentMethodParam>({local_payment_price: 0, enable_monthly_payment_plans: [], enable_tickets: []})
 
   useEffect(() => {
     const fetchReserveFrame = () => {
@@ -19,17 +19,18 @@ const Index: NextPage = () => {
         `${process.env.BACKEND_URL}/api/internal/reserve_frames/${router.query.reserve_frame_id}`
       )
       .then(function (response) {
+        console.log(response.data.reserve_frame)
         const reserveFrameResponse: ReserveFrameParam = response.data.reserve_frame
         setReserveFrame(reserveFrameResponse)
         setShowModal(true)
-        setReserveFramePaymentMethod(response.data.payment_method)
+        setReserveFramePaymentMethod(response.data.reserve_frame.payment_methods)
       })
       .catch(error => {
         console.log(error)
       })
     }
     fetchReserveFrame()
-  }, [])
+  }, [router.query.reserve_frame_id])
 
   return (
     <>
@@ -38,7 +39,25 @@ const Index: NextPage = () => {
         <Row className='mt20'>
           <Col lg={3} md={3}></Col>
           <Col>
-            <h3>予約ページ詳細</h3>
+            <h3>{reserveFrame.title}</h3>
+            <h4>お支払い方法</h4>
+            {reserveFramePaymentMethod.local_payment_price !== undefined && <div>現地払い: {reserveFramePaymentMethod.local_payment_price}円</div>}
+            {reserveFramePaymentMethod.enable_monthly_payment_plans
+              && reserveFramePaymentMethod.enable_monthly_payment_plans.map((plan, i) => {
+              return (
+                <>
+                  <div>{plan.monthly_payment_plan_name}</div>
+                </>
+              )
+            })}
+            {reserveFramePaymentMethod.enable_tickets
+              && reserveFramePaymentMethod.enable_tickets.map((ticket, i) => {
+              return (
+                <>
+                  <div>{ticket.ticket_name} 消費枚数: {ticket.consume_number}枚</div>
+                </>
+              )
+            })}
           </Col>
         </Row>
       </Container>
