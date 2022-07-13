@@ -1,0 +1,25 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+      <p>GYBuilderに仮登録しました。</p>
+      <br />
+      <p><%= @verification_code %></p>
+      <br />
+      <p>以下のページから上記の検証コードを入力してユーザ登録を完了してください。</p>
+    <p>
+      <%= link_to @url, @url %>
+    </p>
+    <br/>
+    <p>※10分以上経過した場合は下記URLから再度メールアドレスをご登録ください<p>
+    <%= simple_format(h("
+      ---
+      ■  GYBuilder
+      ※このメールは送信専用メールアドレスからシステムで自動的に配信されています。
+      ※ご返信いただいてもお応えいたしかねますのでご了承ください。
+    ")) %>
+  </body>
+</html>

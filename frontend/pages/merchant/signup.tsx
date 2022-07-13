@@ -34,6 +34,7 @@ const Signup: NextPage = () => {
       dispatch(alertChanged({message: `${email}に検証コードを送信しました。確認して登録を完了してください`, show: true}))
     })
     .catch(error => {
+      dispatch(alertChanged({message: '登録失敗しました', show: true, type: 'danger'}))
       console.log({error})
     })
   }

@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import type { NextPage } from 'next'
-import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
+import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
 import IntroductionNavbar from '../../components/templates/IntroductionNavbar'
 import RegularFooter from '../../components/organisms/RegularFooter'
 import axios from 'axios'
@@ -9,29 +9,26 @@ import { alertChanged } from '../../redux/alertSlice'
 
 const Signup: NextPage = () => {
   const dispatch = useDispatch()
-  const [businessName, setBusinessName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [alertMessage, setAlertMessage] = useState('')
 
   const onSubmit = () => {
     axios.post(
       `${process.env.BACKEND_URL}/api/internal/end_users`,
       {
-        merchant_user: {
+        end_user: {
           email: email,
           password: password,
-          password_confirmation: confirmPassword,
-          authority_category: "MerchantAdmin"
+          password_confirmation: confirmPassword
         }
       }
     )
     .then(response => {
-      setAlertMessage(`${email}に検証コードを送信しました。確認して登録を完了してください`)
       dispatch(alertChanged({message: `${email}に検証コードを送信しました。確認して登録を完了してください`, show: true}))
     })
     .catch(error => {
+      dispatch(alertChanged({message: '登録失敗しました', show: true, type: 'danger'}))
       console.log({error})
     })
   }
@@ -48,7 +45,7 @@ const Signup: NextPage = () => {
           <Col lg={4} md={3}></Col>
           <Col>
             <Card>
-              <Card.Header>カスタマーユーザ登録</Card.Header>
+              <Card.Header>カスタマーアカウント登録</Card.Header>
               <Card.Body>
                 <Form onSubmit={handleSubmit}>
                   <Form.Group className='mb-3' controlId='formEmail'>

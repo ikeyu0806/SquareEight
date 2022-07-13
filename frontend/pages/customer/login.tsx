@@ -40,7 +40,7 @@ const Login: NextPage = () => {
           <Col lg={4} md={3}></Col>
             <Col>
               <Card>
-                <Card.Header>ログイン</Card.Header>
+                <Card.Header>カスタマーアカウントログイン</Card.Header>
                 <Card.Body>
                   <Form>
                     <Form.Group className='mb-3' controlId='formEmail'>
