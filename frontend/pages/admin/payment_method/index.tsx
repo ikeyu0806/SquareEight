@@ -57,7 +57,7 @@ const Index: NextPage = () => {
                         return (
                           <ListGroup.Item key={i}>
                             {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
-                            {defaultPaymentMethodId === pay.id && <><br/><Button variant='outline-info' size='sm' className='mt5'>お支払いカードに設定されています</Button></>}
+                            {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-primary'>お支払いカードに設定されています</span></>}
                           </ListGroup.Item>
                         )
                       })}
