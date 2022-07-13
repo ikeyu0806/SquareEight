@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import type { NextPage } from 'next'
-import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
+import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
 import IntroductionNavbar from '../../components/templates/IntroductionNavbar'
 import RegularFooter from '../../components/organisms/RegularFooter'
 import axios from 'axios'
@@ -17,7 +17,7 @@ const Login: NextPage = () => {
   const [cookies, setCookie] = useCookies(['_gybuilder_end_user_session'])
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/sessions`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/end_user/sessions`,
     {
       end_user: {
         email: email,
@@ -26,7 +26,7 @@ const Login: NextPage = () => {
     }).then(response => {
       setCookie('_gybuilder_end_user_session', response.data.session_id.public_id, { path: '/'})
       dispatch(alertChanged({message: '', show: false}))
-      router.push('/customer_admin/dashboard')
+      router.push('/customer_page/dashboard')
     }).catch(error => {
       dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
     })
