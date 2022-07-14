@@ -12,7 +12,7 @@ import { alertChanged } from 'redux/alertSlice'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_session'])
+  const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
 
   const monStart = useSelector((state: RootState) => state.businessHour.monStart)
@@ -88,7 +88,7 @@ const New: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_session
+        'Session-Id': cookies._gybuilder_merchant_session
       }
     }).then(response => {
       router.push('/admin/dashboard')

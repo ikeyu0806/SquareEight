@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import { TicketMasterParam } from '../../../interfaces/TicketMasterParam'
 
 const Index: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_session'])
+  const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
   const [ticketMasters, setTicketMasters] = useState<TicketMasterParam[]>([])
 
@@ -18,7 +18,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/ticket_masters`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_session
+            'Session-Id': cookies._gybuilder_merchant_session
           },
         }
       )
@@ -31,7 +31,7 @@ const Index: NextPage = () => {
       })
     }
     fetchTicketMasters()
-  }, [router.query.id, cookies._gybuilder_session, router.query.website_id])
+  }, [router.query.id, cookies._gybuilder_merchant_session, router.query.website_id])
 
   return (
     <>

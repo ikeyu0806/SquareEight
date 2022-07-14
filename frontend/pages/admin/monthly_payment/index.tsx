@@ -9,7 +9,7 @@ import axios from 'axios'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 
 const Index: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_session'])
+  const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
   const [monthlyPaymentPlans, setMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam[]>([])
 
@@ -18,7 +18,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/monthly_payment_plans`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_session
+            'Session-Id': cookies._gybuilder_merchant_session
           },
         }
       )
@@ -31,7 +31,7 @@ const Index: NextPage = () => {
       })
     }
     fetchMonthlyPaymentPlans()
-  }, [router.query.id, cookies._gybuilder_session])
+  }, [router.query.id, cookies._gybuilder_merchant_session])
   return (
     <>
       <AdminNavbarTemplate></AdminNavbarTemplate>

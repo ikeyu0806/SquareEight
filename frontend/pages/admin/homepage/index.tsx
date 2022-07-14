@@ -11,7 +11,7 @@ import PencilSquareIcon from '../../../components/atoms/PencilSquareIcon'
 import { swalWithBootstrapButtons } from '../../../constants/swalWithBootstrapButtons'
 
 const Index: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_session'])
+  const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
   const [websites, setWebsites] = useState<WebsiteParam[]>([])
 
@@ -20,7 +20,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/homepages`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_session
+            'Session-Id': cookies._gybuilder_merchant_session
           },
         }
       )
@@ -33,7 +33,7 @@ const Index: NextPage = () => {
       })
     }
     fetchHomepages()
-  }, [router.query.id, cookies._gybuilder_session])
+  }, [router.query.id, cookies._gybuilder_merchant_session])
 
   const publishWebsite = (websiteId: number) => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/publish`,
@@ -44,7 +44,7 @@ const Index: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_session
+        'Session-Id': cookies._gybuilder_merchant_session
       }
     }).then(response => {
       location.reload()
@@ -61,7 +61,7 @@ const Index: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_session
+        'Session-Id': cookies._gybuilder_merchant_session
       }
     }).then(response => {
       location.reload()
@@ -87,7 +87,7 @@ const Index: NextPage = () => {
         },
         {
           headers: {
-            'Session-Id': cookies._gybuilder_session
+            'Session-Id': cookies._gybuilder_merchant_session
           }
         }).then(response => {
           location.reload()

@@ -10,7 +10,7 @@ import { useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 
 const CalendarPreview: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_session'])
+  const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -19,7 +19,7 @@ const CalendarPreview: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/accounts/reserve_events`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_session
+            'Session-Id': cookies._gybuilder_merchant_session
           },
         }
       )

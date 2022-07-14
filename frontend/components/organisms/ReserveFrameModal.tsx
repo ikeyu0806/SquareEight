@@ -44,7 +44,7 @@ import resourceSlice from 'redux/resourceSlice'
 const ReserveFrameModal = (): JSX.Element => {
   const router = useRouter()
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_session'])
+  const [cookies] = useCookies(['_gybuilder_merchant_session'])
 
   const showeserveFrameModal = useSelector((state: RootState) => state.reserveFrame.showeserveFrameModal)
   const title = useSelector((state: RootState) => state.reserveFrame.title)
@@ -94,7 +94,7 @@ const ReserveFrameModal = (): JSX.Element => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/reserve_frames/settable_relation_data`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_session
+            'Session-Id': cookies._gybuilder_merchant_session
           },
         }
       )
@@ -112,7 +112,7 @@ const ReserveFrameModal = (): JSX.Element => {
       })
     }
     fetchResources()
-  }, [router.query.id, cookies._gybuilder_session])
+  }, [router.query.id, cookies._gybuilder_merchant_session])
 
   const createReserveFrame = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames`,
@@ -146,7 +146,7 @@ const ReserveFrameModal = (): JSX.Element => {
     },
     {
       headers: { 
-        'Session-Id': cookies._gybuilder_session
+        'Session-Id': cookies._gybuilder_merchant_session
       }
     }).then(response => {
       dispatch(alertChanged({message: '予約枠を登録しました', show: true}))

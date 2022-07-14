@@ -14,7 +14,7 @@ import { accountNumberChanged,
 const RegisterMerchantBank = () => {
   const router = useRouter()
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_session'])
+  const [cookies] = useCookies(['_gybuilder_merchant_session'])
 
   const accountNumber = useSelector((state: RootState) => state.stripeExternalAccount.accountNumber)
   const bankCode = useSelector((state: RootState) => state.stripeExternalAccount.bankCode)
@@ -33,7 +33,7 @@ const RegisterMerchantBank = () => {
     },
     {
       headers: { 
-        'Session-Id': cookies._gybuilder_session
+        'Session-Id': cookies._gybuilder_merchant_session
       }
     }).then(response => {
       router.push('/admin/sales_transfer')

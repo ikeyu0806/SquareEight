@@ -15,7 +15,7 @@ import { nameChanged, priceChanged, issueNumberChanged } from 'redux/ticketMaste
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_session'])
+  const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
   const name = useSelector((state: RootState) => state.ticketMaster.name)
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
@@ -26,7 +26,7 @@ const Edit: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/ticket_masters/${router.query.ticket_master_id}/edit`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_session
+            'Session-Id': cookies._gybuilder_merchant_session
           },
         }
       )
@@ -41,7 +41,7 @@ const Edit: NextPage = () => {
       })
     }
     fetchTicketMasters()
-  }, [router.query.id, cookies._gybuilder_session, router.query.ticket_master_id, dispatch])
+  }, [router.query.id, cookies._gybuilder_merchant_session, router.query.ticket_master_id, dispatch])
 
   const createTicket = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters/${router.query.ticket_master_id}/update`,
@@ -54,7 +54,7 @@ const Edit: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_session
+        'Session-Id': cookies._gybuilder_merchant_session
       }
     }).then(response => {
       dispatch(alertChanged({message: '更新しました', show: true}))

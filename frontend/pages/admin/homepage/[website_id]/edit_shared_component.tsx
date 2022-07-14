@@ -16,7 +16,7 @@ import { websiteHeaderChanged, websiteFooterChanged } from '../../../../redux/ho
 const EditSharedComponentPage: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const [cookies] = useCookies(['_gybuilder_session'])
+  const [cookies] = useCookies(['_gybuilder_merchant_session'])
   
   const websiteHeader = useSelector((state: RootState) => state.homepage.websiteHeader)
   const websiteFooter = useSelector((state: RootState) => state.homepage.websiteFooter)
@@ -26,7 +26,7 @@ const EditSharedComponentPage: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/homepages/${router.query.website_id}/shared_component`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_session
+            'Session-Id': cookies._gybuilder_merchant_session
           },
         }
       )
@@ -40,7 +40,7 @@ const EditSharedComponentPage: NextPage = () => {
       })
     }
     fetchWebpage()
-  }, [router.query.id, cookies._gybuilder_session, router.query.website_id, dispatch])
+  }, [router.query.id, cookies._gybuilder_merchant_session, router.query.website_id, dispatch])
 
   const updateSharedComponent = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/update_shared_component`,
@@ -53,7 +53,7 @@ const EditSharedComponentPage: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_session
+        'Session-Id': cookies._gybuilder_merchant_session
       }
     }).then(response => {
       router.push('/admin/homepage')

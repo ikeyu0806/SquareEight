@@ -9,14 +9,14 @@ import { useRouter } from 'next/router'
 
 const AdminNavbarTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_session'])
+  const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
   const logout = () => {
     axios.delete(`${process.env.BACKEND_URL}/api/internal/merchant/sessions`, {
       headers: { 
-        'Session-Id': cookies._gybuilder_session
+        'Session-Id': cookies._gybuilder_merchant_session
       }
     })
     dispatch(alertChanged({message: 'ログアウトしました', show: true}))
