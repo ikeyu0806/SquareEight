@@ -48,50 +48,59 @@ const Index: NextPage = () => {
               <Card className='mt20'>
                 <Card.Header>事業情報</Card.Header>
                 <Card.Body>
-                  <Card.Title>事業形態</Card.Title>
-                  <Card.Text>個人事業主</Card.Text>
-                  <Card.Title>事業主様の姓（漢字）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.last_name}</Card.Text>
-                  <Card.Title>事業主様の姓（カナ）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.last_name_kana}</Card.Text>
-                  <Card.Title>事業主様のお名前（漢字）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.first_name}</Card.Text>
-                  <Card.Title>事業主様のお名前（カナ）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.first_name_kana}</Card.Text>
-                  <Card.Title>事業責任者の生年月日</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.dob.year}/{stripeAccount?.legal_entity.dob.month}/{stripeAccount?.legal_entity.dob.day}</Card.Text>
-                  <Card.Title>事業責任者の姓別</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.gender === 'male' ? '男' : '女'}</Card.Text>
-                  <Card.Title>事業責任者の電話番号</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.personal_phone_number}</Card.Text>
-                  <Card.Title>事業責任者のメールアドレス</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.personal_email}</Card.Text>
-                  <Card.Title>事業のウェブサイト</Card.Title>
-                  <Card.Text>{stripeAccount?.business_url}</Card.Text>
-                  <Card.Title>商品、サービス内容の詳細</Card.Title>
-                  <Card.Text>{stripeAccount?.product_description}</Card.Text>
-                  <Card.Title>郵便番号</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.personal_address_kanji.postal_code}</Card.Text>
-                  <Card.Title>都道府県（漢字）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.personal_address_kanji.state}</Card.Text>
-                  <Card.Title>都道府県（カナ）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.personal_address_kana.state}</Card.Text>
-                  <Card.Title>区市町村（漢字）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.personal_address_kanji.town}</Card.Text>
-                  <Card.Title>区市町村（カナ）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.personal_address_kana.town}</Card.Text>
-                  <Card.Title>町名（丁目まで、漢字）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.personal_address_kanji.city}</Card.Text>
-                  <Card.Title>町名（丁目まで、カナ）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.personal_address_kana.city}</Card.Text>
-                  <Card.Title>番地、号（漢字）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.personal_address_kanji.line1}</Card.Text>
-                  <Card.Title>番地、号（カナ）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.personal_address_kana.line1}</Card.Text>
-                  <Card.Title>建物・部屋番号・その他 （漢字）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.personal_address_kanji.line2}</Card.Text>
-                  <Card.Title>建物・部屋番号・その他 （カナ）</Card.Title>
-                  <Card.Text>{stripeAccount?.legal_entity.personal_address_kanji.line2}</Card.Text>
+                  {stripeAccount?.charges_enabled &&
+                    <>
+                      <Card.Title>事業形態</Card.Title>
+                      <Card.Text>個人事業主</Card.Text>
+                      <Card.Title>事業主様の姓（漢字）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.last_name}</Card.Text>
+                      <Card.Title>事業主様の姓（カナ）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.last_name_kana}</Card.Text>
+                      <Card.Title>事業主様のお名前（漢字）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.first_name}</Card.Text>
+                      <Card.Title>事業主様のお名前（カナ）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.first_name_kana}</Card.Text>
+                      <Card.Title>事業責任者の生年月日</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.dob.year}/{stripeAccount?.legal_entity?.dob.month}/{stripeAccount?.legal_entity?.dob.day}</Card.Text>
+                      <Card.Title>事業責任者の姓別</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.gender === 'male' ? '男' : '女'}</Card.Text>
+                      <Card.Title>事業責任者の電話番号</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.personal_phone_number}</Card.Text>
+                      <Card.Title>事業責任者のメールアドレス</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.personal_email}</Card.Text>
+                      <Card.Title>事業のウェブサイト</Card.Title>
+                      <Card.Text>{stripeAccount?.business_url}</Card.Text>
+                      <Card.Title>商品、サービス内容の詳細</Card.Title>
+                      <Card.Text>{stripeAccount?.product_description}</Card.Text>
+                      <Card.Title>郵便番号</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.postal_code}</Card.Text>
+                      <Card.Title>都道府県（漢字）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.state}</Card.Text>
+                      <Card.Title>都道府県（カナ）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.personal_address_kana.state}</Card.Text>
+                      <Card.Title>区市町村（漢字）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.town}</Card.Text>
+                      <Card.Title>区市町村（カナ）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.personal_address_kana.town}</Card.Text>
+                      <Card.Title>町名（丁目まで、漢字）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.city}</Card.Text>
+                      <Card.Title>町名（丁目まで、カナ）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.personal_address_kana.city}</Card.Text>
+                      <Card.Title>番地、号（漢字）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.line1}</Card.Text>
+                      <Card.Title>番地、号（カナ）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.personal_address_kana.line1}</Card.Text>
+                      <Card.Title>建物・部屋番号・その他 （漢字）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.line2}</Card.Text>
+                      <Card.Title>建物・部屋番号・その他 （カナ）</Card.Title>
+                      <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.line2}</Card.Text>
+                    </>
+                  }
+                  {!stripeAccount?.charges_enabled &&
+                    <>
+                      <div className='mb10'>売り上げの振り込みには事業所情報の登録が必要になります</div>
+                    </>
+                  }
                   <a href='/admin/sales_transfer/register_business_info' className='btn btn-primary'>事業情報登録</a>
                 </Card.Body>
               </Card>
@@ -100,7 +109,7 @@ const Index: NextPage = () => {
               <Card className='mt20'>
                 <Card.Header>売上振込先口座情報</Card.Header>
                 <Card.Body>
-                  {stripeAccount?.external_accounts?.data.map((account_data, i) => {
+                  {stripeAccount?.external_accounts && stripeAccount?.external_accounts?.data.map((account_data, i) => {
                     return (
                       <span key={i}>
                         <Card.Title>銀行名</Card.Title>
@@ -111,11 +120,14 @@ const Index: NextPage = () => {
                         <hr />
                       </span>
                     )
-                  })}           
-                  <br/>
-                  <br/>
-                  <a href='/admin/sales_transfer/register_bank_account' className='btn btn-primary'>新規口座登録</a>
-                  <a href='/admin/sales_transfer/edit_bank_accounts' className='btn btn-primary ml10'>口座編集</a>
+                  })}
+                  {!stripeAccount?.external_accounts &&
+                    <>
+                      <div>口座が登録されていません。<br/>事業所情報入力後に口座を登録してください</div>
+                    </>
+                  }
+                  {stripeAccount?.external_accounts && <a href='/admin/sales_transfer/register_bank_account' className='btn btn-primary mt10'>新規口座登録</a>}
+                  {stripeAccount?.external_accounts && <a href='/admin/sales_transfer/edit_bank_accounts' className='btn btn-primary ml10 mt10'>口座編集</a>}
                 </Card.Body>
               </Card>
             </Col>

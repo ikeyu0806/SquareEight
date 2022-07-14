@@ -6,6 +6,7 @@ export interface StripeAccountParam {
   product_description: string
   display_name: string
   email: string
+  charges_enabled?: boolean
   external_accounts?: StripeExternalAccountParam
   legal_entity: StripeIndividualAccountParam
 }

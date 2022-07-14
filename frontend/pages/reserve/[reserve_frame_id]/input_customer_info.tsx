@@ -17,8 +17,8 @@ const Index: NextPage = () => {
             <Card>
               <Card.Header>お客様情報の入力</Card.Header>
               <Card.Body>
-                <label className='mt10 mb10'>カスタマーアカウントをお持ちですか？ <a className='btn btn-info btn-sm'>ログインする</a></label>
-                <label>購入済みの月謝や回数券、または登録済みのクレジットカードを使用する場合、ログインする必要があります</label>
+                <label className='mt10 mb10'>カスタマーアカウントをお持ちですか？ <a className='link-text'>ログインする</a></label>
+                <label>回数券、月額課金、登録済みクレジットカードを使用する場合、ログインする必要があります</label>
                 <Form.Label className='mt50'>お名前（姓）</Form.Label>
                 <Form.Control></Form.Control>
                 <Form.Label className='mt10'>お名前（名）</Form.Label>
