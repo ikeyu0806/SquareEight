@@ -1,4 +1,11 @@
 class Api::Internal::Merchant::SessionsController < ApplicationController
+  def login_status
+    raise if current_merchant_user.blank?
+    render json: { status: 'success', user: current_merchant_user}
+  rescue => e
+    render json: { statue: 'fail', error: e }, status: 401
+  end
+
   def create
     merchant_user = MerchantUser.find_by(email: merchant_user_params[:email])
     raise "メールアドレスとパスワードが一致しません" unless merchant_user.authenticate(merchant_user_params[:password])

@@ -49,10 +49,12 @@ Rails.application.routes.draw do
       get 'reserve_frames/:id', to: 'reserve_frames#show'
       post 'reserve_frames', to: 'reserve_frames#create'
       namespace :merchant do
+        get 'sessions', to: 'sessions#login_status'
         post 'sessions', to: 'sessions#create'
         delete 'sessions', to: 'sessions#destroy'
       end
       namespace :end_user do
+        get 'sessions', to: 'sessions#login_status'
         post 'sessions', to: 'sessions#create'
         delete 'sessions', to: 'sessions#destroy'
       end
