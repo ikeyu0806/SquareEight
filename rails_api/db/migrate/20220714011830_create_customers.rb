@@ -20,6 +20,7 @@ class CreateCustomers < ActiveRecord::Migration[7.0]
       t.string :line1_kana
       t.string :line2_kana
       t.integer :gender
+      t.datetime :dob
       t.text :custom_items_answer
 
       t.timestamps

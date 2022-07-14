@@ -30,6 +30,7 @@ class Api::Internal::CustomersController < ApplicationController
                   :line1_kana,
                   :line2_kana,
                   :gender,
+                  :dob,
                   :custom_items_answer)
   end
 end
