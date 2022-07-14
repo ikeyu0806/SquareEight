@@ -1,8 +1,8 @@
 import { NextPage } from 'next'
 import React from 'react'
-import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
-import RegularFooter from '../../../components/organisms/RegularFooter'
-import RegisterMerchantInfoForm from '../../../components/templates/RegisterMerchantInfoForm'
+import AdminNavbar from 'components/templates/AdminNavbarTemplate'
+import RegularFooter from 'components/organisms/RegularFooter'
+import RegisterMerchantInfoForm from 'components/templates/RegisterMerchantInfoForm'
 import {loadStripe} from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 

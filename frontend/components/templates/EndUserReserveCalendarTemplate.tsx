@@ -6,7 +6,6 @@ import { Container, Modal, Button, Form, Col, Row } from 'react-bootstrap'
 import allLocales from '@fullcalendar/core/locales-all'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
-import axios from 'axios'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { ReserveFramePaymentMethodParam } from 'interfaces/ReserveFramePaymentMethodParam'
 
