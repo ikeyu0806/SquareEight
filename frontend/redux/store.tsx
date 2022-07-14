@@ -9,6 +9,7 @@ import monthlyPaymentPlanReducer from './monthlyPaymentPlanSlice'
 import businessHourReducer from './businessHourSlice'
 import resourceReducer from './resourceSlice'
 import reserveFrameReducer from './reserveFrameSlice'
+import currentMerchantUserReducer from './currentMerchantUserSlice'
 
 export const store = configureStore({
   reducer: {
@@ -21,7 +22,8 @@ export const store = configureStore({
     monthlyPaymentPlan: monthlyPaymentPlanReducer,
     businessHour: businessHourReducer,
     resource: resourceReducer,
-    reserveFrame: reserveFrameReducer
+    reserveFrame: reserveFrameReducer,
+    currentMerchantUserReducer: currentMerchantUserReducer
   },
 })
 
