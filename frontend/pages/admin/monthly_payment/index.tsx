@@ -2,8 +2,7 @@ import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import AdminNavbarTemplate from 'components/templates/AdminNavbarTemplate'
-import RegularFooter from '../../../components/organisms/RegularFooter'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Container, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
@@ -34,7 +33,7 @@ const Index: NextPage = () => {
   }, [router.query.id, cookies._gybuilder_merchant_session])
   return (
     <>
-      <AdminNavbarTemplate></AdminNavbarTemplate>
+      <MerchantUserAdminLayout>
         <br />
         <Container>
           <Table bordered>
@@ -64,7 +63,7 @@ const Index: NextPage = () => {
             </tbody>
           </Table>
         </Container>
-      <RegularFooter></RegularFooter>
+      </MerchantUserAdminLayout>
     </>
   )
 }

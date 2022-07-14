@@ -1,15 +1,14 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
-import RegularFooter from '../../../components/organisms/RegularFooter'
-import CreateWebsiteTemplate from '../../../components/templates/CreateWebsiteTemplate'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import CreateWebsiteTemplate from 'components/templates/CreateWebsiteTemplate'
 import { Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../../redux/store'
+import { RootState } from 'redux/store'
 import { useCookies } from 'react-cookie'
-import { alertChanged } from '../../../redux/alertSlice'
+import { alertChanged } from 'redux/alertSlice'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -37,12 +36,12 @@ const New: NextPage = () => {
 
   return (
     <>
-      <AdminNavbar></AdminNavbar>
-      <CreateWebsiteTemplate></CreateWebsiteTemplate>
-      <div className='text-center'>
-        <Button onClick={createHomepage}>次へ</Button>
-      </div>
-      <RegularFooter></RegularFooter>
+      <MerchantUserAdminLayout>
+        <CreateWebsiteTemplate></CreateWebsiteTemplate>
+        <div className='text-center'>
+          <Button onClick={createHomepage}>次へ</Button>
+        </div>
+      </MerchantUserAdminLayout>
     </>
   )
 }

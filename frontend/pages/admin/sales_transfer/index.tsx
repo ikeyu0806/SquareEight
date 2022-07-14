@@ -1,8 +1,7 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
-import RegularFooter from '../../../components/organisms/RegularFooter'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
@@ -41,7 +40,7 @@ const Index: NextPage = () => {
 
   return (
     <>
-      <AdminNavbar></AdminNavbar>
+      <MerchantUserAdminLayout>
         <Container>
           <Row>
             <Col>
@@ -133,7 +132,7 @@ const Index: NextPage = () => {
             </Col>
           </Row>
         </Container>
-      <RegularFooter></RegularFooter>
+      </MerchantUserAdminLayout>
     </>
   )
 }

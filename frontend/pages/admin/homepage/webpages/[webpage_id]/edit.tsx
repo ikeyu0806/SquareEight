@@ -1,17 +1,16 @@
 import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
-import CreateWebpageTemplate from '../../../../../components/templates/CreateWebpageTemplate'
-import RegularFooter from '../../../../../components/organisms/RegularFooter'
-import AdminNavbarTemplate from '../../../../../components/templates/AdminNavbarTemplate'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import CreateWebpageTemplate from 'components/templates/CreateWebpageTemplate'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { RootState } from '../../../../../redux/store'
+import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
-import { WebpageParam } from '../../../../../interfaces/WebpageParam'
-import { webpageTagChanged, pageContentChanged, isTopPageChanged } from '../../../../../redux/homepageSlice'
+import { WebpageParam } from 'interfaces/WebpageParam'
+import { webpageTagChanged, pageContentChanged, isTopPageChanged } from 'redux/homepageSlice'
 import { Button } from 'react-bootstrap'
-import { alertChanged } from '../../../../../redux/alertSlice'
+import { alertChanged } from 'redux/alertSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -68,7 +67,7 @@ const Edit: NextPage = () => {
 
   return (
     <>
-      <AdminNavbarTemplate></AdminNavbarTemplate>
+      <MerchantUserAdminLayout>
       <div className='mt30'></div>
       <CreateWebpageTemplate></CreateWebpageTemplate>
       <br/>
@@ -77,7 +76,7 @@ const Edit: NextPage = () => {
       <div className='text-center'>
         <Button onClick={updateWebpage}>更新する</Button>
       </div>
-      <RegularFooter></RegularFooter>
+      </MerchantUserAdminLayout>
     </>
   )
 }

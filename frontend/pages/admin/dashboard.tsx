@@ -1,16 +1,12 @@
 import type { NextPage } from 'next'
-import AdminNavbar from '../../components/templates/AdminNavbarTemplate'
-import DashboardTemplate from '../../components/templates/DashboardTemplate'
-import RegularFooter from '../../components/organisms/RegularFooter'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import DashboardTemplate from 'components/templates/DashboardTemplate'
 
 const Dashboard: NextPage = () => {
   return (
-    <>
-      <AdminNavbar></AdminNavbar>
-      <br />
+    <MerchantUserAdminLayout>
       <DashboardTemplate></DashboardTemplate>
-      <RegularFooter></RegularFooter>
-    </>
+    </MerchantUserAdminLayout>
   )
 }
 

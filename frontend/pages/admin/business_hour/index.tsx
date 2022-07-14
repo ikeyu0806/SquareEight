@@ -1,7 +1,6 @@
 import { NextPage } from 'next'
 import EditBusinessHours from 'components/organisms/EditBusinessHours'
-import AdminNavbarTemplate from 'components/templates/AdminNavbarTemplate'
-import RegularFooter from '../../../components/organisms/RegularFooter'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Container, Button, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -99,8 +98,7 @@ const New: NextPage = () => {
   }
 
   return (
-    <>
-      <AdminNavbarTemplate></AdminNavbarTemplate>
+    <MerchantUserAdminLayout>
       <Container>
         <div className='text-center mt50 mb50'>
           <h2>営業時間を設定してください</h2>
@@ -116,8 +114,7 @@ const New: NextPage = () => {
       <div className='text-center'>
         <Button onClick={onSubmit} className='mt10'>登録する</Button>
       </div>
-      <RegularFooter></RegularFooter>
-    </>
+    </MerchantUserAdminLayout>
   )
 }
 

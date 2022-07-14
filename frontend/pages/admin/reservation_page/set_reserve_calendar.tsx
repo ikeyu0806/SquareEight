@@ -1,17 +1,16 @@
 import { NextPage } from 'next'
 import React from 'react'
-import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
-import RegularFooter from '../../../components/organisms/RegularFooter'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import SetReserveCalendarTemplate from 'components/templates/SetReserveCalendarTemplate'
 
 const SetReserveCalendar: NextPage = () => {
   return (
     <>
-      <AdminNavbar></AdminNavbar>
+      <MerchantUserAdminLayout>
         <br/>
         <br/>
         <SetReserveCalendarTemplate></SetReserveCalendarTemplate>
-      <RegularFooter></RegularFooter>
+      </MerchantUserAdminLayout>
     </>
   )
 }

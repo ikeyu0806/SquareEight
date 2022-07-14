@@ -1,7 +1,6 @@
 import React from 'react'
 import type { NextPage } from 'next'
-import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
-import RegularFooter from '../../../components/organisms/RegularFooter'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import CreateTicketTemplate from 'components/templates/CreateTicketTemplate'
 import { Button } from 'react-bootstrap'
 import { RootState } from 'redux/store'
@@ -41,12 +40,12 @@ const New: NextPage = () => {
 
   return (
     <>
-      <AdminNavbar></AdminNavbar>
-      <CreateTicketTemplate></CreateTicketTemplate>
-      <div className='text-center'>
-        <Button onClick={createTicket}>登録する</Button>
-      </div>
-      <RegularFooter></RegularFooter>
+      <MerchantUserAdminLayout>
+        <CreateTicketTemplate></CreateTicketTemplate>
+        <div className='text-center'>
+          <Button onClick={createTicket}>登録する</Button>
+        </div>
+      </MerchantUserAdminLayout>
     </>
   )
 }

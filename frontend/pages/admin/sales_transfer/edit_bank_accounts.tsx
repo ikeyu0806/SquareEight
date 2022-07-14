@@ -1,14 +1,13 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import AdminNavbar from '../../../components/templates/AdminNavbarTemplate'
-import RegularFooter from '../../../components/organisms/RegularFooter'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
-import { Container, Row, Col, Card, Button } from 'react-bootstrap'
+import { Container, Card, Button } from 'react-bootstrap'
 import { StripeAccountParam } from 'interfaces/StripeAccountParam'
-import { swalWithBootstrapButtons } from '../../../constants/swalWithBootstrapButtons'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const EditBankAccounts: NextPage = () => {
   const dispatch = useDispatch()
@@ -93,37 +92,37 @@ const EditBankAccounts: NextPage = () => {
 
   return (
     <>
-      <AdminNavbar></AdminNavbar>
-      <Container>
-        <Card className='mt20'>
-          <Card.Header>売上振込先口座編集</Card.Header>
-          <Card.Body>
-            {stripeAccount?.external_accounts?.data.map((account_data, i) => {
-              return (
-                <span key={i}>
-                  <Card.Title>銀行名</Card.Title>
-                  <Card.Text>{account_data.bank_name}</Card.Text>
-                  <Card.Title>口座番号</Card.Title>
-                  <Card.Text>{"********"}{account_data.last4}</Card.Text>
-                  {selectedExternalAccountId === account_data.id 
-                  ? <><Button variant='outline-info' size='sm'>振込先口座に設定されています</Button></>
-                  : <><Button size='sm' onClick={() => updateSelectedBankAccount(account_data.id)}>振込先口座に設定する</Button>
-                       <Button variant='danger'
-                               size='sm'
-                               className='ml10'
-                               onClick={() => deleteBankAccount(account_data.id)}>登録解除</Button></>}
-                  <hr />
-                </span>
-              )
-            })}           
-            <br/>
-            <br/>
-            <a href='/admin/sales_transfer/register_bank_account' className='btn btn-primary'>新規口座登録</a>
-            <a href='/admin/sales_transfer/register_bank_account' className='btn btn-primary ml10'>口座編集</a>
-          </Card.Body>
-        </Card>
-      </Container>
-      <RegularFooter></RegularFooter>
+      <MerchantUserAdminLayout>
+        <Container>
+          <Card className='mt20'>
+            <Card.Header>売上振込先口座編集</Card.Header>
+            <Card.Body>
+              {stripeAccount?.external_accounts?.data.map((account_data, i) => {
+                return (
+                  <span key={i}>
+                    <Card.Title>銀行名</Card.Title>
+                    <Card.Text>{account_data.bank_name}</Card.Text>
+                    <Card.Title>口座番号</Card.Title>
+                    <Card.Text>{"********"}{account_data.last4}</Card.Text>
+                    {selectedExternalAccountId === account_data.id 
+                    ? <><Button variant='outline-info' size='sm'>振込先口座に設定されています</Button></>
+                    : <><Button size='sm' onClick={() => updateSelectedBankAccount(account_data.id)}>振込先口座に設定する</Button>
+                        <Button variant='danger'
+                                size='sm'
+                                className='ml10'
+                                onClick={() => deleteBankAccount(account_data.id)}>登録解除</Button></>}
+                    <hr />
+                  </span>
+                )
+              })}           
+              <br/>
+              <br/>
+              <a href='/admin/sales_transfer/register_bank_account' className='btn btn-primary'>新規口座登録</a>
+              <a href='/admin/sales_transfer/register_bank_account' className='btn btn-primary ml10'>口座編集</a>
+            </Card.Body>
+          </Card>
+        </Container>
+      </MerchantUserAdminLayout>
     </>
   )
 }

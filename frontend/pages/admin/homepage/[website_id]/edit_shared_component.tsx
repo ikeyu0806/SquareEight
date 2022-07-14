@@ -1,17 +1,15 @@
 import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
 import { Container, Button } from 'react-bootstrap'
-import AdminNavbarTemplate from '../../../../components/templates/AdminNavbarTemplate'
-import EditSharedComponent from '../../../../components/templates/EditSharedComponent'
-import RegularFooter from '../../../../components/organisms/RegularFooter'
-import { RootState } from '../../../../redux/store'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import EditSharedComponent from 'components/templates/EditSharedComponent'
+import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
-import { alertChanged } from '../../../../redux/alertSlice'
-import { WebpageParam } from '../../../../interfaces/WebpageParam'
-import { websiteHeaderChanged, websiteFooterChanged } from '../../../../redux/homepageSlice'
+import { alertChanged } from 'redux/alertSlice'
+import { websiteHeaderChanged, websiteFooterChanged } from 'redux/homepageSlice'
 
 const EditSharedComponentPage: NextPage = () => {
   const dispatch = useDispatch()
@@ -64,16 +62,14 @@ const EditSharedComponentPage: NextPage = () => {
   }
 
   return (
-    <>
-      <AdminNavbarTemplate></AdminNavbarTemplate>
+    <MerchantUserAdminLayout>
       <EditSharedComponent></EditSharedComponent>
       <br />
       <div className='text-center'>
         <Button onClick={updateSharedComponent}>編集を完了</Button>
       </div>
       <Container></Container>
-      <RegularFooter></RegularFooter>
-    </>
+    </MerchantUserAdminLayout>
   )
 }
 

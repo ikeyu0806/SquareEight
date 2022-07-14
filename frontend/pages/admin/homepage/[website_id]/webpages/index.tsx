@@ -1,12 +1,11 @@
 import type { NextPage } from 'next'
-import AdminNavbar from '../../../../../components/templates/AdminNavbarTemplate'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import React, { useEffect, useState } from 'react'
-import RegularFooter from '../../../../../components/organisms/RegularFooter'
 import { Container, Table, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { WebpageParam } from '../../../../../interfaces/WebpageParam'
+import { WebpageParam } from 'interfaces/WebpageParam'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
@@ -35,55 +34,51 @@ const Index: NextPage = () => {
 
   return (
     <>
-      <AdminNavbar></AdminNavbar>
-      <br />
-      <Container>
-        <Button
-         onClick={() => router.push(`/admin/homepage/${router.query.website_id}/webpages/new`)}
-         className='mr10'>
-          新規ページ作成
-        </Button>
-        <Button
-          onClick={() => router.push(`/admin/homepage/${router.query.website_id}/edit_shared_component`)}>
-          ヘッダ・フッタ編集
-        </Button>
-        <br />
-        <br />
-        <Table bordered>
-          <thead>
-            <tr>
-              <th className='text-center'>タグ</th>
-              <th className='text-center'></th>
-              <th className='text-center'></th>
-            </tr>
-          </thead>
-          <tbody>
-            {webpages.map((webpage, i) => {
-              return (
-                <tr key={i}>
-                  <td className='text-center'>
-                    {webpage.tag} {webpage.is_top_page && <span className='badge bg-primary'>トップページに設定されています</span>}
-                  </td>
-                  <td className='text-center'>
-                    <Button onClick={() => router.push(`/admin/homepage/webpages/${webpage.id}/edit?website_id=${router.query.website_id}`)}>
-                      編集
-                    </Button>
-                  </td>
-                  <td className='text-center'>
-                    <Button onClick={() => router.push(`/webpages/${webpage.id}`)}>
-                      プレビュー
-                    </Button>
-                  </td>
-                </tr>
-              )
-            })}
-          </tbody>
-        </Table>
-      </Container>
-      <br/>
-      <br/>
-      <br/>
-      <RegularFooter></RegularFooter>
+      <MerchantUserAdminLayout>
+        <Container>
+          <Button
+          onClick={() => router.push(`/admin/homepage/${router.query.website_id}/webpages/new`)}
+          className='mr10'>
+            新規ページ作成
+          </Button>
+          <Button
+            onClick={() => router.push(`/admin/homepage/${router.query.website_id}/edit_shared_component`)}>
+            ヘッダ・フッタ編集
+          </Button>
+          <br />
+          <br />
+          <Table bordered>
+            <thead>
+              <tr>
+                <th className='text-center'>タグ</th>
+                <th className='text-center'></th>
+                <th className='text-center'></th>
+              </tr>
+            </thead>
+            <tbody>
+              {webpages.map((webpage, i) => {
+                return (
+                  <tr key={i}>
+                    <td className='text-center'>
+                      {webpage.tag} {webpage.is_top_page && <span className='badge bg-primary'>トップページに設定されています</span>}
+                    </td>
+                    <td className='text-center'>
+                      <Button onClick={() => router.push(`/admin/homepage/webpages/${webpage.id}/edit?website_id=${router.query.website_id}`)}>
+                        編集
+                      </Button>
+                    </td>
+                    <td className='text-center'>
+                      <Button onClick={() => router.push(`/webpages/${webpage.id}`)}>
+                        プレビュー
+                      </Button>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </Table>
+        </Container>
+      </MerchantUserAdminLayout>
     </>
   )
 }

@@ -1,14 +1,13 @@
 import type { NextPage } from 'next'
-import CreateWebpageTemplate from '../../../../../components/templates/CreateWebpageTemplate'
-import AdminNavbarTemplate from '../../../../../components/templates/AdminNavbarTemplate'
-import RegularFooter from '../../../../../components/organisms/RegularFooter'
+import CreateWebpageTemplate from 'components/templates/CreateWebpageTemplate'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { RootState } from '../../../../../redux/store'
+import { RootState } from 'redux/store'
 import { useDispatch, useSelector } from 'react-redux'
-import { alertChanged } from '../../../../../redux/alertSlice'
+import { alertChanged } from 'redux/alertSlice'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -40,16 +39,16 @@ const New: NextPage = () => {
 
   return (
     <>
-      <AdminNavbarTemplate></AdminNavbarTemplate>
-      <div className='mt30'></div>
-      <CreateWebpageTemplate></CreateWebpageTemplate>
-      <br/>
-      <br/>
-      <br/>
-      <div className='text-center'>
-        <Button onClick={createWebpage}>登録する</Button>
-      </div>
-      <RegularFooter></RegularFooter>
+      <MerchantUserAdminLayout>
+        <div className='mt30'></div>
+        <CreateWebpageTemplate></CreateWebpageTemplate>
+        <br/>
+        <br/>
+        <br/>
+        <div className='text-center'>
+          <Button onClick={createWebpage}>登録する</Button>
+        </div>
+      </MerchantUserAdminLayout>
     </>
   )
 }

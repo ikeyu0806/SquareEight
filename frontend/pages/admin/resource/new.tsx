@@ -1,8 +1,7 @@
 import { NextPage } from 'next'
 import CreateResource from 'components/templates/CreateResource'
 import { Container } from 'react-bootstrap'
-import AdminNavbarTemplate from 'components/templates/AdminNavbarTemplate'
-import RegularFooter from '../../../components/organisms/RegularFooter'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -107,14 +106,14 @@ const New: NextPage = () => {
 
   return (
     <>
-      <AdminNavbarTemplate></AdminNavbarTemplate>
-      <Container>
-        <CreateResource></CreateResource>
-      </Container>
-      <div className='text-center'>
-        <Button onClick={onSubmit} className='mt10'>登録する</Button>
-      </div>
-      <RegularFooter></RegularFooter>
+      <MerchantUserAdminLayout>
+        <Container>
+          <CreateResource></CreateResource>
+        </Container>
+        <div className='text-center'>
+          <Button onClick={onSubmit} className='mt10'>登録する</Button>
+        </div>
+      </MerchantUserAdminLayout>
     </>
   )
 }
