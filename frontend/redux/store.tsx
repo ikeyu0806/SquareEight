@@ -10,6 +10,7 @@ import businessHourReducer from './businessHourSlice'
 import resourceReducer from './resourceSlice'
 import reserveFrameReducer from './reserveFrameSlice'
 import currentMerchantUserReducer from './currentMerchantUserSlice'
+import currentEndUserReducer from './currentEndUserSlice'
 
 export const store = configureStore({
   reducer: {
@@ -23,7 +24,8 @@ export const store = configureStore({
     businessHour: businessHourReducer,
     resource: resourceReducer,
     reserveFrame: reserveFrameReducer,
-    currentMerchantUserReducer: currentMerchantUserReducer
+    currentMerchantUser: currentMerchantUserReducer,
+    currentEndUser: currentEndUserReducer
   },
 })
 

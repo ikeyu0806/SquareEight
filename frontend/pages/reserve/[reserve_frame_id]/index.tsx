@@ -1,17 +1,20 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import { Container, Row, Col, Card } from 'react-bootstrap'
-import CommonNavbar from 'components/templates/CommonNavbar'
+import CommonNavbar from 'components/organisms/CommonNavbar'
 import axios from 'axios'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { ReserveFramePaymentMethodParam } from 'interfaces/ReserveFramePaymentMethodParam'
 import { useRouter } from 'next/router'
+import { RootState } from 'redux/store'
+import { useSelector } from 'react-redux'
 
 const Index: NextPage = () => {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
   const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>({title: '', description: ''})
   const [reserveFramePaymentMethod, setReserveFramePaymentMethod] = useState<ReserveFramePaymentMethodParam>({local_payment_price: 0, enable_monthly_payment_plans: [], enable_tickets: []})
+  const loginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
 
   useEffect(() => {
     const fetchReserveFrame = () => {
