@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_13_073805) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_14_011830) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -57,6 +57,31 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_13_073805) do
     t.time "sun_break_end"
     t.time "holiday_break_start"
     t.time "holiday_break_end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "customers", force: :cascade do |t|
+    t.integer "end_user_id"
+    t.string "first_name"
+    t.string "last_name"
+    t.string "first_name_kana"
+    t.string "last_name_kana"
+    t.string "email"
+    t.string "phone_number"
+    t.string "postal_code"
+    t.string "state"
+    t.string "city"
+    t.string "town"
+    t.string "line1"
+    t.string "line2"
+    t.string "state_kana"
+    t.string "city_kana"
+    t.string "town_kana"
+    t.string "line1_kana"
+    t.string "line2_kana"
+    t.integer "gender"
+    t.text "custom_items_answer"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

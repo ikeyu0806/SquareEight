@@ -1,11 +1,13 @@
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form } from 'react-bootstrap'
+import CommonNavbar from 'components/templates/CommonNavbar'
 import RegularFooter from 'components/organisms/RegularFooter'
 
 const Index: NextPage = () => {
   return (
     <>
-      <Container>
+      <CommonNavbar></CommonNavbar>
+      <Container className='mt30'>
         <div className='text-center mt50 mb50'>
           <h2>お客様情報の入力</h2>
         </div>
