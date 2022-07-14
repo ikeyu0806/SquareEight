@@ -8,12 +8,12 @@ const Index: NextPage = () => {
   const router = useRouter()
 
   const onClickLoginLink= () => {
-    localStorage.setItem('endUserOnLoginRedirectPath', `reserve/${router.query.reserve_frame_id}/input_customer_info`)
+    localStorage.setItem('endUserOnLoginRedirectPath', `/reserve/${router.query.reserve_frame_id}/input_customer_info`)
     router.push('/customer/login')
   }
 
   const onClickSignupLink = () => {
-    localStorage.setItem('endUserOnLoginRedirectPath', `reserve/${router.query.reserve_frame_id}/input_customer_info`)
+    localStorage.setItem('endUserOnLoginRedirectPath', `/reserve/${router.query.reserve_frame_id}/input_customer_info`)
     router.push('/customer/signup')
   }
 

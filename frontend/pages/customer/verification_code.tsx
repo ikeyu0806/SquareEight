@@ -27,7 +27,12 @@ const VerificationCode: NextPage = () => {
     .then(response => {
       console.log(response.data.messsages)
       setCookie('_gybuilder_session', response.data.session_id.public_id, { path: '/'})
-      router.push('/')
+      const redirectPath = localStorage.getItem('endUserOnLoginRedirectPath')
+      if (redirectPath) {
+        router.push(redirectPath)
+      } else {
+        router.push('/customer_page/dashboard')
+      }
     })
     .catch(error => {
       dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
