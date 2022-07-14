@@ -1,10 +1,32 @@
+import { useEffect } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form } from 'react-bootstrap'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import { useRouter } from 'next/router'
+import { RootState } from 'redux/store'
+import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
+import { loginStatusChanged } from 'redux/currentEndUserSlice'
 
 const Index: NextPage = () => {
+  const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const router = useRouter()
+  const dispatch = useDispatch()
+  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+
+  useEffect(() => {
+    axios.get(`${process.env.BACKEND_URL}/api/internal/end_user/sessions`,
+    {
+      headers: {
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
+    }).then((res) => {
+      dispatch(loginStatusChanged('Login'))
+    }).catch((e) => {
+      console.log(e)
+    })
+  }, [dispatch, cookies._gybuilder_end_user_session, endUserLoginStatus])
 
   const onClickLoginLink= () => {
     localStorage.setItem('endUserOnLoginRedirectPath', `/reserve/${router.query.reserve_frame_id}/input_customer_info`)
@@ -35,12 +57,14 @@ const Index: NextPage = () => {
               <Card>
                 <Card.Header>お客様情報の入力</Card.Header>
                 <Card.Body>
-                  <label className='mt10'>カスタマーアカウントをお持ちですか？ <a className='link-text' onClick={onClickLoginLink}>ログインする</a></label>
-                  <br/>
-                  <label className='mt10 mb10'>新規作成は<a className='link-text' onClick={onClickSignupLink}>こちら</a></label>
-                  <br/>
-                  <label>回数券、月額課金、登録済みクレジットカードを使用する場合、ログインする必要があります</label>
-                  <Form.Label className='mt50'>お名前（姓）</Form.Label>
+                  {!endUserLoginStatus && <>
+                    <label className='mt10'>カスタマーアカウントをお持ちですか？ <a className='link-text' onClick={onClickLoginLink}>ログインする</a></label>
+                    <br/>
+                    <label className='mt10 mb10'>新規作成は<a className='link-text' onClick={onClickSignupLink}>こちら</a></label>
+                    <br/>
+                    <label className='mb40'>回数券、月額課金、登録済みクレジットカードを使用する場合、ログインする必要があります</label>
+                  </>}
+                  <Form.Label className='mt10'>お名前（姓）</Form.Label>
                   <Form.Control></Form.Control>
                   <Form.Label className='mt10'>お名前（名）</Form.Label>
                   <Form.Control></Form.Control>
