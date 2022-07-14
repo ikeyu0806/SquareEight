@@ -62,7 +62,7 @@ const Index: NextPage = () => {
                   )
                 })}
                 <br />
-                <a className='btn btn-primary'>お支払い方法選択</a>
+                <a className='btn btn-primary' href={`/reserve/${router.query.reserve_frame_id}/input_customer_info`}>予約を進める</a>
               </Card.Body>
             </Card>
           </Col>
