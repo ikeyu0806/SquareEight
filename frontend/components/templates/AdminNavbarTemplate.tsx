@@ -56,7 +56,6 @@ const AdminNavbarTemplate = (): JSX.Element => {
               </NavDropdown>
               <NavDropdown title='売上' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href=''>売り上げ一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/sales_transfer'>振込先口座情報</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='商品' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/'>物販商品一覧</NavDropdown.Item>
@@ -68,6 +67,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
               </NavDropdown>
               <NavDropdown title='アカウント設定' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/sales_transfer'>売上振込先口座</NavDropdown.Item>
                 <NavDropdown.Item href=''>プラン変更・退会</NavDropdown.Item>
                 <NavDropdown.Item href=''>お支払い履歴</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
