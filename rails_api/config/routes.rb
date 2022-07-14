@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       post 'merchant_users', to: 'merchant_users#create'
       post 'end_users/confirm_verification_code', to: 'end_users#confirm_verification_code'
       post 'end_users', to: 'end_users#create'
+      post 'customers', to: 'customers#create'
       get 'homepages/:id/shared_component', to: 'homepages#shared_component'
       get 'homepages/webpages', to: 'homepages#webpages'
       get 'homepages', to: 'homepages#index'
