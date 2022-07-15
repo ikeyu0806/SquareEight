@@ -44,6 +44,7 @@ const Index: NextPage = () => {
                 <th className='text-center'>発行枚数</th>
                 <th className='text-center'>値段</th>
                 <th></th>
+                <th></th>
               </tr>
             </thead>
             <tbody>
@@ -60,9 +61,14 @@ const Index: NextPage = () => {
                       {ticket.price}
                     </td>
                     <td className='text-center'>
-                      <Button onClick={() => router.push(`/admin/ticket/${ticket.id}/edit`)}>
+                      <a href={`/admin/ticket/${ticket.id}/edit`} className='btn btn-primary'>
                         編集
-                      </Button>
+                      </a>
+                    </td>
+                    <td className='text-center'>
+                      <a href={`/admin/ticket/${ticket.id}/purchase`} className='btn btn-primary'>
+                        購入ページプレビュー
+                      </a>
                     </td>
                   </tr>
                 )

@@ -8,7 +8,7 @@ class Api::Internal::TicketMastersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
-  def edit
+  def show
     ticket_master = TicketMaster.find(params[:id])
     render json: { status: 'success', ticket_master: ticket_master }, states: 200
   rescue => error

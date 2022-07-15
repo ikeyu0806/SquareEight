@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import CreateTicketTemplate from 'components/templates/CreateTicketTemplate'
+import PurchaseTicketTemplate from 'components/templates/PurchaseTicketTemplate'
 import { Button } from 'react-bootstrap'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
@@ -12,7 +12,7 @@ import { alertChanged } from 'redux/alertSlice'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { nameChanged, priceChanged, issueNumberChanged } from 'redux/ticketMasterSlice'
 
-const Edit: NextPage = () => {
+const Purchase: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
@@ -65,7 +65,7 @@ const Edit: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <CreateTicketTemplate></CreateTicketTemplate>
+        <PurchaseTicketTemplate></PurchaseTicketTemplate>
         <div className='text-center'>
           <Button onClick={createTicket}>登録する</Button>
         </div>
@@ -74,4 +74,4 @@ const Edit: NextPage = () => {
   )
 }
 
-export default Edit
+export default Purchase
