@@ -66,7 +66,7 @@ const Index: NextPage = () => {
                       </a>
                     </td>
                     <td className='text-center'>
-                      <a href={`/admin/ticket/${ticket.id}/purchase`} className='btn btn-primary'>
+                      <a href={`/ticket/${ticket.id}/purchase`} className='btn btn-primary'>
                         購入ページプレビュー
                       </a>
                     </td>

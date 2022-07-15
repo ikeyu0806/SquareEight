@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
-import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import PurchaseTicketTemplate from 'components/templates/PurchaseTicketTemplate'
-import { Button } from 'react-bootstrap'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { alertChanged } from 'redux/alertSlice'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { nameChanged, priceChanged, issueNumberChanged } from 'redux/ticketMasterSlice'
 
@@ -16,9 +14,6 @@ const Purchase: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
-  const name = useSelector((state: RootState) => state.ticketMaster.name)
-  const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
-  const price = useSelector((state: RootState) => state.ticketMaster.price)
 
   useEffect(() => {
     const fetchTicketMasters = () => {
@@ -42,34 +37,11 @@ const Purchase: NextPage = () => {
     fetchTicketMasters()
   }, [router.query.id, cookies._gybuilder_merchant_session, router.query.ticket_master_id, dispatch])
 
-  const createTicket = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters/${router.query.ticket_master_id}/update`,
-    {
-      ticket_master: {
-        name: name,
-        issue_number: issueNumber,
-        price: price
-      }
-    },
-    {
-      headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
-      }
-    }).then(response => {
-      dispatch(alertChanged({message: '更新しました', show: true}))
-      router.push('/admin/ticket')
-    }).catch(error => {
-    })
-  }
-
   return (
     <>
-      <MerchantUserAdminLayout>
+      <WithoutSessionLayout>
         <PurchaseTicketTemplate></PurchaseTicketTemplate>
-        <div className='text-center'>
-          <Button onClick={createTicket}>登録する</Button>
-        </div>
-      </MerchantUserAdminLayout>
+      </WithoutSessionLayout>
     </>
   )
 }
