@@ -35,7 +35,6 @@ const Edit: NextPage = () => {
         dispatch(webpageTagChanged(webpageResponse.tag))
         dispatch(isTopPageChanged(webpageResponse.is_top_page))
         dispatch(pageContentChanged(webpageResponse.block_contents || []))
-        dispatch(alertChanged({message: '更新しました', show: true}))
       })
       .catch(error => {
         dispatch(alertChanged({message: error, show: true, type: 'danger'}))
