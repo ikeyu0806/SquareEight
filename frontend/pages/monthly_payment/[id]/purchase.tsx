@@ -1,8 +1,8 @@
 import { NextPage } from 'next'
 import React, { useEffect } from 'react'
-import CreateMonthlyPayment from 'components/templates/CreateMonthlyPayment'
+import PurchaseMonthlyPayment from 'components/templates/PurchaseMonthlyPayment'
 import { Container } from 'react-bootstrap'
-import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import { Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -19,7 +19,7 @@ import { priceChanged,
          enableReserveCountChanged,
          descriptionChanged } from 'redux/monthlyPaymentPlanSlice'
 
-const Edit: NextPage = () => {
+const Purchase: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
@@ -35,7 +35,7 @@ const Edit: NextPage = () => {
   useEffect(() => {
     const fetchMonthlyPaymentPlan = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/${router.query.id}`, {
+        `${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/${router.query.id}/edit`, {
           headers: { 
             'Session-Id': cookies._gybuilder_merchant_session
           },
@@ -58,43 +58,15 @@ const Edit: NextPage = () => {
     fetchMonthlyPaymentPlan()
   }, [router.query.id, cookies._gybuilder_merchant_session, dispatch])
 
-  const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/${router.query.id}/update`,
-    {
-      monthly_payment_plans: {
-        name: name,
-        price: price,
-        reserve_is_unlimited: reserveIsUnlimited,
-        reserve_interval_number: reserveIntervalNumber,
-        reserve_interval_unit: reserveIntervalUnit,
-        enable_reserve_count: enableReserveCount,
-        description: description
-      }
-    },
-    {
-      headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
-      }
-    }).then(response => {
-      router.push('/admin/monthly_payment')
-      dispatch(alertChanged({message: '月額課金プランを更新しました', show: true}))
-    }).catch(error => {
-      dispatch(alertChanged({message: error, show: true, type: 'danger'}))
-    })
-  }
-
   return (
     <>
-      <MerchantUserAdminLayout>
+      <WithoutSessionLayout>
         <Container>
-          <CreateMonthlyPayment></CreateMonthlyPayment>
+          <PurchaseMonthlyPayment></PurchaseMonthlyPayment>
         </Container>
-        <div className='text-center'>
-          <Button onClick={onSubmit} className='mt10'>更新する</Button>
-        </div>
-      </MerchantUserAdminLayout>
+      </WithoutSessionLayout>
     </>
   )
 }
 
-export default Edit
+export default Purchase

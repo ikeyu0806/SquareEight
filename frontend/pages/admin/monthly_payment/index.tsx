@@ -57,6 +57,11 @@ const Index: NextPage = () => {
                       <a className='btn btn-primary' href={`/admin/monthly_payment/${plan.id}/edit`}>編集</a>
                     </div>
                   </td>
+                  <td>
+                    <div className='text-center'>
+                      <a className='btn btn-primary' href={`/monthly_payment/${plan.id}/purchase`}>購入ページプレビュー</a>
+                    </div>
+                  </td>
                 </tr>
               )
             })}

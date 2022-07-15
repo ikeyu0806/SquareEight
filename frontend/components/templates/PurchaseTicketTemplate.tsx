@@ -21,7 +21,7 @@ const PurchaseTicketTemplate = (): JSX.Element => {
                 <div>{issueNumber}枚</div>
                 <div>{price}円</div>
                 <div>
-                  <a className='btn btn-primary mt10' href='/ticket/payment'>購入に進む</a>
+                  <a className='btn btn-primary mt30' href='/ticket/payment'>購入に進む</a>
                 </div>
               </Card.Body>
             </Card>
