@@ -8,11 +8,15 @@ import { useRouter } from 'next/router'
 import { WebsiteParam } from 'interfaces/WebsiteParam'
 import PencilSquareIcon from 'components/atoms/PencilSquareIcon'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { alertChanged } from 'redux/alertSlice'
+import { useDispatch } from 'react-redux'
 
 const Index: NextPage = () => {
+  const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
   const [websites, setWebsites] = useState<WebsiteParam[]>([])
+
   useEffect(() => {
     const fetchHomepages = () => {
       axios.get(
@@ -95,6 +99,30 @@ const Index: NextPage = () => {
     })
   }
 
+  const deleteWebsite = (websiteId: number) => {
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      html: `ホームページを削除します。<br />よろしいですか？`,
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/homepages/${websiteId}`,
+        {
+          headers: {
+            'Session-Id': cookies._gybuilder_merchant_session
+          }
+        }).then(response => {
+          dispatch(alertChanged({message: '削除しました', show: false}))
+          location.reload()
+        }).catch(error => {
+        })
+      }
+    })
+  }
+
   return (
     <>
       <MerchantUserAdminLayout>
@@ -104,9 +132,9 @@ const Index: NextPage = () => {
               <tr>
                 <th className='text-center'>サイト名</th>
                 <th className='text-center'>公開設定</th>
-                <th className='text-center'>作成日時</th>
-                <th></th>
-                <th></th>
+                <th className='text-center'>ページ一覧</th>
+                <th className='text-center'>プレビュー</th>
+                <th className='text-center'>削除</th>
               </tr>
             </thead>
             <tbody>
@@ -134,7 +162,6 @@ const Index: NextPage = () => {
                       }
                       
                     </td>
-                    <td className='text-center'>{website.display_created_at}</td>
                     <td className='text-center'>
                       <Button onClick={() => router.push(`/admin/homepage/${website.id}/webpages`)}>
                         ページ一覧
@@ -142,6 +169,16 @@ const Index: NextPage = () => {
                     </td>
                     <td className='text-center'>
                       {website?.top_page_id ? <a href={`/webpages/${website?.top_page_id}`} className='btn btn-primary'>プレビュー</a> : <>トップページが設定されていません</>}
+                    </td>
+                    <td>
+                    {website.publish_status === 'Unpublish'
+                    ?
+                      <div className='text-center'>
+                        <Button variant='danger' onClick={() => deleteWebsite(website.id)}>削除</Button>
+                      </div>
+                    :
+                      <div className='text-center'>公開中は削除できません</div>
+                    }
                     </td>
                   </tr>
                 )

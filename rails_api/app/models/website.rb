@@ -1,6 +1,6 @@
 class Website < ApplicationRecord
   belongs_to :account
-  has_many :webpages
+  has_many :webpages, dependent: :destroy
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
 
