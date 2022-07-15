@@ -68,9 +68,7 @@ const Index: NextPage = () => {
                       </Button>
                     </td>
                     <td className='text-center'>
-                      <Button onClick={() => router.push(`/webpages/${webpage.id}`)}>
-                        プレビュー
-                      </Button>
+                      <a className='btn btn-primary' href={`/webpages/${webpage.id}`}>プレビュー</a>
                     </td>
                   </tr>
                 )

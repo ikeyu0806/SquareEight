@@ -53,6 +53,11 @@ class Website < ApplicationRecord
     created_at.strftime("%Y/%m/%d")
   end
 
+  def top_page_id
+    top_page = webpages.find_by(is_top_page: true)
+    top_page.present? ? top_page.id : nil
+  end
+
   def header_json
     JSON.parse(default_header_content)
   end

@@ -13,7 +13,7 @@ const Index: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
   const [websites, setWebsites] = useState<WebsiteParam[]>([])
-
+  const [topPageId, setTopPageId] = useState()
   useEffect(() => {
     const fetchHomepages = () => {
       axios.get(
@@ -26,6 +26,7 @@ const Index: NextPage = () => {
       .then(function (response) {
         const websiteResponse: WebsiteParam[] = response.data.websites
         setWebsites(websiteResponse)
+        setTopPageId(response.data.websites.top_page_id)
       })
       .catch(error => {
         console.log(error)
@@ -141,7 +142,9 @@ const Index: NextPage = () => {
                         ページ一覧
                       </Button>
                     </td>
-                    <td className='text-center'><Button>プレビュー</Button></td>
+                    <td className='text-center'>
+                      {topPageId ? <a href={`/webpages/${topPageId}`}>プレビュー</a> : <>トップページが設定されていません</>}
+                    </td>
                   </tr>
                 )
               })}
