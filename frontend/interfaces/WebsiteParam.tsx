@@ -3,5 +3,6 @@ export interface WebsiteParam {
   tag: string
   publish_status: 'Publish' | 'Unpublish'
   display_created_at: string
+  top_page_id: number
 }
 
