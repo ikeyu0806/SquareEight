@@ -1,7 +1,6 @@
 import { ReactNode, useEffect } from 'react'
 import AdminNavbarTemplate from 'components/organisms/AdminNavbarTemplate'
 import RegularFooter from '../../components/organisms/RegularFooter'
-import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'

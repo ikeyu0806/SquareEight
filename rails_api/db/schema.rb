@@ -89,7 +89,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_14_024617) do
 
   create_table "end_users", force: :cascade do |t|
     t.string "email", null: false
-    t.string "name"
     t.string "phone_number"
     t.string "password_digest"
     t.integer "authority_category", default: 0
