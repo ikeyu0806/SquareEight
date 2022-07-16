@@ -3,5 +3,6 @@ export interface ReserveFrameParam {
   end_at?: string
   title: string
   description: string
+  capacity: number
   local_payment_price?: string
 }

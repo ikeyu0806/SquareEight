@@ -1,6 +1,13 @@
 class Api::Internal::ReserveFramesController < ApplicationController
   before_action :login_only!, except: [:reserve_events, :show]
 
+  def index
+    reserve_frames = current_merchant_user.account.reserve_frames
+    render json: { status: 'success', reserve_frames: reserve_frames }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def show
     reserve_frame = ReserveFrame.find(params[:id])
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods]))

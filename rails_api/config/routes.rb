@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       get 'reserve_frames/reserve_events', to: 'reserve_frames#reserve_events'
       get 'reserve_frames/settable_relation_data', to: 'reserve_frames#settable_relation_data'
       get 'reserve_frames/:id', to: 'reserve_frames#show'
+      get 'reserve_frames', to: 'reserve_frames#index'
       post 'reserve_frames', to: 'reserve_frames#create'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
