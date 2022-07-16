@@ -2,6 +2,7 @@ class Account < ApplicationRecord
   has_one :business_hour
   has_many :merchant_users
   has_many :websites
+  has_many :webpages, through: :websites
   has_many :payment_methods
   has_many :ticket_masters
   has_many :monthly_payment_plans
@@ -53,6 +54,9 @@ class Account < ApplicationRecord
   def page_links
     # 作成したWebページ、予約ページ、回数券購入ページ、月額課金プラン加入ページのリンクを返却
     result = []
+    self.webpages.each do |w|
+      result.push({ text: w.tag, value: '/webpages/' + w.id.to_s, label: 'Webページ'  })
+    end
     self.reserve_frames.each do |r|
       result.push({ text: r.title, value: '/reserve/' + r.id.to_s, label: '予約ページ'  })
     end

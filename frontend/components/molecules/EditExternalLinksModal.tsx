@@ -85,7 +85,7 @@ const EditExternalLinksModal = (): JSX.Element => {
       <Modal.Body>
       <Form.Check
         type='radio'
-        label='予約ページ/回数券購入ページ/月額課金加入ページを追加'
+        label='GYBuilderで作成したWebページ/予約ページ/回数券購入ページ/月額課金加入ページを追加'
         onChange={() => setInputLinkType('Registered')}
         checked={inputLinkType === 'Registered'}></Form.Check>
       <Form.Check
