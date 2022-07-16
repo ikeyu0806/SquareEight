@@ -60,7 +60,7 @@ const Index: NextPage = () => {
           <Navbar.Toggle />
             <Navbar.Collapse>
               <Nav>
-                {header.bodyContent.map((link: any, i) => {
+                {header.bodyContent?.map((link: any, i) => {
                   return (
                     <Nav.Link href={link.link} key={i}>
                       {link.text}

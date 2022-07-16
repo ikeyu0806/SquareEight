@@ -21,7 +21,7 @@ class Website < ApplicationRecord
           decode_image = Base64.decode64(image_data)
           extension = content["blockState"]["base64Image"].split("/")[1].split(";")[0]
           content_type = content["blockState"]["base64Image"].split(":")[1].split(";")[0]
-          bucket = s3.bucket("gybuilder-webpage-image-bucket-develop")
+          bucket = s3.bucket(ENV["WEBPAGE_IMAGE_BUCKET"])
           obj_name =  "website_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
           obj = bucket.object(obj_name)
           obj.put(acl: "public-read", body: decode_image, content_type: content_type)
@@ -35,7 +35,7 @@ class Website < ApplicationRecord
             decode_image = Base64.decode64(image_data)
             extension = content["base64Image"].split("/")[1].split(";")[0]
             content_type = content["base64Image"].split(":")[1].split(";")[0]
-            bucket = s3.bucket("gybuilder-webpage-image-bucket-develop")
+            bucket = s3.bucket(ENV["WEBPAGE_IMAGE_BUCKET"])
             obj_name =  "website_slide_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
             obj = bucket.object(obj_name)
             obj.put(acl: "public-read", body: decode_image, content_type: content_type)

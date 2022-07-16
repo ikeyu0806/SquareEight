@@ -16,10 +16,10 @@ class Webpage < ApplicationRecord
   end
 
   def header_json
-    JSON.parse(website.default_header_content)
+    website.default_header_content.present? ? JSON.parse(website.default_header_content) : []
   end
 
   def footer_json
-    JSON.parse(website.default_footer_content)
+    website.default_header_content.present? ? JSON.parse(website.default_footer_content) : []
   end
 end
