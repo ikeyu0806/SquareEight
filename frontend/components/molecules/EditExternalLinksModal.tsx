@@ -41,13 +41,17 @@ const EditExternalLinksModal = (): JSX.Element => {
     }
     fetchPageLinks()
   }, [cookies._gybuilder_merchant_session])
+
+  const clearInputTextState = () => {
+    setInputLinkText('')
+    setInputLink('')
+  }
   
   const onClickAddLinkButton = () => {
     let updateBlockContent: ExternalLinkBlockContentStateType[]
     updateBlockContent = [...blockContent, {text: inputLinkText, url: inputLink }]
     setBlockContent(updateBlockContent)
-    setInputLinkText('')
-    setInputLink('')
+    clearInputTextState()
   }
 
   const completeEdit = () => {
@@ -63,8 +67,12 @@ const EditExternalLinksModal = (): JSX.Element => {
   }
 
   const onChangeExternalLinkSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setInputLinkText(event.target.selectedOptions[0].label)
     setInputLink(event.target.value)
+    let text: string
+    text = pageLinks.find(link => link?.value === event.target.value)?.text || event.target.selectedOptions[0].label
+    setInputLinkText(text)
+    // これ↓だと【予約ページ】とかのラベル部分も設定されてしまう
+    // setInputLinkText(event.target.selectedOptions[0].label)
   }
 
   return (
@@ -83,7 +91,10 @@ const EditExternalLinksModal = (): JSX.Element => {
       <Form.Check
         type='radio'
         label='URLを直接入力'
-        onChange={() => setInputLinkType('Manual')}
+        onChange={() => {
+          setInputLinkType('Manual');
+          clearInputTextState();
+        }}
         checked={inputLinkType === 'Manual'}></Form.Check>
         <Form>
           <Form.Group>
