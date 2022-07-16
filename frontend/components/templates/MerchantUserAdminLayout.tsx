@@ -31,9 +31,15 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
 
   return (
     <>
-      <AdminNavbarTemplate></AdminNavbarTemplate>
+      {merchantUserLoginStatus === 'Login'
+      ?
+        <AdminNavbarTemplate></AdminNavbarTemplate>
+      :
+        <></>
+      }
+
       <br/>
-      {merchantUserLoginStatus === 'Login' && children}
+      {merchantUserLoginStatus === 'Login' ? children : <div className='text-center'>ログインしてください</div>}
       <RegularFooter></RegularFooter>
     </>
   )
