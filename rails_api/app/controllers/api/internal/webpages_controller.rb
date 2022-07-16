@@ -31,18 +31,18 @@ class Api::Internal::WebpagesController < ApplicationController
     ActiveRecord::Base.transaction do
       webpage = Webpage.find(webpage_params[:id])
       webpage.tag = webpage_params[:tag]
-      if webpage_params[:is_top_page]
-        webpage.website.webpages.where(is_top_page: true).update_all(is_top_page: false)
-        webpage.is_top_page = true
-      end
-      webpage.save!
       webpage.webpage_blocks.delete_all
       webpage_content_json = JSON.parse(webpage_params[:page_content].to_json)
       webpage_content_json.each do |json|
         webpage.webpage_blocks.create!(content_json: json.to_s, block_type: json["blockType"])
       end
-      render json: { status: 'success' }, states: 200
+      if webpage_params[:is_top_page]
+        webpage.website.webpages.find_by(is_top_page: true).is_top_page = false
+        webpage.is_top_page = true
+      end
+      webpage.save!
     end
+    render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

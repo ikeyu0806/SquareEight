@@ -31,7 +31,6 @@ const Edit: NextPage = () => {
       )
       .then(function (response) {
         const webpageResponse: WebpageParam = response.data.webpage
-        console.log({webpageResponse})
         dispatch(webpageTagChanged(webpageResponse.tag))
         dispatch(isTopPageChanged(webpageResponse.is_top_page))
         dispatch(pageContentChanged(webpageResponse.block_contents || []))
