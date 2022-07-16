@@ -1,19 +1,38 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
 import { pageContentChanged, showBlockModalChanged, blockTypeChanged, currentMaxSortOrderChanged } from '../../redux/homepageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
 import { ExternalLinkBlockContentStateType } from '../../types/ExternalLinkBlockStateType'
+import { useCookies } from 'react-cookie'
+import { PageLinksParam } from 'interfaces/PageLinksParam'
+import axios from 'axios'
 
 const EditExternalLinksModal = (): JSX.Element => {
   const dispatch = useDispatch()
+  const [cookies] = useCookies(['_gybuilder_merchant_session'])
 
+  const [pageLinks, setPageLinks] = useState<PageLinksParam[]>([])
   const [inputLinkText, setInputLinkText] = useState('')
   const [inputLink, setInputLink] = useState('')
   const [blockContent, setBlockContent] = useState<ExternalLinkBlockContentStateType[]>([])
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
   const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
+
+  useEffect(() => {
+    axios.get(`${process.env.BACKEND_URL}/api/internal/accounts/page_links`,
+    {
+      headers: {
+        'Session-Id': cookies._gybuilder_merchant_session
+      }
+    }).then((response) => {
+      console.log(response)
+      setPageLinks(response.data.page_links)
+    }).catch((e) => {
+      console.log(e)
+    })
+  }, [cookies._gybuilder_merchant_session])
   
   const onClickAddLinkButton = () => {
     let updateBlockContent: ExternalLinkBlockContentStateType[]
