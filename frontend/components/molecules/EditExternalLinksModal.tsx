@@ -16,6 +16,9 @@ const EditExternalLinksModal = (): JSX.Element => {
   const [pageLinks, setPageLinks] = useState<PageLinksParam[]>([])
   const [inputLinkText, setInputLinkText] = useState('')
   const [inputLink, setInputLink] = useState('')
+  // 予約ページ/回数券購入ページ/月額課金加入ページ: Registered
+  // 手動入力: Manual とする
+  const [inputLinkType, setInputLinkType] = useState('Registered')
   const [blockContent, setBlockContent] = useState<ExternalLinkBlockContentStateType[]>([])
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
   const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
@@ -29,6 +32,9 @@ const EditExternalLinksModal = (): JSX.Element => {
         }
       }).then((response) => {
         setPageLinks(response.data.page_links)
+        // 最初の値を初期値にする
+        setInputLink(response.data.page_links[0].value)
+        setInputLinkText(response.data.page_links[0].text)
       }).catch((e) => {
         console.log(e)
       })
@@ -69,28 +75,37 @@ const EditExternalLinksModal = (): JSX.Element => {
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
+      <Form.Check
+        type='radio'
+        label='予約ページ/回数券購入ページ/月額課金加入ページを追加'
+        onChange={() => setInputLinkType('Registered')}
+        checked={inputLinkType === 'Registered'}></Form.Check>
+      <Form.Check
+        type='radio'
+        label='URLを直接入力'
+        onChange={() => setInputLinkType('Manual')}
+        checked={inputLinkType === 'Manual'}></Form.Check>
         <Form>
           <Form.Group>
-            <h5 className='mt10'>GYBuilderで作成したページを追加</h5>
-            <Form.Select onChange={(e) => onChangeExternalLinkSelect(e)}>
-              {pageLinks.map((link, i) => {
-                return (
-                  <option key={i} value={link.value}>
-                    {link.text}&emsp;<span>【{link.label}】</span>
-                  </option>
-                )
-              })}
-            </Form.Select>
-            <Button className='mt20' onClick={onClickAddLinkButton}>追加</Button>
-            <h5 className='mt10'>URLを直接入力</h5>
-            <Form.Text>リンク表示名</Form.Text>
+            {inputLinkType === 'Registered'
+            && <Form.Select onChange={(e) => onChangeExternalLinkSelect(e)}>
+            {pageLinks.map((link, i) => {
+              return (
+                <option key={i} value={link.value}>
+                  {link.text}&emsp;<span>【{link.label}】</span>
+                </option>
+              )
+            })}
+          </Form.Select>}
+          {inputLinkType === 'Manual'
+          && <><Form.Text>リンク表示名</Form.Text>
             <Form.Control placeholder='企業情報'
                           value={inputLinkText}
                           onChange={(e) => setInputLinkText(e.target.value)}></Form.Control>
             <Form.Text>URL</Form.Text>
             <Form.Control placeholder='https://sample.com'
                           value={inputLink}
-                          onChange={(e) => setInputLink(e.target.value)}></Form.Control>
+                          onChange={(e) => setInputLink(e.target.value)}></Form.Control></>}
             <Button className='mt20' onClick={onClickAddLinkButton}>追加</Button>
           </Form.Group>
           <h5 className='mt20'>プレビュー</h5>
