@@ -39,7 +39,7 @@ class Api::Internal::WebpagesController < ApplicationController
         webpage.webpage_blocks.create!(content_json: json.to_s, block_type: json["blockType"])
       end
       if webpage_params[:is_top_page]
-        webpage.website.webpages.find_by(is_top_page: true).is_top_page = false
+        webpage.website.webpages.find_by(is_top_page: true)&.is_top_page = false
         webpage.is_top_page = true
       end
       webpage.save!
