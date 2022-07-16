@@ -21,17 +21,19 @@ const EditExternalLinksModal = (): JSX.Element => {
   const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/accounts/page_links`,
-    {
-      headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
-      }
-    }).then((response) => {
-      console.log(response)
-      setPageLinks(response.data.page_links)
-    }).catch((e) => {
-      console.log(e)
-    })
+    const fetchPageLinks = () => {
+      axios.get(`${process.env.BACKEND_URL}/api/internal/accounts/page_links`,
+      {
+        headers: {
+          'Session-Id': cookies._gybuilder_merchant_session
+        }
+      }).then((response) => {
+        setPageLinks(response.data.page_links)
+      }).catch((e) => {
+        console.log(e)
+      })
+    }
+    fetchPageLinks()
   }, [cookies._gybuilder_merchant_session])
   
   const onClickAddLinkButton = () => {
@@ -54,6 +56,11 @@ const EditExternalLinksModal = (): JSX.Element => {
     dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
   }
 
+  const onChangeExternalLinkSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setInputLinkText(event.target.selectedOptions[0].label)
+    setInputLink(event.target.value)
+  }
+
   return (
     <>
       <Modal.Header> 
@@ -64,6 +71,18 @@ const EditExternalLinksModal = (): JSX.Element => {
       <Modal.Body>
         <Form>
           <Form.Group>
+            <h5 className='mt10'>GYBuilderで作成したページを追加</h5>
+            <Form.Select onChange={(e) => onChangeExternalLinkSelect(e)}>
+              {pageLinks.map((link, i) => {
+                return (
+                  <option key={i} value={link.value}>
+                    {link.text}&emsp;<span>【{link.label}】</span>
+                  </option>
+                )
+              })}
+            </Form.Select>
+            <Button className='mt20' onClick={onClickAddLinkButton}>追加</Button>
+            <h5 className='mt10'>URLを直接入力</h5>
             <Form.Text>リンク表示名</Form.Text>
             <Form.Control placeholder='企業情報'
                           value={inputLinkText}
@@ -74,6 +93,7 @@ const EditExternalLinksModal = (): JSX.Element => {
                           onChange={(e) => setInputLink(e.target.value)}></Form.Control>
             <Button className='mt20' onClick={onClickAddLinkButton}>追加</Button>
           </Form.Group>
+          <h5 className='mt20'>プレビュー</h5>
           <br />
           {blockContent.map((json, i) => {
             return (<a href={json.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{json.text}</a>)
