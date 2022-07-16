@@ -179,6 +179,14 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def page_links
+    account = current_merchant_user.account
+    page_links = account.page_links
+    render json: { status: 'success', page_links: page_links }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def account_params
