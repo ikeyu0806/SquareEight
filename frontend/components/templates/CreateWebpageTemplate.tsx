@@ -22,7 +22,7 @@ const CreateWebpageTemplate = (): JSX.Element => {
   const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
   const isTopPage = useSelector((state: RootState) => state.homepage.isTopPage)
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-
+  const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
   return(
     <>
       <Container>

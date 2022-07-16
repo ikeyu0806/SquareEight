@@ -11,6 +11,10 @@ class Webpage < ApplicationRecord
     result
   end
 
+  def max_sort_order
+    self.block_contents.max_by{|b| b["sortOrder"] }["sortOrder"]
+  end
+
   def display_created_at
     created_at.strftime("%Y/%m/%d")
   end

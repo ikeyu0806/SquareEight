@@ -42,10 +42,7 @@ const New: NextPage = () => {
       <MerchantUserAdminLayout>
         <div className='mt30'></div>
         <CreateWebpageTemplate></CreateWebpageTemplate>
-        <br/>
-        <br/>
-        <br/>
-        <div className='text-center'>
+        <div className='text-center mt50'>
           <Button onClick={createWebpage}>登録する</Button>
         </div>
       </MerchantUserAdminLayout>

@@ -11,10 +11,12 @@ import { pageContentChanged } from '../../redux/homepageSlice'
 const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProps): JSX.Element => {
   const dispatch = useDispatch()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+  const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
 
   const moveUpBlock = () => {
     let updatePageContentState: PageContentState[]
     const decrementSortOrder = sortOrder - 1
+    if (decrementSortOrder < 1) { return true }
     let moveDownPageContent = pageContent.find(content => content.sortOrder === sortOrder)
     let moveUpPageContent = pageContent.find(content => content.sortOrder === decrementSortOrder)
     updatePageContentState = pageContent.filter(content => content.sortOrder !== sortOrder)
@@ -42,6 +44,7 @@ const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProp
   const moveDownBlock = () => {
     let updatePageContentState: PageContentState[]
     const incrementSortOrder = sortOrder + 1
+    if (incrementSortOrder > currentMaxSortOrder) { return true }
     let moveUpPageContent = pageContent.find(content => content.sortOrder === sortOrder)
     let moveDownPageContent = pageContent.find(content => content.sortOrder === incrementSortOrder)
     updatePageContentState = pageContent.filter(content => content.sortOrder !== sortOrder)

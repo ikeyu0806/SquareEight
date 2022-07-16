@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { WebpageParam } from 'interfaces/WebpageParam'
-import { webpageTagChanged, pageContentChanged, isTopPageChanged } from 'redux/homepageSlice'
+import { webpageTagChanged, pageContentChanged, isTopPageChanged, currentMaxSortOrderChanged } from 'redux/homepageSlice'
 import { Button } from 'react-bootstrap'
 import { alertChanged } from 'redux/alertSlice'
 
@@ -34,6 +34,7 @@ const Edit: NextPage = () => {
         dispatch(webpageTagChanged(webpageResponse.tag))
         dispatch(isTopPageChanged(webpageResponse.is_top_page))
         dispatch(pageContentChanged(webpageResponse.block_contents || []))
+        dispatch(currentMaxSortOrderChanged(response.data.max_sort_order))
       })
       .catch(error => {
         dispatch(alertChanged({message: error, show: true, type: 'danger'}))
