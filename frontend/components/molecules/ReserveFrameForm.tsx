@@ -10,6 +10,7 @@ import { ResourceParam } from 'interfaces/ResourceParam'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { ReservableFrameTicketMasterParam } from 'interfaces/ReservableFrameTicketMasterParam'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import {  showReserveFrameModalChanged,
           startDateChanged,
           startTimeChanged,
@@ -148,10 +149,17 @@ const ReserveFrameForm = () => {
         'Session-Id': cookies._gybuilder_merchant_session
       }
     }).then(response => {
-      dispatch(alertChanged({message: '予約枠を登録しました', show: true}))
+      swalWithBootstrapButtons.fire({
+        title: '登録しました',
+        icon: 'info'
+      })
       dispatch(showReserveFrameModalChanged(false))
+      location.reload()
     }).catch(error => {
-      dispatch(alertChanged({message: error, show: true, type: 'danger'}))
+      swalWithBootstrapButtons.fire({
+        title: '登録失敗しました',
+        icon: 'error'
+      })
     })
   }
 
