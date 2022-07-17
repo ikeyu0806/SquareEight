@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_14_024617) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_17_081939) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -121,6 +121,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_14_024617) do
   create_table "merchant_users", force: :cascade do |t|
     t.integer "account_id"
     t.string "email", null: false
+    t.string "phone_number"
     t.string "name"
     t.string "password_digest"
     t.integer "authority_category", default: 0
@@ -194,6 +195,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_14_024617) do
     t.boolean "is_local_payment_enable"
     t.boolean "is_ticket_payment_enable"
     t.boolean "is_monthly_plan_payment_enable"
+    t.boolean "is_creadit_card_payment_enable"
+    t.integer "credit_card_payment_price"
   end
 
   create_table "resources", force: :cascade do |t|

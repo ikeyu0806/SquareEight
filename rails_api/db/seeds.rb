@@ -7,7 +7,9 @@
 #   Character.create(name: "Luke", movie: movies.first)
 
 account = Account.first_or_create!(
-  business_name: "管理ユーザ"
+  business_name: "管理ユーザ",
+  stripe_customer_id: "cus_LwJxeaXaTnVjba",
+  stripe_account_id: "acct_1LFYYj2eLQ63YTOo"
 )
 
 MerchantUser.first_or_create!(
