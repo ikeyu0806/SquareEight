@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { RootState } from '../../redux/store'
 import axios from 'axios'
-import { alertChanged } from 'redux/alertSlice'
 import { ResourceParam } from 'interfaces/ResourceParam'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
@@ -77,9 +76,6 @@ const ReserveFrameForm = () => {
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
 
   const [isSetPrice, setIsSetPrice] = useState(true)
-  const [enableLocalPayment, setEnableLocalPayment] = useState(false)
-  const [enableMonthlyPayment, setEnableMonthlyPayment] = useState(false)
-  const [enableReservationTicket, setEnableReservationTicket] = useState(false)
   const [unreservableFramesStartDate, setUnreservableFramesStartDate] = useState('')
   const [unreservableFramesStartTime, setUnreservableFramesStartTime] = useState('')
   const [unreservableFramesEndDate, setUnreservableFramesEndDate] = useState('')
@@ -290,9 +286,9 @@ const ReserveFrameForm = () => {
               <Col sm={2}>
                 <Form.Control
                   type='number'
+                  min={1}
                   value={capacity}
-                  onChange={(e) => dispatch(capacityChanged(Number(e.target.value)))}
-                  placeholder='1' />
+                  onChange={(e) => dispatch(capacityChanged(Number(e.target.value)))} />
               </Col>
             </Form.Group>
           </Col>

@@ -80,7 +80,7 @@ const Index = (): JSX.Element => {
                       })}
                     </td>
                     <td className='text-center'>
-                      {reserveFrame.publish_status === 'Published' ? '公開' : '非公開'}
+                      {reserveFrame.publish_status === 'Publish' ? '公開' : '非公開'}
                     </td>
                     <td className='text-center'>
                       {reserveFrame.reception_type_text}
