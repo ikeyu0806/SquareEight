@@ -12,7 +12,7 @@ import { useSelector } from 'react-redux'
 const Index: NextPage = () => {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
-  const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>({title: '', description: ''})
+  const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>({title: '', description: '', capacity: 1, publish_status: 'Unpublished'})
   const [reserveFramePaymentMethod, setReserveFramePaymentMethod] = useState<ReserveFramePaymentMethodParam>({local_payment_price: 0, enable_monthly_payment_plans: [], enable_tickets: []})
   const loginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
 

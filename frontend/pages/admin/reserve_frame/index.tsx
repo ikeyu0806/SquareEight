@@ -24,6 +24,7 @@ const Index = (): JSX.Element => {
       )
       .then(function (response) {
         const reserveFrameResponse: ReserveFrameParam[] = response.data.reserve_frames
+        console.log(response.data)
         setReserveFrames(reserveFrameResponse)
       })
       .catch(error => {
@@ -67,10 +68,19 @@ const Index = (): JSX.Element => {
                     <td className='text-center'>
                     </td>
                     <td className='text-center'>
+                      {reserveFrame.payment_methods_text && reserveFrame.payment_methods_text.map((text, i) => {
+                        return (
+                          <span key={i}>{text}<br/></span>
+                        )
+                      })}
+                    </td>
+                    <td className='text-center'>
+                      {reserveFrame.publish_status === 'Published' ? '公開' : '非公開'}
                     </td>
                     <td className='text-center'>
                     </td>
-                    <td className='text-center'>
+                    <td>
+                      <a className='btn btn-primary'>編集</a>
                     </td>
                   </tr>
                 )

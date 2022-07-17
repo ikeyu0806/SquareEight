@@ -5,4 +5,6 @@ export interface ReserveFrameParam {
   description: string
   capacity: number
   local_payment_price?: string
+  publish_status: string
+  payment_methods_text?: string[]
 }

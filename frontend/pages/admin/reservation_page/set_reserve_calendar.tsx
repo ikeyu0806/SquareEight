@@ -29,7 +29,7 @@ const SetReserveCalendar: NextPage = () => {
         console.log(error)
       })
     }
-    fetchEvents()
+    // fetchEvents()
   }, [router.query.account_id, dispatch, cookies])
   return (
     <>

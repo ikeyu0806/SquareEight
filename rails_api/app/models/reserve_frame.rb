@@ -3,7 +3,9 @@ class ReserveFrame < ApplicationRecord
   has_many :unreservable_frames
   has_many :reserve_frame_resorces
   has_many :reserve_frame_monthly_payment_plans
+  has_many :monthly_payment_plans, through: :reserve_frame_monthly_payment_plans
   has_many :reserve_frame_ticket_masters
+  has_many :ticket_masters, through: :reserve_frame_ticket_masters
 
   enum repeat_interval_type: { Day: 0, Week: 1, Month: 2 }
   enum publish_status: { Unpublish: 0, Publish: 1 }
@@ -31,6 +33,26 @@ class ReserveFrame < ApplicationRecord
         ticket_payment_info.push({ticket_name: reserve_ticket.ticket_master.name, consume_number: reserve_ticket.consume_number})
       end
       result[:enable_tickets] = ticket_payment_info
+    end
+    result
+  end
+
+  def payment_methods_text
+    result = []
+    if is_local_payment_enable?
+      result.push("現地払い: ¥" + local_payment_price.to_s)
+    end
+
+    if is_monthly_plan_payment_enable?
+      monthly_payment_plans.each do |reserve_plan|
+        result.push(reserve_plan.plan_text)
+      end
+    end
+
+    if is_ticket_payment_enable?
+      reserve_frame_ticket_masters.each do |reserve_ticket|
+        result.push(reserve_ticket.ticket_master.name + " 消費枚数: " + reserve_ticket.consume_number.to_s + "枚")
+      end
     end
     result
   end
