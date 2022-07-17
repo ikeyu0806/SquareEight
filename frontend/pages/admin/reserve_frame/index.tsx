@@ -60,7 +60,7 @@ const Index = (): JSX.Element => {
                       {reserveFrame.title}
                     </td>
                     <td className='text-center'>
-                      {reserveFrame.start_at}
+                      {reserveFrame.display_start_at}{reserveFrame.display_end_at && <><br/>{reserveFrame.display_end_at}</>}
                     </td>
                     <td className='text-center'>
                       {reserveFrame.capacity}

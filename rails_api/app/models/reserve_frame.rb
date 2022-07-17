@@ -56,4 +56,12 @@ class ReserveFrame < ApplicationRecord
     end
     result
   end
+
+  def display_start_at
+    start_at.strftime("%Y/%m/%d %H:%M")
+  end
+
+  def display_end_at
+    end_at.strftime("%Y/%m/%d %H:%M")
+  end
 end
