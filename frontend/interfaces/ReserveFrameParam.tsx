@@ -8,5 +8,6 @@ export interface ReserveFrameParam {
   capacity: number
   local_payment_price?: string
   publish_status: string
+  repeat_setting_text? :string
   payment_methods_text?: string[]
 }

@@ -66,6 +66,7 @@ const Index = (): JSX.Element => {
                       {reserveFrame.capacity}
                     </td>
                     <td className='text-center'>
+                      {reserveFrame.repeat_setting_text}
                     </td>
                     <td className='text-center'>
                       {reserveFrame.payment_methods_text && reserveFrame.payment_methods_text.map((text, i) => {

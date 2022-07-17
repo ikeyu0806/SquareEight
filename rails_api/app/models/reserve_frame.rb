@@ -57,6 +57,19 @@ class ReserveFrame < ApplicationRecord
     result
   end
 
+  def repeat_setting_text
+    case repeat_interval_type
+    when "Day"
+      repeat_interval_number_day.to_s + "日" + "ごとに繰り返す"
+    when "Week"
+      repeat_interval_number_week.to_s + "週間" + "ごとに繰り返す"
+    when "Month"
+      repeat_interval_number_month.to_s + "ヶ月ごとの" + repeat_interval_month_date + "日に設定"
+    else
+      raise
+    end
+  end
+
   def display_start_at
     start_at.strftime("%Y/%m/%d %H:%M")
   end
