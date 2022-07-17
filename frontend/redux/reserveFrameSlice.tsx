@@ -22,6 +22,7 @@ export const reserveFrameSlice = createSlice({
     capacity: 1,
     repeatEndDate: getZeroPaddingDate(),
     localPaymentPrice: 1000,
+    creditCardPaymentPrice: 1000,
     publishStatus: 'Unpublish',
     receptionType: 'Immediate',
     receptionStartDayBefore: 1,
@@ -29,6 +30,7 @@ export const reserveFrameSlice = createSlice({
     cancelReceptionHourBefore: 1,
     cancelReceptionDayBefore: 1,
     isLocalPaymentEnable: false,
+    isCreditCardPaymentEnable: false,
     isTicketPaymentEnable: false,
     isMonthlyPlanPaymentEnable: false,
     unreservableFrames: [] as UnreservableFrameParam[],
@@ -86,6 +88,9 @@ export const reserveFrameSlice = createSlice({
     localPaymentPriceChanged: (state, action: PayloadAction<number>) => {
       state.localPaymentPrice = action.payload
     },
+    creditCardPaymentPriceChanged: (state, action: PayloadAction<number>) => {
+      state.creditCardPaymentPrice = action.payload
+    },
     publishStatusChanged: (state, action: PayloadAction<string>) => {
       state.publishStatus = action.payload
     },
@@ -106,6 +111,9 @@ export const reserveFrameSlice = createSlice({
     },
     isLocalPaymentEnableChanged: (state, action: PayloadAction<boolean>) => {
       state.isLocalPaymentEnable = action.payload
+    },
+    isCreditCardPaymentEnableChanged: (state, action: PayloadAction<boolean>) => {
+      state.isCreditCardPaymentEnable = action.payload
     },
     isTicketPaymentEnableChanged: (state, action: PayloadAction<boolean>) => {
       state.isTicketPaymentEnable = action.payload
@@ -147,6 +155,7 @@ export const { repeatIntervalMonthDateChanged } = reserveFrameSlice.actions
 export const { capacityChanged } = reserveFrameSlice.actions
 export const { repeatEndDateChanged } = reserveFrameSlice.actions
 export const { localPaymentPriceChanged } = reserveFrameSlice.actions
+export const { creditCardPaymentPriceChanged } = reserveFrameSlice.actions
 export const { publishStatusChanged } = reserveFrameSlice.actions
 export const { receptionTypeChanged } = reserveFrameSlice.actions
 export const { receptionStartDayBeforeChanged } = reserveFrameSlice.actions
@@ -154,6 +163,7 @@ export const { cancelReceptionChanged } = reserveFrameSlice.actions
 export const { cancelReceptionHourBeforeChanged } = reserveFrameSlice.actions
 export const { cancelReceptionDayBeforeChanged } = reserveFrameSlice.actions
 export const { isLocalPaymentEnableChanged } = reserveFrameSlice.actions
+export const { isCreditCardPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isTicketPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isMonthlyPlanPaymentEnableChanged } = reserveFrameSlice.actions
 export const { unreservableFramesChanged } = reserveFrameSlice.actions

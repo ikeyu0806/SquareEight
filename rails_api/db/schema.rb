@@ -195,8 +195,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_17_081939) do
     t.boolean "is_local_payment_enable"
     t.boolean "is_ticket_payment_enable"
     t.boolean "is_monthly_plan_payment_enable"
+    t.integer "creadit_card_payment_price"
     t.boolean "is_creadit_card_payment_enable"
-    t.integer "credit_card_payment_price"
   end
 
   create_table "resources", force: :cascade do |t|

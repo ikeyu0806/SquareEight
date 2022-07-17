@@ -26,6 +26,7 @@ import {  showReserveFrameModalChanged,
           capacityChanged,
           repeatEndDateChanged,
           localPaymentPriceChanged,
+          creditCardPaymentPriceChanged,
           publishStatusChanged,
           receptionTypeChanged,
           receptionStartDayBeforeChanged,
@@ -33,6 +34,7 @@ import {  showReserveFrameModalChanged,
           cancelReceptionHourBeforeChanged,
           cancelReceptionDayBeforeChanged,
           isLocalPaymentEnableChanged,
+          isCreditCardPaymentEnableChanged,
           isTicketPaymentEnableChanged,
           isMonthlyPlanPaymentEnableChanged,
           unreservableFramesChanged, 
@@ -61,6 +63,7 @@ const ReserveFrameForm = () => {
   const repeatIntervalMonthDate = useSelector((state: RootState) => state.reserveFrame.repeatIntervalMonthDate)
   const repeatEndDate = useSelector((state: RootState) => state.reserveFrame.repeatEndDate)
   const localPaymentPrice = useSelector((state: RootState) => state.reserveFrame.localPaymentPrice)
+  const creditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.localPaymentPrice)
   const publishStatus = useSelector((state: RootState) => state.reserveFrame.publishStatus)
   const receptionType = useSelector((state: RootState) => state.reserveFrame.receptionType)
   const receptionStartDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionStartDayBefore)
@@ -69,6 +72,7 @@ const ReserveFrameForm = () => {
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
   const isLocalPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isLocalPaymentEnable)
+  const isCreditCardPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isCreditCardPaymentEnable)
   const isTicketPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isTicketPaymentEnable)
   const isMonthlyPlanPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isMonthlyPlanPaymentEnable)
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
@@ -127,6 +131,7 @@ const ReserveFrameForm = () => {
         repeat_interval_number_month_date: repeatIntervalMonthDate,
         repeat_end_date: repeatEndDate,
         local_payment_price: localPaymentPrice,
+        credit_card_payment_price: creditCardPaymentPrice,
         publish_status: publishStatus,
         reception_type: receptionType,
         reception_start_day_before: receptionStartDayBefore,
@@ -134,6 +139,7 @@ const ReserveFrameForm = () => {
         unreservable_frames: unreservableFrames,
         resource_ids: resourceIds,
         is_local_payment_enable: isLocalPaymentEnable,
+        is_credit_card_payment_enable: isCreditCardPaymentEnable,
         is_ticket_payment_enable: isTicketPaymentEnable,
         is_monthly_plan_payment_enable: isMonthlyPlanPaymentEnable,
         monthly_payment_plan_ids: monthlyPaymentPlanIds,
@@ -512,6 +518,23 @@ const ReserveFrameForm = () => {
                     <Form.Control
                       value={localPaymentPrice}
                       onChange={(e) => dispatch(localPaymentPriceChanged(Number(e.target.value)))}
+                      type='number'
+                      min='0' />
+                  </Col>
+                  <Form.Label column sm={2}>
+                    円
+                  </Form.Label>
+                </Form.Group>
+              </Col>
+            </Row>}
+            <Form.Check label='クレジットカード払い' checked={isCreditCardPaymentEnable} onChange={() => dispatch(isCreditCardPaymentEnableChanged(!isCreditCardPaymentEnable))}></Form.Check>
+            {isCreditCardPaymentEnable && <Row>
+              <Col>
+                <Form.Group as={Row} className='mb-3'>
+                  <Col sm={3}>
+                    <Form.Control
+                      value={creditCardPaymentPrice}
+                      onChange={(e) => dispatch(creditCardPaymentPriceChanged(Number(e.target.value)))}
                       type='number'
                       min='0' />
                   </Col>
