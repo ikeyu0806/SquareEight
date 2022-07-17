@@ -6,6 +6,8 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
+import { showReserveFrameModalChanged } from 'redux/reserveFrameSlice'
+import ReserveFrameModal from 'components/organisms/ReserveFrameModal'
 
 const Index = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -32,13 +34,15 @@ const Index = (): JSX.Element => {
       })
     }
     fetchReserveFrames()
-    console.log("!!", reserveFrames)
   }, [router.query.id, cookies._gybuilder_merchant_session])
 
   return (
     <>
       <MerchantUserAdminLayout>
         <Container>
+          <Button
+            className='mb30'
+            onClick={() => dispatch(showReserveFrameModalChanged(true))}>新規登録</Button>
           <Table bordered>
             <thead>
               <tr>
@@ -89,6 +93,7 @@ const Index = (): JSX.Element => {
               })}
             </tbody>
           </Table>
+          <ReserveFrameModal></ReserveFrameModal>
         </Container>
       </MerchantUserAdminLayout>
     </>

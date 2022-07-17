@@ -36,7 +36,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
           reserve_frame.reserve_frame_resorces.new(resource_id: resource_id)
         end
       end
-      if reserve_frame.reserve_frame.is_monthly_plan_payment_enable?
+      if reserve_frame.is_monthly_plan_payment_enable?
         reserve_frame_params[:monthly_payment_plan_ids].each do |plan_id|
           reserve_frame.reserve_frame_monthly_payment_plans.new(monthly_payment_plan_id: plan_id)
         end
