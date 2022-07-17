@@ -79,6 +79,7 @@ const Index = (): JSX.Element => {
                       {reserveFrame.publish_status === 'Published' ? '公開' : '非公開'}
                     </td>
                     <td className='text-center'>
+                      {reserveFrame.reception_type_text}
                     </td>
                     <td>
                       <a className='btn btn-primary'>編集</a>

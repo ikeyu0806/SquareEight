@@ -70,6 +70,19 @@ class ReserveFrame < ApplicationRecord
     end
   end
 
+  def reception_type_text
+    case reception_type
+    when "Immediate"
+      "即時予約"
+    when "Temporary"
+      "仮予約"
+    when "PhoneOnly"
+      "電話のみ"
+    else
+      raise
+    end
+  end
+
   def display_start_at
     start_at.strftime("%Y/%m/%d %H:%M")
   end
