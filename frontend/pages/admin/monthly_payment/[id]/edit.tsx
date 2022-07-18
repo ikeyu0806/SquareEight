@@ -32,7 +32,7 @@ const Edit: NextPage = () => {
   const reserveIntervalUnit = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalUnit)
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
-  const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
+  const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
 
   useEffect(() => {
     const fetchMonthlyPaymentPlan = () => {
@@ -72,7 +72,7 @@ const Edit: NextPage = () => {
         reserve_interval_unit: reserveIntervalUnit,
         enable_reserve_count: enableReserveCount,
         description: description,
-        s3_object_public_url: s3ObjectPublicUrl
+        base64_image: base64Image
       }
     },
     {

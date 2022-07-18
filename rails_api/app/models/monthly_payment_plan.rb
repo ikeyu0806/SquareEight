@@ -23,7 +23,7 @@ class MonthlyPaymentPlan < ApplicationRecord
   end
 
   def delete_s3_image
-    client = Aws::S3::Resource.new(
+    client = Aws::S3::Client.new(
       access_key_id: ENV['AWS_ACCESS_KEY'],
       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
       region: "ap-northeast-1"
