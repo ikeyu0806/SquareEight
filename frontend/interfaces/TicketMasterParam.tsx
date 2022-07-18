@@ -3,4 +3,5 @@ export interface TicketMasterParam {
   name: string
   issue_number: number
   price: number
+  description: string
 }

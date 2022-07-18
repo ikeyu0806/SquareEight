@@ -2,13 +2,12 @@ import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import PurchaseTicketTemplate from 'components/templates/PurchaseTicketTemplate'
-import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
-import { nameChanged, priceChanged, issueNumberChanged } from 'redux/ticketMasterSlice'
+import { nameChanged, priceChanged, issueNumberChanged, descriptionChanged } from 'redux/ticketMasterSlice'
 
 const Purchase: NextPage = () => {
   const dispatch = useDispatch()
@@ -29,6 +28,7 @@ const Purchase: NextPage = () => {
         dispatch(nameChanged(ticketMasterResponse.name))
         dispatch(priceChanged(ticketMasterResponse.price))
         dispatch(issueNumberChanged(ticketMasterResponse.issue_number))
+        dispatch(descriptionChanged(ticketMasterResponse.description))
       })
       .catch(error => {
         console.log(error)

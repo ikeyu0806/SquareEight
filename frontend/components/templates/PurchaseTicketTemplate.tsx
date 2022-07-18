@@ -7,6 +7,7 @@ const PurchaseTicketTemplate = (): JSX.Element => {
   const name = useSelector((state: RootState) => state.ticketMaster.name)
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
+  const description = useSelector((state: RootState) => state.ticketMaster.description)
 
   return (
     <>
@@ -20,6 +21,7 @@ const PurchaseTicketTemplate = (): JSX.Element => {
                 <h3>{name}</h3>
                 <div>{issueNumber}枚</div>
                 <div>{price}円</div>
+                <div>{description}</div>
                 <div>
                   <a className='btn btn-primary mt30' href='/ticket/payment'>購入に進む</a>
                 </div>
