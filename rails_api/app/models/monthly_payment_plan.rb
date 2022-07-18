@@ -21,4 +21,13 @@ class MonthlyPaymentPlan < ApplicationRecord
       name + " " + reserve_interval_number.to_s + reserve_interval_unit_text + "辺り" + enable_reserve_count.to_s + "回予約可能"
     end
   end
+
+  def delete_s3_image
+    client = Aws::S3::Resource.new(
+      access_key_id: ENV['AWS_ACCESS_KEY'],
+      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+      region: "ap-northeast-1"
+    )
+    client.delete_object(bucket: ENV["PRODUCT_IMAGE_BUCKET"], key: self.s3_object_name)
+  end
 end

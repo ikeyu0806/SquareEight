@@ -17,7 +17,8 @@ import { priceChanged,
          reserveIntervalNumberChanged,
          reserveIntervalUnitChanged,
          enableReserveCountChanged,
-         descriptionChanged } from 'redux/monthlyPaymentPlanSlice'
+         descriptionChanged,
+         s3ObjectPublicUrlChanged } from 'redux/monthlyPaymentPlanSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -31,6 +32,7 @@ const Edit: NextPage = () => {
   const reserveIntervalUnit = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalUnit)
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
+  const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
 
   useEffect(() => {
     const fetchMonthlyPaymentPlan = () => {
@@ -50,6 +52,7 @@ const Edit: NextPage = () => {
         dispatch(reserveIntervalUnitChanged(monthlyPaymentPlanResponse.reserve_interval_unit))
         dispatch(enableReserveCountChanged(monthlyPaymentPlanResponse.enable_reserve_count))
         dispatch(descriptionChanged(monthlyPaymentPlanResponse.description))
+        dispatch(s3ObjectPublicUrlChanged(monthlyPaymentPlanResponse.s3_object_public_url))
       })
       .catch(error => {
         console.log(error)
@@ -68,7 +71,8 @@ const Edit: NextPage = () => {
         reserve_interval_number: reserveIntervalNumber,
         reserve_interval_unit: reserveIntervalUnit,
         enable_reserve_count: enableReserveCount,
-        description: description
+        description: description,
+        s3_object_public_url: s3ObjectPublicUrl
       }
     },
     {

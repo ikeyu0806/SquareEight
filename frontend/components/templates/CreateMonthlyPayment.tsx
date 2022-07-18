@@ -21,6 +21,7 @@ const CreateMonthlyPayment = (): JSX.Element => {
   const reserveIntervalNumber = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalNumber)
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
+  const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -102,6 +103,11 @@ const CreateMonthlyPayment = (): JSX.Element => {
           {image && <img
             className='d-block w-100 mt30'
             src={image}
+            alt='image'
+          />}
+          {s3ObjectPublicUrl && !image && <img
+            className='d-block w-100 mt30'
+            src={s3ObjectPublicUrl}
             alt='image'
           />}
           <Form.Group>

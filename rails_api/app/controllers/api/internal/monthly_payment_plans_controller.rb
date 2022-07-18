@@ -14,7 +14,8 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     ActiveRecord::Base.transaction do
       monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.new(monthly_payment_plan_params.except(:base64_image))
       if (monthly_payment_plan_params[:base64_image].present?)
-        monthly_payment_plan.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], "monthly_paymeny_plan_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
+        monthly_payment_plan.delete_s3_image if monthly_payment_plan.s3_object_public_url.present?
+        # monthly_payment_plan.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], "monthly_paymeny_plan_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
       end
       monthly_payment_plan.save!
       render json: { status: 'success' }, states: 200

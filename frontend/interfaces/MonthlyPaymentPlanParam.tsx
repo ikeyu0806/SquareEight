@@ -7,4 +7,5 @@ export interface MonthlyPaymentPlanParam {
   reserve_interval_unit: string 
   enable_reserve_count: number
   description: string
+  s3_object_public_url?: string
 }

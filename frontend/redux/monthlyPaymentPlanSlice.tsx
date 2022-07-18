@@ -11,7 +11,7 @@ export const monthlyPaymentPlanSlice = createSlice({
     enableReserveCount: 1,
     description: '',
     base64Image: null,
-
+    s3ObjectPublicUrl: ''
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -38,6 +38,9 @@ export const monthlyPaymentPlanSlice = createSlice({
     base64ImageChanged: (state, action: PayloadAction<any>) => {
       state.base64Image = action.payload
     },
+    s3ObjectPublicUrlChanged: (state, action: PayloadAction<any>) => {
+      state.s3ObjectPublicUrl = action.payload
+    },
   },
 })
 
@@ -49,5 +52,6 @@ export const { reserveIntervalUnitChanged } = monthlyPaymentPlanSlice.actions
 export const { enableReserveCountChanged } = monthlyPaymentPlanSlice.actions
 export const { descriptionChanged } = monthlyPaymentPlanSlice.actions
 export const { base64ImageChanged } = monthlyPaymentPlanSlice.actions
+export const { s3ObjectPublicUrlChanged } = monthlyPaymentPlanSlice.actions
 
 export default monthlyPaymentPlanSlice.reducer
