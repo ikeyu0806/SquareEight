@@ -8,6 +8,7 @@ const PurchaseTicketTemplate = (): JSX.Element => {
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
+  const s3ObjectPublicUrl = useSelector((state: RootState) => state.ticketMaster.s3ObjectPublicUrl)
 
   return (
     <>
@@ -22,6 +23,12 @@ const PurchaseTicketTemplate = (): JSX.Element => {
                 <div>{issueNumber}枚</div>
                 <div>{price}円</div>
                 <div>{description}</div>
+                {s3ObjectPublicUrl
+                && <img
+                    className='d-block w-100 mt30 mb30'
+                    src={s3ObjectPublicUrl}
+                    alt='image' />}
+                <h4>お支払い方法</h4>
                 <div>
                   <a className='btn btn-primary mt30' href='/ticket/payment'>購入に進む</a>
                 </div>
