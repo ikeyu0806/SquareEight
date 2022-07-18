@@ -1,4 +1,7 @@
+include Base64Image
+
 class Api::Internal::MonthlyPaymentPlansController < ApplicationController
+  before_action :login_only!
 
   def index
     monthly_payment_plans = current_merchant_user.account.monthly_payment_plans
@@ -8,8 +11,14 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   end
 
   def create
-    current_merchant_user.account.monthly_payment_plans.create!(monthly_payment_plan_params)
-    render json: { status: 'success' }, states: 200
+    ActiveRecord::Base.transaction do
+      monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.new(monthly_payment_plan_params.except(:base64_image))
+      if (monthly_payment_plan_params[:base64_image].present?)
+        monthly_payment_plan.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], "monthly_paymeny_plan_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
+      end
+      monthly_payment_plan.save!
+      render json: { status: 'success' }, states: 200
+    end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
