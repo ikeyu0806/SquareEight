@@ -33,6 +33,8 @@ export const reserveFrameSlice = createSlice({
     isCreditCardPaymentEnable: false,
     isTicketPaymentEnable: false,
     isMonthlyPlanPaymentEnable: false,
+    base64Image: null,
+    s3ObjectPublicUrl: '',
     unreservableFrames: [] as UnreservableFrameParam[],
     resourceIds: [] as number[],
     reserveEvents: [],
@@ -121,6 +123,12 @@ export const reserveFrameSlice = createSlice({
     isMonthlyPlanPaymentEnableChanged: (state, action: PayloadAction<boolean>) => {
       state.isMonthlyPlanPaymentEnable = action.payload
     },
+    base64ImageChanged: (state, action: PayloadAction<any>) => {
+      state.base64Image = action.payload
+    },
+    s3ObjectPublicUrlChanged: (state, action: PayloadAction<any>) => {
+      state.s3ObjectPublicUrl = action.payload
+    },
     unreservableFramesChanged: (state, action: PayloadAction<UnreservableFrameParam[]>) => {
       state.unreservableFrames = action.payload
     },
@@ -166,6 +174,8 @@ export const { isLocalPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isCreditCardPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isTicketPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isMonthlyPlanPaymentEnableChanged } = reserveFrameSlice.actions
+export const { base64ImageChanged } = reserveFrameSlice.actions
+export const { s3ObjectPublicUrlChanged } = reserveFrameSlice.actions
 export const { unreservableFramesChanged } = reserveFrameSlice.actions
 export const { resourceIdsChanged } = reserveFrameSlice.actions
 export const { reserveEventsChanged } = reserveFrameSlice.actions

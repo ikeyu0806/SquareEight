@@ -10,6 +10,8 @@ import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { ReservableFrameTicketMasterParam } from 'interfaces/ReservableFrameTicketMasterParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { getBase64 } from '../../functions/getBase64'
+import resourceSlice from 'redux/resourceSlice'
 import {  showReserveFrameModalChanged,
           startDateChanged,
           startTimeChanged,
@@ -40,8 +42,8 @@ import {  showReserveFrameModalChanged,
           unreservableFramesChanged, 
           resourceIdsChanged,
           monthlyPaymentPlanIdsChanged,
-          reservableFrameTicketMasterChanged } from 'redux/reserveFrameSlice'
-import resourceSlice from 'redux/resourceSlice'
+          reservableFrameTicketMasterChanged,
+          base64ImageChanged } from 'redux/reserveFrameSlice'
 
 const ReserveFrameForm = () => {
   const router = useRouter()
@@ -78,6 +80,8 @@ const ReserveFrameForm = () => {
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
+  const s3ObjectPublicUrl = useSelector((state: RootState) => state.reserveFrame.s3ObjectPublicUrl)
+  const base64Image = useSelector((state: RootState) => state.reserveFrame.base64Image)
 
   const [isSetPrice, setIsSetPrice] = useState(true)
   const [unreservableFramesStartDate, setUnreservableFramesStartDate] = useState('')
@@ -87,6 +91,7 @@ const ReserveFrameForm = () => {
   const [selectableResources, setSelectableResources] = useState<ResourceParam[]>([])
   const [selectableTicketMasters, setSelectableTicketMasters] = useState<TicketMasterParam[]>([])
   const [selectableMonthlyPaymentPlans, setSelectableMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam[]>([])
+  const [image, setImage] = useState('')
   const ticketRefs = useRef<any>([])
 
   useEffect(() => {
@@ -114,6 +119,14 @@ const ReserveFrameForm = () => {
     fetchResources()
   }, [router.query.id, cookies._gybuilder_merchant_session])
 
+  const handleChangeFile = (e: any) => {
+    const { files } = e.target
+    setImage(window.URL.createObjectURL(files[0]))
+    getBase64(files[0]).then(
+      data => dispatch(base64ImageChanged(data))
+    )
+  }
+
   const createReserveFrame = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames`,
     {
@@ -122,6 +135,7 @@ const ReserveFrameForm = () => {
         end_at: endDate + ' ' + endTime,
         title: title,
         description: description,
+        base64_image: base64Image,
         capacity: capacity,
         is_repeat: isRepeat,
         repeat_interval_type: repeatIntervalType,
@@ -239,6 +253,19 @@ const ReserveFrameForm = () => {
             onChange={(e) => dispatch(descriptionChanged(e.target.value))}
             as='textarea'
             rows={3} />
+        </Form.Group>
+
+        <Form.Group>
+          {image && <img
+            className='d-block w-100 mt30'
+            src={image}
+            alt='image'
+          />}
+          {s3ObjectPublicUrl && !image && <img
+            className='d-block w-100 mt30'
+            src={s3ObjectPublicUrl}
+            alt='image'
+          />}
         </Form.Group>
 
         <Form.Group className='mb-3'>
