@@ -10,7 +10,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { alertChanged } from 'redux/alertSlice'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
-import { nameChanged, priceChanged, issueNumberChanged } from 'redux/ticketMasterSlice'
+import { nameChanged, priceChanged, issueNumberChanged, descriptionChanged } from 'redux/ticketMasterSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -19,6 +19,7 @@ const Edit: NextPage = () => {
   const name = useSelector((state: RootState) => state.ticketMaster.name)
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
+  const description = useSelector((state: RootState) => state.ticketMaster.description)
 
   useEffect(() => {
     const fetchTicketMasters = () => {
@@ -34,6 +35,7 @@ const Edit: NextPage = () => {
         dispatch(nameChanged(ticketMasterResponse.name))
         dispatch(priceChanged(ticketMasterResponse.price))
         dispatch(issueNumberChanged(ticketMasterResponse.issue_number))
+        dispatch(descriptionChanged(ticketMasterResponse.description))
       })
       .catch(error => {
         console.log(error)
@@ -48,7 +50,8 @@ const Edit: NextPage = () => {
       ticket_master: {
         name: name,
         issue_number: issueNumber,
-        price: price
+        price: price,
+        description: description
       }
     },
     {
