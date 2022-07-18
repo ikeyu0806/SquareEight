@@ -17,25 +17,18 @@ import { priceChanged,
          reserveIntervalNumberChanged,
          reserveIntervalUnitChanged,
          enableReserveCountChanged,
-         descriptionChanged } from 'redux/monthlyPaymentPlanSlice'
+         descriptionChanged,
+         s3ObjectPublicUrlChanged } from 'redux/monthlyPaymentPlanSlice'
 
 const Purchase: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
 
-  const name = useSelector((state: RootState) => state.monthlyPaymentPlan.name)
-  const price = useSelector((state: RootState) => state.monthlyPaymentPlan.price)
-  const reserveIsUnlimited = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIsUnlimited)
-  const reserveIntervalNumber = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalNumber)
-  const reserveIntervalUnit = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalUnit)
-  const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
-  const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
-
   useEffect(() => {
     const fetchMonthlyPaymentPlan = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/${router.query.id}/edit`, {
+        `${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/${router.query.id}`, {
           headers: { 
             'Session-Id': cookies._gybuilder_merchant_session
           },
@@ -50,6 +43,7 @@ const Purchase: NextPage = () => {
         dispatch(reserveIntervalUnitChanged(monthlyPaymentPlanResponse.reserve_interval_unit))
         dispatch(enableReserveCountChanged(monthlyPaymentPlanResponse.enable_reserve_count))
         dispatch(descriptionChanged(monthlyPaymentPlanResponse.description))
+        dispatch(s3ObjectPublicUrlChanged(monthlyPaymentPlanResponse.s3_object_public_url))
       })
       .catch(error => {
         console.log(error)

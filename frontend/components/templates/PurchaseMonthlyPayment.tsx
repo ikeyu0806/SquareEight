@@ -7,7 +7,7 @@ const PurchaseMonthlyPayment = (): JSX.Element => {
   const dispatch = useDispatch()
   const name = useSelector((state: RootState) => state.monthlyPaymentPlan.name)
   const price = useSelector((state: RootState) => state.monthlyPaymentPlan.price)
-  const reserveIsUnlimited = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIsUnlimited)
+  const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
   const reserveIntervalNumber = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalNumber)
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
@@ -23,6 +23,11 @@ const PurchaseMonthlyPayment = (): JSX.Element => {
             <Card.Body>
               <div>{name}</div>
               <div>{description}</div>
+              {s3ObjectPublicUrl
+                && <img
+                    className='d-block w-100 mt30 mb30'
+                    src={s3ObjectPublicUrl}
+                    alt='image' />}
               <div>￥{price}</div>
               <div>{reserveIntervalNumber}日に{enableReserveCount}回予約可能</div>
               <a className='btn btn-primary mt30'>購入に進む</a>
