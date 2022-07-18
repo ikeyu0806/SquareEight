@@ -255,18 +255,20 @@ const ReserveFrameForm = () => {
             rows={3} />
         </Form.Group>
 
-        <Form.Group>
-          {image && <img
-            className='d-block w-100 mt30'
-            src={image}
-            alt='image'
-          />}
-          {s3ObjectPublicUrl && !image && <img
-            className='d-block w-100 mt30'
-            src={s3ObjectPublicUrl}
-            alt='image'
-          />}
-        </Form.Group>
+        {image && <img
+          className='d-block w-100 mt30'
+          src={image}
+          alt='image'
+        />}
+        {s3ObjectPublicUrl && !image && <img
+          className='d-block w-100 mt30'
+          src={s3ObjectPublicUrl}
+          alt='image'
+        />}
+        <Form.Group className='mb-3'>
+                <Form.Label className='mt10'>イメージ画像</Form.Label>
+                <Form.Control type="file" onChange={handleChangeFile} />
+              </Form.Group>
 
         <Form.Group className='mb-3'>
 

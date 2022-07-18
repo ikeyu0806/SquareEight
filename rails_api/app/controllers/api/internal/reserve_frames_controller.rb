@@ -1,3 +1,5 @@
+include Base64Image
+
 class Api::Internal::ReserveFramesController < ApplicationController
   before_action :login_only!, except: [:reserve_events, :show]
 
@@ -26,7 +28,8 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                        :repeat_interval_number_month_date,
                                                        :resource_ids,
                                                        :monthly_payment_plan_ids,
-                                                       :reservable_frame_ticket_master))
+                                                       :reservable_frame_ticket_master,
+                                                       :base64_image))
       reserve_frame_params[:unreservable_frames].each do |frame|
         reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
       end
@@ -46,6 +49,9 @@ class Api::Internal::ReserveFramesController < ApplicationController
           reserve_frame.reserve_frame_ticket_masters.new(ticket_master)
         end
       end
+      file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+      reserve_frame.s3_object_public_url = put_s3_http_request_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+      reserve_frame.s3_object_name = file_name
       reserve_frame.save!
       render json: { status: 'success' }, states: 200
     end
@@ -82,6 +88,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :end_at,
                   :title,
                   :description,
+                  :base64_image,
                   :is_repeat,
                   :repeat_interval_type,
                   :repeat_interval_number_day,

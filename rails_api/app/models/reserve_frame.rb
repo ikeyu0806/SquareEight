@@ -90,4 +90,13 @@ class ReserveFrame < ApplicationRecord
   def display_end_at
     end_at.strftime("%Y/%m/%d %H:%M")
   end
+
+  def delete_s3_image
+    client = Aws::S3::Client.new(
+      access_key_id: ENV['AWS_ACCESS_KEY'],
+      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+      region: "ap-northeast-1"
+    )
+    client.delete_object(bucket: ENV["PRODUCT_IMAGE_BUCKET"], key: self.s3_object_name)
+  end
 end

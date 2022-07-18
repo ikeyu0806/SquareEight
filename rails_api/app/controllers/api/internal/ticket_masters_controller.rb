@@ -1,3 +1,5 @@
+include Base64Image
+
 class Api::Internal::TicketMastersController < ApplicationController
   before_action :login_only!
 
