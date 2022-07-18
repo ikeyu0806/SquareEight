@@ -14,7 +14,6 @@ const EditImageSlideBlockModal = (): JSX.Element => {
   const [base64Image, setBase64Image] = useState<any>('')
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
-  const [imageSlideChild, setImageSlideChild] = useState<ImageSlideChildState>({title: title, text: text, image: image, base64Image: base64Image})
   const [imageSlide, setImageSlide] = useState<ImageSlideState>()
   const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
 

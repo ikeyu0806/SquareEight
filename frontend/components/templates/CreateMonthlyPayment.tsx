@@ -1,23 +1,34 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { Container, FormControl, Row, Col, Form } from 'react-bootstrap'
+import { getBase64 } from '../../functions/getBase64'
 import { priceChanged,
          nameChanged,
          reserveIsUnlimitedChanged,
          reserveIntervalNumberChanged,
          reserveIntervalUnitChanged,
          enableReserveCountChanged,
-         descriptionChanged } from 'redux/monthlyPaymentPlanSlice'
+         descriptionChanged,
+         base64ImageChanged } from 'redux/monthlyPaymentPlanSlice'
 
 const CreateMonthlyPayment = (): JSX.Element => {
   const dispatch = useDispatch()
+  const [image, setImage] = useState('')
   const name = useSelector((state: RootState) => state.monthlyPaymentPlan.name)
   const price = useSelector((state: RootState) => state.monthlyPaymentPlan.price)
   const reserveIsUnlimited = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIsUnlimited)
   const reserveIntervalNumber = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalNumber)
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
+
+  const handleChangeFile = (e: any) => {
+    const { files } = e.target
+    setImage(window.URL.createObjectURL(files[0]))
+    getBase64(files[0]).then(
+      data => dispatch(base64ImageChanged(data))
+    )
+  }
 
   return (
     <>
@@ -87,6 +98,15 @@ const CreateMonthlyPayment = (): JSX.Element => {
             rows={20}
             placeholder=''
             aria-label='' />
+          {image && <img
+            className='d-block w-100 mt30'
+            src={image}
+            alt='image'
+          />}
+          <Form.Group>
+            <Form.Label className='mt10'>イメージ画像</Form.Label>
+            <Form.Control type="file" onChange={handleChangeFile} />
+          </Form.Group>
           </Col>
         </Row>
       </Container>

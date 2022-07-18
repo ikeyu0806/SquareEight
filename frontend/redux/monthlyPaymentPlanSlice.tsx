@@ -9,7 +9,8 @@ export const monthlyPaymentPlanSlice = createSlice({
     reserveIntervalNumber: 1,
     reserveIntervalUnit: 'Day',
     enableReserveCount: 1,
-    description: ''
+    description: '',
+    base64Image: null,
 
   },
   reducers: {
@@ -34,6 +35,9 @@ export const monthlyPaymentPlanSlice = createSlice({
     descriptionChanged: (state, action: PayloadAction<string>) => {
       state.description = action.payload
     },
+    base64ImageChanged: (state, action: PayloadAction<any>) => {
+      state.base64Image = action.payload
+    },
   },
 })
 
@@ -44,5 +48,6 @@ export const { reserveIntervalNumberChanged } = monthlyPaymentPlanSlice.actions
 export const { reserveIntervalUnitChanged } = monthlyPaymentPlanSlice.actions
 export const { enableReserveCountChanged } = monthlyPaymentPlanSlice.actions
 export const { descriptionChanged } = monthlyPaymentPlanSlice.actions
+export const { base64ImageChanged } = monthlyPaymentPlanSlice.actions
 
 export default monthlyPaymentPlanSlice.reducer

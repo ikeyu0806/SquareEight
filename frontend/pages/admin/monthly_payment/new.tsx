@@ -22,6 +22,7 @@ const New: NextPage = () => {
   const reserveIntervalUnit = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalUnit)
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
+  const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans`,
@@ -33,7 +34,8 @@ const New: NextPage = () => {
         reserve_interval_number: reserveIntervalNumber,
         reserve_interval_unit: reserveIntervalUnit,
         enable_reserve_count: enableReserveCount,
-        description: description
+        description: description,
+        base64_image: base64Image
       }
     },
     {

@@ -39,6 +39,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
                                                   :reserve_is_unlimited,
                                                   :reserve_interval_number,
                                                   :reserve_interval_unit,
-                                                  :enable_reserve_count)
+                                                  :enable_reserve_count,
+                                                  :base64_image)
   end
 end
