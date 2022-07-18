@@ -16,16 +16,31 @@ class Api::Internal::TicketMastersController < ApplicationController
   end
 
   def create
-    current_merchant_user.account.ticket_masters.create!(ticket_master_params)
-    render json: { status: 'success' }, states: 200
+    ActiveRecord::Base.transaction do
+      ticket_master = current_merchant_user.account.ticket_masters.new(ticket_master_params.except(:base64_image))
+      file_name = "ticket_master_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+      ticket_master.s3_object_public_url = put_s3_http_request_data(ticket_master_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+      ticket_master.s3_object_name = file_name
+      ticket_master.save!
+      render json: { status: 'success' }, states: 200
+    end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def update
-    ticket_master = TicketMaster.find(params[:id])
-    ticket_master.update!(ticket_master_params)
-    render json: { status: 'success' }, states: 200
+    ActiveRecord::Base.transaction do
+      ticket_master = TicketMaster.find(params[:id])
+      ticket_master.attributes = (ticket_master_params.except(:base64_image))
+      if (ticket_master_params[:base64_image].present?)
+        ticket_master.delete_s3_image if ticket_master.s3_object_public_url.present?
+        file_name = "ticket_master_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        ticket_master.s3_object_public_url = put_s3_http_request_data(ticket_master_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+        ticket_master.s3_object_name = file_name
+      end
+      ticket_master.save!
+      render json: { status: 'success' }, states: 200
+    end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -33,6 +48,6 @@ class Api::Internal::TicketMastersController < ApplicationController
   private
 
   def ticket_master_params
-    params.require(:ticket_master).permit(:id, :name, :issue_number, :price, :description)
+    params.require(:ticket_master).permit(:id, :name, :issue_number, :price, :description, :base64_image)
   end
 end
