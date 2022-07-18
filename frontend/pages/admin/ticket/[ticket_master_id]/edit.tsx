@@ -10,7 +10,10 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { alertChanged } from 'redux/alertSlice'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
-import { nameChanged, priceChanged, issueNumberChanged, descriptionChanged } from 'redux/ticketMasterSlice'
+import { nameChanged, priceChanged,
+         issueNumberChanged,
+         descriptionChanged,
+         s3ObjectPublicUrlChanged } from 'redux/ticketMasterSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -20,6 +23,7 @@ const Edit: NextPage = () => {
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
+  const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
 
   useEffect(() => {
     const fetchTicketMasters = () => {
@@ -36,6 +40,7 @@ const Edit: NextPage = () => {
         dispatch(priceChanged(ticketMasterResponse.price))
         dispatch(issueNumberChanged(ticketMasterResponse.issue_number))
         dispatch(descriptionChanged(ticketMasterResponse.description))
+        dispatch(s3ObjectPublicUrlChanged(ticketMasterResponse.s3_object_public_url))
       })
       .catch(error => {
         console.log(error)
@@ -51,7 +56,8 @@ const Edit: NextPage = () => {
         name: name,
         issue_number: issueNumber,
         price: price,
-        description: description
+        description: description,
+        base64_image: base64Image
       }
     },
     {

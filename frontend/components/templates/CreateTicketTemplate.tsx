@@ -1,16 +1,30 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Col, Form, FormControl } from 'react-bootstrap'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
-import { nameChanged, issueNumberChanged, priceChanged, descriptionChanged } from 'redux/ticketMasterSlice'
+import { getBase64 } from '../../functions/getBase64'
+import { nameChanged,
+         issueNumberChanged,
+         priceChanged,
+         descriptionChanged,
+         base64ImageChanged } from 'redux/ticketMasterSlice'
 
 const CreateTicketTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
-
+  const [image, setImage] = useState('')
   const name = useSelector((state: RootState) => state.ticketMaster.name)
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
+  const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
+
+  const handleChangeFile = (e: any) => {
+    const { files } = e.target
+    setImage(window.URL.createObjectURL(files[0]))
+    getBase64(files[0]).then(
+      data => dispatch(base64ImageChanged(data))
+    )
+  }
 
   return (
     <>
@@ -51,6 +65,20 @@ const CreateTicketTemplate = (): JSX.Element => {
                 rows={20}
                 placeholder=''
                 aria-label='' />
+              </Form.Group>
+              {image && <img
+                className='d-block w-100 mt30'
+                src={image}
+                alt='image'
+              />}
+              {s3ObjectPublicUrl && !image && <img
+                className='d-block w-100 mt30'
+                src={s3ObjectPublicUrl}
+                alt='image'
+              />}
+              <Form.Group>
+                <Form.Label className='mt10'>イメージ画像</Form.Label>
+                <Form.Control type="file" onChange={handleChangeFile} />
               </Form.Group>
             </div>
           </Col>

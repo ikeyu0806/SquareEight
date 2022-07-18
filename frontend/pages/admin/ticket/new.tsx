@@ -18,6 +18,7 @@ const New: NextPage = () => {
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
+  const base64Image = useSelector((state: RootState) => state.ticketMaster.base64Image)
 
   const createTicket = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters`,
@@ -26,7 +27,8 @@ const New: NextPage = () => {
         name: name,
         issue_number: issueNumber,
         price: price,
-        description: description
+        description: description,
+        base64_image: base64Image
       }
     },
     {
