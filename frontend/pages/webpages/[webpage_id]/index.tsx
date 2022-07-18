@@ -78,19 +78,19 @@ const Index: NextPage = () => {
             switch (page.blockType) {
               case BLOCK_TYPE.HEADING:
                 return (
-                  <span key={i}>
+                  <span key={i} className='mb20'>
                     <HeadingBlock blockState={(page.blockState) as HeadingBlockState}></HeadingBlock>
                   </span>
                 )
               case BLOCK_TYPE.IMAGE_SLIDE:
                 return (
-                  <div key={i}>
+                  <div key={i} className='mb20'>
                     <ImageSlideBlock blockState={(page.blockState) as ImageSlideState}></ImageSlideBlock>
                   </div>
               )
               case BLOCK_TYPE.TEXT_IMAGE:
                 return (
-                  <div key={i}>
+                  <div key={i} className='mb20'>
                     <TextImageBlock blockState={(page.blockState) as TextImageBlockStateType}></TextImageBlock>
                   </div>
                 )
@@ -101,6 +101,7 @@ const Index: NextPage = () => {
                       <a href={block.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{block.text}</a>
                     )
                   }),
+                  <span key={i} className='mb20'></span>
                 ]
               default:
                 console.log('invalid block')

@@ -6,15 +6,12 @@ import axios from 'axios'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { ReserveFramePaymentMethodParam } from 'interfaces/ReserveFramePaymentMethodParam'
 import { useRouter } from 'next/router'
-import { RootState } from 'redux/store'
-import { useSelector } from 'react-redux'
 
 const Index: NextPage = () => {
   const router = useRouter()
   const [showModal, setShowModal] = useState(false)
   const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>({title: '', description: '', capacity: 1, publish_status: 'Unpublished'})
   const [reserveFramePaymentMethod, setReserveFramePaymentMethod] = useState<ReserveFramePaymentMethodParam>({local_payment_price: 0, enable_monthly_payment_plans: [], enable_tickets: []})
-  const loginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
 
   useEffect(() => {
     const fetchReserveFrame = () => {
@@ -46,6 +43,11 @@ const Index: NextPage = () => {
               <Card.Body>
                 <h3>{reserveFrame.title}</h3>
                 <div>{reserveFrame.description}</div>
+                {reserveFrame.s3_object_public_url
+                && <img
+                    className='d-block w-100 mt30 mb30'
+                    src={reserveFrame.s3_object_public_url}
+                    alt='image' />}
                 <h4>お支払い方法</h4>
                 {reserveFramePaymentMethod.local_payment_price !== undefined && <div>現地払い: {reserveFramePaymentMethod.local_payment_price}円</div>}
                 {reserveFramePaymentMethod.enable_monthly_payment_plans
