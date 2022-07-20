@@ -2,13 +2,19 @@ class Api::Internal::AccountsController < ApplicationController
   before_action :login_only!
 
   def payment_methods
-    customer = Stripe::Customer.retrieve(current_merchant_user.account.stripe_customer_id)
-    default_payment_method_id = customer["invoice_settings"]["default_payment_method"]
-    payment_methods = Stripe::Customer.list_payment_methods(
-      current_merchant_user.account.stripe_customer_id,
-      {type: 'card'},
-    )
-    payment_methods = payment_methods["data"].map{ |data| JSON.parse(data.to_json) }
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    if current_merchant_user.account.stripe_customer_id.present?
+      customer = Stripe::Customer.retrieve(current_merchant_user.account.stripe_customer_id)
+      default_payment_method_id = customer["invoice_settings"]["default_payment_method"]
+      payment_methods = Stripe::Customer.list_payment_methods(
+        current_merchant_user.account.stripe_customer_id,
+        {type: 'card'},
+      )
+      payment_methods = payment_methods["data"].map{ |data| JSON.parse(data.to_json) }
+    else
+      payment_methods = []
+      default_payment_method_id = nil
+    end
     render json: { status: 'success',
                    payment_methods: payment_methods,
                    default_payment_method_id: default_payment_method_id }, states: 200

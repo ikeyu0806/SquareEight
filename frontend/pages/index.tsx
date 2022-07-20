@@ -27,10 +27,10 @@ const Home: NextPage = () => {
             </Nav>
             <Nav>
               <Nav.Link href='/customer/login'>
-                <a className='link-text'>カスタマーアカウントログイン</a>
+                <span className='link-text'>カスタマーアカウントログイン</span>
               </Nav.Link>
               <Nav.Link href='/merchant/login'>
-                <a className='link-text'>ビジネスアカウントログイン</a>
+                <span className='link-text'>ビジネスアカウントログイン</span>
               </Nav.Link>
               <Nav.Link href='/merchant/signup'>
                 <Button>無料でお試し</Button>
