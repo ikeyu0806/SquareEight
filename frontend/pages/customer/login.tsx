@@ -65,6 +65,9 @@ const Login: NextPage = () => {
                         送信
                       </Button>
                     </div>
+                    <div className='text-center mt30'>
+                      <a href='/customer/signup'>新規登録はこちら</a>
+                    </div>
                   </Form>
                 </Card.Body>
               </Card>

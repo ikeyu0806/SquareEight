@@ -20,3 +20,10 @@ MerchantUser.first_or_create!(
   authority_category: "MerchantAdmin",
   authentication_status: "Enabled"
 )
+
+EndUser.first_or_create!(
+  email: "end_user@develop.com",
+  password: "Pass1234",
+  name: "開発用エンドユーザ",
+  authentication_status: "Enabled"
+)

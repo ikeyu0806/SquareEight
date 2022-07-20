@@ -26,8 +26,11 @@ const Home: NextPage = () => {
               <Nav.Link href='#inquiry'>お問い合わせ</Nav.Link>
             </Nav>
             <Nav>
+              <Nav.Link href='/customer/login'>
+                <a className='link-text'>カスタマーアカウントログイン</a>
+              </Nav.Link>
               <Nav.Link href='/merchant/login'>
-                <Button>ビジネスアカウントログイン</Button>
+                <a className='link-text'>ビジネスアカウントログイン</a>
               </Nav.Link>
               <Nav.Link href='/merchant/signup'>
                 <Button>無料でお試し</Button>
