@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { useDispatch } from 'react-redux'
 import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
 import { alertChanged } from 'redux/alertSlice'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const CardList: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
@@ -38,27 +39,51 @@ const CardList: NextPage = () => {
   }, [router.query.id, cookies._gybuilder_end_user_session])
 
   const setDefaultCard = (payment_method_id: string) => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/${payment_method_id}/update_payment_method`,
-    {},
-    {
-      headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+    swalWithBootstrapButtons.fire({
+      title: 'お支払いカードを更新します',
+      text: '更新してもよろしいですか？',
+      icon: 'question',
+      confirmButtonText: '更新する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/${payment_method_id}/update_payment_method`,
+        {},
+        {
+          headers: {
+            'Session-Id': cookies._gybuilder_end_user_session
+          }
+        }).then(response => {
+          dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))
+          router.push('/customer_page/payment_method')
+        }).catch(error => {
+          dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
+        })
       }
-    }).then(response => {
-      dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))
-      router.push('/customer_page/payment_method')
-    }).catch(error => {
-      dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
     })
   }
 
   const deleteCard = (payment_method_id: string) => {
-    axios.delete(`${process.env.BACKEND_URL}/api/internal/end_users/${payment_method_id}/detach_stripe_payment_method`, {
-      headers: { 
-        'Session-Id': cookies._gybuilder_end_user_session
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      text: '削除してもよろしいですか？',
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/end_users/${payment_method_id}/detach_stripe_payment_method`, {
+          headers: { 
+            'Session-Id': cookies._gybuilder_end_user_session
+          }
+        })
+        router.push('/customer_page/payment_method')
       }
     })
-    router.push('/customer_page/payment_method')
   }
 
   return (
