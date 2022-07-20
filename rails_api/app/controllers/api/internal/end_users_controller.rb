@@ -52,6 +52,36 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def register_credit_card
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    ActiveRecord::Base.transaction do
+      if current_end_user.stripe_customer_id.blank?
+        customer = Stripe::Customer.create({
+          source: end_user_params[:card_token],
+        })
+        current_end_user.update!(stripe_customer_id: customer.id)
+        Stripe::PaymentMethod.attach(
+          end_user_params[:payment_method_id],
+          {customer: account.stripe_customer_id},
+        )
+        Stripe::Customer.update(
+          account.stripe_customer_id,
+          invoice_settings: {
+            default_payment_method: end_user_params[:payment_method_id],
+          },
+        )
+      else
+        Stripe::PaymentMethod.attach(
+          end_user_params[:payment_method_id],
+          {customer: account.stripe_customer_id},
+        )
+      end
+      render json: { status: 'success' }, states: 200
+    end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def end_user_params
@@ -59,6 +89,7 @@ class Api::Internal::EndUsersController < ApplicationController
                                      :email,
                                      :password,
                                      :password_confirmation,
-                                     :verification_code)
+                                     :verification_code,
+                                     :payment_method_id)
   end
 end

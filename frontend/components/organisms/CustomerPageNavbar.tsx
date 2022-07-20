@@ -25,7 +25,7 @@ const CustomerPageNavbar = (): JSX.Element => {
 
   return (
     <>
-      <Navbar bg='dark'  variant='dark' expand='lg'>
+      <Navbar variant='dark' expand='lg' className='bg-darkblue'>
         <Container>
           <Navbar.Brand href='#home'>GYBuilder</Navbar.Brand>
           <Navbar.Toggle />

@@ -126,6 +126,10 @@ a {
   background-color: #F3FDDC;
 }
 
+.bg-darkblue {
+  background-color:	#00008B;
+}
+
 #sidebar {
   /* don't forget to add all the previously mentioned styles here too */
   background: #7386D5;

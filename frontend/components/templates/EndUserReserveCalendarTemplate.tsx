@@ -12,7 +12,7 @@ import { ReserveFramePaymentMethodParam } from 'interfaces/ReserveFramePaymentMe
 const EndUserReserveCalendar = (): JSX.Element => {
   const events = useSelector((state: RootState) => state.reserveFrame.reserveEvents)
   const [showModal, setShowModal] = useState(false)
-  const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>({title: '', description: ''})
+  const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>({title: '', description: '', capacity: 1, publish_status: 'Unpublish'})
   const [reserveFramePaymentMethod, setReserveFramePaymentMethod] = useState<ReserveFramePaymentMethodParam>()
 
   return(
