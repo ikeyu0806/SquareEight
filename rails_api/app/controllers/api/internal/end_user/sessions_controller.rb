@@ -1,4 +1,11 @@
 class Api::Internal::EndUser::SessionsController < ApplicationController
+  def login_status
+    raise if current_end_user.blank?
+    render json: { status: 'success', user: current_end_user}
+  rescue => e
+    render json: { statue: 'fail', error: e }, status: 401
+  end
+
   def create
     end_user = EndUser.find_by(email: end_user_params[:email])
     raise "メールアドレスとパスワードが一致しません" unless end_user.authenticate(end_user_params[:password])

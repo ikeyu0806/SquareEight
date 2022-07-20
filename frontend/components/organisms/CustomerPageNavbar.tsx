@@ -9,14 +9,14 @@ import { useRouter } from 'next/router'
 
 const CustomerPageNavbar = (): JSX.Element => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const router = useRouter()
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
   const logout = () => {
     axios.delete(`${process.env.BACKEND_URL}/api/internal/end_user/sessions`, {
       headers: { 
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._gybuilder_end_user_session
       }
     })
     dispatch(alertChanged({message: 'ログアウトしました', show: true}))
@@ -28,8 +28,8 @@ const CustomerPageNavbar = (): JSX.Element => {
       <Navbar bg='dark'  variant='dark' expand='lg'>
         <Container>
           <Navbar.Brand href='#home'>GYBuilder</Navbar.Brand>
-          <Navbar.Toggle aria-controls='basic-navbar-nav' />
-            <Navbar.Collapse id='basic-navbar-nav'>
+          <Navbar.Toggle />
+            <Navbar.Collapse>
             <Nav className='me-auto'>
               <Nav.Link href='/customer_page/ticket'>回数券</Nav.Link>
               <Nav.Link href='/customer_page/monthly_payment_plan'>月額課金</Nav.Link>
@@ -37,7 +37,6 @@ const CustomerPageNavbar = (): JSX.Element => {
               <Nav.Link href='/customer_page/book_mark'>ブックマーク</Nav.Link>
               <NavDropdown title='アカウント設定' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/customer_page/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
-                <NavDropdown.Item href=''>プラン変更・退会</NavDropdown.Item>
                 <NavDropdown.Item href=''>お支払い履歴</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
               </NavDropdown>
