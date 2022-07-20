@@ -34,7 +34,6 @@ const CustomerPageNavbar = (): JSX.Element => {
               <Nav.Link href='/customer_page/ticket'>回数券</Nav.Link>
               <Nav.Link href='/customer_page/monthly_payment_plan'>月額課金</Nav.Link>
               <Nav.Link href='/customer_page/reserve'>予約確認</Nav.Link>
-              <Nav.Link href='/customer_page/book_mark'>ブックマーク</Nav.Link>
               <NavDropdown title='アカウント設定' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/customer_page/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
                 <NavDropdown.Item href=''>お支払い履歴</NavDropdown.Item>
