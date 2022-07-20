@@ -24,6 +24,10 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def payment_method
+    
+  end
+
   def create
     ActiveRecord::Base.transaction do
       end_user = EndUser.new(end_user_params)

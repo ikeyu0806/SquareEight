@@ -36,7 +36,7 @@ const RegisterMerchantCardForm = () => {
           card: cardNumberElement!
         })
         .then(function(result: any) {
-          axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/payment_method`,
+          axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/register_credit_card`,
           {
             end_user: {
               token: token,
@@ -49,7 +49,7 @@ const RegisterMerchantCardForm = () => {
             }
           }).then(response => {
             dispatch(alertChanged({message: '登録しました', show: true}))
-            router.push('/customer_page')
+            router.push('/customer_page/payment_method')
           }).catch(error => {
             dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
           })
