@@ -17,7 +17,7 @@ const RegisterMerchantCardForm = () => {
   const [token, setToken] = useState<any>()
   const stripe = useStripe()
   const elements = useElements()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -38,14 +38,14 @@ const RegisterMerchantCardForm = () => {
         .then(function(result: any) {
           axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/register_credit_card`,
           {
-            account: {
+            end_user: {
               token: token,
               payment_method_id: result.paymentMethod.id
             }
           },
           {
             headers: {
-              'Session-Id': cookies._gybuilder_merchant_session
+              'Session-Id': cookies._gybuilder_end_user_session
             }
           }).then(response => {
             dispatch(alertChanged({message: '登録しました', show: true}))

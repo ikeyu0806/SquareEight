@@ -62,10 +62,10 @@ class Api::Internal::EndUsersController < ApplicationController
         current_end_user.update!(stripe_customer_id: customer.id)
         Stripe::PaymentMethod.attach(
           end_user_params[:payment_method_id],
-          {customer: account.stripe_customer_id},
+          {customer: current_end_user.stripe_customer_id},
         )
         Stripe::Customer.update(
-          account.stripe_customer_id,
+          current_end_user.stripe_customer_id,
           invoice_settings: {
             default_payment_method: end_user_params[:payment_method_id],
           },
@@ -73,7 +73,7 @@ class Api::Internal::EndUsersController < ApplicationController
       else
         Stripe::PaymentMethod.attach(
           end_user_params[:payment_method_id],
-          {customer: account.stripe_customer_id},
+          {customer: current_end_user.stripe_customer_id},
         )
       end
       render json: { status: 'success' }, states: 200
@@ -90,6 +90,8 @@ class Api::Internal::EndUsersController < ApplicationController
                                      :password,
                                      :password_confirmation,
                                      :verification_code,
+                                     :card_token,
+                                     :token,
                                      :payment_method_id)
   end
 end

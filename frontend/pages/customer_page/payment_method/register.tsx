@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import React from 'react'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
-import RegisterMerchantCardForm from 'components/templates/RegisterMerchantCardForm'
+import RegisterEndUserCardForm from 'components/templates/RegisterEndUserCardForm'
 import {loadStripe} from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 
@@ -14,7 +14,7 @@ const Register: NextPage = () => {
         <br/>
         <br/>
         <Elements stripe={stripePromise}>
-          <RegisterMerchantCardForm />
+          <RegisterEndUserCardForm />
         </Elements>
       </EndUserLoginLayout>
     </>

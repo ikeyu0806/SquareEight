@@ -18,6 +18,7 @@ Rails.application.routes.draw do
       post 'merchant_users', to: 'merchant_users#create'
       get 'end_users/payment_methods', to: 'end_users#payment_methods'
       post 'end_users/confirm_verification_code', to: 'end_users#confirm_verification_code'
+      post 'end_users/register_credit_card', to: 'end_users#register_credit_card'
       post 'end_users', to: 'end_users#create'
       post 'customers', to: 'customers#create'
       delete 'homepages/:id', to: 'homepages#destroy'
