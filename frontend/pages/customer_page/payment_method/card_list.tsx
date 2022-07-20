@@ -38,7 +38,18 @@ const CardList: NextPage = () => {
   }, [router.query.id, cookies._gybuilder_end_user_session])
 
   const setDefaultCard = (payment_method_id: string) => {
-
+    axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/${payment_method_id}/update_payment_method`,
+    {},
+    {
+      headers: {
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
+    }).then(response => {
+      dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))
+      router.push('/customer_page/payment_method')
+    }).catch(error => {
+      dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
+    })
   }
 
   const deleteCard = (payment_method_id: string) => {

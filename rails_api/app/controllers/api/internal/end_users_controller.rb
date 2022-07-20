@@ -24,10 +24,6 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
-  def payment_method
-    
-  end
-
   def create
     ActiveRecord::Base.transaction do
       end_user = EndUser.new(end_user_params)
@@ -86,10 +82,18 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def update_payment_method
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe::Customer.update(
+      current_end_user.stripe_customer_id,
+      {invoice_settings: {default_payment_method: params[:payment_method_id]}},
+    )
+  end
+
   def detach_stripe_payment_method
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe::PaymentMethod.detach(
-      params[:card_id],
+      params[:payment_method_id],
     )
     render json: { status: 'success' }, states: 200
   rescue => error
