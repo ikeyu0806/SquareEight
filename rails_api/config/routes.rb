@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       delete 'accounts/delete_bank_account/:external_account_id', to: 'accounts#delete_bank_account'
       post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'
       post 'merchant_users', to: 'merchant_users#create'
+      get 'end_users/payment_methods', to: 'end_users#payment_methods'
       post 'end_users/confirm_verification_code', to: 'end_users#confirm_verification_code'
       post 'end_users', to: 'end_users#create'
       post 'customers', to: 'customers#create'

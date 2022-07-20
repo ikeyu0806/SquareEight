@@ -8,7 +8,7 @@ import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 
 const Index: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const router = useRouter()
   const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
   const [defaultPaymentMethodId, setDefaultPaymentMethodId] = useState('')
@@ -16,9 +16,9 @@ const Index: NextPage = () => {
   useEffect(() => {
     const fetchPaymentMethod = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/accounts/payment_methods`, {
+        `${process.env.BACKEND_URL}/api/internal/end_users/payment_methods`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._gybuilder_end_user_session
           },
         }
       )
@@ -32,7 +32,7 @@ const Index: NextPage = () => {
       })
     }
     fetchPaymentMethod()
-  }, [router.query.id, cookies._gybuilder_merchant_session])
+  }, [router.query.id, cookies._gybuilder_end_user_session])
 
   return (
     <>
@@ -63,12 +63,12 @@ const Index: NextPage = () => {
                       }
                   </Card.Text>
                     <Button variant='primary'
-                            onClick={() => router.push('/admin/payment_method/register')}>
+                            onClick={() => router.push('/customer_page/payment_method/register')}>
                       新規カード登録
                     </Button>
                     <Button variant='primary'
                             className='ml10'
-                            onClick={() => router.push('/admin/payment_method/register')}>
+                            onClick={() => router.push('/customer_page/payment_method/register')}>
                       お支払いカードの変更・登録削除
                     </Button>
                 </Card.Body>
