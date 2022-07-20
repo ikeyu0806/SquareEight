@@ -36,7 +36,7 @@ const RegisterMerchantCardForm = () => {
           card: cardNumberElement!
         })
         .then(function(result: any) {
-          axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/register_credit_card`,
+          axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/payment_method`,
           {
             end_user: {
               token: token,

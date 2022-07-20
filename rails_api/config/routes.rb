@@ -20,6 +20,7 @@ Rails.application.routes.draw do
       post 'end_users/confirm_verification_code', to: 'end_users#confirm_verification_code'
       post 'end_users/register_credit_card', to: 'end_users#register_credit_card'
       post 'end_users', to: 'end_users#create'
+      delete 'end_users/:card_id/detach_stripe_payment_method', to: 'end_users#detach_stripe_payment_method'
       post 'customers', to: 'customers#create'
       delete 'homepages/:id', to: 'homepages#destroy'
       get 'homepages/:id/shared_component', to: 'homepages#shared_component'

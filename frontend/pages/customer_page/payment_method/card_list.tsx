@@ -1,14 +1,17 @@
-import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
+import React, { useEffect, useState } from 'react'
 import { Container, Card, Button, Row, Col, ListGroup } from 'react-bootstrap'
-import { useRouter } from 'next/router'
-import { useCookies } from 'react-cookie'
-import axios from 'axios'
-import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
+import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
+import { alertChanged } from 'redux/alertSlice'
 
-const Index: NextPage = () => {
+const CardList: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const dispatch = useDispatch()
   const router = useRouter()
   const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
   const [defaultPaymentMethodId, setDefaultPaymentMethodId] = useState('')
@@ -34,6 +37,19 @@ const Index: NextPage = () => {
     fetchPaymentMethod()
   }, [router.query.id, cookies._gybuilder_end_user_session])
 
+  const setDefaultCard = (payment_method_id: string) => {
+
+  }
+
+  const deleteCard = (payment_method_id: string) => {
+    axios.delete(`${process.env.BACKEND_URL}/api/internal/end_users/${payment_method_id}/detach_stripe_payment_method`, {
+      headers: { 
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
+    })
+    router.push('/customer_page/payment_method')
+  }
+
   return (
     <>
       <EndUserLoginLayout>
@@ -54,20 +70,20 @@ const Index: NextPage = () => {
                             <ListGroup.Item key={i}>
                               {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
                               {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
+                              {defaultPaymentMethodId !== pay.id
+                                &&
+                                  <>
+                                    <br/>
+                                    <Button size='sm' onClick={() => setDefaultCard(pay.id)}>お支払いカードに設定する</Button>
+                                    &emsp;
+                                    <Button variant='danger' size='sm' onClick={() => deleteCard(pay.id)}>削除する</Button>
+                                  </>}
                             </ListGroup.Item>
                           )
                         })}
                       </ListGroup>
                       }
                   </Card.Text>
-                    <a className='btn btn-primary ml10'
-                            href='/customer_page/payment_method/register'>
-                      新規カード登録
-                    </a>
-                    <a className='btn btn-primary ml10'
-                            href='/customer_page/payment_method/card_list'>
-                      お支払いカードの変更・登録削除
-                    </a>
                 </Card.Body>
               </Card>
             </Col>
@@ -78,4 +94,4 @@ const Index: NextPage = () => {
   )
 }
 
-export default Index
+export default CardList

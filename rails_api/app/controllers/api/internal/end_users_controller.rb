@@ -82,6 +82,16 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def detach_stripe_payment_method
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe::PaymentMethod.detach(
+      params[:card_id],
+    )
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def end_user_params
