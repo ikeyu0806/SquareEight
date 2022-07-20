@@ -49,8 +49,7 @@ const Index: NextPage = () => {
                     {
                     !paymentMethods?.length && <>カードが登録されていません</>
                     }
-                    {paymentMethods?.length &&
-                      <ListGroup>
+                    {<ListGroup>
                         {paymentMethods?.map((pay, i) => {
                           return (
                             <ListGroup.Item key={i}>
