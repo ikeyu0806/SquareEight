@@ -2,8 +2,10 @@ import React from 'react'
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import { RootState } from '../../redux/store'
 import { useSelector } from 'react-redux'
+import { useRouter } from 'next/router'
 
 const PurchaseTicketTemplate = (): JSX.Element => {
+  const router = useRouter()
   const name = useSelector((state: RootState) => state.ticketMaster.name)
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
@@ -30,7 +32,7 @@ const PurchaseTicketTemplate = (): JSX.Element => {
                     alt='image' />}
                 <h4>お支払い方法</h4>
                 <div>
-                  <a className='btn btn-primary mt30' href='/ticket/payment'>購入に進む</a>
+                  <a className='btn btn-primary mt30' href={`/ticket/${router.query.ticket_master_id}/payment`}>購入に進む</a>
                 </div>
               </Card.Body>
             </Card>
