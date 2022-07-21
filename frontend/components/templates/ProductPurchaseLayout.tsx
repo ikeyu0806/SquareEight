@@ -1,5 +1,5 @@
 import { ReactNode, useEffect } from 'react'
-import CustomerPageNavbar from 'components/organisms/CustomerPageNavbar'
+import CommonNavbar from 'components/organisms/CommonNavbar'
 import RegularFooter from '../../components/organisms/RegularFooter'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
@@ -11,7 +11,7 @@ interface Props {
   children: ReactNode
 }
 
-const EndUserLoginLayout = ({children}: Props): JSX.Element => {
+const ProductPurchaseLayout = ({children}: Props): JSX.Element => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
@@ -32,16 +32,11 @@ const EndUserLoginLayout = ({children}: Props): JSX.Element => {
 
   return (
     <>
-      {currentEndUserLogintStatus === 'Login'
-        ? <><CustomerPageNavbar></CustomerPageNavbar><br/>{children}</>
-        :
-        currentEndUserLogintStatus === 'Logout'
-          ? <div className='text-center'>ログインしてください</div>
-          : <></>
-      }
+      <CommonNavbar></CommonNavbar>
+        {children}
       <RegularFooter></RegularFooter>
     </>
   )
 }
 
-export default EndUserLoginLayout
+export default ProductPurchaseLayout
