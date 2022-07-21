@@ -193,6 +193,24 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def update_payment_method
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe::Customer.update(
+      current_merchant_user.account.stripe_customer_id,
+      {invoice_settings: {default_payment_method: params[:payment_method_id]}},
+    )
+  end
+
+  def detach_stripe_payment_method
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe::PaymentMethod.detach(
+      params[:payment_method_id],
+    )
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def account_params

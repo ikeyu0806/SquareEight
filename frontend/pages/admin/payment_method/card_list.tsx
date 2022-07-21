@@ -6,11 +6,14 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { useDispatch } from 'react-redux'
+import { alertChanged } from 'redux/alertSlice'
 
-
-const Index: NextPage = () => {
+const CardList: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
+  const dispatch = useDispatch()
   const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
   const [defaultPaymentMethodId, setDefaultPaymentMethodId] = useState('')
 
@@ -35,6 +38,54 @@ const Index: NextPage = () => {
     fetchCustomerId()
   }, [router.query.id, cookies._gybuilder_merchant_session])
 
+  const updateDefaultCard = (payment_method_id: string) => {
+    swalWithBootstrapButtons.fire({
+      title: 'お支払いカードを更新します',
+      text: '更新してもよろしいですか？',
+      icon: 'question',
+      confirmButtonText: '更新する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/${payment_method_id}/update_payment_method`,
+        {},
+        {
+          headers: {
+            'Session-Id': cookies._gybuilder_merchant_session
+          }
+        }).then(response => {
+          dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))
+          router.push('/customer_page/payment_method')
+        }).catch(error => {
+          dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
+        })
+      }
+    })
+  }
+
+  const deleteCard = (payment_method_id: string) => {
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      text: '削除してもよろしいですか？',
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/accounts/${payment_method_id}/detach_stripe_payment_method`, {
+          headers: { 
+            'Session-Id': cookies._gybuilder_merchant_session
+          }
+        })
+        router.push('/customer_page/payment_method')
+      }
+    })
+  }
+
   return (
     <>
       <MerchantUserAdminLayout>
@@ -56,20 +107,20 @@ const Index: NextPage = () => {
                             <ListGroup.Item key={i}>
                               {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
                               {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
+                              {defaultPaymentMethodId !== pay.id
+                                &&
+                                  <>
+                                    <br/>
+                                    <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
+                                    &emsp;
+                                    <Button variant='danger' size='sm' onClick={() => deleteCard(pay.id)}>削除する</Button>
+                                  </>}
                             </ListGroup.Item>
                           )
                         })}
                       </ListGroup>
                       }
                   </Card.Text>
-                    <a className='btn btn-primary ml10'
-                            href='/admin/payment_method/register'>
-                      新規カード登録
-                    </a>
-                    <a className='btn btn-primary ml10'
-                            href='/admin/payment_method/card_list'>
-                      お支払いカードの変更・登録削除
-                    </a>
                 </Card.Body>
               </Card>
             </Col>
@@ -80,4 +131,4 @@ const Index: NextPage = () => {
   )
 }
 
-export default Index
+export default CardList

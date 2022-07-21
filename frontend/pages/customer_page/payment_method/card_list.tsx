@@ -38,7 +38,7 @@ const CardList: NextPage = () => {
     fetchPaymentMethod()
   }, [router.query.id, cookies._gybuilder_end_user_session])
 
-  const setDefaultCard = (payment_method_id: string) => {
+  const updateDefaultCard = (payment_method_id: string) => {
     swalWithBootstrapButtons.fire({
       title: 'お支払いカードを更新します',
       text: '更新してもよろしいですか？',
@@ -110,7 +110,7 @@ const CardList: NextPage = () => {
                                 &&
                                   <>
                                     <br/>
-                                    <Button size='sm' onClick={() => setDefaultCard(pay.id)}>お支払いカードに設定する</Button>
+                                    <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
                                     &emsp;
                                     <Button variant='danger' size='sm' onClick={() => deleteCard(pay.id)}>削除する</Button>
                                   </>}
