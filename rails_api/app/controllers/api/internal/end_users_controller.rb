@@ -1,6 +1,8 @@
 require 'securerandom'
 
 class Api::Internal::EndUsersController < ApplicationController
+  before_action :end_user_login_only!, only: [:register_credit_card, :update_payment_method, :detach_stripe_payment_method]
+
   VERIFICATION_CODE_LENGTH = 6
   # 仮登録して検証コード送信
   # 同じメールアドレスのユーザが存在していればパスワード上書きして再送信
