@@ -131,7 +131,8 @@ const Payment: NextPage = () => {
                       </ListGroup>
                       }
                     <div>
-                      <a className='btn btn-primary mt30' href={`/ticket/${router.query.ticket_master_id}/payment`}>購入に進む</a>
+                      <a className='btn btn-primary mt30' href={`/ticket/${router.query.ticket_master_id}/payment`}>すぐに購入する</a>
+                      <a className='btn btn-secondary mt30 ml20' href={`/ticket/${router.query.ticket_master_id}/payment`}>カートに入れる</a>
                     </div>
                     </>
                   }

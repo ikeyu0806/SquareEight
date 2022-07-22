@@ -5,7 +5,7 @@ import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
-import { loginStatusChanged, paymentMethodsChanged } from 'redux/currentEndUserSlice'
+import { loginStatusChanged, paymentMethodsChanged, defaultPaymentMethodIdChanged } from 'redux/currentEndUserSlice'
 
 interface Props {
   children: ReactNode
@@ -23,6 +23,7 @@ const ProductPurchaseLayout = ({children}: Props): JSX.Element => {
         'Session-Id': cookies._gybuilder_end_user_session
       }
     }).then((res) => {
+      dispatch(defaultPaymentMethodIdChanged(res.data.default_payment_method_id))
       dispatch(paymentMethodsChanged(res.data.payment_methods))
       dispatch(loginStatusChanged('Login'))
 
