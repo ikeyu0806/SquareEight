@@ -1,7 +1,7 @@
 include Base64Image
 
 class Api::Internal::TicketMastersController < ApplicationController
-  before_action :login_only!
+  before_action :login_only!, except: [:index, :show]
 
   def index
     ticket_masters = current_merchant_user.account.ticket_masters.order(:id)

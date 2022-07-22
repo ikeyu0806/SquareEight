@@ -4,7 +4,6 @@ import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import PurchaseTicketTemplate from 'components/templates/PurchaseTicketTemplate'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
-import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { nameChanged,
@@ -15,16 +14,12 @@ import { nameChanged,
 
 const Purchase: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
 
   useEffect(() => {
-    const fetchTicketMasters = () => {
+    const fetchTicketMaster = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/ticket_masters/${router.query.ticket_master_id}`, {
-          headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
-          },
         }
       )
       .then(function (response) {
@@ -39,8 +34,8 @@ const Purchase: NextPage = () => {
         console.log(error)
       })
     }
-    fetchTicketMasters()
-  }, [router.query.id, cookies._gybuilder_merchant_session, router.query.ticket_master_id, dispatch])
+    fetchTicketMaster()
+  }, [router.query.id, router.query.ticket_master_id, dispatch])
 
   return (
     <>
