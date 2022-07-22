@@ -1,5 +1,5 @@
 class Api::Internal::ResourcesController < ApplicationController
-  before_action :login_only!
+  before_action :merchant_login_only!
 
   def index
     resources = current_merchant_user.account.resources

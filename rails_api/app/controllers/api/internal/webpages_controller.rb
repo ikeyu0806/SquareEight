@@ -1,5 +1,5 @@
 class Api::Internal::WebpagesController < ApplicationController
-  before_action :login_only!, except: :show
+  before_action :merchant_login_only!, except: :show
 
   def show
     webpage = Webpage.find(params[:id])

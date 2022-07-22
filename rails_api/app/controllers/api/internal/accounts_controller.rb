@@ -1,5 +1,5 @@
 class Api::Internal::AccountsController < ApplicationController
-  before_action :login_only!
+  before_action :merchant_login_only!
 
   def payment_methods
     Stripe.api_key = Rails.configuration.stripe[:secret_key]

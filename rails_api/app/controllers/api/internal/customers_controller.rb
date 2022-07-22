@@ -1,5 +1,5 @@
 class Api::Internal::CustomersController < ApplicationController
-  before_action :login_only!
+  before_action :merchant_login_only!
 
   def create
     Customer.create!(customer_params)

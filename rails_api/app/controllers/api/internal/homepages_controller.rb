@@ -1,5 +1,5 @@
 class Api::Internal::HomepagesController < ApplicationController
-  before_action :login_only!
+  before_action :merchant_login_only!
 
   def index
     websites_json = JSON.parse current_merchant_user.account.websites.order(:id).to_json(methods: [:display_created_at, :top_page_id])

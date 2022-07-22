@@ -1,7 +1,7 @@
 include Base64Image
 
 class Api::Internal::ReserveFramesController < ApplicationController
-  before_action :login_only!, except: [:reserve_events, :show]
+  before_action :merchant_login_only!, except: [:reserve_events, :show]
 
   def index
     reserve_frames = current_merchant_user.account.reserve_frames
