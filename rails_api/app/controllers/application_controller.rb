@@ -29,7 +29,7 @@ class ApplicationController < ActionController::API
   end
 
   def end_user_login_only!
-    render json: { errMessage: "ログインしてください" }, status: 401 and return if end_user.blank?
+    render json: { errMessage: "ログインしてください" }, status: 401 and return if current_end_user.blank?
     true
   end
 end

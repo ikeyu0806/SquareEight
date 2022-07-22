@@ -1,7 +1,8 @@
 include Base64Image
 
 class Api::Internal::TicketMastersController < ApplicationController
-  before_action :merchant_login_only!, except: [:index, :show]
+  before_action :merchant_login_only!, except: [:index, :show, :purchase]
+  before_action :end_user_login_only!, only: :purchase
 
   def index
     ticket_masters = current_merchant_user.account.ticket_masters.order(:id)
@@ -43,6 +44,23 @@ class Api::Internal::TicketMastersController < ApplicationController
       ticket_master.save!
       render json: { status: 'success' }, states: 200
     end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def purchase
+    ticket_master = TicketMaster.find(ticket_master_params[:id])
+    customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
+    default_payment_method_id = customer["invoice_settings"]["default_payment_method"]
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe::PaymentIntent.create({
+      amount: ticket_master.price,
+      currency: 'jpy',
+      payment_method_types: ['card'],
+      payment_method: default_payment_method_id,
+      customer: current_end_user.stripe_customer_id
+    })
+    render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

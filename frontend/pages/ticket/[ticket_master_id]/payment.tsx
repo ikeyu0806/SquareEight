@@ -51,6 +51,24 @@ const Payment: NextPage = () => {
     fetchTicketMaster()
   }, [router.query.id, router.query.ticket_master_id, dispatch])
 
+  const execPurchase = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters/purchase`,
+    {
+      ticket_master: {
+        id: router.query.ticket_master_id
+      },
+    },
+    {
+      headers: { 
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
+    }).then(response => {
+      console.log(response)
+    }).catch(error => {
+      dispatch(alertChanged({message: error, show: true, type: 'danger'}))
+    })
+  }
+
   const updateDefaultCard = (payment_method_id: string) => {
     swalWithBootstrapButtons.fire({
       title: 'お支払いカードを更新します',
@@ -94,10 +112,10 @@ const Payment: NextPage = () => {
                         <div></div>
                         <a href='/customer/login'>カスタマーアカウントでログインしてください</a><br/>
                         <div className='mt20'>購入にはアカウント登録とクレジットカード登録が必要になります</div>
+                        <div className='mt40'></div>
                       </>
                     : <></>
                   }
-                  <div className='mt40'></div>
                   <h3>{name}</h3>
                   <div>{issueNumber}枚</div>
                   <div>{price}円</div>
@@ -130,9 +148,9 @@ const Payment: NextPage = () => {
                         })}
                       </ListGroup>
                       }
-                    <div>
-                      <a className='btn btn-primary mt30' href={`/ticket/${router.query.ticket_master_id}/payment`}>すぐに購入する</a>
-                      <a className='btn btn-secondary mt30 ml20' href={`/ticket/${router.query.ticket_master_id}/payment`}>カートに入れる</a>
+                    <div className='mt30 '>
+                      <Button onClick={() => execPurchase()}>すぐに購入する</Button>
+                      <a className='btn btn-secondary ml20' href={`/ticket/${router.query.ticket_master_id}/payment`}>カートに入れる</a>
                     </div>
                     </>
                   }

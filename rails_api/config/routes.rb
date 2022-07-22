@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       post 'webpages', to: 'webpages#create'
       get 'ticket_masters/:id', to: 'ticket_masters#show'
       get 'ticket_masters', to: 'ticket_masters#index'
+      post 'ticket_masters/purchase', to: 'ticket_masters#purchase'
       post 'ticket_masters/:id/update', to: 'ticket_masters#update'
       post 'ticket_masters', to: 'ticket_masters#create'
       get 'monthly_payment_plans/:id', to: 'monthly_payment_plans#show'
