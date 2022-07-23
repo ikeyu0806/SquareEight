@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
 import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
-import ProductPurchaseLayout from 'components/templates/ProductPurchaseLayout'
+import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { RootState } from 'redux/store'
@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { alertChanged } from 'redux/alertSlice'
+import { loginStatusChanged, paymentMethodsChanged, defaultPaymentMethodIdChanged } from 'redux/currentEndUserSlice'
 import { nameChanged,
          priceChanged,
          issueNumberChanged,
@@ -29,6 +30,23 @@ const Payment: NextPage = () => {
   const price = useSelector((state: RootState) => state.ticketMaster.price)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.ticketMaster.s3ObjectPublicUrl)
+
+  useEffect(() => {
+    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/payment_methods`,
+    {
+      headers: {
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
+    }).then((res) => {
+      dispatch(defaultPaymentMethodIdChanged(res.data.default_payment_method_id))
+      dispatch(paymentMethodsChanged(res.data.payment_methods))
+      dispatch(loginStatusChanged('Login'))
+
+    }).catch((e) => {
+      dispatch(loginStatusChanged('Logout'))
+      console.log(e)
+    })
+  }, [dispatch, cookies._gybuilder_end_user_session, currentEndUserLogintStatus])
 
   useEffect(() => {
     const fetchTicketMaster = () => {
@@ -98,7 +116,7 @@ const Payment: NextPage = () => {
 
   return (
     <>
-      <ProductPurchaseLayout>
+      <MerchantCustomLayout>
         <Container>
           <Row>
             <Col lg={3} md={3}></Col>
@@ -159,7 +177,7 @@ const Payment: NextPage = () => {
             </Col>
           </Row>
         </Container>
-      </ProductPurchaseLayout>
+      </MerchantCustomLayout>
     </>
   )
 }
