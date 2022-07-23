@@ -1,0 +1,115 @@
+import { NextPage } from 'next'
+import React, { useEffect } from 'react'
+import { Container, Row, Col, Card } from 'react-bootstrap'
+import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
+import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
+import { loginStatusChanged, paymentMethodsChanged, defaultPaymentMethodIdChanged } from 'redux/currentEndUserSlice'
+import { priceChanged,
+         nameChanged,
+         reserveIsUnlimitedChanged,
+         reserveIntervalNumberChanged,
+         reserveIntervalUnitChanged,
+         enableReserveCountChanged,
+         descriptionChanged,
+         s3ObjectPublicUrlChanged } from 'redux/monthlyPaymentPlanSlice'
+
+const Purchase: NextPage = () => {
+  const dispatch = useDispatch()
+  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const router = useRouter()
+  const name = useSelector((state: RootState) => state.monthlyPaymentPlan.name)
+  const price = useSelector((state: RootState) => state.monthlyPaymentPlan.price)
+  const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
+  const reserveIntervalNumber = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalNumber)
+  const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
+  const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
+  const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
+
+  useEffect(() => {
+    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/payment_methods`,
+    {
+      headers: {
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
+    }).then((res) => {
+      dispatch(defaultPaymentMethodIdChanged(res.data.default_payment_method_id))
+      dispatch(paymentMethodsChanged(res.data.payment_methods))
+      dispatch(loginStatusChanged('Login'))
+
+    }).catch((e) => {
+      dispatch(loginStatusChanged('Logout'))
+      console.log(e)
+    })
+  }, [dispatch, cookies._gybuilder_end_user_session, currentEndUserLogintStatus])
+
+  useEffect(() => {
+    const fetchMonthlyPaymentPlan = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/${router.query.id}`, {
+        }
+      )
+      .then(function (response) {
+        const monthlyPaymentPlanResponse: MonthlyPaymentPlanParam = response.data.monthly_payment_plan
+        dispatch(nameChanged(monthlyPaymentPlanResponse.name))
+        dispatch(priceChanged(monthlyPaymentPlanResponse.price))
+        dispatch(reserveIsUnlimitedChanged(monthlyPaymentPlanResponse.reserve_is_unlimited))
+        dispatch(reserveIntervalNumberChanged(monthlyPaymentPlanResponse.reserve_interval_number))
+        dispatch(reserveIntervalUnitChanged(monthlyPaymentPlanResponse.reserve_interval_unit))
+        dispatch(enableReserveCountChanged(monthlyPaymentPlanResponse.enable_reserve_count))
+        dispatch(descriptionChanged(monthlyPaymentPlanResponse.description))
+        dispatch(s3ObjectPublicUrlChanged(monthlyPaymentPlanResponse.s3_object_public_url))
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchMonthlyPaymentPlan()
+  }, [router.query.id, dispatch])
+
+  return (
+    <>
+      <WithoutSessionLayout>
+        <Container>
+          <Row>
+            <Col lg={3} md={3}></Col>
+            <Col lg={6} md={6}>
+            <Card>
+              <Card.Header>月額課金プラン加入</Card.Header>
+              <Card.Body>
+              {currentEndUserLogintStatus === 'Logout'
+                ?
+                  <>
+                    <div></div>
+                    <a href='/customer/login'>カスタマーアカウントでログインしてください</a><br/>
+                    <div className='mt20'>購入にはアカウント登録とクレジットカード登録が必要になります</div>
+                    <div className='mt40'></div>
+                  </>
+                :
+                  <></>
+              }
+                <div>{name}</div>
+                <div>{description}</div>
+                {s3ObjectPublicUrl
+                  && <img
+                      className='d-block w-100 mt30 mb30'
+                      src={s3ObjectPublicUrl}
+                      alt='image' />}
+                <div>￥{price}</div>
+                <div>{reserveIntervalNumber}日に{enableReserveCount}回予約可能</div>
+                <a className='btn btn-primary mt30' href={`/monthly_payment/${router.query.id}/payment`}>購入に進む</a>
+              </Card.Body>
+            </Card>
+            </Col>
+          </Row>
+        </Container>
+      </WithoutSessionLayout>
+    </>
+  )
+}
+
+export default Purchase

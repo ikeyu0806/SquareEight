@@ -2,8 +2,10 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { Container, Row, Col, Card } from 'react-bootstrap'
+import { useRouter } from 'next/router'
 
 const PurchaseMonthlyPayment = (): JSX.Element => {
+  const router = useRouter()
   const dispatch = useDispatch()
   const name = useSelector((state: RootState) => state.monthlyPaymentPlan.name)
   const price = useSelector((state: RootState) => state.monthlyPaymentPlan.price)
@@ -30,7 +32,7 @@ const PurchaseMonthlyPayment = (): JSX.Element => {
                     alt='image' />}
               <div>￥{price}</div>
               <div>{reserveIntervalNumber}日に{enableReserveCount}回予約可能</div>
-              <a className='btn btn-primary mt30'>購入に進む</a>
+              <a className='btn btn-primary mt30' href={`/monthly_payment/${router.query.id}/payment`}>購入に進む</a>
             </Card.Body>
           </Card>
           </Col>
