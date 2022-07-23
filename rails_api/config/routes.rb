@@ -58,6 +58,7 @@ Rails.application.routes.draw do
       get 'reserve_frames/:id', to: 'reserve_frames#show'
       get 'reserve_frames', to: 'reserve_frames#index'
       post 'reserve_frames', to: 'reserve_frames#create'
+      get 'orders/:order_id/order_items', to: 'orders#order_items'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions', to: 'sessions#create'
