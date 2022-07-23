@@ -5,7 +5,7 @@ class CreateOrderItems < ActiveRecord::Migration[7.0]
       t.integer :product_type, null: false
       t.integer :ticket_master_id
       t.integer :monthly_payment_plan_id
-      t.integer :product_name, null: false
+      t.string :product_name, null: false
       t.integer :price, null: false
       t.integer :commission, null: false
 

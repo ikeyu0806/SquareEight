@@ -155,7 +155,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_23_010244) do
     t.integer "product_type", null: false
     t.integer "ticket_master_id"
     t.integer "monthly_payment_plan_id"
-    t.integer "product_name", null: false
+    t.string "product_name", null: false
     t.integer "price", null: false
     t.integer "commission", null: false
     t.datetime "created_at", null: false
