@@ -1,20 +1,37 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
 import IntroductionNavbar from '../../components/templates/IntroductionNavbar'
 import RegularFooter from '../../components/organisms/RegularFooter'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { alertChanged } from '../../redux/alertSlice'
+import { RootState } from 'redux/store'
+import { loginStatusChanged } from 'redux/currentMerchantUserSlice'
 
 const Login: NextPage = () => {
+  const merchantUserLoginStatus = useSelector((state: RootState) => state.currentMerchantUser.loginStatus)
   const dispatch = useDispatch()
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [cookies, setCookie, removeCookie] = useCookies(['_gybuilder_merchant_session'])
+
+  useEffect(() => {
+    axios.get(`${process.env.BACKEND_URL}/api/internal/merchant/sessions`,
+    {
+      headers: {
+        'Session-Id': cookies._gybuilder_merchant_session
+      }
+    }).then((res) => {
+      dispatch(loginStatusChanged('Login'))
+      dispatch(alertChanged({message: 'ログインしています'}))
+      router.push('/admin/dashboard')
+    }).catch((e) => {
+    })
+  }, [dispatch, cookies._gybuilder_merchant_session, merchantUserLoginStatus, router])
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/merchant/sessions`,

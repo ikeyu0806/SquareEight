@@ -1,19 +1,41 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
 import IntroductionNavbar from '../../components/templates/IntroductionNavbar'
 import RegularFooter from '../../components/organisms/RegularFooter'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
+import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie'
 import { alertChanged } from '../../redux/alertSlice'
+import { loginStatusChanged } from 'redux/currentMerchantUserSlice'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 
 const Signup: NextPage = () => {
+  const merchantUserLoginStatus = useSelector((state: RootState) => state.currentMerchantUser.loginStatus)
   const dispatch = useDispatch()
+  const router = useRouter()
   const [businessName, setBusinessName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [alertMessage, setAlertMessage] = useState('')
+  const [cookies, setCookie, removeCookie] = useCookies(['_gybuilder_merchant_session'])
+
+  useEffect(() => {
+    axios.get(`${process.env.BACKEND_URL}/api/internal/merchant/sessions`,
+    {
+      headers: {
+        'Session-Id': cookies._gybuilder_merchant_session
+      }
+    }).then((res) => {
+      dispatch(loginStatusChanged('Login'))
+      dispatch(alertChanged({message: 'ログインしています'}))
+      router.push('/admin/dashboard')
+    }).catch((e) => {
+    })
+  }, [dispatch, cookies._gybuilder_merchant_session, merchantUserLoginStatus, router])
 
   const onSubmit = () => {
     axios.post(
@@ -30,7 +52,6 @@ const Signup: NextPage = () => {
       }
     )
     .then(response => {
-      setAlertMessage(`${email}に検証コードを送信しました。確認して登録を完了してください`)
       dispatch(alertChanged({message: `${email}に検証コードを送信しました。確認して登録を完了してください`, show: true}))
     })
     .catch(error => {
