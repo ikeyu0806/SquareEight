@@ -53,17 +53,20 @@ class Api::Internal::TicketMastersController < ApplicationController
     customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
     default_payment_method_id = customer["invoice_settings"]["default_payment_method"]
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
-    Stripe::PaymentIntent.create({
+    payment_intent = Stripe::PaymentIntent.create({
       amount: ticket_master.price,
       currency: 'jpy',
       payment_method_types: ['card'],
       payment_method: default_payment_method_id,
       customer: current_end_user.stripe_customer_id,
-      application_fee_amount: (ticket_master.price * 0.4).to_i,
+      application_fee_amount: (ticket_master.price * 0.04).to_i,
       transfer_data:  {
         destination: ticket_master.account.stripe_account_id
       }
     })
+    Stripe::PaymentIntent.confirm(
+      payment_intent.id
+    )
     render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
