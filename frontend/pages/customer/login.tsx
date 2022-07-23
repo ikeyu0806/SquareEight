@@ -1,20 +1,39 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
 import IntroductionNavbar from '../../components/templates/IntroductionNavbar'
 import RegularFooter from '../../components/organisms/RegularFooter'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 import { useRouter } from 'next/router'
 import { alertChanged } from '../../redux/alertSlice'
+import { loginStatusChanged } from 'redux/currentEndUserSlice'
+import Router from 'next/router'
 
 const Login: NextPage = () => {
+  const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const dispatch = useDispatch()
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [cookies, setCookie] = useCookies(['_gybuilder_end_user_session'])
+
+  useEffect(() => {
+    axios.get(`${process.env.BACKEND_URL}/api/internal/end_user/sessions`,
+    {
+      headers: {
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
+    }).then((res) => {
+      dispatch(loginStatusChanged('Login'))
+      Router.push('/customer_page')
+    }).catch((e) => {
+      dispatch(loginStatusChanged('Logout'))
+      console.log(e)
+    })
+  }, [dispatch, cookies._gybuilder_end_user_session, currentEndUserLogintStatus])
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/end_user/sessions`,

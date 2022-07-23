@@ -20,8 +20,7 @@ const Signup: NextPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [alertMessage, setAlertMessage] = useState('')
-  const [cookies, setCookie, removeCookie] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_gybuilder_merchant_session'])
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/merchant/sessions`,
