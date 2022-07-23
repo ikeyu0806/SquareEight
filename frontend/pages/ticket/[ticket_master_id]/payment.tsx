@@ -63,7 +63,7 @@ const Payment: NextPage = () => {
         'Session-Id': cookies._gybuilder_end_user_session
       }
     }).then(response => {
-      console.log(response)
+      router.push(`/ticket/${router.query.ticket_master_id}/payment_complete`)
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })
