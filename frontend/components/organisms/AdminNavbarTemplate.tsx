@@ -32,11 +32,9 @@ const AdminNavbarTemplate = (): JSX.Element => {
             <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='me-auto'>
               <Nav.Link href='/admin/dashboard'>ダッシュボード</Nav.Link>
-              <NavDropdown title='ホームページ' id='homepage-nav-dropdown'>
+              <NavDropdown title='Webページ' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/homepage'>ホームページ一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/homepage/new'>ホームページ新規作成</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/homepage/new'>ブログ記事一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/homepage/new'>ブログ記事投稿</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='予約' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reservation_page/set_reserve_calendar'>予約メニュー</NavDropdown.Item>
