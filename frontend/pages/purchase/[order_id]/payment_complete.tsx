@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Card } from 'react-bootstrap'
 import ProductPurchaseLayout from 'components/templates/ProductPurchaseLayout'
 import { useDispatch } from 'react-redux'
 import { OrderItemParam } from 'interfaces/OrderItemParam'
@@ -11,6 +11,8 @@ const PaymentComplete: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [orderItems, setOrderItems] = useState<OrderItemParam[]>([])
+  const [totalPrice, setTotalPrice] = useState()
+  const [totalCommission, setTotalCommission] = useState()
 
   useEffect(() => {
     const fetchOrderItems = () => {
@@ -20,6 +22,8 @@ const PaymentComplete: NextPage = () => {
       )
       .then(function (response) {
         setOrderItems(response.data.order_items)
+        setTotalPrice(response.data.total_price)
+        setTotalCommission(response.data.total_commission)
       })
       .catch(error => {
         console.log(error)
@@ -35,16 +39,20 @@ const PaymentComplete: NextPage = () => {
           <Row>
             <Col lg={3} md={3}></Col>
             <Col lg={6} md={6}>
-              <>
-              <div>購入完了しました</div>
-              {orderItems.map((item, i) => {
-                return (
-                  <span key={i}>
-                    {item.product_name}
-                  </span>
-                )
-              })}
-              </>
+              <Card>
+                <Card.Header>購入完了しました</Card.Header>
+                <Card.Body>
+                  {orderItems.map((item, i) => {
+                    return (
+                      <span key={i}>
+                        {item.product_name}&emsp;¥{item.price}
+                      </span>
+                    )
+                  })}
+                  <div className='mt30'>合計金額: ¥{totalPrice}</div>
+                  <div>内システム手数料: ¥{totalCommission}</div>
+                </Card.Body>
+              </Card>
             </Col>
           </Row>
         </Container>
