@@ -58,7 +58,11 @@ class Api::Internal::TicketMastersController < ApplicationController
       currency: 'jpy',
       payment_method_types: ['card'],
       payment_method: default_payment_method_id,
-      customer: current_end_user.stripe_customer_id
+      customer: current_end_user.stripe_customer_id,
+      application_fee_amount: (ticket_master.price * 0.4).to_i,
+      transfer_data:  {
+        destination: ticket_master.account.stripe_account_id
+      }
     })
     render json: { status: 'success' }, states: 200
   rescue => error
