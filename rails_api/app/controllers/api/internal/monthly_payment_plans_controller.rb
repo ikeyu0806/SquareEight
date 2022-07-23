@@ -1,7 +1,8 @@
 include Base64Image
 
 class Api::Internal::MonthlyPaymentPlansController < ApplicationController
-  before_action :merchant_login_only!, except: [:show]
+  before_action :merchant_login_only!, except: [:index, :show, :purchase]
+  before_action :end_user_login_only!, only: :purchase
 
   def index
     monthly_payment_plans = current_merchant_user.account.monthly_payment_plans.order(:id)
@@ -41,6 +42,17 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     end
     monthly_payment_plan.save!
     render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def purchase
+    ActiveRecord::Base.transaction do
+      monthly_payment_plan = MonthlyPaymentPlan.find(monthly_payment_plan_params[:id])
+      customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
+      Stripe.api_key = Rails.configuration.stripe[:secret_key]
+      render json: { status: 'success', order_id: order.id }, states: 200
+    end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

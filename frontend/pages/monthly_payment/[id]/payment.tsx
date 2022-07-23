@@ -1,14 +1,16 @@
 import { NextPage } from 'next'
 import React, { useEffect } from 'react'
-import { Container, Row, Col, Card } from 'react-bootstrap'
+import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { alertChanged } from 'redux/alertSlice'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { loginStatusChanged, paymentMethodsChanged, defaultPaymentMethodIdChanged } from 'redux/currentEndUserSlice'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { priceChanged,
          nameChanged,
          reserveIsUnlimitedChanged,
@@ -29,6 +31,8 @@ const Purchase: NextPage = () => {
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
+  const defaultPaymentMethodId = useSelector((state: RootState) => state.currentEndUser.defaultPaymentMethodId)
+  const paymentMethods = useSelector((state: RootState) => state.currentEndUser.paymentMethods)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/payment_methods`,
@@ -71,6 +75,51 @@ const Purchase: NextPage = () => {
     fetchMonthlyPaymentPlan()
   }, [router.query.id, dispatch])
 
+  const execPurchase = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/purchase`,
+    {
+      monthly_payment_plans: {
+        id: router.query.id
+      },
+    },
+    {
+      headers: { 
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
+    }).then(response => {
+      router.push(`/purchase/${response.data.order_id}/payment_complete`)
+    }).catch(error => {
+      dispatch(alertChanged({message: error, show: true, type: 'danger'}))
+    })
+  }
+
+  const updateDefaultCard = (payment_method_id: string) => {
+    swalWithBootstrapButtons.fire({
+      title: 'お支払いカードを更新します',
+      text: '更新してもよろしいですか？',
+      icon: 'question',
+      confirmButtonText: '更新する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/${payment_method_id}/update_payment_method`,
+        {},
+        {
+          headers: {
+            'Session-Id': cookies._gybuilder_end_user_session
+          }
+        }).then(response => {
+          dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))
+          location.reload()
+        }).catch(error => {
+          dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
+        })
+      }
+    })
+  }
+
   return (
     <>
       <WithoutSessionLayout>
@@ -101,6 +150,35 @@ const Purchase: NextPage = () => {
                       alt='image' />}
                 <div>￥{price}</div>
                 <div>{reserveIntervalNumber}日に{enableReserveCount}回予約可能</div>
+                <h4>お支払い方法</h4>
+                  {currentEndUserLogintStatus === 'Logout'
+                  ?
+                    <></>
+                  :
+                    <>
+                    {<ListGroup>
+                        {paymentMethods?.map((pay, i) => {
+                          return (
+                            <ListGroup.Item key={i}>
+                              {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
+                              {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
+                              {defaultPaymentMethodId !== pay.id
+                                &&
+                                  <>
+                                    <br/>
+                                    <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
+                                  </>}
+                            </ListGroup.Item>
+                          )
+                        })}
+                      </ListGroup>
+                      }
+                    <div className='mt30 '>
+                      <Button onClick={() => execPurchase()}>すぐに購入する</Button>
+                      <a className='btn btn-secondary ml20' href={`/ticket/${router.query.ticket_master_id}/payment`}>カートに入れる</a>
+                    </div>
+                    </>
+                  }
                 <a className='btn btn-primary mt30' href={`/monthly_payment/${router.query.id}/payment`}>購入に進む</a>
               </Card.Body>
             </Card>
