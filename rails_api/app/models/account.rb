@@ -8,6 +8,7 @@ class Account < ApplicationRecord
   has_many :monthly_payment_plans
   has_many :resources
   has_many :reserve_frames
+  has_many :orders
 
   def reserve_calendar_json
     result = []

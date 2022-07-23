@@ -49,25 +49,35 @@ class Api::Internal::TicketMastersController < ApplicationController
   end
 
   def purchase
-    ticket_master = TicketMaster.find(ticket_master_params[:id])
-    customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
-    default_payment_method_id = customer["invoice_settings"]["default_payment_method"]
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
-    payment_intent = Stripe::PaymentIntent.create({
-      amount: ticket_master.price,
-      currency: 'jpy',
-      payment_method_types: ['card'],
-      payment_method: default_payment_method_id,
-      customer: current_end_user.stripe_customer_id,
-      application_fee_amount: (ticket_master.price * 0.04).to_i,
-      transfer_data:  {
-        destination: ticket_master.account.stripe_account_id
-      }
-    })
-    Stripe::PaymentIntent.confirm(
-      payment_intent.id
-    )
-    render json: { status: 'success' }, states: 200
+    ActiveRecord::Base.transaction do
+      ticket_master = TicketMaster.find(ticket_master_params[:id])
+      customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
+      default_payment_method_id = customer["invoice_settings"]["default_payment_method"]
+      commission = (ticket_master.price * 0.04).to_i
+      Stripe.api_key = Rails.configuration.stripe[:secret_key]
+      payment_intent = Stripe::PaymentIntent.create({
+        amount: ticket_master.price,
+        currency: 'jpy',
+        payment_method_types: ['card'],
+        payment_method: default_payment_method_id,
+        customer: current_end_user.stripe_customer_id,
+        application_fee_amount: commission,
+        transfer_data:  {
+          destination: ticket_master.account.stripe_account_id
+        }
+      })
+      Stripe::PaymentIntent.confirm(
+        payment_intent.id
+      )
+      order = current_end_user.orders.new(account_id: ticket_master.account_id)
+      order.order_items.new(product_type: 'TicketMaster',
+                            ticket_master_id: ticket_master.id,
+                            product_name: ticket_master.name,
+                            price: ticket_master.price,
+                            commission: commission)
+      order.save!
+      render json: { status: 'success', order_id: order.id }, states: 200
+    end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
