@@ -22,6 +22,7 @@ const MyDocument = () => {
         <meta name='format-detection' content='telephone=no' />
         <link rel='apple-touch-icon' href='/apple-touch-icon.png' />
         <script src="https://js.stripe.com/v3/"></script>
+        <script src="https://apis.google.com/js/platform.js" async defer></script>
       </Head>
       <body>
         <Main />
