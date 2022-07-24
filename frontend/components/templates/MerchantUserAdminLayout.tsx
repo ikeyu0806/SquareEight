@@ -25,6 +25,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
     }).then((res) => {
       dispatch(loginStatusChanged('Login'))
     }).catch((e) => {
+      dispatch(loginStatusChanged('Logout'))
       console.log(e)
     })
   }, [dispatch, cookies._gybuilder_merchant_session, merchantUserLoginStatus])
@@ -35,7 +36,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
         ? <><AdminNavbarTemplate></AdminNavbarTemplate><br/>{children}</>
         :
         merchantUserLoginStatus === 'Logout'
-          ? <div className='text-center'>ログインしてください</div>
+          ? <div className='text-center mt30 mb30'>ログインしてください</div>
           : <></>
       }
       <RegularFooter></RegularFooter>

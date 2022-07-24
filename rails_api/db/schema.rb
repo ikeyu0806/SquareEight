@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_23_010244) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_24_005246) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -148,6 +148,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_23_010244) do
     t.text "description"
     t.string "s3_object_public_url"
     t.string "s3_object_name"
+    t.string "stripe_plan_id"
   end
 
   create_table "order_items", force: :cascade do |t|

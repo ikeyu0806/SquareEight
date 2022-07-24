@@ -14,9 +14,19 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.new(monthly_payment_plan_params.except(:base64_image))
-      file_name = "monthly_paymeny_plan_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-      monthly_payment_plan.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
-      monthly_payment_plan.s3_object_name = file_name
+      if monthly_payment_plan_params[:base64_image].present?
+        file_name = "monthly_paymeny_plan_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        monthly_payment_plan.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+        monthly_payment_plan.s3_object_name = file_name
+      end
+      product = Stripe::Product.create({name: monthly_payment_plan_params[:name]})
+      stripe_plan = Stripe::Plan.create({
+        amount: monthly_payment_plan_params[:price],
+        currency: 'jpy',
+        interval: 'month',
+        product: product.id
+      })
+      monthly_payment_plan.stripe_plan_id = stripe_plan.id
       monthly_payment_plan.save!
       render json: { status: 'success' }, states: 200
     end
@@ -51,6 +61,13 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       monthly_payment_plan = MonthlyPaymentPlan.find(monthly_payment_plan_params[:id])
       customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
+      # Stripe::Subscription.create({
+      #   customer: current_end_user.stripe_customer_id,
+      #   application_fee_percent: 4,
+      #   transfer_data:  {
+      #     destination: monthly_payment_plan.account.stripe_account_id
+      #   }
+      # })
       render json: { status: 'success', order_id: order.id }, states: 200
     end
   rescue => error
