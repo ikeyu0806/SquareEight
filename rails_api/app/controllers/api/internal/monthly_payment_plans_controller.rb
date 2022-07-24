@@ -61,13 +61,21 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       monthly_payment_plan = MonthlyPaymentPlan.find(monthly_payment_plan_params[:id])
       customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
-      # Stripe::Subscription.create({
-      #   customer: current_end_user.stripe_customer_id,
-      #   application_fee_percent: 4,
-      #   transfer_data:  {
-      #     destination: monthly_payment_plan.account.stripe_account_id
-      #   }
-      # })
+      Stripe::Subscription.create({
+        customer: current_end_user.stripe_customer_id,
+        application_fee_percent: 4,
+        items: [{ plan: monthly_payment_plan.stripe_plan_id }],
+        transfer_data:  {
+          destination: monthly_payment_plan.account.stripe_account_id
+        }
+      })
+      order = current_end_user.orders.new(account_id: monthly_payment_plan.account_id)
+      order.order_items.new(product_type: 'MonthlyPaymentPlan',
+                            monthly_payment_plan_id: monthly_payment_plan.id,
+                            product_name: monthly_payment_plan.name,
+                            price: monthly_payment_plan.price,
+                            commission: (monthly_payment_plan.price * 0.04).to_i)
+      order.save!
       render json: { status: 'success', order_id: order.id }, states: 200
     end
   rescue => error

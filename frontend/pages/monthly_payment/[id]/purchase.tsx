@@ -2,7 +2,7 @@ import { NextPage } from 'next'
 import React, { useEffect } from 'react'
 import PurchaseMonthlyPayment from 'components/templates/PurchaseMonthlyPayment'
 import { Container } from 'react-bootstrap'
-import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
+import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -51,11 +51,11 @@ const Purchase: NextPage = () => {
 
   return (
     <>
-      <WithoutSessionLayout>
+      <MerchantCustomLayout>
         <Container>
           <PurchaseMonthlyPayment></PurchaseMonthlyPayment>
         </Container>
-      </WithoutSessionLayout>
+      </MerchantCustomLayout>
     </>
   )
 }

@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import React, { useEffect } from 'react'
 import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
-import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
+import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import axios from 'axios'
@@ -122,7 +122,7 @@ const Purchase: NextPage = () => {
 
   return (
     <>
-      <WithoutSessionLayout>
+      <MerchantCustomLayout>
         <Container>
           <Row>
             <Col lg={3} md={3}></Col>
@@ -185,7 +185,7 @@ const Purchase: NextPage = () => {
             </Col>
           </Row>
         </Container>
-      </WithoutSessionLayout>
+      </MerchantCustomLayout>
     </>
   )
 }
