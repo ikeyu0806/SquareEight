@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'
       post 'merchant_users', to: 'merchant_users#create'
       get 'end_users/payment_methods', to: 'end_users#payment_methods'
+      post 'end_users/find_or_create_by_google_auth', to: 'end_users#find_or_create_by_google_auth'
       post 'end_users/register_credit_card', to: 'end_users#register_credit_card'
       post 'end_users/confirm_verification_code', to: 'end_users#confirm_verification_code'
       post 'end_users/:payment_method_id/update_payment_method', to: 'end_users#update_payment_method'
@@ -62,11 +63,13 @@ Rails.application.routes.draw do
       get 'orders/:order_id/order_items', to: 'orders#order_items'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
+        post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'
         post 'sessions', to: 'sessions#create'
         delete 'sessions', to: 'sessions#destroy'
       end
       namespace :end_user do
         get 'sessions', to: 'sessions#login_status'
+        post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'
         post 'sessions', to: 'sessions#create'
         delete 'sessions', to: 'sessions#destroy'
       end

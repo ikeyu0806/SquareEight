@@ -42,6 +42,21 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def find_or_create_by_google_auth
+    ActiveRecord::Base.transaction do
+      end_user = EndUser.find_by(google_auth_id: end_user_params[:google_auth_id])
+      if end_user.blank?
+        end_user = EndUser.new
+        end_user.google_auth_email = end_user_params[:google_auth_email]
+        end_user.google_auth_id = end_user_params[:google_auth_id]
+        end_user.save!
+      end
+      render json: { status: 'success' }, states: 200
+    end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def confirm_verification_code
     email = Base64.urlsafe_decode64(end_user_params[:email])
     end_user = EndUser.find_by(email: email)
@@ -112,6 +127,8 @@ class Api::Internal::EndUsersController < ApplicationController
                                      :verification_code,
                                      :card_token,
                                      :token,
-                                     :payment_method_id)
+                                     :payment_method_id,
+                                     :google_auth_id,
+                                     :google_auth_email)
   end
 end

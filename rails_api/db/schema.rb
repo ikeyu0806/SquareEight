@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_24_005246) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_25_133345) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -88,7 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_24_005246) do
   end
 
   create_table "end_users", force: :cascade do |t|
-    t.string "email", null: false
+    t.string "email"
     t.string "phone_number"
     t.string "password_digest"
     t.integer "authority_category", default: 0
@@ -116,12 +116,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_24_005246) do
     t.integer "gender"
     t.datetime "dob"
     t.string "stripe_customer_id"
+    t.string "google_auth_id"
+    t.string "google_auth_email"
     t.index ["email"], name: "index_end_users_on_email", unique: true
   end
 
   create_table "merchant_users", force: :cascade do |t|
     t.integer "account_id"
-    t.string "email", null: false
+    t.string "email"
     t.string "phone_number"
     t.string "name"
     t.string "password_digest"
@@ -165,8 +167,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_24_005246) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "end_user_id"
-    t.integer "customer_id"
-    t.integer "account_id", null: false
+    t.integer "account_id"
     t.integer "cart_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
