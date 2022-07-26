@@ -45,11 +45,11 @@ const LoginUserInfo: NextPage = () => {
                       <tbody>
                         <tr>
                           <td scope='row'>お名前</td>
-                          <td className='text-center'>{merchantUser?.last_name}{merchantUser?.first_name}</td>
+                          <td className='text-center'>{merchantUser?.last_name} {merchantUser?.first_name}</td>
                         </tr>
                         <tr>
                           <td scope='row'>お名前（カナ）</td>
-                          <td className='text-center'>{merchantUser?.last_name_kana}{merchantUser?.first_name_kana}</td>
+                          <td className='text-center'>{merchantUser?.last_name_kana} {merchantUser?.first_name_kana}</td>
                         </tr>
                       </tbody>
                     </table>

@@ -32,6 +32,8 @@ class Api::Internal::MerchantUsersController < ApplicationController
     merchant_user = MerchantUser.find(params[:id])
     merchant_user.last_name = merchant_user_params[:last_name]
     merchant_user.first_name = merchant_user_params[:first_name]
+    merchant_user.last_name_kana = merchant_user_params[:last_name_kana]
+    merchant_user.first_name_kana = merchant_user_params[:first_name_kana]
     merchant_user.save!
     render json: { status: 'success' }, states: 200
   rescue => error
@@ -81,6 +83,8 @@ class Api::Internal::MerchantUsersController < ApplicationController
     params.require(:merchant_user).permit(:id,
                                           :last_name,
                                           :first_name,
+                                          :last_name_kana,
+                                          :first_name_kana,
                                           :email,
                                           :password,
                                           :password_confirmation,
