@@ -44,9 +44,9 @@ const Callback: NextPage = () => {
     const fetchAccessToken = () => {
       var params = new URLSearchParams()
       params.append('code', String(router.query.code) || '')
-      params.append('client_id', process.env.GOOGLE_AUTH_CLIENT_ID || '')
-      params.append('client_secret', process.env.GOOGLE_AUTH_CLIENT_SECRET || '')
-      params.append('redirect_uri', process.env.GOOGLE_AUTH_REDIRECT_URL  || '')
+      params.append('client_id', process.env.GOOGLE_AUTH_END_USER_CLIENT_ID || '')
+      params.append('client_secret', process.env.GOOGLE_AUTH_END_USER_CLIENT_SECRET || '')
+      params.append('redirect_uri', process.env.GOOGLE_AUTH_END_USER_REDIRECT_URL  || '')
       params.append('grant_type', 'authorization_code')
       params.append('access_type', 'offline')
 

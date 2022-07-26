@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 
 const CustomerPageNavbar = (): JSX.Element => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies, setCookie, removeCookies] = useCookies(['_gybuilder_end_user_session'])
   const router = useRouter()
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
@@ -18,9 +18,11 @@ const CustomerPageNavbar = (): JSX.Element => {
       headers: { 
         'Session-Id': cookies._gybuilder_end_user_session
       }
+    }).then(response => {
+      removeCookies('_gybuilder_end_user_session')
+      dispatch(alertChanged({message: 'ログアウトしました', show: true}))
+      router.push('/customer/login')
     })
-    dispatch(alertChanged({message: 'ログアウトしました', show: true}))
-    router.push('/login')
   }
 
   return (
@@ -41,6 +43,7 @@ const CustomerPageNavbar = (): JSX.Element => {
               </NavDropdown>
               <NavDropdown title='その他' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/inquiry'>お問い合わせ</NavDropdown.Item>
+                <NavDropdown.Item onClick={() => logout()}>ログアウト</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>

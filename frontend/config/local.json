@@ -1,7 +1,7 @@
 {
   "FRONTEND_URL": "http://localhost:3111",
   "BACKEND_URL": "http://localhost:3222",
-  "GOOGLE_AUTH_CLIENT_ID": "441756043288-ibrcu2ab0896g6bncpvei9q444i9cl1d.apps.googleusercontent.com",
+  "GOOGLE_AUTH_END_USER_CLIENT_ID": "441756043288-ibrcu2ab0896g6bncpvei9q444i9cl1d.apps.googleusercontent.com",
   "GOOGLE_AUTH_END_USER_CLIENT_SECRET": "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",
   "GOOGLE_AUTH_END_USER_REDIRECT_URL": "http://localhost:3111/google_auth/customer/callback"
 }
