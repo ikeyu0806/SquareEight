@@ -4,8 +4,13 @@ class Api::Internal::EndUsersController < ApplicationController
   before_action :end_user_login_only!, only: [:register_credit_card, :update_payment_method, :detach_stripe_payment_method]
 
   VERIFICATION_CODE_LENGTH = 6
-  # 仮登録して検証コード送信
-  # 同じメールアドレスのユーザが存在していればパスワード上書きして再送信
+
+  def current_end_user_info
+    render json: { status: 'success', end_user: current_end_user }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def payment_methods
     if current_end_user.stripe_customer_id.present?
       customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
@@ -26,6 +31,8 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  # 仮登録して検証コード送信
+  # 同じメールアドレスのユーザが存在していればパスワード上書きして再送信
   def create
     ActiveRecord::Base.transaction do
       end_user = EndUser.new(end_user_params)

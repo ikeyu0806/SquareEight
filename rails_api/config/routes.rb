@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'
       post 'merchant_users', to: 'merchant_users#create'
       get 'end_users/payment_methods', to: 'end_users#payment_methods'
+      get 'end_users/current_end_user_info', to: 'end_users#current_end_user_info'
       post 'end_users/find_or_create_by_google_auth', to: 'end_users#find_or_create_by_google_auth'
       post 'end_users/register_credit_card', to: 'end_users#register_credit_card'
       post 'end_users/confirm_verification_code', to: 'end_users#confirm_verification_code'
