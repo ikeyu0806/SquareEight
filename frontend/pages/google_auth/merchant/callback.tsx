@@ -8,32 +8,32 @@ import { useCookies } from 'react-cookie'
 
 const Callback: NextPage = () => {
   const router = useRouter()
-  const [cookies, setCookie] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies, setCookie] = useCookies(['_gybuilder_merchant_session'])
 
-  const findOrCreateEndUserByGoogleAuth = (googleAuthId: string, GoogleAuthEmail: string) => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/find_or_create_by_google_auth`, {
-      end_user: {
+  const findOrCreateMerchantByGoogleAuth = (googleAuthId: string, GoogleAuthEmail: string) => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/merchant_users/find_or_create_by_google_auth`, {
+      merchant_user: {
         google_auth_id: googleAuthId,
         google_auth_email: GoogleAuthEmail
       }
     })
     .then(function (response) {
-      createEndUserSesssionByGoogleAuth(googleAuthId)
+      createMerchantSesssionByGoogleAuth(googleAuthId)
     })
     .catch(err => {
       console.log(err)
     })
   }
 
-  const createEndUserSesssionByGoogleAuth = (googleAuthId: string) => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/end_user/sessions/create_by_google_auth`, {
-      end_user: {
+  const createMerchantSesssionByGoogleAuth = (googleAuthId: string) => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/merchant/sessions/create_by_google_auth`, {
+      merchant_user: {
         google_auth_id: googleAuthId
       }
     })
     .then(function (response) {
-      setCookie('_gybuilder_end_user_session', response.data.session_id.public_id, { path: '/'})
-      router.push('/customer_page')
+      setCookie('_gybuilder_merchant_session', response.data.session_id.public_id, { path: '/'})
+      router.push('/admin/dashboard')
     })
     .catch(err => {
       console.log(err)
@@ -44,9 +44,9 @@ const Callback: NextPage = () => {
     const fetchAccessToken = () => {
       var params = new URLSearchParams()
       params.append('code', String(router.query.code) || '')
-      params.append('client_id', process.env.GOOGLE_AUTH_END_USER_CLIENT_ID || '')
-      params.append('client_secret', process.env.GOOGLE_AUTH_END_USER_CLIENT_SECRET || '')
-      params.append('redirect_uri', process.env.GOOGLE_AUTH_END_USER_REDIRECT_URL  || '')
+      params.append('client_id', process.env.GOOGLE_AUTH_MERCHANT_USER_CLIENT_ID || '')
+      params.append('client_secret', process.env.GOOGLE_AUTH_MERCHANT_USER_CLIENT_SECRET || '')
+      params.append('redirect_uri', process.env.GOOGLE_AUTH_MERCHANT_USER_REDIRECT_URL  || '')
       params.append('grant_type', 'authorization_code')
       params.append('access_type', 'offline')
 
@@ -55,7 +55,7 @@ const Callback: NextPage = () => {
         axios.get(`https://www.googleapis.com/oauth2/v1/userinfo?access_token=${response.data.access_token}`)
         .then(response => {
           console.log(response.data)
-          findOrCreateEndUserByGoogleAuth(response.data.id, response.data.email)
+          findOrCreateMerchantByGoogleAuth(response.data.id, response.data.email)
         })
         .catch(err => {
             console.log('err:', err);

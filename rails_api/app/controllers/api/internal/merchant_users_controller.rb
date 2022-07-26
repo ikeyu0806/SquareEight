@@ -26,6 +26,25 @@ class Api::Internal::MerchantUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def find_or_create_by_google_auth
+    ActiveRecord::Base.transaction do
+      merchant_user = MerchantUser.find_by(google_auth_id: merchant_user_params[:google_auth_id])
+      if merchant_user.blank?
+        merchant_user = MerchantUser.new
+        merchant_user.google_auth_email = merchant_user_params[:google_auth_email]
+        merchant_user.google_auth_id = merchant_user_params[:google_auth_id]
+        merchant_user.authentication_status = 'Enabled'
+        merchant_user.authority_category = 'MerchantAdmin'
+        account = Account.new
+        merchant_user.account = account
+        merchant_user.save!
+      end
+      render json: { status: 'success' }, states: 200
+    end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def confirm_verification_code
     email = Base64.urlsafe_decode64(merchant_user_params[:email])
     merchant_user = MerchantUser.find_by(email: email)
@@ -48,6 +67,8 @@ class Api::Internal::MerchantUsersController < ApplicationController
                                           :authority_category,
                                           :verification_code,
                                           :business_name,
-                                          :is_create_account)
+                                          :is_create_account,
+                                          :google_auth_id,
+                                          :google_auth_email)
   end
 end

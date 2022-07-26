@@ -11,6 +11,7 @@ import { alertChanged } from '../../redux/alertSlice'
 import { loginStatusChanged } from 'redux/currentMerchantUserSlice'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
+import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
 
 const Signup: NextPage = () => {
   const merchantUserLoginStatus = useSelector((state: RootState) => state.currentMerchantUser.loginStatus)
@@ -108,6 +109,10 @@ const Signup: NextPage = () => {
                       送信
                     </Button>
                   </div>
+                  <hr />
+                  <GoogleAuthButton
+                    buttonText='Googleでサインアップ'
+                    buttonHref={`https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=${process.env.GOOGLE_AUTH_MERCHANT_USER_CLIENT_ID}&redirect_uri=${process.env.GOOGLE_AUTH_MERCHANT_USER_REDIRECT_URL}&scope=email&access_type=offline&approval_prompt=force`}></GoogleAuthButton>
                 </Form>
               </Card.Body>
             </Card>

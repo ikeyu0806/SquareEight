@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_25_133345) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_26_045417) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -134,6 +134,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_133345) do
     t.integer "authentication_status"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "google_auth_id"
+    t.string "google_auth_email"
     t.index ["email"], name: "index_merchant_users_on_email", unique: true
   end
 
@@ -167,8 +169,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_25_133345) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "end_user_id"
-    t.integer "customer_id"
-    t.integer "account_id", null: false
+    t.integer "account_id"
     t.integer "cart_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
