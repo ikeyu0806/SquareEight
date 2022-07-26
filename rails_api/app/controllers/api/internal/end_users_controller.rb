@@ -36,7 +36,7 @@ class Api::Internal::EndUsersController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       end_user = EndUser.new(end_user_params)
-      end_user.authentication_status = 'Disabled'
+      end_user.email_authentication_status = 'Disabled'
       end_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
       end_user.verification_code_expired_at = Time.zone.now + 1.hours
       end_user.password = end_user_params[:password]
@@ -69,7 +69,7 @@ class Api::Internal::EndUsersController < ApplicationController
     end_user = EndUser.find_by(email: email)
     render json: { errMessage: "不正な検証コードです" }, status: 401 and return if end_user.verification_code != end_user_params[:verification_code]
     render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if end_user.verification_code_expired_at < Time.zone.now
-    end_user.update!(authentication_status: 'Enabled')
+    end_user.update!(email_authentication_status: 'Enabled')
     session['end_user_id'] = end_user.id
     render json: { status: 'success', session_id: session.id, }, states: 200
   rescue => error

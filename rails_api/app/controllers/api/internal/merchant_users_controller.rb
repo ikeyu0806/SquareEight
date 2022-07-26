@@ -14,7 +14,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       else
         merchant_user = MerchantUser.new(merchant_user_params.except(:business_name, :is_create_account))
       end
-      merchant_user.authentication_status = 'Disabled'
+      merchant_user.email_authentication_status = 'Disabled'
       merchant_user.authority_category = merchant_user_params["authority_category"]
       merchant_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
       merchant_user.verification_code_expired_at = Time.zone.now + 1.hours
@@ -47,7 +47,6 @@ class Api::Internal::MerchantUsersController < ApplicationController
         merchant_user = MerchantUser.new
         merchant_user.google_auth_email = merchant_user_params[:google_auth_email]
         merchant_user.google_auth_id = merchant_user_params[:google_auth_id]
-        merchant_user.authentication_status = 'Enabled'
         merchant_user.authority_category = 'MerchantAdmin'
         account = Account.new
         merchant_user.account = account
@@ -64,7 +63,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     merchant_user = MerchantUser.find_by(email: email)
     render json: { errMessage: "不正な検証コードです" }, status: 401 and return if merchant_user.verification_code != merchant_user_params[:verification_code]
     render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if merchant_user.verification_code_expired_at < Time.zone.now
-    merchant_user.update!(authentication_status: 'Enabled')
+    merchant_user.update!(email_authentication_status: 'Enabled')
     session['merchant_user_id'] = merchant_user.id
     render json: { status: 'success', session_id: session.id, }, states: 200
   rescue => error

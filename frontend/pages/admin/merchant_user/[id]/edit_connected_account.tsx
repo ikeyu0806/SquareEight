@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
-import { Container, Row, Col, Form, Button, Card } from 'react-bootstrap'
+import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import GoogleIcon from 'components/atoms/GoogleIcon'
 import EnvelopIcon from 'components/atoms/EnvelopIcon'
