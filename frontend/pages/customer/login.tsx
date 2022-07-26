@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import { alertChanged } from '../../redux/alertSlice'
 import { loginStatusChanged } from 'redux/currentEndUserSlice'
 import Router from 'next/router'
+import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
 
 const Login: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
@@ -84,6 +85,8 @@ const Login: NextPage = () => {
                         送信
                       </Button>
                     </div>
+                    <hr />
+                    <GoogleAuthButton buttonText='Googleでログイン'></GoogleAuthButton>
                     <div className='text-center mt30'>
                       <a href='/customer/signup'>新規登録はこちら</a>
                     </div>
