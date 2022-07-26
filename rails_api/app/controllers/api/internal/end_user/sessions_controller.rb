@@ -20,7 +20,8 @@ class Api::Internal::EndUser::SessionsController < ApplicationController
   end
 
   def create_by_google_auth
-    end_user = EndUser.find_by(google_auth_email: end_user_params[:email])
+    raise if end_user_params[:google_auth_id].blank?
+    end_user = EndUser.find_by(google_auth_id: end_user_params[:google_auth_id])
     session['end_user_id'] = end_user.id
     render json: { status: 'success',
                    session_id: session.id,
@@ -42,6 +43,6 @@ class Api::Internal::EndUser::SessionsController < ApplicationController
   private
 
   def end_user_params
-    params.require(:end_user).permit(:email, :password)
+    params.require(:end_user).permit(:email, :password, :google_auth_id, :google_auth_email)
   end
 end
