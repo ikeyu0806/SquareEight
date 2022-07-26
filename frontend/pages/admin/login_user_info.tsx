@@ -55,7 +55,7 @@ const LoginUserInfo: NextPage = () => {
                     </table>
                   </Card.Body>
                   <Card.Header className=' d-flex justify-content-between align-items-center'>
-                    連携サービス
+                    認証方法
                     <a className='btn btn-sm btn-primary' href={`/admin/merchant_user/${merchantUser?.id}/edit_connected_account`}>編集</a>
                   </Card.Header>
                   <Card.Body>

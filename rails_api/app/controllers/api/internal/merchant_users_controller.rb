@@ -28,6 +28,16 @@ class Api::Internal::MerchantUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def update
+    merchant_user = MerchantUser.find(params[:id])
+    merchant_user.last_name = merchant_user_params[:last_name]
+    merchant_user.first_name = merchant_user_params[:first_name]
+    merchant_user.save!
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def find_or_create_by_google_auth
     ActiveRecord::Base.transaction do
       merchant_user = MerchantUser.find_by(google_auth_id: merchant_user_params[:google_auth_id])
@@ -69,6 +79,8 @@ class Api::Internal::MerchantUsersController < ApplicationController
 
   def merchant_user_params
     params.require(:merchant_user).permit(:id,
+                                          :last_name,
+                                          :first_name,
                                           :email,
                                           :password,
                                           :password_confirmation,

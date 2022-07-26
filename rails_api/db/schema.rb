@@ -137,6 +137,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_26_082401) do
     t.string "google_auth_email"
     t.string "first_name"
     t.string "last_name"
+    t.string "first_name_kana"
+    t.string "last_name_kana"
     t.index ["email"], name: "index_merchant_users_on_email", unique: true
   end
 
