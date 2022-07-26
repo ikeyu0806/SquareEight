@@ -1,6 +1,8 @@
 require 'securerandom'
 
 class Api::Internal::MerchantUsersController < ApplicationController
+  before_action :merchant_login_only!, only: :current_merchant_user_info
+
   VERIFICATION_CODE_LENGTH = 6
   # 仮登録して検証コード送信
   # 同じメールアドレスのユーザが存在していればパスワード上書きして再送信
@@ -53,6 +55,12 @@ class Api::Internal::MerchantUsersController < ApplicationController
     merchant_user.update!(authentication_status: 'Enabled')
     session['merchant_user_id'] = merchant_user.id
     render json: { status: 'success', session_id: session.id, }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def current_merchant_user_info
+    render json: { status: 'success', merchant_user: current_merchant_user }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

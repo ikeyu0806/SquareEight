@@ -16,6 +16,7 @@ Rails.application.routes.draw do
       post 'accounts/:payment_method_id/update_payment_method', to: 'accounts#update_payment_method'
       delete 'accounts/:payment_method_id/detach_stripe_payment_method', to: 'accounts#detach_stripe_payment_method'
       delete 'accounts/delete_bank_account/:external_account_id', to: 'accounts#delete_bank_account'
+      get 'merchant_users/current_merchant_user_info', to: 'merchant_users#current_merchant_user_info'
       post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'
       post 'merchant_users/find_or_create_by_google_auth', to: 'merchant_users#find_or_create_by_google_auth'
       post 'merchant_users', to: 'merchant_users#create'
