@@ -7,6 +7,7 @@ import axios from 'axios'
 import { reserveEventsChanged } from 'redux/reserveFrameSlice'
 import { useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
+import Calendar from 'components/templates/Calendar'
 
 const SetReserveCalendar: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
@@ -29,12 +30,14 @@ const SetReserveCalendar: NextPage = () => {
         console.log(error)
       })
     }
-    // fetchEvents()
+    fetchEvents()
   }, [router.query.account_id, dispatch, cookies])
+  
   return (
     <>
       <MerchantUserAdminLayout>
-        <SetReserveCalendarTemplate></SetReserveCalendarTemplate>
+        <Calendar></Calendar>
+        {/* <SetReserveCalendarTemplate></SetReserveCalendarTemplate> */}
       </MerchantUserAdminLayout>
     </>
   )

@@ -1,0 +1,10 @@
+.calendar th {
+  border: 1px solid #ddd;
+  padding: 10px;
+  text-align: center;
+}
+.calendar td {
+  border: 1px solid #ddd;
+  padding: 30px;
+  text-align: center;
+}
