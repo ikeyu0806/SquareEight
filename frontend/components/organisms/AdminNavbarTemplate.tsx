@@ -20,7 +20,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
       }
     })
     dispatch(alertChanged({message: 'ログアウトしました', show: true}))
-    router.push('/login')
+    router.push('/merchant/login')
   }
 
   return (
@@ -67,11 +67,11 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/sales_transfer'>売上振込先口座</NavDropdown.Item>
                 <NavDropdown.Item href=''>プラン変更・退会</NavDropdown.Item>
                 <NavDropdown.Item href=''>お支払い履歴</NavDropdown.Item>
-                <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='その他' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/inquiry'>お問い合わせ</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/login_user_info'>ログインユーザ情報</NavDropdown.Item>
+                <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
               </NavDropdown>
             </Nav>
           </Navbar.Collapse>

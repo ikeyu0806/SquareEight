@@ -11,6 +11,7 @@ import { RootState } from 'redux/store'
 import { useCookies } from 'react-cookie'
 import Router from 'next/router'
 import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
+import { END_USER_GOOGLE_AUTH_URL } from 'constants/socialLogin'
 
 const Signup: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
@@ -100,7 +101,7 @@ const Signup: NextPage = () => {
                   <hr />
                   <GoogleAuthButton
                     buttonText='Googleでサインアップ'
-                    buttonHref={`https://accounts.google.com/o/oauth2/auth?response_type=code&client_id=${process.env.GOOGLE_AUTH_END_USER_CLIENT_ID}&redirect_uri=${process.env.GOOGLE_AUTH_END_USER_REDIRECT_URL}&scope=email&access_type=offline&approval_prompt=force`}></GoogleAuthButton>
+                    buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
                 </Form>
               </Card.Body>
             </Card>

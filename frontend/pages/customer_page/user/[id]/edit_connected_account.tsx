@@ -9,6 +9,7 @@ import { MerchantUserParam } from 'interfaces/MerchantUserParam'
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { alertChanged } from 'redux/alertSlice'
+import { END_USER_GOOGLE_AUTH_URL } from 'constants/socialLogin'
 
 const EditConnectedAccount: NextPage = () => {
   const dispatch = useDispatch()
@@ -74,7 +75,8 @@ const EditConnectedAccount: NextPage = () => {
                             ? <Button variant='danger'
                                       onClick={() => disconnectGoogle()}
                                       disabled={!merchantUser.email}>連携解除</Button>
-                            : <Button onClick={() => setShowConnectGoogleAuthModal(true)}>連携する</Button>}
+                            : <a className='btn btn-primary'
+                                 href={END_USER_GOOGLE_AUTH_URL}>連携する</a>}
                         </td>
                       </tr>
                     </tbody>
