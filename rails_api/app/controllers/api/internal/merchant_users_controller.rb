@@ -4,6 +4,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
   before_action :merchant_login_only!, only: :current_merchant_user_info
 
   VERIFICATION_CODE_LENGTH = 6
+
   # 仮登録して検証コード送信
   # 同じメールアドレスのユーザが存在していればパスワード上書きして再送信
   def create
@@ -17,7 +18,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       merchant_user.email_authentication_status = 'Disabled'
       merchant_user.authority_category = merchant_user_params["authority_category"]
       merchant_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
-      merchant_user.verification_code_expired_at = Time.zone.now + 1.hours
+      merchant_user.verification_code_expired_at = Time.zone.now + 1.days
       merchant_user.password = merchant_user_params[:password]
       merchant_user.save!
       encode_email = Base64.urlsafe_encode64(merchant_user.email)
@@ -29,13 +30,25 @@ class Api::Internal::MerchantUsersController < ApplicationController
   end
 
   def update
-    merchant_user = MerchantUser.find(params[:id])
-    merchant_user.last_name = merchant_user_params[:last_name]
-    merchant_user.first_name = merchant_user_params[:first_name]
-    merchant_user.last_name_kana = merchant_user_params[:last_name_kana]
-    merchant_user.first_name_kana = merchant_user_params[:first_name_kana]
-    merchant_user.save!
-    render json: { status: 'success' }, states: 200
+    ActiveRecord::Base.transaction do
+      merchant_user = MerchantUser.find(params[:id])
+      init_email = merchant_user.email
+      merchant_user.last_name = merchant_user_params[:last_name]
+      merchant_user.first_name = merchant_user_params[:first_name]
+      merchant_user.last_name_kana = merchant_user_params[:last_name_kana]
+      merchant_user.first_name_kana = merchant_user_params[:first_name_kana]
+      merchant_user.password = merchant_user_params[:password]
+      # メールアドレス変更/追加時
+      if merchant_user_params[:email].present? && init_email != merchant_user_params[:email]
+        merchant_user.wait_for_update_email = merchant_user_params[:email]
+        merchant_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
+        merchant_user.verification_code_expired_at = Time.zone.now + 1.days
+        encode_email = Base64.urlsafe_encode64(merchant_user.wait_for_update_email)
+        MerchantUserMailer.send_update_email_verification_code(merchant_user.wait_for_update_email, encode_email, merchant_user.verification_code).deliver_later
+      end
+      merchant_user.save!
+      render json: { status: 'success' }, states: 200
+    end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -64,6 +77,18 @@ class Api::Internal::MerchantUsersController < ApplicationController
     render json: { errMessage: "不正な検証コードです" }, status: 401 and return if merchant_user.verification_code != merchant_user_params[:verification_code]
     render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if merchant_user.verification_code_expired_at < Time.zone.now
     merchant_user.update!(email_authentication_status: 'Enabled')
+    session['merchant_user_id'] = merchant_user.id
+    render json: { status: 'success', session_id: session.id, }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def confirm_update_email_verification_code
+    email = Base64.urlsafe_decode64(merchant_user_params[:email])
+    merchant_user = MerchantUser.find_by(wait_for_update_email: email)
+    render json: { errMessage: "不正な検証コードです" }, status: 401 and return if merchant_user.verification_code != merchant_user_params[:verification_code]
+    render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if merchant_user.verification_code_expired_at < Time.zone.now
+    merchant_user.update!(email: merchant_user.wait_for_update_email)
     session['merchant_user_id'] = merchant_user.id
     render json: { status: 'success', session_id: session.id, }, states: 200
   rescue => error

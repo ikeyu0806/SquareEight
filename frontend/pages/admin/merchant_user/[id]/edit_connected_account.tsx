@@ -1,9 +1,8 @@
 import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
-import { Container, Row, Col, Button, Card } from 'react-bootstrap'
+import { Container, Row, Col, Button, Card, Modal } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import GoogleIcon from 'components/atoms/GoogleIcon'
-import EnvelopIcon from 'components/atoms/EnvelopIcon'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { MerchantUserParam } from 'interfaces/MerchantUserParam'
@@ -13,6 +12,7 @@ const EditConnectedAccount: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const [merchantUser, setMerchantUser] = useState<MerchantUserParam>()
+  const [showConnectGoogleAuthModal, setShowConnectGoogleAuthModal] = useState(false)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/merchant_users/current_merchant_user_info`,
@@ -41,12 +41,12 @@ const EditConnectedAccount: NextPage = () => {
               <table className='table'>
                 <tbody>
                   <tr>
-                    <td scope='row'><EnvelopIcon width={20} height={20} className={'mr10'}></EnvelopIcon>メールアドレス認証</td>
-                    <td className='text-center'>{merchantUser?.email ? <Button variant='danger'>連携解除</Button> : <Button>連携する</Button>}</td>
-                  </tr>
-                  <tr>
                     <td scope='row'><GoogleIcon width={20} height={20} className={'mr10'}></GoogleIcon>Google</td>
-                    <td className='text-center'>{merchantUser?.google_auth_email ? <Button variant='danger'>連携解除</Button> : <Button>連携する</Button>}</td>
+                    <td className='text-center'>
+                      {merchantUser?.google_auth_email
+                        ? <Button variant='danger'>連携解除</Button>
+                        : <Button onClick={() => setShowConnectGoogleAuthModal(true)}>連携する</Button>}
+                    </td>
                   </tr>
                 </tbody>
               </table>
@@ -55,7 +55,15 @@ const EditConnectedAccount: NextPage = () => {
         </Col>
         </Row>
       </Container>
-    </MerchantUserAdminLayout>
+
+      <Modal show={showConnectGoogleAuthModal}>
+        <Modal.Body>
+          Google連携
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => setShowConnectGoogleAuthModal(false)}>閉じる</Button>
+        </Modal.Footer>
+      </Modal>    </MerchantUserAdminLayout>
   )
 }
 

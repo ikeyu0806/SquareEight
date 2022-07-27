@@ -7,17 +7,17 @@ import { useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { MerchantUserParam } from 'interfaces/MerchantUserParam'
 
 const Edit: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
   const dispatch = useDispatch()
-  const [merchantUser, setMerchantUser] = useState<MerchantUserParam>()
   const [lastName, setLastName] = useState('')
   const [firstName, setFirstName] = useState('')
   const [lastNameKana, setLastNameKana] = useState('')
   const [firstNameKana, setFirstNameKana] = useState('')
+  const [email, setEmail] = useState('')
+  const [password, setPassword] = useState('')
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/merchant_users/current_merchant_user_info`,
@@ -30,6 +30,7 @@ const Edit: NextPage = () => {
       setFirstName(response.data.merchant_user.first_name)
       setLastNameKana(response.data.merchant_user.last_name_kana)
       setFirstNameKana(response.data.merchant_user.first_name_kana)
+      setEmail(response.data.merchant_user.email)
     }).catch((error) => {
       console.log(error)
     })
@@ -43,6 +44,8 @@ const Edit: NextPage = () => {
         first_name: firstName,
         last_name_kana: lastNameKana,
         first_name_kana: firstNameKana,
+        email: email,
+        password: password
       }
     },
     {
@@ -79,6 +82,14 @@ const Edit: NextPage = () => {
             <Form.Control
               onChange={(e) => setFirstNameKana(e.target.value)}
               value={firstNameKana}></Form.Control>
+              <Form.Label className='mt10'>メールアドレス</Form.Label>
+            <Form.Control
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}></Form.Control>
+              <Form.Label className='mt10'>パスワード</Form.Label>
+            <Form.Control
+              onChange={(e) => setPassword(e.target.value)}
+              value={password}></Form.Control>
             <div className='mt30 text-center'>
               <Button onClick={onSubmit}>更新する</Button>
             </div>
