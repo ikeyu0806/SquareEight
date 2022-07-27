@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 
 const Edit: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const router = useRouter()
   const dispatch = useDispatch()
   const [lastName, setLastName] = useState('')
@@ -23,7 +23,7 @@ const Edit: NextPage = () => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_info`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._gybuilder_end_user_session
       }
     }).then((response) => {
       setLastName(response.data.end_user.last_name)
@@ -34,7 +34,7 @@ const Edit: NextPage = () => {
     }).catch((error) => {
       console.log(error)
     })
-  }, [dispatch, cookies._gybuilder_merchant_session])
+  }, [dispatch, cookies._gybuilder_end_user_session])
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/${router.query.id}/update`,
@@ -50,10 +50,10 @@ const Edit: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._gybuilder_end_user_session
       }
     }).then(response => {
-      router.push('/admin/login_user_info')
+      router.push('/customer_page')
       dispatch(alertChanged({message: '更新しました', show: true}))
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))

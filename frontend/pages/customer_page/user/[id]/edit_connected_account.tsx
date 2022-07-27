@@ -10,7 +10,7 @@ import { useCookies } from 'react-cookie'
 
 const EditConnectedAccount: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const [merchantUser, setMerchantUser] = useState<MerchantUserParam>()
   const [showConnectGoogleAuthModal, setShowConnectGoogleAuthModal] = useState(false)
 
@@ -18,14 +18,14 @@ const EditConnectedAccount: NextPage = () => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_info`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._gybuilder_end_user_session
       }
     }).then((response) => {
       setMerchantUser(response.data.end_user)
     }).catch((error) => {
       console.log(error)
     })
-  }, [dispatch, cookies._gybuilder_merchant_session])
+  }, [dispatch, cookies._gybuilder_end_user_session])
 
   return (
     <>

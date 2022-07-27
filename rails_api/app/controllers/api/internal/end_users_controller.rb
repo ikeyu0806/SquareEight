@@ -49,6 +49,31 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def update
+    ActiveRecord::Base.transaction do
+      end_user = EndUser.find(params[:id])
+      init_email = end_user.email
+      end_user.last_name = end_user_params[:last_name]
+      end_user.first_name = end_user_params[:first_name]
+      end_user.last_name_kana = end_user_params[:last_name_kana]
+      end_user.first_name_kana = end_user_params[:first_name_kana]
+      end_user.password = end_user_params[:password]
+      # メールアドレス変更/追加時
+      if end_user_params[:email].present? && init_email != end_user_params[:email]
+        end_user.wait_for_update_email = end_user_params[:email]
+        end_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
+        end_user.verification_code_expired_at = Time.zone.now + 1.days
+        encode_email = Base64.urlsafe_encode64(end_user.wait_for_update_email)
+        EndUserMailer.send_update_email_verification_code(end_user.wait_for_update_email, encode_email, end_user.verification_code).deliver_later
+      end
+      end_user.save!
+      render json: { status: 'success' }, states: 200
+    end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+
   def find_or_create_by_google_auth
     ActiveRecord::Base.transaction do
       end_user = EndUser.find_by(google_auth_id: end_user_params[:google_auth_id])
@@ -78,7 +103,7 @@ class Api::Internal::EndUsersController < ApplicationController
 
   def confirm_update_email_verification_code
     email = Base64.urlsafe_decode64(end_user_params[:email])
-    end_user = EndUser.find_by(email: email)
+    end_user = EndUser.find_by(wait_for_update_email: email)
     render json: { errMessage: "不正な検証コードです" }, status: 401 and return if end_user.verification_code != end_user_params[:verification_code]
     render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if end_user.verification_code_expired_at < Time.zone.now
     end_user.update!(email: end_user.wait_for_update_email)
