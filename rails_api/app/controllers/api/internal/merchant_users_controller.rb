@@ -1,7 +1,7 @@
 require 'securerandom'
 
 class Api::Internal::MerchantUsersController < ApplicationController
-  before_action :merchant_login_only!, only: :current_merchant_user_info
+  before_action :merchant_login_only!, only: [:current_merchant_user_info, :disconnect_google_auth]
 
   VERIFICATION_CODE_LENGTH = 6
 
@@ -97,6 +97,13 @@ class Api::Internal::MerchantUsersController < ApplicationController
 
   def current_merchant_user_info
     render json: { status: 'success', merchant_user: current_merchant_user }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def disconnect_google_auth
+    current_merchant_user.update!(google_auth_id: nil, google_auth_email: nil)
+    render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

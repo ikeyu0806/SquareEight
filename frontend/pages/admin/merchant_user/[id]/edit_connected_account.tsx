@@ -7,6 +7,8 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { MerchantUserParam } from 'interfaces/MerchantUserParam'
 import { useCookies } from 'react-cookie'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { alertChanged } from 'redux/alertSlice'
 
 const EditConnectedAccount: NextPage = () => {
   const dispatch = useDispatch()
@@ -26,6 +28,30 @@ const EditConnectedAccount: NextPage = () => {
       console.log(error)
     })
   }, [dispatch, cookies._gybuilder_merchant_session])
+
+  const disconnectGoogle = () => {
+    swalWithBootstrapButtons.fire({
+      title: '解除します',
+      text: '解除してもよろしいですか？',
+      icon: 'question',
+      confirmButtonText: '解除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/merchant_users/disconnect_google_auth`, {
+          headers: { 
+            'Session-Id': cookies._gybuilder_merchant_session
+          }
+        }).then(res => {
+          location.reload!
+        }).catch(err => {
+          dispatch(alertChanged({message: '解除失敗しました', show: true, type: 'danger'}))
+        })
+      }
+    })
+  }
 
   return (
     <MerchantUserAdminLayout>
