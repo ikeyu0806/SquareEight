@@ -3,7 +3,6 @@ import type { NextPage } from 'next'
 import { Container, Card, Row, Col } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import GoogleIcon from 'components/atoms/GoogleIcon'
-import EnvelopIcon from 'components/atoms/EnvelopIcon'
 import ConnectedTextWithIcon from 'components/molecules/ConnectedTextWithIcon'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -36,7 +35,10 @@ const Index: NextPage = () => {
             <Col lg={3} md={3}></Col>
               <Col lg={6}>
                 <Card>
-                  <Card.Header>ご登録情報</Card.Header>
+                  <Card.Header className=' d-flex justify-content-between align-items-center'>
+                    ご登録情報
+                    <a className='btn btn-sm btn-primary' href={`/customer_page/user/${endUser?.id}/edit`}>編集</a>
+                  </Card.Header>
                   <Card.Body>
                     <table className='table'>
                       <tbody>
@@ -52,17 +54,23 @@ const Index: NextPage = () => {
                           <td scope='row'>メールアドレス（パスワード認証）</td>
                           <td className='text-center'>{endUser?.email}</td>
                         </tr>
-                        <tr>
-                          <td scope='row'>メールアドレス（Google認証）</td>
-                          <td className='text-center'>{endUser?.google_auth_email}</td>
-                        </tr>
-                        <tr>
-                          <td scope='row'><EnvelopIcon width={20} height={20} className={'mr10'}></EnvelopIcon>メールアドレス認証</td>
-                          <td className='text-center'>{endUser?.email ? <ConnectedTextWithIcon></ConnectedTextWithIcon> : '連携なし'}</td>
-                        </tr>
+                      </tbody>
+                    </table>
+                  </Card.Body>
+                  <Card.Header className=' d-flex justify-content-between align-items-center'>
+                    連携サービス
+                    <a className='btn btn-sm btn-primary' href={`/customer_page/user/${endUser?.id}/edit_connected_account`}>編集</a>
+                  </Card.Header>
+                  <Card.Body>
+                  <table className='table'>
+                      <tbody>
                         <tr>
                           <td scope='row'><GoogleIcon width={20} height={20} className={'mr10'}></GoogleIcon>Google</td>
                           <td className='text-center'>{endUser?.google_auth_id ? <ConnectedTextWithIcon></ConnectedTextWithIcon> : '連携なし'}</td>
+                        </tr>
+                        <tr>
+                          <td scope='row'>メールアドレス（Google認証）</td>
+                          <td className='text-center'>{endUser?.google_auth_email}</td>
                         </tr>
                       </tbody>
                     </table>
