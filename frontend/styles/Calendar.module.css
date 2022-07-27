@@ -1,10 +1,13 @@
 .calendar th {
   border: 1px solid #ddd;
   padding: 10px;
+  vertical-align: middle;
   text-align: center;
 }
 .calendar td {
   border: 1px solid #ddd;
-  padding: 30px;
-  text-align: center;
+  padding-top: 10px;
+  padding-left: 50px;
+  padding-right: 50px;
+  padding-bottom: 50px;
 }

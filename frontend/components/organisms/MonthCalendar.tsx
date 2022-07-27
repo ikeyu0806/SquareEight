@@ -7,8 +7,8 @@ const MonthCalendar = (): JSX.Element => {
     <>
       <Container>
         <Row>
-          <Col md={1}></Col>
-          <Col>
+          <Col lg={1}></Col>
+          <Col lg={10}>
             <table className={calendarStyles.calendar}>
               <thead>
                 <tr>
@@ -23,27 +23,27 @@ const MonthCalendar = (): JSX.Element => {
               </thead>
               <tbody>
                 <tr>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>30</td>
                 </tr>
                 <tr>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
-                  <td>1</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>30</td>
+                  <td>30</td>
                 </tr>
               </tbody>
             </table>
           </Col>
-          <Col md={1}></Col>
+          <Col lg={1}></Col>
         </Row>
       </Container>
     </>
