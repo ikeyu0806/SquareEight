@@ -80,12 +80,20 @@ class Api::Internal::EndUsersController < ApplicationController
 
   def find_or_create_by_google_auth
     ActiveRecord::Base.transaction do
-      end_user = EndUser.find_by(google_auth_id: end_user_params[:google_auth_id])
-      if end_user.blank?
-        end_user = EndUser.new
+      if current_end_user.present?
+        # current_user直接更新できないので別の変数を作る
+        end_user = EndUser.find(current_end_user.id)
         end_user.google_auth_email = end_user_params[:google_auth_email]
         end_user.google_auth_id = end_user_params[:google_auth_id]
         end_user.save!
+      else
+        end_user = EndUser.find_by(google_auth_id: end_user_params[:google_auth_id])
+        if end_user.blank?
+          end_user = EndUser.new
+          end_user.google_auth_email = end_user_params[:google_auth_email]
+          end_user.google_auth_id = end_user_params[:google_auth_id]
+          end_user.save!
+        end
       end
       render json: { status: 'success' }, states: 200
     end

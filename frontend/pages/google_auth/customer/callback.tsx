@@ -16,6 +16,11 @@ const Callback: NextPage = () => {
         google_auth_id: googleAuthId,
         google_auth_email: GoogleAuthEmail
       }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
     })
     .then(function (response) {
       createEndUserSesssionByGoogleAuth(googleAuthId)
