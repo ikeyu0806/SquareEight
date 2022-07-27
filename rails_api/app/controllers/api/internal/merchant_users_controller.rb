@@ -55,15 +55,25 @@ class Api::Internal::MerchantUsersController < ApplicationController
 
   def find_or_create_by_google_auth
     ActiveRecord::Base.transaction do
-      merchant_user = MerchantUser.find_by(google_auth_id: merchant_user_params[:google_auth_id])
-      if merchant_user.blank?
-        merchant_user = MerchantUser.new
+      # ログイン済みであればGoogle接続追加
+      if current_merchant_user.present?
+        # current_user直接更新できないので別の変数を作る
+        merchant_user = MerchantUser.find(current_merchant_user.id)
         merchant_user.google_auth_email = merchant_user_params[:google_auth_email]
         merchant_user.google_auth_id = merchant_user_params[:google_auth_id]
-        merchant_user.authority_category = 'MerchantAdmin'
-        account = Account.new
-        merchant_user.account = account
         merchant_user.save!
+      else
+        # 未ログインであればfind_or_create
+        merchant_user = MerchantUser.find_by(google_auth_id: merchant_user_params[:google_auth_id])
+        if merchant_user.blank?
+          merchant_user = MerchantUser.new
+          merchant_user.google_auth_email = merchant_user_params[:google_auth_email]
+          merchant_user.google_auth_id = merchant_user_params[:google_auth_id]
+          merchant_user.authority_category = 'MerchantAdmin'
+          account = Account.new
+          merchant_user.account = account
+          merchant_user.save!
+        end
       end
       render json: { status: 'success' }, states: 200
     end
