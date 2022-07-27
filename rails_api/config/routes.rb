@@ -32,6 +32,7 @@ Rails.application.routes.draw do
       post 'end_users/:payment_method_id/update_payment_method', to: 'end_users#update_payment_method'
       post 'end_users', to: 'end_users#create'
       delete 'end_users/:payment_method_id/detach_stripe_payment_method', to: 'end_users#detach_stripe_payment_method'
+      delete 'end_users/disconnect_google_auth', to: 'end_users#disconnect_google_auth'
       post 'customers', to: 'customers#create'
       delete 'homepages/:id', to: 'homepages#destroy'
       get 'homepages/:id/shared_component', to: 'homepages#shared_component'

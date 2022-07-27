@@ -1,7 +1,11 @@
 require 'securerandom'
 
 class Api::Internal::EndUsersController < ApplicationController
-  before_action :end_user_login_only!, only: [:register_credit_card, :update_payment_method, :detach_stripe_payment_method]
+  before_action :end_user_login_only!, only: [:current_end_user_info,
+                                              :register_credit_card,
+                                              :update_payment_method,
+                                              :detach_stripe_payment_method,
+                                              :disconnect_google_auth]
 
   VERIFICATION_CODE_LENGTH = 6
 
@@ -156,6 +160,13 @@ class Api::Internal::EndUsersController < ApplicationController
     Stripe::PaymentMethod.detach(
       params[:payment_method_id],
     )
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def disconnect_google_auth
+    current_end_user.update!(google_auth_id: nil, google_auth_email: nil)
     render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

@@ -7,6 +7,8 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { MerchantUserParam } from 'interfaces/MerchantUserParam'
 import { useCookies } from 'react-cookie'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { alertChanged } from 'redux/alertSlice'
 
 const EditConnectedAccount: NextPage = () => {
   const dispatch = useDispatch()
@@ -27,6 +29,30 @@ const EditConnectedAccount: NextPage = () => {
     })
   }, [dispatch, cookies._gybuilder_end_user_session])
 
+  const disconnectGoogle = () => {
+    swalWithBootstrapButtons.fire({
+      title: '解除します',
+      text: '解除してもよろしいですか？',
+      icon: 'question',
+      confirmButtonText: '解除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/end_users/disconnect_google_auth`, {
+          headers: { 
+            'Session-Id': cookies._gybuilder_end_user_session
+          }
+        }).then(res => {
+          location.reload!
+        }).catch(err => {
+          dispatch(alertChanged({message: '解除失敗しました', show: true, type: 'danger'}))
+        })
+      }
+    })
+  }
+
   return (
     <>
       <EndUserLoginLayout>
@@ -45,7 +71,9 @@ const EditConnectedAccount: NextPage = () => {
                         <td scope='row'><GoogleIcon width={20} height={20} className={'mr10'}></GoogleIcon>Google</td>
                         <td className='text-center'>
                           {merchantUser?.google_auth_email
-                            ? <Button variant='danger'>連携解除</Button>
+                            ? <Button variant='danger'
+                                      onClick={() => disconnectGoogle()}
+                                      disabled={!merchantUser.email}>連携解除</Button>
                             : <Button onClick={() => setShowConnectGoogleAuthModal(true)}>連携する</Button>}
                         </td>
                       </tr>
