@@ -174,7 +174,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_003419) do
 
   create_table "orders", force: :cascade do |t|
     t.integer "end_user_id"
-    t.integer "account_id"
+    t.integer "customer_id"
+    t.integer "account_id", null: false
     t.integer "cart_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

@@ -16,14 +16,12 @@ MerchantUser.first_or_create!(
   account_id: account.id,
   email: "merchant_user@develop.com",
   password: "Pass1234",
-  name: "開発用ビジネスユーザ",
   authority_category: "MerchantAdmin",
-  authentication_status: "Enabled"
+  email_authentication_status: "Enabled"
 )
 
 EndUser.first_or_create!(
   email: "end_user@develop.com",
   password: "Pass1234",
-  name: "開発用エンドユーザ",
-  authentication_status: "Enabled"
+  email_authentication_status: "Enabled"
 )
