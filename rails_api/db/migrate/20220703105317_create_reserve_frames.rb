@@ -3,7 +3,6 @@ class CreateReserveFrames < ActiveRecord::Migration[7.0]
     create_table :reserve_frames do |t|
       t.integer :account_id, null: false
       t.datetime :start_at, null: false
-      t.datetime :end_at
       t.string :title, null: false
       t.text :description
       t.boolean :is_repeat

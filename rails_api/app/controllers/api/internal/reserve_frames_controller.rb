@@ -87,7 +87,6 @@ class Api::Internal::ReserveFramesController < ApplicationController
     params.require(:reserve_frame)
           .permit(:id,
                   :start_at,
-                  :end_at,
                   :title,
                   :description,
                   :base64_image,

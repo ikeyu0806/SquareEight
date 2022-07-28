@@ -128,7 +128,7 @@ class ReserveFrame < ApplicationRecord
   end
 
   def display_end_at
-    end_at.strftime("%Y/%m/%d %H:%M")
+    repeat_end_at.strftime("%Y/%m/%d %H:%M")
   end
 
   def delete_s3_image

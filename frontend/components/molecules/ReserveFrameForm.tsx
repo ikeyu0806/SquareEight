@@ -14,9 +14,6 @@ import { getBase64 } from '../../functions/getBase64'
 import resourceSlice from 'redux/resourceSlice'
 import {  showReserveFrameModalChanged,
           startDateChanged,
-          startTimeChanged,
-          endDateChanged,
-          endTimeChanged,
           titleChanged,
           descriptionChanged,
           isRepeatChanged,
@@ -53,9 +50,6 @@ const ReserveFrameForm = () => {
   const title = useSelector((state: RootState) => state.reserveFrame.title)
   const description = useSelector((state: RootState) => state.reserveFrame.description)
   const startDate = useSelector((state: RootState) => state.reserveFrame.startDate)
-  const startTime = useSelector((state: RootState) => state.reserveFrame.startTime)
-  const endDate = useSelector((state: RootState) => state.reserveFrame.endDate)
-  const endTime = useSelector((state: RootState) => state.reserveFrame.endTime)
   const capacity = useSelector((state: RootState) => state.reserveFrame.capacity)
   const isRepeat = useSelector((state: RootState) => state.reserveFrame.isRepeat)
   const repeatIntervalType = useSelector((state: RootState) => state.reserveFrame.repeatIntervalType)
@@ -131,12 +125,11 @@ const ReserveFrameForm = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames`,
     {
       reserve_frame: {
-        start_at: startDate + ' ' + startTime,
-        end_at: endDate + ' ' + endTime,
         title: title,
         description: description,
         base64_image: base64Image,
         capacity: capacity,
+        start_at: startDate,
         is_repeat: isRepeat,
         repeat_interval_type: repeatIntervalType,
         repeat_interval_number_day: repeatIntervalNumberDay,
@@ -271,40 +264,13 @@ const ReserveFrameForm = () => {
               </Form.Group>
 
         <Form.Group className='mb-3'>
-
-        <Form.Label>開始日時</Form.Label>
-          <Row>
-            <Col>
-              <Form.Control
-                type='date'
-                value={startDate}
-                onChange={(e) =>  dispatch(startDateChanged(e.target.value))} />
-            </Col>
-            <Col>
-              <Form.Control
-                value={startTime}
-                onChange={(e) => dispatch(startTimeChanged(e.target.value))}
-                type='time' />
-            </Col>
-            <Col></Col>
-            <Col></Col>
-          </Row>
-        </Form.Group>
-
-        <Form.Group className='mb-3'>
-          <Form.Label>終了日時</Form.Label>
+          <Form.Label>受付日</Form.Label>
             <Row>
               <Col>
                 <Form.Control
                   type='date'
-                  value={endDate}
-                  onChange={(e) =>  dispatch(endDateChanged(e.target.value))} />
-              </Col>
-              <Col>
-                <Form.Control
-                  value={endTime}
-                  onChange={(e) => dispatch(endTimeChanged(e.target.value))}
-                  type='time' />
+                  value={startDate}
+                  onChange={(e) =>  dispatch(startDateChanged(e.target.value))} />
               </Col>
               <Col></Col>
               <Col></Col>
@@ -312,27 +278,10 @@ const ReserveFrameForm = () => {
           </Form.Group>
         </Form>
 
-        <Row>
-          <Col>
-            <Form.Group as={Row} className='mb-3'>
-              <Form.Label column sm={1}>
-                定員
-              </Form.Label>
-              <Col sm={2}>
-                <Form.Control
-                  type='number'
-                  min={1}
-                  value={capacity}
-                  onChange={(e) => dispatch(capacityChanged(Number(e.target.value)))} />
-              </Col>
-            </Form.Group>
-          </Col>
-        </Row>
-
         <Form.Group className='mb-3'>
           <Form.Check
             type='checkbox'
-            label='繰り返し設定を行う'
+            label='繰り返し設定を追加して他の日にも受付'
             checked={isRepeat}
             onClick={() => dispatch(isRepeatChanged(!isRepeat))} />
         </Form.Group>
@@ -514,6 +463,23 @@ const ReserveFrameForm = () => {
             <Col></Col>
           </Row>
         </div>}
+
+        <Row>
+          <Col>
+            <Form.Group as={Row} className='mb-3'>
+              <Form.Label column sm={1}>
+                定員
+              </Form.Label>
+              <Col sm={2}>
+                <Form.Control
+                  type='number'
+                  min={1}
+                  value={capacity}
+                  onChange={(e) => dispatch(capacityChanged(Number(e.target.value)))} />
+              </Col>
+            </Form.Group>
+          </Col>
+        </Row>
 
         <Form.Group className='mb-3'>
           <Row>
