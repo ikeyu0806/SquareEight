@@ -229,8 +229,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_27_003419) do
     t.boolean "is_local_payment_enable"
     t.boolean "is_ticket_payment_enable"
     t.boolean "is_monthly_plan_payment_enable"
-    t.integer "creadit_card_payment_price"
-    t.boolean "is_creadit_card_payment_enable"
+    t.integer "credit_card_payment_price"
+    t.boolean "is_credit_card_payment_enable"
     t.string "s3_object_public_url"
     t.string "s3_object_name"
   end

@@ -1,9 +1,10 @@
 include CalendarContent
 
 class MonthCalendarService
-  def initialize(year, month)
+  def initialize(year, month, reserve_frame_id = nil)
     @target_year = year
     @target_month = month
+    @reserve_frame_id = reserve_frame_id
   end
 
   WEEK_DAYS = 7
@@ -33,12 +34,16 @@ class MonthCalendarService
     result = []
     # カレンダー行数
     week_count_num = week_count(@target_year, @target_month)
-    display_last_year = display_last_year(@target_year, @target_month)
+    # 表示月の最終日
     current_month_end_date = month_end_date(@target_month)
+    # 表示される先月の年と月
+    display_last_year = display_last_year(@target_year, @target_month)
     last_month = last_month(@target_month)
+    # 表示される最終日付と曜日
     display_last_month_end_date = month_end_date(last_month)
     display_last_month_end_date_wday = month_end_wday(display_last_year, last_month)
-    if display_last_month_end_date_wday == SUN
+    # 先月の最終日時が月曜の場合は先月の日付表示不要
+    if display_last_month_end_date_wday == MON
       display_last_month_start_date = nil
     else
       display_last_month_start_date = display_last_month_end_date - display_last_month_end_date_wday

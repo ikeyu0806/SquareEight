@@ -49,9 +49,11 @@ class Api::Internal::ReserveFramesController < ApplicationController
           reserve_frame.reserve_frame_ticket_masters.new(ticket_master)
         end
       end
-      file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-      reserve_frame.s3_object_public_url = put_s3_http_request_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
-      reserve_frame.s3_object_name = file_name
+      if reserve_frame_params[:base64_image].present?
+        file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        reserve_frame.s3_object_public_url = put_s3_http_request_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+        reserve_frame.s3_object_name = file_name
+      end
       reserve_frame.save!
       render json: { status: 'success' }, states: 200
     end
@@ -99,7 +101,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :repeat_end_date,
                   :capacity,
                   :local_payment_price,
-                  :creadit_card_payment_price,
+                  :credit_card_payment_price,
                   :publish_status,
                   :reception_type,
                   :reception_start_day_before,
@@ -107,7 +109,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :cancel_reseption_hour_before,
                   :cancel_reseption_day_before,
                   :is_local_payment_enable,
-                  :is_creadit_card_payment_enable,
+                  :is_credit_card_payment_enable,
                   :is_ticket_payment_enable,
                   :is_monthly_plan_payment_enable,
                   resource_ids: [],

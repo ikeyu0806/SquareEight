@@ -83,6 +83,46 @@ class ReserveFrame < ApplicationRecord
     end
   end
 
+  def calendar_json
+    result = []
+    if self.is_repeat
+      case self.repeat_interval_type
+      when 'Day' then
+        (Date.parse(self.start_at.to_s)..(Date.parse(self.repeat_end_date.to_s))).each do |date|
+          result << {
+            start: date,
+            title: self.title,
+            url: '/reserve/' + self.id.to_s
+          }
+        end
+      when 'Week' then
+        (Date.parse(frame.start_at.to_s)..Date.parse(frame.repeat_end_date.to_s)).select{|d| d.wday == frame.start_at.wday}.each do |date|
+          result << {
+            start: date,
+            title: self.title,
+            url: '/reserve/' + self.id.to_s
+          }
+        end
+      when 'Month' then
+        (Date.parse(frame.start_at.to_s)..Date.parse(frame.repeat_end_date.to_s)).select{|d| d.day == repeat.repeat_interval_month_date}.each do |date|
+          result << {
+            start: date,
+            title: self.title,
+            url: '/reserve/' + self.id.to_s
+          }
+        end
+      else
+      end
+    else
+      result << {
+        start: self.start_at,
+        title: self.title,
+        url: '/reserve/' + self.id.to_s
+      }
+    end
+    result
+  end
+
   def display_start_at
     start_at.strftime("%Y/%m/%d %H:%M")
   end
