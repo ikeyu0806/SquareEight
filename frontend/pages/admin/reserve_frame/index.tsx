@@ -47,7 +47,7 @@ const Index = (): JSX.Element => {
             <thead>
               <tr>
                 <th className='text-center'>予約メニュー名</th>
-                <th className='text-center'>開始日時/終了日時</th>
+                <th className='text-center'>開始日/終了日</th>
                 <th className='text-center'>定員</th>
                 <th className='text-center'>繰り返し設定</th>
                 <th className='text-center'>お支払い方法</th>
