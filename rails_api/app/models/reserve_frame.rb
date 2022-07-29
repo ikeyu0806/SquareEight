@@ -89,12 +89,17 @@ class ReserveFrame < ApplicationRecord
     if self.is_repeat
       case self.repeat_interval_type
       when 'Day' then
+        skip_flg_count = 0
         (Date.parse(self.start_at.to_s)..(Date.parse(self.repeat_end_date.to_s))).each do |date|
-          result << {
-            start: date,
-            title: self.title,
-            url: '/reserve/' + self.id.to_s
-          }
+          skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
+          if skip_flg_count.negative?
+            result << {
+              start: date.strftime("%Y-%m-%d"),
+              title: self.title,
+              url: '/reserve/' + self.id.to_s
+            }
+            skip_flg_count = repeat_interval_number_day
+          end
         end
       when 'Week' then
         (Date.parse(frame.start_at.to_s)..Date.parse(frame.repeat_end_date.to_s)).select{|d| d.wday == frame.start_at.wday}.each do |date|
