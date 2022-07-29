@@ -1,3 +1,5 @@
+include CalendarContent
+
 class ReserveFrame < ApplicationRecord
   belongs_to :account
   has_many :unreservable_frames
@@ -84,13 +86,20 @@ class ReserveFrame < ApplicationRecord
     end
   end
 
-  def calendar_json
+  def calendar_json(year, month, week = nil)
     result = []
+    range_start_date = Date.new(year, month)
+    range_end_date = Date.new(year, month, -1)
+    loop_start_date = Date.parse(self.start_at.to_s)
+    loop_start_date = loop_start_date < range_start_date ? range_start_date : loop_start_date
+    loop_end_date = Date.parse(self.repeat_end_date.to_s)
+    loop_end_date = loop_end_date > range_end_date ? range_end_date : loop_end_date
+
     if self.is_repeat
       case self.repeat_interval_type
       when 'Day' then
-        skip_flg_count = 0
-        (Date.parse(self.start_at.to_s)..(Date.parse(self.repeat_end_date.to_s))).each do |date|
+        skip_flg_count = 0 # repeat_interval_number_dayで間隔を反映させる処理に使う
+        (loop_start_date..loop_end_date).each do |date|
           skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
           if skip_flg_count.negative?
             result << {

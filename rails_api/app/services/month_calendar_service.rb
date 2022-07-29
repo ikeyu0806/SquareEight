@@ -29,6 +29,10 @@ class MonthCalendarService
     (month_first_wday(year, month) + (month_end_wday(last_year, last_month) + 1).quo(WEEK_DAYS).to_f).ceil
   end
 
+  def reserve_frame
+    ReserveFrame.find(@reserve_frame_id)
+  end
+
   # [{date: 27, text: '', url: ''},{date: 28, text: '', url: ''}]
   def end_user_reserve_content_json
     result = []
