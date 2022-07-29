@@ -55,11 +55,11 @@ class MonthCalendarService
       # 前月を表示する場合
       if row == 0 && display_last_month_start_date.present?
         (display_last_month_start_date..display_last_month_end_date).each do |num|
-          week_days_array.push({date: num})
+          week_days_array.push({date_text: num})
         end
         (WEEK_DAYS - display_last_month_end_date_wday - 1).times do |num|
           current_date = num + 1
-          week_days_array.push({date: current_date})
+          week_days_array.push({date_text: current_date})
         end
         result.push(week_days_array)
       else
@@ -69,7 +69,7 @@ class MonthCalendarService
           else
             current_date = current_date + 1
           end
-          week_days_array.push({date: current_date})
+          week_days_array.push({date_text: current_date})
         end
         result.push(week_days_array)
       end

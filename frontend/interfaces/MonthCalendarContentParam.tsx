@@ -1,3 +1,3 @@
 export interface MonthCalendarContentJson {
-  date: number
+  date_text: number
 }
