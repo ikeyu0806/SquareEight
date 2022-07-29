@@ -70,6 +70,7 @@ Rails.application.routes.draw do
       get 'reserve_frames', to: 'reserve_frames#index'
       post 'reserve_frames', to: 'reserve_frames#create'
       get 'orders/:order_id/order_items', to: 'orders#order_items'
+      get 'calendar/monthly_reserve_frames', to: 'calendar#monthly_reserve_frames'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'
