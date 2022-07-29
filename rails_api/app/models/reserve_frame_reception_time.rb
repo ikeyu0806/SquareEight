@@ -1,0 +1,2 @@
+class ReserveFrameReceptionTime < ApplicationRecord
+end
