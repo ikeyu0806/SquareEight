@@ -3,13 +3,17 @@ import { Container, Row, Col } from 'react-bootstrap'
 import calendarStyles from 'styles/Calendar.module.css'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import { MonthCalendarContentJson } from 'interfaces/MonthCalendarContentParam'
 
 const MonthCalendar = (): JSX.Element => {
   const router = useRouter()
 
   const date = new Date()
+  const currentYear = date.getFullYear()
+  const currentMonth = date.getMonth() + 1
   const [year, setYear] = useState(date.getFullYear())
   const [month, setMonth] = useState(date.getMonth() + 1)
+  const [calendarContentArray, setCalendarContentArray] = useState<Array<Array<MonthCalendarContentJson>>>([[]])
 
   useEffect(() => {
     const fetchCalendarContent = () => {
@@ -17,20 +21,21 @@ const MonthCalendar = (): JSX.Element => {
         `${process.env.BACKEND_URL}/api/internal/calendar/monthly_reserve_frames`,
         {
           params: {
-            target_year: year,
-            target_month: month
+            target_year: currentYear,
+            target_month: currentMonth
           }
         }
       )
       .then(function (response) {
         console.log(response)
+        setCalendarContentArray(response.data.calendar_content)
       })
       .catch(error => {
         console.log(error)
       })
     }
     fetchCalendarContent()
-  }, [router.query.id, router.query.ticket_master_id])
+  }, [router.query.id, router.query.ticket_master_id, currentYear, currentMonth])
 
   return (
     <>
@@ -51,26 +56,21 @@ const MonthCalendar = (): JSX.Element => {
                   <th>土</th>
                 </tr>
               </thead>
-              <tbody>
-                <tr>
-                  <td>30</td>
-                  <td>30</td>
-                  <td>30</td>
-                  <td>30</td>
-                  <td>30</td>
-                  <td>30</td>
-                  <td>30</td>
-                </tr>
-                <tr>
-                  <td>30</td>
-                  <td>30</td>
-                  <td>30</td>
-                  <td>30</td>
-                  <td>30</td>
-                  <td>30</td>
-                  <td>30</td>
-                </tr>
-              </tbody>
+              {calendarContentArray.map((array, i) => {
+                return (
+                  <tbody key={i}>
+                    <tr>
+                      {array.map((a, i) => {
+                        return (
+                          <th key={i}>
+                            {a.date}
+                          </th>
+                        )
+                      })}
+                    </tr>
+                  </tbody>
+                )
+              })}            
             </table>
           </Col>
           <Col lg={1}></Col>
