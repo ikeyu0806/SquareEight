@@ -1,5 +1,5 @@
 export interface ReserveFrameReceptionTimeParam {
   id?: number
-  start_at: string
-  end_at: string
+  reception_start_time: string
+  reception_end_time: string
 }

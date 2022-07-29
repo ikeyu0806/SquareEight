@@ -189,6 +189,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_28_142930) do
   end
 
   create_table "reserve_frame_reception_times", force: :cascade do |t|
+    t.integer "reserve_frame_id"
     t.time "reception_start_time", null: false
     t.time "reception_end_time"
     t.datetime "created_at", null: false

@@ -80,6 +80,8 @@ const ReserveFrameForm = () => {
   const base64Image = useSelector((state: RootState) => state.reserveFrame.base64Image)
 
   const [isSetPrice, setIsSetPrice] = useState(true)
+  const [reserveFrameReceptionStartTime, setReserveFrameReceptionStartTime] = useState('')
+  const [reserveFrameReceptionEndTime, setReserveFrameReceptionEndTime] = useState('')
   const [unreservableFramesStartDate, setUnreservableFramesStartDate] = useState('')
   const [unreservableFramesStartTime, setUnreservableFramesStartTime] = useState('')
   const [unreservableFramesEndDate, setUnreservableFramesEndDate] = useState('')
@@ -145,6 +147,7 @@ const ReserveFrameForm = () => {
         reception_type: receptionType,
         reception_start_day_before: receptionStartDayBefore,
         cancel_reception: cancelReception,
+        reserve_frame_reception_times: reserveFrameReceptionTimes,
         unreservable_frames: unreservableFrames,
         resource_ids: resourceIds,
         is_local_payment_enable: isLocalPaymentEnable,
@@ -172,6 +175,12 @@ const ReserveFrameForm = () => {
         icon: 'error'
       })
     })
+  }
+
+  const addReserveFrameReceptionTimes = () => {
+    const startAt = reserveFrameReceptionStartTime
+    const endAt = reserveFrameReceptionEndTime
+    dispatch((reserveFrameReceptionTimesChanged([...reserveFrameReceptionTimes, { reception_start_time: startAt, reception_end_time: endAt }])))
   }
 
   const addUnreservableFrames = () => {
@@ -283,15 +292,15 @@ const ReserveFrameForm = () => {
         <Form.Group className='mb-3'>
           <Form.Label>受付時刻</Form.Label>
             <br/>
-            {unreservableFrames.length
+            {reserveFrameReceptionTimes.length
               ?
                 <>
-                  {unreservableFrames.map((frame, i) => {
+                  {reserveFrameReceptionTimes.map((times, i) => {
                     return (
-                      <span key={i} className='mb30'>
-                        <span>開始日時: {frame.start_at}</span><br/>
-                        <span>終了日時: {frame.end_at}</span>
-                      </span>
+                      <div key={i} className='mb10'>
+                        <span>開始時刻: {times.reception_start_time}</span><br/>
+                        <span>終了時刻: {times.reception_end_time}</span>
+                      </div>
                     )
                   })}
                 </>
@@ -305,21 +314,21 @@ const ReserveFrameForm = () => {
             <Col>
               <Form.Label>開始時刻</Form.Label>
               <Form.Control
-                      value={unreservableFramesStartTime}
+                      value={reserveFrameReceptionStartTime}
                       type='time'
-                      onChange={(e) =>  setUnreservableFramesStartTime(e.target.value)} />
+                      onChange={(e) =>  setReserveFrameReceptionStartTime(e.target.value)} />
             </Col>
             <Col>
               <Form.Label>終了時刻</Form.Label>
               <Form.Control
-                      value={unreservableFramesStartTime}
+                      value={reserveFrameReceptionEndTime}
                       type='time'
-                      onChange={(e) =>  setUnreservableFramesStartTime(e.target.value)} />
+                      onChange={(e) =>  setReserveFrameReceptionEndTime(e.target.value)} />
             </Col>
             <Col></Col>
             <Col></Col>
           </Row>
-          <Button className='mt20'>開始/終了時刻に追加</Button>
+          <Button className='mt20' onClick={addReserveFrameReceptionTimes}>開始/終了時刻に追加</Button>
         </Form.Group>
 
         <Form.Group className='mb-3'>

@@ -25,11 +25,15 @@ class Api::Internal::ReserveFramesController < ApplicationController
     ActiveRecord::Base.transaction do
       reserve_frame = current_merchant_user.account.reserve_frames
                       .new(reserve_frame_params.except(:unreservable_frames,
+                                                       :reserve_frame_reception_times,
                                                        :repeat_interval_number_month_date,
                                                        :resource_ids,
                                                        :monthly_payment_plan_ids,
                                                        :reservable_frame_ticket_master,
-                                                       :base64_image))
+                                                       :base64_image))                   
+      reserve_frame_params[:reserve_frame_reception_times].each do |reception_time|
+        reserve_frame.reserve_frame_reception_times.new(reception_start_time: reception_time[:reception_start_time], reception_end_time: reception_time[:reception_end_time])
+      end
       reserve_frame_params[:unreservable_frames].each do |frame|
         reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
       end
@@ -113,6 +117,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :is_monthly_plan_payment_enable,
                   resource_ids: [],
                   monthly_payment_plan_ids: [],
+                  reserve_frame_reception_times: [:reception_start_time, :reception_end_time],
                   unreservable_frames: [:start_at, :end_at],
                   reservable_frame_ticket_master: [:ticket_master_id, :consume_number])
   end
