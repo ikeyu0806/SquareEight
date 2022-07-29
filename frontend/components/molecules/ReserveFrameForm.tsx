@@ -36,6 +36,7 @@ import {  showReserveFrameModalChanged,
           isCreditCardPaymentEnableChanged,
           isTicketPaymentEnableChanged,
           isMonthlyPlanPaymentEnableChanged,
+          reserveFrameReceptionTimesChanged,
           unreservableFramesChanged, 
           resourceIdsChanged,
           monthlyPaymentPlanIdsChanged,
@@ -66,6 +67,7 @@ const ReserveFrameForm = () => {
   const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
+  const reserveFrameReceptionTimes = useSelector((state: RootState) => state.reserveFrame.reserveFrameReceptionTimes)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
   const isLocalPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isLocalPaymentEnable)
   const isCreditCardPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isCreditCardPaymentEnable)
@@ -277,6 +279,48 @@ const ReserveFrameForm = () => {
             </Row>
           </Form.Group>
         </Form>
+    
+        <Form.Group className='mb-3'>
+          <Form.Label>受付時刻</Form.Label>
+            <br/>
+            {unreservableFrames.length
+              ?
+                <>
+                  {unreservableFrames.map((frame, i) => {
+                    return (
+                      <span key={i} className='mb30'>
+                        <span>開始日時: {frame.start_at}</span><br/>
+                        <span>終了日時: {frame.end_at}</span>
+                      </span>
+                    )
+                  })}
+                </>
+              :
+                <div className='mt10 mb10'>受付時刻が設定されていません</div>
+            }
+        </Form.Group>
+    
+        <Form.Group className='mb-3 mt10'>
+          <Row>
+            <Col>
+              <Form.Label>開始時刻</Form.Label>
+              <Form.Control
+                      value={unreservableFramesStartTime}
+                      type='time'
+                      onChange={(e) =>  setUnreservableFramesStartTime(e.target.value)} />
+            </Col>
+            <Col>
+              <Form.Label>終了時刻</Form.Label>
+              <Form.Control
+                      value={unreservableFramesStartTime}
+                      type='time'
+                      onChange={(e) =>  setUnreservableFramesStartTime(e.target.value)} />
+            </Col>
+            <Col></Col>
+            <Col></Col>
+          </Row>
+          <Button className='mt20'>開始/終了時刻に追加</Button>
+        </Form.Group>
 
         <Form.Group className='mb-3'>
           <Form.Check
@@ -413,7 +457,7 @@ const ReserveFrameForm = () => {
               <>
                 {unreservableFrames.map((frame, i) => {
                   return (
-                    <span key={i}>
+                    <span key={i} className='mb10'>
                       <span>開始日時: {frame.start_at}</span><br/>
                       <span>終了日時: {frame.end_at}</span>
                     </span>
@@ -421,7 +465,7 @@ const ReserveFrameForm = () => {
                 })}
               </>
             :
-              <div className='mt10 mb10'>なし</div>
+              <div className='mt10 mb10'>予約受付不可日時が設定されていません</div>
             }
             <Col>
               <Form.Group>
@@ -458,7 +502,7 @@ const ReserveFrameForm = () => {
                   </Col>
                 </Row>
               </Form.Group>
-              <Button className='mt10' onClick={addUnreservableFrames}>予約受付不可日時に追加</Button>
+              <Button className='mt10 mb20' onClick={addUnreservableFrames}>予約受付不可日時に追加</Button>
             </Col>
             <Col></Col>
           </Row>

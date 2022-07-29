@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ReserveFrameReceptionTimeParam } from 'interfaces/ReserveFrameReceptionTimeParam'
 import { UnreservableFrameParam } from 'interfaces/UnreservableFrameParam'
 import { ReservableFrameTicketMasterParam } from 'interfaces/ReservableFrameTicketMasterParam'
 import { getZeroPaddingDate, getZeroPaddingTime } from 'functions/getZeroPaddingDatetime'
@@ -32,6 +33,7 @@ export const reserveFrameSlice = createSlice({
     isMonthlyPlanPaymentEnable: false,
     base64Image: null,
     s3ObjectPublicUrl: '',
+    reserveFrameReceptionTimes: [] as ReserveFrameReceptionTimeParam[],
     unreservableFrames: [] as UnreservableFrameParam[],
     resourceIds: [] as number[],
     reserveEvents: [],
@@ -117,6 +119,9 @@ export const reserveFrameSlice = createSlice({
     s3ObjectPublicUrlChanged: (state, action: PayloadAction<any>) => {
       state.s3ObjectPublicUrl = action.payload
     },
+    reserveFrameReceptionTimesChanged: (state, action: PayloadAction<ReserveFrameReceptionTimeParam[]>) => {
+      state.reserveFrameReceptionTimes = action.payload
+    },
     unreservableFramesChanged: (state, action: PayloadAction<UnreservableFrameParam[]>) => {
       state.unreservableFrames = action.payload
     },
@@ -161,6 +166,7 @@ export const { isTicketPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isMonthlyPlanPaymentEnableChanged } = reserveFrameSlice.actions
 export const { base64ImageChanged } = reserveFrameSlice.actions
 export const { s3ObjectPublicUrlChanged } = reserveFrameSlice.actions
+export const { reserveFrameReceptionTimesChanged } = reserveFrameSlice.actions
 export const { unreservableFramesChanged } = reserveFrameSlice.actions
 export const { resourceIdsChanged } = reserveFrameSlice.actions
 export const { reserveEventsChanged } = reserveFrameSlice.actions

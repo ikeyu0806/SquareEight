@@ -6,6 +6,7 @@ class ReserveFrame < ApplicationRecord
   has_many :monthly_payment_plans, through: :reserve_frame_monthly_payment_plans
   has_many :reserve_frame_ticket_masters
   has_many :ticket_masters, through: :reserve_frame_ticket_masters
+  has_many :reserve_frame_reception_times
 
   enum repeat_interval_type: { Day: 0, Week: 1, Month: 2 }
   enum publish_status: { Unpublish: 0, Publish: 1 }
