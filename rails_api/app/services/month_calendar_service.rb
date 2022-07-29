@@ -62,17 +62,23 @@ class MonthCalendarService
       # 前月を表示する場合
       if row == 0 && display_last_month_start_date.present?
         (display_last_month_start_date..display_last_month_end_date).each do |num|
-          week_days_array.push({
+          date_json = {
             date_text: num,
             full_date: Date.new(@target_year, @target_month, num).strftime("%Y-%m-%d")
-          })
+          }
+          same_date_reserve_frame_json = reserve_frame_json.find{|r| r[:start] == date_json[:full_date]} if reserve_frame_json.present?
+          date_json = date_json.merge(same_date_reserve_frame_json) if same_date_reserve_frame_json.present?
+          week_days_array.push(date_json)
         end
         (WEEK_DAYS - display_last_month_end_date_wday - 1).times do |num|
           current_date = num + 1
-          week_days_array.push({
+          date_json = {
             date_text: current_date,
             full_date: Date.new(@target_year, @target_month, current_date).strftime("%Y-%m-%d")
-          })
+          }
+          same_date_reserve_frame_json = reserve_frame_json.find{|r| r[:start] == date_json[:full_date]} if reserve_frame_json.present?
+          date_json = date_json.merge(same_date_reserve_frame_json) if same_date_reserve_frame_json.present?
+          week_days_array.push(date_json)
         end
         result.push(week_days_array)
       else
@@ -84,10 +90,13 @@ class MonthCalendarService
           else
             current_date = current_date + 1
           end
-          week_days_array.push({
+          date_json = {
             date_text: current_date,
             full_date: Date.new(@target_year, @target_month, current_date).strftime("%Y-%m-%d")
-          })
+          }
+          same_date_reserve_frame_json = reserve_frame_json.find{|r| r[:start] == date_json[:full_date]} if reserve_frame_json.present?
+          date_json = date_json.merge(same_date_reserve_frame_json) if same_date_reserve_frame_json.present?
+          week_days_array.push(date_json)
         end
         result.push(week_days_array)
       end
