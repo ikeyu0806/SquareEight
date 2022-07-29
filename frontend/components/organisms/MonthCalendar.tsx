@@ -4,11 +4,8 @@ import calendarStyles from 'styles/Calendar.module.css'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { MonthCalendarContentJson } from 'interfaces/MonthCalendarContentParam'
-interface Props {
-  reserveFrameId?: string
-}
 
-const MonthCalendar = ({reserveFrameId}: Props): JSX.Element => {
+const MonthCalendar = (): JSX.Element => {
   const router = useRouter()
 
   const date = new Date()
