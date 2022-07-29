@@ -30,11 +30,14 @@ class MonthCalendarService
   end
 
   def reserve_frame
-    ReserveFrame.find(@reserve_frame_id)
+    ReserveFrame.find(@reserve_frame_id) if @reserve_frame_id.present?
   end
 
   # [{date: 27, text: '', url: ''},{date: 28, text: '', url: ''}]
-  def end_user_reserve_content_json
+  def reserve_content_json
+    if reserve_frame.present?
+      reserve_frame_json = reserve_frame.calendar_json(@target_year, @target_month)
+    end
     result = []
     # カレンダー行数
     week_count_num = week_count(@target_year, @target_month)
@@ -59,21 +62,32 @@ class MonthCalendarService
       # 前月を表示する場合
       if row == 0 && display_last_month_start_date.present?
         (display_last_month_start_date..display_last_month_end_date).each do |num|
-          week_days_array.push({date_text: num})
+          week_days_array.push({
+            date_text: num,
+            full_date: Date.new(@target_year, @target_month, num).strftime("%Y-%m-%d")
+          })
         end
         (WEEK_DAYS - display_last_month_end_date_wday - 1).times do |num|
           current_date = num + 1
-          week_days_array.push({date_text: current_date})
+          week_days_array.push({
+            date_text: current_date,
+            full_date: Date.new(@target_year, @target_month, current_date).strftime("%Y-%m-%d")
+          })
         end
         result.push(week_days_array)
       else
         WEEK_DAYS.times do |num|
           if current_date == current_month_end_date
+            # 翌月
             current_date = 1
+            @target_month = @target_month + 1
           else
             current_date = current_date + 1
           end
-          week_days_array.push({date_text: current_date})
+          week_days_array.push({
+            date_text: current_date,
+            full_date: Date.new(@target_year, @target_month, current_date).strftime("%Y-%m-%d")
+          })
         end
         result.push(week_days_array)
       end
