@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
-import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import axios from 'axios'
 import { reserveEventsChanged } from 'redux/reserveFrameSlice'
 import { useDispatch } from 'react-redux'
@@ -34,9 +34,9 @@ const SetReserveCalendar: NextPage = () => {
   
   return (
     <>
-      <MerchantUserAdminLayout>
+      <MerchantCustomLayout>
         <Calendar></Calendar>
-      </MerchantUserAdminLayout>
+      </MerchantCustomLayout>
     </>
   )
 }
