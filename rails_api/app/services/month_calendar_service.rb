@@ -26,7 +26,7 @@ class MonthCalendarService
       last_month = month - 1
       last_year = year
     end
-    (month_first_wday(year, month) + (month_end_wday(last_year, last_month) + 1).quo(WEEK_DAYS).to_f).ceil
+    ((month_first_wday(year, month) + month_end_date(month)).quo(WEEK_DAYS).to_f).ceil
   end
 
   def reserve_frame
