@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import calendarStyles from 'styles/Calendar.module.css'
 import { useRouter } from 'next/router'
 import axios from 'axios'
 import { MonthCalendarContentJson } from 'interfaces/MonthCalendarContentParam'
+import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 
 const MonthCalendar = (): JSX.Element => {
   const router = useRouter()
@@ -14,6 +15,7 @@ const MonthCalendar = (): JSX.Element => {
   const [year, setYear] = useState(date.getFullYear())
   const [month, setMonth] = useState(date.getMonth() + 1)
   const [calendarContentArray, setCalendarContentArray] = useState<Array<Array<MonthCalendarContentJson>>>([[]])
+  const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>()
 
   useEffect(() => {
     const fetchCalendarContent = () => {
@@ -29,6 +31,7 @@ const MonthCalendar = (): JSX.Element => {
       .then(function (response) {
         console.log(response)
         setCalendarContentArray(response.data.calendar_content)
+        setReserveFrame(response.data.reserve_frame)
       })
       .catch(error => {
         console.log(error)
@@ -40,11 +43,20 @@ const MonthCalendar = (): JSX.Element => {
   return (
     <>
       <Container className={calendarStyles.calendar}>
+    
         <Row>
           <Col lg={2}></Col>
           <Col lg={8}>
-            <h2>{year}年{month}月</h2>
-            <table>
+            <Row>
+              <h2 className='mb50'>{reserveFrame && reserveFrame.title}</h2>
+              <Col>
+                <Button variant='outline-dark'>前の月</Button>
+                <Button className='ml10' variant='outline-dark'>次の月</Button>
+              </Col>
+              <Col><h3>{year}年{month}月</h3></Col>
+              <Col></Col>
+            </Row>
+            <table className='mt20'>
               <thead>
                 <tr>
                   <th>日</th>
