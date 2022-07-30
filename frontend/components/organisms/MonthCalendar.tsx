@@ -76,7 +76,7 @@ const MonthCalendar = (): JSX.Element => {
         {
           params: {
             target_year: nextYear,
-            target_month: month + 1
+            target_month: nextMonth
           }
         }
       )
