@@ -67,7 +67,7 @@ class ReserveFrame < ApplicationRecord
     when "Week"
       repeat_interval_number_week.to_s + "週間" + "ごとに繰り返す"
     when "Month"
-      repeat_interval_number_month.to_s + "ヶ月ごとの" + repeat_interval_month_date + "日に設定"
+      repeat_interval_number_month.to_s + "ヶ月ごとの" + repeat_interval_month_date.to_s + "日に設定"
     else
       raise
     end
@@ -111,7 +111,7 @@ class ReserveFrame < ApplicationRecord
           end
         end
       when 'Week' then
-        skip_flg_count = 0 # repeat_interval_number_dayで間隔を反映させる処理に使う
+        skip_flg_count = 0 # repeat_interval_number_weekで間隔を反映させる処理に使う
         (loop_start_date..loop_end_date).select{|d| d.wday == self.start_at.wday}.each do |date|
           skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
           if skip_flg_count.negative?
@@ -124,12 +124,17 @@ class ReserveFrame < ApplicationRecord
           end
         end
       when 'Month' then
-        (Date.parse(frame.start_at.to_s)..Date.parse(frame.repeat_end_date.to_s)).select{|d| d.day == repeat.repeat_interval_month_date}.each do |date|
-          result << {
-            start: date,
-            title: '予約可能',
-            url: '/reserve/' + self.id.to_s
-          }
+        skip_flg_count = 0 # repeat_interval_number_monthで間隔を反映させる処理に使う
+        (loop_start_date..loop_end_date).select{|d| d.day == self.repeat_interval_month_date}.each do |date|
+          skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
+          if skip_flg_count.negative?
+            result << {
+              start: date.strftime("%Y-%m-%d"),
+              title: '予約可能',
+              url: '/reserve/' + self.id.to_s
+            }
+            skip_flg_count = repeat_interval_number_week
+          end
         end
       else
       end

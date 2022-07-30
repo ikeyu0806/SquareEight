@@ -139,7 +139,7 @@ const ReserveFrameForm = () => {
         repeat_interval_number_day: repeatIntervalNumberDay,
         repeat_interval_number_week: repeatIntervalNumberWeek,
         repeat_interval_number_month: repeatIntervalNumberMonth,
-        repeat_interval_number_month_date: repeatIntervalMonthDate,
+        repeat_interval_month_date: repeatIntervalMonthDate,
         repeat_end_date: repeatEndDate,
         local_payment_price: localPaymentPrice,
         credit_card_payment_price: creditCardPaymentPrice,
