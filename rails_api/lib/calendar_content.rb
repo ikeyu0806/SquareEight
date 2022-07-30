@@ -14,7 +14,11 @@ module CalendarContent
   WEEK_DAYS = 7
 
   def last_month(month)
-    month == 12 ? 1 : month - 1
+    month == 1 ? 12 : month - 1
+  end
+
+  def next_month(month)
+    month == 12 ? 1 : month + 1
   end
 
   def display_last_year(year, month)

@@ -88,7 +88,10 @@ class MonthCalendarService
           if current_date == current_month_end_date
             # 翌月
             current_date = 1
-            @target_month = @target_month + 1
+            if (@target_month == 12)
+              @target_year = @target_year + 1
+            end
+            @target_month = next_month(@target_month)
           else
             current_date = current_date + 1
           end
