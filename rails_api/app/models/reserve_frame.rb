@@ -104,25 +104,30 @@ class ReserveFrame < ApplicationRecord
           if skip_flg_count.negative?
             result << {
               start: date.strftime("%Y-%m-%d"),
-              title: self.title,
+              title: '予約可能',
               url: '/reserve/' + self.id.to_s
             }
             skip_flg_count = repeat_interval_number_day
           end
         end
       when 'Week' then
-        (Date.parse(frame.start_at.to_s)..Date.parse(frame.repeat_end_date.to_s)).select{|d| d.wday == frame.start_at.wday}.each do |date|
-          result << {
-            start: date,
-            title: self.title,
-            url: '/reserve/' + self.id.to_s
-          }
+        skip_flg_count = 0 # repeat_interval_number_dayで間隔を反映させる処理に使う
+        (loop_start_date..loop_end_date).select{|d| d.wday == self.start_at.wday}.each do |date|
+          skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
+          if skip_flg_count.negative?
+            result << {
+              start: date.strftime("%Y-%m-%d"),
+              title: '予約可能',
+              url: '/reserve/' + self.id.to_s
+            }
+            skip_flg_count = repeat_interval_number_week
+          end
         end
       when 'Month' then
         (Date.parse(frame.start_at.to_s)..Date.parse(frame.repeat_end_date.to_s)).select{|d| d.day == repeat.repeat_interval_month_date}.each do |date|
           result << {
             start: date,
-            title: self.title,
+            title: '予約可能',
             url: '/reserve/' + self.id.to_s
           }
         end
