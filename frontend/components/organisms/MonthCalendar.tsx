@@ -62,7 +62,7 @@ const MonthCalendar = (): JSX.Element => {
                     <tr>
                       {array.map((a, i) => {
                         return (
-                          <td key={i}>
+                          <td key={i} valign='top'>
                             <div className='date-text'>{a.date_text}</div>
                             <a className='badge bg-info mt10' href={a.url}>{a.title}</a>
                           </td>
