@@ -56,6 +56,8 @@ class MonthCalendarService
       display_last_month_start_date = display_last_month_end_date - display_last_month_end_date_wday
     end
     current_date = 0
+    last_year = display_last_year(@target_year, @target_month)
+    last_month = last_month(@target_month)
     week_count_num.times do |row|
       week_days_array = []
       # カレンダー1行目
@@ -64,7 +66,7 @@ class MonthCalendarService
         (display_last_month_start_date..display_last_month_end_date).each do |num|
           date_json = {
             date_text: num,
-            full_date: Date.new(@target_year, @target_month, num).strftime("%Y-%m-%d")
+            full_date: Date.new(last_year, last_month, num).strftime("%Y-%m-%d")
           }
           same_date_reserve_frame_json = reserve_frame_json.find{|r| r[:start] == date_json[:full_date]} if reserve_frame_json.present?
           date_json = date_json.merge(same_date_reserve_frame_json) if same_date_reserve_frame_json.present?
