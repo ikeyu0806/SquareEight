@@ -40,6 +40,60 @@ const MonthCalendar = (): JSX.Element => {
     fetchCalendarContent()
   }, [router.query.id, router.query.reserve_frame_id, currentYear, currentMonth])
 
+  const displayPrevMonth = () => {
+    const fetchPrevMonthCalendarContent = () => {
+      const prevYear = (month == 1 ? year - 1 : year)
+      const prevMonth = (month == 1 ? 12 : month - 1)
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/calendar/${router.query.reserve_frame_id}/monthly_reserve_frames`,
+        {
+          params: {
+            target_year: prevYear,
+            target_month: prevMonth
+          }
+        }
+      )
+      .then(function (response) {
+        console.log(response)
+        setCalendarContentArray(response.data.calendar_content)
+        setReserveFrame(response.data.reserve_frame)
+        setYear(prevYear)
+        setMonth(prevMonth)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchPrevMonthCalendarContent()
+  }
+
+  const displayNextMonth = () => {
+    const fetchNextMonthCalendarContent = () => {
+      const nextYear = (month == 12 ? year + 1 : year)
+      const nextMonth = (month == 12 ? 1 : month + 1)
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/calendar/${router.query.reserve_frame_id}/monthly_reserve_frames`,
+        {
+          params: {
+            target_year: nextYear,
+            target_month: month + 1
+          }
+        }
+      )
+      .then(function (response) {
+        console.log(response)
+        setCalendarContentArray(response.data.calendar_content)
+        setReserveFrame(response.data.reserve_frame)
+        setYear(nextYear)
+        setMonth(nextMonth)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchNextMonthCalendarContent()
+  }
+ 
   return (
     <>
       <Container className={calendarStyles.calendar}>
@@ -50,8 +104,14 @@ const MonthCalendar = (): JSX.Element => {
             <Row>
               <h2 className='mb50'>{reserveFrame && reserveFrame.title}</h2>
               <Col>
-                <Button variant='outline-dark'>前の月</Button>
-                <Button className='ml10' variant='outline-dark'>次の月</Button>
+                <Button variant='outline-dark'
+                        onClick={() => displayPrevMonth()}>
+                  前の月
+                </Button>
+                <Button
+                  className='ml10'
+                  variant='outline-dark'
+                  onClick={() => displayNextMonth()}>次の月</Button>
               </Col>
               <Col><h3>{year}年{month}月</h3></Col>
               <Col></Col>
