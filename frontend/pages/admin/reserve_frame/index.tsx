@@ -47,8 +47,8 @@ const Index = (): JSX.Element => {
             <thead>
               <tr>
                 <th className='text-center'>予約メニュー名</th>
-                <th className='text-center'>開始日/終了日</th>
                 <th className='text-center'>定員</th>
+                <th className='text-center'>開始日/終了日</th>
                 <th className='text-center'>繰り返し設定</th>
                 <th className='text-center'>お支払い方法</th>
                 <th className='text-center'>公開設定</th>
@@ -64,10 +64,10 @@ const Index = (): JSX.Element => {
                       {reserveFrame.title}
                     </td>
                     <td className='text-center'>
-                      {reserveFrame.display_start_at}{reserveFrame.display_end_at && <><br/>{reserveFrame.display_end_at}</>}
+                      {reserveFrame.capacity}
                     </td>
                     <td className='text-center'>
-                      {reserveFrame.capacity}
+                      {reserveFrame.display_start_at}{reserveFrame.display_end_at && <><br/>{reserveFrame.display_end_at}</>}
                     </td>
                     <td className='text-center'>
                       {reserveFrame.repeat_setting_text}
@@ -87,6 +87,7 @@ const Index = (): JSX.Element => {
                     </td>
                     <td>
                       <a className='btn btn-primary'>編集</a>
+                      <a className='btn btn-primary ml10' href={`/reserve_frame/${reserveFrame.id}/calendar`}>予約カレンダー</a>
                     </td>
                   </tr>
                 )

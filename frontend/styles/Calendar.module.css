@@ -1,3 +1,8 @@
+.calendar table {
+  table-layout: fixed;
+  width: 100%;
+}
+
 .calendar th {
   border: 1px solid #ddd;
   padding: 10px;
@@ -6,8 +11,5 @@
 }
 .calendar td {
   border: 1px solid #ddd;
-  padding-top: 10px;
-  padding-left: 50px;
-  padding-right: 50px;
   padding-bottom: 50px;
 }

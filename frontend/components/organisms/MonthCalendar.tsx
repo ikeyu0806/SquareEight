@@ -39,12 +39,12 @@ const MonthCalendar = (): JSX.Element => {
 
   return (
     <>
-      <Container>
+      <Container className={calendarStyles.calendar}>
         <Row>
-          <Col lg={1}></Col>
-          <Col lg={10}>
+          <Col lg={2}></Col>
+          <Col lg={8}>
             <h2>{year}年{month}月</h2>
-            <table className={calendarStyles.calendar}>
+            <table>
               <thead>
                 <tr>
                   <th>日</th>
@@ -63,7 +63,8 @@ const MonthCalendar = (): JSX.Element => {
                       {array.map((a, i) => {
                         return (
                           <td key={i}>
-                            {a.date_text}
+                            <div className='date-text'>{a.date_text}</div>
+                            <a className='badge bg-info mt10' href={a.url}>{a.title}</a>
                           </td>
                         )
                       })}
@@ -73,7 +74,7 @@ const MonthCalendar = (): JSX.Element => {
               })}            
             </table>
           </Col>
-          <Col lg={1}></Col>
+          <Col lg={2}></Col>
         </Row>
       </Container>
     </>

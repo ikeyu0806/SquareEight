@@ -1,4 +1,5 @@
 export interface ReserveFrameParam {
+  id: string
   start_at?: string
   end_at?: string
   display_start_at?: string
