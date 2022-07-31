@@ -52,6 +52,9 @@ const ReserveFrameForm = () => {
   const repeatIntervalNumberMonth = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberMonth)
   const repeatIntervalMonthDate = useSelector((state: RootState) => state.reserveFrame.repeatIntervalMonthDate)
   const repeatEndDate = useSelector((state: RootState) => state.reserveFrame.repeatEndDate)
+  const isEveryDayRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryDayRepeat)
+  const isEveryWeekRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryWeekRepeat)
+  const isEveryMonthRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryMonthRepeat)
   const localPaymentPrice = useSelector((state: RootState) => state.reserveFrame.localPaymentPrice)
   const creditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.localPaymentPrice)
   const publishStatus = useSelector((state: RootState) => state.reserveFrame.publishStatus)
@@ -130,6 +133,9 @@ const ReserveFrameForm = () => {
         repeat_interval_number_month: repeatIntervalNumberMonth,
         repeat_interval_month_date: repeatIntervalMonthDate,
         repeat_end_date: repeatEndDate,
+        is_every_day_repeat: isEveryDayRepeat,
+        is_every_week_repeat: isEveryWeekRepeat,
+        is_every_month_repeat: isEveryMonthRepeat,
         local_payment_price: localPaymentPrice,
         credit_card_payment_price: creditCardPaymentPrice,
         publish_status: publishStatus,
@@ -253,9 +259,9 @@ const ReserveFrameForm = () => {
           alt='image'
         />}
         <Form.Group className='mb-3'>
-                <Form.Label className='mt10'>イメージ画像</Form.Label>
-                <Form.Control type="file" onChange={handleChangeFile} />
-              </Form.Group>
+          <Form.Label className='mt10'>イメージ画像</Form.Label>
+          <Form.Control type="file" onChange={handleChangeFile} />
+        </Form.Group>
 
         <Form.Group className='mb-3'>
           <Form.Label>受付日</Form.Label>

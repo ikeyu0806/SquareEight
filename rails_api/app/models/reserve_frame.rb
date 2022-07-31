@@ -114,40 +114,70 @@ class ReserveFrame < ApplicationRecord
     if self.is_repeat
       case self.repeat_interval_type
       when 'Day' then
-        skip_flg_count = 0 # repeat_interval_number_dayで間隔を反映させる処理に使う
-        (loop_start_date..loop_end_date).each do |date|
-          skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
-          if skip_flg_count.negative?
+        if is_every_day_repeat
+          (loop_start_date..loop_end_date).each do |date|
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: '予約可能',
               url: '/reserve/' + self.id.to_s
             }
-            skip_flg_count = repeat_interval_number_day
+          end
+        else
+          skip_flg_count = 0 # repeat_interval_number_dayで間隔を反映させる処理に使う
+          (loop_start_date..loop_end_date).each do |date|
+            skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
+            if skip_flg_count.negative?
+              result << {
+                start: date.strftime("%Y-%m-%d"),
+                title: '予約可能',
+                url: '/reserve/' + self.id.to_s
+              }
+              skip_flg_count = repeat_interval_number_day
+            end
           end
         end
       when 'Week' then
-        skip_flg_count = 0 # repeat_interval_number_weekで間隔を反映させる処理に使う
-        (loop_start_date..loop_end_date).select{|d| d.wday == self.start_at.wday}.each do |date|
-          skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
-          if skip_flg_count.negative?
+        if is_every_week_repeat
+          (loop_start_date..loop_end_date).select{|d| d.wday == self.start_at.wday}.each do |date|
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: '予約可能',
               url: '/reserve/' + self.id.to_s
             }
-            skip_flg_count = repeat_interval_number_week
+          end
+        else
+          skip_flg_count = 0 # repeat_interval_number_weekで間隔を反映させる処理に使う
+          (loop_start_date..loop_end_date).select{|d| d.wday == self.start_at.wday}.each do |date|
+            skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
+            if skip_flg_count.negative?
+              result << {
+                start: date.strftime("%Y-%m-%d"),
+                title: '予約可能',
+                url: '/reserve/' + self.id.to_s
+              }
+              skip_flg_count = repeat_interval_number_week
+            end
           end
         end
       when 'Month' then
-        repeat_month_list_result = repeat_month_list
-        (loop_start_date..loop_end_date).select{|d| d.day == self.repeat_interval_month_date}.each do |date|
-          if repeat_month_list_result.include?(date.strftime("%Y-%m"))
+        if is_every_month_repeat
+          (loop_start_date..loop_end_date).select{|d| d.day == self.repeat_interval_month_date}.each do |date|
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: '予約可能',
               url: '/reserve/' + self.id.to_s
             }
+          end
+        else
+          repeat_month_list_result = repeat_month_list
+          (loop_start_date..loop_end_date).select{|d| d.day == self.repeat_interval_month_date}.each do |date|
+            if repeat_month_list_result.include?(date.strftime("%Y-%m"))
+              result << {
+                start: date.strftime("%Y-%m-%d"),
+                title: '予約可能',
+                url: '/reserve/' + self.id.to_s
+              }
+            end
           end
         end
       else

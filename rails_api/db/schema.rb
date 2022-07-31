@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_28_142930) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_31_063038) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -240,6 +240,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_28_142930) do
     t.boolean "is_credit_card_payment_enable"
     t.string "s3_object_public_url"
     t.string "s3_object_name"
+    t.boolean "is_every_day_repeat", default: true
+    t.boolean "is_every_week_repeat", default: true
+    t.boolean "is_every_month_repeat", default: true
   end
 
   create_table "resources", force: :cascade do |t|
