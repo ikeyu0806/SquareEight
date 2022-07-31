@@ -86,6 +86,21 @@ class ReserveFrame < ApplicationRecord
     end
   end
 
+  def repeat_month_list
+    result = []
+    skip_flg_count = 0
+    range_all_month_list = (start_at.to_date..repeat_end_date.to_date).map do |date| 
+      date.strftime("%Y-%m")
+    end.uniq
+    range_all_month_list.each do |year_month|
+      skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
+      if skip_flg_count.negative?
+        result.push(year_month)
+      end
+    end
+    result
+  end
+
   def calendar_json(year, month, week = nil)
     result = []
     range_start_date = Date.new(year, month)
@@ -107,7 +122,7 @@ class ReserveFrame < ApplicationRecord
               title: '予約可能',
               url: '/reserve/' + self.id.to_s
             }
-            skip_flg_count = repeat_interval_number_day
+            skip_flg_count = repeat_interval_number_month
           end
         end
       when 'Week' then
@@ -124,16 +139,14 @@ class ReserveFrame < ApplicationRecord
           end
         end
       when 'Month' then
-        skip_flg_count = 0 # repeat_interval_number_monthで間隔を反映させる処理に使う
+        repeat_month_list_result = repeat_month_list
         (loop_start_date..loop_end_date).select{|d| d.day == self.repeat_interval_month_date}.each do |date|
-          skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
-          if skip_flg_count.negative?
+          if repeat_month_list_result.include?(date.strftime("%Y-%m"))
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: '予約可能',
               url: '/reserve/' + self.id.to_s
             }
-            skip_flg_count = repeat_interval_number_week
           end
         end
       else
