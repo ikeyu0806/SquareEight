@@ -118,7 +118,7 @@ const ReserveFrameRepeatSetting = () => {
                 checked={!isEveryWeekRepeat} />
               <Row>
                 <Col>
-                <Form.Group as={Row} className='mb-3'>
+                {!isEveryWeekRepeat && <Form.Group as={Row} className='mb-3'>
                   <Form.Label column sm={1}>
                     間隔
                   </Form.Label>
@@ -133,7 +133,7 @@ const ReserveFrameRepeatSetting = () => {
                   <Form.Label column sm={2}>
                     週ごと
                   </Form.Label>
-                </Form.Group>
+                </Form.Group>}
                 
                 </Col>
               </Row>
@@ -153,7 +153,7 @@ const ReserveFrameRepeatSetting = () => {
                 checked={!isEveryMonthRepeat} />
               <Row>
                 <Col>
-                  <Form.Group as={Row} className='mb-3'>
+                {!isEveryMonthRepeat && <Form.Group as={Row} className='mb-3'>
                     <Col sm={2}>
                       <Form.Control
                         min={1}
@@ -176,7 +176,7 @@ const ReserveFrameRepeatSetting = () => {
                     <Form.Label column sm={2}>
                       日に設定
                     </Form.Label>
-                  </Form.Group>
+                  </Form.Group>}
                 </Col>
               </Row>
             </>
