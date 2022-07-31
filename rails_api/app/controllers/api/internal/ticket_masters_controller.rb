@@ -78,6 +78,11 @@ class Api::Internal::TicketMastersController < ApplicationController
                             price: ticket_master.price,
                             commission: commission)
       order.save!
+      purchased_ticket = current_end_user
+                         .purchased_tickets
+                         .new(ticket_master_id: ticket_master.id,
+                              remain_number: ticket_master.issue_number)
+      purchased_ticket.save!
       render json: { status: 'success', order_id: order.id }, states: 200
     end
   rescue => error
