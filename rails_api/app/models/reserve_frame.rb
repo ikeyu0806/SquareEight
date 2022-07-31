@@ -96,6 +96,7 @@ class ReserveFrame < ApplicationRecord
       skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
       if skip_flg_count.negative?
         result.push(year_month)
+        skip_flg_count = repeat_interval_number_month
       end
     end
     result
@@ -122,7 +123,7 @@ class ReserveFrame < ApplicationRecord
               title: '予約可能',
               url: '/reserve/' + self.id.to_s
             }
-            skip_flg_count = repeat_interval_number_month
+            skip_flg_count = repeat_interval_number_day
           end
         end
       when 'Week' then
