@@ -106,6 +106,16 @@ const ReserveFrameRepeatSetting = () => {
           }
           {repeatIntervalType === 'Week' &&
             <>
+              <Form.Check
+                type='radio'
+                label='毎週'
+                onChange={() => dispatch((isEveryWeekRepeatChanged(!isEveryWeekRepeat)))}
+                checked={isEveryWeekRepeat} />
+              <Form.Check
+                type='radio'
+                label='間隔を空けて繰り返し'
+                onChange={() => dispatch((isEveryWeekRepeatChanged(!isEveryWeekRepeat)))}
+                checked={!isEveryWeekRepeat} />
               <Row>
                 <Col>
                 <Form.Group as={Row} className='mb-3'>
@@ -131,6 +141,16 @@ const ReserveFrameRepeatSetting = () => {
           }
           {repeatIntervalType === 'Month' &&
             <>
+              <Form.Check
+                type='radio'
+                label='毎月'
+                onChange={() => dispatch((isEveryMonthRepeatChanged(!isEveryMonthRepeat)))}
+                checked={isEveryMonthRepeat} />
+              <Form.Check
+                type='radio'
+                label='間隔を空けて繰り返し'
+                onChange={() => dispatch((isEveryMonthRepeatChanged(!isEveryMonthRepeat)))}
+                checked={!isEveryMonthRepeat} />
               <Row>
                 <Col>
                   <Form.Group as={Row} className='mb-3'>
