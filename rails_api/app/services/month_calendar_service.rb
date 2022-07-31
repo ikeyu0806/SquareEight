@@ -49,7 +49,7 @@ class MonthCalendarService
     # 表示される最終日付と曜日
     display_last_month_end_date = month_end_date(last_month)
     display_last_month_end_date_wday = month_end_wday(display_last_year, last_month)
-    # 先月の最終日時が月曜の場合は先月の日付表示不要
+    # 先月の最終日時が土曜の場合は先月の日付表示不要
     if display_last_month_end_date_wday == SAT
       display_last_month_start_date = nil
     else
