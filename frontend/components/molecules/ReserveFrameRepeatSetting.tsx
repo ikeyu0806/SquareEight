@@ -4,6 +4,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import {
   isRepeatChanged,
+  isEveryDayRepeatChanged,
+  isEveryWeekRepeatChanged,
+  isEveryMonthRepeatChanged,
   repeatIntervalTypeChanged,
   repeatIntervalNumberDayChanged,
   repeatIntervalNumberWeekChanged,
@@ -15,18 +18,20 @@ import {
 const ReserveFrameRepeatSetting = () => {
   const dispatch = useDispatch()
   const isRepeat = useSelector((state: RootState) => state.reserveFrame.isRepeat)
+  const [unreservableFramesStartDate, setUnreservableFramesStartDate] = useState('')
+  const [unreservableFramesStartTime, setUnreservableFramesStartTime] = useState('')
+  const [unreservableFramesEndDate, setUnreservableFramesEndDate] = useState('')
+  const [unreservableFramesEndTime, setUnreservableFramesEndTime] = useState('')
   const repeatIntervalType = useSelector((state: RootState) => state.reserveFrame.repeatIntervalType)
   const repeatIntervalNumberDay = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberDay)
   const repeatIntervalNumberWeek = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberWeek)
   const repeatIntervalNumberMonth = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberMonth)
   const repeatIntervalMonthDate = useSelector((state: RootState) => state.reserveFrame.repeatIntervalMonthDate)
+  const isEveryDayRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryDayRepeat)
+  const isEveryWeekRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryWeekRepeat)
+  const isEveryMonthRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryMonthRepeat)
   const repeatEndDate = useSelector((state: RootState) => state.reserveFrame.repeatEndDate)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
-  const [unreservableFramesStartDate, setUnreservableFramesStartDate] = useState('')
-  const [unreservableFramesStartTime, setUnreservableFramesStartTime] = useState('')
-  const [unreservableFramesEndDate, setUnreservableFramesEndDate] = useState('')
-  const [unreservableFramesEndTime, setUnreservableFramesEndTime] = useState('')
-
   const addUnreservableFrames = () => {
     const startAt = unreservableFramesStartDate + ' ' + unreservableFramesStartTime
     const endAt = unreservableFramesEndDate + ' ' + unreservableFramesEndTime
@@ -66,9 +71,19 @@ const ReserveFrameRepeatSetting = () => {
           </Form.Group>
           {repeatIntervalType === 'Day' &&
             <>
+              <Form.Check
+                type='radio'
+                label='毎日'
+                onChange={() => dispatch((isEveryDayRepeatChanged(!isEveryDayRepeat)))}
+                checked={isEveryDayRepeat} />
+              <Form.Check
+                type='radio'
+                label='間隔を空けて繰り返し'
+                onChange={() => dispatch((isEveryDayRepeatChanged(!isEveryDayRepeat)))}
+                checked={!isEveryDayRepeat} />
               <Row>
                 <Col>
-                <Form.Group as={Row} className='mb-3'>
+                {!isEveryDayRepeat && <Form.Group as={Row} className='mb-3'>
                   <Form.Label column sm={1}>
                     間隔
                   </Form.Label>
@@ -84,8 +99,7 @@ const ReserveFrameRepeatSetting = () => {
                   <Form.Label column sm={2}>
                     日ごと
                   </Form.Label>
-                </Form.Group>
-                
+                </Form.Group>}
                 </Col>
               </Row>
             </>
