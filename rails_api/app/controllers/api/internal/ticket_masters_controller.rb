@@ -100,6 +100,7 @@ class Api::Internal::TicketMastersController < ApplicationController
       purchased_ticket = current_end_user
                          .purchased_tickets
                          .new(ticket_master_id: ticket_master.id,
+                              expired_at: Time.zone.now + ticket_master.effective_month.month,
                               remain_number: ticket_master.issue_number)
       purchased_ticket.save!
       render json: { status: 'success', order_id: order.id }, states: 200

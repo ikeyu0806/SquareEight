@@ -73,6 +73,10 @@ const PaymentComplete: NextPage = () => {
                   })}
                   <div className='mt30'>合計金額: ¥{totalPrice}</div>
                   <div>内システム手数料: ¥{totalCommission}</div>
+
+                  <a className='btn btn-primary mt20' href='/customer_page'>
+                    マイページ
+                  </a>
                 </Card.Body>
               </Card>
             </Col>
