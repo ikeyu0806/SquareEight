@@ -44,8 +44,8 @@ const Index: NextPage = () => {
               return (
                 <tr key={i}>
                   <td>{ticket.name}</td>
-                  <td>{ticket.remain_count}</td>
-                  <td>{ticket.expired_at}</td>
+                  <td>{ticket.remain_number}</td>
+                  <td>{ticket.display_expired_at}</td>
                   <td><a className='btn btn-primary'>詳細</a></td>
                 </tr>
               )
