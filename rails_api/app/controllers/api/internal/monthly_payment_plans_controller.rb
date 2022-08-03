@@ -11,6 +11,32 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def show
+    monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find(params[:id])
+    render json: { status: 'success', monthly_payment_plan: monthly_payment_plan }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def purchase_info
+    monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find(params[:id])
+    if current_end_user.present?
+      default_payment_method_id, payment_methods = current_end_user.payment_methods
+      login_status = 'Login'
+    else
+      default_payment_method_id = nil
+      payment_methods = []
+      login_status = 'Logout'
+    end
+    render json: { status: 'success',
+                   monthly_payment_plan: monthly_payment_plan,
+                   payment_methods: payment_methods,
+                   default_payment_method_id: default_payment_method_id,
+                   login_status: login_status }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def create
     ActiveRecord::Base.transaction do
       monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.new(monthly_payment_plan_params.except(:base64_image))
@@ -30,13 +56,6 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       monthly_payment_plan.save!
       render json: { status: 'success' }, states: 200
     end
-  rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
-  end
-
-  def show
-    monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find(params[:id])
-    render json: { status: 'success', monthly_payment_plan: monthly_payment_plan }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

@@ -51,6 +51,7 @@ const CreateMonthlyPayment = (): JSX.Element => {
           <FormControl
             value={price}
             type='number'
+            min={1}
             onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
             placeholder='10000'
             aria-label='10000' />

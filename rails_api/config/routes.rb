@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       post 'ticket_masters/purchase', to: 'ticket_masters#purchase'
       post 'ticket_masters/:id/update', to: 'ticket_masters#update'
       post 'ticket_masters', to: 'ticket_masters#create'
+      get 'monthly_payment_plans/:id/purchase_info', to: 'monthly_payment_plans#purchase_info'
       get 'monthly_payment_plans/:id', to: 'monthly_payment_plans#show'
       get 'monthly_payment_plans', to: 'monthly_payment_plans#index'
       post 'monthly_payment_plans/purchase', to: 'monthly_payment_plans#purchase'
