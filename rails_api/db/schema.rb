@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_31_081206) do
+ActiveRecord::Schema[7.0].define(version: 2022_07_31_083829) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -188,6 +188,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_31_081206) do
     t.datetime "expired_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
   end
 
   create_table "reserve_frame_monthly_payment_plans", force: :cascade do |t|
@@ -305,6 +306,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_31_081206) do
     t.string "s3_object_public_url"
     t.text "description"
     t.string "s3_object_name"
+    t.boolean "is_expired"
+    t.integer "effective_month"
   end
 
   create_table "unreservable_frames", force: :cascade do |t|
