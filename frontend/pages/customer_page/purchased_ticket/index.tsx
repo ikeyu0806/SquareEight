@@ -30,23 +30,23 @@ const Index: NextPage = () => {
     <>
       <EndUserLoginLayout>
         <Container>
-          <Table>
+          <Table bordered>
           <thead>
             <tr>
-              <th>回数券名</th>
-              <th>残り枚数</th>
-              <th>有効期限</th>
-              <th>詳細</th>
+              <th className='text-center'>回数券名</th>
+              <th className='text-center'>残り枚数</th>
+              <th className='text-center'>有効期限</th>
+              <th className='text-center'>詳細</th>
             </tr>
           </thead>
           <tbody>
             {purchasedTickets && purchasedTickets.map((ticket, i) => {
               return (
                 <tr key={i}>
-                  <td>{ticket.name}</td>
-                  <td>{ticket.remain_number}</td>
-                  <td>{ticket.display_expired_at}</td>
-                  <td><a className='btn btn-primary'>詳細</a></td>
+                  <td className='text-center'>{ticket.name}</td>
+                  <td className='text-center'>{ticket.remain_number}</td>
+                  <td className='text-center'>{ticket.display_expired_at}</td>
+                  <td className='text-center'><a className='btn btn-primary' href={`/customer_page/purchased_ticket/detail/${ticket.id}`}>詳細</a></td>
                 </tr>
               )
             })}
