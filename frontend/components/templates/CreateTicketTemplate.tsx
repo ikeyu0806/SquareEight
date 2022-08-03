@@ -6,6 +6,7 @@ import { getBase64 } from '../../functions/getBase64'
 import { nameChanged,
          issueNumberChanged,
          priceChanged,
+         effectiveMonthChanged,
          descriptionChanged,
          base64ImageChanged } from 'redux/ticketMasterSlice'
 
@@ -15,6 +16,7 @@ const CreateTicketTemplate = (): JSX.Element => {
   const name = useSelector((state: RootState) => state.ticketMaster.name)
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
+  const effectiveMonth = useSelector((state: RootState) => state.ticketMaster.effectiveMonth)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
 
@@ -55,6 +57,14 @@ const CreateTicketTemplate = (): JSX.Element => {
                               type='number'
                               onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
                               value={price} />
+              </Form.Group>
+              <Form.Group className='mb-3'>
+                <Form.Label>有効月数</Form.Label>
+                <Form.Control placeholder='有効月数'
+                              min={1}
+                              type='number'
+                              onChange={(e) => dispatch(effectiveMonthChanged(Number(e.target.value)))}
+                              value={effectiveMonth} />
               </Form.Group>
               <Form.Group className='mb-3'>
               <Form.Label className='mt10'>回数券の説明</Form.Label>

@@ -92,6 +92,13 @@ class Api::Internal::TicketMastersController < ApplicationController
   private
 
   def ticket_master_params
-    params.require(:ticket_master).permit(:id, :name, :issue_number, :price, :description, :base64_image)
+    params.require(:ticket_master)
+          .permit(:id,
+                  :name,
+                  :issue_number,
+                  :price,
+                  :effective_month,
+                  :description,
+                  :base64_image)
   end
 end

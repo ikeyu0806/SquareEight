@@ -17,6 +17,7 @@ const New: NextPage = () => {
   const name = useSelector((state: RootState) => state.ticketMaster.name)
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
+  const effectiveMonth = useSelector((state: RootState) => state.ticketMaster.effectiveMonth)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
   const base64Image = useSelector((state: RootState) => state.ticketMaster.base64Image)
 
@@ -27,6 +28,7 @@ const New: NextPage = () => {
         name: name,
         issue_number: issueNumber,
         price: price,
+        effective_month: effectiveMonth,
         description: description,
         base64_image: base64Image
       }

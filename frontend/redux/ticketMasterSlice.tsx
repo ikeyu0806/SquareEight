@@ -6,6 +6,7 @@ export const ticketMasterSlice = createSlice({
     name: '',
     price: 1000,
     issueNumber: 100,
+    effectiveMonth: 12,
     description: '',
     base64Image: null,
     s3ObjectPublicUrl: ''
@@ -16,6 +17,9 @@ export const ticketMasterSlice = createSlice({
     },
     priceChanged: (state, action: PayloadAction<number>) => {
       state.price = action.payload
+    },
+    effectiveMonthChanged: (state, action: PayloadAction<number>) => {
+      state.effectiveMonth = action.payload
     },
     issueNumberChanged: (state, action: PayloadAction<number>) => {
       state.issueNumber = action.payload
@@ -35,6 +39,7 @@ export const ticketMasterSlice = createSlice({
 export const { nameChanged } = ticketMasterSlice.actions
 export const { priceChanged } = ticketMasterSlice.actions
 export const { issueNumberChanged } = ticketMasterSlice.actions
+export const { effectiveMonthChanged } = ticketMasterSlice.actions
 export const { descriptionChanged } = ticketMasterSlice.actions
 export const { base64ImageChanged } = ticketMasterSlice.actions
 export const { s3ObjectPublicUrlChanged } = ticketMasterSlice.actions
