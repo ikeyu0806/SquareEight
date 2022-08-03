@@ -49,6 +49,7 @@ Rails.application.routes.draw do
       post 'webpages/complete_create_homepage', to: 'webpages#complete_create_homepage'
       post 'webpages/update', to: 'webpages#update'
       post 'webpages', to: 'webpages#create'
+      get 'ticket_masters/:id/purchase_info', to: 'ticket_masters#purchase_info'
       get 'ticket_masters/:id', to: 'ticket_masters#show'
       get 'ticket_masters', to: 'ticket_masters#index'
       post 'ticket_masters/purchase', to: 'ticket_masters#purchase'

@@ -33,26 +33,12 @@ const Purchase: NextPage = () => {
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.ticketMaster.s3ObjectPublicUrl)
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/payment_methods`,
-    {
-      headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
-      }
-    }).then((res) => {
-      dispatch(defaultPaymentMethodIdChanged(res.data.default_payment_method_id))
-      dispatch(paymentMethodsChanged(res.data.payment_methods))
-      dispatch(loginStatusChanged('Login'))
-
-    }).catch((e) => {
-      dispatch(loginStatusChanged('Logout'))
-      console.log(e)
-    })
-  }, [dispatch, cookies._gybuilder_end_user_session, currentEndUserLogintStatus])
-
-  useEffect(() => {
     const fetchTicketMaster = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/ticket_masters/${router.query.ticket_master_id}`, {
+        `${process.env.BACKEND_URL}/api/internal/ticket_masters/${router.query.ticket_master_id}/purchase_info`, {
+          headers: {
+            'Session-Id': cookies._gybuilder_end_user_session
+          }
         }
       )
       .then(function (response) {
@@ -62,13 +48,16 @@ const Purchase: NextPage = () => {
         dispatch(issueNumberChanged(ticketMasterResponse.issue_number))
         dispatch(descriptionChanged(ticketMasterResponse.description))
         dispatch(s3ObjectPublicUrlChanged(ticketMasterResponse.s3_object_public_url))
+        dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
+        dispatch(paymentMethodsChanged(response.data.payment_methods))
+        dispatch(loginStatusChanged(response.data.login_status))
       })
       .catch(error => {
         console.log(error)
       })
     }
     fetchTicketMaster()
-  }, [router.query.id, router.query.ticket_master_id, dispatch])
+  }, [cookies._gybuilder_end_user_session, router.query.id, router.query.ticket_master_id, dispatch])
 
   const execPurchase = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters/purchase`,

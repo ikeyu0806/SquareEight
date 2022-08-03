@@ -1,7 +1,7 @@
 include Base64Image
 
 class Api::Internal::TicketMastersController < ApplicationController
-  before_action :merchant_login_only!, except: [:index, :show, :purchase]
+  before_action :merchant_login_only!, except: [:index, :show, :purchase_info, :purchase]
   before_action :end_user_login_only!, only: :purchase
 
   def index
@@ -14,6 +14,25 @@ class Api::Internal::TicketMastersController < ApplicationController
   def show
     ticket_master = TicketMaster.find(params[:id])
     render json: { status: 'success', ticket_master: ticket_master }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def purchase_info
+    ticket_master = TicketMaster.find(params[:id])
+    if current_end_user.present?
+      default_payment_method_id, payment_methods = current_end_user.payment_methods
+      login_status = 'Login'
+    else
+      default_payment_method_id = nil
+      payment_methods = []
+      login_status = 'Logout'
+    end
+    render json: { status: 'success',
+                   ticket_master: ticket_master,
+                   payment_methods: payment_methods,
+                   default_payment_method_id: default_payment_method_id,
+                   login_status: login_status }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

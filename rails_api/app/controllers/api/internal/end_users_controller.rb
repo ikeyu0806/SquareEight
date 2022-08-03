@@ -17,13 +17,7 @@ class Api::Internal::EndUsersController < ApplicationController
 
   def payment_methods
     if current_end_user.stripe_customer_id.present?
-      customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
-      default_payment_method_id = customer["invoice_settings"]["default_payment_method"]
-      payment_methods = Stripe::Customer.list_payment_methods(
-        current_end_user.stripe_customer_id,
-        {type: 'card'},
-      )
-      payment_methods = payment_methods["data"].map{ |data| JSON.parse(data.to_json) }
+      default_payment_method_id, payment_methods = current_end_user.payment_methods
     else
       default_payment_method_id = nil
       payment_methods = []
