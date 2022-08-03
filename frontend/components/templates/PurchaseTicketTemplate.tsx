@@ -9,6 +9,7 @@ const PurchaseTicketTemplate = (): JSX.Element => {
   const name = useSelector((state: RootState) => state.ticketMaster.name)
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
+  const effectiveMonth = useSelector((state: RootState) => state.ticketMaster.effectiveMonth)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.ticketMaster.s3ObjectPublicUrl)
 
@@ -22,9 +23,10 @@ const PurchaseTicketTemplate = (): JSX.Element => {
               <Card.Header>回数券購入</Card.Header>
               <Card.Body>
                 <h3>{name}</h3>
-                <div>{issueNumber}枚</div>
-                <div>{price}円</div>
-                <div>{description}</div>
+                <div className='mt10'>{issueNumber}枚</div>
+                <div className='mt10'>{price}円</div>
+                <div className='mt10'>有効期限: {effectiveMonth}ヶ月</div>
+                <div className='mt10'>{description}</div>
                 {s3ObjectPublicUrl
                 && <img
                     className='d-block w-100 mt30 mb30'

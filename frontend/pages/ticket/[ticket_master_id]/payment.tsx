@@ -28,6 +28,7 @@ const Payment: NextPage = () => {
   const name = useSelector((state: RootState) => state.ticketMaster.name)
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
+  const effectiveMonth = useSelector((state: RootState) => state.ticketMaster.effectiveMonth)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.ticketMaster.s3ObjectPublicUrl)
 
@@ -135,20 +136,21 @@ const Payment: NextPage = () => {
                     : <></>
                   }
                   <h3>{name}</h3>
-                  <div>{issueNumber}枚</div>
-                  <div>{price}円</div>
-                  <div>{description}</div>
+                  <div className='mt10'>{issueNumber}枚</div>
+                  <div className='mt10'>{price}円</div>
+                  <div className='mt10'>有効期限: {effectiveMonth}ヶ月</div>
+                  <div className='mt10'>{description}</div>
                   {s3ObjectPublicUrl
                   && <img
                       className='d-block w-100 mt30 mb30'
                       src={s3ObjectPublicUrl}
                       alt='image' />}
-                  <h4>お支払い方法</h4>
                   {currentEndUserLogintStatus === 'Logout'
                   ?
                     <></>
                   :
                     <>
+                    <h4>お支払い方法</h4>
                     {<ListGroup>
                         {paymentMethods?.map((pay, i) => {
                           return (

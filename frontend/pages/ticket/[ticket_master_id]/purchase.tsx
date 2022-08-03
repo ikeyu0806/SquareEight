@@ -9,6 +9,7 @@ import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { nameChanged,
          priceChanged,
          issueNumberChanged,
+         effectiveMonthChanged,
          descriptionChanged,
          s3ObjectPublicUrlChanged } from 'redux/ticketMasterSlice'
 
@@ -27,6 +28,7 @@ const Purchase: NextPage = () => {
         dispatch(nameChanged(ticketMasterResponse.name))
         dispatch(priceChanged(ticketMasterResponse.price))
         dispatch(issueNumberChanged(ticketMasterResponse.issue_number))
+        dispatch(effectiveMonthChanged(ticketMasterResponse.effective_month))
         dispatch(descriptionChanged(ticketMasterResponse.description))
         dispatch(s3ObjectPublicUrlChanged(ticketMasterResponse.s3_object_public_url))
       })
