@@ -188,6 +188,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_31_083829) do
     t.datetime "expired_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "name"
   end
 
   create_table "reserve_frame_monthly_payment_plans", force: :cascade do |t|
