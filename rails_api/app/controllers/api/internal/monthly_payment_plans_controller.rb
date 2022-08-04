@@ -50,6 +50,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
         amount: monthly_payment_plan_params[:price],
         currency: 'jpy',
         interval: 'month',
+        nickname: monthly_payment_plan_params[:name],
         product: product.id
       })
       monthly_payment_plan.stripe_plan_id = stripe_plan.id
