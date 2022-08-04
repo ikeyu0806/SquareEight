@@ -83,6 +83,11 @@ class Api::Internal::TicketMastersController < ApplicationController
         payment_method: default_payment_method_id,
         customer: current_end_user.stripe_customer_id,
         application_fee_amount: commission,
+        metadata: {
+          'account_business_name': account.business_name,
+          'name':ticket_master.name,
+          'price':ticket_master.price,
+        },
         transfer_data:  {
           destination: ticket_master.account.stripe_account_id
         }

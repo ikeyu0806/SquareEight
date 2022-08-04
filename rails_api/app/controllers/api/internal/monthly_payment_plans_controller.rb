@@ -45,6 +45,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
         monthly_payment_plan.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         monthly_payment_plan.s3_object_name = file_name
       end
+      Stripe.api_key = Rails.configuration.stripe[:secret_key]
       product = Stripe::Product.create({name: monthly_payment_plan_params[:name]})
       stripe_plan = Stripe::Plan.create({
         amount: monthly_payment_plan_params[:price],
