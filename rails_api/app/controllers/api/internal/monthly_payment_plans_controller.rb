@@ -1,7 +1,7 @@
 include Base64Image
 
 class Api::Internal::MonthlyPaymentPlansController < ApplicationController
-  before_action :merchant_login_only!, except: [:index, :show, :purchase]
+  before_action :merchant_login_only!, except: [:index, :show, :purchase, :purchase_info]
   before_action :end_user_login_only!, only: :purchase
 
   def index
@@ -19,7 +19,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   end
 
   def purchase_info
-    monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find(params[:id])
+    monthly_payment_plan = MonthlyPaymentPlan.find(params[:id])
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
       login_status = 'Login'
@@ -86,8 +86,8 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
         customer: current_end_user.stripe_customer_id,
         application_fee_percent: 4,
         description: monthly_payment_plan.name,
-        meta_data: {
-          'account_business_name': account.business_name,
+        metadata: {
+          'account_business_name': monthly_payment_plan.account.business_name,
           'name': monthly_payment_plan.name,
           'price': monthly_payment_plan.price
         },
