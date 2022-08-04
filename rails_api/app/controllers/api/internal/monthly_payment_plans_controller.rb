@@ -84,6 +84,12 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       Stripe::Subscription.create({
         customer: current_end_user.stripe_customer_id,
         application_fee_percent: 4,
+        description: monthly_payment_plan.name,
+        meta_data: {
+          'account_business_name': account.business_name,
+          'name': monthly_payment_plan.name,
+          'price': monthly_payment_plan.price
+        },
         items: [{ plan: monthly_payment_plan.stripe_plan_id }],
         transfer_data:  {
           destination: monthly_payment_plan.account.stripe_account_id
