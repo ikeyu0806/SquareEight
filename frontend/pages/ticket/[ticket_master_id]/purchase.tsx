@@ -53,6 +53,7 @@ const Purchase: NextPage = () => {
         dispatch(loginStatusChanged(response.data.login_status))
       })
       .catch(error => {
+        dispatch(loginStatusChanged('Logout'))
         console.log(error)
       })
     }
