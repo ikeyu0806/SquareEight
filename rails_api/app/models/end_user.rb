@@ -20,4 +20,11 @@ class EndUser < ApplicationRecord
     end
     return default_payment_method_id, payment_methods
   end
+
+  def search_stripe_charges
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2020-08-27'
+    query = "customer:" + "\'" + self.stripe_customer_id + "\'"
+    Stripe::Charge.search({query: query})
+  end
 end
