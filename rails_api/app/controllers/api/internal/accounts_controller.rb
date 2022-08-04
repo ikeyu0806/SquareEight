@@ -69,6 +69,7 @@ class Api::Internal::AccountsController < ApplicationController
     end
     stripe_account.legal_entity.type = "individual"
     stripe_account.mcc = '5734'
+    stripe_account.business_profile.name = account_params[:business_profile_name]
     stripe_account.legal_entity.last_name_kanji = account_params[:individual_last_name_kanji]
     stripe_account.legal_entity.last_name_kana = account_params[:individual_last_name_kana]
     stripe_account.legal_entity.first_name_kanji = account_params[:individual_first_name_kanji]
@@ -206,6 +207,7 @@ class Api::Internal::AccountsController < ApplicationController
           .permit(:id,
                   :token,
                   :payment_method_id,
+                  :business_profile_name,
                   :individual_first_name_kanji,
                   :individual_first_name_kana,
                   :individual_last_name_kanji,

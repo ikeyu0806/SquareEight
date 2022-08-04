@@ -3,12 +3,16 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export const stripeExternalAccountsSlice = createSlice({
   name: 'alert',
   initialState: {
+    businessProfileName: '',
     accountNumber: '',
     bankCode: '',
     branchCode: '',
     accountHolderName: ''
   },
   reducers: {
+    businessProfileNameChanged: (state, action: PayloadAction<string>) => {
+      state.businessProfileName = action.payload
+    },
     accountNumberChanged: (state, action: PayloadAction<string>) => {
       state.accountNumber = action.payload
     },
@@ -24,6 +28,7 @@ export const stripeExternalAccountsSlice = createSlice({
   },
 })
 
+export const { businessProfileNameChanged } = stripeExternalAccountsSlice.actions
 export const { accountNumberChanged } = stripeExternalAccountsSlice.actions
 export const { bankCodeChanged } = stripeExternalAccountsSlice.actions
 export const { branchCodeChanged } = stripeExternalAccountsSlice.actions

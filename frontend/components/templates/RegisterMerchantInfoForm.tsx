@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
 import { alertChanged } from 'redux/alertSlice'
 import StripeTerm from 'components/organisms/StripeTerm'
+import { businessProfileNameChanged } from 'redux/stripeExternalAccountsSlice'
 
 const RegisterMerchantInfoForm = () => {
   const [businessType, setBusinessType] = useState('individual')
@@ -16,6 +17,7 @@ const RegisterMerchantInfoForm = () => {
   const dispatch = useDispatch()
   const router = useRouter()
 
+  const businessProfileName = useSelector((state: RootState) => state.stripeExternalAccount.businessProfileName)
   const individualFirstNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualFirstNameKanji)
   const individualLastNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLastNameKanji)
   const individualFirstNameKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualFirstNameKana)
@@ -44,6 +46,7 @@ const RegisterMerchantInfoForm = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
     {
       account: {
+        business_profile_name: businessProfileName,
         individual_first_name_kanji: individualFirstNameKanji,
         individual_first_name_kana: individualFirstNameKana,
         individual_last_name_kanji: individualLastNameKanji,
@@ -86,6 +89,9 @@ const RegisterMerchantInfoForm = () => {
           <Col lg={6} md={6}>
           <h4 className='mb20'>事業情報を入力してください</h4>
           <h5>決済機能の有効化に必要となります</h5>
+          <Form.Label className='mt10'>事業所の名称（会社名/屋号/店舗名など）</Form.Label>
+          <Form.Control onChange={(e) => dispatch(businessProfileNameChanged(e.target.value))}
+                        value={businessProfileName}></Form.Control>
           <Form.Label className='mt20'>事業形態</Form.Label>
           <Form.Select onChange={(e) => setBusinessType(e.target.value)}>
             <option value='individual'>個人事業主（副業も含む）</option>
