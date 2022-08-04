@@ -125,6 +125,7 @@ class Api::Internal::EndUsersController < ApplicationController
       if current_end_user.stripe_customer_id.blank?
         customer = Stripe::Customer.create({
           source: end_user_params[:card_token],
+          email: current_end_user.email,
         })
         current_end_user.update!(stripe_customer_id: customer.id)
         Stripe::PaymentMethod.attach(
