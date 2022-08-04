@@ -117,6 +117,9 @@ const Signup: NextPage = () => {
                 </Form>
               </Card.Body>
             </Card>
+            <div className='text-center mt20'>
+              <a href='/merchant/login'>ログインはこちら</a>
+            </div>
           </Col>
           <Col lg={4} md={3}></Col>
         </Row>

@@ -27,6 +27,8 @@ class Api::Internal::AccountsController < ApplicationController
       if account.stripe_customer_id.blank?
         customer = Stripe::Customer.create({
           source: account_params[:card_token],
+          email: account.merchant_users.first.email,
+          name: account.business_name
         })
         account.update!(stripe_customer_id: customer.id)
         Stripe::PaymentMethod.attach(
