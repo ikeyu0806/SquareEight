@@ -89,6 +89,11 @@ Rails.application.routes.draw do
         post 'sessions', to: 'sessions#create'
         delete 'sessions', to: 'sessions#destroy'
       end
+      namespace :system_admin_user do
+        get 'sessions', to: 'sessions#login_status'
+        post 'sessions', to: 'sessions#create'
+        delete 'sessions', to: 'sessions#destroy'
+      end
     end
   end
 

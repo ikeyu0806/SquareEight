@@ -11,6 +11,7 @@ import resourceReducer from './resourceSlice'
 import reserveFrameReducer from './reserveFrameSlice'
 import currentMerchantUserReducer from './currentMerchantUserSlice'
 import currentEndUserReducer from './currentEndUserSlice'
+import currentSystemAdminUserReducer from './currentSystemAdminUserSlice'
 
 export const store = configureStore({
   reducer: {
@@ -25,7 +26,7 @@ export const store = configureStore({
     resource: resourceReducer,
     reserveFrame: reserveFrameReducer,
     currentMerchantUser: currentMerchantUserReducer,
-    currentEndUser: currentEndUserReducer
+    currentSystemAdminUser: currentSystemAdminUserReducer
   },
 })
 
