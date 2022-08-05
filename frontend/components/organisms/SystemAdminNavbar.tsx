@@ -1,17 +1,44 @@
-import { Container, Navbar, Alert } from 'react-bootstrap'
+import { Container, Navbar, Alert, Nav, NavDropdown } from 'react-bootstrap'
 import { alertChanged } from '../../redux/alertSlice'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
 
 const SystemAdminNavbar = () => {
   const dispatch = useDispatch()
   const alert =  useSelector((state: RootState) => state.alert.alert)
+  const [cookies] = useCookies(['_gybuilder_system_admin_user_session'])
+  const router = useRouter()
+  const alertState =  useSelector((state: RootState) => state.alert.alert)
+
+  const logout = () => {
+    axios.delete(`${process.env.BACKEND_URL}/api/internal/system_admin_user/sessions`, {
+      headers: { 
+        'Session-Id': cookies._gybuilder_system_admin_user_session
+      }
+    })
+    dispatch(alertChanged({message: 'ログアウトしました', show: true}))
+    router.push('/system/admin/login')
+  }
 
   return (
     <>
-      <Navbar bg='warning' variant='dark' expand='lg'>
+      <Navbar bg='warning' expand='lg'>
         <Container>
           <Navbar.Brand href='/'>GYBuilder</Navbar.Brand>
+          <Nav>
+            <NavDropdown title='お知らせ' id='homepage-nav-dropdown'>
+              <NavDropdown.Item href='/system/admin/notification/business/notification'>ビジネスユーザ向けお知らせ一覧</NavDropdown.Item>
+              <NavDropdown.Item href='/system/admin/notification/business/notification/new'>ビジネスユーザ向けお知らせ一覧新規作成</NavDropdown.Item>
+              <NavDropdown.Item href='/system/admin/notification/customer/notification'>カスタマーユーザ向けお知らせ一覧</NavDropdown.Item>
+              <NavDropdown.Item href='/system/admin/notification/customer/notification/new'>カスタマーユーザ向けお知らせ一覧新規作成</NavDropdown.Item>
+            </NavDropdown>
+            <NavDropdown title='その他' id='homepage-nav-dropdown'>
+              <NavDropdown.Item onClick={() => logout()}>ログアウト</NavDropdown.Item>
+            </NavDropdown>
+          </Nav>
         </Container>
       </Navbar>
       {alert.show && <Alert variant={alert.type} onClose={() => dispatch(alertChanged({message: '', show: false}))} dismissible>

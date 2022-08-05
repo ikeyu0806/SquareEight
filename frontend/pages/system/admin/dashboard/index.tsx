@@ -3,7 +3,9 @@ import SystemAdminLayoutTemplate from 'components/templates/SystemAdminLayoutTem
 
 const Index: NextPage = () => {
   return (
-    <SystemAdminLayoutTemplate>お知らせ一覧</SystemAdminLayoutTemplate>
+    <SystemAdminLayoutTemplate>
+      ダッシュボード
+    </SystemAdminLayoutTemplate>
   )
 }
 

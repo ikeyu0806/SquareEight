@@ -28,7 +28,7 @@ const Login: NextPage = () => {
       }
     }).then((res) => {
       dispatch(loginStatusChanged('Login'))
-      Router.push('/system/admin/notification')
+      Router.push('/system/admin/dashboard')
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
       console.log(e)
@@ -49,7 +49,7 @@ const Login: NextPage = () => {
       if (redirectPath) {
         router.push(redirectPath)
       } else {
-        router.push('/customer_page/dashboard')
+        router.push('/system/admin/dashboard')
       }
     }).catch(error => {
       dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
