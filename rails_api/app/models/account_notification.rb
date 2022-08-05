@@ -1,0 +1,2 @@
+class AccountNotification < ApplicationRecord
+end

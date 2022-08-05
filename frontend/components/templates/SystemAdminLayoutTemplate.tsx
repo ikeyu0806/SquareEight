@@ -1,5 +1,5 @@
 import { ReactNode } from 'react'
-import SystemAdminnNavbar from 'components/organisms/SystemAdminNavbar'
+import SystemAdminNavbar from 'components/organisms/SystemAdminNavbar'
 import RegularFooter from 'components/organisms/RegularFooter'
 interface Props {
   children: ReactNode
@@ -8,7 +8,7 @@ interface Props {
 const SystemAdminLayoutTemplate = ({children}: Props): JSX.Element => {
   return (
     <>
-      <SystemAdminnNavbar></SystemAdminnNavbar>
+      <SystemAdminNavbar></SystemAdminNavbar>
         {children}
       <RegularFooter></RegularFooter>
     </>
