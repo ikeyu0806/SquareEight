@@ -25,15 +25,15 @@ class EndUser < ApplicationRecord
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe.api_version = '2020-08-27'
     query = "customer:" + "\'" + self.stripe_customer_id + "\'"
-    result = Stripe::Charge.search({query: query})
-    JSON.parse(result.to_json)
+    result = Stripe::Charge.search({query: query, limit: 100})
+    JSON.parse(result.to_json)["data"]
   end
 
   def search_stripe_payment_intents
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe.api_version = '2020-08-27'
     query = "customer:" + "\'" + self.stripe_customer_id + "\'"
-    result = Stripe::PaymentIntent.search({query: query})
+    result = Stripe::PaymentIntent.search({query: query, limit: 100})
     JSON.parse(result.to_json)["data"]
   end
 end

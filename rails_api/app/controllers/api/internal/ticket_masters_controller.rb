@@ -86,10 +86,10 @@ class Api::Internal::TicketMastersController < ApplicationController
         metadata: {
           'order_date': current_date_text,
           'account_business_name': ticket_master.account.business_name,
-          'name':ticket_master.name,
-          'price':ticket_master.price,
+          'name': ticket_master.name,
+          'price': ticket_master.price,
         },
-        transfer_data:  {
+        transfer_data: {
           destination: ticket_master.account.stripe_account_id
         }
       })
