@@ -175,6 +175,13 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def stripe_payment_intents_metadata
+    metadata = current_end_user.stripe_payment_intents_metadata
+    render json: { status: 'success', metadata: metadata }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def end_user_params
