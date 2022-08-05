@@ -33,7 +33,7 @@ class ApplicationController < ActionController::API
     true
   end
 
-  def display_current_date
-    Time.zone.now.strftime("%Y/%m/%d")
+  def current_date_text
+    Time.zone.now.strftime("%Y年%m月%d日")
   end
 end

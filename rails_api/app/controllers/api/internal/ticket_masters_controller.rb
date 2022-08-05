@@ -84,6 +84,7 @@ class Api::Internal::TicketMastersController < ApplicationController
         customer: current_end_user.stripe_customer_id,
         application_fee_amount: commission,
         metadata: {
+          'order_date': current_date_text,
           'account_business_name': ticket_master.account.business_name,
           'name':ticket_master.name,
           'price':ticket_master.price,
