@@ -28,7 +28,7 @@ const Login: NextPage = () => {
       }
     }).then((res) => {
       dispatch(loginStatusChanged('Login'))
-      Router.push('/customer_page')
+      Router.push('/system/admin/notification')
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
       console.log(e)
