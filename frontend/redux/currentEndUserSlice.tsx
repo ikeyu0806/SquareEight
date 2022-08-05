@@ -9,6 +9,7 @@ export const currentEndUserSlice = createSlice({
     email: '',
     loginStatus: 'Unconfirmed' as LoginStatus,
     defaultPaymentMethodId: '',
+    stripeCustomerEnable: false,
     paymentMethods: [] as StripePaymentMethodsParam[]
   },
   reducers: {
@@ -24,6 +25,9 @@ export const currentEndUserSlice = createSlice({
     defaultPaymentMethodIdChanged: (state, action: PayloadAction<string>) => {
       state.defaultPaymentMethodId = action.payload
     },
+    stripeCustomerEnableChanged: (state, action: PayloadAction<boolean>) => {
+      state.stripeCustomerEnable = action.payload
+    },
     paymentMethodsChanged: (state, action: PayloadAction<StripePaymentMethodsParam[]>) => {
       state.paymentMethods = action.payload
     },
@@ -34,6 +38,7 @@ export const { idChanged } = currentEndUserSlice.actions
 export const { emailChanged } = currentEndUserSlice.actions
 export const { loginStatusChanged } = currentEndUserSlice.actions
 export const { defaultPaymentMethodIdChanged } = currentEndUserSlice.actions
+export const { stripeCustomerEnableChanged } = currentEndUserSlice.actions
 export const { paymentMethodsChanged } = currentEndUserSlice.actions
 
 export default currentEndUserSlice.reducer

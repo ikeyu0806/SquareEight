@@ -5,7 +5,9 @@ import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
-import { loginStatusChanged } from 'redux/currentMerchantUserSlice'
+import { loginStatusChanged,
+         stripeAccountEnableChanged,
+         stripeCustomerEnableChanged } from 'redux/currentMerchantUserSlice'
 
 interface Props {
   children: ReactNode
@@ -22,8 +24,10 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       headers: {
         'Session-Id': cookies._gybuilder_merchant_session
       }
-    }).then((res) => {
+    }).then((response) => {
       dispatch(loginStatusChanged('Login'))
+      dispatch(stripeAccountEnableChanged(response.data.user.stripe_account_enable))
+      dispatch(stripeCustomerEnableChanged(response.data.user.stripe_customer_enable))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
       console.log(e)

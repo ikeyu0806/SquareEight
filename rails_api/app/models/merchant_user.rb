@@ -7,4 +7,12 @@ class MerchantUser < ApplicationRecord
   enum authority_category: { SystemAdmin: 0, MerchantAdmin: 1, Staff: 2 }
 
   validates :authority_category, presence: true
+
+  def stripe_account_enable
+    account.stripe_account_id.present?
+  end
+
+  def stripe_customer_enable
+    account.stripe_customer_id.present?
+  end
 end
