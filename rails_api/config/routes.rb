@@ -77,6 +77,10 @@ Rails.application.routes.draw do
       post 'reserve_frames', to: 'reserve_frames#create'
       get 'orders/:order_id/order_items', to: 'orders#order_items'
       get 'calendar/:reserve_frame_id/monthly_reserve_frames', to: 'calendar#monthly_reserve_frames'
+      get 'account_notifications/monthly_reserve_frames', to: 'account_notifications#index'
+      post 'account_notifications', to: 'account_notifications#create'
+      get 'end_user_notifications/monthly_reserve_frames', to: 'end_user_notifications#index'
+      post 'end_user_notifications', to: 'end_user_notifications#create'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'

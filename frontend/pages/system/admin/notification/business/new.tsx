@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import type { NextPage } from 'next'
 import SystemAdminLayoutTemplate from 'components/templates/SystemAdminLayoutTemplate'
-import { Container, Form, FormControl, Button } from 'react-bootstrap'
+import { Container, Form, FormControl, Button, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { alertChanged } from 'redux/alertSlice'
@@ -16,7 +16,7 @@ const New: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_system_admin_user_session'])
 
   const createNotification = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/account_notifications`,
     {
       notification: {
         title: title,
@@ -37,23 +37,28 @@ const New: NextPage = () => {
   return (
     <SystemAdminLayoutTemplate>
       <Container>
-        <h3>ビジネスユーザ向けお知らせ作成</h3>
-        <Form.Group className='mb-3'>
-          <Form.Label>タイトル</Form.Label>
-          <Form.Control onChange={(e) => setTitle(e.target.value)}
-                        value={title} />
-        </Form.Group>
-        <Form.Group className='mb-3'>
-          <Form.Label className='mt10'>内容</Form.Label>
-          <FormControl
-            value={content}
-            onChange={(e) => setContent(e.target.value)}
-            as='textarea'
-            rows={20} />
-        </Form.Group>
-        <div className='text-center'>
-          <Button onClick={() => createNotification()}></Button>
-        </div>
+        <Row>
+          <Col lg={3}></Col>
+          <Col lg={6}>
+            <h3 className='mt30'>ビジネスユーザ向けお知らせ作成</h3>
+            <Form.Group className='mb-3'>
+              <Form.Label>タイトル</Form.Label>
+              <Form.Control onChange={(e) => setTitle(e.target.value)}
+                            value={title} />
+            </Form.Group>
+            <Form.Group className='mb-3'>
+              <Form.Label className='mt10'>内容</Form.Label>
+              <FormControl
+                value={content}
+                onChange={(e) => setContent(e.target.value)}
+                as='textarea'
+                rows={20} />
+            </Form.Group>
+            <div className='text-center'>
+              <Button onClick={() => createNotification()}>送信</Button>
+            </div>
+          </Col>
+        </Row>
       </Container>
     </SystemAdminLayoutTemplate>
   )
