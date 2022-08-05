@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_07_31_083829) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_05_080719) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -188,7 +188,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_31_083829) do
     t.datetime "expired_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
   end
 
   create_table "reserve_frame_monthly_payment_plans", force: :cascade do |t|
@@ -294,6 +293,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_07_31_083829) do
     t.time "holiday_break_end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "system_admin_users", force: :cascade do |t|
+    t.string "email", null: false
+    t.string "phone_number"
+    t.string "password_digest"
+    t.integer "authority_category", default: 0
+    t.boolean "is_introduction_complete"
+    t.string "verification_code"
+    t.datetime "verification_code_expired_at"
+    t.integer "authentication_status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["email"], name: "index_system_admin_users_on_email", unique: true
   end
 
   create_table "ticket_masters", force: :cascade do |t|
