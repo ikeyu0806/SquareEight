@@ -2,6 +2,7 @@ import { NextPage } from 'next'
 import CreateMonthlyPayment from 'components/templates/CreateMonthlyPayment'
 import { Container } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import GuideStripeAccountRegister from 'components/templates/GuideStripeAccountRegister'
 import { Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -23,6 +24,7 @@ const New: NextPage = () => {
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
   const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
+  const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans`,
@@ -54,11 +56,12 @@ const New: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
         <Container>
-          <CreateMonthlyPayment></CreateMonthlyPayment>
+          {stripeAccountEnable && <CreateMonthlyPayment></CreateMonthlyPayment>}
+          {!stripeAccountEnable && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
         </Container>
-        <div className='text-center'>
+        {stripeAccountEnable && <div className='text-center'>
           <Button onClick={onSubmit} className='mt10'>登録する</Button>
-        </div>
+        </div>}
       </MerchantUserAdminLayout>
     </>
   )
