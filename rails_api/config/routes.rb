@@ -23,7 +23,7 @@ Rails.application.routes.draw do
       post 'merchant_users/find_or_create_by_google_auth', to: 'merchant_users#find_or_create_by_google_auth'
       post 'merchant_users', to: 'merchant_users#create'
       delete 'merchant_users/disconnect_google_auth', to: 'merchant_users#disconnect_google_auth'
-      get 'end_users/stripe_payment_intents_metadata', to: 'end_users#stripe_payment_intents_metadata'
+      get 'end_users/stripe_payment_history', to: 'end_users#stripe_payment_history'
       get 'end_users/payment_methods', to: 'end_users#payment_methods'
       get 'end_users/current_end_user_info', to: 'end_users#current_end_user_info'
       post 'end_users/:id/update', to: 'end_users#update'

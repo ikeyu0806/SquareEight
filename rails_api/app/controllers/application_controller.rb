@@ -32,4 +32,8 @@ class ApplicationController < ActionController::API
     render json: { errMessage: "ログインしてください" }, status: 401 and return if current_end_user.blank?
     true
   end
+
+  def display_current_date
+    Time.zone.now.strftime("%Y/%m/%d")
+  end
 end

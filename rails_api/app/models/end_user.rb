@@ -34,10 +34,6 @@ class EndUser < ApplicationRecord
     Stripe.api_version = '2020-08-27'
     query = "customer:" + "\'" + self.stripe_customer_id + "\'"
     result = Stripe::PaymentIntent.search({query: query})
-    JSON.parse(result.to_json)
-  end
-
-  def stripe_payment_intents_metadata
-    search_stripe_payment_intents["data"].pluck("metadata")
+    JSON.parse(result.to_json)["data"]
   end
 end
