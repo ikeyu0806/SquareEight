@@ -16,7 +16,6 @@ const PaymentComplete: NextPage = () => {
   const router = useRouter()
   const [orderItems, setOrderItems] = useState<OrderItemParam[]>([])
   const [totalPrice, setTotalPrice] = useState()
-  const [totalCommission, setTotalCommission] = useState()
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
 
   useEffect(() => {
@@ -45,7 +44,6 @@ const PaymentComplete: NextPage = () => {
       .then(function (response) {
         setOrderItems(response.data.order_items)
         setTotalPrice(response.data.total_price)
-        setTotalCommission(response.data.total_commission)
       })
       .catch(error => {
         console.log(error)
@@ -72,7 +70,6 @@ const PaymentComplete: NextPage = () => {
                     )
                   })}
                   <div className='mt30'>合計金額: ¥{totalPrice}</div>
-                  <div>内システム手数料: ¥{totalCommission}</div>
 
                   <a className='btn btn-primary mt20' href='/customer_page'>
                     マイページ

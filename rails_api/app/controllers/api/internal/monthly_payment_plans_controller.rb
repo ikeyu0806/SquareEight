@@ -89,7 +89,8 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
         metadata: {
           'account_business_name': monthly_payment_plan.account.business_name,
           'name': monthly_payment_plan.name,
-          'price': monthly_payment_plan.price
+          'price': monthly_payment_plan.price,
+          'customer': current_end_user.stripe_customer_id
         },
         items: [{ plan: monthly_payment_plan.stripe_plan_id }],
         transfer_data:  {

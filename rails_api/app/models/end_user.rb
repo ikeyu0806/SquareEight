@@ -21,19 +21,19 @@ class EndUser < ApplicationRecord
     return default_payment_method_id, payment_methods
   end
 
-  def search_stripe_charges
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
-    Stripe.api_version = '2020-08-27'
-    query = "customer:" + "\'" + self.stripe_customer_id + "\'"
-    result = Stripe::Charge.search({query: query, limit: 100})
-    JSON.parse(result.to_json)["data"]
-  end
-
   def search_stripe_payment_intents
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe.api_version = '2020-08-27'
     query = "customer:" + "\'" + self.stripe_customer_id + "\'"
     result = Stripe::PaymentIntent.search({query: query, limit: 100})
+    JSON.parse(result.to_json)["data"]
+  end
+
+  def search_stripe_subscriptions
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
+    query = 'metadata["customer"]:' + "\'" + self.stripe_customer_id + "\'"
+    result = Stripe::Subscription.search({query: query, limit: 100})
     JSON.parse(result.to_json)["data"]
   end
 end
