@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LoginStatus } from '../interfaces/LoginStatus'
+import { StripeEnableStatus } from 'interfaces/StripeEnableStatus'
 
 export const currentMerchantUserSlice = createSlice({
   name: 'currentMerchantUser',
@@ -7,8 +8,8 @@ export const currentMerchantUserSlice = createSlice({
     id: '',
     accountId: '',
     email: '',
-    stripeAccountEnable: false,
-    stripeCustomerEnable: false,
+    stripeAccountEnable: 'Unconfirmed' as StripeEnableStatus,
+    stripeCustomerEnable: 'Unconfirmed' as StripeEnableStatus,
     loginStatus: 'Unconfirmed' as LoginStatus
   },
   reducers: {
@@ -21,10 +22,10 @@ export const currentMerchantUserSlice = createSlice({
     emailChanged: (state, action: PayloadAction<string>) => {
       state.email = action.payload
     },
-    stripeAccountEnableChanged: (state, action: PayloadAction<boolean>) => {
+    stripeAccountEnableChanged: (state, action: PayloadAction<StripeEnableStatus>) => {
       state.stripeAccountEnable = action.payload
     },
-    stripeCustomerEnableChanged: (state, action: PayloadAction<boolean>) => {
+    stripeCustomerEnableChanged: (state, action: PayloadAction<StripeEnableStatus>) => {
       state.stripeCustomerEnable = action.payload
     },
     loginStatusChanged: (state, action: PayloadAction<LoginStatus>) => {

@@ -10,6 +10,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
+import { StripeEnableStatus } from 'interfaces/StripeEnableStatus'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -56,10 +57,10 @@ const New: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
         <Container>
-          {stripeAccountEnable && <CreateMonthlyPayment></CreateMonthlyPayment>}
-          {!stripeAccountEnable && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
+          {stripeAccountEnable === 'Enable' && <CreateMonthlyPayment></CreateMonthlyPayment>}
+          {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
         </Container>
-        {stripeAccountEnable && <div className='text-center'>
+        {stripeAccountEnable === 'Enable' && <div className='text-center'>
           <Button onClick={onSubmit} className='mt10'>登録する</Button>
         </div>}
       </MerchantUserAdminLayout>

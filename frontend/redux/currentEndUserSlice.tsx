@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LoginStatus } from '../interfaces/LoginStatus'
 import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
+import { StripeEnableStatus } from 'interfaces/StripeEnableStatus'
 
 export const currentEndUserSlice = createSlice({
   name: 'currentEndUser',
@@ -9,7 +10,7 @@ export const currentEndUserSlice = createSlice({
     email: '',
     loginStatus: 'Unconfirmed' as LoginStatus,
     defaultPaymentMethodId: '',
-    stripeCustomerEnable: false,
+    stripeCustomerEnable: 'Unconfirmed' as StripeEnableStatus,
     paymentMethods: [] as StripePaymentMethodsParam[]
   },
   reducers: {
@@ -25,7 +26,7 @@ export const currentEndUserSlice = createSlice({
     defaultPaymentMethodIdChanged: (state, action: PayloadAction<string>) => {
       state.defaultPaymentMethodId = action.payload
     },
-    stripeCustomerEnableChanged: (state, action: PayloadAction<boolean>) => {
+    stripeCustomerEnableChanged: (state, action: PayloadAction<StripeEnableStatus>) => {
       state.stripeCustomerEnable = action.payload
     },
     paymentMethodsChanged: (state, action: PayloadAction<StripePaymentMethodsParam[]>) => {

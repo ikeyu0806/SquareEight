@@ -26,8 +26,8 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       }
     }).then((response) => {
       dispatch(loginStatusChanged('Login'))
-      dispatch(stripeAccountEnableChanged(response.data.user.stripe_account_enable))
-      dispatch(stripeCustomerEnableChanged(response.data.user.stripe_customer_enable))
+      dispatch(stripeAccountEnableChanged(response.data.user.stripe_account_enable ? 'Enable' : 'Disable'))
+      dispatch(stripeCustomerEnableChanged(response.data.user.stripe_customer_enable ? 'Enable' : 'Disable'))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
       console.log(e)
