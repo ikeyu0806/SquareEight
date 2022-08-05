@@ -182,6 +182,13 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def subscription_lists
+    stripe_payment_subscriptions = current_end_user.search_stripe_subscriptions
+    render json: { status: 'success', stripe_payment_subscriptions: stripe_payment_subscriptions }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def end_user_params
