@@ -6,11 +6,15 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { Container, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
+import GuideStripeAccountRegister from 'components/templates/GuideStripeAccountRegister'
+import { RootState } from 'redux/store'
+import { useSelector } from 'react-redux'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
   const [monthlyPaymentPlans, setMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam[]>([])
+  const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
   useEffect(() => {
     const fetchMonthlyPaymentPlans = () => {
@@ -36,6 +40,7 @@ const Index: NextPage = () => {
       <MerchantUserAdminLayout>
         <br />
         <Container>
+        {stripeAccountEnable === 'Enable' && 
           <Table bordered>
             <thead>
               <tr>
@@ -66,8 +71,10 @@ const Index: NextPage = () => {
               )
             })}
             </tbody>
-          </Table>
+          </Table>}
+          {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
         </Container>
+        
       </MerchantUserAdminLayout>
     </>
   )

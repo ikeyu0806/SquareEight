@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import CreateTicketTemplate from 'components/templates/CreateTicketTemplate'
+import GuideStripeAccountRegister from 'components/templates/GuideStripeAccountRegister'
 import { Button } from 'react-bootstrap'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
@@ -24,6 +25,7 @@ const Edit: NextPage = () => {
   const price = useSelector((state: RootState) => state.ticketMaster.price)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
   const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
+  const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
   useEffect(() => {
     const fetchTicketMasters = () => {
@@ -74,10 +76,14 @@ const Edit: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <CreateTicketTemplate></CreateTicketTemplate>
-        <div className='text-center'>
-          <Button onClick={createTicket}>登録する</Button>
-        </div>
+        {stripeAccountEnable === 'Enable' &&
+        <>
+          <CreateTicketTemplate></CreateTicketTemplate>
+          <div className='text-center'>
+            <Button onClick={createTicket}>登録する</Button>
+          </div>
+        </>}
+        {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
       </MerchantUserAdminLayout>
     </>
   )

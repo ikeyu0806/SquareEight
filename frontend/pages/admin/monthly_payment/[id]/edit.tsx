@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
+import GuideStripeAccountRegister from 'components/templates/GuideStripeAccountRegister'
 import { priceChanged,
          nameChanged,
          reserveIsUnlimitedChanged,
@@ -33,6 +34,7 @@ const Edit: NextPage = () => {
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
   const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
+  const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
   useEffect(() => {
     const fetchMonthlyPaymentPlan = () => {
@@ -91,10 +93,11 @@ const Edit: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
         <Container>
-          <CreateMonthlyPayment></CreateMonthlyPayment>
+          {stripeAccountEnable === 'Enable' && <CreateMonthlyPayment></CreateMonthlyPayment>}
+          {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
         </Container>
         <div className='text-center'>
-          <Button onClick={onSubmit} className='mt10'>更新する</Button>
+          {stripeAccountEnable === 'Enable' && <Button onClick={onSubmit} className='mt10'>更新する</Button>}
         </div>
       </MerchantUserAdminLayout>
     </>

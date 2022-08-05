@@ -1,16 +1,20 @@
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import GuideStripeAccountRegister from 'components/templates/GuideStripeAccountRegister'
 import React, { useEffect, useState } from 'react'
-import { Container, Table, Button } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
+import { RootState } from 'redux/store'
+import { useSelector } from 'react-redux'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
   const [ticketMasters, setTicketMasters] = useState<TicketMasterParam[]>([])
+  const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
   useEffect(() => {
     const fetchTicketMasters = () => {
@@ -36,7 +40,8 @@ const Index: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
         <Container>
-          <h2>回数券一覧</h2>
+        {stripeAccountEnable === 'Enable' && <>
+        <h2>回数券一覧</h2>
           <Table bordered>
             <thead>
               <tr>
@@ -75,6 +80,8 @@ const Index: NextPage = () => {
               })}
             </tbody>
           </Table>
+        </>}
+        {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
         </Container>
       </MerchantUserAdminLayout>
     </>
