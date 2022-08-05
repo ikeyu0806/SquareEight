@@ -23,6 +23,17 @@ class ApplicationController < ActionController::API
     nil
   end
 
+  def current_system_admin_user
+    session_hash = Rails.cache.fetch('_session_id:2::' + Digest::SHA256.hexdigest(request.headers["Session-Id"]))
+    raise "session not exists" if session_hash.blank?
+    user = SystemAdminUser.find(session_hash["system_admin_user_id"])
+    raise "current system admin user not exists" if user.blank?
+    user
+  rescue => error
+    Rails.logger.error error
+    nil
+  end
+
   def merchant_login_only!
     render json: { errMessage: "ログインしてください" }, status: 401 and return if current_merchant_user.blank?
     true

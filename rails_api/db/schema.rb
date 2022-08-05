@@ -296,6 +296,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_05_080719) do
   end
 
   create_table "system_admin_users", force: :cascade do |t|
+    t.string "name", null: false
     t.string "email", null: false
     t.string "phone_number"
     t.string "password_digest"
