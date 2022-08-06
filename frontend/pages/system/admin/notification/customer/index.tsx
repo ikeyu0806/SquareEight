@@ -5,10 +5,12 @@ import { Container, Row, Col, ListGroup } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { Notification } from 'interfaces/Notification'
+import { useRouter } from 'next/router'
 
 const Index: NextPage = () => {
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [cookies] = useCookies(['_gybuilder_system_admin_user_session'])
+  const router = useRouter()
 
   useEffect(() => {
     const fetchNotifications = () => {
@@ -36,10 +38,12 @@ const Index: NextPage = () => {
           <Col lg={3}></Col>
           <Col lg={6}>
             <h3 className='mt30 mb20'>カスタマーユーザ向けお知らせ一覧</h3>
-            <ListGroup as="ul">
+            <ListGroup>
               {notifications && notifications.map((notification, i) => {
                 return(
-                  <ListGroup.Item key={i} as='li'>{notification.title}</ListGroup.Item>
+                  <ListGroup.Item key={i} as='li' onClick={() => router.push(`/system/admin/notification/customer/${notification.id}/edit`)}>
+                    {notification.title}
+                  </ListGroup.Item>
                 )
               })}
             </ListGroup>
