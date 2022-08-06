@@ -1,6 +1,13 @@
 class Api::Internal::AccountsController < ApplicationController
   before_action :merchant_login_only!
 
+  def dashboard_contents
+    system_notifications = AccountNotification.limit(5)
+    render json: { status: 'success', system_notifications: system_notifications }
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def payment_methods
     default_payment_method_id, payment_methods = current_merchant_user.account.payment_methods
     render json: { status: 'success',

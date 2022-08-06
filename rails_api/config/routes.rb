@@ -5,6 +5,7 @@ Rails.application.routes.draw do
   # root "articles#index"
   namespace :api do
     namespace :internal do
+      get 'accounts/dashboard_contents', to: 'accounts#dashboard_contents'
       get 'accounts/page_links', to: 'accounts#page_links'
       get 'accounts/stripe_connected_account', to: 'accounts#stripe_connected_account'
       get 'accounts/payment_methods', to: 'accounts#payment_methods'

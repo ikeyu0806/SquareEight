@@ -26,6 +26,7 @@ export const store = configureStore({
     resource: resourceReducer,
     reserveFrame: reserveFrameReducer,
     currentMerchantUser: currentMerchantUserReducer,
+    currentEndUser: currentEndUserReducer,
     currentSystemAdminUser: currentSystemAdminUserReducer
   },
 })
