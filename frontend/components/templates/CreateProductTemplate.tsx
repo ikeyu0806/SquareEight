@@ -62,6 +62,23 @@ const CreateProductTemplate = (): JSX.Element => {
     dispatch(productTypesChanged(updateProductTypes))
   }
 
+  const updateProductTypeInventory = (event: React.ChangeEvent<HTMLInputElement>, inventoryRef: number) => {
+    let updateProductType: ProductType
+    let updateProductTypes: ProductType[]
+    updateProductTypes = []
+    updateProductType = {name: '', inventory: 0}
+    updateProductType.inventory = Number(event.target.value)
+    updateProductType.name = productTypes[inventoryRef].name
+    productTypes.map((p, i) => {
+      if (i == inventoryRef) {
+        updateProductTypes.push(updateProductType)
+      } else {
+        updateProductTypes.push(p)
+      }
+    })
+    dispatch(productTypesChanged(updateProductTypes))
+  }
+
   const deleteProductType = () => {
     dispatch(applyProductTypeChanged(false))
   }
@@ -154,7 +171,7 @@ const CreateProductTemplate = (): JSX.Element => {
                                   <Form.Control placeholder='在庫'
                                         min={1}
                                         type='number'
-                                        onChange={(e: any) => updateProductTypeName(e, i)} />
+                                        onChange={(e: any) => updateProductTypeInventory(e, i)} />
                                 </Col>
                                 <Col sm={2}>
                                   <a onClick={() => alert('')}><TrashIcon
