@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Container, Row, Col, Form, FormControl } from 'react-bootstrap'
+import { Container, Row, Col, Form, FormControl, Button } from 'react-bootstrap'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
+import TrashIcon from 'components/atoms/TrashIcon'
 import { getBase64 } from '../../functions/getBase64'
 import { nameChanged,
          descriptionChanged,
@@ -42,17 +43,9 @@ const CreateProductTemplate = (): JSX.Element => {
             <div className='mt20 mb20'>
               <Form.Group className='mb-3'>
                 <Form.Label>商品名</Form.Label>
-                <Form.Control placeholder='レッスン10回受講券など'
+                <Form.Control placeholder=''
                               onChange={(e) => dispatch(nameChanged(e.target.value))}
                               value={name} />
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label>値段</Form.Label>
-                <Form.Control placeholder='値段'
-                              min={1}
-                              type='number'
-                              onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
-                              value={price} />
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label className='mt10'>商品の説明</Form.Label>
@@ -74,9 +67,66 @@ const CreateProductTemplate = (): JSX.Element => {
                 src={s3ObjectPublicUrl}
                 alt='image'
               />}
-              <Form.Group>
+              <Form.Group className='mb-3'>
                 <Form.Label className='mt10'>イメージ画像</Form.Label>
                 <Form.Control type="file" onChange={handleChangeFile} />
+              </Form.Group>
+              <Form.Group className='mb-3'>
+                <Form.Label>値段（税込）</Form.Label>
+                <Form.Control placeholder='値段'
+                              min={1}
+                              type='number'
+                              onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
+                              value={price} />
+              </Form.Group>
+              <Form.Group className='mb-3'>
+                <Form.Label>税率</Form.Label>
+                <Form.Select>
+                  <option>10%（標準税率）</option>
+                  <option>8%（軽減税率）</option>
+                </Form.Select>
+              </Form.Group>
+              <Form.Group className='mb-3'>
+                <Form.Label>在庫と種類</Form.Label>
+                {<Row>
+                    <Col>
+                      <Form.Control placeholder='在庫'
+                                  min={1}
+                                  type='number'
+                                  onChange={(e) => dispatch(inventoryChanged(Number(e.target.value)))}
+                                  value={inventory} />                  
+                      <Button className='mt10' variant='info'>種類を追加する</Button>
+                    </Col>
+                  </Row>}
+                  {
+                    <Row>
+                      <Col sm={6}>
+                        <Form.Label>種類</Form.Label>
+                        <Form.Control>
+
+                        </Form.Control>
+                        <Button className='mt10' variant='info'>種類を追加する</Button>
+                      </Col>
+                      <Col sm={3}>
+                        <Form.Label>在庫</Form.Label>
+                        <Row>
+                          <Col sm={10}>
+                            <Form.Control placeholder='在庫'
+                                  min={1}
+                                  type='number'
+                                  onChange={(e) => dispatch(inventoryChanged(Number(e.target.value)))}
+                                  value={inventory} />
+                          </Col>
+                          <Col sm={2}>
+                            <TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>
+                          </Col>
+                        </Row>
+                      </Col>
+                    </Row>
+                  }
+                  <Col></Col>
+
+                
               </Form.Group>
             </div>
           </Col>
