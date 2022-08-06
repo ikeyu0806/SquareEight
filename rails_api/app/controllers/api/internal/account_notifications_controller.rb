@@ -1,6 +1,4 @@
 class Api::Internal::AccountNotificationsController < ApplicationController
-  before_action :system_admin_user_login_only!
-
   def index
     account_notifications = AccountNotification.all
     render json: { status: 'success', account_notifications: account_notifications }, states: 200

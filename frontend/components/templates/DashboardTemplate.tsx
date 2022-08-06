@@ -5,10 +5,12 @@ import MonthlyPaymentTicketLineChart from '../organisms/MonthlyPaymentTicketLine
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { Notification } from 'interfaces/Notification'
+import { useRouter } from 'next/router'
 
 const DashboardTemplate = (): JSX.Element => {
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const [notification, setNotification] = useState<Notification[]>([])
+  const router = useRouter()
 
   useEffect(() => {
     const fetchDashboardContent = () => {
@@ -62,7 +64,7 @@ const DashboardTemplate = (): JSX.Element => {
             </ListGroup.Item>
             {notification.map((n, i) => {
               return (
-                <ListGroup.Item as='li' key={i}>
+                <ListGroup.Item as='li' key={i} onClick={() => router.push(`/admin/notification/system/${n.id}/`)}>
                   {n.title}
                 </ListGroup.Item>
               )

@@ -16,7 +16,7 @@ const New: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_system_admin_user_session'])
 
   useEffect(() => {
-    const fetchTicketNotification = () => {
+    const fetchNotification = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/end_user_notifications/${router.query.id}`, {
           headers: { 
@@ -33,7 +33,7 @@ const New: NextPage = () => {
         console.log(error)
       })
     }
-    fetchTicketNotification()
+    fetchNotification()
   }, [router.query.id, cookies._gybuilder_system_admin_user_session, router.query.website_id])
 
   const createNotification = () => {
