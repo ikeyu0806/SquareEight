@@ -2,6 +2,7 @@ import { configureStore } from '@reduxjs/toolkit'
 import homepageReducer from './homepageSlice'
 import alertReducer from './alertSlice'
 import ticketMasterReducer from './ticketMasterSlice'
+import productReducer from './productSlice'
 import stripeCompanyAccountSlice from './stripeCompanyAccountSlice'
 import stripeIndividualAccountSlice from './stripeIndividualAccountSlice'
 import stripeExternalAccountsSlice from './stripeExternalAccountsSlice'
@@ -18,6 +19,7 @@ export const store = configureStore({
     homepage: homepageReducer,
     alert: alertReducer,
     ticketMaster: ticketMasterReducer,
+    product: productReducer,
     stripeCompanyAccount: stripeCompanyAccountSlice,
     stripeIndividualAccount: stripeIndividualAccountSlice,
     stripeExternalAccount: stripeExternalAccountsSlice,
