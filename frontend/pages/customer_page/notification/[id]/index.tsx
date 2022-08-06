@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
-import { Notification } from 'interfaces/Notification'
 import { useRouter } from 'next/router'
 
 const Index: NextPage = () => {
-  const [notifications, setNotifications] = useState<Notification[]>([])
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const router = useRouter()
@@ -17,25 +15,25 @@ const Index: NextPage = () => {
   useEffect(() => {
     const fetchNotification = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/account_notifications/${router.query.id}`, {
+        `${process.env.BACKEND_URL}/api/internal/end_user_notifications/${router.query.id}`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._gybuilder_end_user_session
           },
         }
       )
       .then( (response) => {
-        setTitle(response.data.account_notification.title)
-        setContent(response.data.account_notification.content)
+        setTitle(response.data.end_user_notification.title)
+        setContent(response.data.end_user_notification.content)
       })
       .catch(error => {
         console.log(error)
       })
     }
     fetchNotification()
-  }, [router.query.id, cookies._gybuilder_merchant_session, router.query.website_id])
+  }, [router.query.id, cookies._gybuilder_end_user_session, router.query.website_id])
 
   return (
-    <MerchantUserAdminLayout>
+    <EndUserLoginLayout>
       <Container>
         <Row>
           <Col lg={3}></Col>
@@ -47,7 +45,7 @@ const Index: NextPage = () => {
           </Col>
         </Row>
       </Container>
-    </MerchantUserAdminLayout>
+    </EndUserLoginLayout>
   )
 }
 

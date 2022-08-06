@@ -50,7 +50,7 @@ const Index: NextPage = () => {
               </ListGroup.Item>
               {systemNotifications.map((n, i) => {
                 return (
-                  <ListGroup.Item as='li' key={i} onClick={() => router.push(`/admin/notification/system/${n.id}/`)}>
+                  <ListGroup.Item as='li' key={i} onClick={() => router.push(`/customer_page/notification/${n.id}/`)}>
                     {n.title}
                   </ListGroup.Item>
                 )
