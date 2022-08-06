@@ -28,7 +28,8 @@ const SystemAdminNavbar = () => {
       <Navbar bg='warning' expand='lg'>
         <Container>
           <Navbar.Brand href='/'>GYBuilder</Navbar.Brand>
-          <Nav>
+          <Nav className='me-auto'>
+            <Nav.Link href='/system/admin/dashboard'>ダッシュボード</Nav.Link>
             <NavDropdown title='お知らせ' id='homepage-nav-dropdown'>
               <NavDropdown.Item href='/system/admin/notification/business'>ビジネスユーザ向けお知らせ一覧</NavDropdown.Item>
               <NavDropdown.Item href='/system/admin/notification/business/new'>ビジネスユーザ向けお知らせ一覧新規作成</NavDropdown.Item>
