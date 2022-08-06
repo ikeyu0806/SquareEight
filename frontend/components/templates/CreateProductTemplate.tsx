@@ -112,35 +112,41 @@ const CreateProductTemplate = (): JSX.Element => {
                     </Col>
                   </Row>}
                   {showProductTypeForm &&
-                    <Row>
-                      <Col sm={6}>
-                        <Form.Label>種類</Form.Label>
-                        <Form.Control placeholder='Sサイズ'>
-                        </Form.Control>
-                        <Button
-                          onClick={() => setShowProductTypeForm(false)}
-                          className='mt10'
-                          variant='info'>種類を追加する</Button>
-                      </Col>
-                      <Col sm={3}>
-                        <Form.Label>在庫</Form.Label>
-                        <Row>
-                          <Col sm={10}>
-                            <Form.Control placeholder='在庫'
-                                  min={1}
-                                  type='number'
-                                  onChange={(e) => dispatch(inventoryChanged(Number(e.target.value)))}
-                                  value={inventory} />
-                          </Col>
-                          <Col sm={2}>
-                            <TrashIcon
-                              width={20}
-                              height={20}
-                              fill={'#ff0000'}></TrashIcon>
-                          </Col>
-                        </Row>
-                      </Col>
-                    </Row>
+                    <>
+                      {productTypes.map((p, i) => {
+                        return (
+                          <Row key={i}>
+                            <Col sm={6}>
+                              <Form.Label>種類</Form.Label>
+                              <Form.Control placeholder='Sサイズ'>
+                              </Form.Control>
+                            </Col>
+                            <Col sm={3}>
+                              <Form.Label>在庫</Form.Label>
+                              <Row>
+                                <Col sm={10}>
+                                  <Form.Control placeholder='在庫'
+                                        min={1}
+                                        type='number'
+                                        onChange={(e) => dispatch(inventoryChanged(Number(e.target.value)))}
+                                        value={inventory} />
+                                </Col>
+                                <Col sm={2}>
+                                  <a onClick={() => alert('')}><TrashIcon
+                                    width={20}
+                                    height={20}
+                                    fill={'#ff0000'}></TrashIcon></a>
+                                </Col>
+                              </Row>
+                            </Col>
+                          </Row>
+                        )
+                      })}
+                      <Button
+                        onClick={() => setShowProductTypeForm(false)}
+                        className='mt10'
+                        variant='info'>種類を追加する</Button>
+                    </>
                   }
                   <Col></Col>
               </Form.Group>
