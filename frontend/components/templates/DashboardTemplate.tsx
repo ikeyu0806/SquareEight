@@ -70,6 +70,9 @@ const DashboardTemplate = (): JSX.Element => {
               )
             })}
           </ListGroup>
+          <div className='text-center mt10'>
+            <a className='btn btn-primary' href='/admin/notification/system/list'>もっと見る</a>
+          </div>
         </Col>
       </Row>
       <br />
