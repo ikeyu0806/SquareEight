@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, createRef, ChangeEvent } from 'react'
 import { Container, Row, Col, Form, FormControl, Button } from 'react-bootstrap'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import TrashIcon from 'components/atoms/TrashIcon'
 import { getBase64 } from '../../functions/getBase64'
+import { ProductType } from 'interfaces/ProductType'
 import { nameChanged,
          descriptionChanged,
          base64ImageChanged,
@@ -11,7 +12,8 @@ import { nameChanged,
          inventoryChanged,
          priceChanged,
          taxRateChanged,
-         applyProductTypeChanged } from 'redux/productSlice'
+         applyProductTypeChanged,
+         productTypesChanged } from 'redux/productSlice'
 
 const CreateProductTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -26,6 +28,10 @@ const CreateProductTemplate = (): JSX.Element => {
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.product.s3ObjectPublicUrl)
   const applyProductType = useSelector((state: RootState) => state.product.applyProductType)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
+  const productTypeNameRefs = useRef<any>([])
+  productTypeNameRefs.current = productTypes.map((_, i) => productTypeNameRefs.current[i] ?? createRef())
+  const productTypeInventoryRefs = useRef<any>([])
+  productTypeInventoryRefs.current = productTypes.map((_, i) => productTypeInventoryRefs.current[i] ?? createRef())
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -39,12 +45,30 @@ const CreateProductTemplate = (): JSX.Element => {
     dispatch(applyProductTypeChanged(true))
   }
 
+  const updateProductTypeName = (event: React.ChangeEvent<HTMLInputElement>, productTypeNameRef: number) => {
+    let updateProductType: ProductType
+    let updateProductTypes: ProductType[]
+    updateProductTypes = []
+    updateProductType = {name: '', inventory: 0}
+    updateProductType.name = event.target.value
+    updateProductType.inventory = productTypes[productTypeNameRef].inventory
+    productTypes.map((p, i) => {
+      if (i == productTypeNameRef) {
+        updateProductTypes.push(updateProductType)
+      } else {
+        updateProductTypes.push(p)
+      }
+    })
+    dispatch(productTypesChanged(updateProductTypes))
+  }
+
   const deleteProductType = () => {
     dispatch(applyProductTypeChanged(false))
   }
 
   return (
     <>
+      {console.log("!!", productTypes)}
       <Container>
         <Row>
           <Col lg={3} md={3}></Col>
@@ -118,7 +142,9 @@ const CreateProductTemplate = (): JSX.Element => {
                           <Row key={i}>
                             <Col sm={6}>
                               <Form.Label>種類</Form.Label>
-                              <Form.Control placeholder='Sサイズ'>
+                              <Form.Control
+                                onChange={(e: any) => updateProductTypeName(e, i)}
+                                placeholder='Sサイズ'>
                               </Form.Control>
                             </Col>
                             <Col sm={3}>
@@ -128,8 +154,7 @@ const CreateProductTemplate = (): JSX.Element => {
                                   <Form.Control placeholder='在庫'
                                         min={1}
                                         type='number'
-                                        onChange={(e) => dispatch(inventoryChanged(Number(e.target.value)))}
-                                        value={inventory} />
+                                        onChange={(e: any) => updateProductTypeName(e, i)} />
                                 </Col>
                                 <Col sm={2}>
                                   <a onClick={() => alert('')}><TrashIcon

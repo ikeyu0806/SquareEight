@@ -1,4 +1,4 @@
 export interface ProductType {
-  productType: string
+  name: string
   inventory: number
 }
