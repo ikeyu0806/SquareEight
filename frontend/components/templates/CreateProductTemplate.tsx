@@ -11,11 +11,12 @@ import { nameChanged,
          inventoryChanged,
          priceChanged,
          taxRateChanged,
-         productTypesChanged } from 'redux/productSlice'
+         applyProductTypeChanged } from 'redux/productSlice'
 
 const CreateProductTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
   const [image, setImage] = useState('')
+  const [showProductTypeForm, setShowProductTypeForm] = useState(false)
   const name = useSelector((state: RootState) => state.product.name)
   const price = useSelector((state: RootState) => state.product.price)
   const description = useSelector((state: RootState) => state.product.description)
@@ -23,6 +24,7 @@ const CreateProductTemplate = (): JSX.Element => {
   const inventory = useSelector((state: RootState) => state.product.inventory)
   const base64Image = useSelector((state: RootState) => state.product.base64Image)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.product.s3ObjectPublicUrl)
+  const applyProductType = useSelector((state: RootState) => state.product.applyProductType)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
 
   const handleChangeFile = (e: any) => {
@@ -31,6 +33,14 @@ const CreateProductTemplate = (): JSX.Element => {
     getBase64(files[0]).then(
       data => dispatch(base64ImageChanged(data))
     )
+  }
+
+  const addProductTypeForm = () => {
+    dispatch(applyProductTypeChanged(true))
+  }
+
+  const deleteProductType = () => {
+    dispatch(applyProductTypeChanged(false))
   }
 
   return (
@@ -81,31 +91,36 @@ const CreateProductTemplate = (): JSX.Element => {
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label>税率</Form.Label>
-                <Form.Select>
-                  <option>10%（標準税率）</option>
-                  <option>8%（軽減税率）</option>
+                <Form.Select onChange={e => dispatch(taxRateChanged(Number(e.target.value)))}>
+                  <option value={10}>10%（標準税率）</option>
+                  <option value={8}>8%（軽減税率）</option>
                 </Form.Select>
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label>在庫と種類</Form.Label>
-                {<Row>
+                {!showProductTypeForm && <Row>
                     <Col>
                       <Form.Control placeholder='在庫'
                                   min={1}
                                   type='number'
                                   onChange={(e) => dispatch(inventoryChanged(Number(e.target.value)))}
                                   value={inventory} />                  
-                      <Button className='mt10' variant='info'>種類を追加する</Button>
+                      <Button
+                        onClick={() => setShowProductTypeForm(true)}
+                        className='mt10'
+                        variant='info'>種類を追加する</Button>
                     </Col>
                   </Row>}
-                  {
+                  {showProductTypeForm &&
                     <Row>
                       <Col sm={6}>
                         <Form.Label>種類</Form.Label>
-                        <Form.Control>
-
+                        <Form.Control placeholder='Sサイズ'>
                         </Form.Control>
-                        <Button className='mt10' variant='info'>種類を追加する</Button>
+                        <Button
+                          onClick={() => setShowProductTypeForm(false)}
+                          className='mt10'
+                          variant='info'>種類を追加する</Button>
                       </Col>
                       <Col sm={3}>
                         <Form.Label>在庫</Form.Label>
@@ -118,15 +133,16 @@ const CreateProductTemplate = (): JSX.Element => {
                                   value={inventory} />
                           </Col>
                           <Col sm={2}>
-                            <TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>
+                            <TrashIcon
+                              width={20}
+                              height={20}
+                              fill={'#ff0000'}></TrashIcon>
                           </Col>
                         </Row>
                       </Col>
                     </Row>
                   }
                   <Col></Col>
-
-                
               </Form.Group>
             </div>
           </Col>
