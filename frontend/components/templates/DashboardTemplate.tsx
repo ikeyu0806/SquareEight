@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import  { Container, Row, Col, ListGroup, Button } from 'react-bootstrap'
 import ReservePageSalesLineChart from '../organisms/ReservePageSalesLineChart'
 import MonthlyPaymentTicketLineChart from '../organisms/MonthlyPaymentTicketLineChart'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
+import { Notification } from 'interfaces/Notification'
 
 const DashboardTemplate = (): JSX.Element => {
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [notification, setNotification] = useState<Notification[]>([])
 
   useEffect(() => {
     const fetchDashboardContent = () => {
@@ -19,13 +21,14 @@ const DashboardTemplate = (): JSX.Element => {
       )
       .then(function (response) {
         console.log(response)
+        setNotification(response.data.system_notifications)
       })
       .catch(error => {
         console.log(error)
       })
     }
     fetchDashboardContent()
-  }, [])
+  }, [cookies._gybuilder_merchant_session])
 
   return (
     <Container>
@@ -57,21 +60,13 @@ const DashboardTemplate = (): JSX.Element => {
             <ListGroup.Item as='li' active>
               運営からのお知らせ
             </ListGroup.Item>
-            <ListGroup.Item as='li'>
-              ホームページ作成をプロに依頼しませんか？
-            </ListGroup.Item>
-            <ListGroup.Item as='li'>
-              ホームページへの住所追加機能をリリースしました
-            </ListGroup.Item>
-            <ListGroup.Item as='li'>
-              回数券機能をリリースしました
-            </ListGroup.Item>
-            <ListGroup.Item as='li'>
-              顧客メモ機能をリリースしました
-            </ListGroup.Item>
-            <div className='text-center mt10'>
-              <Button>もっと見る</Button>
-            </div>
+            {notification.map((n, i) => {
+              return (
+                <ListGroup.Item as='li' key={i}>
+                  {n.title}
+                </ListGroup.Item>
+              )
+            })}
           </ListGroup>
         </Col>
       </Row>
