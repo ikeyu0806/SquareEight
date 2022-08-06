@@ -33,6 +33,7 @@ const CustomerPageNavbar = (): JSX.Element => {
           <Navbar.Toggle />
             <Navbar.Collapse>
             <Nav className='me-auto'>
+              <Nav.Link href='/customer_page/'>お知らせ</Nav.Link>
               <Nav.Link href='/customer_page/purchased_ticket'>回数券</Nav.Link>
               <Nav.Link href='/customer_page/subscriptions'>月額課金</Nav.Link>
               <Nav.Link href='/customer_page/reserve'>予約確認</Nav.Link>
@@ -41,6 +42,7 @@ const CustomerPageNavbar = (): JSX.Element => {
                 <NavDropdown.Item href='/customer_page/charges/'>お支払い履歴</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='その他' id='homepage-nav-dropdown'>
+                <NavDropdown.Item href='/customer_page/mypage'>マイページ</NavDropdown.Item>
                 <NavDropdown.Item href='/inquiry'>お問い合わせ</NavDropdown.Item>
                 <NavDropdown.Item onClick={() => logout()}>ログアウト</NavDropdown.Item>
               </NavDropdown>

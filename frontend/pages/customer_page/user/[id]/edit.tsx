@@ -53,7 +53,7 @@ const Edit: NextPage = () => {
         'Session-Id': cookies._gybuilder_end_user_session
       }
     }).then(response => {
-      router.push('/customer_page')
+      router.push('/customer_page/mypage')
       dispatch(alertChanged({message: '更新しました', show: true}))
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))

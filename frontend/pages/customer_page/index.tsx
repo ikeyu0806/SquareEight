@@ -1,86 +1,65 @@
-import React, { useEffect, useState } from 'react'
-import type { NextPage } from 'next'
-import { Container, Card, Row, Col } from 'react-bootstrap'
+
+import React, { useState, useEffect } from 'react'
+import { NextPage } from 'next'
+import { Container, Row, Col, ListGroup } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
-import GoogleIcon from 'components/atoms/GoogleIcon'
-import ConnectedTextWithIcon from 'components/molecules/ConnectedTextWithIcon'
+import { Notification } from 'interfaces/Notification'
+import { useRouter } from 'next/router'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
-import { EndUserParam } from 'interfaces/EndUserParam'
 import { useCookies } from 'react-cookie'
 
 const Index: NextPage = () => {
-  const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
-  const [endUser, setEndUser] = useState<EndUserParam>()
+  const [systemNotifications, setSystemNotifications] = useState<Notification[]>([])
+  const router = useRouter()
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_info`,
-    {
-      headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
-      }
-    }).then((response) => {
-      setEndUser(response.data.end_user)
-    }).catch((error) => {
-      console.log(error)
-    })
-  }, [dispatch, cookies._gybuilder_end_user_session])
+    const fetchCustomerPageContent = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/end_users/customer_toppage_info`, {
+          headers: { 
+            'Session-Id': cookies._gybuilder_end_user_session
+          }
+        }
+      )
+      .then(function (response) {
+        console.log(response)
+        setSystemNotifications(response.data.system_notifications)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchCustomerPageContent()
+  }, [cookies._gybuilder_end_user_session])
+
 
   return (
-    <>
-      <EndUserLoginLayout>
-        <Container className='mt50 mb50'>
-          <Row>
-            <Col lg={3} md={3}></Col>
-              <Col lg={6}>
-                <Card>
-                  <Card.Header className=' d-flex justify-content-between align-items-center'>
-                    ご登録情報
-                    <a className='btn btn-sm btn-primary' href={`/customer_page/user/${endUser?.id}/edit`}>編集</a>
-                  </Card.Header>
-                  <Card.Body>
-                    <table className='table'>
-                      <tbody>
-                        <tr>
-                          <td scope='row'>お名前</td>
-                          <td className='text-center'>{endUser?.last_name}{endUser?.first_name}</td>
-                        </tr>
-                        <tr>
-                          <td scope='row'>お名前（カナ）</td>
-                          <td className='text-center'>{endUser?.last_name_kana}{endUser?.first_name_kana}</td>
-                        </tr>
-                        <tr>
-                          <td scope='row'>メールアドレス（パスワード認証）</td>
-                          <td className='text-center'>{endUser?.email}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </Card.Body>
-                  <Card.Header className=' d-flex justify-content-between align-items-center'>
-                    連携サービス
-                    <a className='btn btn-sm btn-primary' href={`/customer_page/user/${endUser?.id}/edit_connected_account`}>編集</a>
-                  </Card.Header>
-                  <Card.Body>
-                  <table className='table'>
-                      <tbody>
-                        <tr>
-                          <td scope='row'><GoogleIcon width={20} height={20} className={'mr10'}></GoogleIcon>Google</td>
-                          <td className='text-center'>{endUser?.google_auth_id ? <ConnectedTextWithIcon></ConnectedTextWithIcon> : '連携なし'}</td>
-                        </tr>
-                        <tr>
-                          <td scope='row'>メールアドレス（Google認証）</td>
-                          <td className='text-center'>{endUser?.google_auth_email}</td>
-                        </tr>
-                      </tbody>
-                    </table>
-                  </Card.Body>
-                </Card>
-              </Col>
-            </Row>
-          </Container>
-        </EndUserLoginLayout>
-    </>
+    <EndUserLoginLayout>
+      <Container>
+        <Row>
+          <Col>
+            <ListGroup.Item as='li' active>
+                通知一覧
+              </ListGroup.Item>
+          </Col>
+          <Col>
+            <ListGroup as='ul'>
+              <ListGroup.Item as='li' active>
+                運営からのお知らせ
+              </ListGroup.Item>
+              {systemNotifications.map((n, i) => {
+                return (
+                  <ListGroup.Item as='li' key={i} onClick={() => router.push(`/admin/notification/system/${n.id}/`)}>
+                    {n.title}
+                  </ListGroup.Item>
+                )
+              })}
+            </ListGroup>
+          </Col>
+        </Row>
+      </Container>
+    </EndUserLoginLayout>
   )
 }
 
