@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap'
+import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { ProductParam } from 'interfaces/ProductParam'
@@ -37,15 +37,26 @@ const Index: NextPage = () => {
       <MerchantUserAdminLayout>
         <Container>
           <Row>
-            <Col lg={2}></Col>
-            <Col lg={8}>
+            <Col lg={3}></Col>
+            <Col lg={6}>
               <Card>
                 <Card.Header>商品一覧</Card.Header>
                 <ListGroup variant='flush'>
                     {products && products.map((p, i) => {
                       return (
                         <ListGroup.Item key={i}>
-                          {p.name}
+                          <Row>
+                            <Col>
+                              <span>{p.name} <br/>￥{p.price} 税率{p.tax_rate}% <br/>在庫数: {p.inventory}</span>
+                              <span></span>
+                            </Col>
+                            <Col>
+                              <div className='mt30'>
+                                <Button size='sm'>編集</Button>
+                                <Button size='sm' className='ml10'>購入ページプレビュー</Button>
+                              </div>
+                            </Col>
+                          </Row>
                         </ListGroup.Item>
                       )
                     })}
