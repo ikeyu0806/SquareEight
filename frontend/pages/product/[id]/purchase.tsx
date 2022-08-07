@@ -24,6 +24,7 @@ const Purchase: NextPage = () => {
   const router = useRouter()
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const [requireAddressMessage, setRequireAddressMessage] = useState('')
+  const [currentEndUserId, setCurrentEndUserId] = useState()
   const name = useSelector((state: RootState) => state.product.name)
   const price = useSelector((state: RootState) => state.product.price)
   const taxRate = useSelector((state: RootState) => state.product.taxRate)
@@ -57,6 +58,7 @@ const Purchase: NextPage = () => {
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
         setRequireAddressMessage(response.data.require_address_message)
+        setCurrentEndUserId(response.data.current_end_user_id)
       })
       .catch(error => {
         dispatch(loginStatusChanged('Logout'))
@@ -121,10 +123,10 @@ const Purchase: NextPage = () => {
             <Card>
               <Card.Header>商品購入</Card.Header>
               <Card.Body>
-                {requireAddressMessage
+                {currentEndUserLogintStatus === 'Login' && requireAddressMessage
                 && <div className='mb30 color-red'>{'購入には住所の登録が必要です。 '}
                       <br />{requireAddressMessage}
-                      <br /><a href='/customer_page/mypage'>マイページ</a>から登録をお願いします。
+                      <br /><a href={`/customer_page/user/${currentEndUserId}/edit`}>ユーザ編集</a>から登録をお願いします。
                    </div>}
                 {currentEndUserLogintStatus === 'Logout'
                   ? 
@@ -180,9 +182,10 @@ const Purchase: NextPage = () => {
                     </ListGroup>
                     }
                   <div className='mt30 '>
-                    <Button onClick={() => execPurchase()} disabled={inventory <= 0}>すぐに購入する</Button>
+                    <Button onClick={() => execPurchase()}
+                            disabled={inventory <= 0 || !!currentEndUserLogintStatus}>すぐに購入する</Button>
                     <Button className='ml20'
-                            disabled={inventory <= 0}
+                            disabled={inventory <= 0 || !!currentEndUserLogintStatus}
                             variant='secondary'>カートに入れる</Button>
                   </div>
                   </>
