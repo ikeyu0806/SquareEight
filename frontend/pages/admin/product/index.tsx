@@ -13,7 +13,7 @@ const Index: NextPage = () => {
   const [products, setProducts] = useState<ProductParam[]>([])
 
   useEffect(() => {
-    const fetchResources = () => {
+    const fetchProducts = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/products`, {
           headers: { 
@@ -29,7 +29,7 @@ const Index: NextPage = () => {
         console.log(error)
       })
     }
-    fetchResources()
+    fetchProducts()
   }, [router.query.id, cookies._gybuilder_merchant_session])
 
   return (
@@ -52,7 +52,7 @@ const Index: NextPage = () => {
                             </Col>
                             <Col>
                               <div className='mt30'>
-                                <a className='btn btn-sm btn-primary'>
+                                <a className='btn btn-sm btn-primary' href={`/admin/product/${p.id}/edit`}>
                                   編集
                                 </a>
                                 <a className='btn btn-sm btn-primary ml10' href={`/product/${p.id}/purchase`}>

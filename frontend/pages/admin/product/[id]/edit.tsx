@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import CreateProductTemplate from 'components/templates/CreateProductTemplate'
@@ -9,9 +9,16 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { ProductParam } from 'interfaces/ProductParam'
 import { alertChanged } from 'redux/alertSlice'
+import {  nameChanged,
+          priceChanged,
+          taxRateChanged,
+          inventoryChanged,
+          descriptionChanged,
+          s3ObjectPublicUrlChanged } from 'redux/productSlice'
 
-const New: NextPage = () => {
+const Edit: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
@@ -27,7 +34,33 @@ const New: NextPage = () => {
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
-  const createProduct = () => {
+  useEffect(() => {
+    const fetchProduct = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/products/${router.query.id}`, {
+          headers: {
+            'Session-Id': cookies._gybuilder_merchant_session
+          }
+        }
+      )
+      .then(function (response) {
+        const productResponse: ProductParam = response.data.product
+        dispatch(nameChanged(productResponse.name))
+        dispatch(priceChanged(productResponse.price))
+        dispatch(taxRateChanged(productResponse.tax_rate))
+        dispatch(inventoryChanged(productResponse.inventory))
+        dispatch(descriptionChanged(productResponse.description))
+        dispatch(s3ObjectPublicUrlChanged(productResponse.s3_object_public_url))
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchProduct()
+  }, [cookies._gybuilder_merchant_session, router.query.id, dispatch])
+
+
+  const updateProduct = () => {
     if (name === '') {
       setErrMessage('商品名を入力してください')
       return
@@ -40,7 +73,7 @@ const New: NextPage = () => {
         }
       })
     }
-    axios.post(`${process.env.BACKEND_URL}/api/internal/products`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/products/${router.query.id}/update`,
     {
       product: {
         name: name,
@@ -57,7 +90,7 @@ const New: NextPage = () => {
         'Session-Id': cookies._gybuilder_merchant_session
       }
     }).then(response => {
-      dispatch(alertChanged({message: '登録しました', show: true}))
+      dispatch(alertChanged({message: '更新しました', show: true}))
       router.push('/admin/product')
     }).catch(error => {
     })
@@ -70,7 +103,7 @@ const New: NextPage = () => {
         <>
           <CreateProductTemplate></CreateProductTemplate>
           <div className='text-center'>
-            <Button onClick={createProduct}>登録する</Button>
+            <Button onClick={updateProduct}>登録する</Button>
           </div>
           <div className='text-center mt20 color-red'>
             {errMessage}
@@ -82,4 +115,4 @@ const New: NextPage = () => {
   )
 }
 
-export default New
+export default Edit
