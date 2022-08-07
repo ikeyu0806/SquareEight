@@ -88,6 +88,7 @@ const CreateProductTemplate = (): JSX.Element => {
   const deleteProductType = (formNum: number) => {
     if (productTypes.length <= 2 ) {
       setShowProductTypeForm(false)
+      dispatch(applyProductTypeChanged(false))
       return
     }
     let updateProductTypes: ProductType[]
@@ -100,9 +101,13 @@ const CreateProductTemplate = (): JSX.Element => {
     dispatch(productTypesChanged(updateProductTypes))
   }
 
+  const enableProductTypeForm = () => {
+    setShowProductTypeForm(true)
+    dispatch(applyProductTypeChanged(true))
+  }
+
   return (
     <>
-      {console.log("!!", productTypes)}
       <Container>
         <Row>
           <Col lg={3} md={3}></Col>
@@ -164,7 +169,7 @@ const CreateProductTemplate = (): JSX.Element => {
                                   onChange={(e) => dispatch(inventoryChanged(Number(e.target.value)))}
                                   value={inventory} />                  
                       <Button
-                        onClick={() => setShowProductTypeForm(true)}
+                        onClick={() => enableProductTypeForm()}
                         className='mt10'
                         variant='info'>種類を追加する</Button>
                     </Col>

@@ -15,24 +15,28 @@ const New: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
-  const name = useSelector((state: RootState) => state.ticketMaster.name)
-  const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
-  const price = useSelector((state: RootState) => state.ticketMaster.price)
-  const effectiveMonth = useSelector((state: RootState) => state.ticketMaster.effectiveMonth)
-  const description = useSelector((state: RootState) => state.ticketMaster.description)
-  const base64Image = useSelector((state: RootState) => state.ticketMaster.base64Image)
+  const name = useSelector((state: RootState) => state.product.name)
+  const price = useSelector((state: RootState) => state.product.price)
+  const description = useSelector((state: RootState) => state.product.description)
+  const taxRate = useSelector((state: RootState) => state.product.taxRate)
+  const inventory = useSelector((state: RootState) => state.product.inventory)
+  const base64Image = useSelector((state: RootState) => state.product.base64Image)
+  const s3ObjectPublicUrl = useSelector((state: RootState) => state.product.s3ObjectPublicUrl)
+  const applyProductType = useSelector((state: RootState) => state.product.applyProductType)
+  const productTypes = useSelector((state: RootState) => state.product.productTypes)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
-  const createTicket = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters`,
+  const createProduct = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/products`,
     {
-      ticket_master: {
+      product: {
         name: name,
-        issue_number: issueNumber,
         price: price,
-        effective_month: effectiveMonth,
         description: description,
-        base64_image: base64Image
+        tax_rate: taxRate,
+        inventory: inventory,
+        base64_image: base64Image,
+        product_types: applyProductType ? productTypes : []
       }
     },
     {
@@ -53,7 +57,7 @@ const New: NextPage = () => {
         <>
           <CreateProductTemplate></CreateProductTemplate>
           <div className='text-center'>
-            <Button onClick={createTicket}>登録する</Button>
+            <Button onClick={createProduct}>登録する</Button>
           </div>
         </>}
         {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
