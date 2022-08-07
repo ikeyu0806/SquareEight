@@ -49,6 +49,9 @@ class Api::Internal::ProductsController < ApplicationController
   def purchase
     ActiveRecord::Base.transaction do
       product = Product.find(product_params[:id])
+      raise '購入数量が不正な値です' if product_params[:purchase_quantities] < 1
+      product.inventory = product.inventory - product_params[:purchase_quantities]
+      raise '在庫切れです' if product.inventory.negative?
       customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
       default_payment_method_id = customer["invoice_settings"]["default_payment_method"]
       commission = (product.price * 0.04).to_i
@@ -81,6 +84,7 @@ class Api::Internal::ProductsController < ApplicationController
                             price: product.price,
                             commission: commission)
       order.save!
+      product.save!
       render json: { status: 'success', order_id: order.id }, states: 200
     end
   rescue => error
@@ -100,6 +104,7 @@ class Api::Internal::ProductsController < ApplicationController
                   :description,
                   :s3_object_public_url,
                   :s3_object_name,
+                  :purchase_quantities,
                   product_types: [:name, :inventory])
   end
 end

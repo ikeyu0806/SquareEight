@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
+import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
@@ -33,6 +33,7 @@ const Purchase: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const defaultPaymentMethodId = useSelector((state: RootState) => state.currentEndUser.defaultPaymentMethodId)
   const paymentMethods = useSelector((state: RootState) => state.currentEndUser.paymentMethods)
+  const [purchaseQuantities, setPurchaseQuantities] = useState(1)
 
   useEffect(() => {
     const fetchProduct = () => {
@@ -67,7 +68,8 @@ const Purchase: NextPage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/products/purchase`,
     {
       product: {
-        id: router.query.id
+        id: router.query.id,
+        purchase_quantities: purchaseQuantities
       },
     },
     {
@@ -132,6 +134,16 @@ const Purchase: NextPage = () => {
                 <div className='mt10'>{price}円（税込）</div>
                 <div className='mt10'>税率{taxRate}%</div>
                 <div className='mt10'>{description}</div>
+                <Row>
+                  <Col sm={2}>
+                    <Form.Label>購入数量</Form.Label>
+                    <Form.Control type='number'
+                                  value={purchaseQuantities}
+                                  min={1}
+                                  onChange={(e) => setPurchaseQuantities(Number(e.target.value))}></Form.Control>
+                  </Col>
+                  <Col></Col>
+                </Row>
                 {s3ObjectPublicUrl
                 && <img
                     className='d-block w-100 mt30 mb30'
