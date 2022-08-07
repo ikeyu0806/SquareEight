@@ -52,8 +52,12 @@ const Index: NextPage = () => {
                             </Col>
                             <Col>
                               <div className='mt30'>
-                                <Button size='sm'>編集</Button>
-                                <Button size='sm' className='ml10'>購入ページプレビュー</Button>
+                                <a className='btn btn-sm btn-primary'>
+                                  編集
+                                </a>
+                                <a className='btn btn-sm btn-primary ml10' href={`/product/${p.id}/purchase`}>
+                                  購入ページプレビュー
+                                </a>
                               </div>
                             </Col>
                           </Row>
