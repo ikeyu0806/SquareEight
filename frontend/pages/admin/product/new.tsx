@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import CreateProductTemplate from 'components/templates/CreateProductTemplate'
@@ -15,6 +15,7 @@ const New: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
+  const [errMessage, setErrMessage] = useState('')
   const name = useSelector((state: RootState) => state.product.name)
   const price = useSelector((state: RootState) => state.product.price)
   const description = useSelector((state: RootState) => state.product.description)
@@ -27,6 +28,16 @@ const New: NextPage = () => {
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
   const createProduct = () => {
+    if (name === '') {
+      setErrMessage('商品名を入力してください')
+      return
+    }
+    productTypes.map(p => {
+      if (p.name === '') {
+        setErrMessage('在庫種類を入力してください')
+        return
+      }
+    })
     axios.post(`${process.env.BACKEND_URL}/api/internal/products`,
     {
       product: {
@@ -58,6 +69,9 @@ const New: NextPage = () => {
           <CreateProductTemplate></CreateProductTemplate>
           <div className='text-center'>
             <Button onClick={createProduct}>登録する</Button>
+          </div>
+          <div className='text-center mt20 color-red'>
+            {errMessage}
           </div>
         </>}
         {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
