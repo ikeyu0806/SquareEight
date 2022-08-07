@@ -60,10 +60,12 @@ class Api::Internal::ProductsController < ApplicationController
       payment_methods = []
       login_status = 'Logout'
     end
+    require_address_message = current_end_user.require_address_message
     render json: { status: 'success',
                    product: product,
                    payment_methods: payment_methods,
                    default_payment_method_id: default_payment_method_id,
+                   require_address_message: require_address_message,
                    login_status: login_status }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

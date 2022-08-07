@@ -163,7 +163,7 @@ const Edit: NextPage = () => {
             <Form.Control
               onChange={(e) => setLine2(e.target.value)}
               value={line2}></Form.Control>
-            <Form.Label className='mt10'>建物・部屋番号・その他</Form.Label>
+            <Form.Label className='mt10'>建物・部屋番号・その他（カナ）</Form.Label>
             <Form.Control
               onChange={(e) => setLine2Kana(e.target.value)}
               value={line2Kana}></Form.Control>

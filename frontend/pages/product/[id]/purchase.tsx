@@ -23,6 +23,7 @@ const Purchase: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [requireAddressMessage, setRequireAddressMessage] = useState('')
   const name = useSelector((state: RootState) => state.product.name)
   const price = useSelector((state: RootState) => state.product.price)
   const taxRate = useSelector((state: RootState) => state.product.taxRate)
@@ -55,6 +56,7 @@ const Purchase: NextPage = () => {
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
+        setRequireAddressMessage(response.data.require_address_message)
       })
       .catch(error => {
         dispatch(loginStatusChanged('Logout'))
@@ -119,6 +121,11 @@ const Purchase: NextPage = () => {
             <Card>
               <Card.Header>商品購入</Card.Header>
               <Card.Body>
+                {requireAddressMessage
+                && <div className='mb30 color-red'>{'購入には住所の登録が必要です。 '}
+                      <br />{requireAddressMessage}
+                      <br /><a href='/customer_page/mypage'>マイページ</a>から登録をお願いします。
+                   </div>}
                 {currentEndUserLogintStatus === 'Logout'
                   ? 
                     <>

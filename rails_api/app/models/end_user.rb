@@ -36,4 +36,18 @@ class EndUser < ApplicationRecord
     result = Stripe::Subscription.search({query: query, limit: 100})
     JSON.parse(result.to_json)["data"]
   end
+
+  def require_address_message
+    require_address_colum_messages = []
+    require_address_colum_messages.push('郵便番号') if postal_code.blank?
+    require_address_colum_messages.push('都道府県') if state.blank?
+    require_address_colum_messages.push('都道府県（カナ）') if state_kana.blank?
+    require_address_colum_messages.push('区市町村') if city.blank?
+    require_address_colum_messages.push('区市町村（カナ）') if city_kana.blank?
+    require_address_colum_messages.push('町名（丁目まで）') if town.blank?
+    require_address_colum_messages.push('町名（丁目まで、カナ）') if town_kana.blank?
+    require_address_colum_messages.push('番地、号') if line1.blank?
+    require_address_colum_messages.push('番地、号（カナ）') if line1_kana.blank?
+    require_address_colum_messages.join(",")
+  end
 end
