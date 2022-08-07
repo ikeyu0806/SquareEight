@@ -3,6 +3,13 @@ include Base64Image
 class Api::Internal::ProductsController < ApplicationController
   before_action :merchant_login_only!
 
+  def index
+    products = current_merchant_user.account.products.order(:id)
+    render json: { status: 'success', products: products }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def create
     ActiveRecord::Base.transaction do
       product = current_merchant_user.account.products.new(product_params.except(:base64_image))
