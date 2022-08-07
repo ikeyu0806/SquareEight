@@ -58,11 +58,8 @@ class Api::Internal::EndUsersController < ApplicationController
     ActiveRecord::Base.transaction do
       end_user = EndUser.find(params[:id])
       init_email = end_user.email
-      end_user.last_name = end_user_params[:last_name]
-      end_user.first_name = end_user_params[:first_name]
-      end_user.last_name_kana = end_user_params[:last_name_kana]
-      end_user.first_name_kana = end_user_params[:first_name_kana]
-      end_user.password = end_user_params[:password]
+      end_user.attributes = end_user_params.except(:password)
+      end_user.password = end_user_params[:password] if end_user_params[:password].present?
       # メールアドレス変更/追加時
       if end_user_params[:email].present? && init_email != end_user_params[:email]
         end_user.wait_for_update_email = end_user_params[:email]
@@ -208,6 +205,21 @@ class Api::Internal::EndUsersController < ApplicationController
                                      :token,
                                      :payment_method_id,
                                      :google_auth_id,
-                                     :google_auth_email)
+                                     :google_auth_email,
+                                     :postal_code,
+                                     :last_name,
+                                     :first_name,
+                                     :last_name_kana,
+                                     :first_name_kana,
+                                     :state,
+                                     :state_kana,
+                                     :city,
+                                     :city_kana,
+                                     :town,
+                                     :town_kana,
+                                     :line1,
+                                     :line1_kana,
+                                     :line2,
+                                     :line2_kana)
   end
 end
