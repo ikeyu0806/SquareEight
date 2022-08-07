@@ -17,7 +17,8 @@ class Api::Internal::EndUsersController < ApplicationController
   end
 
   def current_end_user_info
-    render json: { status: 'success', end_user: current_end_user }, states: 200
+    end_user = current_end_user.attributes.except(:password_digest, :stripe_customer_id)
+    render json: { status: 'success', end_user: end_user }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
