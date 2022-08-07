@@ -42,7 +42,13 @@ const CreateProductTemplate = (): JSX.Element => {
   }
 
   const addProductTypeForm = () => {
-    dispatch(applyProductTypeChanged(true))
+    let updateProductTypes: ProductType[]
+    updateProductTypes = []
+    productTypes.map((p, i) => {
+      updateProductTypes.push(p)
+    })
+    updateProductTypes.push({name: '', inventory: 0})
+    dispatch(productTypesChanged(updateProductTypes))
   }
 
   const updateProductTypeName = (event: React.ChangeEvent<HTMLInputElement>, productTypeNameRef: number) => {
@@ -185,7 +191,7 @@ const CreateProductTemplate = (): JSX.Element => {
                         )
                       })}
                       <Button
-                        onClick={() => setShowProductTypeForm(false)}
+                        onClick={() => addProductTypeForm()}
                         className='mt10'
                         variant='info'>種類を追加する</Button>
                     </>
