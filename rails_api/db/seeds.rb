@@ -23,5 +23,6 @@ MerchantUser.first_or_create!(
 EndUser.first_or_create!(
   email: "end_user@develop.com",
   password: "Pass1234",
+  stripe_customer_id: "cus_M9qiqO8wOda3Xo",
   email_authentication_status: "Enabled"
 )
