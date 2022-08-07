@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_05_115813) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_07_002710) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -195,6 +195,26 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_05_115813) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "product_types", force: :cascade do |t|
+    t.integer "product_id"
+    t.string "name"
+    t.integer "inventory"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "products", force: :cascade do |t|
+    t.string "name"
+    t.integer "price"
+    t.integer "tax_rage"
+    t.integer "inventory"
+    t.text "description"
+    t.string "s3_object_public_url"
+    t.string "s3_object_name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "purchased_tickets", force: :cascade do |t|
     t.integer "end_user_id"
     t.integer "ticket_master_id"
@@ -202,7 +222,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_05_115813) do
     t.datetime "expired_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "name"
   end
 
   create_table "reserve_frame_monthly_payment_plans", force: :cascade do |t|
