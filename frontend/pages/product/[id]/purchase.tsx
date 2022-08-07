@@ -127,6 +127,7 @@ const Purchase: NextPage = () => {
                     </>
                   : <></>
                 }
+                {inventory <= 0 && <div className='badge bg-danger mb10'>品切れ</div> }
                 <h3>{name}</h3>
                 <div className='mt10'>{price}円（税込）</div>
                 <div className='mt10'>税率{taxRate}%</div>
@@ -160,8 +161,10 @@ const Purchase: NextPage = () => {
                     </ListGroup>
                     }
                   <div className='mt30 '>
-                    <Button onClick={() => execPurchase()}>すぐに購入する</Button>
-                    <a className='btn btn-secondary ml20' href={`/ticket/${router.query.ticket_master_id}/payment`}>カートに入れる</a>
+                    <Button onClick={() => execPurchase()} disabled={inventory <= 0}>すぐに購入する</Button>
+                    <Button className='ml20'
+                            disabled={inventory <= 0}
+                            variant='secondary'>カートに入れる</Button>
                   </div>
                   </>
                 }
