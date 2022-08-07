@@ -66,7 +66,7 @@ const Purchase: NextPage = () => {
   const execPurchase = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/products/purchase`,
     {
-      ticket_master: {
+      product: {
         id: router.query.id
       },
     },

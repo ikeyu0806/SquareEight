@@ -7,12 +7,12 @@ export const productSlice = createSlice({
     name: '',
     price: 1000,
     taxRate: 10,
-    inventory: 0,
+    inventory: 1,
     description: '',
     base64Image: null,
     s3ObjectPublicUrl: '',
     applyProductType: false,
-    productTypes: [{name: '', inventory: 0}, {name: '', inventory: 0}] as ProductType[]
+    productTypes: [{name: '', inventory: 1}, {name: '', inventory: 1}] as ProductType[]
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
