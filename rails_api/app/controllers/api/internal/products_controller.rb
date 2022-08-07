@@ -6,7 +6,7 @@ class Api::Internal::ProductsController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       product = current_merchant_user.account.products.new(product_params.except(:base64_image))
-      if ticket_master_params[:base64_image].present?
+      if product_params[:base64_image].present?
         file_name = "product_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         product.s3_object_public_url = put_s3_http_request_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         product.s3_object_name = file_name

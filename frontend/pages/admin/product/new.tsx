@@ -45,7 +45,7 @@ const New: NextPage = () => {
       }
     }).then(response => {
       dispatch(alertChanged({message: '登録しました', show: true}))
-      router.push('/admin/ticket')
+      router.push('/admin/product')
     }).catch(error => {
     })
   }
