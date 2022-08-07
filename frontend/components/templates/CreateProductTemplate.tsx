@@ -85,8 +85,19 @@ const CreateProductTemplate = (): JSX.Element => {
     dispatch(productTypesChanged(updateProductTypes))
   }
 
-  const deleteProductType = () => {
-    dispatch(applyProductTypeChanged(false))
+  const deleteProductType = (formNum: number) => {
+    if (productTypes.length <= 2 ) {
+      setShowProductTypeForm(false)
+      return
+    }
+    let updateProductTypes: ProductType[]
+    updateProductTypes = []
+    productTypes.map((p, i) => {
+      if (i !== formNum) {
+        updateProductTypes.push(p)
+      }
+    })
+    dispatch(productTypesChanged(updateProductTypes))
   }
 
   return (
@@ -180,7 +191,7 @@ const CreateProductTemplate = (): JSX.Element => {
                                         onChange={(e: any) => updateProductTypeInventory(e, i)} />
                                 </Col>
                                 <Col sm={2}>
-                                  <a onClick={() => alert('')}><TrashIcon
+                                  <a onClick={() => deleteProductType(i)}><TrashIcon
                                     width={20}
                                     height={20}
                                     fill={'#ff0000'}></TrashIcon></a>
