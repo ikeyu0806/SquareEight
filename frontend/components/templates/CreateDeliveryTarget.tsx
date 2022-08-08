@@ -2,6 +2,7 @@ import { Container, Row, Col, Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import RequireBadge from 'components/atoms/RequireBadge'
+import { prefecturesArray } from 'constants/prefecturesArray'
 import {  lastNameChanged,
           firstNameChanged,
           postalCodeChanged,
@@ -49,9 +50,13 @@ const CreateDeliveryTarget = (): JSX.Element => {
               onChange={(e) => dispatch(postalCodeChanged(e.target.value))}
               value={postalCode}></Form.Control>
             <Form.Label className='mt10'>都道府県<RequireBadge /></Form.Label>
-            <Form.Control
-              onChange={(e) => dispatch(stateChanged(e.target.value))}
-              value={state}></Form.Control>
+            <Form.Select onChange={(e) => dispatch(stateChanged(e.target.value))} value={state}>
+              {prefecturesArray.map((p, i) => {
+                return (
+                  <option key={i} value={p}>{p}</option>
+                )
+              })}
+            </Form.Select>
             <Form.Label className='mt10'>区市町村<RequireBadge /></Form.Label>
             <Form.Control
               onChange={(e) => dispatch(cityChanged(e.target.value))}

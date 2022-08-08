@@ -6,7 +6,7 @@ export const deliveryTargetSlice = createSlice({
     firstName: '',
     lastName: '',
     postalCode: '',
-    state: '',
+    state: '東京都',
     city: '',
     town: '',
     line1: '',
