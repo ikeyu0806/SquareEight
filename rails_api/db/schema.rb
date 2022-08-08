@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_07_064750) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_08_013124) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,20 +76,23 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_07_064750) do
     t.string "last_name_kana"
     t.string "email"
     t.string "phone_number"
-    t.string "postal_code"
+    t.integer "gender"
+    t.datetime "dob"
+    t.text "custom_items_answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "delivery_targets", force: :cascade do |t|
+    t.integer "end_user_id"
+    t.string "first_name"
+    t.string "last_name"
     t.string "state"
     t.string "city"
     t.string "town"
     t.string "line1"
     t.string "line2"
-    t.string "state_kana"
-    t.string "city_kana"
-    t.string "town_kana"
-    t.string "line1_kana"
-    t.string "line2_kana"
-    t.integer "gender"
-    t.datetime "dob"
-    t.text "custom_items_answer"
+    t.string "phone_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -116,19 +119,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_07_064750) do
     t.string "last_name"
     t.string "first_name_kana"
     t.string "last_name_kana"
-    t.string "postal_code"
-    t.string "state"
-    t.string "city"
-    t.string "town"
-    t.string "line1"
-    t.string "line2"
-    t.string "state_kana"
-    t.string "city_kana"
-    t.string "town_kana"
-    t.string "line1_kana"
-    t.string "line2_kana"
-    t.integer "gender"
-    t.datetime "dob"
     t.string "stripe_customer_id"
     t.string "google_auth_id"
     t.string "google_auth_email"

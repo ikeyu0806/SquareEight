@@ -1,0 +1,2 @@
+class DeliveryTarget < ApplicationRecord
+end
