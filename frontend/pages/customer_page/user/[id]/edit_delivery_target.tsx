@@ -156,7 +156,7 @@ const EditTargetDelivery: NextPage = () => {
               })}
             </ListGroup>}
             <h4 className='mt50 mb20'>新規登録</h4>
-            <CreateDeliveryTarget></CreateDeliveryTarget>
+            <CreateDeliveryTarget showIsDefaultSetting={true}></CreateDeliveryTarget>
             <div className='mt30 text-center'>
               <Button
                 disabled={validateSubmit()}

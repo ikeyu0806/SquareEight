@@ -14,7 +14,11 @@ import {  lastNameChanged,
           phoneNumberChanged,
           isDefaultChanged } from 'redux/deliveryTargetSlice'
 
-const CreateDeliveryTarget = (): JSX.Element => {
+interface Props {
+  showIsDefaultSetting?: boolean
+}
+
+const CreateDeliveryTarget = ({showIsDefaultSetting}: Props): JSX.Element => {
   const dispatch = useDispatch()
   const firstName = useSelector((state: RootState) => state.deliveryTarget.firstName)
   const lastName = useSelector((state: RootState) => state.deliveryTarget.lastName)
@@ -69,12 +73,12 @@ const CreateDeliveryTarget = (): JSX.Element => {
       <Form.Control
         onChange={(e) => dispatch(line2Changed(e.target.value))}
         value={line2}></Form.Control>
-      <Form.Check
+      {showIsDefaultSetting && <Form.Check
         className='mt20'
         checked={isDefault}
         onChange={() => dispatch(isDefaultChanged(!isDefault))}
         type='switch'
-        label='デフォルトのお届け先に設定する'></Form.Check>
+        label='デフォルトのお届け先に設定する'></Form.Check>}
     </>
   )
 }

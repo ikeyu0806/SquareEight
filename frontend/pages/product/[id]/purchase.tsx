@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
+import CreateDeliveryTarget from 'components/templates/CreateDeliveryTarget'
 import { useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { RootState } from 'redux/store'
@@ -188,6 +189,9 @@ const Purchase: NextPage = () => {
                    && <div className='mb30 mt20'>お届け先が登録されていません
                         <br /><a href={`/customer_page/user/${currentEndUserId}/edit`}>ユーザ編集</a>から登録をお願いします。
                       </div>}
+
+                  {!isRegisteredAddress && currentEndUserLogintStatus === 'Login'
+                    && <><div className='mt20 mb20'></div><CreateDeliveryTarget></CreateDeliveryTarget></>}
                   <div className='mt30 '>
                     <Button onClick={() => execPurchase()}
                             disabled={inventory <= 0 || !!currentEndUserLogintStatus}>すぐに購入する</Button>
