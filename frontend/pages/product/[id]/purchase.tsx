@@ -188,6 +188,7 @@ const Purchase: NextPage = () => {
                   <></>
                 :
                   <>
+                  <hr className='mt40' />
                   <h4 className='mt20'>お支払い方法</h4>
                   {<ListGroup>
                       {paymentMethods?.map((pay, i) => {
@@ -205,7 +206,7 @@ const Purchase: NextPage = () => {
                         )
                       })}
                    </ListGroup>}
-                  
+                   <hr className='mt40' />
                   <h4 className='mt20'>お届け先</h4>
                   <Form.Check type='radio'
                               checked={isRegisteredAddress}
@@ -219,7 +220,7 @@ const Purchase: NextPage = () => {
                    &&
                    deliveryTargets
                     ?
-                    <ListGroup>
+                    <ListGroup className='mt20'>
                       {deliveryTargets?.map((target, i) => {
                         return (
                           <ListGroup.Item key={i}>
