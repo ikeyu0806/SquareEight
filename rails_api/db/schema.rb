@@ -87,6 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_08_013124) do
     t.integer "end_user_id"
     t.string "first_name"
     t.string "last_name"
+    t.string "postal_code"
     t.string "state"
     t.string "city"
     t.string "town"

@@ -3,6 +3,7 @@ class EndUser < ApplicationRecord
 
   has_many :orders
   has_many :purchased_tickets
+  has_many :delivery_targets
 
   def payment_methods
     Stripe.api_key = Rails.configuration.stripe[:secret_key]

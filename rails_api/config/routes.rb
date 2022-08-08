@@ -83,6 +83,8 @@ Rails.application.routes.draw do
       get 'reserve_frames/:id', to: 'reserve_frames#show'
       get 'reserve_frames', to: 'reserve_frames#index'
       post 'reserve_frames', to: 'reserve_frames#create'
+      get 'delivery_targets', to: 'delivery_targets#index'
+      post 'delivery_targets', to: 'delivery_targets#create'
       get 'orders/:order_id/order_items', to: 'orders#order_items'
       get 'calendar/:reserve_frame_id/monthly_reserve_frames', to: 'calendar#monthly_reserve_frames'
       get 'account_notifications/:id', to: 'account_notifications#show'

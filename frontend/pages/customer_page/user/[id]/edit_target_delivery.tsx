@@ -38,9 +38,19 @@ const EditTargetDelivery: NextPage = () => {
   }, [dispatch, cookies._gybuilder_end_user_session])
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/${router.query.id}/register_delivery_target`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/delivery_targets/`,
     {
       delivery_target: {
+        first_name: firstName,
+        last_name: lastName,
+        postal_code: postalCode,
+        state: state,
+        city: city,
+        town: town,
+        line1: line1,
+        line2: line2,
+        phone_number: phoneNumber,
+        is_default: isDefault,
       }
     },
     {

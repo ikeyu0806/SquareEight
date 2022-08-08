@@ -4,6 +4,7 @@ class CreateDeliveryTargets < ActiveRecord::Migration[7.0]
       t.integer :end_user_id
       t.string :first_name
       t.string :last_name
+      t.string :postal_code
       t.string :state
       t.string :city
       t.string :town
