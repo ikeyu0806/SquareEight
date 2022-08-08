@@ -8,20 +8,24 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { EndUserParam } from 'interfaces/EndUserParam'
 import { useCookies } from 'react-cookie'
+import { DeliveryTargetParam } from 'interfaces/DeliveryTargetParam'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const [endUser, setEndUser] = useState<EndUserParam>()
+  const [deliveryTarget, setDeliveryTarget] = useState<DeliveryTargetParam>()
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_info`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/mypage_info`,
     {
       headers: {
         'Session-Id': cookies._gybuilder_end_user_session
       }
     }).then((response) => {
+      console.log(response.data)
       setEndUser(response.data.end_user)
+      setDeliveryTarget(response.data.delivery_target)
     }).catch((error) => {
       console.log(error)
     })
@@ -61,7 +65,17 @@ const Index: NextPage = () => {
                     お届け先情報
                     <a className='btn btn-sm btn-primary' href={`/customer_page/user/${endUser?.id}/edit_target_delivery`}>編集</a>
                   </Card.Header>
-                  <Card.Body></Card.Body>
+                  <Card.Body>
+                  {deliveryTarget
+                  ?
+                  <>
+                    〒{deliveryTarget.postal_code} {deliveryTarget.last_name}{deliveryTarget.first_name}<br />
+                    {deliveryTarget.state}{deliveryTarget.city}{deliveryTarget.town}{deliveryTarget.line1}{deliveryTarget.line2}
+                  </>
+                  :
+                  <>お届け先が設定されていません</>
+                  }
+                  </Card.Body>
                   <Card.Header className=' d-flex justify-content-between align-items-center'>
                     連携サービス
                     <a className='btn btn-sm btn-primary' href={`/customer_page/user/${endUser?.id}/edit_connected_account`}>編集</a>

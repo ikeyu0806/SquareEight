@@ -29,6 +29,7 @@ Rails.application.routes.draw do
       get 'end_users/subscription_lists', to: 'end_users#subscription_lists'
       get 'end_users/payment_methods', to: 'end_users#payment_methods'
       get 'end_users/current_end_user_info', to: 'end_users#current_end_user_info'
+      get 'end_users/mypage_info', to: 'end_users#mypage_info'
       post 'end_users/:id/update', to: 'end_users#update'
       post 'end_users/find_or_create_by_google_auth', to: 'end_users#find_or_create_by_google_auth'
       post 'end_users/register_credit_card', to: 'end_users#register_credit_card'

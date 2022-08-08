@@ -51,4 +51,8 @@ class EndUser < ApplicationRecord
     require_address_colum_messages.push('番地、号（カナ）') if line1_kana.blank?
     require_address_colum_messages.join(",")
   end
+
+  def default_delivery_target
+    delivery_targets&.find_by(is_default: true)
+  end
 end

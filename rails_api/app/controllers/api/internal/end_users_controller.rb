@@ -23,6 +23,14 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def mypage_info
+    end_user = current_end_user.attributes.except(:password_digest, :stripe_customer_id)
+    delivery_target = current_end_user.default_delivery_target
+    render json: { status: 'success', end_user: end_user, delivery_target: delivery_target }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def payment_methods
     if current_end_user.stripe_customer_id.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
