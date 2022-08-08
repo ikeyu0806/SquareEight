@@ -9,11 +9,14 @@ import { RootState } from 'redux/store'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import axios from 'axios'
+import { ListGroup, Row, Col, Container } from 'react-bootstrap'
+import { DeliveryTargetParam } from 'interfaces/DeliveryTargetParam'
 
 const EditTargetDelivery: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const router = useRouter()
   const dispatch = useDispatch()
+  const [deliveryTargets, setDeliveryTargets] = useState<DeliveryTargetParam[]>([])
   const firstName = useSelector((state: RootState) => state.deliveryTarget.firstName)
   const lastName = useSelector((state: RootState) => state.deliveryTarget.lastName)
   const postalCode = useSelector((state: RootState) => state.deliveryTarget.postalCode)
@@ -32,6 +35,8 @@ const EditTargetDelivery: NextPage = () => {
         'Session-Id': cookies._gybuilder_end_user_session
       }
     }).then((response) => {
+      console.log(response.data.delivery_targets)
+      setDeliveryTargets(response.data.delivery_targets)
     }).catch((error) => {
       console.log(error)
     })
@@ -67,10 +72,31 @@ const EditTargetDelivery: NextPage = () => {
 
   return (
     <EndUserLoginLayout>
-      <CreateDeliveryTarget></CreateDeliveryTarget>
-      <div className='mt30 text-center'>
-        <Button onClick={onSubmit}>更新する</Button>
-      </div>
+      <Container className='mt30'>
+        <Row>
+          <Col md={2} lg={3}></Col>
+          <Col md={8} lg={6}>
+          <h4 className='mt20'>登録済みお届け先</h4>
+            {<ListGroup>
+              {deliveryTargets?.map((target, i) => {
+                return (
+                  <ListGroup.Item key={i}>
+                    〒{target.postal_code} {target.last_name}{target.first_name}<br />
+                    {target.state}{target.city}{target.town}{target.line1}{target.line2}
+                    {target.is_default && <><span className='badge bg-info ml10'>デフォルトのお届け先に設定されています </span></>}
+                  </ListGroup.Item>
+                )
+              })}
+            </ListGroup>}
+            <h4 className='mt50 mb20'>新規登録</h4>
+            <CreateDeliveryTarget></CreateDeliveryTarget>
+            <div className='mt30 text-center'>
+              <Button onClick={onSubmit}>登録する</Button>
+            </div>
+          </Col>
+          <Col></Col>
+        </Row>
+      </Container>
     </EndUserLoginLayout>
   )
 }
