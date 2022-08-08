@@ -42,7 +42,7 @@ const CustomerPageNavbar = (): JSX.Element => {
                 <NavDropdown.Item href='/customer_page/charges/'>お支払い履歴</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='その他' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='/customer_page/mypage'>マイページ</NavDropdown.Item>
+                <NavDropdown.Item href='/customer_page/mypage'>ご登録情報</NavDropdown.Item>
                 <NavDropdown.Item href='/inquiry'>お問い合わせ</NavDropdown.Item>
                 <NavDropdown.Item onClick={() => logout()}>ログアウト</NavDropdown.Item>
               </NavDropdown>

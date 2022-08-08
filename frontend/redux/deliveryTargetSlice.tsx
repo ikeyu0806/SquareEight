@@ -11,6 +11,7 @@ export const deliveryTargetSlice = createSlice({
     line1: '',
     line2: '',
     phoneNumber: '',
+    isDefault: false
   },
   reducers: {
     firstNameChanged: (state, action: PayloadAction<string>) => {
@@ -37,6 +38,9 @@ export const deliveryTargetSlice = createSlice({
     phoneNumberChanged: (state, action: PayloadAction<string>) => {
       state.phoneNumber = action.payload
     },
+    isDefaultChanged: (state, action: PayloadAction<boolean>) => {
+      state.isDefault = action.payload
+    },
   },
 })
 
@@ -48,5 +52,6 @@ export const { townChanged } = deliveryTargetSlice.actions
 export const { line1Changed } = deliveryTargetSlice.actions
 export const { line2Changed } = deliveryTargetSlice.actions
 export const { phoneNumberChanged } = deliveryTargetSlice.actions
+export const { isDefaultChanged } = deliveryTargetSlice.actions
 
 export default deliveryTargetSlice.reducer

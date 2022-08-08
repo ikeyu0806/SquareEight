@@ -93,6 +93,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_08_013124) do
     t.string "line1"
     t.string "line2"
     t.string "phone_number"
+    t.boolean "is_default"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
