@@ -188,7 +188,6 @@ const Purchase: NextPage = () => {
                               label='新規に入力する'></Form.Check >
                   {isRegisteredAddress && currentEndUserLogintStatus === 'Login' && requireAddressMessage
                    && <div className='mb30 mt20'>お届け先が登録されていません
-                        <br />{requireAddressMessage}
                         <br /><a href={`/customer_page/user/${currentEndUserId}/edit`}>ユーザ編集</a>から登録をお願いします。
                       </div>}
                   <div className='mt30 '>

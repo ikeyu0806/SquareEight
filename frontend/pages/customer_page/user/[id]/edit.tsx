@@ -18,17 +18,6 @@ const Edit: NextPage = () => {
   const [firstNameKana, setFirstNameKana] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [postalCode, setPostalCode] = useState('')
-  const [state, setState] = useState('')
-  const [stateKana, setStateKana] = useState('')
-  const [city, setCity] = useState('')
-  const [cityKana, setCityKana] = useState('')
-  const [town, setTown] = useState('')
-  const [townKana, setTownKana] = useState('')
-  const [line1, setLine1] = useState('')
-  const [line1Kana, setLine1Kana] = useState('')
-  const [line2, setLine2] = useState('')
-  const [line2Kana, setLine2Kana] = useState('')
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_info`,
@@ -42,17 +31,6 @@ const Edit: NextPage = () => {
       setLastNameKana(response.data.end_user.last_name_kana)
       setFirstNameKana(response.data.end_user.first_name_kana)
       setEmail(response.data.end_user.email)
-      setPostalCode(response.data.end_user.postal_code)
-      setState(response.data.end_user.state)
-      setStateKana(response.data.end_user.state_kana)
-      setCity(response.data.end_user.city)
-      setCityKana(response.data.end_user.city_kana)
-      setTown(response.data.end_user.town)
-      setTownKana(response.data.end_user.town_kana)
-      setLine1(response.data.end_user.line1)
-      setLine1Kana(response.data.end_user.line1_kana)
-      setLine2(response.data.end_user.line2)
-      setLine2Kana(response.data.end_user.line2_kana)
     }).catch((error) => {
       console.log(error)
     })
@@ -68,17 +46,6 @@ const Edit: NextPage = () => {
         first_name_kana: firstNameKana,
         email: email,
         password: password,
-        postal_code: postalCode,
-        state: state,
-        state_kana: stateKana,
-        city: city,
-        city_kana: cityKana,
-        town: town,
-        town_kana: townKana,
-        line1: line1,
-        line1_kana: line1Kana,
-        line2: line2,
-        line2_kana: line2Kana,
       }
     },
     {
@@ -123,50 +90,6 @@ const Edit: NextPage = () => {
             <Form.Control
               onChange={(e) => setPassword(e.target.value)}
               value={password}></Form.Control>
-            <Form.Label className='mt10'>郵便番号</Form.Label>
-            <Form.Control
-              onChange={(e) => setPostalCode(e.target.value)}
-              value={postalCode}></Form.Control>
-            <Form.Label className='mt10'>都道府県</Form.Label>
-            <Form.Control
-              onChange={(e) => setState(e.target.value)}
-              value={state}></Form.Control>
-            <Form.Label className='mt10'>都道府県（カナ）</Form.Label>
-            <Form.Control
-              onChange={(e) => setStateKana(e.target.value)}
-              value={stateKana}></Form.Control>
-            <Form.Label className='mt10'>区市町村</Form.Label>
-            <Form.Control
-              onChange={(e) => setCity(e.target.value)}
-              value={city}></Form.Control>
-            <Form.Label className='mt10'>区市町村（カナ）</Form.Label>
-            <Form.Control
-              onChange={(e) => setCityKana(e.target.value)}
-              value={cityKana}></Form.Control>
-            <Form.Label className='mt10'>町名（丁目まで）</Form.Label>
-            <Form.Control
-              onChange={(e) => setTown(e.target.value)}
-              value={town}></Form.Control>
-            <Form.Label className='mt10'>町名（丁目まで、カナ）</Form.Label>
-            <Form.Control
-              onChange={(e) => setTownKana(e.target.value)}
-              value={townKana}></Form.Control>
-            <Form.Label className='mt10'>番地、号</Form.Label>
-            <Form.Control
-              onChange={(e) => setLine1(e.target.value)}
-              value={line1}></Form.Control>
-            <Form.Label className='mt10'>番地、号（カナ）</Form.Label>
-            <Form.Control
-              onChange={(e) => setLine1Kana(e.target.value)}
-              value={line1Kana}></Form.Control>
-            <Form.Label className='mt10'>建物・部屋番号・その他</Form.Label>
-            <Form.Control
-              onChange={(e) => setLine2(e.target.value)}
-              value={line2}></Form.Control>
-            <Form.Label className='mt10'>建物・部屋番号・その他（カナ）</Form.Label>
-            <Form.Control
-              onChange={(e) => setLine2Kana(e.target.value)}
-              value={line2Kana}></Form.Control>
             <div className='mt30 text-center'>
               <Button onClick={onSubmit}>更新する</Button>
             </div>

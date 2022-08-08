@@ -51,18 +51,6 @@ const Index: NextPage = () => {
                           <td className='text-center'>{endUser?.last_name_kana}{endUser?.first_name_kana}</td>
                         </tr>
                         <tr>
-                          <td scope='row'>郵便番号</td>
-                          <td className='text-center'>{endUser?.postal_code}</td>
-                        </tr>
-                        <tr>
-                          <td scope='row'>住所</td>
-                          <td className='text-center'>{endUser?.state}{endUser?.city}{endUser?.town}{endUser?.line1}{endUser?.line2}</td>
-                        </tr>
-                        <tr>
-                          <td scope='row'>住所（カナ）</td>
-                          <td className='text-center'>{endUser?.state_kana}{endUser?.city_kana}{endUser?.town_kana}{endUser?.line1_kana}{endUser?.line2_kana}</td>
-                        </tr>
-                        <tr>
                           <td scope='row'>メールアドレス（パスワード認証）</td>
                           <td className='text-center'>{endUser?.email}</td>
                         </tr>
