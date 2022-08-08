@@ -219,7 +219,7 @@ const Purchase: NextPage = () => {
                   {isRegisteredAddress && currentEndUserLogintStatus === 'Login'
                    &&
                    deliveryTargets
-                    ?
+                    &&
                     <ListGroup className='mt20'>
                       {deliveryTargets?.map((target, i) => {
                         return (
@@ -237,11 +237,11 @@ const Purchase: NextPage = () => {
                         )
                       })}
                     </ListGroup>
-                    :
-                      <div className='mb30 mt20'>お届け先が登録されていません
-                        <br /><a href={`/customer_page/user/${currentEndUserId}/edit`}>ユーザ編集</a>から登録をお願いします。
-                      </div>
                     }
+                  {!deliveryTargets && currentEndUserLogintStatus === 'Login'
+                    && <div className='mb30 mt20'>お届け先が登録されていません
+                        <br /><a href={`/customer_page/user/${currentEndUserId}/edit`}>ユーザ編集</a>から登録をお願いします。
+                      </div>}
                   {!isRegisteredAddress && currentEndUserLogintStatus === 'Login'
                     && <><div className='mt20 mb20'></div><CreateDeliveryTarget></CreateDeliveryTarget></>}
                   <div className='mt30 '>
