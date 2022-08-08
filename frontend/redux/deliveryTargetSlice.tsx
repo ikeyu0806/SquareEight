@@ -5,6 +5,7 @@ export const deliveryTargetSlice = createSlice({
   initialState: {
     firstName: '',
     lastName: '',
+    postalCode: '',
     state: '',
     city: '',
     town: '',
@@ -23,7 +24,10 @@ export const deliveryTargetSlice = createSlice({
     stateChanged: (state, action: PayloadAction<string>) => {
       state.state = action.payload
     },
-    cityhanged: (state, action: PayloadAction<string>) => {
+    postalCodeChanged: (state, action: PayloadAction<string>) => {
+      state.postalCode = action.payload
+    },
+    cityChanged: (state, action: PayloadAction<string>) => {
       state.city = action.payload
     },
     townChanged: (state, action: PayloadAction<string>) => {
@@ -46,8 +50,9 @@ export const deliveryTargetSlice = createSlice({
 
 export const { firstNameChanged } = deliveryTargetSlice.actions
 export const { lastNameChanged } = deliveryTargetSlice.actions
+export const { postalCodeChanged } = deliveryTargetSlice.actions
 export const { stateChanged } = deliveryTargetSlice.actions
-export const { cityhanged } = deliveryTargetSlice.actions
+export const { cityChanged } = deliveryTargetSlice.actions
 export const { townChanged } = deliveryTargetSlice.actions
 export const { line1Changed } = deliveryTargetSlice.actions
 export const { line2Changed } = deliveryTargetSlice.actions
