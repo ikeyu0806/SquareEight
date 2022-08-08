@@ -168,7 +168,7 @@ const CreateProductTemplate = (): JSX.Element => {
                                     value={inventory} />                  
                       <Button
                         onClick={() => enableProductTypeForm()}
-                        className='mt10'
+                        className='mt10 text-white'
                         variant='info'>種類を追加する</Button>
                     </Col>
                   </Row>}

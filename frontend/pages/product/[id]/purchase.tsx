@@ -23,7 +23,6 @@ const Purchase: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
-  const [requireAddressMessage, setRequireAddressMessage] = useState('')
   const [currentEndUserId, setCurrentEndUserId] = useState()
   const [isRegisteredAddress, setIsRegisteredAddress] = useState(true)
   const name = useSelector((state: RootState) => state.product.name)
@@ -58,7 +57,6 @@ const Purchase: NextPage = () => {
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
-        setRequireAddressMessage(response.data.require_address_message)
         setCurrentEndUserId(response.data.current_end_user_id)
       })
       .catch(error => {
@@ -186,7 +184,7 @@ const Purchase: NextPage = () => {
                               checked={!isRegisteredAddress}
                               onClick={() => setIsRegisteredAddress(false)}
                               label='新規に入力する'></Form.Check >
-                  {isRegisteredAddress && currentEndUserLogintStatus === 'Login' && requireAddressMessage
+                  {isRegisteredAddress && currentEndUserLogintStatus === 'Login'
                    && <div className='mb30 mt20'>お届け先が登録されていません
                         <br /><a href={`/customer_page/user/${currentEndUserId}/edit`}>ユーザ編集</a>から登録をお願いします。
                       </div>}
