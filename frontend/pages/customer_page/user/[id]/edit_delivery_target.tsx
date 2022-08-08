@@ -119,6 +119,14 @@ const EditTargetDelivery: NextPage = () => {
     })
   }
 
+  const validateSubmit = () => {
+    if (!firstName || !lastName || !postalCode || !state || !city || !town || !line1 || !line2 || !phoneNumber || !isDefault) {
+      return true
+    } else {
+      return false
+    }
+  }
+
   return (
     <EndUserLoginLayout>
       <Container className='mt30'>
@@ -150,7 +158,11 @@ const EditTargetDelivery: NextPage = () => {
             <h4 className='mt50 mb20'>新規登録</h4>
             <CreateDeliveryTarget></CreateDeliveryTarget>
             <div className='mt30 text-center'>
-              <Button onClick={onSubmit}>登録する</Button>
+              <Button
+                disabled={validateSubmit()}
+                onClick={onSubmit}>
+                登録する
+              </Button>
             </div>
           </Col>
           <Col></Col>
