@@ -54,15 +54,18 @@ class Api::Internal::ProductsController < ApplicationController
     product = Product.find(params[:id])
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
+      delivery_targets = current_end_user.delivery_targets.order(:id)
       login_status = 'Login'
     else
       default_payment_method_id = nil
       payment_methods = []
+      delivery_targets = []
       login_status = 'Logout'
     end
     render json: { status: 'success',
                    product: product,
                    payment_methods: payment_methods,
+                   delivery_targets: delivery_targets,
                    default_payment_method_id: default_payment_method_id,
                    current_end_user_id: current_end_user.id,
                    login_status: login_status }, states: 200

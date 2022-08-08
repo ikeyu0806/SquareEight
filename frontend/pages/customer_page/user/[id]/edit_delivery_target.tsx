@@ -120,7 +120,7 @@ const EditTargetDelivery: NextPage = () => {
   }
 
   const validateSubmit = () => {
-    if (!firstName || !lastName || !postalCode || !state || !city || !town || !line1 || !line2 || !phoneNumber || !isDefault) {
+    if (!firstName || !lastName || !postalCode || !state || !city || !town || !line1 || !phoneNumber) {
       return true
     } else {
       return false

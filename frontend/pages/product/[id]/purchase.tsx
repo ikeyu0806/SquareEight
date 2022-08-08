@@ -13,6 +13,7 @@ import { ProductParam } from 'interfaces/ProductParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { alertChanged } from 'redux/alertSlice'
 import { loginStatusChanged, paymentMethodsChanged, defaultPaymentMethodIdChanged } from 'redux/currentEndUserSlice'
+import { DeliveryTargetParam } from 'interfaces/DeliveryTargetParam'
 import { nameChanged,
          priceChanged,
          taxRateChanged,
@@ -37,6 +38,7 @@ const Purchase: NextPage = () => {
   const defaultPaymentMethodId = useSelector((state: RootState) => state.currentEndUser.defaultPaymentMethodId)
   const paymentMethods = useSelector((state: RootState) => state.currentEndUser.paymentMethods)
   const [purchaseQuantities, setPurchaseQuantities] = useState(1)
+  const [deliveryTargets, setDeliveryTargets] = useState<DeliveryTargetParam[]>([])
 
   useEffect(() => {
     const fetchProduct = () => {
@@ -59,6 +61,7 @@ const Purchase: NextPage = () => {
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
         setCurrentEndUserId(response.data.current_end_user_id)
+        setDeliveryTargets(response.data.delivery_targets)
       })
       .catch(error => {
         dispatch(loginStatusChanged('Logout'))
@@ -99,6 +102,33 @@ const Purchase: NextPage = () => {
     }).then((result) => {
       if (result.isConfirmed) {
         axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/${payment_method_id}/update_payment_method`,
+        {},
+        {
+          headers: {
+            'Session-Id': cookies._gybuilder_end_user_session
+          }
+        }).then(response => {
+          dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))
+          location.reload()
+        }).catch(error => {
+          dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
+        })
+      }
+    })
+  }
+
+  const updateDefaultDeliveryTarget = (delivery_target_id: string) => {
+    swalWithBootstrapButtons.fire({
+      title: 'お届け先を更新します',
+      text: '更新してもよろしいですか？',
+      icon: 'question',
+      confirmButtonText: '更新する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.post(`${process.env.BACKEND_URL}/api/internal/delivery_targets/${delivery_target_id}/update_default`,
         {},
         {
           headers: {
@@ -186,10 +216,31 @@ const Purchase: NextPage = () => {
                               onClick={() => setIsRegisteredAddress(false)}
                               label='新規に入力する'></Form.Check >
                   {isRegisteredAddress && currentEndUserLogintStatus === 'Login'
-                   && <div className='mb30 mt20'>お届け先が登録されていません
+                   &&
+                   deliveryTargets
+                    ?
+                    <ListGroup>
+                      {deliveryTargets?.map((target, i) => {
+                        return (
+                          <ListGroup.Item key={i}>
+                            〒{target.postal_code} {target.last_name}{target.first_name}<br />
+                            {target.state}{target.city}{target.town}{target.line1}{target.line2}
+                            {target.is_default 
+                            ? <><span className='badge bg-info ml10'>お届け先に設定されています </span></>
+                            : <>
+                                <Button size='sm'
+                                        className='ml10'
+                                        onClick={() => updateDefaultDeliveryTarget(target.id)}>お届け先に設定する</Button>
+                              </>}
+                          </ListGroup.Item>
+                        )
+                      })}
+                    </ListGroup>
+                    :
+                      <div className='mb30 mt20'>お届け先が登録されていません
                         <br /><a href={`/customer_page/user/${currentEndUserId}/edit`}>ユーザ編集</a>から登録をお願いします。
-                      </div>}
-
+                      </div>
+                    }
                   {!isRegisteredAddress && currentEndUserLogintStatus === 'Login'
                     && <><div className='mt20 mb20'></div><CreateDeliveryTarget></CreateDeliveryTarget></>}
                   <div className='mt30 '>
