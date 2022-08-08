@@ -63,7 +63,7 @@ const Index: NextPage = () => {
                   </Card.Body>
                   <Card.Header className=' d-flex justify-content-between align-items-center'>
                     お届け先情報
-                    <a className='btn btn-sm btn-primary' href={`/customer_page/user/${endUser?.id}/edit_target_delivery`}>編集</a>
+                    <a className='btn btn-sm btn-primary' href={`/customer_page/user/${endUser?.id}/edit_delivery_target`}>編集</a>
                   </Card.Header>
                   <Card.Body>
                   {deliveryTarget

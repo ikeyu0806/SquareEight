@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 import { ListGroup, Row, Col, Container } from 'react-bootstrap'
 import { DeliveryTargetParam } from 'interfaces/DeliveryTargetParam'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const EditTargetDelivery: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
@@ -70,6 +71,54 @@ const EditTargetDelivery: NextPage = () => {
     })
   }
 
+  const updateDefaultDeliveryTarget = (delivery_target_id: string) => {
+    swalWithBootstrapButtons.fire({
+      title: 'デフォルトのお届け先を更新します',
+      text: '更新してもよろしいですか？',
+      icon: 'question',
+      confirmButtonText: '更新する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.post(`${process.env.BACKEND_URL}/api/internal/delivery_targets/${delivery_target_id}/update_default`,
+        {},
+        {
+          headers: {
+            'Session-Id': cookies._gybuilder_end_user_session
+          }
+        }).then(response => {
+          dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))
+          location.reload()
+        }).catch(error => {
+          dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
+        })
+      }
+    })
+  }
+
+  const deleteDeliveryTarget = (delivery_target_id: string) => {
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      text: '削除してもよろしいですか？',
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/delivery_targets/${delivery_target_id}`, {
+          headers: { 
+            'Session-Id': cookies._gybuilder_end_user_session
+          }
+        })
+        location.reload()
+      }
+    })
+  }
+
   return (
     <EndUserLoginLayout>
       <Container className='mt30'>
@@ -83,7 +132,17 @@ const EditTargetDelivery: NextPage = () => {
                   <ListGroup.Item key={i}>
                     〒{target.postal_code} {target.last_name}{target.first_name}<br />
                     {target.state}{target.city}{target.town}{target.line1}{target.line2}
-                    {target.is_default && <><span className='badge bg-info ml10'>デフォルトのお届け先に設定されています </span></>}
+                    {target.is_default 
+                    ? <><span className='badge bg-info ml10'>デフォルトのお届け先に設定されています </span></>
+                    : <>
+                        <Button size='sm'
+                                className='ml10'
+                                onClick={() => updateDefaultDeliveryTarget(target.id)}>お届け先に設定する</Button>
+                        <Button variant='danger'
+                                size='sm'
+                                className='ml10'
+                                onClick={() => deleteDeliveryTarget(target.id)}>削除する</Button>
+                      </>}
                   </ListGroup.Item>
                 )
               })}
