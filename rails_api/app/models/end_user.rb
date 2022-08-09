@@ -4,6 +4,9 @@ class EndUser < ApplicationRecord
   has_many :orders
   has_many :purchased_tickets
   has_many :delivery_targets
+  has_many :cart_products
+  has_many :cart_monthly_payment_plans
+  has_many :cart_ticket_masters
 
   def payment_methods
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
@@ -40,5 +43,21 @@ class EndUser < ApplicationRecord
 
   def default_delivery_target
     delivery_targets&.find_by(is_default: true)
+  end
+
+  def cart_items(account_id)
+    result = []
+    cart_products.each do |cart|
+      result.push({
+        id: cart.id,
+        product_name: cart.product.name,
+        price: cart.product.price,
+        tax_rate: cart.product.tax_rate,
+        quantity: cart.quantity,
+        s3_object_public_url: cart.product.s3_object_public_url,
+        product_type: 'Product'
+      })
+    end
+    result
   end
 end
