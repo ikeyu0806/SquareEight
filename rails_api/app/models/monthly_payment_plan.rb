@@ -1,6 +1,7 @@
 class MonthlyPaymentPlan < ApplicationRecord
   enum reserve_interval_unit: { Day: 0, Week: 1 }
   belongs_to :account
+  has_many :cart_monthly_payment_plans
 
   def reserve_interval_unit_text
     case self.reserve_interval_unit

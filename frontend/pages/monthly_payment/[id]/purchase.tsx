@@ -1,6 +1,6 @@
 import { NextPage } from 'next'
-import React, { useEffect } from 'react'
-import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
+import React, { useEffect, useState } from 'react'
+import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -38,6 +38,9 @@ const Purchase: NextPage = () => {
     const fetchMonthlyPaymentPlan = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/${router.query.id}/purchase_info`, {
+          headers: {
+            'Session-Id': cookies._gybuilder_end_user_session
+          }
         }
       )
       .then(function (response) {
@@ -52,7 +55,7 @@ const Purchase: NextPage = () => {
         dispatch(s3ObjectPublicUrlChanged(monthlyPaymentPlanResponse.s3_object_public_url))
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
-        dispatch(loginStatusChanged(response.data.logint_status))
+        dispatch(loginStatusChanged(response.data.login_status))
       })
       .catch(error => {
         dispatch(loginStatusChanged('Logout'))
@@ -62,8 +65,8 @@ const Purchase: NextPage = () => {
     fetchMonthlyPaymentPlan()
   }, [router.query.id, dispatch])
 
-  const execPurchase = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/purchase`,
+  const insertCart = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/insert_cart`,
     {
       monthly_payment_plans: {
         id: router.query.id
@@ -160,13 +163,11 @@ const Purchase: NextPage = () => {
                         })}
                       </ListGroup>
                       }
-                    <div className='mt30 '>
-                      <Button onClick={() => execPurchase()}>すぐに購入する</Button>
-                      <a className='btn btn-secondary ml20' href={`/ticket/${router.query.ticket_master_id}/payment`}>カートに入れる</a>
-                    </div>
+                    <Button className='mt30'
+                            onClick={() => insertCart()}
+                            disabled={!currentEndUserLogintStatus}>カートに入れる</Button>
                     </>
                   }
-                <a className='btn btn-primary mt30' href={`/monthly_payment/${router.query.id}/payment`}>購入に進む</a>
               </Card.Body>
             </Card>
             </Col>

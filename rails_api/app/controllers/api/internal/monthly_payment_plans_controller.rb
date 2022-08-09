@@ -1,7 +1,7 @@
 include Base64Image
 
 class Api::Internal::MonthlyPaymentPlansController < ApplicationController
-  before_action :merchant_login_only!, except: [:index, :show, :purchase, :purchase_info]
+  before_action :merchant_login_only!, except: [:index, :show, :purchase, :purchase_info, :insert_cart]
   before_action :end_user_login_only!, only: :purchase
 
   def index
@@ -110,6 +110,19 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def insert_cart
+    ActiveRecord::Base.transaction do
+      monthly_payment_plan = MonthlyPaymentPlan.find(monthly_payment_plan_params[:id])
+      monthly_payment_plan.cart_monthly_payment_plans.create!(
+        end_user_id: current_end_user.id,
+        account_id: monthly_payment_plan.account_id,
+        quantity: monthly_payment_plan_params[:purchase_quantity])
+      render json: { status: 'success' }, status: 200
+    end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def monthly_payment_plan_params
@@ -121,6 +134,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
                                                   :reserve_interval_number,
                                                   :reserve_interval_unit,
                                                   :enable_reserve_count,
-                                                  :base64_image)
+                                                  :base64_image,
+                                                  :purchase_quantity)
   end
 end
