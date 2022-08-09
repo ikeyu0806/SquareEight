@@ -1,0 +1,2 @@
+class CartMonthlyPaymentPlan < ApplicationRecord
+end

@@ -1,0 +1,2 @@
+class CartTicketMaster < ApplicationRecord
+end
