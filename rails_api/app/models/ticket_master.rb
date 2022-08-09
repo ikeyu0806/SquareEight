@@ -1,6 +1,7 @@
 class TicketMaster < ApplicationRecord
   belongs_to :account
   has_many :purchased_tickets
+  has_many :cart_ticket_masters
 
   def delete_s3_image
     client = Aws::S3::Client.new(

@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
+import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
@@ -31,6 +31,7 @@ const Purchase: NextPage = () => {
   const effectiveMonth = useSelector((state: RootState) => state.ticketMaster.effectiveMonth)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.ticketMaster.s3ObjectPublicUrl)
+  const [purchaseQuantitity, setPurchaseQuantitity] = useState(1)
 
   useEffect(() => {
     const fetchTicketMaster = () => {
@@ -65,6 +66,25 @@ const Purchase: NextPage = () => {
     {
       ticket_master: {
         id: router.query.ticket_master_id
+      },
+    },
+    {
+      headers: { 
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
+    }).then(response => {
+      router.push(`/purchase/${response.data.order_id}/payment_complete`)
+    }).catch(error => {
+      dispatch(alertChanged({message: error, show: true, type: 'danger'}))
+    })
+  }
+
+  const insertCart = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters/insert_cart`,
+    {
+      ticket_master: {
+        id: router.query.ticket_master_id,
+        purchase_quantity: purchaseQuantitity
       },
     },
     {
@@ -130,6 +150,16 @@ const Purchase: NextPage = () => {
                   <div className='mt10'>{price}円</div>
                   <div className='mt10'>有効期限: {effectiveMonth}ヶ月</div>
                   <div className='mt10'>{description}</div>
+                  <Row>
+                    <Col sm={2}>
+                      <Form.Label>購入数量</Form.Label>
+                      <Form.Control type='number'
+                                    value={purchaseQuantitity}
+                                    min={1}
+                                    onChange={(e) => setPurchaseQuantitity(Number(e.target.value))}></Form.Control>
+                    </Col>
+                    <Col></Col>
+                  </Row>
                   {s3ObjectPublicUrl
                   && <img
                       className='d-block w-100 mt30 mb30'
@@ -158,10 +188,9 @@ const Purchase: NextPage = () => {
                         })}
                       </ListGroup>
                       }
-                    <div className='mt30 '>
-                      <Button onClick={() => execPurchase()}>すぐに購入する</Button>
-                      <a className='btn btn-secondary ml20' href={`/ticket/${router.query.ticket_master_id}/payment`}>カートに入れる</a>
-                    </div>
+                    <Button className='mt30'
+                            onClick={() => insertCart()}
+                            disabled={!currentEndUserLogintStatus}>カートに入れる</Button>
                     </>
                   }
                 </Card.Body>

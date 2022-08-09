@@ -244,12 +244,9 @@ const Purchase: NextPage = () => {
                       </div>}
                   {!isRegisteredAddress && currentEndUserLogintStatus === 'Login'
                     && <><div className='mt20 mb20'></div><CreateDeliveryTarget></CreateDeliveryTarget></>}
-                  <div className='mt30 '>
-                    <Button className='ml20'
+                    <Button className='mt30'
                             onClick={() => insertCart()}
-                            disabled={!currentEndUserLogintStatus}
-                            variant='secondary'>カートに入れる</Button>
-                  </div>
+                            disabled={!currentEndUserLogintStatus}>カートに入れる</Button>
                   </>
                 }
               </Card.Body>

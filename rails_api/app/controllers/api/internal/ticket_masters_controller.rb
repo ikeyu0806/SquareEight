@@ -1,7 +1,7 @@
 include Base64Image
 
 class Api::Internal::TicketMastersController < ApplicationController
-  before_action :merchant_login_only!, except: [:index, :show, :purchase_info, :purchase]
+  before_action :merchant_login_only!, except: [:index, :show, :purchase_info, :purchase, :insert_cart]
   before_action :end_user_login_only!, only: :purchase
 
   def index
@@ -115,6 +115,19 @@ class Api::Internal::TicketMastersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def insert_cart
+    ActiveRecord::Base.transaction do
+      ticket_master = TicketMaster.find(ticket_master_params[:id])
+      ticket_master.cart_ticket_masters.create!(
+        end_user_id: current_end_user.id,
+        account_id: ticket_master.account_id,
+        quantity: ticket_master_params[:purchase_quantity])
+      render json: { status: 'success' }, status: 200
+    end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def ticket_master_params
@@ -125,6 +138,7 @@ class Api::Internal::TicketMastersController < ApplicationController
                   :price,
                   :effective_month,
                   :description,
-                  :base64_image)
+                  :base64_image,
+                  :purchase_quantity)
   end
 end

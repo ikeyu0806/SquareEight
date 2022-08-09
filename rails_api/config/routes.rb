@@ -65,6 +65,7 @@ Rails.application.routes.draw do
       get 'ticket_masters/:id', to: 'ticket_masters#show'
       get 'ticket_masters', to: 'ticket_masters#index'
       post 'ticket_masters/purchase', to: 'ticket_masters#purchase'
+      post 'ticket_masters/insert_cart', to: 'ticket_masters#insert_cart'
       post 'ticket_masters/:id/update', to: 'ticket_masters#update'
       post 'ticket_masters', to: 'ticket_masters#create'
       get 'purchased_tickets', to: 'purchased_tickets#index'
