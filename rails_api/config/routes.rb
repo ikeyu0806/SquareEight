@@ -59,6 +59,7 @@ Rails.application.routes.draw do
       get 'products', to: 'products#index'
       post 'products', to: 'products#create'
       post 'products/purchase', to: 'products#purchase'
+      post 'products/insert_cart', to: 'products#insert_cart'
       post 'products/:id/update', to: 'products#update'
       get 'ticket_masters/:id/purchase_info', to: 'ticket_masters#purchase_info'
       get 'ticket_masters/:id', to: 'ticket_masters#show'

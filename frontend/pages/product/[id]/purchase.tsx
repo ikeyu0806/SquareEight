@@ -37,7 +37,7 @@ const Purchase: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const defaultPaymentMethodId = useSelector((state: RootState) => state.currentEndUser.defaultPaymentMethodId)
   const paymentMethods = useSelector((state: RootState) => state.currentEndUser.paymentMethods)
-  const [purchaseQuantities, setPurchaseQuantities] = useState(1)
+  const [purchaseQuantitity, setPurchaseQuantitity] = useState(1)
   const [deliveryTargets, setDeliveryTargets] = useState<DeliveryTargetParam[]>([])
 
   useEffect(() => {
@@ -76,7 +76,26 @@ const Purchase: NextPage = () => {
     {
       product: {
         id: router.query.id,
-        purchase_quantities: purchaseQuantities
+        purchase_quantity: purchaseQuantitity
+      },
+    },
+    {
+      headers: { 
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
+    }).then(response => {
+      router.push(`/purchase/${response.data.order_id}/payment_complete`)
+    }).catch(error => {
+      dispatch(alertChanged({message: error, show: true, type: 'danger'}))
+    })
+  }
+
+  const insertCart = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/products/insert_cart`,
+    {
+      product: {
+        id: router.query.id,
+        purchase_quantity: purchaseQuantitity
       },
     },
     {
@@ -172,9 +191,9 @@ const Purchase: NextPage = () => {
                   <Col sm={2}>
                     <Form.Label>購入数量</Form.Label>
                     <Form.Control type='number'
-                                  value={purchaseQuantities}
+                                  value={purchaseQuantitity}
                                   min={1}
-                                  onChange={(e) => setPurchaseQuantities(Number(e.target.value))}></Form.Control>
+                                  onChange={(e) => setPurchaseQuantitity(Number(e.target.value))}></Form.Control>
                   </Col>
                   <Col></Col>
                 </Row>
@@ -248,7 +267,8 @@ const Purchase: NextPage = () => {
                     <Button onClick={() => execPurchase()}
                             disabled={inventory <= 0 || !!currentEndUserLogintStatus}>すぐに購入する</Button>
                     <Button className='ml20'
-                            disabled={inventory <= 0 || !!currentEndUserLogintStatus}
+                            onClick={() => insertCart()}
+                            disabled={!currentEndUserLogintStatus}
                             variant='secondary'>カートに入れる</Button>
                   </div>
                   </>

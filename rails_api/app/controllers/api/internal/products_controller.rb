@@ -112,7 +112,20 @@ class Api::Internal::ProductsController < ApplicationController
                             commission: commission)
       order.save!
       product.save!
-      render json: { status: 'success', order_id: order.id }, states: 200
+      render json: { status: 'success', order_id: order.id }, status: 200
+    end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def insert_cart
+    ActiveRecord::Base.transaction do
+      product = Product.find(product_params[:id])
+      product.cart_products.create!(
+        end_user_id: current_end_user.id,
+        account_id: product.account_id,
+        quantity: product_params[:purchase_quantity])
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -131,7 +144,7 @@ class Api::Internal::ProductsController < ApplicationController
                   :description,
                   :s3_object_public_url,
                   :s3_object_name,
-                  :purchase_quantities,
+                  :purchase_quantity,
                   product_types: [:name, :inventory])
   end
 end
