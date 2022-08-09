@@ -72,7 +72,7 @@ const Index: NextPage = () => {
                                       alt='image'/></Col>}
                                   <Col>
                                     {item.business_name}<br/>
-                                    {item.product_name} 有効期限: {item.effective_month}ヶ月<br />
+                                    {item.product_name} 有効期限: {item.is_expired === false ? `${item.effective_month}ヶ月` : '有効期限なし'} <br />
                                     ￥{item.price}
                                   </Col>
                                 </Row>

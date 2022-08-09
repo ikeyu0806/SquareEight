@@ -10,4 +10,5 @@ export interface CartItemParam {
   reserve_interval_text: string
   product_type: string
   business_name: string
+  is_expired: boolean
 }

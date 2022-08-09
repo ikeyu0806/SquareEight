@@ -67,6 +67,7 @@ class EndUser < ApplicationRecord
         effective_month: cart.ticket_master.effective_month,
         quantity: cart.quantity,
         s3_object_public_url: cart.ticket_master.s3_object_public_url,
+        is_expired: cart.ticket_master.effective_month.positive? ? false : true,
         business_name: cart.account.business_name,
         product_type: 'TicketMaster'
       })
