@@ -79,6 +79,24 @@ const Index: NextPage = () => {
                               </ListGroup.Item>
                             </>
                           )
+                          case 'MonthlyPaymentPlan':
+                            return (
+                              <>
+                                <ListGroup.Item key={i}>
+                                  <Row>
+                                    {item.s3_object_public_url && <Col><img
+                                        className='d-block w-100'
+                                        src={item.s3_object_public_url}
+                                        alt='image'/></Col>}
+                                    <Col>
+                                      {item.business_name}<br/>
+                                      {item.product_name}<br />
+                                      ￥{item.price}
+                                    </Col>
+                                  </Row>
+                                </ListGroup.Item>
+                              </>
+                            )
                         default:
                           return (<></>)
                       }

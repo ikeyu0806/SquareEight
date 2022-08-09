@@ -72,6 +72,16 @@ class EndUser < ApplicationRecord
         product_type: 'TicketMaster'
       })
     end
+    cart_monthly_payment_plans.each do |cart|
+      result.push({
+        id: cart.id,
+        product_name: cart.monthly_payment_plan.plan_text,
+        price: cart.monthly_payment_plan.price,
+        s3_object_public_url: cart.monthly_payment_plan.s3_object_public_url,
+        business_name: cart.account.business_name,
+        product_type: 'MonthlyPaymentPlan'
+      })
+    end
     result
   end
 end
