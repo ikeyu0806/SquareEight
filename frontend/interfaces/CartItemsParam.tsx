@@ -9,4 +9,5 @@ export interface CartItemParam {
   s3_object_public_url: string
   reserve_interval_text: string
   product_type: string
+  business_name: string
 }

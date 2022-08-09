@@ -55,7 +55,20 @@ class EndUser < ApplicationRecord
         tax_rate: cart.product.tax_rate,
         quantity: cart.quantity,
         s3_object_public_url: cart.product.s3_object_public_url,
+        business_name: cart.account.business_name,
         product_type: 'Product'
+      })
+    end
+    cart_ticket_masters.each do |cart|
+      result.push({
+        id: cart.id,
+        product_name: cart.ticket_master.name,
+        price: cart.ticket_master.price,
+        effective_month: cart.ticket_master.effective_month,
+        quantity: cart.quantity,
+        s3_object_public_url: cart.ticket_master.s3_object_public_url,
+        business_name: cart.account.business_name,
+        product_type: 'TicketMaster'
       })
     end
     result

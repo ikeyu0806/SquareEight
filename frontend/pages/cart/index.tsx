@@ -54,12 +54,31 @@ const Index: NextPage = () => {
                                       src={item.s3_object_public_url}
                                       alt='image'/></Col>}
                                   <Col>
+                                    {item.business_name}<br/>
                                     {item.product_name}<br />
                                     ￥{item.price} 税率{item.tax_rate}%
                                   </Col>
                                 </Row>
                               </ListGroup.Item>
                             </>)
+                        case 'TicketMaster':
+                          return (
+                            <>
+                              <ListGroup.Item key={i}>
+                                <Row>
+                                  {item.s3_object_public_url && <Col><img
+                                      className='d-block w-100'
+                                      src={item.s3_object_public_url}
+                                      alt='image'/></Col>}
+                                  <Col>
+                                    {item.business_name}<br/>
+                                    {item.product_name} 有効期限: {item.effective_month}ヶ月<br />
+                                    ￥{item.price}
+                                  </Col>
+                                </Row>
+                              </ListGroup.Item>
+                            </>
+                          )
                         default:
                           return (<></>)
                       }
