@@ -71,25 +71,6 @@ const Purchase: NextPage = () => {
     fetchProduct()
   }, [cookies._gybuilder_end_user_session, router.query.id, router.query.ticket_master_id, dispatch])
 
-  const execPurchase = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/products/purchase`,
-    {
-      product: {
-        id: router.query.id,
-        purchase_quantity: purchaseQuantitity
-      },
-    },
-    {
-      headers: { 
-        'Session-Id': cookies._gybuilder_end_user_session
-      }
-    }).then(response => {
-      router.push(`/purchase/${response.data.order_id}/payment_complete`)
-    }).catch(error => {
-      dispatch(alertChanged({message: error, show: true, type: 'danger'}))
-    })
-  }
-
   const insertCart = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/products/insert_cart`,
     {
@@ -264,8 +245,6 @@ const Purchase: NextPage = () => {
                   {!isRegisteredAddress && currentEndUserLogintStatus === 'Login'
                     && <><div className='mt20 mb20'></div><CreateDeliveryTarget></CreateDeliveryTarget></>}
                   <div className='mt30 '>
-                    <Button onClick={() => execPurchase()}
-                            disabled={inventory <= 0 || !!currentEndUserLogintStatus}>すぐに購入する</Button>
                     <Button className='ml20'
                             onClick={() => insertCart()}
                             disabled={!currentEndUserLogintStatus}
