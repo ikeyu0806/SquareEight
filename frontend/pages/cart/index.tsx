@@ -11,6 +11,7 @@ const Index: NextPage = () => {
   const router = useRouter()
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const [cartItems, setCartItems] = useState<CartItemParam[]>()
+  const [totalPrice, setTotalPrice] = useState(0)
 
   useEffect(() => {
     const fetchProduct = () => {
@@ -23,6 +24,7 @@ const Index: NextPage = () => {
       )
       .then(function (response) {
         setCartItems(response.data.cart_items)
+        setTotalPrice(response.data.total_price)
       })
       .catch(error => {
         console.log(error)
@@ -38,7 +40,7 @@ const Index: NextPage = () => {
           <Col lg={3} md={3}></Col>
           <Col lg={6} md={6}>
             <Card>
-              <Card.Header>カート</Card.Header>
+              <Card.Header>カート{totalPrice}</Card.Header>
               <Card.Body>
                 <ListGroup variant='flush'>
                   {cartItems && cartItems?.map((item, i) => {

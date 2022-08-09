@@ -45,10 +45,11 @@ class EndUser < ApplicationRecord
     delivery_targets&.find_by(is_default: true)
   end
 
-  def cart_items
-    result = []
+  def cart_contents
+    cart_items = []
+    total_price = 0
     cart_products.each do |cart|
-      result.push({
+      cart_items.push({
         id: cart.id,
         product_name: cart.product.name,
         price: cart.product.price,
@@ -58,9 +59,10 @@ class EndUser < ApplicationRecord
         business_name: cart.account.business_name,
         product_type: 'Product'
       })
+      total_price += cart.product.price
     end
     cart_ticket_masters.each do |cart|
-      result.push({
+      cart_items.push({
         id: cart.id,
         product_name: cart.ticket_master.name,
         price: cart.ticket_master.price,
@@ -71,9 +73,10 @@ class EndUser < ApplicationRecord
         business_name: cart.account.business_name,
         product_type: 'TicketMaster'
       })
+      total_price += cart.ticket_master.price
     end
     cart_monthly_payment_plans.each do |cart|
-      result.push({
+      cart_items.push({
         id: cart.id,
         product_name: cart.monthly_payment_plan.plan_text,
         price: cart.monthly_payment_plan.price,
@@ -81,7 +84,8 @@ class EndUser < ApplicationRecord
         business_name: cart.account.business_name,
         product_type: 'MonthlyPaymentPlan'
       })
+      total_price += cart.monthly_payment_plan.price
     end
-    result
+    return cart_items, total_price
   end
 end
