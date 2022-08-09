@@ -189,6 +189,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_011923) do
     t.string "name"
     t.string "address"
     t.string "postal_code"
+    t.boolean "mailed"
   end
 
   create_table "product_types", force: :cascade do |t|
