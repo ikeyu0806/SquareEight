@@ -77,7 +77,7 @@ const Purchase: NextPage = () => {
         'Session-Id': cookies._gybuilder_end_user_session
       }
     }).then(response => {
-      router.push(`/purchase/${response.data.order_id}/payment_complete`)
+      router.push(`/cart`)
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })

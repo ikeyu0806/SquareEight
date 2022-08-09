@@ -45,7 +45,7 @@ class EndUser < ApplicationRecord
     delivery_targets&.find_by(is_default: true)
   end
 
-  def cart_items(account_id)
+  def cart_items
     result = []
     cart_products.each do |cart|
       result.push({

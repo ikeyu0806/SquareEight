@@ -15,7 +15,7 @@ const Index: NextPage = () => {
   useEffect(() => {
     const fetchProduct = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/carts/${router.query.account_id}/account_index`, {
+        `${process.env.BACKEND_URL}/api/internal/carts/account_index`, {
           headers: {
             'Session-Id': cookies._gybuilder_end_user_session
           }
@@ -29,7 +29,7 @@ const Index: NextPage = () => {
       })
     }
     fetchProduct()
-  }, [cookies._gybuilder_end_user_session, router.query.account_id])
+  }, [cookies._gybuilder_end_user_session])
 
   return (
     <MerchantCustomLayout>

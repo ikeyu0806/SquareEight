@@ -61,24 +61,6 @@ const Purchase: NextPage = () => {
     fetchTicketMaster()
   }, [cookies._gybuilder_end_user_session, router.query.id, router.query.ticket_master_id, dispatch])
 
-  const execPurchase = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters/purchase`,
-    {
-      ticket_master: {
-        id: router.query.ticket_master_id
-      },
-    },
-    {
-      headers: { 
-        'Session-Id': cookies._gybuilder_end_user_session
-      }
-    }).then(response => {
-      router.push(`/purchase/${response.data.order_id}/payment_complete`)
-    }).catch(error => {
-      dispatch(alertChanged({message: error, show: true, type: 'danger'}))
-    })
-  }
-
   const insertCart = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters/insert_cart`,
     {
@@ -92,7 +74,7 @@ const Purchase: NextPage = () => {
         'Session-Id': cookies._gybuilder_end_user_session
       }
     }).then(response => {
-      router.push(`/purchase/${response.data.order_id}/payment_complete`)
+      router.push(`/cart`)
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })
