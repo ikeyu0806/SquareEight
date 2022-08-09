@@ -6,7 +6,6 @@ import { RootState } from '../../redux/store'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import CartIcon from 'components/atoms/CartIcon'
 
 const CustomerPageNavbar = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -38,9 +37,7 @@ const CustomerPageNavbar = (): JSX.Element => {
               <Nav.Link href='/customer_page/reserve'>予約</Nav.Link>
               <Nav.Link href='/customer_page/purchased_ticket'>回数券</Nav.Link>
               <Nav.Link href='/customer_page/subscriptions'>月額課金</Nav.Link>
-              <NavDropdown title='カート' id='homepage-nav-dropdown'>
-
-              </NavDropdown>
+              <Nav.Link href='/cart'>カート</Nav.Link>
               <NavDropdown title='お支払い' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/customer_page/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
                 <NavDropdown.Item href='/customer_page/charges/'>お支払い履歴</NavDropdown.Item>

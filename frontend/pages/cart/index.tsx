@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap'
-import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
+import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
@@ -32,7 +32,7 @@ const Index: NextPage = () => {
   }, [cookies._gybuilder_end_user_session])
 
   return (
-    <MerchantCustomLayout>
+    <EndUserLoginLayout>
       <Container>
         <Row>
           <Col lg={3} md={3}></Col>
@@ -108,7 +108,7 @@ const Index: NextPage = () => {
           </Col>
         </Row>
       </Container>
-    </MerchantCustomLayout>
+    </EndUserLoginLayout>
   )
 }
 
