@@ -37,10 +37,10 @@ const Index: NextPage = () => {
     <EndUserLoginLayout>
       <Container>
         <Row>
-          <Col lg={3} md={3}></Col>
-          <Col lg={6} md={6}>
+          <Col lg={2} md={1}></Col>
+          <Col lg={5} md={6}>
             <Card>
-              <Card.Header>カート{totalPrice}</Card.Header>
+              <Card.Header>カート</Card.Header>
               <Card.Body>
                 <ListGroup variant='flush'>
                   {cartItems && cartItems?.map((item, i) => {
@@ -105,6 +105,16 @@ const Index: NextPage = () => {
                     }
                   })}
                 </ListGroup>
+              </Card.Body>
+            </Card>
+          </Col>
+          <Col lg={2} md={5}>
+            <Card>
+              <Card.Body>
+                <div>小計</div>
+                <h5>¥{totalPrice}</h5>
+                <br />
+                <Button>レジに進む</Button>
               </Card.Body>
             </Card>
           </Col>
