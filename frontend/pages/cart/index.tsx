@@ -58,6 +58,7 @@ const Index: NextPage = () => {
                                   <Col>
                                     {item.business_name}<br/>
                                     {item.product_name}<br />
+                                    数量: {item.quantity}<br />
                                     ￥{item.price} 税率{item.tax_rate}%
                                   </Col>
                                 </Row>
@@ -75,6 +76,7 @@ const Index: NextPage = () => {
                                   <Col>
                                     {item.business_name}<br/>
                                     {item.product_name} 有効期限: {item.is_expired === false ? `${item.effective_month}ヶ月` : '有効期限なし'} <br />
+                                    数量: {item.quantity}<br />
                                     ￥{item.price}
                                   </Col>
                                 </Row>
