@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import { Container, Row, Col, Card, ListGroup, Button, Form } from 'react-bootstrap'
+import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -116,7 +116,7 @@ const Index: NextPage = () => {
                 <div>小計</div>
                 <h5>¥{totalPrice}</h5>
                 <br />
-                <Button>レジに進む</Button>
+                <a href='/cash_register' className='btn btn-primary'>レジに進む</a>
               </Card.Body>
             </Card>
           </Col>
