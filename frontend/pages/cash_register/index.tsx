@@ -14,7 +14,7 @@ const Index: NextPage = () => {
   useEffect(() => {
     const fetchProduct = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/cash_register/`, {
+        `${process.env.BACKEND_URL}/api/internal/cash_registers`, {
           headers: {
             'Session-Id': cookies._gybuilder_end_user_session
           }
@@ -42,7 +42,9 @@ const Index: NextPage = () => {
           </Col>
           <Col lg={2} md={5}>
             <Card>
-              <Card.Body></Card.Body>
+              <Card.Body>
+                ご請求額: ￥{totalPrice}
+              </Card.Body>
             </Card>
           </Col>
         </Row>
