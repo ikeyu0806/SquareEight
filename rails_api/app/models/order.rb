@@ -13,4 +13,8 @@ class Order < ApplicationRecord
   def product_names
     order_items.pluck(:product_name)
   end
+
+  def order_date
+    created_at.strftime("%Y年%m月%d日")
+  end
 end
