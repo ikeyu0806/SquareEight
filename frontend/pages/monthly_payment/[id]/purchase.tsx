@@ -79,7 +79,8 @@ const Purchase: NextPage = () => {
     }).then(response => {
       router.push(`/cart`)
     }).catch(error => {
-      dispatch(alertChanged({message: error, show: true, type: 'danger'}))
+      console.log(error)
+      dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
     })
   }
 
@@ -107,10 +108,6 @@ const Purchase: NextPage = () => {
           dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
         })
       }
-    }).catch(error => {
-      console.log(error)
-      // alert('')
-      // dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })
   }
 
