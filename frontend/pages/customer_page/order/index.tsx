@@ -47,8 +47,19 @@ const Index: NextPage = () => {
                   <ListGroup.Item key={i}>
                     <Row>
                       <Col>
-                        ¥{order.total_price}
+                        {order.product_names.map((name, i) => {
+                          return (
+                            <>
+                              <span>{name}</span>
+                              <br />
+                            </>
+                          )
+                        })}
                       </Col>
+                      <Col>
+                        合計金額: ¥{order.total_price}<br />注文日: {order.order_date}
+                      </Col>
+                      
                     </Row>
                   </ListGroup.Item>
                 )
