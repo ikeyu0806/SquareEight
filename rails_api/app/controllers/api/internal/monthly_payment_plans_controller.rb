@@ -113,6 +113,8 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   def insert_cart
     ActiveRecord::Base.transaction do
       monthly_payment_plan = MonthlyPaymentPlan.find(monthly_payment_plan_params[:id])
+      # 既にカートに入っていたら追加しない
+      raise "既にカートに入っています" if monthly_payment_plan.cart_monthly_payment_plans.find_by(end_user_id: current_end_user.id).present?
       monthly_payment_plan.cart_monthly_payment_plans.create!(
         end_user_id: current_end_user.id,
         account_id: monthly_payment_plan.account_id,

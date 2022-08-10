@@ -63,7 +63,7 @@ const Purchase: NextPage = () => {
       })
     }
     fetchMonthlyPaymentPlan()
-  }, [router.query.id, dispatch])
+  }, [router.query.id, dispatch, cookies._gybuilder_end_user_session])
 
   const insertCart = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/insert_cart`,
@@ -107,6 +107,10 @@ const Purchase: NextPage = () => {
           dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
         })
       }
+    }).catch(error => {
+      console.log(error)
+      // alert('')
+      // dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })
   }
 

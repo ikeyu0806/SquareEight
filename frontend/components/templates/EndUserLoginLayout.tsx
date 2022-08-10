@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { loginStatusChanged } from 'redux/currentEndUserSlice'
-
+import CommonNavbar from 'components/organisms/CommonNavbar'
 interface Props {
   children: ReactNode
 }
@@ -36,7 +36,7 @@ const EndUserLoginLayout = ({children}: Props): JSX.Element => {
         ? <><CustomerPageNavbar></CustomerPageNavbar><br/>{children}</>
         :
         currentEndUserLogintStatus === 'Logout'
-          ? <div className='text-center'>ログインしてください</div>
+          ? <><CommonNavbar></CommonNavbar><div className='text-center mt50 mb50'>ログインしてください</div></>
           : <></>
       }
       <RegularFooter></RegularFooter>
