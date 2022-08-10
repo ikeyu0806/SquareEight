@@ -89,6 +89,7 @@ Rails.application.routes.draw do
       post 'delivery_targets', to: 'delivery_targets#create'
       delete 'delivery_targets/:id', to: 'delivery_targets#destroy'
       get 'orders/:order_id/order_items', to: 'orders#order_items'
+      get 'orders', to: 'orders#index'
       get 'calendar/:reserve_frame_id/monthly_reserve_frames', to: 'calendar#monthly_reserve_frames'
       get 'account_notifications/:id', to: 'account_notifications#show'
       get 'account_notifications', to: 'account_notifications#index'

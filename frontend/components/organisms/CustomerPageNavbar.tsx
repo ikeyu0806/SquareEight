@@ -39,8 +39,9 @@ const CustomerPageNavbar = (): JSX.Element => {
               <Nav.Link href='/customer_page/subscriptions'>月額課金</Nav.Link>
               <Nav.Link href='/cart'>カート</Nav.Link>
               <NavDropdown title='お支払い' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='/customer_page/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
+                <NavDropdown.Item href='/customer_page/order/'>注文履歴</NavDropdown.Item>
                 <NavDropdown.Item href='/customer_page/charges/'>お支払い履歴</NavDropdown.Item>
+                <NavDropdown.Item href='/customer_page/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='その他' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/customer_page/mypage'>ご登録情報</NavDropdown.Item>
