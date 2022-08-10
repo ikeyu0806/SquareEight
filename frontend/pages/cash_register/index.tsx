@@ -17,6 +17,7 @@ import { alertChanged } from 'redux/alertSlice'
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
+  const [isRequireDeliveryTargets, setIsRequireDeliveryTargets] = useState(false)
   const [currentEndUserId, setCurrentEndUserId] = useState()
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const [totalPrice, setTotalPrice] = useState(0)
@@ -36,9 +37,11 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
+        setIsRegisteredAddress(response.data.is_require_delivery_targets)
         setCurrentEndUserId(response.data.current_end_user_id)
         setTotalPrice(response.data.total_price)
         setCartItems(response.data.cart_items)
+        setIsRequireDeliveryTargets(response.data.is_require_delivery_targets)
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         setDeliveryTargets(response.data.delivery_targets)
@@ -140,9 +143,7 @@ const Index: NextPage = () => {
                             checked={!isRegisteredAddress}
                             onClick={() => setIsRegisteredAddress(false)}
                             label='新規に入力する'></Form.Check >
-                {isRegisteredAddress
-                  &&
-                  deliveryTargets
+                {isRegisteredAddress && deliveryTargets && isRequireDeliveryTargets
                   &&
                   <ListGroup className='mt20'>
                     {deliveryTargets?.map((target, i) => {
@@ -162,7 +163,7 @@ const Index: NextPage = () => {
                     })}
                   </ListGroup>
                   }
-                {!deliveryTargets
+                {!deliveryTargets && isRequireDeliveryTargets
                   && <div className='mb30 mt20'>お届け先が登録されていません
                       <br /><a href={`/customer_page/user/${currentEndUserId}/edit`}>ユーザ編集</a>から登録をお願いします。
                     </div>}

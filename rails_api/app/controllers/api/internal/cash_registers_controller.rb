@@ -5,10 +5,12 @@ class Api::Internal::CashRegistersController < ApplicationController
     default_payment_method_id, payment_methods = current_end_user.payment_methods
     delivery_targets = current_end_user.delivery_targets.order(:id)
     cart_items, total_price = current_end_user.cart_contents
+    is_require_delivery_targets = cart_items.pluck(:product_type).include?("Product")
     render json: {  status: 'success',
                     current_end_user_id: current_end_user.id,
                     payment_methods: payment_methods,
                     delivery_targets: delivery_targets,
+                    is_require_delivery_targets: is_require_delivery_targets,
                     total_price: total_price,
                     cart_items: cart_items,
                     default_payment_method_id: default_payment_method_id, }, states: 200
