@@ -99,6 +99,30 @@ class Api::Internal::CashRegistersController < ApplicationController
           purchased_ticket.save!
           current_end_user.cart_ticket_masters.where(ticket_master_id: ticket_master.id).delete_all
         when 'MonthlyPaymentPlan' then
+          monthly_payment_plan = MonthlyPaymentPlan.find(cart[:parent_monthly_payment_plan_id])
+          customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
+          Stripe::Subscription.create({
+            customer: current_end_user.stripe_customer_id,
+            application_fee_percent: 4,
+            description: monthly_payment_plan.name,
+            metadata: {
+              'account_business_name': monthly_payment_plan.account.business_name,
+              'name': monthly_payment_plan.name,
+              'price': monthly_payment_plan.price,
+              'customer': current_end_user.stripe_customer_id
+            },
+            items: [{ plan: monthly_payment_plan.stripe_plan_id }],
+            transfer_data:  {
+              destination: monthly_payment_plan.account.stripe_account_id
+            }
+          })
+          order.order_items.new(product_type: 'MonthlyPaymentPlan',
+                                monthly_payment_plan_id: monthly_payment_plan.id,
+                                product_name: monthly_payment_plan.name,
+                                price: monthly_payment_plan.price,
+                                account_id: monthly_payment_plan.account.id,
+                                commission: (monthly_payment_plan.price * 0.04).to_i)
+          current_end_user.cart_monthly_payment_plans.where(monthly_payment_plan_id: monthly_payment_plan.id).delete_all
         else
           raise '問題が発生しました。'
         end

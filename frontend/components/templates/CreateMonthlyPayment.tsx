@@ -50,7 +50,6 @@ const CreateMonthlyPayment = (): JSX.Element => {
           <Form.Label className='mt10'>月額料金</Form.Label>
           <FormControl
             value={price}
-            type='number'
             min={1}
             onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
             placeholder='10000'
