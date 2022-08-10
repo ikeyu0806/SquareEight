@@ -107,16 +107,19 @@ const Index: NextPage = () => {
                     }
                   })}
                 </ListGroup>
+                {<div>{cartItems?.length === 0}</div>}
+                {cartItems?.length === 0 && <div>カートに商品が入っていません</div>}
               </Card.Body>
             </Card>
           </Col>
           <Col lg={2} md={5}>
             <Card>
               <Card.Body>
-                <div>小計</div>
+                {cartItems && <><div>小計</div>
                 <h5>¥{totalPrice}</h5>
-                <br />
-                <a href='/cash_register' className='btn btn-primary'>レジに進む</a>
+                <br /></>}
+                {cartItems?.length !== 0 && <a href='/cash_register'
+                   className='btn btn-primary'>レジに進む</a>}
               </Card.Body>
             </Card>
           </Col>
