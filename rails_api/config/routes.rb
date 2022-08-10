@@ -102,8 +102,8 @@ Rails.application.routes.draw do
       post 'end_user_notifications/:id', to: 'end_user_notifications#update'
       post 'end_user_notifications', to: 'end_user_notifications#create'
       get 'carts/account_index', to: 'carts#account_index'
-      post 'carts/purchase', to: 'carts#purchase'
       get 'cash_registers', to: 'cash_registers#index'
+      post 'cash_registers/purchase', to: 'cash_registers#purchase'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'

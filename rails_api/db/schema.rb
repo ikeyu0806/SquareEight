@@ -195,6 +195,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_014914) do
 
   create_table "order_items", force: :cascade do |t|
     t.integer "order_id", null: false
+    t.integer "account_id", null: false
     t.integer "product_type", null: false
     t.integer "ticket_master_id"
     t.integer "monthly_payment_plan_id"
@@ -209,7 +210,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_014914) do
   create_table "orders", force: :cascade do |t|
     t.integer "end_user_id"
     t.integer "customer_id"
-    t.integer "account_id", null: false
     t.integer "cart_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

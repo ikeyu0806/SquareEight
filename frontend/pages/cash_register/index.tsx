@@ -107,6 +107,21 @@ const Index: NextPage = () => {
     })
   }
 
+  const execPurchase = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/cash_registers/purchase`,
+    {},
+    {
+      headers: {
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
+    }).then(response => {
+      dispatch(alertChanged({message: '購入しました', show: true}))
+      router.push('/')
+    }).catch(error => {
+      dispatch(alertChanged({message: "エラーが発生しました", show: true, type: 'danger'}))
+    })
+  }
+
   return (
     <EndUserLoginLayout>
       <Container>
@@ -239,7 +254,7 @@ const Index: NextPage = () => {
             <Card>
               <Card.Body>
                 <h3>ご請求額: ￥{totalPrice}</h3>
-                <Button className='mt10'>注文を確定</Button>
+                <Button className='mt10' onClick={() => execPurchase()}>注文を確定</Button>
               </Card.Body>
             </Card>
           </Col>
