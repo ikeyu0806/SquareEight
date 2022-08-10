@@ -50,11 +50,12 @@ class EndUser < ApplicationRecord
     total_price = 0
     cart_products.each do |cart|
       merge_destination_item = cart_items.find{|item| item[:parent_product_id] == cart.product.id}
+      price = cart.product.price * cart.quantity
       if merge_destination_item.blank?
         cart_items.push({
           id: cart.id,
           product_name: cart.product.name,
-          price: cart.product.price * cart.quantity,
+          price: price,
           tax_rate: cart.product.tax_rate,
           quantity: cart.quantity,
           s3_object_public_url: cart.product.s3_object_public_url,
@@ -62,10 +63,11 @@ class EndUser < ApplicationRecord
           product_type: 'Product',
           parent_product_id: cart.product.id
         })
-        total_price += cart.product.price
+        total_price += price
       else
-        merge_destination_item[:price] = merge_destination_item[:price] += cart.product.price * cart.quantity
-        merge_destination_item[:quantity] = merge_destination_item[:price] += cart.quantity
+        merge_destination_item[:price] = merge_destination_item[:price] += price
+        merge_destination_item[:quantity] = merge_destination_item[:quantity] += cart.quantity
+        total_price += price
       end
     end
     cart_ticket_masters.each do |cart|
