@@ -10,6 +10,7 @@ class Api::Internal::CashRegistersController < ApplicationController
                     payment_methods: payment_methods,
                     delivery_targets: delivery_targets,
                     total_price: total_price,
+                    cart_items: cart_items,
                     default_payment_method_id: default_payment_method_id, }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

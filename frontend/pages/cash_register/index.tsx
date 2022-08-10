@@ -4,6 +4,7 @@ import { Container, Row, Col, Card, ListGroup, Button, Form} from 'react-bootstr
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
 import { DeliveryTargetParam } from 'interfaces/DeliveryTargetParam'
+import { CartItemParam } from 'interfaces/CartItemsParam'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
@@ -19,6 +20,7 @@ const Index: NextPage = () => {
   const [currentEndUserId, setCurrentEndUserId] = useState()
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const [totalPrice, setTotalPrice] = useState(0)
+  const [cartItems, setCartItems] = useState<CartItemParam[]>()
   const [isRegisteredAddress, setIsRegisteredAddress] = useState(true)
   const paymentMethods = useSelector((state: RootState) => state.currentEndUser.paymentMethods)
   const [deliveryTargets, setDeliveryTargets] = useState<DeliveryTargetParam[]>([])
@@ -36,6 +38,7 @@ const Index: NextPage = () => {
       .then(function (response) {
         setCurrentEndUserId(response.data.current_end_user_id)
         setTotalPrice(response.data.total_price)
+        setCartItems(response.data.cart_items)
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         setDeliveryTargets(response.data.delivery_targets)
@@ -45,7 +48,7 @@ const Index: NextPage = () => {
       })
     }
     fetchProduct()
-  }, [cookies._gybuilder_end_user_session])
+  }, [cookies._gybuilder_end_user_session, dispatch])
 
   const updateDefaultCard = (payment_method_id: string) => {
     swalWithBootstrapButtons.fire({
@@ -110,67 +113,132 @@ const Index: NextPage = () => {
             <Card>
               <Card.Header>レジ</Card.Header>
               <Card.Body>
-              <hr className='mt40' />
                   <h4 className='mt20'>お支払い方法</h4>
                   {<ListGroup>
-                      {paymentMethods?.map((pay, i) => {
-                        return (
-                          <ListGroup.Item key={i}>
-                            {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
-                            {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
-                            {defaultPaymentMethodId !== pay.id
-                              &&
-                                <>
-                                  <br/>
-                                  <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
-                                </>}
-                          </ListGroup.Item>
-                        )
-                      })}
-                   </ListGroup>}
-                   <hr className='mt40' />
-                  <h4 className='mt20'>お届け先</h4>
-                  <Form.Check type='radio'
-                              checked={isRegisteredAddress}
-                              onClick={() => setIsRegisteredAddress(true)}
-                              label='登録住所にお届け'></Form.Check >
-                  <Form.Check type='radio'
-                              checked={!isRegisteredAddress}
-                              onClick={() => setIsRegisteredAddress(false)}
-                              label='新規に入力する'></Form.Check >
-                  {isRegisteredAddress
-                   &&
-                   deliveryTargets
-                    &&
-                    <ListGroup className='mt20'>
-                      {deliveryTargets?.map((target, i) => {
-                        return (
-                          <ListGroup.Item key={i}>
-                            〒{target.postal_code} {target.last_name}{target.first_name}<br />
-                            {target.state}{target.city}{target.town}{target.line1}{target.line2}
-                            {target.is_default 
-                            ? <><span className='badge bg-info ml10'>お届け先に設定されています </span></>
-                            : <>
-                                <Button size='sm'
-                                        className='ml10'
-                                        onClick={() => updateDefaultDeliveryTarget(target.id)}>お届け先に設定する</Button>
+                    {paymentMethods?.map((pay, i) => {
+                      return (
+                        <ListGroup.Item key={i}>
+                          {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
+                          {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
+                          {defaultPaymentMethodId !== pay.id
+                            &&
+                              <>
+                                <br/>
+                                <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
                               </>}
-                          </ListGroup.Item>
+                        </ListGroup.Item>
+                      )
+                    })}
+                  </ListGroup>}
+                  <hr className='mt40' />
+                <h4 className='mt20'>お届け先</h4>
+                <Form.Check type='radio'
+                            checked={isRegisteredAddress}
+                            onClick={() => setIsRegisteredAddress(true)}
+                            label='登録住所にお届け'></Form.Check >
+                <Form.Check type='radio'
+                            checked={!isRegisteredAddress}
+                            onClick={() => setIsRegisteredAddress(false)}
+                            label='新規に入力する'></Form.Check >
+                {isRegisteredAddress
+                  &&
+                  deliveryTargets
+                  &&
+                  <ListGroup className='mt20'>
+                    {deliveryTargets?.map((target, i) => {
+                      return (
+                        <ListGroup.Item key={i}>
+                          〒{target.postal_code} {target.last_name}{target.first_name}<br />
+                          {target.state}{target.city}{target.town}{target.line1}{target.line2}
+                          {target.is_default 
+                          ? <><span className='badge bg-info ml10'>お届け先に設定されています </span></>
+                          : <>
+                              <Button size='sm'
+                                      className='ml10'
+                                      onClick={() => updateDefaultDeliveryTarget(target.id)}>お届け先に設定する</Button>
+                            </>}
+                        </ListGroup.Item>
+                      )
+                    })}
+                  </ListGroup>
+                  }
+                {!deliveryTargets
+                  && <div className='mb30 mt20'>お届け先が登録されていません
+                      <br /><a href={`/customer_page/user/${currentEndUserId}/edit`}>ユーザ編集</a>から登録をお願いします。
+                    </div>}
+                <hr className='mt40'></hr>
+                <h4 className='mt20'>購入内容を確認</h4>
+                {cartItems && cartItems?.map((item, i) => {
+                  {
+                    switch (item.product_type) {
+                      case 'Product':
+                        return(
+                          <>
+                            <ListGroup.Item key={i}>
+                              <Row>
+                                {item.s3_object_public_url && <Col><img
+                                    className='d-block w-100 mt30'
+                                    src={item.s3_object_public_url}
+                                    alt='image'/></Col>}
+                                <Col>
+                                  {item.business_name}<br/>
+                                  {item.product_name}<br />
+                                  数量: {item.quantity}<br />
+                                  ￥{item.price} 税率{item.tax_rate}%
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                          </>)
+                      case 'TicketMaster':
+                        return (
+                          <>
+                            <ListGroup.Item key={i}>
+                              <Row>
+                                {item.s3_object_public_url && <Col><img
+                                    className='d-block w-100'
+                                    src={item.s3_object_public_url}
+                                    alt='image'/></Col>}
+                                <Col>
+                                  {item.business_name}<br/>
+                                  {item.product_name} 有効期限: {item.is_expired === false ? `${item.effective_month}ヶ月` : '有効期限なし'} <br />
+                                  数量: {item.quantity}<br />
+                                  ￥{item.price}
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                          </>
                         )
-                      })}
-                    </ListGroup>
+                        case 'MonthlyPaymentPlan':
+                          return (
+                            <>
+                              <ListGroup.Item key={i}>
+                                <Row>
+                                  {item.s3_object_public_url && <Col><img
+                                      className='d-block w-100'
+                                      src={item.s3_object_public_url}
+                                      alt='image'/></Col>}
+                                  <Col>
+                                    {item.business_name}<br/>
+                                    {item.product_name}<br />
+                                    ￥{item.price}
+                                  </Col>
+                                </Row>
+                              </ListGroup.Item>
+                            </>
+                          )
+                      default:
+                        return (<></>)
                     }
-                  {!deliveryTargets
-                    && <div className='mb30 mt20'>お届け先が登録されていません
-                        <br /><a href={`/customer_page/user/${currentEndUserId}/edit`}>ユーザ編集</a>から登録をお願いします。
-                      </div>}
+                  }
+                })}
               </Card.Body>
               </Card>
           </Col>
-          <Col lg={2} md={5}>
+          <Col lg={3} md={5}>
             <Card>
               <Card.Body>
-                ご請求額: ￥{totalPrice}
+                <h3>ご請求額: ￥{totalPrice}</h3>
+                <Button className='mt10'>注文を確定</Button>
               </Card.Body>
             </Card>
           </Col>
