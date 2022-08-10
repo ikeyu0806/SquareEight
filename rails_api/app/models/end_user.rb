@@ -78,6 +78,7 @@ class EndUser < ApplicationRecord
           id: cart.id,
           product_name: cart.ticket_master.name,
           price: price,
+          issue_number: cart.ticket_master.issue_number * cart.quantity,
           effective_month: cart.ticket_master.effective_month,
           quantity: cart.quantity,
           s3_object_public_url: cart.ticket_master.s3_object_public_url,

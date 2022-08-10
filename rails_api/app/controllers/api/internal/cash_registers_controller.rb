@@ -61,6 +61,43 @@ class Api::Internal::CashRegistersController < ApplicationController
           product.save!
           current_end_user.cart_products.where(product_id: product.id).delete_all
         when 'TicketMaster' then
+          ticket_master = TicketMaster.find(cart[:parent_ticket_master_id])
+          customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
+          default_payment_method_id = customer["invoice_settings"]["default_payment_method"]
+          commission = (cart[:price] * 0.04).to_i
+          payment_intent = Stripe::PaymentIntent.create({
+            amount: cart[:price],
+            currency: 'jpy',
+            payment_method_types: ['card'],
+            payment_method: default_payment_method_id,
+            customer: current_end_user.stripe_customer_id,
+            application_fee_amount: commission,
+            metadata: {
+              'order_date': current_date_text,
+              'account_business_name': ticket_master.account.business_name,
+              'name': ticket_master.name,
+              'price': cart[:price],
+            },
+            transfer_data: {
+              destination: ticket_master.account.stripe_account_id
+            }
+          })
+          Stripe::PaymentIntent.confirm(
+            payment_intent.id
+          )
+          order.order_items.new(product_type: 'TicketMaster',
+                                ticket_master_id: ticket_master.id,
+                                product_name: ticket_master.name,
+                                price: cart[:price],
+                                account_id: ticket_master.account_id,
+                                commission: commission)
+          purchased_ticket = current_end_user
+                            .purchased_tickets
+                            .new(ticket_master_id: ticket_master.id,
+                                 expired_at: Time.zone.now + ticket_master.effective_month.month,
+                                 remain_number: cart[:issue_number])
+          purchased_ticket.save!
+          current_end_user.cart_ticket_masters.where(ticket_master_id: ticket_master.id).delete_all
         when 'MonthlyPaymentPlan' then
         else
           raise '問題が発生しました。'
