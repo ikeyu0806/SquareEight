@@ -57,7 +57,11 @@ const Index: NextPage = () => {
                         })}
                       </Col>
                       <Col>
-                        合計金額: ¥{order.total_price}<br />注文日: {order.order_date}
+                        合計金額: ¥{order.total_price}
+                        <br />注文日: {order.order_date}
+                        <br /><a className='btn btn-primary btn-sm' href={`/customer_page/order/${order.id}`}>
+                          詳細
+                        </a>
                       </Col>
                       
                     </Row>

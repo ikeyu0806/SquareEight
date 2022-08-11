@@ -8,6 +8,14 @@ class Api::Internal::OrdersController < ApplicationController
     render json: { statue: 'fail', error: e }, status: 500
   else
 
+    def show
+      order = Order.find(params[:id])
+      order_items = order.order_items
+      render json: { statue: 'success', order: order, order_items: order_items }, status: 200
+    rescue => e
+      render json: { statue: 'fail', error: e }, status: 500
+    end
+
   end
 
   def order_items
