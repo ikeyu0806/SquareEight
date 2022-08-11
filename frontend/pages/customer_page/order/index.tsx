@@ -5,7 +5,6 @@ import { Container, Row, Col, ListGroup, Card } from 'react-bootstrap'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
-import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { OrderParam } from 'interfaces/OrderParam'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 

@@ -6,16 +6,15 @@ class Api::Internal::OrdersController < ApplicationController
     render json: { statue: 'success', orders: orders }, status: 200
   rescue => e
     render json: { statue: 'fail', error: e }, status: 500
-  else
+  end
 
-    def show
-      order = Order.find(params[:id])
-      order_items = order.order_items
-      render json: { statue: 'success', order: order, order_items: order_items }, status: 200
-    rescue => e
-      render json: { statue: 'fail', error: e }, status: 500
-    end
-
+  def show
+    order = Order.find(params[:id])
+    order_items = order.order_items
+    order = JSON.parse(order.to_json(methods: [:total_price, :total_commission, :product_names, :order_date]))
+    render json: { statue: 'success', order: order, order_items: order_items }, status: 200
+  rescue => e
+    render json: { statue: 'fail', error: e }, status: 500
   end
 
   def order_items
@@ -27,6 +26,6 @@ class Api::Internal::OrdersController < ApplicationController
                    total_price: total_price,
                    total_commission: total_commission }, status: 200
   rescue => e
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { statue: 'fail', error: e }, status: 500
   end
 end
