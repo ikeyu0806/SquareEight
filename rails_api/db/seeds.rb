@@ -26,3 +26,11 @@ EndUser.first_or_create!(
   stripe_customer_id: "cus_M9qiqO8wOda3Xo",
   email_authentication_status: "Enabled"
 )
+
+SystemAdminUser.first_or_create!(
+  name: "admin_user",
+  email: "system_admin@develop.com",
+  phone_number: "12312341234",
+  password: "Pass1234",
+  authentication_status: "Enabled"
+)

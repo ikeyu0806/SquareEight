@@ -14,13 +14,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_014914) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "system_account_notifications", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "accounts", force: :cascade do |t|
     t.string "business_name"
     t.datetime "created_at", null: false
@@ -122,13 +115,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_014914) do
     t.string "line2"
     t.string "phone_number"
     t.boolean "is_default"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "system_end_user_notifications", force: :cascade do |t|
-    t.string "title"
-    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -354,6 +340,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_014914) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "system_account_notifications", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "system_admin_users", force: :cascade do |t|
     t.string "name", null: false
     t.string "email", null: false
@@ -367,6 +360,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_014914) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_system_admin_users_on_email", unique: true
+  end
+
+  create_table "system_end_user_notifications", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "ticket_masters", force: :cascade do |t|
