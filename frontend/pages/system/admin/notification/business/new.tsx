@@ -16,7 +16,7 @@ const New: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_system_admin_user_session'])
 
   const createNotification = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/account_notifications`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/system_account_notifications`,
     {
       notification: {
         title: title,

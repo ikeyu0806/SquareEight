@@ -1,2 +1,2 @@
-class AccountNotification < ApplicationRecord
+class SystemAccountNotification < ApplicationRecord
 end

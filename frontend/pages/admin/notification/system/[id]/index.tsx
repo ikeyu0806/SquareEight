@@ -17,15 +17,15 @@ const Index: NextPage = () => {
   useEffect(() => {
     const fetchNotification = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/account_notifications/${router.query.id}`, {
+        `${process.env.BACKEND_URL}/api/internal/system_account_notifications/${router.query.id}`, {
           headers: { 
             'Session-Id': cookies._gybuilder_merchant_session
           },
         }
       )
       .then( (response) => {
-        setTitle(response.data.account_notification.title)
-        setContent(response.data.account_notification.content)
+        setTitle(response.data.system_account_notification.title)
+        setContent(response.data.system_account_notification.content)
       })
       .catch(error => {
         console.log(error)

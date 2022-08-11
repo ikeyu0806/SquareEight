@@ -1,6 +1,6 @@
-class CreateAccountNotifications < ActiveRecord::Migration[7.0]
+class CreateSystemAccountNotifications < ActiveRecord::Migration[7.0]
   def change
-    create_table :account_notifications do |t|
+    create_table :system_account_notifications do |t|
       t.string :title
       t.text :content
 

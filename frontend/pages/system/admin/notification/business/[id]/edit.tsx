@@ -18,7 +18,7 @@ const New: NextPage = () => {
   useEffect(() => {
     const fetchTicketNotification = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/account_notifications/${router.query.id}`, {
+        `${process.env.BACKEND_URL}/api/internal/system_account_notifications/${router.query.id}`, {
           headers: { 
             'Session-Id': cookies._gybuilder_system_admin_user_session
           },
@@ -26,8 +26,8 @@ const New: NextPage = () => {
       )
       .then( (response) => {
         console.log(response.data, "!!")
-        setTitle(response.data.account_notification.title)
-        setContent(response.data.account_notification.content)
+        setTitle(response.data.system_account_notification.title)
+        setContent(response.data.system_account_notification.content)
       })
       .catch(error => {
         console.log(error)
@@ -37,7 +37,7 @@ const New: NextPage = () => {
   }, [router.query.id, cookies._gybuilder_system_admin_user_session, router.query.website_id])
 
   const createNotification = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/account_notifications/${router.query.id}`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/system_account_notifications/${router.query.id}`,
     {
       notification: {
         title: title,

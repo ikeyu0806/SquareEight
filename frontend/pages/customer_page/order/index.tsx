@@ -68,7 +68,6 @@ const Index: NextPage = () => {
                         <div>{order.postal_code}</div>
                         <div>{order.address}</div></>}
                       </Col>
-                      
                     </Row>
                   </ListGroup.Item>
                 )

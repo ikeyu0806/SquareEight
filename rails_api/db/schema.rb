@@ -14,7 +14,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_09_014914) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
-  create_table "account_notifications", force: :cascade do |t|
+  create_table "system_account_notifications", force: :cascade do |t|
     t.string "title"
     t.text "content"
     t.datetime "created_at", null: false

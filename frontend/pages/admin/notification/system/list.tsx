@@ -15,7 +15,7 @@ const Index: NextPage = () => {
   useEffect(() => {
     const fetchDashboardContent = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/account_notifications`, {
+        `${process.env.BACKEND_URL}/api/internal/system_account_notifications`, {
           headers: { 
             'Session-Id': cookies._gybuilder_merchant_session
           }
@@ -23,7 +23,7 @@ const Index: NextPage = () => {
       )
       .then(function (response) {
         console.log(response)
-        setNotifications(response.data.account_notifications)
+        setNotifications(response.data.system_account_notifications)
       })
       .catch(error => {
         console.log(error)
