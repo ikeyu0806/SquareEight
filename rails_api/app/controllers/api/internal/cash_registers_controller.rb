@@ -20,11 +20,13 @@ class Api::Internal::CashRegistersController < ApplicationController
 
   def purchase
     order = current_end_user.orders.new
+    include_product = false
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     ActiveRecord::Base.transaction do
       current_end_user.cart_contents[0].each do |cart|
         case cart[:product_type]
         when 'Product' then
+          include_product = true
           product = Product.find(cart[:parent_product_id])
           product.inventory = product.inventory - cart[:quantity]
           raise '在庫切れです' if product.inventory.negative?
@@ -126,6 +128,10 @@ class Api::Internal::CashRegistersController < ApplicationController
         else
           raise '問題が発生しました。'
         end
+      end
+      # order.include_product?はスルーされる。save前にpluckが効かない？？
+      if include_product
+        order.set_delivery_target(current_end_user)
       end
       order.save!
       render json: { status: 'success', order_id: order.id }, status: 200

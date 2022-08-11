@@ -81,7 +81,6 @@ class Api::Internal::ProductsController < ApplicationController
         quantity: product_params[:purchase_quantity]
       )
       if (product_params[:is_registered_address] == false)
-        is_default = current_end_user.delivery_targets.where(is_default: true).blank?
         delivery_target = current_end_user
                           .delivery_targets
                           .new( first_name: product_params[:first_name],
@@ -93,7 +92,7 @@ class Api::Internal::ProductsController < ApplicationController
                                 line1: product_params[:line1],
                                 line2: product_params[:line2],
                                 phone_number: product_params[:phone_number])
-        delivery_target.is_default = is_default
+        delivery_target.is_default = true
         delivery_target.save!
       end
       render json: { status: 'success' }, status: 200

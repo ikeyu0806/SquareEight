@@ -19,26 +19,13 @@ const PaymentComplete: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/payment_methods`,
-    {
-      headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
-      }
-    }).then((res) => {
-      dispatch(defaultPaymentMethodIdChanged(res.data.default_payment_method_id))
-      dispatch(paymentMethodsChanged(res.data.payment_methods))
-      dispatch(loginStatusChanged('Login'))
-
-    }).catch((e) => {
-      dispatch(loginStatusChanged('Logout'))
-      console.log(e)
-    })
-  }, [dispatch, cookies._gybuilder_end_user_session, currentEndUserLogintStatus])
-
-  useEffect(() => {
     const fetchOrderItems = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/orders/${router.query.order_id}/order_items`, {
+        `${process.env.BACKEND_URL}/api/internal/orders/${router.query.order_id}/order_items`,
+        {
+          headers: {
+            'Session-Id': cookies._gybuilder_end_user_session
+          }
         }
       )
       .then(function (response) {
@@ -50,7 +37,7 @@ const PaymentComplete: NextPage = () => {
       })
     }
     fetchOrderItems()
-  }, [router.query.id, router.query.order_id, dispatch])
+  }, [router.query.id, router.query.order_id, dispatch, cookies._gybuilder_end_user_session])
 
   return (
     <>

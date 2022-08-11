@@ -99,7 +99,7 @@ const Purchase: NextPage = () => {
       },
     },
     {
-      headers: { 
+      headers: {
         'Session-Id': cookies._gybuilder_end_user_session
       }
     }).then(response => {
