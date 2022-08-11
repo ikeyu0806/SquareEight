@@ -238,7 +238,7 @@ const Purchase: NextPage = () => {
                       })}
                     </ListGroup>
                     }
-                  {!deliveryTargets && currentEndUserLogintStatus === 'Login'
+                  {isRegisteredAddress && deliveryTargets.length === 0 && currentEndUserLogintStatus === 'Login'
                     && <div className='mb30 mt20'>お届け先が登録されていません
                         <br /><a href={`/customer_page/user/${currentEndUserId}/edit`}>ユーザ編集</a>から登録をお願いします。
                       </div>}
