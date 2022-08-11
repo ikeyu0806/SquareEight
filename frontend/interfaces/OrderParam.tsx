@@ -4,4 +4,8 @@ export interface OrderParam {
   total_commission: number
   product_names: string[]
   order_date: string
+  name: string
+  address: string
+  postal_code: string
+  include_product: boolean
 }

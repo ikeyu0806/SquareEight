@@ -18,7 +18,7 @@ class Order < ApplicationRecord
     created_at.strftime("%Y年%m月%d日")
   end
 
-  def include_product?
+  def include_product
     order_items.pluck(:product_type).include?('Product')
   end
 

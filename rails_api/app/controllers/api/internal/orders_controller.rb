@@ -2,7 +2,7 @@ class Api::Internal::OrdersController < ApplicationController
   before_action :end_user_login_only!
 
   def index
-    orders = JSON.parse(current_end_user.orders.to_json(methods: [:total_price, :total_commission, :product_names, :order_date]))
+    orders = JSON.parse(current_end_user.orders.to_json(methods: [:total_price, :total_commission, :product_names, :order_date, :include_product]))
     render json: { statue: 'success', orders: orders }, status: 200
   rescue => e
     render json: { statue: 'fail', error: e }, status: 500
