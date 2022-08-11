@@ -78,7 +78,24 @@ class Api::Internal::ProductsController < ApplicationController
       product.cart_products.create!(
         end_user_id: current_end_user.id,
         account_id: product.account_id,
-        quantity: product_params[:purchase_quantity])
+        quantity: product_params[:purchase_quantity]
+      )
+      if (product_params[:is_registered_address] == false)
+        is_default = current_end_user.delivery_targets.where(is_default: true).blank?
+        delivery_target = current_end_user
+                          .delivery_targets
+                          .new( first_name: product_params[:first_name],
+                                last_name: product_params[:last_name],
+                                postal_code: product_params[:postal_code],
+                                state: product_params[:state],
+                                city: product_params[:city],
+                                town: product_params[:town],
+                                line1: product_params[:line1],
+                                line2: product_params[:line2],
+                                phone_number: product_params[:phone_number])
+        delivery_target.is_default = is_default
+        delivery_target.save!
+      end
       render json: { status: 'success' }, status: 200
     end
   rescue => error
@@ -99,6 +116,16 @@ class Api::Internal::ProductsController < ApplicationController
                   :s3_object_public_url,
                   :s3_object_name,
                   :purchase_quantity,
+                  :is_registered_address,
+                  :first_name,
+                  :last_name,
+                  :postal_code,
+                  :state,
+                  :city,
+                  :town,
+                  :line1,
+                  :line2,
+                  :phone_number,
                   product_types: [:name, :inventory])
   end
 end

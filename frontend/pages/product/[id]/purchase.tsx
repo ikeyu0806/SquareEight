@@ -39,6 +39,15 @@ const Purchase: NextPage = () => {
   const paymentMethods = useSelector((state: RootState) => state.currentEndUser.paymentMethods)
   const [purchaseQuantitity, setPurchaseQuantitity] = useState(1)
   const [deliveryTargets, setDeliveryTargets] = useState<DeliveryTargetParam[]>([])
+  const firstName = useSelector((state: RootState) => state.deliveryTarget.firstName)
+  const lastName = useSelector((state: RootState) => state.deliveryTarget.lastName)
+  const postalCode = useSelector((state: RootState) => state.deliveryTarget.postalCode)
+  const state = useSelector((state: RootState) => state.deliveryTarget.state)
+  const city = useSelector((state: RootState) => state.deliveryTarget.city)
+  const town = useSelector((state: RootState) => state.deliveryTarget.town)
+  const line1 = useSelector((state: RootState) => state.deliveryTarget.line1)
+  const line2 = useSelector((state: RootState) => state.deliveryTarget.line2)
+  const phoneNumber = useSelector((state: RootState) => state.deliveryTarget.phoneNumber)
 
   useEffect(() => {
     const fetchProduct = () => {
@@ -76,7 +85,17 @@ const Purchase: NextPage = () => {
     {
       product: {
         id: router.query.id,
-        purchase_quantity: purchaseQuantitity
+        purchase_quantity: purchaseQuantitity,
+        is_registered_address: isRegisteredAddress,
+        first_name: firstName,
+        last_name: lastName,
+        postal_code: postalCode,
+        state: state,
+        city: city,
+        town: town,
+        line1: line1,
+        line2: line2,
+        phone_number: phoneNumber
       },
     },
     {
@@ -239,8 +258,7 @@ const Purchase: NextPage = () => {
                     </ListGroup>
                     }
                   {isRegisteredAddress && deliveryTargets.length === 0 && currentEndUserLogintStatus === 'Login'
-                    && <div className='mb30 mt20'>お届け先が登録されていません
-                        <br /><a href={`/customer_page/user/${currentEndUserId}/edit`}>ユーザ編集</a>から登録をお願いします。
+                    && <div className='mb10 mt10'>お届け先が登録されていません
                       </div>}
                   {!isRegisteredAddress && currentEndUserLogintStatus === 'Login'
                     && <><div className='mt20 mb20'></div><CreateDeliveryTarget></CreateDeliveryTarget></>}
