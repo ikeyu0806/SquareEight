@@ -10,7 +10,7 @@ class Api::Internal::EndUsersController < ApplicationController
   VERIFICATION_CODE_LENGTH = 6
 
   def customer_toppage_info
-    system_notifications = EndUserNotification.limit(5)
+    system_notifications = SystemEndUserNotification.limit(5)
     render json: { status: 'success', system_notifications: system_notifications }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

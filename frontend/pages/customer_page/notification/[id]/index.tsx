@@ -15,15 +15,15 @@ const Index: NextPage = () => {
   useEffect(() => {
     const fetchNotification = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/end_user_notifications/${router.query.id}`, {
+        `${process.env.BACKEND_URL}/api/internal/system_end_user_notifications/${router.query.id}`, {
           headers: { 
             'Session-Id': cookies._gybuilder_end_user_session
           },
         }
       )
       .then( (response) => {
-        setTitle(response.data.end_user_notification.title)
-        setContent(response.data.end_user_notification.content)
+        setTitle(response.data.system_end_user_notification.title)
+        setContent(response.data.system_end_user_notification.content)
       })
       .catch(error => {
         console.log(error)
