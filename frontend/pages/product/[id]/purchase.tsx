@@ -148,8 +148,8 @@ const Purchase: NextPage = () => {
     <MerchantCustomLayout>
       <Container>
         <Row>
-          <Col lg={3} md={3}></Col>
-          <Col lg={6} md={6}>
+          <Col lg={3} md={1}></Col>
+          <Col lg={6} md={10}>
             <Card>
               <Card.Header>商品購入</Card.Header>
               <Card.Body>
