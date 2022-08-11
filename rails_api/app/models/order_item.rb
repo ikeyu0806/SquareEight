@@ -3,4 +3,8 @@ class OrderItem < ApplicationRecord
 
   belongs_to :order
   belongs_to :account
+
+  def business_name
+    account.business_name
+  end
 end

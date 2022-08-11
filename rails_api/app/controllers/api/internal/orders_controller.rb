@@ -10,7 +10,7 @@ class Api::Internal::OrdersController < ApplicationController
 
   def show
     order = Order.find(params[:id])
-    order_items = order.order_items
+    order_items = JSON.parse(order.order_items.to_json(methods: [:business_name]))
     order = JSON.parse(order.to_json(methods: [:total_price, :total_commission, :product_names, :order_date]))
     render json: { statue: 'success', order: order, order_items: order_items }, status: 200
   rescue => e

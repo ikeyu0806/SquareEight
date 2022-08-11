@@ -51,6 +51,16 @@ const Index: NextPage = () => {
                     合計金額: ¥{order && order.total_price}
                     <br />注文日: {order && order.order_date}
                   </Col>
+                  <Col>
+                  {orderItems && orderItems.map((item, i) => {
+                    return (
+                      <span key={i}>
+                        購入先: {item.business_name}<br/>
+                        {item.product_name} ￥{item.price}
+                      </span>
+                    )
+                  })}
+                  </Col>
                 </Row>
               </Card.Body>
             </Card>
