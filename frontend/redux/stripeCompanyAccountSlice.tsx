@@ -23,6 +23,8 @@ export const stripeCompanyAccountSlice = createSlice({
     companyBusinessUrl: '',
     companyDescription: '',
     identificationImage: '',
+    ownerLastName: '',
+    ownerFirstName: '',
   },
   reducers: {
     companyBusinessNameChanged: (state, action: PayloadAction<string>) => {
@@ -82,6 +84,12 @@ export const stripeCompanyAccountSlice = createSlice({
     identificationImageChanged: (state, action: PayloadAction<any>) => {
       state.identificationImage = action.payload
     },
+    ownerLastNameChanged: (state, action: PayloadAction<any>) => {
+      state.ownerLastName = action.payload
+    },
+    ownerFirstNameChanged: (state, action: PayloadAction<string>) => {
+      state.ownerFirstName = action.payload
+    },
   },
 })
 
@@ -103,6 +111,8 @@ export const { companyLine2KanaChanged } = stripeCompanyAccountSlice.actions
 export const { companyPhoneNumberChanged } = stripeCompanyAccountSlice.actions
 export const { companyBusinessUrlChanged } = stripeCompanyAccountSlice.actions
 export const { companyDescriptionChanged } = stripeCompanyAccountSlice.actions
+export const { ownerLastNameChanged } = stripeCompanyAccountSlice.actions
+export const { ownerFirstNameChanged } = stripeCompanyAccountSlice.actions
 export const { identificationImageChanged } = stripeCompanyAccountSlice.actions
 
 export default stripeCompanyAccountSlice.reducer

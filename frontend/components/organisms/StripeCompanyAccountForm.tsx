@@ -19,7 +19,9 @@ import {  companyBusinessNameChanged,
           companyLine1KanaChanged,
           companyLine2KanaChanged,
           companyPhoneNumberChanged,
-          companyBusinessUrlChanged
+          companyBusinessUrlChanged,
+          ownerLastNameChanged,
+          ownerFirstNameChanged
         } from "redux/stripeCompanyAccountSlice"
 
 const StripeCompanyAccountForm = (): JSX.Element => {
@@ -42,6 +44,8 @@ const StripeCompanyAccountForm = (): JSX.Element => {
   const companyPhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.companyPhoneNumber)
   const companyBusinessUrl = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessUrl)
   const companyDescription = useSelector((state: RootState) => state.stripeCompanyAccount.companyDescription)
+  const ownerLastName = useSelector((state: RootState) => state.stripeCompanyAccount.ownerLastName)
+  const ownerFirstName = useSelector((state: RootState) => state.stripeCompanyAccount.ownerFirstName)
 
   return (
     <>
@@ -98,6 +102,14 @@ const StripeCompanyAccountForm = (): JSX.Element => {
                     value={companyDescription}
                     as='textarea'
                     rows={2}></Form.Control>
+      <Form.Label>代表者の名前（姓）</Form.Label>
+      <Form.Control onChange={(e) => dispatch(ownerLastNameChanged(e.target.value))}
+                    value={ownerLastName}></Form.Control>
+      <Form.Label>代表者の名前（名）</Form.Label>
+      <Form.Control onChange={(e) => dispatch(ownerFirstNameChanged(e.target.value))}
+                    value={ownerFirstName}></Form.Control>
+      <Form.Label>代表者のメールアドレス</Form.Label>
+      <Form.Control></Form.Control>
     </>
   )
 }

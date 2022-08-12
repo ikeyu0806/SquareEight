@@ -62,6 +62,8 @@ const RegisterMerchantInfoForm = () => {
   const companyPhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.companyPhoneNumber)
   const companyBusinessUrl = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessUrl)
   const companyDescription = useSelector((state: RootState) => state.stripeCompanyAccount.companyDescription)
+  const ownerLastName = useSelector((state: RootState) => state.stripeCompanyAccount.ownerLastName)
+  const ownerFirstName = useSelector((state: RootState) => state.stripeCompanyAccount.ownerFirstName)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
@@ -106,7 +108,9 @@ const RegisterMerchantInfoForm = () => {
         company_line2_kana: companyLine2Kana,
         company_phone_number: companyPhoneNumber,
         company_business_url: companyBusinessUrl,
-        company_description: companyDescription
+        company_description: companyDescription,
+        owner_last_name: ownerLastName,
+        owner_first_name: ownerFirstName
       },
     },
     {

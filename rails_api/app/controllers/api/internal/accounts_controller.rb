@@ -159,6 +159,11 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.tos_acceptance.date = Time.now.to_i
       stripe_account.tos_acceptance.ip = request.remote_ip
       stripe_account.save
+      Stripe::Account.create_person(
+        stripe_account.id,
+        {first_name: account_params[:owner_first_name],
+         last_name: account_params[:owner_last_name]},
+      )
     end
     render json: { status: 'success' }, states: 200
   rescue => error
@@ -289,6 +294,8 @@ class Api::Internal::AccountsController < ApplicationController
                   :company_business_url,
                   :company_description,
                   :identification_image,
+                  :owner_last_name,
+                  :owner_first_name,
                   :account_number,
                   :bank_code,
                   :branch_code,
