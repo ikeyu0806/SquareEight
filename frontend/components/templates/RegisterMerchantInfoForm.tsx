@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import StripeIndividualAccountForm from 'components/organisms/StripeIndividualAccountForm'
+import StripeCompanyAccountForm from 'components/organisms/StripeCompanyAccountForm'
 import { Button } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
@@ -98,6 +99,7 @@ const RegisterMerchantInfoForm = () => {
             <option value='company'>法人（株式会社/合同会社/NPOなど）</option>
           </Form.Select>
           {businessType === 'individual' && <StripeIndividualAccountForm></StripeIndividualAccountForm>}
+          {businessType === 'company' && <StripeCompanyAccountForm></StripeCompanyAccountForm>}
           <StripeTerm></StripeTerm>
           <Button onClick={onSubmit} className='mt10'>登録する</Button>
           </Col>

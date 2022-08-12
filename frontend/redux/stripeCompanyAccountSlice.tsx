@@ -34,6 +34,7 @@ export const stripeCompanyAccountSlice = createSlice({
     companyManagerDobMonth: '',
     companyManagerDobDay: '',
     companyManagerPhoneNumber: '',
+    identificationImage: '',
   },
   reducers: {
     companyBusinessNameChanged: (state, action: PayloadAction<string>) => {
@@ -129,7 +130,9 @@ export const stripeCompanyAccountSlice = createSlice({
     companyManagerPhoneNumberChanged: (state, action: PayloadAction<string>) => {
       state.companyManagerPhoneNumber = action.payload
     },
-
+    identificationImageChanged: (state, action: PayloadAction<any>) => {
+      state.identificationImage = action.payload
+    },
   },
 })
 
@@ -146,6 +149,7 @@ export const { companyLine2Changed } = stripeCompanyAccountSlice.actions
 export const { companyManagerFirstNameKanjiChanged } = stripeCompanyAccountSlice.actions
 export const { companyManagerLastNameKanjiChanged } = stripeCompanyAccountSlice.actions
 export const { companyManagerFirstNameKanaChanged } = stripeCompanyAccountSlice.actions
+export const { companyManagerSexChanged } = stripeCompanyAccountSlice.actions
 export const { companyManagerLastNameKanaChanged } = stripeCompanyAccountSlice.actions
 export const { companyManagerPortalCodeKanjiChanged } = stripeCompanyAccountSlice.actions
 export const { companyManagerStateKanjiChanged } = stripeCompanyAccountSlice.actions
@@ -163,5 +167,6 @@ export const { companyManagerDobYearChanged } = stripeCompanyAccountSlice.action
 export const { companyManagerDobMonthChanged } = stripeCompanyAccountSlice.actions
 export const { companyManagerDobDayChanged } = stripeCompanyAccountSlice.actions
 export const { companyManagerPhoneNumberChanged } = stripeCompanyAccountSlice.actions
+export const { identificationImageChanged } = stripeCompanyAccountSlice.actions
 
 export default stripeCompanyAccountSlice.reducer
