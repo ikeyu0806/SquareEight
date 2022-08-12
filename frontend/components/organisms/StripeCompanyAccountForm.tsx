@@ -2,12 +2,9 @@ import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import RequireBadge from 'components/atoms/RequireBadge'
-import { getBase64 } from 'functions/getBase64'
 import { RootState } from 'redux/store'
 import {  companyBusinessNameChanged,
           companyBusinessNameKanaChanged,
-          companyBusinessNameKanjiChanged,
-          companyBusinessTaxIdChanged,
           companyRegistrationNumberChanged,
           companyDescriptionChanged,
           companyPortalCodeChanged,
@@ -21,7 +18,6 @@ import {  companyBusinessNameChanged,
           companyTownKanaChanged,
           companyLine1KanaChanged,
           companyLine2KanaChanged,
-          identificationImageChanged,
           companyPhoneNumberChanged,
           companyBusinessUrlChanged
         } from "redux/stripeCompanyAccountSlice"

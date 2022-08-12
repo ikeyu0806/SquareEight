@@ -76,60 +76,64 @@ class Api::Internal::AccountsController < ApplicationController
     else
       stripe_account = Stripe::Account.retrieve(current_merchant_user.account.stripe_account_id)
     end
-    stripe_account.legal_entity.type = "individual"
-    stripe_account.mcc = '5734'
-    stripe_account.business_profile.name = account_params[:business_profile_name]
-    stripe_account.legal_entity.last_name_kanji = account_params[:individual_last_name_kanji]
-    stripe_account.legal_entity.last_name_kana = account_params[:individual_last_name_kana]
-    stripe_account.legal_entity.first_name_kanji = account_params[:individual_first_name_kanji]
-    stripe_account.legal_entity.first_name_kana = account_params[:individual_first_name_kana]
-    stripe_account.legal_entity.address_kanji.postal_code = account_params[:individual_postal_code_kanji]
-    stripe_account.legal_entity.address_kanji.state = account_params[:individual_state_kanji]
-    stripe_account.legal_entity.address_kanji.city = account_params[:individual_city_kanji]
-    stripe_account.legal_entity.address_kanji.town = account_params[:individual_town_kanji]
-    stripe_account.legal_entity.address_kanji.line1 = account_params[:individual_line1_kanji]
-    stripe_account.legal_entity.address_kanji.line2 = account_params[:individual_line2_kanji] if account_params[:individual_line2_kanji].present?
-    stripe_account.legal_entity.address_kana.postal_code = account_params[:individual_postal_code_kanji]
-    stripe_account.legal_entity.address_kana.state = account_params[:individual_state_kana]
-    stripe_account.legal_entity.address_kana.city = account_params[:individual_city_kana]
-    stripe_account.legal_entity.address_kana.town = account_params[:individual_town_kana]
-    stripe_account.legal_entity.address_kana.line1 = account_params[:individual_line1_kana]
-    stripe_account.legal_entity.address_kana.line2 = account_params[:individual_line2_kana] if account_params[:individual_line2_kana].present?
-    stripe_account.legal_entity.personal_email = account_params[:individual_email]
-    stripe_account.legal_entity.phone_number = '+81' + account_params[:individual_phone_number]
-    stripe_account.legal_entity.personal_phone_number = '+81' + account_params[:individual_phone_number]
-    stripe_account.business_url = account_params[:individual_business_url]
-    stripe_account.product_description = account_params[:individual_product_description]
-    stripe_account.legal_entity.gender = account_params[:individual_gender]
-    split_birth_date = account_params["individual_birth_day"].split("-")
-    stripe_account.legal_entity.dob.year = split_birth_date[0]
-    stripe_account.legal_entity.dob.month = split_birth_date[1]
-    stripe_account.legal_entity.dob.day = split_birth_date[2]
-    stripe_account.tos_acceptance.date = Time.now.to_i
-    stripe_account.tos_acceptance.ip = request.remote_ip
-
-    image_data = account_params[:identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
-    decode_image = Base64.decode64(image_data)
-    extension = account_params[:identification_image].split("/")[1].split(";")[0]
-    content_type = account_params[:identification_image].split(":")[1].split(";")[0]
-    obj_name =  "identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
-
-    File.open(obj_name, 'wb') do |file|
-      file.write(decode_image)
+    if account_params[:business_type] == "individual"
+      stripe_account.legal_entity.type = "individual"
+      stripe_account.mcc = '5734'
+      stripe_account.business_profile.name = account_params[:business_profile_name]
+      stripe_account.legal_entity.last_name_kanji = account_params[:individual_last_name_kanji]
+      stripe_account.legal_entity.last_name_kana = account_params[:individual_last_name_kana]
+      stripe_account.legal_entity.first_name_kanji = account_params[:individual_first_name_kanji]
+      stripe_account.legal_entity.first_name_kana = account_params[:individual_first_name_kana]
+      stripe_account.legal_entity.address_kanji.postal_code = account_params[:individual_postal_code_kanji]
+      stripe_account.legal_entity.address_kanji.state = account_params[:individual_state_kanji]
+      stripe_account.legal_entity.address_kanji.city = account_params[:individual_city_kanji]
+      stripe_account.legal_entity.address_kanji.town = account_params[:individual_town_kanji]
+      stripe_account.legal_entity.address_kanji.line1 = account_params[:individual_line1_kanji]
+      stripe_account.legal_entity.address_kanji.line2 = account_params[:individual_line2_kanji] if account_params[:individual_line2_kanji].present?
+      stripe_account.legal_entity.address_kana.postal_code = account_params[:individual_postal_code_kanji]
+      stripe_account.legal_entity.address_kana.state = account_params[:individual_state_kana]
+      stripe_account.legal_entity.address_kana.city = account_params[:individual_city_kana]
+      stripe_account.legal_entity.address_kana.town = account_params[:individual_town_kana]
+      stripe_account.legal_entity.address_kana.line1 = account_params[:individual_line1_kana]
+      stripe_account.legal_entity.address_kana.line2 = account_params[:individual_line2_kana] if account_params[:individual_line2_kana].present?
+      stripe_account.legal_entity.personal_email = account_params[:individual_email]
+      stripe_account.legal_entity.phone_number = '+81' + account_params[:individual_phone_number]
+      stripe_account.legal_entity.personal_phone_number = '+81' + account_params[:individual_phone_number]
+      stripe_account.business_url = account_params[:individual_business_url]
+      stripe_account.product_description = account_params[:individual_product_description]
+      stripe_account.legal_entity.gender = account_params[:individual_gender]
+      split_birth_date = account_params["individual_birth_day"].split("-")
+      stripe_account.legal_entity.dob.year = split_birth_date[0]
+      stripe_account.legal_entity.dob.month = split_birth_date[1]
+      stripe_account.legal_entity.dob.day = split_birth_date[2]
+      stripe_account.tos_acceptance.date = Time.now.to_i
+      stripe_account.tos_acceptance.ip = request.remote_ip
+  
+      image_data = account_params[:identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
+      decode_image = Base64.decode64(image_data)
+      extension = account_params[:identification_image].split("/")[1].split(";")[0]
+      content_type = account_params[:identification_image].split(":")[1].split(";")[0]
+      obj_name =  "identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
+  
+      File.open(obj_name, 'wb') do |file|
+        file.write(decode_image)
+      end
+      identification_image_file = File.open(obj_name, "r")
+      verification_document = Stripe::File.create(
+        {
+          purpose: 'identity_document',
+          file: identification_image_file
+        },
+        {
+          stripe_account: stripe_account.id
+        }
+      )
+  
+      stripe_account.legal_entity.verification.document = verification_document.id
+      stripe_account.save
+    elsif account_params[:business_type] == "company"
+      stripe_account.legal_entity.type = "company"
     end
-    identification_image_file = File.open(obj_name, "r")
-    verification_document = Stripe::File.create(
-      {
-        purpose: 'identity_document',
-        file: identification_image_file
-      },
-      {
-        stripe_account: stripe_account.id
-      }
-    )
-
-    stripe_account.legal_entity.verification.document = verification_document.id
-    stripe_account.save
     render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -217,6 +221,7 @@ class Api::Internal::AccountsController < ApplicationController
                   :token,
                   :payment_method_id,
                   :business_profile_name,
+                  :business_type,
                   :individual_first_name_kanji,
                   :individual_first_name_kana,
                   :individual_last_name_kanji,
@@ -239,6 +244,23 @@ class Api::Internal::AccountsController < ApplicationController
                   :individual_email,
                   :individual_business_url,
                   :individual_product_description,
+                  :company_business_name,
+                  :company_business_name_kana,
+                  :company_registration_number,
+                  :company_portal_code,
+                  :company_state_kanji,
+                  :company_city_kanji,
+                  :company_town_kanji,
+                  :company_line1_kanji,
+                  :company_line2_kanji,
+                  :company_state_kana,
+                  :company_city_kana,
+                  :company_town_kana,
+                  :company_line1_kana,
+                  :company_line2_kana,
+                  :company_phone_number,
+                  :company_business_url,
+                  :company_description,
                   :identification_image,
                   :account_number,
                   :bank_code,

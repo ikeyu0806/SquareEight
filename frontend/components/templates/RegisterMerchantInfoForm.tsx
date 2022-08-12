@@ -18,6 +18,7 @@ const RegisterMerchantInfoForm = () => {
   const dispatch = useDispatch()
   const router = useRouter()
 
+  // 個人事業情報
   const businessProfileName = useSelector((state: RootState) => state.stripeExternalAccount.businessProfileName)
   const individualFirstNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualFirstNameKanji)
   const individualLastNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLastNameKanji)
@@ -43,10 +44,30 @@ const RegisterMerchantInfoForm = () => {
   const individualProductDescription = useSelector((state: RootState) => state.stripeIndividualAccount.individualProductDescription)
   const identificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
 
+  // 企業情報
+  const companyBusinessName = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessName)
+  const companyBusinessNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessNameKana)
+  const companyRegistrationNumber = useSelector((state: RootState) => state.stripeCompanyAccount.companyRegistrationNumber)
+  const companyPortalCode = useSelector((state: RootState) => state.stripeCompanyAccount.companyPortalCode)
+  const companyStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyStateKanji)
+  const companyCityKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyCityKanji)
+  const companyTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyTownKanji)
+  const companyLine1Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine1Kanji)
+  const companyLine2Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine2Kanji)
+  const companyStateKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyStateKanji)
+  const companyCityKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyCityKana)
+  const companyTownKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyTownKana)
+  const companyLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine1Kana)
+  const companyLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine2Kana)
+  const companyPhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.companyPhoneNumber)
+  const companyBusinessUrl = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessUrl)
+  const companyDescription = useSelector((state: RootState) => state.stripeCompanyAccount.companyDescription)
+
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
     {
       account: {
+        business_type: businessType,
         business_profile_name: businessProfileName,
         individual_first_name_kanji: individualFirstNameKanji,
         individual_first_name_kana: individualFirstNameKana,
@@ -69,7 +90,24 @@ const RegisterMerchantInfoForm = () => {
         individual_email: individualEmail,
         individual_business_url: individualBusinessUrl,
         individual_product_description: individualProductDescription,
-        identification_image: identificationImage
+        identification_image: identificationImage,
+        company_business_name: companyBusinessName,
+        company_business_name_kana: companyBusinessNameKana,
+        company_registration_number: companyRegistrationNumber,
+        company_portal_code: companyPortalCode,
+        company_state_kanji: companyStateKanji,
+        company_city_kanji: companyCityKanji,
+        company_town_kanji: companyTownKanji,
+        company_line1_kanji: companyLine1Kanji,
+        company_line2_kanji: companyLine2Kanji,
+        company_state_kana: companyStateKana,
+        company_city_kana: companyCityKana,
+        company_town_kana: companyTownKana,
+        company_line1_kana: companyLine1Kana,
+        company_line2_kana: companyLine2Kana,
+        company_phone_number: companyPhoneNumber,
+        company_business_url: companyBusinessUrl,
+        company_description: companyDescription
       },
     },
     {
