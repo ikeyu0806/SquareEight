@@ -62,6 +62,7 @@ class Api::Internal::AccountsController < ApplicationController
 
   def register_stripe_business_info
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     if current_merchant_user.account.stripe_account_id.blank?
       stripe_account = Stripe::Account.create({
         type: 'custom',
@@ -76,8 +77,9 @@ class Api::Internal::AccountsController < ApplicationController
     else
       stripe_account = Stripe::Account.retrieve(current_merchant_user.account.stripe_account_id)
     end
+
     if account_params[:business_type] == "individual"
-      stripe_account.legal_entity.type = "individual"
+      stripe_account.business_type = "individual"
       stripe_account.mcc = '5734'
       stripe_account.business_profile.name = account_params[:business_profile_name]
       stripe_account.legal_entity.last_name_kanji = account_params[:individual_last_name_kanji]
@@ -132,7 +134,23 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.legal_entity.verification.document = verification_document.id
       stripe_account.save
     elsif account_params[:business_type] == "company"
-      stripe_account.legal_entity.type = "company"
+      stripe_account.business_type = "company"
+      stripe_account.company.name = account_params[:business_profile_name]
+      stripe_account.company.name_kana = account_params[:company_business_name_kana] if account_params[:company_business_name_kana].present?
+      stripe_account.company.tax_id = account_params[:company_business_tax_id]
+      stripe_account.company.address_kanji.postal_code = account_params[:company_portal_code]
+      stripe_account.company.address_kanji.state = account_params[:company_state_kanji]
+      stripe_account.company.address_kanji.city = account_params[:company_city_kanji]
+      stripe_account.company.address_kanji.town = account_params[:company_town_kanji]
+      stripe_account.company.address_kanji.line1 = account_params[:company_line1_kanji]
+      stripe_account.company.address_kanji.line2 = account_params[:company_line2_kanji] if account_params[:company_line2_kanji].present?
+      stripe_account.company.address_kana.postal_code = account_params[:company_portal_code]
+      stripe_account.company.address_kana.state = account_params[:company_state_kana]
+      stripe_account.company.address_kana.city = account_params[:company_city_kana]
+      stripe_account.company.address_kana.town = account_params[:company_town_kana]
+      stripe_account.company.address_kana.line1 = account_params[:company_line1_kana]
+      stripe_account.company.address_kana.line2 = account_params[:company_line2_kana] if account_params[:company_line2_kana].present?
+      stripe_account.save
     end
     render json: { status: 'success' }, states: 200
   rescue => error
@@ -245,6 +263,7 @@ class Api::Internal::AccountsController < ApplicationController
                   :individual_business_url,
                   :individual_product_description,
                   :company_business_name,
+                  :company_business_tax_id,
                   :company_business_name_kana,
                   :company_registration_number,
                   :company_portal_code,

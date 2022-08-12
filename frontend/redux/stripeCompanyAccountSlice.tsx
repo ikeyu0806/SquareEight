@@ -7,7 +7,7 @@ export const stripeCompanyAccountSlice = createSlice({
     companyBusinessNameKana: '',
     companyBusinessNameKanji: '',
     companyBusinessTaxId: '',
-    companyRegistrationNumber: '',
+    businessTaxId: '',
     companyPortalCode: '',
     companyStateKanji: '',
     companyCityKanji: '',
@@ -36,9 +36,6 @@ export const stripeCompanyAccountSlice = createSlice({
     },
     companyBusinessTaxIdChanged: (state, action: PayloadAction<string>) => {
       state.companyBusinessTaxId = action.payload
-    },
-    companyRegistrationNumberChanged: (state, action: PayloadAction<string>) => {
-      state.companyRegistrationNumber = action.payload
     },
     companyPortalCodeChanged: (state, action: PayloadAction<string>) => {
       state.companyPortalCode = action.payload
@@ -92,7 +89,6 @@ export const { companyBusinessNameChanged } = stripeCompanyAccountSlice.actions
 export const { companyBusinessNameKanaChanged } = stripeCompanyAccountSlice.actions
 export const { companyBusinessNameKanjiChanged } = stripeCompanyAccountSlice.actions
 export const { companyBusinessTaxIdChanged } = stripeCompanyAccountSlice.actions
-export const { companyRegistrationNumberChanged } = stripeCompanyAccountSlice.actions
 export const { companyPortalCodeChanged } = stripeCompanyAccountSlice.actions
 export const { companyStateKanjiChanged } = stripeCompanyAccountSlice.actions
 export const { companyCityKanjiChanged } = stripeCompanyAccountSlice.actions

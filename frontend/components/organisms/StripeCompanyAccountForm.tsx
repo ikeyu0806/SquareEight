@@ -5,7 +5,7 @@ import RequireBadge from 'components/atoms/RequireBadge'
 import { RootState } from 'redux/store'
 import {  companyBusinessNameChanged,
           companyBusinessNameKanaChanged,
-          companyRegistrationNumberChanged,
+          companyBusinessTaxIdChanged,
           companyDescriptionChanged,
           companyPortalCodeChanged,
           companyStateKanjiChanged,
@@ -27,14 +27,14 @@ const StripeCompanyAccountForm = (): JSX.Element => {
 
   const companyBusinessName = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessName)
   const companyBusinessNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessNameKana)
-  const companyRegistrationNumber = useSelector((state: RootState) => state.stripeCompanyAccount.companyRegistrationNumber)
+  const companyBusinessTaxId = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessTaxId)
   const companyPortalCode = useSelector((state: RootState) => state.stripeCompanyAccount.companyPortalCode)
   const companyStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyStateKanji)
   const companyCityKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyCityKanji)
   const companyTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyTownKanji)
   const companyLine1Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine1Kanji)
   const companyLine2Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine2Kanji)
-  const companyStateKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyStateKanji)
+  const companyStateKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyStateKana)
   const companyCityKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyCityKana)
   const companyTownKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyTownKana)
   const companyLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine1Kana)
@@ -45,9 +45,6 @@ const StripeCompanyAccountForm = (): JSX.Element => {
 
   return (
     <>
-      <Form.Label className='mt10'>法人名、商号<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch((companyBusinessNameChanged(e.target.value)))}
-                    value={companyBusinessName}></Form.Control>
       <Form.Label className='mt10'>法人名、商号（カナ）</Form.Label>
       <Form.Control onChange={(e) => dispatch((companyBusinessNameKanaChanged(e.target.value)))}
                     value={companyBusinessNameKana}></Form.Control>
@@ -85,8 +82,8 @@ const StripeCompanyAccountForm = (): JSX.Element => {
       <Form.Control onChange={(e) => dispatch(companyLine2KanaChanged(e.target.value))}
                     value={companyLine2Kana}></Form.Control>
       <Form.Label className='mt10'>法人番号<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(companyRegistrationNumberChanged(e.target.value))}
-                    value={companyRegistrationNumber}></Form.Control>
+      <Form.Control onChange={(e) => dispatch(companyBusinessTaxIdChanged(e.target.value))}
+                    value={companyBusinessTaxId}></Form.Control>
       <Form.Label className='mt10'>ビジネス電話番号<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyPhoneNumberChanged(e.target.value))}
                     value={companyPhoneNumber}></Form.Control>

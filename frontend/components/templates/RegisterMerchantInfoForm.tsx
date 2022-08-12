@@ -11,6 +11,7 @@ import { RootState } from 'redux/store'
 import { alertChanged } from 'redux/alertSlice'
 import StripeTerm from 'components/organisms/StripeTerm'
 import { businessProfileNameChanged } from 'redux/stripeExternalAccountsSlice'
+import RequireBadge from 'components/atoms/RequireBadge'
 
 const RegisterMerchantInfoForm = () => {
   const [businessType, setBusinessType] = useState('individual')
@@ -45,16 +46,15 @@ const RegisterMerchantInfoForm = () => {
   const identificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
 
   // 企業情報
-  const companyBusinessName = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessName)
   const companyBusinessNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessNameKana)
-  const companyRegistrationNumber = useSelector((state: RootState) => state.stripeCompanyAccount.companyRegistrationNumber)
+  const companyBusinessTaxId = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessTaxId)
   const companyPortalCode = useSelector((state: RootState) => state.stripeCompanyAccount.companyPortalCode)
   const companyStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyStateKanji)
   const companyCityKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyCityKanji)
   const companyTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyTownKanji)
   const companyLine1Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine1Kanji)
   const companyLine2Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine2Kanji)
-  const companyStateKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyStateKanji)
+  const companyStateKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyStateKana)
   const companyCityKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyCityKana)
   const companyTownKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyTownKana)
   const companyLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine1Kana)
@@ -91,9 +91,8 @@ const RegisterMerchantInfoForm = () => {
         individual_business_url: individualBusinessUrl,
         individual_product_description: individualProductDescription,
         identification_image: identificationImage,
-        company_business_name: companyBusinessName,
         company_business_name_kana: companyBusinessNameKana,
-        company_registration_number: companyRegistrationNumber,
+        company_business_tax_id: companyBusinessTaxId,
         company_portal_code: companyPortalCode,
         company_state_kanji: companyStateKanji,
         company_city_kanji: companyCityKanji,
@@ -128,7 +127,7 @@ const RegisterMerchantInfoForm = () => {
           <Col lg={6} md={6}>
           <h4 className='mb20'>事業情報を入力してください</h4>
           <h5>決済機能の有効化に必要となります</h5>
-          <Form.Label className='mt10'>事業所の名称（会社名/屋号/店舗名など）</Form.Label>
+          <Form.Label className='mt10'>事業所の名称（法人名/商号/会社名/屋号/店舗名など）<RequireBadge></RequireBadge></Form.Label>
           <Form.Control onChange={(e) => dispatch(businessProfileNameChanged(e.target.value))}
                         value={businessProfileName}></Form.Control>
           <Form.Label className='mt20'>事業形態</Form.Label>
