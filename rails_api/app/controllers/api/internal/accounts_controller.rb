@@ -76,6 +76,7 @@ class Api::Internal::AccountsController < ApplicationController
       current_merchant_user.account.update!(stripe_account_id: stripe_account.id)
     else
       stripe_account = Stripe::Account.retrieve(current_merchant_user.account.stripe_account_id)
+      stripe_account.save
     end
 
     if account_params[:business_type] == "individual"
@@ -135,7 +136,10 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.save
     elsif account_params[:business_type] == "company"
       stripe_account.business_type = "company"
+      stripe_account.business_profile.support_url = account_params[:company_business_url]
+      stripe_account.business_profile.product_description = account_params[:company_description]
       stripe_account.company.name = account_params[:business_profile_name]
+      stripe_account.company.name_kanji = account_params[:business_profile_name]
       stripe_account.company.name_kana = account_params[:company_business_name_kana] if account_params[:company_business_name_kana].present?
       stripe_account.company.tax_id = account_params[:company_business_tax_id]
       stripe_account.company.address_kanji.postal_code = account_params[:company_portal_code]
@@ -145,11 +149,14 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.company.address_kanji.line1 = account_params[:company_line1_kanji]
       stripe_account.company.address_kanji.line2 = account_params[:company_line2_kanji] if account_params[:company_line2_kanji].present?
       stripe_account.company.address_kana.postal_code = account_params[:company_portal_code]
-      stripe_account.company.address_kana.state = account_params[:company_state_kana]
-      stripe_account.company.address_kana.city = account_params[:company_city_kana]
-      stripe_account.company.address_kana.town = account_params[:company_town_kana]
-      stripe_account.company.address_kana.line1 = account_params[:company_line1_kana]
+      stripe_account.company.address_kana.state = account_params[:company_state_kana] if account_params[:company_state_kana].present?
+      stripe_account.company.address_kana.city = account_params[:company_city_kana] if account_params[:company_city_kana].present?
+      stripe_account.company.address_kana.town = account_params[:company_town_kana] if account_params[:company_town_kana].present?
+      stripe_account.company.address_kana.line1 = account_params[:company_line1_kana]if account_params[:company_line1_kana].present?
       stripe_account.company.address_kana.line2 = account_params[:company_line2_kana] if account_params[:company_line2_kana].present?
+      stripe_account.company.phone = '+81' + account_params[:company_phone_number]
+      stripe_account.tos_acceptance.date = Time.now.to_i
+      stripe_account.tos_acceptance.ip = request.remote_ip
       stripe_account.save
     end
     render json: { status: 'success' }, states: 200
