@@ -114,7 +114,8 @@ const EditBankAccounts: NextPage = () => {
                     <hr />
                   </span>
                 )
-              })}           
+              })}
+              {stripeAccount?.external_accounts?.data.length === 0 && <>口座が登録されていません</>}           
               <br/>
               <br/>
               <a href='/admin/sales_transfer/register_bank_account' className='btn btn-primary'>新規口座登録</a>
