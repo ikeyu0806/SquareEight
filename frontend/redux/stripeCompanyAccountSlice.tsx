@@ -7,33 +7,21 @@ export const stripeCompanyAccountSlice = createSlice({
     companyBusinessNameKana: '',
     companyBusinessNameKanji: '',
     companyBusinessTaxId: '',
+    companyRegistrationNumber: '',
     companyPortalCode: '',
-    companyState: '',
-    companyCity: '',
-    companyTown: '',
-    companyLine1: '',
-    companyLine2: '',
-    companyManagerFirstNameKanji: '',
-    companyManagerLastNameKanji: '',
-    companyManagerFirstNameKana: '',
-    companyManagerLastNameKana: '',
-    companyManagerSex: '',
-    companyManagerPortalCodeKanji: '',
-    companyManagerStateKanji: '',
-    companyManagerCityKanji: '',
-    companyManagerTownKanji: '',
-    companyManagerLine1Kanji: '',
-    companyManagerLine2Kanji: '',
-    companyManagerPortalCodeKana: '',
-    companyManagerStateKana: '',
-    companyManagerCityKana: '',
-    companyManagerTownKana: '',
-    companyManagerLine1Kana: '',
-    companyManagerLine2Kana: '',
-    companyManagerDobYear: '',
-    companyManagerDobMonth: '',
-    companyManagerDobDay: '',
-    companyManagerPhoneNumber: '',
+    companyStateKanji: '',
+    companyCityKanji: '',
+    companyTownKanji: '',
+    companyLine1Kanji: '',
+    companyLine2Kanji: '',
+    companyStateKana: '',
+    companyCityKana: '',
+    companyTownKana: '',
+    companyLine1Kana: '',
+    companyLine2Kana: '',
+    companyPhoneNumber: '',
+    companyBusinessUrl: '',
+    companyDescription: '',
     identificationImage: '',
   },
   reducers: {
@@ -49,86 +37,50 @@ export const stripeCompanyAccountSlice = createSlice({
     companyBusinessTaxIdChanged: (state, action: PayloadAction<string>) => {
       state.companyBusinessTaxId = action.payload
     },
+    companyRegistrationNumberChanged: (state, action: PayloadAction<string>) => {
+      state.companyRegistrationNumber = action.payload
+    },
     companyPortalCodeChanged: (state, action: PayloadAction<string>) => {
       state.companyPortalCode = action.payload
     },
-    companyStateChanged: (state, action: PayloadAction<string>) => {
-      state.companyState = action.payload
+    companyStateKanjiChanged: (state, action: PayloadAction<string>) => {
+      state.companyStateKanji = action.payload
     },
-    companyCityChanged: (state, action: PayloadAction<string>) => {
-      state.companyCity = action.payload
+    companyCityKanjiChanged: (state, action: PayloadAction<string>) => {
+      state.companyCityKanji = action.payload
     },
-    companyTownChanged: (state, action: PayloadAction<string>) => {
-      state.companyTown = action.payload
+    companyTownKanjiChanged: (state, action: PayloadAction<string>) => {
+      state.companyTownKanji = action.payload
     },
-    companyLine1Changed: (state, action: PayloadAction<string>) => {
-      state.companyLine1 = action.payload
+    companyLine1KanjiChanged: (state, action: PayloadAction<string>) => {
+      state.companyLine1Kanji = action.payload
     },
-    companyLine2Changed: (state, action: PayloadAction<string>) => {
-      state.companyLine2 = action.payload
+    companyLine2KanjiChanged: (state, action: PayloadAction<string>) => {
+      state.companyLine2Kanji = action.payload
     },
-    companyManagerFirstNameKanjiChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerFirstNameKanji = action.payload
+    companyStateKanaChanged: (state, action: PayloadAction<string>) => {
+      state.companyStateKana = action.payload
     },
-    companyManagerLastNameKanjiChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerLastNameKanji = action.payload
+    companyCityKanaChanged: (state, action: PayloadAction<string>) => {
+      state.companyCityKana = action.payload
     },
-    companyManagerFirstNameKanaChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerFirstNameKana = action.payload
+    companyTownKanaChanged: (state, action: PayloadAction<string>) => {
+      state.companyTownKana = action.payload
     },
-    companyManagerLastNameKanaChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerLastNameKana = action.payload
+    companyLine1KanaChanged: (state, action: PayloadAction<string>) => {
+      state.companyLine1Kana = action.payload
     },
-    companyManagerSexChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerSex = action.payload
+    companyLine2KanaChanged: (state, action: PayloadAction<string>) => {
+      state.companyLine2Kana = action.payload
     },
-    companyManagerPortalCodeKanjiChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerPortalCodeKanji = action.payload
+    companyPhoneNumberChanged: (state, action: PayloadAction<string>) => {
+      state.companyPhoneNumber = action.payload
     },
-    companyManagerStateKanjiChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerStateKanji = action.payload
+    companyBusinessUrlChanged: (state, action: PayloadAction<string>) => {
+      state.companyBusinessUrl = action.payload
     },
-    companyManagerCityKanjiChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerCityKanji = action.payload
-    },
-    companyManagerTownKanjiChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerTownKanji = action.payload
-    },
-    companyManagerLine1KanjiChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerLine1Kanji = action.payload
-    },
-    companyManagerLine2KanjiChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerLine2Kanji = action.payload
-    },
-    companyManagerPortalCodeKanaChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerPortalCodeKana = action.payload
-    },
-    companyManagerStateKanaChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerStateKana = action.payload
-    },
-    companyManagerCityKanaChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerCityKana = action.payload
-    },
-    companyManagerTownKanaChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerTownKana = action.payload
-    },
-    companyManagerLine1KanaChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerLine1Kana = action.payload
-    },
-    companyManagerLine2KanaChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerLine2Kana = action.payload
-    },
-    companyManagerDobYearChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerDobYear = action.payload
-    },
-    companyManagerDobMonthChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerDobMonth = action.payload
-    },
-    companyManagerDobDayChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerDobDay = action.payload
-    },
-    companyManagerPhoneNumberChanged: (state, action: PayloadAction<string>) => {
-      state.companyManagerPhoneNumber = action.payload
+    companyDescriptionChanged: (state, action: PayloadAction<string>) => {
+      state.companyDescription = action.payload
     },
     identificationImageChanged: (state, action: PayloadAction<any>) => {
       state.identificationImage = action.payload
@@ -140,33 +92,21 @@ export const { companyBusinessNameChanged } = stripeCompanyAccountSlice.actions
 export const { companyBusinessNameKanaChanged } = stripeCompanyAccountSlice.actions
 export const { companyBusinessNameKanjiChanged } = stripeCompanyAccountSlice.actions
 export const { companyBusinessTaxIdChanged } = stripeCompanyAccountSlice.actions
+export const { companyRegistrationNumberChanged } = stripeCompanyAccountSlice.actions
 export const { companyPortalCodeChanged } = stripeCompanyAccountSlice.actions
-export const { companyStateChanged } = stripeCompanyAccountSlice.actions
-export const { companyCityChanged } = stripeCompanyAccountSlice.actions
-export const { companyTownChanged } = stripeCompanyAccountSlice.actions
-export const { companyLine1Changed } = stripeCompanyAccountSlice.actions
-export const { companyLine2Changed } = stripeCompanyAccountSlice.actions
-export const { companyManagerFirstNameKanjiChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerLastNameKanjiChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerFirstNameKanaChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerSexChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerLastNameKanaChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerPortalCodeKanjiChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerStateKanjiChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerCityKanjiChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerTownKanjiChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerLine1KanjiChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerLine2KanjiChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerPortalCodeKanaChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerStateKanaChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerCityKanaChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerTownKanaChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerLine1KanaChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerLine2KanaChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerDobYearChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerDobMonthChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerDobDayChanged } = stripeCompanyAccountSlice.actions
-export const { companyManagerPhoneNumberChanged } = stripeCompanyAccountSlice.actions
+export const { companyStateKanjiChanged } = stripeCompanyAccountSlice.actions
+export const { companyCityKanjiChanged } = stripeCompanyAccountSlice.actions
+export const { companyTownKanjiChanged } = stripeCompanyAccountSlice.actions
+export const { companyLine1KanjiChanged } = stripeCompanyAccountSlice.actions
+export const { companyLine2KanjiChanged } = stripeCompanyAccountSlice.actions
+export const { companyStateKanaChanged } = stripeCompanyAccountSlice.actions
+export const { companyCityKanaChanged } = stripeCompanyAccountSlice.actions
+export const { companyTownKanaChanged } = stripeCompanyAccountSlice.actions
+export const { companyLine1KanaChanged } = stripeCompanyAccountSlice.actions
+export const { companyLine2KanaChanged } = stripeCompanyAccountSlice.actions
+export const { companyPhoneNumberChanged } = stripeCompanyAccountSlice.actions
+export const { companyBusinessUrlChanged } = stripeCompanyAccountSlice.actions
+export const { companyDescriptionChanged } = stripeCompanyAccountSlice.actions
 export const { identificationImageChanged } = stripeCompanyAccountSlice.actions
 
 export default stripeCompanyAccountSlice.reducer
