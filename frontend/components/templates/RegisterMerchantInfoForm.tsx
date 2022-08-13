@@ -51,7 +51,6 @@ const RegisterMerchantInfoForm = () => {
       .then(function (response) {
         console.log(response.data.stripe_account)
         if (response.data.stripe_account.business_type === 'company') {
-          console.log("!!!", response.data.stripe_account.company.address_kanji.line1)
           dispatch(businessProfileNameChanged(response.data.stripe_account.business_profile.name))
           dispatch(companyPortalCodeChanged(response.data.stripe_account.company.address_kana.postal_code))
           dispatch(companyStateKanjiChanged(response.data.stripe_account.company.address_kanji.state))
@@ -59,7 +58,6 @@ const RegisterMerchantInfoForm = () => {
           dispatch(companyCityKanjiChanged(response.data.stripe_account.company.address_kanji.city))
           dispatch(companyCityKanaChanged(response.data.stripe_account.company.address_kana.city))
           dispatch(companyTownKanjiChanged(response.data.stripe_account.company.address_kanji.town))
-          console.log(response.data.stripe_account.company.address_kana, "!")
           dispatch(companyTownKanaChanged(response.data.stripe_account.company.address_kana.town))
           dispatch(companyLine1KanjiChanged(response.data.stripe_account.company.address_kanji.line1))
           dispatch(companyLine1KanaChanged(response.data.stripe_account.company.address_kana.line1))
@@ -67,6 +65,7 @@ const RegisterMerchantInfoForm = () => {
           dispatch(companyLine2KanaChanged(response.data.stripe_account.company.address_kana.line2))
           dispatch(companyPhoneNumberChanged(response.data.stripe_account.company.phone))
           dispatch(companyBusinessUrlChanged(response.data.stripe_account.business_profile.url))
+          dispatch(companyDescriptionChanged(response.data.stripe_account.business_profile.product_description))      
         } else if (response.data.stripe_account.business_type === 'individual') {
 
         }
