@@ -156,14 +156,17 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.company.address_kana.line1 = account_params[:company_line1_kana]if account_params[:company_line1_kana].present?
       stripe_account.company.address_kana.line2 = account_params[:company_line2_kana] if account_params[:company_line2_kana].present?
       stripe_account.company.phone = '+81' + account_params[:company_phone_number]
+      stripe_account.company.owners_provided = true
       stripe_account.tos_acceptance.date = Time.now.to_i
       stripe_account.tos_acceptance.ip = request.remote_ip
       stripe_account.save
-      Stripe::Account.create_person(
+      person = Stripe::Account.create_person(
         stripe_account.id,
         {first_name: account_params[:owner_first_name],
          last_name: account_params[:owner_last_name]},
       )
+      person.relationship.owner = true
+      person.save
     end
     render json: { status: 'success' }, states: 200
   rescue => error
