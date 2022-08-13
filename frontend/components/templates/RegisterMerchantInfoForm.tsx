@@ -32,6 +32,7 @@ import {  companyBusinessNameChanged,
           ownerLastNameChanged,
           ownerFirstNameChanged
         } from 'redux/stripeCompanyAccountSlice'
+
 const RegisterMerchantInfoForm = () => {
   const [businessType, setBusinessType] = useState('individual')
   const [cookies] = useCookies(['_gybuilder_merchant_session'])

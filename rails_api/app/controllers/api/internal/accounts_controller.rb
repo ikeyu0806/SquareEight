@@ -100,8 +100,13 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.legal_entity.address_kana.line1 = account_params[:individual_line1_kana]
       stripe_account.legal_entity.address_kana.line2 = account_params[:individual_line2_kana] if account_params[:individual_line2_kana].present?
       stripe_account.legal_entity.personal_email = account_params[:individual_email]
-      stripe_account.legal_entity.phone_number = '+81' + account_params[:individual_phone_number]
-      stripe_account.legal_entity.personal_phone_number = '+81' + account_params[:individual_phone_number]
+      if account_params[:individual_phone_number].start_with?("+81")
+        stripe_account.legal_entity.phone_number = account_params[:individual_phone_number]
+        stripe_account.legal_entity.personal_phone_number = account_params[:individual_phone_number]
+      else
+        stripe_account.legal_entity.phone_number = '+81' + account_params[:individual_phone_number]
+        stripe_account.legal_entity.personal_phone_number = '+81' + account_params[:individual_phone_number]
+      end
       stripe_account.business_url = account_params[:individual_business_url]
       stripe_account.product_description = account_params[:individual_product_description]
       stripe_account.legal_entity.gender = account_params[:individual_gender]
