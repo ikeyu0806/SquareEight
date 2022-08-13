@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Form } from 'react-bootstrap'
 import StripeIndividualAccountForm from 'components/organisms/StripeIndividualAccountForm'
 import StripeCompanyAccountForm from 'components/organisms/StripeCompanyAccountForm'
@@ -18,6 +18,25 @@ const RegisterMerchantInfoForm = () => {
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const dispatch = useDispatch()
   const router = useRouter()
+
+  useEffect(() => {
+    const fetchStripeBusinessInfo = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/accounts/stripe_account_info`, {
+          headers: { 
+            'Session-Id': cookies._gybuilder_merchant_session
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchStripeBusinessInfo()
+  }, [router.query.id, cookies._gybuilder_merchant_session])
 
   // 個人事業情報
   const businessProfileName = useSelector((state: RootState) => state.stripeExternalAccount.businessProfileName)

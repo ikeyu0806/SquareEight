@@ -247,6 +247,20 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def stripe_account_info
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
+    stripe_account_id = current_merchant_user.account.stripe_account_id
+    if stripe_account_id.present?
+      stripe_account = JSON.parse(Stripe::Account.retrieve(stripe_account_id).to_json)
+    else
+      stripe_account = {}
+    end
+    render json: { status: 'success', stripe_account: stripe_account }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def account_params
