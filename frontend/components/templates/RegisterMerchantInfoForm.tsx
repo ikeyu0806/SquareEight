@@ -12,7 +12,26 @@ import { alertChanged } from 'redux/alertSlice'
 import StripeTerm from 'components/organisms/StripeTerm'
 import { businessProfileNameChanged } from 'redux/stripeExternalAccountsSlice'
 import RequireBadge from 'components/atoms/RequireBadge'
-
+import {  companyBusinessNameChanged,
+          companyBusinessNameKanaChanged,
+          companyBusinessTaxIdChanged,
+          companyDescriptionChanged,
+          companyPortalCodeChanged,
+          companyStateKanjiChanged,
+          companyCityKanjiChanged,
+          companyTownKanjiChanged,
+          companyLine1KanjiChanged,
+          companyLine2KanjiChanged,
+          companyStateKanaChanged,
+          companyCityKanaChanged,
+          companyTownKanaChanged,
+          companyLine1KanaChanged,
+          companyLine2KanaChanged,
+          companyPhoneNumberChanged,
+          companyBusinessUrlChanged,
+          ownerLastNameChanged,
+          ownerFirstNameChanged
+        } from 'redux/stripeCompanyAccountSlice'
 const RegisterMerchantInfoForm = () => {
   const [businessType, setBusinessType] = useState('individual')
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
@@ -29,14 +48,35 @@ const RegisterMerchantInfoForm = () => {
         }
       )
       .then(function (response) {
-        console.log(response)
+        console.log(response.data.stripe_account)
+        if (response.data.stripe_account.business_type === 'company') {
+          console.log("!!!", response.data.stripe_account.company.address_kanji.line1)
+          dispatch(businessProfileNameChanged(response.data.stripe_account.business_profile.name))
+          dispatch(companyPortalCodeChanged(response.data.stripe_account.company.address_kana.postal_code))
+          dispatch(companyStateKanjiChanged(response.data.stripe_account.company.address_kanji.state))
+          dispatch(companyStateKanaChanged(response.data.stripe_account.company.address_kana.state))
+          dispatch(companyCityKanjiChanged(response.data.stripe_account.company.address_kanji.city))
+          dispatch(companyCityKanaChanged(response.data.stripe_account.company.address_kana.city))
+          dispatch(companyTownKanjiChanged(response.data.stripe_account.company.address_kanji.town))
+          console.log(response.data.stripe_account.company.address_kana, "!")
+          dispatch(companyTownKanaChanged(response.data.stripe_account.company.address_kana.town))
+          dispatch(companyLine1KanjiChanged(response.data.stripe_account.company.address_kanji.line1))
+          dispatch(companyLine1KanaChanged(response.data.stripe_account.company.address_kana.line1))
+          dispatch(companyLine2KanjiChanged(response.data.stripe_account.company.address_kanji.line2))
+          dispatch(companyLine2KanaChanged(response.data.stripe_account.company.address_kana.line2))
+          dispatch(companyPhoneNumberChanged(response.data.stripe_account.company.phone))
+          dispatch(companyBusinessUrlChanged(response.data.stripe_account.business_profile.url))
+        } else if (response.data.stripe_account.business_type === 'individual') {
+
+        }
+
       })
       .catch(error => {
         console.log(error)
       })
     }
     fetchStripeBusinessInfo()
-  }, [router.query.id, cookies._gybuilder_merchant_session])
+  }, [router.query.id, cookies._gybuilder_merchant_session, dispatch])
 
   // 個人事業情報
   const businessProfileName = useSelector((state: RootState) => state.stripeExternalAccount.businessProfileName)
