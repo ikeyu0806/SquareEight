@@ -168,7 +168,8 @@ class Api::Internal::AccountsController < ApplicationController
       person = Stripe::Account.create_person(
         stripe_account.id,
         {first_name: account_params[:owner_first_name],
-         last_name: account_params[:owner_last_name]},
+         last_name: account_params[:owner_last_name],
+         email: account_params[:owner_email]},
       )
       person.relationship.owner = true
       person.save
@@ -258,10 +259,14 @@ class Api::Internal::AccountsController < ApplicationController
     stripe_account_id = current_merchant_user.account.stripe_account_id
     if stripe_account_id.present?
       stripe_account = JSON.parse(Stripe::Account.retrieve(stripe_account_id).to_json)
+      stripe_persons = JSON.parse(Stripe::Account.list_persons('acct_1LVs6c2c71M0ULtv',{limit: 100},).to_json)["data"]
+      stripe_persons.find{ |person| person["owner"] == true }
+      owner = stripe_persons.select{|person| person["relationship"]["owner"] == true}[0]
     else
       stripe_account = {}
+      owner = {}
     end
-    render json: { status: 'success', stripe_account: stripe_account }, states: 200
+    render json: { status: 'success', stripe_account: stripe_account, owner: owner }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -318,6 +323,7 @@ class Api::Internal::AccountsController < ApplicationController
                   :identification_image,
                   :owner_last_name,
                   :owner_first_name,
+                  :owner_email,
                   :account_number,
                   :bank_code,
                   :branch_code,

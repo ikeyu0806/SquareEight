@@ -30,7 +30,6 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(stripeCustomerEnableChanged(response.data.user.stripe_customer_enable ? 'Enable' : 'Disable'))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
-      console.log(e)
     })
   }, [dispatch, cookies._gybuilder_merchant_session, merchantUserLoginStatus])
 

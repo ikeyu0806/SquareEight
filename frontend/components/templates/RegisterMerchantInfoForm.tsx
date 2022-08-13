@@ -30,7 +30,8 @@ import {  companyBusinessNameChanged,
           companyPhoneNumberChanged,
           companyBusinessUrlChanged,
           ownerLastNameChanged,
-          ownerFirstNameChanged
+          ownerFirstNameChanged,
+          ownerEmailChanged
         } from 'redux/stripeCompanyAccountSlice'
 
 const RegisterMerchantInfoForm = () => {
@@ -49,7 +50,6 @@ const RegisterMerchantInfoForm = () => {
         }
       )
       .then(function (response) {
-        console.log(response.data.stripe_account)
         if (response.data.stripe_account.business_type === 'company') {
           dispatch(businessProfileNameChanged(response.data.stripe_account.business_profile.name))
           dispatch(companyPortalCodeChanged(response.data.stripe_account.company.address_kana.postal_code))
@@ -66,6 +66,9 @@ const RegisterMerchantInfoForm = () => {
           dispatch(companyPhoneNumberChanged(response.data.stripe_account.company.phone))
           dispatch(companyBusinessUrlChanged(response.data.stripe_account.business_profile.url))
           dispatch(companyDescriptionChanged(response.data.stripe_account.business_profile.product_description))      
+          dispatch(ownerLastNameChanged(response.data.owner.last_name))
+          dispatch(ownerFirstNameChanged(response.data.owner.first_name))
+          dispatch(ownerEmailChanged(response.data.owner.email))
         } else if (response.data.stripe_account.business_type === 'individual') {
 
         }
@@ -123,6 +126,7 @@ const RegisterMerchantInfoForm = () => {
   const companyDescription = useSelector((state: RootState) => state.stripeCompanyAccount.companyDescription)
   const ownerLastName = useSelector((state: RootState) => state.stripeCompanyAccount.ownerLastName)
   const ownerFirstName = useSelector((state: RootState) => state.stripeCompanyAccount.ownerFirstName)
+  const ownerEmail = useSelector((state: RootState) => state.stripeCompanyAccount.ownerEmail)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
@@ -169,7 +173,8 @@ const RegisterMerchantInfoForm = () => {
         company_business_url: companyBusinessUrl,
         company_description: companyDescription,
         owner_last_name: ownerLastName,
-        owner_first_name: ownerFirstName
+        owner_first_name: ownerFirstName,
+        owner_email: ownerEmail
       },
     },
     {
