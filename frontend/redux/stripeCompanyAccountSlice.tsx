@@ -23,9 +23,14 @@ export const stripeCompanyAccountSlice = createSlice({
     companyBusinessUrl: '',
     companyDescription: '',
     identificationImage: '',
-    ownerLastName: '',
-    ownerFirstName: '',
-    ownerEmail: ''
+    representativeLastNameKanji: '',
+    representativeFirstNameKanji: '',
+    representativeLastNameKana: '',
+    representativeFirstNameKana: '',
+    representativeGender: 'male',
+    representativeEmail: '',
+    representativeBirthDay: '',
+    representativePhoneNumber: ''
   },
   reducers: {
     companyBusinessNameChanged: (state, action: PayloadAction<string>) => {
@@ -85,14 +90,29 @@ export const stripeCompanyAccountSlice = createSlice({
     identificationImageChanged: (state, action: PayloadAction<any>) => {
       state.identificationImage = action.payload
     },
-    ownerLastNameChanged: (state, action: PayloadAction<any>) => {
-      state.ownerLastName = action.payload
+    representativeLastNameKanjiChanged: (state, action: PayloadAction<any>) => {
+      state.representativeLastNameKanji = action.payload
     },
-    ownerFirstNameChanged: (state, action: PayloadAction<string>) => {
-      state.ownerFirstName = action.payload
+    representativeFirstNameKanjiChanged: (state, action: PayloadAction<string>) => {
+      state.representativeFirstNameKanji = action.payload
     },
-    ownerEmailChanged: (state, action: PayloadAction<string>) => {
-      state.ownerEmail = action.payload
+    representativeLastNameKanaChanged: (state, action: PayloadAction<any>) => {
+      state.representativeLastNameKana = action.payload
+    },
+    representativeFirstNameKanaChanged: (state, action: PayloadAction<string>) => {
+      state.representativeFirstNameKana = action.payload
+    },
+    representativeGenderChanged: (state, action: PayloadAction<string>) => {
+      state.representativeGender = action.payload
+    },
+    representativeEmailChanged: (state, action: PayloadAction<string>) => {
+      state.representativeEmail = action.payload
+    },
+    representativeBirthDayChanged: (state, action: PayloadAction<string>) => {
+      state.representativeBirthDay = action.payload
+    },
+    representativePhoneNumberChanged: (state, action: PayloadAction<string>) => {
+      state.representativePhoneNumber = action.payload
     },
   },
 })
@@ -115,9 +135,14 @@ export const { companyLine2KanaChanged } = stripeCompanyAccountSlice.actions
 export const { companyPhoneNumberChanged } = stripeCompanyAccountSlice.actions
 export const { companyBusinessUrlChanged } = stripeCompanyAccountSlice.actions
 export const { companyDescriptionChanged } = stripeCompanyAccountSlice.actions
-export const { ownerLastNameChanged } = stripeCompanyAccountSlice.actions
-export const { ownerFirstNameChanged } = stripeCompanyAccountSlice.actions
-export const { ownerEmailChanged } = stripeCompanyAccountSlice.actions
+export const { representativeLastNameKanjiChanged } = stripeCompanyAccountSlice.actions
+export const { representativeFirstNameKanjiChanged } = stripeCompanyAccountSlice.actions
+export const { representativeLastNameKanaChanged } = stripeCompanyAccountSlice.actions
+export const { representativeFirstNameKanaChanged } = stripeCompanyAccountSlice.actions
+export const { representativeGenderChanged } = stripeCompanyAccountSlice.actions
+export const { representativeEmailChanged } = stripeCompanyAccountSlice.actions
 export const { identificationImageChanged } = stripeCompanyAccountSlice.actions
+export const { representativeBirthDayChanged } = stripeCompanyAccountSlice.actions
+export const { representativePhoneNumberChanged } = stripeCompanyAccountSlice.actions
 
 export default stripeCompanyAccountSlice.reducer

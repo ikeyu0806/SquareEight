@@ -174,6 +174,7 @@ class Api::Internal::AccountsController < ApplicationController
          email: account_params[:owner_email]},
       )
       person.relationship.representative = true
+      person.relationship.owner = true
 
       # 本人確認ドキュメント
       # image_data = account_params[:identification_image].gsub(/^data:\w+\/\w+;base64,/, "")

@@ -20,9 +20,14 @@ import {  companyBusinessNameChanged,
           companyLine2KanaChanged,
           companyPhoneNumberChanged,
           companyBusinessUrlChanged,
-          ownerLastNameChanged,
-          ownerFirstNameChanged,
-          ownerEmailChanged
+          representativeLastNameKanjiChanged,
+          representativeFirstNameKanjiChanged,
+          representativeLastNameKanaChanged,
+          representativeFirstNameKanaChanged,
+          representativeBirthDayChanged,
+          representativePhoneNumberChanged,
+          representativeEmailChanged,
+          representativeGenderChanged
         } from "redux/stripeCompanyAccountSlice"
 
 const StripeCompanyAccountForm = (): JSX.Element => {
@@ -45,9 +50,13 @@ const StripeCompanyAccountForm = (): JSX.Element => {
   const companyPhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.companyPhoneNumber)
   const companyBusinessUrl = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessUrl)
   const companyDescription = useSelector((state: RootState) => state.stripeCompanyAccount.companyDescription)
-  const ownerLastName = useSelector((state: RootState) => state.stripeCompanyAccount.ownerLastName)
-  const ownerFirstName = useSelector((state: RootState) => state.stripeCompanyAccount.ownerFirstName)
-  const ownerEmail = useSelector((state: RootState) => state.stripeCompanyAccount.ownerEmail)
+  const representativeLastNameKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeLastNameKanji)
+  const representativeFirstNameKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeFirstNameKanji)
+  const representativeLastNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeLastNameKana)
+  const representativeFirstNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeFirstNameKana)
+  const representativeEmail = useSelector((state: RootState) => state.stripeCompanyAccount.representativeEmail)
+  const representativeBirthDay = useSelector((state: RootState) => state.stripeCompanyAccount.representativeBirthDay)
+  const representativePhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.representativePhoneNumber)
 
   return (
     <>
@@ -104,15 +113,34 @@ const StripeCompanyAccountForm = (): JSX.Element => {
                     value={companyDescription}
                     as='textarea'
                     rows={2}></Form.Control>
-      <Form.Label>代表者の名前（姓）</Form.Label>
-      <Form.Control onChange={(e) => dispatch(ownerLastNameChanged(e.target.value))}
-                    value={ownerLastName}></Form.Control>
-      <Form.Label>代表者の名前（名）</Form.Label>
-      <Form.Control onChange={(e) => dispatch(ownerFirstNameChanged(e.target.value))}
-                    value={ownerFirstName}></Form.Control>
-      <Form.Label>代表者のメールアドレス</Form.Label>
-      <Form.Control onChange={(e) => dispatch(ownerEmailChanged(e.target.value))}
-                    value={ownerEmail}></Form.Control>
+      <Form.Label className='mt10'>事業主様の姓（漢字）</Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeLastNameKanjiChanged(e.target.value))}
+                    value={representativeLastNameKanji}></Form.Control>
+      <Form.Label className='mt10'>事業主様の姓（カナ）</Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeLastNameKanaChanged(e.target.value))}
+                    value={representativeLastNameKana}></Form.Control>
+      <Form.Label className='mt10'>事業主様のお名前（漢字）</Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeFirstNameKanjiChanged(e.target.value))}
+                    value={representativeFirstNameKanji}></Form.Control>
+      <Form.Label className='mt10'>事業主様のお名前（カナ）</Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeFirstNameKanaChanged(e.target.value))}
+                    value={representativeFirstNameKana}></Form.Control>
+      <Form.Label className='mt10'>事業責任者の生年月日</Form.Label>
+      <Form.Control type='date' onChange={(e) => dispatch(representativeBirthDayChanged(e.target.value))}
+                    value={representativeBirthDay}></Form.Control>
+      <Form.Label className='mt10'>事業責任者の姓別</Form.Label>
+      <Form.Select onChange={(e) => dispatch(representativeGenderChanged(e.target.value))}>
+        <option value='male'>男</option>
+        <option value='female'>女</option>
+      </Form.Select>
+      <Form.Label className='mt10'>事業責任者の電話番号</Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativePhoneNumberChanged(e.target.value))}
+                    value={representativePhoneNumber}></Form.Control>
+      <Form.Label className='mt10'>事業責任者のメールアドレス</Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeEmailChanged(e.target.value))}
+                    value={representativeEmail}></Form.Control>
+      <Form.Label className='mt10'></Form.Label>
+      <Form.Control></Form.Control>
     </>
   )
 }
