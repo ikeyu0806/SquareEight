@@ -162,19 +162,26 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.company.address_kana.line1 = account_params[:company_line1_kana]if account_params[:company_line1_kana].present?
       stripe_account.company.address_kana.line2 = account_params[:company_line2_kana] if account_params[:company_line2_kana].present?
       stripe_account.company.phone = '+81' + account_params[:company_phone_number]
-      stripe_account.company.owners_provided = true
+      stripe_account.company.representatives_provided = true
       stripe_account.tos_acceptance.date = Time.now.to_i
       stripe_account.tos_acceptance.ip = request.remote_ip
 
       stripe_account.save
-      person = Stripe::Account.create_person(
-        stripe_account.id,
-        {first_name: account_params[:owner_first_name],
-         last_name: account_params[:owner_last_name],
-         email: account_params[:owner_email]},
-      )
-      person.relationship.representative = true
-      person.relationship.owner = true
+      if current_merchant_user.account.representative_person_id.present?
+        person = Stripe::Account.retrieve_person(
+          current_merchant_user.account.stripe_account_id,
+          current_merchant_user.account.stripe_representative_person_id
+        )
+      else
+        person = Stripe::Account.create_person(
+          stripe_account.id,
+          {first_name: account_params[:representative_first_name_kanji],
+           last_name: account_params[:representative_last_name_kanji],
+           email: account_params[:representative_email]},
+        )
+        person.relationship.representative = true
+        person.relationship.representative = true
+      end
 
       # 本人確認ドキュメント
       # image_data = account_params[:identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
@@ -285,13 +292,12 @@ class Api::Internal::AccountsController < ApplicationController
     if stripe_account_id.present?
       stripe_account = JSON.parse(Stripe::Account.retrieve(stripe_account_id).to_json)
       stripe_persons = JSON.parse(Stripe::Account.list_persons('acct_1LVs6c2c71M0ULtv',{limit: 100},).to_json)["data"]
-      stripe_persons.find{ |person| person["owner"] == true }
-      owner = stripe_persons.select{|person| person["relationship"]["owner"] == true}[0]
+      representative = stripe_persons.select{|person| person["relationship"]["representative"] == true}[0]
     else
       stripe_account = {}
-      owner = {}
+      representative = {}
     end
-    render json: { status: 'success', stripe_account: stripe_account, owner: owner }, states: 200
+    render json: { status: 'success', stripe_account: stripe_account, representative: representative }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -346,9 +352,9 @@ class Api::Internal::AccountsController < ApplicationController
                   :company_business_url,
                   :company_description,
                   :identification_image,
-                  :owner_last_name,
-                  :owner_first_name,
-                  :owner_email,
+                  :representative_last_name_kanji,
+                  :representative_first_name_kanji,
+                  :representative_email,
                   :account_number,
                   :bank_code,
                   :branch_code,

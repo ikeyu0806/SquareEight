@@ -29,9 +29,10 @@ import {  companyBusinessNameChanged,
           companyLine2KanaChanged,
           companyPhoneNumberChanged,
           companyBusinessUrlChanged,
-          ownerLastNameChanged,
-          ownerFirstNameChanged,
-          ownerEmailChanged
+          representativeLastNameKanjiChanged,
+          representativeFirstNameKanjiChanged,
+          representativeEmailChanged,
+          representativePhoneNumberChanged,
         } from 'redux/stripeCompanyAccountSlice'
 
 const RegisterMerchantInfoForm = () => {
@@ -66,9 +67,10 @@ const RegisterMerchantInfoForm = () => {
           dispatch(companyPhoneNumberChanged(response.data.stripe_account.company.phone))
           dispatch(companyBusinessUrlChanged(response.data.stripe_account.business_profile.url))
           dispatch(companyDescriptionChanged(response.data.stripe_account.business_profile.product_description))      
-          dispatch(ownerLastNameChanged(response.data.owner.last_name))
-          dispatch(ownerFirstNameChanged(response.data.owner.first_name))
-          dispatch(ownerEmailChanged(response.data.owner.email))
+          dispatch(representativeLastNameKanjiChanged(response.data.representative.last_name))
+          dispatch(representativeFirstNameKanjiChanged(response.data.representative.first_name))
+          dispatch(representativeEmailChanged(response.data.representative.email))
+          dispatch(representativePhoneNumberChanged(response.data.representative.phone_number))
         } else if (response.data.stripe_account.business_type === 'individual') {
 
         }
@@ -124,9 +126,9 @@ const RegisterMerchantInfoForm = () => {
   const companyPhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.companyPhoneNumber)
   const companyBusinessUrl = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessUrl)
   const companyDescription = useSelector((state: RootState) => state.stripeCompanyAccount.companyDescription)
-  const ownerLastName = useSelector((state: RootState) => state.stripeCompanyAccount.ownerLastName)
-  const ownerFirstName = useSelector((state: RootState) => state.stripeCompanyAccount.ownerFirstName)
-  const ownerEmail = useSelector((state: RootState) => state.stripeCompanyAccount.ownerEmail)
+  const representativeLastName = useSelector((state: RootState) => state.stripeCompanyAccount.representativeLastNameKanji)
+  const representativeFirstName = useSelector((state: RootState) => state.stripeCompanyAccount.representativeFirstNameKanji)
+  const representativeEmail = useSelector((state: RootState) => state.stripeCompanyAccount.representativeEmail)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
@@ -172,9 +174,9 @@ const RegisterMerchantInfoForm = () => {
         company_phone_number: companyPhoneNumber,
         company_business_url: companyBusinessUrl,
         company_description: companyDescription,
-        owner_last_name: ownerLastName,
-        owner_first_name: ownerFirstName,
-        owner_email: ownerEmail
+        representative_last_name: representativeLastName,
+        representative_first_name: representativeFirstName,
+        representative_email: representativeEmail,
       },
     },
     {
