@@ -126,20 +126,20 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.tos_acceptance.date = Time.now.to_i
       stripe_account.tos_acceptance.ip = request.remote_ip
   
-      image_data = account_params[:identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
+      image_data = account_params[:individual_identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
       decode_image = Base64.decode64(image_data)
-      extension = account_params[:identification_image].split("/")[1].split(";")[0]
-      content_type = account_params[:identification_image].split(":")[1].split(";")[0]
-      obj_name =  "identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
+      extension = account_params[:individual_identification_image].split("/")[1].split(";")[0]
+      content_type = account_params[:individual_identification_image].split(":")[1].split(";")[0]
+      obj_name =  "individual_identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
   
       File.open(obj_name, 'wb') do |file|
         file.write(decode_image)
       end
-      identification_image_file = File.open(obj_name, "r")
+      individual_identification_image_file = File.open(obj_name, "r")
       verification_document = Stripe::File.create(
         {
           purpose: 'identity_document',
-          file: identification_image_file
+          file: individual_identification_image_file
         },
         {
           stripe_account: stripe_account.id
@@ -229,26 +229,26 @@ class Api::Internal::AccountsController < ApplicationController
       person.address_kana.line2 = account_params[:representative_address_line2_kana] if account_params[:representative_address_line2_kana].present?
 
       # 本人確認ドキュメント
-      # image_data = account_params[:identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
-      # decode_image = Base64.decode64(image_data)
-      # extension = account_params[:identification_image].split("/")[1].split(";")[0]
-      # content_type = account_params[:identification_image].split(":")[1].split(";")[0]
-      # obj_name =  "identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
+      image_data = account_params[:representative_identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
+      decode_image = Base64.decode64(image_data)
+      extension = account_params[:representative_identification_image].split("/")[1].split(";")[0]
+      content_type = account_params[:representative_identification_image].split(":")[1].split(";")[0]
+      obj_name =  "representative_identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
   
-      # File.open(obj_name, 'wb') do |file|
-      #   file.write(decode_image)
-      # end
-      # identification_image_file = File.open(obj_name, "r")
-      # verification_document = Stripe::File.create(
-      #   {
-      #     purpose: 'identity_document',
-      #     file: identification_image_file
-      #   },
-      #   {
-      #     stripe_account: stripe_account.id
-      #   }
-      # )
-      # person.document = verification_document
+      File.open(obj_name, 'wb') do |file|
+        file.write(decode_image)
+      end
+      representative_identification_image_file = File.open(obj_name, "r")
+      verification_document = Stripe::File.create(
+        {
+          purpose: 'identity_document',
+          file: representative_identification_image_file
+        },
+        {
+          stripe_account: stripe_account.id
+        }
+      )
+      person.verification.document = verification_document
       person.save
     end
     render json: { status: 'success' }, states: 200
@@ -404,7 +404,7 @@ class Api::Internal::AccountsController < ApplicationController
                   :company_phone_number,
                   :company_business_url,
                   :company_description,
-                  :identification_image,
+                  :individual_identification_image,
                   :representative_last_name_kanji,
                   :representative_first_name_kanji,
                   :representative_last_name_kana,
@@ -424,6 +424,7 @@ class Api::Internal::AccountsController < ApplicationController
                   :representative_address_town_kana,
                   :representative_address_line1_kana,
                   :representative_address_line2_kana,
+                  :representative_identification_image,
                   :is_director_register_complete,
                   :account_number,
                   :bank_code,

@@ -73,6 +73,7 @@ const RegisterMerchantInfoForm = () => {
         if (response.data.stripe_account.business_type === 'company') {
           setBusinessType('company')
           dispatch(businessProfileNameChanged(response.data.stripe_account.business_profile.name))
+          dispatch(companyBusinessNameKanaChanged(response.data.stripe_account.company.name_kana))
           dispatch(companyPortalCodeChanged(response.data.stripe_account.company.address_kana.postal_code))
           dispatch(companyStateKanjiChanged(response.data.stripe_account.company.address_kanji.state))
           dispatch(companyStateKanaChanged(response.data.stripe_account.company.address_kana.state))
@@ -143,7 +144,7 @@ const RegisterMerchantInfoForm = () => {
   const individualEmail = useSelector((state: RootState) => state.stripeIndividualAccount.individualEmail)
   const individualBusinessUrl = useSelector((state: RootState) => state.stripeIndividualAccount.individualBusinessUrl)
   const individualProductDescription = useSelector((state: RootState) => state.stripeIndividualAccount.individualProductDescription)
-  const identificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
+  const individualIdentificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
 
   // 企業情報
   const companyBusinessNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessNameKana)
@@ -182,7 +183,7 @@ const RegisterMerchantInfoForm = () => {
   const representativeAddressLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kana)
   const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
   const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
-  
+  const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.identificationImage)
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
     {
@@ -210,7 +211,7 @@ const RegisterMerchantInfoForm = () => {
         individual_email: individualEmail,
         individual_business_url: individualBusinessUrl,
         individual_product_description: individualProductDescription,
-        identification_image: identificationImage,
+        individual_identification_image: individualIdentificationImage,
         company_business_name_kana: companyBusinessNameKana,
         company_business_tax_id: companyBusinessTaxId,
         company_portal_code: companyPortalCode,
@@ -246,6 +247,7 @@ const RegisterMerchantInfoForm = () => {
         representative_address_town_kana: representativeAddressTownKana,
         representative_address_line1_kana: representativeAddressLine1Kana,
         representative_address_line2_kana: representativeAddressLine2Kana,
+        representative_identification_image: representativeIdentificationImage,
         is_director_register_complete: isDirectorRegisterComplete
       },
     },

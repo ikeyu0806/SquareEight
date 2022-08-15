@@ -3,6 +3,7 @@ import { Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import RequireBadge from 'components/atoms/RequireBadge'
 import { RootState } from 'redux/store'
+import { getBase64 } from 'functions/getBase64'
 import {  companyBusinessNameChanged,
           companyBusinessNameKanaChanged,
           companyBusinessTaxIdChanged,
@@ -39,8 +40,9 @@ import {  companyBusinessNameChanged,
           representativeAddressCityKanaChanged,
           representativeAddressLine1KanaChanged,
           representativeAddressLine2KanaChanged,
-          isDirectorRegisterCompleteChanged
-        } from "redux/stripeCompanyAccountSlice"
+          isDirectorRegisterCompleteChanged,
+          identificationImageChanged
+        } from 'redux/stripeCompanyAccountSlice'
 
 const StripeCompanyAccountForm = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -81,7 +83,16 @@ const StripeCompanyAccountForm = (): JSX.Element => {
   const representativeAddressLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kana)
   const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
   const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
-  
+  const [image, setImage] = useState('')
+
+  const handleChangeFile = (e: any) => {
+    const { files } = e.target
+    setImage(window.URL.createObjectURL(files[0]))
+    getBase64(files[0]).then(
+      data => dispatch(identificationImageChanged(data))
+    )
+  }
+
   return (
     <>
       <Form.Label className='mt10'>法人名、商号（カナ）<RequireBadge></RequireBadge></Form.Label>
@@ -202,6 +213,17 @@ const StripeCompanyAccountForm = (): JSX.Element => {
         checked={isDirectorRegisterComplete === true}
         label='なし、代表者のみです'
         onChange={() => dispatch(isDirectorRegisterCompleteChanged(!isDirectorRegisterComplete))}></Form.Check>
+      <Form.Group controlId='formFile' className='mt10'>
+        <Form.Label>
+          本人確認書類。以下のいずれかをアップロードしてください<br/>
+          &emsp;1. 運転免許書<br/>
+          &emsp;2. パスポート<br/>
+          &emsp;3. 外国国籍を持つ方の場合は在留カード<br/>
+          &emsp;4. 住基カード(顔写真入り)<br/>
+          &emsp;5. マイナンバーカード(顔写真入り)
+        </Form.Label>
+        <Form.Control type='file' onChange={handleChangeFile} />
+      </Form.Group>
     </>
   )
 }
