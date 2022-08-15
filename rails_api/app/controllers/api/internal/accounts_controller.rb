@@ -181,17 +181,31 @@ class Api::Internal::AccountsController < ApplicationController
           stripe_account.id
         )
         person.relationship.representative = true
+        person.relationship.title = 'CEO'
+        current_merchant_user.account.update!(stripe_representative_person_id: person.id)
       end
       person.first_name_kanji = account_params[:representative_first_name_kanji]
       person.last_name_kanji = account_params[:representative_last_name_kanji]
       person.first_name_kana = account_params[:representative_first_name_kana] if account_params[:representative_first_name_kana].present?
       person.last_name_kana = account_params[:representative_last_name_kana] if account_params[:representative_last_name_kana].present?
       person.email = account_params[:representative_email]
+      if account_params[:representative_phone_number].start_with?("+81")
+        stripe_account.company.phone = account_params[:representative_phone_number]
+      else
+        stripe_account.company.phone = '+81' + account_params[:representative_phone_number]
+      end
       split_birth_date = account_params[:representative_birth_day].split("-")
       person.dob.year = split_birth_date[0]
       person.dob.month = split_birth_date[1]
       person.dob.day = split_birth_date[2]
       person.gender = account_params[:representative_gender]
+      person.address.postal_code = account_params[:representative_address_postal_code]
+      person.address.state = account_params[:representative_address_state_kanji]
+      person.address.city = account_params[:representative_address_city_kanji]
+      person.address.town = account_params[:representative_address_town_kanji]
+      person.address.line1 = account_params[:representative_address_line1_kanji]
+      person.address.line2 = account_params[:representative_address_line2_kanji]
+      person.address.postal_code = account_params[:representative_address_postal_code]
       # 本人確認ドキュメント
       # image_data = account_params[:identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
       # decode_image = Base64.decode64(image_data)
@@ -369,6 +383,12 @@ class Api::Internal::AccountsController < ApplicationController
                   :representative_phone_number,
                   :representative_birth_day,
                   :representative_gender,
+                  :representative_address_postal_code,
+                  :representative_address_state_kanji,
+                  :representative_address_city_kanji,
+                  :representative_address_town_kanji,
+                  :representative_address_line1_kanji,
+                  :representative_address_line2_kanji,
                   :account_number,
                   :bank_code,
                   :branch_code,

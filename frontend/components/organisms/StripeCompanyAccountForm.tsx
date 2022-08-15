@@ -27,7 +27,13 @@ import {  companyBusinessNameChanged,
           representativeBirthDayChanged,
           representativePhoneNumberChanged,
           representativeEmailChanged,
-          representativeGenderChanged
+          representativeGenderChanged,
+          representativeAddressPostalCodeChanged,
+          representativeAddressCityKanjiChanged,
+          representativeAddressLine1KanjiChanged,
+          representativeAddressLine2KanjiChanged,
+          representativeAddressStateKanjiChanged,
+          representativeAddressTownKanjiChanged
         } from "redux/stripeCompanyAccountSlice"
 
 const StripeCompanyAccountForm = (): JSX.Element => {
@@ -57,10 +63,16 @@ const StripeCompanyAccountForm = (): JSX.Element => {
   const representativeEmail = useSelector((state: RootState) => state.stripeCompanyAccount.representativeEmail)
   const representativeBirthDay = useSelector((state: RootState) => state.stripeCompanyAccount.representativeBirthDay)
   const representativePhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.representativePhoneNumber)
+  const representativeAddressPostalCode = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressPostalCode)
+  const representativeAddressCityKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressCityKanji)
+  const representativeAddressLine1Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kanji)
+  const representativeAddressLine2Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kanji)
+  const representativeAddressStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressStateKanji)
+  const representativeAddressTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKanji)
 
   return (
     <>
-      <Form.Label className='mt10'>法人名、商号（カナ）</Form.Label>
+      <Form.Label className='mt10'>法人名、商号（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch((companyBusinessNameKanaChanged(e.target.value)))}
                     value={companyBusinessNameKana}></Form.Control>
       <Form.Label className='mt10'>郵便番号<RequireBadge></RequireBadge></Form.Label>
@@ -136,7 +148,27 @@ const StripeCompanyAccountForm = (): JSX.Element => {
       <Form.Label className='mt10'>事業責任者のメールアドレス<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeEmailChanged(e.target.value))}
                     value={representativeEmail}></Form.Control>
-      <Form.Label className='mt10'></Form.Label>
+      <Form.Label className='mt10'>事業責任者の電話番号<RequireBadge></RequireBadge></Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativePhoneNumberChanged(e.target.value))}
+                    value={representativePhoneNumber}></Form.Control>
+      <Form.Label className='mt10'>事業責任者の自宅住所・郵便番号<RequireBadge></RequireBadge></Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeAddressPostalCodeChanged(e.target.value))}
+                    value={representativeAddressPostalCode}></Form.Control>
+      <Form.Label className='mt10'>事業責任者の自宅住所・都道府県（漢字）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeAddressStateKanjiChanged(e.target.value))}
+                    value={representativeAddressStateKanji}></Form.Control>
+      <Form.Label className='mt10'>事業責任者の自宅住所・区市町村（漢字）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeAddressCityKanjiChanged(e.target.value))}
+                    value={representativeAddressCityKanji}></Form.Control>
+      <Form.Label className='mt10'>事業責任者の自宅住所・町名（丁目まで、漢字）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeAddressTownKanjiChanged(e.target.value))}
+                    value={representativeAddressTownKanji}></Form.Control>
+      <Form.Label className='mt10'>事業責任者の自宅住所・番地、号（漢字）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeAddressLine1KanjiChanged(e.target.value))}
+                    value={representativeAddressLine1Kanji}></Form.Control>
+      <Form.Label className='mt10'>事業責任者の自宅住所・建物、部屋番号、その他（漢字）</Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeAddressLine2KanjiChanged(e.target.value))}
+                    value={representativeAddressLine2Kanji}></Form.Control>
     </>
   )
 }

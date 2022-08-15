@@ -30,7 +30,13 @@ export const stripeCompanyAccountSlice = createSlice({
     representativeGender: 'male',
     representativeEmail: '',
     representativeBirthDay: '',
-    representativePhoneNumber: ''
+    representativePhoneNumber: '',
+    representativeAddressPostalCode: '',
+    representativeAddressStateKanji: '',
+    representativeAddressCityKanji: '',
+    representativeAddressTownKanji: '',
+    representativeAddressLine1Kanji: '',
+    representativeAddressLine2Kanji: '',
   },
   reducers: {
     companyBusinessNameChanged: (state, action: PayloadAction<string>) => {
@@ -114,6 +120,24 @@ export const stripeCompanyAccountSlice = createSlice({
     representativePhoneNumberChanged: (state, action: PayloadAction<string>) => {
       state.representativePhoneNumber = action.payload
     },
+    representativeAddressPostalCodeChanged: (state, action: PayloadAction<string>) => {
+      state.representativeAddressPostalCode = action.payload
+    },
+    representativeAddressStateKanjiChanged: (state, action: PayloadAction<string>) => {
+      state.representativeAddressStateKanji = action.payload
+    },
+    representativeAddressCityKanjiChanged: (state, action: PayloadAction<string>) => {
+      state.representativeAddressCityKanji = action.payload
+    },
+    representativeAddressTownKanjiChanged: (state, action: PayloadAction<string>) => {
+      state.representativeAddressTownKanji = action.payload
+    },
+    representativeAddressLine1KanjiChanged: (state, action: PayloadAction<string>) => {
+      state.representativeAddressLine1Kanji = action.payload
+    },
+    representativeAddressLine2KanjiChanged: (state, action: PayloadAction<string>) => {
+      state.representativeAddressLine2Kanji = action.payload
+    },
   },
 })
 
@@ -144,5 +168,11 @@ export const { representativeEmailChanged } = stripeCompanyAccountSlice.actions
 export const { identificationImageChanged } = stripeCompanyAccountSlice.actions
 export const { representativeBirthDayChanged } = stripeCompanyAccountSlice.actions
 export const { representativePhoneNumberChanged } = stripeCompanyAccountSlice.actions
+export const { representativeAddressPostalCodeChanged } = stripeCompanyAccountSlice.actions
+export const { representativeAddressStateKanjiChanged } = stripeCompanyAccountSlice.actions
+export const { representativeAddressCityKanjiChanged } = stripeCompanyAccountSlice.actions
+export const { representativeAddressTownKanjiChanged } = stripeCompanyAccountSlice.actions
+export const { representativeAddressLine1KanjiChanged } = stripeCompanyAccountSlice.actions
+export const { representativeAddressLine2KanjiChanged } = stripeCompanyAccountSlice.actions
 
 export default stripeCompanyAccountSlice.reducer

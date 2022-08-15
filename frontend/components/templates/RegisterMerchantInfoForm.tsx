@@ -134,6 +134,12 @@ const RegisterMerchantInfoForm = () => {
   const representativePhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.representativePhoneNumber)
   const representativeGender = useSelector((state: RootState) => state.stripeCompanyAccount.representativeGender)
   const representativeBirthDay = useSelector((state: RootState) => state.stripeCompanyAccount.representativeBirthDay)
+  const representativeAddressPostalCode = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressPostalCode)
+  const representativeAddressCityKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressCityKanji)
+  const representativeAddressLine1Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kanji)
+  const representativeAddressLine2Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kanji)
+  const representativeAddressStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressStateKanji)
+  const representativeAddressTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKanji)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
@@ -185,8 +191,14 @@ const RegisterMerchantInfoForm = () => {
         representative_first_name_kana: representativeFirstNameKana,
         representative_email: representativeEmail,
         representative_phone_number: representativePhoneNumber,
-        representative_birth_day: individualBirthDay,
+        representative_birth_day: representativeBirthDay,
         representative_gender: representativeGender,
+        representative_address_postal_code: representativeAddressPostalCode,
+        representative_address_state_kanji: representativeAddressStateKanji,
+        representative_address_city_kanji: representativeAddressCityKanji,
+        representative_address_town_kanji: representativeAddressTownKanji,
+        representative_address_line1_kanji: representativeAddressLine1Kanji,
+        representative_address_line2_kanji: representativeAddressLine2Kanji
       },
     },
     {
