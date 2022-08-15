@@ -39,6 +39,7 @@ import {  companyBusinessNameChanged,
           representativeAddressCityKanaChanged,
           representativeAddressLine1KanaChanged,
           representativeAddressLine2KanaChanged,
+          isDirectorRegisterCompleteChanged
         } from "redux/stripeCompanyAccountSlice"
 
 const StripeCompanyAccountForm = (): JSX.Element => {
@@ -79,7 +80,8 @@ const StripeCompanyAccountForm = (): JSX.Element => {
   const representativeAddressTownKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKana)
   const representativeAddressLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kana)
   const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
-
+  const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
+  
   return (
     <>
       <Form.Label className='mt10'>法人名、商号（カナ）<RequireBadge></RequireBadge></Form.Label>
@@ -147,53 +149,59 @@ const StripeCompanyAccountForm = (): JSX.Element => {
       <Form.Label className='mt10'>事業主様のお名前（カナ）</Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeFirstNameKanaChanged(e.target.value))}
                     value={representativeFirstNameKana}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の生年月日<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の生年月日<RequireBadge></RequireBadge></Form.Label>
       <Form.Control type='date' onChange={(e) => dispatch(representativeBirthDayChanged(e.target.value))}
                     value={representativeBirthDay}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の姓別<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の姓別<RequireBadge></RequireBadge></Form.Label>
       <Form.Select onChange={(e) => dispatch(representativeGenderChanged(e.target.value))}>
         <option value='male'>男</option>
         <option value='female'>女</option>
       </Form.Select>
-      <Form.Label className='mt10'>事業責任者のメールアドレス<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者のメールアドレス<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeEmailChanged(e.target.value))}
                     value={representativeEmail}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の電話番号<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の電話番号<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativePhoneNumberChanged(e.target.value))}
                     value={representativePhoneNumber}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の自宅住所・郵便番号<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の自宅住所・郵便番号<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressPostalCodeChanged(e.target.value))}
                     value={representativeAddressPostalCode}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の自宅住所・都道府県（漢字）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の自宅住所・都道府県（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressStateKanjiChanged(e.target.value))}
                     value={representativeAddressStateKanji}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の自宅住所・都道府県（カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の自宅住所・都道府県（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressStateKanaChanged(e.target.value))}
                     value={representativeAddressStateKana}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の自宅住所・区市町村（漢字）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の自宅住所・区市町村（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressCityKanjiChanged(e.target.value))}
                     value={representativeAddressCityKanji}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の自宅住所・区市町村（カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の自宅住所・区市町村（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressCityKanaChanged(e.target.value))}
                     value={representativeAddressCityKana}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の自宅住所・町名（丁目まで、漢字）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の自宅住所・町名（丁目まで、漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressTownKanjiChanged(e.target.value))}
                     value={representativeAddressTownKanji}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の自宅住所・町名（丁目まで、カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の自宅住所・町名（丁目まで、カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressTownKanaChanged(e.target.value))}
                     value={representativeAddressTownKana}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の自宅住所・番地、号（漢字）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の自宅住所・番地、号（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressLine1KanjiChanged(e.target.value))}
                     value={representativeAddressLine1Kanji}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の自宅住所・番地、号（カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の自宅住所・番地、号（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressLine1KanaChanged(e.target.value))}
                     value={representativeAddressLine1Kana}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の自宅住所・建物、部屋番号、その他（漢字）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の自宅住所・建物、部屋番号、その他（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressLine2KanjiChanged(e.target.value))}
                     value={representativeAddressLine2Kanji}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の自宅住所・建物、部屋番号、その他（カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の自宅住所・建物、部屋番号、その他（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressLine2KanaChanged(e.target.value))}
                     value={representativeAddressLine2Kana}></Form.Control>
+      <Form.Label className='mt10'>代表者以外に取締役はいますか?</Form.Label>
+      <Form.Check
+        type='switch'
+        checked={isDirectorRegisterComplete === true}
+        label='なし、代表者のみです'
+        onChange={() => dispatch(isDirectorRegisterCompleteChanged(!isDirectorRegisterComplete))}></Form.Check>
     </>
   )
 }

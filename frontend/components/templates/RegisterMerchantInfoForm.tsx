@@ -51,6 +51,7 @@ const RegisterMerchantInfoForm = () => {
         }
       )
       .then(function (response) {
+        console.log(response.data)
         if (response.data.stripe_account.business_type === 'company') {
           setBusinessType('company')
           dispatch(businessProfileNameChanged(response.data.stripe_account.business_profile.name))
@@ -146,7 +147,8 @@ const RegisterMerchantInfoForm = () => {
   const representativeAddressCityKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressCityKana)
   const representativeAddressLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kana)
   const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
-
+  const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
+  
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
     {
@@ -209,7 +211,8 @@ const RegisterMerchantInfoForm = () => {
         representative_address_city_kana: representativeAddressCityKana,
         representative_address_town_kana: representativeAddressTownKana,
         representative_address_line1_kana: representativeAddressLine1Kana,
-        representative_address_line2_kana: representativeAddressLine2Kana
+        representative_address_line2_kana: representativeAddressLine2Kana,
+        is_director_register_complete: isDirectorRegisterComplete
       },
     },
     {

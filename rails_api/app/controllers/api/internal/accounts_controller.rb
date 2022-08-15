@@ -176,6 +176,11 @@ class Api::Internal::AccountsController < ApplicationController
       else
         stripe_account.company.phone = '+81' + account_params[:company_phone_number]
       end
+
+      if account_params[:is_director_register_complete] == true
+        stripe_account.company.directors_provided = true
+      end
+
       stripe_account.tos_acceptance.date = Time.now.to_i
       stripe_account.tos_acceptance.ip = request.remote_ip
 
@@ -411,6 +416,7 @@ class Api::Internal::AccountsController < ApplicationController
                   :representative_address_town_kana,
                   :representative_address_line1_kana,
                   :representative_address_line2_kana,
+                  :is_director_register_complete,
                   :account_number,
                   :bank_code,
                   :branch_code,
