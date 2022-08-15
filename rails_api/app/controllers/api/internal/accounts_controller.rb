@@ -199,13 +199,14 @@ class Api::Internal::AccountsController < ApplicationController
       person.dob.month = split_birth_date[1]
       person.dob.day = split_birth_date[2]
       person.gender = account_params[:representative_gender]
-      person.address.postal_code = account_params[:representative_address_postal_code]
-      person.address.state = account_params[:representative_address_state_kanji]
-      person.address.city = account_params[:representative_address_city_kanji]
-      person.address.town = account_params[:representative_address_town_kanji]
-      person.address.line1 = account_params[:representative_address_line1_kanji]
-      person.address.line2 = account_params[:representative_address_line2_kanji]
-      person.address.postal_code = account_params[:representative_address_postal_code]
+      person.save
+      person.address_kanji.postal_code = account_params[:representative_address_postal_code]
+      person.address_kanji.state = account_params[:representative_address_state_kanji]
+      person.address_kanji.city = account_params[:representative_address_city_kanji]
+      person.address_kanji.town = account_params[:representative_address_town_kanji]
+      person.address_kanji.line1 = account_params[:representative_address_line1_kanji]
+      person.address_kanji.line2 = account_params[:representative_address_line2_kanji] if account_params[:representative_address_line2_kanji].present?
+      person.address_kanji.postal_code = account_params[:representative_address_postal_code]
       # 本人確認ドキュメント
       # image_data = account_params[:identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
       # decode_image = Base64.decode64(image_data)
