@@ -29,11 +29,16 @@ import {  companyBusinessNameChanged,
           representativeEmailChanged,
           representativeGenderChanged,
           representativeAddressPostalCodeChanged,
+          representativeAddressTownKanjiChanged,
+          representativeAddressStateKanjiChanged,
           representativeAddressCityKanjiChanged,
           representativeAddressLine1KanjiChanged,
           representativeAddressLine2KanjiChanged,
-          representativeAddressStateKanjiChanged,
-          representativeAddressTownKanjiChanged
+          representativeAddressTownKanaChanged,
+          representativeAddressStateKanaChanged,
+          representativeAddressCityKanaChanged,
+          representativeAddressLine1KanaChanged,
+          representativeAddressLine2KanaChanged,
         } from "redux/stripeCompanyAccountSlice"
 
 const StripeCompanyAccountForm = (): JSX.Element => {
@@ -64,11 +69,16 @@ const StripeCompanyAccountForm = (): JSX.Element => {
   const representativeBirthDay = useSelector((state: RootState) => state.stripeCompanyAccount.representativeBirthDay)
   const representativePhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.representativePhoneNumber)
   const representativeAddressPostalCode = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressPostalCode)
+  const representativeAddressStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressStateKanji)
   const representativeAddressCityKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressCityKanji)
+  const representativeAddressTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKanji)
   const representativeAddressLine1Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kanji)
   const representativeAddressLine2Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kanji)
-  const representativeAddressStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressStateKanji)
-  const representativeAddressTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKanji)
+  const representativeAddressStateKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressStateKana)
+  const representativeAddressCityKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressCityKana)
+  const representativeAddressTownKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKana)
+  const representativeAddressLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kana)
+  const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
 
   return (
     <>
@@ -157,18 +167,33 @@ const StripeCompanyAccountForm = (): JSX.Element => {
       <Form.Label className='mt10'>事業責任者の自宅住所・都道府県（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressStateKanjiChanged(e.target.value))}
                     value={representativeAddressStateKanji}></Form.Control>
+      <Form.Label className='mt10'>事業責任者の自宅住所・都道府県（カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeAddressStateKanaChanged(e.target.value))}
+                    value={representativeAddressStateKana}></Form.Control>
       <Form.Label className='mt10'>事業責任者の自宅住所・区市町村（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressCityKanjiChanged(e.target.value))}
                     value={representativeAddressCityKanji}></Form.Control>
+      <Form.Label className='mt10'>事業責任者の自宅住所・区市町村（カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeAddressCityKanaChanged(e.target.value))}
+                    value={representativeAddressCityKana}></Form.Control>
       <Form.Label className='mt10'>事業責任者の自宅住所・町名（丁目まで、漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressTownKanjiChanged(e.target.value))}
                     value={representativeAddressTownKanji}></Form.Control>
+      <Form.Label className='mt10'>事業責任者の自宅住所・町名（丁目まで、カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeAddressTownKanaChanged(e.target.value))}
+                    value={representativeAddressTownKana}></Form.Control>
       <Form.Label className='mt10'>事業責任者の自宅住所・番地、号（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressLine1KanjiChanged(e.target.value))}
                     value={representativeAddressLine1Kanji}></Form.Control>
+      <Form.Label className='mt10'>事業責任者の自宅住所・番地、号（カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeAddressLine1KanaChanged(e.target.value))}
+                    value={representativeAddressLine1Kana}></Form.Control>
       <Form.Label className='mt10'>事業責任者の自宅住所・建物、部屋番号、その他（漢字）</Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressLine2KanjiChanged(e.target.value))}
                     value={representativeAddressLine2Kanji}></Form.Control>
+      <Form.Label className='mt10'>事業責任者の自宅住所・建物、部屋番号、その他（カナ）</Form.Label>
+      <Form.Control onChange={(e) => dispatch(representativeAddressLine2KanaChanged(e.target.value))}
+                    value={representativeAddressLine2Kana}></Form.Control>
     </>
   )
 }

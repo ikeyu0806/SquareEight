@@ -184,29 +184,36 @@ class Api::Internal::AccountsController < ApplicationController
         person.relationship.title = 'CEO'
         current_merchant_user.account.update!(stripe_representative_person_id: person.id)
       end
+      person.save
       person.first_name_kanji = account_params[:representative_first_name_kanji]
       person.last_name_kanji = account_params[:representative_last_name_kanji]
       person.first_name_kana = account_params[:representative_first_name_kana] if account_params[:representative_first_name_kana].present?
       person.last_name_kana = account_params[:representative_last_name_kana] if account_params[:representative_last_name_kana].present?
       person.email = account_params[:representative_email]
-      if account_params[:representative_phone_number].start_with?("+81")
-        stripe_account.company.phone = account_params[:representative_phone_number]
-      else
-        stripe_account.company.phone = '+81' + account_params[:representative_phone_number]
-      end
       split_birth_date = account_params[:representative_birth_day].split("-")
       person.dob.year = split_birth_date[0]
       person.dob.month = split_birth_date[1]
       person.dob.day = split_birth_date[2]
       person.gender = account_params[:representative_gender]
-      person.save
+      if account_params[:representative_phone_number].start_with?("+81")
+        person.phone = account_params[:representative_phone_number]
+      else
+        person.phone = '+81' + account_params[:representative_phone_number]
+      end
       person.address_kanji.postal_code = account_params[:representative_address_postal_code]
       person.address_kanji.state = account_params[:representative_address_state_kanji]
       person.address_kanji.city = account_params[:representative_address_city_kanji]
       person.address_kanji.town = account_params[:representative_address_town_kanji]
       person.address_kanji.line1 = account_params[:representative_address_line1_kanji]
       person.address_kanji.line2 = account_params[:representative_address_line2_kanji] if account_params[:representative_address_line2_kanji].present?
-      person.address_kanji.postal_code = account_params[:representative_address_postal_code]
+
+      person.address_kana.postal_code = account_params[:representative_address_postal_code]
+      person.address_kana.state = account_params[:representative_address_state_kana]
+      person.address_kana.city = account_params[:representative_address_city_kana]
+      person.address_kana.town = account_params[:representative_address_town_kana]
+      person.address_kana.line1 = account_params[:representative_address_line1_kana]
+      person.address_kana.line2 = account_params[:representative_address_line2_kana] if account_params[:representative_address_line2_kana].present?
+
       # 本人確認ドキュメント
       # image_data = account_params[:identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
       # decode_image = Base64.decode64(image_data)
@@ -390,6 +397,11 @@ class Api::Internal::AccountsController < ApplicationController
                   :representative_address_town_kanji,
                   :representative_address_line1_kanji,
                   :representative_address_line2_kanji,
+                  :representative_address_state_kana,
+                  :representative_address_city_kana,
+                  :representative_address_town_kana,
+                  :representative_address_line1_kana,
+                  :representative_address_line2_kana,
                   :account_number,
                   :bank_code,
                   :branch_code,

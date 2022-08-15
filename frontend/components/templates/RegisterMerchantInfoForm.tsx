@@ -135,11 +135,16 @@ const RegisterMerchantInfoForm = () => {
   const representativeGender = useSelector((state: RootState) => state.stripeCompanyAccount.representativeGender)
   const representativeBirthDay = useSelector((state: RootState) => state.stripeCompanyAccount.representativeBirthDay)
   const representativeAddressPostalCode = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressPostalCode)
+  const representativeAddressStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressStateKanji)
+  const representativeAddressTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKanji)
   const representativeAddressCityKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressCityKanji)
   const representativeAddressLine1Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kanji)
   const representativeAddressLine2Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kanji)
-  const representativeAddressStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressStateKanji)
-  const representativeAddressTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKanji)
+  const representativeAddressStateKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressStateKana)
+  const representativeAddressTownKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKana)
+  const representativeAddressCityKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressCityKana)
+  const representativeAddressLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kana)
+  const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
@@ -198,7 +203,12 @@ const RegisterMerchantInfoForm = () => {
         representative_address_city_kanji: representativeAddressCityKanji,
         representative_address_town_kanji: representativeAddressTownKanji,
         representative_address_line1_kanji: representativeAddressLine1Kanji,
-        representative_address_line2_kanji: representativeAddressLine2Kanji
+        representative_address_line2_kanji: representativeAddressLine2Kanji,
+        representative_address_state_kana: representativeAddressStateKana,
+        representative_address_city_kana: representativeAddressCityKana,
+        representative_address_town_kana: representativeAddressTownKana,
+        representative_address_line1_kana: representativeAddressLine1Kana,
+        representative_address_line2_kana: representativeAddressLine2Kana
       },
     },
     {
