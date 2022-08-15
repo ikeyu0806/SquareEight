@@ -13,6 +13,7 @@ import StripeTerm from 'components/organisms/StripeTerm'
 import { businessProfileNameChanged } from 'redux/stripeExternalAccountsSlice'
 import RequireBadge from 'components/atoms/RequireBadge'
 import { convertHalfWidthToFullWidth } from 'functions/halfFullWidthConvert'
+import { getZeroPaddingString } from 'functions/getZeroPaddingString'
 import {  companyBusinessNameChanged,
           companyBusinessNameKanaChanged,
           companyBusinessTaxIdChanged,
@@ -92,7 +93,7 @@ const RegisterMerchantInfoForm = () => {
           dispatch(representativeFirstNameKanaChanged(response.data.representative.first_name_kana))
           dispatch(representativeEmailChanged(response.data.representative.email))
           dispatch(representativePhoneNumberChanged(response.data.representative.phone))
-          dispatch(representativeBirthDayChanged(`${response.data.representative.dob.year}/${response.data.representative.dob.month}/${response.data.representative.dob.day}`))
+          dispatch(representativeBirthDayChanged(String(response.data.representative.dob.year) + '-' + getZeroPaddingString(String(response.data.representative.dob.month)) + '-' + getZeroPaddingString(String(response.data.representative.dob.day))))
           dispatch(representativeGenderChanged(response.data.representative.gender))
           dispatch(representativeAddressPostalCodeChanged(convertHalfWidthToFullWidth(response.data.representative.address_kanji.postal_code)))
           dispatch(representativeAddressStateKanjiChanged(response.data.representative.address_kanji.state))
@@ -105,6 +106,7 @@ const RegisterMerchantInfoForm = () => {
           dispatch(representativeAddressTownKanaChanged(response.data.representative.address_kana.town))
           dispatch(representativeAddressLine1KanaChanged(response.data.representative.address_kana.line1))
           dispatch(representativeAddressLine2KanaChanged(response.data.representative.address_kana.line2))
+          dispatch(isDirectorRegisterCompleteChanged(response.data.stripe_account.company.directors_provided))
         } else if (response.data.stripe_account.business_type === 'individual') {
 
         }
