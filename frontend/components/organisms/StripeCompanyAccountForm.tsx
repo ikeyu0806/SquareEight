@@ -69,25 +69,25 @@ const StripeCompanyAccountForm = (): JSX.Element => {
       <Form.Label className='mt10'>都道府県（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyStateKanjiChanged(e.target.value))}
                     value={companyStateKanji}></Form.Control>
-      <Form.Label className='mt10'>都道府県（カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>都道府県（カナ）</Form.Label>
       <Form.Control onChange={(e) => dispatch(companyStateKanaChanged(e.target.value))}
                     value={companyStateKana}></Form.Control>
       <Form.Label className='mt10'>区市町村（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyCityKanjiChanged(e.target.value))}
                     value={companyCityKanji}></Form.Control>
-      <Form.Label className='mt10'>区市町村（カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>区市町村（カナ）</Form.Label>
       <Form.Control onChange={(e) => dispatch(companyCityKanaChanged(e.target.value))}
                     value={companyCityKana}></Form.Control>
       <Form.Label className='mt10'>町名（丁目まで、漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyTownKanjiChanged(e.target.value))}
                     value={companyTownKanji}></Form.Control>
-      <Form.Label className='mt10'>町名（丁目まで、カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>町名（丁目まで、カナ）</Form.Label>
       <Form.Control onChange={(e) => dispatch(companyTownKanaChanged(e.target.value))}
                     value={companyTownKana}></Form.Control>
       <Form.Label className='mt10'>番地、号（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyLine1KanjiChanged(e.target.value))}
                     value={companyLine1Kanji}></Form.Control>
-      <Form.Label className='mt10'>番地、号（カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>番地、号（カナ）</Form.Label>
       <Form.Control onChange={(e) => dispatch(companyLine1KanaChanged(e.target.value))}
                     value={companyLine1Kana}></Form.Control>
       <Form.Label className='mt10'>建物・部屋番号・その他（漢字）</Form.Label>
@@ -113,34 +113,30 @@ const StripeCompanyAccountForm = (): JSX.Element => {
                     value={companyDescription}
                     as='textarea'
                     rows={2}></Form.Control>
-      <Form.Label className='mt10'>事業主様の姓（漢字）</Form.Label>
+      <Form.Label className='mt10'>事業主様の姓（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeLastNameKanjiChanged(e.target.value))}
                     value={representativeLastNameKanji}></Form.Control>
       <Form.Label className='mt10'>事業主様の姓（カナ）</Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeLastNameKanaChanged(e.target.value))}
                     value={representativeLastNameKana}></Form.Control>
-      <Form.Label className='mt10'>事業主様のお名前（漢字）</Form.Label>
+      <Form.Label className='mt10'>事業主様のお名前（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeFirstNameKanjiChanged(e.target.value))}
                     value={representativeFirstNameKanji}></Form.Control>
       <Form.Label className='mt10'>事業主様のお名前（カナ）</Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeFirstNameKanaChanged(e.target.value))}
                     value={representativeFirstNameKana}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の生年月日</Form.Label>
+      <Form.Label className='mt10'>事業責任者の生年月日<RequireBadge></RequireBadge></Form.Label>
       <Form.Control type='date' onChange={(e) => dispatch(representativeBirthDayChanged(e.target.value))}
                     value={representativeBirthDay}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の姓別</Form.Label>
+      <Form.Label className='mt10'>事業責任者の姓別<RequireBadge></RequireBadge></Form.Label>
       <Form.Select onChange={(e) => dispatch(representativeGenderChanged(e.target.value))}>
         <option value='male'>男</option>
         <option value='female'>女</option>
       </Form.Select>
-      <Form.Label className='mt10'>事業責任者の電話番号</Form.Label>
-      <Form.Control onChange={(e) => dispatch(representativePhoneNumberChanged(e.target.value))}
-                    value={representativePhoneNumber}></Form.Control>
-      <Form.Label className='mt10'>事業責任者のメールアドレス</Form.Label>
+      <Form.Label className='mt10'>事業責任者のメールアドレス<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeEmailChanged(e.target.value))}
                     value={representativeEmail}></Form.Control>
       <Form.Label className='mt10'></Form.Label>
-      <Form.Control></Form.Control>
     </>
   )
 }
