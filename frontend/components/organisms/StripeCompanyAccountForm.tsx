@@ -188,10 +188,10 @@ const StripeCompanyAccountForm = (): JSX.Element => {
       <Form.Label className='mt10'>事業責任者の自宅住所・番地、号（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressLine1KanaChanged(e.target.value))}
                     value={representativeAddressLine1Kana}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の自宅住所・建物、部屋番号、その他（漢字）</Form.Label>
+      <Form.Label className='mt10'>事業責任者の自宅住所・建物、部屋番号、その他（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressLine2KanjiChanged(e.target.value))}
                     value={representativeAddressLine2Kanji}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の自宅住所・建物、部屋番号、その他（カナ）</Form.Label>
+      <Form.Label className='mt10'>事業責任者の自宅住所・建物、部屋番号、その他（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressLine2KanaChanged(e.target.value))}
                     value={representativeAddressLine2Kana}></Form.Control>
     </>
