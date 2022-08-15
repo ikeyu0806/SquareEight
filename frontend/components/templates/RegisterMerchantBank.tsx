@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Card, Form, Button } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
 import { RootState } from 'redux/store'
@@ -16,12 +16,14 @@ const RegisterMerchantBank = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
 
+  const [isLoading, setIsLoading] = useState(false)
   const accountNumber = useSelector((state: RootState) => state.stripeExternalAccount.accountNumber)
   const bankCode = useSelector((state: RootState) => state.stripeExternalAccount.bankCode)
   const branchCode = useSelector((state: RootState) => state.stripeExternalAccount.branchCode)
   const accountHolderName = useSelector((state: RootState) => state.stripeExternalAccount.accountHolderName)
 
   const registerBankAccount = () => {
+    setIsLoading(true)
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_bank_account`,
     {
       account: {
@@ -36,8 +38,10 @@ const RegisterMerchantBank = () => {
         'Session-Id': cookies._gybuilder_merchant_session
       }
     }).then(response => {
+      setIsLoading(false)
       router.push('/admin/sales_transfer')
     }).catch(error => {
+      setIsLoading(false)
       dispatch(alertChanged({message: '登録失敗しました', show: true, type: 'danger'}))
     })
   }
@@ -59,7 +63,10 @@ const RegisterMerchantBank = () => {
         <Form.Control onChange={(e) => dispatch((branchCodeChanged(e.target.value)))}
                       value={branchCode}></Form.Control>
         <div className='text-center mt20'>
-          <Button onClick={registerBankAccount}>登録する</Button>
+          <Button onClick={registerBankAccount}>
+            {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
+            登録する
+          </Button>
         </div>
       </Card.Body>
     </>

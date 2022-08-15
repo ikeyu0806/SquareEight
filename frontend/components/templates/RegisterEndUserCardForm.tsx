@@ -20,12 +20,13 @@ const RegisterMerchantCardForm = () => {
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const dispatch = useDispatch()
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
 
   const registerCard = async () => {
     if (elements == null) {
       return
     }
-
+    setIsLoading(true)
     await stripe!.createToken(
       elements!.getElement(CardNumberElement)!
     ).then((result) => {
@@ -48,9 +49,11 @@ const RegisterMerchantCardForm = () => {
               'Session-Id': cookies._gybuilder_end_user_session
             }
           }).then(response => {
+            setIsLoading(false)
             dispatch(alertChanged({message: '登録しました', show: true}))
             router.push('/customer_page/payment_method')
           }).catch(error => {
+            setIsLoading(false)
             dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
           })
         })
@@ -80,6 +83,7 @@ const RegisterMerchantCardForm = () => {
                 <button className='btn btn-primary mt30'
                         type='submit' disabled={!stripe || !elements}
                         onClick={() => registerCard()}>
+                  {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
                   登録する
                 </button>
               </div>

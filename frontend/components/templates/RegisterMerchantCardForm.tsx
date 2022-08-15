@@ -14,6 +14,7 @@ import {
 } from '@stripe/react-stripe-js'
 
 const RegisterMerchantCardForm = () => {
+  const [isLoading, setIsLoading] = useState(false)
   const [token, setToken] = useState<any>()
   const stripe = useStripe()
   const elements = useElements()
@@ -25,7 +26,7 @@ const RegisterMerchantCardForm = () => {
     if (elements == null) {
       return
     }
-
+    setIsLoading(true)
     await stripe!.createToken(
       elements!.getElement(CardNumberElement)!
     ).then((result) => {
@@ -48,10 +49,12 @@ const RegisterMerchantCardForm = () => {
               'Session-Id': cookies._gybuilder_merchant_session
             }
           }).then(response => {
+            setIsLoading(false)
             dispatch(alertChanged({message: '登録しました', show: true}))
             router.push('/admin/payment_method')
           }).catch(error => {
-            dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
+            setIsLoading(false)
+            dispatch(alertChanged({message: '登録失敗しました', show: true, type: 'danger'}))
           })
         })
     })
@@ -71,15 +74,16 @@ const RegisterMerchantCardForm = () => {
             <Card.Header>新規クレジットカード登録</Card.Header>
             <Card.Body>
               <Form.Label>カード番号</Form.Label>
-              <CardNumberElement className="form-control" />
+              <CardNumberElement className='form-control' />
               <Form.Label className='mt10'>有効期限</Form.Label>
-              <CardExpiryElement className="form-control" />
+              <CardExpiryElement className='form-control' />
               <Form.Label className='mt10'>セキュリティコード</Form.Label>
-              <CardCvcElement className="form-control" />
+              <CardCvcElement className='form-control' />
               <div className='text-center'>
                 <button className='btn btn-primary mt30'
                         type='submit' disabled={!stripe || !elements}
                         onClick={() => registerCard()}>
+                  {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
                   登録する
                 </button>
               </div>
