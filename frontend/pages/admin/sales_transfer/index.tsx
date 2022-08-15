@@ -53,7 +53,7 @@ const Index: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
         <Container>
-          {stripeAccount?.requirements.currently_due?.length !== 0 && <Alert variant='warning'>{requirementsContents()}が不足しています</Alert>}
+          {stripeAccount?.requirements && stripeAccount?.requirements.currently_due?.length !== 0 && <Alert variant='warning'>{requirementsContents()}が不足しています</Alert>}
           <Row>
             <Col>
               <Card className='mt20'>
