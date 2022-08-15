@@ -12,6 +12,7 @@ import { alertChanged } from 'redux/alertSlice'
 import StripeTerm from 'components/organisms/StripeTerm'
 import { businessProfileNameChanged } from 'redux/stripeExternalAccountsSlice'
 import RequireBadge from 'components/atoms/RequireBadge'
+import { convertHalfWidthToFullWidth } from 'functions/halfFullWidthConvert'
 import {  companyBusinessNameChanged,
           companyBusinessNameKanaChanged,
           companyBusinessTaxIdChanged,
@@ -93,7 +94,7 @@ const RegisterMerchantInfoForm = () => {
           dispatch(representativePhoneNumberChanged(response.data.representative.phone))
           dispatch(representativeBirthDayChanged(`${response.data.representative.dob.year}/${response.data.representative.dob.month}/${response.data.representative.dob.day}`))
           dispatch(representativeGenderChanged(response.data.representative.gender))
-          dispatch(representativeAddressPostalCodeChanged(response.data.representative.address_kanji.postal_code))
+          dispatch(representativeAddressPostalCodeChanged(convertHalfWidthToFullWidth(response.data.representative.address_kanji.postal_code)))
           dispatch(representativeAddressStateKanjiChanged(response.data.representative.address_kanji.state))
           dispatch(representativeAddressCityKanjiChanged(response.data.representative.address_kanji.city))
           dispatch(representativeAddressTownKanjiChanged(response.data.representative.address_kanji.town))
