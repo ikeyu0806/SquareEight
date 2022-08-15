@@ -9,14 +9,20 @@ export interface StripeAccountParam {
   display_name: string
   email: string
   charges_enabled?: boolean
+  payouts_enabled: boolean
   external_accounts?: StripeExternalAccountParam
   legal_entity: StripeIndividualAccountParam
   company: StripeCompanyAccountParam
   business_profile: BusinessProfile
+  requirements: StripeAccountRequirementsParams
 }
 
 interface BusinessProfile {
   name: string
   product_description: string
   url: string
+}
+
+interface StripeAccountRequirementsParams {
+  currently_due: string[]
 }

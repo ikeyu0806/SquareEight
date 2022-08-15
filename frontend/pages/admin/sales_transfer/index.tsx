@@ -5,7 +5,7 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
-import { Container, Row, Col, Card, Button } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap'
 import { StripeAccountParam } from 'interfaces/StripeAccountParam'
 import { StripePersonParam } from 'interfaces/StripePersonParam'
 
@@ -41,10 +41,19 @@ const Index: NextPage = () => {
     fetchStripeConnectedAccount()
   }, [router.query.id, cookies._gybuilder_merchant_session, dispatch])
 
+  const requirementsContents = () => {
+    let result = [] as string[]
+    stripeAccount?.requirements.currently_due.map(due => {
+      result.push('銀行口座の登録')
+    })
+    return result.join(' ')
+  }
+
   return (
     <>
       <MerchantUserAdminLayout>
         <Container>
+          {<Alert variant='warning'>{requirementsContents()}が不足しています</Alert>}
           <Row>
             <Col>
               <Card className='mt20'>
