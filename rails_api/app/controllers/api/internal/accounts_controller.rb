@@ -158,13 +158,13 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.company.name_kanji = account_params[:business_profile_name]
       stripe_account.company.name_kana = account_params[:company_business_name_kana] if account_params[:company_business_name_kana].present?
       stripe_account.company.tax_id = account_params[:company_business_tax_id]
-      stripe_account.company.address_kanji.postal_code = account_params[:company_portal_code]
+      stripe_account.company.address_kanji.postal_code = account_params[:company_postal_code]
       stripe_account.company.address_kanji.state = account_params[:company_state_kanji]
       stripe_account.company.address_kanji.city = account_params[:company_city_kanji]
       stripe_account.company.address_kanji.town = account_params[:company_town_kanji]
       stripe_account.company.address_kanji.line1 = account_params[:company_line1_kanji]
       stripe_account.company.address_kanji.line2 = account_params[:company_line2_kanji] if account_params[:company_line2_kanji].present?
-      stripe_account.company.address_kana.postal_code = account_params[:company_portal_code]
+      stripe_account.company.address_kana.postal_code = account_params[:company_postal_code]
       stripe_account.company.address_kana.state = account_params[:company_state_kana] if account_params[:company_state_kana].present?
       stripe_account.company.address_kana.city = account_params[:company_city_kana] if account_params[:company_city_kana].present?
       stripe_account.company.address_kana.town = account_params[:company_town_kana] if account_params[:company_town_kana].present?
@@ -390,7 +390,7 @@ class Api::Internal::AccountsController < ApplicationController
                   :company_business_tax_id,
                   :company_business_name_kana,
                   :company_registration_number,
-                  :company_portal_code,
+                  :company_postal_code,
                   :company_state_kanji,
                   :company_city_kanji,
                   :company_town_kanji,

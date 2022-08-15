@@ -219,7 +219,7 @@ const RegisterMerchantInfoForm = () => {
         individual_identification_image: individualIdentificationImage,
         company_business_name_kana: companyBusinessNameKana,
         company_business_tax_id: companyBusinessTaxId,
-        company_portal_code: companyPortalCode,
+        company_postal_code: companyPortalCode,
         company_state_kanji: companyStateKanji,
         company_city_kanji: companyCityKanji,
         company_town_kanji: companyTownKanji,
