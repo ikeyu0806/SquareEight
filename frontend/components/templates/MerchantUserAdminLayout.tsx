@@ -5,6 +5,7 @@ import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
+import WithoutSessionLayout from './WithoutSessionLayout'
 import { loginStatusChanged,
          stripeAccountEnableChanged,
          stripeCustomerEnableChanged } from 'redux/currentMerchantUserSlice'
@@ -36,13 +37,12 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
   return (
     <>
       {merchantUserLoginStatus === 'Login'
-        ? <><AdminNavbarTemplate></AdminNavbarTemplate><br/>{children}</>
+        ? <><AdminNavbarTemplate></AdminNavbarTemplate><br/>{children}<RegularFooter></RegularFooter></>
         :
         merchantUserLoginStatus === 'Logout'
-          ? <div className='text-center mt30 mb30'>ログインしてください</div>
+          ? <WithoutSessionLayout><div className='text-center mt30 mb30'>ログインしてください</div></WithoutSessionLayout>
           : <></>
       }
-      <RegularFooter></RegularFooter>
     </>
   )
 }

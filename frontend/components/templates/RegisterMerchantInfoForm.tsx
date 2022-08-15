@@ -56,6 +56,7 @@ import {  companyBusinessNameChanged,
 
 const RegisterMerchantInfoForm = () => {
   const [businessType, setBusinessType] = useState('individual')
+  const [isLoading, setIsLoading] = useState(false)
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const dispatch = useDispatch()
   const router = useRouter()
@@ -188,6 +189,7 @@ const RegisterMerchantInfoForm = () => {
   const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.identificationImage)
 
   const onSubmit = () => {
+    setIsLoading(true)
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
     {
       account: {
@@ -259,8 +261,10 @@ const RegisterMerchantInfoForm = () => {
         'Session-Id': cookies._gybuilder_merchant_session
       }
     }).then(response => {
+      setIsLoading(false)
       router.push('/admin/sales_transfer')
     }).catch(error => {
+      setIsLoading(false)
       dispatch(alertChanged({message: '登録失敗しました', show: true, type: 'danger'}))
     })
   }
@@ -283,7 +287,10 @@ const RegisterMerchantInfoForm = () => {
           {businessType === 'individual' && <StripeIndividualAccountForm></StripeIndividualAccountForm>}
           {businessType === 'company' && <StripeCompanyAccountForm></StripeCompanyAccountForm>}
           <StripeTerm></StripeTerm>
-          <Button onClick={onSubmit} className='mt10'>登録する</Button>
+          <Button onClick={onSubmit} className='mt10'>
+            {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
+            登録する
+          </Button>
           </Col>
           <Col></Col>
         </Row>
