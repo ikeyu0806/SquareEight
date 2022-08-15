@@ -5,7 +5,7 @@ import { RootState } from 'redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 import axios from 'axios'
 import { useRouter } from 'next/router'
-import { alertChanged } from 'redux/alertSlice'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { accountNumberChanged,
          bankCodeChanged,
          branchCodeChanged,
@@ -42,7 +42,10 @@ const RegisterMerchantBank = () => {
       router.push('/admin/sales_transfer')
     }).catch(error => {
       setIsLoading(false)
-      dispatch(alertChanged({message: '登録失敗しました', show: true, type: 'danger'}))
+      swalWithBootstrapButtons.fire({
+        title: '登録失敗しました',
+        icon: 'error'
+      })
     })
   }
 

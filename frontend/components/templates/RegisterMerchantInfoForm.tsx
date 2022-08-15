@@ -8,12 +8,12 @@ import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
-import { alertChanged } from 'redux/alertSlice'
 import StripeTerm from 'components/organisms/StripeTerm'
 import { businessProfileNameChanged } from 'redux/stripeExternalAccountsSlice'
 import RequireBadge from 'components/atoms/RequireBadge'
 import { convertHalfWidthToFullWidth } from 'functions/halfFullWidthConvert'
 import { getZeroPaddingString } from 'functions/getZeroPaddingString'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import {  companyBusinessNameChanged,
           companyBusinessNameKanaChanged,
           companyBusinessTaxIdChanged,
@@ -265,7 +265,10 @@ const RegisterMerchantInfoForm = () => {
       router.push('/admin/sales_transfer')
     }).catch(error => {
       setIsLoading(false)
-      dispatch(alertChanged({message: '登録失敗しました', show: true, type: 'danger'}))
+      swalWithBootstrapButtons.fire({
+        title: '登録失敗しました',
+        icon: 'error'
+      })
     })
   }
   return (

@@ -4,6 +4,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { alertChanged } from 'redux/alertSlice'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useRouter } from 'next/router'
 import {
   CardNumberElement,
@@ -54,7 +55,10 @@ const RegisterMerchantCardForm = () => {
             router.push('/admin/payment_method')
           }).catch(error => {
             setIsLoading(false)
-            dispatch(alertChanged({message: '登録失敗しました', show: true, type: 'danger'}))
+            swalWithBootstrapButtons.fire({
+              title: '登録失敗しました',
+              icon: 'error'
+            })
           })
         })
     })
