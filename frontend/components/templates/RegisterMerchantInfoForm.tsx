@@ -52,6 +52,7 @@ const RegisterMerchantInfoForm = () => {
       )
       .then(function (response) {
         if (response.data.stripe_account.business_type === 'company') {
+          setBusinessType('company')
           dispatch(businessProfileNameChanged(response.data.stripe_account.business_profile.name))
           dispatch(companyPortalCodeChanged(response.data.stripe_account.company.address_kana.postal_code))
           dispatch(companyStateKanjiChanged(response.data.stripe_account.company.address_kanji.state))
@@ -235,7 +236,7 @@ const RegisterMerchantInfoForm = () => {
           <Form.Label className='mt20'>事業形態</Form.Label>
           <Form.Select onChange={(e) => setBusinessType(e.target.value)}>
             <option value='individual'>個人事業主（副業も含む）</option>
-            <option value='company'>法人（株式会社/合同会社/NPOなど）</option>
+            <option value='company' selected={businessType === 'company'}>法人（株式会社/合同会社/NPOなど）</option>
           </Form.Select>
           {businessType === 'individual' && <StripeIndividualAccountForm></StripeIndividualAccountForm>}
           {businessType === 'company' && <StripeCompanyAccountForm></StripeCompanyAccountForm>}
