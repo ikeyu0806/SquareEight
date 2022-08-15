@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { Container, Row, Col, Card, Button } from 'react-bootstrap'
 import { StripeAccountParam } from 'interfaces/StripeAccountParam'
+import { StripePersonParam } from 'interfaces/StripePersonParam'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -14,6 +15,7 @@ const Index: NextPage = () => {
   const router = useRouter()
 
   const [stripeAccount, setStripeAccount] = useState<StripeAccountParam>()
+  const [stripeRepresentativePerson, setStripeRepresentativePerson] = useState<StripePersonParam>()
   const [selectedExternalAccountId, setSelectedExternalAccountId] = useState('')
 
   useEffect(() => {
@@ -30,6 +32,7 @@ const Index: NextPage = () => {
         console.log(response.data)
         setStripeAccount(stripeAccountResponse)
         setSelectedExternalAccountId(response.data.selected_external_account_id)
+        setStripeRepresentativePerson(response.data.representative_person)
       })
       .catch(error => {
         console.log(error)
@@ -132,43 +135,43 @@ const Index: NextPage = () => {
                           <Card.Title>建物・部屋番号・その他 （カナ）</Card.Title>
                           <Card.Text>{stripeAccount?.company?.address_kanji.line2}</Card.Text>
                           <Card.Title>代表者の姓（漢字）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.last_name}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.last_name_kanji}</Card.Text>
                           <Card.Title>代表者の姓（カナ）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.last_name_kana}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.last_name_kana}</Card.Text>
                           <Card.Title>代表者のお名前（漢字）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.first_name}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.first_name_kanji}</Card.Text>
                           <Card.Title>代表者のお名前（カナ）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.first_name_kana}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.first_name_kana}</Card.Text>
                           <Card.Title>事業責任者の生年月日</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.dob.year}/{stripeAccount?.legal_entity?.dob.month}/{stripeAccount?.legal_entity?.dob.day}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.dob.year}/{stripeRepresentativePerson?.dob.month}/{stripeRepresentativePerson?.dob.day}</Card.Text>
                           <Card.Title>代表者の姓別</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.gender === 'male' ? '男' : '女'}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.gender === 'male' ? '男' : '女'}</Card.Text>
                           <Card.Title>代表者の電話番号</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.personal_phone_number}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.phone}</Card.Text>
                           <Card.Title>代表者のメールアドレス</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.personal_email}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.email}</Card.Text>
                           <Card.Title>代表者の郵便番号</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.postal_code}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.address_kanji?.postal_code}</Card.Text>
                           <Card.Title>代表者の都道府県（漢字）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.state}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.address_kanji?.state}</Card.Text>
                           <Card.Title>代表者の都道府県（カナ）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.personal_address_kana.state}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.address_kana?.state}</Card.Text>
                           <Card.Title>代表者の区市町村（漢字）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.town}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.address_kanji?.town}</Card.Text>
                           <Card.Title>代表者の区市町村（カナ）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.personal_address_kana.town}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.address_kana?.town}</Card.Text>
                           <Card.Title>代表者の町名（丁目まで、漢字）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.city}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.address_kanji?.city}</Card.Text>
                           <Card.Title>代表者の町名（丁目まで、カナ）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.personal_address_kana.city}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.address_kana?.city}</Card.Text>
                           <Card.Title>代表者の番地、号（漢字）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.line1}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.address_kanji?.line1}</Card.Text>
                           <Card.Title>代表者の番地、号（カナ）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.personal_address_kana.line1}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.address_kana?.line1}</Card.Text>
                           <Card.Title>代表者の建物・部屋番号・その他 （漢字）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.line2}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.address_kanji?.line2}</Card.Text>
                           <Card.Title>代表者の建物・部屋番号・その他 （カナ）</Card.Title>
-                          <Card.Text>{stripeAccount?.legal_entity?.personal_address_kanji.line2}</Card.Text>
+                          <Card.Text>{stripeRepresentativePerson?.address_kana?.line2}</Card.Text>
                         </>}
                   <a href='/admin/sales_transfer/register_business_info' className='btn btn-primary'>事業情報登録</a>
                 </Card.Body>
