@@ -126,9 +126,14 @@ const RegisterMerchantInfoForm = () => {
   const companyPhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.companyPhoneNumber)
   const companyBusinessUrl = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessUrl)
   const companyDescription = useSelector((state: RootState) => state.stripeCompanyAccount.companyDescription)
-  const representativeLastName = useSelector((state: RootState) => state.stripeCompanyAccount.representativeLastNameKanji)
-  const representativeFirstName = useSelector((state: RootState) => state.stripeCompanyAccount.representativeFirstNameKanji)
+  const representativeLastNameKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeLastNameKanji)
+  const representativeFirstNameKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeFirstNameKanji)
+  const representativeLastNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeLastNameKana)
+  const representativeFirstNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeFirstNameKana)
   const representativeEmail = useSelector((state: RootState) => state.stripeCompanyAccount.representativeEmail)
+  const representativePhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.representativePhoneNumber)
+  const representativeGender = useSelector((state: RootState) => state.stripeCompanyAccount.representativeGender)
+  const representativeBirthDay = useSelector((state: RootState) => state.stripeCompanyAccount.representativeBirthDay)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
@@ -174,9 +179,14 @@ const RegisterMerchantInfoForm = () => {
         company_phone_number: companyPhoneNumber,
         company_business_url: companyBusinessUrl,
         company_description: companyDescription,
-        representative_last_name: representativeLastName,
-        representative_first_name: representativeFirstName,
+        representative_last_name_kanji: representativeLastNameKanji,
+        representative_first_name_kanji: representativeFirstNameKanji,
+        representative_last_name_kana: representativeLastNameKana,
+        representative_first_name_kana: representativeFirstNameKana,
         representative_email: representativeEmail,
+        representative_phone_number: representativePhoneNumber,
+        representative_birth_day: individualBirthDay,
+        representative_gender: representativeGender,
       },
     },
     {

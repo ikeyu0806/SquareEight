@@ -161,28 +161,37 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.company.address_kana.town = account_params[:company_town_kana] if account_params[:company_town_kana].present?
       stripe_account.company.address_kana.line1 = account_params[:company_line1_kana]if account_params[:company_line1_kana].present?
       stripe_account.company.address_kana.line2 = account_params[:company_line2_kana] if account_params[:company_line2_kana].present?
-      stripe_account.company.phone = '+81' + account_params[:company_phone_number]
-      stripe_account.company.representatives_provided = true
+
+      if account_params[:company_phone_number].start_with?("+81")
+        stripe_account.company.phone = account_params[:company_phone_number]
+      else
+        stripe_account.company.phone = '+81' + account_params[:company_phone_number]
+      end
       stripe_account.tos_acceptance.date = Time.now.to_i
       stripe_account.tos_acceptance.ip = request.remote_ip
 
       stripe_account.save
-      if current_merchant_user.account.representative_person_id.present?
+      if current_merchant_user.account.stripe_representative_person_id.present?
         person = Stripe::Account.retrieve_person(
           current_merchant_user.account.stripe_account_id,
           current_merchant_user.account.stripe_representative_person_id
         )
       else
         person = Stripe::Account.create_person(
-          stripe_account.id,
-          {first_name: account_params[:representative_first_name_kanji],
-           last_name: account_params[:representative_last_name_kanji],
-           email: account_params[:representative_email]},
+          stripe_account.id
         )
         person.relationship.representative = true
-        person.relationship.representative = true
       end
-
+      person.first_name_kanji = account_params[:representative_first_name_kanji]
+      person.last_name_kanji = account_params[:representative_last_name_kanji]
+      person.first_name_kana = account_params[:representative_first_name_kana] if account_params[:representative_first_name_kana].present?
+      person.last_name_kana = account_params[:representative_last_name_kana] if account_params[:representative_last_name_kana].present?
+      person.email = account_params[:representative_email]
+      split_birth_date = account_params[:representative_birth_day].split("-")
+      person.dob.year = split_birth_date[0]
+      person.dob.month = split_birth_date[1]
+      person.dob.day = split_birth_date[2]
+      person.gender = account_params[:representative_gender]
       # 本人確認ドキュメント
       # image_data = account_params[:identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
       # decode_image = Base64.decode64(image_data)
@@ -354,7 +363,12 @@ class Api::Internal::AccountsController < ApplicationController
                   :identification_image,
                   :representative_last_name_kanji,
                   :representative_first_name_kanji,
+                  :representative_last_name_kana,
+                  :representative_first_name_kana,
                   :representative_email,
+                  :representative_phone_number,
+                  :representative_birth_day,
+                  :representative_gender,
                   :account_number,
                   :bank_code,
                   :branch_code,
