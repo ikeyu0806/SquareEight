@@ -83,6 +83,8 @@ const StripeCompanyAccountForm = (): JSX.Element => {
   const representativeAddressLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kana)
   const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
   const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
+  const representativeVerificationStatus = useSelector((state: RootState) => state.stripeCompanyAccount.representativeVerificationStatus)
+
   const [image, setImage] = useState('')
 
   const handleChangeFile = (e: any) => {
@@ -213,17 +215,22 @@ const StripeCompanyAccountForm = (): JSX.Element => {
         checked={isDirectorRegisterComplete === true}
         label='なし、代表者のみです'
         onChange={() => dispatch(isDirectorRegisterCompleteChanged(!isDirectorRegisterComplete))}></Form.Check>
-      <Form.Group controlId='formFile' className='mt10'>
-        <Form.Label>
-          本人確認書類。以下のいずれかをアップロードしてください<br/>
-          &emsp;1. 運転免許書<br/>
-          &emsp;2. パスポート<br/>
-          &emsp;3. 外国国籍を持つ方の場合は在留カード<br/>
-          &emsp;4. 住基カード(顔写真入り)<br/>
-          &emsp;5. マイナンバーカード(顔写真入り)
-        </Form.Label>
-        <Form.Control type='file' onChange={handleChangeFile} />
-      </Form.Group>
+      {representativeVerificationStatus !== 'verified'
+        ? <>
+            <Form.Group controlId='formFile' className='mt10'>
+              <Form.Label>
+                本人確認書類。以下のいずれかをアップロードしてください<br/>
+                &emsp;1. 運転免許書<br/>
+                &emsp;2. パスポート<br/>
+                &emsp;3. 外国国籍を持つ方の場合は在留カード<br/>
+                &emsp;4. 住基カード(顔写真入り)<br/>
+                &emsp;5. マイナンバーカード(顔写真入り)
+              </Form.Label>
+              <Form.Control type='file' onChange={handleChangeFile} />
+            </Form.Group>
+         </>
+        :
+        <div className='mt10'>本人確認書類は提出済みです</div>}
     </>
   )
 }

@@ -42,6 +42,7 @@ export const stripeCompanyAccountSlice = createSlice({
     representativeAddressTownKana: '',
     representativeAddressLine1Kana: '',
     representativeAddressLine2Kana: '',
+    representativeVerificationStatus: '',
     isDirectorRegisterComplete: false
   },
   reducers: {
@@ -159,6 +160,9 @@ export const stripeCompanyAccountSlice = createSlice({
     representativeAddressLine2KanaChanged: (state, action: PayloadAction<string>) => {
       state.representativeAddressLine2Kana = action.payload
     },
+    representativeVerificationStatusChanged: (state, action: PayloadAction<string>) => {
+      state.representativeVerificationStatus = action.payload
+    },
     isDirectorRegisterCompleteChanged: (state, action: PayloadAction<boolean>) => {
       state.isDirectorRegisterComplete = action.payload
     },
@@ -203,6 +207,7 @@ export const { representativeAddressCityKanaChanged } = stripeCompanyAccountSlic
 export const { representativeAddressTownKanaChanged } = stripeCompanyAccountSlice.actions
 export const { representativeAddressLine1KanaChanged } = stripeCompanyAccountSlice.actions
 export const { representativeAddressLine2KanaChanged } = stripeCompanyAccountSlice.actions
+export const { representativeVerificationStatusChanged } = stripeCompanyAccountSlice.actions
 export const { isDirectorRegisterCompleteChanged } = stripeCompanyAccountSlice.actions
 
 export default stripeCompanyAccountSlice.reducer

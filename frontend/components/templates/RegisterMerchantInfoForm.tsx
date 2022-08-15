@@ -50,7 +50,8 @@ import {  companyBusinessNameChanged,
           representativeAddressTownKanaChanged,
           representativeAddressLine1KanaChanged,
           representativeAddressLine2KanaChanged,
-          isDirectorRegisterCompleteChanged
+          isDirectorRegisterCompleteChanged,
+          representativeVerificationStatusChanged
         } from 'redux/stripeCompanyAccountSlice'
 
 const RegisterMerchantInfoForm = () => {
@@ -107,6 +108,7 @@ const RegisterMerchantInfoForm = () => {
           dispatch(representativeAddressTownKanaChanged(response.data.representative.address_kana.town))
           dispatch(representativeAddressLine1KanaChanged(response.data.representative.address_kana.line1))
           dispatch(representativeAddressLine2KanaChanged(response.data.representative.address_kana.line2))
+          dispatch(representativeVerificationStatusChanged(response.data.representative.verification.status))
           dispatch(isDirectorRegisterCompleteChanged(response.data.stripe_account.company.directors_provided))
         } else if (response.data.stripe_account.business_type === 'individual') {
 
@@ -184,6 +186,7 @@ const RegisterMerchantInfoForm = () => {
   const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
   const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
   const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.identificationImage)
+
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
     {
