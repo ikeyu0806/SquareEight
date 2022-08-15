@@ -337,9 +337,17 @@ class Api::Internal::AccountsController < ApplicationController
     if stripe_account_id.present?
       stripe_account = JSON.parse(Stripe::Account.retrieve(stripe_account_id).to_json)
       stripe_persons = JSON.parse(Stripe::Account.list_persons('acct_1LVs6c2c71M0ULtv',{limit: 100},).to_json)["data"]
-      representative = stripe_persons.select{|person| person["relationship"]["representative"] == true}[0]
     else
       stripe_account = {}
+    end
+
+    stripe_representative_person_id = current_merchant_user.account.stripe_representative_person_id
+    if stripe_account_id.present? && stripe_representative_person_id.present?
+      representative = Stripe::Account.retrieve_person(
+        stripe_account_id,
+        stripe_representative_person_id
+      )
+    else
       representative = {}
     end
     render json: { status: 'success', stripe_account: stripe_account, representative: representative }, states: 200

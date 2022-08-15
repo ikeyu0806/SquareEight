@@ -31,8 +31,24 @@ import {  companyBusinessNameChanged,
           companyBusinessUrlChanged,
           representativeLastNameKanjiChanged,
           representativeFirstNameKanjiChanged,
+          representativeLastNameKanaChanged,
+          representativeFirstNameKanaChanged,
+          representativeGenderChanged,
+          representativeBirthDayChanged,
           representativeEmailChanged,
           representativePhoneNumberChanged,
+          representativeAddressPostalCodeChanged,
+          representativeAddressStateKanjiChanged,
+          representativeAddressCityKanjiChanged,
+          representativeAddressTownKanjiChanged,
+          representativeAddressLine1KanjiChanged,
+          representativeAddressLine2KanjiChanged,
+          representativeAddressStateKanaChanged,
+          representativeAddressCityKanaChanged,
+          representativeAddressTownKanaChanged,
+          representativeAddressLine1KanaChanged,
+          representativeAddressLine2KanaChanged,
+          isDirectorRegisterCompleteChanged
         } from 'redux/stripeCompanyAccountSlice'
 
 const RegisterMerchantInfoForm = () => {
@@ -69,10 +85,25 @@ const RegisterMerchantInfoForm = () => {
           dispatch(companyPhoneNumberChanged(response.data.stripe_account.company.phone))
           dispatch(companyBusinessUrlChanged(response.data.stripe_account.business_profile.url))
           dispatch(companyDescriptionChanged(response.data.stripe_account.business_profile.product_description))      
-          dispatch(representativeLastNameKanjiChanged(response.data.representative.last_name))
-          dispatch(representativeFirstNameKanjiChanged(response.data.representative.first_name))
+          dispatch(representativeLastNameKanjiChanged(response.data.representative.last_name_kanji))
+          dispatch(representativeFirstNameKanjiChanged(response.data.representative.first_name_kanji))
+          dispatch(representativeLastNameKanaChanged(response.data.representative.last_name_kana))
+          dispatch(representativeFirstNameKanaChanged(response.data.representative.first_name_kana))
           dispatch(representativeEmailChanged(response.data.representative.email))
-          dispatch(representativePhoneNumberChanged(response.data.representative.phone_number))
+          dispatch(representativePhoneNumberChanged(response.data.representative.phone))
+          dispatch(representativeBirthDayChanged(`${response.data.representative.dob.year}/${response.data.representative.dob.month}/${response.data.representative.dob.day}`))
+          dispatch(representativeGenderChanged(response.data.representative.gender))
+          dispatch(representativeAddressPostalCodeChanged(response.data.representative.address_kanji.postal_code))
+          dispatch(representativeAddressStateKanjiChanged(response.data.representative.address_kanji.state))
+          dispatch(representativeAddressCityKanjiChanged(response.data.representative.address_kanji.city))
+          dispatch(representativeAddressTownKanjiChanged(response.data.representative.address_kanji.town))
+          dispatch(representativeAddressLine1KanjiChanged(response.data.representative.address_kanji.line1))
+          dispatch(representativeAddressLine2KanjiChanged(response.data.representative.address_kanji.line2))
+          dispatch(representativeAddressStateKanaChanged(response.data.representative.address_kana.state))
+          dispatch(representativeAddressCityKanaChanged(response.data.representative.address_kana.city))
+          dispatch(representativeAddressTownKanaChanged(response.data.representative.address_kana.town))
+          dispatch(representativeAddressLine1KanaChanged(response.data.representative.address_kana.line1))
+          dispatch(representativeAddressLine2KanaChanged(response.data.representative.address_kana.line2))
         } else if (response.data.stripe_account.business_type === 'individual') {
 
         }
