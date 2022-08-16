@@ -325,7 +325,7 @@ const ReserveFrameForm = () => {
         <Row>
           <Col>
             <Form.Group as={Row} className='mb-3'>
-              <Form.Label column sm={1}>
+              <Form.Label column sm={2}>
                 定員
               </Form.Label>
               <Col sm={2}>

@@ -27,7 +27,7 @@ import {
   resourceIdsChanged,
   monthlyPaymentPlanIdsChanged,
   reservableFrameTicketMasterChanged,
-  base64ImageChanged } from 'redux/reserveFrameSlice'
+  s3ObjectPublicUrlChanged } from 'redux/reserveFrameSlice'
 
 const Edit = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -64,7 +64,7 @@ const Edit = (): JSX.Element => {
         dispatch((resourceIdsChanged(response.data.reserve_frame.resouce_ids)))
         dispatch((monthlyPaymentPlanIdsChanged(response.data.reserve_frame.monthly_payment_plan_ids)))
         dispatch((reservableFrameTicketMasterChanged(response.data.reserve_frame.reservable_frame_ticket_master)))
-        dispatch((base64ImageChanged(response.data.reserve_frame.s3_object_public_url)))
+        dispatch((s3ObjectPublicUrlChanged(response.data.reserve_frame.s3_object_public_url)))
       })
       .catch(error => {
         console.log(error)
