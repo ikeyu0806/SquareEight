@@ -8,7 +8,7 @@ class ReserveFrame < ApplicationRecord
   has_many :monthly_payment_plans, through: :reserve_frame_monthly_payment_plans
   has_many :reserve_frame_ticket_masters
   has_many :ticket_masters, through: :reserve_frame_ticket_masters
-  has_many :reserve_frame_reception_times
+  has_many :reserve_frame_reception_timeszw
 
   enum repeat_interval_type: { Day: 0, Week: 1, Month: 2 }
   enum publish_status: { Unpublish: 0, Publish: 1 }
@@ -190,6 +190,14 @@ class ReserveFrame < ApplicationRecord
       }
     end
     result
+  end
+
+  def resouce_ids
+    reserve_frame_resorces.pluck(:resource_id)
+  end
+
+  def start_date_input_value
+    start_at.strftime("%m-%d")
   end
 
   def display_start_at

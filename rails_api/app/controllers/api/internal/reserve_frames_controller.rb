@@ -15,7 +15,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
 
   def show
     reserve_frame = ReserveFrame.find(params[:id])
-    reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods]))
+    reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods, :resouce_ids, :start_date_input_value]))
     render json: { status: 'success', reserve_frame: reserve_frame_json }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

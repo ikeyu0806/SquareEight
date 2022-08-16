@@ -44,6 +44,7 @@ const Edit = (): JSX.Element => {
         }
       )
       .then(function (response) {
+        dispatch((startDateChanged(response.data.start_date_input_value)))
         dispatch((titleChanged(response.data.reserve_frame.title)))
         dispatch((descriptionChanged(response.data.reserve_frame.description)))
         dispatch((capacityChanged(response.data.reserve_frame.capacity)))
@@ -60,7 +61,7 @@ const Edit = (): JSX.Element => {
         dispatch((isTicketPaymentEnableChanged(response.data.reserve_frame.is_ticket_payment_enable)))
         dispatch((isMonthlyPlanPaymentEnableChanged(response.data.reserve_frame.is_monthly_plan_payment_enable)))
         dispatch((reserveFrameReceptionTimesChanged(response.data.reserve_frame.capacity)))
-        dispatch((resourceIdsChanged(response.data.reserve_frame.capacity)))
+        dispatch((resourceIdsChanged(response.data.reserve_frame.resouce_ids)))
         dispatch((monthlyPaymentPlanIdsChanged(response.data.reserve_frame.capacity)))
         dispatch((reservableFrameTicketMasterChanged(response.data.reserve_frame.capacity)))
         dispatch((base64ImageChanged(response.data.reserve_frame.s3_object_public_url)))
