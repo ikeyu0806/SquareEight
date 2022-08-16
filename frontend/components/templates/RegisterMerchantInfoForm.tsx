@@ -61,6 +61,71 @@ const RegisterMerchantInfoForm = () => {
   const dispatch = useDispatch()
   const router = useRouter()
 
+    // 個人事業情報
+    const businessProfileName = useSelector((state: RootState) => state.stripeExternalAccount.businessProfileName)
+    const individualFirstNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualFirstNameKanji)
+    const individualLastNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLastNameKanji)
+    const individualFirstNameKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualFirstNameKana)
+    const individualLastNameKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualLastNameKana)
+    const individualPostalCodeKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualPostalCodeKanji)
+    const individualStateKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualStateKanji)
+    const individualCityKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualCityKanji)
+    const individualTownKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualTownKanji)
+    const individualLine1Kanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLine1Kanji)
+    const individualLine2Kanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLine2Kanji)
+    const individualPosttalCodeKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualPostalCodeKana)
+    const individualStateKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualStateKana)
+    const individualTownKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualTownKana)
+    const individualCityKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualCityKana)
+    const individualLine1Kana = useSelector((state: RootState) => state.stripeIndividualAccount.individualLine1Kana)
+    const individualLine2Kana = useSelector((state: RootState) => state.stripeIndividualAccount.individualLine2Kana)
+    const individualPhoneNumber = useSelector((state: RootState) => state.stripeIndividualAccount.individualPhoneNumber)
+    const individualBirthDay = useSelector((state: RootState) => state.stripeIndividualAccount.individualBirthDay)
+    const individualGender = useSelector((state: RootState) => state.stripeIndividualAccount.individualGender)
+    const individualEmail = useSelector((state: RootState) => state.stripeIndividualAccount.individualEmail)
+    const individualBusinessUrl = useSelector((state: RootState) => state.stripeIndividualAccount.individualBusinessUrl)
+    const individualProductDescription = useSelector((state: RootState) => state.stripeIndividualAccount.individualProductDescription)
+    const individualIdentificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
+  
+    // 企業情報
+    const companyBusinessNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessNameKana)
+    const companyBusinessTaxId = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessTaxId)
+    const companyPortalCode = useSelector((state: RootState) => state.stripeCompanyAccount.companyPortalCode)
+    const companyStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyStateKanji)
+    const companyCityKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyCityKanji)
+    const companyTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyTownKanji)
+    const companyLine1Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine1Kanji)
+    const companyLine2Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine2Kanji)
+    const companyStateKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyStateKana)
+    const companyCityKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyCityKana)
+    const companyTownKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyTownKana)
+    const companyLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine1Kana)
+    const companyLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine2Kana)
+    const companyPhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.companyPhoneNumber)
+    const companyBusinessUrl = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessUrl)
+    const companyDescription = useSelector((state: RootState) => state.stripeCompanyAccount.companyDescription)
+    const representativeLastNameKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeLastNameKanji)
+    const representativeFirstNameKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeFirstNameKanji)
+    const representativeLastNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeLastNameKana)
+    const representativeFirstNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeFirstNameKana)
+    const representativeEmail = useSelector((state: RootState) => state.stripeCompanyAccount.representativeEmail)
+    const representativePhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.representativePhoneNumber)
+    const representativeGender = useSelector((state: RootState) => state.stripeCompanyAccount.representativeGender)
+    const representativeBirthDay = useSelector((state: RootState) => state.stripeCompanyAccount.representativeBirthDay)
+    const representativeAddressPostalCode = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressPostalCode)
+    const representativeAddressStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressStateKanji)
+    const representativeAddressTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKanji)
+    const representativeAddressCityKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressCityKanji)
+    const representativeAddressLine1Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kanji)
+    const representativeAddressLine2Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kanji)
+    const representativeAddressStateKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressStateKana)
+    const representativeAddressTownKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKana)
+    const representativeAddressCityKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressCityKana)
+    const representativeAddressLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kana)
+    const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
+    const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
+    const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.identificationImage)
+  
   useEffect(() => {
     const fetchStripeBusinessInfo = () => {
       axios.get(
@@ -123,70 +188,74 @@ const RegisterMerchantInfoForm = () => {
     fetchStripeBusinessInfo()
   }, [router.query.id, cookies._gybuilder_merchant_session, dispatch])
 
-  // 個人事業情報
-  const businessProfileName = useSelector((state: RootState) => state.stripeExternalAccount.businessProfileName)
-  const individualFirstNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualFirstNameKanji)
-  const individualLastNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLastNameKanji)
-  const individualFirstNameKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualFirstNameKana)
-  const individualLastNameKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualLastNameKana)
-  const individualPostalCodeKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualPostalCodeKanji)
-  const individualStateKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualStateKanji)
-  const individualCityKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualCityKanji)
-  const individualTownKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualTownKanji)
-  const individualLine1Kanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLine1Kanji)
-  const individualLine2Kanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLine2Kanji)
-  const individualPosttalCodeKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualPostalCodeKana)
-  const individualStateKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualStateKana)
-  const individualTownKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualTownKana)
-  const individualCityKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualCityKana)
-  const individualLine1Kana = useSelector((state: RootState) => state.stripeIndividualAccount.individualLine1Kana)
-  const individualLine2Kana = useSelector((state: RootState) => state.stripeIndividualAccount.individualLine2Kana)
-  const individualPhoneNumber = useSelector((state: RootState) => state.stripeIndividualAccount.individualPhoneNumber)
-  const individualBirthDay = useSelector((state: RootState) => state.stripeIndividualAccount.individualBirthDay)
-  const individualGender = useSelector((state: RootState) => state.stripeIndividualAccount.individualGender)
-  const individualEmail = useSelector((state: RootState) => state.stripeIndividualAccount.individualEmail)
-  const individualBusinessUrl = useSelector((state: RootState) => state.stripeIndividualAccount.individualBusinessUrl)
-  const individualProductDescription = useSelector((state: RootState) => state.stripeIndividualAccount.individualProductDescription)
-  const individualIdentificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
-
-  // 企業情報
-  const companyBusinessNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessNameKana)
-  const companyBusinessTaxId = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessTaxId)
-  const companyPortalCode = useSelector((state: RootState) => state.stripeCompanyAccount.companyPortalCode)
-  const companyStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyStateKanji)
-  const companyCityKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyCityKanji)
-  const companyTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyTownKanji)
-  const companyLine1Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine1Kanji)
-  const companyLine2Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine2Kanji)
-  const companyStateKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyStateKana)
-  const companyCityKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyCityKana)
-  const companyTownKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyTownKana)
-  const companyLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine1Kana)
-  const companyLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.companyLine2Kana)
-  const companyPhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.companyPhoneNumber)
-  const companyBusinessUrl = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessUrl)
-  const companyDescription = useSelector((state: RootState) => state.stripeCompanyAccount.companyDescription)
-  const representativeLastNameKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeLastNameKanji)
-  const representativeFirstNameKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeFirstNameKanji)
-  const representativeLastNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeLastNameKana)
-  const representativeFirstNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeFirstNameKana)
-  const representativeEmail = useSelector((state: RootState) => state.stripeCompanyAccount.representativeEmail)
-  const representativePhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.representativePhoneNumber)
-  const representativeGender = useSelector((state: RootState) => state.stripeCompanyAccount.representativeGender)
-  const representativeBirthDay = useSelector((state: RootState) => state.stripeCompanyAccount.representativeBirthDay)
-  const representativeAddressPostalCode = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressPostalCode)
-  const representativeAddressStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressStateKanji)
-  const representativeAddressTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKanji)
-  const representativeAddressCityKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressCityKanji)
-  const representativeAddressLine1Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kanji)
-  const representativeAddressLine2Kanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kanji)
-  const representativeAddressStateKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressStateKana)
-  const representativeAddressTownKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKana)
-  const representativeAddressCityKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressCityKana)
-  const representativeAddressLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kana)
-  const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
-  const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
-  const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.identificationImage)
+  const validateSubmit = () => {
+    if (businessType === 'individual') {
+      if (!individualFirstNameKanji ||
+          !individualLastNameKanji ||
+          !individualFirstNameKana ||
+          !individualLastNameKana ||
+          !individualPostalCodeKanji ||
+          !individualStateKanji ||
+          !individualCityKanji ||
+          !individualTownKanji ||
+          !individualLine1Kanji ||
+          !individualLine2Kanji ||
+          !individualStateKana ||
+          !individualCityKana ||
+          !individualTownKana ||
+          !individualLine1Kana ||
+          !individualLine2Kana ||
+          !individualPhoneNumber ||
+          !individualBirthDay ||
+          !individualGender ||
+          !individualEmail ||
+          !individualBusinessUrl ||
+          !individualProductDescription) {
+        return true
+      }
+    } else {
+      if (!companyBusinessNameKana ||
+          !companyBusinessTaxId ||
+          !companyPortalCode ||
+          !companyStateKanji ||
+          !companyCityKanji ||
+          !companyTownKanji ||
+          !companyLine1Kanji ||
+          !companyLine2Kanji ||
+          !companyStateKana ||
+          !companyStateKana ||
+          !companyCityKana ||
+          !companyTownKana ||
+          !companyLine1Kana ||
+          !companyLine2Kana ||
+          !companyPhoneNumber ||
+          !companyBusinessUrl ||
+          !companyDescription ||
+          !representativeLastNameKanji ||
+          !representativeFirstNameKanji ||
+          !representativeLastNameKana ||
+          !representativeFirstNameKana ||
+          !representativeEmail ||
+          !representativePhoneNumber ||
+          !representativeGender ||
+          !representativeBirthDay ||
+          !representativeAddressPostalCode ||
+          !representativeAddressStateKanji ||
+          !representativeAddressTownKanji ||
+          !representativeAddressCityKanji ||
+          !representativeAddressLine1Kanji ||
+          !representativeAddressLine2Kanji ||
+          !representativeAddressStateKana ||
+          !representativeAddressTownKana ||
+          !representativeAddressCityKana ||
+          !representativeAddressLine1Kana ||
+          !representativeAddressLine2Kana
+          ) {
+        return true
+      }
+    }
+    return false
+  }
 
   const onSubmit = () => {
     setIsLoading(true)
@@ -290,7 +359,7 @@ const RegisterMerchantInfoForm = () => {
           {businessType === 'individual' && <StripeIndividualAccountForm></StripeIndividualAccountForm>}
           {businessType === 'company' && <StripeCompanyAccountForm></StripeCompanyAccountForm>}
           <StripeTerm></StripeTerm>
-          <Button onClick={onSubmit} className='mt10'>
+          <Button onClick={onSubmit} className='mt10' disabled={validateSubmit()}>
             {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
             登録する
           </Button>
