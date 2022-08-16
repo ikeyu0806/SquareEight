@@ -5,35 +5,72 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
-import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import ReserveFrameForm from 'components/molecules/ReserveFrameForm'
+import {
+  startDateChanged,
+  titleChanged,
+  descriptionChanged,
+  capacityChanged,
+  localPaymentPriceChanged,
+  creditCardPaymentPriceChanged,
+  publishStatusChanged,
+  receptionTypeChanged,
+  receptionStartDayBeforeChanged,
+  cancelReceptionChanged,
+  cancelReceptionHourBeforeChanged,
+  cancelReceptionDayBeforeChanged,
+  isLocalPaymentEnableChanged,
+  isCreditCardPaymentEnableChanged,
+  isTicketPaymentEnableChanged,
+  isMonthlyPlanPaymentEnableChanged,
+  reserveFrameReceptionTimesChanged,
+  resourceIdsChanged,
+  monthlyPaymentPlanIdsChanged,
+  reservableFrameTicketMasterChanged,
+  base64ImageChanged } from 'redux/reserveFrameSlice'
 
 const Edit = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
   const router = useRouter()
-  const [reserveFrames, setReserveFrames] = useState<ReserveFrameParam[]>([])
 
   useEffect(() => {
     const fetchReserveFrame = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/reserve_frames`, {
+        `${process.env.BACKEND_URL}/api/internal/reserve_frames/${router.query.id}`, {
           headers: { 
             'Session-Id': cookies._gybuilder_merchant_session
           },
         }
       )
       .then(function (response) {
-        const reserveFrameResponse: ReserveFrameParam[] = response.data.reserve_frames
-        console.log(response.data)
-        setReserveFrames(reserveFrameResponse)
+        dispatch((titleChanged(response.data.reserve_frame.title)))
+        dispatch((descriptionChanged(response.data.reserve_frame.description)))
+        dispatch((capacityChanged(response.data.reserve_frame.capacity)))
+        dispatch((localPaymentPriceChanged(response.data.reserve_frame.local_payment_price)))
+        dispatch((creditCardPaymentPriceChanged(response.data.reserve_frame.credit_card_payment_price)))
+        dispatch((publishStatusChanged(response.data.reserve_frame.publish_status)))
+        dispatch((receptionTypeChanged(response.data.reserve_frame.reception_type)))
+        dispatch((receptionStartDayBeforeChanged(response.data.reserve_frame.reception_start_day_before)))
+        dispatch((cancelReceptionChanged(response.data.reserve_frame.cancel_reception)))
+        dispatch((cancelReceptionHourBeforeChanged(response.data.reserve_frame.cancel_reseption_hour_before)))
+        dispatch((cancelReceptionDayBeforeChanged(response.data.reserve_frame.cancel_reseption_day_before)))
+        dispatch((isLocalPaymentEnableChanged(response.data.reserve_frame.is_local_payment_enable)))
+        dispatch((isCreditCardPaymentEnableChanged(response.data.reserve_frame.is_credit_card_payment_enable)))
+        dispatch((isTicketPaymentEnableChanged(response.data.reserve_frame.is_ticket_payment_enable)))
+        dispatch((isMonthlyPlanPaymentEnableChanged(response.data.reserve_frame.is_monthly_plan_payment_enable)))
+        dispatch((reserveFrameReceptionTimesChanged(response.data.reserve_frame.capacity)))
+        dispatch((resourceIdsChanged(response.data.reserve_frame.capacity)))
+        dispatch((monthlyPaymentPlanIdsChanged(response.data.reserve_frame.capacity)))
+        dispatch((reservableFrameTicketMasterChanged(response.data.reserve_frame.capacity)))
+        dispatch((base64ImageChanged(response.data.reserve_frame.s3_object_public_url)))
       })
       .catch(error => {
         console.log(error)
-      })
+      })  
     }
     fetchReserveFrame()
-  }, [router.query.id, cookies._gybuilder_merchant_session])
+  }, [router.query.id, cookies._gybuilder_merchant_session, dispatch])
 
   return (
     <>
