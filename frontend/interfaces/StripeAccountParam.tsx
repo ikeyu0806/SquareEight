@@ -11,6 +11,7 @@ export interface StripeAccountParam {
   charges_enabled?: boolean
   payouts_enabled: boolean
   external_accounts?: StripeExternalAccountParam
+  individual: StripeIndividualAccountParam
   legal_entity: StripeIndividualAccountParam
   company: StripeCompanyAccountParam
   business_profile: BusinessProfile

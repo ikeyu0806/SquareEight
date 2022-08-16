@@ -9,6 +9,8 @@ export interface StripeIndividualAccountParam {
   last_name_kana: string
   personal_email: string
   personal_phone_number: string
+  email: string
+  phone: string
   type?: string
   gender: string
   product_description: string
