@@ -3,6 +3,7 @@ import homepageReducer from './homepageSlice'
 import alertReducer from './alertSlice'
 import ticketMasterReducer from './ticketMasterSlice'
 import productReducer from './productSlice'
+import stripeAccountSlice from './stripeAccountSlice'
 import stripeCompanyAccountSlice from './stripeCompanyAccountSlice'
 import stripeIndividualAccountSlice from './stripeIndividualAccountSlice'
 import stripeExternalAccountsSlice from './stripeExternalAccountsSlice'
@@ -22,6 +23,7 @@ export const store = configureStore({
     ticketMaster: ticketMasterReducer,
     product: productReducer,
     stripeCompanyAccount: stripeCompanyAccountSlice,
+    stripeAccount: stripeAccountSlice,
     stripeIndividualAccount: stripeIndividualAccountSlice,
     stripeExternalAccount: stripeExternalAccountsSlice,
     monthlyPaymentPlan: monthlyPaymentPlanReducer,

@@ -125,7 +125,8 @@ const RegisterMerchantInfoForm = () => {
     const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
     const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
     const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.identificationImage)
-  
+    const isTermConfirmed = useSelector((state: RootState) => state.stripeAccount.isTermConfirmed)
+
   useEffect(() => {
     const fetchStripeBusinessInfo = () => {
       axios.get(
@@ -189,6 +190,7 @@ const RegisterMerchantInfoForm = () => {
   }, [router.query.id, cookies._gybuilder_merchant_session, dispatch])
 
   const validateSubmit = () => {
+    if (!isTermConfirmed) { return true }
     if (businessType === 'individual') {
       if (!individualFirstNameKanji ||
           !individualLastNameKanji ||
