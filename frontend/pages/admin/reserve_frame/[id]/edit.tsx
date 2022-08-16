@@ -62,8 +62,8 @@ const Edit = (): JSX.Element => {
         dispatch((isMonthlyPlanPaymentEnableChanged(response.data.reserve_frame.is_monthly_plan_payment_enable)))
         dispatch((reserveFrameReceptionTimesChanged(response.data.reserve_frame.capacity)))
         dispatch((resourceIdsChanged(response.data.reserve_frame.resouce_ids)))
-        dispatch((monthlyPaymentPlanIdsChanged(response.data.reserve_frame.capacity)))
-        dispatch((reservableFrameTicketMasterChanged(response.data.reserve_frame.capacity)))
+        dispatch((monthlyPaymentPlanIdsChanged(response.data.reserve_frame.monthly_payment_plan_ids)))
+        dispatch((reservableFrameTicketMasterChanged(response.data.reserve_frame.reservable_frame_ticket_master)))
         dispatch((base64ImageChanged(response.data.reserve_frame.s3_object_public_url)))
       })
       .catch(error => {

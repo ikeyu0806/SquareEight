@@ -196,8 +196,16 @@ class ReserveFrame < ApplicationRecord
     reserve_frame_resorces.pluck(:resource_id)
   end
 
+  def monthly_payment_plan_ids
+    monthly_payment_plans.pluck(:monthly_payment_plan_id)
+  end
+
+  def reservable_frame_ticket_master
+    reservable_frame_ticket_masters.pluck(:ticket_master_id, :consume_number)
+  end
+
   def start_date_input_value
-    start_at.strftime("%m-%d")
+    start_at.strftime("%Y-%m-%d")
   end
 
   def display_start_at
