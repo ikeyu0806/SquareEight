@@ -14,6 +14,28 @@ import RequireBadge from 'components/atoms/RequireBadge'
 import { convertHalfWidthToFullWidth } from 'functions/halfFullWidthConvert'
 import { getZeroPaddingString } from 'functions/getZeroPaddingString'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import {  individualFirstNameKanjiChanged,
+          individualLastNameKanjiChanged,
+          individualFirstNameKanaChanged,
+          individualLastNameKanaChanged,
+          individualBirthDayChanged,
+          individualPostalCodeKanjiChanged,
+          individualStateKanjiChanged,
+          individualCityKanjiChanged,
+          individualTownKanjiChanged,
+          individualLine1KanjiChanged,
+          individualLine2KanjiChanged,
+          individualStateKanaChanged,
+          individualCityKanaChanged,
+          individualTownKanaChanged,
+          individualLine1KanaChanged,
+          individualLine2KanaChanged,
+          individualPhoneNumberChanged,
+          individualEmailChanged,
+          individualBusinessUrlChanged,
+          individualProductDescriptionChanged,
+          individualGenderChanged,
+          identificationImageChanged } from 'redux/stripeIndividualAccountSlice'
 import {  companyBusinessNameChanged,
           companyBusinessNameKanaChanged,
           companyBusinessTaxIdChanged,
@@ -51,8 +73,7 @@ import {  companyBusinessNameChanged,
           representativeAddressLine1KanaChanged,
           representativeAddressLine2KanaChanged,
           isDirectorRegisterCompleteChanged,
-          representativeVerificationStatusChanged
-        } from 'redux/stripeCompanyAccountSlice'
+          representativeVerificationStatusChanged } from 'redux/stripeCompanyAccountSlice'
 
 const RegisterMerchantInfoForm = () => {
   const [businessType, setBusinessType] = useState('individual')
@@ -164,7 +185,7 @@ const RegisterMerchantInfoForm = () => {
           dispatch(representativePhoneNumberChanged(response.data.representative.phone))
           dispatch(representativeBirthDayChanged(String(response.data.representative.dob.year) + '-' + getZeroPaddingString(String(response.data.representative.dob.month)) + '-' + getZeroPaddingString(String(response.data.representative.dob.day))))
           dispatch(representativeGenderChanged(response.data.representative.gender))
-          dispatch(representativeAddressPostalCodeChanged(convertHalfWidthToFullWidth(response.data.representative.address_kanji.postal_code)))
+          dispatch(representativeAddressPostalCodeChanged(response.data.representative.address_kana.postal_code))
           dispatch(representativeAddressStateKanjiChanged(response.data.representative.address_kanji.state))
           dispatch(representativeAddressCityKanjiChanged(response.data.representative.address_kanji.city))
           dispatch(representativeAddressTownKanjiChanged(response.data.representative.address_kanji.town))
@@ -178,9 +199,28 @@ const RegisterMerchantInfoForm = () => {
           dispatch(representativeVerificationStatusChanged(response.data.representative.verification.status))
           dispatch(isDirectorRegisterCompleteChanged(response.data.stripe_account.company.directors_provided))
         } else if (response.data.stripe_account.business_type === 'individual') {
-
+          dispatch(individualFirstNameKanjiChanged(response.data.stripe_account.individual.first_name_kanji))
+          dispatch(individualLastNameKanjiChanged(response.data.stripe_account.individual.last_name_kanji))
+          dispatch(individualFirstNameKanaChanged(response.data.stripe_account.individual.first_name_kana))
+          dispatch(individualLastNameKanaChanged(response.data.stripe_account.individual.last_name_kana))
+          dispatch(individualBirthDayChanged(String(response.data.stripe_account.individual.dob.year) + '-' + getZeroPaddingString(String(response.data.stripe_account.individual.dob.month)) + '-' + getZeroPaddingString(String(response.data.stripe_account.individual.dob.day))))
+          dispatch(individualPostalCodeKanjiChanged(response.data.stripe_account.individual.address_kana.postal_code))
+          dispatch(individualStateKanjiChanged(response.data.stripe_account.individual.address_kanji.state))
+          dispatch(individualCityKanjiChanged(response.data.stripe_account.individual.address_kanji.city))
+          dispatch(individualTownKanjiChanged(response.data.stripe_account.individual.address_kanji.town))
+          dispatch(individualLine1KanjiChanged(response.data.stripe_account.individual.address_kanji.line1))
+          dispatch(individualLine2KanjiChanged(response.data.stripe_account.individual.address_kanji.line2))
+          dispatch(individualStateKanaChanged(response.data.stripe_account.individual.address_kana.state))
+          dispatch(individualCityKanaChanged(response.data.stripe_account.individual.address_kana.city))
+          dispatch(individualTownKanaChanged(response.data.stripe_account.individual.address_kana.town))
+          dispatch(individualLine1KanaChanged(response.data.stripe_account.individual.address_kana.line1))
+          dispatch(individualLine2KanaChanged(response.data.stripe_account.individual.address_kana.line2))
+          dispatch(individualPhoneNumberChanged(response.data.stripe_account.individual.phone))
+          dispatch(individualEmailChanged(response.data.stripe_account.individual.email))
+          dispatch(individualBusinessUrlChanged(response.data.stripe_account.business_profile.url))
+          dispatch(individualProductDescriptionChanged(response.data.stripe_account.business_profile.product_description))
+          dispatch(individualGenderChanged(response.data.stripe_account.individual.gender))
         }
-
       })
       .catch(error => {
         console.log(error)
