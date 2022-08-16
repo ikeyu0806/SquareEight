@@ -44,9 +44,49 @@ const Index: NextPage = () => {
   const requirementsContents = () => {
     let result = [] as string[]
     stripeAccount?.requirements.currently_due.map(due => {
-      result.push('銀行口座の登録')
+      if (due === 'external_account') {
+        result.push('銀行口座の登録')
+      } else if (due.match(/person.*?address_kanji.state/)) {
+        result.push('代表者の都道府県（漢字）')
+      } else if (due.match(/person.*?address_kanji.city/)) {
+        result.push('代表者の区市町村（漢字）')
+      } else if (due.match(/person.*?address_kanji.town/)) {
+        result.push('代表者の町名（丁目まで、漢字）')
+      } else if (due.match(/person.*?address_kanji.line1/)) {
+        result.push('代表者の番地、号（漢字）')
+      } else if (due.match(/person.*?address_kanji.line2/)) {
+        result.push('代表者の建物・部屋番号・その他 （漢字）')
+      } else if (due.match(/person.*?address_kana.state/)) {
+        result.push('代表者の都道府県（カナ）')
+      } else if (due.match(/person.*?address_kana.city/)) {
+        result.push('代表者の区市町村（カナ）')
+      } else if (due.match(/person.*?address_kana.town/)) {
+        result.push('代表者の町名（丁目まで、カナ）')
+      } else if (due.match(/person.*?address_kana.line1/)) {
+        result.push('代表者の番地、号（カナ）')
+      } else if (due.match(/person.*?address_kana.line2/)) {
+        result.push('代表者の建物・部屋番号・その他 （カナ）')
+      } else if (due === 'directors_provided') {
+        result.push('取締役の有無')
+      } else if (due === 'directors.last_name_kanji') {
+        result.push('取締役の姓（漢字）')
+      } else if (due === 'directors.first_name_kanji') {
+        result.push('取締役の名（漢字）')
+      } else if (due === 'directors.last_name_kana') {
+        result.push('取締役の姓（カナ）')
+      } else if (due === 'directors.first_name_kana') {
+        result.push('取締役の名（カナ）')
+      } else if (due === 'company.directors_provided') {
+        result.push('取締役の情報')
+      } else if (due === 'directors.dob.year') {
+        result.push('取締役の生年月日（年）')
+      } else if (due === 'directors.dob.month') {
+        result.push('取締役の生年月日（月）')
+      } else if (due === 'directors.dob.day') {
+        result.push('取締役の生年月日（日）')
+      }
     })
-    return result.join(' ')
+    return result.join('、')
   }
 
   return (
