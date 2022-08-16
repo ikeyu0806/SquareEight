@@ -86,7 +86,7 @@ const Index = (): JSX.Element => {
                       {reserveFrame.reception_type_text}
                     </td>
                     <td>
-                      <a className='btn btn-primary'>編集</a>
+                      <a className='btn btn-primary' href={`/admin/reserve_frame/${reserveFrame.id}/edit`}>編集</a>
                       <a className='btn btn-primary ml10' href={`/reserve_frame/${reserveFrame.id}/calendar`}>予約カレンダー</a>
                     </td>
                   </tr>
