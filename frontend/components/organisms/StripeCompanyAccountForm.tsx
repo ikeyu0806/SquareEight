@@ -97,6 +97,9 @@ const StripeCompanyAccountForm = (): JSX.Element => {
 
   return (
     <>
+      <Form.Label className='mt10'>法人名、商号<RequireBadge></RequireBadge></Form.Label>
+      <Form.Control onChange={(e) => dispatch((companyBusinessNameChanged(e.target.value)))}
+                    value={companyBusinessName}></Form.Control>
       <Form.Label className='mt10'>法人名、商号（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch((companyBusinessNameKanaChanged(e.target.value)))}
                     value={companyBusinessNameKana}></Form.Control>

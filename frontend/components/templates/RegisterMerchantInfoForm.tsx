@@ -10,8 +10,6 @@ import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
 import StripeTerm from 'components/organisms/StripeTerm'
 import { businessProfileNameChanged } from 'redux/stripeExternalAccountsSlice'
-import RequireBadge from 'components/atoms/RequireBadge'
-import { convertHalfWidthToFullWidth } from 'functions/halfFullWidthConvert'
 import { getZeroPaddingString } from 'functions/getZeroPaddingString'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import {  individualFirstNameKanjiChanged,
@@ -109,6 +107,7 @@ const RegisterMerchantInfoForm = () => {
     const individualIdentificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
   
     // 企業情報
+    const companyBusinessName = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessName)
     const companyBusinessNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessNameKana)
     const companyBusinessTaxId = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessTaxId)
     const companyPortalCode = useSelector((state: RootState) => state.stripeCompanyAccount.companyPortalCode)
@@ -301,7 +300,7 @@ const RegisterMerchantInfoForm = () => {
     {
       account: {
         business_type: businessType,
-        business_profile_name: businessProfileName,
+        business_profile_name: companyBusinessName,
         individual_first_name_kanji: individualFirstNameKanji,
         individual_first_name_kana: individualFirstNameKana,
         individual_last_name_kanji: individualLastNameKanji,
@@ -386,9 +385,6 @@ const RegisterMerchantInfoForm = () => {
           <Col lg={6} md={6}>
           <h4 className='mb20'>事業情報を入力してください</h4>
           <h5>決済機能の有効化に必要となります</h5>
-          <Form.Label className='mt10'>事業所の名称（法人名/商号/会社名/屋号/店舗名など）<RequireBadge></RequireBadge></Form.Label>
-          <Form.Control onChange={(e) => dispatch(businessProfileNameChanged(e.target.value))}
-                        value={businessProfileName}></Form.Control>
           <Form.Label className='mt20'>事業形態</Form.Label>
           <Form.Select onChange={(e) => setBusinessType(e.target.value)}>
             <option value='individual'>個人事業主（副業も含む）</option>
