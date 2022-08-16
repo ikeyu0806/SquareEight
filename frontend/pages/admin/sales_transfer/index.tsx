@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap'
 import { StripeAccountParam } from 'interfaces/StripeAccountParam'
 import { StripePersonParam } from 'interfaces/StripePersonParam'
+import CheckIcon from 'components/atoms/CheckIcon'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -96,8 +97,11 @@ const Index: NextPage = () => {
           {stripeAccount?.requirements && stripeAccount?.requirements.currently_due?.length !== 0 && <Alert variant='warning'>{requirementsContents()}が不足しています</Alert>}
           <Row>
             <Col>
-              <Card className='mt20'>
-                <Card.Header>事業情報</Card.Header>
+              <Card className='mt20 mb20'>
+                <Card.Header>
+                  事業情報
+                  {stripeAccount?.payouts_enabled && <span className='ml10'>有効<CheckIcon width={20} height={20} fill={'#39FA05'} /></span>}
+                </Card.Header>
                 <Card.Body>
                   
                   {!stripeAccount?.charges_enabled &&
@@ -208,7 +212,10 @@ const Index: NextPage = () => {
             </Col>
             <Col>
               <Card className='mt20'>
-                <Card.Header>売上振込先口座情報</Card.Header>
+                <Card.Header>
+                  売上振込先口座情報
+                  {stripeAccount?.payouts_enabled && <span className='ml10'>有効<CheckIcon width={20} height={20} fill={'#39FA05'} /></span>}                
+                </Card.Header>
                 <Card.Body>
                   {stripeAccount?.external_accounts && stripeAccount?.external_accounts?.data.map((account_data, i) => {
                     return (
