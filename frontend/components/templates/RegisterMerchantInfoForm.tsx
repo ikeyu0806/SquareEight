@@ -221,13 +221,11 @@ const RegisterMerchantInfoForm = () => {
           !companyCityKanji ||
           !companyTownKanji ||
           !companyLine1Kanji ||
-          !companyLine2Kanji ||
           !companyStateKana ||
           !companyStateKana ||
           !companyCityKana ||
           !companyTownKana ||
           !companyLine1Kana ||
-          !companyLine2Kana ||
           !companyPhoneNumber ||
           !companyBusinessUrl ||
           !companyDescription ||
@@ -244,12 +242,10 @@ const RegisterMerchantInfoForm = () => {
           !representativeAddressTownKanji ||
           !representativeAddressCityKanji ||
           !representativeAddressLine1Kanji ||
-          !representativeAddressLine2Kanji ||
           !representativeAddressStateKana ||
           !representativeAddressTownKana ||
           !representativeAddressCityKana ||
-          !representativeAddressLine1Kana ||
-          !representativeAddressLine2Kana
+          !representativeAddressLine1Kana
           ) {
         return true
       }

@@ -106,25 +106,25 @@ const StripeCompanyAccountForm = (): JSX.Element => {
       <Form.Label className='mt10'>都道府県（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyStateKanjiChanged(e.target.value))}
                     value={companyStateKanji}></Form.Control>
-      <Form.Label className='mt10'>都道府県（カナ）</Form.Label>
+      <Form.Label className='mt10'>都道府県（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyStateKanaChanged(e.target.value))}
                     value={companyStateKana}></Form.Control>
       <Form.Label className='mt10'>区市町村（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyCityKanjiChanged(e.target.value))}
                     value={companyCityKanji}></Form.Control>
-      <Form.Label className='mt10'>区市町村（カナ）</Form.Label>
+      <Form.Label className='mt10'>区市町村（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyCityKanaChanged(e.target.value))}
                     value={companyCityKana}></Form.Control>
       <Form.Label className='mt10'>町名（丁目まで、漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyTownKanjiChanged(e.target.value))}
                     value={companyTownKanji}></Form.Control>
-      <Form.Label className='mt10'>町名（丁目まで、カナ）</Form.Label>
+      <Form.Label className='mt10'>町名（丁目まで、カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyTownKanaChanged(e.target.value))}
                     value={companyTownKana}></Form.Control>
       <Form.Label className='mt10'>番地、号（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyLine1KanjiChanged(e.target.value))}
                     value={companyLine1Kanji}></Form.Control>
-      <Form.Label className='mt10'>番地、号（カナ）</Form.Label>
+      <Form.Label className='mt10'>番地、号（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyLine1KanaChanged(e.target.value))}
                     value={companyLine1Kana}></Form.Control>
       <Form.Label className='mt10'>建物・部屋番号・その他（漢字）</Form.Label>
@@ -143,7 +143,7 @@ const StripeCompanyAccountForm = (): JSX.Element => {
       <Form.Control onChange={(e) => dispatch(companyBusinessUrlChanged(e.target.value))}
                     value={companyBusinessUrl}></Form.Control>
       <Form.Label className='mt10'>
-        商品、サービス内容の詳細<br/>
+        商品、サービス内容の詳細<RequireBadge></RequireBadge><br/>
         1 ～ 2 行でご説明ください。通常顧客に請求するタイミング (購入中、または 3 日後など) を必ずご記入ください。
       </Form.Label>
       <Form.Control onChange={(e) => dispatch(companyDescriptionChanged(e.target.value))}
@@ -153,13 +153,13 @@ const StripeCompanyAccountForm = (): JSX.Element => {
       <Form.Label className='mt10'>代表者の姓（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeLastNameKanjiChanged(e.target.value))}
                     value={representativeLastNameKanji}></Form.Control>
-      <Form.Label className='mt10'>代表者の姓（カナ）</Form.Label>
+      <Form.Label className='mt10'>代表者の姓（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeLastNameKanaChanged(e.target.value))}
                     value={representativeLastNameKana}></Form.Control>
       <Form.Label className='mt10'>代表者のお名前（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeFirstNameKanjiChanged(e.target.value))}
                     value={representativeFirstNameKanji}></Form.Control>
-      <Form.Label className='mt10'>代表者のお名前（カナ）</Form.Label>
+      <Form.Label className='mt10'>代表者のお名前（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeFirstNameKanaChanged(e.target.value))}
                     value={representativeFirstNameKana}></Form.Control>
       <Form.Label className='mt10'>代表者の生年月日<RequireBadge></RequireBadge></Form.Label>
@@ -203,10 +203,10 @@ const StripeCompanyAccountForm = (): JSX.Element => {
       <Form.Label className='mt10'>代表者の自宅住所・番地、号（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressLine1KanaChanged(e.target.value))}
                     value={representativeAddressLine1Kana}></Form.Control>
-      <Form.Label className='mt10'>代表者の自宅住所・建物、部屋番号、その他（漢字）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の自宅住所・建物、部屋番号、その他（漢字）</Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressLine2KanjiChanged(e.target.value))}
                     value={representativeAddressLine2Kanji}></Form.Control>
-      <Form.Label className='mt10'>代表者の自宅住所・建物、部屋番号、その他（カナ）<RequireBadge></RequireBadge></Form.Label>
+      <Form.Label className='mt10'>代表者の自宅住所・建物、部屋番号、その他（カナ）</Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressLine2KanaChanged(e.target.value))}
                     value={representativeAddressLine2Kana}></Form.Control>
       <Form.Label className='mt10'>代表者以外に取締役はいますか?</Form.Label>
