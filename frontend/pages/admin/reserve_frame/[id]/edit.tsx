@@ -66,7 +66,8 @@ const Edit = (): JSX.Element => {
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
   const base64Image = useSelector((state: RootState) => state.reserveFrame.base64Image)
-
+  const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
+  const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
 
   const updateReserveFrame = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames/${router.query.id}`,
@@ -101,7 +102,9 @@ const Edit = (): JSX.Element => {
         is_ticket_payment_enable: isTicketPaymentEnable,
         is_monthly_plan_payment_enable: isMonthlyPlanPaymentEnable,
         monthly_payment_plan_ids: monthlyPaymentPlanIds,
-        reservable_frame_ticket_master: reservableFrameTicketMaster
+        reservable_frame_ticket_master: reservableFrameTicketMaster,
+        cancel_reception_hour_before: cancelReceptionHourBefore,
+        cancel_reception_day_before: cancelReceptionDayBefore,
       },
     },
     {
@@ -142,8 +145,8 @@ const Edit = (): JSX.Element => {
         dispatch((receptionTypeChanged(response.data.reserve_frame.reception_type)))
         dispatch((receptionStartDayBeforeChanged(response.data.reserve_frame.reception_start_day_before)))
         dispatch((cancelReceptionChanged(response.data.reserve_frame.cancel_reception)))
-        dispatch((cancelReceptionHourBeforeChanged(response.data.reserve_frame.cancel_reseption_hour_before)))
-        dispatch((cancelReceptionDayBeforeChanged(response.data.reserve_frame.cancel_reseption_day_before)))
+        dispatch((cancelReceptionHourBeforeChanged(response.data.reserve_frame.cancel_reception_hour_before)))
+        dispatch((cancelReceptionDayBeforeChanged(response.data.reserve_frame.cancel_reception_day_before)))
         dispatch((isLocalPaymentEnableChanged(response.data.reserve_frame.is_local_payment_enable)))
         dispatch((isCreditCardPaymentEnableChanged(response.data.reserve_frame.is_credit_card_payment_enable)))
         dispatch((isTicketPaymentEnableChanged(response.data.reserve_frame.is_ticket_payment_enable)))

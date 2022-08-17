@@ -42,7 +42,8 @@ const ReserveFrameModal = (): JSX.Element => {
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
   const base64Image = useSelector((state: RootState) => state.reserveFrame.base64Image)
-
+  const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
+  const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
 
   const createReserveFrame = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames`,
@@ -77,7 +78,9 @@ const ReserveFrameModal = (): JSX.Element => {
         is_ticket_payment_enable: isTicketPaymentEnable,
         is_monthly_plan_payment_enable: isMonthlyPlanPaymentEnable,
         monthly_payment_plan_ids: monthlyPaymentPlanIds,
-        reservable_frame_ticket_master: reservableFrameTicketMaster
+        reservable_frame_ticket_master: reservableFrameTicketMaster,
+        cancel_reception_hour_before: cancelReceptionHourBefore,
+        cancel_reception_day_before: cancelReceptionDayBefore
       },
     },
     {

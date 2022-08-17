@@ -284,8 +284,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_14_095444) do
     t.integer "reception_type", default: 0
     t.integer "reception_start_day_before"
     t.integer "cancel_reception", default: 0
-    t.integer "cancel_reseption_hour_before"
-    t.integer "cancel_reseption_day_before"
+    t.integer "cancel_reception_hour_before"
+    t.integer "cancel_reception_day_before"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_local_payment_enable"
