@@ -30,7 +30,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
     ActiveRecord::Base.transaction do
       reserve_frame = current_merchant_user.account.reserve_frames
                       .new(reserve_frame_params.except(:unreservable_frames,
-                                                       :reserve_frame_reception_times_values,
+                                                       :reserve_frame_reception_times,
                                                        :repeat_interval_number_month_date,
                                                        :resource_ids,
                                                        :monthly_payment_plan_ids,
