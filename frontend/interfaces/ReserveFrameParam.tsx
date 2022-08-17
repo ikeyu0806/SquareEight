@@ -1,3 +1,4 @@
+import { ReserveFrameReceptionTimeParam } from "./ReserveFrameReceptionTimeParam"
 export interface ReserveFrameParam {
   id?: string
   start_at?: string
@@ -13,4 +14,5 @@ export interface ReserveFrameParam {
   reception_type_text?: string
   payment_methods_text?: string[]
   s3_object_public_url?: string
+  reserve_frame_reception_times_values: ReserveFrameReceptionTimeParam[]
 }
