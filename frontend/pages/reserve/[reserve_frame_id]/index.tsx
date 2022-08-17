@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import { Container, Row, Col, Card, Form } from 'react-bootstrap'
+import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import CommonNavbar from 'components/organisms/CommonNavbar'
 import axios from 'axios'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
@@ -112,7 +112,12 @@ const Index: NextPage = () => {
                     </>
                   )
                 })}
-                <a className='btn btn-primary mt20' href={`/reserve/${router.query.reserve_frame_id}/input_customer_info`}>予約を進める</a>
+                <Button
+                  className='mt20'
+                  disabled={selectedPaymentMethodType === ''}
+                  onClick={() => router.push(`/reserve/${router.query.reserve_frame_id}/input_customer_info?time=${selectedTime}&payment_method=${selectedPaymentMethodType}&ticket_id=${selectedTicketId}&monthly_payment_plan_id=${selectedMonthlyPaymentPlanId}`)}>
+                  予約を進める
+                </Button>
               </Card.Body>
             </Card>
           </Col>
