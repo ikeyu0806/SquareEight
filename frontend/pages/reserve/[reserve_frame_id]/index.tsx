@@ -9,9 +9,13 @@ import { useRouter } from 'next/router'
 
 const Index: NextPage = () => {
   const router = useRouter()
+  // localPayment, creditCardPayment, ticket, monthlyPaymentPlanのいずれかを設定
+  const [selectedPaymentMethodType, setSelectedPaymentMethodType] = useState('')
+  const [selectedTicketId, setSelectedTicketId] = useState(0)
+  const [selectedMonthlyPaymentPlanId, setSelectedMonthlyPaymentPlanId] = useState(0)
   const [showModal, setShowModal] = useState(false)
   const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>()
-  const [reserveFramePaymentMethod, setReserveFramePaymentMethod] = useState<ReserveFramePaymentMethodParam>({local_payment_price: 0, enable_monthly_payment_plans: [], enable_tickets: []})
+  const [reserveFramePaymentMethod, setReserveFramePaymentMethod] = useState<ReserveFramePaymentMethodParam>()
 
   useEffect(() => {
     const fetchReserveFrame = () => {
@@ -49,7 +53,7 @@ const Index: NextPage = () => {
                     src={reserveFrame?.s3_object_public_url}
                     alt='image' />}
                 <hr />
-                <div>予約時間を選択してください</div>
+                <div className='mb20'>予約時間を選択してください</div>
                 <Form.Select>
                   {reserveFrame?.reserve_frame_reception_times_values?.map((time, i) => {
                     return (
@@ -58,34 +62,49 @@ const Index: NextPage = () => {
                   })}
                 </Form.Select>
                 <hr />
-                <div>お支払い方法を選択してください</div>
-                {reserveFramePaymentMethod.local_payment_price !== undefined
+                <div className='mb20'>お支払い方法を選択してください</div>
+                {reserveFramePaymentMethod?.local_payment_price !== undefined
                   && <Form.Check
                       type='radio'
                       id='local_payment_check'
-                      label={`現地払い: ${reserveFramePaymentMethod.local_payment_price}円`}></Form.Check>}
-                {reserveFramePaymentMethod.credit_card_payment_price !== undefined
+                      checked={selectedPaymentMethodType === 'localPayment'}
+                      onChange={() => setSelectedPaymentMethodType('localPayment')}
+                      label={`現地払い: ${reserveFramePaymentMethod?.local_payment_price}円`}></Form.Check>}
+                {reserveFramePaymentMethod?.credit_card_payment_price !== undefined
                 && <Form.Check
                     type='radio'
                     id='credit_card_payment_check'
-                    label={`クレジットカード払い: ${reserveFramePaymentMethod.credit_card_payment_price}円`}></Form.Check>}
-                {reserveFramePaymentMethod.enable_monthly_payment_plans
-                  && reserveFramePaymentMethod.enable_monthly_payment_plans.map((plan, i) => {
+                    checked={selectedPaymentMethodType === 'creditCardPayment'}
+                    onChange={() => setSelectedPaymentMethodType('creditCardPayment')}
+                    label={`クレジットカード払い: ${reserveFramePaymentMethod?.credit_card_payment_price}円`}></Form.Check>}
+                {reserveFramePaymentMethod?.enable_monthly_payment_plans
+                  && reserveFramePaymentMethod?.enable_monthly_payment_plans.map((plan, i) => {
                   return (
                     <>
                       <Form.Check
                         type='radio'
+                        checked={selectedPaymentMethodType === 'monthlyPaymentPlan' && selectedMonthlyPaymentPlanId === plan.id}
+                        onChange={() => {
+                          setSelectedMonthlyPaymentPlanId(plan.id)
+                          setSelectedPaymentMethodType('monthlyPaymentPlan')
+                        }}
                         id={`monthly_plan_payment_${i}`}
                         label={`月額課金: ${plan.monthly_payment_plan_name}`}></Form.Check>
                     </>
                   )
                 })}
-                {reserveFramePaymentMethod.enable_tickets
-                  && reserveFramePaymentMethod.enable_tickets.map((ticket, i) => {
+                {reserveFramePaymentMethod?.enable_tickets
+                  && reserveFramePaymentMethod?.enable_tickets.map((ticket, i) => {
                   return (
                     <>
+                      {console.log("!!!", ticket.id, selectedTicketId, reserveFramePaymentMethod)}
                       <Form.Check
                         type='radio'
+                        checked={(selectedPaymentMethodType === 'ticket') && (selectedTicketId === ticket.id)}
+                        onChange={() => {
+                          setSelectedTicketId(ticket.id)
+                          setSelectedPaymentMethodType('ticket')
+                        }}
                         id={`ticket_payment_${i}`}
                         label={`${ticket.ticket_name} 消費枚数: ${ticket.consume_number}枚`}></Form.Check>
                     </>

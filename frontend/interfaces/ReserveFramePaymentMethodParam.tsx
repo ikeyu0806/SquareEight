@@ -6,10 +6,12 @@ export interface ReserveFramePaymentMethodParam {
 }
 
 interface EnableTicketParam {
+  id: number
   ticket_name: string
   consume_number: number
 }
 
 interface EnableMonthlyPaymentPlanParam {
+  id: number
   monthly_payment_plan_name: string
 }

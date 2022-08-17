@@ -29,7 +29,7 @@ class ReserveFrame < ApplicationRecord
     if is_monthly_plan_payment_enable?
       monthly_payment_plan_info = []
       reserve_frame_monthly_payment_plans.each do |reserve_plan|
-        monthly_payment_plan_info.push({monthly_payment_plan_name: reserve_plan.monthly_payment_plan.name})
+        monthly_payment_plan_info.push({id: reserve_plan.monthly_payment_plan.id, monthly_payment_plan_name: reserve_plan.monthly_payment_plan.name})
       end
       result[:enable_monthly_payment_plans] = monthly_payment_plan_info
     end
@@ -37,7 +37,7 @@ class ReserveFrame < ApplicationRecord
     if is_ticket_payment_enable?
       ticket_payment_info = []
       reserve_frame_ticket_masters.each do |reserve_ticket|
-        ticket_payment_info.push({ticket_name: reserve_ticket.ticket_master.name, consume_number: reserve_ticket.consume_number})
+        ticket_payment_info.push({id: reserve_ticket.ticket_master.id, ticket_name: reserve_ticket.ticket_master.name, consume_number: reserve_ticket.consume_number})
       end
       result[:enable_tickets] = ticket_payment_info
     end
@@ -205,11 +205,11 @@ class ReserveFrame < ApplicationRecord
   end
 
   def monthly_payment_plan_ids
-    monthly_payment_plans.pluck(:monthly_payment_plan_id)
+    monthly_payment_plans.pluck(:id, :monthly_payment_plan_id)
   end
 
   def reservable_frame_ticket_master
-    reserve_frame_ticket_masters.pluck(:ticket_master_id, :consume_number)
+    reserve_frame_ticket_masters.pluck(:id, :ticket_master_id, :consume_number)
   end
 
   def reserve_frame_reception_times_values
