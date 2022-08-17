@@ -109,103 +109,103 @@ const Index: NextPage = () => {
                       <div className='mb10'>事業情報の登録が完了していません</div>
                     </>
                   }
-                    {stripeAccount?.business_type == 'individual'
+                    {stripeAccount?.business_type == 'company'
                       ?
                         <>
-                          <Card.Body>
-                            <div>事業形態</div>
-                            <div>個人事業主（副業も含む）</div>
-                            <div>{stripeAccount?.individual?.first_name && <><hr />事業主様のお名前（漢字）</>}</div>
-                            <div>{stripeAccount?.individual?.last_name}{stripeAccount?.individual?.first_name}</div>
-                            <div>{stripeAccount?.individual?.first_name_kana && <><hr />事業主様のお名前（カナ）</>}</div>
-                            <div>{stripeAccount?.individual?.last_name_kana}{stripeAccount?.individual?.first_name_kana}</div>
-                            <div>{stripeAccount?.individual?.dob && <><hr />事業責任者の生年月日</>}</div>
-                            <div>{stripeAccount?.individual?.dob.year}/{stripeAccount?.individual?.dob.month}/{stripeAccount?.individual?.dob.day}</div>
-                            <div>{stripeAccount?.individual?.gender && <><hr />事業責任者の姓別</>}</div>
-                            <div>{stripeAccount?.individual?.gender && (stripeAccount?.individual?.gender === 'male' ? '男' : '女')}</div>
-                            <div>{stripeAccount?.individual?.phone && <><hr />事業責任者の電話番号</>}</div>
-                            <div>{stripeAccount?.individual?.phone}</div>
-                            <div>{stripeAccount?.individual?.email && <><hr />事業責任者のメールアドレス</>}</div>
-                            <div>{stripeAccount?.individual?.email}</div>
-                            <div>{stripeAccount?.business_url && <><hr />事業のウェブサイト</>}</div>
-                            <div>{stripeAccount?.business_url}</div>
-                            <div>{stripeAccount?.business_profile.product_description && <><hr />商品、サービス内容の詳細</>}</div>
-                            <div>{stripeAccount?.business_profile.product_description}</div>
-                            <div>{stripeAccount?.individual?.address_kanji.postal_code && <><hr />郵便番号</>}</div>
-                            <div>{stripeAccount?.individual?.address_kanji.postal_code}</div>
-                            <div>{stripeAccount?.individual && <><hr />住所（漢字）</>}</div>
-                            <div> {stripeAccount?.individual?.address_kanji.state}
-                                  {stripeAccount?.individual?.address_kanji.town}
-                                  {stripeAccount?.individual?.address_kanji.city}
-                                  {stripeAccount?.individual?.address_kanji.line1}
-                                  {stripeAccount?.individual?.address_kanji.line2}</div>
-                            <div>{stripeAccount?.individual && <><hr />住所（カナ）</>}</div>
-                            <div> {stripeAccount?.individual?.address_kana.state}
-                                  {stripeAccount?.individual?.address_kana.town}
-                                  {stripeAccount?.individual?.address_kana.city}
-                                  {stripeAccount?.individual?.address_kana.line1}
-                                  {stripeAccount?.individual?.address_kana.line2}</div>
-                          </Card.Body>
-                        </>
+                        <div>{stripeAccount?.business_profile && <>事業形態</>}</div>
+                        <div>{stripeAccount?.business_profile && <>法人（株式会社/合同会社/NPOなど）</>}</div>
+                        <div>{stripeAccount?.business_profile?.url && <><hr />事業のウェブサイト</>}</div>
+                        <div>{stripeAccount?.business_profile?.url}</div>
+                        <div>{stripeAccount?.business_profile?.product_description && <><hr />商品、サービス内容の詳細</>}</div>
+                        <div>{stripeAccount?.business_profile?.product_description}</div>
+                        <div>{stripeAccount?.company?.address_kanji?.postal_code && <><hr />郵便番号</>}</div>
+                        <div>{stripeAccount?.company?.address_kanji?.postal_code}</div>
+                        <div>{stripeAccount?.company?.address_kanji.state && <><hr />住所（漢字）</>}</div>
+                        <div>
+                          {stripeAccount?.company?.address_kanji.state}
+                          {stripeAccount?.company?.address_kanji.town}
+                          {stripeAccount?.company?.address_kanji.city}
+                          {stripeAccount?.company?.address_kanji.line1}
+                          {stripeAccount?.company?.address_kanji.line2}
+                        </div>
+                        <div>{stripeAccount?.company?.address_kana.state && <><hr />住所（カナ）</>}</div>
+                        <div>
+                          {stripeAccount?.company?.address_kana.state}
+                          {stripeAccount?.company?.address_kana.town}
+                          {stripeAccount?.company?.address_kana.city}
+                          {stripeAccount?.company?.address_kana.line1}
+                          {stripeAccount?.company?.address_kana.line2}
+                        </div>
+                        <div>{stripeRepresentativePerson?.last_name_kanji && <><hr />代表者のお名前（漢字）</>}</div>
+                        <div>{stripeRepresentativePerson?.last_name_kanji}{stripeRepresentativePerson?.first_name_kanji}</div>
+                        <div>{stripeRepresentativePerson?.last_name_kana && <><hr />代表者のお名前（カナ）</>}</div>
+                        <div>{stripeRepresentativePerson?.last_name_kana}{stripeRepresentativePerson?.first_name_kana}</div>
+                        <div>{stripeRepresentativePerson?.dob && <><hr />事業責任者の生年月日</>}</div>
+                        <div>{stripeRepresentativePerson?.dob && <>{stripeRepresentativePerson?.dob?.year}/{stripeRepresentativePerson?.dob?.month}/{stripeRepresentativePerson?.dob?.day}</>}</div>
+                        <div>{stripeRepresentativePerson?.gender && <><hr />代表者の姓別</>}</div>
+                        <div>{stripeRepresentativePerson?.gender && (stripeRepresentativePerson?.gender === 'male' ? '男' : '女')}</div>
+                        <div>{stripeRepresentativePerson?.phone && <><hr />代表者の電話番号</>}</div>
+                        <div>{stripeRepresentativePerson?.phone}</div>
+                        <div>{stripeRepresentativePerson?.email && <><hr />代表者のメールアドレス</>}</div>
+                        <div>{stripeRepresentativePerson?.email}</div>
+                        <div>{stripeRepresentativePerson?.address_kanji?.postal_code && <><hr />代表者の郵便番号</>}</div>
+                        <div>{stripeRepresentativePerson?.address_kanji?.postal_code}</div>
+
+                        <div>{stripeRepresentativePerson?.address_kanji?.state && <><hr />代表者の住所（漢字）</>}</div>
+                        <div>
+                          {stripeRepresentativePerson?.address_kanji?.state}
+                          {stripeRepresentativePerson?.address_kanji?.town}
+                          {stripeRepresentativePerson?.address_kanji?.city}
+                          {stripeRepresentativePerson?.address_kanji?.line1}
+                          {stripeRepresentativePerson?.address_kanji?.line2}
+                        </div>
+
+                        <div>{stripeRepresentativePerson?.address_kana?.state && <><hr />代表者の住所（カナ）</>}</div>
+                        <div>
+                          {stripeRepresentativePerson?.address_kana?.state}
+                          {stripeRepresentativePerson?.address_kana?.town}
+                          {stripeRepresentativePerson?.address_kana?.city}
+                          {stripeRepresentativePerson?.address_kana?.line1}
+                          {stripeRepresentativePerson?.address_kana?.line2}
+                        </div>
+                      </>
                       :
-                        <>
-                          <div>{stripeAccount?.business_profile && <>事業形態</>}</div>
-                          <div>{stripeAccount?.business_profile && <>法人（株式会社/合同会社/NPOなど）</>}</div>
-                          <div>{stripeAccount?.business_profile?.url && <><hr />事業のウェブサイト</>}</div>
-                          <div>{stripeAccount?.business_profile?.url}</div>
-                          <div>{stripeAccount?.business_profile?.product_description && <><hr />商品、サービス内容の詳細</>}</div>
-                          <div>{stripeAccount?.business_profile?.product_description}</div>
-                          <div>{stripeAccount?.company?.address_kanji?.postal_code && <><hr />郵便番号</>}</div>
-                          <div>{stripeAccount?.company?.address_kanji?.postal_code}</div>
-                          <div>{stripeAccount?.company?.address_kanji.state && <><hr />住所（漢字）</>}</div>
-                          <div>
-                            {stripeAccount?.company?.address_kanji.state}
-                            {stripeAccount?.company?.address_kanji.town}
-                            {stripeAccount?.company?.address_kanji.city}
-                            {stripeAccount?.company?.address_kanji.line1}
-                            {stripeAccount?.company?.address_kanji.line2}
-                          </div>
-                          <div>{stripeAccount?.company?.address_kana.state && <><hr />住所（カナ）</>}</div>
-                          <div>
-                            {stripeAccount?.company?.address_kana.state}
-                            {stripeAccount?.company?.address_kana.town}
-                            {stripeAccount?.company?.address_kana.city}
-                            {stripeAccount?.company?.address_kana.line1}
-                            {stripeAccount?.company?.address_kana.line2}
-                          </div>
-                          <div>{stripeRepresentativePerson?.last_name_kanji && <><hr />代表者のお名前（漢字）</>}</div>
-                          <div>{stripeRepresentativePerson?.last_name_kanji}{stripeRepresentativePerson?.first_name_kanji}</div>
-                          <div>{stripeRepresentativePerson?.last_name_kana && <><hr />代表者のお名前（カナ）</>}</div>
-                          <div>{stripeRepresentativePerson?.last_name_kana}{stripeRepresentativePerson?.first_name_kana}</div>
-                          <div>{stripeRepresentativePerson?.dob && <><hr />事業責任者の生年月日</>}</div>
-                          <div>{stripeRepresentativePerson?.dob && <>{stripeRepresentativePerson?.dob?.year}/{stripeRepresentativePerson?.dob?.month}/{stripeRepresentativePerson?.dob?.day}</>}</div>
-                          <div>{stripeRepresentativePerson?.gender && <><hr />代表者の姓別</>}</div>
-                          <div>{stripeRepresentativePerson?.gender && (stripeRepresentativePerson?.gender === 'male' ? '男' : '女')}</div>
-                          <div>{stripeRepresentativePerson?.phone && <><hr />代表者の電話番号</>}</div>
-                          <div>{stripeRepresentativePerson?.phone}</div>
-                          <div>{stripeRepresentativePerson?.email && <><hr />代表者のメールアドレス</>}</div>
-                          <div>{stripeRepresentativePerson?.email}</div>
-                          <div>{stripeRepresentativePerson?.address_kanji?.postal_code && <><hr />代表者の郵便番号</>}</div>
-                          <div>{stripeRepresentativePerson?.address_kanji?.postal_code}</div>
-
-                          <div>{stripeRepresentativePerson?.address_kanji?.state && <><hr />代表者の住所（漢字）</>}</div>
-                          <div>
-                            {stripeRepresentativePerson?.address_kanji?.state}
-                            {stripeRepresentativePerson?.address_kanji?.town}
-                            {stripeRepresentativePerson?.address_kanji?.city}
-                            {stripeRepresentativePerson?.address_kanji?.line1}
-                            {stripeRepresentativePerson?.address_kanji?.line2}
-                          </div>
-
-                          <div>{stripeRepresentativePerson?.address_kana?.state && <><hr />代表者の住所（カナ）</>}</div>
-                          <div>
-                            {stripeRepresentativePerson?.address_kana?.state}
-                            {stripeRepresentativePerson?.address_kana?.town}
-                            {stripeRepresentativePerson?.address_kana?.city}
-                            {stripeRepresentativePerson?.address_kana?.line1}
-                            {stripeRepresentativePerson?.address_kana?.line2}
-                          </div>
-                        </>}
+                      <>
+                        <Card.Body>
+                          <div>事業形態</div>
+                          <div>個人事業主（副業も含む）</div>
+                          <div>{stripeAccount?.individual?.first_name && <><hr />事業主様のお名前（漢字）</>}</div>
+                          <div>{stripeAccount?.individual?.last_name}{stripeAccount?.individual?.first_name}</div>
+                          <div>{stripeAccount?.individual?.first_name_kana && <><hr />事業主様のお名前（カナ）</>}</div>
+                          <div>{stripeAccount?.individual?.last_name_kana}{stripeAccount?.individual?.first_name_kana}</div>
+                          <div>{stripeAccount?.individual?.dob && <><hr />事業責任者の生年月日</>}</div>
+                          <div>{stripeAccount?.individual?.dob.year}/{stripeAccount?.individual?.dob.month}/{stripeAccount?.individual?.dob.day}</div>
+                          <div>{stripeAccount?.individual?.gender && <><hr />事業責任者の姓別</>}</div>
+                          <div>{stripeAccount?.individual?.gender && (stripeAccount?.individual?.gender === 'male' ? '男' : '女')}</div>
+                          <div>{stripeAccount?.individual?.phone && <><hr />事業責任者の電話番号</>}</div>
+                          <div>{stripeAccount?.individual?.phone}</div>
+                          <div>{stripeAccount?.individual?.email && <><hr />事業責任者のメールアドレス</>}</div>
+                          <div>{stripeAccount?.individual?.email}</div>
+                          <div>{stripeAccount?.business_url && <><hr />事業のウェブサイト</>}</div>
+                          <div>{stripeAccount?.business_url}</div>
+                          <div>{stripeAccount?.business_profile.product_description && <><hr />商品、サービス内容の詳細</>}</div>
+                          <div>{stripeAccount?.business_profile.product_description}</div>
+                          <div>{stripeAccount?.individual?.address_kanji.postal_code && <><hr />郵便番号</>}</div>
+                          <div>{stripeAccount?.individual?.address_kanji.postal_code}</div>
+                          <div>{stripeAccount?.individual && <><hr />住所（漢字）</>}</div>
+                          <div> {stripeAccount?.individual?.address_kanji.state}
+                                {stripeAccount?.individual?.address_kanji.town}
+                                {stripeAccount?.individual?.address_kanji.city}
+                                {stripeAccount?.individual?.address_kanji.line1}
+                                {stripeAccount?.individual?.address_kanji.line2}</div>
+                          <div>{stripeAccount?.individual && <><hr />住所（カナ）</>}</div>
+                          <div> {stripeAccount?.individual?.address_kana.state}
+                                {stripeAccount?.individual?.address_kana.town}
+                                {stripeAccount?.individual?.address_kana.city}
+                                {stripeAccount?.individual?.address_kana.line1}
+                                {stripeAccount?.individual?.address_kana.line2}</div>
+                        </Card.Body>
+                      </>}
                   <a href='/admin/sales_transfer/register_business_info' className='btn btn-primary mt20'>事業情報登録</a>
                 </Card.Body>
               </Card>
