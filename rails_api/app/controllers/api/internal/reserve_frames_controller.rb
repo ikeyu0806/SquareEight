@@ -70,6 +70,48 @@ class Api::Internal::ReserveFramesController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def update
+    ActiveRecord::Base.transaction do
+      reserve_frame = ReserveFrame.find(params[:id])
+      reserve_frame.attributes = reserve_frame_params.except(:unreservable_frames,
+                                                             :reserve_frame_reception_times,
+                                                             :repeat_interval_number_month_date,
+                                                             :resource_ids,
+                                                             :monthly_payment_plan_ids,
+                                                             :reservable_frame_ticket_master,
+                                                             :base64_image)
+
+      reserve_frame_params[:reserve_frame_reception_times].each do |reception_time|
+        reserve_frame.reserve_frame_reception_times.new(reception_start_time: reception_time[:reception_start_time], reception_end_time: reception_time[:reception_end_time])
+      end
+      reserve_frame_params[:unreservable_frames].each do |frame|
+        reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
+      end
+      if reserve_frame_params[:resource_ids].present?
+        reserve_frame.reserve_frame_resorces.delete_all
+        reserve_frame_params[:resource_ids].each do |resource_id|
+          reserve_frame.reserve_frame_resorces.new(resource_id: resource_id)
+        end
+      end
+      if reserve_frame.is_monthly_plan_payment_enable?
+        reserve_frame_params[:monthly_payment_plan_ids].each do |plan_id|
+          reserve_frame.reserve_frame_monthly_payment_plans.new(monthly_payment_plan_id: plan_id)
+        end
+      end
+      if reserve_frame.is_ticket_payment_enable?
+        reserve_frame_params[:reservable_frame_ticket_master].each do |ticket_master|
+          reserve_frame.reserve_frame_ticket_masters.new(ticket_master)
+        end
+      end
+      if reserve_frame_params[:base64_image].present?
+        file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        reserve_frame.s3_object_public_url = put_s3_http_request_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+        reserve_frame.s3_object_name = file_name
+      end
+      reserve_frame.save!
+    end
+  end
+
   def reserve_events
     events = Account.find(params[:account_id]).reserve_calendar_json
     render json: { status: 'success', events: events }, states: 200

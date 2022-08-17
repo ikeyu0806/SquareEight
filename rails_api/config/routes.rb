@@ -84,6 +84,7 @@ Rails.application.routes.draw do
       get 'reserve_frames/settable_relation_data', to: 'reserve_frames#settable_relation_data'
       get 'reserve_frames/:id', to: 'reserve_frames#show'
       get 'reserve_frames', to: 'reserve_frames#index'
+      post 'reserve_frames/:id', to: 'reserve_frames#update'
       post 'reserve_frames', to: 'reserve_frames#create'
       get 'delivery_targets', to: 'delivery_targets#index'
       post 'delivery_targets/:id/update_default', to: 'delivery_targets#update_default'
