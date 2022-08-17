@@ -81,11 +81,17 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                              :reservable_frame_ticket_master,
                                                              :base64_image)
 
-      reserve_frame_params[:reserve_frame_reception_times].each do |reception_time|
-        reserve_frame.reserve_frame_reception_times.new(reception_start_time: reception_time[:reception_start_time], reception_end_time: reception_time[:reception_end_time])
+      if reserve_frame_params[:reserve_frame_reception_times].present?
+        reserve_frame.reserve_frame_reception_times.delete_all
+        reserve_frame_params[:reserve_frame_reception_times].each do |reception_time|
+          reserve_frame.reserve_frame_reception_times.new(reception_start_time: reception_time[:reception_start_time], reception_end_time: reception_time[:reception_end_time])
+        end
       end
-      reserve_frame_params[:unreservable_frames].each do |frame|
-        reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
+      if reserve_frame_params[:unreservable_frames].present?
+        reserve_frame.unreservable_frames.delete_all
+        reserve_frame_params[:unreservable_frames].each do |frame|
+          reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
+        end
       end
       if reserve_frame_params[:resource_ids].present?
         reserve_frame.reserve_frame_resorces.delete_all
