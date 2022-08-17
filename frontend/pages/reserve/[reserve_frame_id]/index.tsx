@@ -9,11 +9,11 @@ import { useRouter } from 'next/router'
 
 const Index: NextPage = () => {
   const router = useRouter()
+  const [selectedTime, setSelectedTime] = useState('')
   // localPayment, creditCardPayment, ticket, monthlyPaymentPlanのいずれかを設定
   const [selectedPaymentMethodType, setSelectedPaymentMethodType] = useState('')
   const [selectedTicketId, setSelectedTicketId] = useState(0)
   const [selectedMonthlyPaymentPlanId, setSelectedMonthlyPaymentPlanId] = useState(0)
-  const [showModal, setShowModal] = useState(false)
   const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>()
   const [reserveFramePaymentMethod, setReserveFramePaymentMethod] = useState<ReserveFramePaymentMethodParam>()
 
@@ -26,14 +26,16 @@ const Index: NextPage = () => {
         console.log(response.data.reserve_frame)
         const reserveFrameResponse: ReserveFrameParam = response.data.reserve_frame
         setReserveFrame(reserveFrameResponse)
-        setShowModal(true)
         setReserveFramePaymentMethod(response.data.reserve_frame.payment_methods)
+        const times_values = reserveFrameResponse?.reserve_frame_reception_times_values[0]
+        setSelectedTime(times_values?.reception_start_time + '-' + times_values?.reception_end_time)
       })
       .catch(error => {
         console.log(error)
       })
     }
     fetchReserveFrame()
+    
   }, [router.query.reserve_frame_id])
 
   return (
@@ -54,10 +56,11 @@ const Index: NextPage = () => {
                     alt='image' />}
                 <hr />
                 <div className='mb20'>予約時間を選択してください</div>
-                <Form.Select>
+                <Form.Select onChange={(e) => setSelectedTime(e.target.value)}>
                   {reserveFrame?.reserve_frame_reception_times_values?.map((time, i) => {
                     return (
-                      <option key={i}>{time.reception_start_time}-{time.reception_end_time}</option>
+                      <option key={i}
+                              value={time.reception_start_time + '-' + time.reception_end_time}>{time.reception_start_time}-{time.reception_end_time}</option>
                     )
                   })}
                 </Form.Select>
@@ -97,7 +100,6 @@ const Index: NextPage = () => {
                   && reserveFramePaymentMethod?.enable_tickets.map((ticket, i) => {
                   return (
                     <>
-                      {console.log("!!!", ticket.id, selectedTicketId, reserveFramePaymentMethod)}
                       <Form.Check
                         type='radio'
                         checked={(selectedPaymentMethodType === 'ticket') && (selectedTicketId === ticket.id)}
