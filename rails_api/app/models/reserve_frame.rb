@@ -22,6 +22,10 @@ class ReserveFrame < ApplicationRecord
       result[:local_payment_price] = local_payment_price
     end
 
+    if is_credit_card_payment_enable?
+      result[:credit_card_payment_price] = credit_card_payment_price
+    end
+
     if is_monthly_plan_payment_enable?
       monthly_payment_plan_info = []
       reserve_frame_monthly_payment_plans.each do |reserve_plan|
@@ -44,6 +48,10 @@ class ReserveFrame < ApplicationRecord
     result = []
     if is_local_payment_enable?
       result.push("現地払い: ¥" + local_payment_price.to_s)
+    end
+
+    if is_credit_card_payment_enable?
+      result.push("クレジットカード払い: ¥" + credit_card_payment_price.to_s)
     end
 
     if is_monthly_plan_payment_enable?

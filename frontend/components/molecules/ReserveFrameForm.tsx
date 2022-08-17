@@ -174,7 +174,7 @@ const ReserveFrameForm = () => {
             value={description}
             onChange={(e) => dispatch(descriptionChanged(e.target.value))}
             as='textarea'
-            rows={3} />
+            rows={20} />
         </Form.Group>
 
         {image && <img

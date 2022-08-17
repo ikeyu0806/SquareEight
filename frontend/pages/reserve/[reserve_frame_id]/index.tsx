@@ -48,26 +48,8 @@ const Index: NextPage = () => {
                     className='d-block w-100 mt30 mb30'
                     src={reserveFrame?.s3_object_public_url}
                     alt='image' />}
-                <h4>お支払い方法</h4>
-                {reserveFramePaymentMethod.local_payment_price !== undefined && <div>現地払い: {reserveFramePaymentMethod.local_payment_price}円</div>}
-                {reserveFramePaymentMethod.enable_monthly_payment_plans
-                  && reserveFramePaymentMethod.enable_monthly_payment_plans.map((plan, i) => {
-                  return (
-                    <>
-                      <div>{plan.monthly_payment_plan_name}</div>
-                    </>
-                  )
-                })}
-                {reserveFramePaymentMethod.enable_tickets
-                  && reserveFramePaymentMethod.enable_tickets.map((ticket, i) => {
-                  return (
-                    <>
-                      <div>{ticket.ticket_name} 消費枚数: {ticket.consume_number}枚</div>
-                    </>
-                  )
-                })}
-                <br />
-                <div>時間を選択してください</div>
+                <hr />
+                <div>予約時間を選択してください</div>
                 <Form.Select>
                   {reserveFrame?.reserve_frame_reception_times_values?.map((time, i) => {
                     return (
@@ -75,6 +57,40 @@ const Index: NextPage = () => {
                     )
                   })}
                 </Form.Select>
+                <hr />
+                <div>お支払い方法を選択してください</div>
+                {reserveFramePaymentMethod.local_payment_price !== undefined
+                  && <Form.Check
+                      type='radio'
+                      id='local_payment_check'
+                      label={`現地払い: ${reserveFramePaymentMethod.local_payment_price}円`}></Form.Check>}
+                {reserveFramePaymentMethod.credit_card_payment_price !== undefined
+                && <Form.Check
+                    type='radio'
+                    id='credit_card_payment_check'
+                    label={`クレジットカード払い: ${reserveFramePaymentMethod.credit_card_payment_price}円`}></Form.Check>}
+                {reserveFramePaymentMethod.enable_monthly_payment_plans
+                  && reserveFramePaymentMethod.enable_monthly_payment_plans.map((plan, i) => {
+                  return (
+                    <>
+                      <Form.Check
+                        type='radio'
+                        id={`monthly_plan_payment_${i}`}
+                        label={`月額課金: ${plan.monthly_payment_plan_name}`}></Form.Check>
+                    </>
+                  )
+                })}
+                {reserveFramePaymentMethod.enable_tickets
+                  && reserveFramePaymentMethod.enable_tickets.map((ticket, i) => {
+                  return (
+                    <>
+                      <Form.Check
+                        type='radio'
+                        id={`ticket_payment_${i}`}
+                        label={`${ticket.ticket_name} 消費枚数: ${ticket.consume_number}枚`}></Form.Check>
+                    </>
+                  )
+                })}
                 <a className='btn btn-primary mt20' href={`/reserve/${router.query.reserve_frame_id}/input_customer_info`}>予約を進める</a>
               </Card.Body>
             </Card>

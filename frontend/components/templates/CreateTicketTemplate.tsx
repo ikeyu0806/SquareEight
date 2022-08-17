@@ -46,14 +46,12 @@ const CreateTicketTemplate = (): JSX.Element => {
                 <Form.Label>発行枚数</Form.Label>
                 <Form.Control placeholder='発行枚数'
                               type='number'
-                              min={1}
                               onChange={(e) => dispatch(issueNumberChanged(Number(e.target.value)))}
                               value={issueNumber} />
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label>値段</Form.Label>
                 <Form.Control placeholder='値段'
-                              min={1}
                               type='number'
                               onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
                               value={price} />
@@ -61,7 +59,6 @@ const CreateTicketTemplate = (): JSX.Element => {
               <Form.Group className='mb-3'>
                 <Form.Label>有効月数</Form.Label>
                 <Form.Control placeholder='有効月数'
-                              min={1}
                               type='number'
                               onChange={(e) => dispatch(effectiveMonthChanged(Number(e.target.value)))}
                               value={effectiveMonth} />

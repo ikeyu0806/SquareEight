@@ -1,5 +1,6 @@
 export interface ReserveFramePaymentMethodParam {
   local_payment_price?: number
+  credit_card_payment_price? :number
   enable_monthly_payment_plans?: EnableMonthlyPaymentPlanParam[]
   enable_tickets?: EnableTicketParam[]
 }
