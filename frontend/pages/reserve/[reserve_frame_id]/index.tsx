@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 const Index: NextPage = () => {
   const router = useRouter()
   const [selectedTime, setSelectedTime] = useState('')
+  const [reserveCount, setReserveCount] = useState(1)
   // localPayment, creditCardPayment, ticket, monthlyPaymentPlanのいずれかを設定
   const [selectedPaymentMethodType, setSelectedPaymentMethodType] = useState('')
   const [selectedTicketId, setSelectedTicketId] = useState(0)
@@ -56,14 +57,19 @@ const Index: NextPage = () => {
                     alt='image' />}
                 <hr />
                 <div className='mb20'>予約時間を選択してください</div>
-                <Form.Select onChange={(e) => setSelectedTime(e.target.value)}>
-                  {reserveFrame?.reserve_frame_reception_times_values?.map((time, i) => {
-                    return (
-                      <option key={i}
-                              value={time.reception_start_time + '-' + time.reception_end_time}>{time.reception_start_time}-{time.reception_end_time}</option>
-                    )
-                  })}
-                </Form.Select>
+                <Row>
+                  <Col>
+                    <Form.Select onChange={(e) => setSelectedTime(e.target.value)}>
+                    {reserveFrame?.reserve_frame_reception_times_values?.map((time, i) => {
+                      return (
+                        <option key={i}
+                                value={time.reception_start_time + '-' + time.reception_end_time}>{time.reception_start_time}-{time.reception_end_time}</option>
+                      )
+                    })}
+                  </Form.Select>
+                  </Col>
+                  <Col></Col>
+                </Row>                
                 <hr />
                 <div className='mb20'>お支払い方法を選択してください</div>
                 {reserveFramePaymentMethod?.local_payment_price !== undefined
@@ -112,6 +118,17 @@ const Index: NextPage = () => {
                     </>
                   )
                 })}
+                <hr />
+                {['localPayment', 'creditCardPayment'].includes(String(selectedPaymentMethodType)) && <><div className='mb20'>人数を入力してください</div>
+                <Row>
+                  <Col sm={3}>
+                  <Form.Control
+                    onChange={(e) => setReserveCount(Number(e.target.value))}
+                    value={reserveCount}
+                    type='number'></Form.Control>
+                  </Col>
+                  <Col></Col>
+                </Row></>}
                 <Button
                   className='mt20'
                   disabled={selectedPaymentMethodType === ''}
