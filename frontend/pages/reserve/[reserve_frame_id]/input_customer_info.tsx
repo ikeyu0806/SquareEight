@@ -1,4 +1,4 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form } from 'react-bootstrap'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
@@ -11,8 +11,9 @@ import { loginStatusChanged } from 'redux/currentEndUserSlice'
 import { paymentMethodText } from 'functions/paymentMethodText'
 
 const Index: NextPage = () => {
-  const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const router = useRouter()
+  const [selectedDate, setSelectedDate] = useState(String(router.query.date).split('-'))
+  const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
 
@@ -63,7 +64,7 @@ const Index: NextPage = () => {
                     <label className='mt10 mb10'>新規作成は<a className='link-text' onClick={onClickSignupLink}>こちら</a></label>
                     <br/>
                   </>}
-                  <div className='mt10 mb10'>予約時間: {router.query.time}</div>
+                  <div className='mt10 mb10'>予約時間: {selectedDate[0]}年{selectedDate[1]}月{selectedDate[2]}日 {router.query.time}</div>
                   <div>お支払い方法: {paymentMethodText(String(router.query.payment_method))}</div>
                   <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
                   {endUserLoginStatus === 'Logout' &&
