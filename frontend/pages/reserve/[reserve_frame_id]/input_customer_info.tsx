@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import { Container, Card, Row, Col, Form } from 'react-bootstrap'
+import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
@@ -42,8 +42,7 @@ const Index: NextPage = () => {
 
 
   const onClickNextLink = () => {
-    localStorage.removeItem('endUserOnLoginRedirectPath')
-    router.push(`reserve/${router.query.reserve_frame_id}/payment_method`)
+    router.push(`/reserve/${router.query.reserve_frame_id}/confirm`)
   }
 
   const loginValidate = () => {
@@ -70,7 +69,9 @@ const Index: NextPage = () => {
                     <br/>
                     <label className='mt10 mb10'>新規作成は<a className='link-text' onClick={onClickSignupLink}>こちら</a></label>
                     <br/>
+                    <hr />
                   </>}
+                  <h3>{router.query.title}</h3>
                   <div className='mt10 mb10'>予約時間: {selectedDate[0]}年{selectedDate[1]}月{selectedDate[2]}日 {router.query.time}</div>
                   <div>お支払い方法: {paymentMethodText(String(router.query.payment_method), Number(router.query.price), Number(router.query.consume_number))}</div>
                   <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
@@ -87,8 +88,9 @@ const Index: NextPage = () => {
                     <Form.Label className='mt10'>携帯電話番号</Form.Label>
                     <Form.Control></Form.Control>
                   </>}
-                  {!loginValidate && <div>
-                    <a className='btn btn-primary mt30' onClick={onClickNextLink}>次へ</a>
+                  {!loginValidate() &&
+                  <div className='text-center'>
+                    <Button className='mt30' onClick={onClickNextLink}>確認画面に進む</Button>
                   </div>}
                 </Card.Body>
               </Card>
