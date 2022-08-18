@@ -1,8 +1,45 @@
+import React, { useState } from 'react'
 import type { NextPage } from 'next'
 import { Container, Button, Row, Col, Card, Alert } from 'react-bootstrap'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
+import { useRouter } from 'next/router'
+import { paymentMethodText } from 'functions/paymentMethodText'
+import { useCookies } from 'react-cookie'
+import { alertChanged } from 'redux/alertSlice'
+import { useDispatch } from 'react-redux'
+import axios from 'axios'
 
 const PaymentMethod: NextPage = () => {
+  const router = useRouter()
+  const dispatch = useDispatch()
+  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [selectedDate] = useState(String(router.query.date).split('-'))
+
+  const execReserve = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/reserve`,
+    {
+      reserve: {
+        reserve_frame_id: router.query.reserve_frame_id,
+        payment_method: router.query.payment_method,
+        price: router.query.price,
+        consume_number: router.query.consume_number,
+        reserve_count: router.query.reserve_count,
+        ticket_id: router.query.ticket_id,
+        monthly_payment_plan_id: router.query.monthly_payment_plan_id
+
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
+    }).then(response => {
+      dispatch(alertChanged({message: '予約しました', show: true}))
+      router.push('/admin/product')
+    }).catch(error => {
+    })
+  }
+
   return (
     <>
       <WithoutSessionLayout>
@@ -11,8 +48,16 @@ const PaymentMethod: NextPage = () => {
             <Col lg={3} md={3}></Col>
             <Col lg={6} md={6}>
               <Card>
-                <Card.Header>確認画面</Card.Header>
-                <Card.Body></Card.Body>
+                <Card.Header>予約内容の確認</Card.Header>
+                <Card.Body>
+                <h3>{router.query.title}</h3>
+                  <div className='mt10 mb10'>予約時間: {selectedDate[0]}年{selectedDate[1]}月{selectedDate[2]}日 {router.query.time}</div>
+                  <div>お支払い方法: {paymentMethodText(String(router.query.payment_method), Number(router.query.price), Number(router.query.consume_number), Number(router.query.reserve_count))}</div>
+                  <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
+                  <div className='text-center'>
+                    <Button className='mt30' onClick={execReserve}>予約を確定する</Button>
+                  </div>
+                </Card.Body>
               </Card>
             </Col>
           </Row>

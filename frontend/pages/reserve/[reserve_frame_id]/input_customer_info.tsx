@@ -42,7 +42,12 @@ const Index: NextPage = () => {
 
 
   const onClickNextLink = () => {
-    router.push(`/reserve/${router.query.reserve_frame_id}/confirm`)
+    switch(router.query.payment_method) {
+      case 'localPayment':
+        router.push(`/reserve/${router.query.reserve_frame_id}/confirm?title=${router.query.title}&date=${router.query.date}&time=${router.query.time}&payment_method=${router.query.payment_method}&reserve_count=${router.query.reserve_count}&price=${router.query.price}`)
+      default:
+        return true
+    }
   }
 
   const loginValidate = () => {
