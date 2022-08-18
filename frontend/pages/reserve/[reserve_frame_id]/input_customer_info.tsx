@@ -8,6 +8,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { loginStatusChanged } from 'redux/currentEndUserSlice'
+import { paymentMethodText } from 'functions/paymentMethodText'
 
 const Index: NextPage = () => {
   const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
@@ -63,7 +64,7 @@ const Index: NextPage = () => {
                     <br/>
                   </>}
                   <div className='mt10 mb10'>予約時間: {router.query.time}</div>
-                  <div>お支払い方法: {}</div>
+                  <div>お支払い方法: {paymentMethodText(String(router.query.payment_method))}</div>
                   <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
                   {endUserLoginStatus === 'Logout' &&
                     String(router.query.payment_method) === 'localPayment' &&
