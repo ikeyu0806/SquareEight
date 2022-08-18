@@ -21,7 +21,7 @@ class Account < ApplicationRecord
             result << {
               start: date,
               title: frame.title,
-              url: '/reserve/' + frame.id.to_s
+              url: '/reserve/' + frame.id.to_s + '&date=' + date.strftime("%Y-%m-%d")
             }
           end
         when 'Week' then
@@ -29,7 +29,7 @@ class Account < ApplicationRecord
             result << {
               start: date,
               title: frame.title,
-              url: '/reserve/' + frame.id.to_s
+              url: '/reserve/' + frame.id.to_s + '&date=' + date.strftime("%Y-%m-%d")
             }
           end
         when 'Month' then
@@ -37,7 +37,7 @@ class Account < ApplicationRecord
             result << {
               start: date,
               title: frame.title,
-              url: '/reserve/' + frame.id.to_s
+              url: '/reserve/' + frame.id.to_s + '&date=' + date.strftime("%Y-%m-%d")
             }
           end
         else
@@ -46,7 +46,7 @@ class Account < ApplicationRecord
         result << {
           start: frame.start_at,
           title: frame.title,
-          url: '/reserve/' + frame.id.to_s
+          url: '/reserve/' + frame.id.to_s + '&date=' + frame.start_at.strftime("%Y-%m-%d")
         }
       end
     end
