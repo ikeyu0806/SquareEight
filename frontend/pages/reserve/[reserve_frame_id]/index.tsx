@@ -132,7 +132,7 @@ const Index: NextPage = () => {
                 <Button
                   className='mt20'
                   disabled={selectedPaymentMethodType === ''}
-                  onClick={() => router.push(`/reserve/${router.query.reserve_frame_id}/input_customer_info?time=${selectedTime}&payment_method=${selectedPaymentMethodType}&ticket_id=${selectedTicketId}&monthly_payment_plan_id=${selectedMonthlyPaymentPlanId}`)}>
+                  onClick={() => router.push(`/reserve/${router.query.reserve_frame_id}/input_customer_info?time=${selectedTime}&payment_method=${selectedPaymentMethodType}&ticket_id=${selectedTicketId}&monthly_payment_plan_id=${selectedMonthlyPaymentPlanId}&reserve_count=${reserveCount}`)}>
                   予約を進める
                 </Button>
               </Card.Body>

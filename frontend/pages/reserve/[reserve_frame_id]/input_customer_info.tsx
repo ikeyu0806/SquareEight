@@ -62,9 +62,13 @@ const Index: NextPage = () => {
                     <label className='mt10 mb10'>新規作成は<a className='link-text' onClick={onClickSignupLink}>こちら</a></label>
                     <br/>
                   </>}
+                  <div className='mt10 mb10'>予約時間: {router.query.time}</div>
+                  <div>お支払い方法: {}</div>
+                  <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
                   {endUserLoginStatus === 'Logout' &&
                     String(router.query.payment_method) === 'localPayment' &&
                   <>
+                    <hr/>
                     <Form.Label className='mt10'>お名前（姓）</Form.Label>
                     <Form.Control></Form.Control>
                     <Form.Label className='mt10'>お名前（名）</Form.Label>
