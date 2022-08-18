@@ -46,6 +46,13 @@ const Index: NextPage = () => {
     router.push(`reserve/${router.query.reserve_frame_id}/payment_method`)
   }
 
+  const loginValidate = () => {
+    if (endUserLoginStatus === 'Logout' && ['creditCardPayment', 'ticket', 'monthlyPaymentPlan'].includes(String(router.query.payment_method))) {
+      return true
+    }
+    return false
+  }
+
   return (
     <>
       <WithoutSessionLayout>
@@ -56,7 +63,7 @@ const Index: NextPage = () => {
               <Card>
                 <Card.Header>お客様情報の入力</Card.Header>
                 <Card.Body>
-                  {endUserLoginStatus === 'Logout' && ['creditCardPayment', 'ticket', 'monthlyPaymentPlan'].includes(String(router.query.payment_method)) &&<>
+                  {loginValidate() &&<>
                   <label className='mb40'>クレジットカード支払い、回数券、月額課金を使用する場合、ログインする必要があります</label>
                     <br />
                     <label className='mt10'>カスタマーアカウントをお持ちですか？ <a className='link-text' onClick={onClickLoginLink}>ログインする</a></label>
@@ -65,7 +72,7 @@ const Index: NextPage = () => {
                     <br/>
                   </>}
                   <div className='mt10 mb10'>予約時間: {selectedDate[0]}年{selectedDate[1]}月{selectedDate[2]}日 {router.query.time}</div>
-                  <div>お支払い方法: {paymentMethodText(String(router.query.payment_method))}</div>
+                  <div>お支払い方法: {paymentMethodText(String(router.query.payment_method), Number(router.query.price), Number(router.query.consume_number))}</div>
                   <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
                   {endUserLoginStatus === 'Logout' &&
                     String(router.query.payment_method) === 'localPayment' &&
@@ -80,9 +87,9 @@ const Index: NextPage = () => {
                     <Form.Label className='mt10'>携帯電話番号</Form.Label>
                     <Form.Control></Form.Control>
                   </>}
-                  <div>
+                  {!loginValidate && <div>
                     <a className='btn btn-primary mt30' onClick={onClickNextLink}>次へ</a>
-                  </div>
+                  </div>}
                 </Card.Body>
               </Card>
             </Col>

@@ -13,6 +13,8 @@ const Index: NextPage = () => {
   const [reserveDate, setReserveDate] = useState()
   const [selectedTime, setSelectedTime] = useState('')
   const [reserveCount, setReserveCount] = useState(1)
+  const [selectedPrice, setSelectedPrice] = useState(0)
+  const [selectedConsumeNumber, setSelectedConsumeNumber] = useState(0)
   // localPayment, creditCardPayment, ticket, monthlyPaymentPlanのいずれかを設定
   const [selectedPaymentMethodType, setSelectedPaymentMethodType] = useState('')
   const [selectedTicketId, setSelectedTicketId] = useState(0)
@@ -80,14 +82,20 @@ const Index: NextPage = () => {
                       type='radio'
                       id='local_payment_check'
                       checked={selectedPaymentMethodType === 'localPayment'}
-                      onChange={() => setSelectedPaymentMethodType('localPayment')}
+                      onChange={() => {
+                        setSelectedPaymentMethodType('localPayment')
+                        setSelectedPrice(Number(reserveFramePaymentMethod?.local_payment_price))
+                      }}
                       label={`現地払い: ${reserveFramePaymentMethod?.local_payment_price}円`}></Form.Check>}
                 {reserveFramePaymentMethod?.credit_card_payment_price !== undefined
                 && <Form.Check
                     type='radio'
                     id='credit_card_payment_check'
                     checked={selectedPaymentMethodType === 'creditCardPayment'}
-                    onChange={() => setSelectedPaymentMethodType('creditCardPayment')}
+                    onChange={() => {
+                      setSelectedPaymentMethodType('creditCardPayment')
+                      setSelectedPrice(Number(reserveFramePaymentMethod?.credit_card_payment_price))
+                    }}
                     label={`クレジットカード払い: ${reserveFramePaymentMethod?.credit_card_payment_price}円`}></Form.Check>}
                 {reserveFramePaymentMethod?.enable_monthly_payment_plans
                   && reserveFramePaymentMethod?.enable_monthly_payment_plans.map((plan, i) => {
@@ -114,6 +122,7 @@ const Index: NextPage = () => {
                         checked={(selectedPaymentMethodType === 'ticket') && (selectedTicketId === ticket.id)}
                         onChange={() => {
                           setSelectedTicketId(ticket.id)
+                          setSelectedConsumeNumber(ticket.consume_number)
                           setSelectedPaymentMethodType('ticket')
                         }}
                         id={`ticket_payment_${i}`}
@@ -135,7 +144,7 @@ const Index: NextPage = () => {
                 <Button
                   className='mt20'
                   disabled={selectedPaymentMethodType === ''}
-                  onClick={() => router.push(`/reserve/${router.query.reserve_frame_id}/input_customer_info?date=${router.query.date}&time=${selectedTime}&payment_method=${selectedPaymentMethodType}&ticket_id=${selectedTicketId}&monthly_payment_plan_id=${selectedMonthlyPaymentPlanId}&reserve_count=${reserveCount}`)}>
+                  onClick={() => router.push(`/reserve/${router.query.reserve_frame_id}/input_customer_info?date=${router.query.date}&time=${selectedTime}&payment_method=${selectedPaymentMethodType}&ticket_id=${selectedTicketId}&monthly_payment_plan_id=${selectedMonthlyPaymentPlanId}&reserve_count=${reserveCount}&price=${selectedPrice}&consume_number=${selectedConsumeNumber}`)}>
                   予約を進める
                 </Button>
               </Card.Body>
