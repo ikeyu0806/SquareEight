@@ -9,6 +9,8 @@ import { useRouter } from 'next/router'
 
 const Index: NextPage = () => {
   const router = useRouter()
+  const [selectedDate, setSelectedDate] = useState(String(router.query.date).split('-'))
+  const [reserveDate, setReserveDate] = useState()
   const [selectedTime, setSelectedTime] = useState('')
   const [reserveCount, setReserveCount] = useState(1)
   // localPayment, creditCardPayment, ticket, monthlyPaymentPlanのいずれかを設定
@@ -57,6 +59,7 @@ const Index: NextPage = () => {
                     alt='image' />}
                 <hr />
                 <div className='mb20'>予約時間を選択してください</div>
+                <div className='mb20'>{selectedDate[0]}年{selectedDate[1]}月{selectedDate[2]}日</div>
                 <Row>
                   <Col>
                     <Form.Select onChange={(e) => setSelectedTime(e.target.value)}>

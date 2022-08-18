@@ -127,7 +127,7 @@ class ReserveFrame < ApplicationRecord
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: '予約可能',
-              url: '/reserve/' + self.id.to_s + '&date=' + date.strftime("%Y-%m-%d")
+              url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
         else
@@ -138,7 +138,7 @@ class ReserveFrame < ApplicationRecord
               result << {
                 start: date.strftime("%Y-%m-%d"),
                 title: '予約可能',
-                url: '/reserve/' + self.id.to_s + '&date=' + date.strftime("%Y-%m-%d")
+                url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
               }
               skip_flg_count = repeat_interval_number_day
             end
@@ -150,7 +150,7 @@ class ReserveFrame < ApplicationRecord
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: '予約可能',
-              url: '/reserve/' + self.id.to_s + '&date=' + date.strftime("%Y-%m-%d")
+              url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
         else
@@ -161,7 +161,7 @@ class ReserveFrame < ApplicationRecord
               result << {
                 start: date.strftime("%Y-%m-%d"),
                 title: '予約可能',
-                url: '/reserve/' + self.id.to_s + '&date=' + date.strftime("%Y-%m-%d")
+                url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
               }
               skip_flg_count = repeat_interval_number_week
             end
@@ -173,7 +173,7 @@ class ReserveFrame < ApplicationRecord
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: '予約可能',
-              url: '/reserve/' + self.id.to_s + '&date=' + date.strftime("%Y-%m-%d")
+              url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
         else
@@ -183,7 +183,7 @@ class ReserveFrame < ApplicationRecord
               result << {
                 start: date.strftime("%Y-%m-%d"),
                 title: '予約可能',
-                url: '/reserve/' + self.id.to_s + '&date=' + date.strftime("%Y-%m-%d")
+                url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
               }
             end
           end
