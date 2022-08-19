@@ -16,6 +16,10 @@ class Api::Internal::ReservationsController < ApplicationController
       .reservations
       .create!(number_of_people: reservation_params[:reserve_count],
                price: reservation_params[:price],
+               start_at: start_datetime,
+               end_at: end_datetime,
+               representative_first_name: reservation_params[:first_name],
+               representative_last_name: reservation_params[:last_name],
                payment_method: reservation_params[:payment_method])
       render json: { status: 'success' }, states: 200
     end
