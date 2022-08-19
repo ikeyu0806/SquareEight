@@ -31,6 +31,16 @@ class Api::Internal::ReservationsController < ApplicationController
                representative_first_name: reservation_params[:first_name],
                representative_last_name: reservation_params[:last_name],
                payment_method: reservation_params[:payment_method])
+      if current_end_user.present?
+      else
+        reserve_frame
+        .account
+        .customers
+        .create!(first_name: reservation_params[:first_name],
+                 last_name: reservation_params[:last_name],
+                 email: reservation_params[:email],
+                 phone_number: reservation_params[:phone_number])
+      end
       render json: { status: 'success' }, states: 200
     end
   rescue => error
