@@ -31,8 +31,8 @@ class Api::Internal::ReservationsController < ApplicationController
                representative_first_name: reservation_params[:first_name],
                representative_last_name: reservation_params[:last_name],
                payment_method: reservation_params[:payment_method])
-      if current_end_user.present?
-      else
+      # 同じ携帯電話番号の顧客データがなければ作成
+      if reserve_frame.account.customers.find_by(phone_number: reservation_params[:phone_number]).blank?
         reserve_frame
         .account
         .customers
