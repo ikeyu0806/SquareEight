@@ -116,4 +116,8 @@ class EndUser < ApplicationRecord
     end
     return cart_items, total_price
   end
+
+  def purchased_ticket_ids
+    purchased_tickets.pluck(:id)
+  end
 end
