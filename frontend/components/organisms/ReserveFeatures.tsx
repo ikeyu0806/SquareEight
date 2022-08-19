@@ -7,8 +7,8 @@ const ReserveFeatures = ({selectable}: FeaturesOrganismProps): JSX.Element => {
     <>
       <FeaturesMolecules headerText='予約管理'
                          FeatureAtomProps1={{title: 'オンライン予約', text: 'カレンダーから24時間予約受付できます'}}
-                         FeatureAtomProps2={{title: 'スタッフ', text: '予約枠に担当スタッフを設定できます'}}
-                         FeatureAtomProps3={{title: '設備・備品', text: '設備・備品によって予約枠の上限を設定できます'}}
+                         FeatureAtomProps2={{title: 'スタッフ', text: '予約メニューに担当スタッフを設定できます'}}
+                         FeatureAtomProps3={{title: '設備・備品', text: '設備・備品によって予約メニューの上限を設定できます'}}
                          selectable={selectable} />
       <FeaturesMolecules headerText='オンライン決済'
                          FeatureAtomProps1={{title: 'クレジットカード決済', text: 'レッスンに対する支払いを自動化できます'}}

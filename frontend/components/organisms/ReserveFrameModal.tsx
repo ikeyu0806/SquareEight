@@ -106,7 +106,7 @@ const ReserveFrameModal = (): JSX.Element => {
     <>
       <Modal show={showReserveFrameModal} size='lg'>
         <Modal.Header> 
-          <Modal.Title>新規予約枠登録</Modal.Title>
+          <Modal.Title>新規予約メニュー登録</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ReserveFrameForm></ReserveFrameForm>

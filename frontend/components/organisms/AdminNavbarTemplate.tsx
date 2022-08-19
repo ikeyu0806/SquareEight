@@ -37,7 +37,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/homepage/new'>ホームページ新規作成</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='予約' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/reserve_frame'>予約枠一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/reserve'>予約一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/business_hour'>営業時間設定</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/special_business_hour'>特例営業時間/休業時間設定</NavDropdown.Item>
@@ -63,7 +63,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
               </NavDropdown>
               <NavDropdown title='アカウント設定' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/sales_transfer'>事業情報/売上振込先口座</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/sales_transfer'>事業情報・売上振込先口座</NavDropdown.Item>
                 <NavDropdown.Item href=''>プラン変更・退会</NavDropdown.Item>
                 <NavDropdown.Item href=''>お支払い履歴</NavDropdown.Item>
               </NavDropdown>
