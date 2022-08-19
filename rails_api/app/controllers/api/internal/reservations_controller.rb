@@ -11,6 +11,15 @@ class Api::Internal::ReservationsController < ApplicationController
       end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i)
       # 予約済み数カウント
       reserved_count = reserve_frame.reservations.where(start_at: start_datetime, end_at: end_datetime).count
+      # ステータス
+      case reserve_frame.reception_type
+      when 'Immediate'
+        status = 'confirm'
+      when 'Temporary'
+        status = 'pendingVerifivation'
+      else
+        raise 'reserveFrame reception type invalid'
+      end
       # 確定
       reserve_frame
       .reservations
@@ -18,6 +27,7 @@ class Api::Internal::ReservationsController < ApplicationController
                price: reservation_params[:price],
                start_at: start_datetime,
                end_at: end_datetime,
+               status: status,
                representative_first_name: reservation_params[:first_name],
                representative_last_name: reservation_params[:last_name],
                payment_method: reservation_params[:payment_method])
