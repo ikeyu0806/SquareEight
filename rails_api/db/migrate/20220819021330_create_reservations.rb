@@ -7,9 +7,11 @@ class CreateReservations < ActiveRecord::Migration[7.0]
       t.integer :number_of_people, default: 1, null: false
       t.integer :end_user_id
       t.integer :customer_id
-      t.integer :type, default: 0
+      t.integer :status, default: 0
       t.integer :payment_method, default: 0
       t.integer :price
+      t.string :representative_first_name
+      t.string :representative_last_name
 
       t.timestamps
     end
