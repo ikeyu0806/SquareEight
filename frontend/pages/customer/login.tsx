@@ -47,7 +47,7 @@ const Login: NextPage = () => {
     }).then(response => {
       setCookie('_gybuilder_end_user_session', response.data.session_id.public_id, { path: '/'})
       dispatch(alertChanged({message: '', show: false}))
-      router.push('/customer_page/dashboard')
+      router.push('/customer_page/')
     }).catch(error => {
       dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
     })

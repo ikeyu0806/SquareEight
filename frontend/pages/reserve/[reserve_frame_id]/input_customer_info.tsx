@@ -64,9 +64,9 @@ const Index: NextPage = () => {
                   {loginValidate() &&<>
                   <label className='mb40'>クレジットカード支払い、回数券、月額課金を使用する場合、ログインする必要があります</label>
                     <br />
-                    <label className='mt10'>カスタマーアカウントをお持ちですか？ <a className='link-text' href='/customer/signup'>ログインする</a></label>
+                    <label className='mt10'>カスタマーアカウントをお持ちですか？ <a className='link-text' href='/customer/login' target='_blank' rel='noreferrer'>ログインする</a></label>
                     <br/>
-                    <label className='mt10 mb10'>新規作成は<a className='link-text' href='/customer/signup' target='_blank'>こちら</a></label>
+                    <label className='mt10 mb10'>新規作成は<a className='link-text' href='/customer/signup'  target='_blank' rel='noreferrer'>こちら</a></label>
                     <br/>
                     <hr />
                   </>}
@@ -95,6 +95,9 @@ const Index: NextPage = () => {
                       value={phoneNumber}
                       onChange={(e) => setPhoneNumber(e.target.value)}></Form.Control>
                   </>}
+                  {endUserLoginStatus === 'Login' &&
+                  <>ログイン時クレジットカード支払いの情報</>
+                  }
                   {!loginValidate() &&
                   <div className='text-center'>
                     <Button className='mt30' onClick={onClickNextLink}>確認画面に進む</Button>
