@@ -13,6 +13,10 @@ import { paymentMethodText } from 'functions/paymentMethodText'
 const Index: NextPage = () => {
   const router = useRouter()
   const [selectedDate, setSelectedDate] = useState(String(router.query.date).split('-'))
+  const [lastName, setLastName] = useState('')
+  const [firstName, setFirstName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
   const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
@@ -42,9 +46,10 @@ const Index: NextPage = () => {
 
 
   const onClickNextLink = () => {
+    const requireParam = `?title=${router.query.title}&date=${router.query.date}&time=${router.query.time}&payment_method=${router.query.payment_method}&reserve_count=${router.query.reserve_count}&last_name=${lastName}&first_name=${firstName}&email=${email}&phone_number=${phoneNumber}`
     switch(router.query.payment_method) {
       case 'localPayment':
-        router.push(`/reserve/${router.query.reserve_frame_id}/confirm?title=${router.query.title}&date=${router.query.date}&time=${router.query.time}&payment_method=${router.query.payment_method}&reserve_count=${router.query.reserve_count}&price=${router.query.price}`)
+        router.push(`/reserve/${router.query.reserve_frame_id}/confirm${requireParam}&price=${router.query.price}`)
       default:
         return true
     }
@@ -85,13 +90,21 @@ const Index: NextPage = () => {
                   <>
                     <hr/>
                     <Form.Label className='mt10'>お名前（姓）</Form.Label>
-                    <Form.Control></Form.Control>
+                    <Form.Control
+                      value={lastName}
+                      onChange={(e) => setLastName(e.target.value)}></Form.Control>
                     <Form.Label className='mt10'>お名前（名）</Form.Label>
-                    <Form.Control></Form.Control>
+                    <Form.Control
+                      value={firstName}
+                      onChange={(e) => setFirstName(e.target.value)}></Form.Control>
                     <Form.Label className='mt10'>メールアドレス</Form.Label>
-                    <Form.Control></Form.Control>
+                    <Form.Control
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}></Form.Control>
                     <Form.Label className='mt10'>携帯電話番号</Form.Label>
-                    <Form.Control></Form.Control>
+                    <Form.Control
+                      value={phoneNumber}
+                      onChange={(e) => setPhoneNumber(e.target.value)}></Form.Control>
                   </>}
                   {!loginValidate() &&
                   <div className='text-center'>

@@ -50,9 +50,17 @@ const PaymentMethod: NextPage = () => {
               <Card>
                 <Card.Header>予約内容の確認</Card.Header>
                 <Card.Body>
-                <h3>{router.query.title}</h3>
+                <h3 className='mb30'>{router.query.title}</h3>
+                  <div>お名前: {router.query.last_name} {router.query.first_name}</div>
+                  <hr />
+                  <div>メールアドレス: {router.query.email}</div>
+                  <hr />
+                  <div>電話番号: {router.query.phone_number}</div>
+                  <hr />
                   <div className='mt10 mb10'>予約時間: {selectedDate[0]}年{selectedDate[1]}月{selectedDate[2]}日 {router.query.time}</div>
+                  <hr />
                   <div>お支払い方法: {paymentMethodText(String(router.query.payment_method), Number(router.query.price), Number(router.query.consume_number), Number(router.query.reserve_count))}</div>
+                  <hr />
                   <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
                   <div className='text-center'>
                     <Button className='mt30' onClick={execReserve}>予約を確定する</Button>
