@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_14_095444) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_19_021330) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -232,6 +232,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_14_095444) do
     t.integer "ticket_master_id"
     t.integer "remain_number"
     t.datetime "expired_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "reservations", force: :cascade do |t|
+    t.integer "reserve_page_id", null: false
+    t.datetime "start_at", null: false
+    t.datetime "end_at"
+    t.integer "number_of_people", default: 1, null: false
+    t.integer "end_user_id"
+    t.integer "customer_id"
+    t.integer "type", default: 0
+    t.integer "payment_method", default: 0
+    t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
