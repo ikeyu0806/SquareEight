@@ -237,7 +237,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_19_021330) do
   end
 
   create_table "reservations", force: :cascade do |t|
-    t.integer "reserve_page_id", null: false
+    t.integer "reserve_frame_id", null: false
     t.datetime "start_at", null: false
     t.datetime "end_at"
     t.integer "number_of_people", default: 1, null: false
