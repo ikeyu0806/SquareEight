@@ -34,17 +34,6 @@ const Index: NextPage = () => {
     })
   }, [dispatch, cookies._gybuilder_end_user_session, endUserLoginStatus])
 
-  const onClickLoginLink= () => {
-    localStorage.setItem('endUserOnLoginRedirectPath', `/reserve/${router.query.reserve_frame_id}/input_customer_info`)
-    router.push('/customer/login')
-  }
-
-  const onClickSignupLink = () => {
-    localStorage.setItem('endUserOnLoginRedirectPath', `/reserve/${router.query.reserve_frame_id}/input_customer_info`)
-    router.push('/customer/signup')
-  }
-
-
   const onClickNextLink = () => {
     const requireParam = `?title=${router.query.title}&date=${router.query.date}&time=${router.query.time}&payment_method=${router.query.payment_method}&reserve_count=${router.query.reserve_count}&last_name=${lastName}&first_name=${firstName}&email=${email}&phone_number=${phoneNumber}`
     switch(router.query.payment_method) {
@@ -75,9 +64,9 @@ const Index: NextPage = () => {
                   {loginValidate() &&<>
                   <label className='mb40'>クレジットカード支払い、回数券、月額課金を使用する場合、ログインする必要があります</label>
                     <br />
-                    <label className='mt10'>カスタマーアカウントをお持ちですか？ <a className='link-text' onClick={onClickLoginLink}>ログインする</a></label>
+                    <label className='mt10'>カスタマーアカウントをお持ちですか？ <a className='link-text' href='/customer/signup'>ログインする</a></label>
                     <br/>
-                    <label className='mt10 mb10'>新規作成は<a className='link-text' onClick={onClickSignupLink}>こちら</a></label>
+                    <label className='mt10 mb10'>新規作成は<a className='link-text' href='/customer/signup' target='_blank'>こちら</a></label>
                     <br/>
                     <hr />
                   </>}

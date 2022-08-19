@@ -45,12 +45,7 @@ const Login: NextPage = () => {
     }).then(response => {
       setCookie('_gybuilder_system_admin_user_session', response.data.session_id.public_id, { path: '/'})
       dispatch(alertChanged({message: '', show: false}))
-      const redirectPath = localStorage.getItem('endUserOnLoginRedirectPath')
-      if (redirectPath) {
-        router.push(redirectPath)
-      } else {
-        router.push('/system/admin/dashboard')
-      }
+      router.push('/system/admin/dashboard')
     }).catch(error => {
       dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
     })
