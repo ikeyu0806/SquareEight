@@ -105,7 +105,7 @@ Rails.application.routes.draw do
       get 'carts/account_index', to: 'carts#account_index'
       get 'cash_registers', to: 'cash_registers#index'
       post 'cash_registers/purchase', to: 'cash_registers#purchase'
-      post 'reservations/', to: 'reservations/create'
+      post 'reservations', to: 'reservations#create'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'

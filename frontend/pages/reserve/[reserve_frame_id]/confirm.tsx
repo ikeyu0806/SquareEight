@@ -16,9 +16,13 @@ const PaymentMethod: NextPage = () => {
   const [selectedDate] = useState(String(router.query.date).split('-'))
 
   const execReserve = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/reserve`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/reservations`,
     {
-      reserve: {
+      reservations: {
+        last_name: router.query.last_name,
+        first_name: router.query.first_name,
+        email: router.query.email,
+        phone_number: router.query.phone_number,
         reserve_frame_id: router.query.reserve_frame_id,
         payment_method: router.query.payment_method,
         price: router.query.price,
@@ -26,7 +30,6 @@ const PaymentMethod: NextPage = () => {
         reserve_count: router.query.reserve_count,
         ticket_id: router.query.ticket_id,
         monthly_payment_plan_id: router.query.monthly_payment_plan_id
-
       }
     },
     {
@@ -35,7 +38,6 @@ const PaymentMethod: NextPage = () => {
       }
     }).then(response => {
       dispatch(alertChanged({message: '予約しました', show: true}))
-      router.push('/admin/product')
     }).catch(error => {
     })
   }
