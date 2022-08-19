@@ -10,6 +10,7 @@ class Account < ApplicationRecord
   has_many :resources
   has_many :reserve_frames
   has_many :orders
+  has_many :customers
 
   def page_links
     # 作成したWebページ、予約ページ、回数券購入ページ、月額課金プラン加入ページのリンクを返却
