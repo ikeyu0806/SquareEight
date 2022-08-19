@@ -24,6 +24,8 @@ const PaymentMethod: NextPage = () => {
         email: router.query.email,
         phone_number: router.query.phone_number,
         reserve_frame_id: router.query.reserve_frame_id,
+        date: router.query.date,
+        time: router.query.time,
         payment_method: router.query.payment_method,
         price: router.query.price,
         consume_number: router.query.consume_number,
