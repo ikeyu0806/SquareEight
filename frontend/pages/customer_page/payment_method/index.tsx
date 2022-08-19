@@ -58,7 +58,7 @@ const Index: NextPage = () => {
                           )
                         })}
                       </ListGroup>
-                      }
+                    }
                   </Card.Text>
                     <a className='btn btn-primary ml10'
                             href='/customer_page/payment_method/register'>

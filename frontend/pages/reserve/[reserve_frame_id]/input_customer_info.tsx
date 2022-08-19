@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Card, Row, Col, Form, Button, ListGroup } from 'react-bootstrap'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
@@ -9,6 +9,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { loginStatusChanged } from 'redux/currentEndUserSlice'
 import { paymentMethodText } from 'functions/paymentMethodText'
+import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
 
 const Index: NextPage = () => {
   const router = useRouter()
@@ -20,15 +21,20 @@ const Index: NextPage = () => {
   const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
+  const [defaultPaymentMethodId, setDefaultPaymentMethodId] = useState('')
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/end_user/sessions`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_as_customer_info`,
     {
       headers: {
         'Session-Id': cookies._gybuilder_end_user_session
       }
-    }).then((res) => {
+    }).then((response) => {
+      console.log(response.data)
       dispatch(loginStatusChanged('Login'))
+      setDefaultPaymentMethodId(response.data.default_payment_method_id)
+      setPaymentMethods(response.data.payment_methods)
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
@@ -96,7 +102,23 @@ const Index: NextPage = () => {
                       onChange={(e) => setPhoneNumber(e.target.value)}></Form.Control>
                   </>}
                   {endUserLoginStatus === 'Login' &&
-                  <>ログイン時クレジットカード支払いの情報</>
+                  <>
+                    <hr />
+                    {
+                    !paymentMethods?.length && <>カードが登録されていません</>
+                    }
+                    {<ListGroup>
+                        {paymentMethods?.map((pay, i) => {
+                          return (
+                            <ListGroup.Item key={i}>
+                              {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
+                              {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
+                            </ListGroup.Item>
+                          )
+                        })}
+                      </ListGroup>
+                    }
+                  </>
                   }
                   {!loginValidate() &&
                   <div className='text-center'>
