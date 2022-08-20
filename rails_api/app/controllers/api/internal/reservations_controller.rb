@@ -70,7 +70,6 @@ class Api::Internal::ReservationsController < ApplicationController
           Stripe::PaymentIntent.confirm(
             payment_intent.id
           )
-          binding.pry
           order = current_end_user.orders.new
           order.order_items.new(product_type: 'Product',
                                 account_id: reserve_frame.account.id,
@@ -80,6 +79,20 @@ class Api::Internal::ReservationsController < ApplicationController
                                 commission: commission)
           order.save!
         when 'ticket'
+          raise 'ログインしてください' if current_end_user.blank?
+          ticket_master = TicketMaster.find(reservation_params[:ticket_id])
+          purchased_tickets = current_end_user
+                              .purchased_tickets
+                              .where(ticket_master_id: ticket_master.id)
+                              .where("expired_at >= ?", Time.zone.now)
+                              .order(:expired_at)
+        
+          total_remain_number = purchased_tickets.sum(:remain_number)
+          raise 'チケットが足りません' if total_remain_number < reservation_params[:consume_number].to_i
+          reservation_params[:consume_number].to_i.times do |count|
+            purchased_ticket = purchased_tickets.where("remain_number > ?", 0).first
+            purchased_ticket.update!(remain_number: purchased_ticket.remain_number - 1)
+          end
         when 'monthlyPaymentPlan'
         else
         end

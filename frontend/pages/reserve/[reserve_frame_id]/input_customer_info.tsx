@@ -76,6 +76,8 @@ const Index: NextPage = () => {
       case 'localPayment':
         router.push(`/reserve/${router.query.reserve_frame_id}/confirm${requireParam}&price=${router.query.price}`)
       case 'creditCardPayment':
+      case 'ticket':
+      case 'monthlyPaymentPlan':
         execReserve()
       default:
         return true
@@ -135,20 +137,23 @@ const Index: NextPage = () => {
                   </>}
                   {endUserLoginStatus === 'Login' &&
                   <>
-                    <hr />
                     {
-                    !paymentMethods?.length && <>カードが登録されていません</>
+                    !paymentMethods?.length && <> <hr />カードが登録されていません</>
                     }
-                    {<ListGroup>
-                        {paymentMethods?.map((pay, i) => {
-                          return (
-                            <ListGroup.Item key={i}>
-                              {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
-                              {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
-                            </ListGroup.Item>
-                          )
-                        })}
-                      </ListGroup>
+                    {router.query.payment_method === 'creditCardPayment' &&
+                      <>
+                        <hr />
+                        <ListGroup>
+                          {paymentMethods?.map((pay, i) => {
+                            return (
+                              <ListGroup.Item key={i}>
+                                {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
+                                {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
+                              </ListGroup.Item>
+                            )
+                          })}
+                        </ListGroup>
+                      </>
                     }
                   </>
                   }
