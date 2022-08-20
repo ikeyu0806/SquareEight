@@ -10,6 +10,7 @@ import { useCookies } from 'react-cookie'
 import { loginStatusChanged } from 'redux/currentEndUserSlice'
 import { paymentMethodText } from 'functions/paymentMethodText'
 import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
+import { alertChanged } from 'redux/alertSlice'
 
 const Index: NextPage = () => {
   const router = useRouter()
@@ -40,11 +41,42 @@ const Index: NextPage = () => {
     })
   }, [dispatch, cookies._gybuilder_end_user_session, endUserLoginStatus])
 
-  const onClickNextLink = () => {
+  const execReserve = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/reservations`,
+    {
+      reservations: {
+        last_name: router.query.last_name,
+        first_name: router.query.first_name,
+        email: router.query.email,
+        phone_number: router.query.phone_number,
+        reserve_frame_id: router.query.reserve_frame_id,
+        date: router.query.date,
+        time: router.query.time,
+        payment_method: router.query.payment_method,
+        price: router.query.price,
+        consume_number: router.query.consume_number,
+        reserve_count: router.query.reserve_count,
+        ticket_id: router.query.ticket_id,
+        monthly_payment_plan_id: router.query.monthly_payment_plan_id
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._gybuilder_end_user_session
+      }
+    }).then(response => {
+      dispatch(alertChanged({message: '予約しました', show: true}))
+    }).catch(error => {
+    })
+  }
+
+  const onSubmit = () => {
     const requireParam = `?title=${router.query.title}&date=${router.query.date}&time=${router.query.time}&payment_method=${router.query.payment_method}&reserve_count=${router.query.reserve_count}&last_name=${lastName}&first_name=${firstName}&email=${email}&phone_number=${phoneNumber}`
     switch(router.query.payment_method) {
       case 'localPayment':
         router.push(`/reserve/${router.query.reserve_frame_id}/confirm${requireParam}&price=${router.query.price}`)
+      case 'creditCardPayment':
+        execReserve()
       default:
         return true
     }
@@ -122,7 +154,9 @@ const Index: NextPage = () => {
                   }
                   {!loginValidate() &&
                   <div className='text-center'>
-                    <Button className='mt30' onClick={onClickNextLink}>確認画面に進む</Button>
+                    <Button className='mt30' onClick={onSubmit}>
+                      {String(router.query.payment_method) === 'localPayment' ? '確認画面に進む' : '予約を確定する'}
+                    </Button>
                   </div>}
                 </Card.Body>
               </Card>
