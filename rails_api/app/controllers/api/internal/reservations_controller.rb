@@ -48,14 +48,14 @@ class Api::Internal::ReservationsController < ApplicationController
           # 決済
           Stripe.api_key = Rails.configuration.stripe[:secret_key]
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
-          default_payment_method_id = customer["invoice_settings"]["default_payment_method"]
+          default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
           commission = (reservation_params[:price].to_i * 0.04).to_i
           payment_intent = Stripe::PaymentIntent.create({
             amount: reservation_params[:price],
             currency: 'jpy',
             payment_method_types: ['card'],
             payment_method: default_payment_method_id,
-            stripe_customer: current_end_user.stripe_customer_id,
+            customer: current_end_user.stripe_customer_id,
             application_fee_amount: commission,
             metadata: {
               'order_date': current_date_text,
@@ -101,18 +101,24 @@ class Api::Internal::ReservationsController < ApplicationController
         else
         end
       end
-      render json: { status: 'success' }, states: 200
-    end
 
-    if current_end_user.present?
-      # 顧客データ作成
-      customer = current_end_user.customers.find_or_initialize_by(account_id: reserve_frame.account_id)
-      customer.last_name = reservation_params[:last_name]
-      customer.first_name = reservation_params[:first_name]
-      customer.email = reservation_params[:email]
-      customer.phone_number = reservation_params[:phone_number]
-      customer.end_user_id = current_end_user.id
-      customer.save!
+      if current_end_user.present?
+        # 顧客データ作成
+        customer = current_end_user.customers.find_or_initialize_by(account_id: reserve_frame.account_id)
+        customer.last_name = reservation_params[:last_name]
+        customer.first_name = reservation_params[:first_name]
+        customer.email = reservation_params[:email]
+        customer.phone_number = reservation_params[:phone_number]
+        customer.end_user_id = current_end_user.id
+        customer.save!
+        current_end_user.last_name = reservation_params[:last_name] if current_end_user.last_name.blank?
+        current_end_user.first_name = reservation_params[:first_name] if current_end_user.first_name.blank?
+        current_end_user.email = reservation_params[:email] if current_end_user.email.blank?
+        current_end_user.phone_number = reservation_params[:phone_number] if current_end_user.phone_number.blank?
+        current_end_user.save!
+      end
+  
+      render json: { status: 'success' }, states: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
