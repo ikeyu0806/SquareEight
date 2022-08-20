@@ -45,8 +45,9 @@ class Api::Internal::ReservationsController < ApplicationController
         case reservation_params[:payment_method]
         when 'creditCardPayment'
           raise 'ログインしてください' if current_end_user.blank?
+          # 決済
           Stripe.api_key = Rails.configuration.stripe[:secret_key]
-          customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
+          stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
           default_payment_method_id = customer["invoice_settings"]["default_payment_method"]
           commission = (reservation_params[:price].to_i * 0.04).to_i
           payment_intent = Stripe::PaymentIntent.create({
@@ -54,7 +55,7 @@ class Api::Internal::ReservationsController < ApplicationController
             currency: 'jpy',
             payment_method_types: ['card'],
             payment_method: default_payment_method_id,
-            customer: current_end_user.stripe_customer_id,
+            stripe_customer: current_end_user.stripe_customer_id,
             application_fee_amount: commission,
             metadata: {
               'order_date': current_date_text,
@@ -70,6 +71,7 @@ class Api::Internal::ReservationsController < ApplicationController
           Stripe::PaymentIntent.confirm(
             payment_intent.id
           )
+          # 注文データ作成
           order = current_end_user.orders.new
           order.order_items.new(product_type: 'Product',
                                 account_id: reserve_frame.account.id,
@@ -100,6 +102,17 @@ class Api::Internal::ReservationsController < ApplicationController
         end
       end
       render json: { status: 'success' }, states: 200
+    end
+
+    if current_end_user.present?
+      # 顧客データ作成
+      customer = current_end_user.customers.find_or_initialize_by(account_id: reserve_frame.account_id)
+      customer.last_name = reservation_params[:last_name]
+      customer.first_name = reservation_params[:first_name]
+      customer.email = reservation_params[:email]
+      customer.phone_number = reservation_params[:phone_number]
+      customer.end_user_id = current_end_user.id
+      customer.save!
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
