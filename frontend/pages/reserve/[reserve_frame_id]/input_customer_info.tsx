@@ -29,7 +29,7 @@ const Index: NextPage = () => {
   const [isSubscribePlan, setIsSubscribePlan] = useState(false)
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_as_customer_info`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_as_customer_info?monthly_payment_plan_id=${router.query.monthly_payment_plan_id}`,
     {
       headers: {
         'Session-Id': cookies._gybuilder_end_user_session
@@ -41,10 +41,14 @@ const Index: NextPage = () => {
       setPaymentMethods(response.data.payment_methods)
       setSubscribePlanIds(response.data.subscribe_plan_ids)
       setIsSubscribePlan(response.data.is_subscribe_plan)
+      setLastName(response.data.end_user.last_name)
+      setFirstName(response.data.end_user.first_name)
+      setEmail(response.data.end_user.email)
+      setPhoneNumber(response.data.end_user.phone_number)
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
-  }, [dispatch, cookies._gybuilder_end_user_session, endUserLoginStatus])
+  }, [dispatch, cookies._gybuilder_end_user_session, endUserLoginStatus, router.query.monthly_payment_plan_id])
 
   const execReserve = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations`,
@@ -122,8 +126,7 @@ const Index: NextPage = () => {
                     {isSubscribePlan && <span className='badge bg-info ml10'>加入済み</span>}
                   </div>
                   <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
-                  {endUserLoginStatus === 'Logout' &&
-                    String(router.query.payment_method) === 'localPayment' &&
+                  { String(router.query.payment_method) === 'localPayment' &&
                   <>
                     <hr/>
                     <Form.Label className='mt10'>お名前（姓）</Form.Label>
