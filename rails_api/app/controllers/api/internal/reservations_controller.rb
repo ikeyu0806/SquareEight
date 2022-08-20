@@ -94,6 +94,8 @@ class Api::Internal::ReservationsController < ApplicationController
             purchased_ticket.update!(remain_number: purchased_ticket.remain_number - 1)
           end
         when 'monthlyPaymentPlan'
+          is_subscribe_plan = current_end_user.search_stripe_subscriptions.pluck("metadata")&.pluck("monthly_payment_plan_id")
+          raise 'プランに加入していません' unless is_subscribe_plan
         else
         end
       end
