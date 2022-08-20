@@ -26,6 +26,7 @@ const Index: NextPage = () => {
   const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
   const [defaultPaymentMethodId, setDefaultPaymentMethodId] = useState('')
   const [subscribePlanIds, setSubscribePlanIds] = useState<number[]>()
+  const [isSubscribePlan, setIsSubscribePlan] = useState(false)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_as_customer_info`,
@@ -39,6 +40,7 @@ const Index: NextPage = () => {
       setDefaultPaymentMethodId(response.data.default_payment_method_id)
       setPaymentMethods(response.data.payment_methods)
       setSubscribePlanIds(response.data.subscribe_plan_ids)
+      setIsSubscribePlan(response.data.is_subscribe_plan)
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
@@ -115,7 +117,10 @@ const Index: NextPage = () => {
                   </>}
                   <h3>{router.query.title}</h3>
                   <div className='mt10 mb10'>予約時間: {selectedDate[0]}年{selectedDate[1]}月{selectedDate[2]}日 {router.query.time}</div>
-                  <div>お支払い方法: {paymentMethodText(String(router.query.payment_method), Number(router.query.price), Number(router.query.consume_number), Number(router.query.reserve_count))}</div>
+                  <div>
+                    お支払い方法: {paymentMethodText(String(router.query.payment_method), Number(router.query.price), Number(router.query.consume_number), Number(router.query.reserve_count))}
+                    {isSubscribePlan && <span className='badge bg-info ml10'>加入済み</span>}
+                  </div>
                   <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
                   {endUserLoginStatus === 'Logout' &&
                     String(router.query.payment_method) === 'localPayment' &&
