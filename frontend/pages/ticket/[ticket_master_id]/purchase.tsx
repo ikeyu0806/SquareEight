@@ -128,10 +128,16 @@ const Purchase: NextPage = () => {
                     : <></>
                   }
                   <h3>{name}</h3>
+                  {s3ObjectPublicUrl
+                  && <img
+                      className='d-block w-100 mt30 mb30'
+                      src={s3ObjectPublicUrl}
+                      alt='image' />}
                   <div className='mt10'>{issueNumber}枚</div>
                   <div className='mt10'>{price}円</div>
                   <div className='mt10'>有効期限: {effectiveMonth}ヶ月</div>
                   <div className='mt10'>{description}</div>
+                  <hr />
                   <Row>
                     <Col sm={2}>
                       <Form.Label>購入数量</Form.Label>
@@ -142,33 +148,29 @@ const Purchase: NextPage = () => {
                     </Col>
                     <Col></Col>
                   </Row>
-                  {s3ObjectPublicUrl
-                  && <img
-                      className='d-block w-100 mt30 mb30'
-                      src={s3ObjectPublicUrl}
-                      alt='image' />}
                   {currentEndUserLogintStatus === 'Logout'
                   ?
                     <></>
                   :
                     <>
-                    <h4>お支払い方法</h4>
-                    {<ListGroup>
-                        {paymentMethods?.map((pay, i) => {
-                          return (
-                            <ListGroup.Item key={i}>
-                              {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
-                              {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
-                              {defaultPaymentMethodId !== pay.id
-                                &&
-                                  <>
-                                    <br/>
-                                    <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
-                                  </>}
-                            </ListGroup.Item>
-                          )
-                        })}
-                      </ListGroup>
+                    <hr />
+                      <h4>お支払い方法</h4>
+                      {<ListGroup>
+                          {paymentMethods?.map((pay, i) => {
+                            return (
+                              <ListGroup.Item key={i}>
+                                {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
+                                {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
+                                {defaultPaymentMethodId !== pay.id
+                                  &&
+                                    <>
+                                      <br/>
+                                      <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
+                                    </>}
+                              </ListGroup.Item>
+                            )
+                          })}
+                        </ListGroup>
                       }
                     <Button className='mt30'
                             onClick={() => insertCart()}
