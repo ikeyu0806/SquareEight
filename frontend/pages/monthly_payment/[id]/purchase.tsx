@@ -139,14 +139,17 @@ const Purchase: NextPage = () => {
                       className='d-block w-100 mt30 mb30'
                       src={s3ObjectPublicUrl}
                       alt='image' />}
+                <hr />
                 <div>￥{price}</div>
+                <hr />
                 <div>{reserveIntervalNumber}日に{enableReserveCount}回予約可能</div>
-                <h4>お支払い方法</h4>
                   {currentEndUserLogintStatus === 'Logout'
                   ?
                     <></>
                   :
                     <>
+                    <hr />
+                    <h5>お支払い方法</h5>
                     {<ListGroup>
                         {paymentMethods?.map((pay, i) => {
                           return (
