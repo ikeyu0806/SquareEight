@@ -111,11 +111,13 @@ class Api::Internal::ReservationsController < ApplicationController
         customer.phone_number = reservation_params[:phone_number]
         customer.end_user_id = current_end_user.id
         customer.save!
-        current_end_user.last_name = reservation_params[:last_name] if current_end_user.last_name.blank?
-        current_end_user.first_name = reservation_params[:first_name] if current_end_user.first_name.blank?
-        current_end_user.email = reservation_params[:email] if current_end_user.email.blank?
-        current_end_user.phone_number = reservation_params[:phone_number] if current_end_user.phone_number.blank?
-        current_end_user.save!
+        # 一回別の変数に代入しないと更新できない
+        end_user = current_end_user
+        end_user.last_name = reservation_params[:last_name] if current_end_user.last_name.blank?
+        end_user.first_name = reservation_params[:first_name] if current_end_user.first_name.blank?
+        end_user.email = reservation_params[:email] if current_end_user.email.blank?
+        end_user.phone_number = reservation_params[:phone_number] if current_end_user.phone_number.blank?
+        end_user.save!
       end
   
       render json: { status: 'success' }, states: 200
