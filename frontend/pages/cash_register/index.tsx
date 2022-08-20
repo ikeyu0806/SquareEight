@@ -17,6 +17,7 @@ import { alertChanged } from 'redux/alertSlice'
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
   const [isRequireDeliveryTargets, setIsRequireDeliveryTargets] = useState(false)
   const [currentEndUserId, setCurrentEndUserId] = useState()
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
@@ -108,6 +109,7 @@ const Index: NextPage = () => {
   }
 
   const execPurchase = () => {
+    setIsLoading(true)
     axios.post(`${process.env.BACKEND_URL}/api/internal/cash_registers/purchase`,
     {},
     {
@@ -116,9 +118,11 @@ const Index: NextPage = () => {
       }
     }).then(response => {
       dispatch(alertChanged({message: '購入しました', show: true}))
+      setIsLoading(false)
       router.push(`/purchase/${response.data.order_id}/payment_complete`)
     }).catch(error => {
       dispatch(alertChanged({message: "エラーが発生しました", show: true, type: 'danger'}))
+      setIsLoading(false)
     })
   }
 
@@ -255,7 +259,10 @@ const Index: NextPage = () => {
             <Card>
               <Card.Body>
                 <h3>ご請求額: ￥{totalPrice}</h3>
-                <Button className='mt10' onClick={() => execPurchase()}>注文を確定</Button>
+                <Button className='mt10' onClick={() => execPurchase()}>
+                  {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
+                  注文を確定
+                </Button>
               </Card.Body>
             </Card>
           </Col>
