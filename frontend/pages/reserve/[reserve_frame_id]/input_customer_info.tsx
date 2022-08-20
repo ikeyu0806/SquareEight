@@ -10,6 +10,7 @@ import { useCookies } from 'react-cookie'
 import { loginStatusChanged } from 'redux/currentEndUserSlice'
 import { paymentMethodText } from 'functions/paymentMethodText'
 import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
+import { StripeSubscriptionsParam } from 'interfaces/StripeSubscriptionsParam'
 import { alertChanged } from 'redux/alertSlice'
 
 const Index: NextPage = () => {
@@ -24,6 +25,7 @@ const Index: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_end_user_session'])
   const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
   const [defaultPaymentMethodId, setDefaultPaymentMethodId] = useState('')
+  const [subscribePlanIds, setSubscribePlanIds] = useState<number[]>()
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_as_customer_info`,
@@ -36,6 +38,7 @@ const Index: NextPage = () => {
       dispatch(loginStatusChanged('Login'))
       setDefaultPaymentMethodId(response.data.default_payment_method_id)
       setPaymentMethods(response.data.payment_methods)
+      setSubscribePlanIds(response.data.subscribe_plan_ids)
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })

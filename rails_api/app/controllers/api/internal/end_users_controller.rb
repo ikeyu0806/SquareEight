@@ -29,16 +29,19 @@ class Api::Internal::EndUsersController < ApplicationController
     if current_end_user.present? && current_end_user.stripe_customer_id.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
       purchased_ticket_ids = current_end_user.purchased_ticket_ids
+      subscribe_plan_ids = []
     else
       default_payment_method_id = nil
       payment_methods = []
       purchased_ticket_ids = []
+      stripe_payment_subscriptions = []
     end
     render json: { status: 'success',
                    end_user: end_user,
                    default_payment_method_id: default_payment_method_id,
                    payment_methods: payment_methods,
                    purchased_ticket_ids: purchased_ticket_ids,
+                   stripe_payment_subscriptions: stripe_payment_subscriptions,
                    login_status: login_status }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

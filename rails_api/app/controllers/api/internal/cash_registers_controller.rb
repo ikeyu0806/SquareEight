@@ -45,7 +45,9 @@ class Api::Internal::CashRegistersController < ApplicationController
               'account_business_name': product.account.business_name,
               'name': product.name,
               'price': product.price,
-              'product_type': 'product'
+              'product_type': 'product',
+              'end_user_id': current_end_user.id,
+              'account_id': product.account_id
             },
             transfer_data: {
               destination: product.account.stripe_account_id
@@ -79,6 +81,8 @@ class Api::Internal::CashRegistersController < ApplicationController
               'account_business_name': ticket_master.account.business_name,
               'name': ticket_master.name,
               'price': cart[:price],
+              'end_user_id': current_end_user.id,
+              'account_id': ticket_master.account_id
             },
             transfer_data: {
               destination: ticket_master.account.stripe_account_id
@@ -111,7 +115,10 @@ class Api::Internal::CashRegistersController < ApplicationController
               'account_business_name': monthly_payment_plan.account.business_name,
               'name': monthly_payment_plan.name,
               'price': monthly_payment_plan.price,
-              'customer': current_end_user.stripe_customer_id
+              'customer': current_end_user.stripe_customer_id,
+              'monthly_payment_plan_id': monthly_payment_plan.id,
+              'end_user_id': current_end_user.id,
+              'account_id': monthly_payment_plan.account_id
             },
             items: [{ plan: monthly_payment_plan.stripe_plan_id }],
             transfer_data:  {
