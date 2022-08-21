@@ -41,6 +41,7 @@ const PaymentMethod: NextPage = () => {
     }).then(response => {
       dispatch(alertChanged({message: '予約しました', show: true}))
     }).catch(error => {
+      dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
     })
   }
 
