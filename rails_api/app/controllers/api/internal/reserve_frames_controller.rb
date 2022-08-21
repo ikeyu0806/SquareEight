@@ -100,11 +100,13 @@ class Api::Internal::ReserveFramesController < ApplicationController
         end
       end
       if reserve_frame.is_monthly_plan_payment_enable?
+        reserve_frame.monthly_payment_plans.delete_all
         reserve_frame_params[:monthly_payment_plan_ids].each do |plan_id|
           reserve_frame.reserve_frame_monthly_payment_plans.new(monthly_payment_plan_id: plan_id)
         end
       end
       if reserve_frame.is_ticket_payment_enable?
+        reserve_frame.reserve_frame_ticket_masters.delete_all
         reserve_frame_params[:reservable_frame_ticket_master].each do |ticket_master|
           reserve_frame.reserve_frame_ticket_masters.new(ticket_master)
         end
