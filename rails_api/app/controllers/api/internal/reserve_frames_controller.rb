@@ -166,6 +166,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :publish_status,
                   :reception_type,
                   :reception_start_day_before,
+                  :reception_phone_number,
                   :cancel_reception,
                   :cancel_reception_day_before,
                   :cancel_reception_hour_before,

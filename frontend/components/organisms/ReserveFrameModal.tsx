@@ -31,6 +31,7 @@ const ReserveFrameModal = (): JSX.Element => {
   const publishStatus = useSelector((state: RootState) => state.reserveFrame.publishStatus)
   const receptionType = useSelector((state: RootState) => state.reserveFrame.receptionType)
   const receptionStartDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionStartDayBefore)
+  const receptionPhoneNumber = useSelector((state: RootState) => state.reserveFrame.receptionPhoneNumber)
   const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
   const reserveFrameReceptionTimes = useSelector((state: RootState) => state.reserveFrame.reserveFrameReceptionTimes)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
@@ -69,6 +70,7 @@ const ReserveFrameModal = (): JSX.Element => {
         publish_status: publishStatus,
         reception_type: receptionType,
         reception_start_day_before: receptionStartDayBefore,
+        reception_phone_number: receptionPhoneNumber,
         cancel_reception: cancelReception,
         reserve_frame_reception_times: reserveFrameReceptionTimes,
         unreservable_frames: unreservableFrames,

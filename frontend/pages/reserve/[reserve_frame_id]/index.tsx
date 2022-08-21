@@ -10,7 +10,6 @@ import { useRouter } from 'next/router'
 const Index: NextPage = () => {
   const router = useRouter()
   const [selectedDate] = useState(String(router.query.date).split('-'))
-  const [reserveDate, setReserveDate] = useState()
   const [selectedTime, setSelectedTime] = useState('')
   const [reserveCount, setReserveCount] = useState(1)
   const [selectedPrice, setSelectedPrice] = useState(0)
@@ -54,7 +53,12 @@ const Index: NextPage = () => {
               <Card.Body>
                 <h3>{reserveFrame?.title}</h3>
                 {reserveFrame?.reception_type === 'PhoneOnly'
-                 && <div className='mt20 mb20'>電話でのみ予約受付しています</div>}
+                 && <>
+                      <div className='mt20 mb20'>
+                        <div className='mb10'>電話でのみ予約受付しています</div>
+                        <div>受付電話番号: {reserveFrame.reception_phone_number}</div>
+                      </div>
+                    </>}
                 <div>{reserveFrame?.description}</div>
                 {reserveFrame?.s3_object_public_url
                 && <img

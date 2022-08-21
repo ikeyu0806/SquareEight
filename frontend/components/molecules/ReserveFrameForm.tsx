@@ -20,6 +20,7 @@ import {  startDateChanged,
           creditCardPaymentPriceChanged,
           publishStatusChanged,
           receptionTypeChanged,
+          receptionPhoneNumberChanged,
           receptionStartDayBeforeChanged,
           cancelReceptionChanged,
           cancelReceptionHourBeforeChanged,
@@ -46,6 +47,7 @@ const ReserveFrameForm = () => {
   const localPaymentPrice = useSelector((state: RootState) => state.reserveFrame.localPaymentPrice)
   const creditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.creditCardPaymentPrice)
   const receptionStartDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionStartDayBefore)
+  const receptionPhoneNumber = useSelector((state: RootState) => state.reserveFrame.receptionPhoneNumber)
   const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
@@ -281,6 +283,12 @@ const ReserveFrameForm = () => {
                 <option value='PhoneOnly'>電話のみ予約</option>
               </Form.Select>
             </Form.Group>
+            {receptionType === 'PhoneOnly' && <div className='mt10 mb20'>
+              <Form.Label>受付電話番号</Form.Label>
+              <Form.Control
+                value={receptionPhoneNumber}
+                onChange={(e) => dispatch(receptionPhoneNumberChanged(e.target.value))}></Form.Control>
+            </div>}
           </Col>
           <Col>
           </Col>

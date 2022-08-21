@@ -26,6 +26,7 @@ export const reserveFrameSlice = createSlice({
     creditCardPaymentPrice: 1000,
     publishStatus: 'Unpublish',
     receptionType: 'Immediate',
+    receptionPhoneNumber: '',
     receptionStartDayBefore: 1,
     cancelReception: 'OnlyOnTheDay',
     cancelReceptionHourBefore: 1,
@@ -101,6 +102,9 @@ export const reserveFrameSlice = createSlice({
     receptionTypeChanged: (state, action: PayloadAction<string>) => {
       state.receptionType = action.payload
     },
+    receptionPhoneNumberChanged: (state, action: PayloadAction<string>) => {
+      state.receptionPhoneNumber = action.payload
+    },
     receptionStartDayBeforeChanged: (state, action: PayloadAction<number>) => {
       state.receptionStartDayBefore = action.payload
     },
@@ -171,6 +175,7 @@ export const { localPaymentPriceChanged } = reserveFrameSlice.actions
 export const { creditCardPaymentPriceChanged } = reserveFrameSlice.actions
 export const { publishStatusChanged } = reserveFrameSlice.actions
 export const { receptionTypeChanged } = reserveFrameSlice.actions
+export const { receptionPhoneNumberChanged } = reserveFrameSlice.actions
 export const { receptionStartDayBeforeChanged } = reserveFrameSlice.actions
 export const { cancelReceptionChanged } = reserveFrameSlice.actions
 export const { cancelReceptionHourBeforeChanged } = reserveFrameSlice.actions
