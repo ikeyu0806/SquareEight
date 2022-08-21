@@ -53,6 +53,8 @@ const Index: NextPage = () => {
             <Card>
               <Card.Body>
                 <h3>{reserveFrame?.title}</h3>
+                {reserveFrame?.reception_type === 'PhoneOnly'
+                 && <div className='mt20 mb20'>電話でのみ予約受付しています</div>}
                 <div>{reserveFrame?.description}</div>
                 {reserveFrame?.s3_object_public_url
                 && <img
@@ -60,7 +62,11 @@ const Index: NextPage = () => {
                     src={reserveFrame?.s3_object_public_url}
                     alt='image' />}
                 <hr />
-                <div className='mb20'>予約時間を選択してください</div>
+                <div className='mb20'>
+                  {reserveFrame?.reception_type === 'PhoneOnly'
+                   ? <>予約可能時間</>
+                   : <>予約時間を選択してください</>}
+                </div>
                 <div className='mb20'>{selectedDate[0]}年{selectedDate[1]}月{selectedDate[2]}日</div>
                 <Row>
                   <Col>
@@ -74,9 +80,8 @@ const Index: NextPage = () => {
                   </Form.Select>
                   </Col>
                   <Col></Col>
-                </Row>                
-                <hr />
-                <div className='mb20'>お支払い方法を選択してください</div>
+                </Row>
+                {reserveFrame?.reception_type !== 'PhoneOnly' && <><hr /><div className='mb20'>お支払い方法を選択してください</div>
                 {reserveFramePaymentMethod?.local_payment_price !== undefined
                   && <Form.Check
                       type='radio'
@@ -146,7 +151,7 @@ const Index: NextPage = () => {
                   disabled={selectedPaymentMethodType === ''}
                   onClick={() => router.push(`/reserve/${router.query.reserve_frame_id}/input_customer_info?title=${reserveFrame?.title}&date=${router.query.date}&time=${selectedTime}&payment_method=${selectedPaymentMethodType}&ticket_id=${selectedTicketId}&monthly_payment_plan_id=${selectedMonthlyPaymentPlanId}&reserve_count=${reserveCount}&price=${selectedPrice}&consume_number=${selectedConsumeNumber}`)}>
                   予約を進める
-                </Button>
+                </Button></>}
               </Card.Body>
             </Card>
           </Col>
