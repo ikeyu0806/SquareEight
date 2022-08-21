@@ -58,6 +58,7 @@ const ReserveFrameForm = () => {
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.reserveFrame.s3ObjectPublicUrl)
+  const receptionType = useSelector((state: RootState) => state.reserveFrame.receptionType)
 
   const [isSetPrice, setIsSetPrice] = useState(true)
   const [reserveFrameReceptionStartTime, setReserveFrameReceptionStartTime] = useState('')
@@ -268,6 +269,25 @@ const ReserveFrameForm = () => {
           </Col>
         </Row>
 
+        <Row>
+          <Col>
+            <Form.Group className='mb-3'>
+              <Form.Label>受付設定</Form.Label>
+              <Form.Select
+                placeholder='メニュー名'
+                onChange={(e) => dispatch(receptionTypeChanged(e.target.value))} >
+                <option value='Immediate'>即時予約</option>
+                <option value='Temporary'>仮予約</option>
+                <option value='PhoneOnly'>電話のみ予約</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
+          <Col>
+          </Col>
+          <Col>
+          </Col>
+        </Row>
+
         <Form.Group className='mb-3'>
           <Row>
             <Form.Label>料金</Form.Label>
@@ -309,8 +329,8 @@ const ReserveFrameForm = () => {
                 </Form.Group>
               </Col>
             </Row>}
-            <Form.Check label='クレジットカード払い' checked={isCreditCardPaymentEnable} onChange={() => dispatch(isCreditCardPaymentEnableChanged(!isCreditCardPaymentEnable))}></Form.Check>
-            {isCreditCardPaymentEnable && <Row>
+            {receptionType !== 'PhoneOnly' && <Form.Check label='クレジットカード払い' checked={isCreditCardPaymentEnable} onChange={() => dispatch(isCreditCardPaymentEnableChanged(!isCreditCardPaymentEnable))}></Form.Check>}
+            {isCreditCardPaymentEnable && receptionType !== 'PhoneOnly' && <Row>
               <Col>
                 <Form.Group as={Row} className='mb-3'>
                   <Col sm={3}>
@@ -326,8 +346,8 @@ const ReserveFrameForm = () => {
                 </Form.Group>
               </Col>
             </Row>}
-            <Form.Check label='月額課金' checked={isMonthlyPlanPaymentEnable} onChange={() => dispatch(isMonthlyPlanPaymentEnableChanged(!isMonthlyPlanPaymentEnable))}></Form.Check>
-            {isMonthlyPlanPaymentEnable && 
+            {receptionType !== 'PhoneOnly' && <Form.Check label='月額課金' checked={isMonthlyPlanPaymentEnable} onChange={() => dispatch(isMonthlyPlanPaymentEnableChanged(!isMonthlyPlanPaymentEnable))}></Form.Check>}
+            {isMonthlyPlanPaymentEnable && receptionType !== 'PhoneOnly' && 
               <div className='ml20'>
                 <Row>
                   <Col>
@@ -350,8 +370,8 @@ const ReserveFrameForm = () => {
                 </Row>
               </div>
             }
-            <Form.Check label='回数券' checked={isTicketPaymentEnable} onChange={() => dispatch(isTicketPaymentEnableChanged(!isTicketPaymentEnable))}></Form.Check>
-            {isTicketPaymentEnable && 
+            {receptionType !== 'PhoneOnly' && <Form.Check label='回数券' checked={isTicketPaymentEnable} onChange={() => dispatch(isTicketPaymentEnableChanged(!isTicketPaymentEnable))}></Form.Check>}
+            {isTicketPaymentEnable && receptionType !== 'PhoneOnly' && 
               <div className='ml20'>
                 {selectableTicketMasters.map((ticket, i) => {
                   return (
@@ -397,25 +417,6 @@ const ReserveFrameForm = () => {
             <Form.Select placeholder='メニュー名' onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
               <option value='Unpublish'>非公開</option>
               <option value='Publish'>公開</option>
-            </Form.Select>
-          </Form.Group>
-        </Col>
-        <Col>
-        </Col>
-        <Col>
-        </Col>
-      </Row>
-
-      <Row>
-        <Col>
-          <Form.Group className='mb-3'>
-            <Form.Label>受付設定</Form.Label>
-            <Form.Select
-              placeholder='メニュー名'
-              onChange={(e) => dispatch(receptionTypeChanged(e.target.value))} >
-              <option value='Immediate'>即時予約</option>
-              <option value='Temporary'>仮予約</option>
-              <option value='PhoneOnly'>電話のみ予約</option>
             </Form.Select>
           </Form.Group>
         </Col>
