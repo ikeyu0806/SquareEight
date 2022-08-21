@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 
 const Index: NextPage = () => {
   const router = useRouter()
-  const [selectedDate, setSelectedDate] = useState(String(router.query.date).split('-'))
+  const [selectedDate] = useState(String(router.query.date).split('-'))
   const [reserveDate, setReserveDate] = useState()
   const [selectedTime, setSelectedTime] = useState('')
   const [reserveCount, setReserveCount] = useState(1)

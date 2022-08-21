@@ -195,7 +195,7 @@ class ReserveFrame < ApplicationRecord
       result << {
         start: self.start_at,
         title: self.title,
-        url: '/reserve/' + self.id.to_s + '&date=' + self.start_at.strftime("%Y-%m-%d")
+        url: '/reserve/' + self.id.to_s + '?date=' + self.start_at.strftime("%Y-%m-%d")
       }
     end
     result
