@@ -31,6 +31,7 @@ const CreateResource = (): JSX.Element => {
             <Form.Label className='mt10'>予約受付数</Form.Label>
             <FormControl
               value={quantity}
+              type='number'
               onChange={(e) => dispatch(quantityChanged(Number(e.target.value)))}
               placeholder=''
               aria-label='月額料金' />

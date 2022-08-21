@@ -153,8 +153,8 @@ const Edit: NextPage = () => {
         'Session-Id': cookies._gybuilder_merchant_session
       }
     }).then(response => {
-      router.push('/admin/monthly_payment')
-      dispatch(alertChanged({message: '月額課金プランを更新しました', show: true}))
+      router.push('/admin/resource')
+      dispatch(alertChanged({message: 'リソースを登録しました', show: true}))
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })
