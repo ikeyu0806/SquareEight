@@ -4,6 +4,7 @@ class ReserveFrame < ApplicationRecord
   belongs_to :account
   has_many :unreservable_frames
   has_many :reserve_frame_resorces
+  has_many :resources, through: :reserve_frame_resorces
   has_many :reserve_frame_monthly_payment_plans
   has_many :monthly_payment_plans, through: :reserve_frame_monthly_payment_plans
   has_many :reserve_frame_ticket_masters

@@ -10,6 +10,11 @@ class Api::Internal::ReservationsController < ApplicationController
       start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i)
       end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i)
       reserved_count = reserve_frame.reservations.where(start_at: start_datetime, end_at: end_datetime).count
+      # リソースチェック
+      resources = reserve_frame.resources
+      resources.each do |resource|
+        
+      end
       # ステータス
       case reserve_frame.reception_type
       when 'Immediate'
