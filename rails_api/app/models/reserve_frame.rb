@@ -206,7 +206,7 @@ class ReserveFrame < ApplicationRecord
   end
 
   def monthly_payment_plan_ids
-    monthly_payment_plans.pluck(:id, :monthly_payment_plan_id)
+    monthly_payment_plans.pluck(:monthly_payment_plan_id)
   end
 
   def reservable_frame_ticket_master

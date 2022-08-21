@@ -3,13 +3,13 @@ import { useRouter } from 'next/router'
 import { Button, Form, Col, Row } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
-import { RootState } from '../../redux/store'
+import { RootState } from 'redux/store'
 import axios from 'axios'
 import { ResourceParam } from 'interfaces/ResourceParam'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { ReservableFrameTicketMasterParam } from 'interfaces/ReservableFrameTicketMasterParam'
-import { getBase64 } from '../../functions/getBase64'
+import { getBase64 } from 'functions/getBase64'
 import resourceSlice from 'redux/resourceSlice'
 import ReserveFrameRepeatSetting from './ReserveFrameRepeatSetting'
 import {  startDateChanged,
@@ -44,7 +44,7 @@ const ReserveFrameForm = () => {
   const startDate = useSelector((state: RootState) => state.reserveFrame.startDate)
   const capacity = useSelector((state: RootState) => state.reserveFrame.capacity)
   const localPaymentPrice = useSelector((state: RootState) => state.reserveFrame.localPaymentPrice)
-  const creditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.localPaymentPrice)
+  const creditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.creditCardPaymentPrice)
   const receptionStartDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionStartDayBefore)
   const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
