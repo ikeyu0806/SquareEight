@@ -27,9 +27,10 @@ const Index: NextPage = () => {
   const [defaultPaymentMethodId, setDefaultPaymentMethodId] = useState('')
   const [subscribePlanIds, setSubscribePlanIds] = useState<number[]>()
   const [isSubscribePlan, setIsSubscribePlan] = useState(false)
+  const [isPurchaseTicket, setIsPurchaseTicket] = useState(false)
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_as_customer_info?monthly_payment_plan_id=${router.query.monthly_payment_plan_id}`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_as_customer_info?monthly_payment_plan_id=${router.query.monthly_payment_plan_id}&ticket_id=${router.query.ticket_id}`,
     {
       headers: {
         'Session-Id': cookies._gybuilder_end_user_session
@@ -41,6 +42,7 @@ const Index: NextPage = () => {
       setPaymentMethods(response.data.payment_methods)
       setSubscribePlanIds(response.data.subscribe_plan_ids)
       setIsSubscribePlan(response.data.is_subscribe_plan)
+      setIsPurchaseTicket(response.data.is_purchase_ticket)
       setLastName(response.data.end_user.last_name)
       setFirstName(response.data.end_user.first_name)
       setEmail(response.data.end_user.email)
@@ -48,7 +50,7 @@ const Index: NextPage = () => {
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
-  }, [dispatch, cookies._gybuilder_end_user_session, endUserLoginStatus, router.query.monthly_payment_plan_id])
+  }, [dispatch, cookies._gybuilder_end_user_session, endUserLoginStatus, router.query.monthly_payment_plan_id, router.query.ticket_id])
 
   const execReserve = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations`,
@@ -130,6 +132,11 @@ const Index: NextPage = () => {
                    && <div className='mt20 mb20'>プランに加入していません
                         <a href={`/monthly_payment/${router.query.monthly_payment_plan_id}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
                         から加入してください</div>}
+                  {!isPurchaseTicket
+                   && (String(router.query.payment_method) === 'ticket')
+                   && <div className='mt20 mb20'>チケットを購入していません
+                        <a href={`/ticket/${router.query.ticket_id}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
+                        から購入してください</div>}
                   <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
                   { String(router.query.payment_method) === 'localPayment' &&
                   <>
