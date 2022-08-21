@@ -1,4 +1,4 @@
-export const resourceReceptionTimeSettingText = (receptionTimeSetting: string, price: number, consumeNumber: number, reserveCount: number) => {
+export const resourceReceptionTimeSettingText = (receptionTimeSetting: string) => {
   switch (receptionTimeSetting) {
     case 'NotSet':
       return '制限なし'
