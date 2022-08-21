@@ -125,6 +125,11 @@ const Index: NextPage = () => {
                     お支払い方法: {paymentMethodText(String(router.query.payment_method), Number(router.query.price), Number(router.query.consume_number), Number(router.query.reserve_count))}
                     {isSubscribePlan && <span className='badge bg-info ml10'>加入済み</span>}
                   </div>
+                  {!isSubscribePlan
+                   && (String(router.query.payment_method) === 'monthlyPaymentPlan')
+                   && <div className='mt20 mb20'>プランに加入していません
+                        <a href={`/monthly_payment/${router.query.monthly_payment_plan_id}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
+                        から加入してください</div>}
                   <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
                   { String(router.query.payment_method) === 'localPayment' &&
                   <>
