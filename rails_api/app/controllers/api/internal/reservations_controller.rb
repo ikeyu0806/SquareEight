@@ -2,39 +2,41 @@ class Api::Internal::ReservationsController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       reserve_frame = ReserveFrame.find(reservation_params[:reserve_frame_id])
-      # 定員オーバチェック
-      capacity = reserve_frame.capacity
-      date = reservation_params[:date].split("-")
-      start_at = reservation_params[:time].split("-")[0].split(":")
-      end_at = reservation_params[:time].split("-")[1].split(":")
-      start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i)
-      end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i)
-      reserved_count = reserve_frame.reservations.where(start_at: start_datetime, end_at: end_datetime).count
-      # リソースチェック
-      resources = reserve_frame.resources
-      resources.each do |resource|
-        
-      end
       # ステータス
       case reserve_frame.reception_type
       when 'Immediate'
         status = 'confirm'
+        # 定員オーバチェック
+        capacity = reserve_frame.capacity
+        date = reservation_params[:date].split("-")
+        start_at = reservation_params[:time].split("-")[0].split(":")
+        end_at = reservation_params[:time].split("-")[1].split(":")
+        start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i)
+        end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i)
+        reserved_count = reserve_frame.reservations.where(start_at: start_datetime, end_at: end_datetime).count
+        # リソースチェック
+        resources = reserve_frame.resources
+        resources.each do |resource|
+          quantity = resource.quantity
+          reservation_count = resource.reservations.where(start_at: start_datetime, end_at: end_datetime).count
+          raise '定員オーバです' if quantity <= reservation_count
+        end
+        # 確定
+        reservation = reserve_frame
+        .reservations
+        .create!(number_of_people: reservation_params[:reserve_count],
+                price: reservation_params[:price],
+                start_at: start_datetime,
+                end_at: end_datetime,
+                status: status,
+                representative_first_name: reservation_params[:first_name],
+                representative_last_name: reservation_params[:last_name],
+                payment_method: reservation_params[:payment_method])
       when 'Temporary'
         status = 'pendingVerifivation'
       else
         raise 'reserveFrame reception type invalid'
       end
-      # 確定
-      reservation = reserve_frame
-                    .reservations
-                    .create!(number_of_people: reservation_params[:reserve_count],
-                            price: reservation_params[:price],
-                            start_at: start_datetime,
-                            end_at: end_datetime,
-                            status: status,
-                            representative_first_name: reservation_params[:first_name],
-                            representative_last_name: reservation_params[:last_name],
-                            payment_method: reservation_params[:payment_method])
       # 同じ携帯電話番号の顧客データがなければ作成
       if reserve_frame.account.customers.find_by(phone_number: reservation_params[:phone_number]).blank?
         reserve_frame
@@ -46,6 +48,7 @@ class Api::Internal::ReservationsController < ApplicationController
                  phone_number: reservation_params[:phone_number])
       end
 
+      # 支払い実行
       if reserve_frame.reception_type  == "Immediate"
         case reservation_params[:payment_method]
         when 'creditCardPayment'
