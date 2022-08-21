@@ -6,6 +6,7 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { Container, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { ResourceParam } from 'interfaces/ResourceParam'
+import { resourceReceptionTimeSettingText } from 'functions/resourceReceptionTimeSettingText'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_gybuilder_merchant_session'])
@@ -52,7 +53,7 @@ const Index: NextPage = () => {
                 <tr key={i}>
                   <td className='text-center'>{resource.name}</td>
                   <td className='text-center'>{resource.quentity}</td>
-                  <td className='text-center'>{resource.reception_time_setting}</td>
+                  <td className='text-center'>{resourceReceptionTimeSettingText(resource.reception_time_setting)}</td>
                   <td>
                     <div className='text-center'>
                       <a className='btn btn-primary' href={`/admin/resource/${resource.id}/edit`}>編集</a>
