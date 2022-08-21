@@ -48,12 +48,11 @@ const Index = (): JSX.Element => {
               <tr>
                 <th className='text-center'>予約メニュー名</th>
                 <th className='text-center'>定員</th>
-                <th className='text-center'>開始日/終了日</th>
-                <th className='text-center'>繰り返し設定</th>
+                <th className='text-center'>開始日-終了日/繰り返し設定</th>
                 <th className='text-center'>お支払い方法</th>
-                <th className='text-center'>公開設定</th>
-                <th className='text-center'>受付設定</th>
-                <th></th>
+                <th className='text-center'>公開設定/受付設定</th>
+                <th className='text-center'></th>
+                <th className='text-center'></th>
               </tr>
             </thead>
             <tbody>
@@ -67,9 +66,7 @@ const Index = (): JSX.Element => {
                       {reserveFrame.capacity}
                     </td>
                     <td className='text-center'>
-                      {reserveFrame.display_start_at}{reserveFrame.display_end_at && <><br/>{reserveFrame.display_end_at}</>}
-                    </td>
-                    <td className='text-center'>
+                      {reserveFrame.display_start_at}{reserveFrame.display_end_at && <><br/>{reserveFrame.display_end_at}</>}<br/>
                       {reserveFrame.repeat_setting_text}
                     </td>
                     <td className='text-center'>
@@ -80,14 +77,14 @@ const Index = (): JSX.Element => {
                       })}
                     </td>
                     <td className='text-center'>
-                      {reserveFrame.publish_status === 'Publish' ? '公開' : '非公開'}
-                    </td>
-                    <td className='text-center'>
+                      {reserveFrame.publish_status === 'Publish' ? '公開' : '非公開'}<br/>
                       {reserveFrame.reception_type_text}
                     </td>
                     <td>
                       <a className='btn btn-primary' href={`/admin/reserve_frame/${reserveFrame.id}/edit`}>編集</a>
-                      <a className='btn btn-primary ml10' href={`/reserve_frame/${reserveFrame.id}/calendar`}>予約カレンダー</a>
+                    </td>
+                    <td>
+                    <a className='btn btn-primary ml10' href={`/reserve_frame/${reserveFrame.id}/calendar`}>プレビュー</a>
                     </td>
                   </tr>
                 )
