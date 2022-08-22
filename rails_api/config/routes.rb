@@ -117,6 +117,7 @@ Rails.application.routes.draw do
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'
         post 'sessions', to: 'sessions#create'
         delete 'sessions', to: 'sessions#destroy'
+        get 'reservations', to: 'reservations#index'
       end
       namespace :system_admin_user do
         get 'sessions', to: 'sessions#login_status'
