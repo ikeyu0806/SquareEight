@@ -86,10 +86,12 @@ const Index: NextPage = () => {
     switch(router.query.payment_method) {
       case 'localPayment':
         router.push(`/reserve/${router.query.reserve_frame_id}/confirm${requireParam}&price=${router.query.price}`)
+        return
       case 'creditCardPayment':
       case 'ticket':
       case 'monthlyPaymentPlan':
         execReserve()
+        return
       default:
         return true
     }
