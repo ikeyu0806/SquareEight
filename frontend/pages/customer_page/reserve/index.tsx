@@ -37,6 +37,13 @@ const Index: NextPage = () => {
                   return (
                     <ListGroup.Item key={i}>
                       <span>{reservation.reserve_frame_title}</span>
+                      <br />
+                      <span>{reservation.display_reservation_datetime}</span>
+                      <br />
+                      <span>人数: {reservation.number_of_people}</span>
+                      <br />
+                      <span>支払い方法: {reservation.display_payment_method}</span>
+                      <span>金額: {reservation.price}</span>
                     </ListGroup.Item>
                   )
                 })}

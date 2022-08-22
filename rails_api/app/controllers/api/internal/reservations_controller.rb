@@ -32,6 +32,8 @@ class Api::Internal::ReservationsController < ApplicationController
                  representative_first_name: reservation_params[:first_name],
                  representative_last_name: reservation_params[:last_name],
                  payment_method: reservation_params[:payment_method],
+                 ticket_master_id: reservation_params[:ticket_id],
+                 monthly_payment_plan_id: reservation_params[:monthly_payment_plan_id],
                  end_user_id: current_end_user.id)
       when 'Temporary'
         status = 'pendingVerifivation'
@@ -80,6 +82,7 @@ class Api::Internal::ReservationsController < ApplicationController
           Stripe::PaymentIntent.confirm(
             payment_intent.id
           )
+          reservation.update!(stripe_payment_intent_id: payment_intent.id)
           # 注文データ作成
           order = current_end_user.orders.new
           order.order_items.new(product_type: 'Product',
