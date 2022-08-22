@@ -2,8 +2,16 @@ html,
 body {
   padding: 0;
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
-    Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif;
+  /* これ効かない？？ */
+  font-family: 'Hiragino Sans';
+}
+
+.hiragino-sans {
+  font-family: 'Hiragino Sans';
+}
+
+.font-weight-bold {
+  font-weight: bold;
 }
 
 a {

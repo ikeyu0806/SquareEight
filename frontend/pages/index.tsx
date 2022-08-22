@@ -16,7 +16,7 @@ const Home: NextPage = () => {
     <>
       <Navbar collapseOnSelect expand='lg' bg='light'>
         <Container>
-          <Navbar.Brand href='#home'>SquareEight</Navbar.Brand>
+          <Navbar.Brand href='/' className='font-weight-bold'>SquareEight</Navbar.Brand>
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
           <Navbar.Collapse id='responsive-navbar-nav'>
             <Nav className='me-auto'>

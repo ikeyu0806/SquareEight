@@ -27,7 +27,7 @@ const SystemAdminNavbar = () => {
     <>
       <Navbar bg='warning' expand='lg'>
         <Container>
-          <Navbar.Brand href='/'>SquareEight</Navbar.Brand>
+          <Navbar.Brand href='/' className='font-weight-bold'>SquareEight</Navbar.Brand>
           <Nav className='me-auto'>
             <Nav.Link href='/system/admin/dashboard'>ダッシュボード</Nav.Link>
             <NavDropdown title='お知らせ' id='homepage-nav-dropdown'>

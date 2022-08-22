@@ -29,7 +29,7 @@ const CustomerPageNavbar = (): JSX.Element => {
     <>
       <Navbar variant='dark' expand='lg' className='bg-darkblue'>
         <Container>
-          <Navbar.Brand href='#home'>SquareEight</Navbar.Brand>
+          <Navbar.Brand href='/' className='font-weight-bold'>SquareEight</Navbar.Brand>
           <Navbar.Toggle />
             <Navbar.Collapse>
             <Nav className='me-auto'>
