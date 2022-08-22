@@ -11,7 +11,7 @@ import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 
 const Index: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [monthlyPaymentPlans, setMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam[]>([])
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
@@ -21,7 +21,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/monthly_payment_plans`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
@@ -34,7 +34,7 @@ const Index: NextPage = () => {
       })
     }
     fetchMonthlyPaymentPlans()
-  }, [router.query.id, cookies._gybuilder_merchant_session])
+  }, [router.query.id, cookies._square_eight_merchant_session])
   return (
     <>
       <MerchantUserAdminLayout>

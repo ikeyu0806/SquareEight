@@ -8,7 +8,7 @@ import { Notification } from 'interfaces/Notification'
 import { useRouter } from 'next/router'
 
 const DashboardTemplate = (): JSX.Element => {
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [notification, setNotification] = useState<Notification[]>([])
   const router = useRouter()
 
@@ -17,7 +17,7 @@ const DashboardTemplate = (): JSX.Element => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/accounts/dashboard_contents`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           }
         }
       )
@@ -30,7 +30,7 @@ const DashboardTemplate = (): JSX.Element => {
       })
     }
     fetchDashboardContent()
-  }, [cookies._gybuilder_merchant_session])
+  }, [cookies._square_eight_merchant_session])
 
   return (
     <Container>

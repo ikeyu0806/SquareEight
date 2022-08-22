@@ -10,7 +10,7 @@ import { alertChanged } from 'redux/alertSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [content, setContent] = useState('')
@@ -25,7 +25,7 @@ const Index: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       dispatch(alertChanged({message: '登録しました', show: true}))

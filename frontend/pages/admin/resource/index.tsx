@@ -9,7 +9,7 @@ import { ResourceParam } from 'interfaces/ResourceParam'
 import { resourceReceptionTimeSettingText } from 'functions/resourceReceptionTimeSettingText'
 
 const Index: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [resources, setResources] = useState<ResourceParam[]>([])
 
@@ -18,7 +18,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/resources`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
@@ -31,7 +31,7 @@ const Index: NextPage = () => {
       })
     }
     fetchResources()
-  }, [router.query.id, cookies._gybuilder_merchant_session])
+  }, [router.query.id, cookies._square_eight_merchant_session])
 
   return (
     <>

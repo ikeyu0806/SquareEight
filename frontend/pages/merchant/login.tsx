@@ -19,13 +19,13 @@ const Login: NextPage = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [cookies, setCookie, removeCookie] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies, setCookie, removeCookie] = useCookies(['_square_eight_merchant_session'])
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/merchant/sessions`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((res) => {
       dispatch(loginStatusChanged('Login'))
@@ -33,7 +33,7 @@ const Login: NextPage = () => {
       router.push('/admin/dashboard')
     }).catch((e) => {
     })
-  }, [dispatch, cookies._gybuilder_merchant_session, merchantUserLoginStatus, router])
+  }, [dispatch, cookies._square_eight_merchant_session, merchantUserLoginStatus, router])
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/merchant/sessions`,
@@ -43,7 +43,7 @@ const Login: NextPage = () => {
         password: password
       }
     }).then(response => {
-      setCookie('_gybuilder_merchant_session', response.data.session_id.public_id, { path: '/'})
+      setCookie('_square_eight_merchant_session', response.data.session_id.public_id, { path: '/'})
       dispatch(alertChanged({message: '', show: false}))
       router.push('/admin/dashboard')
     }).catch(error => {

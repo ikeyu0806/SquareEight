@@ -9,7 +9,7 @@ import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
 
 
 const Index: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
   const [defaultPaymentMethodId, setDefaultPaymentMethodId] = useState('')
@@ -19,7 +19,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/accounts/payment_methods`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
@@ -33,7 +33,7 @@ const Index: NextPage = () => {
       })
     }
     fetchCustomerId()
-  }, [router.query.id, cookies._gybuilder_merchant_session])
+  }, [router.query.id, cookies._square_eight_merchant_session])
 
   return (
     <>

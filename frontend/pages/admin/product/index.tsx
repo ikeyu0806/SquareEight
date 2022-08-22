@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 
 const Index: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [products, setProducts] = useState<ProductParam[]>([])
 
@@ -17,7 +17,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/products`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
@@ -30,7 +30,7 @@ const Index: NextPage = () => {
       })
     }
     fetchProducts()
-  }, [router.query.id, cookies._gybuilder_merchant_session])
+  }, [router.query.id, cookies._square_eight_merchant_session])
 
   return (
     <>

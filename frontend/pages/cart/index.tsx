@@ -9,7 +9,7 @@ import { CartItemParam } from 'interfaces/CartItemsParam'
 
 const Index: NextPage = () => {
   const router = useRouter()
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [cartItems, setCartItems] = useState<CartItemParam[]>()
   const [totalPrice, setTotalPrice] = useState(0)
 
@@ -18,7 +18,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/carts/account_index`, {
           headers: {
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }
       )
@@ -31,7 +31,7 @@ const Index: NextPage = () => {
       })
     }
     fetchProduct()
-  }, [cookies._gybuilder_end_user_session])
+  }, [cookies._square_eight_end_user_session])
 
   return (
     <EndUserLoginLayout>

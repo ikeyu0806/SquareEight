@@ -11,7 +11,7 @@ import { alertChanged } from 'redux/alertSlice'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
   const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
@@ -27,7 +27,7 @@ const New: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       router.push('/admin/homepage/')

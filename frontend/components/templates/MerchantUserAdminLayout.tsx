@@ -17,13 +17,13 @@ interface Props {
 const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
   const merchantUserLoginStatus = useSelector((state: RootState) => state.currentMerchantUser.loginStatus)
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/merchant/sessions`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
       dispatch(loginStatusChanged('Login'))
@@ -32,7 +32,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
-  }, [dispatch, cookies._gybuilder_merchant_session, merchantUserLoginStatus])
+  }, [dispatch, cookies._square_eight_merchant_session, merchantUserLoginStatus])
 
   return (
     <>

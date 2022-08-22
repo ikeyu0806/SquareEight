@@ -33,7 +33,7 @@ import {
 
 const Edit = (): JSX.Element => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
 
   const title = useSelector((state: RootState) => state.reserveFrame.title)
@@ -109,7 +109,7 @@ const Edit = (): JSX.Element => {
     },
     {
       headers: { 
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       swalWithBootstrapButtons.fire({
@@ -130,7 +130,7 @@ const Edit = (): JSX.Element => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/reserve_frames/${router.query.id}`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
@@ -162,7 +162,7 @@ const Edit = (): JSX.Element => {
       })  
     }
     fetchReserveFrame()
-  }, [router.query.id, cookies._gybuilder_merchant_session, dispatch])
+  }, [router.query.id, cookies._square_eight_merchant_session, dispatch])
 
   return (
     <>

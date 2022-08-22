@@ -18,13 +18,13 @@ const Login: NextPage = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [cookies, setCookie] = useCookies(['_gybuilder_system_admin_user_session'])
+  const [cookies, setCookie] = useCookies(['_square_eight_system_admin_user_session'])
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/system_admin_user/sessions`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_system_admin_user_session
+        'Session-Id': cookies._square_eight_system_admin_user_session
       }
     }).then((res) => {
       dispatch(loginStatusChanged('Login'))
@@ -33,7 +33,7 @@ const Login: NextPage = () => {
       dispatch(loginStatusChanged('Logout'))
       console.log(e)
     })
-  }, [dispatch, cookies._gybuilder_system_admin_user_session, currentSystemAdminUserLogintStatus])
+  }, [dispatch, cookies._square_eight_system_admin_user_session, currentSystemAdminUserLogintStatus])
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/system_admin_user/sessions`,
@@ -43,7 +43,7 @@ const Login: NextPage = () => {
         password: password
       }
     }).then(response => {
-      setCookie('_gybuilder_system_admin_user_session', response.data.session_id.public_id, { path: '/'})
+      setCookie('_square_eight_system_admin_user_session', response.data.session_id.public_id, { path: '/'})
       dispatch(alertChanged({message: '', show: false}))
       router.push('/system/admin/dashboard')
     }).catch(error => {

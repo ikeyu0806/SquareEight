@@ -1,9 +1,9 @@
 import { Html, Head, Main, NextScript } from 'next/document'
 
 const MyDocument = () => {
-  const url = process.env.gybuilder_FRONTEND_URL
-  const title = 'gybuilder'
-  const description = 'gybuilder'
+  const url = process.env.square_eight_FRONTEND_URL
+  const title = 'square_eight'
+  const description = 'square_eight'
 
   return (
     <Html lang='ja-JP'>

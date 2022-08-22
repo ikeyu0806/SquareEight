@@ -76,7 +76,7 @@ import {  companyBusinessNameChanged,
 const RegisterMerchantInfoForm = () => {
   const [businessType, setBusinessType] = useState('individual')
   const [isLoading, setIsLoading] = useState(false)
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -152,7 +152,7 @@ const RegisterMerchantInfoForm = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/accounts/stripe_account_info`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
@@ -226,7 +226,7 @@ const RegisterMerchantInfoForm = () => {
       })
     }
     fetchStripeBusinessInfo()
-  }, [router.query.id, cookies._gybuilder_merchant_session, dispatch])
+  }, [router.query.id, cookies._square_eight_merchant_session, dispatch])
 
   const validateSubmit = () => {
     if (!isTermConfirmed) { return true }
@@ -364,7 +364,7 @@ const RegisterMerchantInfoForm = () => {
     },
     {
       headers: { 
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       setIsLoading(false)

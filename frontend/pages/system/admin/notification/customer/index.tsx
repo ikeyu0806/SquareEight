@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 
 const Index: NextPage = () => {
   const [notifications, setNotifications] = useState<Notification[]>([])
-  const [cookies] = useCookies(['_gybuilder_system_admin_user_session'])
+  const [cookies] = useCookies(['_square_eight_system_admin_user_session'])
   const router = useRouter()
 
   useEffect(() => {
@@ -17,7 +17,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/system_end_user_notifications`,
         { headers: {
-            'Session-Id': cookies._gybuilder_system_admin_user_session
+            'Session-Id': cookies._square_eight_system_admin_user_session
           }
         }
       )
@@ -29,7 +29,7 @@ const Index: NextPage = () => {
       })
     }
     fetchNotifications()
-  }, [cookies._gybuilder_system_admin_user_session])
+  }, [cookies._square_eight_system_admin_user_session])
 
   return (
     <SystemAdminLayoutTemplate>

@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie'
 
 const Callback: NextPage = () => {
   const router = useRouter()
-  const [cookies, setCookie] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies, setCookie] = useCookies(['_square_eight_end_user_session'])
 
   const findOrCreateEndUserByGoogleAuth = (googleAuthId: string, GoogleAuthEmail: string) => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/find_or_create_by_google_auth`, {
@@ -19,7 +19,7 @@ const Callback: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     })
     .then(function (response) {
@@ -37,7 +37,7 @@ const Callback: NextPage = () => {
       }
     })
     .then(function (response) {
-      setCookie('_gybuilder_end_user_session', response.data.session_id.public_id, { path: '/'})
+      setCookie('_square_eight_end_user_session', response.data.session_id.public_id, { path: '/'})
       router.push('/customer_page')
     })
     .catch(err => {

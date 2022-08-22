@@ -8,7 +8,7 @@ import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 
 const Index: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const router = useRouter()
   const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
   const [defaultPaymentMethodId, setDefaultPaymentMethodId] = useState('')
@@ -18,7 +18,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/end_users/payment_methods`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           },
         }
       )
@@ -32,7 +32,7 @@ const Index: NextPage = () => {
       })
     }
     fetchPaymentMethod()
-  }, [router.query.id, cookies._gybuilder_end_user_session])
+  }, [router.query.id, cookies._square_eight_end_user_session])
 
   return (
     <>

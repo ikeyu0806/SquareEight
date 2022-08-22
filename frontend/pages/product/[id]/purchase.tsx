@@ -24,7 +24,7 @@ import { nameChanged,
 const Purchase: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [currentEndUserId, setCurrentEndUserId] = useState()
   const [isRegisteredAddress, setIsRegisteredAddress] = useState(true)
   const name = useSelector((state: RootState) => state.product.name)
@@ -54,7 +54,7 @@ const Purchase: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/products/${router.query.id}/purchase_info`, {
           headers: {
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }
       )
@@ -78,7 +78,7 @@ const Purchase: NextPage = () => {
       })
     }
     fetchProduct()
-  }, [cookies._gybuilder_end_user_session, router.query.id, router.query.ticket_master_id, dispatch])
+  }, [cookies._square_eight_end_user_session, router.query.id, router.query.ticket_master_id, dispatch])
 
   const insertCart = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/products/insert_cart`,
@@ -100,7 +100,7 @@ const Purchase: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
       router.push(`/cart`)
@@ -124,7 +124,7 @@ const Purchase: NextPage = () => {
         {},
         {
           headers: {
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }).then(response => {
           dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))
@@ -151,7 +151,7 @@ const Purchase: NextPage = () => {
         {},
         {
           headers: {
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }).then(response => {
           dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))

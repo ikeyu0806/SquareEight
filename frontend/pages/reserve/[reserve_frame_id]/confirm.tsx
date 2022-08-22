@@ -12,7 +12,7 @@ import axios from 'axios'
 const PaymentMethod: NextPage = () => {
   const router = useRouter()
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [selectedDate] = useState(String(router.query.date).split('-'))
 
   const execReserve = () => {
@@ -36,7 +36,7 @@ const PaymentMethod: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
       dispatch(alertChanged({message: '予約しました', show: true}))

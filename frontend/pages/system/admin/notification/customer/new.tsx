@@ -13,7 +13,7 @@ const New: NextPage = () => {
   const router = useRouter()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const [cookies] = useCookies(['_gybuilder_system_admin_user_session'])
+  const [cookies] = useCookies(['_square_eight_system_admin_user_session'])
 
   const createNotification = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/system_end_user_notifications`,
@@ -25,7 +25,7 @@ const New: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_system_admin_user_session
+        'Session-Id': cookies._square_eight_system_admin_user_session
       }
     }).then(response => {
       dispatch(alertChanged({message: '登録しました', show: true}))

@@ -12,7 +12,7 @@ import CheckIcon from 'components/atoms/CheckIcon'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
 
   const [stripeAccount, setStripeAccount] = useState<StripeAccountParam>()
@@ -24,7 +24,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/accounts/stripe_connected_account`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
@@ -40,7 +40,7 @@ const Index: NextPage = () => {
       })
     }
     fetchStripeConnectedAccount()
-  }, [router.query.id, cookies._gybuilder_merchant_session, dispatch])
+  }, [router.query.id, cookies._square_eight_merchant_session, dispatch])
 
   const requirementsContents = () => {
     let result = [] as string[]

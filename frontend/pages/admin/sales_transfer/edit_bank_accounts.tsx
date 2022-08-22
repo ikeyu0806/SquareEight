@@ -11,7 +11,7 @@ import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const EditBankAccounts: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
 
   const [stripeAccount, setStripeAccount] = useState<StripeAccountParam>()
@@ -22,7 +22,7 @@ const EditBankAccounts: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/accounts/stripe_connected_account`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
@@ -37,7 +37,7 @@ const EditBankAccounts: NextPage = () => {
       })
     }
     fetchStripeConnectedAccount()
-  }, [router.query.id, cookies._gybuilder_merchant_session, dispatch])
+  }, [router.query.id, cookies._square_eight_merchant_session, dispatch])
 
   const deleteBankAccount = (externalAccountId: string) => {
     swalWithBootstrapButtons.fire({
@@ -52,7 +52,7 @@ const EditBankAccounts: NextPage = () => {
         axios.delete(`${process.env.BACKEND_URL}/api/internal/accounts/delete_bank_account/${externalAccountId}`,
         {
           headers: {
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           }
         }).then(response => {
           location.reload()
@@ -80,7 +80,7 @@ const EditBankAccounts: NextPage = () => {
         },
         {
           headers: {
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }).then(response => {
           location.reload()

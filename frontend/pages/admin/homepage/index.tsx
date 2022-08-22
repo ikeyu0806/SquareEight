@@ -13,7 +13,7 @@ import { useDispatch } from 'react-redux'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [websites, setWebsites] = useState<WebsiteParam[]>([])
 
@@ -22,7 +22,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/homepages`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
@@ -35,7 +35,7 @@ const Index: NextPage = () => {
       })
     }
     fetchHomepages()
-  }, [router.query.id, cookies._gybuilder_merchant_session])
+  }, [router.query.id, cookies._square_eight_merchant_session])
 
   const publishWebsite = (websiteId: number) => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/publish`,
@@ -46,7 +46,7 @@ const Index: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       location.reload()
@@ -63,7 +63,7 @@ const Index: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       location.reload()
@@ -89,7 +89,7 @@ const Index: NextPage = () => {
         },
         {
           headers: {
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           }
         }).then(response => {
           location.reload()
@@ -112,7 +112,7 @@ const Index: NextPage = () => {
         axios.delete(`${process.env.BACKEND_URL}/api/internal/homepages/${websiteId}`,
         {
           headers: {
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           }
         }).then(response => {
           dispatch(alertChanged({message: '削除しました', show: false}))

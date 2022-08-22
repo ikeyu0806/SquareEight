@@ -9,14 +9,14 @@ import { useRouter } from 'next/router'
 const SystemAdminNavbar = () => {
   const dispatch = useDispatch()
   const alert =  useSelector((state: RootState) => state.alert.alert)
-  const [cookies] = useCookies(['_gybuilder_system_admin_user_session'])
+  const [cookies] = useCookies(['_square_eight_system_admin_user_session'])
   const router = useRouter()
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
   const logout = () => {
     axios.delete(`${process.env.BACKEND_URL}/api/internal/system_admin_user/sessions`, {
       headers: { 
-        'Session-Id': cookies._gybuilder_system_admin_user_session
+        'Session-Id': cookies._square_eight_system_admin_user_session
       }
     })
     dispatch(alertChanged({message: 'ログアウトしました', show: true}))
@@ -27,7 +27,7 @@ const SystemAdminNavbar = () => {
     <>
       <Navbar bg='warning' expand='lg'>
         <Container>
-          <Navbar.Brand href='/'>GYBuilder</Navbar.Brand>
+          <Navbar.Brand href='/'>SquareEight</Navbar.Brand>
           <Nav className='me-auto'>
             <Nav.Link href='/system/admin/dashboard'>ダッシュボード</Nav.Link>
             <NavDropdown title='お知らせ' id='homepage-nav-dropdown'>

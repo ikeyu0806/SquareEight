@@ -11,7 +11,7 @@ import { useDispatch } from 'react-redux'
 import { alertChanged } from 'redux/alertSlice'
 
 const CardList: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const dispatch = useDispatch()
   const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
@@ -22,7 +22,7 @@ const CardList: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/accounts/payment_methods`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
@@ -36,7 +36,7 @@ const CardList: NextPage = () => {
       })
     }
     fetchCustomerId()
-  }, [router.query.id, cookies._gybuilder_merchant_session])
+  }, [router.query.id, cookies._square_eight_merchant_session])
 
   const updateDefaultCard = (payment_method_id: string) => {
     swalWithBootstrapButtons.fire({
@@ -53,7 +53,7 @@ const CardList: NextPage = () => {
         {},
         {
           headers: {
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           }
         }).then(response => {
           dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))
@@ -78,7 +78,7 @@ const CardList: NextPage = () => {
       if (result.isConfirmed) {
         axios.delete(`${process.env.BACKEND_URL}/api/internal/accounts/${payment_method_id}/detach_stripe_payment_method`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           }
         })
         router.push('/customer_page/payment_method')

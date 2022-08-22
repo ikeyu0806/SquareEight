@@ -20,13 +20,13 @@ const Login: NextPage = () => {
   const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
-  const [cookies, setCookie] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies, setCookie] = useCookies(['_square_eight_end_user_session'])
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_user/sessions`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then((res) => {
       dispatch(loginStatusChanged('Login'))
@@ -35,7 +35,7 @@ const Login: NextPage = () => {
       dispatch(loginStatusChanged('Logout'))
       console.log(e)
     })
-  }, [dispatch, cookies._gybuilder_end_user_session, currentEndUserLogintStatus])
+  }, [dispatch, cookies._square_eight_end_user_session, currentEndUserLogintStatus])
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/end_user/sessions`,
@@ -45,7 +45,7 @@ const Login: NextPage = () => {
         password: password
       }
     }).then(response => {
-      setCookie('_gybuilder_end_user_session', response.data.session_id.public_id, { path: '/'})
+      setCookie('_square_eight_end_user_session', response.data.session_id.public_id, { path: '/'})
       dispatch(alertChanged({message: '', show: false}))
       router.push('/customer_page/')
     }).catch(error => {

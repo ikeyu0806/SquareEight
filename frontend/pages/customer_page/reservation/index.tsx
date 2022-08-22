@@ -8,14 +8,14 @@ import { paymentMethodText } from 'functions/paymentMethodText'
 import axios from 'axios'
 
 const Index: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [reservations, setReservatons] = useState<ReservationParam[]>([])
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_user/reservations`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then((response) => {
       console.log(response.data)
@@ -23,7 +23,7 @@ const Index: NextPage = () => {
     }).catch((error) => {
       console.log(error)
     })
-  }, [cookies._gybuilder_end_user_session])
+  }, [cookies._square_eight_end_user_session])
 
   return (
     <>

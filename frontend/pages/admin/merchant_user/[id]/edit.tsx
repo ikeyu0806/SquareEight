@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import axios from 'axios'
 
 const Edit: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const dispatch = useDispatch()
   const [lastName, setLastName] = useState('')
@@ -23,7 +23,7 @@ const Edit: NextPage = () => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/merchant_users/current_merchant_user_info`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
       setLastName(response.data.merchant_user.last_name)
@@ -34,7 +34,7 @@ const Edit: NextPage = () => {
     }).catch((error) => {
       console.log(error)
     })
-  }, [dispatch, cookies._gybuilder_merchant_session])
+  }, [dispatch, cookies._square_eight_merchant_session])
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/merchant_users/${router.query.id}/update`,
@@ -50,7 +50,7 @@ const Edit: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       router.push('/admin/login_user_info')

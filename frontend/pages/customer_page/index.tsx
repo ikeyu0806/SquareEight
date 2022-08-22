@@ -9,7 +9,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 
 const Index: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [systemNotifications, setSystemNotifications] = useState<Notification[]>([])
   const router = useRouter()
 
@@ -18,7 +18,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/end_users/customer_toppage_info`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }
       )
@@ -31,7 +31,7 @@ const Index: NextPage = () => {
       })
     }
     fetchCustomerPageContent()
-  }, [cookies._gybuilder_end_user_session])
+  }, [cookies._square_eight_end_user_session])
 
 
   return (

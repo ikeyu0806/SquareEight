@@ -21,7 +21,7 @@ const SelectExternalLinksModal = (): JSX.Element => {
           <span>ページリンク</span>
           <div className='mt10'>
             ページリンク集を追加します。<br/>
-            GYBuilderで作成したWebページ、予約ページ、回数券購入ページ、月額課金加入ページや外部サイトのリンクも設定できます。
+            SquareEightで作成したWebページ、予約ページ、回数券購入ページ、月額課金加入ページや外部サイトのリンクも設定できます。
           </div>
           {showBlockSample && 
             <>

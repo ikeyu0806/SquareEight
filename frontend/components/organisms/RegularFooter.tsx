@@ -4,7 +4,7 @@ const RegularFooter = (): JSX.Element => {
   return (
     <footer className='content text-center'>
       <hr />
-      <p className='footer-margin'>Copyright GYBuilder {new Date().getFullYear()}</p>
+      <p className='footer-margin'>Copyright SquareEight {new Date().getFullYear()}</p>
     </footer>
   )
 }

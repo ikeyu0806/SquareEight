@@ -20,7 +20,7 @@ import {  nameChanged,
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [errMessage, setErrMessage] = useState('')
   const name = useSelector((state: RootState) => state.product.name)
@@ -39,7 +39,7 @@ const Edit: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/products/${router.query.id}`, {
           headers: {
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           }
         }
       )
@@ -57,7 +57,7 @@ const Edit: NextPage = () => {
       })
     }
     fetchProduct()
-  }, [cookies._gybuilder_merchant_session, router.query.id, dispatch])
+  }, [cookies._square_eight_merchant_session, router.query.id, dispatch])
 
 
   const updateProduct = () => {
@@ -87,7 +87,7 @@ const Edit: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       dispatch(alertChanged({message: '更新しました', show: true}))

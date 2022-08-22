@@ -22,7 +22,7 @@ import { priceChanged,
 
 const Purchase: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const router = useRouter()
   const name = useSelector((state: RootState) => state.monthlyPaymentPlan.name)
   const price = useSelector((state: RootState) => state.monthlyPaymentPlan.price)
@@ -39,7 +39,7 @@ const Purchase: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/${router.query.id}/purchase_info`, {
           headers: {
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }
       )
@@ -63,7 +63,7 @@ const Purchase: NextPage = () => {
       })
     }
     fetchMonthlyPaymentPlan()
-  }, [router.query.id, dispatch, cookies._gybuilder_end_user_session])
+  }, [router.query.id, dispatch, cookies._square_eight_end_user_session])
 
   const insertCart = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/insert_cart`,
@@ -74,7 +74,7 @@ const Purchase: NextPage = () => {
     },
     {
       headers: { 
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
       router.push(`/cart`)
@@ -99,7 +99,7 @@ const Purchase: NextPage = () => {
         {},
         {
           headers: {
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }).then(response => {
           dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))

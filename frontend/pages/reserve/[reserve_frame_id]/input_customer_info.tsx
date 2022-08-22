@@ -22,7 +22,7 @@ const Index: NextPage = () => {
   const [phoneNumber, setPhoneNumber] = useState('')
   const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
   const [defaultPaymentMethodId, setDefaultPaymentMethodId] = useState('')
   const [subscribePlanIds, setSubscribePlanIds] = useState<number[]>()
@@ -33,7 +33,7 @@ const Index: NextPage = () => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_as_customer_info?monthly_payment_plan_id=${router.query.monthly_payment_plan_id}&ticket_id=${router.query.ticket_id}`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then((response) => {
       console.log(response.data)
@@ -50,7 +50,7 @@ const Index: NextPage = () => {
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
-  }, [dispatch, cookies._gybuilder_end_user_session, endUserLoginStatus, router.query.monthly_payment_plan_id, router.query.ticket_id])
+  }, [dispatch, cookies._square_eight_end_user_session, endUserLoginStatus, router.query.monthly_payment_plan_id, router.query.ticket_id])
 
   const execReserve = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations`,
@@ -73,7 +73,7 @@ const Index: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
       dispatch(alertChanged({message: '予約しました', show: true}))

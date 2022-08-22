@@ -9,21 +9,21 @@ import { useCookies } from 'react-cookie'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [purchasedTickets, setPurchasedTickets] = useState<PurchasedTicketParam[]>()
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/purchased_tickets`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then((response) => {
       setPurchasedTickets(response.data.purchased_tickets)
     }).catch((error) => {
       console.log(error)
     })
-  }, [dispatch, cookies._gybuilder_end_user_session])
+  }, [dispatch, cookies._square_eight_end_user_session])
 
 
   return (

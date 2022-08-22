@@ -19,7 +19,7 @@ import { nameChanged,
          s3ObjectPublicUrlChanged } from 'redux/ticketMasterSlice'
 
 const Purchase: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const defaultPaymentMethodId = useSelector((state: RootState) => state.currentEndUser.defaultPaymentMethodId)
   const paymentMethods = useSelector((state: RootState) => state.currentEndUser.paymentMethods)
@@ -38,7 +38,7 @@ const Purchase: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/ticket_masters/${router.query.ticket_master_id}/purchase_info`, {
           headers: {
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }
       )
@@ -59,7 +59,7 @@ const Purchase: NextPage = () => {
       })
     }
     fetchTicketMaster()
-  }, [cookies._gybuilder_end_user_session, router.query.id, router.query.ticket_master_id, dispatch])
+  }, [cookies._square_eight_end_user_session, router.query.id, router.query.ticket_master_id, dispatch])
 
   const insertCart = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters/insert_cart`,
@@ -71,7 +71,7 @@ const Purchase: NextPage = () => {
     },
     {
       headers: { 
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
       router.push(`/cart`)
@@ -95,7 +95,7 @@ const Purchase: NextPage = () => {
         {},
         {
           headers: {
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }).then(response => {
           dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))

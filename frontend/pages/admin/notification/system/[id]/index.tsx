@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 
 const Index: NextPage = () => {
   const [notifications, setNotifications] = useState<Notification[]>([])
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const router = useRouter()
@@ -19,7 +19,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/system_account_notifications/${router.query.id}`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
@@ -32,7 +32,7 @@ const Index: NextPage = () => {
       })
     }
     fetchNotification()
-  }, [router.query.id, cookies._gybuilder_merchant_session, router.query.website_id])
+  }, [router.query.id, cookies._square_eight_merchant_session, router.query.website_id])
 
   return (
     <MerchantUserAdminLayout>

@@ -11,7 +11,7 @@ import { useRouter } from 'next/router'
 const Index: NextPage = () => {
   const router = useRouter()
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [purchasedTicket, setPurchasedTicket] = useState<PurchasedTicketParam>()
 
   useEffect(() => {
@@ -19,7 +19,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/purchased_tickets/${router.query.id}`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           },
         }
       )
@@ -31,7 +31,7 @@ const Index: NextPage = () => {
       })
     }
     fetchPaymentMethod()
-  }, [router.query.id, cookies._gybuilder_end_user_session])
+  }, [router.query.id, cookies._square_eight_end_user_session])
 
   return (
     <>

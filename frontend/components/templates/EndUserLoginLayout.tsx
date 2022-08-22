@@ -14,13 +14,13 @@ interface Props {
 const EndUserLoginLayout = ({children}: Props): JSX.Element => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_user/sessions`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then((res) => {
       dispatch(loginStatusChanged('Login'))
@@ -28,7 +28,7 @@ const EndUserLoginLayout = ({children}: Props): JSX.Element => {
       dispatch(loginStatusChanged('Logout'))
       console.log(e)
     })
-  }, [dispatch, cookies._gybuilder_end_user_session, currentEndUserLogintStatus])
+  }, [dispatch, cookies._square_eight_end_user_session, currentEndUserLogintStatus])
 
   return (
     <>

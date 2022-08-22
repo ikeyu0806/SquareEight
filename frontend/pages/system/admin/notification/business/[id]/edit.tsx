@@ -13,14 +13,14 @@ const New: NextPage = () => {
   const router = useRouter()
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
-  const [cookies] = useCookies(['_gybuilder_system_admin_user_session'])
+  const [cookies] = useCookies(['_square_eight_system_admin_user_session'])
 
   useEffect(() => {
     const fetchTicketNotification = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/system_account_notifications/${router.query.id}`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_system_admin_user_session
+            'Session-Id': cookies._square_eight_system_admin_user_session
           },
         }
       )
@@ -34,7 +34,7 @@ const New: NextPage = () => {
       })
     }
     fetchTicketNotification()
-  }, [router.query.id, cookies._gybuilder_system_admin_user_session, router.query.website_id])
+  }, [router.query.id, cookies._square_eight_system_admin_user_session, router.query.website_id])
 
   const createNotification = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/system_account_notifications/${router.query.id}`,
@@ -46,7 +46,7 @@ const New: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_system_admin_user_session
+        'Session-Id': cookies._square_eight_system_admin_user_session
       }
     }).then(response => {
       dispatch(alertChanged({message: '登録しました', show: true}))

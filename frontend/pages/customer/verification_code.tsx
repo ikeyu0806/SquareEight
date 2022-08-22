@@ -12,7 +12,7 @@ const VerificationCode: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [verificationCode, setVerificationCode] = useState('')
-  const [cookies, setCookie] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies, setCookie] = useCookies(['_square_eight_end_user_session'])
 
   const onSubmit = () => {
     axios.post(
@@ -26,7 +26,7 @@ const VerificationCode: NextPage = () => {
     )
     .then(response => {
       console.log(response.data.messsages)
-      setCookie('_gybuilder_end_user_session', response.data.session_id.public_id, { path: '/'})
+      setCookie('_square_eight_end_user_session', response.data.session_id.public_id, { path: '/'})
       router.push('/customer_page/dashboard')
     })
     .catch(error => {

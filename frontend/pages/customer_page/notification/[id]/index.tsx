@@ -7,7 +7,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 
 const Index: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [title, setTitle] = useState('')
   const [content, setContent] = useState('')
   const router = useRouter()
@@ -17,7 +17,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/system_end_user_notifications/${router.query.id}`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           },
         }
       )
@@ -30,7 +30,7 @@ const Index: NextPage = () => {
       })
     }
     fetchNotification()
-  }, [router.query.id, cookies._gybuilder_end_user_session, router.query.website_id])
+  }, [router.query.id, cookies._square_eight_end_user_session, router.query.website_id])
 
   return (
     <EndUserLoginLayout>

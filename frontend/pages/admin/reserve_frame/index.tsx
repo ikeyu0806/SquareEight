@@ -11,7 +11,7 @@ import ReserveFrameModal from 'components/organisms/ReserveFrameModal'
 
 const Index = (): JSX.Element => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [reserveFrames, setReserveFrames] = useState<ReserveFrameParam[]>([])
 
@@ -20,7 +20,7 @@ const Index = (): JSX.Element => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/reserve_frames`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
@@ -34,7 +34,7 @@ const Index = (): JSX.Element => {
       })
     }
     fetchReserveFrames()
-  }, [router.query.id, cookies._gybuilder_merchant_session])
+  }, [router.query.id, cookies._square_eight_merchant_session])
 
   return (
     <>

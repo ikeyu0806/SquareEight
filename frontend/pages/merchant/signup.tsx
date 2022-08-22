@@ -22,13 +22,13 @@ const Signup: NextPage = () => {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/merchant/sessions`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((res) => {
       dispatch(loginStatusChanged('Login'))
@@ -36,7 +36,7 @@ const Signup: NextPage = () => {
       router.push('/admin/dashboard')
     }).catch((e) => {
     })
-  }, [dispatch, cookies._gybuilder_merchant_session, merchantUserLoginStatus, router])
+  }, [dispatch, cookies._square_eight_merchant_session, merchantUserLoginStatus, router])
 
   const onSubmit = () => {
     axios.post(

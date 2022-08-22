@@ -11,7 +11,7 @@ import { loginStatusChanged, paymentMethodsChanged, defaultPaymentMethodIdChange
 import { useCookies } from 'react-cookie'
 
 const PaymentComplete: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const dispatch = useDispatch()
   const router = useRouter()
   const [orderItems, setOrderItems] = useState<OrderItemParam[]>([])
@@ -24,7 +24,7 @@ const PaymentComplete: NextPage = () => {
         `${process.env.BACKEND_URL}/api/internal/orders/${router.query.order_id}/order_items`,
         {
           headers: {
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }
       )
@@ -37,7 +37,7 @@ const PaymentComplete: NextPage = () => {
       })
     }
     fetchOrderItems()
-  }, [router.query.id, router.query.order_id, dispatch, cookies._gybuilder_end_user_session])
+  }, [router.query.id, router.query.order_id, dispatch, cookies._square_eight_end_user_session])
 
   return (
     <>

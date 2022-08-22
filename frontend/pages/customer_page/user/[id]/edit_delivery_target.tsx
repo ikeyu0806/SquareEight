@@ -14,7 +14,7 @@ import { DeliveryTargetParam } from 'interfaces/DeliveryTargetParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const EditTargetDelivery: NextPage = () => {
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const router = useRouter()
   const dispatch = useDispatch()
   const [deliveryTargets, setDeliveryTargets] = useState<DeliveryTargetParam[]>([])
@@ -33,7 +33,7 @@ const EditTargetDelivery: NextPage = () => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/delivery_targets/`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then((response) => {
       console.log(response.data.delivery_targets)
@@ -41,7 +41,7 @@ const EditTargetDelivery: NextPage = () => {
     }).catch((error) => {
       console.log(error)
     })
-  }, [dispatch, cookies._gybuilder_end_user_session])
+  }, [dispatch, cookies._square_eight_end_user_session])
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/delivery_targets/`,
@@ -61,7 +61,7 @@ const EditTargetDelivery: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
       router.push('/customer_page/mypage')
@@ -86,7 +86,7 @@ const EditTargetDelivery: NextPage = () => {
         {},
         {
           headers: {
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }).then(response => {
           dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))
@@ -111,7 +111,7 @@ const EditTargetDelivery: NextPage = () => {
       if (result.isConfirmed) {
         axios.delete(`${process.env.BACKEND_URL}/api/internal/delivery_targets/${delivery_target_id}`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         })
         location.reload()

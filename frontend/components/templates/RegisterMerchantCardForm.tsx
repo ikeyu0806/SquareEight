@@ -19,7 +19,7 @@ const RegisterMerchantCardForm = () => {
   const [token, setToken] = useState<any>()
   const stripe = useStripe()
   const elements = useElements()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
   const router = useRouter()
 
@@ -47,7 +47,7 @@ const RegisterMerchantCardForm = () => {
           },
           {
             headers: {
-              'Session-Id': cookies._gybuilder_merchant_session
+              'Session-Id': cookies._square_eight_merchant_session
             }
           }).then(response => {
             setIsLoading(false)

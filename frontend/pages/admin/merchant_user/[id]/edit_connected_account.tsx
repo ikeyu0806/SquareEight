@@ -13,21 +13,21 @@ import { MERCHANT_GOOGLE_AUTH_URL } from 'constants/socialLogin'
 
 const EditConnectedAccount: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [merchantUser, setMerchantUser] = useState<MerchantUserParam>()
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/merchant_users/current_merchant_user_info`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
       setMerchantUser(response.data.merchant_user)
     }).catch((error) => {
       console.log(error)
     })
-  }, [dispatch, cookies._gybuilder_merchant_session])
+  }, [dispatch, cookies._square_eight_merchant_session])
 
   const disconnectGoogle = () => {
     swalWithBootstrapButtons.fire({
@@ -42,7 +42,7 @@ const EditConnectedAccount: NextPage = () => {
       if (result.isConfirmed) {
         axios.delete(`${process.env.BACKEND_URL}/api/internal/merchant_users/disconnect_google_auth`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           }
         }).then(res => {
           location.reload!

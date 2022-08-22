@@ -14,7 +14,7 @@ import { StripeEnableStatus } from 'interfaces/StripeEnableStatus'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
 
   const name = useSelector((state: RootState) => state.monthlyPaymentPlan.name)
@@ -43,7 +43,7 @@ const New: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       router.push('/admin/monthly_payment')

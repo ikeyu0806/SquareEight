@@ -11,7 +11,7 @@ import axios from 'axios'
 
 const EditExternalLinksModal = (): JSX.Element => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const [pageLinks, setPageLinks] = useState<PageLinksParam[]>([])
   const [inputLinkText, setInputLinkText] = useState('')
@@ -28,7 +28,7 @@ const EditExternalLinksModal = (): JSX.Element => {
       axios.get(`${process.env.BACKEND_URL}/api/internal/accounts/page_links`,
       {
         headers: {
-          'Session-Id': cookies._gybuilder_merchant_session
+          'Session-Id': cookies._square_eight_merchant_session
         }
       }).then((response) => {
         setPageLinks(response.data.page_links)
@@ -40,7 +40,7 @@ const EditExternalLinksModal = (): JSX.Element => {
       })
     }
     fetchPageLinks()
-  }, [cookies._gybuilder_merchant_session])
+  }, [cookies._square_eight_merchant_session])
 
   const clearInputTextState = () => {
     setInputLinkText('')
@@ -85,7 +85,7 @@ const EditExternalLinksModal = (): JSX.Element => {
       <Modal.Body>
       <Form.Check
         type='radio'
-        label='GYBuilderで作成したWebページ/予約ページ/回数券購入ページ/月額課金加入ページを追加'
+        label='SquareEightで作成したWebページ/予約ページ/回数券購入ページ/月額課金加入ページを追加'
         onChange={() => setInputLinkType('Registered')}
         checked={inputLinkType === 'Registered'}></Form.Check>
       <Form.Check

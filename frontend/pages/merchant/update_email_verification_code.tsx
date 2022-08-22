@@ -12,7 +12,7 @@ const UpdateEmailVerificationCode: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [verificationCode, setVerificationCode] = useState('')
-  const [cookies, setCookie, removeCookie] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies, setCookie, removeCookie] = useCookies(['_square_eight_merchant_session'])
 
   const onSubmit = () => {
     axios.post(
@@ -26,7 +26,7 @@ const UpdateEmailVerificationCode: NextPage = () => {
     )
     .then(response => {
       console.log(response.data.messsages)
-      setCookie('_gybuilder_merchant_session', response.data.session_id.public_id, { path: '/'})
+      setCookie('_square_eight_merchant_session', response.data.session_id.public_id, { path: '/'})
       router.push('/admin/login_user_info')
     })
     .catch(error => {

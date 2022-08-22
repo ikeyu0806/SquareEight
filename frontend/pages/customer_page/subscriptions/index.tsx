@@ -9,21 +9,21 @@ import { useCookies } from 'react-cookie'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [stripeSubscriptions, setStripeSubscriptions] = useState<StripeSubscriptionsParam[]>()
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/subscription_lists`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then((response) => {
       setStripeSubscriptions(response.data.stripe_payment_subscriptions)
     }).catch((error) => {
       console.log(error)
     })
-  }, [dispatch, cookies._gybuilder_end_user_session])
+  }, [dispatch, cookies._square_eight_end_user_session])
 
 
   return (

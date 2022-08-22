@@ -11,7 +11,7 @@ import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const router = useRouter()
   const [order, setOrder] = useState<OrderParam>()
   const [orderItems, setOrderItems] = useState<OrderItemParam[]>([])
@@ -21,7 +21,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/orders/${router.query.id}`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           },
         }
       )
@@ -35,7 +35,7 @@ const Index: NextPage = () => {
       })
     }
     fetchOrders()
-  }, [router.query.id, cookies._gybuilder_end_user_session])
+  }, [router.query.id, cookies._square_eight_end_user_session])
 
   return (
     <EndUserLoginLayout>

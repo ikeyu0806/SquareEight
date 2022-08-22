@@ -20,7 +20,7 @@ const Index: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isRequireDeliveryTargets, setIsRequireDeliveryTargets] = useState(false)
   const [currentEndUserId, setCurrentEndUserId] = useState()
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [totalPrice, setTotalPrice] = useState(0)
   const [cartItems, setCartItems] = useState<CartItemParam[]>()
   const [isRegisteredAddress, setIsRegisteredAddress] = useState(true)
@@ -33,7 +33,7 @@ const Index: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/cash_registers`, {
           headers: {
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }
       )
@@ -52,7 +52,7 @@ const Index: NextPage = () => {
       })
     }
     fetchProduct()
-  }, [cookies._gybuilder_end_user_session, dispatch])
+  }, [cookies._square_eight_end_user_session, dispatch])
 
   const updateDefaultCard = (payment_method_id: string) => {
     swalWithBootstrapButtons.fire({
@@ -69,7 +69,7 @@ const Index: NextPage = () => {
         {},
         {
           headers: {
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }).then(response => {
           dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))
@@ -96,7 +96,7 @@ const Index: NextPage = () => {
         {},
         {
           headers: {
-            'Session-Id': cookies._gybuilder_end_user_session
+            'Session-Id': cookies._square_eight_end_user_session
           }
         }).then(response => {
           dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))
@@ -114,7 +114,7 @@ const Index: NextPage = () => {
     {},
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
       dispatch(alertChanged({message: '購入しました', show: true}))

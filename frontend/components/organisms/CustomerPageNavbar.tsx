@@ -9,17 +9,17 @@ import { useRouter } from 'next/router'
 
 const CustomerPageNavbar = (): JSX.Element => {
   const dispatch = useDispatch()
-  const [cookies, setCookie, removeCookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies, setCookie, removeCookies] = useCookies(['_square_eight_end_user_session'])
   const router = useRouter()
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
   const logout = () => {
     axios.delete(`${process.env.BACKEND_URL}/api/internal/end_user/sessions`, {
       headers: { 
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
-      removeCookies('_gybuilder_end_user_session')
+      removeCookies('_square_eight_end_user_session')
       dispatch(alertChanged({message: 'ログアウトしました', show: true}))
       router.push('/customer/login')
     })
@@ -29,7 +29,7 @@ const CustomerPageNavbar = (): JSX.Element => {
     <>
       <Navbar variant='dark' expand='lg' className='bg-darkblue'>
         <Container>
-          <Navbar.Brand href='#home'>GYBuilder</Navbar.Brand>
+          <Navbar.Brand href='#home'>SquareEight</Navbar.Brand>
           <Navbar.Toggle />
             <Navbar.Collapse>
             <Nav className='me-auto'>

@@ -10,7 +10,7 @@ import axios from 'axios'
 const ReserveFrameModal = (): JSX.Element => {
   const showReserveFrameModal = useSelector((state: RootState) => state.reserveFrame.showeserveFrameModal)
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const title = useSelector((state: RootState) => state.reserveFrame.title)
   const description = useSelector((state: RootState) => state.reserveFrame.description)
@@ -87,7 +87,7 @@ const ReserveFrameModal = (): JSX.Element => {
     },
     {
       headers: { 
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       swalWithBootstrapButtons.fire({

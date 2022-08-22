@@ -12,7 +12,7 @@ import { DeliveryTargetParam } from 'interfaces/DeliveryTargetParam'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_end_user_session'])
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [endUser, setEndUser] = useState<EndUserParam>()
   const [deliveryTarget, setDeliveryTarget] = useState<DeliveryTargetParam>()
 
@@ -20,7 +20,7 @@ const Index: NextPage = () => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/mypage_info`,
     {
       headers: {
-        'Session-Id': cookies._gybuilder_end_user_session
+        'Session-Id': cookies._square_eight_end_user_session
       }
     }).then((response) => {
       console.log(response.data)
@@ -29,7 +29,7 @@ const Index: NextPage = () => {
     }).catch((error) => {
       console.log(error)
     })
-  }, [dispatch, cookies._gybuilder_end_user_session])
+  }, [dispatch, cookies._square_eight_end_user_session])
 
   return (
     <>

@@ -12,7 +12,7 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
   const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
   const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
   const isTopPage = useSelector((state: RootState) => state.homepage.isTopPage)
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const completeCreateHomepage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/webpages`,
@@ -25,7 +25,7 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       dispatch(webpageTagChanged(''))
@@ -47,7 +47,7 @@ const HomepageIntoroductionButtons = (): JSX.Element => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       dispatch(webpageTagChanged(''))

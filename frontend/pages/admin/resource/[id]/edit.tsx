@@ -47,7 +47,7 @@ import {  monStartChanged,
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_gybuilder_merchant_session'])
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
 
   const name = useSelector((state: RootState) => state.resource.name)
@@ -91,7 +91,7 @@ const Edit: NextPage = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/resources/${router.query.id}/edit`, {
           headers: { 
-            'Session-Id': cookies._gybuilder_merchant_session
+            'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
@@ -139,7 +139,7 @@ const Edit: NextPage = () => {
       })
     }
     fetchMonthlyPaymentPlan()
-  }, [router.query.id, cookies._gybuilder_merchant_session, dispatch])
+  }, [router.query.id, cookies._square_eight_merchant_session, dispatch])
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/${router.query.id}/update`,
@@ -150,7 +150,7 @@ const Edit: NextPage = () => {
     },
     {
       headers: {
-        'Session-Id': cookies._gybuilder_merchant_session
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       router.push('/admin/resource')
