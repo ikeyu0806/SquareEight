@@ -34,6 +34,7 @@ class Api::Internal::ReservationsController < ApplicationController
                  payment_method: reservation_params[:payment_method],
                  ticket_master_id: reservation_params[:ticket_id],
                  monthly_payment_plan_id: reservation_params[:monthly_payment_plan_id],
+                 ticket_consume_number: reservation_params[:consume_number].to_i,
                  end_user_id: current_end_user.id)
       when 'Temporary'
         status = 'pendingVerifivation'

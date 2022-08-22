@@ -1,7 +1,5 @@
 class Reservation < ApplicationRecord
   belongs_to :reserve_frame
-  belongs_to :ticket_master
-  belongs_to :monthly_payment_plan
 
   enum payment_method: { localPayment: 0, creditCardPayment: 1, ticket: 2, monthlyPaymentPlan: 3 }
   enum status: { pendingVerifivation: 0, confirm: 1 }
@@ -41,10 +39,12 @@ class Reservation < ApplicationRecord
   end
 
   def ticket_master_name
+    ticket_master = TicketMaster.find(self.ticket_master_id)
     ticket_master&.name
   end
 
   def monthly_payment_plan_name
+    monthly_payment_plan = MonthlyPaymentPlan.find(self.monthly_payment_plan_id)
     monthly_payment_plan&.name
   end
 end
