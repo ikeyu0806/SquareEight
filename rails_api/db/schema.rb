@@ -255,6 +255,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_22_014818) do
     t.integer "ticket_master_id"
     t.integer "monthly_payment_plan_id"
     t.string "stripe_payment_intent_id"
+    t.integer "ticket_consume_count"
   end
 
   create_table "reserve_frame_monthly_payment_plans", force: :cascade do |t|
