@@ -1,4 +1,4 @@
-class Api::Internal::EndUser::ReservationsController < ApplicationController
+class Api::Internal::Account::ReservationsController < ApplicationController
   before_action :merchant_login_only!
 
   def index
