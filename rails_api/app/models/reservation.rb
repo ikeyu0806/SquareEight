@@ -39,12 +39,12 @@ class Reservation < ApplicationRecord
   end
 
   def ticket_master_name
-    ticket_master = TicketMaster.find(self.ticket_master_id)
+    ticket_master = TicketMaster.find(self.ticket_master_id) if self.ticket_master_id.present? && !self.ticket_master_id.zero?
     ticket_master&.name
   end
 
   def monthly_payment_plan_name
-    monthly_payment_plan = MonthlyPaymentPlan.find(self.monthly_payment_plan_id)
+    monthly_payment_plan = MonthlyPaymentPlan.find(self.monthly_payment_plan_id) if self.monthly_payment_plan_id.present? && !self.monthly_payment_plan_id.zero?
     monthly_payment_plan&.name
   end
 end
