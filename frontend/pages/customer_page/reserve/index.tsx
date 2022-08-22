@@ -4,6 +4,7 @@ import { Container, Row, Col, ListGroup, Card } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import { useCookies } from 'react-cookie'
 import { ReservationParam } from 'interfaces/ReservationParam'
+import { paymentMethodText } from 'functions/paymentMethodText'
 import axios from 'axios'
 
 const Index: NextPage = () => {
@@ -42,8 +43,7 @@ const Index: NextPage = () => {
                       <br />
                       <span>人数: {reservation.number_of_people}</span>
                       <br />
-                      <span>支払い方法: {reservation.display_payment_method}</span>
-                      <span>金額: {reservation.price}</span>
+                      <span>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</span>
                     </ListGroup.Item>
                   )
                 })}
