@@ -1,24 +1,17 @@
 import React from 'react'
-import { Modal, Button, Form, FormControl } from 'react-bootstrap'
+import { Modal, Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
-import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
+import CreateCustomerForm from 'components/organisms/CreateCustomerForm'
 import { alertChanged } from 'redux/alertSlice'
-import { showCustomerModalChanged,
-         firstNameChanged,
-         firstNameKanaChanged,
-         lastNameChanged,
-         lastNameKanaChanged,
-         emailChanged,
-         phoneNumberChanged } from 'redux/customerSlice'
+import { showCustomerModalChanged } from 'redux/customerSlice'
 
 const CreateCustomerModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
-  const router = useRouter()
   const showCustomerModal = useSelector((state: RootState) => state.customer.showCustomerModal)
   const firstName = useSelector((state: RootState) => state.customer.firstName)
   const lastName = useSelector((state: RootState) => state.customer.lastName)
@@ -54,30 +47,7 @@ const CreateCustomerModal = (): JSX.Element => {
     <Modal show={showCustomerModal} size='lg'>
       <Modal.Header>顧客登録</Modal.Header>
       <Modal.Body>
-        <Form.Label>お名前（姓）</Form.Label>
-        <FormControl
-          value={lastName}
-          onChange={(e) => dispatch(lastNameChanged(e.target.value))} />
-        <Form.Label>お名前（名）</Form.Label>
-        <FormControl
-          value={firstName}
-          onChange={(e) => dispatch(firstNameChanged(e.target.value))} />
-        <Form.Label>お名前カナ（姓）</Form.Label>
-        <FormControl
-          value={lastNameKana}
-          onChange={(e) => dispatch(lastNameKanaChanged(e.target.value))} />
-        <Form.Label>お名前カナ（名）</Form.Label>
-        <FormControl
-          value={firstNameKana}
-          onChange={(e) => dispatch(firstNameKanaChanged(e.target.value))} />
-        <Form.Label>メールアドレス</Form.Label>
-        <FormControl
-          value={email}
-          onChange={(e) => dispatch(emailChanged(e.target.value))} />
-        <Form.Label>携帯電話番号</Form.Label>
-        <FormControl
-          value={phoneNumber}
-          onChange={(e) => dispatch(phoneNumberChanged(e.target.value))} />
+        <CreateCustomerForm></CreateCustomerForm>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={() => createCustomer()}>
