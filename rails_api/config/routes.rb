@@ -122,6 +122,7 @@ Rails.application.routes.draw do
       namespace :account do
         get 'reservations', to: 'reservations#index'
         get 'customers', to: 'customers#index'
+        post 'customers', to: 'customers#create'
       end
       namespace :system_admin_user do
         get 'sessions', to: 'sessions#login_status'
