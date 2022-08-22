@@ -9,6 +9,7 @@ class Account < ApplicationRecord
   has_many :monthly_payment_plans
   has_many :resources
   has_many :reserve_frames
+  has_many :reservations, through: :reserve_frames
   has_many :orders
   has_many :customers
 

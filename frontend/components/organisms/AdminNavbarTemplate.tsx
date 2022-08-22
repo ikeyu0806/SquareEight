@@ -38,7 +38,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
               </NavDropdown>
               <NavDropdown title='予約' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/reserve'>予約一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/reservation'>予約一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/business_hour'>営業時間設定</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/special_business_hour'>特例営業時間/休業時間設定</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/resource'>リソース一覧</NavDropdown.Item>

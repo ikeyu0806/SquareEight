@@ -119,6 +119,9 @@ Rails.application.routes.draw do
         delete 'sessions', to: 'sessions#destroy'
         get 'reservations', to: 'reservations#index'
       end
+      namespace :account do
+        get 'reservations', to: 'reservations#index'
+      end
       namespace :system_admin_user do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions', to: 'sessions#create'
