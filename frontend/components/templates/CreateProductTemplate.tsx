@@ -163,6 +163,7 @@ const CreateProductTemplate = (): JSX.Element => {
                 {!showProductTypeForm && <Row>
                     <Col>
                       <Form.Control placeholder='在庫'
+                                    type='number'
                                     onChange={(e) => dispatch(inventoryChanged(Number(e.target.value)))}
                                     value={inventory} />                  
                       <Button
