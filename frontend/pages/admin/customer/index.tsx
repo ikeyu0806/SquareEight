@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, ListGroup, Card } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup, Card, Button } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useCookies } from 'react-cookie'
 import { CustomerParam } from 'interfaces/CustomerParam'
@@ -31,12 +31,13 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
+              <Button className='mb20'>顧客新規登録</Button>
               <Card>
                 <Card.Header>顧客一覧</Card.Header>
                 {customers && customers.map((customer, i) => {
                   return (
                     <ListGroup.Item key={i}>
-                      <div>{customer.first_name}</div>
+                      <div>お名前: {customer.last_name}{customer.first_name}</div>
                       <br></br>
                       <div>メールアドレス: {customer.email}</div>
                       <div>携帯電話番号: {customer.phone_number}</div>
