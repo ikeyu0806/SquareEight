@@ -25,13 +25,14 @@ class Api::Internal::ReservationsController < ApplicationController
         reservation = reserve_frame
         .reservations
         .create!(number_of_people: reservation_params[:reserve_count],
-                price: reservation_params[:price],
-                start_at: start_datetime,
-                end_at: end_datetime,
-                status: status,
-                representative_first_name: reservation_params[:first_name],
-                representative_last_name: reservation_params[:last_name],
-                payment_method: reservation_params[:payment_method])
+                 price: reservation_params[:price],
+                 start_at: start_datetime,
+                 end_at: end_datetime,
+                 status: status,
+                 representative_first_name: reservation_params[:first_name],
+                 representative_last_name: reservation_params[:last_name],
+                 payment_method: reservation_params[:payment_method],
+                 end_user_id: current_end_user.id)
       when 'Temporary'
         status = 'pendingVerifivation'
       else
