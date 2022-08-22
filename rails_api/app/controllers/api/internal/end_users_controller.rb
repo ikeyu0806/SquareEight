@@ -30,7 +30,7 @@ class Api::Internal::EndUsersController < ApplicationController
       default_payment_method_id, payment_methods = current_end_user.payment_methods
       purchased_ticket_ids = current_end_user.purchased_ticket_ids
       is_subscribe_plan = current_end_user.search_stripe_subscriptions.pluck("metadata")&.pluck("monthly_payment_plan_id").include?(params[:monthly_payment_plan_id])
-      is_purchase_ticket = current_end_user.purchased_tickets.pluck(:ticket_master_id).include?(params[:ticket_id])
+      is_purchase_ticket = current_end_user.purchased_tickets.pluck(:ticket_master_id).include?(params[:ticket_id].to_i)
       subscribe_plan_ids = []
     else
       default_payment_method_id = nil
