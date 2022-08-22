@@ -15,7 +15,7 @@ import { showCustomerModalChanged,
          emailChanged,
          phoneNumberChanged } from 'redux/customerSlice'
 
-const CustomerFormModal = (): JSX.Element => {
+const CreateCustomerModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
   const router = useRouter()
@@ -91,4 +91,4 @@ const CustomerFormModal = (): JSX.Element => {
   )
 }
 
-export default CustomerFormModal
+export default CreateCustomerModal

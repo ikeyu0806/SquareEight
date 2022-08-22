@@ -7,7 +7,7 @@ import { CustomerParam } from 'interfaces/CustomerParam'
 import axios from 'axios'
 import { showCustomerModalChanged } from 'redux/customerSlice'
 import { useDispatch } from 'react-redux'
-import CustomerFormModal from 'components/templates/CustomerFormModal'
+import CreateCustomerModal from 'components/templates/CreateCustomerModal'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -43,17 +43,31 @@ const Index: NextPage = () => {
                 {customers && customers.map((customer, i) => {
                   return (
                     <ListGroup.Item key={i}>
-                      <div>お名前: {customer.last_name}{customer.first_name}</div>
-                      <br></br>
-                      <div>メールアドレス: {customer.email}</div>
-                      <div>携帯電話番号: {customer.phone_number}</div>
+                      <Row>
+                        <Col>
+                          <div>お名前: {customer.last_name}{customer.first_name}</div>
+                          <br></br>
+                          <div>メールアドレス: {customer.email}</div>
+                          <Row>
+                            <Col>
+                              <div>携帯電話番号: {customer.phone_number}</div>
+                            </Col>
+                            <Col></Col>
+                            <Col>
+                              <Button>
+                                編集
+                              </Button>
+                            </Col>
+                          </Row>
+                        </Col>
+                      </Row>
                     </ListGroup.Item>
                   )
                 })}
               </Card>
             </Col>
           </Row>
-          <CustomerFormModal></CustomerFormModal>
+          <CreateCustomerModal></CreateCustomerModal>
         </Container>
       </MerchantUserAdminLayout>
     </>
