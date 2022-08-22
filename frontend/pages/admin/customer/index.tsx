@@ -5,10 +5,14 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { useCookies } from 'react-cookie'
 import { CustomerParam } from 'interfaces/CustomerParam'
 import axios from 'axios'
+import { showCustomerModalChanged } from 'redux/customerSlice'
+import { useDispatch } from 'react-redux'
+import CustomerFormModal from 'components/templates/CustomerFormModal'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [customers, setCustomers] = useState<CustomerParam[]>([])
+  const dispatch = useDispatch()
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/account/customers`,
@@ -31,7 +35,9 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
-              <Button className='mb20'>顧客新規登録</Button>
+              <Button
+                className='mb20'
+                onClick={() => dispatch(showCustomerModalChanged(true))}>顧客新規登録</Button>
               <Card>
                 <Card.Header>顧客一覧</Card.Header>
                 {customers && customers.map((customer, i) => {
@@ -47,6 +53,7 @@ const Index: NextPage = () => {
               </Card>
             </Col>
           </Row>
+          <CustomerFormModal></CustomerFormModal>
         </Container>
       </MerchantUserAdminLayout>
     </>
