@@ -4,7 +4,12 @@ class Api::Internal::EndUser::ReservationsController < ApplicationController
   def index
     reservations = current_end_user
                    .reservations
-                   .to_json(methods: [:reserve_frame_title, :display_reservation_datetime, :display_payment_method, :display_status])
+                   .to_json(methods: [:reserve_frame_title,
+                                      :display_reservation_datetime,
+                                      :display_payment_method,
+                                      :display_status,
+                                      :ticket_master_name,
+                                      :monthly_payment_plan_name])
     reservations = JSON.parse(reservations)
     render json: { status: 'success', reservations: reservations }, states: 200
   rescue => error
