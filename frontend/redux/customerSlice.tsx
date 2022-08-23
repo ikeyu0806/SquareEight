@@ -4,6 +4,7 @@ import { AlertType } from '../interfaces/AlertType'
 export const customerSlice = createSlice({
   name: 'alert',
   initialState: {
+    customerId: '',
     firstName: '',
     lastName: '',
     firstNameKana: '',
@@ -13,6 +14,9 @@ export const customerSlice = createSlice({
     showCustomerModal: false,
   },
   reducers: {
+    customerIdChanged: (state, action: PayloadAction<string>) => {
+      state.customerId = action.payload
+    },
     firstNameChanged: (state, action: PayloadAction<string>) => {
       state.firstName = action.payload
     },
@@ -37,6 +41,7 @@ export const customerSlice = createSlice({
   },
 })
 
+export const { customerIdChanged } = customerSlice.actions
 export const { firstNameChanged } = customerSlice.actions
 export const { lastNameChanged } = customerSlice.actions
 export const { firstNameKanaChanged } = customerSlice.actions

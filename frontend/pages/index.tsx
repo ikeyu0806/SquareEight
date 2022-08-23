@@ -1,8 +1,9 @@
 import type { NextPage } from 'next'
 import React from 'react'
-import FeaturesTemplates from '../components/templates/FeaturesTemplates'
-import RegularFooter from '../components/organisms/RegularFooter'
-import CheckIcon from '../components/atoms/CheckIcon'
+import FeaturesTemplates from 'components/templates/FeaturesTemplates'
+import RegularFooter from 'components/organisms/RegularFooter'
+import CheckIcon from 'components/atoms/CheckIcon'
+import homeStyles from 'styles/Home.module.css'
 import { Container,
          Navbar,
          Nav,
@@ -42,25 +43,27 @@ const Home: NextPage = () => {
       <Container className='mt20' id='about'>
         <Row>
           <Col>
-            <h2>ノーコードホームページ作成サービス</h2>
-            <br />
-            <h4>ホームページ作成、予約管理、決済、顧客とのコミュニケーションをサポートします</h4>
-          </Col>
-          <Col>
-            <img src='/images/classroom.jpg'
-                 alt='ビジネス運営をサポート'
-                 width='100%'
-                 height='100%'>
-            </img>
+            <div className='text-center'>
+              <div className={homeStyles.headline}>SquareEight</div>
+              <div className={homeStyles.serviceDescription}>
+                ネットビジネス運営を無料で開始
+              </div>
+                <div>ノーコードでのページ作成</div>
+                <div>ショッピングサイトの開設</div>
+                <div>予約ページの作成</div>
+                <div>予約のオンライン決済</div>
+                <div>予約のオンライン決済</div>
+                <div>ネットビジネスの運営</div>
+            </div>
           </Col>
         </Row>
         &thinsp;
       </Container>
 
-      <div className='bg-lightgreen'>
+      <div className='bg-silver'>
       &thinsp;
         <div className='text-center' id='features'>
-          <h2 className='mt50 mb50'>充実の機能であなたのビジネスをサポート</h2>
+          <h2 className='mt50 mb50'>機能一覧</h2>
         </div>
         <FeaturesTemplates />
         &thinsp;
@@ -68,10 +71,10 @@ const Home: NextPage = () => {
 
       <Container>
         <div className='text-center mt50 mb50' id='features'>
-          <h2>選べる料金プラン</h2>
+          <h2>料金プラン</h2>
             <div className='mt30 mb30'>
               <div>初期費用無料</div>
-              <div>作成したホームページに独自ドメインを設定する場合は別途料金がかかります</div>
+              {/* <div>作成したホームページに独自ドメインを設定する場合は別途料金がかかります</div> */}
             </div>
             <Row>
               <Col>
