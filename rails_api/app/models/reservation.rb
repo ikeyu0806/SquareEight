@@ -51,8 +51,7 @@ class Reservation < ApplicationRecord
   def customer_name
     customer = Customer.find(self.customer_id) if self.customer_id.present? && !self.customer_id.zero?
     if customer.present?
-      full_name = ((customer.last_name || '') + (customer.first_name || ''))
-      full_name.blank? ? '名前が登録されていません' : full_name
+      customer.full_name
     else
       '名前が登録されていません'
     end
