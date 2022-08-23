@@ -22,7 +22,7 @@ const EditCustomerModal = (): JSX.Element => {
   const phoneNumber = useSelector((state: RootState) => state.customer.phoneNumber)
 
   const createCustomer = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/account/${customerId}/customers`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/account/customers/${customerId}/update`,
     {
       customer: {
         first_name: firstName,

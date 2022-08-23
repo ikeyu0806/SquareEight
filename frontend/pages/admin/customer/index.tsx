@@ -6,7 +6,14 @@ import { useCookies } from 'react-cookie'
 import { CustomerParam } from 'interfaces/CustomerParam'
 import axios from 'axios'
 import { showCreateCustomerModalChanged,
-         showEditCustomerModalChanged } from 'redux/customerSlice'
+         showEditCustomerModalChanged,
+         customerIdChanged,
+         firstNameChanged,
+         firstNameKanaChanged,
+         lastNameChanged,
+         lastNameKanaChanged,
+         emailChanged,
+         phoneNumberChanged } from 'redux/customerSlice'
 import { useDispatch } from 'react-redux'
 import CreateCustomerModal from 'components/templates/CreateCustomerModal'
 import EditCustomerModal from 'components/templates/EditCustomerModal'
@@ -29,6 +36,15 @@ const Index: NextPage = () => {
       console.log(error)
     })
   }, [cookies._square_eight_merchant_session])
+
+  const showEditModal = (id: string, lastName: string, firstName: string, email: string, phoneNumber: string) => {
+    dispatch(showEditCustomerModalChanged(true))
+    dispatch(customerIdChanged(id))
+    dispatch(lastNameChanged(lastName))
+    dispatch(firstNameChanged(firstName))
+    dispatch(emailChanged(email))
+    dispatch(phoneNumberChanged(phoneNumber))
+  }
 
   return (
     <>
@@ -56,7 +72,7 @@ const Index: NextPage = () => {
                             </Col>
                             <Col></Col>
                             <Col>
-                              <Button onClick={() => dispatch(showEditCustomerModalChanged(true))}>
+                              <Button onClick={() => showEditModal(customer.id, customer.last_name, customer.first_name, customer.email, customer.phone_number)}>
                                 編集
                               </Button>
                             </Col>
