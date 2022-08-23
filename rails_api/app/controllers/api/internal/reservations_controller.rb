@@ -41,15 +41,21 @@ class Api::Internal::ReservationsController < ApplicationController
       else
         raise 'reserveFrame reception type invalid'
       end
+
+      # 顧客ID登録
       # 同じ携帯電話番号の顧客データがなければ作成
-      if reserve_frame.account.customers.find_by(phone_number: reservation_params[:phone_number]).blank?
-        reserve_frame
-        .account
-        .customers
-        .create!(first_name: reservation_params[:first_name],
-                 last_name: reservation_params[:last_name],
-                 email: reservation_params[:email],
-                 phone_number: reservation_params[:phone_number])
+      customer = reserve_frame.account.customers.find_by(phone_number: reservation_params[:phone_number])
+      if customer.blank?
+        customer = reserve_frame
+                   .account
+                   .customers
+                   .create!(first_name: reservation_params[:first_name],
+                            last_name: reservation_params[:last_name],
+                            email: reservation_params[:email],
+                            phone_number: reservation_params[:phone_number])
+        reservation.update!(customer_id: customer.id)
+      else
+        reservation.update!(customer_id: customer.id)
       end
 
       # 支払い実行
