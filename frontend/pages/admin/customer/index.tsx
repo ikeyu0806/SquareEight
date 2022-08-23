@@ -5,9 +5,11 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { useCookies } from 'react-cookie'
 import { CustomerParam } from 'interfaces/CustomerParam'
 import axios from 'axios'
-import { showCustomerModalChanged } from 'redux/customerSlice'
+import { showCreateCustomerModalChanged,
+         showEditCustomerModalChanged } from 'redux/customerSlice'
 import { useDispatch } from 'react-redux'
 import CreateCustomerModal from 'components/templates/CreateCustomerModal'
+import EditCustomerModal from 'components/templates/EditCustomerModal'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -37,7 +39,7 @@ const Index: NextPage = () => {
             <Col lg={6}>
               <Button
                 className='mb20'
-                onClick={() => dispatch(showCustomerModalChanged(true))}>顧客新規登録</Button>
+                onClick={() => dispatch(showCreateCustomerModalChanged(true))}>顧客新規登録</Button>
               <Card>
                 <Card.Header>顧客一覧</Card.Header>
                 {customers && customers.map((customer, i) => {
@@ -54,7 +56,7 @@ const Index: NextPage = () => {
                             </Col>
                             <Col></Col>
                             <Col>
-                              <Button>
+                              <Button onClick={() => dispatch(showEditCustomerModalChanged(true))}>
                                 編集
                               </Button>
                             </Col>
@@ -68,6 +70,7 @@ const Index: NextPage = () => {
             </Col>
           </Row>
           <CreateCustomerModal></CreateCustomerModal>
+          <EditCustomerModal></EditCustomerModal>
         </Container>
       </MerchantUserAdminLayout>
     </>

@@ -1,5 +1,4 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { AlertType } from '../interfaces/AlertType'
 
 export const customerSlice = createSlice({
   name: 'alert',
@@ -11,7 +10,8 @@ export const customerSlice = createSlice({
     lastNameKana: '',
     email: '',
     phoneNumber: '',
-    showCustomerModal: false,
+    showCreateCustomerModal: false,
+    showEditCustomerModal: false,
   },
   reducers: {
     customerIdChanged: (state, action: PayloadAction<string>) => {
@@ -35,8 +35,11 @@ export const customerSlice = createSlice({
     phoneNumberChanged: (state, action: PayloadAction<string>) => {
       state.phoneNumber = action.payload
     },
-    showCustomerModalChanged: (state, action: PayloadAction<boolean>) => {
-      state.showCustomerModal = action.payload
+    showCreateCustomerModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showCreateCustomerModal = action.payload
+    },
+    showEditCustomerModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showEditCustomerModal = action.payload
     },
   },
 })
@@ -48,6 +51,7 @@ export const { firstNameKanaChanged } = customerSlice.actions
 export const { lastNameKanaChanged } = customerSlice.actions
 export const { emailChanged } = customerSlice.actions
 export const { phoneNumberChanged } = customerSlice.actions
-export const { showCustomerModalChanged } = customerSlice.actions
+export const { showCreateCustomerModalChanged } = customerSlice.actions
+export const { showEditCustomerModalChanged } = customerSlice.actions
 
 export default customerSlice.reducer

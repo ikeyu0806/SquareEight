@@ -7,13 +7,13 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import CreateCustomerForm from 'components/organisms/CreateCustomerForm'
 import { alertChanged } from 'redux/alertSlice'
-import { showCustomerModalChanged } from 'redux/customerSlice'
+import { showEditCustomerModalChanged } from 'redux/customerSlice'
 
 const EditCustomerModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
   const customerId = useSelector((state: RootState) => state.customer.customerId)
-  const showCustomerModal = useSelector((state: RootState) => state.customer.showCustomerModal)
+  const showEditCustomerModal = useSelector((state: RootState) => state.customer.showEditCustomerModal)
   const firstName = useSelector((state: RootState) => state.customer.firstName)
   const lastName = useSelector((state: RootState) => state.customer.lastName)
   const firstNameKana = useSelector((state: RootState) => state.customer.firstNameKana)
@@ -45,7 +45,7 @@ const EditCustomerModal = (): JSX.Element => {
   }
 
   return (
-    <Modal show={showCustomerModal} size='lg'>
+    <Modal show={showEditCustomerModal} size='lg'>
       <Modal.Header>顧客登録</Modal.Header>
       <Modal.Body>
         <CreateCustomerForm></CreateCustomerForm>
@@ -54,7 +54,7 @@ const EditCustomerModal = (): JSX.Element => {
         <Button onClick={() => createCustomer()}>
           登録する
         </Button>
-        <Button variant='secondary' onClick={() => dispatch(showCustomerModalChanged(false))}>
+        <Button variant='secondary' onClick={() => dispatch(showEditCustomerModalChanged(false))}>
           閉じる
         </Button>
       </Modal.Footer>
