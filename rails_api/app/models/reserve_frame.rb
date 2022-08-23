@@ -195,7 +195,7 @@ class ReserveFrame < ApplicationRecord
     else
       result << {
         start: self.start_at,
-        title: self.title,
+        title: '予約可能',
         url: '/reserve/' + self.id.to_s + '?date=' + self.start_at.strftime("%Y-%m-%d")
       }
     end
