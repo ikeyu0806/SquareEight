@@ -39,6 +39,8 @@ const Index: NextPage = () => {
                     <ListGroup.Item key={i}>
                       <div className='mb10'>{reservation.reserve_frame_title}</div>
                       <span>{reservation.display_reservation_datetime}</span>
+                      <br/>
+                      <span>{reservation.customer_name}</span>
                       <br />
                       <span>人数: {reservation.number_of_people}</span>
                       <br />

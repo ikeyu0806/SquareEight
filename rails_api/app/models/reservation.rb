@@ -47,4 +47,14 @@ class Reservation < ApplicationRecord
     monthly_payment_plan = MonthlyPaymentPlan.find(self.monthly_payment_plan_id) if self.monthly_payment_plan_id.present? && !self.monthly_payment_plan_id.zero?
     monthly_payment_plan&.name
   end
+
+  def customer_name
+    customer = Customer.find(self.customer_id) if self.customer_id.present? && !self.customer_id.zero?
+    if customer.present?
+      full_name = ((customer.last_name || '') + (customer.first_name || ''))
+      full_name.blank? ? '名前が登録されていません' : full_name
+    else
+      '名前が登録されていません'
+    end
+  end
 end

@@ -11,4 +11,5 @@ export interface ReservationParam {
   ticket_master_name: string
   monthly_payment_plan_name: string
   ticket_consume_number: number
+  customer_name: string
 }
