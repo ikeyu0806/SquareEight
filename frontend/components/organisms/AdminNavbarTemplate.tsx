@@ -44,10 +44,10 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/resource'>リソース一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/resource/new'>リソース登録</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='顧客' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/customer'>顧客一覧</NavDropdown.Item>
-                <NavDropdown.Item href=''>アンケート一覧</NavDropdown.Item>
-                <NavDropdown.Item href=''>アンケート登録</NavDropdown.Item>
+              <Nav.Link href='/admin/customer'>顧客</Nav.Link>
+              <NavDropdown title='アンケート' id='homepage-nav-dropdown'>
+                <NavDropdown.Item href='/admin/questionnaire/master'>アンケート作成</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/questionnaire/answer'>アンケート回答</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link href='/admin/charges'>売上</Nav.Link>
               <NavDropdown title='商品' id='homepage-nav-dropdown'>
