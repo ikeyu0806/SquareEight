@@ -8,4 +8,6 @@ export interface StripePaymentIntentsMetaData {
   account_business_name: string
   name: string
   order_date: string
+  customer_fullname: string
+  customer_id: string
 }
