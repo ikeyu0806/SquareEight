@@ -11,6 +11,7 @@ import { RootState } from 'redux/store'
 
 const Master: NextPage = () => {
   const dispatch = useDispatch()
+  const questionnaireMasterItems = useSelector((state: RootState) => state.questionnaireMaster.questionnaireMasterItems)
 
   return (
     <MerchantUserAdminLayout>
@@ -25,6 +26,20 @@ const Master: NextPage = () => {
                 <Form.Control></Form.Control>
                 <Form.Label>アンケートの説明</Form.Label>
                 <Form.Control as='textarea' rows={5}></Form.Control>
+                {/* {console.log(questionnaireMasterItems, "!!")} */}
+                {questionnaireMasterItems.map((item, i) => {
+                  switch (item.formType) {
+                    case FORM_TYPE.TEXT:
+                      return (
+                        <>
+                          <Form.Label className='mt20'>{item.question}</Form.Label>
+                          <Form.Control></Form.Control>
+                        </>
+                      )
+                    default:
+                      console.log('invalid block')
+                  }
+                })}
                 <div className='text-center mt30 mb30'>
                   <span className='mr10'>質問を追加</span>
                   <a onClick={() => dispatch(showAddFormModalChanged(true))}><PlusCircleIcon width={40} height={40} fill={'#0000FF'} /></a>
