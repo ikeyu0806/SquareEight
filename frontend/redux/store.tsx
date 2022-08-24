@@ -16,6 +16,7 @@ import currentEndUserReducer from './currentEndUserSlice'
 import currentSystemAdminUserReducer from './currentSystemAdminUserSlice'
 import deliveryTargetReducer from './deliveryTargetSlice'
 import customerReducer from './customerSlice'
+import questionnaireMasterReducer from './questionnaireMasterSlice'
 
 export const store = configureStore({
   reducer: {
@@ -35,7 +36,8 @@ export const store = configureStore({
     currentEndUser: currentEndUserReducer,
     currentSystemAdminUser: currentSystemAdminUserReducer,
     deliveryTarget: deliveryTargetReducer,
-    customer: customerReducer
+    customer: customerReducer,
+    questionnaireMaster: questionnaireMasterReducer
   },
 })
 
