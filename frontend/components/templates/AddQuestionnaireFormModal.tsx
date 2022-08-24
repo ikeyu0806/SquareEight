@@ -104,8 +104,12 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
           </Form.Label>
           <Form.Control
             value={textFormRowCount}
+            min={1}
             onChange={(e) => dispatch(textFormRowCountChanged(Number(e.target.value)))}
-            type='number'></Form.Control></>}
+            type='number'></Form.Control>
+          <Form.Label className='mt20'>プレビュー</Form.Label>
+          {textFormRowCount >= 2 ? <Form.Control as='textarea' rows={textFormRowCount}></Form.Control> : <Form.Control></Form.Control>}
+          </>}
           {selectedFormType === FORM_TYPE.SELECT &&
             <>
               <Form.Label>回答を入力してください</Form.Label>
@@ -122,6 +126,12 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
                 </Col>
               </Row>
               <Form.Select className='mt10'>
+                <option>選択してください</option>
+                {selectFormAnswers.map((answer, i) => {
+                  return (
+                    <><option>{answer}</option></>
+                  )
+                })}
               </Form.Select>
             </>}
             {selectedFormType === FORM_TYPE.CHECKBOX &&
