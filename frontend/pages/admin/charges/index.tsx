@@ -29,7 +29,28 @@ const Index: NextPage = () => {
   return (
     <MerchantUserAdminLayout>
       <Container>
-
+        <Table bordered>
+          <thead>
+            <tr>
+              <th className='text-center'>商品名</th>
+              <th className='text-center'>購入者</th>
+              <th className='text-center'>料金</th>
+              <th className='text-center'>購入日</th>
+            </tr>
+          </thead>
+          <tbody>
+            {stripePaymentIntents && stripePaymentIntents.map((payment, i) => {
+              return (
+                <tr key={i}>
+                  <td className='text-center'>{payment.metadata.name}</td>
+                  <td className='text-center'>{payment.metadata.account_business_name}</td>
+                  <td className='text-center'>￥{payment.amount}</td>
+                  <td className='text-center'>{payment.metadata.order_date}</td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </Table>
       </Container>
     </MerchantUserAdminLayout>
   )

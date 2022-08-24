@@ -51,7 +51,7 @@ class Account < ApplicationRecord
   def search_stripe_payment_intents
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe.api_version = '2022-08-01'
-    query = 'metadata["account_id"]:' + "\'" + self.id + "\'"
+    query = 'metadata["account_id"]:' + "\'" + self.id.to_s + "\'"
     result = Stripe::PaymentIntent.search({query: query, limit: 100})
     JSON.parse(result.to_json)["data"]
   end
