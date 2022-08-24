@@ -1,13 +1,22 @@
 import { Form, Button, Modal, Row, Col } from 'react-bootstrap'
 import { FORM_TYPE } from 'constants/formType'
 import { useDispatch, useSelector } from 'react-redux'
-import { showAddFormModalChanged, selectedFormTypeChanged } from 'redux/questionnaireMasterSlice'
+import { questionnaireMasterItem } from 'interfaces/questionnaireMasterItems'
 import { RootState } from 'redux/store'
+import { showAddFormModalChanged,
+         selectedFormTypeChanged,
+         textFormRowCountChanged,
+         questionChanged } from 'redux/questionnaireMasterSlice'
 
 const AddQuestionnaireFormModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const showAddFormModal = useSelector((state: RootState) => state.questionnaireMaster.showAddFormModal)
   const selectedFormType = useSelector((state: RootState) => state.questionnaireMaster.selectedFormType)
+  const question = useSelector((state: RootState) => state.questionnaireMaster.question)
+  const textFormRowCount = useSelector((state: RootState) => state.questionnaireMaster.textFormRowCount)
+  const selectFormAnswers = useSelector((state: RootState) => state.questionnaireMaster.selectFormAnswers)
+  const radioButtonAnswers = useSelector((state: RootState) => state.questionnaireMaster.radioButtonAnswers)
+  const checkboxAnswers = useSelector((state: RootState) => state.questionnaireMaster.checkboxAnswers)
 
   return (
     <>
@@ -57,6 +66,8 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
               質問を入力してください
             </Form.Label>
             <Form.Control
+              value={question}
+              onChange={(e) => dispatch(questionChanged(e.target.value))}
               placeholder='例) 年齢 ご要望 商品の感想'></Form.Control>
           </div>
           {selectedFormType === FORM_TYPE.TEXT && <>
@@ -64,6 +75,8 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
             回答フォームの行数を入力してください
           </Form.Label>
           <Form.Control
+            value={textFormRowCount}
+            onChange={(e) => dispatch(textFormRowCountChanged(Number(e.target.value)))}
             type='number'></Form.Control></>}
           {selectedFormType === FORM_TYPE.SELECT &&
             <>
