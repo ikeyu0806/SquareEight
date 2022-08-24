@@ -1,3 +1,4 @@
+import React, { useState } from 'react'
 import { Form, Button, Modal, Row, Col } from 'react-bootstrap'
 import { FORM_TYPE } from 'constants/formType'
 import { useDispatch, useSelector } from 'react-redux'
@@ -6,17 +7,44 @@ import { RootState } from 'redux/store'
 import { showAddFormModalChanged,
          selectedFormTypeChanged,
          textFormRowCountChanged,
-         questionChanged } from 'redux/questionnaireMasterSlice'
+         questionChanged,
+         selectFormAnswersChanged,
+         radioButtonAnswersChanged,
+         checkboxAnswersChanged,
+         questionnaireMasterItemsChanged } from 'redux/questionnaireMasterSlice'
 
 const AddQuestionnaireFormModal = (): JSX.Element => {
   const dispatch = useDispatch()
+
+  const [currentSelectInput, setCurrentSelectInput] = useState('')
+  const [currentCheckboxInput, setCurrentCheckboxInput] = useState('')
+  const [currentRadioInput, setCurrentRadioInput] = useState('')
+
   const showAddFormModal = useSelector((state: RootState) => state.questionnaireMaster.showAddFormModal)
   const selectedFormType = useSelector((state: RootState) => state.questionnaireMaster.selectedFormType)
   const question = useSelector((state: RootState) => state.questionnaireMaster.question)
   const textFormRowCount = useSelector((state: RootState) => state.questionnaireMaster.textFormRowCount)
   const selectFormAnswers = useSelector((state: RootState) => state.questionnaireMaster.selectFormAnswers)
-  const radioButtonAnswers = useSelector((state: RootState) => state.questionnaireMaster.radioButtonAnswers)
   const checkboxAnswers = useSelector((state: RootState) => state.questionnaireMaster.checkboxAnswers)
+  const radioButtonAnswers = useSelector((state: RootState) => state.questionnaireMaster.radioButtonAnswers)
+
+  const addSelectFormAnswers = () => {
+    let updateSelectFormAnswers: string[]
+    updateSelectFormAnswers = [...selectFormAnswers, currentSelectInput]
+    dispatch(selectFormAnswersChanged(updateSelectFormAnswers))
+  }
+
+  const addCheckboxAnswers = () => {
+    let updateCheckboxAnswers: string[]
+    updateCheckboxAnswers = [...checkboxAnswers, currentCheckboxInput]
+    dispatch(checkboxAnswersChanged(updateCheckboxAnswers))
+  }
+
+  const addRadioAnswers = () => {
+    let updateRadioAnswers: string[]
+    updateRadioAnswers = [...radioButtonAnswers, currentRadioInput]
+    dispatch(radioButtonAnswersChanged(updateRadioAnswers))
+  }
 
   return (
     <>
@@ -84,10 +112,13 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
               <Row>
                 <Col sm={9}>
                   <Form.Control
-                   placeholder='例） 10代 20代'></Form.Control>
+                    value={currentSelectInput}
+                    onChange={(e) => setCurrentSelectInput(e.target.value)}
+                    placeholder='例） 10代 20代'></Form.Control>
                 </Col>
                 <Col>
-                  <Button size='sm'>追加</Button>
+                  <Button size='sm'
+                          onClick={() => addSelectFormAnswers()}>追加</Button>
                 </Col>
               </Row>
               <Form.Select className='mt10'>
@@ -99,10 +130,13 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
               <Row>
                 <Col sm={9}>
                   <Form.Control
-                   placeholder='例） 10代 20代'></Form.Control>
+                    value={currentCheckboxInput}
+                    onChange={(e) => setCurrentCheckboxInput(e.target.value)}
+                    placeholder='例） 10代 20代'></Form.Control>
                 </Col>
                 <Col>
-                  <Button size='sm'>追加</Button>
+                  <Button size='sm'
+                          onClick={() => addCheckboxAnswers()}>追加</Button>
                 </Col>
               </Row>
             </>}
@@ -112,10 +146,13 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
               <Row>
                 <Col sm={9}>
                   <Form.Control
-                   placeholder='例） 10代 20代'></Form.Control>
+                    value={currentRadioInput}
+                    onChange={(e) => setCurrentRadioInput(e.target.value)}
+                    placeholder='例） 10代 20代'></Form.Control>
                 </Col>
                 <Col>
-                  <Button size='sm'>追加</Button>
+                  <Button size='sm'
+                          onClick={() => addRadioAnswers()}>追加</Button>
                 </Col>
               </Row>
             </>}
