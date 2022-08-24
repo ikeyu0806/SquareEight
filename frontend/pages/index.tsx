@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import React from 'react'
 import FeaturesTemplates from 'components/templates/FeaturesTemplates'
 import RegularFooter from 'components/organisms/RegularFooter'
-import CheckIcon from 'components/atoms/CheckIcon'
+import TextWithCheckIcon from 'components/molecules/TextWithCheckIcon'
 import homeStyles from 'styles/Home.module.css'
 import { Container,
          Navbar,
@@ -64,10 +64,10 @@ const Home: NextPage = () => {
       </div>
 
       <Container>
-        <div className='text-center mt50 mb50' id='features'>
+        <div className='text-center mt50 mb50' id='pricing'>
           <h2>料金プラン</h2>
             <div className='mt30 mb30'>
-              <div>初期費用無料</div>
+              <h4>初期費用無料</h4>
               {/* <div>作成したホームページに独自ドメインを設定する場合は別途料金がかかります</div> */}
             </div>
             <Row>
@@ -76,7 +76,16 @@ const Home: NextPage = () => {
                   <Card.Header>フリー</Card.Header>
                   <Card.Body>
                     <h4>月額 0円</h4>
-                    <CheckIcon width={20} height={20} fill={'darkblue'} /><span className='ml10'>月間予約件数50件</span>
+                    <Row>
+                      <Col></Col>
+                      <Col xs={11}>
+                        <Card.Text className="text-start">
+                        <TextWithCheckIcon text='決済手数料7%' fill={'darkblue'}></TextWithCheckIcon><br/>
+                        <TextWithCheckIcon text='月間予約件数50件' fill={'darkblue'}></TextWithCheckIcon>
+                        </Card.Text>
+                      </Col>
+                      <Col></Col>
+                    </Row>
                   </Card.Body>
                   </Card>
                 </Col>
@@ -89,8 +98,9 @@ const Home: NextPage = () => {
                       <Col></Col>
                       <Col xs={11}>
                         <Card.Text className="text-start">
-                          <CheckIcon width={20} height={20} fill={'darkblue'} /><span className='ml10'>フリープランの全機能</span><br />
-                          <CheckIcon width={20} height={20} fill={'darkblue'} /><span className='ml10'>月間予約件数500件</span><br />
+                          <TextWithCheckIcon text='フリープランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='月間予約件数100件' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='広告非表示' fill={'darkblue'}></TextWithCheckIcon>
                         </Card.Text>
                       </Col>
                       <Col></Col>
@@ -102,14 +112,13 @@ const Home: NextPage = () => {
                 <Card>
                   <Card.Header>スタンダード</Card.Header>
                   <Card.Body>
-                    <h4>2980円</h4>
+                    <h4>1980円</h4>
                     <Row>
                       <Col></Col>
                       <Col xs={11}>
                         <Card.Text className="text-start">
-                          <CheckIcon width={20} height={20} fill={'darkblue'} /><span className='ml10'>スタートプランの全機能</span><br />
-                          <CheckIcon width={20} height={20} fill={'darkblue'} /><span className='ml10'>月間予約件数1000件</span><br />
-                          <CheckIcon width={20} height={20} fill={'darkblue'} /><span className='ml10'>広告非表示</span><br />
+                          <TextWithCheckIcon text='ライトプランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='月間予約件数1000件' fill={'darkblue'}></TextWithCheckIcon>
                         </Card.Text>
                       </Col>
                       <Col></Col>
@@ -126,9 +135,8 @@ const Home: NextPage = () => {
                       <Col></Col>
                       <Col xs={11}>
                         <Card.Text className="text-start">
-                          <CheckIcon width={20} height={20} fill={'darkblue'} /><span className='ml10'>スタンダードプランの全機能</span><br />
-                          <CheckIcon width={20} height={20} fill={'darkblue'} /><span className='ml10'>月間予約件数1000件</span><br />
-                          <CheckIcon width={20} height={20} fill={'darkblue'} /><span className='ml10'>広告非表示</span><br />
+                          <TextWithCheckIcon text='スタンダードプランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='月間予約件数3000件' fill={'darkblue'}></TextWithCheckIcon>
                         </Card.Text>
                       </Col>
                       <Col></Col>
