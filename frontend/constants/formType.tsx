@@ -4,5 +4,5 @@ export const FORM_TYPE = {
   CHECKBOX: 'checkbox',
   RADIO: 'radio',
   DATE: 'date',
-  DATETIME: 'datetime'
+  TIME: 'time'
 } as const
