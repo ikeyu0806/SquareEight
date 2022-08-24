@@ -348,6 +348,14 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def stripe_payment_history
+    binding.pry
+    stripe_payment_intents = current_merchant_user.account.search_stripe_payment_intents
+    render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def account_params

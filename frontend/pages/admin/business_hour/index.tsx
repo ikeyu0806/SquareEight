@@ -9,7 +9,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
 
-const New: NextPage = () => {
+const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
@@ -118,4 +118,4 @@ const New: NextPage = () => {
   )
 }
 
-export default New
+export default Index
