@@ -33,6 +33,17 @@ class Api::Internal::CashRegistersController < ApplicationController
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
           default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
           commission = (cart[:price] * 0.04).to_i
+          account = product.account
+          customer = account.customers.find_by(end_user_id: current_end_user.id)
+          if customer.blank?
+            customer = account.customers.create!(
+              end_user_id: current_end_user.id,
+              first_name: current_end_user.first_name,
+              last_name: current_end_user.last_name,
+              email: current_end_user.email,
+              phone_number: current_end_user.phone_number
+            )
+          end
           payment_intent = Stripe::PaymentIntent.create({
             amount: product.price,
             currency: 'jpy',
@@ -47,7 +58,9 @@ class Api::Internal::CashRegistersController < ApplicationController
               'price': product.price,
               'product_type': 'product',
               'end_user_id': current_end_user.id,
-              'account_id': product.account_id
+              'account_id': product.account_id,
+              'customer_id': customer.id,
+              'customer_fullname': customer.full_name
             },
             transfer_data: {
               destination: product.account.stripe_account_id
@@ -64,14 +77,22 @@ class Api::Internal::CashRegistersController < ApplicationController
                                 commission: commission)
           product.save!
           current_end_user.cart_products.where(product_id: product.id).delete_all
-          
-          account = product.account
-          customer = account.customers.find_by(end_user_id: current_end_user.id)
         when 'TicketMaster' then
           ticket_master = TicketMaster.find(cart[:parent_ticket_master_id])
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
           default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
           commission = (cart[:price] * 0.04).to_i
+          account = ticket_master.account
+          customer = account.customers.find_by(end_user_id: current_end_user.id)
+          if customer.blank?
+            customer = account.customers.create!(
+              end_user_id: current_end_user.id,
+              first_name: current_end_user.first_name,
+              last_name: current_end_user.last_name,
+              email: current_end_user.email,
+              phone_number: current_end_user.phone_number
+            )
+          end
           payment_intent = Stripe::PaymentIntent.create({
             amount: cart[:price],
             currency: 'jpy',
@@ -85,7 +106,9 @@ class Api::Internal::CashRegistersController < ApplicationController
               'name': ticket_master.name,
               'price': cart[:price],
               'end_user_id': current_end_user.id,
-              'account_id': ticket_master.account_id
+              'account_id': ticket_master.account_id,
+              'customer_id': customer.id,
+              'customer_fullname': customer.full_name
             },
             transfer_data: {
               destination: ticket_master.account.stripe_account_id
@@ -107,12 +130,20 @@ class Api::Internal::CashRegistersController < ApplicationController
                                  remain_number: cart[:issue_number])
           purchased_ticket.save!
           current_end_user.cart_ticket_masters.where(ticket_master_id: ticket_master.id).delete_all
-
-          account = ticket_master.account
-          customer = account.customers.find_by(end_user_id: current_end_user.id)
         when 'MonthlyPaymentPlan' then
           monthly_payment_plan = MonthlyPaymentPlan.find(cart[:parent_monthly_payment_plan_id])
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
+          account = monthly_payment_plan.account
+          customer = account.customers.find_by(end_user_id: current_end_user.id)
+          if customer.blank?
+            customer = account.customers.create!(
+              end_user_id: current_end_user.id,
+              first_name: current_end_user.first_name,
+              last_name: current_end_user.last_name,
+              email: current_end_user.email,
+              phone_number: current_end_user.phone_number
+            )
+          end
           Stripe::Subscription.create({
             stripe_customer: current_end_user.stripe_customer_id,
             application_fee_percent: 4,
@@ -124,7 +155,9 @@ class Api::Internal::CashRegistersController < ApplicationController
               'customer': current_end_user.stripe_customer_id,
               'monthly_payment_plan_id': monthly_payment_plan.id,
               'end_user_id': current_end_user.id,
-              'account_id': monthly_payment_plan.account_id
+              'account_id': monthly_payment_plan.account_id,
+              'customer_id': customer.id,
+              'customer_fullname': customer.full_name
             },
             items: [{ plan: monthly_payment_plan.stripe_plan_id }],
             transfer_data:  {
@@ -138,20 +171,8 @@ class Api::Internal::CashRegistersController < ApplicationController
                                 account_id: monthly_payment_plan.account.id,
                                 commission: (monthly_payment_plan.price * 0.04).to_i)
           current_end_user.cart_monthly_payment_plans.where(monthly_payment_plan_id: monthly_payment_plan.id).delete_all
-
-          account = monthly_payment_plan.account
-          customer = account.customers.find_by(end_user_id: current_end_user.id)
         else
           raise '問題が発生しました。'
-        end
-        if customer.blank?
-          account.customers.create!(
-            end_user_id: current_end_user.id,
-            first_name: current_end_user.first_name,
-            last_name: current_end_user.last_name,
-            email: current_end_user.email,
-            phone_number: current_end_user.phone_number
-          )
         end
       end
       # order.include_product?はスルーされる。save前にpluckが効かない？？
