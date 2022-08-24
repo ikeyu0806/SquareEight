@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form, Button, Modal, Row, Col } from 'react-bootstrap'
 import { FORM_TYPE } from 'constants/formType'
 import { useDispatch, useSelector } from 'react-redux'
-import { questionnaireMasterItem } from 'interfaces/questionnaireMasterItems'
+import { QuestionnaireMasterItem } from 'interfaces/QuestionnaireMasterItem'
 import { RootState } from 'redux/store'
 import { showAddFormModalChanged,
          selectedFormTypeChanged,
@@ -27,7 +27,8 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
   const selectFormAnswers = useSelector((state: RootState) => state.questionnaireMaster.selectFormAnswers)
   const checkboxAnswers = useSelector((state: RootState) => state.questionnaireMaster.checkboxAnswers)
   const radioButtonAnswers = useSelector((state: RootState) => state.questionnaireMaster.radioButtonAnswers)
-
+  const questionnaireMasterItems = useSelector((state: RootState) => state.questionnaireMaster.questionnaireMasterItems)
+  
   const addSelectFormAnswers = () => {
     let updateSelectFormAnswers: string[]
     updateSelectFormAnswers = [...selectFormAnswers, currentSelectInput]
@@ -44,6 +45,13 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
     let updateRadioAnswers: string[]
     updateRadioAnswers = [...radioButtonAnswers, currentRadioInput]
     dispatch(radioButtonAnswersChanged(updateRadioAnswers))
+  }
+
+  const onSubmit = () => {
+    let updateQuestionnaireMasterItems: QuestionnaireMasterItem[]
+    updateQuestionnaireMasterItems = [...questionnaireMasterItems, {question: question, formType: selectedFormType}]
+    dispatch(questionnaireMasterItemsChanged(updateQuestionnaireMasterItems))
+    dispatch(showAddFormModalChanged(false))
   }
 
   return (
@@ -195,7 +203,7 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
             </>}
         </Modal.Body>
         <Modal.Footer>
-          <Button>追加する</Button>
+          <Button onClick={() => onSubmit()}>追加する</Button>
           <Button
             onClick={() => dispatch(showAddFormModalChanged(false))}
             variant='secondary'>

@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { FORM_TYPE } from 'constants/formType'
-import { questionnaireMasterItem } from 'interfaces/questionnaireMasterItems'
+import { QuestionnaireMasterItem } from 'interfaces/QuestionnaireMasterItem'
 
 export const questionnaireMasterSlice = createSlice({
   name: 'alert',
@@ -15,7 +15,7 @@ export const questionnaireMasterSlice = createSlice({
     selectFormAnswers: [] as string[],
     radioButtonAnswers: [] as string[],
     checkboxAnswers: [] as string[],
-    questionnaireMasterItems: [] as questionnaireMasterItem[]
+    questionnaireMasterItems: [] as QuestionnaireMasterItem[]
 
   },
   reducers: {
@@ -49,7 +49,7 @@ export const questionnaireMasterSlice = createSlice({
     checkboxAnswersChanged: (state, action: PayloadAction<string[]>) => {
       state.checkboxAnswers = action.payload
     },
-    questionnaireMasterItemsChanged: (state, action: PayloadAction<questionnaireMasterItem[]>) => {
+    questionnaireMasterItemsChanged: (state, action: PayloadAction<QuestionnaireMasterItem[]>) => {
       state.questionnaireMasterItems = action.payload
     },
   },
