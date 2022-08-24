@@ -125,6 +125,7 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
                           onClick={() => addSelectFormAnswers()}>追加</Button>
                 </Col>
               </Row>
+              <Form.Label className='mt20'>プレビュー</Form.Label>
               <Form.Select className='mt10'>
                 <option>選択してください</option>
                 {selectFormAnswers.map((answer, i) => {
@@ -149,6 +150,12 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
                           onClick={() => addCheckboxAnswers()}>追加</Button>
                 </Col>
               </Row>
+              <Form.Label className='mt20'>プレビュー</Form.Label>
+              {checkboxAnswers.map((answer, i) => {
+                return (
+                  <Form.Check type='checkbox' label={answer} key={i} />
+                )
+              })}
             </>}
             {selectedFormType === FORM_TYPE.RADIO &&
             <>
@@ -165,15 +172,27 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
                           onClick={() => addRadioAnswers()}>追加</Button>
                 </Col>
               </Row>
+              <Form.Label className='mt20'>プレビュー</Form.Label>
+              {radioButtonAnswers.map((answer, i) => {
+                return (
+                  <Form.Check type='radio' label={answer} key={i} name='preview' />
+                )
+              })}
             </>}
             {selectedFormType === FORM_TYPE.DATE &&
-            <Form.Control
-              type='date'>
-            </Form.Control>}
+            <>
+              <Form.Label className='mt20'>プレビュー</Form.Label>
+              <Form.Control
+                type='date'>
+              </Form.Control>
+            </>}
             {selectedFormType === FORM_TYPE.TIME &&
-            <Form.Control
-              type='time'>
-            </Form.Control>}
+            <>
+              <Form.Label className='mt20'>プレビュー</Form.Label>
+              <Form.Control
+                type='time'>
+              </Form.Control>
+            </>}
         </Modal.Body>
         <Modal.Footer>
           <Button>追加する</Button>
