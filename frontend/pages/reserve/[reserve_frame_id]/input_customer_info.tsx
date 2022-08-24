@@ -20,6 +20,7 @@ const Index: NextPage = () => {
   const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
+  const [isCompleteReservation, setIsCompleteReservation] = useState(false)
   const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
@@ -77,6 +78,7 @@ const Index: NextPage = () => {
       }
     }).then(response => {
       dispatch(alertChanged({message: '予約しました', show: true}))
+      setIsCompleteReservation(true)
     }).catch(error => {
     })
   }
@@ -99,6 +101,13 @@ const Index: NextPage = () => {
 
   const loginValidate = () => {
     if (endUserLoginStatus === 'Logout' && ['creditCardPayment', 'ticket', 'monthlyPaymentPlan'].includes(String(router.query.payment_method))) {
+      return true
+    }
+    return false
+  }
+
+  const reserveValidate = () => {
+    if (!lastName || !firstName || !email ||!phoneNumber) {
       return true
     }
     return false
@@ -182,9 +191,12 @@ const Index: NextPage = () => {
                     }
                   </>
                   }
-                  {!loginValidate() &&
+                  {!loginValidate() && !isCompleteReservation &&
                   <div className='text-center'>
-                    <Button className='mt30' onClick={onSubmit}>
+                    <Button
+                      disabled={reserveValidate()}
+                      className='mt30'
+                      onClick={onSubmit}>
                       {String(router.query.payment_method) === 'localPayment' ? '確認画面に進む' : '予約を確定する'}
                     </Button>
                   </div>}

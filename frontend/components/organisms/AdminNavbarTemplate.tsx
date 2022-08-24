@@ -49,9 +49,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href=''>アンケート一覧</NavDropdown.Item>
                 <NavDropdown.Item href=''>アンケート登録</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='売上' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/charges'>売り上げ一覧</NavDropdown.Item>
-              </NavDropdown>
+              <Nav.Link href='/admin/charges'>売上</Nav.Link>
               <NavDropdown title='商品' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/product/'>物販商品一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/product/new'>物販商品登録</NavDropdown.Item>

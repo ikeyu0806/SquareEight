@@ -14,6 +14,7 @@ const PaymentMethod: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [selectedDate] = useState(String(router.query.date).split('-'))
+  const [isCompleteReservation, setIsCompleteReservation] = useState(false)
 
   const execReserve = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations`,
@@ -40,6 +41,7 @@ const PaymentMethod: NextPage = () => {
       }
     }).then(response => {
       dispatch(alertChanged({message: '予約しました', show: true}))
+      setIsCompleteReservation(true)
     }).catch(error => {
       dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
     })
@@ -67,9 +69,9 @@ const PaymentMethod: NextPage = () => {
                   <div>お支払い方法: {paymentMethodText(String(router.query.payment_method), Number(router.query.price), Number(router.query.consume_number), Number(router.query.reserve_count))}</div>
                   <hr />
                   <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
-                  <div className='text-center'>
+                  {!isCompleteReservation && <div className='text-center'>
                     <Button className='mt30' onClick={execReserve}>予約を確定する</Button>
-                  </div>
+                  </div>}
                 </Card.Body>
               </Card>
             </Col>
