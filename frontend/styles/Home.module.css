@@ -1,9 +1,27 @@
-.headline {
-  font-size: 500%;
-}
-
 .serviceDescription {
   font-size: 200%;
   margin-top: 50px;
   margin-bottom: 50px;
 }
+
+@media screen and (max-width: 480px) {
+	/* スマホ用 */
+  .headline {
+    font-size: 300%;
+  }
+}
+
+/* タブレット用 */
+@media screen and (min-width: 481px) {
+  .headline {
+    font-size: 500%;
+  }
+}
+
+@media screen and (min-width: 960px) {
+	/* （PC用） */
+  .headline {
+    font-size: 500%;
+  }
+}
+
