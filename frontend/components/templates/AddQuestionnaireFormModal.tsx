@@ -138,7 +138,7 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
                 <option>選択してください</option>
                 {selectFormAnswers.map((answer, i) => {
                   return (
-                    <><option key={i}>{answer}</option></>
+                    <option key={i}>{answer}</option>
                   )
                 })}
               </Form.Select>

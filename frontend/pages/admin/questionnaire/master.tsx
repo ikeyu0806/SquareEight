@@ -51,24 +51,31 @@ const Master: NextPage = () => {
                         </>
                       )
                     case FORM_TYPE.CHECKBOX:
-                      {item.checkboxAnswers && item.checkboxAnswers.map((answer, i) => {
-                        return (
-                          <>
-                            <Form.Label className='mt20'>{item.question}</Form.Label>
-                            <Form.Check type='checkbox' label={answer} key={i} />
-                          </>
-                        )
-                      })}
-                      return (<></>)
+                      return (
+                        <>
+                          <Form.Label className='mt20'>{item.question}</Form.Label>
+                          {item.checkboxAnswers && item.checkboxAnswers.map((answer, i) => {
+                            return (
+                              <>
+                                <Form.Check type='checkbox' label={answer} key={i} />
+                              </>
+                            )
+                          })}
+                        </>
+                      )
                     case FORM_TYPE.RADIO:
-                      {item.radioButtonAnswers && item.radioButtonAnswers.map((answer, i) => {
-                        return (
-                          <>
-                            <Form.Label className='mt20'>{item.question}</Form.Label>
-                            <Form.Check type='radio' label={answer} key={i} name='preview' />
-                          </>
-                        )
-                      })}
+                      return (
+                        <>
+                          <Form.Label className='mt20'>{item.question}</Form.Label>
+                          {item.radioButtonAnswers && item.radioButtonAnswers.map((answer, i) => {
+                            return (
+                              <>
+                                <Form.Check type='radio' label={answer} key={i} name='preview' />
+                              </>
+                            )
+                          })}
+                        </>
+                      )
                       return (<></>)
                     case FORM_TYPE.DATE:
                       return (
