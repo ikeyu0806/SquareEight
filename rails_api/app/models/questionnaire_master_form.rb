@@ -1,0 +1,2 @@
+class QuestionnaireMasterForm < ApplicationRecord
+end
