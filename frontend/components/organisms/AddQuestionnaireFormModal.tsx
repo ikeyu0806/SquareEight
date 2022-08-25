@@ -28,6 +28,7 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
   const checkboxAnswers = useSelector((state: RootState) => state.questionnaireMaster.checkboxAnswers)
   const radioButtonAnswers = useSelector((state: RootState) => state.questionnaireMaster.radioButtonAnswers)
   const questionnaireMasterItems = useSelector((state: RootState) => state.questionnaireMaster.questionnaireMasterItems)
+  const currentMaxSortOrder = useSelector((state: RootState) => state.questionnaireMaster.currentMaxSortOrder)
   
   const addSelectFormAnswers = () => {
     let updateSelectFormAnswers: string[]
@@ -49,7 +50,14 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
 
   const onSubmit = () => {
     let updateQuestionnaireMasterItems: QuestionnaireMasterItem[]
-    updateQuestionnaireMasterItems = [...questionnaireMasterItems, { question: question, formType: selectedFormType, textFormRowCount: textFormRowCount, selectFormAnswers: selectFormAnswers, radioButtonAnswers: radioButtonAnswers, checkboxAnswers: checkboxAnswers }]
+    updateQuestionnaireMasterItems = [...questionnaireMasterItems, { question: question,
+                                                                     formType: selectedFormType,
+                                                                     textFormRowCount: textFormRowCount,
+                                                                     selectFormAnswers: selectFormAnswers,
+                                                                     radioButtonAnswers: radioButtonAnswers,
+                                                                     checkboxAnswers: checkboxAnswers,
+                                                                     questionId: new Date().getTime().toString(16),
+                                                                     sortOrder: currentMaxSortOrder + 1 }]
     dispatch(questionnaireMasterItemsChanged(updateQuestionnaireMasterItems))
     dispatch(showAddFormModalChanged(false))
   }

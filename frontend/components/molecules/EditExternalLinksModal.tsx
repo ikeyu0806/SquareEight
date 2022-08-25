@@ -7,6 +7,7 @@ import { PageContentState } from '../../interfaces/PageContentState'
 import { ExternalLinkBlockContentStateType } from '../../types/ExternalLinkBlockStateType'
 import { useCookies } from 'react-cookie'
 import { PageLinksParam } from 'interfaces/PageLinksParam'
+import { generateUniqueString } from 'functions/generateUniqueString'
 import axios from 'axios'
 
 const EditExternalLinksModal = (): JSX.Element => {
@@ -56,7 +57,7 @@ const EditExternalLinksModal = (): JSX.Element => {
 
   const completeEdit = () => {
     let updatePageContentState: PageContentState[]
-    updatePageContentState = [...pageContent, { blockID: new Date().getTime().toString(16),
+    updatePageContentState = [...pageContent, { blockID: generateUniqueString(),
                                                 blockType: 'externalLinks',
                                                 blockState: {content: blockContent},
                                                 sortOrder: currentMaxSortOrder + 1}]
