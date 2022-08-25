@@ -16,7 +16,7 @@ import { titleChanged,
          descriptionChanged,
          showAddFormModalChanged } from 'redux/questionnaireMasterSlice'
 
-const Master: NextPage = () => {
+const New: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const questionnaireMasterItems = useSelector((state: RootState) => state.questionnaireMaster.questionnaireMasterItems)
@@ -37,7 +37,7 @@ const Master: NextPage = () => {
       questionnaire_master: {
         title: title,
         description: description,
-        questionnaire_master_items: questionnaireMasterItems
+        question_form_json: questionnaireMasterItems
       }
     },
     {
@@ -46,7 +46,7 @@ const Master: NextPage = () => {
       }
     }).then(response => {
       dispatch(alertChanged({message: '登録しました', show: true}))
-      router.push('/admin/product')
+      router.push('/admin/questionnaire/master')
     }).catch(error => {
     })
 
@@ -160,4 +160,4 @@ const Master: NextPage = () => {
   )
 }
 
-export default Master
+export default New

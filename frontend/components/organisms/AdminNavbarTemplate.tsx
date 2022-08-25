@@ -46,7 +46,8 @@ const AdminNavbarTemplate = (): JSX.Element => {
               </NavDropdown>
               <Nav.Link href='/admin/customer'>顧客</Nav.Link>
               <NavDropdown title='アンケート' id='homepage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/questionnaire/master'>アンケート作成</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/questionnaire/master/new'>アンケート作成</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/questionnaire/master/'>アンケート一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/questionnaire/answer'>アンケート回答</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link href='/admin/charges'>売上</Nav.Link>
