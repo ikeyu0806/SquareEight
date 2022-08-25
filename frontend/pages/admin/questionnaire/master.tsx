@@ -25,6 +25,10 @@ const Master: NextPage = () => {
     return false
   }
 
+  const onSubmit = () => {
+    alert('')
+  }
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -119,7 +123,9 @@ const Master: NextPage = () => {
                   <a onClick={() => dispatch(showAddFormModalChanged(true))}><PlusCircleIcon width={40} height={40} fill={'#0000FF'} /></a>
                 </div>
                 <div className='text-center mt30'>
-                  <Button disabled={validateSubmit()}>登録する</Button>
+                  <Button
+                    onClick={() => onSubmit()}
+                    disabled={validateSubmit()}>登録する</Button>
                 </div>
               </Card.Body>
             </Card>

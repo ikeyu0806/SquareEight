@@ -3,7 +3,8 @@ class CreateQuestionnaireMasters < ActiveRecord::Migration[7.0]
     create_table :questionnaire_masters do |t|
       t.integer :account_id
       t.string :title
-      t.text :description
+      t.string :description
+      t.text :question_form_json
 
       t.timestamps
     end

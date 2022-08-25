@@ -1,2 +1,0 @@
-class QuestionnaireMasterForm < ApplicationRecord
-end
