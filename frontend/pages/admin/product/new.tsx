@@ -40,6 +40,7 @@ const New: NextPage = () => {
         }
       })
     }
+
     axios.post(`${process.env.BACKEND_URL}/api/internal/products`,
     {
       product: {

@@ -8,15 +8,21 @@ import { Card, Row, Col, Container, Form, Button } from 'react-bootstrap'
 import { FORM_TYPE } from 'constants/formType'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
+import axios from 'axios'
+import { alertChanged } from 'redux/alertSlice'
+import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
 import { titleChanged,
          descriptionChanged,
          showAddFormModalChanged } from 'redux/questionnaireMasterSlice'
 
 const Master: NextPage = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const questionnaireMasterItems = useSelector((state: RootState) => state.questionnaireMaster.questionnaireMasterItems)
   const title = useSelector((state: RootState) => state.questionnaireMaster.title)
   const description = useSelector((state: RootState) => state.questionnaireMaster.description)
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const validateSubmit = () => {
     if (!title) {
@@ -26,7 +32,24 @@ const Master: NextPage = () => {
   }
 
   const onSubmit = () => {
-    alert('')
+    axios.post(`${process.env.BACKEND_URL}/api/internal/questionnaire_masters`,
+    {
+      questionnaire_master: {
+        title: title,
+        description: description,
+        questionnaire_master_items: questionnaireMasterItems
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    }).then(response => {
+      dispatch(alertChanged({message: '登録しました', show: true}))
+      router.push('/admin/product')
+    }).catch(error => {
+    })
+
   }
 
   return (
