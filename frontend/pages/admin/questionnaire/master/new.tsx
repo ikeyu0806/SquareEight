@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import CreateQuestionnaireMaster from 'components/templates/CreateQuestionnaireMaster'
 import { Card, Row, Col, Container, Button } from 'react-bootstrap'
-import AddQuestionnaireFormModal from 'components/templates/AddQuestionnaireFormModal'
+import AddQuestionnaireFormModal from 'components/organisms/AddQuestionnaireFormModal'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 
 const New: NextPage = () => {
