@@ -3,7 +3,7 @@ import { FORM_TYPE } from 'constants/formType'
 import { QuestionnaireMasterItem } from 'interfaces/QuestionnaireMasterItem'
 
 export const questionnaireMasterSlice = createSlice({
-  name: 'alert',
+  name: 'questionnaireMaster',
   initialState: {
     showAddFormModal: false,
     selectedFormType: String(FORM_TYPE.TEXT),
