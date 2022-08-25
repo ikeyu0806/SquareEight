@@ -36,8 +36,7 @@ const Index = (): JSX.Element => {
                   return (
                     <ListGroup.Item key={i}>
                       <Row>
-                        <Col>{questionare.title}</Col>
-                        <Col></Col>
+                        <Col sm={9}>{questionare.title}</Col>
                         <Col><Button>編集</Button></Col>
                       </Row>
                     </ListGroup.Item>
