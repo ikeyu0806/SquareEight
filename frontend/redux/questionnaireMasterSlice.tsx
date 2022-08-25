@@ -8,7 +8,7 @@ export const questionnaireMasterSlice = createSlice({
     showAddFormModal: false,
     selectedFormType: String(FORM_TYPE.TEXT),
     title: '',
-    desctiption: '',
+    description: '',
     question: '',
     formType: '',
     textFormRowCount: 1,
@@ -28,14 +28,14 @@ export const questionnaireMasterSlice = createSlice({
     titleChanged: (state, action: PayloadAction<string>) => {
       state.title = action.payload
     },
-    desctiptionChanged: (state, action: PayloadAction<string>) => {
-      state.desctiption = action.payload
+    descriptionChanged: (state, action: PayloadAction<string>) => {
+      state.description = action.payload
     },
     questionChanged: (state, action: PayloadAction<string>) => {
       state.question = action.payload
     },
     formTypeChanged: (state, action: PayloadAction<string>) => {
-      state.desctiption = action.payload
+      state.description = action.payload
     },
     textFormRowCountChanged: (state, action: PayloadAction<number>) => {
       state.textFormRowCount = action.payload
@@ -58,7 +58,7 @@ export const questionnaireMasterSlice = createSlice({
 export const { showAddFormModalChanged } = questionnaireMasterSlice.actions
 export const { selectedFormTypeChanged } = questionnaireMasterSlice.actions
 export const { titleChanged } = questionnaireMasterSlice.actions
-export const { desctiptionChanged } = questionnaireMasterSlice.actions
+export const { descriptionChanged } = questionnaireMasterSlice.actions
 export const { questionChanged } = questionnaireMasterSlice.actions
 export const { formTypeChanged } = questionnaireMasterSlice.actions
 export const { textFormRowCountChanged } = questionnaireMasterSlice.actions

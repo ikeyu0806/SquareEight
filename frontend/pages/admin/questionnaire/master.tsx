@@ -3,15 +3,27 @@ import AddQuestionnaireFormModal from 'components/templates/AddQuestionnaireForm
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import PlusCircleIcon from 'components/atoms/PlusCircleIcon'
-import { Card, Row, Col, Navbar, Container, Form, Button, Modal } from 'react-bootstrap'
+import RequireBadge from 'components/atoms/RequireBadge'
+import { Card, Row, Col, Container, Form, Button } from 'react-bootstrap'
 import { FORM_TYPE } from 'constants/formType'
 import { useDispatch, useSelector } from 'react-redux'
-import { showAddFormModalChanged, selectedFormTypeChanged } from 'redux/questionnaireMasterSlice'
 import { RootState } from 'redux/store'
+import { titleChanged,
+         descriptionChanged,
+         showAddFormModalChanged } from 'redux/questionnaireMasterSlice'
 
 const Master: NextPage = () => {
   const dispatch = useDispatch()
   const questionnaireMasterItems = useSelector((state: RootState) => state.questionnaireMaster.questionnaireMasterItems)
+  const title = useSelector((state: RootState) => state.questionnaireMaster.title)
+  const description = useSelector((state: RootState) => state.questionnaireMaster.description)
+
+  const validateSubmit = () => {
+    if (!title) {
+      return true
+    }
+    return false
+  }
 
   return (
     <MerchantUserAdminLayout>
@@ -22,11 +34,14 @@ const Master: NextPage = () => {
             <Card>
               <Card.Header>アンケート作成</Card.Header>
               <Card.Body>
-                <Form.Label>アンケートのタイトル</Form.Label>
-                <Form.Control></Form.Control>
+                <Form.Label>アンケートのタイトル<RequireBadge></RequireBadge></Form.Label>
+                <Form.Control onChange={(e) => dispatch(titleChanged(e.target.value))}></Form.Control>
                 <Form.Label>アンケートの説明</Form.Label>
-                <Form.Control as='textarea' rows={5}></Form.Control>
-                
+                <Form.Control
+                  onChange={(e) => dispatch(descriptionChanged(e.target.value))}
+                  as='textarea'
+                  rows={5}></Form.Control>
+
                 {questionnaireMasterItems.map((item, i) => {
                   switch (item.formType) {
                     case FORM_TYPE.TEXT:
@@ -104,7 +119,7 @@ const Master: NextPage = () => {
                   <a onClick={() => dispatch(showAddFormModalChanged(true))}><PlusCircleIcon width={40} height={40} fill={'#0000FF'} /></a>
                 </div>
                 <div className='text-center mt30'>
-                  <Button>登録する</Button>
+                  <Button disabled={validateSubmit()}>登録する</Button>
                 </div>
               </Card.Body>
             </Card>
