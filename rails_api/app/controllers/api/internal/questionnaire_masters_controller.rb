@@ -15,6 +15,13 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def update
+    QuestionnaireMaster.find(params[:id]).update!(questionnaire_master_params.except(:id))
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def show
     questionnaire_master = QuestionnaireMaster.find(params[:id])
     questionnaire_master = JSON.parse(questionnaire_master.to_json(methods: [:parse_question_form_json]))
