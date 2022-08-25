@@ -69,7 +69,7 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
           <Form.Check
             type='radio'
             label='プルダウン'
-            checked={selectedFormType === String(FORM_TYPE.SELECT)}
+            checked={selectedFormType === FORM_TYPE.SELECT}
             onChange={() => dispatch(selectedFormTypeChanged(FORM_TYPE.SELECT))}
             value={selectedFormType}></Form.Check>
           <Form.Check
@@ -138,7 +138,7 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
                 <option>選択してください</option>
                 {selectFormAnswers.map((answer, i) => {
                   return (
-                    <><option>{answer}</option></>
+                    <><option key={i}>{answer}</option></>
                   )
                 })}
               </Form.Select>

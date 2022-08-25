@@ -26,7 +26,6 @@ const Master: NextPage = () => {
                 <Form.Control></Form.Control>
                 <Form.Label>アンケートの説明</Form.Label>
                 <Form.Control as='textarea' rows={5}></Form.Control>
-                {/* {console.log(questionnaireMasterItems, "!!")} */}
                 
                 {questionnaireMasterItems.map((item, i) => {
                   switch (item.formType) {
@@ -45,14 +44,13 @@ const Master: NextPage = () => {
                             <option>選択してください</option>
                             {item.selectFormAnswers && item.selectFormAnswers.map((answer, i) => {
                               return (
-                                <><option>{answer}</option></>
+                                <><option key={i}>{answer}</option></>
                               )
                             })}
                           </Form.Select>
                         </>
                       )
                     case FORM_TYPE.CHECKBOX:
-                      
                       {item.checkboxAnswers && item.checkboxAnswers.map((answer, i) => {
                         return (
                           <>
@@ -61,6 +59,7 @@ const Master: NextPage = () => {
                           </>
                         )
                       })}
+                      return (<></>)
                     case FORM_TYPE.RADIO:
                       {item.radioButtonAnswers && item.radioButtonAnswers.map((answer, i) => {
                         return (
@@ -70,6 +69,7 @@ const Master: NextPage = () => {
                           </>
                         )
                       })}
+                      return (<></>)
                     case FORM_TYPE.DATE:
                       return (
                         <>
