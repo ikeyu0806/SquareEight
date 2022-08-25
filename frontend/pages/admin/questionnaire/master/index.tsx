@@ -22,7 +22,6 @@ const Index = (): JSX.Element => {
     })
   }, [cookies._square_eight_merchant_session])
 
-
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -37,7 +36,9 @@ const Index = (): JSX.Element => {
                     <ListGroup.Item key={i}>
                       <Row>
                         <Col sm={9}>{questionare.title}</Col>
-                        <Col><Button>編集</Button></Col>
+                        <Col>
+                          <a className='btn btn-primary' href={`/admin/questionnaire/master/${questionare.id}/edit`}>編集</a>
+                        </Col>
                       </Row>
                     </ListGroup.Item>
                   )

@@ -68,8 +68,7 @@ const New: NextPage = () => {
           onClick={() => onSubmit()}
           disabled={validateSubmit()}>登録する</Button>
       </div>
-      </MerchantUserAdminLayout>
-
+    </MerchantUserAdminLayout>
   )
 }
 
