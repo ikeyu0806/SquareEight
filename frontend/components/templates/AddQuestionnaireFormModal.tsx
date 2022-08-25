@@ -49,7 +49,7 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
 
   const onSubmit = () => {
     let updateQuestionnaireMasterItems: QuestionnaireMasterItem[]
-    updateQuestionnaireMasterItems = [...questionnaireMasterItems, {question: question, formType: selectedFormType}]
+    updateQuestionnaireMasterItems = [...questionnaireMasterItems, { question: question, formType: selectedFormType, textFormRowCount: textFormRowCount, selectFormAnswers: selectFormAnswers, radioButtonAnswers: radioButtonAnswers, checkboxAnswers: checkboxAnswers }]
     dispatch(questionnaireMasterItemsChanged(updateQuestionnaireMasterItems))
     dispatch(showAddFormModalChanged(false))
   }

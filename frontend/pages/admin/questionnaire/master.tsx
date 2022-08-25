@@ -27,13 +27,65 @@ const Master: NextPage = () => {
                 <Form.Label>アンケートの説明</Form.Label>
                 <Form.Control as='textarea' rows={5}></Form.Control>
                 {/* {console.log(questionnaireMasterItems, "!!")} */}
+                
                 {questionnaireMasterItems.map((item, i) => {
                   switch (item.formType) {
                     case FORM_TYPE.TEXT:
                       return (
                         <>
                           <Form.Label className='mt20'>{item.question}</Form.Label>
-                          <Form.Control></Form.Control>
+                          {item.textFormRowCount && item.textFormRowCount >= 2 ? <Form.Control as='textarea' rows={item.textFormRowCount}></Form.Control> : <Form.Control></Form.Control>}
+                        </>
+                      )
+                    case FORM_TYPE.SELECT:
+                      return (
+                        <>
+                          <Form.Label className='mt20'>{item.question}</Form.Label>
+                          <Form.Select className='mt10'>
+                            <option>選択してください</option>
+                            {item.selectFormAnswers && item.selectFormAnswers.map((answer, i) => {
+                              return (
+                                <><option>{answer}</option></>
+                              )
+                            })}
+                          </Form.Select>
+                        </>
+                      )
+                    case FORM_TYPE.CHECKBOX:
+                      
+                      {item.checkboxAnswers && item.checkboxAnswers.map((answer, i) => {
+                        return (
+                          <>
+                            <Form.Label className='mt20'>{item.question}</Form.Label>
+                            <Form.Check type='checkbox' label={answer} key={i} />
+                          </>
+                        )
+                      })}
+                    case FORM_TYPE.RADIO:
+                      {item.radioButtonAnswers && item.radioButtonAnswers.map((answer, i) => {
+                        return (
+                          <>
+                            <Form.Label className='mt20'>{item.question}</Form.Label>
+                            <Form.Check type='radio' label={answer} key={i} name='preview' />
+                          </>
+                        )
+                      })}
+                    case FORM_TYPE.DATE:
+                      return (
+                        <>
+                          <Form.Label className='mt20'>{item.question}</Form.Label>
+                          <Form.Control
+                            type='date'>
+                          </Form.Control>
+                        </>
+                      )
+                    case FORM_TYPE.TIME:
+                      return (
+                        <>
+                          <Form.Label className='mt20'>{item.question}</Form.Label>
+                          <Form.Control
+                            type='time'>
+                          </Form.Control>
                         </>
                       )
                     default:
