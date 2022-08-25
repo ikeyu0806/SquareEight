@@ -9,7 +9,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
   end  
 
   def create
-    questionnaire_master = current_merchant_user.account.questionnaire_masters.new(questionnaire_master_params)
+    questionnaire_master = current_merchant_user.account.questionnaire_masters.create!(questionnaire_master_params)
     render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

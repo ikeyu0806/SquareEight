@@ -42,28 +42,28 @@ const Index: NextPage = () => {
               <Card>
                 <Card.Header>商品一覧</Card.Header>
                 <ListGroup variant='flush'>
-                    {products && products.map((p, i) => {
-                      return (
-                        <ListGroup.Item key={i}>
-                          <Row>
-                            <Col>
-                              <span>{p.name} <br/>￥{p.price} 税率{p.tax_rate}% <br/>在庫数: {p.inventory}</span>
-                              <span></span>
-                            </Col>
-                            <Col>
-                              <div className='mt30'>
-                                <a className='btn btn-sm btn-primary' href={`/admin/product/${p.id}/edit`}>
-                                  編集
-                                </a>
-                                <a className='btn btn-sm btn-primary ml10' href={`/product/${p.id}/purchase`}>
-                                  購入ページプレビュー
-                                </a>
-                              </div>
-                            </Col>
-                          </Row>
-                        </ListGroup.Item>
-                      )
-                    })}
+                  {products && products.map((p, i) => {
+                    return (
+                      <ListGroup.Item key={i}>
+                        <Row>
+                          <Col>
+                            <span>{p.name} <br/>￥{p.price} 税率{p.tax_rate}% <br/>在庫数: {p.inventory}</span>
+                            <span></span>
+                          </Col>
+                          <Col>
+                            <div className='mt30'>
+                              <a className='btn btn-sm btn-primary' href={`/admin/product/${p.id}/edit`}>
+                                編集
+                              </a>
+                              <a className='btn btn-sm btn-primary ml10' href={`/product/${p.id}/purchase`}>
+                                購入ページプレビュー
+                              </a>
+                            </div>
+                          </Col>
+                        </Row>
+                      </ListGroup.Item>
+                    )
+                  })}
                 </ListGroup>
               </Card>
             </Col>
