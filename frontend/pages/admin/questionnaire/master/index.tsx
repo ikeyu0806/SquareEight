@@ -35,9 +35,14 @@ const Index = (): JSX.Element => {
                   return (
                     <ListGroup.Item key={i}>
                       <Row>
-                        <Col sm={9}>{questionare.title}</Col>
+                        <Col sm={6}>{questionare.title}</Col>
                         <Col>
-                          <a className='btn btn-primary' href={`/admin/questionnaire/master/${questionare.id}/edit`}>編集</a>
+                          <a className='btn btn-primary'
+                             target='_blank'
+                             rel='noreferrer'
+                             href={`/questionnaire/${questionare.id}`}>プレビュー</a>
+                          <a className='btn btn-primary ml30'
+                             href={`/admin/questionnaire/master/${questionare.id}/edit`}>編集</a>
                         </Col>
                       </Row>
                     </ListGroup.Item>
