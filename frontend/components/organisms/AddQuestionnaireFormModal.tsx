@@ -62,6 +62,16 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
     dispatch(questionnaireMasterItemsChanged(updateQuestionnaireMasterItems))
     dispatch(showAddFormModalChanged(false))
     dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
+    // モーダル上のstate初期化
+    setCurrentSelectInput('')
+    setCurrentCheckboxInput('')
+    setCurrentRadioInput('')
+    dispatch(questionChanged(''))
+    dispatch(selectedFormTypeChanged(String(FORM_TYPE.TEXT)))
+    dispatch(textFormRowCountChanged(1))
+    dispatch(selectFormAnswersChanged([]))
+    dispatch(radioButtonAnswersChanged([]))
+    dispatch(checkboxAnswersChanged([]))
   }
 
   return (
