@@ -25,7 +25,7 @@ const Edit: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/questionnaire_masters/${router.query.id}`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/questionnaire_masters/${router.query.id}/edit_info`,
     {
       headers: {
         'Session-Id': cookies._square_eight_merchant_session

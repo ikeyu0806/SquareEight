@@ -107,6 +107,7 @@ Rails.application.routes.draw do
       get 'cash_registers', to: 'cash_registers#index'
       post 'cash_registers/purchase', to: 'cash_registers#purchase'
       post 'reservations', to: 'reservations#create'
+      get 'questionnaire_masters/:id/edit_info', to: 'questionnaire_masters#edit_info'
       get 'questionnaire_masters/:id', to: 'questionnaire_masters#show'
       get 'questionnaire_masters', to: 'questionnaire_masters#index'
       post 'questionnaire_masters', to: 'questionnaire_masters#create'
