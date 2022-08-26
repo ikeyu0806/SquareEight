@@ -49,6 +49,26 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
     dispatch(radioButtonAnswersChanged(updateRadioAnswers))
   }
 
+  const validateOnSubmit = () => {
+    if (!question) {
+      return true
+    }
+
+    if (selectedFormType === String(FORM_TYPE.SELECT) && selectFormAnswers.length === 0) {
+      return true
+    }
+
+    if (selectedFormType === String(FORM_TYPE.CHECKBOX) && checkboxAnswers.length === 0) {
+      return true
+    }
+
+    if (selectedFormType === String(FORM_TYPE.RADIO) && radioButtonAnswers.length === 0) {
+      return true
+    }
+
+    return false
+  }
+
   const onSubmit = () => {
     let updateQuestionnaireMasterItems: QuestionnaireMasterItem[]
     updateQuestionnaireMasterItems = [...questionnaireMasterItems, { question: question,
@@ -223,7 +243,9 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
             </>}
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => onSubmit()}>追加する</Button>
+          <Button
+            disabled={validateOnSubmit()}
+            onClick={() => onSubmit()}>追加する</Button>
           <Button
             onClick={() => dispatch(showAddFormModalChanged(false))}
             variant='secondary'>
