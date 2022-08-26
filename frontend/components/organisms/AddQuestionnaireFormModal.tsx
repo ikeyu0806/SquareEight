@@ -30,6 +30,13 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
   const radioButtonAnswers = useSelector((state: RootState) => state.questionnaireMaster.radioButtonAnswers)
   const questionnaireMasterItems = useSelector((state: RootState) => state.questionnaireMaster.questionnaireMasterItems)
   const currentMaxSortOrder = useSelector((state: RootState) => state.questionnaireMaster.currentMaxSortOrder)
+
+  const validateAddSelectFormAnswers = () => {
+    if (!currentSelectInput) {
+      return true
+    }
+    return false
+  }
   
   const addSelectFormAnswers = () => {
     let updateSelectFormAnswers: string[]
@@ -37,10 +44,24 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
     dispatch(selectFormAnswersChanged(updateSelectFormAnswers))
   }
 
+  const validateAddCheckboxAnswers = () => {
+    if (!currentCheckboxInput) {
+      return true
+    }
+    return false
+  }
+
   const addCheckboxAnswers = () => {
     let updateCheckboxAnswers: string[]
     updateCheckboxAnswers = [...checkboxAnswers, currentCheckboxInput]
     dispatch(checkboxAnswersChanged(updateCheckboxAnswers))
+  }
+
+  const validateAddRadioAnswers = () => {
+    if (!currentRadioInput) {
+      return true
+    }
+    return false
   }
 
   const addRadioAnswers = () => {
@@ -170,6 +191,7 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
                 </Col>
                 <Col>
                   <Button size='sm'
+                          disabled={validateAddSelectFormAnswers()}
                           onClick={() => addSelectFormAnswers()}>追加</Button>
                 </Col>
               </Row>
@@ -195,6 +217,7 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
                 </Col>
                 <Col>
                   <Button size='sm'
+                          disabled={validateAddCheckboxAnswers()}
                           onClick={() => addCheckboxAnswers()}>追加</Button>
                 </Col>
               </Row>
@@ -217,6 +240,7 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
                 </Col>
                 <Col>
                   <Button size='sm'
+                          disabled={validateAddRadioAnswers()}
                           onClick={() => addRadioAnswers()}>追加</Button>
                 </Col>
               </Row>
