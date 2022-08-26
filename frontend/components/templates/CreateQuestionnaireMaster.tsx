@@ -5,6 +5,7 @@ import { Form } from 'react-bootstrap'
 import { FORM_TYPE } from 'constants/formType'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
+import UpdateQuestionnaireStateIcons from 'components/organisms/UpdateQuestionnaireStateIcons'
 import { titleChanged,
          descriptionChanged,
          showAddFormModalChanged } from 'redux/questionnaireMasterSlice'
@@ -26,7 +27,6 @@ const CreateQuestionnaireMaster = (): JSX.Element => {
         onChange={(e) => dispatch(descriptionChanged(e.target.value))}
         as='textarea'
         rows={5}></Form.Control>
-
       {questionnaireMasterItems.map((item, i) => {
         switch (item.formType) {
           case FORM_TYPE.TEXT:
@@ -34,6 +34,7 @@ const CreateQuestionnaireMaster = (): JSX.Element => {
               <>
                 <Form.Label className='mt20'>{item.question}</Form.Label>
                 {item.textFormRowCount && item.textFormRowCount >= 2 ? <Form.Control as='textarea' rows={item.textFormRowCount}></Form.Control> : <Form.Control></Form.Control>}
+                <UpdateQuestionnaireStateIcons questionId={item.questionId} sortOrder={item.sortOrder}></UpdateQuestionnaireStateIcons>
               </>
             )
           case FORM_TYPE.SELECT:
@@ -48,6 +49,7 @@ const CreateQuestionnaireMaster = (): JSX.Element => {
                     )
                   })}
                 </Form.Select>
+                <UpdateQuestionnaireStateIcons questionId={item.questionId} sortOrder={item.sortOrder}></UpdateQuestionnaireStateIcons>
               </>
             )
           case FORM_TYPE.CHECKBOX:
@@ -61,6 +63,7 @@ const CreateQuestionnaireMaster = (): JSX.Element => {
                     </>
                   )
                 })}
+                <UpdateQuestionnaireStateIcons questionId={item.questionId} sortOrder={item.sortOrder}></UpdateQuestionnaireStateIcons>
               </>
             )
           case FORM_TYPE.RADIO:
@@ -74,6 +77,7 @@ const CreateQuestionnaireMaster = (): JSX.Element => {
                     </>
                   )
                 })}
+                <UpdateQuestionnaireStateIcons questionId={item.questionId} sortOrder={item.sortOrder}></UpdateQuestionnaireStateIcons>
               </>
             )
           case FORM_TYPE.DATE:
@@ -83,6 +87,7 @@ const CreateQuestionnaireMaster = (): JSX.Element => {
                 <Form.Control
                   type='date'>
                 </Form.Control>
+                <UpdateQuestionnaireStateIcons questionId={item.questionId} sortOrder={item.sortOrder}></UpdateQuestionnaireStateIcons>
               </>
             )
           case FORM_TYPE.TIME:
@@ -92,6 +97,7 @@ const CreateQuestionnaireMaster = (): JSX.Element => {
                 <Form.Control
                   type='time'>
                 </Form.Control>
+                <UpdateQuestionnaireStateIcons questionId={item.questionId} sortOrder={item.sortOrder}></UpdateQuestionnaireStateIcons>
               </>
             )
           default:

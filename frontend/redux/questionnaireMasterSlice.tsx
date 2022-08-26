@@ -10,14 +10,12 @@ export const questionnaireMasterSlice = createSlice({
     title: '',
     description: '',
     question: '',
-    formType: '',
     textFormRowCount: 1,
     currentMaxSortOrder: 0,
     selectFormAnswers: [] as string[],
     radioButtonAnswers: [] as string[],
     checkboxAnswers: [] as string[],
     questionnaireMasterItems: [] as QuestionnaireMasterItem[]
-
   },
   reducers: {
     showAddFormModalChanged: (state, action: PayloadAction<boolean>) => {
@@ -34,9 +32,6 @@ export const questionnaireMasterSlice = createSlice({
     },
     questionChanged: (state, action: PayloadAction<string>) => {
       state.question = action.payload
-    },
-    formTypeChanged: (state, action: PayloadAction<string>) => {
-      state.description = action.payload
     },
     textFormRowCountChanged: (state, action: PayloadAction<number>) => {
       state.textFormRowCount = action.payload
@@ -64,9 +59,8 @@ export const { selectedFormTypeChanged } = questionnaireMasterSlice.actions
 export const { titleChanged } = questionnaireMasterSlice.actions
 export const { descriptionChanged } = questionnaireMasterSlice.actions
 export const { questionChanged } = questionnaireMasterSlice.actions
-export const { formTypeChanged } = questionnaireMasterSlice.actions
-export const { textFormRowCountChanged } = questionnaireMasterSlice.actions
 export const { currentMaxSortOrderChanged } = questionnaireMasterSlice.actions
+export const { textFormRowCountChanged } = questionnaireMasterSlice.actions
 export const { selectFormAnswersChanged } = questionnaireMasterSlice.actions
 export const { radioButtonAnswersChanged } = questionnaireMasterSlice.actions
 export const { checkboxAnswersChanged } = questionnaireMasterSlice.actions

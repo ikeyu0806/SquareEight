@@ -11,6 +11,7 @@ import { showAddFormModalChanged,
          selectFormAnswersChanged,
          radioButtonAnswersChanged,
          checkboxAnswersChanged,
+         currentMaxSortOrderChanged,
          questionnaireMasterItemsChanged } from 'redux/questionnaireMasterSlice'
 
 const AddQuestionnaireFormModal = (): JSX.Element => {
@@ -60,6 +61,7 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
                                                                      sortOrder: currentMaxSortOrder + 1 }]
     dispatch(questionnaireMasterItemsChanged(updateQuestionnaireMasterItems))
     dispatch(showAddFormModalChanged(false))
+    dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
   }
 
   return (
