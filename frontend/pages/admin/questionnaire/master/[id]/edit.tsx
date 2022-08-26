@@ -10,11 +10,15 @@ import CreateQuestionnaireMaster from 'components/templates/CreateQuestionnaireM
 import { Card, Row, Col, Container, Button } from 'react-bootstrap'
 import AddQuestionnaireFormModal from 'components/organisms/AddQuestionnaireFormModal'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { titleChanged, descriptionChanged, questionnaireMasterItemsChanged } from 'redux/questionnaireMasterSlice'
+import { titleChanged,
+         descriptionChanged,
+         questionnaireMasterItemsChanged,
+         currentMaxSortOrderChanged } from 'redux/questionnaireMasterSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
+  const currentMaxSortOrder = useSelector((state: RootState) => state.questionnaireMaster.currentMaxSortOrder)
   const questionnaireMasterItems = useSelector((state: RootState) => state.questionnaireMaster.questionnaireMasterItems)
   const title = useSelector((state: RootState) => state.questionnaireMaster.title)
   const description = useSelector((state: RootState) => state.questionnaireMaster.description)
@@ -30,6 +34,7 @@ const Edit: NextPage = () => {
       dispatch(titleChanged(response.data.questionnaire_master.title))
       dispatch(descriptionChanged(response.data.questionnaire_master.description))
       dispatch(questionnaireMasterItemsChanged(response.data.questionnaire_master.parse_question_form_json))
+      dispatch(currentMaxSortOrderChanged(response.data.questionnaire_master.current_max_sort_order))
     }).catch((error) => {
       console.log(error)
     })

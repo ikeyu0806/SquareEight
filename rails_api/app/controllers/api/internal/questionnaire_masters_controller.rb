@@ -24,7 +24,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
 
   def show
     questionnaire_master = QuestionnaireMaster.find(params[:id])
-    questionnaire_master = JSON.parse(questionnaire_master.to_json(methods: [:parse_question_form_json]))
+    questionnaire_master = JSON.parse(questionnaire_master.to_json(methods: [:parse_question_form_json, :current_max_sort_order]))
     render json: { status: 'success', questionnaire_master: questionnaire_master }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -40,6 +40,8 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
                   question_form_json: [:question,
                                        :formType,
                                        :textFormRowCount,
+                                       :sortOrder,
+                                       :questionId,
                                        selectFormAnswers: [],
                                        radioButtonAnswers: [],
                                        checkboxAnswers: []])
