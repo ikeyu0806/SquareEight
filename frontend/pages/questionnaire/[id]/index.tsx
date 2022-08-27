@@ -16,7 +16,8 @@ const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  const [name, setName] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
   const [questionnaireMasterItems, setQuestionnaireMasterItems] = useState<QuestionnaireMasterItem[]>([])
@@ -118,8 +119,10 @@ const Index: NextPage = () => {
               <Card.Header>{title}</Card.Header>
               <Card.Body>
                 <div className='mt20'>{description}</div>
-                <Form.Label className='mt20'>お名前</Form.Label>
-                <Form.Control value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
+                <Form.Label className='mt20'>お名前（姓）</Form.Label>
+                <Form.Control value={lastName} onChange={(e) => setLastName(e.target.value)}></Form.Control>
+                <Form.Label className='mt20'>お名前（名）</Form.Label>
+                <Form.Control value={firstName} onChange={(e) => setFirstName(e.target.value)}></Form.Control>
                 <Form.Label className='mt20'>電話番号</Form.Label>
                 <Form.Control value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}></Form.Control>
                 <Form.Label className='mt20'>メールアドレス</Form.Label>

@@ -27,8 +27,10 @@ const CreateQuestionnaireMaster = (): JSX.Element => {
         onChange={(e) => dispatch(descriptionChanged(e.target.value))}
         as='textarea'
         rows={5}></Form.Control>
-      <div className='mt20'>お名前、電話番号、メールアドレスの項目は自動で追加されます。</div>
-      <Form.Label className='mt20'>お名前</Form.Label>
+      <div className='mt20'>お名前、電話番号、メールアドレスの質問は自動で設定されます。</div>
+      <Form.Label className='mt20'>お名前（姓）</Form.Label>
+      <Form.Control disabled></Form.Control>
+      <Form.Label className='mt20'>お名前（名）</Form.Label>
       <Form.Control disabled></Form.Control>
       <Form.Label className='mt20'>電話番号</Form.Label>
       <Form.Control disabled></Form.Control>
