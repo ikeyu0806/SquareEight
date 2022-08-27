@@ -7,6 +7,7 @@ import { QuestionnaireMasterItem } from 'interfaces/QuestionnaireMasterItem'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { FORM_TYPE } from 'constants/formType'
+import { alertChanged } from 'redux/alertSlice'
 import { Card, Row, Col, Container, Button, Form } from 'react-bootstrap'
 
 const Index: NextPage = () => {
@@ -15,6 +16,9 @@ const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
+  const [name, setName] = useState('')
+  const [email, setEmail] = useState('')
+  const [phoneNumber, setPhoneNumber] = useState('')
   const [questionnaireMasterItems, setQuestionnaireMasterItems] = useState<QuestionnaireMasterItem[]>([])
 
   const questionnaireMasterItemsQuestionRefs = useRef<any>([])
@@ -66,8 +70,8 @@ const Index: NextPage = () => {
         case FORM_TYPE.RADIO:
           let radio_answer_array: any[]
           radio_answer_array = []
-          let selects = questionnaireMasterItemsAnswerRefs.current[i].current.children
-          Array.prototype.map.call(selects, function(item) {
+          let radio_doms = questionnaireMasterItemsAnswerRefs.current[i].current.children
+          Array.prototype.map.call(radio_doms, function(item) {
             if (item.children[0].checked) {
               radio_answer_array.push(item.innerText)
             }
@@ -87,7 +91,21 @@ const Index: NextPage = () => {
           console.log('invalid block')
       }
     })
-    console.log(answer)
+  
+    axios.post(`${process.env.BACKEND_URL}/api/internal/questionnaire`,
+    {
+      questionnaires: {
+        answer: answer
+      }
+    },
+    {
+      headers: {
+      }
+    }).then(response => {
+      dispatch(alertChanged({message: '回答を送信しました', show: true}))
+    }).catch(error => {
+      dispatch(alertChanged({message: '送信失敗しました', show: true, type: 'danger'}))
+    })
   }
 
   return (
@@ -100,6 +118,12 @@ const Index: NextPage = () => {
               <Card.Header>{title}</Card.Header>
               <Card.Body>
                 <div className='mt20'>{description}</div>
+                <Form.Label className='mt20'>お名前</Form.Label>
+                <Form.Control value={name} onChange={(e) => setName(e.target.value)}></Form.Control>
+                <Form.Label className='mt20'>電話番号</Form.Label>
+                <Form.Control value={phoneNumber} onChange={(e) => setPhoneNumber(e.target.value)}></Form.Control>
+                <Form.Label className='mt20'>メールアドレス</Form.Label>
+                <Form.Control value={email} onChange={(e) => setEmail(e.target.value)}></Form.Control>
                 {questionnaireMasterItems.map((item, i) => {
                   switch (item.formType) {
                     case FORM_TYPE.TEXT:
