@@ -93,9 +93,13 @@ const Index: NextPage = () => {
       }
     })
   
-    axios.post(`${process.env.BACKEND_URL}/api/internal/questionnaire`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/questionnaire_answers/${router.query.id}`,
     {
-      questionnaires: {
+      questionnaire_answer: {
+        last_name: lastName,
+        first_name: firstName,
+        phone_number: phoneNumber,
+        email: email,
         answer: answer
       }
     },

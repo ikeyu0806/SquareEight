@@ -1,4 +1,7 @@
 class QuestionnaireMaster < ApplicationRecord
+  belongs_to :account
+  has_many :questionnaire_answers
+
   validates :title, presence: true
 
   def parse_question_form_json
