@@ -39,8 +39,11 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
   end
 
   def answers
-    answers = questionnaire_master = QuestionnaireMaster.find(params[:id]).answers
-    render json: { status: 'success', answers: answers }, states: 200
+    questionnaire_master = QuestionnaireMaster.find(params[:id])
+    answer_contents = questionnaire_master.answer_contents
+    render json: { status: 'success',
+                   answer_contents: answer_contents,
+                   questionnaire_master: questionnaire_master }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
