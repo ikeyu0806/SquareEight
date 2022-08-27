@@ -8,6 +8,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { FORM_TYPE } from 'constants/formType'
 import { alertChanged } from 'redux/alertSlice'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { Card, Row, Col, Container, Button, Form } from 'react-bootstrap'
 
 const Index: NextPage = () => {
@@ -92,24 +93,43 @@ const Index: NextPage = () => {
           console.log('invalid block')
       }
     })
-  
-    axios.post(`${process.env.BACKEND_URL}/api/internal/questionnaire_answers/${router.query.id}`,
-    {
-      questionnaire_answer: {
-        last_name: lastName,
-        first_name: firstName,
-        phone_number: phoneNumber,
-        email: email,
-        answer: answer
+
+    swalWithBootstrapButtons.fire({
+      title: '回答を送信します',
+      text: 'よろしいですか？',
+      icon: 'question',
+      confirmButtonText: '送信する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.post(`${process.env.BACKEND_URL}/api/internal/questionnaire_answers/${router.query.id}`,
+        {
+          questionnaire_answer: {
+            last_name: lastName,
+            first_name: firstName,
+            phone_number: phoneNumber,
+            email: email,
+            answer: answer
+          }
+        },
+        {
+          headers: {
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '送信しました',
+            icon: 'info'
+          })
+          location.reload()
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '送信しました',
+            icon: 'error'
+          })
+        })
       }
-    },
-    {
-      headers: {
-      }
-    }).then(response => {
-      dispatch(alertChanged({message: '回答を送信しました', show: true}))
-    }).catch(error => {
-      dispatch(alertChanged({message: '送信失敗しました', show: true, type: 'danger'}))
     })
   }
 
