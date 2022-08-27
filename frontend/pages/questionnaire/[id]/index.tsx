@@ -52,20 +52,28 @@ const Index: NextPage = () => {
                        answer: questionnaireMasterItemsAnswerRefs.current[i].current.value})
           break;
         case FORM_TYPE.CHECKBOX:
-          let answer_array: any[]
-          answer_array = []
-          let selects = questionnaireMasterItemsAnswerRefs.current[i].current.children
-          Array.prototype.map.call(selects, function(item) {
-            console.log(item, "!!!!!!! ")
+          let checkbox_answer_array: any[]
+          checkbox_answer_array = []
+          let checkbox_doms = questionnaireMasterItemsAnswerRefs.current[i].current.children
+          Array.prototype.map.call(checkbox_doms, function(item) {
             if (item.children[0].checked) {
-              answer_array.push(item.innerText)
+              checkbox_answer_array.push(item.innerText)
             }
           })
           answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
-                       answer: answer_array.join(',')})
+                       answer: checkbox_answer_array.join(',')})
           break;
         case FORM_TYPE.RADIO:
-          answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText})
+          let radio_answer_array: any[]
+          radio_answer_array = []
+          let selects = questionnaireMasterItemsAnswerRefs.current[i].current.children
+          Array.prototype.map.call(selects, function(item) {
+            if (item.children[0].checked) {
+              radio_answer_array.push(item.innerText)
+            }
+          })
+          answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
+                       answer: radio_answer_array.join(',')})
           break;
         case FORM_TYPE.DATE:
           answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
@@ -82,27 +90,6 @@ const Index: NextPage = () => {
     console.log(answer)
   }
 
-  const questionRef = () => {
-    console.log("aaaa", questionnaireMasterItemsQuestionRefs.current)
-    console.log("child", questionnaireMasterItemsQuestionRefs.current[0].current.innerText)
-    console.log("child", questionnaireMasterItemsQuestionRefs.current.innerText)
-  }
-
-  const answerRef = () => {
-    console.log("aaaa", questionnaireMasterItemsAnswerRefs.current)
-    console.log("0!", questionnaireMasterItemsAnswerRefs.current[0].current.value)
-    console.log("1", questionnaireMasterItemsAnswerRefs.current[1].current.value)
-    console.log("2!", questionnaireMasterItemsAnswerRefs.current[2])
-    console.log("2!", questionnaireMasterItemsAnswerRefs.current[2].current.children)
-    console.log("2!", questionnaireMasterItemsAnswerRefs.current[2].current.children[0])
-    console.log("2!", questionnaireMasterItemsAnswerRefs.current[2].current.children[0].innerText)
-    console.log("2!", questionnaireMasterItemsAnswerRefs.current[2].current.children[0].children[0].checked)
-    console.log("3", questionnaireMasterItemsAnswerRefs.current[3].current.children[0].children[0].checked)
-    console.log("3", questionnaireMasterItemsAnswerRefs.current[3].current.children[0].innerText)
-    console.log("4", questionnaireMasterItemsAnswerRefs.current[4].current.value)
-    console.log("5", questionnaireMasterItemsAnswerRefs.current[5].current.value)
-  }
-
   return (
     <MerchantCustomLayout>
       <Container>
@@ -112,8 +99,6 @@ const Index: NextPage = () => {
             <Card>
               <Card.Header>{title}</Card.Header>
               <Card.Body>
-              <Button onClick={() => questionRef()}>質問チェック</Button>
-              <Button onClick={() => answerRef()}>回答チェック</Button>
                 <div className='mt20'>{description}</div>
                 {questionnaireMasterItems.map((item, i) => {
                   switch (item.formType) {
