@@ -2,7 +2,7 @@ export interface QuestionnaireAnswerParam {
   id: string
   customer_name: string
   answer_datetime: string
-  answers: AnswersParam[]
+  answer: AnswersParam[]
 }
 
 interface AnswersParam {
