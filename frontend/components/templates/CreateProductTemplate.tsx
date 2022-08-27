@@ -8,7 +8,6 @@ import { ProductType } from 'interfaces/ProductType'
 import { nameChanged,
          descriptionChanged,
          base64ImageChanged,
-         s3ObjectPublicUrlChanged,
          inventoryChanged,
          priceChanged,
          taxRateChanged,
@@ -22,11 +21,8 @@ const CreateProductTemplate = (): JSX.Element => {
   const name = useSelector((state: RootState) => state.product.name)
   const price = useSelector((state: RootState) => state.product.price)
   const description = useSelector((state: RootState) => state.product.description)
-  const taxRate = useSelector((state: RootState) => state.product.taxRate)
   const inventory = useSelector((state: RootState) => state.product.inventory)
-  const base64Image = useSelector((state: RootState) => state.product.base64Image)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.product.s3ObjectPublicUrl)
-  const applyProductType = useSelector((state: RootState) => state.product.applyProductType)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
   const productTypeNameRefs = useRef<any>([])
   productTypeNameRefs.current = productTypes.map((_, i) => productTypeNameRefs.current[i] ?? createRef())
