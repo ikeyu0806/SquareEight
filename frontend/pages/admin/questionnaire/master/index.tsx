@@ -26,8 +26,8 @@ const Index = (): JSX.Element => {
     <MerchantUserAdminLayout>
       <Container>
         <Row>
-          <Col lg={3}></Col>
-          <Col lg={6}>
+          <Col lg={2}></Col>
+          <Col lg={8}>
             <Card>
               <Card.Header>アンケート一覧</Card.Header>
               <ListGroup variant='flush'>
@@ -35,14 +35,20 @@ const Index = (): JSX.Element => {
                   return (
                     <ListGroup.Item key={i}>
                       <Row>
-                        <Col sm={6}>{questionare.title}</Col>
-                        <Col>
-                          <a className='btn btn-primary'
+                        <Col sm={4}>{questionare.title}</Col>
+                        <Col sm={3}>
+                        <a className='btn btn-primary'
                              target='_blank'
                              rel='noreferrer'
                              href={`/questionnaire/${questionare.id}`}>プレビュー</a>
-                          <a className='btn btn-primary ml30'
+                        </Col>
+                        <Col sm={2}>
+                        <a className='btn btn-primary ml30'
                              href={`/admin/questionnaire/master/${questionare.id}/edit`}>編集</a>
+                        </Col>
+                        <Col sm={3}>    
+                          <a className='btn btn-primary ml30'
+                             href={`/admin/questionnaire/master/${questionare.id}/answer`}>回答一覧</a>
                         </Col>
                       </Row>
                     </ListGroup.Item>

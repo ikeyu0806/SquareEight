@@ -11,4 +11,12 @@ class QuestionnaireMaster < ApplicationRecord
   def current_max_sort_order
     parse_question_form_json.last["sortOrder"] + 1
   end
+
+  def answers
+    result = []
+    questionnaire_answers.each do |questionnaire_answer|
+      result.push(questionnaire_answer.parse_answer_json)
+    end
+    result
+  end
 end
