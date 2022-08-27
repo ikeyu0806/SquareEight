@@ -1,5 +1,5 @@
 class Api::Internal::QuestionnaireMastersController < ApplicationController
-  before_action :merchant_login_only!, except: [:show]
+  before_action :merchant_login_only!, except: [:show, :create_answer]
 
   def index
     questionnaire_masters = current_merchant_user.account.questionnaire_masters
@@ -37,6 +37,20 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
+
+  def create_answer
+    questionnaire_master = QuestionnaireMaster.find(params[:questionnaire_master_id])
+    account = questionnaire_master.account
+    # 電話番号、メールアドレスに一致するcustomerがなければ作成
+    customer = account.customers.find_by(phone_number: questionnaire_answer_params[:phone_number])
+    customer = account.customers.find_by(email: questionnaire_answer_params[:email]) if customer.blank?
+    customer = account.customers.new if customer.blank?
+    customer.attributes = questionnaire_answer_params.except(:question_form_json)
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
 
   private
 

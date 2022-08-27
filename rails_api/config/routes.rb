@@ -112,6 +112,7 @@ Rails.application.routes.draw do
       get 'questionnaire_masters', to: 'questionnaire_masters#index'
       post 'questionnaire_masters', to: 'questionnaire_masters#create'
       post 'questionnaire_masters/:id/update', to: 'questionnaire_masters#update'
+      post 'questionnaire_masters/:questionnaire_master_id/questionnaire_answers', to: 'questionnaire_masters#create_answer'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'
