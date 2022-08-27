@@ -14,7 +14,7 @@ class Api::Internal::QuestionnaireAnswersController < ApplicationController
       questionnaire_master.questionnaire_answers
                           .create!( customer_id: customer.id,
                                     title: questionnaire_master.title,
-                                    answers_json: questionnaire_answer_params[:answer])
+                                    answers_json: questionnaire_answer_params[:answer].to_json)
       render json: { status: 'success' }, states: 200
     end
   rescue => error
