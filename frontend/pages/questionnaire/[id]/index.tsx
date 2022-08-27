@@ -52,7 +52,17 @@ const Index: NextPage = () => {
                        answer: questionnaireMasterItemsAnswerRefs.current[i].current.value})
           break;
         case FORM_TYPE.CHECKBOX:
-          answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText})
+          let answer_array: any[]
+          answer_array = []
+          let selects = questionnaireMasterItemsAnswerRefs.current[i].current.children
+          Array.prototype.map.call(selects, function(item) {
+            console.log(item, "!!!!!!! ")
+            if (item.children[0].checked) {
+              answer_array.push(item.innerText)
+            }
+          })
+          answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
+                       answer: answer_array.join(',')})
           break;
         case FORM_TYPE.RADIO:
           answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText})
