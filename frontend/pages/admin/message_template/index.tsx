@@ -2,11 +2,16 @@ import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { showCreateMessageTemplateModalChanged } from 'redux/messageTemplateSlice'
+import { showEditMessageTemplateModalChanged,
+         showCreateMessageTemplateModalChanged,
+         idChanged,
+         nameChanged,
+         contentChanged } from 'redux/messageTemplateSlice'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { MessageTemplateParam } from 'interfaces/MessageTemplateParam'
 import CreateMessageTemplateModal from 'components/templates/CreateMessageTemplateModal'
+import EditMessageTemplateModal from 'components/templates/EditMessageTemplateModal'
 import axios from 'axios'
 
 const Index: NextPage = () => {
@@ -28,6 +33,13 @@ const Index: NextPage = () => {
     })
   }, [cookies._square_eight_merchant_session])
 
+  const showEditModal = (id: string, name: string, content: string) => {
+    dispatch(showEditMessageTemplateModalChanged(true))
+    dispatch(idChanged(id))
+    dispatch(nameChanged(name))
+    dispatch(contentChanged(content))
+  }
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -47,8 +59,18 @@ const Index: NextPage = () => {
                   return (
                     <ListGroup.Item key={i}>
                       <Row>
-                        <Col>{message.name}</Col>
-                        <Col></Col>
+                        <Col>
+                          <div className='text-center'>
+                            {message.name}
+                          </div>
+                        </Col>
+                        <Col>
+                          <div className='text-center'>
+                            <Button onClick={() => showEditModal(message.id, message.name, message.content)}>
+                                編集
+                              </Button>
+                          </div>
+                        </Col>
                       </Row>
                     </ListGroup.Item>
                   )
@@ -59,6 +81,7 @@ const Index: NextPage = () => {
         </Row>
       </Container>
       <CreateMessageTemplateModal></CreateMessageTemplateModal>
+      <EditMessageTemplateModal></EditMessageTemplateModal>
     </MerchantUserAdminLayout>
   )
 }
