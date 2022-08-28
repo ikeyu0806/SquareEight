@@ -3,7 +3,8 @@ import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useCookies } from 'react-cookie'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 import { MessageTemplateParam } from 'interfaces/MessageTemplateParam'
 import CreateMessageTemplateModal from 'components/templates/CreateMessageTemplateModal'
 import EditMessageTemplateModal from 'components/templates/EditMessageTemplateModal'
@@ -13,12 +14,14 @@ import { showEditMessageTemplateModalChanged,
          idChanged,
          nameChanged,
          contentChanged,
-         pageLinksChanged } from 'redux/messageTemplateSlice'
+         pageLinksChanged,
+         pageLinkPaginationStateChanged } from 'redux/messageTemplateSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [messageTemplates, setMessageTemplates] = useState<MessageTemplateParam[]>()
+  const pageLinkPaginationState = useSelector((state: RootState) => state.messageTemplate.pageLinkPaginationState)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/message_templates`,
@@ -30,6 +33,8 @@ const Index: NextPage = () => {
       console.log(response.data)
       setMessageTemplates(response.data.message_templates)
       dispatch(pageLinksChanged(response.data.page_links))
+      const totalPage = Math.ceil(response.data.page_links.length / pageLinkPaginationState.maxPerPage)
+      dispatch(pageLinkPaginationStateChanged(Object.assign({ ...pageLinkPaginationState }, { totalPage })))
     }).catch((error) => {
       console.log(error)
     })
