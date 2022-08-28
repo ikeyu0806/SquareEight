@@ -16,11 +16,11 @@ const CreateMessageTemplateModal = (): JSX.Element => {
   const content = useSelector((state: RootState) => state.messageTemplate.content)
 
   const createTemplate = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/account/message_template`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/message_templates`,
     {
-      customer: {
-        template_mame: name,
-        template_content: content,
+      message_template: {
+        name: name,
+        content: content,
       }
     },
     {

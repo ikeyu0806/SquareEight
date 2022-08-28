@@ -114,7 +114,7 @@ Rails.application.routes.draw do
       post 'questionnaire_masters', to: 'questionnaire_masters#create'
       post 'questionnaire_masters/:id/update', to: 'questionnaire_masters#update'
       post 'questionnaire_answers/:questionnaire_master_id', to: 'questionnaire_answers#create'
-      post 'message_template', to: 'message_template#create'
+      post 'message_templates', to: 'message_templates#create'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'
