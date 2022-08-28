@@ -48,23 +48,47 @@ const Index: NextPage = () => {
     let answer: any[]
     answer = []
     let enableSubmit = true
+
+    let requireAnswers = []
   
-    if (lastName === '') { enableSubmit = false}
-    if (firstName === '') { enableSubmit = false }
-    if (phoneNumber === '') { enableSubmit = false }
-    if (email === '') { enableSubmit = false }
+    if (lastName === '') {
+      enableSubmit = false
+      requireAnswers.push('お名前(姓)')
+    }
+    if (firstName === '') {
+      enableSubmit = false
+      requireAnswers.push('お名前(名)')
+    }
+    if (phoneNumber === '') {
+      enableSubmit = false
+      requireAnswers.push('電話番号')
+    }
+    if (email === '') { 
+      enableSubmit = false
+      requireAnswers.push('メールアドレス')
+    }
 
     questionnaireMasterItems.map((questionnaire, i) => {
       switch (questionnaire.formType) {
         case FORM_TYPE.TEXT:
-          answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
-                       answer: questionnaireMasterItemsAnswerRefs.current[i].current.value})
-          if (questionnaireMasterItemsAnswerRefs.current[i].current.value === '') { enableSubmit = false }
+          const textQuestion = questionnaireMasterItemsQuestionRefs.current[i].current.innerText
+          const textAnswer = questionnaireMasterItemsAnswerRefs.current[i].current.value
+          answer.push({question: textQuestion,
+                       answer: textAnswer})
+          if (textAnswer === '') {
+            enableSubmit = false
+            requireAnswers.push(textQuestion)
+          }
           break;
         case FORM_TYPE.SELECT:
-          answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
-                       answer: questionnaireMasterItemsAnswerRefs.current[i].current.value})
-          if (questionnaireMasterItemsAnswerRefs.current[i].current.value === '選択してください') { enableSubmit = false }
+          const selectQuestion = questionnaireMasterItemsQuestionRefs.current[i].current.innerText
+          const selectAnswer = questionnaireMasterItemsAnswerRefs.current[i].current.value
+          answer.push({question: selectQuestion,
+                       answer: selectAnswer})
+          if (selectQuestion === '選択してください') {
+            enableSubmit = false
+            requireAnswers.push(selectQuestion)
+          }
           break;
         case FORM_TYPE.CHECKBOX:
           let checkbox_answer_array: any[]
@@ -91,14 +115,24 @@ const Index: NextPage = () => {
                        answer: radio_answer_array.join(',')})
           break;
         case FORM_TYPE.DATE:
-          answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
-                       answer: questionnaireMasterItemsAnswerRefs.current[i].current.value})
-          if (questionnaireMasterItemsAnswerRefs.current[i].current.value === '') { enableSubmit = false }
+          const dateQuestion = questionnaireMasterItemsQuestionRefs.current[i].current.innerText
+          const dateAnswer = questionnaireMasterItemsAnswerRefs.current[i].current.value
+          answer.push({question: dateQuestion,
+                       answer: dateAnswer})
+          if (dateAnswer === '') {
+            enableSubmit = false
+            requireAnswers.push(dateQuestion)
+          }
           break;
         case FORM_TYPE.TIME:
-          answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
-                       answer: questionnaireMasterItemsAnswerRefs.current[i].current.value})
-          if (questionnaireMasterItemsAnswerRefs.current[i].current.value === '') { enableSubmit = false }
+          const timeQuestion = questionnaireMasterItemsQuestionRefs.current[i].current.innerText
+          const timeAnswer = questionnaireMasterItemsAnswerRefs.current[i].current.value
+          answer.push({question: timeQuestion,
+                       answer: timeAnswer})
+          if (timeAnswer === '') {
+            enableSubmit = false
+            requireAnswers.push(timeQuestion)
+          }
           break;
         default:
           console.log('invalid block')
@@ -108,6 +142,7 @@ const Index: NextPage = () => {
     if (!enableSubmit) {
       swalWithBootstrapButtons.fire({
         title: '入力されていない項目があります',
+        text: requireAnswers.join(','),
         icon: 'error'
       })
       return
