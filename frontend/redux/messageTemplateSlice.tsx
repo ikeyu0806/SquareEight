@@ -8,6 +8,7 @@ export const messageTemplateSlice = createSlice({
     id: '',
     showCreateMessageTemplateModal: false,
     showEditMessageTemplateModal: false,
+    showSendMessageTemplateModal: false,
     name: '',
     content: '',
     pageLinks: [] as PageLinksParam[],
@@ -27,6 +28,9 @@ export const messageTemplateSlice = createSlice({
     showEditMessageTemplateModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showEditMessageTemplateModal = action.payload
     },
+    showSendMessageTemplateModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showSendMessageTemplateModal = action.payload
+    },
     nameChanged: (state, action: PayloadAction<string>) => {
       state.name = action.payload
     },
@@ -45,6 +49,7 @@ export const messageTemplateSlice = createSlice({
 export const { idChanged } = messageTemplateSlice.actions
 export const { showCreateMessageTemplateModalChanged } = messageTemplateSlice.actions
 export const { showEditMessageTemplateModalChanged } = messageTemplateSlice.actions
+export const { showSendMessageTemplateModalChanged } = messageTemplateSlice.actions
 export const { nameChanged } = messageTemplateSlice.actions
 export const { contentChanged } = messageTemplateSlice.actions
 export const { pageLinksChanged } = messageTemplateSlice.actions

@@ -8,9 +8,11 @@ import { RootState } from 'redux/store'
 import { MessageTemplateParam } from 'interfaces/MessageTemplateParam'
 import CreateMessageTemplateModal from 'components/templates/CreateMessageTemplateModal'
 import EditMessageTemplateModal from 'components/templates/EditMessageTemplateModal'
+import SendMessageTemplateModal from 'components/templates/SendMessageTemplateModal'
 import axios from 'axios'
 import { showEditMessageTemplateModalChanged,
          showCreateMessageTemplateModalChanged,
+         showSendMessageTemplateModalChanged,
          idChanged,
          nameChanged,
          contentChanged,
@@ -47,6 +49,13 @@ const Index: NextPage = () => {
     dispatch(contentChanged(content))
   }
 
+  const showSendModal = (id: string, name: string, content: string) => {
+    dispatch(showSendMessageTemplateModalChanged(true))
+    dispatch(idChanged(id))
+    dispatch(nameChanged(name))
+    dispatch(contentChanged(content))
+  }
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -78,6 +87,13 @@ const Index: NextPage = () => {
                               </Button>
                           </div>
                         </Col>
+                        <Col>
+                          <div className='text-center'>
+                            <Button onClick={() => showSendModal(message.id, message.name, message.content)}>
+                              メール送信
+                            </Button>
+                          </div>
+                        </Col>
                       </Row>
                     </ListGroup.Item>
                   )
@@ -89,6 +105,7 @@ const Index: NextPage = () => {
       </Container>
       <CreateMessageTemplateModal></CreateMessageTemplateModal>
       <EditMessageTemplateModal></EditMessageTemplateModal>
+      <SendMessageTemplateModal></SendMessageTemplateModal>
     </MerchantUserAdminLayout>
   )
 }
