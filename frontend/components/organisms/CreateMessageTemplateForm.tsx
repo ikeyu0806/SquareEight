@@ -61,20 +61,31 @@ const CreateMessageTemplateForm = (): JSX.Element => {
         value={name} />
       <Form.Label className='mt20'>テンプレート<RequireBadge /></Form.Label>
       <Row>
-        <Col md={6}>
+        <Col md={5}>
           <FormControl
+            placeholder='%customer_name様&#10;〇〇についてご案内いたします。'
             value={content}
             onChange={(e) => dispatch(contentChanged(e.target.value))}
             as='textarea'
             rows={40} />
         </Col>
-        <Col md={2}>
+        <Col md={3}>
           <div>変数</div>
           <div>
             <ListGroup>
               <ListGroup.Item>
                 <div>%customer_name</div>
                 <div className='mt10'>顧客名に変換されます</div>
+                <div>顧客一覧からの送信時に反映されます</div>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <div>%customer_postalcode</div>
+                <div className='mt10'>顧客の郵便番号に変換されます</div>
+                <div>顧客一覧からの送信時に反映されます</div>
+              </ListGroup.Item>
+              <ListGroup.Item>
+                <div>%customer_address</div>
+                <div className='mt10'>顧客の住所に変換されます</div>
                 <div>顧客一覧からの送信時に反映されます</div>
               </ListGroup.Item>
             </ListGroup>

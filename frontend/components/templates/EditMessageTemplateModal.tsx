@@ -35,6 +35,13 @@ const EditMessageTemplateModal = (): JSX.Element => {
     })
   }
 
+  const validateSubmit = () => {
+    if (!name || !content) {
+      return true
+    }
+    return false
+  }
+
   return (
     <Modal show={showEditMessageTemplateModal} fullscreen={true}>
       <Modal.Header>メッセージテンプレート編集</Modal.Header>
@@ -42,7 +49,9 @@ const EditMessageTemplateModal = (): JSX.Element => {
         <CreateMessageTemplateForm></CreateMessageTemplateForm>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => updateTemplate()}>
+        <Button
+          disabled={validateSubmit()}
+          onClick={() => updateTemplate()}>
           登録する
         </Button>
         <Button variant='secondary' onClick={() => dispatch(showEditMessageTemplateModalChanged(false))}>

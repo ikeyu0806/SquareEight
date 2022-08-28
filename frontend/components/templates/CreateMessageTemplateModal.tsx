@@ -34,6 +34,13 @@ const CreateMessageTemplateModal = (): JSX.Element => {
     })
   }
 
+  const validateSubmit = () => {
+    if (!name || !content) {
+      return true
+    }
+    return false
+  }
+
   return (
     <Modal show={showCreateMessageTemplateModal} fullscreen={true}>
       <Modal.Header>メッセージテンプレート登録</Modal.Header>
@@ -41,7 +48,9 @@ const CreateMessageTemplateModal = (): JSX.Element => {
         <CreateMessageTemplateForm></CreateMessageTemplateForm>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => createTemplate()}>
+        <Button
+          disabled={validateSubmit()}
+          onClick={() => createTemplate()}>
           登録する
         </Button>
         <Button variant='secondary' onClick={() => dispatch(showCreateMessageTemplateModalChanged(false))}>
