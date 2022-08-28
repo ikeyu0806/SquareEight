@@ -47,15 +47,24 @@ const Index: NextPage = () => {
   const onSubmit = () => {
     let answer: any[]
     answer = []
+    let enableSubmit = true
+  
+    if (lastName === '') { enableSubmit = false}
+    if (firstName === '') { enableSubmit = false }
+    if (phoneNumber === '') { enableSubmit = false }
+    if (email === '') { enableSubmit = false }
+
     questionnaireMasterItems.map((questionnaire, i) => {
       switch (questionnaire.formType) {
         case FORM_TYPE.TEXT:
           answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
                        answer: questionnaireMasterItemsAnswerRefs.current[i].current.value})
+          if (questionnaireMasterItemsAnswerRefs.current[i].current.value === '') { enableSubmit = false }
           break;
         case FORM_TYPE.SELECT:
           answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
                        answer: questionnaireMasterItemsAnswerRefs.current[i].current.value})
+          if (questionnaireMasterItemsAnswerRefs.current[i].current.value === '選択してください') { enableSubmit = false }
           break;
         case FORM_TYPE.CHECKBOX:
           let checkbox_answer_array: any[]
@@ -84,15 +93,25 @@ const Index: NextPage = () => {
         case FORM_TYPE.DATE:
           answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
                        answer: questionnaireMasterItemsAnswerRefs.current[i].current.value})
+          if (questionnaireMasterItemsAnswerRefs.current[i].current.value === '') { enableSubmit = false }
           break;
         case FORM_TYPE.TIME:
           answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
                        answer: questionnaireMasterItemsAnswerRefs.current[i].current.value})
+          if (questionnaireMasterItemsAnswerRefs.current[i].current.value === '') { enableSubmit = false }
           break;
         default:
           console.log('invalid block')
       }
     })
+
+    if (!enableSubmit) {
+      swalWithBootstrapButtons.fire({
+        title: '入力されていない項目があります',
+        icon: 'error'
+      })
+      return
+    }
 
     swalWithBootstrapButtons.fire({
       title: '回答を送信します',
