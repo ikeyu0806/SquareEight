@@ -2,17 +2,18 @@ import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { showEditMessageTemplateModalChanged,
-         showCreateMessageTemplateModalChanged,
-         idChanged,
-         nameChanged,
-         contentChanged } from 'redux/messageTemplateSlice'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { MessageTemplateParam } from 'interfaces/MessageTemplateParam'
 import CreateMessageTemplateModal from 'components/templates/CreateMessageTemplateModal'
 import EditMessageTemplateModal from 'components/templates/EditMessageTemplateModal'
 import axios from 'axios'
+import { showEditMessageTemplateModalChanged,
+         showCreateMessageTemplateModalChanged,
+         idChanged,
+         nameChanged,
+         contentChanged,
+         pageLinksChanged } from 'redux/messageTemplateSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -28,6 +29,7 @@ const Index: NextPage = () => {
     }).then((response) => {
       console.log(response.data)
       setMessageTemplates(response.data.message_templates)
+      dispatch(pageLinksChanged(response.data.page_links))
     }).catch((error) => {
       console.log(error)
     })

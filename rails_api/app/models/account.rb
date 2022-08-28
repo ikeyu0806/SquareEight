@@ -34,7 +34,7 @@ class Account < ApplicationRecord
       result.push({ text: m.name, value: '/monthly_payment/' + m.id.to_s + '/purchase/', label: '月額課金加入ページ' })
     end
     self.questionnaire_masters.each do |q|
-      result.push({ text: q.title, value: '/questionnaire/' + q.id, label: 'アンケート' })
+      result.push({ text: q.title, value: '/questionnaire/' + q.id.to_s, label: 'アンケート' })
     end
     result
   end

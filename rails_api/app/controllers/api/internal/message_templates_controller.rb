@@ -2,8 +2,12 @@ class Api::Internal::MessageTemplatesController < ApplicationController
   before_action :merchant_login_only!
 
   def index
-    message_templates = current_merchant_user.account.message_templates.order(:id)
-    render json: { statue: 'success', message_templates: message_templates }, status: 200
+    account = current_merchant_user.account
+    message_templates = account.message_templates.order(:id)
+    page_links = account.page_links
+    render json: { statue: 'success',
+                   message_templates: message_templates,
+                   page_links: page_links }, status: 200
   rescue => e
     render json: { statue: 'fail', error: e }, status: 500
   end

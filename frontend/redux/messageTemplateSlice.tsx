@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { PageLinksParam } from 'interfaces/PageLinksParam'
 
 export const messageTemplateSlice = createSlice({
   name: 'messageTemplate',
@@ -7,7 +8,8 @@ export const messageTemplateSlice = createSlice({
     showCreateMessageTemplateModal: false,
     showEditMessageTemplateModal: false,
     name: '',
-    content: ''
+    content: '',
+    pageLinks: [] as PageLinksParam[]
   },
   reducers: {
     idChanged: (state, action: PayloadAction<string>) => {
@@ -25,6 +27,9 @@ export const messageTemplateSlice = createSlice({
     contentChanged: (state, action: PayloadAction<string>) => {
       state.content = action.payload
     },
+    pageLinksChanged: (state, action: PayloadAction<PageLinksParam[]>) => {
+      state.pageLinks = action.payload
+    },
   },
 })
 
@@ -33,5 +38,6 @@ export const { showCreateMessageTemplateModalChanged } = messageTemplateSlice.ac
 export const { showEditMessageTemplateModalChanged } = messageTemplateSlice.actions
 export const { nameChanged } = messageTemplateSlice.actions
 export const { contentChanged } = messageTemplateSlice.actions
+export const { pageLinksChanged } = messageTemplateSlice.actions
 
 export default messageTemplateSlice.reducer

@@ -10,6 +10,7 @@ const CreateMessageTemplateForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const name = useSelector((state: RootState) => state.messageTemplate.name)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
+  const pageLinks = useSelector((state: RootState) => state.messageTemplate.pageLinks)
 
   return (
     <>
@@ -38,15 +39,16 @@ const CreateMessageTemplateForm = (): JSX.Element => {
           <div className='mt10'>ページリンク一覧</div>
           <div>
             <ListGroup>
-              <ListGroup.Item>
-                商品購入アンケート<br/>
-                {"https://localhost:3111"}<br/>
-                <Button size='sm' className='mt5'>リンクを挿入</Button>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                予約ページ<br/>
-                {"https://localhost:3111"}
-              </ListGroup.Item>
+              {pageLinks.map((link, i) => {
+                return (
+                  <ListGroup.Item key={i}>
+                    <span className='badge bg-info'>{link.label}</span><br/>
+                    {link.text}<br/>
+                    {link.value}<br/>
+                    <Button size='sm' className='mt5'>リンクを挿入</Button>
+                  </ListGroup.Item>
+                )
+              })}
             </ListGroup>
           </div>
         </Col>
