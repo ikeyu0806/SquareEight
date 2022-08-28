@@ -20,7 +20,7 @@ const MyDocument = () => {
         <meta property='og:image' content={`${url}/ogp.png`} />
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='format-detection' content='telephone=no' />
-        <link rel='icon' href='favicons/s-alphabet-icon.svg' />
+        <link rel='icon' href='/favicons/s-alphabet-icon.svg' />
         <script src='https://js.stripe.com/v3/'></script>
         <script src='https://apis.google.com/js/platform.js' async defer></script>
       </Head>
