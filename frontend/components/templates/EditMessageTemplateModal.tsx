@@ -36,7 +36,7 @@ const EditMessageTemplateModal = (): JSX.Element => {
   }
 
   return (
-    <Modal show={showEditMessageTemplateModal} size='lg'>
+    <Modal show={showEditMessageTemplateModal} fullscreen={true}>
       <Modal.Header>メッセージテンプレート編集</Modal.Header>
       <Modal.Body>
         <CreateMessageTemplateForm></CreateMessageTemplateForm>

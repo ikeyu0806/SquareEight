@@ -20,14 +20,14 @@ const CreateMessageTemplateForm = (): JSX.Element => {
         value={name} />
       <Form.Label className='mt20'>テンプレート<RequireBadge /></Form.Label>
       <Row>
-        <Col md={8}>
+        <Col md={6}>
           <FormControl
             value={content}
             onChange={(e) => dispatch(contentChanged(e.target.value))}
             as='textarea'
-            rows={30} />
+            rows={40} />
         </Col>
-        <Col md={4}>
+        <Col md={2}>
           <div>変数</div>
           <div>
             <ListGroup>
@@ -36,6 +36,8 @@ const CreateMessageTemplateForm = (): JSX.Element => {
               </ListGroup.Item>
             </ListGroup>
           </div>
+        </Col>
+        <Col md={4}>
           <div className='mt10'>ページリンク一覧</div>
           <div>
             <ListGroup>
@@ -44,7 +46,7 @@ const CreateMessageTemplateForm = (): JSX.Element => {
                   <ListGroup.Item key={i}>
                     <span className='badge bg-info'>{link.label}</span><br/>
                     {link.text}<br/>
-                    {link.value}<br/>
+                    {process.env.FRONTEND_URL + link.value}<br/>
                     <Button size='sm' className='mt5'>リンクを挿入</Button>
                   </ListGroup.Item>
                 )

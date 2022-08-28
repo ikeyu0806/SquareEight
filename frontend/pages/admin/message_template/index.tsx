@@ -33,7 +33,7 @@ const Index: NextPage = () => {
     }).catch((error) => {
       console.log(error)
     })
-  }, [cookies._square_eight_merchant_session])
+  }, [cookies._square_eight_merchant_session, dispatch])
 
   const showEditModal = (id: string, name: string, content: string) => {
     dispatch(showEditMessageTemplateModalChanged(true))

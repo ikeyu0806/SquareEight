@@ -35,7 +35,7 @@ const CreateMessageTemplateModal = (): JSX.Element => {
   }
 
   return (
-    <Modal show={showCreateMessageTemplateModal} size='lg'>
+    <Modal show={showCreateMessageTemplateModal} fullscreen={true}>
       <Modal.Header>メッセージテンプレート登録</Modal.Header>
       <Modal.Body>
         <CreateMessageTemplateForm></CreateMessageTemplateForm>
