@@ -7,16 +7,16 @@ import { CustomerParam } from 'interfaces/CustomerParam'
 import axios from 'axios'
 import { showCreateCustomerModalChanged,
          showEditCustomerModalChanged,
+         showCustomerMailSendModalChanged,
          customerIdChanged,
          firstNameChanged,
-         firstNameKanaChanged,
          lastNameChanged,
-         lastNameKanaChanged,
          emailChanged,
          phoneNumberChanged } from 'redux/customerSlice'
 import { useDispatch } from 'react-redux'
 import CreateCustomerModal from 'components/templates/CreateCustomerModal'
 import EditCustomerModal from 'components/templates/EditCustomerModal'
+import CustomerMailSendModal from 'components/templates/CustomerMailSendModal'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -39,6 +39,7 @@ const Index: NextPage = () => {
 
   const showEditModal = (id: string, lastName: string, firstName: string, email: string, phoneNumber: string) => {
     dispatch(showEditCustomerModalChanged(true))
+    dispatch(showCustomerMailSendModalChanged(true))
     dispatch(customerIdChanged(id))
     dispatch(lastNameChanged(lastName))
     dispatch(firstNameChanged(firstName))
@@ -72,7 +73,7 @@ const Index: NextPage = () => {
                 onClick={() => dispatch(showCreateCustomerModalChanged(true))}>顧客新規登録</Button>
               <Button
                 className='mb20 ml10'
-                onClick={() => dispatch(showCreateCustomerModalChanged(true))}>選択した顧客にメール送信</Button>
+                onClick={() => dispatch(showCustomerMailSendModalChanged(true))}>選択した顧客にメール送信</Button>
               <Card>
                 <Card.Header>顧客一覧</Card.Header>
                 {customers && customers.map((customer, i) => {
@@ -104,6 +105,7 @@ const Index: NextPage = () => {
           </Row>
           <CreateCustomerModal></CreateCustomerModal>
           <EditCustomerModal></EditCustomerModal>
+          <CustomerMailSendModal></CustomerMailSendModal>
         </Container>
       </MerchantUserAdminLayout>
     </>
