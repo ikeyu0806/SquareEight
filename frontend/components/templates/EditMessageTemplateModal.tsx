@@ -17,7 +17,7 @@ const EditMessageTemplateModal = (): JSX.Element => {
   const content = useSelector((state: RootState) => state.messageTemplate.content)
 
   const updateTemplate = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/message_templates/${id}/update`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/message_templates/${id}`,
     {
       message_template: {
         name: name,
