@@ -94,24 +94,38 @@ const Index: NextPage = () => {
           let checkbox_answer_array: any[]
           checkbox_answer_array = []
           let checkbox_doms = questionnaireMasterItemsAnswerRefs.current[i].current.children
+          let isCheckBoxCheckFlg = false
           Array.prototype.map.call(checkbox_doms, function(item) {
             if (item.children[0].checked) {
+              isCheckBoxCheckFlg = true
               checkbox_answer_array.push(item.innerText)
             }
           })
-          answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
+          const checkboxQuestion = questionnaireMasterItemsQuestionRefs.current[i].current.innerText
+          if (!isCheckBoxCheckFlg) {
+            isCheckBoxCheckFlg = true
+            requireAnswers.push(checkboxQuestion)
+          }
+          answer.push({question: checkboxQuestion,
                        answer: checkbox_answer_array.join(',')})
           break;
         case FORM_TYPE.RADIO:
           let radio_answer_array: any[]
           radio_answer_array = []
           let radio_doms = questionnaireMasterItemsAnswerRefs.current[i].current.children
+          let isCheckRadioFlg = false
           Array.prototype.map.call(radio_doms, function(item) {
             if (item.children[0].checked) {
+              isCheckRadioFlg = true
               radio_answer_array.push(item.innerText)
             }
           })
-          answer.push({question: questionnaireMasterItemsQuestionRefs.current[i].current.innerText,
+          const radioQuestion = questionnaireMasterItemsQuestionRefs.current[i].current.innerText
+          if (!isCheckRadioFlg) {
+            enableSubmit = false
+            requireAnswers.push(radioQuestion)
+          }
+          answer.push({question: radioQuestion,
                        answer: radio_answer_array.join(',')})
           break;
         case FORM_TYPE.DATE:
