@@ -4,25 +4,25 @@ import { Form, FormControl, Row, Col, ListGroup, Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { templateNameChanged, templateContentChanged } from 'redux/messageTemplateSlice'
+import { nameChanged, contentChanged } from 'redux/messageTemplateSlice'
 
 const CreateMessageTemplateForm = (): JSX.Element => {
   const dispatch = useDispatch()
-  const templateName = useSelector((state: RootState) => state.mailTemplate.templateName)
-  const templateContent = useSelector((state: RootState) => state.mailTemplate.templateContent)
+  const name = useSelector((state: RootState) => state.messageTemplate.name)
+  const content = useSelector((state: RootState) => state.messageTemplate.content)
 
   return (
     <>
       <Form.Label>テンプレート名<RequireBadge /></Form.Label>
       <FormControl
-        onChange={(e) => dispatch(templateNameChanged(e.target.value))}
-        value={templateName} />
+        onChange={(e) => dispatch(nameChanged(e.target.value))}
+        value={name} />
       <Form.Label className='mt20'>テンプレート<RequireBadge /></Form.Label>
       <Row>
         <Col md={8}>
           <FormControl
-            value={templateContent}
-            onChange={(e) => dispatch(templateContentChanged(e.target.value))}
+            value={content}
+            onChange={(e) => dispatch(contentChanged(e.target.value))}
             as='textarea'
             rows={30} />
         </Col>

@@ -11,16 +11,16 @@ import axios from 'axios'
 const CreateMessageTemplateModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
-  const showCreateMessageTemplateModal = useSelector((state: RootState) => state.mailTemplate.showCreateMessageTemplateModal)
-  const templateName = useSelector((state: RootState) => state.mailTemplate.templateName)
-  const templateContent = useSelector((state: RootState) => state.mailTemplate.templateContent)
+  const showCreateMessageTemplateModal = useSelector((state: RootState) => state.messageTemplate.showCreateMessageTemplateModal)
+  const name = useSelector((state: RootState) => state.messageTemplate.name)
+  const content = useSelector((state: RootState) => state.messageTemplate.content)
 
   const createTemplate = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/account/message_template`,
     {
       customer: {
-        template_mame: templateName,
-        template_content: templateContent,
+        template_mame: name,
+        template_content: content,
       }
     },
     {

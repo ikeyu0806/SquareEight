@@ -17,7 +17,7 @@ import currentSystemAdminUserReducer from './currentSystemAdminUserSlice'
 import deliveryTargetReducer from './deliveryTargetSlice'
 import customerReducer from './customerSlice'
 import questionnaireMasterReducer from './questionnaireMasterSlice'
-import mailTemplateReducer from './messageTemplateSlice'
+import messageTemplateReducer from './messageTemplateSlice'
 
 export const store = configureStore({
   reducer: {
@@ -39,7 +39,7 @@ export const store = configureStore({
     deliveryTarget: deliveryTargetReducer,
     customer: customerReducer,
     questionnaireMaster: questionnaireMasterReducer,
-    mailTemplate: mailTemplateReducer
+    messageTemplate: messageTemplateReducer
   },
 })
 
