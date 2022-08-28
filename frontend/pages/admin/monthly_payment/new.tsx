@@ -10,7 +10,6 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
-import { StripeEnableStatus } from 'interfaces/StripeEnableStatus'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
