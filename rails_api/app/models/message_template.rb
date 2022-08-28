@@ -1,0 +1,2 @@
+class MessageTemplate < ApplicationRecord
+end
