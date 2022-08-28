@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, ListGroup, Card, Button } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useCookies } from 'react-cookie'
 import { CustomerParam } from 'interfaces/CustomerParam'
@@ -51,11 +51,28 @@ const Index: NextPage = () => {
       <MerchantUserAdminLayout>
         <Container>
           <Row>
-            <Col lg={3}></Col>
-            <Col lg={6}>
+            <Col lg={2}></Col>
+            <Col lg={8}>
+              <Card className='mb20'>
+                <Card.Header>絞り込み</Card.Header>
+                <Card.Body>
+                <Row>
+                  <Col lg={8} className='mb10'>
+                    <label>
+                      検索したい内容を入力してください<br/>
+                      (お名前・メールアドレス・電話番号)
+                    </label>
+                    <Form.Control className='mt20'></Form.Control>
+                  </Col>
+                </Row>
+                </Card.Body>
+              </Card>
               <Button
                 className='mb20'
                 onClick={() => dispatch(showCreateCustomerModalChanged(true))}>顧客新規登録</Button>
+              <Button
+                className='mb20 ml10'
+                onClick={() => dispatch(showCreateCustomerModalChanged(true))}>選択した顧客にメール送信</Button>
               <Card>
                 <Card.Header>顧客一覧</Card.Header>
                 {customers && customers.map((customer, i) => {
