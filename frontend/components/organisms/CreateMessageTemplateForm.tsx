@@ -99,7 +99,7 @@ const CreateMessageTemplateForm = (): JSX.Element => {
             </ListGroup>
             <Pagination className='mt10'>
               <Pagination.First onClick={displayFirstPage} />
-              <Pagination.Prev></Pagination.Prev>
+              <Pagination.Prev onClick={displayPrevPage}></Pagination.Prev>
               {[...Array(pageLinkPaginationState.totalPage)].map((_, i) => {
                 return isDisplayPage(i) && (
                   <Pagination.Item key={i}
@@ -110,7 +110,7 @@ const CreateMessageTemplateForm = (): JSX.Element => {
                 )
               })}
 
-              <Pagination.Next></Pagination.Next>
+              <Pagination.Next onClick={displayNextPage}></Pagination.Next>
               <Pagination.Last onClick={displayLastPage} />
             </Pagination>
           </div>
