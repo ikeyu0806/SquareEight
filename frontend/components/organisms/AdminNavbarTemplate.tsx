@@ -61,7 +61,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
               <NavDropdown title='アカウント設定' id='homepage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/sales_transfer'>事業情報・売上振込先口座</NavDropdown.Item>
-                <NavDropdown.Item href=''>プラン変更・退会</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/plan/choice'>プラン変更・退会</NavDropdown.Item>
                 <NavDropdown.Item href=''>お支払い履歴</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='その他' id='homepage-nav-dropdown'>
