@@ -13,7 +13,6 @@ const CreateMessageTemplateForm = (): JSX.Element => {
   const pageLinks = useSelector((state: RootState) => state.messageTemplate.pageLinks)
   const pageLinkPaginationState = useSelector((state: RootState) => state.messageTemplate.pageLinkPaginationState)
 
-
   const displayPrevPage = () => {
     if (pageLinkPaginationState.currentPage <= 1) return
     dispatch(pageLinkPaginationStateChanged({currentPage: pageLinkPaginationState.currentPage - 1, totalPage: pageLinkPaginationState.totalPage, maxPerPage: pageLinkPaginationState.maxPerPage}))
@@ -51,6 +50,12 @@ const CreateMessageTemplateForm = (): JSX.Element => {
         return false
       }
     }
+  }
+
+  const insertPageLink = (pageLink: string) => {
+   let updateContent: string
+   updateContent = content + pageLink
+   dispatch(contentChanged(updateContent)) 
   }
 
   return (
@@ -103,7 +108,7 @@ const CreateMessageTemplateForm = (): JSX.Element => {
                     <span className='badge bg-info'>{link.label}</span><br/>
                     {link.text}<br/>
                     {process.env.FRONTEND_URL + link.value}<br/>
-                    <Button size='sm' className='mt5'>リンクを挿入</Button>
+                    <Button size='sm' className='mt5' onClick={() => insertPageLink(process.env.FRONTEND_URL + link.value)}>リンクを挿入</Button>
                   </ListGroup.Item>
                 )
               })}
