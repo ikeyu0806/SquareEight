@@ -3,13 +3,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export const mailTemplateSlice = createSlice({
   name: 'mailTemplate',
   initialState: {
-    showCreateMailTemplateModal: false,
+    showCreateMessageTemplateModal: false,
     templateName: '',
     templateContent: ''
   },
   reducers: {
-    showCreateMailTemplateModalChanged: (state, action: PayloadAction<boolean>) => {
-      state.showCreateMailTemplateModal = action.payload
+    showCreateMessageTemplateModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showCreateMessageTemplateModal = action.payload
     },
     templateNameChanged: (state, action: PayloadAction<string>) => {
       state.templateName = action.payload
@@ -20,7 +20,7 @@ export const mailTemplateSlice = createSlice({
   },
 })
 
-export const { showCreateMailTemplateModalChanged } = mailTemplateSlice.actions
+export const { showCreateMessageTemplateModalChanged } = mailTemplateSlice.actions
 export const { templateNameChanged } = mailTemplateSlice.actions
 export const { templateContentChanged } = mailTemplateSlice.actions
 

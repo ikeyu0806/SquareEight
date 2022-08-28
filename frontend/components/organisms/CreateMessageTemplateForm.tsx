@@ -4,9 +4,9 @@ import { Form, FormControl, Row, Col, ListGroup, Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { templateNameChanged, templateContentChanged } from 'redux/mailTemplateSlice'
+import { templateNameChanged, templateContentChanged } from 'redux/messageTemplateSlice'
 
-const CreateMailTemplateForm = (): JSX.Element => {
+const CreateMessageTemplateForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const templateName = useSelector((state: RootState) => state.mailTemplate.templateName)
   const templateContent = useSelector((state: RootState) => state.mailTemplate.templateContent)
@@ -55,4 +55,4 @@ const CreateMailTemplateForm = (): JSX.Element => {
   )
 }
 
-export default CreateMailTemplateForm
+export default CreateMessageTemplateForm

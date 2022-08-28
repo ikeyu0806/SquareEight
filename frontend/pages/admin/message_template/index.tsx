@@ -2,10 +2,10 @@ import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, ListGroup, Card, Button, Form } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { showCreateMailTemplateModalChanged } from 'redux/mailTemplateSlice'
+import { showCreateMessageTemplateModalChanged } from 'redux/messageTemplateSlice'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
-import CreateMailTemplateModal from 'components/templates/CreateMailTemplateModal'
+import CreateMessageTemplateModal from 'components/templates/CreateMessageTemplateModal'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -16,12 +16,12 @@ const Index: NextPage = () => {
         <Row>
           <Col lg={2}></Col>
           <Col lg={8}>
-            <h3>メールテンプレート</h3>
-            <Button onClick={() => dispatch(showCreateMailTemplateModalChanged(true))}>メールテンプレート作成</Button>
+            <h3>メッセージテンプレート</h3>
+            <Button onClick={() => dispatch(showCreateMessageTemplateModalChanged(true))}>メッセージテンプレート作成</Button>
           </Col>
         </Row>
       </Container>
-      <CreateMailTemplateModal></CreateMailTemplateModal>
+      <CreateMessageTemplateModal></CreateMessageTemplateModal>
     </MerchantUserAdminLayout>
   )
 }

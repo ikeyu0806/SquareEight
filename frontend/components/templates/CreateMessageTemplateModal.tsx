@@ -3,20 +3,20 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { RootState } from 'redux/store'
 import { Container, Modal, FormControl, Row, Col, Form, Button } from 'react-bootstrap'
-import { showCreateMailTemplateModalChanged } from 'redux/mailTemplateSlice'
-import CreateMailTemplateForm from 'components/organisms/CreateMailTemplateForm'
+import { showCreateMessageTemplateModalChanged } from 'redux/messageTemplateSlice'
+import CreateMessageTemplateForm from 'components/organisms/CreateMessageTemplateForm'
 import { alertChanged } from 'redux/alertSlice'
 import axios from 'axios'
 
-const CreateMailTemplateModal = (): JSX.Element => {
+const CreateMessageTemplateModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
-  const showCreateMailTemplateModal = useSelector((state: RootState) => state.mailTemplate.showCreateMailTemplateModal)
+  const showCreateMessageTemplateModal = useSelector((state: RootState) => state.mailTemplate.showCreateMessageTemplateModal)
   const templateName = useSelector((state: RootState) => state.mailTemplate.templateName)
   const templateContent = useSelector((state: RootState) => state.mailTemplate.templateContent)
 
   const createTemplate = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/account/mail_template`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/account/message_template`,
     {
       customer: {
         template_mame: templateName,
@@ -35,16 +35,16 @@ const CreateMailTemplateModal = (): JSX.Element => {
   }
 
   return (
-    <Modal show={showCreateMailTemplateModal} size='lg'>
-      <Modal.Header>メールテンプレート登録</Modal.Header>
+    <Modal show={showCreateMessageTemplateModal} size='lg'>
+      <Modal.Header>メッセージテンプレート登録</Modal.Header>
       <Modal.Body>
-        <CreateMailTemplateForm></CreateMailTemplateForm>
+        <CreateMessageTemplateForm></CreateMessageTemplateForm>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={() => createTemplate()}>
           登録する
         </Button>
-        <Button variant='secondary' onClick={() => dispatch(showCreateMailTemplateModalChanged(false))}>
+        <Button variant='secondary' onClick={() => dispatch(showCreateMessageTemplateModalChanged(false))}>
           閉じる
         </Button>
       </Modal.Footer>
@@ -52,4 +52,4 @@ const CreateMailTemplateModal = (): JSX.Element => {
   )
 }
 
-export default CreateMailTemplateModal
+export default CreateMessageTemplateModal

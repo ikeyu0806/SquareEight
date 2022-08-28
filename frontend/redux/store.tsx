@@ -17,7 +17,7 @@ import currentSystemAdminUserReducer from './currentSystemAdminUserSlice'
 import deliveryTargetReducer from './deliveryTargetSlice'
 import customerReducer from './customerSlice'
 import questionnaireMasterReducer from './questionnaireMasterSlice'
-import mailTemplateReducer from './mailTemplateSlice'
+import mailTemplateReducer from './messageTemplateSlice'
 
 export const store = configureStore({
   reducer: {
