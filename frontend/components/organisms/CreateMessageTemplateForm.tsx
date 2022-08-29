@@ -5,6 +5,7 @@ import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { nameChanged, titleChanged, contentChanged, pageLinkPaginationStateChanged } from 'redux/messageTemplateSlice'
+import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
 
 const CreateMessageTemplateForm = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -59,12 +60,6 @@ const CreateMessageTemplateForm = (): JSX.Element => {
    dispatch(contentChanged(updateContent)) 
   }
 
-  const insertVariable = (variable: string) => {
-    let updateContent: string
-   updateContent = content + variable
-   dispatch(contentChanged(updateContent))
-  }
-
   return (
     <>
       <Form.Label>テンプレート名<RequireBadge /></Form.Label>
@@ -86,29 +81,7 @@ const CreateMessageTemplateForm = (): JSX.Element => {
             rows={40} />
         </Col>
         <Col md={3}>
-          <div>変数</div>
-          <div>
-            <ListGroup>
-              <ListGroup.Item>
-                <div>%customer_name</div>
-                <div className='mt10'>顧客名に変換されます</div>
-                <div>顧客一覧からの送信時に反映されます</div>
-                <Button size='sm' className='mt5' onClick={() => insertVariable('%customer_name')}>挿入</Button>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <div>%customer_postalcode</div>
-                <div className='mt10'>顧客の郵便番号に変換されます</div>
-                <div>顧客一覧からの送信時に反映されます</div>
-                <Button size='sm' className='mt5' onClick={() => insertVariable('%customer_postalcode')}>挿入</Button>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <div>%customer_address</div>
-                <div className='mt10'>顧客の住所に変換されます</div>
-                <div>顧客一覧からの送信時に反映されます</div>
-                <Button size='sm' className='mt5' onClick={() => insertVariable('%customer_address')}>挿入</Button>
-              </ListGroup.Item>
-            </ListGroup>
-          </div>
+          <MessageTemplateVariables></MessageTemplateVariables>
         </Col>
         <Col md={4}>
           <div className='mt10'>ページリンク一覧</div>

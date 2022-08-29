@@ -11,6 +11,7 @@ import { showSendMessageTemplateModalChanged,
          targetEmailsChanged } from 'redux/messageTemplateSlice'
 import { alertChanged } from 'redux/alertSlice'
 import axios from 'axios'
+import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
 
 const SendMessageTemplateModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -149,26 +150,7 @@ const SendMessageTemplateModal = (): JSX.Element => {
               rows={40} />
           </Col>
           <Col md={3}>
-          <div>変数</div>
-          <div>
-            <ListGroup>
-              <ListGroup.Item>
-                <div>%customer_name</div>
-                <div className='mt10'>顧客名に変換されます</div>
-                <div>宛先が顧客指定の場合のみ反映されます</div>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <div>%customer_postalcode</div>
-                <div className='mt10'>顧客の郵便番号に変換されます</div>
-                <div>宛先が顧客指定の場合のみ反映されます</div>
-              </ListGroup.Item>
-              <ListGroup.Item>
-                <div>%customer_address</div>
-                <div className='mt10'>顧客の住所に変換されます</div>
-                <div>宛先が顧客指定の場合のみ反映されます</div>
-              </ListGroup.Item>
-            </ListGroup>
-          </div>
+          <MessageTemplateVariables></MessageTemplateVariables>
           </Col>
           <Col md={4}>
             <div className='mt10'>顧客一覧</div>
