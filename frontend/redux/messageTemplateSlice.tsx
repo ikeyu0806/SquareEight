@@ -13,7 +13,9 @@ export const messageTemplateSlice = createSlice({
     name: '',
     title: '',
     content: '',
+    targetType: 'Customer',
     targetEmails: '',
+    targetCustomers: [] as CustomerParam[],
     customers: [] as CustomerParam[],
     customerPaginationState: {
       currentPage: 1,
@@ -49,8 +51,14 @@ export const messageTemplateSlice = createSlice({
     contentChanged: (state, action: PayloadAction<string>) => {
       state.content = action.payload
     },
+    targetTypeChanged: (state, action: PayloadAction<string>) => {
+      state.targetType = action.payload
+    },
     targetEmailsChanged: (state, action: PayloadAction<string>) => {
       state.targetEmails = action.payload
+    },
+    targetCustomersChanged: (state, action: PayloadAction<CustomerParam[]>) => {
+      state.targetCustomers = action.payload
     },
     customersChanged: (state, action: PayloadAction<CustomerParam[]>) => {
       state.customers = action.payload
@@ -74,7 +82,9 @@ export const { showSendMessageTemplateModalChanged } = messageTemplateSlice.acti
 export const { nameChanged } = messageTemplateSlice.actions
 export const { titleChanged } = messageTemplateSlice.actions
 export const { contentChanged } = messageTemplateSlice.actions
+export const { targetTypeChanged } = messageTemplateSlice.actions
 export const { targetEmailsChanged } = messageTemplateSlice.actions
+export const { targetCustomersChanged } = messageTemplateSlice.actions
 export const { customersChanged } = messageTemplateSlice.actions
 export const { customerPaginationStateChanged } = messageTemplateSlice.actions
 export const { pageLinksChanged } = messageTemplateSlice.actions

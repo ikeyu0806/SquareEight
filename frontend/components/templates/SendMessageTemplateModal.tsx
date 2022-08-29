@@ -5,6 +5,8 @@ import { RootState } from 'redux/store'
 import { Modal, Button, Form, FormControl, Row, Col, ListGroup, Pagination } from 'react-bootstrap'
 import { showSendMessageTemplateModalChanged,
          customerPaginationStateChanged,
+         targetTypeChanged,
+         targetCustomersChanged,
          targetEmailsChanged } from 'redux/messageTemplateSlice'
 import { alertChanged } from 'redux/alertSlice'
 import axios from 'axios'
@@ -20,6 +22,7 @@ const SendMessageTemplateModal = (): JSX.Element => {
   const content = useSelector((state: RootState) => state.messageTemplate.content)
   const customers = useSelector((state: RootState) => state.messageTemplate.customers)
   const customerPaginationState = useSelector((state: RootState) => state.messageTemplate.customerPaginationState)
+  const targetType = useSelector((state: RootState) => state.messageTemplate.targetType)
 
   const sendMessage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/message_templates/${id}`,
@@ -91,12 +94,29 @@ const SendMessageTemplateModal = (): JSX.Element => {
       <Modal.Body>
         <Row>
           <Col md={5}>
-            <Form.Label>宛先メールアドレス</Form.Label>
+            <Form.Label>宛先</Form.Label>
+            <Form.Check
+              type='radio'
+              checked={targetType === 'Customer'}
+              onChange={() => dispatch(targetTypeChanged('Customer'))}
+              id='customerSetRadio'
+              name='targetType'
+              label='顧客指定'></Form.Check>
+            <Form.Check
+              type='radio'
+              checked={targetType === 'Email'}
+              onChange={() => dispatch(targetTypeChanged('Email'))}
+              id='mailSetRadio'
+              name='targetType'
+              label='メールアドレス指定'></Form.Check>
+
+            {targetType === 'Email' && <><Form.Label>宛先メールアドレス</Form.Label>
             <div>複数の送信先に送る場合カンマ区切りで入力してください</div>
             <Form.Control
               placeholder='例) demo1@example.com, demo2@example.com'
               onChange={(e) => dispatch(targetEmailsChanged(e.target.value))}
-              value={targetEmails}></Form.Control>
+              value={targetEmails}></Form.Control></>}
+
             <Form.Label className='mt10'>送信内容</Form.Label>
             <FormControl
               value={content}
@@ -111,17 +131,17 @@ const SendMessageTemplateModal = (): JSX.Element => {
               <ListGroup.Item>
                 <div>%customer_name</div>
                 <div className='mt10'>顧客名に変換されます</div>
-                <div>顧客一覧からの送信時に反映されます</div>
+                <div>宛先が顧客指定の場合のみ反映されます</div>
               </ListGroup.Item>
               <ListGroup.Item>
                 <div>%customer_postalcode</div>
                 <div className='mt10'>顧客の郵便番号に変換されます</div>
-                <div>顧客一覧からの送信時に反映されます</div>
+                <div>宛先が顧客指定の場合のみ反映されます</div>
               </ListGroup.Item>
               <ListGroup.Item>
                 <div>%customer_address</div>
                 <div className='mt10'>顧客の住所に変換されます</div>
-                <div>顧客一覧からの送信時に反映されます</div>
+                <div>宛先が顧客指定の場合のみ反映されます</div>
               </ListGroup.Item>
             </ListGroup>
           </div>
@@ -137,7 +157,10 @@ const SendMessageTemplateModal = (): JSX.Element => {
                     <ListGroup.Item key={i}>
                       <span className='badge bg-info'>{customer.last_name}{customer.first_name}</span><br/>
                       メールアドレス: {customer.email}<br/>
-                      <Button size='sm' className='mt5' onClick={() => insertEmail(customer.email)}>送信先に追加</Button>
+                      {targetType === 'Email'
+                        &&
+                        customer.email && <><Button size='sm' className='mt5' onClick={() => insertEmail(customer.email)}>
+                        送信先メールアドレスに追加</Button></>}
                     </ListGroup.Item>
                   )
                 })}
