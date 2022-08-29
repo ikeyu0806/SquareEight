@@ -4,9 +4,11 @@ class Api::Internal::MessageTemplatesController < ApplicationController
   def index
     account = current_merchant_user.account
     message_templates = account.message_templates.order(:id)
+    customers = account.customers.order(:id)
     page_links = account.page_links
     render json: { statue: 'success',
                    message_templates: message_templates,
+                   customers: customers,
                    page_links: page_links }, status: 200
   rescue => e
     render json: { statue: 'fail', error: e }, status: 500

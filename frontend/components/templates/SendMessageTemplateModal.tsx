@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { RootState } from 'redux/store'
@@ -10,12 +10,17 @@ import axios from 'axios'
 const SendMessageTemplateModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
+
+  const [targetEmails, setTargetEmails] = useState<string[]>([])
+
   const showSendMessageTemplateModal = useSelector((state: RootState) => state.messageTemplate.showSendMessageTemplateModal)
   const id = useSelector((state: RootState) => state.messageTemplate.id)
   const name = useSelector((state: RootState) => state.messageTemplate.name)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
+  const customers = useSelector((state: RootState) => state.messageTemplate.customers)
+  const customerPaginationState = useSelector((state: RootState) => state.messageTemplate.customerPaginationState)
 
-  const updateTemplate = () => {
+  const sendMessage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/message_templates/${id}`,
     {
       message_template: {
@@ -34,6 +39,12 @@ const SendMessageTemplateModal = (): JSX.Element => {
     })
   }
 
+  const insertEmail = (selectedEmail: string) => {
+    let updateTargetEmails = targetEmails
+    targetEmails.push(selectedEmail)
+    setTargetEmails(targetEmails)
+  }
+
   return (
     <Modal show={showSendMessageTemplateModal} fullscreen={true}>
       <Modal.Header>メッセージ送信</Modal.Header>
@@ -46,7 +57,7 @@ const SendMessageTemplateModal = (): JSX.Element => {
             <Form.Label className='mt10'>送信内容</Form.Label>
             <FormControl
               disabled={true}
-              value={content}
+              value={targetEmails.join(',')}
               as='textarea'
               rows={40} />
           </Col>
@@ -72,7 +83,24 @@ const SendMessageTemplateModal = (): JSX.Element => {
             </ListGroup>
           </div>
           </Col>
-          <Col md={4}></Col>
+          <Col md={4}>
+            <div className='mt10'>顧客一覧</div>
+            <div>
+              <ListGroup>
+                {customers.map((customer, i) => {
+                  const dataRangeMin =+ customerPaginationState.maxPerPage * (customerPaginationState.currentPage - 1)
+                  const dataRangeMax =+ customerPaginationState.maxPerPage * customerPaginationState.currentPage
+                  return dataRangeMin <= i && dataRangeMax > i && (
+                    <ListGroup.Item key={i}>
+                      <span className='badge bg-info'>{customer.last_name}{customer.first_name}</span><br/>
+                      メールアドレス: {customer.email}<br/>
+                      <Button size='sm' className='mt5' onClick={() => insertEmail(customer.email)}>送信先に追加</Button>
+                    </ListGroup.Item>
+                  )
+                })}
+              </ListGroup>
+            </div>
+          </Col>
         </Row>
       </Modal.Body>
       <Modal.Footer>
