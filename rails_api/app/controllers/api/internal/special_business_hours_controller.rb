@@ -4,7 +4,21 @@ class Api::Internal::SpecialBusinessHoursController < ApplicationController
   def create
     current_merchant_user.account.special_business_hours.delete_all
     special_business_hour_params[:datetimes].each do |param|
-      # current_merchant_user.account.special_business_hours.create!(:param)
+      year = param["date"].split("-")[0].to_i
+      month = param["date"].split("-")[1].to_i
+      day = param["date"].split("-")[2].to_i
+
+      start_hour = param["start_time"].split(":")[0].to_i
+      start_minutes = param["start_time"].split(":")[1].to_i
+      start_at = DateTime.new(year, month, day, start_hour, start_minutes)
+
+      end_hour = param["end_time"].split(":")[0].to_i
+      end_minutes = param["end_time"].split(":")[1].to_i
+      end_at = DateTime.new(year, month, day, start_hour, start_minutes)
+
+      current_merchant_user
+      .account
+      .special_business_hours.create!(start_at: start_at, end_at: end_at, manage_id: param["manage_id"])
     end
     render json: { status: 'success' }, states: 200
   rescue => error
