@@ -39,7 +39,6 @@ const Index: NextPage = () => {
 
   const showEditModal = (id: string, lastName: string, firstName: string, email: string, phoneNumber: string) => {
     dispatch(showEditCustomerModalChanged(true))
-    dispatch(showCustomerMailSendModalChanged(true))
     dispatch(customerIdChanged(id))
     dispatch(lastNameChanged(lastName))
     dispatch(firstNameChanged(firstName))
