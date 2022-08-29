@@ -29,11 +29,20 @@ class Api::Internal::MessageTemplatesController < ApplicationController
     render json: { statue: 'fail', error: e }, status: 500
   end
 
+  def send_mail
+    MessageTemplateMailer.send_mail(message_template_params[:email], message_template_params[:content])
+    render json: { statue: 'success' }, status: 200
+  rescue => e
+    render json: { statue: 'fail', error: e }, status: 500
+  end
+
+
   private
 
   def message_template_params
     params.require(:message_template)
           .permit(:id,
+                  :target_email,
                   :name,
                   :title,
                   :content)

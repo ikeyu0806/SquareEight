@@ -115,6 +115,7 @@ Rails.application.routes.draw do
       post 'questionnaire_masters/:id/update', to: 'questionnaire_masters#update'
       post 'questionnaire_answers/:questionnaire_master_id', to: 'questionnaire_answers#create'
       get 'message_templates', to: 'message_templates#index'
+      post 'message_templates/send_mail', to: 'message_templates#send_mail'
       post 'message_templates/:id', to: 'message_templates#update'
       post 'message_templates', to: 'message_templates#create'
       namespace :merchant do
