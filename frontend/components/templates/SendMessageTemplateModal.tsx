@@ -2,8 +2,10 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { RootState } from 'redux/store'
-import { Modal, Button, Form, FormControl, Row, Col, ListGroup } from 'react-bootstrap'
-import { showSendMessageTemplateModalChanged, targetEmailsChanged } from 'redux/messageTemplateSlice'
+import { Modal, Button, Form, FormControl, Row, Col, ListGroup, Pagination } from 'react-bootstrap'
+import { showSendMessageTemplateModalChanged,
+         customerPaginationStateChanged,
+         targetEmailsChanged } from 'redux/messageTemplateSlice'
 import { alertChanged } from 'redux/alertSlice'
 import axios from 'axios'
 
@@ -36,6 +38,45 @@ const SendMessageTemplateModal = (): JSX.Element => {
       location.reload()
     }).catch(error => {
     })
+  }
+
+  const displayPrevPage = () => {
+    if (customerPaginationState.currentPage <= 1) return
+    dispatch(customerPaginationStateChanged({currentPage: customerPaginationState.currentPage - 1, totalPage: customerPaginationState.totalPage, maxPerPage: customerPaginationState.maxPerPage}))
+  }
+
+  const displayNextPage = () => {
+    if (customerPaginationState.currentPage >= customerPaginationState.totalPage) return
+    dispatch(customerPaginationStateChanged({currentPage: customerPaginationState.currentPage + 1, totalPage: customerPaginationState.totalPage, maxPerPage: customerPaginationState.maxPerPage}))
+  }
+
+  const displaySelectedPage = (i: number) => {
+    dispatch(customerPaginationStateChanged({currentPage: i + 1, totalPage: customerPaginationState.totalPage, maxPerPage: customerPaginationState.maxPerPage}))
+  }
+
+  const displayFirstPage = () => {
+    dispatch(customerPaginationStateChanged({currentPage: 1, totalPage: customerPaginationState.totalPage, maxPerPage: customerPaginationState.maxPerPage}))
+  }
+
+  const displayLastPage = () => {
+    dispatch(customerPaginationStateChanged({currentPage: customerPaginationState.totalPage, totalPage: customerPaginationState.totalPage, maxPerPage: customerPaginationState.maxPerPage}))
+  }
+
+  const isDisplayPage = (i: number) => {
+    // 最初のページの制御
+    if ([0, 1, 2, 3].includes(customerPaginationState.currentPage)) {
+      if ([0, 1, 2, 3, 4].includes(i)) {
+        return true
+      } else {
+        return false
+      }
+    } else {
+      if (i + 4 > customerPaginationState.currentPage  && customerPaginationState.currentPage > i - 2) {
+        return true
+      } else {
+        return false
+      }
+    }
   }
 
   const insertEmail = (selectedEmail: string) => {
@@ -101,6 +142,22 @@ const SendMessageTemplateModal = (): JSX.Element => {
                   )
                 })}
               </ListGroup>
+              <Pagination className='mt10'>
+                <Pagination.First onClick={displayFirstPage} />
+                <Pagination.Prev onClick={displayPrevPage}></Pagination.Prev>
+                {[...Array(customerPaginationState.totalPage)].map((_, i) => {
+                  return isDisplayPage(i) && (
+                    <Pagination.Item key={i}
+                                      active={i + 1 === customerPaginationState.currentPage}
+                                      onClick={() => displaySelectedPage(i)}>
+                      {i + 1}
+                    </Pagination.Item>
+                  )
+                })}
+
+                <Pagination.Next onClick={displayNextPage}></Pagination.Next>
+                <Pagination.Last onClick={displayLastPage} />
+              </Pagination>
             </div>
           </Col>
         </Row>

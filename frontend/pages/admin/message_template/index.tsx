@@ -41,11 +41,13 @@ const Index: NextPage = () => {
       // ページリンク情報更新
       dispatch(pageLinksChanged(response.data.page_links))
       const pageLinksTotalPage = Math.ceil(response.data.page_links.length / pageLinkPaginationState.maxPerPage)
-      dispatch(pageLinkPaginationStateChanged(Object.assign({ ...pageLinkPaginationState }, { pageLinksTotalPage })))
+      dispatch(pageLinkPaginationStateChanged(Object.assign({ ...pageLinkPaginationState }, { totalPage: pageLinksTotalPage })))
       // 顧客情報更新
       dispatch(customersChanged(response.data.customers))
       const customersTotalPage = Math.ceil(response.data.customers.length / customerPaginationState.maxPerPage)
-      dispatch(customerPaginationStateChanged(Object.assign({ ...pageLinkPaginationState }, { customersTotalPage })))
+      dispatch(customerPaginationStateChanged(Object.assign({ ...customerPaginationState }, { totalPage: customersTotalPage })))
+      console.log("customerPaginationState!!!", customerPaginationState)
+      console.log("customersTotalPage!!!", customersTotalPage)
     }).catch((error) => {
       console.log(error)
     })
