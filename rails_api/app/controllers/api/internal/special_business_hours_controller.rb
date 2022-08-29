@@ -1,6 +1,9 @@
 class Api::Internal::SpecialBusinessHoursController < ApplicationController
   before_action :merchant_login_only!
 
+  def index
+  end
+
   def create
     current_merchant_user.account.special_business_hours.delete_all
     special_business_hour_params[:datetimes].each do |param|
@@ -10,14 +13,13 @@ class Api::Internal::SpecialBusinessHoursController < ApplicationController
 
       start_hour = param["start_time"].split(":")[0].to_i
       start_minutes = param["start_time"].split(":")[1].to_i
-      start_at = DateTime.new(year, month, day, start_hour, start_minutes)
+      start_at = DateTime.new(year, month, day, start_hour, start_minutes, 0, "+09:00")
 
       end_hour = param["end_time"].split(":")[0].to_i
       end_minutes = param["end_time"].split(":")[1].to_i
-      end_at = DateTime.new(year, month, day, start_hour, start_minutes)
+      end_at = DateTime.new(year, month, day, start_hour, start_minutes, 0, "+09:00")
 
-      current_merchant_user
-      .account
+      current_merchant_user.account
       .special_business_hours.create!(start_at: start_at, end_at: end_at, manage_id: param["manage_id"])
     end
     render json: { status: 'success' }, states: 200

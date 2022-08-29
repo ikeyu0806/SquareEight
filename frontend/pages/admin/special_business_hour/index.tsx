@@ -95,9 +95,10 @@ const Index: NextPage = () => {
                       type='time'></Form.Control>
                   </Col>
                 </Row>
-                <Button
-                  className='mt20'
-                  onClick={() => addDatetime()}>追加する</Button>
+                <div className='mt20 mb20 text-center'>
+                  <Button
+                    onClick={() => addDatetime()}>追加する</Button>
+                </div>
                 {addDatetimeAlert && <div className='color-red mt10 mb10'>{addDatetimeAlert}</div>}
                 <br/>
                 <Row className='text-center'>
