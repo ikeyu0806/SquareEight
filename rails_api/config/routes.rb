@@ -120,8 +120,8 @@ Rails.application.routes.draw do
       post 'message_templates', to: 'message_templates#create'
       get 'special_business_hours', to: 'special_business_hours#index'
       post 'special_business_hours', to: 'special_business_hours#create'
-      get 'special_business_holidays', to: 'special_business_holidays#index'
-      post 'special_business_holidays', to: 'special_business_holidays#create'
+      get 'special_holidays', to: 'special_holidays#index'
+      post 'special_holidays', to: 'special_holidays#create'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'
