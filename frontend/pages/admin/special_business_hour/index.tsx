@@ -4,6 +4,7 @@ import axios from 'axios'
 import { DateWithTime } from 'interfaces/DateWithTime'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Container, Row, Col, Card, Button, ListGroup, Form } from 'react-bootstrap'
+import TrashIcon from 'components/atoms/TrashIcon'
 
 const Index: NextPage = () => {
   const [inputDate, setInputDate] = useState('')
@@ -13,7 +14,13 @@ const Index: NextPage = () => {
   const addDatetime = () => {
     let updateDatetime: DateWithTime[]
     updateDatetime = datetimes
-    updateDatetime = [...updateDatetime, { date: inputDate, time: inputTime }]
+    updateDatetime = [...updateDatetime, { date: inputDate, time: inputTime, manageId: new Date().getTime().toString(16) }]
+    setDatetimes(updateDatetime)
+  }
+
+  const deleteDatetime = (manageId: string) => {
+    let updateDatetime: DateWithTime[]
+    updateDatetime = datetimes.filter(datetime => datetime.manageId !== manageId)
     setDatetimes(updateDatetime)
   }
 
@@ -43,19 +50,24 @@ const Index: NextPage = () => {
                     <Button onClick={() => addDatetime()}>追加する</Button>
                   </Col>
                 </Row>
-                
-                  <Row className='text-center'>
-                    <Col lg={3}></Col>
-                    <Col lg={6}>
-                      <ListGroup>
-                        {datetimes.map((datetime, i) => {
-                          return (
-                            <ListGroup.Item key={i}>{datetime.date} {datetime.time}</ListGroup.Item>
-                          )
-                        })}
-                      </ListGroup>
-                    </Col>
-                  </Row>
+                <br/>
+                <Row className='text-center'>
+                  <Col lg={3}></Col>
+                  <Col lg={6}>
+                    <ListGroup>
+                      {datetimes.map((datetime, i) => {
+                        return (
+                          <ListGroup.Item key={i}>
+                            <span className='mr10'>{datetime.date} {datetime.time}</span>
+                            <a onClick={() => deleteDatetime(datetime.manageId)}>
+                              <TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>
+                            </a>
+                          </ListGroup.Item>
+                        )
+                      })}
+                    </ListGroup>
+                  </Col>
+                </Row>
                 <div className='mt30 text-center'>
                   <Button>登録する</Button>
                 </div>
