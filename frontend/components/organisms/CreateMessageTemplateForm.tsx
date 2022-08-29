@@ -59,6 +59,12 @@ const CreateMessageTemplateForm = (): JSX.Element => {
    dispatch(contentChanged(updateContent)) 
   }
 
+  const insertVariable = (variable: string) => {
+    let updateContent: string
+   updateContent = content + variable
+   dispatch(contentChanged(updateContent))
+  }
+
   return (
     <>
       <Form.Label>テンプレート名<RequireBadge /></Form.Label>
@@ -87,16 +93,19 @@ const CreateMessageTemplateForm = (): JSX.Element => {
                 <div>%customer_name</div>
                 <div className='mt10'>顧客名に変換されます</div>
                 <div>顧客一覧からの送信時に反映されます</div>
+                <Button size='sm' className='mt5' onClick={() => insertVariable('%customer_name')}>挿入</Button>
               </ListGroup.Item>
               <ListGroup.Item>
                 <div>%customer_postalcode</div>
                 <div className='mt10'>顧客の郵便番号に変換されます</div>
                 <div>顧客一覧からの送信時に反映されます</div>
+                <Button size='sm' className='mt5' onClick={() => insertVariable('%customer_postalcode')}>挿入</Button>
               </ListGroup.Item>
               <ListGroup.Item>
                 <div>%customer_address</div>
                 <div className='mt10'>顧客の住所に変換されます</div>
                 <div>顧客一覧からの送信時に反映されます</div>
+                <Button size='sm' className='mt5' onClick={() => insertVariable('%customer_address')}>挿入</Button>
               </ListGroup.Item>
             </ListGroup>
           </div>
