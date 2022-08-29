@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { RootState } from 'redux/store'
 import { Container, Modal, Button, Form, FormControl, Row, Col, ListGroup } from 'react-bootstrap'
-import { showSendMessageTemplateModalChanged } from 'redux/messageTemplateSlice'
+import { showSendMessageTemplateModalChanged, targetEmailsChanged } from 'redux/messageTemplateSlice'
 import { alertChanged } from 'redux/alertSlice'
 import axios from 'axios'
 
@@ -11,11 +11,10 @@ const SendMessageTemplateModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
-  const [targetEmails, setTargetEmails] = useState<string[]>([])
-
   const showSendMessageTemplateModal = useSelector((state: RootState) => state.messageTemplate.showSendMessageTemplateModal)
   const id = useSelector((state: RootState) => state.messageTemplate.id)
   const name = useSelector((state: RootState) => state.messageTemplate.name)
+  const targetEmails = useSelector((state: RootState) => state.messageTemplate.targetEmails)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
   const customers = useSelector((state: RootState) => state.messageTemplate.customers)
   const customerPaginationState = useSelector((state: RootState) => state.messageTemplate.customerPaginationState)
@@ -41,8 +40,8 @@ const SendMessageTemplateModal = (): JSX.Element => {
 
   const insertEmail = (selectedEmail: string) => {
     let updateTargetEmails = targetEmails
-    targetEmails.push(selectedEmail)
-    setTargetEmails(targetEmails)
+    updateTargetEmails = updateTargetEmails === '' ? selectedEmail : updateTargetEmails + ',' + selectedEmail
+    dispatch(targetEmailsChanged(updateTargetEmails))
   }
 
   return (
@@ -52,12 +51,14 @@ const SendMessageTemplateModal = (): JSX.Element => {
         <Row>
           <Col md={5}>
             <Form.Label>宛先メールアドレス</Form.Label>
+            <div>複数の送信先に送る場合カンマ区切りで入力してください</div>
             <Form.Control
-              placeholder='宛先メールアドレスを入力してください。'></Form.Control>
+              placeholder='例) demo1@example.com, demo2@example.com'
+              onChange={(e) => dispatch(targetEmailsChanged(e.target.value))}
+              value={targetEmails}></Form.Control>
             <Form.Label className='mt10'>送信内容</Form.Label>
             <FormControl
               disabled={true}
-              value={targetEmails.join(',')}
               as='textarea'
               rows={40} />
           </Col>
