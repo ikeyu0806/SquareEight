@@ -38,7 +38,7 @@ const Index: NextPage = () => {
   }
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/special_business_hour`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/special_business_hours`,
     {
       special_business_hour: {
         datetimes: datetimes

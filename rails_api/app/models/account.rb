@@ -14,6 +14,7 @@ class Account < ApplicationRecord
   has_many :customers
   has_many :questionnaire_masters
   has_many :message_templates
+  has_many :special_business_hours
 
   def page_links
     # 作成したWebページ、予約ページ、回数券購入ページ、月額課金プラン加入ページのリンクを返却

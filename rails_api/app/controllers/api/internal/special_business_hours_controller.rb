@@ -4,8 +4,7 @@ class Api::Internal::SpecialBusinessHoursController < ApplicationController
   def create
     current_merchant_user.account.special_business_hours.delete_all
     special_business_hour_params[:datetimes].each do |param|
-      binding.pry
-      current_merchant_user.account.special_business_hours.create!(:param)
+      # current_merchant_user.account.special_business_hours.create!(:param)
     end
     render json: { status: 'success' }, states: 200
   rescue => error
@@ -15,5 +14,9 @@ class Api::Internal::SpecialBusinessHoursController < ApplicationController
   def special_business_hour_params
     params.require(:special_business_hour)
           .permit(:id,
-                  datetimes: [:date, :time, :manage_id])
+                  datetimes: [:date,
+                              :start_time,
+                              :end_time,
+                              :manage_id])
+  end
 end
