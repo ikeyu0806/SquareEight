@@ -1,16 +1,19 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { useCookies } from 'react-cookie'
 import { DateWithTime } from 'interfaces/DateWithTime'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Container, Row, Col, Card, Button, ListGroup, Form } from 'react-bootstrap'
 import TrashIcon from 'components/atoms/TrashIcon'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const Index: NextPage = () => {
   const [inputDate, setInputDate] = useState('')
   const [inputTime, setInputTime] = useState('')
   const [datetimes, setDatetimes] = useState<DateWithTime[]>([])
   const [addDatetimeAlert, setAddDatetimeAlert] = useState('')
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const addDatetime = () => {
     if (!inputDate || !inputTime) {
@@ -28,6 +31,30 @@ const Index: NextPage = () => {
     let updateDatetime: DateWithTime[]
     updateDatetime = datetimes.filter(datetime => datetime.manageId !== manageId)
     setDatetimes(updateDatetime)
+  }
+
+  const onSubmit = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/special_business_hour`,
+    {
+      special_business_hour: {
+        datetimes: datetimes
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    }).then(response => {
+      swalWithBootstrapButtons.fire({
+        title: '送信しました',
+        icon: 'info'
+      })
+    }).catch(error => {
+      swalWithBootstrapButtons.fire({
+        title: '送信失敗しました',
+        icon: 'error'
+      })
+    })
   }
 
   return (
@@ -76,7 +103,7 @@ const Index: NextPage = () => {
                   </Col>
                 </Row>
                 <div className='mt30 text-center'>
-                  <Button>登録する</Button>
+                  <Button onClick={() => onSubmit()}>登録する</Button>
                 </div>
               </Card.Body>
             </Card>
