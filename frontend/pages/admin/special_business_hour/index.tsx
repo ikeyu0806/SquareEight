@@ -10,12 +10,18 @@ const Index: NextPage = () => {
   const [inputDate, setInputDate] = useState('')
   const [inputTime, setInputTime] = useState('')
   const [datetimes, setDatetimes] = useState<DateWithTime[]>([])
+  const [addDatetimeAlert, setAddDatetimeAlert] = useState('')
 
   const addDatetime = () => {
+    if (!inputDate || !inputTime) {
+      setAddDatetimeAlert('時間と日時を入力してください')
+      return
+    }
     let updateDatetime: DateWithTime[]
     updateDatetime = datetimes
     updateDatetime = [...updateDatetime, { date: inputDate, time: inputTime, manageId: new Date().getTime().toString(16) }]
     setDatetimes(updateDatetime)
+    setAddDatetimeAlert('')
   }
 
   const deleteDatetime = (manageId: string) => {
@@ -50,6 +56,7 @@ const Index: NextPage = () => {
                     <Button onClick={() => addDatetime()}>追加する</Button>
                   </Col>
                 </Row>
+                {addDatetimeAlert && <div className='color-red mt10 mb10'>{addDatetimeAlert}</div>}
                 <br/>
                 <Row className='text-center'>
                   <Col lg={3}></Col>
