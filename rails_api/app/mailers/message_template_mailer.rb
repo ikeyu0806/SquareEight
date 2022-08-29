@@ -1,6 +1,8 @@
 class MessageTemplateMailer < ApplicationMailer
   def send_mail(email, title, content)
+    @email = email
     @content = content
-    mail(to: @email, subject: title)
+    @title = title
+    mail(to: @email, subject: @title)
   end
 end

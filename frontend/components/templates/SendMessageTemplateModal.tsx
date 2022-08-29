@@ -157,7 +157,6 @@ const SendMessageTemplateModal = (): JSX.Element => {
             <Form.Label className='mt10'>送信内容</Form.Label>
             <FormControl
               value={content}
-              disabled={true}
               as='textarea'
               rows={40} />
           </Col>

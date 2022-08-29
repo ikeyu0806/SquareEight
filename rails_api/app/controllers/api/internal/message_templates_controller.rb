@@ -33,14 +33,16 @@ class Api::Internal::MessageTemplatesController < ApplicationController
     if message_template_params[:target_type] == 'Customer'
       message_template_params[:target_customers].each do |target_customer_param|
         email = target_customer_param[:email]
+        title = message_template_params["title"]
         content = message_template_params["content"]
                   .gsub(/%customer_name/, target_customer_param['last_name'] + target_customer_param['first_name'])
-        MessageTemplateMailer.send_mail(email, content).deliver_later
+        MessageTemplateMailer.send_mail(email, title, content).deliver_later
       end
     elsif message_template_params[:target_type] == 'Email'
       email = message_template_params[:email]
       content = message_template_params["content"]
-      MessageTemplateMailer.send_mail(email, content).deliver_later
+      title = message_template_params["title"]
+      MessageTemplateMailer.send_mail(email, title, content).deliver_later
     else
       raise 'Invalid target_type'
     end
