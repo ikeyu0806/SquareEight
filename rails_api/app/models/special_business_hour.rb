@@ -1,2 +1,0 @@
-class SpecialBusinessHour < ApplicationRecord
-end

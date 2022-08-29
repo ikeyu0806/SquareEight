@@ -10,26 +10,30 @@ import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const Index: NextPage = () => {
   const [inputDate, setInputDate] = useState('')
-  const [inputTime, setInputTime] = useState('')
+  const [inputStartTime, setInputStartTime] = useState('')
+  const [inputEndTime, setInputEndTime] = useState('')
   const [datetimes, setDatetimes] = useState<DateWithTime[]>([])
   const [addDatetimeAlert, setAddDatetimeAlert] = useState('')
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const addDatetime = () => {
-    if (!inputDate || !inputTime) {
+    if (!inputDate || !inputStartTime || !inputEndTime) {
       setAddDatetimeAlert('時間と日時を入力してください')
       return
     }
     let updateDatetime: DateWithTime[]
     updateDatetime = datetimes
-    updateDatetime = [...updateDatetime, { date: inputDate, time: inputTime, manageId: new Date().getTime().toString(16) }]
+    updateDatetime = [...updateDatetime, { date: inputDate,
+                                           start_time: inputStartTime,
+                                           end_time: inputEndTime,
+                                           manage_id: new Date().getTime().toString(16) }]
     setDatetimes(updateDatetime)
     setAddDatetimeAlert('')
   }
 
-  const deleteDatetime = (manageId: string) => {
+  const deleteDatetime = (manage_id: string) => {
     let updateDatetime: DateWithTime[]
-    updateDatetime = datetimes.filter(datetime => datetime.manageId !== manageId)
+    updateDatetime = datetimes.filter(datetime => datetime.manage_id !== manage_id)
     setDatetimes(updateDatetime)
   }
 
@@ -61,11 +65,16 @@ const Index: NextPage = () => {
     <MerchantUserAdminLayout>
       <Container>
         <Row>
-          <Col lg={3}></Col>
-          <Col lg={6}>
+          <Col lg={2}></Col>
+          <Col lg={8}>
             <Card>
               <Card.Body>
                 <Form.Label>特例営業日時を入力してください</Form.Label>
+                <Row>
+                  <Col sm={4}>対象日</Col>
+                  <Col sm={4}>開始時間</Col>
+                  <Col sm={4}>終了時間</Col>
+                </Row>
                 <Row>
                   <Col sm={4}>
                     <Form.Control
@@ -75,14 +84,20 @@ const Index: NextPage = () => {
                   </Col>
                   <Col sm={4}>
                     <Form.Control
-                      value={inputTime}
-                      onChange={(e) => setInputTime(e.target.value)}
+                      value={inputStartTime}
+                      onChange={(e) => setInputStartTime(e.target.value)}
                       type='time'></Form.Control>
                   </Col>
                   <Col sm={4}>
-                    <Button onClick={() => addDatetime()}>追加する</Button>
+                    <Form.Control
+                      value={inputEndTime}
+                      onChange={(e) => setInputEndTime(e.target.value)}
+                      type='time'></Form.Control>
                   </Col>
                 </Row>
+                <Button
+                  className='mt20'
+                  onClick={() => addDatetime()}>追加する</Button>
                 {addDatetimeAlert && <div className='color-red mt10 mb10'>{addDatetimeAlert}</div>}
                 <br/>
                 <Row className='text-center'>
@@ -92,8 +107,8 @@ const Index: NextPage = () => {
                       {datetimes.map((datetime, i) => {
                         return (
                           <ListGroup.Item key={i}>
-                            <span className='mr10'>{datetime.date} {datetime.time}</span>
-                            <a onClick={() => deleteDatetime(datetime.manageId)}>
+                            <span className='mr10'>{datetime.date} {datetime.start_time}~{datetime.end_time}</span>
+                            <a onClick={() => deleteDatetime(datetime.manage_id)}>
                               <TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>
                             </a>
                           </ListGroup.Item>

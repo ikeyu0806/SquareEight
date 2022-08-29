@@ -1,5 +1,6 @@
 export interface DateWithTime {
   date: string
-  time: string
-  manageId: string
+  start_time: string
+  end_time: string
+  manage_id: string
 }
