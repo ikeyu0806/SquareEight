@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_29_114117) do
+ActiveRecord::Schema[7.0].define(version: 2022_08_29_125712) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -392,6 +392,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_29_114117) do
   end
 
   create_table "special_business_hours", force: :cascade do |t|
+    t.integer "account_id"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.string "manage_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "special_holidays", force: :cascade do |t|
     t.integer "account_id"
     t.datetime "start_at"
     t.datetime "end_at"

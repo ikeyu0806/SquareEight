@@ -1,0 +1,2 @@
+class SpecialHoliday < ApplicationRecord
+end

@@ -35,7 +35,6 @@ const Index: NextPage = () => {
     fetchSpecialBusinessHour()
   }, [cookies._square_eight_merchant_session])
 
-
   const addDatetime = () => {
     if (!inputDate || !inputStartTime || !inputEndTime) {
       setAddDatetimeAlert('時間と日時を入力してください')
