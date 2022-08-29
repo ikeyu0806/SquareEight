@@ -46,8 +46,6 @@ const Index: NextPage = () => {
       dispatch(customersChanged(response.data.customers))
       const customersTotalPage = Math.ceil(response.data.customers.length / customerPaginationState.maxPerPage)
       dispatch(customerPaginationStateChanged(Object.assign({ ...customerPaginationState }, { totalPage: customersTotalPage })))
-      console.log("customerPaginationState!!!", customerPaginationState)
-      console.log("customersTotalPage!!!", customersTotalPage)
     }).catch((error) => {
       console.log(error)
     })
