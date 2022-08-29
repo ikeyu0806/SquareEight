@@ -20,6 +20,7 @@ class Api::Internal::CustomersController < ApplicationController
                   :phone_number,
                   :gender,
                   :dob,
+                  :notes,
                   :custom_items_answer)
   end
 end

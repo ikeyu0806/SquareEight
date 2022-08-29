@@ -12,6 +12,7 @@ import { showCreateCustomerModalChanged,
          firstNameChanged,
          lastNameChanged,
          emailChanged,
+         notesChanged,
          phoneNumberChanged } from 'redux/customerSlice'
 import { useDispatch } from 'react-redux'
 import CreateCustomerModal from 'components/templates/CreateCustomerModal'
@@ -37,12 +38,13 @@ const Index: NextPage = () => {
     })
   }, [cookies._square_eight_merchant_session])
 
-  const showEditModal = (id: string, lastName: string, firstName: string, email: string, phoneNumber: string) => {
+  const showEditModal = (id: string, lastName: string, firstName: string, email: string, phoneNumber: string, notes: string) => {
     dispatch(showEditCustomerModalChanged(true))
     dispatch(customerIdChanged(id))
     dispatch(lastNameChanged(lastName))
     dispatch(firstNameChanged(firstName))
     dispatch(emailChanged(email))
+    dispatch(notesChanged(notes))
     dispatch(phoneNumberChanged(phoneNumber))
   }
 
@@ -89,7 +91,7 @@ const Index: NextPage = () => {
                             </Col>
                             <Col></Col>
                             <Col>
-                              <Button onClick={() => showEditModal(customer.id, customer.last_name, customer.first_name, customer.email, customer.phone_number)}>
+                              <Button onClick={() => showEditModal(customer.id, customer.last_name, customer.first_name, customer.email, customer.phone_number, customer.notes)}>
                                 編集
                               </Button>
                             </Col>

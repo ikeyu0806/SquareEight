@@ -18,6 +18,7 @@ const CreateCustomerModal = (): JSX.Element => {
   const firstNameKana = useSelector((state: RootState) => state.customer.firstNameKana)
   const lastNameKana = useSelector((state: RootState) => state.customer.lastNameKana)
   const email = useSelector((state: RootState) => state.customer.email)
+  const notes = useSelector((state: RootState) => state.customer.notes)
   const phoneNumber = useSelector((state: RootState) => state.customer.phoneNumber)
 
   const createCustomer = () => {
@@ -29,6 +30,7 @@ const CreateCustomerModal = (): JSX.Element => {
         first_name_kana: firstNameKana,
         last_name_kana: lastNameKana,
         email: email,
+        notes: notes,
         phone_number: phoneNumber
       }
     },

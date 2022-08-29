@@ -33,6 +33,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
                   :first_name_kana,
                   :last_name_kana,
                   :email,
+                  :notes,
                   :phone_number)
   end
 end

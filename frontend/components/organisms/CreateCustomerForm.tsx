@@ -8,6 +8,7 @@ import {  firstNameChanged,
           lastNameChanged,
           lastNameKanaChanged,
           emailChanged,
+          notesChanged,
           phoneNumberChanged } from 'redux/customerSlice'
 
 const CreateCustomerForm = (): JSX.Element => {
@@ -17,6 +18,7 @@ const CreateCustomerForm = (): JSX.Element => {
   const firstNameKana = useSelector((state: RootState) => state.customer.firstNameKana)
   const lastNameKana = useSelector((state: RootState) => state.customer.lastNameKana)
   const email = useSelector((state: RootState) => state.customer.email)
+  const notes = useSelector((state: RootState) => state.customer.notes)
   const phoneNumber = useSelector((state: RootState) => state.customer.phoneNumber)
 
   return (
@@ -45,6 +47,12 @@ const CreateCustomerForm = (): JSX.Element => {
       <FormControl
         value={phoneNumber}
         onChange={(e) => dispatch(phoneNumberChanged(e.target.value))} />
+      <Form.Label>メモ</Form.Label>
+      <FormControl
+        as='textarea'
+        rows={30}
+        value={notes}
+        onChange={(e) => dispatch(notesChanged(e.target.value))}></FormControl>
     </>
   )
 }

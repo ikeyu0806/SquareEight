@@ -6,4 +6,5 @@ export interface CustomerParam {
   last_name_kana: string
   email: string
   phone_number: string
+  notes: string
 }
