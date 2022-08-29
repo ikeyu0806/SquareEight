@@ -3,7 +3,7 @@
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
-  <body style='white-space: pre-wrap;'>
-    <%= @content %>
+  <body>
+    <div><%= @content.gsub(/\n/, "<br />").html_safe %></div>
   </body>
 </html>

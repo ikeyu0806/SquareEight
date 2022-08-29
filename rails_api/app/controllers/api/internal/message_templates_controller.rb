@@ -40,7 +40,7 @@ class Api::Internal::MessageTemplatesController < ApplicationController
       end
     elsif message_template_params[:target_type] == 'Email'
       email = message_template_params[:email]
-      content = message_template_params["content"]
+      content = message_template_params["content"].gsub(/\n/, "<br />")
       title = message_template_params["title"]
       MessageTemplateMailer.send_mail(email, title, content).deliver_later
     else
