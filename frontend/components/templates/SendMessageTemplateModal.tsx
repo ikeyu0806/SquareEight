@@ -9,7 +9,7 @@ import { showSendMessageTemplateModalChanged,
          targetTypeChanged,
          targetCustomersChanged,
          targetEmailsChanged } from 'redux/messageTemplateSlice'
-import { alertChanged } from 'redux/alertSlice'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import axios from 'axios'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
 
@@ -20,19 +20,24 @@ const SendMessageTemplateModal = (): JSX.Element => {
   const showSendMessageTemplateModal = useSelector((state: RootState) => state.messageTemplate.showSendMessageTemplateModal)
   const id = useSelector((state: RootState) => state.messageTemplate.id)
   const name = useSelector((state: RootState) => state.messageTemplate.name)
-  const targetEmails = useSelector((state: RootState) => state.messageTemplate.targetEmails)
+  const title = useSelector((state: RootState) => state.messageTemplate.title)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
   const customers = useSelector((state: RootState) => state.messageTemplate.customers)
   const customerPaginationState = useSelector((state: RootState) => state.messageTemplate.customerPaginationState)
   const targetType = useSelector((state: RootState) => state.messageTemplate.targetType)
   const targetCustomers = useSelector((state: RootState) => state.messageTemplate.targetCustomers)
+  const targetEmails = useSelector((state: RootState) => state.messageTemplate.targetEmails)
 
   const sendMessage = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/message_templates/${id}`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/message_templates/send_mail`,
     {
       message_template: {
         name: name,
         content: content,
+        title: title,
+        target_type: targetType,
+        target_customers: targetCustomers,
+        target_emails: targetEmails
       }
     },
     {
@@ -40,9 +45,16 @@ const SendMessageTemplateModal = (): JSX.Element => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
-      dispatch(alertChanged({message: '更新しました', show: true}))
+      swalWithBootstrapButtons.fire({
+        title: '送信しました',
+        icon: 'info'
+      })
       location.reload()
     }).catch(error => {
+      swalWithBootstrapButtons.fire({
+        title: '送信失敗しました',
+        icon: 'error'
+      })
     })
   }
 
@@ -91,9 +103,9 @@ const SendMessageTemplateModal = (): JSX.Element => {
     dispatch(targetEmailsChanged(updateTargetEmails))
   }
 
-  const insertCusomer = (last_name: string, first_name: string, email: string) => {
+  const insertCusomer = (id: string, last_name: string, first_name: string, email: string) => {
     let updateTargetCustomers: CustomerParam[]
-    updateTargetCustomers = [...targetCustomers, {last_name: last_name, first_name: first_name, email: email } as CustomerParam]
+    updateTargetCustomers = [...targetCustomers, {id: id, last_name: last_name, first_name: first_name, email: email } as CustomerParam]
     dispatch(targetCustomersChanged(updateTargetCustomers))
     console.log("!!targetCustomers", targetCustomers)
   }
@@ -169,7 +181,7 @@ const SendMessageTemplateModal = (): JSX.Element => {
                         送信先メールアドレスに追加</Button></>}
                       {targetType === 'Customer'
                         &&
-                        customer.email && <><Button size='sm' className='mt5' onClick={() => insertCusomer(customer.last_name, customer.first_name, customer.email)}>
+                        customer.email && <><Button size='sm' className='mt5' onClick={() => insertCusomer(customer.id, customer.last_name, customer.first_name, customer.email)}>
                         送信先顧客に追加</Button></>}
                     </ListGroup.Item>
                   )
@@ -196,7 +208,7 @@ const SendMessageTemplateModal = (): JSX.Element => {
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button>
+        <Button onClick={() => sendMessage()}>
           送信する
         </Button>
         <Button variant='secondary' onClick={() => dispatch(showSendMessageTemplateModalChanged(false))}>

@@ -30,7 +30,20 @@ class Api::Internal::MessageTemplatesController < ApplicationController
   end
 
   def send_mail
-    MessageTemplateMailer.send_mail(message_template_params[:email], message_template_params[:content])
+    if message_template_params[:target_type] == 'Customer'
+      message_template_params[:target_customers].each do |target_customer_param|
+        email = target_customer_param[:email]
+        content = message_template_params["content"]
+                  .gsub(/%customer_name/, target_customer_param['last_name'] + target_customer_param['first_name'])
+        MessageTemplateMailer.send_mail(email, content).deliver_later
+      end
+    elsif message_template_params[:target_type] == 'Email'
+      email = message_template_params[:email]
+      content = message_template_params["content"]
+      MessageTemplateMailer.send_mail(email, content).deliver_later
+    else
+      raise 'Invalid target_type'
+    end
     render json: { statue: 'success' }, status: 200
   rescue => e
     render json: { statue: 'fail', error: e }, status: 500
@@ -42,9 +55,11 @@ class Api::Internal::MessageTemplatesController < ApplicationController
   def message_template_params
     params.require(:message_template)
           .permit(:id,
-                  :target_email,
+                  :target_type,
+                  :target_emails,
                   :name,
                   :title,
-                  :content)
+                  :content,
+                  target_customers: [:id, :last_name, :first_name, :email, :phone_number])
   end
 end
