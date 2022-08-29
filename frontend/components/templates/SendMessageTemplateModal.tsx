@@ -130,14 +130,16 @@ const SendMessageTemplateModal = (): JSX.Element => {
             {targetType === 'Customer' &&
             <>
               <div>送信先</div>
-              {targetCustomers.map((c, i) => {
-                return (
-                  <span key={i}>
-                    <div>{c.last_name}{c.first_name} {c.email}</div>
-                  </span>
-                )
-              })
-            }</>}
+              <ListGroup>
+                {targetCustomers.map((c, i) => {
+                  return (
+                    <ListGroup.Item key={i}>
+                      {c.last_name}{c.first_name} {c.email}
+                    </ListGroup.Item>
+                  )
+                })}
+              </ListGroup>
+            </>}
 
             <Form.Label className='mt10'>送信内容</Form.Label>
             <FormControl
