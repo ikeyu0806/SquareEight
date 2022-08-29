@@ -168,6 +168,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_28_071323) do
   create_table "message_templates", force: :cascade do |t|
     t.integer "account_id", null: false
     t.string "name", null: false
+    t.string "title", null: false
     t.text "content", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

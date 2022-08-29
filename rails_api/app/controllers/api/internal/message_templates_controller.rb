@@ -35,6 +35,7 @@ class Api::Internal::MessageTemplatesController < ApplicationController
     params.require(:message_template)
           .permit(:id,
                   :name,
+                  :title,
                   :content)
   end
 end

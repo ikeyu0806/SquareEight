@@ -15,6 +15,7 @@ import { showEditMessageTemplateModalChanged,
          showSendMessageTemplateModalChanged,
          idChanged,
          nameChanged,
+         titleChanged,
          contentChanged,
          pageLinksChanged,
          pageLinkPaginationStateChanged,
@@ -50,17 +51,19 @@ const Index: NextPage = () => {
     })
   }, [cookies._square_eight_merchant_session, dispatch])
 
-  const showEditModal = (id: string, name: string, content: string) => {
+  const showEditModal = (id: string, name: string, title: string, content: string) => {
     dispatch(showEditMessageTemplateModalChanged(true))
     dispatch(idChanged(id))
     dispatch(nameChanged(name))
+    dispatch(titleChanged(title))
     dispatch(contentChanged(content))
   }
 
-  const showSendModal = (id: string, name: string, content: string) => {
+  const showSendModal = (id: string, name: string, title: string, content: string) => {
     dispatch(showSendMessageTemplateModalChanged(true))
     dispatch(idChanged(id))
     dispatch(nameChanged(name))
+    dispatch(titleChanged(title))
     dispatch(contentChanged(content))
   }
 
@@ -90,14 +93,19 @@ const Index: NextPage = () => {
                         </Col>
                         <Col>
                           <div className='text-center'>
-                            <Button onClick={() => showEditModal(message.id, message.name, message.content)}>
+                            メールのタイトル: {message.title}
+                          </div>
+                        </Col>
+                        <Col>
+                          <div className='text-center'>
+                            <Button onClick={() => showEditModal(message.id, message.name, message.title, message.content)}>
                                 編集
                               </Button>
                           </div>
                         </Col>
                         <Col>
                           <div className='text-center'>
-                            <Button onClick={() => showSendModal(message.id, message.name, message.content)}>
+                            <Button onClick={() => showSendModal(message.id, message.name, message.title,message.content)}>
                               メール送信
                             </Button>
                           </div>

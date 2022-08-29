@@ -1,8 +1,8 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { RootState } from 'redux/store'
-import { Container, Modal, Button, Form, FormControl, Row, Col, ListGroup } from 'react-bootstrap'
+import { Modal, Button, Form, FormControl, Row, Col, ListGroup } from 'react-bootstrap'
 import { showSendMessageTemplateModalChanged, targetEmailsChanged } from 'redux/messageTemplateSlice'
 import { alertChanged } from 'redux/alertSlice'
 import axios from 'axios'
@@ -58,6 +58,7 @@ const SendMessageTemplateModal = (): JSX.Element => {
               value={targetEmails}></Form.Control>
             <Form.Label className='mt10'>送信内容</Form.Label>
             <FormControl
+              value={content}
               disabled={true}
               as='textarea'
               rows={40} />

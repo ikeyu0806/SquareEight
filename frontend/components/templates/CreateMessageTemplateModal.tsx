@@ -13,6 +13,7 @@ const CreateMessageTemplateModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const showCreateMessageTemplateModal = useSelector((state: RootState) => state.messageTemplate.showCreateMessageTemplateModal)
   const name = useSelector((state: RootState) => state.messageTemplate.name)
+  const title = useSelector((state: RootState) => state.messageTemplate.title)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
 
   const createTemplate = () => {
@@ -20,6 +21,7 @@ const CreateMessageTemplateModal = (): JSX.Element => {
     {
       message_template: {
         name: name,
+        title: title,
         content: content,
       }
     },

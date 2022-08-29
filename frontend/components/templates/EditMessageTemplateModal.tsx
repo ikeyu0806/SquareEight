@@ -14,6 +14,7 @@ const EditMessageTemplateModal = (): JSX.Element => {
   const showEditMessageTemplateModal = useSelector((state: RootState) => state.messageTemplate.showEditMessageTemplateModal)
   const id = useSelector((state: RootState) => state.messageTemplate.id)
   const name = useSelector((state: RootState) => state.messageTemplate.name)
+  const title = useSelector((state: RootState) => state.messageTemplate.title)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
 
   const updateTemplate = () => {
@@ -21,6 +22,7 @@ const EditMessageTemplateModal = (): JSX.Element => {
     {
       message_template: {
         name: name,
+        title: title,
         content: content,
       }
     },

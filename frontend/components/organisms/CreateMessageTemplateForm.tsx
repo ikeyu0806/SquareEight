@@ -1,14 +1,15 @@
-import React, { useState } from 'react'
+import React from 'react'
 import RequireBadge from 'components/atoms/RequireBadge'
 import { Form, FormControl, Row, Col, ListGroup, Button, Pagination } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { nameChanged, contentChanged, pageLinkPaginationStateChanged } from 'redux/messageTemplateSlice'
+import { nameChanged, titleChanged, contentChanged, pageLinkPaginationStateChanged } from 'redux/messageTemplateSlice'
 
 const CreateMessageTemplateForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const name = useSelector((state: RootState) => state.messageTemplate.name)
+  const title = useSelector((state: RootState) => state.messageTemplate.title)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
   const pageLinks = useSelector((state: RootState) => state.messageTemplate.pageLinks)
   const pageLinkPaginationState = useSelector((state: RootState) => state.messageTemplate.pageLinkPaginationState)
@@ -64,6 +65,10 @@ const CreateMessageTemplateForm = (): JSX.Element => {
       <FormControl
         onChange={(e) => dispatch(nameChanged(e.target.value))}
         value={name} />
+      <Form.Label>タイトル<RequireBadge /></Form.Label>
+      <FormControl
+        onChange={(e) => dispatch(titleChanged(e.target.value))}
+        value={title} />
       <Form.Label className='mt20'>テンプレート<RequireBadge /></Form.Label>
       <Row>
         <Col md={5}>

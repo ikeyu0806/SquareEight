@@ -11,6 +11,7 @@ export const messageTemplateSlice = createSlice({
     showEditMessageTemplateModal: false,
     showSendMessageTemplateModal: false,
     name: '',
+    title: '',
     content: '',
     targetEmails: '',
     customers: [] as CustomerParam[],
@@ -42,6 +43,9 @@ export const messageTemplateSlice = createSlice({
     nameChanged: (state, action: PayloadAction<string>) => {
       state.name = action.payload
     },
+    titleChanged: (state, action: PayloadAction<string>) => {
+      state.title = action.payload
+    },
     contentChanged: (state, action: PayloadAction<string>) => {
       state.content = action.payload
     },
@@ -68,6 +72,7 @@ export const { showCreateMessageTemplateModalChanged } = messageTemplateSlice.ac
 export const { showEditMessageTemplateModalChanged } = messageTemplateSlice.actions
 export const { showSendMessageTemplateModalChanged } = messageTemplateSlice.actions
 export const { nameChanged } = messageTemplateSlice.actions
+export const { titleChanged } = messageTemplateSlice.actions
 export const { contentChanged } = messageTemplateSlice.actions
 export const { targetEmailsChanged } = messageTemplateSlice.actions
 export const { customersChanged } = messageTemplateSlice.actions
