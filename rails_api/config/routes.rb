@@ -118,6 +118,7 @@ Rails.application.routes.draw do
       post 'message_templates/send_mail', to: 'message_templates#send_mail'
       post 'message_templates/:id', to: 'message_templates#update'
       post 'message_templates', to: 'message_templates#create'
+      get 'special_business_hours', to: 'special_business_hours#index'
       post 'special_business_hours', to: 'special_business_hours#create'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'

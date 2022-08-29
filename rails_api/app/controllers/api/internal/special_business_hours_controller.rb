@@ -2,6 +2,14 @@ class Api::Internal::SpecialBusinessHoursController < ApplicationController
   before_action :merchant_login_only!
 
   def index
+    datetimes = current_merchant_user
+                .account
+                .special_business_hours
+                .to_json(methods: [:date, :start_time, :end_time])
+    datetimes = JSON.parse(datetimes)
+    render json: { status: 'success', datetimes: datetimes }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
   end
 
   def create

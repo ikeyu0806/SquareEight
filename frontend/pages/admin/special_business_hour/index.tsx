@@ -16,6 +16,26 @@ const Index: NextPage = () => {
   const [addDatetimeAlert, setAddDatetimeAlert] = useState('')
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
+  useEffect(() => {
+    const fetchSpecialBusinessHour = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/special_business_hours`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          },
+        }
+      )
+      .then(function (response) {
+        setDatetimes(response.data.datetimes)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchSpecialBusinessHour()
+  }, [cookies._square_eight_merchant_session])
+
+
   const addDatetime = () => {
     if (!inputDate || !inputStartTime || !inputEndTime) {
       setAddDatetimeAlert('時間と日時を入力してください')
