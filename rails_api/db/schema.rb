@@ -470,21 +470,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_29_132312) do
   end
 
   create_table "webpages", force: :cascade do |t|
-    t.integer "website_id", null: false
+    t.integer "account_id", null: false
     t.string "tag", null: false, comment: "タグ"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.boolean "is_top_page", default: false
-  end
-
-  create_table "websites", force: :cascade do |t|
-    t.integer "account_id", null: false
-    t.string "tag", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.integer "publish_status", default: 0
-    t.text "default_footer_content"
-    t.text "default_header_content"
   end
 
 end

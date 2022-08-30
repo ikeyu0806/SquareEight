@@ -14,7 +14,6 @@ export const webpageSlice = createSlice({
     footerCopyright: '',
     showBlockModal: false,
     currentMaxSortOrder: 0,
-    websiteTag: '',
     webpageTag: '',
     showEditHeaderModal: false,
     showEditFooterModal: false,
@@ -46,9 +45,6 @@ export const webpageSlice = createSlice({
     currentMaxSortOrderChanged: (state, action: PayloadAction<number>) => {
       state.currentMaxSortOrder = action.payload
     },
-    websiteTagChanged: (state, action: PayloadAction<string>) => {
-      state.websiteTag = action.payload
-    },
     webpageTagChanged: (state, action: PayloadAction<string>) => {
       state.webpageTag = action.payload
     },
@@ -75,7 +71,6 @@ export const { headerTitleChanged } = webpageSlice.actions
 export const { footerCopyrightChanged } = webpageSlice.actions
 export const { showBlockModalChanged } = webpageSlice.actions
 export const { currentMaxSortOrderChanged } = webpageSlice.actions
-export const { websiteTagChanged } = webpageSlice.actions
 export const { webpageTagChanged } = webpageSlice.actions
 export const { showEditHeaderModalChanged } = webpageSlice.actions
 export const { showEditFooterModalChanged } = webpageSlice.actions
