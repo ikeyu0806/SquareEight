@@ -47,7 +47,7 @@ const Login: NextPage = () => {
       dispatch(alertChanged({message: '', show: false}))
       router.push('/admin/dashboard')
     }).catch(error => {
-      dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
+      dispatch(alertChanged({message: 'ログイン失敗しました。メールアドレス、パスワードを再確認してください。', show: true, type: 'danger'}))
     })
   }
 
