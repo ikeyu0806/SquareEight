@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import React, { useEffect, useState } from 'react'
-import { Container, Table, Button } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
@@ -36,39 +36,27 @@ const Index: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
         <Container>
-          <a className='btn btn-primary'
-             href='/admin/webpage/new'>
-            新規ページ作成
-          </a>
-          <a className='btn btn-primary ml10'
-             href='/admin/webpage/edit_shared_component'>
-            ヘッダ・フッタ編集
-          </a>
-          <br />
-          <br />
-          <Table bordered>
-            <thead>
-              <tr>
-                <th className='text-center'>ページ名称</th>
-                <th className='text-center'></th>
-                <th className='text-center'></th>
-              </tr>
-            </thead>
-            <tbody>
-              {webpages.map((webpage, i) => {
-                return (
-                  <tr key={i}>
-                    <td className='text-center'>
-                      <a href={`/admin/webpage/${webpage.id}/edit`} className='btn btn-prymary'></a>
-                    </td>
-                    <td className='text-center'>
-                      <a className='btn btn-primary' href={`/webpages/${webpage.id}`}>プレビュー</a>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </Table>
+          <Row>
+            <Col md={3}></Col>
+            <Col md={6}>
+              <h3>ページ一覧</h3>
+              <ListGroup>
+                {webpages.map((webpage, i) => {
+                  return (
+                    <ListGroup.Item key={i}>
+                      <Row>
+                        <Col><span>{webpage.tag}</span></Col>
+                        <Col>
+                          <a className='btn btn-primary ml10' href={`/admin/webpage/${webpage.id}/edit`}>編集</a>
+                          <a className='btn btn-primary ml10' href={`/webpages/${webpage.id}`}>プレビュー</a>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  )
+                })}
+              </ListGroup>
+            </Col>
+          </Row>
         </Container>
       </MerchantUserAdminLayout>
     </>

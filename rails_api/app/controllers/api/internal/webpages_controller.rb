@@ -1,6 +1,13 @@
 class Api::Internal::WebpagesController < ApplicationController
   before_action :merchant_login_only!, except: :show
 
+  def index
+    webpages = current_merchant_user.account.webpages
+    render json: { status: 'success', webpages: webpages }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def show
     webpage = Webpage.find(params[:id])
     webpage_json = JSON.parse(webpage.to_json(methods: [:block_contents, :header_json, :footer_json]))

@@ -44,6 +44,7 @@ Rails.application.routes.draw do
       post 'customers', to: 'customers#create'
       get 'webpages/edit', to: 'webpages#edit'
       get 'webpages/:id', to: 'webpages#show'
+      get 'webpages', to: 'webpages#index'
       post 'webpages/complete_create_homepage', to: 'webpages#complete_create_homepage'
       post 'webpages/update', to: 'webpages#update'
       post 'webpages', to: 'webpages#create'
