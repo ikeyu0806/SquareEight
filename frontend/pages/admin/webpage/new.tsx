@@ -13,14 +13,13 @@ const New: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
-  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-  const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
+  const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
+  const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
 
   const createWebpage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/webpages`,
     {
       webpage: {
-        website_id: router.query.website_id,
         page_content: pageContent,
         tag: webpageTag
       }
@@ -30,7 +29,7 @@ const New: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
-      router.push('/admin/homepage/')
+      router.push('/admin/webpage/')
       dispatch(alertChanged({message: 'ページを登録しました', show: true}))
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))

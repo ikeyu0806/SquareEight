@@ -7,7 +7,7 @@ import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../../redux/store'
 import { WebpageParam } from '../../../interfaces/WebpageParam'
-import { webpageTagChanged, pageContentChanged } from '../../../redux/homepageSlice'
+import { webpageTagChanged, pageContentChanged } from '../../../redux/webpageSlice'
 import { HeadingBlockState } from '../../../types/HeadingBlockState'
 import HeadingBlock from '../../../components/organisms/HeadingBlock'
 import TextImageBlock from '../../../components/organisms/TextImageBlock'
@@ -23,7 +23,7 @@ const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
-  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+  const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
   const [header, setHeader] = useState<WebsiteHeaderType>({brandText: '', brandImage: '', bodyContent: []})
   const [footer, setFooter] = useState<WebsiteFooterType>()
 

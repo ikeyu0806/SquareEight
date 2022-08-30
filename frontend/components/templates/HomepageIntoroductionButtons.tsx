@@ -4,14 +4,14 @@ import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { pageContentChanged, webpageTagChanged, isTopPageChanged } from '../../redux/homepageSlice'
+import { pageContentChanged, webpageTagChanged, isTopPageChanged } from '../../redux/webpageSlice'
 
 const HomepageIntoroductionButtons = (): JSX.Element => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-  const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
-  const isTopPage = useSelector((state: RootState) => state.homepage.isTopPage)
+  const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
+  const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
+  const isTopPage = useSelector((state: RootState) => state.webpage.isTopPage)
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const completeCreateHomepage = () => {

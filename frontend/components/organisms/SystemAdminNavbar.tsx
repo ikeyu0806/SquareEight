@@ -30,13 +30,13 @@ const SystemAdminNavbar = () => {
           <Navbar.Brand href='/' className='font-weight-bold'>SquareEight</Navbar.Brand>
           <Nav className='me-auto'>
             <Nav.Link href='/system/admin/dashboard'>ダッシュボード</Nav.Link>
-            <NavDropdown title='お知らせ' id='homepage-nav-dropdown'>
+            <NavDropdown title='お知らせ' id='webpage-nav-dropdown'>
               <NavDropdown.Item href='/system/admin/notification/business'>ビジネスユーザ向けお知らせ一覧</NavDropdown.Item>
               <NavDropdown.Item href='/system/admin/notification/business/new'>ビジネスユーザ向けお知らせ一覧新規作成</NavDropdown.Item>
               <NavDropdown.Item href='/system/admin/notification/customer'>カスタマーユーザ向けお知らせ一覧</NavDropdown.Item>
               <NavDropdown.Item href='/system/admin/notification/customer/new'>カスタマーユーザ向けお知らせ一覧新規作成</NavDropdown.Item>
             </NavDropdown>
-            <NavDropdown title='その他' id='homepage-nav-dropdown'>
+            <NavDropdown title='その他' id='webpage-nav-dropdown'>
               <NavDropdown.Item onClick={() => logout()}>ログアウト</NavDropdown.Item>
             </NavDropdown>
           </Nav>

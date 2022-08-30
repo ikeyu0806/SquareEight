@@ -61,7 +61,7 @@ const ServiceTemplate = (): JSX.Element => {
           </Col>
         </Row>
         <div className='text-center mt30 mb30'>
-          <Button variant='primary' size='lg' href={`/introduction/${selectedService === SERVICE.HomepageWithReserve ? 'create_homepage' : selectedService === SERVICE.Homepage ? 'create_homepage' : 'business_hours'}`}>次へ</Button>
+          <Button variant='primary' size='lg' href={`/introduction/${selectedService === SERVICE.HomepageWithReserve ? 'create_webpage' : selectedService === SERVICE.Homepage ? 'create_webpage' : 'business_hours'}`}>次へ</Button>
         </div>
       </Container>
     </>

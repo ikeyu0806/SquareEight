@@ -1,6 +1,31 @@
 class Webpage < ApplicationRecord
-  belongs_to :website
+  belongs_to :account
   has_many :webpage_blocks, dependent: :delete_all
+
+  def create_webpages(webpage_content_string, tag)
+    ActiveRecord::Base.transaction do
+      web_page = self
+      web_page.tag = tag
+      web_page.save!
+      webpage_content_json = JSON.parse(webpage_content_string.to_json)
+      webpage_content_json.each do |content|
+        if content["blockType"] == "textImage"
+          s3_public_url = put_s3_http_request_data(content["blockState"]["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "website_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
+          content["blockState"]["base64Image"] = ""
+          content["blockState"]["image"] = s3_public_url
+        end
+
+        if content["blockType"] == "imageSlide"
+          content["blockState"]["imageSlide"].each do |content|
+            s3_public_url = put_s3_http_request_data(content["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "website_slide_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
+            content["image"] = s3_public_url
+          end
+        end
+
+        web_page.webpage_blocks.create!(content_json: content.to_s, block_type: content["blockType"])
+      end
+    end
+  end
 
   def block_contents
     result = []

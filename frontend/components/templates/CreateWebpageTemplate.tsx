@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Row, Col, Navbar, Container, Form } from 'react-bootstrap'
-import { webpageTagChanged, isTopPageChanged } from '../../redux/homepageSlice'
+import { webpageTagChanged, isTopPageChanged } from '../../redux/webpageSlice'
 import CreateBlockModal from '../organisms/CreateBlockModal'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
@@ -9,7 +9,7 @@ import { TextImageBlockStateType } from '../../types/TextImageBlockStateType'
 import { ImageSlideState } from '../../types/ImageSlideState'
 import { BLOCK_TYPE } from '../../constants/blockType'
 import { HeadingBlockState } from '../../types/HeadingBlockState'
-import { showBlockModalChanged } from '../../redux/homepageSlice'
+import { showBlockModalChanged } from '../../redux/webpageSlice'
 import PlusCircleIcon from '../atoms/PlusCircleIcon'
 import UpdateBlockStateIcons from '../organisms/UpdateBlockStateIcons'
 import HeadingBlock from '../organisms/HeadingBlock'
@@ -19,10 +19,10 @@ import ImageSlideBlock from '../organisms/ImageSlideBlock'
 const CreateWebpageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
 
-  const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
-  const isTopPage = useSelector((state: RootState) => state.homepage.isTopPage)
-  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-  const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
+  const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
+  const isTopPage = useSelector((state: RootState) => state.webpage.isTopPage)
+  const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
+  const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
 
   return(
     <>

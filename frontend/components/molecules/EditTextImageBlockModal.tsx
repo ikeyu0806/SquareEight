@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Row, Col, Modal, Form } from 'react-bootstrap'
-import { showBlockModalChanged, blockTypeChanged, pageContentChanged, currentMaxSortOrderChanged } from '../../redux/homepageSlice'
+import { showBlockModalChanged, blockTypeChanged, pageContentChanged, currentMaxSortOrderChanged } from '../../redux/webpageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
@@ -13,8 +13,8 @@ const EditTextImageBlockModal = (): JSX.Element => {
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
   const [base64Image, setBase64image] = useState<any>()
-  const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
-  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+  const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
+  const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target

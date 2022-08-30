@@ -15,7 +15,7 @@ const Index: NextPage = () => {
   useEffect(() => {
     const fetchWebpages = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/homepages/webpages?website_id=${router.query.website_id}`, {
+        `${process.env.BACKEND_URL}/api/internal/webpages`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           },

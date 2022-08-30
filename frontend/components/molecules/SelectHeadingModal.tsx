@@ -1,14 +1,14 @@
 import React from 'react'
 import { Card } from 'react-bootstrap'
-import { selectedBlockTypeChanged, blockTypeChanged } from '../../redux/homepageSlice'
+import { selectedBlockTypeChanged, blockTypeChanged } from '../../redux/webpageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { BLOCK_TYPE } from '../../constants/blockType'
 
 const SelectHeadingModal = (): JSX.Element => {
   const dispatch = useDispatch()
-  const showBlockSample = useSelector((state: RootState) => state.homepage.showBlockSample)
-  const selectedBlockType = useSelector((state: RootState) => state.homepage.selectedBlockType)
+  const showBlockSample = useSelector((state: RootState) => state.webpage.showBlockSample)
+  const selectedBlockType = useSelector((state: RootState) => state.webpage.selectedBlockType)
 
   return (
     <div onClick={() => dispatch(selectedBlockTypeChanged(BLOCK_TYPE.HEADING))}>

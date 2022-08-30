@@ -1,5 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
-import homepageReducer from './homepageSlice'
+import webpageReducer from './webpageSlice'
 import alertReducer from './alertSlice'
 import ticketMasterReducer from './ticketMasterSlice'
 import productReducer from './productSlice'
@@ -21,7 +21,7 @@ import messageTemplateReducer from './messageTemplateSlice'
 
 export const store = configureStore({
   reducer: {
-    homepage: homepageReducer,
+    webpage: webpageReducer,
     alert: alertReducer,
     ticketMaster: ticketMasterReducer,
     product: productReducer,

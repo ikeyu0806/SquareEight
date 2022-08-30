@@ -3,8 +3,8 @@ import { PageContentState } from '../interfaces/PageContentState'
 import { WebsiteHeaderType } from '../interfaces/WebsiteHeaderType'
 import { WebsiteFooterType } from '../interfaces/WebsiteFooterType'
 
-export const homepageSlice = createSlice({
-  name: 'homepage',
+export const webpageSlice = createSlice({
+  name: 'webpage',
   initialState: {
     pageContent: [] as PageContentState[],
     selectedBlockType: '',
@@ -20,7 +20,6 @@ export const homepageSlice = createSlice({
     showEditFooterModal: false,
     websiteHeader: {} as WebsiteHeaderType,
     websiteFooter: {} as WebsiteFooterType,
-    isTopPage: false
   },
   reducers: {
     pageContentChanged: (state, action: PayloadAction<PageContentState[]>) => {
@@ -65,26 +64,22 @@ export const homepageSlice = createSlice({
     websiteFooterChanged: (state, action: PayloadAction<WebsiteFooterType>) => {
       state.websiteFooter = action.payload
     },
-    isTopPageChanged: (state, action: PayloadAction<boolean>) => {
-      state.isTopPage = action.payload
-    },
   },
 })
 
-export const { pageContentChanged } = homepageSlice.actions
-export const { showBlockSampleChanged } = homepageSlice.actions
-export const { selectedBlockTypeChanged } = homepageSlice.actions
-export const { blockTypeChanged } = homepageSlice.actions
-export const { headerTitleChanged } = homepageSlice.actions
-export const { footerCopyrightChanged } = homepageSlice.actions
-export const { showBlockModalChanged } = homepageSlice.actions
-export const { currentMaxSortOrderChanged } = homepageSlice.actions
-export const { websiteTagChanged } = homepageSlice.actions
-export const { webpageTagChanged } = homepageSlice.actions
-export const { showEditHeaderModalChanged } = homepageSlice.actions
-export const { showEditFooterModalChanged } = homepageSlice.actions
-export const { websiteHeaderChanged } = homepageSlice.actions
-export const { websiteFooterChanged } = homepageSlice.actions
-export const { isTopPageChanged } = homepageSlice.actions
+export const { pageContentChanged } = webpageSlice.actions
+export const { showBlockSampleChanged } = webpageSlice.actions
+export const { selectedBlockTypeChanged } = webpageSlice.actions
+export const { blockTypeChanged } = webpageSlice.actions
+export const { headerTitleChanged } = webpageSlice.actions
+export const { footerCopyrightChanged } = webpageSlice.actions
+export const { showBlockModalChanged } = webpageSlice.actions
+export const { currentMaxSortOrderChanged } = webpageSlice.actions
+export const { websiteTagChanged } = webpageSlice.actions
+export const { webpageTagChanged } = webpageSlice.actions
+export const { showEditHeaderModalChanged } = webpageSlice.actions
+export const { showEditFooterModalChanged } = webpageSlice.actions
+export const { websiteHeaderChanged } = webpageSlice.actions
+export const { websiteFooterChanged } = webpageSlice.actions
 
-export default homepageSlice.reducer
+export default webpageSlice.reducer

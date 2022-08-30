@@ -15,12 +15,12 @@ const CreateHomepage: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
-  const websiteTag = useSelector((state: RootState) => state.homepage.websiteTag)
+  const websiteTag = useSelector((state: RootState) => state.webpage.websiteTag)
 
   const createHomepage = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/homepages`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/webpages`,
     {
-      homepage: {
+      webpage: {
         website_tag: websiteTag
       },
     },

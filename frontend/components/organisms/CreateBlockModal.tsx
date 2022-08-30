@@ -10,8 +10,8 @@ import EditHeadingModal from '../molecules/EditHeadingModal'
 import { BLOCK_TYPE } from '../../constants/blockType'
 
 const CreateBlockModal = (): JSX.Element => {
-  const showBlockModal = useSelector((state: RootState) => state.homepage.showBlockModal)
-  const blockType = useSelector((state: RootState) => state.homepage.blockType)
+  const showBlockModal = useSelector((state: RootState) => state.webpage.showBlockModal)
+  const blockType = useSelector((state: RootState) => state.webpage.blockType)
 
   return (
     <>

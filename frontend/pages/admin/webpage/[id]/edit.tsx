@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { WebpageParam } from 'interfaces/WebpageParam'
-import { webpageTagChanged, pageContentChanged, isTopPageChanged, currentMaxSortOrderChanged } from 'redux/homepageSlice'
+import { webpageTagChanged, pageContentChanged, currentMaxSortOrderChanged } from 'redux/webpageSlice'
 import { Button } from 'react-bootstrap'
 import { alertChanged } from 'redux/alertSlice'
 
@@ -16,14 +16,13 @@ const Edit: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
-  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-  const webpageTag = useSelector((state: RootState) => state.homepage.webpageTag)
-  const isTopPage = useSelector((state: RootState) => state.homepage.isTopPage)
+  const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
+  const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
 
   useEffect(() => {
     const fetchWebpage = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/webpages/edit?id=${router.query.webpage_id}`, {
+        `${process.env.BACKEND_URL}/api/internal/webpages/${router.query.id}`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           },
@@ -32,7 +31,6 @@ const Edit: NextPage = () => {
       .then(function (response) {
         const webpageResponse: WebpageParam = response.data.webpage
         dispatch(webpageTagChanged(webpageResponse.tag))
-        dispatch(isTopPageChanged(webpageResponse.is_top_page))
         dispatch(pageContentChanged(webpageResponse.block_contents || []))
         dispatch(currentMaxSortOrderChanged(response.data.max_sort_order))
       })
@@ -51,7 +49,6 @@ const Edit: NextPage = () => {
         id: router.query.webpage_id,
         page_content: pageContent,
         tag: webpageTag,
-        is_top_page: isTopPage
       }
     },
     {
@@ -59,7 +56,7 @@ const Edit: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
-      router.push(`/admin/homepage/${router.query.website_id}/webpages`)
+      router.push(`/admin/webpage/${router.query.website_id}/webpages`)
     }).catch(error => {
     })
   }

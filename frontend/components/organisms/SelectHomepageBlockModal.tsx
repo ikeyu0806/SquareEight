@@ -1,6 +1,6 @@
 import React from 'react'
 import { Button, Row, Col, Modal, Form } from 'react-bootstrap'
-import { showBlockModalChanged, blockTypeChanged, showBlockSampleChanged } from '../../redux/homepageSlice'
+import { showBlockModalChanged, blockTypeChanged, showBlockSampleChanged } from '../../redux/webpageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import SelectExternalLinksModal from '../molecules/SelectExternalLinkModal'
@@ -13,8 +13,8 @@ import SelectHeadingModal from '../molecules/SelectHeadingModal'
 
 const SelectHomepageBlockModal = (): JSX.Element => {
   const dispatch = useDispatch()
-  const selectedBlockType = useSelector((state: RootState) => state.homepage.selectedBlockType)
-  const showBlockSample = useSelector((state: RootState) => state.homepage.showBlockSample)
+  const selectedBlockType = useSelector((state: RootState) => state.webpage.selectedBlockType)
+  const showBlockSample = useSelector((state: RootState) => state.webpage.showBlockSample)
 
   return (
     <>

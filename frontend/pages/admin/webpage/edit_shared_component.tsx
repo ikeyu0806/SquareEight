@@ -9,20 +9,20 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
-import { websiteHeaderChanged, websiteFooterChanged } from 'redux/homepageSlice'
+import { websiteHeaderChanged, websiteFooterChanged } from 'redux/webpageSlice'
 
 const EditSharedComponentPage: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   
-  const websiteHeader = useSelector((state: RootState) => state.homepage.websiteHeader)
-  const websiteFooter = useSelector((state: RootState) => state.homepage.websiteFooter)
+  const websiteHeader = useSelector((state: RootState) => state.webpage.websiteHeader)
+  const websiteFooter = useSelector((state: RootState) => state.webpage.websiteFooter)
 
   useEffect(() => {
     const fetchWebpage = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/homepages/${router.query.website_id}/shared_component`, {
+        `${process.env.BACKEND_URL}/api/internal/webpages/shared_component`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           },
@@ -41,9 +41,9 @@ const EditSharedComponentPage: NextPage = () => {
   }, [router.query.id, cookies._square_eight_merchant_session, router.query.website_id, dispatch])
 
   const updateSharedComponent = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/homepages/update_shared_component`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/webpages/update_shared_component`,
     {
-      homepage: {
+      webpage: {
         website_id: router.query.website_id,
         default_header_content: websiteHeader,
         default_footer_content: websiteFooter
@@ -54,7 +54,7 @@ const EditSharedComponentPage: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
-      router.push('/admin/homepage')
+      router.push('/admin/webpage')
       dispatch(alertChanged({message: '登録完了しました', show: true}))
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))

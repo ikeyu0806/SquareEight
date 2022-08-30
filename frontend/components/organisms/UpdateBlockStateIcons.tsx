@@ -6,12 +6,12 @@ import { UpdateBlockStateIconsProps } from '../../types/UpdateBlockStateIconsPro
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
-import { pageContentChanged } from '../../redux/homepageSlice'
+import { pageContentChanged } from '../../redux/webpageSlice'
 
 const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProps): JSX.Element => {
   const dispatch = useDispatch()
-  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-  const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
+  const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
+  const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
 
   const moveUpBlock = () => {
     let updatePageContentState: PageContentState[]

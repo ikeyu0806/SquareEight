@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
-import { pageContentChanged, showBlockModalChanged, blockTypeChanged, currentMaxSortOrderChanged } from '../../redux/homepageSlice'
+import { pageContentChanged, showBlockModalChanged, blockTypeChanged, currentMaxSortOrderChanged } from '../../redux/webpageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
@@ -21,8 +21,8 @@ const EditExternalLinksModal = (): JSX.Element => {
   // 手動入力: Manual とする
   const [inputLinkType, setInputLinkType] = useState('Registered')
   const [blockContent, setBlockContent] = useState<ExternalLinkBlockContentStateType[]>([])
-  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-  const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
+  const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
+  const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
 
   useEffect(() => {
     const fetchPageLinks = () => {

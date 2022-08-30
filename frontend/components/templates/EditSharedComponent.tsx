@@ -4,15 +4,15 @@ import PencilSquareIcon from '../atoms/PencilSquareIcon'
 import { showEditHeaderModalChanged,
          showEditFooterModalChanged,
          websiteHeaderChanged,
-         websiteFooterChanged } from '../../redux/homepageSlice'
+         websiteFooterChanged } from '../../redux/webpageSlice'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { navbarLink } from '../../interfaces/WebsiteHeaderType'
 
 const EditSharedComponent = (): JSX.Element => {
   const dispatch = useDispatch()
-  const showEditHeaderModal = useSelector((state: RootState) => state.homepage.showEditHeaderModal)
-  const showEditFooterModal = useSelector((state: RootState) => state.homepage.showEditFooterModal)
+  const showEditHeaderModal = useSelector((state: RootState) => state.webpage.showEditHeaderModal)
+  const showEditFooterModal = useSelector((state: RootState) => state.webpage.showEditFooterModal)
 
   const [title, setTitle] = useState('')
   const [inputLinkText, setInputLinkText] = useState('')
@@ -20,8 +20,8 @@ const EditSharedComponent = (): JSX.Element => {
   const [navbarLinks, setNavbarLinks] = useState<navbarLink[]>([])
   const [footerText, setFooterText] = useState('')
 
-  const websiteHeader = useSelector((state: RootState) => state.homepage.websiteHeader)
-  const websiteFooter = useSelector((state: RootState) => state.homepage.websiteFooter)
+  const websiteHeader = useSelector((state: RootState) => state.webpage.websiteHeader)
+  const websiteFooter = useSelector((state: RootState) => state.webpage.websiteFooter)
 
   const onClickAddLinkButton = () => {
     let updateNavbarLinks: navbarLink[]

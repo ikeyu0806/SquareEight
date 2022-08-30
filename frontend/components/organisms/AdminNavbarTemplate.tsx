@@ -32,7 +32,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
             <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='me-auto'>
               <Nav.Link href='/admin/dashboard'>ダッシュボード</Nav.Link>
-              <NavDropdown title='予約' id='homepage-nav-dropdown'>
+              <NavDropdown title='予約' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/reservation'>予約一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/business_hour'>営業時間設定</NavDropdown.Item>
@@ -41,7 +41,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/resource'>リソース一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/resource/new'>リソース登録</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='商品' id='homepage-nav-dropdown'>
+              <NavDropdown title='商品' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/product/'>物販商品一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/product/new'>物販商品登録</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/monthly_payment/'>月額課金プラン一覧</NavDropdown.Item>
@@ -49,27 +49,27 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/ticket'>回数券一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/ticket/new'>回数券作成</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='顧客管理' id='homepage-nav-dropdown'>
+              <NavDropdown title='顧客管理' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/customer'>顧客</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/message_template'>メッセージテンプレート</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='Webページ' id='homepage-nav-dropdown'>
+              <NavDropdown title='Webページ' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/webpage'>Webページ一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/webpage/new'>Webページ新規作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/webpage/new'>ページ共通レイアウト編集</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='アンケート' id='homepage-nav-dropdown'>
+              <NavDropdown title='アンケート' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/questionnaire/master/new'>アンケート作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/questionnaire/master/'>アンケート一覧</NavDropdown.Item>
               </NavDropdown>
               <Nav.Link href='/admin/charges'>売上</Nav.Link>
-              <NavDropdown title='アカウント設定' id='homepage-nav-dropdown'>
+              <NavDropdown title='アカウント設定' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/sales_transfer'>事業情報・売上振込先口座</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/plan/choice'>プラン変更・退会</NavDropdown.Item>
                 <NavDropdown.Item href=''>お支払い履歴</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='その他' id='homepage-nav-dropdown'>
+              <NavDropdown title='その他' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/inquiry'>お問い合わせ</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/login_user_info'>ログインユーザ情報</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>

@@ -3,7 +3,7 @@ import { Button, Modal, Form } from 'react-bootstrap'
 import { pageContentChanged,
          showBlockModalChanged,
          blockTypeChanged,
-         currentMaxSortOrderChanged } from '../../redux/homepageSlice'
+         currentMaxSortOrderChanged } from '../../redux/webpageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
@@ -16,8 +16,8 @@ const EditHeadingModal = (): JSX.Element => {
   const [inputHeading, setInputeHeading] = useState('')
   const [placement, setPlacement] = useState<placementType>('left')
   const [headingSize, setHeadingSize] = useState<headingSizeType>(1)
-  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
-  const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
+  const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
+  const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
 
   const completeEdit = () => {
     let updatePageContentState: PageContentState[]

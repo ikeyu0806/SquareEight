@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Button, Carousel, Row, Col, Modal, Form } from 'react-bootstrap'
-import { showBlockModalChanged, blockTypeChanged, pageContentChanged, currentMaxSortOrderChanged } from '../../redux/homepageSlice'
+import { showBlockModalChanged, blockTypeChanged, pageContentChanged, currentMaxSortOrderChanged } from '../../redux/webpageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { PageContentState } from '../../interfaces/PageContentState'
@@ -15,9 +15,9 @@ const EditImageSlideBlockModal = (): JSX.Element => {
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
   const [imageSlide, setImageSlide] = useState<ImageSlideState>()
-  const currentMaxSortOrder = useSelector((state: RootState) => state.homepage.currentMaxSortOrder)
+  const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
 
-  const pageContent = useSelector((state: RootState) => state.homepage.pageContent)
+  const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target

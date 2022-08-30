@@ -38,12 +38,12 @@ const CustomerPageNavbar = (): JSX.Element => {
               <Nav.Link href='/customer_page/purchased_ticket'>回数券</Nav.Link>
               <Nav.Link href='/customer_page/subscriptions'>月額課金</Nav.Link>
               <Nav.Link href='/cart'>カート</Nav.Link>
-              <NavDropdown title='お支払い' id='homepage-nav-dropdown'>
+              <NavDropdown title='お支払い' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/customer_page/order/'>注文履歴</NavDropdown.Item>
                 <NavDropdown.Item href='/customer_page/charges/'>お支払い履歴</NavDropdown.Item>
                 <NavDropdown.Item href='/customer_page/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='その他' id='homepage-nav-dropdown'>
+              <NavDropdown title='その他' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/customer_page/mypage'>ご登録情報</NavDropdown.Item>
                 <NavDropdown.Item href='/inquiry'>お問い合わせ</NavDropdown.Item>
                 <NavDropdown.Item onClick={() => logout()}>ログアウト</NavDropdown.Item>
