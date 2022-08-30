@@ -102,7 +102,9 @@ const Signup: NextPage = () => {
                                   onChange={(e) => setConfirmPassword(e.target.value)}/>
                   </Form.Group>
                   <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-                    登録することで<a target='_blank' rel='noreferrer' href='/privacy_policy'>プライバシーポリシー</a>に同意するものとします
+                    登録することで
+                    <a target='_blank' rel='noreferrer' href='/terms'>利用規約</a>と
+                    <a target='_blank' rel='noreferrer' href='/privacy_policy'>プライバシーポリシー</a>に同意するものとします
                   </Form.Group>
                   <div className='text-center'>
                     <Button variant='primary'
