@@ -39,12 +39,6 @@ const CreateWebpageTemplate = (): JSX.Element => {
                             value={webpageTag} />
             </Form.Group>
           </div>
-          <Form.Check
-            type='switch'
-            label='トップページに設定する'
-            checked={isTopPage}
-            onChange={() => dispatch(isTopPageChanged(!isTopPage))}
-          />
           <Card>
             <Card.Body>
               <Navbar>

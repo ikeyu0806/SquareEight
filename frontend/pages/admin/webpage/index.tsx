@@ -36,21 +36,20 @@ const Index: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
         <Container>
-          <Button
-          onClick={() => router.push(`/admin/homepage/${router.query.website_id}/webpages/new`)}
-          className='mr10'>
+          <a className='btn btn-primary'
+             href='/admin/webpage/neew'>
             新規ページ作成
-          </Button>
-          <Button
-            onClick={() => router.push(`/admin/homepage/${router.query.website_id}/edit_shared_component`)}>
+          </a>
+          <a className='btn btn-primary ml10'
+             href='/admin/webpage/edit_shared_component'>
             ヘッダ・フッタ編集
-          </Button>
+          </a>
           <br />
           <br />
           <Table bordered>
             <thead>
               <tr>
-                <th className='text-center'>タグ</th>
+                <th className='text-center'>ページ名称</th>
                 <th className='text-center'></th>
                 <th className='text-center'></th>
               </tr>
@@ -60,12 +59,7 @@ const Index: NextPage = () => {
                 return (
                   <tr key={i}>
                     <td className='text-center'>
-                      {webpage.tag} {webpage.is_top_page && <span className='badge bg-info'>トップページに設定されています</span>}
-                    </td>
-                    <td className='text-center'>
-                      <Button onClick={() => router.push(`/admin/homepage/webpages/${webpage.id}/edit?website_id=${router.query.website_id}`)}>
-                        編集
-                      </Button>
+                      <a href={`/admin/webpage/${webpage.id}/edit`} className='btn btn-prymary'></a>
                     </td>
                     <td className='text-center'>
                       <a className='btn btn-primary' href={`/webpages/${webpage.id}`}>プレビュー</a>
