@@ -24,7 +24,9 @@ import CustomerMailSendModal from 'components/templates/CustomerMailSendModal'
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [customers, setCustomers] = useState<CustomerParam[]>([])
+  const [displayCustomers, setDisplayCustomers] = useState<CustomerParam[]>([])
   const dispatch = useDispatch()
+  const [searchWord, setSearchWord] = useState('')
   const customerPaginationState = useSelector((state: RootState) => state.customer.customerPaginationState)
 
   useEffect(() => {
@@ -36,12 +38,13 @@ const Index: NextPage = () => {
     }).then((response) => {
       console.log(response.data)
       setCustomers(response.data.customers)
+      setDisplayCustomers(response.data.customers)
       const customersTotalPage = Math.ceil(response.data.customers.length / customerPaginationState.maxPerPage)
       dispatch(customerPaginationStateChanged(Object.assign({ ...customerPaginationState }, { totalPage: customersTotalPage })))
     }).catch((error) => {
       console.log(error)
     })
-  }, [cookies._square_eight_merchant_session])
+  }, [cookies._square_eight_merchant_session, dispatch])
 
   const showEditModal = (id: string, lastName: string, firstName: string, email: string, phoneNumber: string, notes: string) => {
     dispatch(showEditCustomerModalChanged(true))
@@ -92,6 +95,15 @@ const Index: NextPage = () => {
     }
   }
 
+  const execSearch = () => {
+    let updateCustomers: CustomerParam[] = []
+    updateCustomers = customers?.filter(customer => customer.last_name.match(searchWord)|| customer.first_name?.match(searchWord) || customer.email?.match(searchWord) || customer.phone_number?.match(searchWord)) || []
+    setDisplayCustomers(updateCustomers)
+    const totalPage = Math.ceil(updateCustomers.length / customerPaginationState.maxPerPage)
+    dispatch(customerPaginationStateChanged(Object.assign({ ...customerPaginationState }, { totalPage: totalPage })))
+  }
+
+
   return (
     <>
       <MerchantUserAdminLayout>
@@ -108,7 +120,8 @@ const Index: NextPage = () => {
                       検索したい内容を入力してください<br/>
                       (お名前・メールアドレス・電話番号)
                     </label>
-                    <Form.Control className='mt20'></Form.Control>
+                    <Form.Control className='mt20' onChange={(e) => setSearchWord(e.target.value)}></Form.Control>
+                    <Button className='mt20' size='lg' onClick={execSearch}>検索</Button>
                   </Col>
                 </Row>
                 </Card.Body>
@@ -116,12 +129,9 @@ const Index: NextPage = () => {
               <Button
                 className='mb20'
                 onClick={() => dispatch(showCreateCustomerModalChanged(true))}>顧客新規登録</Button>
-              <Button
-                className='mb20 ml10'
-                onClick={() => dispatch(showCustomerMailSendModalChanged(true))}>選択した顧客にメール送信</Button>
               <Card>
                 <Card.Header>顧客一覧</Card.Header>
-                {customers && customers.map((customer, i) => {
+                {displayCustomers && displayCustomers.map((customer, i) => {
                   const dataRangeMin =+ customerPaginationState.maxPerPage * (customerPaginationState.currentPage - 1)
                   const dataRangeMax =+ customerPaginationState.maxPerPage * customerPaginationState.currentPage
                   return dataRangeMin <= i && dataRangeMax > i && (
