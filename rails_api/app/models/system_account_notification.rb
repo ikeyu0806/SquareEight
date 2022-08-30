@@ -1,0 +1,2 @@
+class SystemAccountNotification < ApplicationRecord
+end
