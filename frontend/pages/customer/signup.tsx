@@ -90,12 +90,12 @@ const Signup: NextPage = () => {
                                   onChange={(e) => setConfirmPassword(e.target.value)}/>
                   </Form.Group>
                   <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-                    <Form.Check type='checkbox' label='プライバシーポリシーに同意しました' />
+                  登録することで<a target='_blank' rel='noreferrer' href='/privacy_policy'>プライバシーポリシー</a>に同意するものとします
                   </Form.Group>
                   <div className='text-center'>
                     <Button variant='primary'
                             onClick={onSubmit}>
-                      送信
+                      登録する
                     </Button>
                   </div>
                   <hr />
