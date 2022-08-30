@@ -128,6 +128,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_30_065153) do
   end
 
   create_table "end_user_notifications", force: :cascade do |t|
+    t.integer "end_user_id"
+    t.string "title"
+    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
