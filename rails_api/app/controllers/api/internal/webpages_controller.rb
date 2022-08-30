@@ -11,9 +11,9 @@ class Api::Internal::WebpagesController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      website = Website.find(webpage_params[:website_id])
-      website.create_webpages(webpage_params[:page_content], webpage_params[:tag])
-      render json: { status: 'success', website_id: website.id }, states: 200
+      webpage = current_merchant_user.account.webpages.create!(tag: webpage_params[:tag])
+      webpage.create_webblocks(webpage_params[:page_content])
+      render json: { status: 'success' }, states: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -54,8 +54,6 @@ class Api::Internal::WebpagesController < ApplicationController
   def webpage_params
     params.require(:webpage).permit(:id,
                                     :tag,
-                                    :website_id,
-                                    :is_top_page,
                                     page_content: [:blockID,
                                                    :blockType,
                                                    :sortOrder,

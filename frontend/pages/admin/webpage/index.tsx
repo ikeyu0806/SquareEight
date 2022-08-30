@@ -37,7 +37,7 @@ const Index: NextPage = () => {
       <MerchantUserAdminLayout>
         <Container>
           <a className='btn btn-primary'
-             href='/admin/webpage/neew'>
+             href='/admin/webpage/new'>
             新規ページ作成
           </a>
           <a className='btn btn-primary ml10'

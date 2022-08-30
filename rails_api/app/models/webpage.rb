@@ -2,11 +2,8 @@ class Webpage < ApplicationRecord
   belongs_to :account
   has_many :webpage_blocks, dependent: :delete_all
 
-  def create_webpages(webpage_content_string, tag)
+  def create_webblocks(webpage_content_string)
     ActiveRecord::Base.transaction do
-      web_page = self
-      web_page.tag = tag
-      web_page.save!
       webpage_content_json = JSON.parse(webpage_content_string.to_json)
       webpage_content_json.each do |content|
         if content["blockType"] == "textImage"
@@ -22,7 +19,7 @@ class Webpage < ApplicationRecord
           end
         end
 
-        web_page.webpage_blocks.create!(content_json: content.to_s, block_type: content["blockType"])
+        webpage_blocks.create!(content_json: content.to_s, block_type: content["blockType"])
       end
     end
   end
