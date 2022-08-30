@@ -136,6 +136,19 @@ const Purchase: NextPage = () => {
     })
   }
 
+  const validateSubmit = () => {
+    if (!currentEndUserLogintStatus) {
+      return true
+    }
+    if (isRegisteredAddress && deliveryTargets.length === 0) {
+      return true
+    }
+    if (isRegisteredAddress && (!firstName || !lastName || !postalCode || !state || !city || !line1)) {
+      return true
+    }
+    return false
+  }
+
   const updateDefaultDeliveryTarget = (delivery_target_id: string) => {
     swalWithBootstrapButtons.fire({
       title: 'お届け先を更新します',
@@ -176,7 +189,7 @@ const Purchase: NextPage = () => {
                   ? 
                     <>
                       <div></div>
-                      <a href='/customer/login'>カスタマーアカウントでログインしてください</a><br/>
+                      <a href='/customer/login' target='_blank' rel='noreferrer'>カスタマーアカウントでログインしてください</a><br/>
                       <div className='mt20'>購入にはアカウント登録とクレジットカード登録が必要になります</div>
                       <div className='mt40'></div>
                     </>
@@ -263,8 +276,8 @@ const Purchase: NextPage = () => {
                   {!isRegisteredAddress && currentEndUserLogintStatus === 'Login'
                     && <><div className='mt20 mb20'></div><CreateDeliveryTarget></CreateDeliveryTarget></>}
                     <Button className='mt30'
-                            onClick={() => insertCart()}
-                            disabled={!currentEndUserLogintStatus}>カートに入れる</Button>
+                            disabled={validateSubmit()}
+                            onClick={() => insertCart()}>カートに入れる</Button>
                   </>
                 }
               </Card.Body>

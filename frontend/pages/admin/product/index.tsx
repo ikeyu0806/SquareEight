@@ -55,7 +55,9 @@ const Index: NextPage = () => {
                               <a className='btn btn-sm btn-primary' href={`/admin/product/${p.id}/edit`}>
                                 編集
                               </a>
-                              <a className='btn btn-sm btn-primary ml10' href={`/product/${p.id}/purchase`}>
+                              <a className='btn btn-sm btn-primary ml10'
+                                 href={`/product/${p.id}/purchase`}
+                                 target='_blank' rel='noreferrer'>
                                 購入ページプレビュー
                               </a>
                             </div>
