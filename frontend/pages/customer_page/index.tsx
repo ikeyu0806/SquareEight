@@ -10,6 +10,7 @@ import { useCookies } from 'react-cookie'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_end_user_session'])
+  const [notifications, setNotifications] = useState<Notification[]>([])
   const [systemNotifications, setSystemNotifications] = useState<Notification[]>([])
   const router = useRouter()
 
@@ -24,6 +25,7 @@ const Index: NextPage = () => {
       )
       .then(function (response) {
         console.log(response)
+        setNotifications(response.data.notifications)
         setSystemNotifications(response.data.system_notifications)
       })
       .catch(error => {
@@ -42,13 +44,20 @@ const Index: NextPage = () => {
             <ListGroup.Item as='li' active>
                 通知一覧
               </ListGroup.Item>
+              {notifications && notifications.map((n, i) => {
+                return (
+                  <ListGroup.Item as='li' key={i} onClick={() => router.push(`/customer_page/notification/${n.id}/`)}>
+                    {n.title}
+                  </ListGroup.Item>
+                )
+              })}
           </Col>
           <Col>
             <ListGroup as='ul'>
               <ListGroup.Item as='li' active>
                 運営からのお知らせ
               </ListGroup.Item>
-              {systemNotifications.map((n, i) => {
+              {systemNotifications && systemNotifications.map((n, i) => {
                 return (
                   <ListGroup.Item as='li' key={i} onClick={() => router.push(`/customer_page/notification/${n.id}/`)}>
                     {n.title}
