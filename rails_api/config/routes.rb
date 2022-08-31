@@ -87,6 +87,8 @@ Rails.application.routes.draw do
       get 'orders/:order_id/order_items', to: 'orders#order_items'
       get 'orders', to: 'orders#index'
       get 'calendar/:reserve_frame_id/monthly_reserve_frames', to: 'calendar#monthly_reserve_frames'
+      get 'account_notifications/:id', to: 'account_notifications#show'
+      get 'account_notifications', to: 'account_notifications#index'
       get 'system_account_notifications/:id', to: 'system_account_notifications#show'
       get 'system_account_notifications', to: 'system_account_notifications#index'
       post 'system_account_notifications/:id', to: 'system_account_notifications#update'
