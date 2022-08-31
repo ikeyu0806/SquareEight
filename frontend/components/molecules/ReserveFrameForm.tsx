@@ -106,6 +106,9 @@ const ReserveFrameForm = () => {
   }
 
   const addReserveFrameReceptionTimes = () => {
+    if (!reserveFrameReceptionStartTime || !reserveFrameReceptionEndTime) {
+      return
+    }
     const startAt = reserveFrameReceptionStartTime
     const endAt = reserveFrameReceptionEndTime
     dispatch((reserveFrameReceptionTimesChanged([...reserveFrameReceptionTimes, { reception_start_time: startAt, reception_end_time: endAt }])))
@@ -113,7 +116,7 @@ const ReserveFrameForm = () => {
 
   const deleteReserveFrameReceptionTimes = (startAt: string, endAt: string) => {
     let updateReserveFrameReceptionTimes = reserveFrameReceptionTimes
-    updateReserveFrameReceptionTimes = updateReserveFrameReceptionTimes.filter(time => time.reception_start_time === startAt && time.reception_end_time === endAt)
+    updateReserveFrameReceptionTimes = updateReserveFrameReceptionTimes.filter(time => time.reception_start_time !== startAt && time.reception_end_time !== endAt)
     dispatch(reserveFrameReceptionTimesChanged(updateReserveFrameReceptionTimes))
   }
 
