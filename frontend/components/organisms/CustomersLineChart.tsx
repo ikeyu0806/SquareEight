@@ -29,7 +29,7 @@ export const options = {
     },
     title: {
       display: true,
-      text: '予約ページごと週間売り上げ',
+      text: '顧客数推移',
     },
   },
 }
@@ -40,13 +40,7 @@ export const data = {
   labels,
   datasets: [
     {
-      label: '筋トレメソッド',
-      data: [100, 300, 700, 400, 200, 300, 200],
-      borderColor: 'rgb(255, 99, 132)',
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'ボディリメイク',
+      label: '顧客数',
       data: [400, 500, 200, 900, 600, 900, 1000],
       borderColor: 'rgb(53, 162, 235)',
       backgroundColor: 'rgba(53, 162, 235, 0.5)',
@@ -54,10 +48,10 @@ export const data = {
   ],
 }
 
-const ReservePageSalesLineChart = (): JSX.Element => {
+const CustomersLineChart = (): JSX.Element => {
   return (
     <Line options={options} data={data} />
   )
 }
 
-export default ReservePageSalesLineChart
+export default CustomersLineChart

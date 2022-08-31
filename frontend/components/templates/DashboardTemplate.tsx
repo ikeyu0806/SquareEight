@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import  { Container, Row, Col, ListGroup, Button } from 'react-bootstrap'
-import ReservePageSalesLineChart from '../organisms/ReservePageSalesLineChart'
-import MonthlyPaymentTicketLineChart from '../organisms/MonthlyPaymentTicketLineChart'
+import CustomersLineChart from '../organisms/CustomersLineChart'
+import SalesLineChart from '../organisms/SalesLineChart'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { Notification } from 'interfaces/Notification'
@@ -75,10 +75,10 @@ const DashboardTemplate = (): JSX.Element => {
       <br />
       <Row>
         <Col>
-          <ReservePageSalesLineChart></ReservePageSalesLineChart>
+          <CustomersLineChart></CustomersLineChart>
         </Col>
         <Col>
-          <MonthlyPaymentTicketLineChart></MonthlyPaymentTicketLineChart>
+          <SalesLineChart></SalesLineChart>
         </Col>
       </Row>
     </Container>
