@@ -93,6 +93,8 @@ Rails.application.routes.draw do
       get 'system_account_notifications', to: 'system_account_notifications#index'
       post 'system_account_notifications/:id', to: 'system_account_notifications#update'
       post 'system_account_notifications', to: 'system_account_notifications#create'
+      get 'end_user_notifications/:id', to: 'end_user_notifications#show'
+      get 'end_user_notifications', to: 'end_user_notifications#index'
       get 'system_end_user_notifications/:id', to: 'system_end_user_notifications#show'
       get 'system_end_user_notifications', to: 'system_end_user_notifications#index'
       post 'system_end_user_notifications/:id', to: 'system_end_user_notifications#update'
