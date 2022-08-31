@@ -143,8 +143,10 @@ const Purchase: NextPage = () => {
     if (isRegisteredAddress && deliveryTargets.length === 0) {
       return true
     }
-    if (isRegisteredAddress && (!firstName || !lastName || !postalCode || !state || !city || !line1)) {
-      return true
+    if (!isRegisteredAddress) {
+      if (!firstName || !lastName || !postalCode || !city || !line1) {
+        return true
+      }
     }
     return false
   }

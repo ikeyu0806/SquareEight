@@ -69,6 +69,7 @@ class Api::Internal::CashRegistersController < ApplicationController
           Stripe::PaymentIntent.confirm(
             payment_intent.id
           )
+          # 明細
           order.order_items.new(product_type: 'Product',
                                 product_id: product.id,
                                 product_name: product.name,
@@ -77,6 +78,19 @@ class Api::Internal::CashRegistersController < ApplicationController
                                 commission: commission)
           product.save!
           current_end_user.cart_products.where(product_id: product.id).delete_all
+
+          # エンドユーザ通知
+          end_user_notification_title = product.name + 'を購入しました。'
+          end_user_notification_content = end_user_notification_title + '<br/>料金:' + product.price.to_s
+          current_end_user
+          .end_user_notifications
+          .create!(title: end_user_notification_title, content: end_user_notification_content)
+          # ビジネスオーナー向け通知
+          account_notification_title = customer.full_name + 'が' + product.name + 'を購入しました。'
+          account_notification_content = account_notification_title + '<br/>料金:' + product.price.to_s
+          product.account
+          .account_notifications
+          .create!(title: account_notification_title, content: account_notification_content)
         when 'TicketMaster' then
           ticket_master = TicketMaster.find(cart[:parent_ticket_master_id])
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
