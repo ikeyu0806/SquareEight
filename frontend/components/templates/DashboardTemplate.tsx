@@ -51,7 +51,7 @@ const DashboardTemplate = (): JSX.Element => {
             })}
           </ListGroup>
           <div className='text-center mt10'>
-            <Button>もっと見る</Button>
+            <a className='btn btn-primary' href='/admin/notification/account/list'>もっと見る</a>
           </div>
         </Col>
         <Col>
@@ -68,7 +68,7 @@ const DashboardTemplate = (): JSX.Element => {
             })}
           </ListGroup>
           <div className='text-center mt10'>
-            <a className='btn btn-primary' href='/admin/systemNotification/system/list'>もっと見る</a>
+            <a className='btn btn-primary' href='/admin/notification/system/list'>もっと見る</a>
           </div>
         </Col>
       </Row>

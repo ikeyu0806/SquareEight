@@ -1,4 +1,6 @@
 class Api::Internal::SystemAccountNotificationsController < ApplicationController
+  before_action :merchant_login_only!, only: [:index, :show]
+  before_action :system_admin_user_login_only!, only: [:create, :update]
   def index
     system_account_notifications = SystemAccountNotification.all
     render json: { status: 'success', system_account_notifications: system_account_notifications }, states: 200
