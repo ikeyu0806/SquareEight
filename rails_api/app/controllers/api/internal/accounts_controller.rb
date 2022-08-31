@@ -12,7 +12,7 @@ class Api::Internal::AccountsController < ApplicationController
     # 顧客数グラフ
     customers = account.customers.where(created_at: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
     group_by_customers_count = customers.map{|customer| customer.created_at.strftime("%Y/%m/%d")}.group_by(&:itself).transform_values(&:size)
-    customers_array = week_days.map do |day|
+    customer_count_array = week_days.map do |day|
       group_by_customers_count[day].present? ? group_by_customers_count[day] : 0
     end
     # 売上グラフ
@@ -32,6 +32,7 @@ class Api::Internal::AccountsController < ApplicationController
                    transfer_amount_array: transfer_amount_array,
                    fee_amount_array: fee_amount_array,
                    notifications: notifications,
+                   customer_count_array: customer_count_array,
                    system_notifications: system_notifications }
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

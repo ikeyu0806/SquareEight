@@ -5,7 +5,8 @@ export const dashboardSlice = createSlice({
   initialState: {
     weekDays: [] as string[],
     transferAmountArray: [] as number[],
-    feeAmountArray: [] as number[]
+    feeAmountArray: [] as number[],
+    customerCountArray: [] as number[],
   },
   reducers: {
     weekDaysChanged: (state, action: PayloadAction<string[]>) => {
@@ -17,11 +18,15 @@ export const dashboardSlice = createSlice({
     feeAmountArrayChanged: (state, action: PayloadAction<number[]>) => {
       state.feeAmountArray = action.payload
     },
+    customerCountArrayChanged: (state, action: PayloadAction<number[]>) => {
+      state.customerCountArray = action.payload
+    },
   },
 })
 
 export const { weekDaysChanged } = dashboardSlice.actions
 export const { transferAmountArrayChanged } = dashboardSlice.actions
 export const { feeAmountArrayChanged } = dashboardSlice.actions
+export const { customerCountArrayChanged } = dashboardSlice.actions
 
 export default dashboardSlice.reducer
