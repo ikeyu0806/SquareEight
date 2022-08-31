@@ -24,7 +24,7 @@ export const options = {
   plugins: {
     title: {
       display: true,
-      text: 'Chart.js Bar Chart - Stacked',
+      text: '週間売上',
     },
   },
   responsive: true,
@@ -39,7 +39,7 @@ export const options = {
 }
 
 
-const SalesLineChart = (): JSX.Element => {
+const SalesBarChart = (): JSX.Element => {
   const transferAmountArray = useSelector((state: RootState) => state.dashboard.transferAmountArray)
   const feeAmountArray = useSelector((state: RootState) => state.dashboard.feeAmountArray)
   const weekDays = useSelector((state: RootState) => state.dashboard.weekDays)
@@ -64,10 +64,9 @@ const SalesLineChart = (): JSX.Element => {
 
   return (
     <>
-      {console.log(data)}
       <Bar options={options} data={data} />
     </>
   )
 }
 
-export default SalesLineChart
+export default SalesBarChart
