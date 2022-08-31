@@ -6,8 +6,16 @@ class Api::Internal::AccountsController < ApplicationController
     # 通知
     notifications = account.account_notifications.limit(5)
     system_notifications = SystemAccountNotification.limit(5)
-    # 売上グラフ
+
+    # グラフのラベル
     week_days =  (0..6).to_a.map{|i| (Time.now - i.days).strftime("%Y/%m/%d")}.reverse
+    # 顧客数グラフ
+    customers = account.customers.where(created_at: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
+    group_by_customers_count = customers.map{|customer| customer.created_at.strftime("%Y/%m/%d")}.group_by(&:itself).transform_values(&:size)
+    customers_array = week_days.map do |day|
+      group_by_customers_count[day].present? ? group_by_customers_count[day] : 0
+    end
+    # 売上グラフ
     payment_intents = account.search_stripe_payment_intents
     payment_intent_content = payment_intents.map{|c| {charge_date: Time.at(c["created"]).strftime("%Y/%m/%d"), transfer_amount: c["amount"], application_fee_amount: c["application_fee_amount"]}}
     payment_intent_content = payment_intent_content.group_by{|c| c[:charge_date]}
