@@ -22,6 +22,7 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { status: 'success',
                    week_days: week_days,
                    transfer_amount_array: transfer_amount_array,
+                   fee_amount_array: fee_amount_array,
                    notifications: notifications,
                    system_notifications: system_notifications }
   rescue => error

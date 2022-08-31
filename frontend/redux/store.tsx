@@ -18,6 +18,7 @@ import deliveryTargetReducer from './deliveryTargetSlice'
 import customerReducer from './customerSlice'
 import questionnaireMasterReducer from './questionnaireMasterSlice'
 import messageTemplateReducer from './messageTemplateSlice'
+import dashboardReducer from './dashboardSlice'
 
 export const store = configureStore({
   reducer: {
@@ -39,7 +40,8 @@ export const store = configureStore({
     deliveryTarget: deliveryTargetReducer,
     customer: customerReducer,
     questionnaireMaster: questionnaireMasterReducer,
-    messageTemplate: messageTemplateReducer
+    messageTemplate: messageTemplateReducer,
+    dashboard: dashboardReducer
   },
 })
 

@@ -9,6 +9,8 @@ import {
   Legend,
 } from 'chart.js'
 import { Bar } from 'react-chartjs-2'
+import { RootState } from 'redux/store'
+import { useSelector } from 'react-redux'
 
 ChartJS.register(
   CategoryScale,
@@ -36,32 +38,35 @@ export const options = {
   },
 }
 
-const labels = ['1日', '2日', '3日', '4日', '5日', '6日', '7日']
-
-const transferAmountArray = [400, 500, 200, 900, 600, 900, 1000]
-
-const feeAmountArray = [40, 50, 20, 90, 60, 90, 100]
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: '手数料',
-      data: feeAmountArray,
-      backgroundColor: 'rgb(255, 99, 132)',
-    },
-    {
-      label: '売上',
-      data: transferAmountArray,
-      backgroundColor: 'rgb(53, 162, 235)'
-    },
-  ],
-}
-
 
 const SalesLineChart = (): JSX.Element => {
+  const transferAmountArray = useSelector((state: RootState) => state.dashboard.transferAmountArray)
+  const feeAmountArray = useSelector((state: RootState) => state.dashboard.feeAmountArray)
+  const weekDays = useSelector((state: RootState) => state.dashboard.weekDays)
+
+  const labels = weekDays
+
+  const data = {
+    labels,
+    datasets: [
+      {
+        label: '手数料',
+        data: feeAmountArray,
+        backgroundColor: 'rgb(255, 99, 132)',
+      },
+      {
+        label: '売上',
+        data: transferAmountArray,
+        backgroundColor: 'rgb(53, 162, 235)'
+      },
+    ],
+  }
+
   return (
-    <Bar options={options} data={data} />
+    <>
+      {console.log(data)}
+      <Bar options={options} data={data} />
+    </>
   )
 }
 

@@ -6,12 +6,15 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { Notification } from 'interfaces/Notification'
 import { useRouter } from 'next/router'
+import { weekDaysChanged, transferAmountArrayChanged, feeAmountArrayChanged } from 'redux/dashboardSlice'
+import { useDispatch } from 'react-redux'
 
 const DashboardTemplate = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [systemNotifications, setSystemNotifications] = useState<Notification[]>([])
   const router = useRouter()
+  const dispatch = useDispatch()
 
   useEffect(() => {
     const fetchDashboardContent = () => {
@@ -26,6 +29,9 @@ const DashboardTemplate = (): JSX.Element => {
         console.log(response)
         setNotifications(response.data.notifications)
         setSystemNotifications(response.data.system_notifications)
+        dispatch(weekDaysChanged(response.data.week_days))
+        dispatch(transferAmountArrayChanged(response.data.transfer_amount_array))
+        dispatch(feeAmountArrayChanged(response.data.fee_amount_array))
       })
       .catch(error => {
         console.log(error)
