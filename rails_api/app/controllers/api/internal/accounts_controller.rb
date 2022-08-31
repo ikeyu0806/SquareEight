@@ -2,9 +2,26 @@ class Api::Internal::AccountsController < ApplicationController
   before_action :merchant_login_only!
 
   def dashboard_contents
-    notifications = current_merchant_user.account.account_notifications.limit(5)
+    account = current_merchant_user.account
+    # 通知
+    notifications = account.account_notifications.limit(5)
     system_notifications = SystemAccountNotification.limit(5)
+    # 売上グラフ
+    week_days =  (0..6).to_a.map{|i| (Time.now - i.days).strftime("%Y/%m/%d")}.reverse
+    payment_intents = account.search_stripe_payment_intents
+    payment_intent_content = payment_intents.map{|c| {charge_date: Time.at(c["created"]).strftime("%Y/%m/%d"), transfer_amount: c["amount"], application_fee_amount: c["application_fee_amount"]}}
+    payment_intent_content = payment_intent_content.group_by{|c| c[:charge_date]}
+    payment_intent_content = payment_intent_content.map{|g| {date: g[0], transfer_amount: (g[1].pluck(:transfer_amount).sum) - (g[1].pluck(:application_fee_amount).sum), application_fee_amount: g[1].pluck(:application_fee_amount).sum }}
+    transfer_amount_array = week_days.map do |day|
+      payment_intent_content.find{|content| content[:date] === day}.present? ? payment_intent_content.find{|content| content[:date] === day}[:transfer_amount] : 0
+    end
+    fee_amount_array = week_days.map do |day|
+      payment_intent_content.find{|content| content[:date] === day}.present? ? payment_intent_content.find{|content| content[:date] === day}[:application_fee_amount] : 0
+    end
+    fee_amount = []
     render json: { status: 'success',
+                   week_days: week_days,
+                   transfer_amount_array: transfer_amount_array,
                    notifications: notifications,
                    system_notifications: system_notifications }
   rescue => error
