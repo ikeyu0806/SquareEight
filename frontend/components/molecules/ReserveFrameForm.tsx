@@ -116,7 +116,8 @@ const ReserveFrameForm = () => {
 
   const deleteReserveFrameReceptionTimes = (startAt: string, endAt: string) => {
     let updateReserveFrameReceptionTimes = reserveFrameReceptionTimes
-    updateReserveFrameReceptionTimes = updateReserveFrameReceptionTimes.filter(time => time.reception_start_time !== startAt && time.reception_end_time !== endAt)
+    // filterの複数条件うまく動かないのでstart_atとend_at繋げた文字列でfilter
+    updateReserveFrameReceptionTimes = updateReserveFrameReceptionTimes.filter(time => (time.reception_start_time + time.reception_end_time) !== (startAt + endAt))
     dispatch(reserveFrameReceptionTimesChanged(updateReserveFrameReceptionTimes))
   }
 
