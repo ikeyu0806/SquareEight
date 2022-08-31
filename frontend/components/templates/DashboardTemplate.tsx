@@ -9,7 +9,8 @@ import { useRouter } from 'next/router'
 
 const DashboardTemplate = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
-  const [notification, setNotification] = useState<Notification[]>([])
+  const [notifications, setNotifications] = useState<Notification[]>([])
+  const [systemNotifications, setSystemNotifications] = useState<Notification[]>([])
   const router = useRouter()
 
   useEffect(() => {
@@ -23,7 +24,8 @@ const DashboardTemplate = (): JSX.Element => {
       )
       .then(function (response) {
         console.log(response)
-        setNotification(response.data.system_notifications)
+        setNotifications(response.data.notifications)
+        setSystemNotifications(response.data.system_notifications)
       })
       .catch(error => {
         console.log(error)
@@ -40,18 +42,13 @@ const DashboardTemplate = (): JSX.Element => {
             <ListGroup.Item as='li' active>
               通知一覧
             </ListGroup.Item>
-            <ListGroup.Item as='li'>
-              8月2日 12:00から筋トレメソッドに3名の予約が入っています
-            </ListGroup.Item>
-            <ListGroup.Item as='li'>
-              池谷さんが100回回数券 10000円を購入しました。
-            </ListGroup.Item>
-            <ListGroup.Item as='li'>
-              池谷さんが隔週受講プランに加入しました。 
-            </ListGroup.Item>
-            <ListGroup.Item as='li'>
-              8月1日 12:00からボディメイクに3名の予約が入っています
-            </ListGroup.Item>
+            {notifications && notifications.map((n, i) => {
+              return (
+                <ListGroup.Item as='li' key={i} onClick={() => router.push(`/admin/notification/account/${n.id}/`)}>
+                  {n.title}
+                </ListGroup.Item>
+              )
+            })}
           </ListGroup>
           <div className='text-center mt10'>
             <Button>もっと見る</Button>
@@ -62,7 +59,7 @@ const DashboardTemplate = (): JSX.Element => {
             <ListGroup.Item as='li' active>
               運営からのお知らせ
             </ListGroup.Item>
-            {notification.map((n, i) => {
+            {systemNotifications && systemNotifications.map((n, i) => {
               return (
                 <ListGroup.Item as='li' key={i} onClick={() => router.push(`/admin/notification/system/${n.id}/`)}>
                   {n.title}
@@ -71,7 +68,7 @@ const DashboardTemplate = (): JSX.Element => {
             })}
           </ListGroup>
           <div className='text-center mt10'>
-            <a className='btn btn-primary' href='/admin/notification/system/list'>もっと見る</a>
+            <a className='btn btn-primary' href='/admin/systemNotification/system/list'>もっと見る</a>
           </div>
         </Col>
       </Row>
