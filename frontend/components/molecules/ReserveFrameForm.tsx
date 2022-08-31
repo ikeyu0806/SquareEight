@@ -12,6 +12,7 @@ import { ReservableFrameTicketMasterParam } from 'interfaces/ReservableFrameTick
 import { getBase64 } from 'functions/getBase64'
 import resourceSlice from 'redux/resourceSlice'
 import ReserveFrameRepeatSetting from './ReserveFrameRepeatSetting'
+import TrashIcon from 'components/atoms/TrashIcon'
 import {  startDateChanged,
           titleChanged,
           descriptionChanged,
@@ -108,6 +109,12 @@ const ReserveFrameForm = () => {
     const startAt = reserveFrameReceptionStartTime
     const endAt = reserveFrameReceptionEndTime
     dispatch((reserveFrameReceptionTimesChanged([...reserveFrameReceptionTimes, { reception_start_time: startAt, reception_end_time: endAt }])))
+  }
+
+  const deleteReserveFrameReceptionTimes = (startAt: string, endAt: string) => {
+    let updateReserveFrameReceptionTimes = reserveFrameReceptionTimes
+    updateReserveFrameReceptionTimes = updateReserveFrameReceptionTimes.filter(time => time.reception_start_time === startAt && time.reception_end_time === endAt)
+    dispatch(reserveFrameReceptionTimesChanged(updateReserveFrameReceptionTimes))
   }
 
   const updateMonthlyPaymentPlans = (e: ChangeEvent) => {
@@ -221,6 +228,10 @@ const ReserveFrameForm = () => {
                       <div key={i} className='mb10'>
                         <span>開始時刻: {times.reception_start_time}</span><br/>
                         <span>終了時刻: {times.reception_end_time}</span>
+                        <a className='color-black none-under-decoration ml10'
+                           onClick={() => deleteReserveFrameReceptionTimes(times.reception_start_time, times.reception_end_time)}>
+                          <TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>
+                        </a>
                       </div>
                     )
                   })}
