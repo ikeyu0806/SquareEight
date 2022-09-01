@@ -61,7 +61,7 @@ const Home: NextPage = () => {
             <Row>
               <Col>
                 <Card>
-                  <Card.Img variant="top" src="/images/reserve_frame_modal.png" />
+                  <Card.Img variant='top' src='/images/reserve_frame_modal.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>オンライン予約受付</div>
                     <div className='mt20 text-start'>日ごと、週ごと、月ごとに受付日時を繰り返す予約メニューを登録できます。
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
               <Col>
                 <Card>
                   <Card.Body>
-                    <Card.Img variant="top" src="/images/create_product.png" />
+                    <Card.Img variant='top' src='/images/create_product.png' />
                     <div className={homeStyles.features_header_text}>商品の物販販売</div>
                     <div className='mt20 text-start'>クレジットカード支払いに対応した物販商品を登録できます。</div>
                   </Card.Body>
@@ -81,7 +81,7 @@ const Home: NextPage = () => {
               <Col>
                 <Card>
                   <Card.Body>
-                    <Card.Img variant="top" src="/images/create_ticket.png" />
+                    <Card.Img variant='top' src='/images/create_ticket.png' />
                     <div className={homeStyles.features_header_text}>回数券作成</div>
                     <div className='mt20 text-start'>クレジットカード支払いに対応した回数券を登録できます。
                     購入した回数券の使用状況を管理画面から把握できます。</div>
@@ -94,7 +94,7 @@ const Home: NextPage = () => {
               <Col>
                 <Card>
                   <Card.Body>
-                    <Card.Img variant="top" src="/images/create_monthly_payment_plan.png" />
+                    <Card.Img variant='top' src='/images/create_monthly_payment_plan.png' />
                     <div className={homeStyles.features_header_text}>月額課金プランの作成</div>
                     <div className='mt20 text-start'>毎月自動でお客様から自動でお支払いを引き落とす月額課金プランを作成できます。習い事、レッスンの月謝引き落とし、オンラインサロンの運営、
                     有料メールマガジンの開設に対応できます。</div>
@@ -104,7 +104,7 @@ const Home: NextPage = () => {
               <Col>
                 <Card>
                   <Card.Body>
-                    <Card.Img variant="top" src="/images/create_webpage.png" />
+                    <Card.Img variant='top' src='/images/create_webpage.png' />
                     <div className={homeStyles.features_header_text}>Webページの作成</div>
                     <div className='mt20 text-start'>プログラミング知識不要でWebページを作成できます。</div>
                   </Card.Body>
@@ -113,7 +113,7 @@ const Home: NextPage = () => {
               <Col>
                 <Card>
                   <Card.Body>
-                    <Card.Img variant="top" src="/images/questionnaire.png" />
+                    <Card.Img variant='top' src='/images/questionnaire.png' />
                     <div className={homeStyles.features_header_text}>アンケートの作成</div>
                     <div className='mt20 text-start'>Webアンケートを作成できます。テキスト入力、プルダウン、チェックボックス、ラジオボタン、日時入力フォームに対応しています。</div>
                   </Card.Body>
@@ -125,6 +125,7 @@ const Home: NextPage = () => {
               <Col>
                 <Card>
                   <Card.Body>
+                    <Card.Img variant='top' src='/images/customer_index.png' />
                     <div className={homeStyles.features_header_text}>顧客管理</div>
                     <div className='mt20 text-start'>予約を受け付けたお客様や商品を購入したお客様を自動で登録・管理できます。
                     お客様ごとにメモを登録できます。</div>
@@ -134,6 +135,7 @@ const Home: NextPage = () => {
               <Col>
                 <Card>
                   <Card.Body>
+                    <Card.Img variant='top' src='/images/create_message_template.png' />
                     <div className={homeStyles.features_header_text}>メッセージテンプレートの作成</div>
                     <div className='mt20 text-start'>メッセージテンプレートを作ってお客様にメール送信ができます。</div>
                   </Card.Body>
@@ -142,6 +144,7 @@ const Home: NextPage = () => {
               <Col>
                 <Card>
                   <Card.Body>
+                    <Card.Img variant='top' src='/images/sales_chart.png' />
                     <div className={homeStyles.features_header_text}>売上管理</div>
                     <div className='mt20 text-start'>オンライン決済の売り上げが記録されます。ダッシュボードでグラフ表示することができます。</div>
                   </Card.Body>
@@ -168,7 +171,7 @@ const Home: NextPage = () => {
                     <Row>
                       <Col></Col>
                       <Col xs={11}>
-                        <Card.Text className="text-start">
+                        <Card.Text className='text-start'>
                           <TextWithCheckIcon text='物販商品販売' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='オンライン予約受付 月間50件' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='予約受付の営業時間設定' fill={'darkblue'}></TextWithCheckIcon><br/>
@@ -198,7 +201,7 @@ const Home: NextPage = () => {
                     <Row>
                       <Col></Col>
                       <Col xs={11}>
-                        <Card.Text className="text-start">
+                        <Card.Text className='text-start'>
                           <TextWithCheckIcon text='フリープランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='月間予約件数500件' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='広告非表示' fill={'darkblue'}></TextWithCheckIcon><br/>
@@ -224,7 +227,7 @@ const Home: NextPage = () => {
                     <Row>
                       <Col></Col>
                       <Col xs={11}>
-                        <Card.Text className="text-start">
+                        <Card.Text className='text-start'>
                           <TextWithCheckIcon text='ライトプランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='月間予約件数2000件' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='Webページ100ページまで作成' fill={'darkblue'}></TextWithCheckIcon><br/>
@@ -245,7 +248,7 @@ const Home: NextPage = () => {
                     <Row>
                       <Col></Col>
                       <Col xs={11}>
-                        <Card.Text className="text-start">
+                        <Card.Text className='text-start'>
                           <TextWithCheckIcon text='スタンダードプランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='月間予約件数10000件' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='Webページ1000ページまで作成' fill={'darkblue'}></TextWithCheckIcon><br/>
