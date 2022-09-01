@@ -61,10 +61,11 @@ const Home: NextPage = () => {
             <Row>
               <Col>
                 <Card>
+                  <Card.Img variant="top" src="/images/reserve_frame_modal.png" />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>オンライン予約受付</div>
                     <div className='mt20 text-start'>日ごと、週ごと、月ごとに受付日時を繰り返す予約メニューを登録できます。
-                    設備・備品やスタッフの数による予約受付の制限や特例営業日の設定にも対応</div>
+                    設備・備品やスタッフの数による予約受付の制限や特例営業日の設定にも対応しています。</div>
                   </Card.Body>
                 </Card>
               </Col>
@@ -79,9 +80,10 @@ const Home: NextPage = () => {
               <Col>
                 <Card>
                   <Card.Body>
+                    <Card.Img variant="top" src="/images/create_ticket.png" />
                     <div className={homeStyles.features_header_text}>回数券作成</div>
                     <div className='mt20 text-start'>クレジットカード支払いに対応した回数券を登録できます。
-                    購入した回数券の使用状況を管理画面から把握できます</div>
+                    購入した回数券の使用状況を管理画面から把握できます。</div>
                   </Card.Body>
                 </Card>
               </Col>
@@ -91,6 +93,7 @@ const Home: NextPage = () => {
               <Col>
                 <Card>
                   <Card.Body>
+                    <Card.Img variant="top" src="/images/create_monthly_payment_plan.png" />
                     <div className={homeStyles.features_header_text}>月額課金プランの作成</div>
                     <div className='mt20 text-start'>毎月自動でお客様から自動でお支払いを引き落とす月額課金プランを作成できます。習い事、レッスンの月謝引き落とし、オンラインサロンの運営、
                     有料メールマガジンの開設に対応できます。</div>
@@ -108,6 +111,7 @@ const Home: NextPage = () => {
               <Col>
                 <Card>
                   <Card.Body>
+                    <Card.Img variant="top" src="/images/questionnaire.png" />
                     <div className={homeStyles.features_header_text}>アンケートの作成</div>
                     <div className='mt20 text-start'>Webアンケートを作成できます。テキスト入力、プルダウン、チェックボックス、ラジオボタン、日時入力フォームに対応しています。</div>
                   </Card.Body>
