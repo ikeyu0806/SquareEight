@@ -19,6 +19,13 @@ class Account < ApplicationRecord
   has_many :special_holidays
   has_many :account_notifications
 
+  # プランごとの設定
+  RESERVATION_LIMIT = { "Free" => 30, "Light" => 500, "Standard" => 2000, "Premium" => 10000 }
+
+  def reservation_limit
+    Account::RESERVATION_LIMIT[self.service_plan]
+  end
+
   def page_links
     # 作成したWebページ、予約ページ、回数券購入ページ、月額課金プラン加入ページのリンクを返却
     result = []
