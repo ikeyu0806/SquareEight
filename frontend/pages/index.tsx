@@ -72,6 +72,7 @@ const Home: NextPage = () => {
               <Col>
                 <Card>
                   <Card.Body>
+                    <Card.Img variant="top" src="/images/create_product.png" />
                     <div className={homeStyles.features_header_text}>商品の物販販売</div>
                     <div className='mt20 text-start'>クレジットカード支払いに対応した物販商品を登録できます。</div>
                   </Card.Body>
@@ -103,6 +104,7 @@ const Home: NextPage = () => {
               <Col>
                 <Card>
                   <Card.Body>
+                    <Card.Img variant="top" src="/images/create_webpage.png" />
                     <div className={homeStyles.features_header_text}>Webページの作成</div>
                     <div className='mt20 text-start'>プログラミング知識不要でWebページを作成できます。</div>
                   </Card.Body>
