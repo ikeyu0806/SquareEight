@@ -1,10 +1,16 @@
-import { Card, Row, Col } from 'react-bootstrap';
+import { Card, Row, Col, Button } from 'react-bootstrap';
 import TextWithCheckIcon from './TextWithCheckIcon';
 
-const StandardPlanCard = (): JSX.Element => {
+interface Props {
+  showJoinButton?: boolean
+}
+
+const StandardPlanCard = ({showJoinButton}: Props): JSX.Element => {
   return (
     <Card>
-      <Card.Header>スタンダード</Card.Header>
+      <Card.Header className='d-flex justify-content-between align-items-center card-header'>
+        スタンダード{showJoinButton && <Button size='sm'>加入する</Button>}
+      </Card.Header>
       <Card.Body>
         <h4>月額 1980円</h4>
         <Row>
