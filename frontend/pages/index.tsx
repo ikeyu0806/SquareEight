@@ -57,16 +57,94 @@ const Home: NextPage = () => {
       &thinsp;
         <div className='text-center' id='features'>
           <h2 className='mt50 mb50'>機能一覧</h2>
+          <Container>
+            <Row>
+              <Col>
+                <Card>
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>オンライン予約受付</div>
+                    <div className='mt20 text-start'>日ごと、週ごと、月ごとに受付日時を繰り返す予約メニューを登録できます。
+                    設備・備品やスタッフの数による予約受付の制限や特例営業日の設定にも対応</div>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Card>
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>商品の物販販売</div>
+                    <div className='mt20 text-start'>クレジットカード支払いに対応した物販商品を登録できます。</div>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Card>
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>回数券作成</div>
+                    <div className='mt20 text-start'>クレジットカード支払いに対応した回数券を登録できます。
+                    購入した回数券の使用状況を管理画面から把握できます</div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+            &thinsp;
+            <Row>
+              <Col>
+                <Card>
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>月額課金プランの作成</div>
+                    <div className='mt20 text-start'>毎月自動でお客様から自動でお支払いを引き落とす月額課金プランを作成できます。習い事、レッスンの月謝引き落とし、オンラインサロンの運営、
+                    有料メールマガジンの開設に対応できます。</div>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Card>
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>Webページの作成</div>
+                    <div className='mt20 text-start'>プログラミング知識不要でWebページを作成できます。</div>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Card>
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>アンケートの作成</div>
+                    <div className='mt20 text-start'>Webアンケートを作成できます。テキスト入力、プルダウン、チェックボックス、ラジオボタン、日時入力フォームに対応しています。</div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+            &thinsp;
+            <Row>
+              <Col>
+                <Card>
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>顧客管理</div>
+                    <div className='mt20 text-start'>予約を受け付けたお客様や商品を購入したお客様を自動で登録・管理できます。
+                    お客様ごとにメモを登録できます。</div>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Card>
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>メッセージテンプレートの作成</div>
+                    <div className='mt20 text-start'>メッセージテンプレートを作ってお客様にメール送信ができます。</div>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col>
+                <Card>
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>売上管理</div>
+                    <div className='mt20 text-start'>オンライン決済の売り上げが記録されます。ダッシュボードでグラフ表示することができます。</div>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+            &thinsp;
+          </Container>
         </div>
-        <Row>
-          <Col>
-            <Card>
-              <Card.Body>
-
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>
       </div>
 
       <Container>
@@ -74,7 +152,6 @@ const Home: NextPage = () => {
           <h2>料金プラン</h2>
             <div className='mt30 mb30'>
               <h4>初期費用無料</h4>
-              {/* <div>作成したホームページに独自ドメインを設定する場合は別途料金がかかります</div> */}
             </div>
             <Row>
               <Col>
@@ -137,7 +214,7 @@ const Home: NextPage = () => {
                 <Card>
                   <Card.Header>スタンダード</Card.Header>
                   <Card.Body>
-                    <h4>1980円</h4>
+                    <h4>月額 1980円</h4>
                     <Row>
                       <Col></Col>
                       <Col xs={11}>
@@ -158,7 +235,7 @@ const Home: NextPage = () => {
                 <Card>
                   <Card.Header>プレミアム</Card.Header>
                   <Card.Body>
-                    <h4>4980円</h4>
+                    <h4>月額 4980円</h4>
                     <Row>
                       <Col></Col>
                       <Col xs={11}>
