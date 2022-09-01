@@ -34,7 +34,7 @@ class Account < ApplicationRecord
   end
 
   def customer_display_limit
-    Account::CUSTOMER_DISPLAY_LIMIT[self.service_plan]]
+    Account::CUSTOMER_DISPLAY_LIMIT[self.service_plan]
   end
 
   def page_links

@@ -3,6 +3,10 @@ import React from 'react'
 import RegularFooter from 'components/organisms/RegularFooter'
 import TextWithCheckIcon from 'components/molecules/TextWithCheckIcon'
 import homeStyles from 'styles/Home.module.css'
+import FreePlanCard from 'components/molecules/FreePlanCard'
+import LightPlanCard from 'components/molecules/LightPlanCard'
+import StandardPlanCard from 'components/molecules/StarndardPlanCard'
+import PremiumPlanCard from 'components/molecules/PremiumPlanCard'
 import { Container,
          Navbar,
          Nav,
@@ -164,94 +168,16 @@ const Home: NextPage = () => {
             </div>
             <Row>
               <Col>
-                <Card>
-                  <Card.Header>フリー</Card.Header>
-                  <Card.Body>
-                    <h4>月額 0円</h4>
-                    <Row>
-                      <Col></Col>
-                      <Col xs={11}>
-                        <Card.Text className='text-start'>
-                          <TextWithCheckIcon text='物販商品販売' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='オンライン予約受付 月間50件' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='予約受付の営業時間設定' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='予約受付の特例営業/休業日時設定' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='予約の回数券支払い' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='クレジットカード月額課金プラン作成' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='予約の月額課金プラン支払い' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='顧客管理' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='登録顧客を50件まで表示' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='メールテンプレート5件まで作成' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='メール送信可能数 50件' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='売上管理' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='決済手数料7%' fill={'darkblue'}></TextWithCheckIcon><br/>
-                        </Card.Text>
-                      </Col>
-                      <Col></Col>
-                    </Row>
-                  </Card.Body>
-                  </Card>
-                </Col>
-              <Col>
-                <Card>
-                  <Card.Header>ライト</Card.Header>
-                  <Card.Body>
-                    <h4>月額 980円</h4>
-                    <Row>
-                      <Col></Col>
-                      <Col xs={11}>
-                        <Card.Text className='text-start'>
-                          <TextWithCheckIcon text='フリープランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='月間予約件数500件' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='広告非表示' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='スタッフや設備備品などのリソースによる予約受付数制限' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='登録顧客の表示数制限解除' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='メール送信可能数 500件' fill={'darkblue'}></TextWithCheckIcon><br/>
-                        </Card.Text>
-                      </Col>
-                      <Col></Col>
-                    </Row>
-                  </Card.Body>
-                </Card>
+                <FreePlanCard></FreePlanCard>
               </Col>
               <Col>
-                <Card>
-                  <Card.Header>スタンダード</Card.Header>
-                  <Card.Body>
-                    <h4>月額 1980円</h4>
-                    <Row>
-                      <Col></Col>
-                      <Col xs={11}>
-                        <Card.Text className='text-start'>
-                          <TextWithCheckIcon text='ライトプランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='月間予約件数2000件' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='メール送信可能数 1000件' fill={'darkblue'}></TextWithCheckIcon><br/>
-                        </Card.Text>
-                      </Col>
-                      <Col></Col>
-                    </Row>
-                  </Card.Body>
-                </Card>
+                <LightPlanCard></LightPlanCard>
               </Col>
               <Col>
-                <Card>
-                  <Card.Header>プレミアム</Card.Header>
-                  <Card.Body>
-                    <h4>月額 4980円</h4>
-                    <Row>
-                      <Col></Col>
-                      <Col xs={11}>
-                        <Card.Text className='text-start'>
-                          <TextWithCheckIcon text='スタンダードプランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='月間予約件数10000件' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='メール送信可能数 10000件' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='決済手数料5%' fill={'darkblue'}></TextWithCheckIcon><br/>
-                        </Card.Text>
-                      </Col>
-                      <Col></Col>
-                    </Row>
-                  </Card.Body>
-                </Card>
+                <StandardPlanCard></StandardPlanCard>
+              </Col>
+              <Col>
+                <PremiumPlanCard></PremiumPlanCard>
               </Col>
             </Row>
             &thinsp;

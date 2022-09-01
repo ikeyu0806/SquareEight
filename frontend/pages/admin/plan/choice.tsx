@@ -6,8 +6,13 @@ const Choice: NextPage = () => {
   return (
     <MerchantUserAdminLayout>
       <Container>
-        <h3>プラン一覧</h3>
-        <Button className='mt30'>退会はこちら</Button>
+        <Row>
+          <Col sm={2}></Col>
+          <Col sm={8}>
+            <h3>プラン一覧</h3>
+            <Button className='mt30'>退会はこちら</Button>
+          </Col>
+        </Row>
       </Container>
     </MerchantUserAdminLayout>
   )
