@@ -1,6 +1,5 @@
 import type { NextPage } from 'next'
 import React from 'react'
-import FeaturesTemplates from 'components/templates/FeaturesTemplates'
 import RegularFooter from 'components/organisms/RegularFooter'
 import TextWithCheckIcon from 'components/molecules/TextWithCheckIcon'
 import homeStyles from 'styles/Home.module.css'
@@ -59,7 +58,7 @@ const Home: NextPage = () => {
         <div className='text-center' id='features'>
           <h2 className='mt50 mb50'>機能一覧</h2>
         </div>
-        <FeaturesTemplates />
+        
         &thinsp;
       </div>
 
@@ -118,7 +117,7 @@ const Home: NextPage = () => {
                           <TextWithCheckIcon text='予約受付の特例休業日時設定' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='Webページ30ページまで作成' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='アンケート30ページまで作成' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='登録顧客数の表示制限解除' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='登録顧客の表示数制限解除' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='メール送信可能数 500件' fill={'darkblue'}></TextWithCheckIcon><br/>
                         </Card.Text>
                       </Col>
