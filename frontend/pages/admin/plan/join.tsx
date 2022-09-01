@@ -21,8 +21,15 @@ const Join: NextPage = () => {
               <Card.Body>
                 <h2>
                   {router.query.plan === 'light' && <>ライトプラン</>}
+                  {router.query.plan === 'standard' && <>スタンダードプラン</>}
+                  {router.query.plan === 'premium' && <>プラミアムプラン</>}
                 </h2>
-                <h3>ご請求額: １ヶ月 ￥{980}</h3>
+                <h3>
+                  ご請求額: １ヶ月 ￥
+                  {router.query.plan === 'light' && 980}
+                  {router.query.plan === 'standard' && 1980}
+                  {router.query.plan === 'premium' && 4980}
+                  </h3>
                 <Button className='mt10'>
                   {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
                   注文を確定
