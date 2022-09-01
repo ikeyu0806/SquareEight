@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
-import IntroductionNavbar from '../../components/templates/IntroductionNavbar'
-import RegularFooter from '../../components/organisms/RegularFooter'
+import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { alertChanged } from '../../redux/alertSlice'
+import { alertChanged } from 'redux/alertSlice'
 import { loginStatusChanged } from 'redux/currentMerchantUserSlice'
 import { RootState } from 'redux/store'
 import { useCookies } from 'react-cookie'
@@ -62,7 +61,7 @@ const Signup: NextPage = () => {
 
   return (
     <>
-      <IntroductionNavbar />
+      <WithoutSessionLayout>
       <Container>
         <Row>
           <Col lg={4} md={3}></Col>
@@ -111,7 +110,7 @@ const Signup: NextPage = () => {
           <Col lg={4} md={3}></Col>
         </Row>
       </Container>
-      <RegularFooter></RegularFooter>
+      </WithoutSessionLayout>
     </>
   )
 }

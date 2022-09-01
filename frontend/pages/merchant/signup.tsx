@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
-import IntroductionNavbar from '../../components/templates/IntroductionNavbar'
-import RegularFooter from '../../components/organisms/RegularFooter'
+import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
-import { alertChanged } from '../../redux/alertSlice'
+import { alertChanged } from 'redux/alertSlice'
 import { loginStatusChanged } from 'redux/currentMerchantUserSlice'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -67,66 +66,66 @@ const Signup: NextPage = () => {
 
   return (
     <>
-      <IntroductionNavbar />
-      <Container>
-        <Row>
-          <Col lg={4} md={3}></Col>
-          <Col>
-            <Card>
-              <Card.Header>ユーザ登録</Card.Header>
-              <Card.Body>
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group className='mb-3' controlId='formEmail'>
-                      <Form.Label>ビジネス名称</Form.Label>
-                      <Form.Control type='text'
-                                    placeholder='企業名、店舗名、教室名など' 
-                                    onChange={(e) => setBusinessName(e.target.value)}/>
+      <WithoutSessionLayout>
+        <Container>
+          <Row>
+            <Col lg={4} md={3}></Col>
+            <Col>
+              <Card>
+                <Card.Header>ユーザ登録</Card.Header>
+                <Card.Body>
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Group className='mb-3' controlId='formEmail'>
+                        <Form.Label>ビジネス名称</Form.Label>
+                        <Form.Control type='text'
+                                      placeholder='企業名、店舗名、教室名など' 
+                                      onChange={(e) => setBusinessName(e.target.value)}/>
+                        <Form.Text className='text-muted'></Form.Text>
+                      </Form.Group>
+                    <Form.Group className='mb-3' controlId='formEmail'>
+                      <Form.Label>メールアドレス</Form.Label>
+                      <Form.Control type='email'
+                                    placeholder='必須'
+                                    onChange={(e) => setEmail(e.target.value)}/>
                       <Form.Text className='text-muted'></Form.Text>
                     </Form.Group>
-                  <Form.Group className='mb-3' controlId='formEmail'>
-                    <Form.Label>メールアドレス</Form.Label>
-                    <Form.Control type='email'
-                                  placeholder='必須'
-                                  onChange={(e) => setEmail(e.target.value)}/>
-                    <Form.Text className='text-muted'></Form.Text>
-                  </Form.Group>
-                  <Form.Group className='mb-3' controlId='formPassword'>
-                    <Form.Label>パスワード</Form.Label>
-                    <Form.Control type='password'
-                                  placeholder='必須'
-                                  onChange={(e) => setPassword(e.target.value)}/>
-                  </Form.Group>
-                  <Form.Group className='mb-3' controlId='formPassword'>
-                    <Form.Label>パスワード(確認)</Form.Label>
-                    <Form.Control type='password'
-                                  onChange={(e) => setConfirmPassword(e.target.value)}/>
-                  </Form.Group>
-                  <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-                    登録することで
-                    <a target='_blank' rel='noreferrer' href='/terms'>利用規約</a>と
-                    <a target='_blank' rel='noreferrer' href='/privacy_policy'>プライバシーポリシー</a>に同意するものとします
-                  </Form.Group>
-                  <div className='text-center'>
-                    <Button variant='primary'
-                            onClick={onSubmit}>
-                      登録する
-                    </Button>
-                  </div>
-                  <hr />
-                  <GoogleAuthButton
-                    buttonText='Googleでサインアップ'
-                    buttonHref={MERCHANT_GOOGLE_AUTH_URL}></GoogleAuthButton>
-                </Form>
-              </Card.Body>
-            </Card>
-            <div className='text-center mt20'>
-              <a href='/merchant/login'>ログインはこちら</a>
-            </div>
-          </Col>
-          <Col lg={4} md={3}></Col>
-        </Row>
-      </Container>
-      <RegularFooter></RegularFooter>
+                    <Form.Group className='mb-3' controlId='formPassword'>
+                      <Form.Label>パスワード</Form.Label>
+                      <Form.Control type='password'
+                                    placeholder='必須'
+                                    onChange={(e) => setPassword(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group className='mb-3' controlId='formPassword'>
+                      <Form.Label>パスワード(確認)</Form.Label>
+                      <Form.Control type='password'
+                                    onChange={(e) => setConfirmPassword(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+                      登録することで
+                      <a target='_blank' rel='noreferrer' href='/terms'>利用規約</a>と
+                      <a target='_blank' rel='noreferrer' href='/privacy_policy'>プライバシーポリシー</a>に同意するものとします
+                    </Form.Group>
+                    <div className='text-center'>
+                      <Button variant='primary'
+                              onClick={onSubmit}>
+                        登録する
+                      </Button>
+                    </div>
+                    <hr />
+                    <GoogleAuthButton
+                      buttonText='Googleでサインアップ'
+                      buttonHref={MERCHANT_GOOGLE_AUTH_URL}></GoogleAuthButton>
+                  </Form>
+                </Card.Body>
+              </Card>
+              <div className='text-center mt20'>
+                <a href='/merchant/login'>ログインはこちら</a>
+              </div>
+            </Col>
+            <Col lg={4} md={3}></Col>
+          </Row>
+        </Container>
+      </WithoutSessionLayout>
     </>
   )
 }

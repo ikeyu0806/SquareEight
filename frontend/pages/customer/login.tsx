@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
-import IntroductionNavbar from '../../components/templates/IntroductionNavbar'
-import RegularFooter from '../../components/organisms/RegularFooter'
+import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
+import RegularFooter from 'components/organisms/RegularFooter'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { useRouter } from 'next/router'
-import { alertChanged } from '../../redux/alertSlice'
+import { alertChanged } from 'redux/alertSlice'
 import { loginStatusChanged } from 'redux/currentEndUserSlice'
 import Router from 'next/router'
 import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
@@ -55,7 +55,7 @@ const Login: NextPage = () => {
 
   return (
     <>
-      <IntroductionNavbar />
+      <WithoutSessionLayout>
       <Container>
         <Row>
           <Col lg={4} md={3}></Col>
@@ -95,7 +95,7 @@ const Login: NextPage = () => {
           <Col lg={4} md={3}></Col>
         </Row>
       </Container>
-      <RegularFooter></RegularFooter>
+      </WithoutSessionLayout>
     </>
   )
 }

@@ -58,8 +58,15 @@ const Home: NextPage = () => {
         <div className='text-center' id='features'>
           <h2 className='mt50 mb50'>機能一覧</h2>
         </div>
-        
-        &thinsp;
+        <Row>
+          <Col>
+            <Card>
+              <Card.Body>
+
+              </Card.Body>
+            </Card>
+          </Col>
+        </Row>
       </div>
 
       <Container>
