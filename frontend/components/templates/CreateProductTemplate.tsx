@@ -143,9 +143,8 @@ const CreateProductTemplate = (): JSX.Element => {
               <Form.Group className='mb-3'>
                 <Form.Label>値段（税込）</Form.Label>
                 <Form.Control placeholder='値段'
-                              type='number'
                               onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
-                              value={price} />
+                              value={String(price)} />
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label>税率</Form.Label>
@@ -159,9 +158,8 @@ const CreateProductTemplate = (): JSX.Element => {
                 {!showProductTypeForm && <Row>
                     <Col>
                       <Form.Control placeholder='在庫'
-                                    type='number'
                                     onChange={(e) => dispatch(inventoryChanged(Number(e.target.value)))}
-                                    value={inventory} />                  
+                                    value={String(inventory)} />                  
                       <Button
                         onClick={() => enableProductTypeForm()}
                         className='mt10 text-white'
@@ -186,7 +184,6 @@ const CreateProductTemplate = (): JSX.Element => {
                                 <Col sm={10}>
                                   <Form.Control placeholder='在庫'
                                         min={1}
-                                        type='number'
                                         onChange={(e: any) => updateProductTypeInventory(e, i)} />
                                 </Col>
                                 <Col sm={2}>

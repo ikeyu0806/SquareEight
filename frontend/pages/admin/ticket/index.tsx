@@ -71,7 +71,7 @@ const Index: NextPage = () => {
                       </a>
                     </td>
                     <td className='text-center'>
-                      <a href={`/ticket/${ticket.id}/purchase`} className='btn btn-primary'>
+                      <a href={`/ticket/${ticket.id}/purchase`} className='btn btn-primary' target='_blank' rel='noreferrer'>
                         購入ページプレビュー
                       </a>
                     </td>

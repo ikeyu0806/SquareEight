@@ -49,8 +49,7 @@ const CreateMonthlyPayment = (): JSX.Element => {
             aria-label='リソース名' />
           <Form.Label className='mt10'>月額料金</Form.Label>
           <FormControl
-            value={price}
-            type='number'
+            value={String(price)}
             onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
             placeholder='10000'
             aria-label='10000' />
@@ -71,8 +70,7 @@ const CreateMonthlyPayment = (): JSX.Element => {
             <Row>
               <Form.Group as={Row} className='mb-3' controlId='formHorizontalEmail'>
                 <Col sm={2}>
-                  <Form.Control type='number'
-                                value={reserveIntervalNumber}
+                  <Form.Control value={String(reserveIntervalNumber)}
                                 onChange={(e) => dispatch(reserveIntervalNumberChanged(Number(e.target.value)))}
                                 placeholder='1' />
                 </Col>
@@ -83,8 +81,7 @@ const CreateMonthlyPayment = (): JSX.Element => {
                   </Form.Select>
                 </Col>
                 <Col sm={2}>
-                  <Form.Control type='number'
-                                value={enableReserveCount}
+                  <Form.Control value={String(enableReserveCount)}
                                 onChange={(e) => dispatch(enableReserveCountChanged(Number(e.target.value)))} />
                 </Col>
                 <Form.Label column sm={4}>
