@@ -193,7 +193,7 @@ const Index: NextPage = () => {
           location.reload()
         }).catch(error => {
           swalWithBootstrapButtons.fire({
-            title: '送信しました',
+            title: '送信失敗しました',
             icon: 'error'
           })
         })
