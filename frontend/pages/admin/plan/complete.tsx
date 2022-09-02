@@ -18,10 +18,15 @@ const Choice: NextPage = () => {
                 <h3 className='mt30 text-center'>
                   {router.query.plan === 'Light' && <>ライトプラン</>}
                   {router.query.plan === 'Standard' && <>スタンダードプラン</>}
-                  {router.query.plan === 'Premium' && <>プレミアムプラン</>}: ご請求額: １ヶ月 ￥
+                  {router.query.plan === 'Premium' && <>プレミアムプラン</>}
+                </h3>
+                  
+                <h3 className='text-center mt20'>
+                  ご請求額: ￥
                   {router.query.plan === 'Light' && 980}
                   {router.query.plan === 'Standard' && 1980}
-                  {router.query.plan === 'Premium' && 4980}</h3>
+                  {router.query.plan === 'Premium' && 4980}
+                </h3>
                 <div className='text-center'>
                   <a
                     href='/admin/dashboard'
