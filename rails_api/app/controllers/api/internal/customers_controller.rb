@@ -8,6 +8,14 @@ class Api::Internal::CustomersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def questionnaire_answers
+    customer = Customer.find(params[:customer_id])
+    answer_contents = customer.answer_contents
+    render json: { status: 'success', answer_contents: answer_contents }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def customer_params

@@ -103,7 +103,6 @@ const Index: NextPage = () => {
     dispatch(customerPaginationStateChanged(Object.assign({ ...customerPaginationState }, { totalPage: totalPage })))
   }
 
-
   return (
     <>
       <MerchantUserAdminLayout>
@@ -151,6 +150,12 @@ const Index: NextPage = () => {
                                 編集
                               </Button>
                             </Col>
+                            <Col>
+                              <a href={`/admin/customer/${customer.id}/questionnaire_answers`}
+                                className='btn btn-primary ml10'>
+                                アンケート回答
+                              </a>
+                            </Col>
                           </Row>
                         </Col>
                       </Row>
@@ -172,7 +177,7 @@ const Index: NextPage = () => {
 
                   <Pagination.Next onClick={displayNextPage}></Pagination.Next>
                   <Pagination.Last onClick={displayLastPage} />
-              </Pagination>
+                </Pagination>
               </Card>
             </Col>
           </Row>
