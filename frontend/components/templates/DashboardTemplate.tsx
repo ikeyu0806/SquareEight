@@ -58,7 +58,7 @@ const DashboardTemplate = (): JSX.Element => {
                   as='li'
                   key={i}
                   className='list-group-hover'
-                  onClick={() => router.push(`/admin/notification/account/${n.id}/`)}>
+                  onClick={() => router.push(`${n.url}`)}>
                   {n.title}
                 </ListGroup.Item>
               )
