@@ -390,7 +390,9 @@ class Api::Internal::AccountsController < ApplicationController
       account.update!(service_plan: account_params[:service_plan])
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
       if account_params[:service_plan] == 'Free'
-        return if self.service_plan == 'Free'
+        Stripe::Subscription.delete(
+          account.stripe_subscription_id,
+        )
       else
         subscription = Stripe::Subscription.create({
           stripe_customer: current_end_user.stripe_customer_id,
@@ -399,6 +401,7 @@ class Api::Internal::AccountsController < ApplicationController
           metadata: account.stripe_serivice_plan_subscription_metadata,
           items: [{ plan: account.service_plan_stripe_id }]
         })
+        account.update!(stripe_subscription_id: subscription.id)
       end
       render json: { status: 'success' }, states: 200
     end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_08_31_082050) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_02_041321) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -31,6 +31,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_08_31_082050) do
     t.string "selected_external_account_id"
     t.string "stripe_representative_person_id"
     t.integer "service_plan", default: 0
+    t.string "stripe_subscription_id"
   end
 
   create_table "business_hours", force: :cascade do |t|
