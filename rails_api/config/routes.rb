@@ -17,6 +17,7 @@ Rails.application.routes.draw do
       post 'accounts/register_stripe_bank_account', to: 'accounts#register_stripe_bank_account'
       post 'accounts/update_selected_bank_account', to: 'accounts#update_selected_bank_account'
       post 'accounts/update_plan', to: 'accounts#update_plan'
+      post 'accounts/withdrawal', to: 'accounts#withdrawal'
       post 'accounts/:payment_method_id/update_payment_method', to: 'accounts#update_payment_method'
       delete 'accounts/:payment_method_id/detach_stripe_payment_method', to: 'accounts#detach_stripe_payment_method'
       delete 'accounts/delete_bank_account/:external_account_id', to: 'accounts#delete_bank_account'

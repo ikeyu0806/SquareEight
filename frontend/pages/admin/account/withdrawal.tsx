@@ -1,8 +1,41 @@
 import { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Container, Button, Row, Col, Card } from 'react-bootstrap'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie'
+import axios from 'axios'
 
 const Withdrawal: NextPage = () => {
+  const router = useRouter()
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
+
+  const onSubmit = () => {
+    swalWithBootstrapButtons.fire({
+      title: '【最終確認】退会してもよろしいですか?',
+      showCancelButton: true,
+      confirmButtonText: '退会する',
+      cancelButtonText: 'キャンセル'
+    }).then((result) => {
+      /* Read more about isConfirmed, isDenied below */
+      if (result.isConfirmed) {
+        axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/withdrawal`,
+        {},
+        {
+          headers: {
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '退会しました。またのご利用をお待ちしております。'
+          })
+          router.push('/')
+        }).catch(error => {
+        })
+      }
+    })
+  }
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -13,13 +46,13 @@ const Withdrawal: NextPage = () => {
               <Card.Header><div>サービス退会</div></Card.Header>
               <Card.Body>
                 <div className='text-center'>
-                  <h3>サービスを退会します</h3>
-                  <div>退会をするとSquareEightのデータは復旧できなくなります。</div>
-                  <div>プランをフリープランに変更し、作成したページを削除、</div>
-                  <div>もしくは非公開にしてアカウントを残すことをお勧めします。</div>
+                  <div>ご利用を停止されたい場合はプランをフリープランに変更し、作成したページを削除、非公開にしてアカウントを残すことをお勧めします。</div>
 
-                  <div className='mt20 mb20'>以上を確認した上で退会する場合は退会処理を実行してください。</div>
-                  <Button className='mt30' variant='danger'>退会する</Button>
+                  <div className='mt20 mb20'>それでも退会される場合は退会処理を実行してください。</div>
+                  <Button
+                    onClick={() => onSubmit()}
+                    className='mt30'
+                    variant='danger'>退会する</Button>
                 </div>
               </Card.Body>
             </Card>

@@ -11,7 +11,7 @@ class Api::Internal::AccountsController < ApplicationController
     week_days =  (0..6).to_a.map{|i| (Time.now - i.days).strftime("%Y/%m/%d")}.reverse
     # 顧客数グラフ
     customers = account.customers.where(created_at: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
-    # if customers.present?
+    if customers.present?
       group_by_customers_count = customers.map{|customer| customer.created_at.strftime("%Y/%m/%d")}.group_by(&:itself).transform_values(&:size)
       customer_count_array = week_days.map do |day|
         group_by_customers_count[day].present? ? group_by_customers_count[day] : 0
@@ -43,7 +43,7 @@ class Api::Internal::AccountsController < ApplicationController
                    customer_count_array: customer_count_array,
                    system_notifications: system_notifications }
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def payment_methods
@@ -52,7 +52,7 @@ class Api::Internal::AccountsController < ApplicationController
                    payment_methods: payment_methods,
                    default_payment_method_id: default_payment_method_id }, states: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def stripe_connected_account
@@ -71,7 +71,7 @@ class Api::Internal::AccountsController < ApplicationController
                    representative_person: JSON.parse(representative_person.to_json),
                    selected_external_account_id: current_merchant_user.account.selected_external_account_id }, states: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def register_credit_card
@@ -104,7 +104,7 @@ class Api::Internal::AccountsController < ApplicationController
       render json: { status: 'success' }, states: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def register_stripe_business_info
@@ -291,7 +291,7 @@ class Api::Internal::AccountsController < ApplicationController
     end
     render json: { status: 'success' }, states: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def register_stripe_bank_account
@@ -314,14 +314,14 @@ class Api::Internal::AccountsController < ApplicationController
     end
     render json: { status: 'success' }, states: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update_selected_bank_account
     current_merchant_user.account.update!(selected_external_account_id: account_params[:external_account_id])
     render json: { status: 'success' }, states: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def delete_bank_account
@@ -332,7 +332,7 @@ class Api::Internal::AccountsController < ApplicationController
     )
     render json: { status: 'success' }, states: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def page_links
@@ -340,7 +340,7 @@ class Api::Internal::AccountsController < ApplicationController
     page_links = account.page_links
     render json: { status: 'success', page_links: page_links }, states: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update_payment_method
@@ -358,7 +358,7 @@ class Api::Internal::AccountsController < ApplicationController
     )
     render json: { status: 'success' }, states: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def stripe_account_info
@@ -383,14 +383,14 @@ class Api::Internal::AccountsController < ApplicationController
     end
     render json: { status: 'success', stripe_account: stripe_account, representative: representative }, states: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def stripe_payment_history
     stripe_payment_intents = current_merchant_user.account.search_stripe_payment_intents
     render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, states: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update_plan
@@ -419,7 +419,7 @@ class Api::Internal::AccountsController < ApplicationController
       render json: { status: 'success' }, states: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def questionnaire_answers
@@ -427,7 +427,24 @@ class Api::Internal::AccountsController < ApplicationController
     answer_contents = account.answer_contents
     render json: { status: 'success', answer_contents: answer_contents }, states: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
+  def withdrawal
+    ActiveRecord::Base.transaction do
+      account = current_merchant_user.account
+      account.update!(deleted_at: Time.zone.now)
+      if account.stripe_subscription_id.present?
+        Stripe.api_key = Rails.configuration.stripe[:secret_key]
+        Stripe::Subscription.delete(
+          account.stripe_subscription_id,
+        )
+      end
+      account.merchant_users.destroy_all
+      render json: { status: 'success' }, states: 200
+    end
+  rescue => error
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private
