@@ -8,6 +8,7 @@ export const currentMerchantUserSlice = createSlice({
     id: '',
     accountId: '',
     email: '',
+    servicePlan: '',
     stripeAccountEnable: 'Unconfirmed' as StripeEnableStatus,
     stripeCustomerEnable: 'Unconfirmed' as StripeEnableStatus,
     loginStatus: 'Unconfirmed' as LoginStatus
@@ -21,6 +22,9 @@ export const currentMerchantUserSlice = createSlice({
     },
     emailChanged: (state, action: PayloadAction<string>) => {
       state.email = action.payload
+    },
+    servicePlanChanged: (state, action: PayloadAction<string>) => {
+      state.servicePlan = action.payload
     },
     stripeAccountEnableChanged: (state, action: PayloadAction<StripeEnableStatus>) => {
       state.stripeAccountEnable = action.payload
@@ -37,6 +41,7 @@ export const currentMerchantUserSlice = createSlice({
 export const { idChanged } = currentMerchantUserSlice.actions
 export const { accountIdChanged } = currentMerchantUserSlice.actions
 export const { emailChanged } = currentMerchantUserSlice.actions
+export const { servicePlanChanged } = currentMerchantUserSlice.actions
 export const { stripeAccountEnableChanged } = currentMerchantUserSlice.actions
 export const { stripeCustomerEnableChanged } = currentMerchantUserSlice.actions
 export const { loginStatusChanged } = currentMerchantUserSlice.actions

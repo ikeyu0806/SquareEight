@@ -12,6 +12,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const alertState =  useSelector((state: RootState) => state.alert.alert)
+  const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
 
   const logout = () => {
     axios.delete(`${process.env.BACKEND_URL}/api/internal/merchant/sessions`, {
@@ -27,7 +28,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
     <>
       <Navbar bg='dark' variant='dark' expand='lg'>
         <Container>
-          <Navbar.Brand href='/' className='font-weight-bold'>SquareEight</Navbar.Brand>
+          <Navbar.Brand href='/' className='font-weight-bold'>SquareEight {servicePlan}</Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='me-auto'>
