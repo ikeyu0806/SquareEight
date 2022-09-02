@@ -390,11 +390,16 @@ class Api::Internal::AccountsController < ApplicationController
       account = current_merchant_user.account
       account.update!(service_plan: account_params[:service_plan])
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
-      if account_params[:service_plan] == 'Free'
+      if account_params[:service_plan] == 'Free' && account.stripe_subscription_id.present?
         Stripe::Subscription.delete(
           account.stripe_subscription_id,
         )
       else
+        if account.stripe_subscription_id.present?
+          Stripe::Subscription.delete(
+            account.stripe_subscription_id,
+          )
+        end
         subscription = Stripe::Subscription.create({
           customer: account.stripe_customer_id,
           description: 'to merchant subscription plan',
