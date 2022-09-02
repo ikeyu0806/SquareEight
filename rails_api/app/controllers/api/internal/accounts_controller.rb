@@ -392,15 +392,12 @@ class Api::Internal::AccountsController < ApplicationController
       if account_params[:service_plan] == 'Free'
         return if self.service_plan == 'Free'
       else
-        Stripe::Subscription.create({
+        subscription = Stripe::Subscription.create({
           stripe_customer: current_end_user.stripe_customer_id,
           application_fee_percent: 4,
           description: monthly_payment_plan.name,
           metadata: account.stripe_serivice_plan_subscription_metadata,
-          items: [{ plan: account.service_plan_stripe_id }],
-          transfer_data:  {
-            destination: monthly_payment_plan.account.stripe_account_id
-          }
+          items: [{ plan: account.service_plan_stripe_id }]
         })
       end
       render json: { status: 'success' }, states: 200

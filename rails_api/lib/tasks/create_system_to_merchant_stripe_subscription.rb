@@ -12,7 +12,12 @@ class Tasks::CreateSystemToMerchantStripeSubscription
     price = price.chomp
 
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
-    product = Stripe::Product.create({name: plan_name})
+    product = Stripe::Product.create({
+      name: plan_name,
+      metadata: {
+        'product_type': 'merchant_to_service_subscription'
+      }
+    })
     stripe_plan = Stripe::Plan.create({
       amount: price.to_i,
       currency: 'jpy',

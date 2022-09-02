@@ -45,13 +45,15 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
         monthly_payment_plan.s3_object_name = file_name
       end
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
-      product = Stripe::Product.create({name: monthly_payment_plan_params[:name]})
+      product = Stripe::Product.create({
+        name: monthly_payment_plan_params[:name]
+      })
       stripe_plan = Stripe::Plan.create({
         amount: monthly_payment_plan_params[:price],
         currency: 'jpy',
         interval: 'month',
         nickname: monthly_payment_plan_params[:name],
-        product: product.id
+        product: product.id,
       })
       monthly_payment_plan.stripe_plan_id = stripe_plan.id
       monthly_payment_plan.save!
