@@ -10,8 +10,8 @@ class Api::Internal::EndUsersController < ApplicationController
   VERIFICATION_CODE_LENGTH = 6
 
   def customer_toppage_info
-    notifications = EndUserNotification.limit(5)
-    system_notifications = SystemEndUserNotification.limit(5)
+    notifications = EndUserNotification.order(created_at: :desc).limit(5)
+    system_notifications = SystemEndUserNotification.order(created_at: :desc).limit(5)
     render json: {  status: 'success',
                     notifications: notifications,
                     system_notifications: system_notifications }, states: 200

@@ -4,8 +4,8 @@ class Api::Internal::AccountsController < ApplicationController
   def dashboard_contents
     account = current_merchant_user.account
     # 通知
-    notifications = account.account_notifications.limit(5)
-    system_notifications = SystemAccountNotification.limit(5)
+    notifications = account.account_notifications.order(created_at: :desc).limit(5)
+    system_notifications = SystemAccountNotification.order(created_at: :desc).limit(5)
 
     # グラフのラベル
     week_days =  (0..6).to_a.map{|i| (Time.now - i.days).strftime("%Y/%m/%d")}.reverse
