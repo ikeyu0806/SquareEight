@@ -6,13 +6,13 @@ import { RootState } from '../../redux/store'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import PlanLabel from 'components/atoms/PlanLabel'
 
 const AdminNavbarTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const alertState =  useSelector((state: RootState) => state.alert.alert)
-  const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
 
   const logout = () => {
     axios.delete(`${process.env.BACKEND_URL}/api/internal/merchant/sessions`, {
@@ -28,10 +28,13 @@ const AdminNavbarTemplate = (): JSX.Element => {
     <>
       <Navbar bg='dark' variant='dark' expand='lg'>
         <Container>
-          <Navbar.Brand href='/' className='font-weight-bold'>SquareEight {servicePlan}</Navbar.Brand>
+          <Navbar.Brand href='/'>
+            <span className='font-weight-bold'>
+            SquareEight
+            </span></Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
-            <Nav className='me-auto'>
+            <Nav className='me-auto font-size-15'>
               <Nav.Link href='/admin/dashboard'>ダッシュボード</Nav.Link>
               <NavDropdown title='予約' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー一覧</NavDropdown.Item>
@@ -75,6 +78,9 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/login_user_info'>ログインユーザ情報</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
               </NavDropdown>
+            </Nav>
+            <Nav className='mr-auto font-size-15'>
+              <PlanLabel></PlanLabel>
             </Nav>
           </Navbar.Collapse>
         </Container>
