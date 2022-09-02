@@ -29,7 +29,10 @@ const Choice: NextPage = () => {
         </Row>
 
         <div className='text-center'>
-          <Button className='mt30' variant='danger'>サービス退会はこちら</Button>
+          <a className='btn btn-danger mt30'
+             href='/admin/account/withdrawal'>
+            サービス退会はこちら
+          </a>
         </div>
       </Container>
     </MerchantUserAdminLayout>
