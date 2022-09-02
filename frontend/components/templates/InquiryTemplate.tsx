@@ -1,15 +1,9 @@
 import React, { useState } from 'react'
-import type { NextPage } from 'next'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
-import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { useDispatch } from 'react-redux'
 import axios from 'axios'
-import { useRouter } from 'next/router'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const InquiryTemplate = (): JSX.Element => {
-  const dispatch = useDispatch()
-  const router = useRouter()
   const [email, setEmail] = useState('')
   const [content, setContent] = useState('')
 
