@@ -25,6 +25,7 @@ const Join: NextPage = () => {
       }
     }).then(response => {
       console.log(response)
+      router.push(`/admin/plan/complete?plan=${router.query.plan}`)
     }).catch(error => {
     })
   }
