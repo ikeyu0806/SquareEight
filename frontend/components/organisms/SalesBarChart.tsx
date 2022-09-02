@@ -55,7 +55,7 @@ const SalesBarChart = (): JSX.Element => {
         backgroundColor: 'rgb(255, 99, 132)',
       },
       {
-        label: '売上',
+        label: 'お振り込み金額',
         data: transferAmountArray,
         backgroundColor: 'rgb(53, 162, 235)'
       },
