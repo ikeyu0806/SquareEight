@@ -385,6 +385,13 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def update_plan
+    if account_params[:service_plan] === 'Free'
+    else
+      
+    end
+  end
+
   private
 
   def account_params
@@ -394,6 +401,7 @@ class Api::Internal::AccountsController < ApplicationController
                   :payment_method_id,
                   :business_profile_name,
                   :business_type,
+                  :service_plan,
                   :individual_first_name_kanji,
                   :individual_first_name_kana,
                   :individual_last_name_kanji,

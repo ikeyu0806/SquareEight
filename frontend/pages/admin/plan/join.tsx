@@ -22,7 +22,7 @@ const Join: NextPage = () => {
                 <h2>
                   {router.query.plan === 'light' && <>ライトプラン</>}
                   {router.query.plan === 'standard' && <>スタンダードプラン</>}
-                  {router.query.plan === 'premium' && <>プラミアムプラン</>}
+                  {router.query.plan === 'premium' && <>プレミアムプラン</>}
                 </h2>
                 <h3>
                   ご請求額: １ヶ月 ￥

@@ -20,10 +20,12 @@ class Account < ApplicationRecord
   has_many :account_notifications
 
   # プランごとの設定
+  PLAN_NAME =  { "Free" => "フリープラン", "Light" => "ライトプラン", "Standard" => "スタンダードプラン", "Premium" => "プレミアムプラン" }
   RESERVATION_LIMIT = { "Free" => 30, "Light" => 500, "Standard" => 2000, "Premium" => 10000 }
   SEND_MAIL_LIMIT = { "Free" => 50, "Light" => 500, "Standard" => 1000, "Premium" => 10000 }
   STRIPE_CHARGE_FEE = { "Free" => 70, "Light" => 70, "Standard" => 70, "Premium" => 50 }
   CUSTOMER_DISPLAY_LIMIT = { "Free" => 50, "Light" => 10000000000, "Standard" => 10000000000, "Premium" => 10000000000 }
+  PLAN_PRICE = { "Free" => 0, "Light" => 980, "Standard" => 1980, "Premium" => 4980 }
 
   def reservation_limit
     Account::RESERVATION_LIMIT[self.service_plan]
@@ -35,6 +37,23 @@ class Account < ApplicationRecord
 
   def customer_display_limit
     Account::CUSTOMER_DISPLAY_LIMIT[self.service_plan]
+  end
+
+  def plan_price
+    Account::PLAN_PRICE[self.service_plan]
+  end
+
+  def plan_name
+    Account::PLAN_NAME[self.service_plan]
+  end
+
+  def stripe_serivice_plan_subscription_metadata
+    {
+      'account_id': self.id,
+      'name': self.plan_name,
+      'price': self.plan_price,
+      'product_type': 'merchant_to_service_subscription'
+    }
   end
 
   def page_links

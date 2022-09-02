@@ -171,7 +171,8 @@ class Api::Internal::CashRegistersController < ApplicationController
               'end_user_id': current_end_user.id,
               'account_id': monthly_payment_plan.account_id,
               'customer_id': customer.id,
-              'customer_fullname': customer.full_name
+              'customer_fullname': customer.full_name,
+              'product_type': 'end_user_to_merchant_subscription',
             },
             items: [{ plan: monthly_payment_plan.stripe_plan_id }],
             transfer_data:  {
