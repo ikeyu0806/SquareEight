@@ -54,7 +54,11 @@ const DashboardTemplate = (): JSX.Element => {
             </ListGroup.Item>
             {notifications && notifications.map((n, i) => {
               return (
-                <ListGroup.Item as='li' key={i} onClick={() => router.push(`/admin/notification/account/${n.id}/`)}>
+                <ListGroup.Item
+                  as='li'
+                  key={i}
+                  className='list-group-hover'
+                  onClick={() => router.push(`/admin/notification/account/${n.id}/`)}>
                   {n.title}
                 </ListGroup.Item>
               )
@@ -71,7 +75,10 @@ const DashboardTemplate = (): JSX.Element => {
             </ListGroup.Item>
             {systemNotifications && systemNotifications.map((n, i) => {
               return (
-                <ListGroup.Item as='li' key={i} onClick={() => router.push(`/admin/notification/system/${n.id}/`)}>
+                <ListGroup.Item
+                  as='li' key={i}
+                  className='list-group-hover'
+                  onClick={() => router.push(`/admin/notification/system/${n.id}/`)}>
                   {n.title}
                 </ListGroup.Item>
               )
