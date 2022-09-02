@@ -387,6 +387,7 @@ class Api::Internal::AccountsController < ApplicationController
 
   def update_plan
     ActiveRecord::Base.transaction do
+      account = current_merchant_user.account
       account.update!(service_plan: account_params[:service_plan])
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
       if account_params[:service_plan] == 'Free'
@@ -395,9 +396,8 @@ class Api::Internal::AccountsController < ApplicationController
         )
       else
         subscription = Stripe::Subscription.create({
-          stripe_customer: current_end_user.stripe_customer_id,
-          application_fee_percent: 4,
-          description: monthly_payment_plan.name,
+          customer: account.stripe_customer_id,
+          description: 'to merchant subscription plan',
           metadata: account.stripe_serivice_plan_subscription_metadata,
           items: [{ plan: account.service_plan_stripe_id }]
         })

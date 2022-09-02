@@ -4,10 +4,30 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { Container, Row, Col, Button, Card } from 'react-bootstrap'
 import MerchantPaymentMethodIndex from 'components/templates/MerchantPaymentMethodIndex'
 import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie'
+import axios from 'axios'
 
 const Join: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
+
+  const execJoinPlan = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/update_plan`,
+    {
+      account: {
+        service_plan: router.query.plan,
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    }).then(response => {
+      console.log(response)
+    }).catch(error => {
+    })
+  }
 
   return (
     <MerchantUserAdminLayout>
@@ -20,17 +40,17 @@ const Join: NextPage = () => {
             <Card>
               <Card.Body>
                 <h2>
-                  {router.query.plan === 'light' && <>ライトプラン</>}
-                  {router.query.plan === 'standard' && <>スタンダードプラン</>}
-                  {router.query.plan === 'premium' && <>プレミアムプラン</>}
+                  {router.query.plan === 'Light' && <>ライトプラン</>}
+                  {router.query.plan === 'Standard' && <>スタンダードプラン</>}
+                  {router.query.plan === 'Premium' && <>プレミアムプラン</>}
                 </h2>
                 <h3>
                   ご請求額: １ヶ月 ￥
-                  {router.query.plan === 'light' && 980}
-                  {router.query.plan === 'standard' && 1980}
-                  {router.query.plan === 'premium' && 4980}
+                  {router.query.plan === 'Light' && 980}
+                  {router.query.plan === 'Standard' && 1980}
+                  {router.query.plan === 'Premium' && 4980}
                   </h3>
-                <Button className='mt10'>
+                <Button className='mt10' onClick={() => execJoinPlan()}>
                   {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
                   注文を確定
                 </Button>

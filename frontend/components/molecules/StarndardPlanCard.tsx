@@ -10,7 +10,7 @@ const StandardPlanCard = ({showJoinButton}: Props): JSX.Element => {
     <Card>
       <Card.Header className='d-flex justify-content-between align-items-center card-header'>
         スタンダード{showJoinButton
-          && <a className='btn btn-primary' href='/admin/plan/join?plan=standard'>加入する</a>}
+          && <a className='btn btn-primary' href='/admin/plan/join?plan=Standard'>加入する</a>}
       </Card.Header>
       <Card.Body>
         <h4>月額 1980円</h4>
