@@ -418,6 +418,14 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def questionnaire_answers
+    account = current_merchant_user.account
+    answer_contents = account.answer_contents
+    render json: { status: 'success', answer_contents: answer_contents }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def account_params

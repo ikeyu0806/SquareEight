@@ -14,6 +14,7 @@ class Account < ApplicationRecord
   has_many :orders
   has_many :customers
   has_many :questionnaire_masters
+  has_many :questionnaire_answers, through: :customers
   has_many :message_templates
   has_many :special_business_hours
   has_many :special_holidays
@@ -116,5 +117,15 @@ class Account < ApplicationRecord
     query = 'metadata["account_id"]:' + "\'" + self.id.to_s + "\'"
     result = Stripe::PaymentIntent.search({query: query, limit: 100})
     JSON.parse(result.to_json)["data"]
+  end
+
+  def answer_contents
+    result = []
+    questionnaire_answers.order(:id).each do |questionnaire_answer|
+      result.push({answer: questionnaire_answer.parse_answer_json,
+                   customer_name: questionnaire_answer.customer.full_name,
+                   answer_datetime: questionnaire_answer.created_at.strftime("%Y年%m月%d日 %H時%M分")})
+    end
+    result
   end
 end

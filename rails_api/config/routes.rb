@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       get 'accounts/stripe_account_info', to: 'accounts#stripe_account_info'
       get 'accounts/dashboard_contents', to: 'accounts#dashboard_contents'
       get 'accounts/page_links', to: 'accounts#page_links'
+      get 'accounts/questionnaire_answers', to: 'accounts#questionnaire_answers'
       get 'accounts/stripe_connected_account', to: 'accounts#stripe_connected_account'
       get 'accounts/payment_methods', to: 'accounts#payment_methods'
       get 'accounts/stripe_payment_history', to: 'accounts#stripe_payment_history'
