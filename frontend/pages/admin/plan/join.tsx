@@ -6,11 +6,14 @@ import MerchantPaymentMethodIndex from 'components/templates/MerchantPaymentMeth
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
+import { RootState } from 'redux/store'
+import { useSelector } from 'react-redux'
 
 const Join: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
+  const paymentMethods = useSelector((state: RootState) => state.currentMerchantUser.paymentMethods)
 
   const execJoinPlan = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/update_plan`,
@@ -51,7 +54,10 @@ const Join: NextPage = () => {
                   {router.query.plan === 'Standard' && 1980}
                   {router.query.plan === 'Premium' && 4980}
                   </h3>
-                <Button className='mt10' onClick={() => execJoinPlan()}>
+                <Button
+                  disabled={!paymentMethods.length}
+                  className='mt10'
+                  onClick={() => execJoinPlan()}>
                   {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
                   注文を確定
                 </Button>

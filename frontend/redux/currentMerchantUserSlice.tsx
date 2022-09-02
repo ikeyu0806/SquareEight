@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LoginStatus } from '../interfaces/LoginStatus'
 import { StripeEnableStatus } from 'interfaces/StripeEnableStatus'
+import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
 
 export const currentMerchantUserSlice = createSlice({
   name: 'currentMerchantUser',
@@ -9,6 +10,8 @@ export const currentMerchantUserSlice = createSlice({
     accountId: '',
     email: '',
     servicePlan: '',
+    defaultPaymentMethodId: '',
+    paymentMethods: [] as StripePaymentMethodsParam[],
     stripeAccountEnable: 'Unconfirmed' as StripeEnableStatus,
     stripeCustomerEnable: 'Unconfirmed' as StripeEnableStatus,
     loginStatus: 'Unconfirmed' as LoginStatus
@@ -26,6 +29,12 @@ export const currentMerchantUserSlice = createSlice({
     servicePlanChanged: (state, action: PayloadAction<string>) => {
       state.servicePlan = action.payload
     },
+    defaultPaymentMethodIdChanged: (state, action: PayloadAction<string>) => {
+      state.defaultPaymentMethodId = action.payload
+    },
+    paymentMethodsChanged: (state, action: PayloadAction<StripePaymentMethodsParam[]>) => {
+      state.paymentMethods = action.payload
+    },
     stripeAccountEnableChanged: (state, action: PayloadAction<StripeEnableStatus>) => {
       state.stripeAccountEnable = action.payload
     },
@@ -42,6 +51,8 @@ export const { idChanged } = currentMerchantUserSlice.actions
 export const { accountIdChanged } = currentMerchantUserSlice.actions
 export const { emailChanged } = currentMerchantUserSlice.actions
 export const { servicePlanChanged } = currentMerchantUserSlice.actions
+export const { defaultPaymentMethodIdChanged } = currentMerchantUserSlice.actions
+export const { paymentMethodsChanged } = currentMerchantUserSlice.actions
 export const { stripeAccountEnableChanged } = currentMerchantUserSlice.actions
 export const { stripeCustomerEnableChanged } = currentMerchantUserSlice.actions
 export const { loginStatusChanged } = currentMerchantUserSlice.actions

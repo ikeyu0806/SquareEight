@@ -4,12 +4,16 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
+import { defaultPaymentMethodIdChanged, paymentMethodsChanged } from 'redux/currentEndUserSlice'
+import { RootState } from 'redux/store'
+import { useSelector, useDispatch } from 'react-redux'
 
 const MerchantPaymentMethodIndex = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
-  const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
-  const [defaultPaymentMethodId, setDefaultPaymentMethodId] = useState('')
+  const dispatch = useDispatch()
+  const defaultPaymentMethodId = useSelector((state: RootState) => state.currentMerchantUser.defaultPaymentMethodId)
+  const paymentMethods = useSelector((state: RootState) => state.currentMerchantUser.paymentMethods)
 
   useEffect(() => {
     const fetchCustomerId = () => {
@@ -22,15 +26,15 @@ const MerchantPaymentMethodIndex = (): JSX.Element => {
       )
       .then(function (response) {
         const paymentMethodsResponse: StripePaymentMethodsParam[] = response.data.payment_methods
-        setPaymentMethods(paymentMethodsResponse)
-        setDefaultPaymentMethodId(response.data.default_payment_method_id)
+        dispatch(paymentMethodsChanged(paymentMethodsResponse))
+        dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
       })
       .catch(error => {
         console.log(error)
       })
     }
     fetchCustomerId()
-  }, [cookies._square_eight_merchant_session])
+  }, [cookies._square_eight_merchant_session, dispatch])
 
   return (
     <>
