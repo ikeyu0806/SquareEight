@@ -4,11 +4,7 @@ import { showBlockModalChanged, blockTypeChanged, showBlockSampleChanged } from 
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
 import SelectExternalLinksModal from '../molecules/SelectExternalLinkModal'
-import SelectTextImageModal from '../molecules/SelectTextImageModal'
 import SelectImageSlideModal from '../molecules/SelectImageSlideModal'
-import SelectNewsModal from '../molecules/SelectNewsModal'
-import SelectInquiryModal from '../molecules/SelectInquiryModal'
-import SelectAccessModal from '../molecules/SelectAccessModal'
 import SelectHeadingModal from '../molecules/SelectHeadingModal'
 
 const SelectHomepageBlockModal = (): JSX.Element => {
@@ -39,16 +35,7 @@ const SelectHomepageBlockModal = (): JSX.Element => {
             <br />
             <SelectImageSlideModal></SelectImageSlideModal>
             <br />
-            <SelectTextImageModal></SelectTextImageModal>
-            <br />
             <SelectExternalLinksModal></SelectExternalLinksModal>
-            <br />
-            <SelectNewsModal></SelectNewsModal>
-            <br />
-            <SelectInquiryModal></SelectInquiryModal>
-            <br />
-            <SelectAccessModal></SelectAccessModal>
-            <br />
           </Col>
         </Row>
       </Modal.Body>

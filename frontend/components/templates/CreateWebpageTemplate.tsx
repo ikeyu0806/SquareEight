@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, Row, Col, Navbar, Container, Form } from 'react-bootstrap'
-import { webpageTagChanged, isTopPageChanged } from '../../redux/webpageSlice'
+import { webpageTagChanged } from '../../redux/webpageSlice'
 import CreateBlockModal from '../organisms/CreateBlockModal'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
@@ -20,7 +20,6 @@ const CreateWebpageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
 
   const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
-  const isTopPage = useSelector((state: RootState) => state.webpage.isTopPage)
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
   const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
 
