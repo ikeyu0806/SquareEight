@@ -386,10 +386,27 @@ class Api::Internal::AccountsController < ApplicationController
   end
 
   def update_plan
-    if account_params[:service_plan] === 'Free'
-    else
-      
+    ActiveRecord::Base.transaction do
+      account.update!(service_plan: account_params[:service_plan])
+      Stripe.api_key = Rails.configuration.stripe[:secret_key]
+      if account_params[:service_plan] == 'Free'
+        return if self.service_plan == 'Free'
+      else
+        Stripe::Subscription.create({
+          stripe_customer: current_end_user.stripe_customer_id,
+          application_fee_percent: 4,
+          description: monthly_payment_plan.name,
+          metadata: account.stripe_serivice_plan_subscription_metadata,
+          items: [{ plan: account.service_plan_stripe_id }],
+          transfer_data:  {
+            destination: monthly_payment_plan.account.stripe_account_id
+          }
+        })
+      end
+      render json: { status: 'success' }, states: 200
     end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
   end
 
   private

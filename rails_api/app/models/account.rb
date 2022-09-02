@@ -47,6 +47,10 @@ class Account < ApplicationRecord
     Account::PLAN_NAME[self.service_plan]
   end
 
+  def service_plan_stripe_id
+    # TODO
+  end
+
   def stripe_serivice_plan_subscription_metadata
     {
       'account_id': self.id,
