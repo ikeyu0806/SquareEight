@@ -27,7 +27,7 @@ const Home: NextPage = () => {
               <Nav.Link href='#about'>概要</Nav.Link>
               <Nav.Link href='#features'>機能</Nav.Link>
               <Nav.Link href='#pricing'>料金</Nav.Link>
-              <Nav.Link href='#inquiry'>お問い合わせ</Nav.Link>
+              <Nav.Link href='/inquiry'>お問い合わせ</Nav.Link>
             </Nav>
             <Nav>
               <Nav.Link href='/customer/login'>

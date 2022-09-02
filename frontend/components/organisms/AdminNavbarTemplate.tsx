@@ -75,7 +75,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href=''>お支払い履歴</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='その他' id='webpage-nav-dropdown'>
-                <NavDropdown.Item href='/inquiry'>お問い合わせ</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/inquiry'>お問い合わせ</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/login_user_info'>ログインユーザ情報</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
               </NavDropdown>

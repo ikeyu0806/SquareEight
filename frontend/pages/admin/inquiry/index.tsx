@@ -1,13 +1,13 @@
 import type { NextPage } from 'next'
+import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import InquiryTemplate from 'components/templates/InquiryTemplate'
-import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 
 const Index: NextPage = () => {
   return (
     <>
-      <WithoutSessionLayout>
+      <MerchantUserAdminLayout>
         <InquiryTemplate></InquiryTemplate>
-      </WithoutSessionLayout>
+      </MerchantUserAdminLayout>
     </>
   )
 }
