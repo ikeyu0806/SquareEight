@@ -5,19 +5,18 @@ import { Container, Navbar, Nav } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../../redux/store'
-import { WebpageParam } from '../../../interfaces/WebpageParam'
-import { webpageTagChanged, pageContentChanged } from '../../../redux/webpageSlice'
-import { HeadingBlockState } from '../../../types/HeadingBlockState'
-import HeadingBlock from '../../../components/organisms/HeadingBlock'
-import TextImageBlock from '../../../components/organisms/TextImageBlock'
-import ImageSlideBlock from '../../../components/organisms/ImageSlideBlock'
-import { BLOCK_TYPE } from '../../../constants/blockType'
-import { ExternalLinkBlockStateType } from '../../../types/ExternalLinkBlockStateType'
-import { TextImageBlockStateType } from '../../../types/TextImageBlockStateType'
-import { WebsiteHeaderType } from '../../../interfaces/WebsiteHeaderType'
-import { WebsiteFooterType } from '../../../interfaces/WebsiteFooterType'
-import { ImageSlideState } from '../../../types/ImageSlideState'
+import { RootState } from 'redux/store'
+import { WebpageParam } from 'interfaces/WebpageParam'
+import { webpageTagChanged, pageContentChanged } from 'redux/webpageSlice'
+import { HeadingBlockState } from 'types/HeadingBlockState'
+import HeadingBlock from 'components/organisms/HeadingBlock'
+import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
+import { BLOCK_TYPE } from 'constants/blockType'
+import { ExternalLinkBlockStateType } from 'types/ExternalLinkBlockStateType'
+import { TextImageBlockStateType } from 'types/TextImageBlockStateType'
+import { WebsiteHeaderType } from 'interfaces/WebsiteHeaderType'
+import { WebsiteFooterType } from 'interfaces/WebsiteFooterType'
+import { ImageSlideState } from 'types/ImageSlideState'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -88,12 +87,6 @@ const Index: NextPage = () => {
                     <ImageSlideBlock blockState={(page.blockState) as ImageSlideState}></ImageSlideBlock>
                   </div>
               )
-              case BLOCK_TYPE.TEXT_IMAGE:
-                return (
-                  <div key={i} className='mb20'>
-                    <TextImageBlock blockState={(page.blockState) as TextImageBlockStateType}></TextImageBlock>
-                  </div>
-                )
               case BLOCK_TYPE.EXTERNAL_LINKS:
                 return [
                   (page.blockState as ExternalLinkBlockStateType).content.map((block, i) => {
