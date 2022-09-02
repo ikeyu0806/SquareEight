@@ -15,6 +15,10 @@ class Api::Internal::AccountsController < ApplicationController
     customer_count_array = week_days.map do |day|
       group_by_customers_count[day].present? ? group_by_customers_count[day] : 0
     end
+    # 新規顧客が0の日付を埋める
+    customer_count_array = customer_count_array.each_with_index do |a, i|
+      customer_count_array[i] = customer_count_array[i] + customer_count_array[i - 1] if i > 0
+    end
     # 売上グラフ
     payment_intents = account.search_stripe_payment_intents
     payment_intent_content = payment_intents.map{|c| {charge_date: Time.at(c["created"]).strftime("%Y/%m/%d"), transfer_amount: c["amount"], application_fee_amount: c["application_fee_amount"]}}
