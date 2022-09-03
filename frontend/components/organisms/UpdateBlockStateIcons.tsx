@@ -35,9 +35,9 @@ const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProp
     }
     if (moveUpPageContent !== undefined) {
       let updateMoveUpPageContent: BlockContent = { blockID: moveUpPageContent.blockID,
-                                      atoms: moveUpPageContent.atoms,
-                                      sortOrder: sortOrder
-                                    }
+                                                    atoms: moveUpPageContent.atoms,
+                                                    sortOrder: sortOrder
+                                                  }
       updatePageContentState = [...updatePageContentState, updateMoveUpPageContent]
     }
     dispatch(pageContentChanged({blockContent: updatePageContentState.sort(function(a, b) { return a.sortOrder < b.sortOrder ? -1 : 1 })}))

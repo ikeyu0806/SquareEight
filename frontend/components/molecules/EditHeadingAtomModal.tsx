@@ -32,7 +32,18 @@ const EditHeadingAtomModal = (): JSX.Element => {
   }
 
   const addAtomSelectedBlockFunc = () => {
-
+    let targetBlockContentState: BlockContent | undefined = pageContent.blockContent.find(content => content.blockID === selectedBlockID)
+    if (targetBlockContentState !== undefined) {
+      let updateAtoms: HeadingAtom[] = targetBlockContentState.atoms as HeadingAtom[]
+      updateAtoms = [...updateAtoms, { atomType: 'heading', text: inputHeading, placement: placement, size: headingSize } as HeadingAtom]
+      let insertBlockContentState: BlockContent = { atoms: updateAtoms, blockID: targetBlockContentState.blockID, sortOrder: targetBlockContentState.sortOrder }
+      let filterBlockContents = pageContent.blockContent.filter(content => content.blockID !== insertBlockContentState.blockID)
+      let updatePageContentState: PageContentState = { blockContent: [...filterBlockContents, insertBlockContentState] }
+      dispatch((pageContentChanged(updatePageContentState)))
+      dispatch(showBlockModalChanged(false))
+      dispatch(atomTypeChanged(''))
+      dispatch(selectedAtomTypeChanged(''))
+    }
   }
 
   const addAtomNewBlockFunc = () => {
