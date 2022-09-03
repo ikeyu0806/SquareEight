@@ -9,6 +9,7 @@ export interface BlockContent {
 }
 
 export interface HeadingAtom {
+  atomType: string
   text: string
   placement: placementType
   size: headingSizeType
@@ -24,5 +25,6 @@ export interface ExternalLinkBlockContentStateType {
 }
 
 export interface ExternalLinkBlockStateType {
+  atomType: string
   content: ExternalLinkBlockContentStateType[]
 }

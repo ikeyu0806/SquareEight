@@ -24,7 +24,7 @@ const EditHeadingAtomModal = (): JSX.Element => {
 
   const completeEdit = () => {
     let HeadingAtomState: HeadingAtom
-    HeadingAtomState = { text: inputHeading, placement: placement, size: headingSize }
+    HeadingAtomState = { atomType: 'heading', text: inputHeading, placement: placement, size: headingSize }
     let BlockContent: BlockContent
     let blockID = new Date().getTime().toString(16)
     let BlockState: BlockContent

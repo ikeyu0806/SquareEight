@@ -39,13 +39,19 @@ const CreateWebpageTemplate = (): JSX.Element => {
               </Navbar>
               {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
                 return (
-                  <div key={i}>
-                    {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[]).map((atom, i) => {
-                      return (
-                        <div key={i}>{i}</div>
-                      )
-                    })}
-                  </div>)
+                  <Row key={i}>
+                      {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[]).map((atom, i) => {
+
+                            {switch(atom.atomType) {
+                              case 'heading':
+                                return (
+                                  <Col key={i}>
+                                    {(atom as HeadingAtom).text}
+                                  </Col>)
+                              default:
+                            }}
+                      })}
+                  </Row>)
               })}
               {/* {pageContent.map((page, i) =>
                 {
