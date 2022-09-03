@@ -16,12 +16,16 @@ const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProp
   const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
 
   const moveUpBlock = () => {
+    
   }
 
   const moveDownBlock = () => {
   }
 
   const deleteBlock = () => {
+    let updatePageContentState: BlockContent[]
+    updatePageContentState = pageContent.blockContent.filter(content => content.blockID !== blockID)
+    dispatch(pageContentChanged({blockContent: updatePageContentState}))
   }
 
   return (
@@ -29,7 +33,7 @@ const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProp
       <a className='mr10 color-black none-under-decoration' onClick={() => console.log('')}><PlusCircleIcon width={20} height={20} fill={'#0000FF'}></PlusCircleIcon>列を追加</a>
       <a className='mr10 color-black none-under-decoration' onClick={() => console.log('')}><CaretUpSquare width={20} height={20} fill={'#5AFF19'}></CaretUpSquare>上に移動</a>
       <a className='mr10 color-black none-under-decoration' onClick={() => console.log('')}><CaretDownSquare width={20} height={20} fill={'#5AFF19'}></CaretDownSquare>下に移動</a>
-      <a className='color-black none-under-decoration' onClick={() => console.log('')}><TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>ブロックを削除</a>
+      <a className='color-black none-under-decoration' onClick={deleteBlock}><TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>ブロックを削除</a>
     </>
   )
 }
