@@ -7,7 +7,7 @@ import { pageContentChanged,
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { PageContentState } from 'interfaces/PageContentState'
-import { ExternalLinkBlockContentStateType } from 'interfaces/PageContentState'
+import { ExternalLinkTextWithUrl } from 'interfaces/PageContentState'
 import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
 import { useCookies } from 'react-cookie'
 import { PageLinksParam } from 'interfaces/PageLinksParam'
@@ -25,7 +25,7 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
   // 予約ページ/回数券購入ページ/月額課金加入ページ: Registered
   // 手動入力: Manual とする
   const [inputLinkType, setInputLinkType] = useState('Registered')
-  const [blockContent, setBlockContent] = useState<ExternalLinkBlockContentStateType[]>([])
+  const [blockContent, setBlockContent] = useState<ExternalLinkTextWithUrl[]>([])
   const [externalLinkBlockStateType, setExternalLinkBlockStateType] = useState<ExternalLinkBlockStateType>()
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
   const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
@@ -55,7 +55,7 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
   }
   
   const onClickAddLinkButton = () => {
-    let updateBlockContent: ExternalLinkBlockContentStateType[]
+    let updateBlockContent: ExternalLinkTextWithUrl[]
     updateBlockContent = [...blockContent, {text: inputLinkText, url: inputLink }]
     setBlockContent(updateBlockContent)
     clearInputTextState()

@@ -18,12 +18,12 @@ export interface HeadingAtom {
 export type placementType = 'left' | 'center' | 'right'
 export type headingSizeType = 1 | 2 | 3 | 4 | 5 | 6
 
-export interface ExternalLinkBlockContentStateType {
+export interface ExternalLinkTextWithUrl {
   text: string
   url: string
 }
 
 export interface ExternalLinkBlockStateType {
   atomType: string
-  content: ExternalLinkBlockContentStateType[]
+  content: ExternalLinkTextWithUrl[]
 }
