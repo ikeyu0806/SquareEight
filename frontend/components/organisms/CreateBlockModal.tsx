@@ -2,21 +2,26 @@ import React from 'react'
 import { Modal } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
-import SelectHomepageBlockModal from './SelectHomepageBlockModal'
+import EditTextAtomModal from 'components/molecules/EditTextAtomModal'
+import SelectWebpageTextAtomModal from 'components/molecules/SelectWebpageTextAtomModal'
+import SelectHomepageAtomModal from './SelectHomepageAtomModal'
 import EditImageSlideBlockModal from '../molecules/EditImageSlideBlockModal'
 import EditTextImageBlockModal from '../molecules/EditTextImageBlockModal'
 import EditExternalLinksModal from '../molecules/EditExternalLinksModal'
 import EditHeadingModal from '../molecules/EditHeadingModal'
 import { BLOCK_TYPE } from '../../constants/blockType'
+import { ATOM_TYPE } from 'constants/atomType'
 
 const CreateBlockModal = (): JSX.Element => {
   const showBlockModal = useSelector((state: RootState) => state.webpage.showBlockModal)
   const blockType = useSelector((state: RootState) => state.webpage.blockType)
+  const atomType = useSelector((state: RootState) => state.webpage.atomType)
 
   return (
     <>
       <Modal show={showBlockModal} size='lg'>
-        {blockType === '' && <SelectHomepageBlockModal></SelectHomepageBlockModal>}
+        {atomType === '' && <SelectHomepageAtomModal></SelectHomepageAtomModal>}
+        {atomType === ATOM_TYPE.TEXT && <EditTextAtomModal></EditTextAtomModal>}
         {blockType === BLOCK_TYPE.IMAGE_SLIDE && <EditImageSlideBlockModal></EditImageSlideBlockModal>}
         {blockType === BLOCK_TYPE.HEADING && <EditHeadingModal></EditHeadingModal>}
         {blockType === BLOCK_TYPE.TEXT_IMAGE && <EditTextImageBlockModal></EditTextImageBlockModal>}

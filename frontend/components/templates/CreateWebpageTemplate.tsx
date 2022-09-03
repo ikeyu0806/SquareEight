@@ -39,7 +39,7 @@ const CreateWebpageTemplate = (): JSX.Element => {
             <Card.Body>
               <Navbar>
               </Navbar>
-              {pageContent.map((page, i) =>
+              {/* {pageContent.map((page, i) =>
                 {
                   switch (page.blockType) {
                     case BLOCK_TYPE.HEADING:
@@ -69,7 +69,7 @@ const CreateWebpageTemplate = (): JSX.Element => {
                       console.log('invalid block')
                   }
                 }
-              )}
+              )} */}
             </Card.Body>
             <div className='text-center mt30 mb30'>
               <span className='mr10'>ブロックを追加</span>

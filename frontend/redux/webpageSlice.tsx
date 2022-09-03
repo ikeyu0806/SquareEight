@@ -7,12 +7,15 @@ export const webpageSlice = createSlice({
   name: 'webpage',
   initialState: {
     pageContent: [] as PageContentState[],
+    selectedAtomType: '',
     selectedBlockType: '',
     showBlockSample: true,
     blockType: '',
+    atomType: '',
     headerTitle: '',
     footerCopyright: '',
     showBlockModal: false,
+    showAtomModal: false,
     currentMaxSortOrder: 0,
     webpageTag: '',
     showEditHeaderModal: false,
@@ -27,11 +30,17 @@ export const webpageSlice = createSlice({
     showBlockSampleChanged: (state, action: PayloadAction<boolean>) => {
       state.showBlockSample = action.payload
     },
+    selectedAtomTypeChanged: (state, action: PayloadAction<string>) => {
+      state.selectedAtomType = action.payload
+    },
     selectedBlockTypeChanged: (state, action: PayloadAction<string>) => {
       state.selectedBlockType = action.payload
     },
     blockTypeChanged: (state, action: PayloadAction<string>) => {
       state.blockType = action.payload
+    },
+    atomTypeChanged: (state, action: PayloadAction<string>) => {
+      state.atomType = action.payload
     },
     headerTitleChanged: (state, action: PayloadAction<string>) => {
       state.headerTitle = action.payload
@@ -65,8 +74,10 @@ export const webpageSlice = createSlice({
 
 export const { pageContentChanged } = webpageSlice.actions
 export const { showBlockSampleChanged } = webpageSlice.actions
+export const { selectedAtomTypeChanged } = webpageSlice.actions
 export const { selectedBlockTypeChanged } = webpageSlice.actions
 export const { blockTypeChanged } = webpageSlice.actions
+export const { atomTypeChanged } = webpageSlice.actions
 export const { headerTitleChanged } = webpageSlice.actions
 export const { footerCopyrightChanged } = webpageSlice.actions
 export const { showBlockModalChanged } = webpageSlice.actions

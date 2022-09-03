@@ -1,15 +1,16 @@
 import React from 'react'
 import { Button, Row, Col, Modal, Form } from 'react-bootstrap'
-import { showBlockModalChanged, blockTypeChanged, showBlockSampleChanged } from '../../redux/webpageSlice'
+import { showBlockModalChanged, blockTypeChanged, showBlockSampleChanged } from 'redux/webpageSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../redux/store'
+import { RootState } from 'redux/store'
+import SelectWebpageTextAtomModal from 'components/molecules/SelectWebpageTextAtomModal'
 import SelectExternalLinksModal from '../molecules/SelectExternalLinkModal'
 import SelectImageSlideModal from '../molecules/SelectImageSlideModal'
 import SelectHeadingModal from '../molecules/SelectHeadingModal'
 
-const SelectHomepageBlockModal = (): JSX.Element => {
+const SelectHomepageAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
-  const selectedBlockType = useSelector((state: RootState) => state.webpage.selectedBlockType)
+  const selectedAtomType = useSelector((state: RootState) => state.webpage.selectedAtomType)
   const showBlockSample = useSelector((state: RootState) => state.webpage.showBlockSample)
 
   return (
@@ -31,6 +32,8 @@ const SelectHomepageBlockModal = (): JSX.Element => {
         </Form>
         <Row>
           <Col>
+            <SelectWebpageTextAtomModal></SelectWebpageTextAtomModal>
+            <br/>
             <SelectHeadingModal></SelectHeadingModal>
             <br />
             <SelectImageSlideModal></SelectImageSlideModal>
@@ -46,4 +49,4 @@ const SelectHomepageBlockModal = (): JSX.Element => {
   )
 }
 
-export default SelectHomepageBlockModal
+export default SelectHomepageAtomModal
