@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
-import { pageContentChanged, showBlockModalChanged, blockTypeChanged, currentMaxSortOrderChanged } from 'redux/webpageSlice'
+import { pageContentChanged,
+         showBlockModalChanged,
+         blockTypeChanged,
+         currentMaxSortOrderChanged } from 'redux/webpageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { PageContentState } from 'interfaces/PageContentState'
@@ -8,12 +11,11 @@ import { ExternalLinkBlockContentStateType } from 'interfaces/PageContentState'
 import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
 import { useCookies } from 'react-cookie'
 import { PageLinksParam } from 'interfaces/PageLinksParam'
-import { generateUniqueString } from 'functions/generateUniqueString'
 import { BlockContent } from 'interfaces/PageContentState'
 import { ATOM_TYPE } from 'constants/atomType'
 import axios from 'axios'
 
-const EditExternalLinksModal = (): JSX.Element => {
+const EditExternalLinksAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
@@ -142,4 +144,4 @@ const EditExternalLinksModal = (): JSX.Element => {
   )
 }
 
-export default EditExternalLinksModal
+export default EditExternalLinksAtomModal

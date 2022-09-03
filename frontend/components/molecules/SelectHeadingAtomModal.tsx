@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { ATOM_TYPE } from 'constants/atomType'
 
-const SelectWebpageTextAtomModal = (): JSX.Element => {
+const SelectHeadingAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const showBlockSample = useSelector((state: RootState) => state.webpage.showBlockSample)
   const selectedAtomType = useSelector((state: RootState) => state.webpage.selectedAtomType)
@@ -33,4 +33,4 @@ const SelectWebpageTextAtomModal = (): JSX.Element => {
   )
 }
 
-export default SelectWebpageTextAtomModal
+export default SelectHeadingAtomModal
