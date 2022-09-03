@@ -46,7 +46,7 @@ const CreateWebpageTemplate = (): JSX.Element => {
                               case 'heading':
                                 return (
                                   <Col key={i}>
-                                    {(atom as HeadingAtom).text}
+                                    <HeadingBlock atomState={(atom as HeadingAtom)}></HeadingBlock>
                                   </Col>)
                               default:
                             }}
