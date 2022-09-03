@@ -8,7 +8,6 @@ import { showBlockModalChanged } from 'redux/webpageSlice'
 import PlusCircleIcon from '../atoms/PlusCircleIcon'
 import UpdateBlockStateIcons from 'components/organisms/UpdateBlockStateIcons'
 import HeadingBlock from 'components/organisms/HeadingBlock'
-import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
 import { HeadingAtom } from 'interfaces/PageContentState'
 import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
 

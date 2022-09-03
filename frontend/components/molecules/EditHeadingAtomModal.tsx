@@ -20,8 +20,22 @@ const EditHeadingAtomModal = (): JSX.Element => {
   const [headingSize, setHeadingSize] = useState<headingSizeType>(1)
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
   const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
+  const addAtomSelectedBlock = useSelector((state: RootState) => state.webpage.addAtomSelectedBlock)
+  const selectedBlockID = useSelector((state: RootState) => state.webpage.selectedBlockID)
 
   const completeEdit = () => {
+    if (addAtomSelectedBlock) {
+      addAtomSelectedBlockFunc()
+    } else {
+      addAtomNewBlockFunc()
+    }
+  }
+
+  const addAtomSelectedBlockFunc = () => {
+
+  }
+
+  const addAtomNewBlockFunc = () => {
     let HeadingAtomState: HeadingAtom
     HeadingAtomState = { atomType: 'heading', text: inputHeading, placement: placement, size: headingSize }
     let blockID = new Date().getTime().toString(16)

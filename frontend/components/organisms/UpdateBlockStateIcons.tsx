@@ -6,7 +6,10 @@ import PlusCircleIcon from 'components/atoms/PlusCircleIcon'
 import { UpdateBlockStateIconsProps } from 'types/UpdateBlockStateIconsProps'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
-import { pageContentChanged, showBlockModalChanged, addAtomSelectedBlockChanged } from 'redux/webpageSlice'
+import { pageContentChanged,
+         selectedBlockIDChanged,
+         showBlockModalChanged,
+         addAtomSelectedBlockChanged } from 'redux/webpageSlice'
 import { BlockContent } from 'interfaces/PageContentState'
 
 const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProps): JSX.Element => {
@@ -75,6 +78,7 @@ const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProp
   const addBlockAtom = () => {
     dispatch(showBlockModalChanged(true))
     dispatch(addAtomSelectedBlockChanged(true))
+    dispatch(selectedBlockIDChanged(blockID))
   }
 
   return (

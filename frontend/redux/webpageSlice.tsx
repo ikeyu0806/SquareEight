@@ -9,6 +9,7 @@ export const webpageSlice = createSlice({
     pageContent: {blockContent: []} as PageContentState,
     selectedAtomType: '',
     selectedBlockType: '',
+    selectedBlockID: '',
     // 要素追加モーダルで新しくブロックを追加するか選択ブロックに列として追加するか
     addAtomSelectedBlock: false,
     showBlockSample: true,
@@ -37,6 +38,9 @@ export const webpageSlice = createSlice({
     },
     selectedBlockTypeChanged: (state, action: PayloadAction<string>) => {
       state.selectedBlockType = action.payload
+    },
+    selectedBlockIDChanged: (state, action: PayloadAction<string>) => {
+      state.selectedBlockID = action.payload
     },
     blockTypeChanged: (state, action: PayloadAction<string>) => {
       state.blockType = action.payload
@@ -81,6 +85,7 @@ export const { pageContentChanged } = webpageSlice.actions
 export const { showBlockSampleChanged } = webpageSlice.actions
 export const { selectedAtomTypeChanged } = webpageSlice.actions
 export const { selectedBlockTypeChanged } = webpageSlice.actions
+export const { selectedBlockIDChanged } = webpageSlice.actions
 export const { blockTypeChanged } = webpageSlice.actions
 export const { atomTypeChanged } = webpageSlice.actions
 export const { headerTitleChanged } = webpageSlice.actions
