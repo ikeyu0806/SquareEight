@@ -11,15 +11,15 @@ const SelectWebpageTextAtomModal = (): JSX.Element => {
   const selectedAtomType = useSelector((state: RootState) => state.webpage.selectedAtomType)
 
   return (
-    <div onClick={() => dispatch(selectedAtomTypeChanged(ATOM_TYPE.TEXT))}>
+    <div onClick={() => dispatch(selectedAtomTypeChanged(ATOM_TYPE.HEADING))}>
       <Card>
         <Card.Body>
           <input className='form-check-input mr10'
-                 checked={selectedAtomType === ATOM_TYPE.TEXT}
-                 onChange={() => dispatch(atomTypeChanged(ATOM_TYPE.TEXT))}
+                 checked={selectedAtomType === ATOM_TYPE.HEADING}
+                 onChange={() => dispatch(atomTypeChanged(ATOM_TYPE.HEADING))}
                  type='radio'/>
-          <span>テキスト</span>
-          <div className='mt10'>テキストを追加します。</div>
+          <span>見出し</span>
+          <div className='mt10'>見出しのテキストを追加します。</div>
           {showBlockSample && 
             <>
               <br />

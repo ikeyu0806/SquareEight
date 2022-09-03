@@ -6,7 +6,6 @@ import { RootState } from 'redux/store'
 import SelectHeadingAtomModal from 'components/molecules/SelectWebpageHeadingAtomModal'
 import SelectExternalLinksModal from '../molecules/SelectExternalLinkModal'
 import SelectImageSlideModal from '../molecules/SelectImageSlideModal'
-import SelectHeadingModal from '../molecules/SelectHeadingModal'
 
 const SelectHomepageAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -33,8 +32,6 @@ const SelectHomepageAtomModal = (): JSX.Element => {
         <Row>
           <Col>
             <SelectHeadingAtomModal></SelectHeadingAtomModal>
-            <br/>
-            <SelectHeadingModal></SelectHeadingModal>
             <br />
             <SelectImageSlideModal></SelectImageSlideModal>
             <br />

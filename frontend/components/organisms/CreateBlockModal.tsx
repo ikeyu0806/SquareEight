@@ -20,7 +20,7 @@ const CreateBlockModal = (): JSX.Element => {
     <>
       <Modal show={showBlockModal} size='lg'>
         {atomType === '' && <SelectHomepageAtomModal></SelectHomepageAtomModal>}
-        {atomType === ATOM_TYPE.TEXT && <EditHeadingAtomModal></EditHeadingAtomModal>}
+        {atomType === ATOM_TYPE.HEADING && <EditHeadingAtomModal></EditHeadingAtomModal>}
         {blockType === BLOCK_TYPE.IMAGE_SLIDE && <EditImageSlideBlockModal></EditImageSlideBlockModal>}
         {blockType === BLOCK_TYPE.TEXT_IMAGE && <EditTextImageBlockModal></EditTextImageBlockModal>}
         {blockType === BLOCK_TYPE.EXTERNAL_LINKS && <EditExternalLinksModal></EditExternalLinksModal>}
