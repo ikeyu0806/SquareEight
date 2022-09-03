@@ -42,6 +42,29 @@ const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProp
   }
 
   const moveDownBlock = () => {
+    let updatePageContentState: BlockContent[]
+    const incrementSortOrder = sortOrder + 1
+    if (incrementSortOrder > currentMaxSortOrder) { return true }
+    let moveUpPageContent = pageContent.blockContent.find(content => content.sortOrder === sortOrder)
+    let moveDownPageContent = pageContent.blockContent.find(content => content.sortOrder === incrementSortOrder)
+    updatePageContentState = pageContent.blockContent.filter(content => content.sortOrder !== sortOrder)
+    updatePageContentState = updatePageContentState.filter(content => content.sortOrder !== incrementSortOrder)
+    dispatch(pageContentChanged({blockContent: updatePageContentState}))
+    if (moveUpPageContent !== undefined) {
+      let updateMoveUpPageContent: BlockContent = { blockID: moveUpPageContent.blockID,
+                                                    atoms: moveUpPageContent.atoms,
+                                                    sortOrder: incrementSortOrder
+                                                  }
+      updatePageContentState = [...updatePageContentState, updateMoveUpPageContent]
+    }
+    if (moveDownPageContent !== undefined) {
+      let updateMoveUpPageContent: BlockContent = { blockID: moveDownPageContent.blockID,
+                                                    atoms: moveDownPageContent.atoms,
+                                                    sortOrder: sortOrder
+                                                  }
+      updatePageContentState = [...updatePageContentState, updateMoveUpPageContent]
+    }
+    dispatch(pageContentChanged({blockContent: updatePageContentState.sort(function(a, b) { return a.sortOrder < b.sortOrder ? -1 : 1 })}))
   }
 
   const deleteBlock = () => {
@@ -54,7 +77,7 @@ const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProp
     <>
       <a className='mr10 color-black none-under-decoration' onClick={() => console.log('')}><PlusCircleIcon width={20} height={20} fill={'#0000FF'}></PlusCircleIcon>列を追加</a>
       <a className='mr10 color-black none-under-decoration' onClick={moveUpBlock}><CaretUpSquare width={20} height={20} fill={'#5AFF19'}></CaretUpSquare>上に移動</a>
-      <a className='mr10 color-black none-under-decoration' onClick={() => console.log('')}><CaretDownSquare width={20} height={20} fill={'#5AFF19'}></CaretDownSquare>下に移動</a>
+      <a className='mr10 color-black none-under-decoration' onClick={moveDownBlock}><CaretDownSquare width={20} height={20} fill={'#5AFF19'}></CaretDownSquare>下に移動</a>
       <a className='color-black none-under-decoration' onClick={deleteBlock}><TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>ブロックを削除</a>
     </>
   )
