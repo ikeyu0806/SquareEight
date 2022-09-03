@@ -65,6 +65,7 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
     setExternalLinkBlockStateType({atomType: ATOM_TYPE.EXTERNAL_LINKS, content: blockContent })
     let BlockState: BlockContent
     let blockID = new Date().getTime().toString(16)
+    console.log("!externalLinkBlockStateType", externalLinkBlockStateType)
     if (externalLinkBlockStateType !== undefined) {
       BlockState = { blockID: blockID, atoms: [externalLinkBlockStateType], sortOrder: currentMaxSortOrder + 1 }
       let updatePageContentState: PageContentState = { blockContent: [...pageContent.blockContent, BlockState] }

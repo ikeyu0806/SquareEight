@@ -10,6 +10,7 @@ import UpdateBlockStateIcons from 'components/organisms/UpdateBlockStateIcons'
 import HeadingBlock from 'components/organisms/HeadingBlock'
 import { HeadingAtom } from 'interfaces/PageContentState'
 import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
+import { ATOM_TYPE } from 'constants/atomType'
 
 const CreateWebpageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -41,10 +42,19 @@ const CreateWebpageTemplate = (): JSX.Element => {
                   <Row key={i}>
                       {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[]).map((atom, i) => {
                         {switch(atom.atomType) {
-                          case 'heading':
+                          case ATOM_TYPE.HEADING:
                             return (
                               <Col key={i}>
                                 <HeadingBlock atomState={(atom as HeadingAtom)}></HeadingBlock>
+                              </Col>)
+                          case ATOM_TYPE.EXTERNAL_LINKS:
+                            return (
+                              <Col key={i}>
+                                {(atom as ExternalLinkBlockStateType).content.map((c, i) => {
+                                  return (
+                                    <a href={c.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{c.text}</a>
+                                  )
+                                })}
                               </Col>)
                           default:
                         }}
