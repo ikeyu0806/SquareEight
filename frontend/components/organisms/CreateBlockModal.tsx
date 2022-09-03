@@ -7,7 +7,7 @@ import SelectWebpageTextAtomModal from 'components/molecules/SelectWebpageHeadin
 import SelectHomepageAtomModal from './SelectHomepageAtomModal'
 import EditImageSlideBlockModal from 'components/molecules/EditImageSlideBlockModal'
 import EditTextImageBlockModal from 'components/molecules/EditTextImageBlockModal'
-import EditExternalLinksModal from 'components/molecules/EditExternalLinksModal'
+import EditExternalLinksAtomModal from 'components/molecules/EditExternalLinksAtomModal'
 import { BLOCK_TYPE } from 'constants/blockType'
 import { ATOM_TYPE } from 'constants/atomType'
 
@@ -21,9 +21,9 @@ const CreateBlockModal = (): JSX.Element => {
       <Modal show={showBlockModal} size='lg'>
         {atomType === '' && <SelectHomepageAtomModal></SelectHomepageAtomModal>}
         {atomType === ATOM_TYPE.HEADING && <EditHeadingAtomModal></EditHeadingAtomModal>}
+        {atomType === ATOM_TYPE.EXTERNAL_LINKS && <EditHeadingAtomModal></EditHeadingAtomModal>}
         {blockType === BLOCK_TYPE.IMAGE_SLIDE && <EditImageSlideBlockModal></EditImageSlideBlockModal>}
         {blockType === BLOCK_TYPE.TEXT_IMAGE && <EditTextImageBlockModal></EditTextImageBlockModal>}
-        {blockType === BLOCK_TYPE.EXTERNAL_LINKS && <EditExternalLinksModal></EditExternalLinksModal>}
       </Modal>
     </>
   )

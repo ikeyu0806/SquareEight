@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
-import { pageContentChanged, showBlockModalChanged, blockTypeChanged, currentMaxSortOrderChanged } from '../../redux/webpageSlice'
+import { pageContentChanged, showBlockModalChanged, blockTypeChanged, currentMaxSortOrderChanged } from 'redux/webpageSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../redux/store'
-import { PageContentState } from '../../interfaces/PageContentState'
-import { ExternalLinkBlockContentStateType } from '../../types/ExternalLinkBlockStateType'
+import { RootState } from 'redux/store'
+import { PageContentState } from 'interfaces/PageContentState'
+import { ExternalLinkBlockContentStateType } from 'interfaces/PageContentState'
+import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
 import { useCookies } from 'react-cookie'
 import { PageLinksParam } from 'interfaces/PageLinksParam'
 import { generateUniqueString } from 'functions/generateUniqueString'
+import { BlockContent } from 'interfaces/PageContentState'
+import { ATOM_TYPE } from 'constants/atomType'
 import axios from 'axios'
 
 const EditExternalLinksModal = (): JSX.Element => {
@@ -21,6 +24,7 @@ const EditExternalLinksModal = (): JSX.Element => {
   // 手動入力: Manual とする
   const [inputLinkType, setInputLinkType] = useState('Registered')
   const [blockContent, setBlockContent] = useState<ExternalLinkBlockContentStateType[]>([])
+  const [externalLinkBlockStateType, setExternalLinkBlockStateType] = useState<ExternalLinkBlockStateType>()
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
   const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
 
@@ -56,15 +60,17 @@ const EditExternalLinksModal = (): JSX.Element => {
   }
 
   const completeEdit = () => {
-    let updatePageContentState: PageContentState[]
-    updatePageContentState = [...pageContent, { blockID: generateUniqueString(),
-                                                blockType: 'externalLinks',
-                                                blockState: {content: blockContent},
-                                                sortOrder: currentMaxSortOrder + 1}]
-    dispatch(pageContentChanged(updatePageContentState.sort(function(a, b) { return a.sortOrder < b.sortOrder ? -1 : 1 })))
-    dispatch(showBlockModalChanged(false))
-    dispatch(blockTypeChanged(''))
-    dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
+    setExternalLinkBlockStateType({atomType: ATOM_TYPE.EXTERNAL_LINKS, content: blockContent })
+    let BlockState: BlockContent
+    let blockID = new Date().getTime().toString(16)
+    if (externalLinkBlockStateType !== undefined) {
+      BlockState = { blockID: blockID, atoms: [externalLinkBlockStateType], sortOrder: currentMaxSortOrder + 1 }
+      let updatePageContentState: PageContentState = { blockContent: [...pageContent.blockContent, BlockState] }
+      dispatch(pageContentChanged(updatePageContentState))
+      dispatch(showBlockModalChanged(false))
+      dispatch(blockTypeChanged(''))
+      dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
+    }
   }
 
   const onChangeExternalLinkSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {

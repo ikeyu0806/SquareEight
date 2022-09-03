@@ -3,4 +3,5 @@ export const ATOM_TYPE = {
   TEXT: 'text',
   IMAGE: 'image',
   IMAGE_SLIDE: 'imageSlide',
+  EXTERNAL_LINKS: 'externalLinks',
 }
