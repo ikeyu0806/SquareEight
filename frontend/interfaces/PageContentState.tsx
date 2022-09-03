@@ -4,7 +4,7 @@ export interface PageContentState {
 
 export interface BlockContent {
   blockID: string
-  content: HeadingAtom[] | ExternalLinkBlockStateType[]
+  atoms: HeadingAtom[] | ExternalLinkBlockStateType[]
   sortOrder: number
 }
 

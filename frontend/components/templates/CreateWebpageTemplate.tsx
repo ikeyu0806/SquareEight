@@ -9,6 +9,8 @@ import PlusCircleIcon from '../atoms/PlusCircleIcon'
 import UpdateBlockStateIcons from 'components/organisms/UpdateBlockStateIcons'
 import HeadingBlock from 'components/organisms/HeadingBlock'
 import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
+import { HeadingAtom } from 'interfaces/PageContentState'
+import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
 
 const CreateWebpageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -36,7 +38,14 @@ const CreateWebpageTemplate = (): JSX.Element => {
               <Navbar>
               </Navbar>
               {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
-                return (<>{i}</>)
+                return (
+                  <div key={i}>
+                    {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[]).map((atom, i) => {
+                      return (
+                        <div key={i}>{i}</div>
+                      )
+                    })}
+                  </div>)
               })}
               {/* {pageContent.map((page, i) =>
                 {

@@ -28,7 +28,7 @@ const EditHeadingAtomModal = (): JSX.Element => {
     let BlockContent: BlockContent
     let blockID = new Date().getTime().toString(16)
     let BlockState: BlockContent
-    BlockState = { blockID: blockID, content: [HeadingAtomState], sortOrder: currentMaxSortOrder + 1 }
+    BlockState = { blockID: blockID, atoms: [HeadingAtomState], sortOrder: currentMaxSortOrder + 1 }
     let updatePageContentState: PageContentState = { blockContent: [...pageContent.blockContent, BlockState] }
     dispatch(pageContentChanged(updatePageContentState))
     dispatch(showBlockModalChanged(false))
