@@ -6,8 +6,7 @@ import PlusCircleIcon from 'components/atoms/PlusCircleIcon'
 import { UpdateBlockStateIconsProps } from 'types/UpdateBlockStateIconsProps'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
-import { PageContentState } from 'interfaces/PageContentState'
-import { pageContentChanged } from 'redux/webpageSlice'
+import { pageContentChanged, showBlockModalChanged, addAtomSelectedBlockChanged } from 'redux/webpageSlice'
 import { BlockContent } from 'interfaces/PageContentState'
 
 const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProps): JSX.Element => {
@@ -73,9 +72,14 @@ const UpdateBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateIconsProp
     dispatch(pageContentChanged({blockContent: updatePageContentState}))
   }
 
+  const addBlockAtom = () => {
+    dispatch(showBlockModalChanged(true))
+    dispatch(addAtomSelectedBlockChanged(true))
+  }
+
   return (
     <>
-      <a className='mr10 color-black none-under-decoration' onClick={() => console.log('')}><PlusCircleIcon width={20} height={20} fill={'#0000FF'}></PlusCircleIcon>列を追加</a>
+      <a className='mr10 color-black none-under-decoration' onClick={addBlockAtom}><PlusCircleIcon width={20} height={20} fill={'#0000FF'}></PlusCircleIcon>列を追加</a>
       <a className='mr10 color-black none-under-decoration' onClick={moveUpBlock}><CaretUpSquare width={20} height={20} fill={'#5AFF19'}></CaretUpSquare>上に移動</a>
       <a className='mr10 color-black none-under-decoration' onClick={moveDownBlock}><CaretDownSquare width={20} height={20} fill={'#5AFF19'}></CaretDownSquare>下に移動</a>
       <a className='color-black none-under-decoration' onClick={deleteBlock}><TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>ブロックを削除</a>

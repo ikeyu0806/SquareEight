@@ -107,7 +107,7 @@ const EditHeadingAtomModal = (): JSX.Element => {
                   dispatch(showBlockModalChanged(false))
                   dispatch(selectedAtomTypeChanged(''))
                   dispatch(atomTypeChanged(''))}}>閉じる</Button>
-        <Button variant='primary' onClick={completeEdit}>編集を終えてブロックを追加</Button>
+        <Button variant='primary' onClick={completeEdit}>編集を終えて見出しを追加</Button>
       </Modal.Footer>
     </>
   )

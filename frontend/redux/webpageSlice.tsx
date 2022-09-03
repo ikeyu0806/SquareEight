@@ -9,6 +9,8 @@ export const webpageSlice = createSlice({
     pageContent: {blockContent: []} as PageContentState,
     selectedAtomType: '',
     selectedBlockType: '',
+    // 要素追加モーダルで新しくブロックを追加するか選択ブロックに列として追加するか
+    addAtomSelectedBlock: false,
     showBlockSample: true,
     blockType: '',
     atomType: '',
@@ -48,6 +50,9 @@ export const webpageSlice = createSlice({
     footerCopyrightChanged: (state, action: PayloadAction<string>) => {
       state.footerCopyright = action.payload
     },
+    addAtomSelectedBlockChanged: (state, action: PayloadAction<boolean>) => {
+      state.addAtomSelectedBlock = action.payload
+    },
     showBlockModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showBlockModal = action.payload
     },
@@ -80,6 +85,7 @@ export const { blockTypeChanged } = webpageSlice.actions
 export const { atomTypeChanged } = webpageSlice.actions
 export const { headerTitleChanged } = webpageSlice.actions
 export const { footerCopyrightChanged } = webpageSlice.actions
+export const { addAtomSelectedBlockChanged } = webpageSlice.actions
 export const { showBlockModalChanged } = webpageSlice.actions
 export const { currentMaxSortOrderChanged } = webpageSlice.actions
 export const { webpageTagChanged } = webpageSlice.actions

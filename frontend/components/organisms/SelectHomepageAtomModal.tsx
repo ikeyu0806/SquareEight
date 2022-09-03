@@ -16,7 +16,7 @@ const SelectHomepageAtomModal = (): JSX.Element => {
     <>
       <Modal.Header> 
         <Modal.Title>
-          <span>追加したいブロックを選択してください</span>
+          <span>追加したい要素を選択してください</span>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
