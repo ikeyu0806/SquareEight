@@ -4,10 +4,6 @@ import { webpageTagChanged } from 'redux/webpageSlice'
 import CreateBlockModal from 'components/organisms/CreateBlockModal'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { ExternalLinkBlockStateType } from 'types/ExternalLinkBlockStateType'
-import { ImageSlideState } from 'types/ImageSlideState'
-import { BLOCK_TYPE } from 'constants/blockType'
-import { HeadingBlockState } from 'types/HeadingBlockState'
 import { showBlockModalChanged } from 'redux/webpageSlice'
 import PlusCircleIcon from '../atoms/PlusCircleIcon'
 import UpdateBlockStateIcons from 'components/organisms/UpdateBlockStateIcons'
@@ -39,6 +35,9 @@ const CreateWebpageTemplate = (): JSX.Element => {
             <Card.Body>
               <Navbar>
               </Navbar>
+              {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
+                return (<>{i}</>)
+              })}
               {/* {pageContent.map((page, i) =>
                 {
                   switch (page.blockType) {

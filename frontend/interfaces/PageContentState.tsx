@@ -1,14 +1,28 @@
+export interface PageContentState {
+  blockContent: BlockContent[]
+}
 
-import { ExternalLinkBlockStateType } from '../types/ExternalLinkBlockStateType'
-import { TextImageBlockStateType } from '../types/TextImageBlockStateType'
-import { HeadingBlockState } from '../types/HeadingBlockState'
-import { ImageSlideState } from '../types/ImageSlideState'
-
-export type PageContentState = {
+export interface BlockContent {
   blockID: string
-  blockType: string
-  blockState: blockStateType
+  content: HeadingAtom[] | ExternalLinkBlockStateType[]
   sortOrder: number
 }
 
-export type blockStateType = ExternalLinkBlockStateType | TextImageBlockStateType | HeadingBlockState | ImageSlideState
+export interface HeadingAtom {
+  text: string
+  placement: placementType
+  size: headingSizeType
+}
+
+export type placementType = 'left' | 'center' | 'right'
+export type headingSizeType = 1 | 2 | 3 | 4 | 5 | 6
+
+
+export interface ExternalLinkBlockContentStateType {
+  text: string
+  url: string
+}
+
+export interface ExternalLinkBlockStateType {
+  content: ExternalLinkBlockContentStateType[]
+}

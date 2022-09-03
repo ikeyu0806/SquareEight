@@ -6,7 +6,7 @@ import { WebsiteFooterType } from '../interfaces/WebsiteFooterType'
 export const webpageSlice = createSlice({
   name: 'webpage',
   initialState: {
-    pageContent: [] as PageContentState[],
+    pageContent: {blockContent: []} as PageContentState,
     selectedAtomType: '',
     selectedBlockType: '',
     showBlockSample: true,
@@ -24,7 +24,7 @@ export const webpageSlice = createSlice({
     websiteFooter: {} as WebsiteFooterType,
   },
   reducers: {
-    pageContentChanged: (state, action: PayloadAction<PageContentState[]>) => {
+    pageContentChanged: (state, action: PayloadAction<PageContentState>) => {
       state.pageContent = action.payload
     },
     showBlockSampleChanged: (state, action: PayloadAction<boolean>) => {

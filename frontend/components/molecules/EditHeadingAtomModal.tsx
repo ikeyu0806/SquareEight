@@ -2,15 +2,16 @@ import React, { useState } from 'react'
 import { Button, Modal, Form } from 'react-bootstrap'
 import { pageContentChanged,
          showBlockModalChanged,
-         blockTypeChanged,
          atomTypeChanged,
          selectedAtomTypeChanged,
-         currentMaxSortOrderChanged } from '../../redux/webpageSlice'
+         currentMaxSortOrderChanged } from 'redux/webpageSlice'
 import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from '../../redux/store'
-import { PageContentState } from '../../interfaces/PageContentState'
-import { placementType, headingSizeType } from '../../types/HeadingBlockState'
-import { BLOCK_TYPE } from '../../constants/blockType'
+import { RootState } from 'redux/store'
+import { PageContentState } from 'interfaces/PageContentState'
+import { placementType, headingSizeType } from 'interfaces/PageContentState'
+import { BLOCK_TYPE } from 'constants/blockType'
+import { HeadingAtom } from 'interfaces/PageContentState'
+import { BlockContent } from 'interfaces/PageContentState'
 
 const EditHeadingAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -22,12 +23,14 @@ const EditHeadingAtomModal = (): JSX.Element => {
   const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
 
   const completeEdit = () => {
-    let updatePageContentState: PageContentState[]
-    updatePageContentState = [...pageContent, { blockID: new Date().getTime().toString(16),
-                                                blockType: BLOCK_TYPE.HEADING,
-                                                blockState: { text: inputHeading, placement: placement, size: headingSize },
-                                                sortOrder: currentMaxSortOrder + 1 }]
-    dispatch(pageContentChanged(updatePageContentState.sort(function(a, b) { return a.sortOrder < b.sortOrder ? -1 : 1 })))
+    let HeadingAtomState: HeadingAtom
+    HeadingAtomState = { text: inputHeading, placement: placement, size: headingSize }
+    let BlockContent: BlockContent
+    let blockID = new Date().getTime().toString(16)
+    let BlockState: BlockContent
+    BlockState = { blockID: blockID, content: [HeadingAtomState], sortOrder: currentMaxSortOrder + 1 }
+    let updatePageContentState: PageContentState = { blockContent: [...pageContent.blockContent, BlockState] }
+    dispatch(pageContentChanged(updatePageContentState))
     dispatch(showBlockModalChanged(false))
     dispatch(atomTypeChanged(''))
     dispatch(selectedAtomTypeChanged(''))
