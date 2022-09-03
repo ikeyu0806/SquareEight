@@ -38,20 +38,23 @@ const CreateWebpageTemplate = (): JSX.Element => {
               <Navbar>
               </Navbar>
               {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
-                return (
+                return [
                   <Row key={i}>
                       {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[]).map((atom, i) => {
-
-                            {switch(atom.atomType) {
-                              case 'heading':
-                                return (
-                                  <Col key={i}>
-                                    <HeadingBlock atomState={(atom as HeadingAtom)}></HeadingBlock>
-                                  </Col>)
-                              default:
-                            }}
+                        {switch(atom.atomType) {
+                          case 'heading':
+                            return (
+                              <Col key={i}>
+                                <HeadingBlock atomState={(atom as HeadingAtom)}></HeadingBlock>
+                              </Col>)
+                          default:
+                        }}
                       })}
-                  </Row>)
+                  </Row>,
+                  <UpdateBlockStateIcons
+                    key={i}
+                    blockID={block.blockID}
+                    sortOrder={block.sortOrder}></UpdateBlockStateIcons>]
               })}
               {/* {pageContent.map((page, i) =>
                 {

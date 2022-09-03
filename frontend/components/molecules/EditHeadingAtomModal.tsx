@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { PageContentState } from 'interfaces/PageContentState'
 import { placementType, headingSizeType } from 'interfaces/PageContentState'
-import { BLOCK_TYPE } from 'constants/blockType'
 import { HeadingAtom } from 'interfaces/PageContentState'
 import { BlockContent } from 'interfaces/PageContentState'
 
@@ -25,7 +24,6 @@ const EditHeadingAtomModal = (): JSX.Element => {
   const completeEdit = () => {
     let HeadingAtomState: HeadingAtom
     HeadingAtomState = { atomType: 'heading', text: inputHeading, placement: placement, size: headingSize }
-    let BlockContent: BlockContent
     let blockID = new Date().getTime().toString(16)
     let BlockState: BlockContent
     BlockState = { blockID: blockID, atoms: [HeadingAtomState], sortOrder: currentMaxSortOrder + 1 }
