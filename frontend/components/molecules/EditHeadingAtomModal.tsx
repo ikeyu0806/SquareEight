@@ -4,7 +4,8 @@ import { pageContentChanged,
          showBlockModalChanged,
          atomTypeChanged,
          selectedAtomTypeChanged,
-         currentMaxSortOrderChanged } from 'redux/webpageSlice'
+         currentMaxSortOrderChanged,
+         addAtomSelectedBlockChanged } from 'redux/webpageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { PageContentState } from 'interfaces/PageContentState'
@@ -43,6 +44,7 @@ const EditHeadingAtomModal = (): JSX.Element => {
       dispatch(showBlockModalChanged(false))
       dispatch(atomTypeChanged(''))
       dispatch(selectedAtomTypeChanged(''))
+      dispatch(addAtomSelectedBlockChanged(false))
     }
   }
 
@@ -58,6 +60,18 @@ const EditHeadingAtomModal = (): JSX.Element => {
     dispatch(atomTypeChanged(''))
     dispatch(selectedAtomTypeChanged(''))
     dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
+  }
+
+  const closeModal = () => {
+    dispatch(showBlockModalChanged(false))
+    dispatch(selectedAtomTypeChanged(''))
+    dispatch(addAtomSelectedBlockChanged(false))
+    dispatch(atomTypeChanged(''))
+  }
+
+  const execBack = () => {
+    dispatch(atomTypeChanged(''))
+    dispatch(selectedAtomTypeChanged(''))
   }
 
   return (
@@ -123,15 +137,9 @@ const EditHeadingAtomModal = (): JSX.Element => {
       </Modal.Body>
       <Modal.Footer>
         <Button variant='secondary'
-                onClick={() =>{
-                  dispatch(atomTypeChanged(''))
-                  dispatch(selectedAtomTypeChanged(''))
-                }}>戻る</Button>
+                onClick={() => execBack()}>戻る</Button>
         <Button variant='secondary'
-                onClick={() => {
-                  dispatch(showBlockModalChanged(false))
-                  dispatch(selectedAtomTypeChanged(''))
-                  dispatch(atomTypeChanged(''))}}>閉じる</Button>
+                onClick={() => closeModal()}>閉じる</Button>
         <Button variant='primary' onClick={completeEdit}>編集を終えて見出しを追加</Button>
       </Modal.Footer>
     </>
