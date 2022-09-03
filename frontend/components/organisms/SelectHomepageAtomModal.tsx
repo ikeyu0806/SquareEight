@@ -3,7 +3,7 @@ import { Button, Row, Col, Modal, Form } from 'react-bootstrap'
 import { showBlockModalChanged, blockTypeChanged, showBlockSampleChanged } from 'redux/webpageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import SelectWebpageTextAtomModal from 'components/molecules/SelectWebpageTextAtomModal'
+import SelectHeadingAtomModal from 'components/molecules/SelectWebpageHeadingAtomModal'
 import SelectExternalLinksModal from '../molecules/SelectExternalLinkModal'
 import SelectImageSlideModal from '../molecules/SelectImageSlideModal'
 import SelectHeadingModal from '../molecules/SelectHeadingModal'
@@ -32,7 +32,7 @@ const SelectHomepageAtomModal = (): JSX.Element => {
         </Form>
         <Row>
           <Col>
-            <SelectWebpageTextAtomModal></SelectWebpageTextAtomModal>
+            <SelectHeadingAtomModal></SelectHeadingAtomModal>
             <br/>
             <SelectHeadingModal></SelectHeadingModal>
             <br />

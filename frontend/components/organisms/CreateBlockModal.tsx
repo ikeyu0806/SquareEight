@@ -2,8 +2,8 @@ import React from 'react'
 import { Modal } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
-import EditTextAtomModal from 'components/molecules/EditTextAtomModal'
-import SelectWebpageTextAtomModal from 'components/molecules/SelectWebpageTextAtomModal'
+import EditHeadingAtomModal from 'components/molecules/EditHeadingAtomModal'
+import SelectWebpageTextAtomModal from 'components/molecules/SelectWebpageHeadingAtomModal'
 import SelectHomepageAtomModal from './SelectHomepageAtomModal'
 import EditImageSlideBlockModal from '../molecules/EditImageSlideBlockModal'
 import EditTextImageBlockModal from '../molecules/EditTextImageBlockModal'
@@ -21,7 +21,7 @@ const CreateBlockModal = (): JSX.Element => {
     <>
       <Modal show={showBlockModal} size='lg'>
         {atomType === '' && <SelectHomepageAtomModal></SelectHomepageAtomModal>}
-        {atomType === ATOM_TYPE.TEXT && <EditTextAtomModal></EditTextAtomModal>}
+        {atomType === ATOM_TYPE.TEXT && <EditHeadingAtomModal></EditHeadingAtomModal>}
         {blockType === BLOCK_TYPE.IMAGE_SLIDE && <EditImageSlideBlockModal></EditImageSlideBlockModal>}
         {blockType === BLOCK_TYPE.HEADING && <EditHeadingModal></EditHeadingModal>}
         {blockType === BLOCK_TYPE.TEXT_IMAGE && <EditTextImageBlockModal></EditTextImageBlockModal>}

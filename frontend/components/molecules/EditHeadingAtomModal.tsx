@@ -3,6 +3,8 @@ import { Button, Modal, Form } from 'react-bootstrap'
 import { pageContentChanged,
          showBlockModalChanged,
          blockTypeChanged,
+         atomTypeChanged,
+         selectedAtomTypeChanged,
          currentMaxSortOrderChanged } from '../../redux/webpageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
@@ -10,7 +12,7 @@ import { PageContentState } from '../../interfaces/PageContentState'
 import { placementType, headingSizeType } from '../../types/HeadingBlockState'
 import { BLOCK_TYPE } from '../../constants/blockType'
 
-const EditTextAtomModal = (): JSX.Element => {
+const EditHeadingAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
 
   const [inputHeading, setInputeHeading] = useState('')
@@ -27,7 +29,8 @@ const EditTextAtomModal = (): JSX.Element => {
                                                 sortOrder: currentMaxSortOrder + 1 }]
     dispatch(pageContentChanged(updatePageContentState.sort(function(a, b) { return a.sortOrder < b.sortOrder ? -1 : 1 })))
     dispatch(showBlockModalChanged(false))
-    dispatch(blockTypeChanged(''))
+    dispatch(atomTypeChanged(''))
+    dispatch(selectedAtomTypeChanged(''))
     dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
   }
 
@@ -80,7 +83,6 @@ const EditTextAtomModal = (): JSX.Element => {
               onChange={() => setPlacement('center' as placementType)}
             />
           </Form.Group>
-
         </Form>
         <div className='mt20'>プレビュー</div>
         <br />
@@ -94,12 +96,20 @@ const EditTextAtomModal = (): JSX.Element => {
         </div>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant='secondary' onClick={() => dispatch(blockTypeChanged(''))}>戻る</Button>
-        <Button variant='secondary' onClick={() => { dispatch(showBlockModalChanged(false)); dispatch(blockTypeChanged(''))}}>閉じる</Button>
+        <Button variant='secondary'
+                onClick={() =>{
+                  dispatch(atomTypeChanged(''))
+                  dispatch(selectedAtomTypeChanged(''))
+                }}>戻る</Button>
+        <Button variant='secondary'
+                onClick={() => {
+                  dispatch(showBlockModalChanged(false))
+                  dispatch(selectedAtomTypeChanged(''))
+                  dispatch(atomTypeChanged(''))}}>閉じる</Button>
         <Button variant='primary' onClick={completeEdit}>編集を終えてブロックを追加</Button>
       </Modal.Footer>
     </>
   )
 }
 
-export default EditTextAtomModal
+export default EditHeadingAtomModal
