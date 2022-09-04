@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Row, Col, Navbar, Container, Form } from 'react-bootstrap'
+import { Row, Col, Container, Form } from 'react-bootstrap'
 import { webpageTagChanged } from 'redux/webpageSlice'
 import CreateBlockModal from 'components/organisms/CreateBlockModal'
 import { useSelector, useDispatch } from 'react-redux'
