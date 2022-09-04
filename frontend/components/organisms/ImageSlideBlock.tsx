@@ -1,14 +1,14 @@
-import { ImageSlideState } from '../../types/ImageSlideState'
+import { ImageSlideChild } from 'interfaces/PageContentState'
 import { Carousel } from 'react-bootstrap'
 
 type propType = {
-  blockState: ImageSlideState
+  atomState: ImageSlideChild[]
 }
 
 const ImageSlideBlock = (props: propType): JSX.Element => {
   return (
     <Carousel>
-      {props.blockState.imageSlide != undefined && props.blockState.imageSlide.map((slide, i) => {
+      {props.atomState != undefined && props.atomState.map((slide, i) => {
         return (
           <Carousel.Item key={i}>
             <img

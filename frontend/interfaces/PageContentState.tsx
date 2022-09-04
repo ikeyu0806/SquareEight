@@ -32,6 +32,7 @@ export interface ExternalLinkBlockStateType {
 
 // 画像スライド
 export type ImageSlide = {
+  atomType: string
   imageSlide: ImageSlideChild[]
 }
 

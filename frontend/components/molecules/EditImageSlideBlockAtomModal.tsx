@@ -11,6 +11,7 @@ import { RootState } from 'redux/store'
 import { PageContentState, ImageSlide, ImageSlideChild  } from 'interfaces/PageContentState'
 import { getBase64 } from 'functions/getBase64'
 import { BlockContent } from 'interfaces/PageContentState'
+import { ATOM_TYPE } from 'constants/atomType'
 
 const EditImageSlideBlockAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -36,9 +37,9 @@ const EditImageSlideBlockAtomModal = (): JSX.Element => {
     let updateImageSlideChild: ImageSlideChild[]
     if (imageSlide) {
       updateImageSlideChild = [...imageSlide.imageSlide, { title: title, text: text, image: image, base64Image: base64Image}]
-      setImageSlide({imageSlide: updateImageSlideChild})
+      setImageSlide({atomType: ATOM_TYPE.IMAGE_SLIDE, imageSlide: updateImageSlideChild})
     } else {
-      setImageSlide({imageSlide: [{ title: title, text: text, image: image, base64Image: base64Image }]})
+      setImageSlide({atomType: ATOM_TYPE.IMAGE_SLIDE, imageSlide: [{ title: title, text: text, image: image, base64Image: base64Image }]})
     }
   }
 

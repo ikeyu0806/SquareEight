@@ -5,12 +5,13 @@ import CreateBlockModal from 'components/organisms/CreateBlockModal'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { showBlockModalChanged } from 'redux/webpageSlice'
-import PlusCircleIcon from '../atoms/PlusCircleIcon'
+import PlusCircleIcon from 'components/atoms/PlusCircleIcon'
 import UpdateBlockStateIcons from 'components/organisms/UpdateBlockStateIcons'
 import HeadingBlock from 'components/organisms/HeadingBlock'
-import { HeadingAtom } from 'interfaces/PageContentState'
+import { HeadingAtom, ImageSlide } from 'interfaces/PageContentState'
 import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
 import { ATOM_TYPE } from 'constants/atomType'
+import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
 
 const CreateWebpageTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -40,7 +41,7 @@ const CreateWebpageTemplate = (): JSX.Element => {
               {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
                 return [
                   <Row key={i}>
-                      {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[]).map((atom, i) => {
+                      {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[] | ImageSlide[]).map((atom, i) => {
                         {switch(atom.atomType) {
                           case ATOM_TYPE.HEADING:
                             return (
@@ -56,6 +57,12 @@ const CreateWebpageTemplate = (): JSX.Element => {
                                   )
                                 })}
                               </Col>)
+                          case ATOM_TYPE.IMAGE_SLIDE:
+                            return (
+                              <Col key={i}>
+                                <ImageSlideBlock atomState={(atom as ImageSlide).imageSlide}></ImageSlideBlock>
+                              </Col>
+                            )
                           default:
                         }}
                       })}
