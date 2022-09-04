@@ -22,7 +22,8 @@ const EditImageSlideBlockAtomModal = (): JSX.Element => {
   const [text, setText] = useState('')
   const [imageSlide, setImageSlide] = useState<ImageSlide>()
   const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
-
+  const addAtomSelectedBlock = useSelector((state: RootState) => state.webpage.addAtomSelectedBlock)
+  const selectedBlockID = useSelector((state: RootState) => state.webpage.selectedBlockID)
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
 
   const handleChangeFile = (e: any) => {
@@ -44,6 +45,31 @@ const EditImageSlideBlockAtomModal = (): JSX.Element => {
   }
 
   const completeEdit = () => {
+    if (addAtomSelectedBlock) {
+      addAtomSelectedBlockFunc()
+    } else {
+      addAtomNewBlockFunc()
+    }
+  }
+
+  const addAtomSelectedBlockFunc = () => {
+    let targetBlockContentState: BlockContent | undefined = pageContent.blockContent.find(content => content.blockID === selectedBlockID)
+    if (imageSlide !== undefined) {
+      if (targetBlockContentState !== undefined) {
+        let updateAtoms: ImageSlide[] = targetBlockContentState.atoms as ImageSlide[]
+        updateAtoms = [...updateAtoms, imageSlide]
+        let insertBlockContentState: BlockContent = { atoms: updateAtoms, blockID: targetBlockContentState.blockID, sortOrder: targetBlockContentState.sortOrder }
+        let filterBlockContents = pageContent.blockContent.filter(content => content.blockID !== insertBlockContentState.blockID)
+        let updatePageContentState: PageContentState = { blockContent: [...filterBlockContents, insertBlockContentState] }
+        dispatch((pageContentChanged(updatePageContentState)))
+        dispatch(showBlockModalChanged(false))
+        dispatch(atomTypeChanged(''))
+        dispatch(selectedAtomTypeChanged(''))
+      }
+    }
+  }
+
+  const addAtomNewBlockFunc = () => {
     if (imageSlide !== undefined) {
       let blockID = new Date().getTime().toString(16)
       let BlockState: BlockContent

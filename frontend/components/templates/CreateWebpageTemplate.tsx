@@ -72,37 +72,6 @@ const CreateWebpageTemplate = (): JSX.Element => {
                     blockID={block.blockID}
                     sortOrder={block.sortOrder}></UpdateBlockStateIcons>]
               })}
-              {/* {pageContent.map((page, i) =>
-                {
-                  switch (page.blockType) {
-                    case BLOCK_TYPE.HEADING:
-                      return (
-                        <span key={i}>
-                          <HeadingBlock blockState={(page.blockState) as HeadingBlockState}></HeadingBlock>
-                          <UpdateBlockStateIcons blockID={page.blockID} sortOrder={page.sortOrder}></UpdateBlockStateIcons>
-                        </span>
-                      )
-                    case BLOCK_TYPE.IMAGE_SLIDE:
-                      return (
-                        <div key={i}>
-                          <ImageSlideBlock blockState={(page.blockState) as ImageSlideState}></ImageSlideBlock>
-                          <UpdateBlockStateIcons blockID={page.blockID} sortOrder={page.sortOrder}></UpdateBlockStateIcons>
-                        </div>
-                    )
-                    case BLOCK_TYPE.EXTERNAL_LINKS:
-                      return [
-                        (page.blockState as ExternalLinkBlockStateType).content.map((block, i) => {
-                          return (
-                            <a href={block.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{block.text}</a>
-                          )
-                        }),
-                        <UpdateBlockStateIcons blockID={page.blockID} sortOrder={page.sortOrder} key={i}></UpdateBlockStateIcons>
-                      ]
-                    default:
-                      console.log('invalid block')
-                  }
-                }
-              )} */}
             </Card.Body>
             <div className='text-center mt30 mb30'>
               <span className='mr10'>ブロックを追加</span>
