@@ -3,6 +3,9 @@ import { Button, Modal, Form } from 'react-bootstrap'
 import { pageContentChanged,
          showBlockModalChanged,
          blockTypeChanged,
+         selectedAtomTypeChanged,
+         addAtomSelectedBlockChanged,
+         atomTypeChanged,
          currentMaxSortOrderChanged } from 'redux/webpageSlice'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -28,6 +31,8 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
   const [blockContent, setBlockContent] = useState<ExternalLinkTextWithUrl[]>([])
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
   const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
+  const addAtomSelectedBlock = useSelector((state: RootState) => state.webpage.addAtomSelectedBlock)
+  const selectedBlockID = useSelector((state: RootState) => state.webpage.selectedBlockID)
 
   useEffect(() => {
     const fetchPageLinks = () => {
@@ -61,6 +66,14 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
   }
 
   const completeEdit = () => {
+    if (addAtomSelectedBlock) {
+      addAtomSelectedBlockFunc()
+    } else {
+      addAtomNewBlockFunc()
+    }
+  }
+
+  const addAtomNewBlockFunc = () => {
     let updateExternalLinkBlockStateType: ExternalLinkBlockStateType = {atomType: ATOM_TYPE.EXTERNAL_LINKS, content: blockContent }
     let BlockState: BlockContent
     let blockID = new Date().getTime().toString(16)
@@ -69,7 +82,25 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
     dispatch(pageContentChanged(updatePageContentState))
     dispatch(showBlockModalChanged(false))
     dispatch(blockTypeChanged(''))
+    dispatch(atomTypeChanged(''))
+    dispatch(selectedAtomTypeChanged(''))
     dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
+  }
+
+  const addAtomSelectedBlockFunc = () => {
+    let targetBlockContentState: BlockContent | undefined = pageContent.blockContent.find(content => content.blockID === selectedBlockID)
+    if (targetBlockContentState !== undefined) {
+      let updateAtoms: ExternalLinkBlockStateType[] = targetBlockContentState.atoms as ExternalLinkBlockStateType[]
+      updateAtoms = [...updateAtoms, { atomType: ATOM_TYPE.EXTERNAL_LINKS, content: blockContent } as ExternalLinkBlockStateType]
+      let insertBlockContentState: BlockContent = { atoms: updateAtoms, blockID: targetBlockContentState.blockID, sortOrder: targetBlockContentState.sortOrder }
+      let filterBlockContents = pageContent.blockContent.filter(content => content.blockID !== insertBlockContentState.blockID)
+      let updatePageContentState: PageContentState = { blockContent: [...filterBlockContents, insertBlockContentState] }
+      dispatch(pageContentChanged(updatePageContentState))
+      dispatch(showBlockModalChanged(false))
+      dispatch(blockTypeChanged(''))
+      dispatch(atomTypeChanged(''))
+      dispatch(selectedAtomTypeChanged(''))
+    }
   }
 
   const onChangeExternalLinkSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
@@ -79,6 +110,19 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
     setInputLinkText(text)
     // これ↓だと【予約ページ】とかのラベル部分も設定されてしまう
     // setInputLinkText(event.target.selectedOptions[0].label)
+  }
+
+
+  const closeModal = () => {
+    dispatch(showBlockModalChanged(false))
+    dispatch(selectedAtomTypeChanged(''))
+    dispatch(addAtomSelectedBlockChanged(false))
+    dispatch(atomTypeChanged(''))
+  }
+
+  const execBack = () => {
+    dispatch(atomTypeChanged(''))
+    dispatch(selectedAtomTypeChanged(''))
   }
 
   return (
@@ -133,8 +177,8 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
         </Form>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant='secondary' onClick={() => dispatch(blockTypeChanged(''))}>戻る</Button>
-        <Button variant='secondary' onClick={() => { dispatch(showBlockModalChanged(false)); dispatch(blockTypeChanged(''))}}>閉じる</Button>
+        <Button variant='secondary' onClick={execBack}>戻る</Button>
+        <Button variant='secondary' onClick={closeModal}>閉じる</Button>
         <Button variant='primary' onClick={completeEdit}>編集を終えてブロックを追加</Button>
       </Modal.Footer>
     </>
