@@ -1,22 +1,22 @@
 import React from 'react'
 import { Card, Carousel } from 'react-bootstrap'
-import { selectedBlockTypeChanged, blockTypeChanged } from '../../redux/webpageSlice'
+import { selectedAtomTypeChanged, atomTypeChanged } from 'redux/webpageSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../redux/store'
-import { BLOCK_TYPE } from '../../constants/blockType'
+import { RootState } from 'redux/store'
+import { ATOM_TYPE } from 'constants/atomType'
 
-const SelectImageSlideModal = (): JSX.Element => {
+const SelectImageSlideAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const showBlockSample = useSelector((state: RootState) => state.webpage.showBlockSample)
   const selectedBlockType = useSelector((state: RootState) => state.webpage.selectedBlockType)
 
   return (
-    <div onClick={() => dispatch(selectedBlockTypeChanged(BLOCK_TYPE.IMAGE_SLIDE))}>
+    <div onClick={() => dispatch(selectedAtomTypeChanged(ATOM_TYPE.IMAGE_SLIDE))}>
       <Card>
         <Card.Body>
           <input className='form-check-input mr10'
-                 checked={selectedBlockType === BLOCK_TYPE.IMAGE_SLIDE}
-                 onChange={() => dispatch(blockTypeChanged(BLOCK_TYPE.IMAGE_SLIDE))}
+                 checked={selectedBlockType === ATOM_TYPE.IMAGE_SLIDE}
+                 onChange={() => dispatch(atomTypeChanged(ATOM_TYPE.IMAGE_SLIDE))}
                  type='radio'/>
           <span>画像スライド</span>
           <div className='mt10'>画像スライドを追加します</div>
@@ -68,4 +68,4 @@ const SelectImageSlideModal = (): JSX.Element => {
   )
 }
 
-export default SelectImageSlideModal
+export default SelectImageSlideAtomModal
