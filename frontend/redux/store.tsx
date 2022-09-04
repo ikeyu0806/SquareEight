@@ -19,6 +19,7 @@ import customerReducer from './customerSlice'
 import questionnaireMasterReducer from './questionnaireMasterSlice'
 import messageTemplateReducer from './messageTemplateSlice'
 import dashboardReducer from './dashboardSlice'
+import sharedComponentReducer from './sharedComponentSlice'
 
 export const store = configureStore({
   reducer: {
@@ -41,7 +42,8 @@ export const store = configureStore({
     customer: customerReducer,
     questionnaireMaster: questionnaireMasterReducer,
     messageTemplate: messageTemplateReducer,
-    dashboard: dashboardReducer
+    dashboard: dashboardReducer,
+    sharedComponent: sharedComponentReducer
   },
 })
 

@@ -25,22 +25,25 @@ const Edit: NextPage = () => {
             </Navbar.Brand>
           </Container>
         </Navbar>
-        <Container >
-          <h3 className='mt30 mb30'>サンプル</h3>
-          <Row>
-            <Col>
-              <div>
-                これはサンプルです。これはサンプルです。これはサンプルです。これはサンプルです。
-                これはサンプルです。これはサンプルです。これはサンプルです。これはサンプルです。
-                これはサンプルです。これはサンプルです。これはサンプルです。これはサンプルです。
-                これはサンプルです。これはサンプルです。これはサンプルです。これはサンプルです。
-              </div>
-            </Col>
-            <Col>
-              <img src='/images/classroom.jpg' alt='sample' width='100%'></img>
-            </Col>
-          </Row>
-        </Container>
+        <div>
+          <Container >
+          &nbsp;
+            <h3 className='mb30'>サンプル</h3>
+            <Row>
+              <Col>
+                <div>
+                  これはサンプルです。これはサンプルです。これはサンプルです。これはサンプルです。
+                  これはサンプルです。これはサンプルです。これはサンプルです。これはサンプルです。
+                  これはサンプルです。これはサンプルです。これはサンプルです。これはサンプルです。
+                  これはサンプルです。これはサンプルです。これはサンプルです。これはサンプルです。
+                </div>
+              </Col>
+              <Col>
+                <img src='/images/classroom.jpg' alt='sample' width='100%'></img>
+              </Col>
+            </Row>
+          </Container>
+        </div>
         <footer className='content text-center'>
           <hr />
           <p className='footer-margin'>Copyright SquareEight {new Date().getFullYear()}</p>
