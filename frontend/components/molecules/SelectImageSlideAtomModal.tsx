@@ -8,14 +8,14 @@ import { ATOM_TYPE } from 'constants/atomType'
 const SelectImageSlideAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const showBlockSample = useSelector((state: RootState) => state.webpage.showBlockSample)
-  const selectedBlockType = useSelector((state: RootState) => state.webpage.selectedBlockType)
+  const selectedAtomType = useSelector((state: RootState) => state.webpage.selectedAtomType)
 
   return (
     <div onClick={() => dispatch(selectedAtomTypeChanged(ATOM_TYPE.IMAGE_SLIDE))}>
       <Card>
         <Card.Body>
           <input className='form-check-input mr10'
-                 checked={selectedBlockType === ATOM_TYPE.IMAGE_SLIDE}
+                 checked={selectedAtomType === ATOM_TYPE.IMAGE_SLIDE}
                  onChange={() => dispatch(atomTypeChanged(ATOM_TYPE.IMAGE_SLIDE))}
                  type='radio'/>
           <span>画像スライド</span>

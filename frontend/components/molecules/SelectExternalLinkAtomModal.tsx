@@ -9,7 +9,7 @@ import { ATOM_TYPE } from 'constants/atomType'
 const SelectExternalLinkAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const showBlockSample = useSelector((state: RootState) => state.webpage.showBlockSample)
-  const selectedBlockType = useSelector((state: RootState) => state.webpage.selectedBlockType)
+  const selectedAtomType = useSelector((state: RootState) => state.webpage.selectedAtomType)
 
   return (
     <div onClick={() => dispatch(selectedAtomTypeChanged(ATOM_TYPE.EXTERNAL_LINKS))} >
@@ -18,7 +18,7 @@ const SelectExternalLinkAtomModal = (): JSX.Element => {
           <input className='form-check-input mr10'
                  type='radio'
                  onChange={() => dispatch(atomTypeChanged(ATOM_TYPE.EXTERNAL_LINKS))}
-                 checked={selectedBlockType === BLOCK_TYPE.EXTERNAL_LINKS} />
+                 checked={selectedAtomType === BLOCK_TYPE.EXTERNAL_LINKS} />
           <span>ページリンク</span>
           <div className='mt10'>
             ページリンク集を追加します。<br/>

@@ -1,6 +1,6 @@
 import React from 'react'
 import { Card, ListGroup } from 'react-bootstrap'
-import { selectedBlockTypeChanged, blockTypeChanged } from '../../redux/webpageSlice'
+import { selectedAtomTypeChanged, blockTypeChanged } from '../../redux/webpageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from '../../redux/store'
 import { BLOCK_TYPE } from '../../constants/blockType'
@@ -8,16 +8,16 @@ import { BLOCK_TYPE } from '../../constants/blockType'
 const SelectExternalLinksModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const showBlockSample = useSelector((state: RootState) => state.webpage.showBlockSample)
-  const selectedBlockType = useSelector((state: RootState) => state.webpage.selectedBlockType)
+  const selectedAtomType = useSelector((state: RootState) => state.webpage.selectedAtomType)
 
   return (
-    <div onClick={() => dispatch(selectedBlockTypeChanged(BLOCK_TYPE.EXTERNAL_LINKS))} >
+    <div onClick={() => dispatch(selectedAtomTypeChanged(BLOCK_TYPE.EXTERNAL_LINKS))} >
       <Card>
         <Card.Body>
           <input className='form-check-input mr10'
                  type='radio'
                  onChange={() => dispatch(blockTypeChanged(BLOCK_TYPE.EXTERNAL_LINKS))}
-                 checked={selectedBlockType === BLOCK_TYPE.EXTERNAL_LINKS} />
+                 checked={selectedAtomType === BLOCK_TYPE.EXTERNAL_LINKS} />
           <span>ページリンク</span>
           <div className='mt10'>
             ページリンク集を追加します。<br/>
