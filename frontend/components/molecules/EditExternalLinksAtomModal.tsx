@@ -26,7 +26,6 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
   // 手動入力: Manual とする
   const [inputLinkType, setInputLinkType] = useState('Registered')
   const [blockContent, setBlockContent] = useState<ExternalLinkTextWithUrl[]>([])
-  const [externalLinkBlockStateType, setExternalLinkBlockStateType] = useState<ExternalLinkBlockStateType>()
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
   const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
 
@@ -62,18 +61,15 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
   }
 
   const completeEdit = () => {
-    setExternalLinkBlockStateType({atomType: ATOM_TYPE.EXTERNAL_LINKS, content: blockContent })
+    let updateExternalLinkBlockStateType: ExternalLinkBlockStateType = {atomType: ATOM_TYPE.EXTERNAL_LINKS, content: blockContent }
     let BlockState: BlockContent
     let blockID = new Date().getTime().toString(16)
-    console.log("!externalLinkBlockStateType", externalLinkBlockStateType)
-    if (externalLinkBlockStateType !== undefined) {
-      BlockState = { blockID: blockID, atoms: [externalLinkBlockStateType], sortOrder: currentMaxSortOrder + 1 }
-      let updatePageContentState: PageContentState = { blockContent: [...pageContent.blockContent, BlockState] }
-      dispatch(pageContentChanged(updatePageContentState))
-      dispatch(showBlockModalChanged(false))
-      dispatch(blockTypeChanged(''))
-      dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
-    }
+    BlockState = { blockID: blockID, atoms: [updateExternalLinkBlockStateType], sortOrder: currentMaxSortOrder + 1 }
+    let updatePageContentState: PageContentState = { blockContent: [...pageContent.blockContent, BlockState] }
+    dispatch(pageContentChanged(updatePageContentState))
+    dispatch(showBlockModalChanged(false))
+    dispatch(blockTypeChanged(''))
+    dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
   }
 
   const onChangeExternalLinkSelect = (event: React.ChangeEvent<HTMLSelectElement>) => {
