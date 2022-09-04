@@ -22,10 +22,6 @@ const CreateWebpageTemplate = (): JSX.Element => {
   return(
     <>
       <Container>
-        <Row>
-          <Col>
-          </Col>
-          <Col sm={9}>
           <div className='mb20'>
             <Form.Group className='mb-3'>
               <Form.Label>管理用のページ名称を入力してください。</Form.Label>
@@ -34,54 +30,44 @@ const CreateWebpageTemplate = (): JSX.Element => {
                             value={webpageTag} />
             </Form.Group>
           </div>
-          <Card>
-            <Card.Body>
-              <Navbar>
-              </Navbar>
-              {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
-                return [
-                  <Row key={i}>
-                      {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[] | ImageSlide[]).map((atom, i) => {
-                        {switch(atom.atomType) {
-                          case ATOM_TYPE.HEADING:
+          {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
+            return [
+              <Row key={i}>
+                {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[] | ImageSlide[]).map((atom, i) => {
+                  {switch(atom.atomType) {
+                    case ATOM_TYPE.HEADING:
+                      return (
+                        <Col key={i}>
+                          <HeadingBlock atomState={(atom as HeadingAtom)}></HeadingBlock>
+                        </Col>)
+                    case ATOM_TYPE.EXTERNAL_LINKS:
+                      return (
+                        <Col key={i}>
+                          {(atom as ExternalLinkBlockStateType).content.map((c, i) => {
                             return (
-                              <Col key={i}>
-                                <HeadingBlock atomState={(atom as HeadingAtom)}></HeadingBlock>
-                              </Col>)
-                          case ATOM_TYPE.EXTERNAL_LINKS:
-                            return (
-                              <Col key={i}>
-                                {(atom as ExternalLinkBlockStateType).content.map((c, i) => {
-                                  return (
-                                    <a href={c.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{c.text}</a>
-                                  )
-                                })}
-                              </Col>)
-                          case ATOM_TYPE.IMAGE_SLIDE:
-                            return (
-                              <Col key={i}>
-                                <ImageSlideBlock atomState={(atom as ImageSlide).imageSlide}></ImageSlideBlock>
-                              </Col>
+                              <a href={c.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{c.text}</a>
                             )
-                          default:
-                        }}
-                      })}
-                  </Row>,
-                  <UpdateBlockStateIcons
-                    key={i}
-                    blockID={block.blockID}
-                    sortOrder={block.sortOrder}></UpdateBlockStateIcons>]
-              })}
-            </Card.Body>
-            <div className='text-center mt30 mb30'>
-              <span className='mr10'>ブロックを追加</span>
-              <a onClick={() => dispatch(showBlockModalChanged(true))}><PlusCircleIcon width={40} height={40} fill={'#0000FF'} /></a>
-            </div>
-          </Card>
-        </Col>
-        <Col>
-        </Col>
-        </Row>
+                          })}
+                        </Col>)
+                    case ATOM_TYPE.IMAGE_SLIDE:
+                      return (
+                        <Col key={i}>
+                          <ImageSlideBlock atomState={(atom as ImageSlide).imageSlide}></ImageSlideBlock>
+                        </Col>
+                      )
+                    default:
+                  }}
+                })}
+            </Row>,
+            <UpdateBlockStateIcons
+              key={i}
+              blockID={block.blockID}
+              sortOrder={block.sortOrder}></UpdateBlockStateIcons>]
+          })}
+        <div className='text-center mt30 mb30'>
+          <span className='mr10'>ブロックを追加</span>
+          <a onClick={() => dispatch(showBlockModalChanged(true))}><PlusCircleIcon width={40} height={40} fill={'#0000FF'} /></a>
+        </div>
       </Container>
       <CreateBlockModal></CreateBlockModal>
     </>
