@@ -1,4 +1,4 @@
-import { Modal, Button } from 'react-bootstrap'
+import { Modal, Button, Row, Col } from 'react-bootstrap'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { showFooterEditModalChanged } from 'redux/sharedComponentSlice'
@@ -12,7 +12,15 @@ const SharedComponentFooterModal = (): JSX.Element => {
       <Modal show={showFooterEditModal} size='lg'>
         <Modal.Header>フッタ編集</Modal.Header>
         <Modal.Body>
-
+          <h3>プレビュー</h3>
+          <footer className='content text-center'>
+            <hr />
+            <Row>
+              <Col>
+                <p className='footer-margin'>Copyright SquareEight {new Date().getFullYear()}</p>
+              </Col>
+            </Row>
+          </footer>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => console.log('')}>
