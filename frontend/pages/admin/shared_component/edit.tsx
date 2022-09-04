@@ -1,8 +1,15 @@
 import { NextPage } from 'next'
+import { useDispatch } from 'react-redux'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import SharedComponentHeaderModal from 'components/templates/SharedComponentHeaderModal'
+import SharedComponentFooterModal from 'components/templates/SharedComponentFooterModal'
 import { Container, Navbar, Row, Col, Button } from 'react-bootstrap'
+import { showHeaderEditModalChanged } from 'redux/sharedComponentSlice'
+import { showFooterEditModalChanged } from 'redux/sharedComponentSlice'
 
 const Edit: NextPage = () => {
+  const dispatch = useDispatch()
+
   return (
     <MerchantUserAdminLayout>
       <Container className='mb30'>
@@ -10,8 +17,10 @@ const Edit: NextPage = () => {
         <div>ページ共通のヘッダ、フッタ、全体の見た目を調整します。</div>
         <div className='mb30'>ここで設定した内容はSquareEightで作成したWebページ、商品購入ページ、予約ページ、アンケートページに反映されます</div>
         <hr/>
-        <Button>ヘッダを編集</Button>
-        <Button className='ml20'>フッタを編集</Button>
+        <Button onClick={() => dispatch(showHeaderEditModalChanged(true))}>ヘッダを編集</Button>
+        <Button
+          onClick={() => dispatch(showFooterEditModalChanged(true))}
+          className='ml20'>フッタを編集</Button>
         <hr />
 
         <h3>プレビュー</h3>
@@ -46,9 +55,15 @@ const Edit: NextPage = () => {
         </div>
         <footer className='content text-center'>
           <hr />
-          <p className='footer-margin'>Copyright SquareEight {new Date().getFullYear()}</p>
+          <Row>
+            <Col>
+              <p className='footer-margin'>Copyright SquareEight {new Date().getFullYear()}</p>
+            </Col>
+          </Row>
         </footer>
       </Container>
+      <SharedComponentHeaderModal></SharedComponentHeaderModal>
+      <SharedComponentFooterModal></SharedComponentFooterModal>
     </MerchantUserAdminLayout>
   )
 }
