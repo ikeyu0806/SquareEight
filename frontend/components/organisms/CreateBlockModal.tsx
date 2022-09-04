@@ -6,8 +6,7 @@ import EditHeadingAtomModal from 'components/molecules/EditHeadingAtomModal'
 import EditExternalLinksAtomModal from 'components/molecules/EditExternalLinksAtomModal'
 import SelectWebpageTextAtomModal from 'components/molecules/SelectHeadingAtomModal'
 import SelectHomepageAtomModal from './SelectHomepageAtomModal'
-import EditImageSlideBlockModal from 'components/molecules/EditImageSlideBlockModal'
-import EditTextImageBlockModal from 'components/molecules/EditTextImageBlockModal'
+import EditImageSlideBlockAtomModal from 'components/molecules/EditImageSlideBlockAtomModal'
 import { BLOCK_TYPE } from 'constants/blockType'
 import { ATOM_TYPE } from 'constants/atomType'
 
@@ -22,8 +21,7 @@ const CreateBlockModal = (): JSX.Element => {
         {atomType === '' && <SelectHomepageAtomModal></SelectHomepageAtomModal>}
         {atomType === ATOM_TYPE.HEADING && <EditHeadingAtomModal></EditHeadingAtomModal>}
         {atomType === ATOM_TYPE.EXTERNAL_LINKS && <EditExternalLinksAtomModal></EditExternalLinksAtomModal>}
-        {blockType === BLOCK_TYPE.IMAGE_SLIDE && <EditImageSlideBlockModal></EditImageSlideBlockModal>}
-        {blockType === BLOCK_TYPE.TEXT_IMAGE && <EditTextImageBlockModal></EditTextImageBlockModal>}
+        {atomType === ATOM_TYPE.IMAGE_SLIDE && <EditImageSlideBlockAtomModal></EditImageSlideBlockAtomModal>}
       </Modal>
     </>
   )

@@ -140,7 +140,7 @@ const EditHeadingAtomModal = (): JSX.Element => {
                 onClick={() => execBack()}>戻る</Button>
         <Button variant='secondary'
                 onClick={() => closeModal()}>閉じる</Button>
-        <Button variant='primary' onClick={completeEdit}>編集を終えて見出しを追加</Button>
+        <Button variant='primary' onClick={completeEdit}>編集を終えて要素を追加</Button>
       </Modal.Footer>
     </>
   )

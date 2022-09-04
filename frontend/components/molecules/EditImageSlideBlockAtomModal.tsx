@@ -1,20 +1,25 @@
 import React, { useState } from 'react'
 import { Button, Carousel, Row, Col, Modal, Form } from 'react-bootstrap'
-import { showBlockModalChanged, blockTypeChanged, pageContentChanged, currentMaxSortOrderChanged } from '../../redux/webpageSlice'
+import { showBlockModalChanged,
+         selectedAtomTypeChanged,
+         addAtomSelectedBlockChanged,
+         atomTypeChanged,
+         pageContentChanged,
+         currentMaxSortOrderChanged } from 'redux/webpageSlice'
 import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from '../../redux/store'
-import { PageContentState } from '../../interfaces/PageContentState'
-import { ImageSlideState, ImageSlideChildState } from '../../types/ImageSlideState'
-import { getBase64 } from '../../functions/getBase64'
+import { RootState } from 'redux/store'
+import { PageContentState, ImageSlide, ImageSlideChild  } from 'interfaces/PageContentState'
+import { getBase64 } from 'functions/getBase64'
+import { BlockContent } from 'interfaces/PageContentState'
 
-const EditImageSlideBlockModal = (): JSX.Element => {
+const EditImageSlideBlockAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
 
   const [image, setImage] = useState('/images/noimage.jpeg')
   const [base64Image, setBase64Image] = useState<any>('')
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
-  const [imageSlide, setImageSlide] = useState<ImageSlideState>()
+  const [imageSlide, setImageSlide] = useState<ImageSlide>()
   const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
 
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
@@ -28,7 +33,7 @@ const EditImageSlideBlockModal = (): JSX.Element => {
   }
 
   const addImageSlideChild = () => {
-    let updateImageSlideChild: ImageSlideChildState[]
+    let updateImageSlideChild: ImageSlideChild[]
     if (imageSlide) {
       updateImageSlideChild = [...imageSlide.imageSlide, { title: title, text: text, image: image, base64Image: base64Image}]
       setImageSlide({imageSlide: updateImageSlideChild})
@@ -38,17 +43,29 @@ const EditImageSlideBlockModal = (): JSX.Element => {
   }
 
   const completeEdit = () => {
-    let updatePageContentState: PageContentState[]
     if (imageSlide !== undefined) {
-      updatePageContentState = [...pageContent, { blockID: new Date().getTime().toString(16),
-                                                  blockType: 'imageSlide',
-                                                  blockState: imageSlide,
-                                                  sortOrder: currentMaxSortOrder + 1 }]
-      dispatch(pageContentChanged(updatePageContentState.sort(function(a, b) { return a.sortOrder < b.sortOrder ? -1 : 1 })))
+      let blockID = new Date().getTime().toString(16)
+      let BlockState: BlockContent
+      BlockState = { blockID: blockID, atoms: [imageSlide], sortOrder: currentMaxSortOrder + 1 }
+      let updatePageContentState: PageContentState = { blockContent: [...pageContent.blockContent, BlockState] }
+      dispatch(pageContentChanged(updatePageContentState))
+      dispatch(showBlockModalChanged(false))
+      dispatch(atomTypeChanged(''))
+      dispatch(selectedAtomTypeChanged(''))
+      dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
     }
+  }
+
+  const closeModal = () => {
     dispatch(showBlockModalChanged(false))
-    dispatch(blockTypeChanged(''))
-    dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
+    dispatch(selectedAtomTypeChanged(''))
+    dispatch(addAtomSelectedBlockChanged(false))
+    dispatch(atomTypeChanged(''))
+  }
+
+  const execBack = () => {
+    dispatch(atomTypeChanged(''))
+    dispatch(selectedAtomTypeChanged(''))
   }
 
   return (
@@ -105,12 +122,12 @@ const EditImageSlideBlockModal = (): JSX.Element => {
         </Carousel>
       </Modal.Body>
       <Modal.Footer>
-        <Button variant='secondary' onClick={() => dispatch(blockTypeChanged(''))}>戻る</Button>
-        <Button variant='secondary' onClick={() => { dispatch(showBlockModalChanged(false)); dispatch(blockTypeChanged(''))}}>閉じる</Button>
-        <Button variant='primary' onClick={completeEdit}>編集を終えてブロックを追加</Button>
+        <Button variant='secondary' onClick={execBack}>戻る</Button>
+        <Button variant='secondary' onClick={closeModal}>閉じる</Button>
+        <Button variant='primary' onClick={completeEdit}>編集を終えて要素を追加</Button>
       </Modal.Footer>
     </>
   )
 }
 
-export default EditImageSlideBlockModal
+export default EditImageSlideBlockAtomModal
