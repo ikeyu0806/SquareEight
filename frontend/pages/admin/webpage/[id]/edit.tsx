@@ -29,9 +29,8 @@ const Edit: NextPage = () => {
         }
       )
       .then(function (response) {
-        const webpageResponse: WebpageParam = response.data.webpage
-        dispatch(webpageTagChanged(webpageResponse.tag))
-        dispatch(pageContentChanged(webpageResponse.block_contents || []))
+        dispatch(webpageTagChanged(response.data.webpage.tag))
+        dispatch(pageContentChanged({blockContent: response.data.webpage.block_contents}))
         dispatch(currentMaxSortOrderChanged(response.data.max_sort_order))
       })
       .catch(error => {
@@ -40,13 +39,13 @@ const Edit: NextPage = () => {
       })
     }
     fetchWebpage()
-  }, [router.query.id, cookies._square_eight_merchant_session, router.query.webpage_id, dispatch])
+  }, [router.query.id, cookies._square_eight_merchant_session, dispatch])
 
   const updateWebpage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/webpages/update`,
     {
       webpage: {
-        id: router.query.webpage_id,
+        id: router.query.id,
         page_content: pageContent,
         tag: webpageTag,
       }
@@ -56,7 +55,7 @@ const Edit: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
-      router.push(`/admin/webpage/${router.query.website_id}/webpages`)
+      router.push(`/admin/webpage/`)
     }).catch(error => {
     })
   }
