@@ -1,30 +1,24 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import axios from 'axios'
-import { Container, Navbar, Nav } from 'react-bootstrap'
+import { Card, Row, Col, Navbar, Container, Form } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { WebpageParam } from 'interfaces/WebpageParam'
 import { webpageTagChanged, pageContentChanged } from 'redux/webpageSlice'
-import { HeadingBlockState } from 'types/HeadingBlockState'
 import HeadingBlock from 'components/organisms/HeadingBlock'
+import { HeadingAtom, ImageSlide } from 'interfaces/PageContentState'
+import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
+import { ATOM_TYPE } from 'constants/atomType'
 import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
-import { BLOCK_TYPE } from 'constants/blockType'
-import { ExternalLinkBlockStateType } from 'types/ExternalLinkBlockStateType'
-import { TextImageBlockStateType } from 'types/TextImageBlockStateType'
-import { WebsiteHeaderType } from 'interfaces/WebsiteHeaderType'
-import { WebsiteFooterType } from 'interfaces/WebsiteFooterType'
-import { ImageSlideState } from 'types/ImageSlideState'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
-  const [header, setHeader] = useState<WebsiteHeaderType>({brandText: '', brandImage: '', bodyContent: []})
-  const [footer, setFooter] = useState<WebsiteFooterType>()
 
   useEffect(() => {
     const fetchWebpage = () => {
@@ -36,13 +30,7 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
-        const webpageResponse: WebpageParam = response.data.webpage
-        dispatch(webpageTagChanged(webpageResponse.tag))
-        dispatch(pageContentChanged(webpageResponse.block_contents || []))
-        if (webpageResponse.header_json !== undefined) {
-          setHeader(webpageResponse.header_json)
-          setFooter(webpageResponse.footer_json)
-        }
+        dispatch(pageContentChanged({blockContent: response.data.webpage.block_contents}))
       })
       .catch(error => {
         console.log(error)
@@ -53,59 +41,38 @@ const Index: NextPage = () => {
 
   return (
     <>
-      <Navbar bg='light' expand='lg'>
-        <Container>
-          <Navbar.Brand>{header.brandText}</Navbar.Brand>
-          <Navbar.Toggle />
-            <Navbar.Collapse>
-              <Nav>
-                {header.bodyContent?.map((link: any, i) => {
-                  return (
-                    <Nav.Link href={link.link} key={i}>
-                      {link.text}
-                    </Nav.Link>
-                  )
-                })}
-              </Nav>
-            </Navbar.Collapse>
-        </Container>
-      </Navbar>
-      <br />
       <Container>
-        {pageContent.map((page, i) =>
-          {
-            switch (page.blockType) {
-              case BLOCK_TYPE.HEADING:
-                return (
-                  <span key={i} className='mb20'>
-                    <HeadingBlock blockState={(page.blockState) as HeadingBlockState}></HeadingBlock>
-                  </span>
-                )
-              case BLOCK_TYPE.IMAGE_SLIDE:
-                return (
-                  <div key={i} className='mb20'>
-                    <ImageSlideBlock blockState={(page.blockState) as ImageSlideState}></ImageSlideBlock>
-                  </div>
-              )
-              case BLOCK_TYPE.EXTERNAL_LINKS:
-                return [
-                  (page.blockState as ExternalLinkBlockStateType).content.map((block, i) => {
-                    return (
-                      <a href={block.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{block.text}</a>
-                    )
-                  }),
-                  <span key={i} className='mb20'></span>
-                ]
-              default:
-                console.log('invalid block')
-            }
-          }
-        )}
+        {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
+          return (
+            <Row key={i}>
+                {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[] | ImageSlide[]).map((atom, i) => {
+                  {switch(atom.atomType) {
+                    case ATOM_TYPE.HEADING:
+                      return (
+                        <Col key={i}>
+                          <HeadingBlock atomState={(atom as HeadingAtom)}></HeadingBlock>
+                        </Col>)
+                    case ATOM_TYPE.EXTERNAL_LINKS:
+                      return (
+                        <Col key={i}>
+                          {(atom as ExternalLinkBlockStateType).content.map((c, i) => {
+                            return (
+                              <a href={c.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{c.text}</a>
+                            )
+                          })}
+                        </Col>)
+                    case ATOM_TYPE.IMAGE_SLIDE:
+                      return (
+                        <Col key={i}>
+                          <ImageSlideBlock atomState={(atom as ImageSlide).imageSlide}></ImageSlideBlock>
+                        </Col>
+                      )
+                    default:
+                  }}
+                })}
+            </Row>)
+        })}
       </Container>
-      <footer className='content text-center'>
-        <hr />
-        <p className='footer-margin'>{footer?.text}</p>
-      </footer>
     </>
   )
 }
