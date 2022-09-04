@@ -30,6 +30,7 @@ const CreateWebpageTemplate = (): JSX.Element => {
                             value={webpageTag} />
             </Form.Group>
           </div>
+          <hr />
           {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
             return [
               <Row key={i}>

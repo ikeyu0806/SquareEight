@@ -62,24 +62,20 @@ class Api::Internal::WebpagesController < ApplicationController
                                           :sortOrder,
                                           atoms: [
                                             :atomType,
-                                            content: [
-                                              :text, # 見出し
-                                              :placement,
-                                              :size,
-                                              # 画像+テキスト
+                                            :text, # 見出し
+                                            :placement,
+                                            :size,
+                                            # 画像スライド
+                                            imageSlide: [
                                               :title,
+                                              :text,
                                               :image,
                                               :base64Image,
+                                            ],
+                                            content: [
                                               # ページリンク 
                                               :text,
                                               :url,
-                                              # 画像スライド
-                                              imageSlide: [
-                                                :title,
-                                                :text,
-                                                :image,
-                                                :base64Image,
-                                              ]
                                             ]
                                           ]]])
   end

@@ -29,6 +29,7 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
+        console.log(response.data)
         dispatch(pageContentChanged({blockContent: response.data.webpage.block_contents}))
       })
       .catch(error => {
