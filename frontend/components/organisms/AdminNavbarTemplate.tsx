@@ -60,7 +60,8 @@ const AdminNavbarTemplate = (): JSX.Element => {
               <NavDropdown title='Webページ' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/webpage'>Webページ一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/webpage/new'>Webページ新規作成</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/webpage/new'>ページ共通レイアウト編集</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/shared_component/edit'>ページ一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/shared_component/edit'>ページ全体編集</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='アンケート' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/questionnaire/master/new'>アンケート作成</NavDropdown.Item>
