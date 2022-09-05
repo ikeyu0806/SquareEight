@@ -25,12 +25,12 @@ const SharedComponentHeaderModal = (): JSX.Element => {
   const navbarBrandVariantColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandVariantColor)
 
   const colorValues = [ {label: 'White', backgroundColor: 'light', variant: 'light'},
-                        {label: 'Black', backgroundColor: 'dark', variant: 'light'},
-                        {label: 'Red', backgroundColor: 'danger', variant: 'light'},
-                        {label: 'Blue', backgroundColor: 'primary', variant: 'light'},
-                        {label: 'Green', backgroundColor: 'success', variant: 'light'},
+                        {label: 'Black', backgroundColor: 'dark', variant: 'dark'},
+                        {label: 'Red', backgroundColor: 'danger', variant: 'dark'},
+                        {label: 'Blue', backgroundColor: 'primary', variant: 'dark'},
+                        {label: 'Green', backgroundColor: 'success', variant: 'dark'},
                         {label: 'Yellow', backgroundColor: 'warning', variant: 'light'},
-                        {label: 'Gray', backgroundColor: 'secondary', variant: 'light'} ]
+                        {label: 'Gray', backgroundColor: 'secondary', variant: 'dark'} ]
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -112,7 +112,7 @@ const SharedComponentHeaderModal = (): JSX.Element => {
           <hr />
           <h3>プレビュー</h3>
           <hr />
-          <Navbar bg={navbarBrandBackgroundColor} expand='lg'>
+          <Navbar bg={navbarBrandBackgroundColor} variant={navbarBrandVariantColor as 'dark' || 'light'} expand='lg'>
             <Container>
               <Navbar.Brand href='/'>
                 {navbarBrandType === 'text' &&
