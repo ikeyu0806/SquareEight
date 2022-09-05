@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_02_125600) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_05_082059) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -408,6 +408,20 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_02_125600) do
     t.time "sun_break_end"
     t.time "holiday_break_start"
     t.time "holiday_break_end"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shared_components", force: :cascade do |t|
+    t.integer "account_id"
+    t.string "navbar_brand_text"
+    t.string "navbar_brand_type"
+    t.string "navbar_brand_image_s3_url"
+    t.string "nabvar_brand_image_width"
+    t.string "nabvar_brand_image_height"
+    t.string "navbar_brand_background_color"
+    t.string "navbar_brand_variant_color"
+    t.string "footer_copyright_text"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

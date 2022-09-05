@@ -1,0 +1,2 @@
+class SharedComponent < ApplicationRecord
+end
