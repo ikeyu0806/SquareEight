@@ -1,5 +1,6 @@
-import { Modal, Button, Row, Col, Form } from 'react-bootstrap'
+import { Modal, Button, Form } from 'react-bootstrap'
 import { RootState } from 'redux/store'
+import MerchantCustomFooter from 'components/molecules/MerchantCustomFooter'
 import { useSelector, useDispatch } from 'react-redux'
 import { showFooterEditModalChanged, footerCopyRightTextChanged } from 'redux/sharedComponentSlice'
 
@@ -20,10 +21,7 @@ const SharedComponentFooterModal = (): JSX.Element => {
             className='mt20'></Form.Control>
           <hr />
           <h3>プレビュー</h3>
-          <footer className='content text-center'>
-            <hr />
-            <p className='footer-margin'>Copyright {footerCopyRightText} {new Date().getFullYear()}</p>
-          </footer>
+          <MerchantCustomFooter></MerchantCustomFooter>
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => console.log('')}>
