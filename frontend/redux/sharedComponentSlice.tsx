@@ -3,13 +3,21 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export const sharedComponentSlice = createSlice({
   name: 'sharedComponent',
   initialState: {
-    navbarTitle: '',
+    navbarBrandText: '',
+    navbarBrandImage: null,
+    navbarBrandType: '',
     showHeaderEditModal: false,
     showFooterEditModal: false,
   },
   reducers: {
-    navbarTitleChanged: (state, action: PayloadAction<string>) => {
-      state.navbarTitle = action.payload
+    navbarBrandTextChanged: (state, action: PayloadAction<string>) => {
+      state.navbarBrandText = action.payload
+    },
+    navbarBrandImageChanged: (state, action: PayloadAction<any>) => {
+      state.navbarBrandImage = action.payload
+    },
+    navbarBrandTypeChanged: (state, action: PayloadAction<any>) => {
+      state.navbarBrandImage = action.payload
     },
     showHeaderEditModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showHeaderEditModal = action.payload
@@ -20,7 +28,9 @@ export const sharedComponentSlice = createSlice({
   },
 })
 
-export const { navbarTitleChanged } = sharedComponentSlice.actions
+export const { navbarBrandTextChanged } = sharedComponentSlice.actions
+export const { navbarBrandImageChanged } = sharedComponentSlice.actions
+export const { navbarBrandTypeChanged } = sharedComponentSlice.actions
 export const { showHeaderEditModalChanged } = sharedComponentSlice.actions
 export const { showFooterEditModalChanged } = sharedComponentSlice.actions
 

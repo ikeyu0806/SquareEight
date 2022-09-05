@@ -6,6 +6,9 @@ import { showHeaderEditModalChanged } from 'redux/sharedComponentSlice'
 const SharedComponentHeaderModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const showHeaderEditModal =  useSelector((state: RootState) => state.sharedComponent.showHeaderEditModal)
+  const navbarBrandType =  useSelector((state: RootState) => state.sharedComponent.navbarBrandType)
+  const navbarBrandText =  useSelector((state: RootState) => state.sharedComponent.navbarBrandText)
+  const navbarBrandImage =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImage)
 
   return (
     <>
@@ -14,8 +17,16 @@ const SharedComponentHeaderModal = (): JSX.Element => {
         <Modal.Body>
           <h3>ブランド編集</h3>
           <h4></h4>
-          <Form.Check type='radio' id='brandType' label='テキスト'></Form.Check>
-          <Form.Check type='radio' id='brandType' label='画像'></Form.Check>
+          <Form.Check
+            type='radio'
+            id='brandTypeText'
+            name='brandType'
+            label='テキスト'></Form.Check>
+          <Form.Check
+            type='radio'
+            id='brandTypeImage'
+            name='brandType'
+            label='画像'></Form.Check>
           <Form.Control className='mt20'></Form.Control>
           <Form.Group className='mt20'>
             <Form.Label>ブランド画像を選択してください</Form.Label>
