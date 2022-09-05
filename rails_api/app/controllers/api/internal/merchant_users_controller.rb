@@ -11,6 +11,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     ActiveRecord::Base.transaction do
       if merchant_user_params[:is_create_account]
         account = Account.new(business_name: merchant_user_params["business_name"])
+        account.shared_components.new
         merchant_user = account.merchant_users.new(merchant_user_params.except(:business_name, :is_create_account))
       else
         merchant_user = MerchantUser.new(merchant_user_params.except(:business_name, :is_create_account))
