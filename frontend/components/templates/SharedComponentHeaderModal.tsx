@@ -8,7 +8,8 @@ import { showHeaderEditModalChanged,
          navbarBrandTextChanged,
          navbarBrandImageChanged,
          navbarBrandImageWidthChanged,
-         navbarBrandColorVariantChanged,
+         navbarBrandBackgroundColorChanged,
+         navbarBrandVariantColorChanged,
          navbarBrandImageHeightChanged } from 'redux/sharedComponentSlice'
 
 const SharedComponentHeaderModal = (): JSX.Element => {
@@ -20,15 +21,16 @@ const SharedComponentHeaderModal = (): JSX.Element => {
   const navbarBrandImage =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImage)
   const navbarBrandImageWidth =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageWidth)
   const navbarBrandImageHeight =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageHeight)
-  const navbarBrandColorVariant =  useSelector((state: RootState) => state.sharedComponent.navbarBrandColorVariant)
+  const navbarBrandBackgroundColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandBackgroundColor)
+  const navbarBrandVariantColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandVariantColor)
 
-  const colorValues = [ {label: 'White', variant: 'light'},
-                        {label: 'Black', variant: 'dark'},
-                        {label: 'Red', variant: 'danger'},
-                        {label: 'Blue', variant: 'primary'},
-                        {label: 'Green', variant: 'success'},
-                        {label: 'Yellow', variant: 'alert'},
-                        {label: 'Gray', variant: 'secondary'} ]
+  const colorValues = [ {label: 'White', backgroundColor: 'light', variant: 'light'},
+                        {label: 'Black', backgroundColor: 'dark', variant: 'light'},
+                        {label: 'Red', backgroundColor: 'danger', variant: 'light'},
+                        {label: 'Blue', backgroundColor: 'primary', variant: 'light'},
+                        {label: 'Green', backgroundColor: 'success', variant: 'light'},
+                        {label: 'Yellow', backgroundColor: 'warning', variant: 'light'},
+                        {label: 'Gray', backgroundColor: 'secondary', variant: 'light'} ]
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -100,8 +102,9 @@ const SharedComponentHeaderModal = (): JSX.Element => {
                 id={json.label + 'brandColor'}
                 label={json.label}
                 value={json.variant}
-                onChange={() => {
-                  dispatch(navbarBrandColorVariantChanged(json.variant))
+                onChange={() =>{
+                  dispatch(navbarBrandBackgroundColorChanged(json.backgroundColor))
+                  dispatch(navbarBrandVariantColorChanged(json.variant))
                 }}
                 name='brandColor' ></Form.Check>
             )
@@ -109,7 +112,7 @@ const SharedComponentHeaderModal = (): JSX.Element => {
           <hr />
           <h3>プレビュー</h3>
           <hr />
-          <Navbar bg={navbarBrandColorVariant} variant={navbarBrandColorVariant} expand='lg'>
+          <Navbar bg={navbarBrandBackgroundColor} expand='lg'>
             <Container>
               <Navbar.Brand href='/'>
                 {navbarBrandType === 'text' &&
