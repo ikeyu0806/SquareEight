@@ -1,6 +1,8 @@
 import { NextPage } from 'next'
-import { useDispatch } from 'react-redux'
+import { RootState } from 'redux/store'
+import { useSelector, useDispatch } from 'react-redux'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import MerchantCustomNavbar from 'components/molecules/MerchantCustomNavbar'
 import SharedComponentHeaderModal from 'components/templates/SharedComponentHeaderModal'
 import SharedComponentFooterModal from 'components/templates/SharedComponentFooterModal'
 import { Container, Navbar, Row, Col, Button } from 'react-bootstrap'
@@ -9,6 +11,14 @@ import { showFooterEditModalChanged } from 'redux/sharedComponentSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
+  const showHeaderEditModal =  useSelector((state: RootState) => state.sharedComponent.showHeaderEditModal)
+  const navbarBrandType =  useSelector((state: RootState) => state.sharedComponent.navbarBrandType)
+  const navbarBrandText =  useSelector((state: RootState) => state.sharedComponent.navbarBrandText)
+  const navbarBrandImage =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImage)
+  const navbarBrandImageWidth =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageWidth)
+  const navbarBrandImageHeight =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageHeight)
+  const navbarBrandBackgroundColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandBackgroundColor)
+  const navbarBrandVariantColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandVariantColor)
 
   return (
     <MerchantUserAdminLayout>
@@ -25,15 +35,7 @@ const Edit: NextPage = () => {
 
         <h3>プレビュー</h3>
         <hr />
-        <Navbar bg='dark' variant='dark' expand='lg'>
-          <Container>
-            <Navbar.Brand href='/'>
-              <span className='font-weight-bold'>
-              SquareEight
-              </span>
-            </Navbar.Brand>
-          </Container>
-        </Navbar>
+        <MerchantCustomNavbar></MerchantCustomNavbar>
         <div>
           <Container >
           &nbsp;
