@@ -8,6 +8,7 @@ import { showHeaderEditModalChanged,
          navbarBrandTextChanged,
          navbarBrandImageChanged,
          navbarBrandImageWidthChanged,
+         navbarBrandColorVariantChanged,
          navbarBrandImageHeightChanged } from 'redux/sharedComponentSlice'
 
 const SharedComponentHeaderModal = (): JSX.Element => {
@@ -19,6 +20,15 @@ const SharedComponentHeaderModal = (): JSX.Element => {
   const navbarBrandImage =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImage)
   const navbarBrandImageWidth =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageWidth)
   const navbarBrandImageHeight =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageHeight)
+  const navbarBrandColorVariant =  useSelector((state: RootState) => state.sharedComponent.navbarBrandColorVariant)
+
+  const colorValues = [ {label: 'White', variant: 'light'},
+                        {label: 'Black', variant: 'dark'},
+                        {label: 'Red', variant: 'danger'},
+                        {label: 'Blue', variant: 'primary'},
+                        {label: 'Green', variant: 'success'},
+                        {label: 'Yellow', variant: 'alert'},
+                        {label: 'Gray', variant: 'secondary'} ]
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -81,13 +91,7 @@ const SharedComponentHeaderModal = (): JSX.Element => {
           </>}
           <hr />
           <h3>カラー</h3>
-          {[{label: 'White', variant: 'light'},
-            {label: 'Black', variant: 'dark'},
-            {label: 'Red', variant: 'danger'},
-            {label: 'Blue', variant: 'primary'},
-            {label: 'Green', variant: 'success'},
-            {label: 'Yellow', variant: 'alert'},
-            {label: 'Gray', variant: 'secondary'}].map((json, i) => {
+          {colorValues.map((json, i) => {
             return (
               <Form.Check
                 key={i}
@@ -96,13 +100,16 @@ const SharedComponentHeaderModal = (): JSX.Element => {
                 id={json.label + 'brandColor'}
                 label={json.label}
                 value={json.variant}
+                onChange={() => {
+                  dispatch(navbarBrandColorVariantChanged(json.variant))
+                }}
                 name='brandColor' ></Form.Check>
             )
           })}
           <hr />
           <h3>プレビュー</h3>
           <hr />
-          <Navbar bg='dark' variant='dark' expand='lg'>
+          <Navbar bg={navbarBrandColorVariant} variant={navbarBrandColorVariant} expand='lg'>
             <Container>
               <Navbar.Brand href='/'>
                 {navbarBrandType === 'text' &&
