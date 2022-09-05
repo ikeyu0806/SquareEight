@@ -17,7 +17,7 @@ export const sharedComponentSlice = createSlice({
       state.navbarBrandImage = action.payload
     },
     navbarBrandTypeChanged: (state, action: PayloadAction<any>) => {
-      state.navbarBrandImage = action.payload
+      state.navbarBrandType = action.payload
     },
     showHeaderEditModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showHeaderEditModal = action.payload

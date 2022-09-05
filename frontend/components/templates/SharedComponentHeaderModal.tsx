@@ -1,7 +1,9 @@
 import { Modal, Button, Navbar, Container, Form } from 'react-bootstrap'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
-import { showHeaderEditModalChanged } from 'redux/sharedComponentSlice'
+import { showHeaderEditModalChanged,
+         navbarBrandTypeChanged, 
+         navbarBrandTextChanged} from 'redux/sharedComponentSlice'
 
 const SharedComponentHeaderModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -21,17 +23,23 @@ const SharedComponentHeaderModal = (): JSX.Element => {
             type='radio'
             id='brandTypeText'
             name='brandType'
+            onChange={() => {dispatch(navbarBrandTypeChanged('text'));console.log("!!")}}
             label='テキスト'></Form.Check>
           <Form.Check
             type='radio'
             id='brandTypeImage'
+            onChange={() => dispatch(navbarBrandTypeChanged('image'))}
             name='brandType'
             label='画像'></Form.Check>
-          <Form.Control className='mt20'></Form.Control>
-          <Form.Group className='mt20'>
+          {navbarBrandType === 'text'
+            && <Form.Control
+                value={navbarBrandText}
+                onChange={(e) => dispatch(navbarBrandTextChanged(e.target.value))}
+                className='mt20'></Form.Control>}
+          {navbarBrandType === 'image' && <Form.Group className='mt20'>
             <Form.Label>ブランド画像を選択してください</Form.Label>
             <Form.Control type='file' />
-          </Form.Group>
+          </Form.Group>}
           <hr />
           <h3>カラー</h3>
           {[{label: 'White', variant: 'light'},
@@ -59,7 +67,7 @@ const SharedComponentHeaderModal = (): JSX.Element => {
             <Container>
               <Navbar.Brand href='/'>
                 <span className='font-weight-bold'>
-                SquareEight
+                {navbarBrandText}
                 </span>
               </Navbar.Brand>
             </Container>
