@@ -83,7 +83,7 @@ const CreateTicketTemplate = (): JSX.Element => {
               />}
               <Form.Group>
                 <Form.Label className='mt10'>イメージ画像</Form.Label>
-                <Form.Control type="file" onChange={handleChangeFile} />
+                <Form.Control type='file' onChange={handleChangeFile} />
               </Form.Group>
             </div>
           </Col>

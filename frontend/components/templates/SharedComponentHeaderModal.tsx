@@ -1,16 +1,28 @@
+import React, { useState } from 'react'
 import { Modal, Button, Navbar, Container, Form } from 'react-bootstrap'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
+import { getBase64 } from 'functions/getBase64'
 import { showHeaderEditModalChanged,
          navbarBrandTypeChanged, 
-         navbarBrandTextChanged} from 'redux/sharedComponentSlice'
+         navbarBrandTextChanged,
+         navbarBrandImageChanged } from 'redux/sharedComponentSlice'
 
 const SharedComponentHeaderModal = (): JSX.Element => {
   const dispatch = useDispatch()
+  const [image, setImage] = useState('')
   const showHeaderEditModal =  useSelector((state: RootState) => state.sharedComponent.showHeaderEditModal)
   const navbarBrandType =  useSelector((state: RootState) => state.sharedComponent.navbarBrandType)
   const navbarBrandText =  useSelector((state: RootState) => state.sharedComponent.navbarBrandText)
   const navbarBrandImage =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImage)
+
+  const handleChangeFile = (e: any) => {
+    const { files } = e.target
+    setImage(window.URL.createObjectURL(files[0]))
+    getBase64(files[0]).then(
+      data => dispatch(navbarBrandImageChanged(data))
+    )
+  }
 
   return (
     <>
@@ -38,7 +50,7 @@ const SharedComponentHeaderModal = (): JSX.Element => {
                 className='mt20'></Form.Control>}
           {navbarBrandType === 'image' && <Form.Group className='mt20'>
             <Form.Label>ブランド画像を選択してください</Form.Label>
-            <Form.Control type='file' />
+            <Form.Control type='file' onChange={handleChangeFile} />
           </Form.Group>}
           <hr />
           <h3>カラー</h3>
@@ -66,9 +78,17 @@ const SharedComponentHeaderModal = (): JSX.Element => {
           <Navbar bg='dark' variant='dark' expand='lg'>
             <Container>
               <Navbar.Brand href='/'>
+                {navbarBrandType === 'text' &&
                 <span className='font-weight-bold'>
-                {navbarBrandText}
-                </span>
+                  {navbarBrandText}
+                </span>}
+                {navbarBrandType === 'image' &&
+                navbarBrandImage &&
+                <img
+                  className='d-block w-100 mt30'
+                  src={navbarBrandImage}
+                  alt='image'/>
+                }
               </Navbar.Brand>
             </Container>
           </Navbar>
