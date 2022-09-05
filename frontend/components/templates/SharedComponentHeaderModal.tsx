@@ -1,12 +1,14 @@
 import React, { useState } from 'react'
-import { Modal, Button, Navbar, Container, Form } from 'react-bootstrap'
+import { Modal, Button, Navbar, Container, Form, Row, Col } from 'react-bootstrap'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { getBase64 } from 'functions/getBase64'
 import { showHeaderEditModalChanged,
          navbarBrandTypeChanged, 
          navbarBrandTextChanged,
-         navbarBrandImageChanged } from 'redux/sharedComponentSlice'
+         navbarBrandImageChanged,
+         navbarBrandImageWidthChanged,
+         navbarBrandImageHeightChanged } from 'redux/sharedComponentSlice'
 
 const SharedComponentHeaderModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -15,6 +17,8 @@ const SharedComponentHeaderModal = (): JSX.Element => {
   const navbarBrandType =  useSelector((state: RootState) => state.sharedComponent.navbarBrandType)
   const navbarBrandText =  useSelector((state: RootState) => state.sharedComponent.navbarBrandText)
   const navbarBrandImage =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImage)
+  const navbarBrandImageWidth =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageWidth)
+  const navbarBrandImageHeight =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageHeight)
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -48,10 +52,33 @@ const SharedComponentHeaderModal = (): JSX.Element => {
                 value={navbarBrandText}
                 onChange={(e) => dispatch(navbarBrandTextChanged(e.target.value))}
                 className='mt20'></Form.Control>}
-          {navbarBrandType === 'image' && <Form.Group className='mt20'>
-            <Form.Label>ブランド画像を選択してください</Form.Label>
-            <Form.Control type='file' onChange={handleChangeFile} />
-          </Form.Group>}
+          {navbarBrandType === 'image' &&
+          <>
+            <Form.Group className='mt20'>
+              <Form.Label>ブランド画像を選択してください</Form.Label>
+              <Form.Control type='file' onChange={handleChangeFile} />
+            </Form.Group>
+            <Row>
+              <Col md={3} sm={6}>
+                <Form.Label className='mt10'>画像の縦幅</Form.Label>
+                <Form.Control
+                  min={1}
+                  max={1000}
+                  value={navbarBrandImageHeight}
+                  onChange={(e) => dispatch((navbarBrandImageHeightChanged(Number(e.target.value))))}
+                  type='number'></Form.Control>
+              </Col>
+              <Col md={3} sm={6}>
+                <Form.Label className='mt10'>画像の横幅</Form.Label>
+                <Form.Control
+                value={navbarBrandImageWidth}
+                onChange={(e) => dispatch((navbarBrandImageWidthChanged(Number(e.target.value))))}
+                  min={1}
+                  max={1000}
+                  type='number'></Form.Control>
+              </Col>
+            </Row>
+          </>}
           <hr />
           <h3>カラー</h3>
           {[{label: 'White', variant: 'light'},
@@ -85,6 +112,8 @@ const SharedComponentHeaderModal = (): JSX.Element => {
                 {navbarBrandType === 'image' &&
                 navbarBrandImage &&
                 <img
+                  width={navbarBrandImageWidth}
+                  height={navbarBrandImageHeight}
                   className='d-block w-100 mt30'
                   src={navbarBrandImage}
                   alt='image'/>

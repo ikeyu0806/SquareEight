@@ -5,6 +5,8 @@ export const sharedComponentSlice = createSlice({
   initialState: {
     navbarBrandText: '',
     navbarBrandImage: null,
+    navbarBrandImageWidth: 100,
+    navbarBrandImageHeight: 100,
     navbarBrandType: '',
     showHeaderEditModal: false,
     showFooterEditModal: false,
@@ -15,6 +17,12 @@ export const sharedComponentSlice = createSlice({
     },
     navbarBrandImageChanged: (state, action: PayloadAction<any>) => {
       state.navbarBrandImage = action.payload
+    },
+    navbarBrandImageWidthChanged: (state, action: PayloadAction<number>) => {
+      state.navbarBrandImageWidth = action.payload
+    },
+    navbarBrandImageHeightChanged: (state, action: PayloadAction<number>) => {
+      state.navbarBrandImageHeight = action.payload
     },
     navbarBrandTypeChanged: (state, action: PayloadAction<any>) => {
       state.navbarBrandType = action.payload
@@ -30,6 +38,8 @@ export const sharedComponentSlice = createSlice({
 
 export const { navbarBrandTextChanged } = sharedComponentSlice.actions
 export const { navbarBrandImageChanged } = sharedComponentSlice.actions
+export const { navbarBrandImageWidthChanged } = sharedComponentSlice.actions
+export const { navbarBrandImageHeightChanged } = sharedComponentSlice.actions
 export const { navbarBrandTypeChanged } = sharedComponentSlice.actions
 export const { showHeaderEditModalChanged } = sharedComponentSlice.actions
 export const { showFooterEditModalChanged } = sharedComponentSlice.actions
