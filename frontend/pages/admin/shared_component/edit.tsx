@@ -6,19 +6,11 @@ import MerchantCustomNavbar from 'components/molecules/MerchantCustomNavbar'
 import SharedComponentHeaderModal from 'components/templates/SharedComponentHeaderModal'
 import SharedComponentFooterModal from 'components/templates/SharedComponentFooterModal'
 import { Container, Navbar, Row, Col, Button } from 'react-bootstrap'
-import { showHeaderEditModalChanged } from 'redux/sharedComponentSlice'
-import { showFooterEditModalChanged } from 'redux/sharedComponentSlice'
+import { showHeaderEditModalChanged,
+         showFooterEditModalChanged } from 'redux/sharedComponentSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
-  const showHeaderEditModal =  useSelector((state: RootState) => state.sharedComponent.showHeaderEditModal)
-  const navbarBrandType =  useSelector((state: RootState) => state.sharedComponent.navbarBrandType)
-  const navbarBrandText =  useSelector((state: RootState) => state.sharedComponent.navbarBrandText)
-  const navbarBrandImage =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImage)
-  const navbarBrandImageWidth =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageWidth)
-  const navbarBrandImageHeight =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageHeight)
-  const navbarBrandBackgroundColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandBackgroundColor)
-  const navbarBrandVariantColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandVariantColor)
 
   return (
     <MerchantUserAdminLayout>

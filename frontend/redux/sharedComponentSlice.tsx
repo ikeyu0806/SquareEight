@@ -11,6 +11,7 @@ export const sharedComponentSlice = createSlice({
     navbarBrandColor: '',
     navbarBrandBackgroundColor: '',
     navbarBrandVariantColor: '',
+    footerCopyRightText: '',
     showHeaderEditModal: false,
     showFooterEditModal: false,
   },
@@ -36,6 +37,9 @@ export const sharedComponentSlice = createSlice({
     navbarBrandVariantColorChanged: (state, action: PayloadAction<string>) => {
       state.navbarBrandVariantColor = action.payload
     },
+    footerCopyRightTextChanged: (state, action: PayloadAction<string>) => {
+      state.footerCopyRightText = action.payload
+    },
     showHeaderEditModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showHeaderEditModal = action.payload
     },
@@ -52,6 +56,7 @@ export const { navbarBrandImageHeightChanged } = sharedComponentSlice.actions
 export const { navbarBrandTypeChanged } = sharedComponentSlice.actions
 export const { navbarBrandBackgroundColorChanged } = sharedComponentSlice.actions
 export const { navbarBrandVariantColorChanged } = sharedComponentSlice.actions
+export const { footerCopyRightTextChanged } = sharedComponentSlice.actions
 export const { showHeaderEditModalChanged } = sharedComponentSlice.actions
 export const { showFooterEditModalChanged } = sharedComponentSlice.actions
 
