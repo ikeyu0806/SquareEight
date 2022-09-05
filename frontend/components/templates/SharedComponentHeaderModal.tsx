@@ -22,13 +22,25 @@ const SharedComponentHeaderModal = (): JSX.Element => {
             <Form.Control type='file' />
           </Form.Group>
           <hr />
-          <h3>右寄せリンク</h3>
-          <Form.Check type='radio' id='brandType' label='リンク付きテキストを追加'></Form.Check>
-          <Form.Check type='radio' id='brandType' label='ドロップダウンリンクを追加'></Form.Check>
-          <hr />
-          <h3>左寄せリンク</h3>
-          <Form.Check type='radio' id='brandType' label='リンク付きテキストを追加'></Form.Check>
-          <Form.Check type='radio' id='brandType' label='ドロップダウンリンクを追加'></Form.Check>
+          <h3>カラー</h3>
+          {[{label: 'White', variant: 'light'},
+            {label: 'Black', variant: 'dark'},
+            {label: 'Red', variant: 'danger'},
+            {label: 'Blue', variant: 'primary'},
+            {label: 'Green', variant: 'success'},
+            {label: 'Yellow', variant: 'alert'},
+            {label: 'Gray', variant: 'secondary'}].map((json, i) => {
+            return (
+              <Form.Check
+                key={i}
+                inline
+                type='radio'
+                id={json.label + 'brandColor'}
+                label={json.label}
+                value={json.variant}
+                name='brandColor' ></Form.Check>
+            )
+          })}
           <hr />
           <h3>プレビュー</h3>
           <hr />
