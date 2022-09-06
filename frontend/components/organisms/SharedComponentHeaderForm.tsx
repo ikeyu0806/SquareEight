@@ -9,6 +9,7 @@ import { navbarBrandTypeChanged,
          navbarBrandImageWidthChanged,
          navbarBrandBackgroundColorChanged,
          navbarBrandVariantColorChanged,
+         isUpdateNavbarBrandImageChanged,
          navbarBrandImageHeightChanged } from 'redux/sharedComponentSlice'
 
 const SharedComponentHeaderForm = (): JSX.Element => {
@@ -60,7 +61,12 @@ const SharedComponentHeaderForm = (): JSX.Element => {
       <>
         <Form.Group className='mt20'>
           <Form.Label>ブランド画像を選択してください</Form.Label>
-          <Form.Control type='file' onChange={handleChangeFile} />
+          <Form.Control
+            type='file'
+            onChange={(e) => {
+              handleChangeFile(e)
+              dispatch(isUpdateNavbarBrandImageChanged(true))
+            }} />
         </Form.Group>
         <Row>
           <Col md={3} sm={6}>

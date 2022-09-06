@@ -30,6 +30,7 @@ const Edit: NextPage = () => {
   const navbarBrandImageHeight =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageHeight)
   const navbarBrandBackgroundColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandBackgroundColor)
   const navbarBrandVariantColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandVariantColor)
+  const isUpdateNavbarBrandImage =  useSelector((state: RootState) => state.sharedComponent.isUpdateNavbarBrandImage)
   const footerCopyRightText =  useSelector((state: RootState) => state.sharedComponent.footerCopyRightText)
 
   useEffect(() => {
@@ -71,6 +72,7 @@ const Edit: NextPage = () => {
         navbar_brand_background_color: navbarBrandBackgroundColor,
         navbar_brand_variant_color: navbarBrandVariantColor,
         footer_copyright_text: footerCopyRightText,
+        is_update_navbar_brand_image: isUpdateNavbarBrandImage
       }
     },
     {
