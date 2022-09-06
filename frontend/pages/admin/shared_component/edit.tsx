@@ -4,17 +4,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import MerchantCustomNavbar from 'components/molecules/MerchantCustomNavbar'
 import MerchantCustomFooter from 'components/molecules/MerchantCustomFooter'
-import SharedComponentHeaderModal from 'components/templates/SharedComponentHeaderModal'
-import SharedComponentFooterModal from 'components/templates/SharedComponentFooterModal'
-import { Container, Navbar, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import SharedComponentFooterForm from 'components/organisms/SharedComponentFooterForm'
 import SharedComponentHeaderForm from 'components/organisms/SharedComponentHeaderForm'
-import { showHeaderEditModalChanged,
-         showFooterEditModalChanged } from 'redux/sharedComponentSlice'
 
 const Edit: NextPage = () => {
-  const dispatch = useDispatch()
-
   return (
     <MerchantUserAdminLayout>
       <Container className='mb30'>
@@ -53,8 +47,6 @@ const Edit: NextPage = () => {
         </div>
         <MerchantCustomFooter></MerchantCustomFooter>
       </Container>
-      <SharedComponentHeaderModal></SharedComponentHeaderModal>
-      <SharedComponentFooterModal></SharedComponentFooterModal>
     </MerchantUserAdminLayout>
   )
 }
