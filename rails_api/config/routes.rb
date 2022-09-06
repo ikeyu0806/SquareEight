@@ -122,6 +122,7 @@ Rails.application.routes.draw do
       post 'special_business_hours', to: 'special_business_hours#create'
       get 'special_holidays', to: 'special_holidays#index'
       post 'special_holidays', to: 'special_holidays#create'
+      post 'shared_components/register', to: 'shared_components#register'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'
