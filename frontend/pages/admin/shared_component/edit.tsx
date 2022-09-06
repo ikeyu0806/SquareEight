@@ -1,4 +1,5 @@
 import { NextPage } from 'next'
+import { useEffect } from 'react'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
@@ -9,8 +10,17 @@ import SharedComponentFooterForm from 'components/organisms/SharedComponentFoote
 import SharedComponentHeaderForm from 'components/organisms/SharedComponentHeaderForm'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
+import { navbarBrandTextChanged,
+         navbarBrandTypeChanged,
+         navbarBrandImageChanged,
+         navbarBrandImageWidthChanged,
+         navbarBrandImageHeightChanged,
+         navbarBrandBackgroundColorChanged,
+         navbarBrandVariantColorChanged,
+         footerCopyRightTextChanged } from 'redux/sharedComponentSlice'
 
 const Edit: NextPage = () => {
+  const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const navbarBrandType =  useSelector((state: RootState) => state.sharedComponent.navbarBrandType)
@@ -21,6 +31,33 @@ const Edit: NextPage = () => {
   const navbarBrandBackgroundColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandBackgroundColor)
   const navbarBrandVariantColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandVariantColor)
   const footerCopyRightText =  useSelector((state: RootState) => state.sharedComponent.footerCopyRightText)
+
+  useEffect(() => {
+    const fetchSharedComponent = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/shared_components`, {
+          headers: {
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }
+      )
+      .then(function (response) {
+        dispatch((navbarBrandTextChanged(response.data.shared_component.nabvar_brand_text)))
+        dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
+        dispatch((navbarBrandImageChanged(response.data.shared_component.navbar_brand_image_s3_object_public_url)))
+        dispatch((navbarBrandImageWidthChanged(response.data.shared_component.nabvar_brand_image_width)))
+        dispatch((navbarBrandImageHeightChanged(response.data.shared_component.nabvar_brand_image_height)))
+        dispatch((navbarBrandBackgroundColorChanged(response.data.shared_component.nabvar_brand_background_color)))
+        dispatch((navbarBrandVariantColorChanged(response.data.shared_component.nabvar_brand_image_variant_color)))
+        dispatch((footerCopyRightTextChanged(response.data.shared_component.footer_copyright_text)))
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchSharedComponent()
+  }, [cookies._square_eight_merchant_session, dispatch])
+
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/shared_components/register`,
