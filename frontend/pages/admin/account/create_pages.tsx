@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { Container, ListGroup, Row, Col, Card } from 'react-bootstrap'
+import { Container, ListGroup, Row, Col, Card, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { PageLinksParam } from 'interfaces/PageLinksParam'
 import { useCookies } from 'react-cookie'
@@ -37,7 +37,17 @@ const CreatePages: NextPage = () => {
               {pageLinks.map((link, i) => {
                 return (
                   <ListGroup.Item key={i}>
-                    {link.text}&emsp;<span>【{link.label}】</span>
+                    <Row>
+                      <Col>
+                        {link.text}&emsp;<span>【{link.label}】</span>
+                      </Col>
+                      <Col>
+                        <a className='btn btn-primary'
+                           target='_blank'
+                           rel='noreferrer'
+                           href={link.value}>プレビュー</a>
+                      </Col>
+                    </Row>
                   </ListGroup.Item>
                 )
               })}
