@@ -6,6 +6,8 @@ import MerchantCustomNavbar from 'components/molecules/MerchantCustomNavbar'
 import SharedComponentHeaderModal from 'components/templates/SharedComponentHeaderModal'
 import SharedComponentFooterModal from 'components/templates/SharedComponentFooterModal'
 import { Container, Navbar, Row, Col, Button } from 'react-bootstrap'
+import SharedComponentFooterForm from 'components/organisms/SharedComponentFooterForm'
+import SharedComponentHeaderForm from 'components/organisms/SharedComponentHeaderForm'
 import { showHeaderEditModalChanged,
          showFooterEditModalChanged } from 'redux/sharedComponentSlice'
 
@@ -19,11 +21,9 @@ const Edit: NextPage = () => {
         <div>ページ共通のヘッダ、フッタ、全体の見た目を調整します。</div>
         <div className='mb30'>ここで設定した内容はSquareEightで作成したWebページ、商品購入ページ、予約ページ、アンケートページに反映されます</div>
         <hr/>
-        <Button onClick={() => dispatch(showHeaderEditModalChanged(true))}>ヘッダを編集</Button>
-        <Button
-          onClick={() => dispatch(showFooterEditModalChanged(true))}
-          className='ml20'>フッタを編集</Button>
-        <hr />
+        
+        <SharedComponentHeaderForm></SharedComponentHeaderForm>
+        <SharedComponentFooterForm></SharedComponentFooterForm>
 
         <h3>プレビュー</h3>
         <hr />
