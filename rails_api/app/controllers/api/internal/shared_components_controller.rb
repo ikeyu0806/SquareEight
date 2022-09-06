@@ -20,7 +20,7 @@ class Api::Internal::SharedComponentsController < ApplicationController
         shared_component.navbar_brand_image_s3_object_public_url = put_s3_http_request_data(shared_component_params[:navbar_brand_image], ENV["SHARED_COMPONENT_IMAGE_BUCKET"], file_name)
         shared_component.nabvar_brand_image_s3_object_name = file_name
       end
-      shared_component.attributes = shared_component_params.except(:navbar_brand_image)
+      shared_component.attributes = shared_component_params.except(:navbar_brand_image, :is_update_navbar_brand_image)
       shared_component.save!
       render json: { status: 'success' }, states: 200
     end
