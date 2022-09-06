@@ -11,7 +11,13 @@ class Api::Internal::SharedComponentsController < ApplicationController
   def register
     shared_component = current_merchant_user.account.shared_component
     current_merchant_user.account.shared_component.new if shared_component.blank?
-    shared_component.attributes = shared_component_params
+    # ブランドイメージはS3に登録
+    if product_params[:navbar_brand_image].present?
+      file_name = "shared_component_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+      shared_component.navbar_brand_image_s3_object_public_url = put_s3_http_request_data(shared_component_params[:navbar_brand_image], ENV["SHARED_COMPONENT_IMAGE_BUCKET"], file_name)
+      shared_component.nabvar_brand_image_s3_object_name = file_name
+    end
+    shared_component.attributes = shared_component_params.except(:navbar_brand_image)
     shared_component.save!
     render json: { status: 'success' }, states: 200
   rescue => error
