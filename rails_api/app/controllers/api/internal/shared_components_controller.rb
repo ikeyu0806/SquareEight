@@ -1,3 +1,5 @@
+include Base64Image
+
 class Api::Internal::SharedComponentsController < ApplicationController
   before_action :merchant_login_only!
 
