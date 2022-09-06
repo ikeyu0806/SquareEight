@@ -61,7 +61,6 @@ const Edit: NextPage = () => {
     fetchSharedComponent()
   }, [cookies._square_eight_merchant_session, dispatch])
 
-
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/shared_components/register`,
     {

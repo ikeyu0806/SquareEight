@@ -60,8 +60,6 @@ const AdminNavbarTemplate = (): JSX.Element => {
               <NavDropdown title='Webページ' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/webpage'>Webページ一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/webpage/new'>Webページ新規作成</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/shared_component/edit'>ページ一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/shared_component/edit'>ページ全体編集</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='アンケート' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/questionnaire/master/new'>アンケート作成</NavDropdown.Item>
@@ -70,6 +68,8 @@ const AdminNavbarTemplate = (): JSX.Element => {
               </NavDropdown>
               <Nav.Link href='/admin/charges'>売上</Nav.Link>
               <NavDropdown title='アカウント設定' id='webpage-nav-dropdown'>
+                <NavDropdown.Item href='/admin/account/create_pages'>ページ一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/shared_component/edit'>ページ全体編集</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/sales_transfer'>事業情報・売上振込先口座</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/plan/choice'>プラン変更・退会</NavDropdown.Item>
