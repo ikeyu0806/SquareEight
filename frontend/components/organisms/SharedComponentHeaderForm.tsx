@@ -19,14 +19,15 @@ const SharedComponentHeaderForm = (): JSX.Element => {
   const navbarBrandText =  useSelector((state: RootState) => state.sharedComponent.navbarBrandText)
   const navbarBrandImageWidth =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageWidth)
   const navbarBrandImageHeight =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageHeight)
+  const navbarBrandBackgroundColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandBackgroundColor)
 
-  const colorValues = [ {label: 'White', backgroundColor: 'light', variant: 'light'},
+  const colorValues = [ {label: 'Gray', backgroundColor: 'light', variant: 'light'},
                         {label: 'Black', backgroundColor: 'dark', variant: 'dark'},
                         {label: 'Red', backgroundColor: 'danger', variant: 'dark'},
                         {label: 'Blue', backgroundColor: 'primary', variant: 'dark'},
                         {label: 'Green', backgroundColor: 'success', variant: 'dark'},
                         {label: 'Yellow', backgroundColor: 'warning', variant: 'light'},
-                        {label: 'Gray', backgroundColor: 'secondary', variant: 'dark'} ]
+                        {label: 'DarkGray', backgroundColor: 'secondary', variant: 'dark'} ]
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -44,6 +45,7 @@ const SharedComponentHeaderForm = (): JSX.Element => {
         type='radio'
         id='brandTypeText'
         name='brandType'
+        checked={navbarBrandType === 'text'}
         onChange={() => {dispatch(navbarBrandTypeChanged('text'));console.log("!!")}}
         label='テキスト'></Form.Check>
       <Form.Check
@@ -51,6 +53,7 @@ const SharedComponentHeaderForm = (): JSX.Element => {
         id='brandTypeImage'
         onChange={() => dispatch(navbarBrandTypeChanged('image'))}
         name='brandType'
+        checked={navbarBrandType === 'image'}
         label='画像'></Form.Check>
       {navbarBrandType === 'text'
         && <Form.Control
@@ -100,6 +103,7 @@ const SharedComponentHeaderForm = (): JSX.Element => {
             id={json.label + 'brandColor'}
             label={json.label}
             value={json.variant}
+            checked={navbarBrandBackgroundColor === json.backgroundColor}
             onChange={() =>{
               dispatch(navbarBrandBackgroundColorChanged(json.backgroundColor))
               dispatch(navbarBrandVariantColorChanged(json.variant))
