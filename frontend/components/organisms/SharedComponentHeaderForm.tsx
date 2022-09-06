@@ -37,7 +37,7 @@ const SharedComponentHeaderForm = (): JSX.Element => {
 
   return (
     <>
-      <h3>ブランド編集</h3>
+      <h3>ヘッダ編集</h3>
       <h4></h4>
       <Form.Check
         type='radio'
@@ -83,8 +83,8 @@ const SharedComponentHeaderForm = (): JSX.Element => {
           </Col>
         </Row>
       </>}
-      <hr />
-      <h3>カラー</h3>
+      <Form.Label className='mt30'>カラー設定</Form.Label>
+      <br />
       {colorValues.map((json, i) => {
         return (
           <Form.Check

@@ -9,6 +9,7 @@ const SharedComponentFooterForm = (): JSX.Element => {
 
   return (
     <>
+      <h3>フッタ編集</h3>
       <Form.Label>Copyrightの後に続く文言を設定してください</Form.Label>
       <Form.Control
         value={footerCopyRightText}
