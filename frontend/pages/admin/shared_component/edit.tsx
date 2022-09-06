@@ -7,8 +7,46 @@ import MerchantCustomFooter from 'components/molecules/MerchantCustomFooter'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import SharedComponentFooterForm from 'components/organisms/SharedComponentFooterForm'
 import SharedComponentHeaderForm from 'components/organisms/SharedComponentHeaderForm'
+import { useCookies } from 'react-cookie'
+import axios from 'axios'
 
 const Edit: NextPage = () => {
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
+
+  const navbarBrandType =  useSelector((state: RootState) => state.sharedComponent.navbarBrandType)
+  const navbarBrandText =  useSelector((state: RootState) => state.sharedComponent.navbarBrandText)
+  const navbarBrandImage =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImage)
+  const navbarBrandImageWidth =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageWidth)
+  const navbarBrandImageHeight =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageHeight)
+  const navbarBrandBackgroundColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandBackgroundColor)
+  const navbarBrandVariantColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandVariantColor)
+  const footerCopyRightText =  useSelector((state: RootState) => state.sharedComponent.footerCopyRightText)
+
+  const onSubmit = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/shared_components/register`,
+    {
+      shared_component: {
+        navbar_brand_text: navbarBrandText,
+        navbar_brand_type: navbarBrandType,
+        navbar_brand_image: navbarBrandImage,
+        nabvar_brand_image_width: navbarBrandImageWidth,
+        nabvar_brand_image_height: navbarBrandImageHeight,
+        navbar_brand_background_color: navbarBrandBackgroundColor,
+        navbar_brand_variant_color: navbarBrandVariantColor,
+        footer_copyright_text: footerCopyRightText,
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    }).then(response => {
+      
+    }).catch(error => {
+      
+    })
+  }
+
   return (
     <MerchantUserAdminLayout>
       <Container className='mb30'>
@@ -21,7 +59,7 @@ const Edit: NextPage = () => {
         <hr/>
         <SharedComponentFooterForm></SharedComponentFooterForm>
         <hr />
-        <Button>編集を終えて保存する</Button>
+        <Button onClick={() => onSubmit()}>編集を終えて保存する</Button>
         <hr />
         <h3>プレビュー</h3>
         <hr />
