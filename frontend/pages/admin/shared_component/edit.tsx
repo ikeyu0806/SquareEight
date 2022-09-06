@@ -9,6 +9,7 @@ import { Container, Row, Col, Button } from 'react-bootstrap'
 import SharedComponentFooterForm from 'components/organisms/SharedComponentFooterForm'
 import SharedComponentHeaderForm from 'components/organisms/SharedComponentHeaderForm'
 import { useCookies } from 'react-cookie'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import axios from 'axios'
 import { navbarBrandTextChanged,
          navbarBrandTypeChanged,
@@ -81,9 +82,16 @@ const Edit: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
-      
+      swalWithBootstrapButtons.fire({
+        title: '登録しました',
+        icon: 'info'
+      })
+      location.reload()
     }).catch(error => {
-      
+      swalWithBootstrapButtons.fire({
+        title: '送信失敗しました',
+        icon: 'error'
+      })
     })
   }
 
