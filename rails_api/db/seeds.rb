@@ -12,6 +12,10 @@ account = Account.first_or_create!(
   stripe_account_id: "acct_1LFYYj2eLQ63YTOo"
 )
 
+SharedComponent.first_or_create!(
+  account_id: account.id,
+)
+
 MerchantUser.first_or_create!(
   account_id: account.id,
   email: "merchant_user@develop.com",

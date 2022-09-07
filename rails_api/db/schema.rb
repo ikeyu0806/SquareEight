@@ -415,13 +415,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_05_082059) do
   create_table "shared_components", force: :cascade do |t|
     t.integer "account_id"
     t.string "navbar_brand_text", default: "SquareEight"
-    t.string "navbar_brand_type"
+    t.string "navbar_brand_type", default: "text"
     t.string "navbar_brand_image_s3_object_public_url"
     t.string "nabvar_brand_image_s3_object_name"
     t.string "nabvar_brand_image_height"
     t.string "nabvar_brand_image_width"
-    t.string "navbar_brand_background_color"
-    t.string "navbar_brand_variant_color"
+    t.string "navbar_brand_background_color", default: "light"
+    t.string "navbar_brand_variant_color", default: "light"
     t.string "footer_copyright_text", default: "SquareEight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
