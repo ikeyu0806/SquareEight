@@ -2,13 +2,22 @@ import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import calendarStyles from 'styles/Calendar.module.css'
 import { useRouter } from 'next/router'
+import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import { MonthCalendarContentJson } from 'interfaces/MonthCalendarContentParam'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
+import {  navbarBrandTextChanged,
+          navbarBrandTypeChanged,
+          navbarBrandImageChanged,
+          navbarBrandImageWidthChanged,
+          navbarBrandImageHeightChanged,
+          navbarBrandBackgroundColorChanged,
+          navbarBrandVariantColorChanged,
+          footerCopyRightTextChanged } from 'redux/sharedComponentSlice'
 
 const MonthCalendar = (): JSX.Element => {
   const router = useRouter()
-
+  const dispatch = useDispatch()
   const date = new Date()
   const currentYear = date.getFullYear()
   const currentMonth = date.getMonth() + 1
@@ -32,6 +41,16 @@ const MonthCalendar = (): JSX.Element => {
         console.log(response)
         setCalendarContentArray(response.data.calendar_content)
         setReserveFrame(response.data.reserve_frame)
+
+        // ヘッダ、フッタ
+        dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
+        dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
+        dispatch((navbarBrandImageChanged(response.data.shared_component.navbar_brand_image_s3_object_public_url)))
+        dispatch((navbarBrandImageWidthChanged(response.data.shared_component.nabvar_brand_image_width)))
+        dispatch((navbarBrandImageHeightChanged(response.data.shared_component.nabvar_brand_image_height)))
+        dispatch((navbarBrandBackgroundColorChanged(response.data.shared_component.navbar_brand_background_color)))
+        dispatch((navbarBrandVariantColorChanged(response.data.shared_component.navbar_brand_variant_color)))
+        dispatch((footerCopyRightTextChanged(response.data.shared_component.footer_copyright_text)))
       })
       .catch(error => {
         console.log(error)
