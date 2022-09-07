@@ -1,13 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
-import { Container, Button, Row, Col, Card, Alert } from 'react-bootstrap'
-import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
+import { Container, Button, Row, Col, Card } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import { paymentMethodText } from 'functions/paymentMethodText'
 import { useCookies } from 'react-cookie'
-import { alertChanged } from 'redux/alertSlice'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
@@ -74,10 +73,16 @@ const PaymentMethod: NextPage = () => {
         'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
-      dispatch(alertChanged({message: '予約しました', show: true}))
+      swalWithBootstrapButtons.fire({
+        title: '予約しました',
+        icon: 'info'
+      })
       setIsCompleteReservation(true)
     }).catch(error => {
-      dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
+      swalWithBootstrapButtons.fire({
+        title: '予約失敗しました',
+        icon: 'error'
+      })
     })
   }
 
