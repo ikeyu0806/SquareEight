@@ -3,11 +3,27 @@ class Order < ApplicationRecord
   has_many :order_items
 
   def total_price
-    order_items.pluck(:price).inject(:+)
+    result = 0
+    order_items.each do |item|
+      if item.product_type == 'Product'
+        result = result + item.price * item.quantity
+      else
+        result = result + item.price
+      end
+    end
+    result
   end
 
   def total_commission
-    order_items.pluck(:commission).inject(:+)
+    result = 0
+    order_items.each do |item|
+      if item.product_type == 'Product'
+        result = result + item.commission * item.quantity
+      else
+        result = result + item.commission
+      end
+    end
+    result
   end
 
   def product_names

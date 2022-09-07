@@ -4,4 +4,5 @@ export interface OrderItemParam {
   business_name: string
   price: number
   commission: number
+  quentity: number
 }

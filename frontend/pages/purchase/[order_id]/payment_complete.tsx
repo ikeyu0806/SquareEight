@@ -49,7 +49,9 @@ const PaymentComplete: NextPage = () => {
                   {orderItems.map((item, i) => {
                     return (
                       <span key={i}>
-                        {item.product_name}&emsp;¥{item.price}
+                        {item.product_type === 'Product'
+                         ? <>{item.product_name}&emsp;¥{item.price * item.quantity}</>
+                         : <>{item.product_name}&emsp;¥{item.price}</>}
                       </span>
                     )
                   })}

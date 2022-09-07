@@ -45,12 +45,12 @@ class Api::Internal::CashRegistersController < ApplicationController
             )
           end
           payment_intent = Stripe::PaymentIntent.create({
-            amount: product.price,
+            amount: product.price * cart[:quantity],
             currency: 'jpy',
             payment_method_types: ['card'],
             payment_method: default_payment_method_id,
             customer: current_end_user.stripe_customer_id,
-            application_fee_amount: commission,
+            application_fee_amount: commission * cart[:quantity],
             metadata: {
               'order_date': current_date_text,
               'account_business_name': product.account.business_name,
@@ -75,7 +75,8 @@ class Api::Internal::CashRegistersController < ApplicationController
                                 product_name: product.name,
                                 price: product.price,
                                 account_id: product.account.id,
-                                commission: commission)
+                                commission: commission,
+                                quantity: cart[:quantity])
           product.save!
           current_end_user.cart_products.where(product_id: product.id).delete_all
 
