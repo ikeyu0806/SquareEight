@@ -5,7 +5,7 @@ import { ReservableFrameTicketMasterParam } from 'interfaces/ReservableFrameTick
 import { getZeroPaddingDate, getZeroPaddingTime } from 'functions/getZeroPaddingDatetime'
 
 export const reserveFrameSlice = createSlice({
-  name: 'alert',
+  name: 'reserveFrame',
   initialState: {
     showeserveFrameModal: false,
     startDate: getZeroPaddingDate(),
