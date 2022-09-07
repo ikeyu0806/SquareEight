@@ -19,6 +19,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def purchase_info
     monthly_payment_plan = MonthlyPaymentPlan.find(params[:id])
+    shared_component = monthly_payment_plan.account.shared_component
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
       login_status = 'Login'
@@ -28,6 +29,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       login_status = 'Logout'
     end
     render json: { status: 'success',
+                   shared_component: shared_component,
                    monthly_payment_plan: monthly_payment_plan,
                    payment_methods: payment_methods,
                    default_payment_method_id: default_payment_method_id,

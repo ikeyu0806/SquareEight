@@ -19,6 +19,14 @@ import { priceChanged,
          enableReserveCountChanged,
          descriptionChanged,
          s3ObjectPublicUrlChanged } from 'redux/monthlyPaymentPlanSlice'
+import {  navbarBrandTextChanged,
+          navbarBrandTypeChanged,
+          navbarBrandImageChanged,
+          navbarBrandImageWidthChanged,
+          navbarBrandImageHeightChanged,
+          navbarBrandBackgroundColorChanged,
+          navbarBrandVariantColorChanged,
+          footerCopyRightTextChanged } from 'redux/sharedComponentSlice'
 
 const Purchase: NextPage = () => {
   const dispatch = useDispatch()
@@ -56,6 +64,16 @@ const Purchase: NextPage = () => {
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
+
+        // ヘッダ、フッタ
+        dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
+        dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
+        dispatch((navbarBrandImageChanged(response.data.shared_component.navbar_brand_image_s3_object_public_url)))
+        dispatch((navbarBrandImageWidthChanged(response.data.shared_component.nabvar_brand_image_width)))
+        dispatch((navbarBrandImageHeightChanged(response.data.shared_component.nabvar_brand_image_height)))
+        dispatch((navbarBrandBackgroundColorChanged(response.data.shared_component.navbar_brand_background_color)))
+        dispatch((navbarBrandVariantColorChanged(response.data.shared_component.navbar_brand_variant_color)))
+        dispatch((footerCopyRightTextChanged(response.data.shared_component.footer_copyright_text)))
       })
       .catch(error => {
         dispatch(loginStatusChanged('Logout'))
