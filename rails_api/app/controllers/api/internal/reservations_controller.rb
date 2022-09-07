@@ -138,6 +138,12 @@ class Api::Internal::ReservationsController < ApplicationController
         end_user.phone_number = reservation_params[:phone_number] if current_end_user.phone_number.blank?
         end_user.save!
       end
+
+       # 通知作成
+       account_notification_title = customer.full_name + 'が' + reservation.start_at.strftime("%Y年%m月%d日%H時%m分") + 'に' + reserve_frame.title + ' を予約しました'
+       account_notification_url = '/admin/reservation'
+       reserve_frame.account.account_notifications
+       .create!(title: account_notification_title, url: account_notification_url)
   
       render json: { status: 'success' }, states: 200
     end
