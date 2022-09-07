@@ -1,13 +1,11 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Card } from 'react-bootstrap'
-import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from 'redux/store'
+import { useDispatch } from 'react-redux'
 import { OrderItemParam } from 'interfaces/OrderItemParam'
 import { useRouter } from 'next/router'
 import axios from 'axios'
-import { loginStatusChanged, paymentMethodsChanged, defaultPaymentMethodIdChanged } from 'redux/currentEndUserSlice'
+import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import { useCookies } from 'react-cookie'
 
 const PaymentComplete: NextPage = () => {
@@ -16,7 +14,6 @@ const PaymentComplete: NextPage = () => {
   const router = useRouter()
   const [orderItems, setOrderItems] = useState<OrderItemParam[]>([])
   const [totalPrice, setTotalPrice] = useState()
-  const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
 
   useEffect(() => {
     const fetchOrderItems = () => {
@@ -41,7 +38,7 @@ const PaymentComplete: NextPage = () => {
 
   return (
     <>
-      <MerchantCustomLayout>
+      <EndUserLoginLayout>
         <Container>
           <Row>
             <Col lg={3} md={3}></Col>
@@ -66,7 +63,7 @@ const PaymentComplete: NextPage = () => {
             </Col>
           </Row>
         </Container>
-      </MerchantCustomLayout>
+      </EndUserLoginLayout>
     </>
   )
 }
