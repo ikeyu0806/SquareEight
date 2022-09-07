@@ -24,7 +24,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
   end
 
   def orders
-    customer = current_merchant_user.account.customers.find(params[:customer_id])
+    customer = Customer.find(params[:customer_id])
     if customer.end_user.present?
       orders = JSON.parse(customer.end_user.orders.to_json(methods: [:total_price, :total_commission, :product_names, :order_date, :include_product]))
     else
@@ -33,6 +33,14 @@ class Api::Internal::Account::CustomersController < ApplicationController
     render json: { statue: 'success', orders: orders }, status: 200
   rescue => e
     render json: { statue: 'fail', error: e }, status: 500
+  end
+
+  def charges
+    customer = Customer.find(params[:customer_id])
+    stripe_payment_intents = customer.end_user.search_stripe_payment_intents
+    render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
   end
 
   private

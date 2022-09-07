@@ -141,6 +141,7 @@ Rails.application.routes.draw do
         get 'reservations', to: 'reservations#index'
         get 'customers', to: 'customers#index'
         get 'orders/:id', to: 'orders#show'
+        get 'customers/:customer_id/charges', to: 'customers#charges'
         get 'customers/:customer_id/orders', to: 'customers#orders'
         post 'customers', to: 'customers#create'
         post 'customers/:id/update', to: 'customers#update'
