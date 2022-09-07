@@ -36,6 +36,17 @@ const ReserveFrameRepeatSetting = () => {
     const startAt = unreservableFramesStartDate + ' ' + unreservableFramesStartTime
     const endAt = unreservableFramesEndDate + ' ' + unreservableFramesEndTime
     dispatch((unreservableFramesChanged([...unreservableFrames, { start_at: startAt, end_at: endAt }])))
+    setUnreservableFramesStartDate('')
+    setUnreservableFramesStartTime('')
+    setUnreservableFramesEndDate('')
+    setUnreservableFramesEndTime('')
+  }
+
+  const validateOnSubmit = () => {
+    if (!unreservableFramesStartDate || !unreservableFramesStartTime || !unreservableFramesEndDate || !unreservableFramesEndTime) {
+      return true
+    }
+    return false
   }
 
   return(
@@ -249,7 +260,10 @@ const ReserveFrameRepeatSetting = () => {
                   </Col>
                 </Row>
               </Form.Group>
-              <Button className='mt10 mb20' onClick={addUnreservableFrames}>予約受付不可日時に追加</Button>
+              <Button
+                disabled={validateOnSubmit()}
+                className='mt10 mb20'
+                onClick={addUnreservableFrames}>予約受付不可日時に追加</Button>
             </Col>
             <Col></Col>
           </Row>
