@@ -78,7 +78,7 @@ class Account < ApplicationRecord
       result.push({ text: w.tag, value: '/webpages/' + w.id.to_s, label: 'Webページ' })
     end
     self.reserve_frames.each do |r|
-      result.push({ text: r.title, value: '/reserve/' + r.id.to_s, label: '予約ページ' })
+      result.push({ text: r.title, value: '/reserve_frame/' + r.id.to_s + '/calendar', label: '予約ページ' })
     end
     self.products.each do |p|
       result.push({ text: p.name, value: '/product/' + p.id.to_s + '/purchase', label: '物販商品購入ページ'  })
