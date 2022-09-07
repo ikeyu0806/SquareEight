@@ -206,68 +206,7 @@ const ReserveFrameForm = () => {
           <Form.Control type="file" onChange={handleChangeFile} />
         </Form.Group>
 
-        <Form.Group className='mb-3'>
-          <Form.Label>受付日</Form.Label>
-            <Row>
-              <Col>
-                <Form.Control
-                  type='date'
-                  value={startDate}
-                  onChange={(e) =>  dispatch(startDateChanged(e.target.value))} />
-              </Col>
-              <Col></Col>
-              <Col></Col>
-            </Row>
-          </Form.Group>
-        </Form>
-    
-        <Form.Group className='mb-3'>
-          <Form.Label>受付時刻</Form.Label>
-            <br/>
-            {reserveFrameReceptionTimes.length
-              ?
-                <>
-                  {reserveFrameReceptionTimes.map((times, i) => {
-                    return (
-                      <div key={i} className='mb10'>
-                        <span>開始時刻: {times.reception_start_time}</span><br/>
-                        <span>終了時刻: {times.reception_end_time}</span>
-                        <a className='color-black none-under-decoration ml10'
-                           onClick={() => deleteReserveFrameReceptionTimes(times.reception_start_time, times.reception_end_time)}>
-                          <TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>
-                        </a>
-                      </div>
-                    )
-                  })}
-                </>
-              :
-                <div className='mt10 mb10'>受付時刻が設定されていません</div>
-            }
-        </Form.Group>
-    
-        <Form.Group className='mb-3 mt10'>
-          <Row>
-            <Col>
-              <Form.Label>開始時刻</Form.Label>
-              <Form.Control
-                      value={reserveFrameReceptionStartTime}
-                      type='time'
-                      onChange={(e) =>  setReserveFrameReceptionStartTime(e.target.value)} />
-            </Col>
-            <Col>
-              <Form.Label>終了時刻</Form.Label>
-              <Form.Control
-                      value={reserveFrameReceptionEndTime}
-                      type='time'
-                      onChange={(e) =>  setReserveFrameReceptionEndTime(e.target.value)} />
-            </Col>
-            <Col></Col>
-            <Col></Col>
-          </Row>
-          <Button className='mt20' onClick={addReserveFrameReceptionTimes}>開始/終了時刻に追加</Button>
-        </Form.Group>
-
-        <ReserveFrameRepeatSetting></ReserveFrameRepeatSetting>
+        <hr/>
 
         <Row>
           <Col>
@@ -286,30 +225,7 @@ const ReserveFrameForm = () => {
           </Col>
         </Row>
 
-        <Row>
-          <Col>
-            <Form.Group className='mb-3'>
-              <Form.Label>受付設定</Form.Label>
-              <Form.Select
-                placeholder='メニュー名'
-                onChange={(e) => dispatch(receptionTypeChanged(e.target.value))} >
-                <option value='Immediate'>即時予約</option>
-                <option value='Temporary'>仮予約</option>
-                <option value='PhoneOnly'>電話のみ予約</option>
-              </Form.Select>
-            </Form.Group>
-            {receptionType === 'PhoneOnly' && <div className='mt10 mb20'>
-              <Form.Label>受付電話番号</Form.Label>
-              <Form.Control
-                value={receptionPhoneNumber}
-                onChange={(e) => dispatch(receptionPhoneNumberChanged(e.target.value))}></Form.Control>
-            </div>}
-          </Col>
-          <Col>
-          </Col>
-          <Col>
-          </Col>
-        </Row>
+        <hr/>
 
         <Form.Group className='mb-3'>
           <Row>
@@ -433,21 +349,99 @@ const ReserveFrameForm = () => {
           </div>}
       </Form.Group>
 
-      <Row>
-        <Col>
-          <Form.Group className='mb-3'>
-            <Form.Label>公開設定</Form.Label>
-            <Form.Select placeholder='メニュー名' onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
-              <option value='Unpublish'>非公開</option>
-              <option value='Publish'>公開</option>
-            </Form.Select>
+        <hr/>
+
+        <Form.Group className='mb-3'>
+          <Form.Label>受付日</Form.Label>
+            <Row>
+              <Col>
+                <Form.Control
+                  type='date'
+                  value={startDate}
+                  onChange={(e) =>  dispatch(startDateChanged(e.target.value))} />
+              </Col>
+              <Col></Col>
+              <Col></Col>
+            </Row>
           </Form.Group>
-        </Col>
-        <Col>
-        </Col>
-        <Col>
-        </Col>
-      </Row>
+        </Form>
+    
+        <Form.Group className='mb-3'>
+          <Form.Label>受付時刻</Form.Label>
+            <br/>
+            {reserveFrameReceptionTimes.length
+              ?
+                <>
+                  {reserveFrameReceptionTimes.map((times, i) => {
+                    return (
+                      <div key={i} className='mb10'>
+                        <span>開始時刻: {times.reception_start_time}</span><br/>
+                        <span>終了時刻: {times.reception_end_time}</span>
+                        <a className='color-black none-under-decoration ml10'
+                           onClick={() => deleteReserveFrameReceptionTimes(times.reception_start_time, times.reception_end_time)}>
+                          <TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>
+                        </a>
+                      </div>
+                    )
+                  })}
+                </>
+              :
+                <div className='mt10 mb10'>受付時刻が設定されていません</div>
+            }
+        </Form.Group>
+    
+        <Form.Group className='mb-3 mt10'>
+          <Row>
+            <Col>
+              <Form.Label>開始時刻</Form.Label>
+              <Form.Control
+                      value={reserveFrameReceptionStartTime}
+                      type='time'
+                      onChange={(e) =>  setReserveFrameReceptionStartTime(e.target.value)} />
+            </Col>
+            <Col>
+              <Form.Label>終了時刻</Form.Label>
+              <Form.Control
+                      value={reserveFrameReceptionEndTime}
+                      type='time'
+                      onChange={(e) =>  setReserveFrameReceptionEndTime(e.target.value)} />
+            </Col>
+            <Col></Col>
+            <Col></Col>
+          </Row>
+          <Button className='mt20' onClick={addReserveFrameReceptionTimes}>開始/終了時刻に追加</Button>
+        </Form.Group>
+
+        <ReserveFrameRepeatSetting></ReserveFrameRepeatSetting>
+
+        <hr/>
+
+        <Row>
+          <Col>
+            <Form.Group className='mb-3'>
+              <Form.Label>受付設定</Form.Label>
+              <Form.Select
+                placeholder='メニュー名'
+                onChange={(e) => dispatch(receptionTypeChanged(e.target.value))} >
+                <option value='Immediate'>即時予約</option>
+                <option value='Temporary'>仮予約</option>
+                <option value='PhoneOnly'>電話のみ予約</option>
+              </Form.Select>
+            </Form.Group>
+            {receptionType === 'PhoneOnly' && <div className='mt10 mb20'>
+              <Form.Label>受付電話番号</Form.Label>
+              <Form.Control
+                value={receptionPhoneNumber}
+                onChange={(e) => dispatch(receptionPhoneNumberChanged(e.target.value))}></Form.Control>
+            </div>}
+          </Col>
+          <Col>
+          </Col>
+          <Col>
+          </Col>
+        </Row>
+
+        <hr/>
 
       <Row>
         <Col>
@@ -517,6 +511,26 @@ const ReserveFrameForm = () => {
         </Col>
       </Row>}
       </Form.Group>
+
+      <hr/>
+
+      <Row>
+        <Col>
+          <Form.Group className='mb-3'>
+            <Form.Label>公開設定</Form.Label>
+            <Form.Select placeholder='メニュー名' onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
+              <option value='Unpublish'>非公開</option>
+              <option value='Publish'>公開</option>
+            </Form.Select>
+          </Form.Group>
+        </Col>
+        <Col>
+        </Col>
+        <Col>
+        </Col>
+      </Row>
+
+      <hr/>
 
       <Form.Group className='mb-3'>
         <Form.Label>リソース設定</Form.Label>
