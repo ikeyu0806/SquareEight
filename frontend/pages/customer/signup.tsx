@@ -62,54 +62,54 @@ const Signup: NextPage = () => {
   return (
     <>
       <WithoutSessionLayout>
-      <Container>
-        <Row>
-          <Col lg={4} md={3}></Col>
-          <Col>
-            <Card>
-              <Card.Header>カスタマーアカウント登録</Card.Header>
-              <Card.Body>
-                <Form onSubmit={handleSubmit}>
-                  <Form.Group className='mb-3' controlId='formEmail'>
-                    <Form.Label>メールアドレス</Form.Label>
-                    <Form.Control type='email'
-                                  placeholder='必須'
-                                  onChange={(e) => setEmail(e.target.value)}/>
-                    <Form.Text className='text-muted'></Form.Text>
-                  </Form.Group>
-                  <Form.Group className='mb-3' controlId='formPassword'>
-                    <Form.Label>パスワード</Form.Label>
-                    <Form.Control type='password'
-                                  placeholder='必須'
-                                  onChange={(e) => setPassword(e.target.value)}/>
-                  </Form.Group>
-                  <Form.Group className='mb-3' controlId='formPassword'>
-                    <Form.Label>パスワード(確認)</Form.Label>
-                    <Form.Control type='password'
-                                  onChange={(e) => setConfirmPassword(e.target.value)}/>
-                  </Form.Group>
-                  <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-                  登録することで
-                    <a target='_blank' rel='noreferrer' href='/terms'>利用規約</a>と
-                    <a target='_blank' rel='noreferrer' href='/privacy_policy'>プライバシーポリシー</a>に同意するものとします
-                  </Form.Group>
-                  <div className='text-center'>
-                    <Button variant='primary'
-                            onClick={onSubmit}>
-                      登録する
-                    </Button>
-                  </div>
-                  <hr />
-                  <GoogleAuthButton
-                    buttonText='Googleでサインアップ'
-                    buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
-                </Form>
-              </Card.Body>
-            </Card>
-          </Col>
-          <Col lg={4} md={3}></Col>
-        </Row>
-      </Container>
+        <Container>
+          <Row>
+            <Col lg={4} md={3}></Col>
+            <Col>
+              <Card>
+                <Card.Header>カスタマーアカウント登録</Card.Header>
+                <Card.Body>
+                  <Form onSubmit={handleSubmit}>
+                    <Form.Group className='mb-3' controlId='formEmail'>
+                      <Form.Label>メールアドレス</Form.Label>
+                      <Form.Control type='email'
+                                    placeholder='必須'
+                                    onChange={(e) => setEmail(e.target.value)}/>
+                      <Form.Text className='text-muted'></Form.Text>
+                    </Form.Group>
+                    <Form.Group className='mb-3' controlId='formPassword'>
+                      <Form.Label>パスワード</Form.Label>
+                      <Form.Control type='password'
+                                    placeholder='必須'
+                                    onChange={(e) => setPassword(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group className='mb-3' controlId='formPassword'>
+                      <Form.Label>パスワード(確認)</Form.Label>
+                      <Form.Control type='password'
+                                    onChange={(e) => setConfirmPassword(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+                    登録することで
+                      <a target='_blank' rel='noreferrer' href='/terms'>利用規約</a>と
+                      <a target='_blank' rel='noreferrer' href='/privacy_policy'>プライバシーポリシー</a>に同意するものとします
+                    </Form.Group>
+                    <div className='text-center'>
+                      <Button variant='primary'
+                              onClick={onSubmit}>
+                        登録する
+                      </Button>
+                    </div>
+                    <hr />
+                    <GoogleAuthButton
+                      buttonText='Googleでサインアップ'
+                      buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
+                  </Form>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col lg={4} md={3}></Col>
+          </Row>
+        </Container>
       </WithoutSessionLayout>
     </>
   )
