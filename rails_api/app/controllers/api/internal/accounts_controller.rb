@@ -16,9 +16,13 @@ class Api::Internal::AccountsController < ApplicationController
       customer_count_array = week_days.map do |day|
         group_by_customers_count[day].present? ? group_by_customers_count[day] : 0
       end
-      # 新規顧客が0の日付を埋める
+      # 新規顧客が0の日付を埋めて一週間以前の顧客総数を足し込む
       customer_count_array = customer_count_array.each_with_index do |a, i|
-        customer_count_array[i] = customer_count_array[i] + customer_count_array[i - 1] if i > 0
+        if i > 0
+          customer_count_array[i] = customer_count_array[i] + customer_count_array[i - 1]
+        else
+          customer_count_array[i] = customer_count_array[i] + account.customers.where("created_at <= ?", 1.week.ago ).count
+        end
       end
     else
       customer_count_array = []
