@@ -24,8 +24,9 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
 
   def show
     questionnaire_master = QuestionnaireMaster.find(params[:id])
+    shared_component = questionnaire_master.account.shared_component
     questionnaire_master = JSON.parse(questionnaire_master.to_json(methods: [:parse_question_form_json]))
-    render json: { status: 'success', questionnaire_master: questionnaire_master }, states: 200
+    render json: { status: 'success', questionnaire_master: questionnaire_master, shared_component: shared_component }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

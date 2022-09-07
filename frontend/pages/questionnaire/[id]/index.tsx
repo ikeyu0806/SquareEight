@@ -10,6 +10,14 @@ import { FORM_TYPE } from 'constants/formType'
 import { alertChanged } from 'redux/alertSlice'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { Card, Row, Col, Container, Button, Form } from 'react-bootstrap'
+import {  navbarBrandTextChanged,
+          navbarBrandTypeChanged,
+          navbarBrandImageChanged,
+          navbarBrandImageWidthChanged,
+          navbarBrandImageHeightChanged,
+          navbarBrandBackgroundColorChanged,
+          navbarBrandVariantColorChanged,
+          footerCopyRightTextChanged } from 'redux/sharedComponentSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -36,9 +44,18 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
+      console.log(response.data)
       setTitle(response.data.questionnaire_master.title)
       setDescription(response.data.questionnaire_master.description)
       setQuestionnaireMasterItems(response.data.questionnaire_master.parse_question_form_json)
+      dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
+      dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
+      dispatch((navbarBrandImageChanged(response.data.shared_component.navbar_brand_image_s3_object_public_url)))
+      dispatch((navbarBrandImageWidthChanged(response.data.shared_component.nabvar_brand_image_width)))
+      dispatch((navbarBrandImageHeightChanged(response.data.shared_component.nabvar_brand_image_height)))
+      dispatch((navbarBrandBackgroundColorChanged(response.data.shared_component.navbar_brand_background_color)))
+      dispatch((navbarBrandVariantColorChanged(response.data.shared_component.navbar_brand_variant_color)))
+      dispatch((footerCopyRightTextChanged(response.data.shared_component.footer_copyright_text)))
     }).catch((error) => {
       console.log(error)
     })
