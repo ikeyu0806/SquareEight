@@ -23,6 +23,18 @@ class Api::Internal::Account::CustomersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def orders
+    customer = current_merchant_user.account.customers.find(params[:customer_id])
+    if customer.end_user.present?
+      orders = JSON.parse(customer.end_user.orders.to_json(methods: [:total_price, :total_commission, :product_names, :order_date, :include_product]))
+    else
+      orders = []
+    end
+    render json: { statue: 'success', orders: orders }, status: 200
+  rescue => e
+    render json: { statue: 'fail', error: e }, status: 500
+  end
+
   private
 
   def customer_params
