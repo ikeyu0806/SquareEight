@@ -119,6 +119,13 @@ class EndUser < ApplicationRecord
     return cart_items, total_price
   end
 
+  def create_product_purchase_notification(title)
+    end_user_notification_url = '/customer_page/order'
+    self
+    .end_user_notifications
+    .create!(title: title, url: end_user_notification_url)
+  end
+
   def purchased_ticket_ids
     purchased_tickets.pluck(:id)
   end

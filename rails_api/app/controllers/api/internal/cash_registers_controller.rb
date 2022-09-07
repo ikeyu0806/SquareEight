@@ -81,10 +81,8 @@ class Api::Internal::CashRegistersController < ApplicationController
 
           # エンドユーザ通知
           end_user_notification_title = product.name + 'を購入しました。'
-          end_user_notification_content = end_user_notification_title + '<br/>料金:' + product.price.to_s
-          current_end_user
-          .end_user_notifications
-          .create!(title: end_user_notification_title, content: end_user_notification_content)
+          end_user_notification_url = '/customer_page/order'
+          current_end_user.create_product_purchase_notification(end_user_notification_title)
           # ビジネスオーナー向け通知
           account_notification_title = customer.full_name + 'が' + product.name + 'を購入しました。'
           account_notification_url = '/admin/customer/' + customer.id.to_s + '/order'
@@ -146,10 +144,7 @@ class Api::Internal::CashRegistersController < ApplicationController
           current_end_user.cart_ticket_masters.where(ticket_master_id: ticket_master.id).delete_all
           # エンドユーザ通知
           end_user_notification_title = ticket_master.name + 'を購入しました。'
-          end_user_notification_content = end_user_notification_title + '<br/>料金:' + ticket_master.price.to_s
-          current_end_user
-          .end_user_notifications
-          .create!(title: end_user_notification_title, content: end_user_notification_content)
+          current_end_user.create_product_purchase_notification(end_user_notification_title)
           # ビジネスオーナー向け通知
           account_notification_title = customer.full_name + 'が' + ticket_master.name + 'を購入しました。'
           account_notification_url = '/admin/customer/' + customer.id.to_s + '/order'
@@ -200,10 +195,7 @@ class Api::Internal::CashRegistersController < ApplicationController
           current_end_user.cart_monthly_payment_plans.where(monthly_payment_plan_id: monthly_payment_plan.id).delete_all
           # エンドユーザ通知
           end_user_notification_title = monthly_payment_plan.name + 'を購入しました。'
-          end_user_notification_content = end_user_notification_title + '<br/>料金:' + monthly_payment_plan.price.to_s
-          current_end_user
-          .end_user_notifications
-          .create!(title: end_user_notification_title, content: end_user_notification_content)
+          current_end_user.create_product_purchase_notification(end_user_notification_title)
           # ビジネスオーナー向け通知
           account_notification_title = customer.full_name + 'が' + monthly_payment_plan.name + 'を購入しました。'
           account_notification_url = '/admin/customer/' + customer.id.to_s + '/order'
