@@ -35,7 +35,6 @@ class Api::Internal::EndUsersController < ApplicationController
     else
       shared_component = nil
     end
-    end_user = current_end_user.attributes.except(:password_digest, :stripe_customer_id)
     if current_end_user.present? && current_end_user.stripe_customer_id.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
       purchased_ticket_ids = current_end_user.purchased_ticket_ids
@@ -49,6 +48,9 @@ class Api::Internal::EndUsersController < ApplicationController
       is_subscribe_plan = false
       is_purchase_ticket = false
     end
+
+    end_user = current_end_user.attributes.except(:password_digest, :stripe_customer_id) if current_end_user.present?
+
     render json: { status: 'success',
                    end_user: end_user,
                    shared_component: shared_component,
