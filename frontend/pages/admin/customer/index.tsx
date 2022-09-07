@@ -8,7 +8,6 @@ import axios from 'axios'
 import { RootState } from 'redux/store'
 import { showCreateCustomerModalChanged,
          showEditCustomerModalChanged,
-         showCustomerMailSendModalChanged,
          customerIdChanged,
          firstNameChanged,
          lastNameChanged,

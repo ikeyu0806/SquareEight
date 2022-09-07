@@ -140,6 +140,7 @@ Rails.application.routes.draw do
       namespace :account do
         get 'reservations', to: 'reservations#index'
         get 'customers', to: 'customers#index'
+        get 'orders/:id', to: 'orders#show'
         get 'customers/:customer_id/orders', to: 'customers#orders'
         post 'customers', to: 'customers#create'
         post 'customers/:id/update', to: 'customers#update'

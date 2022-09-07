@@ -54,7 +54,7 @@ const Index: NextPage = () => {
                               <br />合計金額: ¥{order.total_price}
                               <br />注文日: {order.order_date}
                               <br />
-                              <a className='btn btn-primary btn-sm mt10' href={`/customer_page/order/${order.id}`}>
+                              <a className='btn btn-primary btn-sm mt10' href={`/admin/order/${order.id}`}>
                                 詳細
                               </a>
                             </>
