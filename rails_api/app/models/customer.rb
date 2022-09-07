@@ -1,4 +1,5 @@
 class Customer < ApplicationRecord
+  has_one :end_user, foreign_key: :id, primary_key: :end_user_id
   has_many :orders
   has_many :questionnaire_answers
 
