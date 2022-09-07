@@ -12,6 +12,15 @@ import { HeadingAtom, ImageSlide } from 'interfaces/PageContentState'
 import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
 import { ATOM_TYPE } from 'constants/atomType'
 import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
+import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
+import {  navbarBrandTextChanged,
+          navbarBrandTypeChanged,
+          navbarBrandImageChanged,
+          navbarBrandImageWidthChanged,
+          navbarBrandImageHeightChanged,
+          navbarBrandBackgroundColorChanged,
+          navbarBrandVariantColorChanged,
+          footerCopyRightTextChanged } from 'redux/sharedComponentSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -31,6 +40,14 @@ const Index: NextPage = () => {
       .then(function (response) {
         console.log(response.data)
         dispatch(pageContentChanged({blockContent: response.data.webpage.block_contents}))
+        dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
+        dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
+        dispatch((navbarBrandImageChanged(response.data.shared_component.navbar_brand_image_s3_object_public_url)))
+        dispatch((navbarBrandImageWidthChanged(response.data.shared_component.nabvar_brand_image_width)))
+        dispatch((navbarBrandImageHeightChanged(response.data.shared_component.nabvar_brand_image_height)))
+        dispatch((navbarBrandBackgroundColorChanged(response.data.shared_component.navbar_brand_background_color)))
+        dispatch((navbarBrandVariantColorChanged(response.data.shared_component.navbar_brand_variant_color)))
+        dispatch((footerCopyRightTextChanged(response.data.shared_component.footer_copyright_text)))
       })
       .catch(error => {
         console.log(error)
@@ -40,7 +57,7 @@ const Index: NextPage = () => {
   }, [router.query.id, cookies._square_eight_merchant_session, router.query.webpage_id, dispatch])
 
   return (
-    <>
+    <MerchantCustomLayout>
       <Container>
         {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
           return (
@@ -73,7 +90,7 @@ const Index: NextPage = () => {
             </Row>)
         })}
       </Container>
-    </>
+    </MerchantCustomLayout>
   )
 }
 
