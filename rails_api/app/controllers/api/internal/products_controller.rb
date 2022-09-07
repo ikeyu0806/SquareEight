@@ -51,6 +51,7 @@ class Api::Internal::ProductsController < ApplicationController
 
   def purchase_info
     product = Product.find(params[:id])
+    shared_component = product.account.shared_component
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
       delivery_targets = current_end_user.delivery_targets.order(:id)
@@ -63,10 +64,11 @@ class Api::Internal::ProductsController < ApplicationController
     end
     render json: { status: 'success',
                    product: product,
+                   shared_component: shared_component,
                    payment_methods: payment_methods,
                    delivery_targets: delivery_targets,
                    default_payment_method_id: default_payment_method_id,
-                   current_end_user_id: current_end_user.id,
+                   current_end_user_id: current_end_user.present? ? current_end_user.id : nil,
                    login_status: login_status }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
