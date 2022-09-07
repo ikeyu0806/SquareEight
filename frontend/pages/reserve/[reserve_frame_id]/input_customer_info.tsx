@@ -10,8 +10,16 @@ import { useCookies } from 'react-cookie'
 import { loginStatusChanged } from 'redux/currentEndUserSlice'
 import { paymentMethodText } from 'functions/paymentMethodText'
 import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
-import { StripeSubscriptionsParam } from 'interfaces/StripeSubscriptionsParam'
 import { alertChanged } from 'redux/alertSlice'
+import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
+import {  navbarBrandTextChanged,
+          navbarBrandTypeChanged,
+          navbarBrandImageChanged,
+          navbarBrandImageWidthChanged,
+          navbarBrandImageHeightChanged,
+          navbarBrandBackgroundColorChanged,
+          navbarBrandVariantColorChanged,
+          footerCopyRightTextChanged } from 'redux/sharedComponentSlice'
 
 const Index: NextPage = () => {
   const router = useRouter()
@@ -31,7 +39,7 @@ const Index: NextPage = () => {
   const [isPurchaseTicket, setIsPurchaseTicket] = useState(false)
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_as_customer_info?monthly_payment_plan_id=${router.query.monthly_payment_plan_id}&ticket_id=${router.query.ticket_id}`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_as_customer_info?monthly_payment_plan_id=${router.query.monthly_payment_plan_id}&ticket_id=${router.query.ticket_id}&reserve_frame_id=${router.query.reserve_frame_id}`,
     {
       headers: {
         'Session-Id': cookies._square_eight_end_user_session
@@ -48,10 +56,20 @@ const Index: NextPage = () => {
       setFirstName(response.data.end_user.first_name || '')
       setEmail(response.data.end_user.email || '')
       setPhoneNumber(response.data.end_user.phone_number || '')
+
+      // ヘッダ、フッタ
+      dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
+      dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
+      dispatch((navbarBrandImageChanged(response.data.shared_component.navbar_brand_image_s3_object_public_url)))
+      dispatch((navbarBrandImageWidthChanged(response.data.shared_component.nabvar_brand_image_width)))
+      dispatch((navbarBrandImageHeightChanged(response.data.shared_component.nabvar_brand_image_height)))
+      dispatch((navbarBrandBackgroundColorChanged(response.data.shared_component.navbar_brand_background_color)))
+      dispatch((navbarBrandVariantColorChanged(response.data.shared_component.navbar_brand_variant_color)))
+      dispatch((footerCopyRightTextChanged(response.data.shared_component.footer_copyright_text)))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
-  }, [dispatch, cookies._square_eight_end_user_session, endUserLoginStatus, router.query.monthly_payment_plan_id, router.query.ticket_id])
+  }, [dispatch])
 
   const execReserve = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations`,
@@ -115,7 +133,7 @@ const Index: NextPage = () => {
 
   return (
     <>
-      <WithoutSessionLayout>
+      <MerchantCustomLayout>
         <Container className='mt30'>
           <Row>
             <Col lg={3} md={3}></Col>
@@ -205,7 +223,7 @@ const Index: NextPage = () => {
             </Col>
           </Row>
         </Container>
-      </WithoutSessionLayout>
+      </MerchantCustomLayout>
     </>
   )
 }

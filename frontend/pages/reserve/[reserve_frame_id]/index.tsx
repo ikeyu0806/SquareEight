@@ -3,12 +3,23 @@ import type { NextPage } from 'next'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import CommonNavbar from 'components/organisms/CommonNavbar'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { ReserveFramePaymentMethodParam } from 'interfaces/ReserveFramePaymentMethodParam'
 import { useRouter } from 'next/router'
+import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
+import {  navbarBrandTextChanged,
+          navbarBrandTypeChanged,
+          navbarBrandImageChanged,
+          navbarBrandImageWidthChanged,
+          navbarBrandImageHeightChanged,
+          navbarBrandBackgroundColorChanged,
+          navbarBrandVariantColorChanged,
+          footerCopyRightTextChanged } from 'redux/sharedComponentSlice'
 
 const Index: NextPage = () => {
   const router = useRouter()
+  const dispatch = useDispatch()
   const [selectedDate] = useState(String(router.query.date).split('-'))
   const [selectedTime, setSelectedTime] = useState('')
   const [reserveCount, setReserveCount] = useState(1)
@@ -33,6 +44,16 @@ const Index: NextPage = () => {
         setReserveFramePaymentMethod(response.data.reserve_frame.payment_methods)
         const times_values = reserveFrameResponse?.reserve_frame_reception_times_values[0]
         setSelectedTime(times_values?.reception_start_time + '-' + times_values?.reception_end_time)
+
+        // ヘッダ、フッタ
+        dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
+        dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
+        dispatch((navbarBrandImageChanged(response.data.shared_component.navbar_brand_image_s3_object_public_url)))
+        dispatch((navbarBrandImageWidthChanged(response.data.shared_component.nabvar_brand_image_width)))
+        dispatch((navbarBrandImageHeightChanged(response.data.shared_component.nabvar_brand_image_height)))
+        dispatch((navbarBrandBackgroundColorChanged(response.data.shared_component.navbar_brand_background_color)))
+        dispatch((navbarBrandVariantColorChanged(response.data.shared_component.navbar_brand_variant_color)))
+        dispatch((footerCopyRightTextChanged(response.data.shared_component.footer_copyright_text)))
       })
       .catch(error => {
         console.log(error)
@@ -43,9 +64,8 @@ const Index: NextPage = () => {
   }, [router.query.reserve_frame_id])
 
   return (
-    <>
+    <MerchantCustomLayout>
       <Container>
-        <CommonNavbar></CommonNavbar>
         <Row className='mt20'>
           <Col lg={3} md={3}></Col>
           <Col lg={6} md={6}>
@@ -162,7 +182,7 @@ const Index: NextPage = () => {
           <Col></Col>
         </Row>
       </Container>
-    </>
+    </MerchantCustomLayout>
   )
 }
 

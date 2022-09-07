@@ -15,13 +15,14 @@ class Api::Internal::ReserveFramesController < ApplicationController
 
   def show
     reserve_frame = ReserveFrame.find(params[:id])
+    shared_component = reserve_frame.account.shared_component
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,
                                                                     :resouce_ids,
                                                                     :start_date_input_value,
                                                                     :monthly_payment_plan_ids,
                                                                     :reservable_frame_ticket_master,
                                                                     :reserve_frame_reception_times_values]))
-    render json: { status: 'success', reserve_frame: reserve_frame_json }, states: 200
+    render json: { status: 'success', reserve_frame: reserve_frame_json, shared_component: shared_component }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

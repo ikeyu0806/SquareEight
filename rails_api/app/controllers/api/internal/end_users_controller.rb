@@ -28,6 +28,13 @@ class Api::Internal::EndUsersController < ApplicationController
 
   def current_end_user_as_customer_info
     login_status = current_end_user.present? ? 'Login' : 'Logout'
+    # 共通ヘッダ、フッタ
+    if params[:reserve_frame_id].present?
+      reserve_frame = ReserveFrame.find(params[:reserve_frame_id])
+      shared_component = reserve_frame.account.shared_component
+    else
+      shared_component = nil
+    end
     end_user = current_end_user.attributes.except(:password_digest, :stripe_customer_id)
     if current_end_user.present? && current_end_user.stripe_customer_id.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
@@ -44,6 +51,7 @@ class Api::Internal::EndUsersController < ApplicationController
     end
     render json: { status: 'success',
                    end_user: end_user,
+                   shared_component: shared_component,
                    default_payment_method_id: default_payment_method_id,
                    payment_methods: payment_methods,
                    purchased_ticket_ids: purchased_ticket_ids,
