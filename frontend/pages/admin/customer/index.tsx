@@ -140,21 +140,35 @@ const Index: NextPage = () => {
                           <div>お名前: {customer.last_name}{customer.first_name}</div>
                           <br></br>
                           <div>メールアドレス: {customer.email}</div>
-                          <Row>
                             <Col>
                               <div>携帯電話番号: {customer.phone_number}</div>
                             </Col>
                             <Col></Col>
+                        </Col>
+                        <Col>
+                          <Row>
                             <Col>
-                              <Button onClick={() => showEditModal(customer.id, customer.last_name, customer.first_name, customer.email, customer.phone_number, customer.notes)}>
+                              <a onClick={() => showEditModal(customer.id, customer.last_name, customer.first_name, customer.email, customer.phone_number, customer.notes)}
+                                className='btn btn-primary mb20'>
                                 編集
-                              </Button>
-                            </Col>
-                            <Col>
+                              </a>
+                              <br/>
                               <a href={`/admin/customer/${customer.id}/questionnaire_answers`}
-                                className='btn btn-primary ml10'>
+                                className='btn btn-primary'>
                                 アンケート回答
                               </a>
+                            </Col>
+                            <Col>
+                              <a href={`/admin/customer/${customer.id}/order`}
+                                className='btn btn-primary mb20'>
+                                注文履歴
+                              </a>
+                              <br/>
+                              <a href={`/admin/customer/${customer.id}/charges`}
+                                className='btn btn-primary'>
+                                お支払い履歴
+                              </a>
+
                             </Col>
                           </Row>
                         </Col>
