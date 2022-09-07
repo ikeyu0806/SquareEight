@@ -87,10 +87,10 @@ class Api::Internal::CashRegistersController < ApplicationController
           .create!(title: end_user_notification_title, content: end_user_notification_content)
           # ビジネスオーナー向け通知
           account_notification_title = customer.full_name + 'が' + product.name + 'を購入しました。'
-          account_notification_content = account_notification_title + '<br/>料金:' + product.price.to_s
+          account_notification_url = '/admin/customer/' + customer.id.to_s + '/order'
           product.account
           .account_notifications
-          .create!(title: account_notification_title, content: account_notification_content)
+          .create!(title: account_notification_title, url: account_notification_url)
         when 'TicketMaster' then
           ticket_master = TicketMaster.find(cart[:parent_ticket_master_id])
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
@@ -144,6 +144,18 @@ class Api::Internal::CashRegistersController < ApplicationController
                                  remain_number: cart[:issue_number])
           purchased_ticket.save!
           current_end_user.cart_ticket_masters.where(ticket_master_id: ticket_master.id).delete_all
+          # エンドユーザ通知
+          end_user_notification_title = ticket_master.name + 'を購入しました。'
+          end_user_notification_content = end_user_notification_title + '<br/>料金:' + ticket_master.price.to_s
+          current_end_user
+          .end_user_notifications
+          .create!(title: end_user_notification_title, content: end_user_notification_content)
+          # ビジネスオーナー向け通知
+          account_notification_title = customer.full_name + 'が' + ticket_master.name + 'を購入しました。'
+          account_notification_url = '/admin/customer/' + customer.id.to_s + '/order'
+          ticket_master.account
+          .account_notifications
+          .create!(title: account_notification_title, url: account_notification_url)
         when 'MonthlyPaymentPlan' then
           monthly_payment_plan = MonthlyPaymentPlan.find(cart[:parent_monthly_payment_plan_id])
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
@@ -159,7 +171,7 @@ class Api::Internal::CashRegistersController < ApplicationController
             )
           end
           Stripe::Subscription.create({
-            stripe_customer: current_end_user.stripe_customer_id,
+            customer: current_end_user.stripe_customer_id,
             application_fee_percent: 4,
             description: monthly_payment_plan.name,
             metadata: {
@@ -186,6 +198,18 @@ class Api::Internal::CashRegistersController < ApplicationController
                                 account_id: monthly_payment_plan.account.id,
                                 commission: (monthly_payment_plan.price * 0.04).to_i)
           current_end_user.cart_monthly_payment_plans.where(monthly_payment_plan_id: monthly_payment_plan.id).delete_all
+          # エンドユーザ通知
+          end_user_notification_title = monthly_payment_plan.name + 'を購入しました。'
+          end_user_notification_content = end_user_notification_title + '<br/>料金:' + monthly_payment_plan.price.to_s
+          current_end_user
+          .end_user_notifications
+          .create!(title: end_user_notification_title, content: end_user_notification_content)
+          # ビジネスオーナー向け通知
+          account_notification_title = customer.full_name + 'が' + monthly_payment_plan.name + 'を購入しました。'
+          account_notification_url = '/admin/customer/' + customer.id.to_s + '/order'
+          monthly_payment_plan.account
+          .account_notifications
+          .create!(title: account_notification_title, url: account_notification_url)
         else
           raise '問題が発生しました。'
         end
