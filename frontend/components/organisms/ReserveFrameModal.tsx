@@ -45,6 +45,7 @@ const ReserveFrameModal = (): JSX.Element => {
   const base64Image = useSelector((state: RootState) => state.reserveFrame.base64Image)
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
+  const isSetPrice = useSelector((state: RootState) => state.reserveFrame.isSetPrice)
 
   const createReserveFrame = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames`,
@@ -109,6 +110,13 @@ const ReserveFrameModal = (): JSX.Element => {
     if (!title || !capacity || !startDate || !reserveFrameReceptionTimes) {
       return true
     }
+
+    if (isSetPrice ) {
+      if (!isLocalPaymentEnable && !isCreditCardPaymentEnable && !isTicketPaymentEnable) {
+        return true
+      }
+    }
+    return false
   }
 
   return (

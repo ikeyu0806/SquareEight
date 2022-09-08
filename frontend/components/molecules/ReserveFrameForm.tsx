@@ -34,7 +34,8 @@ import {  startDateChanged,
           resourceIdsChanged,
           monthlyPaymentPlanIdsChanged,
           reservableFrameTicketMasterChanged,
-          base64ImageChanged } from 'redux/reserveFrameSlice'
+          base64ImageChanged,
+          isSetPriceChanged } from 'redux/reserveFrameSlice'
 
 const ReserveFrameForm = () => {
   const router = useRouter()
@@ -62,8 +63,8 @@ const ReserveFrameForm = () => {
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.reserveFrame.s3ObjectPublicUrl)
   const receptionType = useSelector((state: RootState) => state.reserveFrame.receptionType)
+  const isSetPrice = useSelector((state: RootState) => state.reserveFrame.isSetPrice)
 
-  const [isSetPrice, setIsSetPrice] = useState(true)
   const [reserveFrameReceptionStartTime, setReserveFrameReceptionStartTime] = useState('')
   const [reserveFrameReceptionEndTime, setReserveFrameReceptionEndTime] = useState('')
   const [selectableResources, setSelectableResources] = useState<ResourceParam[]>([])
@@ -236,13 +237,13 @@ const ReserveFrameForm = () => {
                             label='設定する'
                             inline
                             name='price'
-                            onChange={() => setIsSetPrice(true)}
+                            onChange={() => dispatch(isSetPriceChanged(true))}
                             checked={isSetPrice} />
               <Form.Check type='checkbox'
                           label='設定しない'
                           inline
                           name='price'
-                          onChange={() => setIsSetPrice(false)}
+                          onChange={() => dispatch(isSetPriceChanged(false))}
                           checked={!isSetPrice} />
             </Form.Group>
             </Col>
