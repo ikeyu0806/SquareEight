@@ -13,6 +13,7 @@ import { getBase64 } from 'functions/getBase64'
 import resourceSlice from 'redux/resourceSlice'
 import ReserveFrameRepeatSetting from './ReserveFrameRepeatSetting'
 import TrashIcon from 'components/atoms/TrashIcon'
+import RequireBadge from 'components/atoms/RequireBadge'
 import {  startDateChanged,
           titleChanged,
           descriptionChanged,
@@ -181,7 +182,7 @@ const ReserveFrameForm = () => {
         <Row>
           <Col>
             <Form.Group className='mb-3'>
-              <Form.Label>メニュー名</Form.Label>
+              <Form.Label>メニュー名<RequireBadge /></Form.Label>
               <Form.Control
                 value={title}
                 onChange={(e) => dispatch(titleChanged(e.target.value))}
@@ -550,7 +551,8 @@ const ReserveFrameForm = () => {
       <Form.Group className='mb-3'>
         <Form.Label>リソース設定</Form.Label>
         <br />
-        {resourceSlice.length
+        
+        {selectableResources.length
         ?
           <>
             {selectableResources.map((resource, i) => {
