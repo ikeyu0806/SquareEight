@@ -30,7 +30,8 @@ import {
   monthlyPaymentPlanIdsChanged,
   reservableFrameTicketMasterChanged,
   s3ObjectPublicUrlChanged,
-  unreservableFramesChanged } from 'redux/reserveFrameSlice'
+  unreservableFramesChanged,
+  isRepeatChanged } from 'redux/reserveFrameSlice'
 
 const Edit = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -158,6 +159,7 @@ const Edit = (): JSX.Element => {
         dispatch((reservableFrameTicketMasterChanged(response.data.reserve_frame.reservable_frame_ticket_master)))
         dispatch((s3ObjectPublicUrlChanged(response.data.reserve_frame.s3_object_public_url)))
         dispatch((unreservableFramesChanged(response.data.reserve_frame.unreservable_frames_datetimes)))
+        dispatch((isRepeatChanged(response.data.reserve_frame.is_repeat)))
       })
       .catch(error => {
         console.log(error)
