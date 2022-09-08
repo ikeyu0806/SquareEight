@@ -165,6 +165,16 @@ const ReserveFrameForm = () => {
     dispatch(resourceIdsChanged(filterResourceIds))
   }
 
+  const validateAddReserveFrameReceptionTimes = () => {
+    if (!reserveFrameReceptionStartTime && !reserveFrameReceptionEndTime) {
+      return true
+    }
+    if (reserveFrameReceptionStartTime >= reserveFrameReceptionEndTime) {
+      return true
+    }
+    return false
+  }
+
   return (
     <>
       <Form>
@@ -410,7 +420,10 @@ const ReserveFrameForm = () => {
             <Col></Col>
             <Col></Col>
           </Row>
-          <Button className='mt20' onClick={addReserveFrameReceptionTimes}>開始/終了時刻に追加</Button>
+          <Button
+            disabled={validateAddReserveFrameReceptionTimes()}
+            className='mt20'
+            onClick={addReserveFrameReceptionTimes}>開始/終了時刻に追加</Button>
         </Form.Group>
 
         <ReserveFrameRepeatSetting></ReserveFrameRepeatSetting>
