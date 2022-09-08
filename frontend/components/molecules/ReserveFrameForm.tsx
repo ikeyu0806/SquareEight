@@ -449,6 +449,7 @@ const ReserveFrameForm = () => {
             <Form.Label>受付開始</Form.Label>
             <Col sm={2}>
               <Form.Control
+                min={1}
                 value={receptionStartDayBefore}
                 onChange={(e) => dispatch(receptionStartDayBeforeChanged(Number(e.target.value)))}
                 type='number' />
@@ -486,7 +487,7 @@ const ReserveFrameForm = () => {
                   value={cancelReceptionHourBefore}
                   onChange={(e) => dispatch(cancelReceptionHourBeforeChanged(Number(e.target.value)))}
                   type='number'
-                  min='0' />
+                  min='1' />
               </Col>
               <Form.Label column sm={4}>
                 時間前まで受付をする

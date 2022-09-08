@@ -104,6 +104,13 @@ const ReserveFrameModal = (): JSX.Element => {
     })
   }
 
+  const validateSubmit = () => {
+    // 必須項目チェック
+    if (!title || !capacity || !startDate || !reserveFrameReceptionTimes) {
+      return true
+    }
+  }
+
   return (
     <>
       <Modal show={showReserveFrameModal} size='lg'>
@@ -115,7 +122,9 @@ const ReserveFrameModal = (): JSX.Element => {
         </Modal.Body>
         <Modal.Footer>
         <div>
-          <Button variant='primary' onClick={createReserveFrame}>登録する</Button>
+          <Button variant='primary' 
+                  disabled={validateSubmit()}
+                  onClick={createReserveFrame}>登録する</Button>
         </div>
         <Button variant='secondary' onClick={() => dispatch(showReserveFrameModalChanged(false))}>閉じる</Button>
         </Modal.Footer>
