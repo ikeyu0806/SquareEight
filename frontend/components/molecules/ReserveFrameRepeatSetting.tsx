@@ -43,7 +43,13 @@ const ReserveFrameRepeatSetting = () => {
   }
 
   const validateOnSubmit = () => {
+    console.log(unreservableFramesStartDate, unreservableFramesStartTime)
+    // 入力されているか
     if (!unreservableFramesStartDate || !unreservableFramesStartTime || !unreservableFramesEndDate || !unreservableFramesEndTime) {
+      return true
+    }
+    // 開始日時が終了日時以降になってないか
+    if (unreservableFramesStartDate + unreservableFramesStartTime >= unreservableFramesEndDate + unreservableFramesEndTime) {
       return true
     }
     return false
