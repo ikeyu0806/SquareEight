@@ -112,6 +112,17 @@ class ReserveFrame < ApplicationRecord
     result
   end
 
+  def unreservable_frames_datetimes
+    unreservable_frames.map { |frame| frame.start_at..frame.end_at }
+  end
+
+  def is_cover_unreservable_frames_datetimes(date)
+    unreservable_frames_datetimes.each do |unreservable_frames_datetime|
+      return true if unreservable_frames_datetime.cover?(date)
+    end
+    return false
+  end
+
   def calendar_json(year, month, week = nil)
     result = []
     range_start_date = Date.new(year, month)
@@ -128,6 +139,7 @@ class ReserveFrame < ApplicationRecord
       when 'Day' then
         if is_every_day_repeat
           (loop_start_date..loop_end_date).each do |date|
+            next if is_cover_unreservable_frames_datetimes(date)
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: '予約可能',
