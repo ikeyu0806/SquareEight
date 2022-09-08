@@ -112,12 +112,12 @@ class ReserveFrame < ApplicationRecord
     result
   end
 
-  def unreservable_frames_datetimes
+  def unreservable_frames_datetimes_range
     unreservable_frames.map { |frame| frame.start_at..frame.end_at }
   end
 
   def is_cover_unreservable_frames_datetimes(date)
-    unreservable_frames_datetimes.each do |unreservable_frames_datetime|
+    unreservable_frames_datetimes_range.each do |unreservable_frames_datetime|
       return true if unreservable_frames_datetime.cover?(date)
     end
     return false
@@ -256,5 +256,14 @@ class ReserveFrame < ApplicationRecord
       region: "ap-northeast-1"
     )
     client.delete_object(bucket: ENV["PRODUCT_IMAGE_BUCKET"], key: self.s3_object_name)
+  end
+
+  def unreservable_frames_datetimes
+    result = []
+    unreservable_frames.each do |unreservable_frame|
+      result.push({"start_at": unreservable_frame.start_at.strftime("%Y-%m-%d %H:%M"),
+                   "end_at": unreservable_frame.end_at.strftime("%Y-%m-%d %H:%M")})
+    end
+    result
   end
 end

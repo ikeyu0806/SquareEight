@@ -217,7 +217,7 @@ const ReserveFrameRepeatSetting = () => {
 
           <Row>
             <Form.Label>予約受付不可日時</Form.Label>
-            {unreservableFrames.length
+            {unreservableFrames && unreservableFrames.length
             ?
               <>
                 {unreservableFrames.map((frame, i) => {
