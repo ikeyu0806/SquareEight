@@ -119,6 +119,7 @@ class ReserveFrame < ApplicationRecord
     loop_start_date =  Date.parse(self.start_at.to_s) < Date.today ? Date.today : Date.parse(self.start_at.to_s)
     loop_start_date = loop_start_date < range_start_date ? range_start_date : loop_start_date
     loop_end_date = Date.parse(self.repeat_end_date.to_s)
+    loop_end_date = loop_end_date - reception_start_day_before.days
     loop_end_date = loop_end_date > range_end_date ? range_end_date : loop_end_date
 
     if self.is_repeat

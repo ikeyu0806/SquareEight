@@ -226,7 +226,7 @@ const ReserveFrameForm = () => {
               <Form.Label column sm={2}>
                 定員
               </Form.Label>
-              <Col sm={2}>
+              <Col sm={4}>
                 <Form.Control
                   type='number'
                   min={1}
