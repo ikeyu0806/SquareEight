@@ -112,7 +112,18 @@ const ReserveFrameModal = (): JSX.Element => {
     }
 
     if (isSetPrice ) {
-      if (!isLocalPaymentEnable && !isCreditCardPaymentEnable && !isTicketPaymentEnable) {
+      if (!isLocalPaymentEnable && !isCreditCardPaymentEnable && !isTicketPaymentEnable && !isMonthlyPlanPaymentEnable) {
+        return true
+      }
+    }
+    if (isMonthlyPlanPaymentEnable) {
+      if (!monthlyPaymentPlanIds) {
+        return true
+      }
+    }
+
+    if (isTicketPaymentEnable) {
+      if (!reservableFrameTicketMaster.length) {
         return true
       }
     }

@@ -379,7 +379,7 @@ const ReserveFrameForm = () => {
         </Form>
     
         <Form.Group className='mb-3'>
-          <Form.Label>受付時刻</Form.Label>
+          <Form.Label>受付時刻<RequireBadge /></Form.Label>
             <br/>
             {reserveFrameReceptionTimes.length
               ?
@@ -568,7 +568,14 @@ const ReserveFrameForm = () => {
             })}
           </>
         :
-          <>リソースが登録されていません</>}
+          <>
+            リソースが登録されていません
+            <br/>
+            <a href='/admin/resource/new'
+               target='_blank'
+               rel='noreferrer'>
+              リソース登録
+            </a></>}
       </Form.Group>
     </>
   )
