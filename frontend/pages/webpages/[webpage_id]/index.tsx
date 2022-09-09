@@ -8,10 +8,11 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { pageContentChanged } from 'redux/webpageSlice'
 import HeadingBlock from 'components/organisms/HeadingBlock'
-import { HeadingAtom, ImageSlide } from 'interfaces/PageContentState'
+import { HeadingAtom, ImageSlide, ImageAtom } from 'interfaces/PageContentState'
 import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
 import { ATOM_TYPE } from 'constants/atomType'
 import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
+import ImageBlock from 'components/organisms/ImageBlock'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
@@ -62,7 +63,7 @@ const Index: NextPage = () => {
         {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
           return (
             <Row key={i}>
-                {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[] | ImageSlide[]).map((atom, i) => {
+                {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[] | ImageAtom[] | ImageSlide[]).map((atom, i) => {
                   {switch(atom.atomType) {
                     case ATOM_TYPE.HEADING:
                       return (
@@ -78,6 +79,12 @@ const Index: NextPage = () => {
                             )
                           })}
                         </Col>)
+                    case ATOM_TYPE.IMAGE:
+                      return (
+                        <Col key={i}>
+                          <ImageBlock atomState={(atom as ImageAtom)}></ImageBlock>
+                        </Col>
+                      )
                     case ATOM_TYPE.IMAGE_SLIDE:
                       return (
                         <Col key={i}>
