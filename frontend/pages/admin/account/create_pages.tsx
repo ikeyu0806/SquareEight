@@ -5,6 +5,7 @@ import { Container, ListGroup, Row, Col, Card, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { PageLinksParam } from 'interfaces/PageLinksParam'
 import { useCookies } from 'react-cookie'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const CreatePages: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -26,6 +27,21 @@ const CreatePages: NextPage = () => {
     fetchPageLinks()
   }, [cookies._square_eight_merchant_session])
 
+  const copyLinkToClipboard = (url: string) => {
+    navigator.clipboard.writeText(`${process.env.FRONTEND_URL}${url}`)
+    .then(() => {
+      swalWithBootstrapButtons.fire({
+        title: 'コピーしました',
+        icon: 'info'
+      })
+    },(err) => {
+      swalWithBootstrapButtons.fire({
+        title: 'コピー失敗しました',
+        icon: 'error'
+      })
+    })
+  }
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -46,6 +62,9 @@ const CreatePages: NextPage = () => {
                            target='_blank'
                            rel='noreferrer'
                            href={link.value}>プレビュー</a>
+                          <br/>
+                          <a className='btn btn-primary mt10'
+                             onClick={() => copyLinkToClipboard(link.value)}>クリップボードにコピー</a>
                       </Col>
                     </Row>
                   </ListGroup.Item>
