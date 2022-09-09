@@ -42,10 +42,7 @@ class Api::Internal::WebpagesController < ApplicationController
       webpage = Webpage.find(webpage_params[:id])
       webpage.tag = webpage_params[:tag]
       webpage.webpage_blocks.delete_all
-      webpage_content_json = JSON.parse(webpage_params[:page_content].to_json)
-      webpage_content_json["blockContent"].each do |json|
-        webpage.webpage_blocks.create!(content_json: json.to_s, block_type: json["blockType"])
-      end
+      webpage.create_webblocks(webpage_params[:page_content])
       webpage.save!
     end
     render json: { status: 'success' }, states: 200
@@ -66,6 +63,10 @@ class Api::Internal::WebpagesController < ApplicationController
                                             :text, # 見出し
                                             :placement,
                                             :size,
+                                            # 画像
+                                            :base64Image,
+                                            :image,
+                                            :url,
                                             # 画像スライド
                                             imageSlide: [
                                               :title,

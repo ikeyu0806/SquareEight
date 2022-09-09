@@ -6,7 +6,7 @@ class Webpage < ApplicationRecord
     ActiveRecord::Base.transaction do
       webpage_content_json = JSON.parse(webpage_content_string.to_json)
       webpage_content_json["blockContent"].each do |content|
-        if content["blockType"] == "textImage"
+        if content["blockType"] == "image"
           s3_public_url = put_s3_http_request_data(content["blockState"]["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "website_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
           content["blockState"]["base64Image"] = ""
           content["blockState"]["image"] = s3_public_url
