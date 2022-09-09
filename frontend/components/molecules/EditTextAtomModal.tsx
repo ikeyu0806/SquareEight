@@ -13,7 +13,7 @@ import { placementType, headingSizeType } from 'interfaces/PageContentState'
 import { HeadingAtom } from 'interfaces/PageContentState'
 import { BlockContent } from 'interfaces/PageContentState'
 
-const EditHeadingAtomModal = (): JSX.Element => {
+const EditTextAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
 
   const [inputHeading, setInputeHeading] = useState('')
@@ -78,7 +78,7 @@ const EditHeadingAtomModal = (): JSX.Element => {
     <>
       <Modal.Header> 
         <Modal.Title>
-          <span>ヘッダを追加</span>
+          <span>テキストを追加</span>
         </Modal.Title>
       </Modal.Header>
       <Modal.Body>
@@ -146,4 +146,4 @@ const EditHeadingAtomModal = (): JSX.Element => {
   )
 }
 
-export default EditHeadingAtomModal
+export default EditTextAtomModal

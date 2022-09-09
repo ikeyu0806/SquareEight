@@ -4,7 +4,7 @@ import { showBlockModalChanged, blockTypeChanged, showBlockSampleChanged } from 
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import SelectHeadingAtomModal from 'components/molecules/SelectHeadingAtomModal'
-import SelectExternalLinksModal from 'components/molecules/SelectExternalLinkModal'
+import SelectTextAtomModal from 'components/molecules/SelectTextAtomModal'
 import SelectImageSlideAtomModal from 'components/molecules/SelectImageSlideAtomModal'
 import SelectExternalLinkAtomModal from 'components/molecules/SelectExternalLinkAtomModal'
 
@@ -34,6 +34,8 @@ const SelectHomepageAtomModal = (): JSX.Element => {
           <Col>
             <SelectHeadingAtomModal></SelectHeadingAtomModal>
             <br />
+            <SelectTextAtomModal></SelectTextAtomModal>
+            <br/>
             <SelectExternalLinkAtomModal></SelectExternalLinkAtomModal>
             <br />
             <SelectImageSlideAtomModal></SelectImageSlideAtomModal>
