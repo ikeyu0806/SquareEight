@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import SelectHeadingAtomModal from 'components/molecules/SelectHeadingAtomModal'
 import SelectTextAtomModal from 'components/molecules/SelectTextAtomModal'
+import SelectImageAtomModal from 'components/molecules/SelectImageAtomModal'
 import SelectImageSlideAtomModal from 'components/molecules/SelectImageSlideAtomModal'
 import SelectExternalLinkAtomModal from 'components/molecules/SelectExternalLinkAtomModal'
 
@@ -35,8 +36,10 @@ const SelectHomepageAtomModal = (): JSX.Element => {
             <SelectHeadingAtomModal></SelectHeadingAtomModal>
             <br />
             <SelectTextAtomModal></SelectTextAtomModal>
-            <br/>
+            <br />
             <SelectExternalLinkAtomModal></SelectExternalLinkAtomModal>
+            <br />
+            <SelectImageAtomModal></SelectImageAtomModal>
             <br />
             <SelectImageSlideAtomModal></SelectImageSlideAtomModal>
           </Col>
