@@ -8,7 +8,8 @@ import { showBlockModalChanged } from 'redux/webpageSlice'
 import PlusCircleIcon from 'components/atoms/PlusCircleIcon'
 import UpdateBlockStateIcons from 'components/organisms/UpdateBlockStateIcons'
 import HeadingBlock from 'components/organisms/HeadingBlock'
-import { HeadingAtom, ImageSlide } from 'interfaces/PageContentState'
+import TextBlock from 'components/organisms/TextBlock'
+import { HeadingAtom, ImageSlide, TextAtom } from 'interfaces/PageContentState'
 import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
 import { ATOM_TYPE } from 'constants/atomType'
 import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
@@ -40,6 +41,11 @@ const CreateWebpageTemplate = (): JSX.Element => {
                       return (
                         <Col key={i}>
                           <HeadingBlock atomState={(atom as HeadingAtom)}></HeadingBlock>
+                        </Col>)
+                    case ATOM_TYPE.TEXT:
+                      return (
+                        <Col key={i}>
+                          <TextBlock atomState={(atom as TextAtom)}></TextBlock>
                         </Col>)
                     case ATOM_TYPE.EXTERNAL_LINKS:
                       return (

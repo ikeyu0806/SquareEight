@@ -47,7 +47,7 @@ const EditTextAtomModal = (): JSX.Element => {
 
   const addAtomNewBlockFunc = () => {
     let TextAtomState: TextAtom
-    TextAtomState = { atomType: 'heading', text: inputText }
+    TextAtomState = { atomType: 'text', text: inputText }
     let blockID = new Date().getTime().toString(16)
     let BlockState: BlockContent
     BlockState = { blockID: blockID, atoms: [TextAtomState], sortOrder: currentMaxSortOrder + 1 }
