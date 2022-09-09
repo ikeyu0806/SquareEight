@@ -4,7 +4,7 @@ export interface PageContentState {
 
 export interface BlockContent {
   blockID: string
-  atoms: HeadingAtom[] | TextAtom[] | ExternalLinkBlockStateType[] | ImageSlide[]
+  atoms: HeadingAtom[] | TextAtom[] | ExternalLinkBlockStateType[] | ImageAtom[] | ImageSlide[]
   sortOrder: number
 }
 
@@ -37,6 +37,14 @@ export interface ExternalLinkBlockStateType {
   content: ExternalLinkTextWithUrl[]
 }
 
+// 画像
+export type ImageAtom = {
+  atomType: string
+  url?: string
+  image: any
+  base64Image: any
+}
+
 // 画像スライド
 export type ImageSlide = {
   atomType: string
@@ -49,4 +57,3 @@ export type ImageSlideChild = {
   image: any
   base64Image: any
 }
-
