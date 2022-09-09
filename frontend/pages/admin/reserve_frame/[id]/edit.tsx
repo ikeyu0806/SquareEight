@@ -21,6 +21,7 @@ import {
   cancelReceptionChanged,
   cancelReceptionHourBeforeChanged,
   cancelReceptionDayBeforeChanged,
+  isSetPriceChanged,
   isLocalPaymentEnableChanged,
   isCreditCardPaymentEnableChanged,
   isTicketPaymentEnableChanged,
@@ -60,6 +61,7 @@ const Edit = (): JSX.Element => {
   const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
   const reserveFrameReceptionTimes = useSelector((state: RootState) => state.reserveFrame.reserveFrameReceptionTimes)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
+  const isSetPrice = useSelector((state: RootState) => state.reserveFrame.isSetPrice)
   const isLocalPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isLocalPaymentEnable)
   const isCreditCardPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isCreditCardPaymentEnable)
   const isTicketPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isTicketPaymentEnable)
@@ -107,6 +109,7 @@ const Edit = (): JSX.Element => {
         reservable_frame_ticket_master: reservableFrameTicketMaster,
         cancel_reception_hour_before: cancelReceptionHourBefore,
         cancel_reception_day_before: cancelReceptionDayBefore,
+        is_set_price: isSetPrice
       },
     },
     {
@@ -160,6 +163,7 @@ const Edit = (): JSX.Element => {
         dispatch((s3ObjectPublicUrlChanged(response.data.reserve_frame.s3_object_public_url)))
         dispatch((unreservableFramesChanged(response.data.reserve_frame.unreservable_frames_datetimes)))
         dispatch((isRepeatChanged(response.data.reserve_frame.is_repeat)))
+        dispatch((isSetPriceChanged(response.data.reserve_frame.is_set_price)))
       })
       .catch(error => {
         console.log(error)

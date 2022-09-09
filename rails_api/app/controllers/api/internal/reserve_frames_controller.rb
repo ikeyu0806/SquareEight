@@ -172,6 +172,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :cancel_reception,
                   :cancel_reception_day_before,
                   :cancel_reception_hour_before,
+                  :is_set_price,
                   :is_local_payment_enable,
                   :is_credit_card_payment_enable,
                   :is_ticket_payment_enable,

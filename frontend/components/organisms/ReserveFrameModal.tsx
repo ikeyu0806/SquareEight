@@ -76,6 +76,7 @@ const ReserveFrameModal = (): JSX.Element => {
         reserve_frame_reception_times: reserveFrameReceptionTimes,
         unreservable_frames: unreservableFrames,
         resource_ids: resourceIds,
+        is_set_price: isSetPrice,
         is_local_payment_enable: isLocalPaymentEnable,
         is_credit_card_payment_enable: isCreditCardPaymentEnable,
         is_ticket_payment_enable: isTicketPaymentEnable,
