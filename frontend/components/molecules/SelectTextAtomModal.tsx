@@ -11,7 +11,7 @@ const SelectTextAtomModal = (): JSX.Element => {
   const selectedAtomType = useSelector((state: RootState) => state.webpage.selectedAtomType)
 
   return (
-    <div onClick={() => dispatch(selectedAtomTypeChanged(ATOM_TYPE.HEADING))}>
+    <div onClick={() => dispatch(selectedAtomTypeChanged(ATOM_TYPE.TEXT))}>
       <Card>
         <Card.Body>
           <input className='form-check-input mr10'
@@ -24,7 +24,9 @@ const SelectTextAtomModal = (): JSX.Element => {
             <>
               <br />
               <hr />
-              <div>運営情報</div>
+              <div>
+                文章を追加できます。
+              </div>
             </>
           }
         </Card.Body>

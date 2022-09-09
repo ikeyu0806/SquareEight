@@ -4,7 +4,7 @@ export interface PageContentState {
 
 export interface BlockContent {
   blockID: string
-  atoms: HeadingAtom[] | ExternalLinkBlockStateType[] | ImageSlide[]
+  atoms: HeadingAtom[] | TextAtom[] | ExternalLinkBlockStateType[] | ImageSlide[]
   sortOrder: number
 }
 
@@ -15,6 +15,13 @@ export interface HeadingAtom {
   placement: placementType
   size: headingSizeType
 }
+
+// テキスト
+export interface TextAtom {
+  atomType: string
+  text: string
+}
+
 
 export type placementType = 'left' | 'center' | 'right'
 export type headingSizeType = 1 | 2 | 3 | 4 | 5 | 6
