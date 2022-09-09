@@ -59,7 +59,7 @@ class Api::Internal::ReservationsController < ApplicationController
       end
 
       # 支払い実行
-      if reserve_frame.reception_type  == "Immediate"
+      if reserve_frame.reception_type  == "Immediate" && reserve_frame.is_set_price?
         case reservation_params[:payment_method]
         when 'creditCardPayment'
           raise 'ログインしてください' if current_end_user.blank?
@@ -138,14 +138,15 @@ class Api::Internal::ReservationsController < ApplicationController
         end_user.phone_number = reservation_params[:phone_number] if current_end_user.phone_number.blank?
         end_user.save!
       end
-
       # 通知作成
-      # カスタマー向け  
-      customer_notification_title = reservation.start_at.strftime("%Y年%m月%d日%H時%m分") + 'に' + reserve_frame.title + ' を予約しました'
-      end_user_notification_url = '/customer_page/reservation'
-      current_end_user
-      .end_user_notifications
-      .create!(title: customer_notification_title, url: end_user_notification_url)
+      # カスタマー向け
+      if current_end_user.present?
+        customer_notification_title = reservation.start_at.strftime("%Y年%m月%d日%H時%m分") + 'に' + reserve_frame.title + ' を予約しました'
+        end_user_notification_url = '/customer_page/reservation'
+        current_end_user
+        .end_user_notifications
+        .create!(title: customer_notification_title, url: end_user_notification_url)
+      end
       # ビジネスオーナー向け  
       account_notification_title = customer.full_name + 'が' + reservation.start_at.strftime("%Y年%m月%d日%H時%m分") + 'に' + reserve_frame.title + ' を予約しました'
       account_notification_url = '/admin/reservation'

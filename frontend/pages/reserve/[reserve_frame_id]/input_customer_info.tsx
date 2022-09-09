@@ -1,7 +1,6 @@
 import { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button, ListGroup } from 'react-bootstrap'
-import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
@@ -10,7 +9,7 @@ import { useCookies } from 'react-cookie'
 import { loginStatusChanged } from 'redux/currentEndUserSlice'
 import { paymentMethodText } from 'functions/paymentMethodText'
 import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
-import { alertChanged } from 'redux/alertSlice'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
@@ -69,7 +68,7 @@ const Index: NextPage = () => {
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
-  }, [dispatch])
+  }, [dispatch, cookies._square_eight_end_user_session, router.query.monthly_payment_plan_id, router.query.reserve_frame_id, router.query.ticket_id])
 
   const execReserve = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations`,
@@ -95,9 +94,16 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
-      dispatch(alertChanged({message: '予約しました', show: true}))
+      swalWithBootstrapButtons.fire({
+        title: '送信しました',
+        icon: 'info'
+      })
       setIsCompleteReservation(true)
     }).catch(error => {
+      swalWithBootstrapButtons.fire({
+        title: '送信失敗しました',
+        icon: 'error'
+      })
     })
   }
 
@@ -113,6 +119,10 @@ const Index: NextPage = () => {
         execReserve()
         return
       default:
+        // お支払い方法未設定
+        if (String(router.query.is_set_price) === 'false') {
+          execReserve()
+        }
         return true
     }
   }
@@ -152,10 +162,10 @@ const Index: NextPage = () => {
                   </>}
                   <h3>{router.query.title}</h3>
                   <div className='mt10 mb10'>予約時間: {selectedDate[0]}年{selectedDate[1]}月{selectedDate[2]}日 {router.query.time}</div>
-                  <div>
+                  {(String(router.query.is_set_price) !== 'false') && <div>
                     お支払い方法: {paymentMethodText(String(router.query.payment_method), Number(router.query.price), Number(router.query.consume_number), Number(router.query.reserve_count))}
                     {isSubscribePlan && <span className='badge bg-info ml10'>加入済み</span>}
-                  </div>
+                  </div>}
                   {!isSubscribePlan
                    && (String(router.query.payment_method) === 'monthlyPaymentPlan')
                    && <div className='mt20 mb20'>プランに加入していません
@@ -167,7 +177,7 @@ const Index: NextPage = () => {
                         <a href={`/ticket/${router.query.ticket_id}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
                         から購入してください</div>}
                   <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
-                  { String(router.query.payment_method) === 'localPayment' &&
+                  { (String(router.query.payment_method) === 'localPayment') || (String(router.query.is_set_price) === 'false') &&
                   <>
                     <hr/>
                     <Form.Label className='mt10'>お名前（姓）</Form.Label>

@@ -184,7 +184,7 @@ const Index: NextPage = () => {
                   <Button
                     className='mt20'
                     disabled={validateOnSubmit()}
-                    onClick={() => router.push(`/reserve/${router.query.reserve_frame_id}/input_customer_info?title=${reserveFrame?.title}&date=${router.query.date}&time=${selectedTime}&payment_method=${selectedPaymentMethodType}&ticket_id=${selectedTicketId}&monthly_payment_plan_id=${selectedMonthlyPaymentPlanId}&reserve_count=${reserveCount}&price=${selectedPrice}&consume_number=${selectedConsumeNumber}`)}>
+                    onClick={() => router.push(`/reserve/${router.query.reserve_frame_id}/input_customer_info?title=${reserveFrame?.title}&date=${router.query.date}&time=${selectedTime}&payment_method=${selectedPaymentMethodType}&ticket_id=${selectedTicketId}&monthly_payment_plan_id=${selectedMonthlyPaymentPlanId}&reserve_count=${reserveCount}&price=${selectedPrice}&consume_number=${selectedConsumeNumber}&is_set_price=${reserveFrame?.is_set_price}`)}>
                     予約を進める
                   </Button>
                 </div>
