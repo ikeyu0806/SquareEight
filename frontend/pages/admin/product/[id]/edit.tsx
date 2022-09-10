@@ -16,7 +16,9 @@ import {  nameChanged,
           taxRateChanged,
           inventoryChanged,
           descriptionChanged,
-          s3ObjectPublicUrlChanged } from 'redux/productSlice'
+          productTypesChanged,
+          s3ObjectPublicUrlChanged,
+          showProductTypeFormChanged } from 'redux/productSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -51,6 +53,9 @@ const Edit: NextPage = () => {
         dispatch(inventoryChanged(productResponse.inventory))
         dispatch(descriptionChanged(productResponse.description))
         dispatch(s3ObjectPublicUrlChanged(productResponse.s3_object_public_url))
+        dispatch(productTypesChanged(productResponse.product_types))
+        dispatch(showProductTypeFormChanged(response.data.product.show_product_type_form))
+
       })
       .catch(error => {
         console.log(error)

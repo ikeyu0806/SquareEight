@@ -12,6 +12,7 @@ class Api::Internal::ProductsController < ApplicationController
 
   def show
     product = Product.find(params[:id])
+    product = JSON.parse(product.to_json(methods: [:product_types, :show_product_type_form]))
     render json: { status: 'success', product: product }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

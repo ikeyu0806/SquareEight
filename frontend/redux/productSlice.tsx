@@ -12,6 +12,7 @@ export const productSlice = createSlice({
     base64Image: null,
     s3ObjectPublicUrl: '',
     applyProductType: false,
+    showProductTypeForm: false,
     productTypes: [{name: '', inventory: 1}, {name: '', inventory: 1}] as ProductType[]
   },
   reducers: {
@@ -39,6 +40,9 @@ export const productSlice = createSlice({
     applyProductTypeChanged: (state, action: PayloadAction<boolean>) => {
       state.applyProductType = action.payload
     },
+    showProductTypeFormChanged: (state, action: PayloadAction<boolean>) => {
+      state.showProductTypeForm = action.payload
+    },
     productTypesChanged: (state, action: PayloadAction<ProductType[]>) => {
       state.productTypes = action.payload
     },
@@ -53,6 +57,7 @@ export const { priceChanged } = productSlice.actions
 export const { taxRateChanged } = productSlice.actions
 export const { inventoryChanged } = productSlice.actions
 export const { applyProductTypeChanged } = productSlice.actions
+export const { showProductTypeFormChanged } = productSlice.actions
 export const { productTypesChanged } = productSlice.actions
 
 export default productSlice.reducer

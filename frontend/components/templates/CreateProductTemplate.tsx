@@ -12,18 +12,19 @@ import { nameChanged,
          priceChanged,
          taxRateChanged,
          applyProductTypeChanged,
-         productTypesChanged } from 'redux/productSlice'
+         productTypesChanged,
+         showProductTypeFormChanged } from 'redux/productSlice'
 
 const CreateProductTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
   const [image, setImage] = useState('')
-  const [showProductTypeForm, setShowProductTypeForm] = useState(false)
   const name = useSelector((state: RootState) => state.product.name)
   const price = useSelector((state: RootState) => state.product.price)
   const description = useSelector((state: RootState) => state.product.description)
   const inventory = useSelector((state: RootState) => state.product.inventory)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.product.s3ObjectPublicUrl)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
+  const showProductTypeForm = useSelector((state: RootState) => state.product.showProductTypeForm)
   const productTypeNameRefs = useRef<any>([])
   productTypeNameRefs.current = productTypes.map((_, i) => productTypeNameRefs.current[i] ?? createRef())
   const productTypeInventoryRefs = useRef<any>([])
@@ -83,7 +84,7 @@ const CreateProductTemplate = (): JSX.Element => {
 
   const deleteProductType = (formNum: number) => {
     if (productTypes.length <= 2 ) {
-      setShowProductTypeForm(false)
+      dispatch(showProductTypeFormChanged(false))
       dispatch(applyProductTypeChanged(false))
       return
     }
@@ -98,7 +99,7 @@ const CreateProductTemplate = (): JSX.Element => {
   }
 
   const enableProductTypeForm = () => {
-    setShowProductTypeForm(true)
+    dispatch(showProductTypeFormChanged(true))
     dispatch(applyProductTypeChanged(true))
   }
 
