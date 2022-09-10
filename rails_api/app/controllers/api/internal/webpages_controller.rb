@@ -50,6 +50,17 @@ class Api::Internal::WebpagesController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def destroy
+    ActiveRecord::Base.transaction do
+      webpage = Webpage.find(params[:id])
+      webpage.webpage_blocks.delete_all
+      webpage.destroy
+      render json: { status: 'success' }, states: 200
+    end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def webpage_params

@@ -52,6 +52,7 @@ Rails.application.routes.draw do
       post 'webpages/complete_create_homepage', to: 'webpages#complete_create_homepage'
       post 'webpages/update', to: 'webpages#update'
       post 'webpages', to: 'webpages#create'
+      delete 'webpages/:id', to: 'webpages#destroy'
       get 'products/:id/purchase_info', to: 'products#purchase_info'
       get 'products/:id', to: 'products#show'
       get 'products', to: 'products#index'

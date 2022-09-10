@@ -28,7 +28,6 @@ const Edit: NextPage = () => {
         }
       )
       .then(function (response) {
-        console.log(response.data, "!!!!")
         dispatch(webpageTagChanged(response.data.webpage.tag))
         dispatch(pageContentChanged({blockContent: response.data.webpage.block_contents}))
         dispatch(currentMaxSortOrderChanged(response.data.max_sort_order))

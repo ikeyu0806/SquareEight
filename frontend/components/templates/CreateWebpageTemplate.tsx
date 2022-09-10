@@ -14,6 +14,10 @@ import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
 import { ATOM_TYPE } from 'constants/atomType'
 import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
 import ImageBlock from 'components/organisms/ImageBlock'
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 interface Props {
   showDeleteButton?: boolean
@@ -21,9 +25,42 @@ interface Props {
 
 const CreateWebpageTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const dispatch = useDispatch()
+  const router = useRouter()
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
+
+  const deletePage = () => {
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      html: `${name}を削除します。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/webpages/${router.query.id}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '削除しました',
+            icon: 'info'
+          })
+          router.push('/admin/webpage')
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '削除失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
 
   return(
     <>
@@ -31,7 +68,7 @@ const CreateWebpageTemplate = ({showDeleteButton}: Props): JSX.Element => {
           {showDeleteButton && <Row>
             <Col sm={10}></Col>
             <Col>
-              <Button variant='danger'>ページを削除</Button>
+              <Button variant='danger' size='sm' onClick={() => deletePage()}>ページを削除</Button>
             </Col>
           </Row>}
           <div className='mb20'>
