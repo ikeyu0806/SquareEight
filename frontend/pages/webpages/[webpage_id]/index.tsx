@@ -14,6 +14,7 @@ import { ATOM_TYPE } from 'constants/atomType'
 import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
 import ImageBlock from 'components/organisms/ImageBlock'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
+import RenderWebpage from 'components/organisms/RenderWebpage'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -60,42 +61,7 @@ const Index: NextPage = () => {
   return (
     <MerchantCustomLayout>
       <Container>
-        {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
-          return (
-            <Row key={i}>
-                {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[] | ImageAtom[] | ImageSlide[]).map((atom, i) => {
-                  {switch(atom.atomType) {
-                    case ATOM_TYPE.HEADING:
-                      return (
-                        <Col key={i}>
-                          <HeadingBlock atomState={(atom as HeadingAtom)}></HeadingBlock>
-                        </Col>)
-                    case ATOM_TYPE.EXTERNAL_LINKS:
-                      return (
-                        <Col key={i}>
-                          {(atom as ExternalLinkBlockStateType).content.map((c, i) => {
-                            return (
-                              <a href={c.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{c.text}</a>
-                            )
-                          })}
-                        </Col>)
-                    case ATOM_TYPE.IMAGE:
-                      return (
-                        <Col key={i}>
-                          <ImageBlock atomState={(atom as ImageAtom)}></ImageBlock>
-                        </Col>
-                      )
-                    case ATOM_TYPE.IMAGE_SLIDE:
-                      return (
-                        <Col key={i}>
-                          <ImageSlideBlock atomState={(atom as ImageSlide).imageSlide}></ImageSlideBlock>
-                        </Col>
-                      )
-                    default:
-                  }}
-                })}
-            </Row>)
-        })}
+        <RenderWebpage></RenderWebpage>
       </Container>
     </MerchantCustomLayout>
   )
