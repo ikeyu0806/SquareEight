@@ -1,18 +1,12 @@
 import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
 import axios from 'axios'
-import { Row, Col, Container } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { pageContentChanged } from 'redux/webpageSlice'
-import HeadingBlock from 'components/organisms/HeadingBlock'
-import { HeadingAtom, ImageSlide, ImageAtom } from 'interfaces/PageContentState'
-import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
-import { ATOM_TYPE } from 'constants/atomType'
-import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
-import ImageBlock from 'components/organisms/ImageBlock'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import RenderWebpage from 'components/organisms/RenderWebpage'
 import {  navbarBrandTextChanged,
@@ -61,6 +55,7 @@ const Index: NextPage = () => {
   return (
     <MerchantCustomLayout>
       <Container>
+        &thinsp;
         <RenderWebpage></RenderWebpage>
       </Container>
     </MerchantCustomLayout>

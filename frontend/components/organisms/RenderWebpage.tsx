@@ -60,10 +60,13 @@ const RenderWebpage = ({editPage}: Props): JSX.Element => {
               }}
             })}
         </Row>,
+        <>
+        {editPage &&
         <UpdateBlockStateIcons
           key={i + 20}
           blockID={block.blockID}
-          sortOrder={block.sortOrder}></UpdateBlockStateIcons>]
+          sortOrder={block.sortOrder}></UpdateBlockStateIcons>}</>
+        ]
         })
       }
     </>
