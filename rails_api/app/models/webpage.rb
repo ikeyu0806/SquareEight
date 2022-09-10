@@ -5,21 +5,22 @@ class Webpage < ApplicationRecord
   def create_webblocks(webpage_content_string)
     ActiveRecord::Base.transaction do
       webpage_content_json = JSON.parse(webpage_content_string.to_json)
-      webpage_content_json["blockContent"].each do |content|
-        if content["blockType"] == "image"
-          s3_public_url = put_s3_http_request_data(content["blockState"]["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "website_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
-          content["blockState"]["base64Image"] = ""
-          content["blockState"]["image"] = s3_public_url
-        end
-
-        if content["blockType"] == "imageSlide"
-          content["blockState"]["imageSlide"].each do |content|
-            s3_public_url = put_s3_http_request_data(content["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "website_slide_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
-            content["image"] = s3_public_url
+      webpage_content_json["blockContent"].each do |block|
+        block["atoms"].each do |atom|
+          if atom["atomType"] == "image"
+            s3_public_url = put_s3_http_request_data(atom["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "website_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
+            atom["base64Image"] = ""
+            atom["image"] = s3_public_url
+          end
+  
+          if atom["atomType"] == "imageSlide"
+            atom["imageSlide"].each do |slide|
+              s3_public_url = put_s3_http_request_data(slide["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "website_slide_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
+              atom["image"] = s3_public_url
+            end
           end
         end
-
-        webpage_blocks.create!(content_json: content.to_s, block_type: content["blockType"])
+        webpage_blocks.create!(content_json: block.to_s, block_type: block["blockType"])
       end
     end
   end
