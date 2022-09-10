@@ -36,6 +36,7 @@ const Purchase: NextPage = () => {
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [currentEndUserId, setCurrentEndUserId] = useState()
+  const [selectedProductTypeId, setSelectedProductTypeId] = useState<number | undefined>()
   const [isRegisteredAddress, setIsRegisteredAddress] = useState(true)
   const name = useSelector((state: RootState) => state.product.name)
   const price = useSelector((state: RootState) => state.product.price)
@@ -84,7 +85,7 @@ const Purchase: NextPage = () => {
         setDeliveryTargets(response.data.delivery_targets)
         dispatch(productTypesChanged(response.data.product.product_types))
         dispatch(showProductTypeFormChanged(response.data.product.show_product_type_form))
-
+        setSelectedProductTypeId(response.data.product.product_types[0].id)
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
@@ -118,7 +119,8 @@ const Purchase: NextPage = () => {
         town: town,
         line1: line1,
         line2: line2,
-        phone_number: phoneNumber
+        phone_number: phoneNumber,
+        product_type_id: selectedProductTypeId
       },
     },
     {
@@ -236,6 +238,8 @@ const Purchase: NextPage = () => {
                         label={type.name}
                         name='productType'
                         id={'ProductType' + String(i)}
+                        checked={type.id === selectedProductTypeId}
+                        onChange={() => setSelectedProductTypeId((type.id))}
                       />
                     )
                   })}

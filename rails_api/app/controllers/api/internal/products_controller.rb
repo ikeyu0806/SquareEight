@@ -85,7 +85,8 @@ class Api::Internal::ProductsController < ApplicationController
       product.cart_products.create!(
         end_user_id: current_end_user.id,
         account_id: product.account_id,
-        quantity: product_params[:purchase_quantity]
+        quantity: product_params[:purchase_quantity],
+        product_type_id: product_params[:product_type_id]
       )
       if (product_params[:is_registered_address] == false)
         delivery_target = current_end_user
@@ -117,6 +118,7 @@ class Api::Internal::ProductsController < ApplicationController
                   :price,
                   :tax_rate,
                   :base64_image,
+                  :product_type_id,
                   :inventory,
                   :description,
                   :s3_object_public_url,
