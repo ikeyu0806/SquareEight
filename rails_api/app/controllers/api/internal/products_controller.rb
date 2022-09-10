@@ -66,6 +66,7 @@ class Api::Internal::ProductsController < ApplicationController
       delivery_targets = []
       login_status = 'Logout'
     end
+    product = JSON.parse(product.to_json(methods: [:product_types, :show_product_type_form]))
     render json: { status: 'success',
                    product: product,
                    shared_component: shared_component,

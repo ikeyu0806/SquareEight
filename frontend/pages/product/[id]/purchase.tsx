@@ -19,6 +19,8 @@ import { nameChanged,
          taxRateChanged,
          inventoryChanged,
          descriptionChanged,
+         productTypesChanged,
+         showProductTypeFormChanged,
          s3ObjectPublicUrlChanged } from 'redux/productSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
@@ -42,6 +44,7 @@ const Purchase: NextPage = () => {
   const description = useSelector((state: RootState) => state.product.description)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.product.s3ObjectPublicUrl)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
+  const showProductTypeForm = useSelector((state: RootState) => state.product.showProductTypeForm)
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const defaultPaymentMethodId = useSelector((state: RootState) => state.currentEndUser.defaultPaymentMethodId)
   const paymentMethods = useSelector((state: RootState) => state.currentEndUser.paymentMethods)
@@ -79,6 +82,8 @@ const Purchase: NextPage = () => {
         dispatch(loginStatusChanged(response.data.login_status))
         setCurrentEndUserId(response.data.current_end_user_id)
         setDeliveryTargets(response.data.delivery_targets)
+        dispatch(productTypesChanged(response.data.product.product_types))
+        dispatch(showProductTypeFormChanged(response.data.product.show_product_type_form))
 
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
@@ -198,6 +203,7 @@ const Purchase: NextPage = () => {
 
   return (
     <MerchantCustomLayout>
+      &thinsp;
       <Container>
         <Row>
           <Col lg={3} md={1}></Col>
@@ -220,6 +226,20 @@ const Purchase: NextPage = () => {
                 <div className='mt10'>{price}円（税込）</div>
                 <div className='mt10'>税率{taxRate}%</div>
                 <div className='mt10'>{description}</div>
+                {showProductTypeForm &&
+                <>
+                  {productTypes.map((type, i) => {
+                    return (
+                      <Form.Check
+                        key={i}
+                        type='radio'
+                        label={type.name}
+                        name='productType'
+                        id={'ProductType' + String(i)}
+                      />
+                    )
+                  })}
+                </>}
                 <Row>
                   <Col sm={2}>
                     <Form.Label>購入数量</Form.Label>
