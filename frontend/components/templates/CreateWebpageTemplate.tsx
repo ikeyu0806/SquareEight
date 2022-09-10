@@ -65,65 +65,65 @@ const CreateWebpageTemplate = ({showDeleteButton}: Props): JSX.Element => {
   return(
     <>
       <Container>
-          {showDeleteButton && <Row>
-            <Col sm={10}></Col>
-            <Col>
-              <Button variant='danger' size='sm' onClick={() => deletePage()}>ページを削除</Button>
-            </Col>
-          </Row>}
-          <div className='mb20'>
-            <Form.Group className='mb-3'>
-              <Form.Label>管理用のページ名称を入力してください。</Form.Label>
-              <Form.Control placeholder='企業情報ページ、採用情報ページなど'
-                            onChange={(e) => dispatch(webpageTagChanged(e.target.value))}
-                            value={webpageTag} />
-            </Form.Group>
-          </div>
-          <hr />
-          {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
-            return [
-              <Row key={i}>
-                {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[] | ImageAtom[] | ImageSlide[]).map((atom, i) => {
-                  {switch(atom.atomType) {
-                    case ATOM_TYPE.HEADING:
-                      return (
-                        <Col key={i}>
-                          <HeadingBlock atomState={(atom as HeadingAtom)}></HeadingBlock>
-                        </Col>)
-                    case ATOM_TYPE.TEXT:
-                      return (
-                        <Col key={i}>
-                          <TextBlock atomState={(atom as TextAtom)}></TextBlock>
-                        </Col>)
-                    case ATOM_TYPE.EXTERNAL_LINKS:
-                      return (
-                        <Col key={i}>
-                          {(atom as ExternalLinkBlockStateType).content.map((c, i) => {
-                            return (
-                              <a href={c.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{c.text}</a>
-                            )
-                          })}
-                        </Col>)
-                    case ATOM_TYPE.IMAGE:
-                      return (
-                        <Col key={i}>
-                          <ImageBlock atomState={(atom as ImageAtom)}></ImageBlock>
-                        </Col>
-                      )
-                    case ATOM_TYPE.IMAGE_SLIDE:
-                      return (
-                        <Col key={i}>
-                          <ImageSlideBlock atomState={(atom as ImageSlide).imageSlide}></ImageSlideBlock>
-                        </Col>
-                      )
-                    default:
-                  }}
-                })}
-            </Row>,
-            <UpdateBlockStateIcons
-              key={i}
-              blockID={block.blockID}
-              sortOrder={block.sortOrder}></UpdateBlockStateIcons>]
+        {showDeleteButton && <Row>
+          <Col sm={10}></Col>
+          <Col>
+            <Button variant='danger' size='sm' onClick={() => deletePage()}>ページを削除</Button>
+          </Col>
+        </Row>}
+        <div className='mb20'>
+          <Form.Group className='mb-3'>
+            <Form.Label>管理用のページ名称を入力してください。</Form.Label>
+            <Form.Control placeholder='企業情報ページ、採用情報ページなど'
+                          onChange={(e) => dispatch(webpageTagChanged(e.target.value))}
+                          value={webpageTag} />
+          </Form.Group>
+        </div>
+        <hr />
+        {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
+          return [
+            <Row key={i}>
+              {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[] | ImageAtom[] | ImageSlide[]).map((atom, i2) => {
+                {switch(atom.atomType) {
+                  case ATOM_TYPE.HEADING:
+                    return (
+                      <Col key={i2 + 10}>
+                        <HeadingBlock atomState={(atom as HeadingAtom)}></HeadingBlock>
+                      </Col>)
+                  case ATOM_TYPE.TEXT:
+                    return (
+                      <Col key={i2 + 10}>
+                        <TextBlock atomState={(atom as TextAtom)}></TextBlock>
+                      </Col>)
+                  case ATOM_TYPE.EXTERNAL_LINKS:
+                    return (
+                      <Col key={i2 + 10}>
+                        {(atom as ExternalLinkBlockStateType).content.map((c, i3) => {
+                          return (
+                            <a href={c.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i3 + 100}>{c.text}</a>
+                          )
+                        })}
+                      </Col>)
+                  case ATOM_TYPE.IMAGE:
+                    return (
+                      <Col key={i2 + 10}>
+                        <ImageBlock atomState={(atom as ImageAtom)}></ImageBlock>
+                      </Col>
+                    )
+                  case ATOM_TYPE.IMAGE_SLIDE:
+                    return (
+                      <Col key={i2 + 10}>
+                        <ImageSlideBlock atomState={(atom as ImageSlide).imageSlide}></ImageSlideBlock>
+                      </Col>
+                    )
+                  default:
+                }}
+              })}
+          </Row>,
+          <UpdateBlockStateIcons
+            key={i + 20}
+            blockID={block.blockID}
+            sortOrder={block.sortOrder}></UpdateBlockStateIcons>]
           })}
         <div className='text-center mt30 mb30'>
           <span className='mr10'>ブロックを追加</span>
