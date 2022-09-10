@@ -35,7 +35,9 @@ class Webpage < ApplicationRecord
     parse_webpage["block_contents"].pluck("atoms")
     parse_webpage["block_contents"].each do |content|
       content["atoms"].each do |atom|
-        s3.delete_object(bucket: ENV["WEBPAGE_IMAGE_BUCKET"], key: atom["image"])
+        if atom["atomType"] == "image"
+          s3.delete_object(bucket: ENV["WEBPAGE_IMAGE_BUCKET"], key: atom["image"])
+        end
       end
     end
   end
