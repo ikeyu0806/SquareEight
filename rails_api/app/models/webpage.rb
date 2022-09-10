@@ -25,6 +25,21 @@ class Webpage < ApplicationRecord
     end
   end
 
+  def delete_block_images
+    s3 = Aws::S3::Client.new(
+          access_key_id: ENV['AWS_ACCESS_KEY'],
+          secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+          region: "ap-northeast-1"
+         )
+    parse_webpage = JSON.parse(self.to_json(methods: :block_contents))
+    parse_webpage["block_contents"].pluck("atoms")
+    parse_webpage["block_contents"].each do |content|
+      content["atoms"].each do |atom|
+        s3.delete_object(bucket: ENV["WEBPAGE_IMAGE_BUCKET"], key: atom["image"])
+      end
+    end
+  end
+
   def block_contents
     result = []
     self.webpage_blocks.each do |block|

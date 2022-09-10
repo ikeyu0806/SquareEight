@@ -53,6 +53,7 @@ class Api::Internal::WebpagesController < ApplicationController
   def destroy
     ActiveRecord::Base.transaction do
       webpage = Webpage.find(params[:id])
+      webpage.delete_block_images
       webpage.webpage_blocks.delete_all
       webpage.destroy
       render json: { status: 'success' }, states: 200
