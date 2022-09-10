@@ -5,14 +5,13 @@ import CreateProductTemplate from 'components/templates/CreateProductTemplate'
 import GuideStripeAccountRegister from 'components/templates/GuideStripeAccountRegister'
 import { Button } from 'react-bootstrap'
 import { RootState } from 'redux/store'
-import { useSelector, useDispatch } from 'react-redux'
+import { useSelector } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { alertChanged } from 'redux/alertSlice'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const New: NextPage = () => {
-  const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [errMessage, setErrMessage] = useState('')
@@ -22,7 +21,6 @@ const New: NextPage = () => {
   const taxRate = useSelector((state: RootState) => state.product.taxRate)
   const inventory = useSelector((state: RootState) => state.product.inventory)
   const base64Image = useSelector((state: RootState) => state.product.base64Image)
-  const s3ObjectPublicUrl = useSelector((state: RootState) => state.product.s3ObjectPublicUrl)
   const applyProductType = useSelector((state: RootState) => state.product.applyProductType)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
@@ -58,9 +56,16 @@ const New: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
-      dispatch(alertChanged({message: '登録しました', show: true}))
+      swalWithBootstrapButtons.fire({
+        title: '送信しました',
+        icon: 'info'
+      })
       router.push('/admin/product')
     }).catch(error => {
+      swalWithBootstrapButtons.fire({
+        title: '送信失敗しました',
+        icon: 'error'
+      })
     })
   }
 

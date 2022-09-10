@@ -19,11 +19,14 @@ class Api::Internal::ProductsController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      product = current_merchant_user.account.products.new(product_params.except(:base64_image))
+      product = current_merchant_user.account.products.new(product_params.except(:base64_image, :product_types))
       if product_params[:base64_image].present?
         file_name = "product_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         product.s3_object_public_url = put_s3_http_request_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         product.s3_object_name = file_name
+      end
+      product_params[:product_types].each do |product_type|
+        product.product_types.new(name: product_type[:name], inventory: product_type[:inventory])
       end
       product.save!
       render json: { status: 'success' }, states: 200

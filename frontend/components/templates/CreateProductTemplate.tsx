@@ -186,6 +186,7 @@ const CreateProductTemplate = (): JSX.Element => {
                                 <Col sm={10}>
                                   <Form.Control placeholder='在庫'
                                         min={1}
+                                        type='number'
                                         onChange={(e: any) => updateProductTypeInventory(e, i)} />
                                 </Col>
                                 <Col sm={2}>
