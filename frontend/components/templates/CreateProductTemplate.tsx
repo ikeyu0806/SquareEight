@@ -177,6 +177,7 @@ const CreateProductTemplate = (): JSX.Element => {
                             <Col sm={6}>
                               <Form.Label>種類</Form.Label>
                               <Form.Control
+                                value={p.name}
                                 onChange={(e: any) => updateProductTypeName(e, i)}
                                 placeholder='Sサイズ'>
                               </Form.Control>
@@ -186,6 +187,7 @@ const CreateProductTemplate = (): JSX.Element => {
                               <Row>
                                 <Col sm={10}>
                                   <Form.Control placeholder='在庫'
+                                        value={p.inventory}
                                         min={1}
                                         type='number'
                                         onChange={(e: any) => updateProductTypeInventory(e, i)} />
