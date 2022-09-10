@@ -52,7 +52,9 @@ class EndUser < ApplicationRecord
     cart_items = []
     total_price = 0
     cart_products.each do |cart|
-      merge_destination_item = cart_items.find{|item| item[:parent_product_id] == cart.product.id}
+      merge_destination_item = cart_items.find do |item|
+        item[:parent_product_id] == cart.product.id && item[:product_type_id] == cart.product_type_id
+      end
       price = cart.product.price * cart.quantity
       if merge_destination_item.blank?
         cart_items.push({
@@ -64,6 +66,8 @@ class EndUser < ApplicationRecord
           s3_object_public_url: cart.product.s3_object_public_url,
           business_name: cart.account.business_name,
           product_type: 'Product',
+          show_product_type: cart.show_product_type,
+          selected_product_type_name: cart.product_type&.name,
           parent_product_id: cart.product.id
         })
         total_price += price

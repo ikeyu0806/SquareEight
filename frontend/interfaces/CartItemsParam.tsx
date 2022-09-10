@@ -11,4 +11,6 @@ export interface CartItemParam {
   product_type: string
   business_name: string
   is_expired: boolean
+  show_product_type: boolean
+  selected_product_type_name: string
 }

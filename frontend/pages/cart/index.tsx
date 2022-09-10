@@ -58,6 +58,7 @@ const Index: NextPage = () => {
                                   <Col>
                                     {item.business_name}<br/>
                                     {item.product_name}<br />
+                                    {item.show_product_type && <>{item.selected_product_type_name}<br/></>}
                                     数量: {item.quantity}<br />
                                     ￥{item.price} 税率{item.tax_rate}%
                                   </Col>
