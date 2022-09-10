@@ -41,6 +41,7 @@ class Api::Internal::WebpagesController < ApplicationController
     ActiveRecord::Base.transaction do
       webpage = Webpage.find(webpage_params[:id])
       webpage.tag = webpage_params[:tag]
+      webpage.delete_block_images
       webpage.webpage_blocks.delete_all
       webpage.create_webblocks(webpage_params[:page_content])
       webpage.save!

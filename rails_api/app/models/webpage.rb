@@ -7,7 +7,7 @@ class Webpage < ApplicationRecord
       webpage_content_json = JSON.parse(webpage_content_string.to_json)
       webpage_content_json["blockContent"].each do |block|
         block["atoms"].each do |atom|
-          if atom["atomType"] == "image"
+          if atom["atomType"] == "image" && atom["base64Image"].present?
             s3_public_url = put_s3_http_request_data(atom["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "website_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
             atom["base64Image"] = ""
             atom["image"] = s3_public_url
@@ -15,8 +15,11 @@ class Webpage < ApplicationRecord
 
           if atom["atomType"] == "imageSlide"
             atom["imageSlide"].each do |slide|
-              s3_public_url = put_s3_http_request_data(slide["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "website_slide_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
-              slide["image"] = s3_public_url
+              if slide["base64Image"].present?
+                s3_public_url = put_s3_http_request_data(slide["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "website_slide_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
+                slide["base64Image"] = ""
+                slide["image"] = s3_public_url
+              end
             end
           end
         end
