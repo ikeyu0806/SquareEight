@@ -64,7 +64,7 @@ const Edit: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
       <div className='mt30'></div>
-      <CreateWebpageTemplate></CreateWebpageTemplate>
+      <CreateWebpageTemplate showDeleteButton={true}></CreateWebpageTemplate>
       <br/>
       <br/>
       <br/>

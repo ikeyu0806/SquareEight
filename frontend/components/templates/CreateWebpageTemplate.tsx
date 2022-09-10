@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col, Container, Form } from 'react-bootstrap'
+import { Row, Col, Container, Form, Button } from 'react-bootstrap'
 import { webpageTagChanged } from 'redux/webpageSlice'
 import CreateBlockModal from 'components/organisms/CreateBlockModal'
 import { useSelector, useDispatch } from 'react-redux'
@@ -15,7 +15,11 @@ import { ATOM_TYPE } from 'constants/atomType'
 import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
 import ImageBlock from 'components/organisms/ImageBlock'
 
-const CreateWebpageTemplate = (): JSX.Element => {
+interface Props {
+  showDeleteButton?: boolean
+}
+
+const CreateWebpageTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const dispatch = useDispatch()
 
   const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
@@ -24,6 +28,12 @@ const CreateWebpageTemplate = (): JSX.Element => {
   return(
     <>
       <Container>
+          {showDeleteButton && <Row>
+            <Col sm={10}></Col>
+            <Col>
+              <Button variant='danger'>ページを削除</Button>
+            </Col>
+          </Row>}
           <div className='mb20'>
             <Form.Group className='mb-3'>
               <Form.Label>管理用のページ名称を入力してください。</Form.Label>

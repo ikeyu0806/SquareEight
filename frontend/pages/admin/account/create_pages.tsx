@@ -64,7 +64,7 @@ const CreatePages: NextPage = () => {
                            href={link.value}>プレビュー</a>
                           <br/>
                           <a className='btn btn-primary mt10'
-                             onClick={() => copyLinkToClipboard(link.value)}>クリップボードにコピー</a>
+                             onClick={() => copyLinkToClipboard(link.value)}>URLをコピー</a>
                       </Col>
                     </Row>
                   </ListGroup.Item>
