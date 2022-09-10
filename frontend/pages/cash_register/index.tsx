@@ -121,7 +121,8 @@ const Index: NextPage = () => {
       setIsLoading(false)
       router.push(`/purchase/${response.data.order_id}/payment_complete`)
     }).catch(error => {
-      dispatch(alertChanged({message: "エラーが発生しました", show: true, type: 'danger'}))
+      console.log(error.response.data.error)
+      dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
       setIsLoading(false)
     })
   }
@@ -204,6 +205,7 @@ const Index: NextPage = () => {
                                   <Col>
                                     {item.business_name}<br/>
                                     {item.product_name}<br />
+                                    {item.show_product_type && <>{item.selected_product_type_name}<br/></>}
                                     数量: {item.quantity}<br />
                                     ￥{item.price} 税率{item.tax_rate}%
                                   </Col>

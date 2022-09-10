@@ -28,8 +28,14 @@ class Api::Internal::CashRegistersController < ApplicationController
         when 'Product' then
           include_product = true
           product = Product.find(cart[:parent_product_id])
-          product.inventory = product.inventory - cart[:quantity]
-          raise '在庫切れです' if product.inventory.negative?
+          if cart[:product_type_id].present? && cart[:product_type_id].positive?
+            product_type = ProductType.find(cart[:product_type_id])
+            product_type.inventory = product_type.inventory - cart[:quantity]
+            raise '在庫切れです' if product_type.inventory.negative?
+          else
+            product.inventory = product.inventory - cart[:quantity]
+            raise '在庫切れです' if product.inventory.negative?
+          end
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
           default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
           commission = (cart[:price] * 0.04).to_i
