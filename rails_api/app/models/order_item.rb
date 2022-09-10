@@ -3,8 +3,13 @@ class OrderItem < ApplicationRecord
 
   belongs_to :order
   belongs_to :account
+  # has_one :product_type, class_name: 'ProductType', foreign_key: :id, primary_key: :product_type_id
 
   def business_name
     account.business_name
+  end
+
+  def product_type_name
+    product_type&.name
   end
 end

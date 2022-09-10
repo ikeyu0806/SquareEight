@@ -161,6 +161,7 @@ const CreateProductTemplate = (): JSX.Element => {
                     <Col>
                       <Form.Control placeholder='在庫'
                                     min={0}
+                                    type='number'
                                     onChange={(e) => dispatch(inventoryChanged(Number(e.target.value)))}
                                     value={String(inventory)} />                  
                       <Button
@@ -188,7 +189,7 @@ const CreateProductTemplate = (): JSX.Element => {
                                 <Col sm={10}>
                                   <Form.Control placeholder='在庫'
                                         value={p.inventory}
-                                        min={1}
+                                        min={0}
                                         type='number'
                                         onChange={(e: any) => updateProductTypeInventory(e, i)} />
                                 </Col>

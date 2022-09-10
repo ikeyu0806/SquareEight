@@ -21,8 +21,10 @@ class Api::Internal::OrdersController < ApplicationController
     order = Order.find(params[:order_id])
     total_price = order.total_price
     total_commission = order.total_commission
+    order_items = order.order_items
+    order_items = JSON.parse(order_items.to_json(:product_type_name))
     render json: { statue: 'success',
-                   order_items: order.order_items,
+                   order_items: order_items,
                    total_price: total_price,
                    total_commission: total_commission }, status: 200
   rescue => e

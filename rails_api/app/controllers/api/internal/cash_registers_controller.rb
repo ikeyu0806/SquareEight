@@ -76,8 +76,10 @@ class Api::Internal::CashRegistersController < ApplicationController
             payment_intent.id
           )
           # 明細
+          selected_product_type = ProductType.find(cart[:product_type_id])
           order.order_items.new(product_type: 'Product',
                                 product_id: product.id,
+                                # product_type: selected_product_type.present? ? selected_product_type : nil,
                                 product_name: product.name,
                                 price: product.price,
                                 account_id: product.account.id,

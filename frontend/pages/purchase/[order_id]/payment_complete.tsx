@@ -50,8 +50,8 @@ const PaymentComplete: NextPage = () => {
                     return (
                       <span key={i}>
                         {item.product_type === 'Product'
-                         ? <>{item.product_name}&emsp;¥{item.price * item.quantity}</>
-                         : <>{item.product_name}&emsp;¥{item.price}</>}
+                         ? <>{item.product_name}{item.product_type_name && <>&emsp;{item.product_type_name}</>}&emsp;¥{item.price * item.quantity}<br/></>
+                         : <>{item.product_name}{item.product_type_name && <>&emsp;{item.product_type_name}</>}&emsp;¥{item.price}<br/></>}
                       </span>
                     )
                   })}
