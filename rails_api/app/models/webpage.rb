@@ -12,11 +12,11 @@ class Webpage < ApplicationRecord
             atom["base64Image"] = ""
             atom["image"] = s3_public_url
           end
-  
+
           if atom["atomType"] == "imageSlide"
             atom["imageSlide"].each do |slide|
               s3_public_url = put_s3_http_request_data(slide["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "website_slide_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
-              atom["image"] = s3_public_url
+              slide["image"] = s3_public_url
             end
           end
         end
@@ -37,6 +37,12 @@ class Webpage < ApplicationRecord
       content["atoms"].each do |atom|
         if atom["atomType"] == "image"
           s3.delete_object(bucket: ENV["WEBPAGE_IMAGE_BUCKET"], key: atom["image"])
+        end
+
+        if atom["atomType"] == "imageSlide"
+          atom["imageSlide"].each do |slide|
+            s3.delete_object(bucket: ENV["WEBPAGE_IMAGE_BUCKET"], key: slide["image"])
+          end
         end
       end
     end
