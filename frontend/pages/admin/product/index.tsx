@@ -24,6 +24,7 @@ const Index: NextPage = () => {
       .then(function (response) {
         const productResponse: ProductParam[] = response.data.products
         setProducts(productResponse)
+        setProductTypes(response.data.products.product_types)
       })
       .catch(error => {
         console.log(error)
@@ -47,8 +48,17 @@ const Index: NextPage = () => {
                       <ListGroup.Item key={i}>
                         <Row>
                           <Col>
-                            <span>{p.name} <br/>￥{p.price} 税率{p.tax_rate}% <br/>在庫数: {p.inventory}</span>
-                            <span></span>
+                            <span>{p.name} <br/>￥{p.price} 税率{p.tax_rate}% </span>
+                            {!p.show_product_type_form && <span><br/>在庫数: {p.inventory}</span>}
+                            {p.show_product_type_form &&
+                            <><br/>
+                              {p.product_types.map((type, i) => {
+                                return (
+                                  <span key={i}>{type.name} 在庫数: {type.inventory}<br/></span>
+                                )
+                              })}  
+                            </>}
+
                           </Col>
                           <Col>
                             <div className='mt30'>

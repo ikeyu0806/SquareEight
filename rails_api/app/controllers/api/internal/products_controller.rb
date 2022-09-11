@@ -5,6 +5,7 @@ class Api::Internal::ProductsController < ApplicationController
 
   def index
     products = current_merchant_user.account.products.order(:id)
+    products = JSON.parse(products.to_json(methods: [:product_types, :show_product_type_form]))
     render json: { status: 'success', products: products }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

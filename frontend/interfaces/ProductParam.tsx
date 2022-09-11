@@ -6,6 +6,7 @@ export interface ProductParam {
   tax_rate: number
   inventory: number
   s3_object_public_url: number
+  show_product_type_form: boolean
   product_types: ProductType[]
 }
 
