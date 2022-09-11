@@ -35,7 +35,7 @@ const Index: NextPage = () => {
             <Col lg={6}>
               {purchasedTickets && purchasedTickets.map((ticket, i) => {
                 return (
-                  <ListGroup key={i}>
+                  <ListGroup.Item key={i}>
                     <Row>
                       <Col>
                         <div>回数券名 {ticket.name}</div>
@@ -49,7 +49,7 @@ const Index: NextPage = () => {
                       </Col>
                     </Row>
                     
-                  </ListGroup>
+                  </ListGroup.Item>
                 )
               })}
             </Col>

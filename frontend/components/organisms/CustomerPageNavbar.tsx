@@ -35,8 +35,8 @@ const CustomerPageNavbar = (): JSX.Element => {
             <Nav className='me-auto'>
               <Nav.Link href='/customer_page/'>お知らせ</Nav.Link>
               <Nav.Link href='/customer_page/reservation'>予約</Nav.Link>
-              <Nav.Link href='/customer_page/purchased_ticket'>回数券</Nav.Link>
-              <Nav.Link href='/customer_page/subscriptions'>月額課金</Nav.Link>
+              <Nav.Link href='/customer_page/purchased_ticket'>回数券管理</Nav.Link>
+              <Nav.Link href='/customer_page/subscriptions'>加入済み月額課金プラン</Nav.Link>
               <Nav.Link href='/cart'>カート</Nav.Link>
               <NavDropdown title='お支払い' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/customer_page/order/'>注文履歴</NavDropdown.Item>
