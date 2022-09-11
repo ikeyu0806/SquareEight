@@ -85,7 +85,9 @@ const Purchase: NextPage = () => {
         setDeliveryTargets(response.data.delivery_targets)
         dispatch(productTypesChanged(response.data.product.product_types))
         dispatch(showProductTypeFormChanged(response.data.product.show_product_type_form))
-        setSelectedProductTypeId(response.data.product.product_types[0].id)
+        if (response.data.product.product_types[0]) {
+          setSelectedProductTypeId(response.data.product.product_types[0].id)
+        }
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))

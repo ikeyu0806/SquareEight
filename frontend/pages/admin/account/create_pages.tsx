@@ -19,6 +19,7 @@ const CreatePages: NextPage = () => {
           'Session-Id': cookies._square_eight_merchant_session
         }
       }).then((response) => {
+        console.log(response.data)
         setPageLinks(response.data.page_links)
       }).catch((e) => {
         console.log(e)
