@@ -39,8 +39,10 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
+              <a className='btn btn-primary mt10 mb10'
+                 href='/admin/product/new'>物販商品登録</a>
               <Card>
-                <Card.Header>商品一覧</Card.Header>
+                <Card.Header>物販商品一覧</Card.Header>
                 <ListGroup variant='flush'>
                   {products && products.map((p, i) => {
                     return (

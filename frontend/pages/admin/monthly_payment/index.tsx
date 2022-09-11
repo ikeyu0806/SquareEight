@@ -41,6 +41,9 @@ const Index: NextPage = () => {
         <br />
         <Container>
         {stripeAccountEnable === 'Enable' && 
+          <>
+          <a className='btn btn-primary mt10 mb20'
+          href='/admin/monthly_payment/new'>月額課金プラン登録</a>
           <Table bordered>
             <thead>
               <tr>
@@ -71,7 +74,7 @@ const Index: NextPage = () => {
               )
             })}
             </tbody>
-          </Table>}
+          </Table></>}
           {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
         </Container>
         

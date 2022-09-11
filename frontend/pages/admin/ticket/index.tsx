@@ -41,6 +41,8 @@ const Index: NextPage = () => {
       <MerchantUserAdminLayout>
         <Container>
         {stripeAccountEnable === 'Enable' && <>
+        <a className='btn btn-primary mt10 mb20'
+           href='/admin/ticket/new'>回数券登録</a>
         <h2>回数券一覧</h2>
           <Table bordered>
             <thead>
