@@ -23,6 +23,7 @@ const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [totalPrice, setTotalPrice] = useState(0)
   const [cartItems, setCartItems] = useState<CartItemParam[]>()
+  const [includeNoRemainingInventory, setIncludeNoRemainingInventory] = useState(false)
   const [isRegisteredAddress, setIsRegisteredAddress] = useState(true)
   const paymentMethods = useSelector((state: RootState) => state.currentEndUser.paymentMethods)
   const [deliveryTargets, setDeliveryTargets] = useState<DeliveryTargetParam[]>([])
@@ -46,6 +47,7 @@ const Index: NextPage = () => {
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         setDeliveryTargets(response.data.delivery_targets)
+        setIncludeNoRemainingInventory(response.data.include_no_remaining_inventory)
       })
       .catch(error => {
         console.log(error)
@@ -127,6 +129,13 @@ const Index: NextPage = () => {
     })
   }
 
+  const validateOnSubmit = () => {
+    if (includeNoRemainingInventory) {
+      return true
+    }
+    return false
+  }
+
   return (
     <EndUserLoginLayout>
       <Container>
@@ -204,7 +213,9 @@ const Index: NextPage = () => {
                                       alt='image'/></Col>}
                                   <Col>
                                     {item.business_name}<br/>
-                                    {item.product_name}<br />
+                                    {item.product_name}
+                                    {item.remaining_inventory <= 0
+                                    && <>&nbsp;<div className='badge bg-danger mb10'>品切れ</div></> }<br />
                                     {item.show_type && <>{item.selected_type_name}<br/></>}
                                     数量: {item.quantity}<br />
                                     ￥{item.price} 税率{item.tax_rate}%
@@ -261,7 +272,10 @@ const Index: NextPage = () => {
             <Card>
               <Card.Body>
                 <h3>ご請求額: ￥{totalPrice}</h3>
-                <Button className='mt10' onClick={() => execPurchase()}>
+                <Button
+                  disabled={validateOnSubmit()}
+                  className='mt10'
+                  onClick={() => execPurchase()}>
                   {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
                   注文を確定
                 </Button>

@@ -13,4 +13,5 @@ export interface CartItemParam {
   is_expired: boolean
   show_type: boolean
   selected_type_name: string
+  remaining_inventory: number
 }

@@ -13,6 +13,7 @@ class Api::Internal::CashRegistersController < ApplicationController
                     is_require_delivery_targets: is_require_delivery_targets,
                     total_price: total_price,
                     cart_items: cart_items,
+                    include_no_remaining_inventory: cart_items.pluck(:remaining_inventory).include?(0),
                     default_payment_method_id: default_payment_method_id, }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

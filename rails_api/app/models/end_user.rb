@@ -69,7 +69,8 @@ class EndUser < ApplicationRecord
           show_product_type: cart.show_product_type,
           product_type_name: cart.product_type&.name,
           parent_product_id: cart.product.id,
-          product_type_id: cart.product_type_id
+          product_type_id: cart.product_type_id,
+          remaining_inventory: cart.product.inventory
         })
         total_price += price
       else
