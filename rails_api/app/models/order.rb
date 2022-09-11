@@ -5,7 +5,7 @@ class Order < ApplicationRecord
   def total_price
     result = 0
     order_items.each do |item|
-      if item.product_type == 'Product'
+      if item.type == 'Product'
         result = result + item.price * item.quantity
       else
         result = result + item.price
@@ -17,7 +17,7 @@ class Order < ApplicationRecord
   def total_commission
     result = 0
     order_items.each do |item|
-      if item.product_type == 'Product'
+      if item.type == 'Product'
         result = result + item.commission * item.quantity
       else
         result = result + item.commission
@@ -35,7 +35,7 @@ class Order < ApplicationRecord
   end
 
   def include_product
-    order_items.pluck(:product_type).include?('Product')
+    order_items.pluck(:type).include?('Product')
   end
 
   def set_delivery_target(end_user)

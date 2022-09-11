@@ -8,9 +8,9 @@ export interface CartItemParam {
   issue_number: number
   s3_object_public_url: string
   reserve_interval_text: string
-  product_type: string
+  type: string
   business_name: string
   is_expired: boolean
-  show_product_type: boolean
-  selected_product_type_name: string
+  show_type: boolean
+  selected_type_name: string
 }

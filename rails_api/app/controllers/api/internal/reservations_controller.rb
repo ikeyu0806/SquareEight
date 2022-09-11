@@ -80,7 +80,7 @@ class Api::Internal::ReservationsController < ApplicationController
               'account_business_name': reserve_frame.account.business_name,
               'name': reserve_frame.title,
               'price': reservation_params[:price],
-              'product_type': 'reservation'
+              'type': 'reservation'
             },
             transfer_data: {
               destination: reserve_frame.account.stripe_account_id
@@ -92,7 +92,7 @@ class Api::Internal::ReservationsController < ApplicationController
           reservation.update!(stripe_payment_intent_id: payment_intent.id)
           # 注文データ作成
           order = current_end_user.orders.new
-          order.order_items.new(product_type: 'Product',
+          order.order_items.new(type: 'Product',
                                 account_id: reserve_frame.account.id,
                                 reservation_id: reservation.id,
                                 product_name: reserve_frame.title,

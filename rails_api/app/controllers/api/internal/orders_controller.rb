@@ -22,7 +22,7 @@ class Api::Internal::OrdersController < ApplicationController
     total_price = order.total_price
     total_commission = order.total_commission
     order_items = order.order_items
-    order_items = JSON.parse(order_items.to_json(:product_type_name))
+    order_items = JSON.parse(order_items.to_json(:type_name))
     render json: { statue: 'success',
                    order_items: order_items,
                    total_price: total_price,

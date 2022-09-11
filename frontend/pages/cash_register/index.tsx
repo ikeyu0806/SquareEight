@@ -192,7 +192,7 @@ const Index: NextPage = () => {
                     <h4 className='mt20'>購入内容を確認</h4>
                   {cartItems && cartItems?.map((item, i) => {
                     {
-                      switch (item.product_type) {
+                      switch (item.type) {
                         case 'Product':
                           return(
                             <>
@@ -205,7 +205,7 @@ const Index: NextPage = () => {
                                   <Col>
                                     {item.business_name}<br/>
                                     {item.product_name}<br />
-                                    {item.show_product_type && <>{item.selected_product_type_name}<br/></>}
+                                    {item.show_type && <>{item.selected_type_name}<br/></>}
                                     数量: {item.quantity}<br />
                                     ￥{item.price} 税率{item.tax_rate}%
                                   </Col>

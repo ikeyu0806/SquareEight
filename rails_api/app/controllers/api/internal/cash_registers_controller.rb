@@ -5,7 +5,7 @@ class Api::Internal::CashRegistersController < ApplicationController
     default_payment_method_id, payment_methods = current_end_user.payment_methods
     delivery_targets = current_end_user.delivery_targets.order(:id)
     cart_items, total_price = current_end_user.cart_contents
-    is_require_delivery_targets = cart_items.pluck(:product_type).include?("Product")
+    is_require_delivery_targets = cart_items.pluck(:type).include?("Product")
     render json: {  status: 'success',
                     current_end_user_id: current_end_user.id,
                     payment_methods: payment_methods,
@@ -24,7 +24,7 @@ class Api::Internal::CashRegistersController < ApplicationController
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     ActiveRecord::Base.transaction do
       current_end_user.cart_contents[0].each do |cart|
-        case cart[:product_type]
+        case cart[:type]
         when 'Product' then
           include_product = true
           product = Product.find(cart[:parent_product_id])
@@ -62,7 +62,7 @@ class Api::Internal::CashRegistersController < ApplicationController
               'account_business_name': product.account.business_name,
               'name': product.name,
               'price': product.price,
-              'product_type': 'product',
+              'type': 'product',
               'end_user_id': current_end_user.id,
               'account_id': product.account_id,
               'customer_id': customer.id,
@@ -77,9 +77,9 @@ class Api::Internal::CashRegistersController < ApplicationController
           )
           # 明細
           selected_product_type = ProductType.find(cart[:product_type_id])
-          order.order_items.new(product_type: 'Product',
+          order.order_items.new(type: 'Product',
                                 product_id: product.id,
-                                # product_type: selected_product_type.present? ? selected_product_type : nil,
+                                type: type.present? ? type : nil,
                                 product_name: product.name,
                                 price: product.price,
                                 account_id: product.account.id,
@@ -138,7 +138,7 @@ class Api::Internal::CashRegistersController < ApplicationController
           Stripe::PaymentIntent.confirm(
             payment_intent.id
           )
-          order.order_items.new(product_type: 'TicketMaster',
+          order.order_items.new(type: 'TicketMaster',
                                 ticket_master_id: ticket_master.id,
                                 product_name: ticket_master.name,
                                 price: cart[:price],
@@ -188,14 +188,14 @@ class Api::Internal::CashRegistersController < ApplicationController
               'account_id': monthly_payment_plan.account_id,
               'customer_id': customer.id,
               'customer_fullname': customer.full_name,
-              'product_type': 'end_user_to_merchant_subscription',
+              'type': 'end_user_to_merchant_subscription',
             },
             items: [{ plan: monthly_payment_plan.stripe_plan_id }],
             transfer_data:  {
               destination: monthly_payment_plan.account.stripe_account_id
             }
           })
-          order.order_items.new(product_type: 'MonthlyPaymentPlan',
+          order.order_items.new(type: 'MonthlyPaymentPlan',
                                 monthly_payment_plan_id: monthly_payment_plan.id,
                                 product_name: monthly_payment_plan.name,
                                 price: monthly_payment_plan.price,

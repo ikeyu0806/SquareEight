@@ -17,7 +17,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_10_114233) do
   create_table "account_notifications", force: :cascade do |t|
     t.integer "account_id"
     t.string "title"
-    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "url"
@@ -138,7 +137,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_10_114233) do
   create_table "end_user_notifications", force: :cascade do |t|
     t.integer "end_user_id"
     t.string "title"
-    t.text "content"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "url"
@@ -216,7 +214,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_10_114233) do
   create_table "order_items", force: :cascade do |t|
     t.integer "order_id", null: false
     t.integer "account_id", null: false
-    t.integer "product_type", null: false
+    t.integer "type", null: false
     t.integer "ticket_master_id"
     t.integer "monthly_payment_plan_id"
     t.string "product_name", null: false
