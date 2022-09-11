@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Table } from 'react-bootstrap'
+import { Container, ListGroup, Row, Col } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -30,28 +30,30 @@ const Index: NextPage = () => {
     <>
       <EndUserLoginLayout>
         <Container>
-          <Table bordered>
-          <thead>
-            <tr>
-              <th className='text-center'>回数券名</th>
-              <th className='text-center'>残り枚数</th>
-              <th className='text-center'>有効期限</th>
-              <th className='text-center'>詳細</th>
-            </tr>
-          </thead>
-          <tbody>
-            {purchasedTickets && purchasedTickets.map((ticket, i) => {
-              return (
-                <tr key={i}>
-                  <td className='text-center'>{ticket.name}</td>
-                  <td className='text-center'>{ticket.remain_number}</td>
-                  <td className='text-center'>{ticket.display_expired_at}</td>
-                  <td className='text-center'><a className='btn btn-primary' href={`/customer_page/purchased_ticket/detail/${ticket.id}`}>詳細</a></td>
-                </tr>
-              )
-            })}
-          </tbody>
-          </Table>
+          <Row>
+            <Col lg={3}></Col>
+            <Col lg={6}>
+              {purchasedTickets && purchasedTickets.map((ticket, i) => {
+                return (
+                  <ListGroup key={i}>
+                    <Row>
+                      <Col>
+                        <div>回数券名 {ticket.name}</div>
+                        <div>残り枚数 {ticket.remain_number}</div>
+                        <div>有効期限 {ticket.display_expired_at}</div>
+                      </Col>
+                      <Col>
+                       <a className='btn btn-primary'
+                          href={`/customer_page/purchased_ticket/detail/${ticket.id}`}>
+                        詳細</a>
+                      </Col>
+                    </Row>
+                    
+                  </ListGroup>
+                )
+              })}
+            </Col>
+          </Row>
         </Container>
       </EndUserLoginLayout>
     </>
