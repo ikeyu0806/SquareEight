@@ -80,7 +80,7 @@ class Api::Internal::CashRegistersController < ApplicationController
           order.order_items.new(item_type: 'Product',
                                 product_id: product.id,
                                 product_name: product.name,
-                                product_type: product_type.present? ? product_type : nil,
+                                product_type_id: product_type.present? ? product_type.id : nil,
                                 price: product.price,
                                 account_id: product.account.id,
                                 commission: commission,
@@ -220,7 +220,6 @@ class Api::Internal::CashRegistersController < ApplicationController
         order.set_delivery_target(current_end_user)
       end
       order.save!
-
       render json: { status: 'success', order_id: order.id }, status: 200
     end
   rescue => error
