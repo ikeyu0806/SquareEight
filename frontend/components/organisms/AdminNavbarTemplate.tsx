@@ -37,8 +37,8 @@ const AdminNavbarTemplate = (): JSX.Element => {
             <Nav className='me-auto font-size-15'>
               <Nav.Link href='/admin/dashboard'>ダッシュボード</Nav.Link>
               <NavDropdown title='予約' id='webpage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/reservation'>予約一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/reservation'>予約管理</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/business_hour'>営業時間設定</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/special_business_hour'>特例営業日時</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/special_holiday'>特例休業日時</NavDropdown.Item>

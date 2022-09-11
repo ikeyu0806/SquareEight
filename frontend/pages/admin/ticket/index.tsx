@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import GuideStripeAccountRegister from 'components/templates/GuideStripeAccountRegister'
 import React, { useEffect, useState } from 'react'
-import { Container, Table } from 'react-bootstrap'
+import { Container, ListGroup, Row, Col, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
@@ -40,50 +40,41 @@ const Index: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
         <Container>
+        <Row>
+            <Col lg={3}></Col>
+            <Col lg={6}>
         {stripeAccountEnable === 'Enable' && <>
         <a className='btn btn-primary mt10 mb20'
            href='/admin/ticket/new'>回数券登録</a>
-        <h2>回数券一覧</h2>
-          <Table bordered>
-            <thead>
-              <tr>
-                <th className='text-center'>表示名</th>
-                <th className='text-center'>発行枚数</th>
-                <th className='text-center'>値段</th>
-                <th></th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
-              {ticketMasters.map((ticket, i) => {
-                return (
-                  <tr key={i}>
-                    <td className='text-center'>
-                      {ticket.name}
-                    </td>
-                    <td className='text-center'>
-                      {ticket.issue_number}
-                    </td>
-                    <td className='text-center'>
-                      {ticket.price}
-                    </td>
-                    <td className='text-center'>
-                      <a href={`/admin/ticket/${ticket.id}/edit`} className='btn btn-primary'>
-                        編集
-                      </a>
-                    </td>
-                    <td className='text-center'>
-                      <a href={`/ticket/${ticket.id}/purchase`} className='btn btn-primary' target='_blank' rel='noreferrer'>
-                        購入ページプレビュー
-                      </a>
-                    </td>
-                  </tr>
-                )
-              })}
-            </tbody>
-          </Table>
+        <h3>回数券一覧</h3>
+          {ticketMasters.map((ticket, i) => {
+            return(
+              <ListGroup.Item key={i}>
+              <Row>
+                <Col>
+                  表示名 {ticket.name}<br/>
+                  発行枚数 {ticket.issue_number}枚<br/>
+                  値段 ￥{ticket.price}
+                </Col>
+                <Col>
+                  <a href={`/admin/ticket/${ticket.id}/edit`} className='btn btn-primary'>
+                    編集
+                  </a>
+                  <a href={`/ticket/${ticket.id}/purchase`}
+                     className='btn btn-primary ml10'
+                     target='_blank'
+                     rel='noreferrer'>
+                    プレビュー
+                  </a>
+                </Col>
+              </Row>
+            </ListGroup.Item>
+            )
+          })}
         </>}
         {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
+          </Col>
+        </Row>
         </Container>
       </MerchantUserAdminLayout>
     </>
