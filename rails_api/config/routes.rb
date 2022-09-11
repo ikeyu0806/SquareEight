@@ -105,6 +105,7 @@ Rails.application.routes.draw do
       post 'system_end_user_notifications/:id', to: 'system_end_user_notifications#update'
       post 'system_end_user_notifications', to: 'system_end_user_notifications#create'
       get 'carts/account_index', to: 'carts#account_index'
+      delete 'carts/delete_cart_item/:id', to: 'carts#delete_cart_item'
       get 'cash_registers', to: 'cash_registers#index'
       post 'cash_registers/purchase', to: 'cash_registers#purchase'
       post 'reservations', to: 'reservations#create'

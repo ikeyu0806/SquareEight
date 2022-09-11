@@ -8,6 +8,23 @@ class Api::Internal::CartsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def delete_cart_item
+    case params[:item_type]
+    when 'Product'
+      cart_item = CartProduct.find(params[:id])
+    when 'TicketMaster'
+      cart_item = CartTicketMaster.find(params[:id])
+    when 'MonthlyPaymentPlan'
+      cart_item = CartMonthlyPaymentPlan.find(params[:id])
+    else
+      raise
+    end
+    cart_item.destroy
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def cart_params

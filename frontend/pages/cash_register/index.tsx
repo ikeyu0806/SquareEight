@@ -136,6 +136,22 @@ const Index: NextPage = () => {
     return false
   }
 
+  const deleteCartItem = (itemId: string, itemType: string) => {
+    axios.delete(`${process.env.BACKEND_URL}/api/internal/carts/delete_cart_item/${itemId}?item_type=${itemType}`,
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_end_user_session
+      }
+    }).then(response => {
+      location.reload()
+    }).catch(error => {
+      swalWithBootstrapButtons.fire({
+        title: '削除失敗しました',
+        icon: 'error'
+      })
+    })
+  }
+
   return (
     <EndUserLoginLayout>
       <Container>
@@ -220,6 +236,15 @@ const Index: NextPage = () => {
                                     数量: {item.quantity}<br />
                                     ￥{item.price} 税率{item.tax_rate}%
                                   </Col>
+                                  <Col>
+                                    <Button
+                                      onClick={() => deleteCartItem(item.id, item.item_type)}
+                                      className='mt50'
+                                      size='sm'
+                                      variant='danger'>
+                                      カートから削除
+                                    </Button>
+                                  </Col>
                                 </Row>
                               </ListGroup.Item>
                             </>)
@@ -268,7 +293,7 @@ const Index: NextPage = () => {
               </Card.Body>
             </Card>
           </Col>
-          <Col lg={3} md={5}>
+          <Col lg={4} md={5}>
             <Card>
               <Card.Body>
                 <h3>ご請求額: ￥{totalPrice}</h3>
@@ -279,6 +304,7 @@ const Index: NextPage = () => {
                   {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
                   注文を確定
                 </Button>
+                {includeNoRemainingInventory && <div className='mt20'>在庫切れの商品が含まれています</div>}
               </Card.Body>
             </Card>
           </Col>
