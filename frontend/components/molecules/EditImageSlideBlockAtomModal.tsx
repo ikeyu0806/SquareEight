@@ -20,7 +20,7 @@ const EditImageSlideBlockAtomModal = (): JSX.Element => {
   const [base64Image, setBase64Image] = useState<any>('')
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
-  const [imageSlideTextColor, setImageSlideTextColor] = useState('')
+  const [imageSlideTextColor, setImageSlideTextColor] = useState('text-light')
   const [imageSlide, setImageSlide] = useState<ImageSlide>()
   const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
   const addAtomSelectedBlock = useSelector((state: RootState) => state.webpage.addAtomSelectedBlock)
@@ -45,10 +45,10 @@ const EditImageSlideBlockAtomModal = (): JSX.Element => {
   const addImageSlideChild = () => {
     let updateImageSlideChild: ImageSlideChild[]
     if (imageSlide) {
-      updateImageSlideChild = [...imageSlide.imageSlide, { title: title, text: text, image: image, base64Image: base64Image}]
+      updateImageSlideChild = [...imageSlide.imageSlide, { title: title, text: text, image: image, base64Image: base64Image, imageSlideTextColor: imageSlideTextColor }]
       setImageSlide({atomType: ATOM_TYPE.IMAGE_SLIDE, imageSlide: updateImageSlideChild})
     } else {
-      setImageSlide({atomType: ATOM_TYPE.IMAGE_SLIDE, imageSlide: [{ title: title, text: text, image: image, base64Image: base64Image }]})
+      setImageSlide({atomType: ATOM_TYPE.IMAGE_SLIDE, imageSlide: [{ title: title, text: text, image: image, base64Image: base64Image, imageSlideTextColor: imageSlideTextColor  }]})
     }
   }
 

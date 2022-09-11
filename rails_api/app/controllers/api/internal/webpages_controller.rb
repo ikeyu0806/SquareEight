@@ -86,6 +86,7 @@ class Api::Internal::WebpagesController < ApplicationController
                                               :text,
                                               :image,
                                               :base64Image,
+                                              :imageSlideTextColor,
                                             ],
                                             content: [
                                               # ページリンク 

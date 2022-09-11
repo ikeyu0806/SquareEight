@@ -17,8 +17,8 @@ const ImageSlideBlock = (props: propType): JSX.Element => {
               alt={slide + String(i)}
             />
             <Carousel.Caption>
-              <h3>{slide.title}</h3>
-              <p>{slide.text}</p>
+              <h3 className={slide.imageSlideTextColor}>{slide.title}</h3>
+              <p className={slide.imageSlideTextColor}>{slide.text}</p>
             </Carousel.Caption>
           </Carousel.Item>
         )

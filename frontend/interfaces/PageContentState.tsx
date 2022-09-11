@@ -56,4 +56,5 @@ export type ImageSlideChild = {
   text?: string
   image: any
   base64Image: any
+  imageSlideTextColor: string
 }
