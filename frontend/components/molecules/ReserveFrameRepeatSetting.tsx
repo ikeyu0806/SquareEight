@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import { Button, Form, Col, Row } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
+import TrashIcon from 'components/atoms/TrashIcon'
+import { UnreservableFrameParam } from 'interfaces/UnreservableFrameParam'
 import {
   isRepeatChanged,
   isEveryDayRepeatChanged,
@@ -54,6 +56,12 @@ const ReserveFrameRepeatSetting = () => {
       return true
     }
     return false
+  }
+
+  const deleteUnreservableFrame = (startAt: string, endAt: string) => {
+    let updateUnreservableFrame: UnreservableFrameParam[]
+    updateUnreservableFrame = unreservableFrames.filter(frame => { (frame.start_at + frame.end_at) !== (startAt + endAt) })
+    dispatch(unreservableFramesChanged(updateUnreservableFrame))
   }
 
   return(
@@ -225,6 +233,7 @@ const ReserveFrameRepeatSetting = () => {
                     <span key={i} className='mb10'>
                       <span>開始日時: {frame.start_at}</span><br/>
                       <span>終了日時: {frame.end_at}</span>
+                      <a className='color-black none-under-decoration' onClick={() => deleteUnreservableFrame(frame.start_at, frame.end_at)}><TrashIcon width={20} height={20} fill={'#ff0000'} /></a>
                     </span>
                   )
                 })}

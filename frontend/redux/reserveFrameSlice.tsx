@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ReserveFrameReceptionTimeParam } from 'interfaces/ReserveFrameReceptionTimeParam'
 import { UnreservableFrameParam } from 'interfaces/UnreservableFrameParam'
 import { ReservableFrameTicketMasterParam } from 'interfaces/ReservableFrameTicketMasterParam'
-import { getZeroPaddingDate, getZeroPaddingTime } from 'functions/getZeroPaddingDatetime'
+import { getZeroPaddingDate } from 'functions/getZeroPaddingDatetime'
 
 export const reserveFrameSlice = createSlice({
   name: 'reserveFrame',

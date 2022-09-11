@@ -24,7 +24,6 @@ const Index: NextPage = () => {
       .then(function (response) {
         const productResponse: ProductParam[] = response.data.products
         setProducts(productResponse)
-        setProductTypes(response.data.products.product_types)
       })
       .catch(error => {
         console.log(error)
