@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Table } from 'react-bootstrap'
+import { Container, ListGroup, Row, Col } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -30,25 +30,24 @@ const Index: NextPage = () => {
     <>
       <EndUserLoginLayout>
         <Container>
-          <h3>加入プラン</h3>
-          <Table bordered>
-          <thead>
-            <tr>
-              <th className='text-center'>プラン名</th>
-              <th className='text-center'>購入先</th>
-            </tr>
-          </thead>
-          <tbody>
+          <Row>
+            <Col lg={3}></Col>
+            <Col lg={6}>
+            <h3>加入中プラン</h3>
             {stripeSubscriptions && stripeSubscriptions.map((subscription, i) => {
               return (
-                <tr key={i}>
-                  <td className='text-center'>{subscription.metadata.name}</td>
-                  <td className='text-center'>{subscription.metadata.account_business_name}</td>
-                </tr>
+                <ListGroup.Item key={i}>
+                  <Row>
+                    <Col>
+                    プラン名: {subscription.metadata.name}<br/>
+                    購入先: {subscription.metadata.account_business_name}
+                    </Col>
+                  </Row>
+                </ListGroup.Item>
               )
             })}
-          </tbody>
-          </Table>
+            </Col>
+          </Row>
         </Container>
       </EndUserLoginLayout>
     </>
