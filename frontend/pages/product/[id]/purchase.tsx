@@ -164,6 +164,9 @@ const Purchase: NextPage = () => {
   }
 
   const validateSubmit = () => {
+    if (inventory <= 0) {
+      return true
+    }
     if (!currentEndUserLogintStatus) {
       return true
     }
