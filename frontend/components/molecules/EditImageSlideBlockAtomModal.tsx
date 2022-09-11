@@ -20,11 +20,19 @@ const EditImageSlideBlockAtomModal = (): JSX.Element => {
   const [base64Image, setBase64Image] = useState<any>('')
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')
+  const [imageSlideTextColor, setImageSlideTextColor] = useState('')
   const [imageSlide, setImageSlide] = useState<ImageSlide>()
   const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
   const addAtomSelectedBlock = useSelector((state: RootState) => state.webpage.addAtomSelectedBlock)
   const selectedBlockID = useSelector((state: RootState) => state.webpage.selectedBlockID)
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
+
+  const colorValues = [ {label: 'White', textColorClass: 'text-light'},
+                        {label: 'Black', textColorClass: 'text-dark'},
+                        {label: 'Red', textColorClass: 'text-danger'},
+                        {label: 'Blue', textColorClass: 'text-primary'},
+                        {label: 'Green', textColorClass: 'text-success'},
+                        {label: 'Yellow', textColorClass: 'text-warning'} ]
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -113,6 +121,24 @@ const EditImageSlideBlockAtomModal = (): JSX.Element => {
                 <Form.Control as='textarea' rows={10} onChange={(e) => setText(e.target.value)}></Form.Control>
               </Form.Group>
             </Form>
+            <Form.Label className='mt20'>テキストの色</Form.Label>
+            <br/>
+            {colorValues.map((json, i) => {
+              return (
+                <Form.Check
+                  key={i}
+                  inline
+                  type='radio'
+                  id={json.label + 'brandColor'}
+                  label={json.label}
+                  value={json.textColorClass}
+                  checked={imageSlideTextColor === json.textColorClass}
+                  onChange={() =>{
+                    setImageSlideTextColor(json.textColorClass)
+                  }}
+                  name='brandColor' ></Form.Check>
+              )
+            })}
           </Col>
           <Col>
           <img
@@ -140,8 +166,8 @@ const EditImageSlideBlockAtomModal = (): JSX.Element => {
                   alt={slide + String(i)}
                 />
                 <Carousel.Caption>
-                  <h3>{slide.title}</h3>
-                  <p>{slide.text}</p>
+                  <h3 className={imageSlideTextColor}>{slide.title}</h3>
+                  <p className={imageSlideTextColor}>{slide.text}</p>
                 </Carousel.Caption>
               </Carousel.Item>
             )
