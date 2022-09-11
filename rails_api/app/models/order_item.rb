@@ -8,8 +8,4 @@ class OrderItem < ApplicationRecord
   def business_name
     account.business_name
   end
-
-  def item_type_name
-    item_type&.name
-  end
 end

@@ -5,5 +5,5 @@ export interface OrderItemParam {
   price: number
   commission: number
   quantity: number
-  item_type_name: string
+  product_type_name: string
 }
