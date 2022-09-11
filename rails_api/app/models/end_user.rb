@@ -65,7 +65,7 @@ class EndUser < ApplicationRecord
           quantity: cart.quantity,
           s3_object_public_url: cart.product.s3_object_public_url,
           business_name: cart.account.business_name,
-          type: 'Product',
+          item_type: 'Product',
           show_product_type: cart.show_product_type,
           product_type_name: cart.product_type&.name,
           parent_product_id: cart.product.id,
@@ -92,7 +92,7 @@ class EndUser < ApplicationRecord
           s3_object_public_url: cart.ticket_master.s3_object_public_url,
           is_expired: cart.ticket_master.effective_month.positive? ? false : true,
           business_name: cart.account.business_name,
-          type: 'TicketMaster',
+          item_type: 'TicketMaster',
           parent_ticket_master_id: cart.ticket_master.id
         })
         total_price += price
@@ -113,7 +113,7 @@ class EndUser < ApplicationRecord
           price: cart.monthly_payment_plan.price,
           s3_object_public_url: cart.monthly_payment_plan.s3_object_public_url,
           business_name: cart.account.business_name,
-          type: 'MonthlyPaymentPlan',
+          item_type: 'MonthlyPaymentPlan',
           parent_monthly_payment_plan_id: cart.monthly_payment_plan.id
         })
         total_price += cart.monthly_payment_plan.price

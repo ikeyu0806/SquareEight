@@ -45,7 +45,7 @@ const Index: NextPage = () => {
                 <ListGroup variant='flush'>
                   {cartItems && cartItems?.map((item, i) => {
                     {
-                      switch (item.type) {
+                      switch (item.item_type) {
                         case 'Product':
                           return(
                             <>

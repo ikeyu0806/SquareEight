@@ -1,5 +1,5 @@
 class OrderItem < ApplicationRecord
-  enum type: { TicketMaster: 0, MonthlyPaymentPlan: 1, Product: 2, Reservation: 3 }
+  enum item_type: { TicketMaster: 0, MonthlyPaymentPlan: 1, Product: 2, Reservation: 3 }
 
   belongs_to :order
   belongs_to :account
@@ -9,7 +9,7 @@ class OrderItem < ApplicationRecord
     account.business_name
   end
 
-  def type_name
-    type&.name
+  def item_type_name
+    item_type&.name
   end
 end

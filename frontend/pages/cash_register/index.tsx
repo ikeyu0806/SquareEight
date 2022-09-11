@@ -192,7 +192,7 @@ const Index: NextPage = () => {
                     <h4 className='mt20'>購入内容を確認</h4>
                   {cartItems && cartItems?.map((item, i) => {
                     {
-                      switch (item.type) {
+                      switch (item.item_type) {
                         case 'Product':
                           return(
                             <>

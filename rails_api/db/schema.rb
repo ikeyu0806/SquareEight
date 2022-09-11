@@ -214,7 +214,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_10_114233) do
   create_table "order_items", force: :cascade do |t|
     t.integer "order_id", null: false
     t.integer "account_id", null: false
-    t.integer "type", null: false
+    t.integer "item_type", null: false
     t.integer "ticket_master_id"
     t.integer "monthly_payment_plan_id"
     t.string "product_name", null: false

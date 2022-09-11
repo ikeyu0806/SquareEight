@@ -24,7 +24,7 @@ class Api::Internal::CashRegistersController < ApplicationController
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     ActiveRecord::Base.transaction do
       current_end_user.cart_contents[0].each do |cart|
-        case cart[:type]
+        case cart[:item_type]
         when 'Product' then
           include_product = true
           product = Product.find(cart[:parent_product_id])
@@ -76,11 +76,11 @@ class Api::Internal::CashRegistersController < ApplicationController
             payment_intent.id
           )
           # 明細
-          selected_product_type = ProductType.find(cart[:product_type_id])
-          order.order_items.new(type: 'Product',
+          product_type = ProductType.find(cart[:product_type_id]) if cart[:product_type_id].present?
+          order.order_items.new(item_type: 'Product',
                                 product_id: product.id,
-                                type: type.present? ? type : nil,
                                 product_name: product.name,
+                                product_type: product_type.present? ? product_type : nil,
                                 price: product.price,
                                 account_id: product.account.id,
                                 commission: commission,
@@ -138,7 +138,7 @@ class Api::Internal::CashRegistersController < ApplicationController
           Stripe::PaymentIntent.confirm(
             payment_intent.id
           )
-          order.order_items.new(type: 'TicketMaster',
+          order.order_items.new(item_type: 'TicketMaster',
                                 ticket_master_id: ticket_master.id,
                                 product_name: ticket_master.name,
                                 price: cart[:price],
@@ -188,14 +188,14 @@ class Api::Internal::CashRegistersController < ApplicationController
               'account_id': monthly_payment_plan.account_id,
               'customer_id': customer.id,
               'customer_fullname': customer.full_name,
-              'type': 'end_user_to_merchant_subscription',
+              'item_type': 'end_user_to_merchant_subscription',
             },
             items: [{ plan: monthly_payment_plan.stripe_plan_id }],
             transfer_data:  {
               destination: monthly_payment_plan.account.stripe_account_id
             }
           })
-          order.order_items.new(type: 'MonthlyPaymentPlan',
+          order.order_items.new(item_type: 'MonthlyPaymentPlan',
                                 monthly_payment_plan_id: monthly_payment_plan.id,
                                 product_name: monthly_payment_plan.name,
                                 price: monthly_payment_plan.price,
