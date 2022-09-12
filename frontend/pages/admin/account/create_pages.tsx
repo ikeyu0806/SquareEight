@@ -59,12 +59,12 @@ const CreatePages: NextPage = () => {
                         {link.text}&emsp;<span>【{link.label}】</span>
                       </Col>
                       <Col>
-                        <a className='btn btn-primary'
+                        <a className='btn btn-primary btn-sm'
                            target='_blank'
                            rel='noreferrer'
                            href={link.value}>プレビュー</a>
                           <br/>
-                          <a className='btn btn-primary mt10'
+                          <a className='btn btn-primary mt10 btn-sm'
                              onClick={() => copyLinkToClipboard(link.value)}>URLをコピー</a>
                       </Col>
                     </Row>
