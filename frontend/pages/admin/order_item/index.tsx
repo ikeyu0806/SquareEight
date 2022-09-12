@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap'
+import { Container, Row, Col, Button, ListGroup } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
@@ -45,17 +45,36 @@ const Index: NextPage = () => {
                 {orderItems && orderItems.map((item, i) => {
                   return (
                     <ListGroup.Item key={i}>
-                      購入者 {item.order_name}<br/>
-                      {item.product_name} <OrderItemTypeBadge itemType={item.item_type}/><br/>
-                      ￥{item.price}<br/>
-                      購入数 {item.quantity}
-                      {item.item_type === 'Product'
-                       &&
-                       <>
-                        <div className='mt10'>郵送先</div>
-                        <div>〒{item.postal_code}</div>
-                        <div>{item.address}</div>
-                       </>}
+                      <Row>
+                        <Col>
+                          購入者 {item.order_name}<br/>
+                          {item.product_name} <OrderItemTypeBadge itemType={item.item_type}/><br/>
+                          ￥{item.price}<br/>
+                          購入数 {item.quantity}
+                        </Col>
+                        <Col>
+                          {item.item_type === 'Product'
+                          &&
+                          <>
+                            <div className='mt10'>郵送先</div>
+                            <div>〒{item.postal_code}</div>
+                            <div>{item.address}</div>
+                            {!item.shipped &&
+                            <>
+                              <span className='badge bg-danger'>
+                                未発送
+                              </span>
+                              <a className='badge bg-primary ml10'>
+                                発送済みに更新する
+                              </a>
+                            </>}
+                            {item.shipped &&
+                            <span className='badge bg-info'>
+                              発送済み
+                            </span>}
+                          </>}
+                        </Col>
+                      </Row>
                     </ListGroup.Item>
                   )
                 })}
