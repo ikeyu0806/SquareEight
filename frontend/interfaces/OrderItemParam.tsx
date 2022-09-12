@@ -6,4 +6,8 @@ export interface OrderItemParam {
   commission: number
   quantity: number
   product_type_name: string
+  address: string
+  postal_code: string
+  order_name: string
+  shipped: boolean
 }

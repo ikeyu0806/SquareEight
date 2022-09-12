@@ -1,25 +1,21 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { useCookies } from 'react-cookie'
 import { Container, Row, Col, Card } from 'react-bootstrap'
-import axios from 'axios'
-import { useDispatch } from 'react-redux'
-import { useRouter } from 'next/router'
-import { OrderParam } from 'interfaces/OrderParam'
-import { OrderItemParam } from 'interfaces/OrderItemParam'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
+import { OrderItemParam } from 'interfaces/OrderItemParam'
+import axios from 'axios'
 
 const Index: NextPage = () => {
-  const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
-  const [order, setOrder] = useState<OrderParam>()
   const [orderItems, setOrderItems] = useState<OrderItemParam[]>([])
 
   useEffect(() => {
-    const fetchOrders = () => {
+    const fetchOrderItems = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/account/orders/${router.query.id}`, {
+        `${process.env.BACKEND_URL}/api/internal/order_items`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           },
@@ -27,14 +23,13 @@ const Index: NextPage = () => {
       )
       .then(function (response) {
         console.log(response.data)
-        setOrder(response.data.order)
         setOrderItems(response.data.order_items)
       })
       .catch(error => {
         console.log(error)
       })
     }
-    fetchOrders()
+    fetchOrderItems()
   }, [router.query.id, cookies._square_eight_merchant_session])
 
   return (
@@ -44,22 +39,18 @@ const Index: NextPage = () => {
           <Col lg={3}></Col>
           <Col lg={6}>
             <Card>
-              <Card.Header>注文詳細</Card.Header>
+              <Card.Header>注文管理</Card.Header>
               <Card.Body>
                 <Row>
                   <Col>
-                    合計金額: ¥{order && order.total_price}
-                    <br />注文日: {order && order.order_date}
-                  </Col>
-                  <Col>
-                  {orderItems && orderItems.map((item, i) => {
-                    return (
-                      <span key={i}>
-                        購入先: {item.business_name}<br/>
-                        {item.product_name} ￥{item.price}
-                      </span>
-                    )
-                  })}
+                    {orderItems && orderItems.map((item, i) => {
+                      return (
+                        <span key={i}>
+                          購入者 {item.order_name}<br/>
+                          {item.product_name} ￥{item.price}
+                        </span>
+                      )
+                    })}
                   </Col>
                 </Row>
               </Card.Body>

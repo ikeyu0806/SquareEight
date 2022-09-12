@@ -8,4 +8,16 @@ class OrderItem < ApplicationRecord
   def business_name
     account.business_name
   end
+
+  def address
+    order.address
+  end
+
+  def postal_code
+    order.postal_code
+  end
+
+  def order_name
+    order.name
+  end
 end

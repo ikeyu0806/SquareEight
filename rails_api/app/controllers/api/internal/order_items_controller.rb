@@ -2,7 +2,8 @@ class Api::Internal::OrderItemsController < ApplicationController
   before_action :merchant_login_only!
 
   def index
-    order_items = current_merchant_user.order_items
+    order_items = current_merchant_user.account.order_items
+    order_items = JSON.parse(order_items.to_json(methods: [:address, :postal_code, :order_name]))
     render json: { status: 'success', order_items: order_items }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

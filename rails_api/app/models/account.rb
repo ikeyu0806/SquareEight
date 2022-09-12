@@ -13,6 +13,7 @@ class Account < ApplicationRecord
   has_many :reserve_frames
   has_many :reservations, through: :reserve_frames
   has_many :orders
+  has_many :order_items
   has_many :customers
   has_many :questionnaire_masters
   has_many :questionnaire_answers, through: :customers
