@@ -8,6 +8,7 @@ import { paymentMethodText } from 'functions/paymentMethodText'
 import axios from 'axios'
 import { receptionTypeText } from 'functions/receptionTypeText'
 import CheckIcon from 'components/atoms/CheckIcon'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -26,6 +27,33 @@ const Index: NextPage = () => {
       console.log(error)
     })
   }, [cookies._square_eight_merchant_session])
+
+  const updateReservationStatus = (reservationId: string, reservationStatus: string) => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/${reservationId}/update_status`,
+    {
+      reservations: {
+        id: reservationId,
+        status: reservationStatus
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    }).then(response => {
+      swalWithBootstrapButtons.fire({
+        title: '更新しました',
+        icon: 'info'
+      })
+      location.reload()
+    }).catch(error => {
+      swalWithBootstrapButtons.fire({
+        title: '更新失敗しました',
+        icon: 'error'
+      })
+    })
+  }
+
 
   return (
     <>
@@ -56,7 +84,13 @@ const Index: NextPage = () => {
                             受付設定: {receptionTypeText(reservation.reception_type)}
                           </span>
                           <br/>
-                          <span>ステータス: {reservation.status === 'confirm' ? <><CheckIcon width={20} height={20} fill={'#00ff00'}/>予約確定</> : '確定待ち'}</span>
+                          <span>ステータス:
+                          {reservation.status === 'confirm' && <><CheckIcon width={20} height={20} fill={'#00ff00'}/>予約確定</>}</span>
+                          {reservation.status === 'pendingVerifivation'
+                            && <>
+                                <span className='text-danger'>予約確定待ち</span><br/>
+                                <a className='badge bg-primary' onClick={() => updateReservationStatus(reservation.id, 'confirm')}>予約を確定する</a>
+                              </>}
                         </Col>
                       </Row>                    
                     </ListGroup.Item>

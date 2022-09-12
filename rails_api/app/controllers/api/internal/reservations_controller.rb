@@ -151,6 +151,16 @@ class Api::Internal::ReservationsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def update_status
+    ActiveRecord::Base.transaction do
+      reservation = Reservation.find(reservation_params[:id])
+      reservation.update!(status: reservation_params[:status])
+      render json: { status: 'success' }, states: 200
+    end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def reservation_params
@@ -174,6 +184,7 @@ class Api::Internal::ReservationsController < ApplicationController
                   :consume_number,
                   :ticket_id,
                   :monthly_payment_plan_id,
-                  :price)
+                  :price,
+                  :status)
   end
 end

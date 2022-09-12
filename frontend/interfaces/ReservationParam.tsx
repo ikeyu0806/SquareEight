@@ -1,4 +1,5 @@
 export interface ReservationParam {
+  id: string
   representative_first_name: string
   representative_last_name: string
   number_of_people: number

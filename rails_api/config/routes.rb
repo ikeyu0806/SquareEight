@@ -110,6 +110,7 @@ Rails.application.routes.draw do
       delete 'carts/delete_cart_item/:id', to: 'carts#delete_cart_item'
       get 'cash_registers', to: 'cash_registers#index'
       post 'cash_registers/purchase', to: 'cash_registers#purchase'
+      post 'reservations/:id/update_status', to: 'reservations#update_status'
       post 'reservations', to: 'reservations#create'
       get 'questionnaire_masters/:id/edit_info', to: 'questionnaire_masters#edit_info'
       get 'questionnaire_masters/:id/answers', to: 'questionnaire_masters#answers'
