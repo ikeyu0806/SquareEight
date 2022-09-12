@@ -141,6 +141,17 @@ const Index: NextPage = () => {
     return false
   }
 
+  const showCustomerFormValidate = () => {
+    if (String(router.query.payment_method) === 'localPayment') {
+      return true
+    }
+
+    if (String(router.query.is_set_price) === 'false') {
+      return true
+    }
+    return false
+  }
+
   return (
     <>
       <MerchantCustomLayout>
@@ -177,7 +188,7 @@ const Index: NextPage = () => {
                         <a href={`/ticket/${router.query.ticket_id}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
                         から購入してください</div>}
                   <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method)) && <>予約人数: {router.query.reserve_count}</>}</div>
-                  { (String(router.query.payment_method) === 'localPayment') || (String(router.query.is_set_price) === 'false') &&
+                  { (showCustomerFormValidate()) &&
                   <>
                     <hr/>
                     <Form.Label className='mt10'>お名前（姓）</Form.Label>
