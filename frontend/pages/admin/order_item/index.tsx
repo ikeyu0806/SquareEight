@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { OrderItemParam } from 'interfaces/OrderItemParam'
 import axios from 'axios'
 import OrderItemTypeBadge from 'components/atoms/OrderItemTypeBadge'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -32,6 +33,31 @@ const Index: NextPage = () => {
     }
     fetchOrderItems()
   }, [router.query.id, cookies._square_eight_merchant_session])
+
+  const updateShippedStatus = (itemId: string) => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/order_items/${itemId}/update_shipped`,
+    {
+      order_item: {
+        item_id: itemId,
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    }).then(response => {
+      swalWithBootstrapButtons.fire({
+        title: '更新しました',
+        icon: 'info'
+      })
+      location.reload()
+    }).catch(error => {
+      swalWithBootstrapButtons.fire({
+        title: '更新失敗しました',
+        icon: 'error'
+      })
+    })
+  }
 
   return (
     <MerchantUserAdminLayout>
@@ -64,7 +90,8 @@ const Index: NextPage = () => {
                               <span className='badge bg-danger'>
                                 未発送
                               </span>
-                              <a className='badge bg-primary ml10'>
+                              <a className='badge bg-primary ml10'
+                                 onClick={() => updateShippedStatus(item.id)}>
                                 発送済みに更新する
                               </a>
                             </>}
