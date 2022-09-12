@@ -18,7 +18,7 @@ const Index: NextPage = () => {
   const [targetDate, setTargetDate] = useState(getZeroPaddingDate())
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/account/reservations`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/account/reservations?target_date=${targetDate}`,
     {
       headers: {
         'Session-Id': cookies._square_eight_merchant_session
