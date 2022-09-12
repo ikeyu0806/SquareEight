@@ -84,7 +84,10 @@ const Index = (): JSX.Element => {
                       <a className='btn btn-primary' href={`/admin/reserve_frame/${reserveFrame.id}/edit`}>編集</a>
                     </td>
                     <td>
-                    <a className='btn btn-primary ml10' href={`/reserve_frame/${reserveFrame.id}/calendar`}>プレビュー</a>
+                    <a className='btn btn-primary ml10'
+                       target='_blank'
+                       rel='noreferrer'
+                       href={`/reserve_frame/${reserveFrame.id}/calendar`}>プレビュー</a>
                     </td>
                   </tr>
                 )

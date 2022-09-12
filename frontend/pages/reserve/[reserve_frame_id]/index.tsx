@@ -79,6 +79,13 @@ const Index: NextPage = () => {
             <Card className='mt30'>
               <Card.Body>
                 <h3>{reserveFrame?.title}</h3>
+                {reserveFrame?.reception_type === 'Immediate'
+                && <>
+                    <div className='mt20 mb20'>
+                      <div className='mb10'>こちらは仮予約です</div>
+                      <div>予約後に運営者が承認するまで確定されません</div>
+                    </div>
+                   </>}
                 {reserveFrame?.reception_type === 'PhoneOnly'
                  && <>
                       <div className='mt20 mb20'>
