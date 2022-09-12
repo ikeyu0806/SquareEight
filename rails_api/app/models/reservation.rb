@@ -50,12 +50,15 @@ class Reservation < ApplicationRecord
   end
 
   def customer_name
-    customer = Customer.find(self.customer_id) if self.customer_id.present? && !self.customer_id.zero?
-    if customer.present?
-      customer.full_name
-    else
-      '名前が登録されていません'
-    end
+    customer.full_name
+  end
+
+  def customer_email
+    customer.email
+  end
+
+  def customer_phone_number
+    customer.phone_number
   end
 
   def reception_type

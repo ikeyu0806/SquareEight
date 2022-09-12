@@ -70,19 +70,12 @@ const Index: NextPage = () => {
                       <Row>
                         <Col>
                           <div className='mb10'>{reservation.reserve_frame_title}</div>
-                          <span>{reservation.display_reservation_datetime}</span>
-                          <br/>
-                          <span>{reservation.customer_name}</span>
-                          <br />
-                          <span>人数: {reservation.number_of_people}</span>
-                          <br />
-                          <span>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</span>
-                          <br />
-                        </Col>
-                        <Col>
-                          <span>
+                          <div>{reservation.display_reservation_datetime}</div>
+                          <div>人数: {reservation.number_of_people}</div>
+                          <div>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</div>
+                          <div className='mt20'>
                             受付設定: {receptionTypeText(reservation.reception_type)}
-                          </span>
+                          </div>
                           <br/>
                           <span>ステータス:
                           {reservation.status === 'confirm' && <><CheckIcon width={20} height={20} fill={'#00ff00'}/>予約確定</>}</span>
@@ -91,6 +84,12 @@ const Index: NextPage = () => {
                                 <span className='text-danger'>予約確定待ち</span><br/>
                                 <a className='badge bg-primary' onClick={() => updateReservationStatus(reservation.id, 'confirm')}>予約を確定する</a>
                               </>}
+                        </Col>
+                        <Col>
+                          <div className='mb10'>顧客情報</div>
+                          <div>{reservation.customer_name}</div>
+                          <div>メールアドレス: {reservation.customer_email}</div>
+                          <div>電話番号: {reservation.customer_phone_number}</div>
                         </Col>
                       </Row>                    
                     </ListGroup.Item>
