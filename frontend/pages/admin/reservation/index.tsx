@@ -7,6 +7,7 @@ import { ReservationParam } from 'interfaces/ReservationParam'
 import { paymentMethodText } from 'functions/paymentMethodText'
 import axios from 'axios'
 import { receptionTypeText } from 'functions/receptionTypeText'
+import CheckIcon from 'components/atoms/CheckIcon'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -55,7 +56,7 @@ const Index: NextPage = () => {
                             受付設定: {receptionTypeText(reservation.reception_type)}
                           </span>
                           <br/>
-                          <span>ステータス: {reservation.status === 'confirm' && '確定'}</span>
+                          <span>ステータス: {reservation.status === 'confirm' ? <><CheckIcon width={20} height={20} fill={'#00ff00'}/>予約確定</> : '確定待ち'}</span>
                         </Col>
                       </Row>                    
                     </ListGroup.Item>
