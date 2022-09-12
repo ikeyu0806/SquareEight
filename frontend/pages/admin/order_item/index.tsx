@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Card } from 'react-bootstrap'
+import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
@@ -38,23 +38,26 @@ const Index: NextPage = () => {
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
-            <Card>
-              <Card.Header>注文管理</Card.Header>
-              <Card.Body>
-                <Row>
-                  <Col>
-                    {orderItems && orderItems.map((item, i) => {
-                      return (
-                        <span key={i}>
-                          購入者 {item.order_name}<br/>
-                          {item.product_name} ￥{item.price}
-                        </span>
-                      )
-                    })}
-                  </Col>
-                </Row>
-              </Card.Body>
-            </Card>
+            <h4>注文管理</h4>
+            <Row>
+              <Col>
+                {orderItems && orderItems.map((item, i) => {
+                  return (
+                    <ListGroup.Item key={i}>
+                      購入者 {item.order_name}<br/>
+                      {item.product_name} ￥{item.price}
+                      {item.item_type === 'Product'
+                       &&
+                       <>
+                        <div className='mt10'>郵送先</div>
+                        <div>〒{item.postal_code}</div>
+                        <div>{item.address}</div>
+                       </>}
+                    </ListGroup.Item>
+                  )
+                })}
+              </Col>
+            </Row>
           </Col>
         </Row>
       </Container>

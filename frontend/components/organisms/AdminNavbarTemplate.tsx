@@ -49,6 +49,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/product/'>物販商品</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/monthly_payment/'>月額課金プラン</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/ticket'>回数券</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/order_item'>注文管理</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='顧客管理' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/customer'>顧客</NavDropdown.Item>
