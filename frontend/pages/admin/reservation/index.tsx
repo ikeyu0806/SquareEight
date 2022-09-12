@@ -15,10 +15,11 @@ const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [reservations, setReservatons] = useState<ReservationParam[]>([])
   const date = new Date()
-  const [targetDate, setTargetDate] = useState(getZeroPaddingDate())
+  const [targetStartDate, setTargetStartDate] = useState(getZeroPaddingDate())
+  const [targetEndDate, setTargetEndDate] = useState(getZeroPaddingDate())
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/account/reservations?target_date=${targetDate}`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/account/reservations?target_start_date=${targetStartDate}&target_end_date=${targetEndDate}`,
     {
       headers: {
         'Session-Id': cookies._square_eight_merchant_session
@@ -29,7 +30,7 @@ const Index: NextPage = () => {
     }).catch((error) => {
       console.log(error)
     })
-  }, [cookies._square_eight_merchant_session])
+  }, [cookies._square_eight_merchant_session, targetStartDate, targetEndDate])
 
   const updateReservationStatus = (reservationId: string, reservationStatus: string) => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/${reservationId}/update_status`,
@@ -66,10 +67,21 @@ const Index: NextPage = () => {
             <Col lg={3}></Col>
             <Col lg={6}>
               <Form.Label>対象日付</Form.Label>
-              <Form.Control
-                onChange={(e) => setTargetDate(e.target.value)}
-                type='date'
-                value={targetDate}></Form.Control>
+              <Row>
+                <Col>
+                  <Form.Control
+                    onChange={(e) => setTargetStartDate(e.target.value)}
+                    type='date'
+                    value={targetStartDate}></Form.Control>
+                </Col>
+                ~
+                <Col>
+                  <Form.Control
+                    onChange={(e) => setTargetEndDate(e.target.value)}
+                    type='date'
+                    value={targetEndDate}></Form.Control>
+                </Col>
+              </Row>
               &emsp;
               {reservations && reservations.map((reservation, i) => {
                 return (

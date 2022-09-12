@@ -2,9 +2,10 @@ class Api::Internal::Account::ReservationsController < ApplicationController
   before_action :merchant_login_only!
 
   def index
-    target_date = Time.parse(params[:target_date])
+    target_start_date = Time.parse(params[:target_start_date])
+    target_end_date = Time.parse(params[:target_end_date])
     reservations = current_merchant_user
-                   .reservations.where(start_at: target_date.beginning_of_day..target_date.end_of_day)
+                   .reservations.where(start_at: target_start_date.beginning_of_day..target_end_date.end_of_day)
                    .order(start_at: :desc)
                    .to_json(methods: [:reserve_frame_title,
                                       :display_reservation_datetime,
