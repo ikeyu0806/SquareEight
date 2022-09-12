@@ -3,7 +3,7 @@ class Api::Internal::Account::ReservationsController < ApplicationController
 
   def index
     reservations = current_merchant_user
-                   .reservations
+                   .reservations.order(start_at: :desc)
                    .to_json(methods: [:reserve_frame_title,
                                       :display_reservation_datetime,
                                       :display_payment_method,

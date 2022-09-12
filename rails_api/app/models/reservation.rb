@@ -10,7 +10,7 @@ class Reservation < ApplicationRecord
   end
 
   def display_reservation_datetime
-    start_at.strftime("%Y年%m月 %H時%M分~") + end_at.strftime("%H時%M分")
+    start_at.strftime("%Y年%m月%d日 %H時%M分~") + end_at.strftime("%H時%M分")
   end
 
   def display_payment_method
