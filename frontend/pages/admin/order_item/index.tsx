@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { OrderItemParam } from 'interfaces/OrderItemParam'
 import axios from 'axios'
+import OrderItemTypeBadge from 'components/atoms/OrderItemTypeBadge'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -45,7 +46,9 @@ const Index: NextPage = () => {
                   return (
                     <ListGroup.Item key={i}>
                       購入者 {item.order_name}<br/>
-                      {item.product_name} ￥{item.price}
+                      {item.product_name} <OrderItemTypeBadge itemType={item.item_type}/><br/>
+                      ￥{item.price}<br/>
+                      購入数 {item.quantity}
                       {item.item_type === 'Product'
                        &&
                        <>
