@@ -10,7 +10,8 @@ class Api::Internal::Account::ReservationsController < ApplicationController
                                       :display_status,
                                       :ticket_master_name,
                                       :monthly_payment_plan_name,
-                                      :customer_name])
+                                      :customer_name,
+                                      :reception_type])
     reservations = JSON.parse(reservations)
     render json: { status: 'success', reservations: reservations }, states: 200
   rescue => error

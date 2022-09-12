@@ -56,4 +56,8 @@ class Reservation < ApplicationRecord
       '名前が登録されていません'
     end
   end
+
+  def reception_type
+    reserve_frame.reception_type
+  end
 end

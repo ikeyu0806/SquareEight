@@ -12,4 +12,6 @@ export interface ReservationParam {
   monthly_payment_plan_name: string
   ticket_consume_number: number
   customer_name: string
+  status: string
+  reception_type: string
 }
