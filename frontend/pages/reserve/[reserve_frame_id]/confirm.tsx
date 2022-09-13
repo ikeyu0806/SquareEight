@@ -6,6 +6,7 @@ import { paymentMethodText } from 'functions/paymentMethodText'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
+import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import {  navbarBrandTextChanged,
@@ -23,6 +24,7 @@ const PaymentMethod: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [selectedDate] = useState(String(router.query.date).split('-'))
   const [isCompleteReservation, setIsCompleteReservation] = useState(false)
+  const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>()
 
   useEffect(() => {
     const fetchReserveFrame = () => {
@@ -31,6 +33,7 @@ const PaymentMethod: NextPage = () => {
       )
       .then(function (response) {
         console.log(response.data.reserve_frame)
+        setReserveFrame(response.data.reserve_frame)
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
