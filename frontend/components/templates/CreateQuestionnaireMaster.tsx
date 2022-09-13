@@ -1,14 +1,15 @@
 import React from 'react'
 import PlusCircleIcon from 'components/atoms/PlusCircleIcon'
 import RequireBadge from 'components/atoms/RequireBadge'
-import { Form } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 import { FORM_TYPE } from 'constants/formType'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import UpdateQuestionnaireStateIcons from 'components/organisms/UpdateQuestionnaireStateIcons'
 import { titleChanged,
          descriptionChanged,
-         showAddFormModalChanged } from 'redux/questionnaireMasterSlice'
+         showAddFormModalChanged,
+         publishStatusChanged } from 'redux/questionnaireMasterSlice'
 
 const CreateQuestionnaireMaster = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -116,6 +117,23 @@ const CreateQuestionnaireMaster = (): JSX.Element => {
       <div className='text-center mt30 mb30'>
         <span className='mr10'>質問を追加</span>
         <a onClick={() => dispatch(showAddFormModalChanged(true))}><PlusCircleIcon width={40} height={40} fill={'#0000FF'} /></a>
+      </div>
+      <div>
+        <Row>
+          <Col>
+            <Form.Group className='mb-3'>
+              <Form.Label>公開設定</Form.Label>
+              <Form.Select placeholder='メニュー名' onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
+                <option value='Unpublish'>非公開</option>
+                <option value='Publish'>公開</option>
+              </Form.Select>
+            </Form.Group>
+          </Col>
+          <Col>
+          </Col>
+          <Col>
+          </Col>
+        </Row>
       </div>
     </>
   )

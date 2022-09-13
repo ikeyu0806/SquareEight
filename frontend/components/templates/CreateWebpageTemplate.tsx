@@ -1,10 +1,9 @@
 import React from 'react'
 import { Row, Col, Container, Form, Button } from 'react-bootstrap'
-import { webpageTagChanged } from 'redux/webpageSlice'
 import CreateBlockModal from 'components/organisms/CreateBlockModal'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { showBlockModalChanged } from 'redux/webpageSlice'
+import { showBlockModalChanged, publishStatusChanged, webpageTagChanged } from 'redux/webpageSlice'
 import PlusCircleIcon from 'components/atoms/PlusCircleIcon'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
@@ -70,6 +69,23 @@ const CreateWebpageTemplate = ({showDeleteButton}: Props): JSX.Element => {
                           onChange={(e) => dispatch(webpageTagChanged(e.target.value))}
                           value={webpageTag} />
           </Form.Group>
+        </div>
+        <div>
+          <Row>
+            <Col>
+              <Form.Group className='mb-3'>
+                <Form.Label>公開設定</Form.Label>
+                <Form.Select placeholder='メニュー名' onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
+                  <option value='Unpublish'>非公開</option>
+                  <option value='Publish'>公開</option>
+                </Form.Select>
+              </Form.Group>
+            </Col>
+            <Col>
+            </Col>
+            <Col>
+            </Col>
+          </Row>
         </div>
         <hr />
         <RenderWebpage editPage={true}></RenderWebpage>

@@ -8,6 +8,7 @@ import { nameChanged,
          priceChanged,
          effectiveMonthChanged,
          descriptionChanged,
+         publishStatusChanged,
          base64ImageChanged } from 'redux/ticketMasterSlice'
 
 const CreateTicketTemplate = (): JSX.Element => {
@@ -71,6 +72,21 @@ const CreateTicketTemplate = (): JSX.Element => {
                 placeholder=''
                 aria-label='' />
               </Form.Group>
+              <Row>
+                <Col>
+                  <Form.Group className='mb-3'>
+                    <Form.Label>公開設定</Form.Label>
+                    <Form.Select placeholder='メニュー名' onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
+                      <option value='Unpublish'>非公開</option>
+                      <option value='Publish'>公開</option>
+                    </Form.Select>
+                  </Form.Group>
+                </Col>
+                <Col>
+                </Col>
+                <Col>
+                </Col>
+              </Row>
               {image && <img
                 className='d-block w-100 mt30'
                 src={image}
