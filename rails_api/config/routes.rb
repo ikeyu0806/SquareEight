@@ -76,6 +76,7 @@ Rails.application.routes.draw do
       get 'resources/:id/edit', to: 'resources#edit'
       get 'resources', to: 'resources#index'
       post 'resources', to: 'resources#create'
+      post 'resources/:id/update', to: 'resources#update'
       post 'inquiry', to: 'inquiry#send_mail_to_admin'
       get 'reserve_frames/reserve_events', to: 'reserve_frames#reserve_events'
       get 'reserve_frames/settable_relation_data', to: 'reserve_frames#settable_relation_data'

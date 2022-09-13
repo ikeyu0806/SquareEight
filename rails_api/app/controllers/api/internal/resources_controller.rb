@@ -22,6 +22,14 @@ class Api::Internal::ResourcesController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def update
+    resource = Resource.find(params[:id])
+    resource.update!(resource_params)
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def resource_params

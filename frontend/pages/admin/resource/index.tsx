@@ -47,6 +47,10 @@ const Index: NextPage = () => {
                   <Row>
                     <Col>リソース名: {resource.name}</Col>
                     <Col>数量: {resource.quantity}</Col>
+                    <Col>
+                      <a className='btn btn-primary'
+                         href={`/admin/resource/${resource.id}/edit`}>編集</a>
+                    </Col>
                   </Row>
                 </ListGroup.Item>
               )
