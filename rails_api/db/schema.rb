@@ -364,17 +364,18 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_130529) do
   end
 
   create_table "stripe_payment_intents", force: :cascade do |t|
-    t.integer "amount"
-    t.string "currency"
-    t.string "stripe_payment_method_id"
-    t.string "stripe_customer_id"
-    t.integer "application_fee_amount"
-    t.string "order_date"
+    t.integer "amount", null: false
+    t.string "currency", default: "jpy"
+    t.string "stripe_payment_method_id", null: false
+    t.string "stripe_customer_id", null: false
+    t.integer "application_fee_amount", null: false
+    t.string "order_date", null: false
     t.integer "account_id"
     t.integer "product_id"
     t.integer "ticket_master_id"
-    t.integer "type"
+    t.integer "type", null: false
     t.integer "end_user_id"
+    t.integer "payer_type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
