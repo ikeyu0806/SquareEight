@@ -35,44 +35,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_012310) do
     t.datetime "deleted_at"
   end
 
-  create_table "business_hours", force: :cascade do |t|
-    t.integer "account_id", null: false
-    t.time "mon_start"
-    t.time "mon_end"
-    t.time "tue_start"
-    t.time "tue_end"
-    t.time "wed_start"
-    t.time "wed_end"
-    t.time "thu_start"
-    t.time "thu_end"
-    t.time "fri_start"
-    t.time "fri_end"
-    t.time "sat_start"
-    t.time "sat_end"
-    t.time "sun_start"
-    t.time "sun_end"
-    t.time "holiday_start"
-    t.time "holiday_end"
-    t.time "mon_break_start"
-    t.time "mon_break_end"
-    t.time "tue_break_start"
-    t.time "tue_break_end"
-    t.time "wed_break_start"
-    t.time "wed_break_end"
-    t.time "thu_break_start"
-    t.time "thu_break_end"
-    t.time "fri_break_start"
-    t.time "fri_break_end"
-    t.time "sat_break_start"
-    t.time "sat_break_end"
-    t.time "sun_break_start"
-    t.time "sun_break_end"
-    t.time "holiday_break_start"
-    t.time "holiday_break_end"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "cart_monthly_payment_plans", force: :cascade do |t|
     t.integer "account_id"
     t.integer "end_user_id"
@@ -427,24 +389,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_012310) do
     t.string "navbar_brand_background_color", default: "light"
     t.string "navbar_brand_variant_color", default: "light"
     t.string "footer_copyright_text", default: "SquareEight"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "special_business_hours", force: :cascade do |t|
-    t.integer "account_id"
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.string "manage_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "special_holidays", force: :cascade do |t|
-    t.integer "account_id"
-    t.datetime "start_at"
-    t.datetime "end_at"
-    t.string "manage_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

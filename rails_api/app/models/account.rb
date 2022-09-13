@@ -1,7 +1,6 @@
 class Account < ApplicationRecord
   enum service_plan: { Free: 0, Light: 1, Standard: 2, Premium: 3 }
 
-  has_one :business_hour
   has_one :shared_component
   has_many :merchant_users, dependent: :destroy
   has_many :webpages
@@ -18,8 +17,6 @@ class Account < ApplicationRecord
   has_many :questionnaire_masters
   has_many :questionnaire_answers, through: :customers
   has_many :message_templates
-  has_many :special_business_hours
-  has_many :special_holidays
   has_many :account_notifications
 
   # プランごとの設定

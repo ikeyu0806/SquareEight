@@ -76,7 +76,6 @@ Rails.application.routes.draw do
       get 'resources/:id/edit', to: 'resources#edit'
       get 'resources', to: 'resources#index'
       post 'resources', to: 'resources#create'
-      post 'business_hours/register', to: 'business_hours#register'
       post 'inquiry', to: 'inquiry#send_mail_to_admin'
       get 'reserve_frames/reserve_events', to: 'reserve_frames#reserve_events'
       get 'reserve_frames/settable_relation_data', to: 'reserve_frames#settable_relation_data'
@@ -123,10 +122,6 @@ Rails.application.routes.draw do
       post 'message_templates/send_mail', to: 'message_templates#send_mail'
       post 'message_templates/:id', to: 'message_templates#update'
       post 'message_templates', to: 'message_templates#create'
-      get 'special_business_hours', to: 'special_business_hours#index'
-      post 'special_business_hours', to: 'special_business_hours#create'
-      get 'special_holidays', to: 'special_holidays#index'
-      post 'special_holidays', to: 'special_holidays#create'
       get 'shared_components', to: 'shared_components#show'
       post 'shared_components/register', to: 'shared_components#register'
       namespace :merchant do
