@@ -20,6 +20,7 @@ const New: NextPage = () => {
   const description = useSelector((state: RootState) => state.product.description)
   const taxRate = useSelector((state: RootState) => state.product.taxRate)
   const inventory = useSelector((state: RootState) => state.product.inventory)
+  const publishStatus = useSelector((state: RootState) => state.product.publishStatus)
   const base64Image = useSelector((state: RootState) => state.product.base64Image)
   const applyProductType = useSelector((state: RootState) => state.product.applyProductType)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
@@ -47,6 +48,7 @@ const New: NextPage = () => {
         description: description,
         tax_rate: taxRate,
         inventory: inventory,
+        publish_status: publishStatus,
         base64_image: base64Image,
         product_types: applyProductType ? productTypes : []
       }
