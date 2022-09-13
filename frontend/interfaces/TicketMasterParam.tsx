@@ -5,5 +5,6 @@ export interface TicketMasterParam {
   price: number
   effective_month: number
   description: string
+  publish_status: string
   s3_object_public_url?: string
 }

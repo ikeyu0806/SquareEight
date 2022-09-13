@@ -7,6 +7,7 @@ export interface WebpageParam {
   path: string
   content: string
   is_top_page: boolean
+  publish_status: string
   block_contents: PageContentState[]
   header_json?: WebsiteHeaderType
   footer_json?: WebsiteFooterType

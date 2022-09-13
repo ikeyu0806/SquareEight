@@ -7,6 +7,7 @@ export interface ProductParam {
   inventory: number
   s3_object_public_url: number
   show_product_type_form: boolean
+  publish_status: string
   product_types: ProductType[]
 }
 
