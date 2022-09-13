@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_13_022026) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_13_130529) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -359,6 +359,22 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_022026) do
     t.string "navbar_brand_background_color", default: "light"
     t.string "navbar_brand_variant_color", default: "light"
     t.string "footer_copyright_text", default: "SquareEight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "stripe_payment_intents", force: :cascade do |t|
+    t.integer "amount"
+    t.string "currency"
+    t.string "stripe_payment_method_id"
+    t.string "stripe_customer_id"
+    t.integer "application_fee_amount"
+    t.string "order_date"
+    t.integer "account_id"
+    t.integer "product_id"
+    t.integer "ticket_master_id"
+    t.integer "type"
+    t.integer "end_user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
