@@ -56,6 +56,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
           .permit(:id,
                   :title,
                   :description,
+                  :publish_status,
                   question_form_json: [:question,
                                        :formType,
                                        :textFormRowCount,

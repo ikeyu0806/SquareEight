@@ -106,6 +106,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
                                                   :reserve_interval_number,
                                                   :reserve_interval_unit,
                                                   :enable_reserve_count,
+                                                  :publish_status,
                                                   :base64_image,
                                                   :purchase_quantity)
   end

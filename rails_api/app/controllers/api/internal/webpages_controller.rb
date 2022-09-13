@@ -69,6 +69,7 @@ class Api::Internal::WebpagesController < ApplicationController
     params.require(:webpage)
     .permit(:id,
             :tag,
+            :publish_status,
             page_content: [blockContent: [:blockID,
                                           :sortOrder,
                                           atoms: [

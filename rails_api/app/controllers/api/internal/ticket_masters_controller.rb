@@ -93,6 +93,7 @@ class Api::Internal::TicketMastersController < ApplicationController
                   :price,
                   :effective_month,
                   :description,
+                  :publish_status,
                   :base64_image,
                   :purchase_quantity)
   end

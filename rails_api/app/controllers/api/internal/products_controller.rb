@@ -135,6 +135,7 @@ class Api::Internal::ProductsController < ApplicationController
                   :line1,
                   :line2,
                   :phone_number,
+                  :publish_status,
                   product_types: [:name, :inventory])
   end
 end
