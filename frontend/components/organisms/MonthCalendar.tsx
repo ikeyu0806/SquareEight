@@ -116,8 +116,9 @@ const MonthCalendar = (): JSX.Element => {
   return (
     <>
       <Container className={calendarStyles.calendar}>
-    
-        <Row>
+        {reserveFrame?.publish_status === 'Unpublish' &&
+        <div className='text-center'>非公開です</div>}
+        {reserveFrame?.publish_status === 'Publish' && <Row>
           <Col lg={2}></Col>
           <Col lg={8}>
             <Row>
@@ -166,7 +167,7 @@ const MonthCalendar = (): JSX.Element => {
             </table>
           </Col>
           <Col lg={2}></Col>
-        </Row>
+        </Row>}
       </Container>
     </>
   )

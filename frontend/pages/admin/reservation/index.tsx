@@ -66,6 +66,7 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
+              <h4 className='mb20'>予約一覧</h4>
               <Form.Label>対象日付</Form.Label>
               <Row>
                 <Col>

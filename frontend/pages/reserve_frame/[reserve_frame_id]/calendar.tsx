@@ -7,7 +7,7 @@ const SetReserveCalendar: NextPage = () => {
   return (
     <>
       <MerchantCustomLayout>
-      &nbsp;
+        &nbsp;
         <Calendar></Calendar>
       </MerchantCustomLayout>
     </>
