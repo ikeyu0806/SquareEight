@@ -42,8 +42,6 @@ const Index: NextPage = () => {
             <thead>
               <tr>
                 <th className='text-center'>リソース名</th>
-                <th className='text-center'>月額料金</th>
-                <th className='text-center'>曜日別予約受付設定</th>
                 <th></th>
               </tr>
             </thead>
@@ -52,13 +50,7 @@ const Index: NextPage = () => {
               return (
                 <tr key={i}>
                   <td className='text-center'>{resource.name}</td>
-                  <td className='text-center'>{resource.quentity}</td>
-                  <td className='text-center'>{resourceReceptionTimeSettingText(resource.reception_time_setting)}</td>
-                  <td>
-                    <div className='text-center'>
-                      <a className='btn btn-primary' href={`/admin/resource/${resource.id}/edit`}>編集</a>
-                    </div>
-                  </td>
+                  <td className='text-center'>{resource.quantity}</td>
                 </tr>
               )
             })}
