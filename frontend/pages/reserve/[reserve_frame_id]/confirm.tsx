@@ -90,6 +90,9 @@ const PaymentMethod: NextPage = () => {
     <>
       <MerchantCustomLayout>
         <Container className='mt30'>
+          {reserveFrame?.publish_status === 'Unpublish' &&
+          <div className='text-center mt20'>非公開です</div>}
+          {reserveFrame?.publish_status === 'Publish' &&
           <Row>
             <Col lg={3} md={3}></Col>
             <Col lg={6} md={6}>
@@ -114,7 +117,7 @@ const PaymentMethod: NextPage = () => {
                 </Card.Body>
               </Card>
             </Col>
-          </Row>
+          </Row>}
         </Container>
       </MerchantCustomLayout>
     </>

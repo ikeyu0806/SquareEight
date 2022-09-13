@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
-import CommonNavbar from 'components/organisms/CommonNavbar'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
@@ -73,6 +72,9 @@ const Index: NextPage = () => {
   return (
     <MerchantCustomLayout>
       <Container>
+        {reserveFrame?.publish_status === 'Unpublish' &&
+          <div className='text-center mt20'>非公開です</div>}
+        {reserveFrame?.publish_status === 'Publish' &&
         <Row className='mt20'>
           <Col lg={3} md={3}></Col>
           <Col lg={6} md={6}>
@@ -199,7 +201,7 @@ const Index: NextPage = () => {
             </Card>
           </Col>
           <Col></Col>
-        </Row>
+        </Row>}
       </Container>
     </MerchantCustomLayout>
   )

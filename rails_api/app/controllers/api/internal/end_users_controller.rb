@@ -59,6 +59,7 @@ class Api::Internal::EndUsersController < ApplicationController
                    purchased_ticket_ids: purchased_ticket_ids,
                    is_subscribe_plan: is_subscribe_plan,
                    is_purchase_ticket: is_purchase_ticket,
+                   publish_status: reserve_frame.publish_status,
                    login_status: login_status }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

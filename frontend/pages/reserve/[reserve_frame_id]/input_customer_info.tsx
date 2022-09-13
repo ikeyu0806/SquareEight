@@ -27,6 +27,7 @@ const Index: NextPage = () => {
   const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
+  const [publishStatus, setPublishStatus] = useState('')
   const [isCompleteReservation, setIsCompleteReservation] = useState(false)
   const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const dispatch = useDispatch()
@@ -46,6 +47,7 @@ const Index: NextPage = () => {
     }).then((response) => {
       console.log(response.data)
       dispatch(loginStatusChanged('Login'))
+      setPublishStatus(response.data.publish_status || '')
       setDefaultPaymentMethodId(response.data.default_payment_method_id)
       setPaymentMethods(response.data.payment_methods)
       setSubscribePlanIds(response.data.subscribe_plan_ids)
@@ -55,7 +57,6 @@ const Index: NextPage = () => {
       setFirstName(response.data.end_user.first_name || '')
       setEmail(response.data.end_user.email || '')
       setPhoneNumber(response.data.end_user.phone_number || '')
-
       // ヘッダ、フッタ
       dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
       dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
@@ -156,7 +157,9 @@ const Index: NextPage = () => {
     <>
       <MerchantCustomLayout>
         <Container className='mt30'>
-          <Row>
+          {publishStatus === 'Unpublish' &&
+            <div className='text-center mt20'>非公開です</div>}
+          {publishStatus === 'Publish' && <Row>
             <Col lg={3} md={3}></Col>
             <Col lg={6} md={6}>
               <Card>
@@ -242,7 +245,7 @@ const Index: NextPage = () => {
                 </Card.Body>
               </Card>
             </Col>
-          </Row>
+          </Row>}
         </Container>
       </MerchantCustomLayout>
     </>
