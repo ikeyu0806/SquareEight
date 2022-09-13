@@ -17,6 +17,7 @@ const New: NextPage = () => {
   const questionnaireMasterItems = useSelector((state: RootState) => state.questionnaireMaster.questionnaireMasterItems)
   const title = useSelector((state: RootState) => state.questionnaireMaster.title)
   const description = useSelector((state: RootState) => state.questionnaireMaster.description)
+  const publishStatus = useSelector((state: RootState) => state.questionnaireMaster.publishStatus)
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const validateSubmit = () => {
@@ -32,6 +33,7 @@ const New: NextPage = () => {
       questionnaire_master: {
         title: title,
         description: description,
+        publish_status: publishStatus,
         question_form_json: questionnaireMasterItems
       }
     },

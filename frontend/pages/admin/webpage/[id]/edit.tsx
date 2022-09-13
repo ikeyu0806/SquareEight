@@ -17,6 +17,7 @@ const Edit: NextPage = () => {
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
   const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
+  const publishStatus = useSelector((state: RootState) => state.webpage.publishStatus)
 
   useEffect(() => {
     const fetchWebpage = () => {
@@ -47,6 +48,7 @@ const Edit: NextPage = () => {
         id: router.query.id,
         page_content: pageContent,
         tag: webpageTag,
+        publish_status: publishStatus
       }
     },
     {

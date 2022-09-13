@@ -20,6 +20,7 @@ const New: NextPage = () => {
   const price = useSelector((state: RootState) => state.ticketMaster.price)
   const effectiveMonth = useSelector((state: RootState) => state.ticketMaster.effectiveMonth)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
+  const publishStatus = useSelector((state: RootState) => state.ticketMaster.publishStatus)
   const base64Image = useSelector((state: RootState) => state.ticketMaster.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
@@ -32,6 +33,7 @@ const New: NextPage = () => {
         price: price,
         effective_month: effectiveMonth,
         description: description,
+        publish_status: publishStatus,
         base64_image: base64Image
       }
     },

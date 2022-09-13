@@ -31,7 +31,7 @@ const Edit: NextPage = () => {
   const taxRate = useSelector((state: RootState) => state.product.taxRate)
   const inventory = useSelector((state: RootState) => state.product.inventory)
   const base64Image = useSelector((state: RootState) => state.product.base64Image)
-  const s3ObjectPublicUrl = useSelector((state: RootState) => state.product.s3ObjectPublicUrl)
+  const publishStatus = useSelector((state: RootState) => state.product.publishStatus)
   const applyProductType = useSelector((state: RootState) => state.product.applyProductType)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
@@ -86,6 +86,7 @@ const Edit: NextPage = () => {
         description: description,
         tax_rate: taxRate,
         inventory: inventory,
+        publish_tatus: publishStatus,
         base64_image: base64Image,
         product_types: applyProductType ? productTypes : []
       }

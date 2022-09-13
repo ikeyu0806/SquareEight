@@ -23,6 +23,7 @@ const New: NextPage = () => {
   const reserveIntervalUnit = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalUnit)
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
+  const publishStatus = useSelector((state: RootState) => state.monthlyPaymentPlan.publishStatus)
   const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
@@ -37,6 +38,7 @@ const New: NextPage = () => {
         reserve_interval_unit: reserveIntervalUnit,
         enable_reserve_count: enableReserveCount,
         description: description,
+        publish_status: publishStatus,
         base64_image: base64Image
       }
     },

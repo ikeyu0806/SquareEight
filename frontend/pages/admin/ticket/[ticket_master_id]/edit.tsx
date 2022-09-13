@@ -24,6 +24,7 @@ const Edit: NextPage = () => {
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
+  const publishStatus = useSelector((state: RootState) => state.ticketMaster.publishStatus)
   const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
@@ -59,6 +60,7 @@ const Edit: NextPage = () => {
         issue_number: issueNumber,
         price: price,
         description: description,
+        publish_status: publishStatus,
         base64_image: base64Image
       }
     },

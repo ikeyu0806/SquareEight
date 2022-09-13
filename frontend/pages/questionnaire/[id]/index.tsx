@@ -222,6 +222,7 @@ const Index: NextPage = () => {
   return (
     <MerchantCustomLayout>
       <Container>
+      &nbsp;
       {publishStatus === 'Unpublish' &&
         <div className='text-center'>非公開です</div>}
         {publishStatus === 'Publish' && 

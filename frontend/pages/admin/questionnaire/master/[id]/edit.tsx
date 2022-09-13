@@ -18,10 +18,10 @@ import { titleChanged,
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
-  const currentMaxSortOrder = useSelector((state: RootState) => state.questionnaireMaster.currentMaxSortOrder)
   const questionnaireMasterItems = useSelector((state: RootState) => state.questionnaireMaster.questionnaireMasterItems)
   const title = useSelector((state: RootState) => state.questionnaireMaster.title)
   const description = useSelector((state: RootState) => state.questionnaireMaster.description)
+  const publishStatus = useSelector((state: RootState) => state.questionnaireMaster.publishStatus)
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   useEffect(() => {
@@ -54,6 +54,7 @@ const Edit: NextPage = () => {
         id: id,
         title: title,
         description: description,
+        publish_status: publishStatus,
         question_form_json: questionnaireMasterItems
       }
     },
