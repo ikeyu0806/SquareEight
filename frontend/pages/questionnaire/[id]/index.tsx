@@ -7,7 +7,6 @@ import { QuestionnaireMasterItem } from 'interfaces/QuestionnaireMasterItem'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { FORM_TYPE } from 'constants/formType'
-import { alertChanged } from 'redux/alertSlice'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { Card, Row, Col, Container, Button, Form } from 'react-bootstrap'
 import {  navbarBrandTextChanged,
@@ -29,6 +28,7 @@ const Index: NextPage = () => {
   const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
   const [phoneNumber, setPhoneNumber] = useState('')
+  const [publishStatus, setPublishStatus] = useState('')
   const [questionnaireMasterItems, setQuestionnaireMasterItems] = useState<QuestionnaireMasterItem[]>([])
 
   const questionnaireMasterItemsQuestionRefs = useRef<any>([])
@@ -48,6 +48,7 @@ const Index: NextPage = () => {
       setTitle(response.data.questionnaire_master.title)
       setDescription(response.data.questionnaire_master.description)
       setQuestionnaireMasterItems(response.data.questionnaire_master.parse_question_form_json)
+      setPublishStatus(response.data.questionnaire_master.publish_status)
       dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
       dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
       dispatch((navbarBrandImageChanged(response.data.shared_component.navbar_brand_image_s3_object_public_url)))
@@ -221,6 +222,9 @@ const Index: NextPage = () => {
   return (
     <MerchantCustomLayout>
       <Container>
+      {publishStatus === 'Unpublish' &&
+        <div className='text-center'>非公開です</div>}
+        {publishStatus === 'Publish' && 
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
@@ -343,7 +347,7 @@ const Index: NextPage = () => {
               </Card.Body>
             </Card>
           </Col>
-          </Row>
+          </Row>}
       </Container>
     </MerchantCustomLayout>
   )

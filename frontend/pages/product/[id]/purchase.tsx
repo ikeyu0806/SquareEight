@@ -21,6 +21,7 @@ import { nameChanged,
          descriptionChanged,
          productTypesChanged,
          showProductTypeFormChanged,
+         publishStatusChanged,
          s3ObjectPublicUrlChanged } from 'redux/productSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
@@ -43,6 +44,7 @@ const Purchase: NextPage = () => {
   const taxRate = useSelector((state: RootState) => state.product.taxRate)
   const inventory = useSelector((state: RootState) => state.product.inventory)
   const description = useSelector((state: RootState) => state.product.description)
+  const publishStatus = useSelector((state: RootState) => state.product.publishStatus)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.product.s3ObjectPublicUrl)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
   const showProductTypeForm = useSelector((state: RootState) => state.product.showProductTypeForm)
@@ -77,6 +79,7 @@ const Purchase: NextPage = () => {
         dispatch(taxRateChanged(productResponse.tax_rate))
         dispatch(inventoryChanged(productResponse.inventory))
         dispatch(descriptionChanged(productResponse.description))
+        dispatch(publishStatusChanged(productResponse.publish_status))
         dispatch(s3ObjectPublicUrlChanged(productResponse.s3_object_public_url))
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
@@ -212,6 +215,9 @@ const Purchase: NextPage = () => {
     <MerchantCustomLayout>
       &thinsp;
       <Container>
+      {publishStatus === 'Unpublish' &&
+        <div className='text-center'>非公開です</div>}
+        {publishStatus === 'Publish' && 
         <Row>
           <Col lg={3} md={1}></Col>
           <Col lg={6} md={10}>
@@ -334,7 +340,7 @@ const Purchase: NextPage = () => {
               </Card.Body>
             </Card>
           </Col>
-        </Row>
+        </Row>}
       </Container>
     </MerchantCustomLayout>
   )

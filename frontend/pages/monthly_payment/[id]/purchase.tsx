@@ -18,6 +18,7 @@ import { priceChanged,
          reserveIntervalUnitChanged,
          enableReserveCountChanged,
          descriptionChanged,
+         publishStatusChanged,
          s3ObjectPublicUrlChanged } from 'redux/monthlyPaymentPlanSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
@@ -38,6 +39,7 @@ const Purchase: NextPage = () => {
   const reserveIntervalNumber = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalNumber)
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
+  const publishStatus = useSelector((state: RootState) => state.monthlyPaymentPlan.publishStatus)
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const defaultPaymentMethodId = useSelector((state: RootState) => state.currentEndUser.defaultPaymentMethodId)
   const paymentMethods = useSelector((state: RootState) => state.currentEndUser.paymentMethods)
@@ -61,6 +63,7 @@ const Purchase: NextPage = () => {
         dispatch(enableReserveCountChanged(monthlyPaymentPlanResponse.enable_reserve_count))
         dispatch(descriptionChanged(monthlyPaymentPlanResponse.description))
         dispatch(s3ObjectPublicUrlChanged(monthlyPaymentPlanResponse.s3_object_public_url))
+        dispatch(publishStatusChanged(monthlyPaymentPlanResponse.publish_status))
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
@@ -133,6 +136,9 @@ const Purchase: NextPage = () => {
     <>
       <MerchantCustomLayout>
         <Container>
+        {publishStatus === 'Unpublish' &&
+          <div className='text-center'>非公開です</div>}
+          {publishStatus === 'Publish' && 
           <Row>
             <Col lg={3} md={1}></Col>
             <Col lg={6} md={10}>
@@ -193,7 +199,7 @@ const Purchase: NextPage = () => {
               </Card.Body>
             </Card>
             </Col>
-          </Row>
+          </Row>}
         </Container>
       </MerchantCustomLayout>
     </>

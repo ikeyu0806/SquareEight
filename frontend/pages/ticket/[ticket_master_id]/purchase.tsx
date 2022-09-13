@@ -16,6 +16,7 @@ import { nameChanged,
          priceChanged,
          issueNumberChanged,
          descriptionChanged,
+         publishStatusChanged,
          s3ObjectPublicUrlChanged } from 'redux/ticketMasterSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
@@ -38,6 +39,7 @@ const Purchase: NextPage = () => {
   const price = useSelector((state: RootState) => state.ticketMaster.price)
   const effectiveMonth = useSelector((state: RootState) => state.ticketMaster.effectiveMonth)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
+  const publishStatus = useSelector((state: RootState) => state.ticketMaster.publishStatus)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.ticketMaster.s3ObjectPublicUrl)
   const [purchaseQuantitity, setPurchaseQuantitity] = useState(1)
 
@@ -57,6 +59,7 @@ const Purchase: NextPage = () => {
         dispatch(issueNumberChanged(ticketMasterResponse.issue_number))
         dispatch(descriptionChanged(ticketMasterResponse.description))
         dispatch(s3ObjectPublicUrlChanged(ticketMasterResponse.s3_object_public_url))
+        dispatch(publishStatusChanged(ticketMasterResponse.publish_status))
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
@@ -129,6 +132,9 @@ const Purchase: NextPage = () => {
     <>
       <MerchantCustomLayout>
         <Container>
+        {publishStatus === 'Unpublish' &&
+          <div className='text-center'>非公開です</div>}
+          {publishStatus === 'Publish' && 
           <Row>
             <Col lg={3} md={1}></Col>
             <Col lg={6} md={10}>
@@ -198,7 +204,7 @@ const Purchase: NextPage = () => {
                 </Card.Body>
               </Card>
             </Col>
-          </Row>
+          </Row>}
         </Container>
       </MerchantCustomLayout>
     </>
