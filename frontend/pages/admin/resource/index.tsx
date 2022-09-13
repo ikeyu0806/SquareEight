@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { Container, Table } from 'react-bootstrap'
+import { Container, ListGroup, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import { ResourceParam } from 'interfaces/ResourceParam'
 import { resourceReceptionTimeSettingText } from 'functions/resourceReceptionTimeSettingText'
@@ -38,24 +38,21 @@ const Index: NextPage = () => {
       <MerchantUserAdminLayout>
         <br />
         <Container>
-          <Table bordered>
-            <thead>
-              <tr>
-                <th className='text-center'>リソース名</th>
-                <th></th>
-              </tr>
-            </thead>
-            <tbody>
+          <Row>
+            <Col lg={3}></Col>
+            <Col lg={6}>
             {resources.map((resource, i) => {
               return (
-                <tr key={i}>
-                  <td className='text-center'>{resource.name}</td>
-                  <td className='text-center'>{resource.quantity}</td>
-                </tr>
+                <ListGroup.Item key={i}>
+                  <Row>
+                    <Col>リソース名: {resource.name}</Col>
+                    <Col>数量: {resource.quantity}</Col>
+                  </Row>
+                </ListGroup.Item>
               )
             })}
-            </tbody>
-          </Table>
+            </Col>
+          </Row>
         </Container>
       </MerchantUserAdminLayout>
     </>
