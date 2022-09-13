@@ -4,6 +4,8 @@ class QuestionnaireMaster < ApplicationRecord
 
   validates :title, presence: true
 
+  enum publish_status: { Unpublish: 0, Publish: 1 }
+
   def parse_question_form_json
     JSON.parse self.question_form_json.gsub("=>", ":").gsub(" ", "")
   end

@@ -3,6 +3,8 @@ class MonthlyPaymentPlan < ApplicationRecord
   belongs_to :account
   has_many :cart_monthly_payment_plans
 
+  enum publish_status: { Unpublish: 0, Publish: 1 }
+
   def reserve_interval_unit_text
     case self.reserve_interval_unit
     when 'Day'

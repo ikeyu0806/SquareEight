@@ -2,6 +2,8 @@ class Webpage < ApplicationRecord
   belongs_to :account
   has_many :webpage_blocks, dependent: :delete_all
 
+  enum publish_status: { Unpublish: 0, Publish: 1 }
+
   def create_webblocks(webpage_content_string)
     ActiveRecord::Base.transaction do
       webpage_content_json = JSON.parse(webpage_content_string.to_json)

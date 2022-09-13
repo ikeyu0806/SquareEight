@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_12_012310) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_13_022026) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -171,6 +171,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_012310) do
     t.string "s3_object_public_url"
     t.string "s3_object_name"
     t.string "stripe_plan_id"
+    t.integer "publish_status", default: 0
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -222,6 +223,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_012310) do
     t.string "s3_object_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "publish_status", default: 0
   end
 
   create_table "purchased_tickets", force: :cascade do |t|
@@ -249,6 +251,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_012310) do
     t.text "question_form_json"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "publish_status", default: 0
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -341,39 +344,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_012310) do
     t.integer "account_id", null: false
     t.string "name", null: false
     t.integer "quantity", null: false
-    t.integer "reception_time_setting"
-    t.time "mon_start"
-    t.time "mon_end"
-    t.time "tue_start"
-    t.time "tue_end"
-    t.time "wed_start"
-    t.time "wed_end"
-    t.time "thu_start"
-    t.time "thu_end"
-    t.time "fri_start"
-    t.time "fri_end"
-    t.time "sat_start"
-    t.time "sat_end"
-    t.time "sun_start"
-    t.time "sun_end"
-    t.time "holiday_start"
-    t.time "holiday_end"
-    t.time "mon_break_start"
-    t.time "mon_break_end"
-    t.time "tue_break_start"
-    t.time "tue_break_end"
-    t.time "wed_break_start"
-    t.time "wed_break_end"
-    t.time "thu_break_start"
-    t.time "thu_break_end"
-    t.time "fri_break_start"
-    t.time "fri_break_end"
-    t.time "sat_break_start"
-    t.time "sat_break_end"
-    t.time "sun_break_start"
-    t.time "sun_break_end"
-    t.time "holiday_break_start"
-    t.time "holiday_break_end"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -434,6 +404,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_012310) do
     t.string "s3_object_name"
     t.boolean "is_expired"
     t.integer "effective_month"
+    t.integer "publish_status", default: 0
   end
 
   create_table "unreservable_frames", force: :cascade do |t|
@@ -457,6 +428,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_12_012310) do
     t.string "tag", null: false, comment: "タグ"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "publish_status", default: 0
   end
 
 end
