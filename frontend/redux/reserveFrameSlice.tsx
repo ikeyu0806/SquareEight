@@ -25,7 +25,7 @@ export const reserveFrameSlice = createSlice({
     repeatEndDate: getZeroPaddingDate(),
     localPaymentPrice: 1000,
     creditCardPaymentPrice: 1000,
-    publishStatus: 'Unpublish',
+    publishStatus: '',
     receptionType: 'Immediate',
     receptionPhoneNumber: '',
     receptionStartDayBefore: 1,

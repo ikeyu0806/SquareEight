@@ -9,6 +9,7 @@ export const productSlice = createSlice({
     taxRate: 10,
     inventory: 1,
     description: '',
+    publishStatus: '',
     base64Image: null,
     s3ObjectPublicUrl: '',
     applyProductType: false,
@@ -21,6 +22,9 @@ export const productSlice = createSlice({
     },
     descriptionChanged: (state, action: PayloadAction<string>) => {
       state.description = action.payload
+    },
+    publishStatusChanged: (state, action: PayloadAction<string>) => {
+      state.publishStatus = action.payload
     },
     base64ImageChanged: (state, action: PayloadAction<any>) => {
       state.base64Image = action.payload
@@ -56,6 +60,7 @@ export const { s3ObjectPublicUrlChanged } = productSlice.actions
 export const { priceChanged } = productSlice.actions
 export const { taxRateChanged } = productSlice.actions
 export const { inventoryChanged } = productSlice.actions
+export const { publishStatusChanged } = productSlice.actions
 export const { applyProductTypeChanged } = productSlice.actions
 export const { showProductTypeFormChanged } = productSlice.actions
 export const { productTypesChanged } = productSlice.actions

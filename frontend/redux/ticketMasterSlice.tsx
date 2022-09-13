@@ -8,6 +8,7 @@ export const ticketMasterSlice = createSlice({
     issueNumber: 100,
     effectiveMonth: 12,
     description: '',
+    publishStatus: '',
     base64Image: null,
     s3ObjectPublicUrl: ''
   },
@@ -27,6 +28,9 @@ export const ticketMasterSlice = createSlice({
     descriptionChanged: (state, action: PayloadAction<string>) => {
       state.description = action.payload
     },
+    publishStatusChanged: (state, action: PayloadAction<string>) => {
+      state.publishStatus = action.payload
+    },
     base64ImageChanged: (state, action: PayloadAction<any>) => {
       state.base64Image = action.payload
     },
@@ -41,6 +45,7 @@ export const { priceChanged } = ticketMasterSlice.actions
 export const { issueNumberChanged } = ticketMasterSlice.actions
 export const { effectiveMonthChanged } = ticketMasterSlice.actions
 export const { descriptionChanged } = ticketMasterSlice.actions
+export const { publishStatusChanged } = ticketMasterSlice.actions
 export const { base64ImageChanged } = ticketMasterSlice.actions
 export const { s3ObjectPublicUrlChanged } = ticketMasterSlice.actions
 

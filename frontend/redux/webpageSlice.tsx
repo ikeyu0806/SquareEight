@@ -20,6 +20,7 @@ export const webpageSlice = createSlice({
     showAtomModal: false,
     currentMaxSortOrder: 0,
     webpageTag: '',
+    publishStatus: '',
     showEditHeaderModal: false,
     showEditFooterModal: false,
     websiteHeader: {} as WebsiteHeaderType,
@@ -62,6 +63,9 @@ export const webpageSlice = createSlice({
     webpageTagChanged: (state, action: PayloadAction<string>) => {
       state.webpageTag = action.payload
     },
+    publishStatusChanged: (state, action: PayloadAction<string>) => {
+      state.publishStatus = action.payload
+    },
     showEditHeaderModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showEditHeaderModal = action.payload
     },
@@ -93,5 +97,6 @@ export const { showEditHeaderModalChanged } = webpageSlice.actions
 export const { showEditFooterModalChanged } = webpageSlice.actions
 export const { websiteHeaderChanged } = webpageSlice.actions
 export const { websiteFooterChanged } = webpageSlice.actions
+export const { publishStatusChanged } = webpageSlice.actions
 
 export default webpageSlice.reducer
