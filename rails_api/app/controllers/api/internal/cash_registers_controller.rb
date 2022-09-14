@@ -136,7 +136,7 @@ class Api::Internal::CashRegistersController < ApplicationController
             payment_method_types: ['card'],
             payment_method: default_payment_method_id,
             customer: current_end_user.stripe_customer_id,
-            application_fee_amount: commission,
+            application_fee_amount: commission * cart[:quantity],
             metadata: {
               'order_date': current_date_text,
               'account_business_name': ticket_master.account.business_name,
@@ -153,6 +153,20 @@ class Api::Internal::CashRegistersController < ApplicationController
           })
           Stripe::PaymentIntent.confirm(
             payment_intent.id
+          )
+          # Postgreにも登録
+          StripePaymentIntent.create!(
+            amount: cart[:price],
+            stripe_payment_intent_id: payment_intent.id,
+            stripe_payment_method_id: default_payment_method_id,
+            stripe_customer_id: current_end_user.stripe_customer_id,
+            application_fee_amount: commission * cart[:quantity],
+            order_date: current_date_text,
+            account_id: ticket_master.account.id,
+            ticket_master_id: ticket_master.id,
+            end_user_id: current_end_user.id,
+            system_product_type: 'TicketMaster',
+            payer_type: 'EndUser'
           )
           order.order_items.new(item_type: 'TicketMaster',
                                 ticket_master_id: ticket_master.id,
