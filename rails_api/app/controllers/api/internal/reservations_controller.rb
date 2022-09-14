@@ -17,6 +17,27 @@ class Api::Internal::ReservationsController < ApplicationController
         reservation_count = resource.reservations.where(start_at: start_datetime, end_at: end_datetime).count
         raise '定員オーバです' if quantity <= reservation_count
       end
+      # 顧客ID登録
+      # 同じ携帯電話番号の顧客データがなければ作成
+      if current_end_user.present?
+        # 顧客データ作成
+        customer = Customer.new(account_id: reserve_frame.account_id, end_user_id: current_end_user.id)
+        customer.last_name = reservation_params[:last_name]
+        customer.first_name = reservation_params[:first_name]
+        customer.email = reservation_params[:email]
+        customer.phone_number = reservation_params[:phone_number]
+        customer.end_user_id = current_end_user.id
+        customer.save!
+        # 一回別の変数に代入しないと更新できない
+        end_user = current_end_user
+        end_user.last_name = reservation_params[:last_name] if current_end_user.last_name.blank?
+        end_user.first_name = reservation_params[:first_name] if current_end_user.first_name.blank?
+        end_user.email = reservation_params[:email] if current_end_user.email.blank?
+        end_user.phone_number = reservation_params[:phone_number] if current_end_user.phone_number.blank?
+        end_user.save!
+      else
+        customer = reserve_frame.account.customers.find_by(phone_number: reservation_params[:phone_number])
+      end
       # 確定
       reservation = reserve_frame
       .reservations
@@ -24,6 +45,7 @@ class Api::Internal::ReservationsController < ApplicationController
                 price: reservation_params[:price],
                 start_at: start_datetime,
                 end_at: end_datetime,
+                customer_id: customer.id,
                 status: reserve_frame.reception_type == 'Immediate' ? 'confirm' : 'pendingVerifivation',
                 representative_first_name: reservation_params[:first_name],
                 representative_last_name: reservation_params[:last_name],
@@ -32,23 +54,6 @@ class Api::Internal::ReservationsController < ApplicationController
                 monthly_payment_plan_id: reservation_params[:monthly_payment_plan_id],
                 ticket_consume_number: reservation_params[:consume_number].to_i,
                 end_user_id: current_end_user.present? ? current_end_user.id : nil)
-
-
-      # 顧客ID登録
-      # 同じ携帯電話番号の顧客データがなければ作成
-      customer = reserve_frame.account.customers.find_by(phone_number: reservation_params[:phone_number])
-      if customer.blank?
-        customer = reserve_frame
-                   .account
-                   .customers
-                   .create!(first_name: reservation_params[:first_name],
-                            last_name: reservation_params[:last_name],
-                            email: reservation_params[:email],
-                            phone_number: reservation_params[:phone_number])
-        reservation.update!(customer_id: customer.id)
-      else
-        reservation.update!(customer_id: customer.id)
-      end
 
       # 支払い実行
       if reserve_frame.reception_type  == "Immediate" && reserve_frame.is_set_price?
@@ -70,9 +75,10 @@ class Api::Internal::ReservationsController < ApplicationController
             metadata: {
               'order_date': current_date_text,
               'account_business_name': reserve_frame.account.business_name,
-              'name': reserve_frame.title,
+              'purchase_product_name': reserve_frame.title,
               'price': reservation_params[:price],
-              'type': 'reservation'
+              'type': 'reservation',
+              'reserve_frame_id': reserve_frame.id
             },
             transfer_data: {
               destination: reserve_frame.account.stripe_account_id
@@ -84,7 +90,7 @@ class Api::Internal::ReservationsController < ApplicationController
           reservation.update!(stripe_payment_intent_id: payment_intent.id)
           # 注文データ作成
           order = current_end_user.orders.new
-          order.order_items.new(type: 'Product',
+          order.order_items.new(item_type: 'Reservation',
                                 account_id: reserve_frame.account.id,
                                 reservation_id: reservation.id,
                                 product_name: reserve_frame.title,
@@ -113,23 +119,6 @@ class Api::Internal::ReservationsController < ApplicationController
         end
       end
 
-      if current_end_user.present?
-        # 顧客データ作成
-        customer = current_end_user.customers.find_or_initialize_by(account_id: reserve_frame.account_id)
-        customer.last_name = reservation_params[:last_name]
-        customer.first_name = reservation_params[:first_name]
-        customer.email = reservation_params[:email]
-        customer.phone_number = reservation_params[:phone_number]
-        customer.end_user_id = current_end_user.id
-        customer.save!
-        # 一回別の変数に代入しないと更新できない
-        end_user = current_end_user
-        end_user.last_name = reservation_params[:last_name] if current_end_user.last_name.blank?
-        end_user.first_name = reservation_params[:first_name] if current_end_user.first_name.blank?
-        end_user.email = reservation_params[:email] if current_end_user.email.blank?
-        end_user.phone_number = reservation_params[:phone_number] if current_end_user.phone_number.blank?
-        end_user.save!
-      end
       # 通知作成
       # カスタマー向け
       if current_end_user.present?

@@ -10,10 +10,12 @@ class StripeWebhooksController < ApplicationController
       transfer_destination_account_id = stripe_params["data"]["object"]["transfer_data"]["destination"]
       product_id = stripe_params["data"]["object"]["metadata"]["product_id"]
       ticket_master_id = stripe_params["data"]["object"]["metadata"]["ticket_master_id"]
+      reserve_frame_id = stripe_params["data"]["object"]["metadata"]["reserve_frame_id"]
       order_date = stripe_params["data"]["object"]["metadata"]["order_date"]
       system_product_type = ''
       system_product_type = 'Product' if product_id.present?
       system_product_type = 'TicketMaster' if ticket_master_id.present?
+      system_product_type = 'Reservation' if reserve_frame_id.present?
 
       end_user = EndUser.find_by(stripe_customer_id: stripe_customer_id)
       account = Account.find_by(stripe_account_id: transfer_destination_account_id)
@@ -27,6 +29,7 @@ class StripeWebhooksController < ApplicationController
         transfer_destination_account_id: transfer_destination_account_id,
         ticket_master_id: ticket_master_id,
         product_id: product_id,
+        reserve_frame_id: reserve_frame_id,
         system_product_type: system_product_type,
         end_user_id: end_user.id,
         account_id: account.id

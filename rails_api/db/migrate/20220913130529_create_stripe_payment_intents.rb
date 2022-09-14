@@ -8,9 +8,12 @@ class CreateStripePaymentIntents < ActiveRecord::Migration[7.0]
       t.string :stripe_customer_id, null: false
       t.string :transfer_destination_account_id
       t.integer :application_fee_amount, null: false
+      t.string :purchase_product_name
       t.string :order_date
       t.integer :product_id
       t.integer :ticket_master_id
+      t.integer :reserve_frame_id
+      t.integer :monthly_payment_plan_id
       t.integer :system_product_type
       t.integer :end_user_id
       t.integer :account_id

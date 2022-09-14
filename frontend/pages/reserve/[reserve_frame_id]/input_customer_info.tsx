@@ -143,7 +143,7 @@ const Index: NextPage = () => {
   }
 
   const showCustomerFormValidate = () => {
-    if (String(router.query.payment_method) === 'localPayment') {
+    if (['localPayment', 'creditCardPayment'].includes(String(router.query.payment_method) )) {
       return true
     }
 

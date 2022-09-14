@@ -61,8 +61,9 @@ class Api::Internal::CashRegistersController < ApplicationController
             application_fee_amount: commission * cart[:quantity],
             metadata: {
               'order_date': current_date_text,
+              'product_id': product.id,
               'account_business_name': product.account.business_name,
-              'name': product.name,
+              'purchase_product_name': product.name,
               'price': product.price,
               'type': 'product',
               'end_user_id': current_end_user.id,
@@ -126,7 +127,7 @@ class Api::Internal::CashRegistersController < ApplicationController
             metadata: {
               'order_date': current_date_text,
               'account_business_name': ticket_master.account.business_name,
-              'name': ticket_master.name,
+              'purchase_product_name': ticket_master.name,
               'price': cart[:price],
               'end_user_id': current_end_user.id,
               'account_id': ticket_master.account_id,
@@ -182,7 +183,7 @@ class Api::Internal::CashRegistersController < ApplicationController
             description: monthly_payment_plan.name,
             metadata: {
               'account_business_name': monthly_payment_plan.account.business_name,
-              'name': monthly_payment_plan.name,
+              'purchase_product_name': monthly_payment_plan.name,
               'price': monthly_payment_plan.price,
               'customer': current_end_user.stripe_customer_id,
               'monthly_payment_plan_id': monthly_payment_plan.id,
