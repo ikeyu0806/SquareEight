@@ -60,7 +60,9 @@ const Index: NextPage = () => {
                       <Col>
                         <a className='btn btn-primary btn-sm' href={`/admin/monthly_payment/${plan.id}/edit`}>編集</a>
                         <br/>
-                        <a className='btn btn-primary mt10 btn-sm' href={`/monthly_payment/${plan.id}/purchase`}>購入ページプレビュー</a>
+                        <a className='btn btn-primary mt10 btn-sm'
+                           target='_blank' rel='noreferrer'
+                           href={`/monthly_payment/${plan.id}/purchase`}>購入ページプレビュー</a>
                       </Col>
                     </Row>
                   </ListGroup.Item>

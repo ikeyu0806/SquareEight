@@ -367,16 +367,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_13_130529) do
     t.integer "amount", null: false
     t.string "currency", default: "jpy"
     t.string "stripe_payment_intent_id", null: false
-    t.string "stripe_payment_method_id", null: false
+    t.string "stripe_payment_method_id"
     t.string "stripe_customer_id", null: false
+    t.string "transfer_destination_account_id"
     t.integer "application_fee_amount", null: false
-    t.string "order_date", null: false
-    t.integer "account_id"
+    t.string "order_date"
     t.integer "product_id"
     t.integer "ticket_master_id"
-    t.integer "system_product_type", null: false
+    t.integer "system_product_type"
     t.integer "end_user_id"
-    t.integer "payer_type", null: false
+    t.integer "account_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
