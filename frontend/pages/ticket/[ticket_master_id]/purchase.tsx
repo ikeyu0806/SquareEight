@@ -131,6 +131,7 @@ const Purchase: NextPage = () => {
   return (
     <>
       <MerchantCustomLayout>
+      &thinsp;
         <Container>
         {publishStatus === 'Unpublish' &&
           <div className='text-center'>非公開です</div>}

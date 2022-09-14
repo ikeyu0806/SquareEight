@@ -3,6 +3,9 @@ Rails.application.routes.draw do
 
   # Defines the root path route ("/")
   # root "articles#index"
+
+  post 'stripe_webhooks', to: 'stripe_webhooks#index'
+
   namespace :api do
     namespace :internal do
       get 'accounts/stripe_account_info', to: 'accounts#stripe_account_info'
