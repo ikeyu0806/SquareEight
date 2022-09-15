@@ -1,7 +1,6 @@
 import type { NextPage } from 'next'
 import React from 'react'
 import RegularFooter from 'components/organisms/RegularFooter'
-import TextWithCheckIcon from 'components/molecules/TextWithCheckIcon'
 import homeStyles from 'styles/Home.module.css'
 import FreePlanCard from 'components/molecules/FreePlanCard'
 import LightPlanCard from 'components/molecules/LightPlanCard'
@@ -64,7 +63,7 @@ const Home: NextPage = () => {
           <Container>
             <Row>
               <Col>
-                <Card>
+                <Card className={homeStyles.featureCard}>
                   <Card.Img variant='top' src='/images/reserve_frame_modal.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>オンライン予約受付</div>
@@ -74,7 +73,7 @@ const Home: NextPage = () => {
                 </Card>
               </Col>
               <Col>
-                <Card>
+                <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_product.png' />
                     <div className={homeStyles.features_header_text}>商品の物販販売</div>
@@ -83,7 +82,7 @@ const Home: NextPage = () => {
                 </Card>
               </Col>
               <Col>
-                <Card>
+                <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_ticket.png' />
                     <div className={homeStyles.features_header_text}>回数券作成</div>
@@ -96,7 +95,7 @@ const Home: NextPage = () => {
             &thinsp;
             <Row>
               <Col>
-                <Card>
+                <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_monthly_payment_plan.png' />
                     <div className={homeStyles.features_header_text}>月額課金プランの作成</div>
@@ -106,7 +105,7 @@ const Home: NextPage = () => {
                 </Card>
               </Col>
               <Col>
-                <Card>
+                <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_webpage.png' />
                     <div className={homeStyles.features_header_text}>Webページの作成</div>
@@ -115,7 +114,7 @@ const Home: NextPage = () => {
                 </Card>
               </Col>
               <Col>
-                <Card>
+                <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/questionnaire.png' />
                     <div className={homeStyles.features_header_text}>アンケートの作成</div>
@@ -127,7 +126,7 @@ const Home: NextPage = () => {
             &thinsp;
             <Row>
               <Col>
-                <Card>
+                <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/customer_index.png' />
                     <div className={homeStyles.features_header_text}>顧客管理</div>
@@ -137,7 +136,7 @@ const Home: NextPage = () => {
                 </Card>
               </Col>
               <Col>
-                <Card>
+                <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_message_template.png' />
                     <div className={homeStyles.features_header_text}>メッセージテンプレートの作成</div>
@@ -146,7 +145,7 @@ const Home: NextPage = () => {
                 </Card>
               </Col>
               <Col>
-                <Card>
+                <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/sales_chart.png' />
                     <div className={homeStyles.features_header_text}>売上管理</div>

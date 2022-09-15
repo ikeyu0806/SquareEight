@@ -1,6 +1,6 @@
 import { Card, Row, Col, Button } from 'react-bootstrap';
 import TextWithCheckIcon from './TextWithCheckIcon';
-import cardStyles from 'styles/PlanCard.module.css'
+import cardStyles from 'styles/Home.module.css'
 
 interface Props {
   showJoinButton?: boolean

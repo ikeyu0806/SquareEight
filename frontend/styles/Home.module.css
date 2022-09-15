@@ -4,6 +4,14 @@
   margin-bottom: 50px;
 }
 
+.featureCard {
+  height: 500px;
+}
+
+.planCard {
+  height: 400px;
+}
+
 @media screen and (max-width: 480px) {
 	/* スマホ用 */
   .headline {
