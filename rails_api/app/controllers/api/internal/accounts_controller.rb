@@ -28,12 +28,12 @@ class Api::Internal::AccountsController < ApplicationController
       customer_count_array = []
     end
     # 売上グラフ
-    payment_intents = account.search_stripe_payment_intents
-    payment_intent_content = payment_intents.map{|c| {charge_date: Time.at(c["created"]).strftime("%Y/%m/%d"), transfer_amount: c["amount"], application_fee_amount: c["application_fee_amount"]}}
+    payment_intents = account.stripe_payment_intents
+    payment_intent_content = payment_intents.map{|c| {charge_date: Time.at(c["created_at"]).strftime("%Y/%m/%d"), amount: c["amount"], application_fee_amount: c["application_fee_amount"]}}
     payment_intent_content = payment_intent_content.group_by{|c| c[:charge_date]}
-    payment_intent_content = payment_intent_content.map{|g| {date: g[0], transfer_amount: (g[1].pluck(:transfer_amount).sum) - (g[1].pluck(:application_fee_amount).sum), application_fee_amount: g[1].pluck(:application_fee_amount).sum }}
+    payment_intent_content = payment_intent_content.map{|g| {date: g[0], amount: (g[1].pluck(:amount).sum) - (g[1].pluck(:application_fee_amount).sum), application_fee_amount: g[1].pluck(:application_fee_amount).sum }}
     transfer_amount_array = week_days.map do |day|
-      payment_intent_content.find{|content| content[:date] === day}.present? ? payment_intent_content.find{|content| content[:date] === day}[:transfer_amount] : 0
+      payment_intent_content.find{|content| content[:date] === day}.present? ? payment_intent_content.find{|content| content[:date] === day}[:amount] : 0
     end
     fee_amount_array = week_days.map do |day|
       payment_intent_content.find{|content| content[:date] === day}.present? ? payment_intent_content.find{|content| content[:date] === day}[:application_fee_amount] : 0
