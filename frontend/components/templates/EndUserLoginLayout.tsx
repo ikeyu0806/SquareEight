@@ -1,6 +1,6 @@
 import { ReactNode, useEffect } from 'react'
 import CustomerPageNavbar from 'components/organisms/CustomerPageNavbar'
-import RegularFooter from '../../components/organisms/RegularFooter'
+import RegularFooter from 'components/organisms/RegularFooter'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
