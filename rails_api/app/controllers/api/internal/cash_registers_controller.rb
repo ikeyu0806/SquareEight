@@ -132,6 +132,7 @@ class Api::Internal::CashRegistersController < ApplicationController
               'end_user_id': current_end_user.id,
               'account_id': ticket_master.account_id,
               'customer_id': customer.id,
+              'ticket_master_id': ticket_master.id,
               'customer_fullname': customer.full_name
             },
             transfer_data: {
