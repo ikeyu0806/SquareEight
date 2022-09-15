@@ -1,5 +1,6 @@
-import { Card, Row, Col, Button } from 'react-bootstrap';
+import { Card, Row, Col } from 'react-bootstrap';
 import TextWithCheckIcon from './TextWithCheckIcon';
+import cardStyles from 'styles/PlanCard.module.css'
 
 interface Props {
   showJoinButton?: boolean
@@ -7,7 +8,7 @@ interface Props {
 
 const LightPlanCard = ({showJoinButton}: Props): JSX.Element => {
   return (
-    <Card>
+    <Card className={cardStyles.planCard}>
       <Card.Header className='d-flex justify-content-between align-items-center card-header'>
         ライト{showJoinButton
           && <a className='btn btn-primary' href='/admin/plan/join?plan=Light'>加入する</a>}
