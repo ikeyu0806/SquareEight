@@ -27,7 +27,7 @@ const CustomerPageNavbar = (): JSX.Element => {
 
   return (
     <>
-      <Navbar variant='dark' expand='lg' className='bg-darkblue'>
+      <Navbar variant='light' expand='lg' bg='light'>
         <Container>
           <Navbar.Brand href='/' className='font-weight-bold'>SquareEight</Navbar.Brand>
           <Navbar.Toggle />
