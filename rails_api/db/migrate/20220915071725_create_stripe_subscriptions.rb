@@ -3,6 +3,7 @@ class CreateStripeSubscriptions < ActiveRecord::Migration[7.0]
     create_table :stripe_subscriptions do |t|
       t.integer :end_user_id, null: false
       t.integer :monthly_payment_plan_id, null: false
+      t.datetime :canceled_at
 
       t.timestamps
     end

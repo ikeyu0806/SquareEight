@@ -12,6 +12,8 @@ class EndUser < ApplicationRecord
   has_many :end_user_notifications
   has_many :stripe_payment_intents
   has_one :customer, foreign_key: :end_user_id, primary_key: :id
+  has_many :stripe_subscriptions
+  has_many :monthly_payment_plans, through: :stripe_subscriptions
 
   def payment_methods
     Stripe.api_key = Rails.configuration.stripe[:secret_key]

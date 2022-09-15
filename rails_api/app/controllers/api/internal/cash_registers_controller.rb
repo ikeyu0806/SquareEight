@@ -199,6 +199,11 @@ class Api::Internal::CashRegistersController < ApplicationController
               destination: monthly_payment_plan.account.stripe_account_id
             }
           })
+          # postgreにも登録
+          StripeSubscription.create!(
+            monthly_payment_plan_id: monthly_payment_plan.id,
+            end_user_id: current_end_user.id
+          )
           order.order_items.new(item_type: 'MonthlyPaymentPlan',
                                 monthly_payment_plan_id: monthly_payment_plan.id,
                                 product_name: monthly_payment_plan.name,

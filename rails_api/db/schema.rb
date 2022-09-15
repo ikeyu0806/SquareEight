@@ -387,6 +387,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_15_071725) do
   create_table "stripe_subscriptions", force: :cascade do |t|
     t.integer "end_user_id", null: false
     t.integer "monthly_payment_plan_id", null: false
+    t.datetime "canceled_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
