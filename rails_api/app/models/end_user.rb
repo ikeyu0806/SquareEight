@@ -11,6 +11,7 @@ class EndUser < ApplicationRecord
   has_many :reservations
   has_many :end_user_notifications
   has_many :stripe_payment_intents
+  has_one :customer, foreign_key: :end_user_id, primary_key: :id
 
   def payment_methods
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
