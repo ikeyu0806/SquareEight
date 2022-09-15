@@ -391,7 +391,7 @@ class Api::Internal::AccountsController < ApplicationController
   end
 
   def stripe_payment_history
-    stripe_payment_intents = current_merchant_user.account.search_stripe_payment_intents
+    stripe_payment_intents = current_merchant_user.account.stripe_payment_intents
     render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, states: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
