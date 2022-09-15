@@ -18,6 +18,7 @@ class Account < ApplicationRecord
   has_many :questionnaire_answers, through: :customers
   has_many :message_templates
   has_many :account_notifications
+  has_many :stripe_payment_intents
 
   # プランごとの設定
   PLAN_NAME =  { "Free" => "フリープラン", "Light" => "ライトプラン", "Standard" => "スタンダードプラン", "Premium" => "プレミアムプラン" }
