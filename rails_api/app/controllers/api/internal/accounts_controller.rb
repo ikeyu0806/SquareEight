@@ -429,7 +429,7 @@ class Api::Internal::AccountsController < ApplicationController
         )
         account.update!(stripe_subscription_id: subscription.id)
       end
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { status: 'fail', error: error }, status: 500

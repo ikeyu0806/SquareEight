@@ -8,8 +8,11 @@ import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
+import { alertChanged } from 'redux/alertSlice'
+import { useDispatch } from 'react-redux'
 
 const Join: NextPage = () => {
+  const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -30,6 +33,8 @@ const Join: NextPage = () => {
       console.log(response)
       router.push(`/admin/plan/complete?plan=${router.query.plan}`)
     }).catch(error => {
+      console.log(error)
+      dispatch(alertChanged({message: '登録に失敗しました。', type: 'danger', show: true}))
     })
   }
 

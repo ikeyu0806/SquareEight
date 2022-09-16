@@ -2,7 +2,6 @@ class StripeWebhooksController < ApplicationController
   def index
     ActiveRecord::Base.transaction do
       stripe_params = JSON.parse(params.to_json)
-      stripe_params["type"]
       if stripe_params["type"] == "payment_intent.created"
         stripe_customer_id = stripe_params["data"]["object"]["customer"]
         stripe_payment_intent_id = stripe_params["data"]["object"]["id"]
