@@ -8,7 +8,9 @@ class StripeWebhooksController < ApplicationController
         product_name = stripe_params["data"]["object"]["metadata"]["name"]
         amount = stripe_params["data"]["object"]["amount"]
         application_fee_amount = stripe_params["data"]["object"]["application_fee_amount"]
-        transfer_destination_account_id = stripe_params["data"]["object"]["transfer_data"]["destination"]
+        if stripe_params["data"]["object"]["transfer_data"].present?
+          transfer_destination_account_id = stripe_params["data"]["object"]["transfer_data"]["destination"]
+        end
         product_id = stripe_params["data"]["object"]["metadata"]["product_id"]
         ticket_master_id = stripe_params["data"]["object"]["metadata"]["ticket_master_id"]
         reserve_frame_id = stripe_params["data"]["object"]["metadata"]["reserve_frame_id"]
@@ -33,8 +35,8 @@ class StripeWebhooksController < ApplicationController
           product_id: product_id,
           reserve_frame_id: reserve_frame_id,
           system_product_type: system_product_type,
-          end_user_id: end_user.id,
-          account_id: account.id
+          end_user_id: end_user&.id,
+          account_id: account&.id
         }
         stripe_payment_intent.save!
       end
@@ -45,12 +47,18 @@ class StripeWebhooksController < ApplicationController
         stripe_payment_intent_id = stripe_params["data"]["object"]["payment_intent"]
         stripe_payment_intent = StripePaymentIntent.find_or_initialize_by(stripe_payment_intent_id: stripe_payment_intent_id)
         monthly_payment_plan_id = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["monthly_payment_plan_id"]
+        if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["product_type"] == "system_plan"
+          stripe_payment_intent.system_product_type = "SyetemPlan"
+        end
         stripe_customer_id = stripe_params["data"]["object"]["customer"]
         stripe_payment_intent.monthly_payment_plan_id = monthly_payment_plan_id
         stripe_payment_intent.purchase_product_name = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["purchase_product_name"]
         stripe_payment_intent.system_product_type = "MonthlyPaymentPlan" if monthly_payment_plan_id.present?
         stripe_payment_intent.amount = stripe_params["data"]["object"]["lines"]["data"][0]["amount"]
         stripe_payment_intent.stripe_customer_id = stripe_customer_id
+        if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["account_id"].present?
+          stripe_payment_intent.account_id = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["account_id"]
+        end
         stripe_payment_intent.save!
       end
     

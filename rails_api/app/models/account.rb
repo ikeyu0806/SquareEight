@@ -66,7 +66,7 @@ class Account < ApplicationRecord
       'account_id': self.id,
       'name': self.plan_name,
       'price': self.plan_price,
-      'product_type': 'merchant_to_service_subscription'
+      'product_type': 'system_plan'
     }
   end
 
