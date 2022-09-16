@@ -128,4 +128,8 @@ class Account < ApplicationRecord
     end
     result
   end
+
+  def system_plan_subscription_payments
+    stripe_payment_intents.where(system_product_type: "SystemPlan")
+  end
 end

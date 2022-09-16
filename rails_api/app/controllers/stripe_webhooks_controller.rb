@@ -48,7 +48,7 @@ class StripeWebhooksController < ApplicationController
         stripe_payment_intent = StripePaymentIntent.find_or_initialize_by(stripe_payment_intent_id: stripe_payment_intent_id)
         monthly_payment_plan_id = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["monthly_payment_plan_id"]
         if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["product_type"] == "system_plan"
-          stripe_payment_intent.system_product_type = "SyetemPlan"
+          stripe_payment_intent.system_product_type = "SystemPlan"
         end
         if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["system_plan_name"].present?
           stripe_payment_intent.system_plan_name = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["system_plan_name"]
