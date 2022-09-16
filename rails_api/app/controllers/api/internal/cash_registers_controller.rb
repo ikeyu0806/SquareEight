@@ -200,7 +200,7 @@ class Api::Internal::CashRegistersController < ApplicationController
             }
           })
           # postgreにも登録
-          StripeSubscription.create!(
+          MerchantStripeSubscription.create!(
             monthly_payment_plan_id: monthly_payment_plan.id,
             end_user_id: current_end_user.id,
             stripe_subscription_id: stripe_subscription.id

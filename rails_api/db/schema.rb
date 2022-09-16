@@ -126,6 +126,15 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_16_055727) do
     t.index ["email"], name: "index_end_users_on_email", unique: true
   end
 
+  create_table "merchant_stripe_subscriptions", force: :cascade do |t|
+    t.integer "end_user_id", null: false
+    t.integer "monthly_payment_plan_id", null: false
+    t.string "stripe_subscription_id", null: false
+    t.datetime "canceled_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "merchant_users", force: :cascade do |t|
     t.integer "account_id"
     t.string "email"
@@ -380,15 +389,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_16_055727) do
     t.integer "system_product_type"
     t.integer "end_user_id"
     t.integer "account_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "stripe_subscriptions", force: :cascade do |t|
-    t.integer "end_user_id", null: false
-    t.integer "monthly_payment_plan_id", null: false
-    t.string "stripe_subscription_id", null: false
-    t.datetime "canceled_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
