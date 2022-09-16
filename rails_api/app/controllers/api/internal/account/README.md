@@ -1,0 +1,1 @@
+一段上のフォルダのaccount_controllerが肥大化してきたので分割

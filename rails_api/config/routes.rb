@@ -142,6 +142,7 @@ Rails.application.routes.draw do
         get 'reservations', to: 'reservations#index'
       end
       namespace :account do
+        get 'stripe_payment_intents/system_plan_subscription_payments', to: 'stripe_payment_intents#system_plan_subscription_payments'
         get 'reservations', to: 'reservations#index'
         get 'customers', to: 'customers#index'
         get 'orders/:id', to: 'orders#show'
