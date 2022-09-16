@@ -404,7 +404,7 @@ class Api::Internal::AccountsController < ApplicationController
       account.update!(service_plan: account_params[:service_plan])
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
       if account_params[:service_plan] == 'Free' && account.stripe_subscription_id.present?
-        Stripe::Subscription.delete(
+        Stripe::Subscription.cancel(
           account.stripe_subscription_id,
         )
       else
@@ -412,9 +412,9 @@ class Api::Internal::AccountsController < ApplicationController
           Stripe::Subscription.cancel(
             account.stripe_subscription_id,
           )
-          account.update!(stripe_subscription_id: nil)
           system_stripe_subscription = SystemStripeSubscription.find_by(stripe_subscription_id: account.stripe_subscription_id)
           system_stripe_subscription.update!(canceled_at: Time.zone.now)
+          account.update!(stripe_subscription_id: nil)
         end
         subscription = Stripe::Subscription.create({
           customer: account.stripe_customer_id,
