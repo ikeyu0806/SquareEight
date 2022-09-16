@@ -64,7 +64,7 @@ class Account < ApplicationRecord
   def stripe_serivice_plan_subscription_metadata
     {
       'account_id': self.id,
-      'name': self.plan_name,
+      'system_plan_name': self.plan_name,
       'price': self.plan_price,
       'product_type': 'system_plan'
     }

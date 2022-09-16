@@ -50,6 +50,9 @@ class StripeWebhooksController < ApplicationController
         if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["product_type"] == "system_plan"
           stripe_payment_intent.system_product_type = "SyetemPlan"
         end
+        if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["system_plan_name"].present?
+          stripe_payment_intent.system_plan_name = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["system_plan_name"]
+        end
         stripe_customer_id = stripe_params["data"]["object"]["customer"]
         stripe_payment_intent.monthly_payment_plan_id = monthly_payment_plan_id
         stripe_payment_intent.purchase_product_name = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["purchase_product_name"]
