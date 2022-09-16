@@ -33,8 +33,8 @@ const Index: NextPage = () => {
           <thead>
             <tr>
               <th className='text-center'>プラン名</th>
-              <th className='text-center'>料金</th>
-              <th className='text-center'>購入日</th>
+              <th className='text-center'>お支払い金額</th>
+              <th className='text-center'>加入日</th>
             </tr>
           </thead>
           <tbody>

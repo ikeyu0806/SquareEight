@@ -108,7 +108,7 @@ const ReserveFrameModal = (): JSX.Element => {
 
   const validateSubmit = () => {
     // 必須項目チェック
-    if (!title || !capacity || !startDate || !reserveFrameReceptionTimes) {
+    if (!title || !capacity || !startDate || !reserveFrameReceptionTimes.length) {
       return true
     }
 
