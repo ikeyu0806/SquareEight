@@ -409,9 +409,12 @@ class Api::Internal::AccountsController < ApplicationController
         )
       else
         if account.stripe_subscription_id.present?
-          Stripe::Subscription.delete(
+          Stripe::Subscription.cancel(
             account.stripe_subscription_id,
           )
+          account.update!(stripe_subscription_id: nil)
+          system_stripe_subscription = SystemStripeSubscription.find_by(stripe_subscription_id: account.stripe_subscription_id)
+          system_stripe_subscription.update!(canceled_at: Time.zone.now)
         end
         subscription = Stripe::Subscription.create({
           customer: account.stripe_customer_id,
@@ -419,6 +422,11 @@ class Api::Internal::AccountsController < ApplicationController
           metadata: account.stripe_serivice_plan_subscription_metadata,
           items: [{ plan: account.service_plan_stripe_id }]
         })
+        SystemStripeSubscription.create!(
+          account_id: account.id,
+          service_plan: account_params[:service_plan],
+          stripe_subscription_id: subscription.id
+        )
         account.update!(stripe_subscription_id: subscription.id)
       end
       render json: { status: 'success' }, states: 200

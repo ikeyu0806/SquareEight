@@ -178,7 +178,7 @@ class Api::Internal::CashRegistersController < ApplicationController
               phone_number: current_end_user.phone_number
             )
           end
-          Stripe::Subscription.create({
+          stripe_subscription = Stripe::Subscription.create({
             customer: current_end_user.stripe_customer_id,
             application_fee_percent: 4,
             description: monthly_payment_plan.name,
@@ -202,7 +202,8 @@ class Api::Internal::CashRegistersController < ApplicationController
           # postgreにも登録
           StripeSubscription.create!(
             monthly_payment_plan_id: monthly_payment_plan.id,
-            end_user_id: current_end_user.id
+            end_user_id: current_end_user.id,
+            stripe_subscription_id: stripe_subscription.id
           )
           order.order_items.new(item_type: 'MonthlyPaymentPlan',
                                 monthly_payment_plan_id: monthly_payment_plan.id,
