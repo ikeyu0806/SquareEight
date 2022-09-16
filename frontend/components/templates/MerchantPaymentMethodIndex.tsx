@@ -4,7 +4,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
-import { defaultPaymentMethodIdChanged, paymentMethodsChanged } from 'redux/currentEndUserSlice'
+import { defaultPaymentMethodIdChanged, paymentMethodsChanged } from 'redux/currentMerchantUserSlice'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 
