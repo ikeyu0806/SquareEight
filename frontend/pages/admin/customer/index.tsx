@@ -127,8 +127,9 @@ const Index: NextPage = () => {
               <Button
                 className='mb20'
                 onClick={() => dispatch(showCreateCustomerModalChanged(true))}>顧客新規登録</Button>
-              <Card>
-                <Card.Header>顧客一覧</Card.Header>
+              <h3>顧客一覧</h3>
+              <ListGroup>
+                
                 {displayCustomers && displayCustomers.map((customer, i) => {
                   const dataRangeMin =+ customerPaginationState.maxPerPage * (customerPaginationState.currentPage - 1)
                   const dataRangeMax =+ customerPaginationState.maxPerPage * customerPaginationState.currentPage
@@ -191,7 +192,7 @@ const Index: NextPage = () => {
                   <Pagination.Next onClick={displayNextPage}></Pagination.Next>
                   <Pagination.Last onClick={displayLastPage} />
                 </Pagination>
-              </Card>
+              </ListGroup>
             </Col>
           </Row>
           <CreateCustomerModal></CreateCustomerModal>
