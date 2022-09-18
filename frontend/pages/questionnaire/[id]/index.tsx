@@ -245,21 +245,21 @@ const Index: NextPage = () => {
                   switch (item.formType) {
                     case FORM_TYPE.TEXT:
                       return (
-                        <>
+                        <span key={i}>
                           <Form.Label
                             ref={questionnaireMasterItemsQuestionRefs.current[i]}
                             className='mt20'>{item.question}</Form.Label>
-                          {item.textFormRowCount && item.textFormRowCount >= 2
-                            ? <Form.Control
-                                ref={questionnaireMasterItemsAnswerRefs.current[i]}
-                                as='textarea'
-                                rows={item.textFormRowCount}></Form.Control>
-                            : <Form.Control ref={questionnaireMasterItemsAnswerRefs.current[i]}></Form.Control>}
-                        </>
+                            {item.textFormRowCount && item.textFormRowCount >= 2
+                              ? <Form.Control
+                                  ref={questionnaireMasterItemsAnswerRefs.current[i]}
+                                  as='textarea'
+                                  rows={item.textFormRowCount}></Form.Control>
+                              : <Form.Control ref={questionnaireMasterItemsAnswerRefs.current[i]}></Form.Control>}
+                        </span>
                       )
                     case FORM_TYPE.SELECT:
                       return (
-                        <>
+                        <span key={i}>
                           <Form.Label
                             ref={questionnaireMasterItemsQuestionRefs.current[i]}
                             className='mt20'>{item.question}</Form.Label>
@@ -267,56 +267,54 @@ const Index: NextPage = () => {
                             <option>選択してください</option>
                             {item.selectFormAnswers && item.selectFormAnswers.map((answer, select_i) => {
                               return (
-                                <><option key={select_i}>{answer}</option></>
+                                <option key={select_i}>{answer}</option>
                               )
                             })}
                           </Form.Select>
-                        </>
+                        </span>
                       )
                     case FORM_TYPE.CHECKBOX:
                       return (
-                        <>
+                        <span key={i}>
                           <Form.Label
                             ref={questionnaireMasterItemsQuestionRefs.current[i]}
                             className='mt20'>{item.question}</Form.Label>
                           <Form ref={questionnaireMasterItemsAnswerRefs.current[i]}>
                             {item.checkboxAnswers && item.checkboxAnswers.map((answer, checkbox_i) => {
                               return (
-                                <>
-                                  <Form.Check
-                                    type='checkbox'
-                                    label={answer}
-                                    key={checkbox_i} />
-                                </>
+                                <Form.Check
+                                  id={1 + checkbox_i + 'checkAnswer'}
+                                  type='checkbox'
+                                  label={answer}
+                                  key={1 + checkbox_i} />
                               )
                             })}
                           </Form>
-                        </>
+                        </span>
                       )
                     case FORM_TYPE.RADIO:
                       return (
-                        <>
+                        <span key={i}>
                           <Form.Label
                             ref={questionnaireMasterItemsQuestionRefs.current[i]}
                             className='mt20'>{item.question}</Form.Label>
                           <Form ref={questionnaireMasterItemsAnswerRefs.current[i]}>
                             {item.radioButtonAnswers && item.radioButtonAnswers.map((answer, radio_i) => {
                               return (
-                                <>
-                                  <Form.Check
-                                    type='radio'
-                                    label={answer}
-                                    key={radio_i}
-                                    name='preview' />
-                                </>
+                                <Form.Check
+                                  id={2 + radio_i + 'radioAnswer'}
+                                  type='radio'
+                                  label={answer}
+                                  key={2 + radio_i}
+                                  name='preview' />
                               )
                             })}
                           </Form>
-                        </>
+                        </span>
                       )
                     case FORM_TYPE.DATE:
                       return (
-                        <>
+                        <span key={i}>
                           <Form.Label
                             ref={questionnaireMasterItemsQuestionRefs.current[i]}
                             className='mt20'>{item.question}</Form.Label>
@@ -324,11 +322,11 @@ const Index: NextPage = () => {
                             ref={questionnaireMasterItemsAnswerRefs.current[i]}
                             type='date'>
                           </Form.Control>
-                        </>
+                        </span>
                       )
                     case FORM_TYPE.TIME:
                       return (
-                        <>
+                        <span key={i}>
                           <Form.Label
                             ref={questionnaireMasterItemsQuestionRefs.current[i]}
                             className='mt20'>{item.question}</Form.Label>
@@ -336,7 +334,7 @@ const Index: NextPage = () => {
                             ref={questionnaireMasterItemsAnswerRefs.current[i]}
                             type='time'>
                           </Form.Control>
-                        </>
+                        </span>
                       )
                     default:
                       console.log('invalid block')
