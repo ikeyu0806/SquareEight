@@ -14,8 +14,9 @@ const CanelSystemPlanButton = () => {
       swalWithBootstrapButtons.fire({
         title: '解除しました',
         icon: 'info'
+      }).then((result) => {
+        location.reload()
       })
-      location.reload()
     }).catch(error => {
       swalWithBootstrapButtons.fire({
         title: '解除失敗しました',
