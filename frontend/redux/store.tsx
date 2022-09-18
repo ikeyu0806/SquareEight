@@ -10,6 +10,7 @@ import stripeExternalAccountsSlice from './stripeExternalAccountsSlice'
 import monthlyPaymentPlanReducer from './monthlyPaymentPlanSlice'
 import resourceReducer from './resourceSlice'
 import reserveFrameReducer from './reserveFrameSlice'
+import reservationReducer from './reservationSlice'
 import currentMerchantUserReducer from './currentMerchantUserSlice'
 import currentEndUserReducer from './currentEndUserSlice'
 import currentSystemAdminUserReducer from './currentSystemAdminUserSlice'
@@ -33,6 +34,7 @@ export const store = configureStore({
     monthlyPaymentPlan: monthlyPaymentPlanReducer,
     resource: resourceReducer,
     reserveFrame: reserveFrameReducer,
+    reservation: reservationReducer,
     currentMerchantUser: currentMerchantUserReducer,
     currentEndUser: currentEndUserReducer,
     currentSystemAdminUser: currentSystemAdminUserReducer,

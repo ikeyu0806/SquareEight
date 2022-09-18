@@ -11,7 +11,8 @@ export const reservationSlice = createSlice({
     numberOfPeople: 1,
     title: '',
     representativeFirstName: '',
-    representativeLastName: ''
+    representativeLastName: '',
+    showRegisterReservationModal: false
   },
   reducers: {
     reserveFrameIdChanged: (state, action: PayloadAction<number>) => {
@@ -38,6 +39,9 @@ export const reservationSlice = createSlice({
     representativeLastNameChanged: (state, action: PayloadAction<string>) => {
       state.representativeLastName = action.payload
     },
+    showRegisterReservationModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showRegisterReservationModal = action.payload
+    },
   },
 })
 
@@ -49,5 +53,6 @@ export const { numberOfPeopleChanged } = reservationSlice.actions
 export const { titleChanged } = reservationSlice.actions
 export const { representativeFirstNameChanged } = reservationSlice.actions
 export const { representativeLastNameChanged } = reservationSlice.actions
+export const { showRegisterReservationModalChanged } = reservationSlice.actions
 
 export default reservationSlice.reducer

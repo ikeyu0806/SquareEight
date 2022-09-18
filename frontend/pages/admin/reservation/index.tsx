@@ -10,8 +10,12 @@ import { receptionTypeText } from 'functions/receptionTypeText'
 import CheckIcon from 'components/atoms/CheckIcon'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { getZeroPaddingDate } from 'functions/getZeroPaddingDatetime'
+import CreateReservationModal from 'components/templates/CreateReservationModal'
+import { useDispatch } from 'react-redux'
+import { showRegisterReservationModalChanged } from 'redux/reservationSlice'
 
 const Index: NextPage = () => {
+  const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [reservations, setReservatons] = useState<ReservationParam[]>([])
   const date = new Date()
@@ -71,7 +75,9 @@ const Index: NextPage = () => {
                   <h4 className='mb20'>予約一覧</h4>
                 </Col>
                 <Col>
-                  <Button>予約登録</Button>
+                  <Button onClick={() => dispatch(showRegisterReservationModalChanged(true))}>
+                    予約登録
+                  </Button>
                 </Col>
               </Row>
               <Form.Label>対象日付</Form.Label>
@@ -127,6 +133,7 @@ const Index: NextPage = () => {
             </Col>
           </Row>
         </Container>
+        <CreateReservationModal />
       </MerchantUserAdminLayout>
     </>
   )
