@@ -18,18 +18,23 @@ const MerchantCustomFooter = () => {
         url={process.env.FRONTEND_URL + router.pathname}
         title='SquareEight'>
         <LineIcon
+          size={40}
           round={true}/>
       </LineShareButton>
       <TwitterShareButton
+        className='ml20'
         url={process.env.FRONTEND_URL + router.pathname}
         title='SquareEight'>
         <TwitterIcon
+          size={40}
           round={true} />
       </TwitterShareButton>
       <FacebookShareButton
+        className='ml20'
         url={process.env.FRONTEND_URL + router.pathname}
         title='SquareEight'>
         <FacebookIcon
+          size={40}
           round={true} />
       </FacebookShareButton>
       <hr />
