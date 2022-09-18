@@ -439,6 +439,23 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def cancel_plan
+    ActiveRecord::Base.transaction do
+      account = current_merchant_user.account
+      cancel_subscription_id = account.stripe_subscription_id
+      account.update!(stripe_subscription_id: nil)
+      account.update!(service_plan: "Free")
+      system_stripe_subscription = SystemStripeSubscription.find_by(stripe_subscription_id: cancel_subscription_id)
+      system_stripe_subscription.update!(canceled_at: Time.zone.now)
+      Stripe::Subscription.cancel(
+        cancel_subscription_id,
+      )
+      render json: { status: 'success' }, status: 200
+    end
+  rescue => error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   def questionnaire_answers
     account = current_merchant_user.account
     answer_contents = account.answer_contents
