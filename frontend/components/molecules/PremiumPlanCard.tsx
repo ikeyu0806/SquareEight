@@ -18,11 +18,15 @@ const PremiumPlanCard = ({showJoinButton}: Props): JSX.Element => {
         プレミアム
         {showJoinButton
           &&
-          currentServicePlan === 'Premium'
-            ?
-              <CancelSystemPlanButton></CancelSystemPlanButton>
-            :
-              <a className='btn btn-primary' href='/admin/plan/join?plan=Premium'>加入する</a>}
+          <>
+            {
+              currentServicePlan === 'Premium'
+              ?
+                <CancelSystemPlanButton></CancelSystemPlanButton>
+              :
+                <a className='btn btn-primary' href='/admin/plan/join?plan=Premium'>加入する</a>
+            }
+          </>}
       </Card.Header>
       <Card.Body>
         <h4>月額 4980円</h4>
