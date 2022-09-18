@@ -13,7 +13,7 @@ const MerchantCustomFooter = () => {
   const footerCopyRightText =  useSelector((state: RootState) => state.sharedComponent.footerCopyRightText)
 
   return (
-    <footer className='content text-center'>
+    <footer className='content text-center mt20'>
       <LineShareButton
         url={process.env.FRONTEND_URL + router.pathname}
         title='SquareEight'>
