@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, ListGroup, Card, Form } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup, Button, Form } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useCookies } from 'react-cookie'
 import { ReservationParam } from 'interfaces/ReservationParam'
@@ -66,7 +66,14 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
-              <h4 className='mb20'>予約一覧</h4>
+              <Row>
+                <Col sm={9}>
+                  <h4 className='mb20'>予約一覧</h4>
+                </Col>
+                <Col>
+                  <Button>予約登録</Button>
+                </Col>
+              </Row>
               <Form.Label>対象日付</Form.Label>
               <Row>
                 <Col>
