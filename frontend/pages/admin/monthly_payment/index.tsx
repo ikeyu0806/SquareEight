@@ -48,6 +48,7 @@ const Index: NextPage = () => {
               <a className='btn btn-primary mt10 mb20'
               href='/admin/monthly_payment/new'>月額課金プラン登録</a>
               <h3>月額課金プラン一覧</h3>
+              <ListGroup>
               {monthlyPaymentPlans.map((plan, i) => {
                 return (
                   <ListGroup.Item key={i}>
@@ -67,7 +68,9 @@ const Index: NextPage = () => {
                     </Row>
                   </ListGroup.Item>
                 )
-              })}</>}
+              })}
+              </ListGroup>
+              </>}
               {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
             </Col>
           </Row>

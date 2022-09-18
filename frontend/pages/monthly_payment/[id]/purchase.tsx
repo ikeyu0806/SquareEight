@@ -55,6 +55,7 @@ const Purchase: NextPage = () => {
       )
       .then(function (response) {
         const monthlyPaymentPlanResponse: MonthlyPaymentPlanParam = response.data.monthly_payment_plan
+        console.log({monthlyPaymentPlanResponse})
         dispatch(nameChanged(monthlyPaymentPlanResponse.name))
         dispatch(priceChanged(monthlyPaymentPlanResponse.price))
         dispatch(reserveIsUnlimitedChanged(monthlyPaymentPlanResponse.reserve_is_unlimited))

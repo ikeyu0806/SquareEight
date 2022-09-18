@@ -7,7 +7,7 @@ class CreateStripePaymentIntents < ActiveRecord::Migration[7.0]
       t.string :stripe_payment_method_id
       t.string :stripe_customer_id, null: false
       t.string :transfer_destination_account_id
-      t.integer :application_fee_amount
+      t.integer :application_fee_amount, default: 0
       t.string :purchase_product_name
       t.string :order_date
       t.integer :product_id
