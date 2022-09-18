@@ -5,6 +5,7 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { ProductParam } from 'interfaces/ProductParam'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import axios from 'axios'
 
 const Index: NextPage = () => {
@@ -49,7 +50,9 @@ const Index: NextPage = () => {
                       <ListGroup.Item key={i}>
                         <Row>
                           <Col>
-                            <span>{p.name} <br/>￥{p.price} 税率{p.tax_rate}% </span>
+                            <span>{p.name}
+                            <PublishStatusBadge publishStatus={p.publish_status} />
+                            <br/>￥{p.price} 税率{p.tax_rate}% </span>
                             {!p.show_product_type_form && <span><br/>在庫数: {p.inventory}</span>}
                             {p.show_product_type_form &&
                             <><br/>
