@@ -69,6 +69,7 @@ const ReserveFrameRepeatSetting = () => {
       <Form.Group className='mb-3'>
           <Form.Check
             type='checkbox'
+            id='repeatSetting'
             label='繰り返し設定を追加して他の日にも受付'
             checked={isRepeat}
             onClick={() => dispatch(isRepeatChanged(!isRepeat))} />
@@ -78,18 +79,21 @@ const ReserveFrameRepeatSetting = () => {
           <Form.Group className='mb-3'>
             <Form.Check type='checkbox'
                         label='日ごと'
+                        id='repeatDay'
                         inline
                         name='repeatPeriod'
                         onChange={() => dispatch(repeatIntervalTypeChanged('Day'))}
                         checked={repeatIntervalType === 'Day'} />
             <Form.Check type='checkbox'
                         label='週ごと'
+                        id='repeatWeek'
                         inline
                         name='repeatPeriod'
                         onChange={() => dispatch(repeatIntervalTypeChanged('Week'))}
                         checked={repeatIntervalType === 'Week'} />
             <Form.Check type='checkbox'
                         label='月ごと'
+                        id='repeatMonth'
                         inline
                         name='repeatPeriod'
                         onChange={() => dispatch(repeatIntervalTypeChanged('Month'))}
@@ -100,11 +104,13 @@ const ReserveFrameRepeatSetting = () => {
               <Form.Check
                 type='radio'
                 label='毎日'
+                id='repeatIntervalDay'
                 onChange={() => dispatch((isEveryDayRepeatChanged(!isEveryDayRepeat)))}
                 checked={isEveryDayRepeat} />
               <Form.Check
                 type='radio'
                 label='間隔を空けて繰り返し'
+                id='repeatIntervalDayWithInterval'
                 onChange={() => dispatch((isEveryDayRepeatChanged(!isEveryDayRepeat)))}
                 checked={!isEveryDayRepeat} />
               <Row>
@@ -135,11 +141,13 @@ const ReserveFrameRepeatSetting = () => {
               <Form.Check
                 type='radio'
                 label='毎週'
+                id='repeatIntervalWeek'
                 onChange={() => dispatch((isEveryWeekRepeatChanged(!isEveryWeekRepeat)))}
                 checked={isEveryWeekRepeat} />
               <Form.Check
                 type='radio'
                 label='間隔を空けて繰り返し'
+                id='repeatIntervalWeekWithInterval'
                 onChange={() => dispatch((isEveryWeekRepeatChanged(!isEveryWeekRepeat)))}
                 checked={!isEveryWeekRepeat} />
               <Row>
@@ -170,11 +178,13 @@ const ReserveFrameRepeatSetting = () => {
               <Form.Check
                 type='radio'
                 label='毎月'
+                id='repeatIntervalMonth'
                 onChange={() => dispatch((isEveryMonthRepeatChanged(!isEveryMonthRepeat)))}
                 checked={isEveryMonthRepeat} />
               <Form.Check
                 type='radio'
                 label='間隔を空けて繰り返し'
+                id='repeatIntervalMonthWithInterval'
                 onChange={() => dispatch((isEveryMonthRepeatChanged(!isEveryMonthRepeat)))}
                 checked={!isEveryMonthRepeat} />
               <Row>

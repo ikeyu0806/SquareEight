@@ -246,11 +246,13 @@ const ReserveFrameForm = () => {
               <Form.Check type='checkbox'
                             label='設定する'
                             inline
+                            id='setPrice'
                             name='price'
                             onChange={() => dispatch(isSetPriceChanged(true))}
                             checked={isSetPrice} />
               <Form.Check type='checkbox'
                           label='設定しない'
+                          id='notSetPrice'
                           inline
                           name='price'
                           onChange={() => dispatch(isSetPriceChanged(false))}
@@ -262,7 +264,11 @@ const ReserveFrameForm = () => {
           </Row>
           {isSetPrice &&
           <div className='ml10'>
-            <Form.Check label='現地払い' checked={isLocalPaymentEnable} onChange={() => dispatch(isLocalPaymentEnableChanged(!isLocalPaymentEnable))}></Form.Check>
+            <Form.Check
+              label='現地払い'
+              id='localPayment'
+              checked={isLocalPaymentEnable}
+              onChange={() => dispatch(isLocalPaymentEnableChanged(!isLocalPaymentEnable))}></Form.Check>
             {isLocalPaymentEnable && <Row>
               <Col>
                 <Form.Group as={Row} className='mb-3'>
@@ -279,7 +285,12 @@ const ReserveFrameForm = () => {
                 </Form.Group>
               </Col>
             </Row>}
-            {receptionType !== 'PhoneOnly' && <Form.Check label='クレジットカード払い' checked={isCreditCardPaymentEnable} onChange={() => dispatch(isCreditCardPaymentEnableChanged(!isCreditCardPaymentEnable))}></Form.Check>}
+            {receptionType !== 'PhoneOnly' &&
+            <Form.Check
+              id='PhoneOnly'
+              label='クレジットカード払い'
+              checked={isCreditCardPaymentEnable}
+              onChange={() => dispatch(isCreditCardPaymentEnableChanged(!isCreditCardPaymentEnable))}></Form.Check>}
             {isCreditCardPaymentEnable && receptionType !== 'PhoneOnly' && <Row>
               <Col>
                 <Form.Group as={Row} className='mb-3'>
@@ -296,7 +307,12 @@ const ReserveFrameForm = () => {
                 </Form.Group>
               </Col>
             </Row>}
-            {receptionType !== 'PhoneOnly' && <Form.Check label='月額課金' checked={isMonthlyPlanPaymentEnable} onChange={() => dispatch(isMonthlyPlanPaymentEnableChanged(!isMonthlyPlanPaymentEnable))}></Form.Check>}
+            {receptionType !== 'PhoneOnly' &&
+              <Form.Check
+                label='月額課金'
+                id='monthlyPlanPayment'
+                checked={isMonthlyPlanPaymentEnable}
+                onChange={() => dispatch(isMonthlyPlanPaymentEnableChanged(!isMonthlyPlanPaymentEnable))}></Form.Check>}
             {isMonthlyPlanPaymentEnable && receptionType !== 'PhoneOnly' && 
               <div className='ml20'>
                 <Row>
@@ -308,6 +324,8 @@ const ReserveFrameForm = () => {
                             <Form.Check type='checkbox'
                                         label={plan.name}
                                         inline
+                                        id={plan.name + String(i)}
+                                        name={plan.name}
                                         value={plan.id}
                                         onChange={(e) => updateMonthlyPaymentPlans(e)}
                                         checked={monthlyPaymentPlanIds.includes(plan.id)} />
@@ -320,7 +338,12 @@ const ReserveFrameForm = () => {
                 </Row>
               </div>
             }
-            {receptionType !== 'PhoneOnly' && <Form.Check label='回数券' checked={isTicketPaymentEnable} onChange={() => dispatch(isTicketPaymentEnableChanged(!isTicketPaymentEnable))}></Form.Check>}
+            {receptionType !== 'PhoneOnly' &&
+              <Form.Check
+                label='回数券'
+                id='ticketPayment'
+                checked={isTicketPaymentEnable}
+                onChange={() => dispatch(isTicketPaymentEnableChanged(!isTicketPaymentEnable))}></Form.Check>}
             {isTicketPaymentEnable && receptionType !== 'PhoneOnly' && 
               <div className='ml20'>
                 {selectableTicketMasters.map((ticket, i) => {
@@ -329,6 +352,7 @@ const ReserveFrameForm = () => {
                       <Form.Check type='checkbox'
                                   label={ticket.name}
                                   inline
+                                  id={ticket.name + i}
                                   name='oneWeek'
                                   onChange={(e) => updateTicketMasters(e, ticket.id, i)}
                                   checked={reservableFrameTicketMaster.map((json) => json.ticket_master_id).includes(ticket.id)} />
@@ -481,12 +505,14 @@ const ReserveFrameForm = () => {
           <Col>
             <Form.Check type='checkbox'
                         label='当日まで受付する'
+                        id='onlyOntheDay'
                         inline
                         name='deadline'
                         checked={cancelReception === 'OnlyOnTheDay'}
                         onChange={() => dispatch(cancelReceptionChanged('OnlyOnTheDay'))} />
             <Form.Check type='checkbox'
                         label='前日以前を指定する'
+                        id='possibleBeforeTheDay'
                         inline
                         checked={cancelReception === 'PossibleBeforeTheDay'}
                         onChange={() => dispatch(cancelReceptionChanged('PossibleBeforeTheDay'))} />
