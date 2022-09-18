@@ -49,29 +49,28 @@ const CreatePages: NextPage = () => {
         <Row>
           <Col md={3}></Col>
           <Col md={6}>
-            <Card>
-              <Card.Header>ページ一覧</Card.Header>
-              {pageLinks.map((link, i) => {
-                return (
-                  <ListGroup.Item key={i}>
-                    <Row>
-                      <Col>
-                        {link.text}&emsp;<span>【{link.label}】</span>
-                      </Col>
-                      <Col>
-                        <a className='btn btn-primary btn-sm'
-                           target='_blank'
-                           rel='noreferrer'
-                           href={link.value}>プレビュー</a>
-                          <br/>
-                          <a className='btn btn-primary mt10 btn-sm'
-                             onClick={() => copyLinkToClipboard(link.value)}>URLをコピー</a>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                )
-              })}
-            </Card>
+              <h3>ページ一覧</h3>
+              <ListGroup>
+                {pageLinks.map((link, i) => {
+                  return (
+                    <ListGroup.Item key={i}>
+                      <Row>
+                        <Col>
+                          {link.text}&emsp;<span>【{link.label}】</span>
+                        </Col>
+                        <Col>
+                          <a className='btn btn-primary btn-sm'
+                            target='_blank'
+                            rel='noreferrer'
+                            href={link.value}>プレビュー</a>
+                            <a className='btn btn-primary ml10 btn-sm'
+                              onClick={() => copyLinkToClipboard(link.value)}>URLをコピー</a>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  )
+                })}
+              </ListGroup>
           </Col>
         </Row>
       </Container>
