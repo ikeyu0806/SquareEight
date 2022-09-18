@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
+import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -47,12 +48,14 @@ const Index: NextPage = () => {
             <a className='btn btn-primary mt10 mb20'
               href='/admin/ticket/new'>回数券登録</a>
               <h3>回数券一覧</h3>
+              <ListGroup>
                 {ticketMasters.map((ticket, i) => {
                   return(
                     <ListGroup.Item key={i}>
                     <Row>
                       <Col>
-                        表示名 {ticket.name}<br/>
+                        表示名 {ticket.name}
+                        <PublishStatusBadge publishStatus={ticket.publish_status} /><br/>
                         発行枚数 {ticket.issue_number}枚<br/>
                         値段 ￥{ticket.price}
                       </Col>
@@ -73,6 +76,7 @@ const Index: NextPage = () => {
                   </ListGroup.Item>
                   )
                 })}
+                </ListGroup>
               </>}
               {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
             </Col>

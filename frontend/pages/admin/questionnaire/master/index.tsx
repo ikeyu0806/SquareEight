@@ -4,6 +4,7 @@ import axios from 'axios'
 import { QuestionnaireMasterParam } from 'interfaces/QuestionnaireMasterParam'
 import { useCookies } from 'react-cookie'
 import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
+import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 
 const Index = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -35,7 +36,10 @@ const Index = (): JSX.Element => {
                   return (
                     <ListGroup.Item key={i}>
                       <Row>
-                        <Col sm={4}>{questionare.title}</Col>
+                        <Col sm={4}>
+                          {questionare.title}
+                          <PublishStatusBadge publishStatus={questionare.publish_status} />
+                        </Col>
                         <Col sm={3}>
                         <a className='btn btn-primary'
                              target='_blank'
