@@ -40,8 +40,8 @@ const Index: NextPage = () => {
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
-            <Card>
-              <Card.Header>注文一覧</Card.Header>
+            <h3>注文一覧</h3>
+            <ListGroup>
               {orders && orders.map((order, i) => {
                 return (
                   <ListGroup.Item key={i}>
@@ -72,7 +72,7 @@ const Index: NextPage = () => {
                   </ListGroup.Item>
                 )
               })}
-            </Card>
+            </ListGroup> 
           </Col>
         </Row>
       </Container>
