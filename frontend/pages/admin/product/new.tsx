@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import CreateProductTemplate from 'components/templates/CreateProductTemplate'
@@ -10,8 +10,11 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { useDispatch } from 'react-redux'
+import { publishStatusChanged } from 'redux/productSlice'
 
 const New: NextPage = () => {
+  const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [errMessage, setErrMessage] = useState('')
@@ -25,6 +28,10 @@ const New: NextPage = () => {
   const applyProductType = useSelector((state: RootState) => state.product.applyProductType)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+
+  useEffect(() => {
+    dispatch(publishStatusChanged('Unpublish'))
+  }, [dispatch])
 
   const createProduct = () => {
     if (name === '') {

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import CreateTicketTemplate from 'components/templates/CreateTicketTemplate'
@@ -10,6 +10,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { alertChanged } from 'redux/alertSlice'
+import { publishStatusChanged } from 'redux/ticketMasterSlice'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -23,6 +24,10 @@ const New: NextPage = () => {
   const publishStatus = useSelector((state: RootState) => state.ticketMaster.publishStatus)
   const base64Image = useSelector((state: RootState) => state.ticketMaster.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+
+  useEffect(() => {
+    dispatch(publishStatusChanged('Unpublish'))
+  }, [dispatch])
 
   const createTicket = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters`,

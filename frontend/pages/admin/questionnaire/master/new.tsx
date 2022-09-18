@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import type { NextPage } from 'next'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -10,6 +10,7 @@ import CreateQuestionnaireMaster from 'components/templates/CreateQuestionnaireM
 import { Card, Row, Col, Container, Button } from 'react-bootstrap'
 import AddQuestionnaireFormModal from 'components/organisms/AddQuestionnaireFormModal'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import { publishStatusChanged } from 'redux/questionnaireMasterSlice'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -19,6 +20,10 @@ const New: NextPage = () => {
   const description = useSelector((state: RootState) => state.questionnaireMaster.description)
   const publishStatus = useSelector((state: RootState) => state.questionnaireMaster.publishStatus)
   const [cookies] = useCookies(['_square_eight_merchant_session'])
+
+  useEffect(() => {
+    dispatch(publishStatusChanged('Unpublish'))
+  }, [dispatch])
 
   const validateSubmit = () => {
     if (!title) {
