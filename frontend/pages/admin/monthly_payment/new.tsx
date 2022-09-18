@@ -1,4 +1,5 @@
 import { NextPage } from 'next'
+import { useEffect } from 'react'
 import CreateMonthlyPayment from 'components/templates/CreateMonthlyPayment'
 import { Container } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
@@ -9,6 +10,7 @@ import { RootState } from 'redux/store'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
+import { publishStatusChanged } from 'redux/monthlyPaymentPlanSlice'
 import { alertChanged } from 'redux/alertSlice'
 
 const New: NextPage = () => {
@@ -26,6 +28,10 @@ const New: NextPage = () => {
   const publishStatus = useSelector((state: RootState) => state.monthlyPaymentPlan.publishStatus)
   const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+
+  useEffect(() => {
+    dispatch(publishStatusChanged('Unpublish'))
+  }, [dispatch])
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans`,
