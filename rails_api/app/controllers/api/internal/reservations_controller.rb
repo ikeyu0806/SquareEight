@@ -23,7 +23,11 @@ class Api::Internal::ReservationsController < ApplicationController
       # 同じ携帯電話番号の顧客データがなければ作成
       if current_end_user.present?
         # 顧客データ作成
-        customer = Customer.new(account_id: reserve_frame.account_id, end_user_id: current_end_user.id)
+        if current_end_user.customer.present?
+          customer = current_end_user.customer
+        else
+          customer = Customer.new(account_id: reserve_frame.account_id, end_user_id: current_end_user.id)
+        end
         customer.last_name = reservation_params[:last_name]
         customer.first_name = reservation_params[:first_name]
         customer.email = reservation_params[:email]
@@ -38,7 +42,13 @@ class Api::Internal::ReservationsController < ApplicationController
         end_user.phone_number = reservation_params[:phone_number] if current_end_user.phone_number.blank?
         end_user.save!
       else
-        customer = reserve_frame.account.customers.find_by(phone_number: reservation_params[:phone_number])
+        customer = reserve_frame.account.customers.find_or_initialize_by(phone_number: reservation_params[:phone_number])
+        customer.last_name = reservation_params[:last_name]
+        customer.first_name = reservation_params[:first_name]
+        customer.email = reservation_params[:email]
+        customer.phone_number = reservation_params[:phone_number]
+        customer.end_user_id = current_end_user.id
+        customer.save!
       end
       # 確定
       reservation = reserve_frame
