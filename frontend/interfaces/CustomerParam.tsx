@@ -1,5 +1,5 @@
 export interface CustomerParam {
-  id: string
+  id: number
   first_name: string
   last_name: string
   first_name_kana: string

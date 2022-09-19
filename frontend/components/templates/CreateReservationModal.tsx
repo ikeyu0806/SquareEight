@@ -9,13 +9,18 @@ import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { CustomerParam } from 'interfaces/CustomerParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import CreateCustomerForm from 'components/organisms/CreateCustomerForm'
+import {  firstNameChanged,
+          firstNameKanaChanged,
+          lastNameChanged,
+          lastNameKanaChanged,
+          emailChanged,
+          notesChanged,
+          phoneNumberChanged } from 'redux/customerSlice'
 import { reserveFrameIdChanged,
          reservationDateChanged,
          startTimeChanged,
          endTimeChanged,
-         numberOfPeopleChanged,
-         representativeFirstNameChanged,
-         representativeLastNameChanged } from 'redux/reservationSlice'
+         numberOfPeopleChanged } from 'redux/reservationSlice'
 
 const CreateReservationModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -101,6 +106,18 @@ const CreateReservationModal = (): JSX.Element => {
     })
   }
 
+  const insertCustomerForm = (customerId: string) => {
+    let customer: CustomerParam
+    customer = customers.find(c => c.id === Number(customerId)) as CustomerParam
+    dispatch(firstNameChanged(customer.first_name || ''))
+    dispatch(firstNameKanaChanged(customer.first_name_kana || ''))
+    dispatch(lastNameChanged(customer.last_name || ''))
+    dispatch(lastNameKanaChanged(customer.last_name_kana || ''))
+    dispatch(emailChanged(customer.email || ''))
+    dispatch(notesChanged(customer.notes || ''))
+    dispatch(phoneNumberChanged(customer.phone_number || ''))
+  }
+
   return (
 
     <Modal show={showRegisterReservationModal}>
@@ -134,10 +151,12 @@ const CreateReservationModal = (): JSX.Element => {
         {isSelectCustomer &&
         <>
           <Form.Label className='mt10'>顧客を選択してください</Form.Label>
-          <Form.Select>
+          <Form.Select onChange={(e) => insertCustomerForm(e.target.value)}>
             {customers.map((customer, i) => {
               return (
-                <option value={customer.id} key={i}>{customer.full_name}</option>
+                <option
+                  value={customer.id}
+                  key={i}>{customer.full_name}</option>
               )
             })}
           </Form.Select>
