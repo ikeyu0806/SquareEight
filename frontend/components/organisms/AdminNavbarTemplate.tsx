@@ -78,8 +78,8 @@ const AdminNavbarTemplate = (): JSX.Element => {
             </Nav>
             <Nav className='mr-auto font-size-15'>
               <Row>
-                <Col>
-                  <PlanLabel sm={3}></PlanLabel>
+                <Col sm={3}>
+                  <PlanLabel></PlanLabel>
                 </Col>
               </Row>
             </Nav>
