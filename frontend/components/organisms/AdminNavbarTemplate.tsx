@@ -1,5 +1,5 @@
 import React from 'react'
-import { Nav, Navbar, NavDropdown, Container, Alert } from 'react-bootstrap'
+import { Nav, Navbar, NavDropdown, Container, Alert, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { alertChanged } from '../../redux/alertSlice'
 import { RootState } from '../../redux/store'
@@ -77,7 +77,11 @@ const AdminNavbarTemplate = (): JSX.Element => {
               </NavDropdown>
             </Nav>
             <Nav className='mr-auto font-size-15'>
-              <PlanLabel></PlanLabel>
+              <Row>
+                <Col>
+                  <PlanLabel sm={3}></PlanLabel>
+                </Col>
+              </Row>
             </Nav>
           </Navbar.Collapse>
         </Container>
