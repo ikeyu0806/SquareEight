@@ -41,7 +41,8 @@ const Index: NextPage = () => {
       <Container>
         <Row>
           <Col>
-            <ListGroup.Item as='li' active>
+            <ListGroup as='ul'>
+              <ListGroup.Item as='li' active>
                 通知一覧
               </ListGroup.Item>
               {notifications && notifications.map((n, i) => {
@@ -55,6 +56,7 @@ const Index: NextPage = () => {
                   </ListGroup.Item>
                 )
               })}
+            </ListGroup>
           </Col>
           <Col>
             <ListGroup as='ul'>
