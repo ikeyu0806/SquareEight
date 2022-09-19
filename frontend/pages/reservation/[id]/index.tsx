@@ -20,7 +20,7 @@ export const Index = () => {
   useEffect(() => {
     const fetchReservation = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/reservations/${router.query.id}`
+        `${process.env.BACKEND_URL}/api/internal/reservations/${router.query.id}?viewable_key=${router.query.key}`
       )
       .then(function (response) {
         setReserveFrameTitle(response.data.reservation.reserve_frame_title)
