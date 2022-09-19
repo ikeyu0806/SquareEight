@@ -42,36 +42,38 @@ const Index: NextPage = () => {
           <Col lg={6}>
             <Card>
               <Card.Header>注文一覧</Card.Header>
-              {orders && orders.map((order, i) => {
-                return (
-                  <ListGroup.Item key={i}>
-                    <Row>
-                      <Col>
-                        {order.product_names.map((name, i) => {
-                          return (
-                            <>
-                              <span>{name}</span>
-                              <br />合計金額: ¥{order.total_price}
-                              <br />注文日: {order.order_date}
-                              <br />
-                              <a className='btn btn-primary btn-sm mt10' href={`/customer_page/order/${order.id}`}>
-                                詳細
-                              </a>
-                            </>
-                          )
-                        })}
-                      </Col>
-                      <Col>
-                        {order.include_product && <>
-                        <div>お届け先</div>
-                        <div>{order.name}</div>
-                        <div>{order.postal_code}</div>
-                        <div>{order.address}</div></>}
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                )
-              })}
+              <ListGroup>
+                {orders && orders.map((order, i) => {
+                  return (
+                    <ListGroup.Item key={i}>
+                      <Row>
+                        <Col>
+                          {order.product_names.map((name, i) => {
+                            return (
+                              <>
+                                <span>{name}</span>
+                                <br />合計金額: ¥{order.total_price}
+                                <br />注文日: {order.order_date}
+                                <br />
+                                <a className='btn btn-primary btn-sm mt10' href={`/customer_page/order/${order.id}`}>
+                                  詳細
+                                </a>
+                              </>
+                            )
+                          })}
+                        </Col>
+                        <Col>
+                          {order.include_product && <>
+                          <div>お届け先</div>
+                          <div>{order.name}</div>
+                          <div>{order.postal_code}</div>
+                          <div>{order.address}</div></>}
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                  )
+                })}
+              </ListGroup>
             </Card>
           </Col>
         </Row>
