@@ -23,7 +23,7 @@ class StripeWebhooksController < ApplicationController
         end_user = EndUser.find_by(stripe_customer_id: stripe_customer_id)
         account = Account.find_by(stripe_account_id: transfer_destination_account_id)
         stripe_payment_intent = StripePaymentIntent.find_or_initialize_by(stripe_payment_intent_id: stripe_payment_intent_id)
-  
+        purchase_product_name = stripe_params["data"]["object"]["metadata"]["purchase_product_name"]
         # DBに登録
         stripe_payment_intent.attributes = {
           amount: amount,
@@ -33,6 +33,7 @@ class StripeWebhooksController < ApplicationController
           transfer_destination_account_id: transfer_destination_account_id,
           ticket_master_id: ticket_master_id,
           product_id: product_id,
+          purchase_product_name: purchase_product_name,
           reserve_frame_id: reserve_frame_id,
           system_product_type: system_product_type,
           end_user_id: end_user&.id,
