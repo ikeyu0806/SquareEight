@@ -13,6 +13,7 @@ export const sharedComponentSlice = createSlice({
     navbarBrandVariantColor: '',
     isUpdateNavbarBrandImage: false,
     footerCopyRightText: '',
+    hideShareButton: false
   },
   reducers: {
     navbarBrandTextChanged: (state, action: PayloadAction<string>) => {
@@ -42,6 +43,9 @@ export const sharedComponentSlice = createSlice({
     footerCopyRightTextChanged: (state, action: PayloadAction<string>) => {
       state.footerCopyRightText = action.payload
     },
+    hideShareButtonChanged: (state, action: PayloadAction<boolean>) => {
+      state.hideShareButton = action.payload
+    },
   },
 })
 
@@ -54,5 +58,6 @@ export const { navbarBrandBackgroundColorChanged } = sharedComponentSlice.action
 export const { navbarBrandVariantColorChanged } = sharedComponentSlice.actions
 export const { isUpdateNavbarBrandImageChanged } = sharedComponentSlice.actions
 export const { footerCopyRightTextChanged } = sharedComponentSlice.actions
+export const { hideShareButtonChanged } = sharedComponentSlice.actions
 
 export default sharedComponentSlice.reducer

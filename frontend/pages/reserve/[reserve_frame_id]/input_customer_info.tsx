@@ -11,6 +11,7 @@ import { paymentMethodText } from 'functions/paymentMethodText'
 import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
+import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -46,7 +47,6 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_end_user_session
       }
     }).then((response) => {
-      console.log(response.data)
       dispatch(loginStatusChanged('Login'))
       setPublishStatus(response.data.publish_status || '')
       setDefaultPaymentMethodId(response.data.default_payment_method_id)
@@ -70,6 +70,7 @@ const Index: NextPage = () => {
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
+    dispatch(hideShareButtonChanged(true))
   }, [dispatch, cookies._square_eight_end_user_session, router.query.monthly_payment_plan_id, router.query.reserve_frame_id, router.query.ticket_id])
 
   const execReserve = () => {

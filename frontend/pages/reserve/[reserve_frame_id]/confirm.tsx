@@ -9,6 +9,7 @@ import axios from 'axios'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
+import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -49,7 +50,7 @@ const PaymentMethod: NextPage = () => {
       })
     }
     fetchReserveFrame()
-    
+    dispatch(hideShareButtonChanged(true))
   }, [router.query.reserve_frame_id, dispatch])
 
   const execReserve = () => {

@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
-import { receptionTypeText } from 'functions/receptionTypeText'
 import axios from 'axios'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
+import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
 
 export const Index = () => {
   const dispatch = useDispatch()
@@ -35,8 +35,8 @@ export const Index = () => {
       })
     }
     fetchReservation()
-    
-  }, [router.query.id, dispatch])
+    dispatch(hideShareButtonChanged(true))
+  }, [router.query.id, router.query.key, dispatch])
 
   return (
     <>

@@ -7,6 +7,7 @@ import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { ReserveFramePaymentMethodParam } from 'interfaces/ReserveFramePaymentMethodParam'
 import { useRouter } from 'next/router'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
+import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -59,7 +60,7 @@ const Index: NextPage = () => {
       })
     }
     fetchReserveFrame()
-    
+    dispatch(hideShareButtonChanged(true))
   }, [router.query.reserve_frame_id, dispatch])
 
   const validateOnSubmit = () => {
