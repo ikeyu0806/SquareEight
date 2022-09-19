@@ -17,4 +17,5 @@ export interface ReservationParam {
   customer_phone_number: string
   status: string
   reception_type: string
+  viewable_key: string
 }

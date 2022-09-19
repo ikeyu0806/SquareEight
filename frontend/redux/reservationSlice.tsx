@@ -10,7 +10,8 @@ export const reservationSlice = createSlice({
     endTime: '',
     numberOfPeople: 1,
     price: 0,
-    showRegisterReservationModal: false
+    showRegisterReservationModal: false,
+    viewableKey: ''
   },
   reducers: {
     reserveFrameIdChanged: (state, action: PayloadAction<number>) => {
@@ -34,6 +35,9 @@ export const reservationSlice = createSlice({
     showRegisterReservationModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showRegisterReservationModal = action.payload
     },
+    viewableKeyChanged: (state, action: PayloadAction<string>) => {
+      state.viewableKey = action.payload
+    },
   },
 })
 
@@ -44,5 +48,6 @@ export const { endTimeChanged } = reservationSlice.actions
 export const { numberOfPeopleChanged } = reservationSlice.actions
 export const { priceChanged } = reservationSlice.actions
 export const { showRegisterReservationModalChanged } = reservationSlice.actions
+export const { viewableKeyChanged } = reservationSlice.actions
 
 export default reservationSlice.reducer

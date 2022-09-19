@@ -1,9 +1,13 @@
+require 'securerandom'
+
 class Reservation < ApplicationRecord
   belongs_to :reserve_frame
   belongs_to :customer
 
   enum payment_method: { localPayment: 0, creditCardPayment: 1, ticket: 2, monthlyPaymentPlan: 3 }
   enum status: { pendingVerifivation: 0, confirm: 1 }
+
+  before_create :insert_viewable_key
 
   def reserve_frame_title
     reserve_frame.title
@@ -63,5 +67,9 @@ class Reservation < ApplicationRecord
 
   def reception_type
     reserve_frame.reception_type
+  end
+
+  def insert_viewable_key
+    self.viewable_key = SecureRandom.alphanumeric
   end
 end
