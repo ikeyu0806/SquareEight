@@ -1,11 +1,12 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { Container, ListGroup, Row, Col, Card, Button } from 'react-bootstrap'
+import { Container, ListGroup, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import { PageLinksParam } from 'interfaces/PageLinksParam'
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 
 const CreatePages: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -57,6 +58,8 @@ const CreatePages: NextPage = () => {
                       <Row>
                         <Col>
                           {link.text}&emsp;<span>【{link.label}】</span>
+                          <br/>
+                          <span><PublishStatusBadge publishStatus={link.publish_status} /></span>
                         </Col>
                         <Col>
                           <a className='btn btn-primary btn-sm'
