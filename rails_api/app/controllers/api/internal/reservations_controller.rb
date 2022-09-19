@@ -175,7 +175,7 @@ class Api::Internal::ReservationsController < ApplicationController
   def register_reservation_info
     account = current_merchant_user.account
     reserve_frames = account.reserve_frames
-    customers = account.customers
+    customers = JSON.parse(account.customers.to_json(methods: [:full_name]))
     render json: { status: 'success', reserve_frames: reserve_frames, customers: customers }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

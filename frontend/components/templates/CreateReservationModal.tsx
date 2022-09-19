@@ -6,6 +6,7 @@ import { showRegisterReservationModalChanged } from 'redux/reservationSlice'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
+import { CustomerParam } from 'interfaces/CustomerParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { reserveFrameIdChanged,
          reservationDateChanged,
@@ -27,6 +28,8 @@ const CreateReservationModal = (): JSX.Element => {
   const showRegisterReservationModal = useSelector((state: RootState) => state.reservation.showRegisterReservationModal)
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [reserveFrames, setReserveFrames] = useState<ReserveFrameParam[]>([])
+  const [customers, setCustomers] = useState<CustomerParam[]>([])
+  const [isSelectCustomer, setIsSelectCustomer] = useState(false)
 
   useEffect(() => {
     const fetchReserveFrames = () => {
@@ -39,7 +42,9 @@ const CreateReservationModal = (): JSX.Element => {
       )
       .then(function (response) {
         const reserveFrameResponse: ReserveFrameParam[] = response.data.reserve_frames
+        const customerResponse: CustomerParam[] = response.data.customers
         setReserveFrames(reserveFrameResponse)
+        setCustomers(customerResponse)
         dispatch(reserveFrameIdChanged(Number(reserveFrameResponse[0].id)))
       })
       .catch(error => {
@@ -86,7 +91,7 @@ const CreateReservationModal = (): JSX.Element => {
     <Modal show={showRegisterReservationModal}>
       <Modal.Header>予約登録</Modal.Header>
       <Modal.Body>
-        <Form.Label>予約メニュー</Form.Label>
+        <Form.Label>予約メニューを選択してください</Form.Label>
         <Form.Select>
           {reserveFrames.map((reserveFrame, i) => {
             return (
@@ -94,6 +99,34 @@ const CreateReservationModal = (): JSX.Element => {
             )
           })}
         </Form.Select>
+        <hr/>
+        <Form.Label>顧客情報</Form.Label>
+        <Form.Check
+          className='mt10'
+          type='radio'
+          name='isSelectCustomer'
+          onChange={() => setIsSelectCustomer(false)}
+          checked={isSelectCustomer === false}
+          label='新規に顧客を登録する'
+          id='newCustomerCheck' />
+        <Form.Check
+          type='radio'
+          name='isSelectCustomer'
+          onChange={() => setIsSelectCustomer(true)}
+          checked={isSelectCustomer === true}
+          label='登録済みの顧客から選択する'
+          id='selectCustomerCheck' />
+        {isSelectCustomer &&
+        <>
+          <Form.Label className='mt10'>顧客を選択してください</Form.Label>
+          <Form.Select>
+            {customers.map((customer, i) => {
+              return (
+                <option value={customer.id} key={i}>{customer.full_name}</option>
+              )
+            })}
+          </Form.Select>
+        </>}
         <Form.Label className='mt10'>予約代表者の名前（姓）</Form.Label>
         <Form.Control
           value={representativeLastName}
@@ -102,11 +135,13 @@ const CreateReservationModal = (): JSX.Element => {
         <Form.Control
           value={representativeFirstName}
           onChange={(e) => dispatch(representativeFirstNameChanged(e.target.value))}></Form.Control>
+        <hr />
         <Form.Label className='mt10'>予約人数</Form.Label>
         <Form.Control
           value={numberOfPeople}
           onChange={(e) => dispatch(numberOfPeopleChanged(Number(e.target.value)))}
           type='number'></Form.Control>
+        <hr />
         <Form.Label className='mt10'>予約日時</Form.Label>
         <Form.Control
           value={reservationDate}
