@@ -109,6 +109,13 @@ const CreateReservationModal = (): JSX.Element => {
     })
   }
 
+  const validateOnSubmit = () => {
+    if (!reservationDate || !startTime || !endTime) {
+      return true
+    }
+    return false
+  }
+
   const insertCustomerForm = (customerId: string) => {
     let customer: CustomerParam
     customer = customers.find(c => c.id === Number(customerId)) as CustomerParam
@@ -195,7 +202,9 @@ const CreateReservationModal = (): JSX.Element => {
         </Row>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={() => onSubmit()}>
+        <Button
+          disabled={validateOnSubmit()}
+          onClick={() => onSubmit()}>
           登録する
         </Button>
         <Button
