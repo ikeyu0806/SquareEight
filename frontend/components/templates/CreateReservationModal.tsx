@@ -129,6 +129,20 @@ const CreateReservationModal = (): JSX.Element => {
     dispatch(phoneNumberChanged(customer.phone_number || ''))
   }
 
+  const checkSelectCustomer = () => {
+    setIsSelectCustomer(true)
+    let customer: CustomerParam
+    customer = customers[0]
+    dispatch(customerIdChanged(customer.id))
+    dispatch(firstNameChanged(customer.first_name || ''))
+    dispatch(firstNameKanaChanged(customer.first_name_kana || ''))
+    dispatch(lastNameChanged(customer.last_name || ''))
+    dispatch(lastNameKanaChanged(customer.last_name_kana || ''))
+    dispatch(emailChanged(customer.email || ''))
+    dispatch(notesChanged(customer.notes || ''))
+    dispatch(phoneNumberChanged(customer.phone_number || ''))
+  }
+
   return (
 
     <Modal show={showRegisterReservationModal}>
@@ -155,7 +169,7 @@ const CreateReservationModal = (): JSX.Element => {
         <Form.Check
           type='radio'
           name='isSelectCustomer'
-          onChange={() => setIsSelectCustomer(true)}
+          onChange={() => checkSelectCustomer()}
           checked={isSelectCustomer === true}
           label='登録済みの顧客から選択する'
           id='selectCustomerCheck' />
