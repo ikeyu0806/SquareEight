@@ -34,18 +34,20 @@ const Index: NextPage = () => {
             <Col lg={6}>
               <Card>
                 <Card.Header>予約一覧</Card.Header>
-                {reservations && reservations.map((reservation, i) => {
-                  return (
-                    <ListGroup.Item key={i}>
-                      <div className='mb10'>{reservation.reserve_frame_title}</div>
-                      <span>{reservation.display_reservation_datetime}</span>
-                      <br />
-                      <span>人数: {reservation.number_of_people}</span>
-                      <br />
-                      <span>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</span>
-                    </ListGroup.Item>
-                  )
-                })}
+                <ListGroup>
+                  {reservations && reservations.map((reservation, i) => {
+                    return (
+                      <ListGroup.Item key={i}>
+                        <div className='mb10'>{reservation.reserve_frame_title}</div>
+                        <span>{reservation.display_reservation_datetime}</span>
+                        <br />
+                        <span>人数: {reservation.number_of_people}</span>
+                        <br />
+                        <span>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</span>
+                      </ListGroup.Item>
+                    )
+                  })}
+                </ListGroup>
               </Card>
             </Col>
           </Row>
