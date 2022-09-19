@@ -8,6 +8,7 @@ import { useCookies } from 'react-cookie'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { CustomerParam } from 'interfaces/CustomerParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import CreateCustomerForm from 'components/organisms/CreateCustomerForm'
 import { reserveFrameIdChanged,
          reservationDateChanged,
          startTimeChanged,
@@ -18,14 +19,22 @@ import { reserveFrameIdChanged,
 
 const CreateReservationModal = (): JSX.Element => {
   const dispatch = useDispatch()
+  // Reservation
   const reserveFrameId = useSelector((state: RootState) => state.reservation.reserveFrameId)
   const reservationDate = useSelector((state: RootState) => state.reservation.reservationDate)
   const startTime = useSelector((state: RootState) => state.reservation.startTime)
   const endTime = useSelector((state: RootState) => state.reservation.endTime)
   const numberOfPeople = useSelector((state: RootState) => state.reservation.numberOfPeople)
-  const representativeFirstName = useSelector((state: RootState) => state.reservation.representativeFirstName)
-  const representativeLastName = useSelector((state: RootState) => state.reservation.representativeLastName)
   const showRegisterReservationModal = useSelector((state: RootState) => state.reservation.showRegisterReservationModal)
+  // Customer
+  const firstName = useSelector((state: RootState) => state.customer.firstName)
+  const lastName = useSelector((state: RootState) => state.customer.lastName)
+  const firstNameKana = useSelector((state: RootState) => state.customer.firstNameKana)
+  const lastNameKana = useSelector((state: RootState) => state.customer.lastNameKana)
+  const email = useSelector((state: RootState) => state.customer.email)
+  const notes = useSelector((state: RootState) => state.customer.notes)
+  const phoneNumber = useSelector((state: RootState) => state.customer.phoneNumber)
+
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [reserveFrames, setReserveFrames] = useState<ReserveFrameParam[]>([])
   const [customers, setCustomers] = useState<CustomerParam[]>([])
@@ -63,8 +72,14 @@ const CreateReservationModal = (): JSX.Element => {
         start_time: startTime,
         end_time: endTime,
         number_of_people: numberOfPeople,
-        first_name: representativeFirstName,
-        last_name: representativeLastName,
+        first_name: firstName,
+        last_name: lastName,
+        first_name_kana: firstNameKana,
+        last_name_kana: lastNameKana,
+        email: email,
+        notes: notes,
+        phone_number: phoneNumber,
+        is_select_customer: isSelectCustomer
       }
     },
     {
@@ -100,7 +115,7 @@ const CreateReservationModal = (): JSX.Element => {
           })}
         </Form.Select>
         <hr/>
-        <Form.Label>顧客情報</Form.Label>
+        <Form.Label>予約代表者の顧客情報を入力してください</Form.Label>
         <Form.Check
           className='mt10'
           type='radio'
@@ -127,14 +142,7 @@ const CreateReservationModal = (): JSX.Element => {
             })}
           </Form.Select>
         </>}
-        <Form.Label className='mt10'>予約代表者の名前（姓）</Form.Label>
-        <Form.Control
-          value={representativeLastName}
-          onChange={(e) => dispatch(representativeLastNameChanged(e.target.value))}></Form.Control>
-        <Form.Label className='mt10'>予約代表者の名前（名）</Form.Label>
-        <Form.Control
-          value={representativeFirstName}
-          onChange={(e) => dispatch(representativeFirstNameChanged(e.target.value))}></Form.Control>
+        <CreateCustomerForm></CreateCustomerForm>
         <hr />
         <Form.Label className='mt10'>予約人数</Form.Label>
         <Form.Control
