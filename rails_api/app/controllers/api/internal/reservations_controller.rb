@@ -9,8 +9,8 @@ class Api::Internal::ReservationsController < ApplicationController
       date = reservation_params[:date].split("-")
       start_at = reservation_params[:time].split("-")[0].split(":")
       end_at = reservation_params[:time].split("-")[1].split(":")
-      start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i)
-      end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i)
+      start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i, 0, "+09:00")
+      end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i, 0, "+09:00")
       reserved_count = reserve_frame.reservations.where(start_at: start_datetime, end_at: end_datetime).count
       # リソースチェック
       resources = reserve_frame.resources
@@ -158,8 +158,8 @@ class Api::Internal::ReservationsController < ApplicationController
       date = reservation_params[:reservation_date].split("-")
       start_at = reservation_params[:start_time].split("-")[0].split(":")
       end_at = reservation_params[:end_time].split("-")[0].split(":")
-      start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i)
-      end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i)
+      start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i, 0, "+09:00")
+      end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i, 0, "+09:00")
       # Customer
       if reservation_params[:is_select_customer] == true
         customer = Customer.find(reservation_params[:customer_id])
