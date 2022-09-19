@@ -1,5 +1,5 @@
 class Api::Internal::ReservationsController < ApplicationController
-  before_action :merchant_login_only!, except: [:create]
+  before_action :merchant_login_only!, except: [:create, :show]
 
   def create
     ActiveRecord::Base.transaction do
@@ -148,6 +148,14 @@ class Api::Internal::ReservationsController < ApplicationController
   
       render json: { status: 'success' }, states: 200
     end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def show
+    reservation = Reservation.find(params[:id])
+    reservation = JSON.parse(reservation.to_json(methods: [:reserve_frame_title, :display_payment_method, :display_status, :display_reservation_datetime]))
+    render json: { status: 'success', reservation: reservation }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
