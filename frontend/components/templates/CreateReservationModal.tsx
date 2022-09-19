@@ -21,6 +21,7 @@ import {  reserveFrameIdChanged,
           reservationDateChanged,
           startTimeChanged,
           endTimeChanged,
+          priceChanged,
           numberOfPeopleChanged } from 'redux/reservationSlice'
 
 const CreateReservationModal = (): JSX.Element => {
@@ -31,6 +32,7 @@ const CreateReservationModal = (): JSX.Element => {
   const startTime = useSelector((state: RootState) => state.reservation.startTime)
   const endTime = useSelector((state: RootState) => state.reservation.endTime)
   const numberOfPeople = useSelector((state: RootState) => state.reservation.numberOfPeople)
+  const price = useSelector((state: RootState) => state.reservation.price)
   const showRegisterReservationModal = useSelector((state: RootState) => state.reservation.showRegisterReservationModal)
   // Customer
   const customerId = useSelector((state: RootState) => state.customer.customerId)
@@ -78,6 +80,7 @@ const CreateReservationModal = (): JSX.Element => {
         reservation_date: reservationDate,
         start_time: startTime,
         end_time: endTime,
+        price: price,
         number_of_people: numberOfPeople,
         customer_id: customerId,
         first_name: firstName,
@@ -192,6 +195,12 @@ const CreateReservationModal = (): JSX.Element => {
         <Form.Control
           value={numberOfPeople}
           onChange={(e) => dispatch(numberOfPeopleChanged(Number(e.target.value)))}
+          type='number'></Form.Control>
+        <hr />
+        <Form.Label className='mt10'>料金</Form.Label>
+        <Form.Control
+          value={price}
+          onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
           type='number'></Form.Control>
         <hr />
         <Form.Label className='mt10'>予約日時</Form.Label>

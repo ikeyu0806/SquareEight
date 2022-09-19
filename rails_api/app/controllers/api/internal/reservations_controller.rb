@@ -180,6 +180,7 @@ class Api::Internal::ReservationsController < ApplicationController
                           start_at: start_datetime,
                           status: 'confirm',
                           end_at: end_datetime,
+                          price: reservation_params[:price],
                           number_of_people: reservation_params[:number_of_people],
                           representative_first_name: reservation_params[:first_name],
                           representative_last_name: reservation_params[:last_name],
