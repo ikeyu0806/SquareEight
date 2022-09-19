@@ -15,4 +15,8 @@ class StripePaymentIntent < ApplicationRecord
   def customer_fullname
     end_user&.customer&.full_name
   end
+
+  def account_business_name
+    account.business_name
+  end
 end

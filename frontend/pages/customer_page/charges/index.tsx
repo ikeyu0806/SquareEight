@@ -44,10 +44,10 @@ const Index: NextPage = () => {
               {stripePaymentIntents && stripePaymentIntents.map((payment, i) => {
                 return (
                   <tr key={i}>
-                    <td className='text-center'>{payment.metadata.name}</td>
-                    <td className='text-center'>{payment.metadata.account_business_name}</td>
+                    <td className='text-center'>{payment.purchase_product_name}</td>
+                    <td className='text-center'>{payment.account_business_name}</td>
                     <td className='text-center'>￥{payment.amount}</td>
-                    <td className='text-center'>{payment.metadata.order_date}</td>
+                    <td className='text-center'>{payment.order_date}</td>
                   </tr>
                 )
               })}

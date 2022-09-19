@@ -5,4 +5,5 @@ export interface StripePaymentIntentsParam {
   order_date: string
   customer_fullname: string
   system_plan_name: string
+  account_business_name: string
 }
