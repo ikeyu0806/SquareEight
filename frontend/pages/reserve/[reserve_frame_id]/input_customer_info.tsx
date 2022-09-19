@@ -22,6 +22,7 @@ import {  navbarBrandTextChanged,
 
 const Index: NextPage = () => {
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
   const [selectedDate, setSelectedDate] = useState(String(router.query.date).split('-'))
   const [lastName, setLastName] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -72,6 +73,7 @@ const Index: NextPage = () => {
   }, [dispatch, cookies._square_eight_end_user_session, router.query.monthly_payment_plan_id, router.query.reserve_frame_id, router.query.ticket_id])
 
   const execReserve = () => {
+    setIsLoading(true)
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations`,
     {
       reservations: {
@@ -95,6 +97,7 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
+      setIsLoading(false)
       swalWithBootstrapButtons.fire({
         title: '送信しました',
         icon: 'info'
@@ -103,6 +106,7 @@ const Index: NextPage = () => {
       })
       setIsCompleteReservation(true)
     }).catch(error => {
+      setIsLoading(false)
       swalWithBootstrapButtons.fire({
         title: '送信失敗しました',
         icon: 'error'
@@ -241,6 +245,7 @@ const Index: NextPage = () => {
                       disabled={reserveValidate()}
                       className='mt30'
                       onClick={onSubmit}>
+                      {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
                       {String(router.query.payment_method) === 'localPayment' ? '確認画面に進む' : '予約を確定する'}
                     </Button>
                   </div>}
