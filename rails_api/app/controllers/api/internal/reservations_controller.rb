@@ -160,12 +160,30 @@ class Api::Internal::ReservationsController < ApplicationController
       end_at = reservation_params[:end_time].split("-")[0].split(":")
       start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i)
       end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i)
+      # Customer
+      if reservation_params[:is_select_customer] == true
+        customer = Customer.find(reservation_params[:customer_id])
+      else
+        customer = Customer.new
+      end
+      customer.account_id = current_merchant_user.account.id
+      customer.first_name = reservation_params[:first_name]
+      customer.last_name = reservation_params[:last_name]
+      customer.first_name_kana = reservation_params[:first_name_kana]
+      customer.last_name_kana = reservation_params[:last_name_kana]
+      customer.email = reservation_params[:email]
+      customer.phone_number = reservation_params[:phone_number]
+      customer.notes = reservation_params[:notes]
+      customer.save!
+      # create reservation
       Reservation.create!(reserve_frame_id: reservation_params[:reserve_frame_id],
-                          start_at: start_at,
-                          end_at: end_at,
+                          start_at: start_datetime,
+                          status: 'confirm',
+                          end_at: end_datetime,
                           number_of_people: reservation_params[:number_of_people],
                           representative_first_name: reservation_params[:first_name],
-                          representative_last_name: reservation_params[:last_name])
+                          representative_last_name: reservation_params[:last_name],
+                          customer_id: customer.id)
       render json: { status: 'success' }, states: 200
     end
   rescue => error
@@ -188,8 +206,11 @@ class Api::Internal::ReservationsController < ApplicationController
           .permit(:id,
                   :last_name,
                   :first_name,
+                  :first_name_kana,
+                  :last_name_kana,
                   :email,
                   :phone_number,
+                  :notes,
                   :reserve_frame_id,
                   :date,
                   :time,
@@ -208,6 +229,7 @@ class Api::Internal::ReservationsController < ApplicationController
                   :ticket_id,
                   :monthly_payment_plan_id,
                   :price,
-                  :status)
+                  :status,
+                  :is_select_customer)
   end
 end

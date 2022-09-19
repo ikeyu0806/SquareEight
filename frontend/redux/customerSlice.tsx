@@ -4,7 +4,7 @@ import { PagenationState } from 'interfaces/PagenationState'
 export const customerSlice = createSlice({
   name: 'alert',
   initialState: {
-    customerId: '',
+    customerId: 0,
     firstName: '',
     lastName: '',
     firstNameKana: '',
@@ -22,7 +22,7 @@ export const customerSlice = createSlice({
     } as PagenationState,
   },
   reducers: {
-    customerIdChanged: (state, action: PayloadAction<string>) => {
+    customerIdChanged: (state, action: PayloadAction<number>) => {
       state.customerId = action.payload
     },
     firstNameChanged: (state, action: PayloadAction<string>) => {

@@ -9,18 +9,19 @@ import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { CustomerParam } from 'interfaces/CustomerParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import CreateCustomerForm from 'components/organisms/CreateCustomerForm'
-import {  firstNameChanged,
+import {  customerIdChanged,
+          firstNameChanged,
           firstNameKanaChanged,
           lastNameChanged,
           lastNameKanaChanged,
           emailChanged,
           notesChanged,
           phoneNumberChanged } from 'redux/customerSlice'
-import { reserveFrameIdChanged,
-         reservationDateChanged,
-         startTimeChanged,
-         endTimeChanged,
-         numberOfPeopleChanged } from 'redux/reservationSlice'
+import {  reserveFrameIdChanged,
+          reservationDateChanged,
+          startTimeChanged,
+          endTimeChanged,
+          numberOfPeopleChanged } from 'redux/reservationSlice'
 
 const CreateReservationModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -32,6 +33,7 @@ const CreateReservationModal = (): JSX.Element => {
   const numberOfPeople = useSelector((state: RootState) => state.reservation.numberOfPeople)
   const showRegisterReservationModal = useSelector((state: RootState) => state.reservation.showRegisterReservationModal)
   // Customer
+  const customerId = useSelector((state: RootState) => state.customer.customerId)
   const firstName = useSelector((state: RootState) => state.customer.firstName)
   const lastName = useSelector((state: RootState) => state.customer.lastName)
   const firstNameKana = useSelector((state: RootState) => state.customer.firstNameKana)
@@ -77,6 +79,7 @@ const CreateReservationModal = (): JSX.Element => {
         start_time: startTime,
         end_time: endTime,
         number_of_people: numberOfPeople,
+        customer_id: customerId,
         first_name: firstName,
         last_name: lastName,
         first_name_kana: firstNameKana,
@@ -109,6 +112,7 @@ const CreateReservationModal = (): JSX.Element => {
   const insertCustomerForm = (customerId: string) => {
     let customer: CustomerParam
     customer = customers.find(c => c.id === Number(customerId)) as CustomerParam
+    dispatch(customerIdChanged(customer.id))
     dispatch(firstNameChanged(customer.first_name || ''))
     dispatch(firstNameKanaChanged(customer.first_name_kana || ''))
     dispatch(lastNameChanged(customer.last_name || ''))
