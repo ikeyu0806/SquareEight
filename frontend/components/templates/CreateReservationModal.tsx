@@ -39,7 +39,6 @@ const CreateReservationModal = (): JSX.Element => {
       )
       .then(function (response) {
         const reserveFrameResponse: ReserveFrameParam[] = response.data.reserve_frames
-        console.log(response.data)
         setReserveFrames(reserveFrameResponse)
         dispatch(reserveFrameIdChanged(Number(reserveFrameResponse[0].id)))
       })
@@ -51,15 +50,16 @@ const CreateReservationModal = (): JSX.Element => {
   }, [cookies._square_eight_merchant_session, dispatch])
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/reservation/register_by_merchant_control`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/register_by_merchant_control`,
     {
-      reservation: {
+      reservations: {
+        reserve_frame_id: reserveFrameId,
         reservation_date: reservationDate,
         start_time: startTime,
         end_time: endTime,
         number_of_people: numberOfPeople,
-        representative_first_name: representativeFirstName,
-        representative_last_name: representativeLastName,
+        first_name: representativeFirstName,
+        last_name: representativeLastName,
       }
     },
     {
@@ -94,14 +94,19 @@ const CreateReservationModal = (): JSX.Element => {
             )
           })}
         </Form.Select>
-        <Form.Label className='mt10'>予約者の名前（姓）</Form.Label>
+        <Form.Label className='mt10'>予約代表者の名前（姓）</Form.Label>
         <Form.Control
           value={representativeLastName}
           onChange={(e) => dispatch(representativeLastNameChanged(e.target.value))}></Form.Control>
-        <Form.Label className='mt10'>予約者の名前（名）</Form.Label>
+        <Form.Label className='mt10'>予約代表者の名前（名）</Form.Label>
         <Form.Control
           value={representativeFirstName}
           onChange={(e) => dispatch(representativeFirstNameChanged(e.target.value))}></Form.Control>
+        <Form.Label className='mt10'>予約人数</Form.Label>
+        <Form.Control
+          value={numberOfPeople}
+          onChange={(e) => dispatch(numberOfPeopleChanged(Number(e.target.value)))}
+          type='number'></Form.Control>
         <Form.Label className='mt10'>予約日時</Form.Label>
         <Form.Control
           value={reservationDate}
