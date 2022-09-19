@@ -1,4 +1,6 @@
 class Api::Internal::ReservationsController < ApplicationController
+  before_action :merchant_login_only!, except: [:create]
+
   def create
     ActiveRecord::Base.transaction do
       reserve_frame = ReserveFrame.find(reservation_params[:reserve_frame_id])
@@ -166,6 +168,15 @@ class Api::Internal::ReservationsController < ApplicationController
                           representative_last_name: reservation_params[:last_name])
       render json: { status: 'success' }, states: 200
     end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def register_reservation_info
+    account = current_merchant_user.account
+    reserve_frames = account.reserve_frames
+    customers = account.customers
+    render json: { status: 'success', reserve_frames: reserve_frames, customers: customers }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

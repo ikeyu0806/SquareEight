@@ -31,7 +31,7 @@ const CreateReservationModal = (): JSX.Element => {
   useEffect(() => {
     const fetchReserveFrames = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/reserve_frames`, {
+        `${process.env.BACKEND_URL}/api/internal/reservations/register_reservation_info`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           },
