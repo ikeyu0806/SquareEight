@@ -18,6 +18,7 @@ export const reserveFrameSlice = createSlice({
     repeatIntervalNumberWeek: 1,
     repeatIntervalNumberMonth: 1,
     repeatIntervalMonthDate: 1,
+    repeatWDays: [] as string[],
     isEveryDayRepeat: true,
     isEveryWeekRepeat: true,
     isEveryMonthRepeat: true,
@@ -78,6 +79,9 @@ export const reserveFrameSlice = createSlice({
     },
     repeatIntervalMonthDateChanged: (state, action: PayloadAction<number>) => {
       state.repeatIntervalMonthDate = action.payload
+    },
+    repeatWDaysChanged: (state, action: PayloadAction<string[]>) => {
+      state.repeatWDays = action.payload
     },
     isEveryDayRepeatChanged: (state, action: PayloadAction<boolean>) => {
       state.isEveryDayRepeat = action.payload
@@ -171,6 +175,7 @@ export const { repeatIntervalNumberDayChanged } = reserveFrameSlice.actions
 export const { repeatIntervalNumberWeekChanged } = reserveFrameSlice.actions
 export const { repeatIntervalNumberMonthChanged } = reserveFrameSlice.actions
 export const { repeatIntervalMonthDateChanged } = reserveFrameSlice.actions
+export const { repeatWDaysChanged } = reserveFrameSlice.actions
 export const { isEveryDayRepeatChanged } = reserveFrameSlice.actions
 export const { isEveryWeekRepeatChanged } = reserveFrameSlice.actions
 export const { isEveryMonthRepeatChanged } = reserveFrameSlice.actions

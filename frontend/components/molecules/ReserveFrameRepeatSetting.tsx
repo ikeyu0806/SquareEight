@@ -15,7 +15,9 @@ import {
   repeatIntervalNumberMonthChanged,
   repeatIntervalMonthDateChanged,
   unreservableFramesChanged,
-  repeatEndDateChanged } from 'redux/reserveFrameSlice'
+  repeatEndDateChanged,
+  repeatWDaysChanged } from 'redux/reserveFrameSlice'
+import { weekDaysChanged } from 'redux/dashboardSlice'
 
 const ReserveFrameRepeatSetting = () => {
   const dispatch = useDispatch()
@@ -29,6 +31,7 @@ const ReserveFrameRepeatSetting = () => {
   const repeatIntervalNumberWeek = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberWeek)
   const repeatIntervalNumberMonth = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberMonth)
   const repeatIntervalMonthDate = useSelector((state: RootState) => state.reserveFrame.repeatIntervalMonthDate)
+  const repeatWDays = useSelector((state: RootState) => state.reserveFrame.repeatWDays)
   const isEveryDayRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryDayRepeat)
   const isEveryWeekRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryWeekRepeat)
   const isEveryMonthRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryMonthRepeat)
@@ -46,7 +49,6 @@ const ReserveFrameRepeatSetting = () => {
   }
 
   const validateOnSubmit = () => {
-    console.log(unreservableFramesStartDate, unreservableFramesStartTime)
     // 入力されているか
     if (!unreservableFramesStartDate || !unreservableFramesStartTime || !unreservableFramesEndDate || !unreservableFramesEndTime) {
       return true
@@ -62,6 +64,29 @@ const ReserveFrameRepeatSetting = () => {
     let updateUnreservableFrame: UnreservableFrameParam[]
     updateUnreservableFrame = unreservableFrames.filter(frame => { (frame.start_at + frame.end_at) !== (startAt + endAt) })
     dispatch(unreservableFramesChanged(updateUnreservableFrame))
+  }
+
+  const addRepeatWDay = (wday: string) => {
+    let updateWdays: string[]
+    updateWdays = repeatWDays
+    updateWdays = [...updateWdays, wday]
+    dispatch((repeatWDaysChanged(updateWdays)))
+  }
+
+  const removeRepeatWDay = (wday: string) => {
+    let updateWdays: string[]
+    updateWdays = repeatWDays
+    updateWdays = updateWdays.filter(w => wday !== w)
+    dispatch((repeatWDaysChanged(updateWdays)))
+  }
+
+  const updateRepeatWDay = (event: any, wday: string) => {
+    const target = event.target
+    if (target.checked) {
+      addRepeatWDay(wday)
+    } else {
+      removeRepeatWDay(wday)
+    }
   }
 
   return(
@@ -98,6 +123,13 @@ const ReserveFrameRepeatSetting = () => {
                         name='repeatPeriod'
                         onChange={() => dispatch(repeatIntervalTypeChanged('Month'))}
                         checked={repeatIntervalType === 'Month'} />
+            <Form.Check type='checkbox'
+                        label='曜日ごと'
+                        id='repeatWDay'
+                        inline
+                        name='repeatPeriod'
+                        onChange={() => dispatch(repeatIntervalTypeChanged('WDay'))}
+                        checked={repeatIntervalType === 'WDay'} />
           </Form.Group>
           {repeatIntervalType === 'Day' &&
             <>
@@ -217,8 +249,54 @@ const ReserveFrameRepeatSetting = () => {
               </Row>
             </>
           }
+          {repeatIntervalType === 'WDay' &&
+            <>
+              <Form.Check type='checkbox'
+                          label='日曜日'
+                          id='repeatSun'
+                          name='repeatWDay'
+                          onChange={(e) => updateRepeatWDay(e, 'Sun')}
+                          checked={repeatWDays.includes('Sun')} />
+              <Form.Check type='checkbox'
+                          label='月曜日'
+                          id='repeatMon'
+                          name='repeatWDay'
+                          onChange={(e) => updateRepeatWDay(e, 'Mon')}
+                          checked={repeatWDays.includes('Mon')} />
+              <Form.Check type='checkbox'
+                          label='火曜日'
+                          id='repeatTue'
+                          name='repeatWDay'
+                          onChange={(e) => updateRepeatWDay(e, 'Tue')}
+                          checked={repeatWDays.includes('Tue')} />
+              <Form.Check type='checkbox'
+                          label='水曜日'
+                          id='repeatWed'
+                          name='repeatWDay'
+                          onChange={(e) => updateRepeatWDay(e, 'Wed')}
+                          checked={repeatWDays.includes('Wed')} />
+              <Form.Check type='checkbox'
+                          label='木曜日'
+                          id='repeatThu'
+                          name='repeatWDay'
+                          onChange={(e) => updateRepeatWDay(e, 'Thu')}
+                          checked={repeatWDays.includes('Thu')} />
+              <Form.Check type='checkbox'
+                          label='金曜日'
+                          id='repeatFri'
+                          name='repeatWDay'
+                          onChange={(e) => updateRepeatWDay(e, 'Fri')}
+                          checked={repeatWDays.includes('Fri')} />
+              <Form.Check type='checkbox'
+                          label='土曜日'
+                          id='repeatSat'
+                          name='repeatWDay'
+                          onChange={(e) => updateRepeatWDay(e, 'Sat')}
+                          checked={repeatWDays.includes('Sat')} />
+            </>
+          }
 
-          <Form.Group className='mb-3'>
+          <Form.Group className='mt20 mb5'>
             <Row>
               <Form.Label>繰り返し終了日時</Form.Label>
               <Col>
@@ -233,7 +311,7 @@ const ReserveFrameRepeatSetting = () => {
             </Row>
           </Form.Group>
 
-          <Row>
+          <Row className='mt20'>
             <Form.Label>予約受付不可日時</Form.Label>
             {unreservableFrames && unreservableFrames.length
             ?

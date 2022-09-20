@@ -12,7 +12,8 @@ class ReserveFrame < ApplicationRecord
   has_many :reserve_frame_reception_times
   has_many :reservations
 
-  enum repeat_interval_type: { Day: 0, Week: 1, Month: 2 }
+  # WDayは週ごと
+  enum repeat_interval_type: { Day: 0, Week: 1, Month: 2, WDay: 3 }
   enum publish_status: { Unpublish: 0, Publish: 1 }
   enum reception_type: { Immediate: 0, Temporary: 1, PhoneOnly: 2 }
   enum cancel_reception: { OnlyOnTheDay: 0, PossibleBeforeTheDay: 1 }
