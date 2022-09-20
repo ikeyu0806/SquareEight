@@ -7,7 +7,9 @@ import { getZeroPaddingDate } from 'functions/getZeroPaddingDatetime'
 export const reserveFrameSlice = createSlice({
   name: 'reserveFrame',
   initialState: {
+    reserveFrameId: 0,
     showCreateReserveFrameModal: false,
+    showEditReserveFrameModal: false,
     startDate: getZeroPaddingDate(),
     title: '',
     description: '',
@@ -47,8 +49,14 @@ export const reserveFrameSlice = createSlice({
     reservableFrameTicketMaster: [] as ReservableFrameTicketMasterParam[]
   },
   reducers: {
+    reserveFrameIdChanged: (state, action: PayloadAction<number>) => {
+      state.reserveFrameId = action.payload
+    },
     showCreateReserveFrameModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showCreateReserveFrameModal = action.payload
+    },
+    showEditReserveFrameModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showEditReserveFrameModal = action.payload
     },
     startDateChanged: (state, action: PayloadAction<string>) => {
       state.startDate = action.payload
@@ -164,7 +172,9 @@ export const reserveFrameSlice = createSlice({
   },
 })
 
+export const { reserveFrameIdChanged } = reserveFrameSlice.actions
 export const { showCreateReserveFrameModalChanged } = reserveFrameSlice.actions
+export const { showEditReserveFrameModalChanged } = reserveFrameSlice.actions
 export const { startDateChanged } = reserveFrameSlice.actions
 export const { titleChanged } = reserveFrameSlice.actions
 export const { descriptionChanged } = reserveFrameSlice.actions

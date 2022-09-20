@@ -1,13 +1,13 @@
-import React, { useEffect } from 'react'
-import { useCookies } from 'react-cookie'
-import { Container, Row, Col, Button } from 'react-bootstrap'
-import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import axios from 'axios'
-import { useDispatch, useSelector } from 'react-redux'
-import { RootState } from 'redux/store'
-import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
-import { useRouter } from 'next/router'
+import { useEffect } from 'react'
+import { Modal, Button } from 'react-bootstrap'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from '../../redux/store'
+import { showEditReserveFrameModalChanged } from 'redux/reserveFrameSlice'
 import ReserveFrameForm from 'components/molecules/ReserveFrameForm'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
+import axios from 'axios'
 import {
   startDateChanged,
   titleChanged,
@@ -34,11 +34,13 @@ import {
   unreservableFramesChanged,
   isRepeatChanged } from 'redux/reserveFrameSlice'
 
-const Edit = (): JSX.Element => {
+const EditReserveFrameModal = (): JSX.Element => {
+  const showEditReserveFrameModal = useSelector((state: RootState) => state.reserveFrame.showEditReserveFrameModal)
   const dispatch = useDispatch()
-  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
 
+  const reserveFrameId = useSelector((state: RootState) => state.reserveFrame.reserveFrameId)
   const title = useSelector((state: RootState) => state.reserveFrame.title)
   const description = useSelector((state: RootState) => state.reserveFrame.description)
   const startDate = useSelector((state: RootState) => state.reserveFrame.startDate)
@@ -59,10 +61,10 @@ const Edit = (): JSX.Element => {
   const publishStatus = useSelector((state: RootState) => state.reserveFrame.publishStatus)
   const receptionType = useSelector((state: RootState) => state.reserveFrame.receptionType)
   const receptionStartDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionStartDayBefore)
+  const receptionPhoneNumber = useSelector((state: RootState) => state.reserveFrame.receptionPhoneNumber)
   const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
   const reserveFrameReceptionTimes = useSelector((state: RootState) => state.reserveFrame.reserveFrameReceptionTimes)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
-  const isSetPrice = useSelector((state: RootState) => state.reserveFrame.isSetPrice)
   const isLocalPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isLocalPaymentEnable)
   const isCreditCardPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isCreditCardPaymentEnable)
   const isTicketPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isTicketPaymentEnable)
@@ -73,9 +75,35 @@ const Edit = (): JSX.Element => {
   const base64Image = useSelector((state: RootState) => state.reserveFrame.base64Image)
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
+  const isSetPrice = useSelector((state: RootState) => state.reserveFrame.isSetPrice)
+
+  const validateSubmit = () => {
+    // 必須項目チェック
+    if (!title || !capacity || !startDate || !reserveFrameReceptionTimes.length) {
+      return true
+    }
+
+    if (isSetPrice ) {
+      if (!isLocalPaymentEnable && !isCreditCardPaymentEnable && !isTicketPaymentEnable && !isMonthlyPlanPaymentEnable) {
+        return true
+      }
+    }
+    if (isMonthlyPlanPaymentEnable) {
+      if (!monthlyPaymentPlanIds) {
+        return true
+      }
+    }
+
+    if (isTicketPaymentEnable) {
+      if (!reservableFrameTicketMaster.length) {
+        return true
+      }
+    }
+    return false
+  }
 
   const updateReserveFrame = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames/${router.query.id}`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames/${reserveFrameId}`,
     {
       reserve_frame: {
         title: title,
@@ -135,7 +163,7 @@ const Edit = (): JSX.Element => {
   useEffect(() => {
     const fetchReserveFrame = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/reserve_frames/${router.query.id}`, {
+        `${process.env.BACKEND_URL}/api/internal/reserve_frames/${reserveFrameId}`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           },
@@ -174,21 +202,27 @@ const Edit = (): JSX.Element => {
     fetchReserveFrame()
   }, [router.query.id, cookies._square_eight_merchant_session, dispatch])
 
+
   return (
     <>
-      <MerchantUserAdminLayout>
-        <Container>
-          <Row>
-            <Col lg={3}></Col>
-            <Col lg={6}>
-              <ReserveFrameForm />
-              <Button variant='primary' onClick={updateReserveFrame}>登録する</Button>
-            </Col>
-          </Row>
-        </Container>
-      </MerchantUserAdminLayout>
+      <Modal show={showEditReserveFrameModal} size='lg'>
+        <Modal.Header> 
+          <Modal.Title>新規予約メニュー登録</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <ReserveFrameForm></ReserveFrameForm>
+        </Modal.Body>
+        <Modal.Footer>
+        <div>
+          <Button variant='primary' 
+                  disabled={validateSubmit()}
+                  onClick={updateReserveFrame}>登録する</Button>
+        </div>
+        <Button variant='secondary' onClick={() => dispatch(showEditReserveFrameModalChanged(false))}>閉じる</Button>
+        </Modal.Footer>
+      </Modal>
     </>
   )
 }
 
-export default Edit
+export default EditReserveFrameModal

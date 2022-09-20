@@ -6,8 +6,11 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
-import { showCreateReserveFrameModalChanged } from 'redux/reserveFrameSlice'
+import { reserveFrameIdChanged,
+         showCreateReserveFrameModalChanged,
+         showEditReserveFrameModalChanged } from 'redux/reserveFrameSlice'
 import CreateReserveFrameModal from 'components/organisms/CreateReserveFrameModal'
+import EditReserveFrameModal from 'components/organisms/EditReserveFrameModal'
 
 const Index = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -81,7 +84,11 @@ const Index = (): JSX.Element => {
                       {reserveFrame.reception_type_text}
                     </td>
                     <td>
-                      <a className='btn btn-primary' href={`/admin/reserve_frame/${reserveFrame.id}/edit`}>編集</a>
+                      <a className='btn btn-primary'
+                         onClick={() => {
+                          dispatch(showEditReserveFrameModalChanged(true))
+                          dispatch(reserveFrameIdChanged(Number(reserveFrame.id)))
+                        }}>編集</a>
                     </td>
                     <td>
                     <a className='btn btn-primary ml10'
@@ -95,6 +102,7 @@ const Index = (): JSX.Element => {
             </tbody>
           </Table>
           <CreateReserveFrameModal></CreateReserveFrameModal>
+          <EditReserveFrameModal></EditReserveFrameModal>
         </Container>
       </MerchantUserAdminLayout>
     </>
