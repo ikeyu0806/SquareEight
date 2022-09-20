@@ -79,6 +79,16 @@ class ReserveFrame < ApplicationRecord
       repeat_interval_number_week.to_s + "週間" + "ごとに繰り返す"
     when "Month"
       repeat_interval_number_month.to_s + "ヶ月ごとの" + repeat_interval_month_date.to_s + "日に設定"
+    when "WDay"
+      repeat_wdays = []
+      repeat_wdays.push("日") if is_repeat_sun?
+      repeat_wdays.push("月") if is_repeat_mon?
+      repeat_wdays.push("火") if is_repeat_tue?
+      repeat_wdays.push("水") if is_repeat_wed?
+      repeat_wdays.push("木") if is_repeat_thu?
+      repeat_wdays.push("金") if is_repeat_fri?
+      repeat_wdays.push("土") if is_repeat_sat?
+      "曜日ごとに繰り返す: " + repeat_wdays.join(", ")
     else
       raise
     end
