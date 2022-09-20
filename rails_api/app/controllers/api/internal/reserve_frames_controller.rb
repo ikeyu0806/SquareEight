@@ -37,7 +37,8 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                        :resource_ids,
                                                        :monthly_payment_plan_ids,
                                                        :reservable_frame_ticket_master,
-                                                       :base64_image))                   
+                                                       :base64_image,
+                                                       :repeat_wdays))                   
       reserve_frame_params[:reserve_frame_reception_times].each do |reception_time|
         reserve_frame.reserve_frame_reception_times.new(reception_start_time: reception_time[:reception_start_time], reception_end_time: reception_time[:reception_end_time])
       end
@@ -64,6 +65,15 @@ class Api::Internal::ReserveFramesController < ApplicationController
         file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         reserve_frame.s3_object_public_url = put_s3_http_request_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         reserve_frame.s3_object_name = file_name
+      end
+      if reserve_frame_params[:repeat_wdays].present?
+        reserve_frame.is_repeat_sun = true if reserve_frame_params[:repeat_wdays].include?("Sun")
+        reserve_frame.is_repeat_mon = true if reserve_frame_params[:repeat_wdays].include?("Mon")
+        reserve_frame.is_repeat_tue = true if reserve_frame_params[:repeat_wdays].include?("Tue")
+        reserve_frame.is_repeat_wed = true if reserve_frame_params[:repeat_wdays].include?("Wed")
+        reserve_frame.is_repeat_thu = true if reserve_frame_params[:repeat_wdays].include?("Thu")
+        reserve_frame.is_repeat_fri = true if reserve_frame_params[:repeat_wdays].include?("Fri")
+        reserve_frame.is_repeat_sat = true if reserve_frame_params[:repeat_wdays].include?("Sat")
       end
       reserve_frame.save!
       render json: { status: 'success' }, states: 200
@@ -117,6 +127,15 @@ class Api::Internal::ReserveFramesController < ApplicationController
         file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         reserve_frame.s3_object_public_url = put_s3_http_request_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         reserve_frame.s3_object_name = file_name
+      end
+      if reserve_frame_params[:repeat_wdays].present?
+        reserve_frame.is_repeat_sun = true if reserve_frame_params[:repeat_wdays].include?("Sun")
+        reserve_frame.is_repeat_mon = true if reserve_frame_params[:repeat_wdays].include?("Mon")
+        reserve_frame.is_repeat_tue = true if reserve_frame_params[:repeat_wdays].include?("Tue")
+        reserve_frame.is_repeat_wed = true if reserve_frame_params[:repeat_wdays].include?("Wed")
+        reserve_frame.is_repeat_thu = true if reserve_frame_params[:repeat_wdays].include?("Thu")
+        reserve_frame.is_repeat_fri = true if reserve_frame_params[:repeat_wdays].include?("Fri")
+        reserve_frame.is_repeat_sat = true if reserve_frame_params[:repeat_wdays].include?("Sat")
       end
       reserve_frame.save!
     end
@@ -178,6 +197,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :is_credit_card_payment_enable,
                   :is_ticket_payment_enable,
                   :is_monthly_plan_payment_enable,
+                  repeat_wdays: [],
                   resource_ids: [],
                   monthly_payment_plan_ids: [],
                   reserve_frame_reception_times: [:reception_start_time, :reception_end_time],
