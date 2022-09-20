@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_19_120438) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_20_014111) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -348,6 +348,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_19_120438) do
     t.boolean "is_every_month_repeat", default: true
     t.string "reception_phone_number"
     t.boolean "is_set_price"
+    t.boolean "is_repeat_sun", default: false
+    t.boolean "is_repeat_mon", default: false
+    t.boolean "is_repeat_tue", default: false
+    t.boolean "is_repeat_wed", default: false
+    t.boolean "is_repeat_thu", default: false
+    t.boolean "is_repeat_fri", default: false
+    t.boolean "is_repeat_sat", default: false
   end
 
   create_table "resources", force: :cascade do |t|
