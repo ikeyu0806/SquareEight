@@ -91,7 +91,8 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                              :resource_ids,
                                                              :monthly_payment_plan_ids,
                                                              :reservable_frame_ticket_master,
-                                                             :base64_image)
+                                                             :base64_image,
+                                                             :repeat_wdays)
 
       if reserve_frame_params[:reserve_frame_reception_times].present?
         reserve_frame.reserve_frame_reception_times.delete_all

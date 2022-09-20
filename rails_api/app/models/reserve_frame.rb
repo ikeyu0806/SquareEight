@@ -215,6 +215,24 @@ class ReserveFrame < ApplicationRecord
             end
           end
         end
+      when 'WDay'
+        repeat_wdays = []
+        repeat_wdays.push(0) if self.is_repeat_sun?
+        repeat_wdays.push(1) if self.is_repeat_mon?
+        repeat_wdays.push(2) if self.is_repeat_thu?
+        repeat_wdays.push(3) if self.is_repeat_wed?
+        repeat_wdays.push(4) if self.is_repeat_thu?
+        repeat_wdays.push(5) if self.is_repeat_fri?
+        repeat_wdays.push(6) if self.is_repeat_sat?
+
+        (loop_start_date..loop_end_date).each do |date|
+          next unless repeat_wdays.include?(date.wday)
+          result << {
+            start: date.strftime("%Y-%m-%d"),
+            title: '予約可能',
+            url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+          }
+        end
       else
       end
     else
