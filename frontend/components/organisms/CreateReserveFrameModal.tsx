@@ -1,14 +1,14 @@
 import { Modal, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from '../../redux/store'
-import { showReserveFrameModalChanged } from 'redux/reserveFrameSlice'
+import { showCreateReserveFrameModalChanged } from 'redux/reserveFrameSlice'
 import ReserveFrameForm from 'components/molecules/ReserveFrameForm'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 
-const ReserveFrameModal = (): JSX.Element => {
-  const showReserveFrameModal = useSelector((state: RootState) => state.reserveFrame.showeserveFrameModal)
+const CreateReserveFrameModal = (): JSX.Element => {
+  const showCreateReserveFrameModal = useSelector((state: RootState) => state.reserveFrame.showCreateReserveFrameModal)
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
@@ -98,7 +98,7 @@ const ReserveFrameModal = (): JSX.Element => {
         title: '登録しました',
         icon: 'info'
       })
-      dispatch(showReserveFrameModalChanged(false))
+      dispatch(showCreateReserveFrameModalChanged(false))
       location.reload()
     }).catch(error => {
       swalWithBootstrapButtons.fire({
@@ -135,7 +135,7 @@ const ReserveFrameModal = (): JSX.Element => {
 
   return (
     <>
-      <Modal show={showReserveFrameModal} size='lg'>
+      <Modal show={showCreateReserveFrameModal} size='lg'>
         <Modal.Header> 
           <Modal.Title>新規予約メニュー登録</Modal.Title>
         </Modal.Header>
@@ -148,11 +148,11 @@ const ReserveFrameModal = (): JSX.Element => {
                   disabled={validateSubmit()}
                   onClick={createReserveFrame}>登録する</Button>
         </div>
-        <Button variant='secondary' onClick={() => dispatch(showReserveFrameModalChanged(false))}>閉じる</Button>
+        <Button variant='secondary' onClick={() => dispatch(showCreateReserveFrameModalChanged(false))}>閉じる</Button>
         </Modal.Footer>
       </Modal>
     </>
   )
 }
 
-export default ReserveFrameModal
+export default CreateReserveFrameModal
