@@ -50,6 +50,7 @@ const Edit = (): JSX.Element => {
   const repeatIntervalNumberMonth = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberMonth)
   const repeatIntervalMonthDate = useSelector((state: RootState) => state.reserveFrame.repeatIntervalMonthDate)
   const repeatEndDate = useSelector((state: RootState) => state.reserveFrame.repeatEndDate)
+  const repeatWDays = useSelector((state: RootState) => state.reserveFrame.repeatWDays)
   const isEveryDayRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryDayRepeat)
   const isEveryWeekRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryWeekRepeat)
   const isEveryMonthRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryMonthRepeat)
@@ -89,6 +90,7 @@ const Edit = (): JSX.Element => {
         repeat_interval_number_month: repeatIntervalNumberMonth,
         repeat_interval_month_date: repeatIntervalMonthDate,
         repeat_end_date: repeatEndDate,
+        repeat_wdays: repeatWDays,
         is_every_day_repeat: isEveryDayRepeat,
         is_every_week_repeat: isEveryWeekRepeat,
         is_every_month_repeat: isEveryMonthRepeat,

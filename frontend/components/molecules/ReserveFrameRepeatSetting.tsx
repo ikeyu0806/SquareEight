@@ -17,7 +17,6 @@ import {
   unreservableFramesChanged,
   repeatEndDateChanged,
   repeatWDaysChanged } from 'redux/reserveFrameSlice'
-import { weekDaysChanged } from 'redux/dashboardSlice'
 
 const ReserveFrameRepeatSetting = () => {
   const dispatch = useDispatch()

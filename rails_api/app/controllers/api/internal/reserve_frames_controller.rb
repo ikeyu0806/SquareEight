@@ -159,6 +159,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :repeat_interval_month_date,
                   :repeat_interval_number_month_date,
                   :repeat_end_date,
+                  :repeat_wdays,
                   :is_every_day_repeat,
                   :is_every_week_repeat,
                   :is_every_month_repeat,
