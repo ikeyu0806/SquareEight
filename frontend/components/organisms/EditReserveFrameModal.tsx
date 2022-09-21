@@ -152,8 +152,11 @@ const EditReserveFrameModal = (): JSX.Element => {
       swalWithBootstrapButtons.fire({
         title: '登録しました',
         icon: 'info'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          location.reload()
+        }
       })
-      router.push('/admin/reserve_frame')
     }).catch(error => {
       swalWithBootstrapButtons.fire({
         title: '登録失敗しました',
