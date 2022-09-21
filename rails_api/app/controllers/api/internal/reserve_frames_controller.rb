@@ -35,6 +35,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
     ActiveRecord::Base.transaction do
       reserve_frame = current_merchant_user.account.reserve_frames
                       .new(reserve_frame_params.except(:unreservable_frames,
+                                                       :out_of_range_frames,
                                                        :reserve_frame_reception_times,
                                                        :repeat_interval_number_month_date,
                                                        :resource_ids,
@@ -44,6 +45,9 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                        :repeat_wdays))                   
       reserve_frame_params[:reserve_frame_reception_times].each do |reception_time|
         reserve_frame.reserve_frame_reception_times.new(reception_start_time: reception_time[:reception_start_time], reception_end_time: reception_time[:reception_end_time])
+      end
+      reserve_frame_params[:out_of_range_frames].each do |frame|
+        reserve_frame.out_of_range_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
       end
       reserve_frame_params[:unreservable_frames].each do |frame|
         reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
@@ -107,6 +111,12 @@ class Api::Internal::ReserveFramesController < ApplicationController
         reserve_frame.unreservable_frames.delete_all
         reserve_frame_params[:unreservable_frames].each do |frame|
           reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
+        end
+      end
+      if reserve_frame_params[:out_of_range_frames].present?
+        reserve_frame.out_of_range_frames.delete_all
+        reserve_frame_params[:out_of_range_frames].each do |frame|
+          reserve_frame.out_of_range_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
         end
       end
       if reserve_frame_params[:resource_ids].present?
@@ -206,6 +216,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   monthly_payment_plan_ids: [],
                   reserve_frame_reception_times: [:reception_start_time, :reception_end_time],
                   unreservable_frames: [:start_at, :end_at],
+                  out_of_range_frames: [:start_at, :end_at],
                   reservable_frame_ticket_master: [:ticket_master_id, :consume_number])
   end
 end

@@ -3,6 +3,7 @@ include CalendarContent
 class ReserveFrame < ApplicationRecord
   belongs_to :account
   has_many :unreservable_frames
+  has_many :out_of_range_frames
   has_many :reserve_frame_resorces
   has_many :resources, through: :reserve_frame_resorces
   has_many :reserve_frame_monthly_payment_plans
@@ -130,6 +131,17 @@ class ReserveFrame < ApplicationRecord
   def is_cover_unreservable_frames_datetimes(date)
     unreservable_frames_datetimes_range.each do |unreservable_frames_datetime|
       return true if unreservable_frames_datetime.cover?(date)
+    end
+    return false
+  end
+
+  def out_of_range_frames_datetimes_range
+    out_of_range_frames.map { |frame| frame.start_at..frame.end_at }
+  end
+
+  def is_cover_out_of_range_frames_datetimes(date)
+    out_of_range_frames_datetimes_range.each do |out_of_range_frames_datetime|
+      return true if out_of_range_frames_datetime.cover?(date)
     end
     return false
   end

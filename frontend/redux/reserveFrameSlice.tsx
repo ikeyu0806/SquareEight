@@ -43,7 +43,7 @@ export const reserveFrameSlice = createSlice({
     base64Image: null,
     s3ObjectPublicUrl: '',
     reserveFrameReceptionTimes: [] as ReserveFrameReceptionTimeParam[],
-    outOfRepeatReservableFrames: [] as OutOfRepeatReservableFrameParam[],
+    outOfRangeFrames: [] as OutOfRepeatReservableFrameParam[],
     unreservableFrames: [] as UnreservableFrameParam[],
     resourceIds: [] as number[],
     reserveEvents: [],
@@ -156,8 +156,8 @@ export const reserveFrameSlice = createSlice({
     reserveFrameReceptionTimesChanged: (state, action: PayloadAction<ReserveFrameReceptionTimeParam[]>) => {
       state.reserveFrameReceptionTimes = action.payload
     },
-    outOfRepeatReservableFramesChanged: (state, action: PayloadAction<OutOfRepeatReservableFrameParam[]>) => {
-      state.outOfRepeatReservableFrames = action.payload
+    outOfRangeFramesChanged: (state, action: PayloadAction<OutOfRepeatReservableFrameParam[]>) => {
+      state.outOfRangeFrames = action.payload
     },
     unreservableFramesChanged: (state, action: PayloadAction<UnreservableFrameParam[]>) => {
       state.unreservableFrames = action.payload
@@ -212,7 +212,7 @@ export const { isMonthlyPlanPaymentEnableChanged } = reserveFrameSlice.actions
 export const { base64ImageChanged } = reserveFrameSlice.actions
 export const { s3ObjectPublicUrlChanged } = reserveFrameSlice.actions
 export const { reserveFrameReceptionTimesChanged } = reserveFrameSlice.actions
-export const { outOfRepeatReservableFramesChanged } = reserveFrameSlice.actions
+export const { outOfRangeFramesChanged } = reserveFrameSlice.actions
 export const { unreservableFramesChanged } = reserveFrameSlice.actions
 export const { resourceIdsChanged } = reserveFrameSlice.actions
 export const { reserveEventsChanged } = reserveFrameSlice.actions

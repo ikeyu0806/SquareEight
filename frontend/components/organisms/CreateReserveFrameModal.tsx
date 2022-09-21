@@ -34,7 +34,8 @@ const CreateReserveFrameModal = (): JSX.Element => {
   const receptionStartDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionStartDayBefore)
   const receptionPhoneNumber = useSelector((state: RootState) => state.reserveFrame.receptionPhoneNumber)
   const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
-  const reserveFrameReceptionTimes = useSelector((state: RootState) => state.reserveFrame.reserveFrameReceptionTimes)
+  const reserveFrameReceptionTimes = useSelector((state: RootState) => state.reserveFrame.reserveFrameReceptionTimes)  
+  const outOfRangeFrames = useSelector((state: RootState) => state.reserveFrame.outOfRangeFrames)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
   const isLocalPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isLocalPaymentEnable)
   const isCreditCardPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isCreditCardPaymentEnable)
@@ -76,6 +77,7 @@ const CreateReserveFrameModal = (): JSX.Element => {
         reception_phone_number: receptionPhoneNumber,
         cancel_reception: cancelReception,
         reserve_frame_reception_times: reserveFrameReceptionTimes,
+        out_of_range_frames: outOfRangeFrames,
         unreservable_frames: unreservableFrames,
         resource_ids: resourceIds,
         is_set_price: isSetPrice,

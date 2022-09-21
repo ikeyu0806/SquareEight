@@ -15,7 +15,7 @@ import {
   repeatIntervalNumberWeekChanged,
   repeatIntervalNumberMonthChanged,
   repeatIntervalMonthDateChanged,
-  outOfRepeatReservableFramesChanged,
+  outOfRangeFramesChanged,
   unreservableFramesChanged,
   repeatEndDateChanged,
   repeatWDaysChanged } from 'redux/reserveFrameSlice'
@@ -41,13 +41,13 @@ const ReserveFrameRepeatSetting = () => {
   const isEveryWeekRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryWeekRepeat)
   const isEveryMonthRepeat = useSelector((state: RootState) => state.reserveFrame.isEveryMonthRepeat)
   const repeatEndDate = useSelector((state: RootState) => state.reserveFrame.repeatEndDate)
-  const outOfRepeatReservableFrames = useSelector((state: RootState) => state.reserveFrame.outOfRepeatReservableFrames)
+  const outOfRangeFrames = useSelector((state: RootState) => state.reserveFrame.outOfRangeFrames)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
 
   const addOutOfRangeReservableFrames = () => {
     const startAt = outOfRangeFramesStartDate + ' ' + outOfRangeFramesStartTime
     const endAt = outOfRangeFramesEndDate + ' ' + outOfRangeFramesEndTime
-    dispatch((outOfRepeatReservableFramesChanged([...outOfRepeatReservableFrames, { start_at: startAt, end_at: endAt }])))
+    dispatch((outOfRangeFramesChanged([...outOfRangeFrames, { start_at: startAt, end_at: endAt }])))
     setOutOfRangeFramesStartDate('')
     setOutOfRangeFramesStartTime('')
     setOutOfRangeFramesEndDate('')
@@ -90,8 +90,8 @@ const ReserveFrameRepeatSetting = () => {
 
   const deleteOutOfRangeFrame = (startAt: string, endAt: string) => {
     let updateOutOfRangeFrame: OutOfRepeatReservableFrameParam[]
-    updateOutOfRangeFrame = outOfRepeatReservableFrames.filter(frame => { (frame.start_at + frame.end_at) !== (startAt + endAt) })
-    dispatch(outOfRepeatReservableFramesChanged(updateOutOfRangeFrame))
+    updateOutOfRangeFrame = outOfRangeFrames.filter(frame => { (frame.start_at + frame.end_at) !== (startAt + endAt) })
+    dispatch(outOfRangeFramesChanged(updateOutOfRangeFrame))
   }
 
   const deleteUnreservableFrame = (startAt: string, endAt: string) => {
@@ -351,10 +351,10 @@ const ReserveFrameRepeatSetting = () => {
           <Row className='mt20'>
             <h5>繰り返し範囲外予約受付日時</h5>
             <div className='font-size-15 mt20'>繰り返し範囲外で予約を受け付けたい日時があれば追加してください</div>
-            {outOfRepeatReservableFrames && outOfRepeatReservableFrames.length
+            {outOfRangeFrames && outOfRangeFrames.length
             ?
               <>
-                {outOfRepeatReservableFrames.map((frame, i) => {
+                {outOfRangeFrames.map((frame, i) => {
                   return (
                     <span key={i} className='mb10'>
                       <span>開始日時: {frame.start_at}</span><br/>
