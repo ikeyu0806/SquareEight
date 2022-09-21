@@ -356,4 +356,9 @@ class ReserveFrame < ApplicationRecord
     result.push('Sat') if self.is_repeat_sat?
     result
   end
+
+  def remaining_capacity_count(start_datetime, end_datetime)
+    reservation_count = self.reservations.where(start_at: start_datetime, end_at: end_datetime).count
+    return self.capacity - reservation_count
+  end
 end

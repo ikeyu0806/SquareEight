@@ -5,19 +5,18 @@ class Api::Internal::ReservationsController < ApplicationController
     ActiveRecord::Base.transaction do
       reserve_frame = ReserveFrame.find(reservation_params[:reserve_frame_id])
       # 定員オーバチェック
-      capacity = reserve_frame.capacity
       date = reservation_params[:date].split("-")
       start_at = reservation_params[:time].split("-")[0].split(":")
       end_at = reservation_params[:time].split("-")[1].split(":")
       start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i, 0, "+09:00")
       end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i, 0, "+09:00")
-      reserved_count = reserve_frame.reservations.where(start_at: start_datetime, end_at: end_datetime).count
+      remaining_capacity_count = reserve_frame.remaining_capacity_count(start_datetime, end_datetime)
+      raise '定員オーバです' if remaining_capacity_count <= 0
       # リソースチェック
       resources = reserve_frame.resources
       resources.each do |resource|
-        quantity = resource.quantity
-        reservation_count = resource.reservations.where(start_at: start_datetime, end_at: end_datetime).count
-        raise '定員オーバです' if quantity <= reservation_count
+        resource_remaining_capacity_count = resource.remaining_capacity_count(start_datetime, end_datetime)
+        raise '定員オーバです' if resource_remaining_capacity_count <= 0
       end
       # 顧客ID登録
       # 同じ携帯電話番号の顧客データがなければ作成
