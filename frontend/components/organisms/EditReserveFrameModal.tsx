@@ -24,11 +24,18 @@ import {
   repeatIntervalTypeChanged,
   repeatWDaysChanged,
   repeatEndDateChanged,
+  repeatIntervalNumberDayChanged,
+  repeatIntervalNumberWeekChanged,
+  repeatIntervalNumberMonthChanged,
+  repeatIntervalMonthDateChanged,
   isSetPriceChanged,
   isLocalPaymentEnableChanged,
   isCreditCardPaymentEnableChanged,
   isTicketPaymentEnableChanged,
   isMonthlyPlanPaymentEnableChanged,
+  isEveryDayRepeatChanged,
+  isEveryWeekRepeatChanged,
+  isEveryMonthRepeatChanged,
   reserveFrameReceptionTimesChanged,
   resourceIdsChanged,
   monthlyPaymentPlanIdsChanged,
@@ -195,6 +202,13 @@ const EditReserveFrameModal = (): JSX.Element => {
         dispatch((isMonthlyPlanPaymentEnableChanged(response.data.reserve_frame.is_monthly_plan_payment_enable)))
         dispatch((reserveFrameReceptionTimesChanged(response.data.reserve_frame.reserve_frame_reception_times_values)))
         dispatch(repeatIntervalTypeChanged(response.data.reserve_frame.repeat_interval_type))
+        dispatch(repeatIntervalNumberDayChanged(response.data.reserve_frame.repeat_interval_number_day))
+        dispatch(repeatIntervalNumberWeekChanged(response.data.reserve_frame.repeat_interval_number_week))
+        dispatch(repeatIntervalNumberMonthChanged(response.data.reserve_frame.repeat_interval_number_month))
+        dispatch(repeatIntervalMonthDateChanged(response.data.reserve_frame.repeat_interval_month_date))
+        dispatch(isEveryDayRepeatChanged(response.data.reserve_frame.is_every_day_repeat))
+        dispatch(isEveryWeekRepeatChanged(response.data.reserve_frame.is_every_week_repeat))
+        dispatch(isEveryMonthRepeatChanged(response.data.reserve_frame.is_every_month_repeat))
         dispatch((repeatWDaysChanged(response.data.reserve_frame.repeat_wdays)))
         dispatch((repeatEndDateChanged(response.data.reserve_frame.repeat_end_date_input_value)))
         dispatch((resourceIdsChanged(response.data.reserve_frame.resouce_ids)))
