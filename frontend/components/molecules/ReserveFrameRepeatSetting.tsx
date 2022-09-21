@@ -95,7 +95,7 @@ const ReserveFrameRepeatSetting = () => {
             type='checkbox'
             id='repeatSetting'
             label='繰り返し設定を追加して他の日にも受付'
-            checked={isRepeat}
+            defaultChecked={isRepeat}
             onClick={() => dispatch(isRepeatChanged(!isRepeat))} />
         </Form.Group>
 
