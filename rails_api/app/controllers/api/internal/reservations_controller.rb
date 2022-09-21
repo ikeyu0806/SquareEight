@@ -47,7 +47,7 @@ class Api::Internal::ReservationsController < ApplicationController
         customer.first_name = reservation_params[:first_name]
         customer.email = reservation_params[:email]
         customer.phone_number = reservation_params[:phone_number]
-        customer.end_user_id = current_end_user.id
+        customer.end_user_id = current_end_user.id if current_end_user.present?
         customer.save!
       end
       # 確定
