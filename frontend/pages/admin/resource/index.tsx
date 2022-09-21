@@ -41,12 +41,16 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
+              <a  href='/admin/resource/new'
+                className='btn btn-primary mb20'>
+              新規登録
+              </a>
               <ListGroup>
                 {resources.map((resource, i) => {
                   return (
                     <ListGroup.Item key={i}>
                       <Row>
-                        <Col>リソース名: {resource.name}</Col>
+                        <Col>{resource.name}</Col>
                         <Col>数量: {resource.quantity}</Col>
                         <Col>
                           <a className='btn btn-primary'
