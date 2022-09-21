@@ -95,8 +95,8 @@ const ReserveFrameRepeatSetting = () => {
             type='checkbox'
             id='repeatSetting'
             label='繰り返し設定を追加して他の日にも受付'
-            defaultChecked={isRepeat}
-            onClick={() => dispatch(isRepeatChanged(!isRepeat))} />
+            checked={isRepeat}
+            onChange={() => dispatch(isRepeatChanged(!isRepeat))} />
         </Form.Group>
 
         {isRepeat && <div className='ml20'>
