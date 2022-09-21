@@ -48,6 +48,7 @@ const ReserveFrameForm = () => {
   const capacity = useSelector((state: RootState) => state.reserveFrame.capacity)
   const localPaymentPrice = useSelector((state: RootState) => state.reserveFrame.localPaymentPrice)
   const creditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.creditCardPaymentPrice)
+  const publishStatus = useSelector((state: RootState) => state.reserveFrame.publishStatus)
   const receptionStartDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionStartDayBefore)
   const receptionPhoneNumber = useSelector((state: RootState) => state.reserveFrame.receptionPhoneNumber)
   const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
@@ -559,7 +560,9 @@ const ReserveFrameForm = () => {
         <Col>
           <Form.Group className='mb-3'>
             <Form.Label>公開設定</Form.Label>
-            <Form.Select placeholder='メニュー名' onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
+            <Form.Select
+              value={publishStatus}
+              onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
               <option value='Unpublish'>非公開</option>
               <option value='Publish'>公開</option>
             </Form.Select>

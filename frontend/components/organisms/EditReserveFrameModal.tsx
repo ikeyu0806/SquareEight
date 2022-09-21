@@ -200,7 +200,7 @@ const EditReserveFrameModal = (): JSX.Element => {
       })  
     }
     fetchReserveFrame()
-  }, [router.query.id, cookies._square_eight_merchant_session, dispatch])
+  }, [router.query.id, cookies._square_eight_merchant_session, dispatch, reserveFrameId])
 
 
   return (
