@@ -238,12 +238,20 @@ class ReserveFrame < ApplicationRecord
         repeat_wdays.push(6) if self.is_repeat_sat?
 
         (loop_start_date..loop_end_date).each do |date|
-          next unless repeat_wdays.include?(date.wday)
-          result << {
+          if is_cover_out_of_range_frames_datetimes(date)
+            result << {
             start: date.strftime("%Y-%m-%d"),
             title: '予約可能',
             url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
           }
+          else
+            next unless repeat_wdays.include?(date.wday)
+            result << {
+              start: date.strftime("%Y-%m-%d"),
+              title: '予約可能',
+              url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+            }
+          end
         end
       else
       end
