@@ -187,6 +187,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         dispatch((cancelReceptionChanged(response.data.reserve_frame.cancel_reception)))
         dispatch((cancelReceptionHourBeforeChanged(response.data.reserve_frame.cancel_reception_hour_before)))
         dispatch((cancelReceptionDayBeforeChanged(response.data.reserve_frame.cancel_reception_day_before)))
+        console.log(response.data, "!!!")
         dispatch((isLocalPaymentEnableChanged(response.data.reserve_frame.is_local_payment_enable)))
         dispatch((isCreditCardPaymentEnableChanged(response.data.reserve_frame.is_credit_card_payment_enable)))
         dispatch((isTicketPaymentEnableChanged(response.data.reserve_frame.is_ticket_payment_enable)))

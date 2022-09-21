@@ -268,7 +268,7 @@ const ReserveFrameForm = () => {
             <Form.Check
               label='現地払い'
               id='localPayment'
-              defaultChecked={isLocalPaymentEnable}
+              checked={isLocalPaymentEnable}
               onChange={() => dispatch(isLocalPaymentEnableChanged(!isLocalPaymentEnable))}></Form.Check>
             {isLocalPaymentEnable && <Row>
               <Col>
