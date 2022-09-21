@@ -208,7 +208,15 @@ class ReserveFrame < ApplicationRecord
         end
       when 'Month' then
         if is_every_month_repeat
-          (loop_start_date..loop_end_date).select{|d| d.day == self.repeat_interval_month_date}.each do |date|
+          (loop_start_date..loop_end_date).each do |date|
+            if is_cover_out_of_range_frames_datetimes(date)
+              result << {
+                start: date.strftime("%Y-%m-%d"),
+                title: '予約可能',
+                url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+              }
+            end
+            next unless date.day == self.repeat_interval_month_date
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: '予約可能',
@@ -217,7 +225,15 @@ class ReserveFrame < ApplicationRecord
           end
         else
           repeat_month_list_result = repeat_month_list
-          (loop_start_date..loop_end_date).select{|d| d.day == self.repeat_interval_month_date}.each do |date|
+          (loop_start_date..loop_end_date).each do |date|
+            if is_cover_out_of_range_frames_datetimes(date)
+              result << {
+                start: date.strftime("%Y-%m-%d"),
+                title: '予約可能',
+                url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+              }
+            end
+            next unless date.day == self.repeat_interval_month_date
             if repeat_month_list_result.include?(date.strftime("%Y-%m"))
               result << {
                 start: date.strftime("%Y-%m-%d"),
@@ -240,10 +256,10 @@ class ReserveFrame < ApplicationRecord
         (loop_start_date..loop_end_date).each do |date|
           if is_cover_out_of_range_frames_datetimes(date)
             result << {
-            start: date.strftime("%Y-%m-%d"),
-            title: '予約可能',
-            url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
-          }
+              start: date.strftime("%Y-%m-%d"),
+              title: '予約可能',
+              url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+            }
           else
             next unless repeat_wdays.include?(date.wday)
             result << {
