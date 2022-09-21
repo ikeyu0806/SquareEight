@@ -306,6 +306,10 @@ class ReserveFrame < ApplicationRecord
     start_at.strftime("%Y-%m-%d")
   end
 
+  def repeat_end_date_input_value
+    repeat_end_date.strftime("%Y-%m-%d")
+  end
+
   def display_start_at
     start_at.strftime("%Y/%m/%d")
   end

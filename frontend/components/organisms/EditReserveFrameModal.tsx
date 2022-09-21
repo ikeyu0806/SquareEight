@@ -23,6 +23,7 @@ import {
   cancelReceptionDayBeforeChanged,
   repeatIntervalTypeChanged,
   repeatWDaysChanged,
+  repeatEndDateChanged,
   isSetPriceChanged,
   isLocalPaymentEnableChanged,
   isCreditCardPaymentEnableChanged,
@@ -195,6 +196,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         dispatch((reserveFrameReceptionTimesChanged(response.data.reserve_frame.reserve_frame_reception_times_values)))
         dispatch(repeatIntervalTypeChanged(response.data.reserve_frame.repeat_interval_type))
         dispatch((repeatWDaysChanged(response.data.reserve_frame.repeat_wdays)))
+        dispatch((repeatEndDateChanged(response.data.reserve_frame.repeat_end_date_input_value)))
         dispatch((resourceIdsChanged(response.data.reserve_frame.resouce_ids)))
         dispatch((monthlyPaymentPlanIdsChanged(response.data.reserve_frame.monthly_payment_plan_ids)))
         dispatch((reservableFrameTicketMasterChanged(response.data.reserve_frame.reservable_frame_ticket_master)))

@@ -21,6 +21,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,
                                                                     :resouce_ids,
                                                                     :start_date_input_value,
+                                                                    :repeat_end_date_input_value,
                                                                     :monthly_payment_plan_ids,
                                                                     :reservable_frame_ticket_master,
                                                                     :reserve_frame_reception_times_values,
