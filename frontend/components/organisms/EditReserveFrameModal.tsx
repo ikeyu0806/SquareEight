@@ -21,6 +21,7 @@ import {
   cancelReceptionChanged,
   cancelReceptionHourBeforeChanged,
   cancelReceptionDayBeforeChanged,
+  repeatIntervalTypeChanged,
   isSetPriceChanged,
   isLocalPaymentEnableChanged,
   isCreditCardPaymentEnableChanged,
@@ -170,7 +171,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         }
       )
       .then(function (response) {
-        dispatch((startDateChanged(response.data.start_date_input_value)))
+        dispatch((startDateChanged(response.data.reserve_frame.start_date_input_value)))
         dispatch((titleChanged(response.data.reserve_frame.title)))
         dispatch((descriptionChanged(response.data.reserve_frame.description)))
         dispatch((capacityChanged(response.data.reserve_frame.capacity)))
@@ -187,6 +188,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         dispatch((isTicketPaymentEnableChanged(response.data.reserve_frame.is_ticket_payment_enable)))
         dispatch((isMonthlyPlanPaymentEnableChanged(response.data.reserve_frame.is_monthly_plan_payment_enable)))
         dispatch((reserveFrameReceptionTimesChanged(response.data.reserve_frame.reserve_frame_reception_times_values)))
+        dispatch(repeatIntervalTypeChanged(response.data.reserve_frame.repeat_interval_type))
         dispatch((resourceIdsChanged(response.data.reserve_frame.resouce_ids)))
         dispatch((monthlyPaymentPlanIdsChanged(response.data.reserve_frame.monthly_payment_plan_ids)))
         dispatch((reservableFrameTicketMasterChanged(response.data.reserve_frame.reservable_frame_ticket_master)))
