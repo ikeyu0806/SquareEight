@@ -14,6 +14,8 @@ class Api::Internal::ReserveFramesController < ApplicationController
   end
 
   def show
+    # reduxのデフォルト0にして無駄なリクエスト来るんで一旦こうしとく
+    render json: { status: 'success' } and return if params[:id].to_i.zero?
     reserve_frame = ReserveFrame.find(params[:id])
     shared_component = reserve_frame.account.shared_component
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,

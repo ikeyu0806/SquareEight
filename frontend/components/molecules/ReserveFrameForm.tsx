@@ -561,7 +561,7 @@ const ReserveFrameForm = () => {
           <Form.Group className='mb-3'>
             <Form.Label>公開設定</Form.Label>
             <Form.Select
-              value={publishStatus}
+              value={publishStatus || 'Unpublish'}
               onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
               <option value='Unpublish'>非公開</option>
               <option value='Publish'>公開</option>
