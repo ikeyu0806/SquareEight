@@ -323,6 +323,15 @@ class ReserveFrame < ApplicationRecord
     client.delete_object(bucket: ENV["PRODUCT_IMAGE_BUCKET"], key: self.s3_object_name)
   end
 
+  def out_of_range_frames_datetimes
+    result = []
+    out_of_range_frames.each do |out_of_range_frame|
+      result.push({"start_at": out_of_range_frame.start_at.strftime("%Y-%m-%d %H:%M"),
+                   "end_at": out_of_range_frame.end_at.strftime("%Y-%m-%d %H:%M")})
+    end
+    result
+  end
+
   def unreservable_frames_datetimes
     result = []
     unreservable_frames.each do |unreservable_frame|
