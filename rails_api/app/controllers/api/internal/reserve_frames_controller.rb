@@ -24,6 +24,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                                     :monthly_payment_plan_ids,
                                                                     :reservable_frame_ticket_master,
                                                                     :reserve_frame_reception_times_values,
+                                                                    :repeat_wdays,
                                                                     :unreservable_frames_datetimes]))
     render json: { status: 'success', reserve_frame: reserve_frame_json, shared_component: shared_component }, states: 200
   rescue => error

@@ -295,4 +295,16 @@ class ReserveFrame < ApplicationRecord
     end
     result
   end
+
+  def repeat_wdays
+    result = []
+    result.push('Sun') if self.is_repeat_sun?
+    result.push('Mon') if self.is_repeat_mon?
+    result.push('Tue') if self.is_repeat_tue?
+    result.push('Wed') if self.is_repeat_wed?
+    result.push('Thu') if self.is_repeat_thu?
+    result.push('Fri') if self.is_repeat_fri?
+    result.push('Sat') if self.is_repeat_sat?
+    result
+  end
 end
