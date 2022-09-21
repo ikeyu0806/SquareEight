@@ -1,0 +1,2 @@
+class OutOfRangeFrame < ApplicationRecord
+end

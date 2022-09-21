@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_20_014111) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_21_072526) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -211,6 +211,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_20_014111) do
     t.string "address"
     t.string "postal_code"
     t.boolean "mailed"
+  end
+
+  create_table "out_of_range_frames", force: :cascade do |t|
+    t.integer "reserve_frame_id"
+    t.datetime "start_at"
+    t.datetime "end_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "product_types", force: :cascade do |t|
