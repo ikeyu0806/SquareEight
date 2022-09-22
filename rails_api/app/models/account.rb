@@ -78,19 +78,19 @@ class Account < ApplicationRecord
     self.webpages.each do |w|
       result.push({ text: w.tag, value: '/webpages/' + w.id.to_s, label: 'Webページ', publish_status: w.publish_status })
     end
-    self.reserve_frames.each do |r|
+    self.reserve_frames.enabled.each do |r|
       result.push({ text: r.title, value: '/reserve_frame/' + r.id.to_s + '/calendar', label: '予約ページ', publish_status: r.publish_status })
     end
-    self.products.each do |p|
+    self.products.enabled.each do |p|
       result.push({ text: p.name, value: '/product/' + p.id.to_s + '/purchase', label: '物販商品購入ページ', publish_status: p.publish_status  })
     end
-    self.ticket_masters.each do |t|
+    self.ticket_masters.enabled.each do |t|
       result.push({ text: t.name, value: '/ticket/' + t.id.to_s + '/purchase/', label: 'チケット購入ページ', publish_status: t.publish_status })
     end
-    self.monthly_payment_plans.each do |m|
+    self.monthly_payment_plans.enabled.each do |m|
       result.push({ text: m.name, value: '/monthly_payment/' + m.id.to_s + '/purchase/', label: '月額課金加入ページ', publish_status: m.publish_status })
     end
-    self.questionnaire_masters.each do |q|
+    self.questionnaire_masters.enabled.each do |q|
       result.push({ text: q.title, value: '/questionnaire/' + q.id.to_s, label: 'アンケート', publish_status: q.publish_status })
     end
     result
