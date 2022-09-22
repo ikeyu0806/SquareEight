@@ -6,6 +6,7 @@ import axios from 'axios'
 import { alertChanged } from 'redux/alertSlice'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import CreateQuestionnaireMaster from 'components/templates/CreateQuestionnaireMaster'
 import { Card, Row, Col, Container, Button } from 'react-bootstrap'
 import AddQuestionnaireFormModal from 'components/organisms/AddQuestionnaireFormModal'
@@ -69,12 +70,54 @@ const Edit: NextPage = () => {
     })
   }
 
+  const execDelete = () => {
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      html: `${title}を削除します。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/questionnaire_masters/${router.query.id}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '削除しました',
+            icon: 'info'
+          })
+          router.push('/admin/questionnaire/master')
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '削除失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
+
   return (
     <MerchantUserAdminLayout>
       <Container>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
+            <Row>
+              <Col sm={8}></Col>
+              <Col>
+                <Button
+                  onClick={() => execDelete()}
+                  variant='danger'>
+                  アンケートを削除
+                </Button>
+              </Col>
+            </Row>
+            &emsp;
             <Card>
               <Card.Header>アンケート作成</Card.Header>
               <Card.Body>
