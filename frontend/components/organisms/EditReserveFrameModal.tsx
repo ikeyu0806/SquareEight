@@ -174,6 +174,37 @@ const EditReserveFrameModal = (): JSX.Element => {
     })
   }
 
+  const deleteReserveFrame = () => {
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      html: `${title}を削除します。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/reserve_frame/${reserveFrameId}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '削除しました',
+            icon: 'info'
+          })
+          router.push('/admin/webpage')
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '削除失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
+
   useEffect(() => {
     const fetchReserveFrame = () => {
       axios.get(
@@ -232,17 +263,19 @@ const EditReserveFrameModal = (): JSX.Element => {
     <>
       <Modal show={showEditReserveFrameModal} size='lg'>
         <Modal.Header> 
-          <Modal.Title>新規予約メニュー登録</Modal.Title>
+          <Modal.Title>予約メニュー編集</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <ReserveFrameForm></ReserveFrameForm>
         </Modal.Body>
         <Modal.Footer>
-        <div>
-          <Button variant='primary' 
-                  disabled={validateSubmit()}
-                  onClick={updateReserveFrame}>登録する</Button>
-        </div>
+        <Button className='me-auto'
+                onClick={() => deleteReserveFrame()}
+                variant='danger'
+                size='sm'>予約枠を削除</Button>
+        <Button variant='primary' 
+                disabled={validateSubmit()}
+                onClick={updateReserveFrame}>登録する</Button>
         <Button variant='secondary' onClick={() => dispatch(showEditReserveFrameModalChanged(false))}>閉じる</Button>
         </Modal.Footer>
       </Modal>
