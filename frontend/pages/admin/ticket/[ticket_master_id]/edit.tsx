@@ -80,7 +80,7 @@ const Edit: NextPage = () => {
       <MerchantUserAdminLayout>
         {stripeAccountEnable === 'Enable' &&
         <>
-          <CreateTicketTemplate></CreateTicketTemplate>
+          <CreateTicketTemplate showDeleteButton={true}></CreateTicketTemplate>
           <div className='text-center'>
             <Button onClick={createTicket}>登録する</Button>
           </div>

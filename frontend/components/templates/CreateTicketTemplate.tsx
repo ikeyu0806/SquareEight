@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
-import { Container, Row, Col, Form, FormControl } from 'react-bootstrap'
+import { Container, Row, Col, Form, FormControl, Button } from 'react-bootstrap'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import { getBase64 } from '../../functions/getBase64'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import axios from 'axios'
+import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie'
 import { nameChanged,
          issueNumberChanged,
          priceChanged,
@@ -11,8 +15,15 @@ import { nameChanged,
          publishStatusChanged,
          base64ImageChanged } from 'redux/ticketMasterSlice'
 
-const CreateTicketTemplate = (): JSX.Element => {
+interface Props {
+  showDeleteButton?: boolean
+}
+
+const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const dispatch = useDispatch()
+  const router = useRouter()
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
+
   const [image, setImage] = useState('')
   const name = useSelector((state: RootState) => state.ticketMaster.name)
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
@@ -20,6 +31,37 @@ const CreateTicketTemplate = (): JSX.Element => {
   const effectiveMonth = useSelector((state: RootState) => state.ticketMaster.effectiveMonth)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
+
+  const execDelete = () => {
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      html: `${name}を削除します。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/ticket_masters/${router.query.ticket_master_id}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '削除しました',
+            icon: 'info'
+          })
+          router.push('/admin/ticket')
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '削除失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -35,8 +77,16 @@ const CreateTicketTemplate = (): JSX.Element => {
         <Row>
           <Col lg={3} md={3}></Col>
           <Col lg={6} md={6}>
-            <h2 className='mt30'>回数券を作成します</h2>
+            
             <div className='mt20 mb20'>
+            {showDeleteButton && <Row>
+              <Col sm={9}>
+                <h2 className='mt30'>回数券を作成します</h2>
+              </Col>
+              <Col>
+                <Button variant='danger' size='sm' onClick={() => execDelete()}>チケットを削除</Button>
+              </Col>
+            </Row>}
               <Form.Group className='mb-3'>
                 <Form.Label>表示名</Form.Label>
                 <Form.Control placeholder='レッスン10回受講券など'
