@@ -19,6 +19,8 @@ class ReserveFrame < ApplicationRecord
   enum reception_type: { Immediate: 0, Temporary: 1, PhoneOnly: 2 }
   enum cancel_reception: { OnlyOnTheDay: 0, PossibleBeforeTheDay: 1 }
 
+  scope :enabled, -> { where(deleted_at: nil) }
+
   def payment_methods
     result = {}
 

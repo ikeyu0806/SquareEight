@@ -6,6 +6,8 @@ class QuestionnaireMaster < ApplicationRecord
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
 
+  scope :enabled, -> { where(deleted_at: nil) }
+
   def parse_question_form_json
     JSON.parse self.question_form_json.gsub("=>", ":").gsub(" ", "")
   end

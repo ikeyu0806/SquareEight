@@ -28,6 +28,8 @@ class Account < ApplicationRecord
   CUSTOMER_DISPLAY_LIMIT = { "Free" => 50, "Light" => 10000000000, "Standard" => 10000000000, "Premium" => 10000000000 }
   PLAN_PRICE = { "Free" => 0, "Light" => 980, "Standard" => 1980, "Premium" => 4980 }
 
+  scope :enabled, -> { where(deleted_at: nil) }
+
   def reservation_limit
     Account::RESERVATION_LIMIT[self.service_plan]
   end

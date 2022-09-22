@@ -5,6 +5,8 @@ class TicketMaster < ApplicationRecord
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
 
+  scope :enabled, -> { where(deleted_at: nil) }
+
   def delete_s3_image
     client = Aws::S3::Client.new(
       access_key_id: ENV['AWS_ACCESS_KEY'],
