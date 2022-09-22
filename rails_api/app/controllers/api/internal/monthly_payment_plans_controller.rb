@@ -96,7 +96,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   end
 
   def logical_delete
-    product = Product.find(:id)
+    product = Product.find(params[:id])
     product.logical_delete
     render json: { status: 'success' }, states: 200
   rescue => error

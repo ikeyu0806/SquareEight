@@ -84,7 +84,7 @@ class Api::Internal::TicketMastersController < ApplicationController
   end
 
   def logical_delete
-    ticket_master = TicketMaster.find(:id)
+    ticket_master = TicketMaster.find(params[:id])
     ticket_master.logical_delete
     render json: { status: 'success' }, states: 200
   rescue => error

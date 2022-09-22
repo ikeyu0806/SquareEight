@@ -185,7 +185,7 @@ const EditReserveFrameModal = (): JSX.Element => {
       showCloseButton: true
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`${process.env.BACKEND_URL}/api/internal/reserve_frame/${reserveFrameId}`, {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/reserve_frames/${reserveFrameId}`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           }
@@ -194,7 +194,7 @@ const EditReserveFrameModal = (): JSX.Element => {
             title: '削除しました',
             icon: 'info'
           })
-          router.push('/admin/webpage')
+          location.reload()
         }).catch(error => {
           swalWithBootstrapButtons.fire({
             title: '削除失敗しました',
@@ -258,7 +258,6 @@ const EditReserveFrameModal = (): JSX.Element => {
     fetchReserveFrame()
   }, [router.query.id, cookies._square_eight_merchant_session, dispatch, reserveFrameId])
 
-
   return (
     <>
       <Modal show={showEditReserveFrameModal} size='lg'>
@@ -269,14 +268,14 @@ const EditReserveFrameModal = (): JSX.Element => {
           <ReserveFrameForm></ReserveFrameForm>
         </Modal.Body>
         <Modal.Footer>
-        <Button className='me-auto'
-                onClick={() => deleteReserveFrame()}
-                variant='danger'
-                size='sm'>予約枠を削除</Button>
-        <Button variant='primary' 
-                disabled={validateSubmit()}
-                onClick={updateReserveFrame}>登録する</Button>
-        <Button variant='secondary' onClick={() => dispatch(showEditReserveFrameModalChanged(false))}>閉じる</Button>
+          <Button className='me-auto'
+                  onClick={() => deleteReserveFrame()}
+                  variant='danger'
+                  size='sm'>予約枠を削除</Button>
+          <Button variant='primary' 
+                  disabled={validateSubmit()}
+                  onClick={updateReserveFrame}>登録する</Button>
+          <Button variant='secondary' onClick={() => dispatch(showEditReserveFrameModalChanged(false))}>閉じる</Button>
         </Modal.Footer>
       </Modal>
     </>

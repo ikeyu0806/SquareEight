@@ -178,7 +178,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
   end
 
   def logical_delete
-    reserve_frame = ReserveFrame.find(:id)
+    reserve_frame = ReserveFrame.find(params[:id])
     reserve_frame.logical_delete
     render json: { status: 'success' }, states: 200
   rescue => error

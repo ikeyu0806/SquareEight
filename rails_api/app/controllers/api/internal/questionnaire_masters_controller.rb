@@ -50,7 +50,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
   end
 
   def logical_delete
-    questionnaire_master = QuestionnaireMaster.find(:id)
+    questionnaire_master = QuestionnaireMaster.find(params[:id])
     questionnaire_master.logical_delete
     render json: { status: 'success' }, states: 200
   rescue => error
