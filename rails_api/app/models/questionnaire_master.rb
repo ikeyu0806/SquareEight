@@ -25,4 +25,8 @@ class QuestionnaireMaster < ApplicationRecord
     end
     result
   end
+
+  def logical_delete
+    update!(deleted_at: Time.zone.now)
+  end
 end

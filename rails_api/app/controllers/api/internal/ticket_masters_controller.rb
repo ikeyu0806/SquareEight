@@ -83,6 +83,14 @@ class Api::Internal::TicketMastersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def logical_delete
+    ticket_master = TicketMaster.find(:id)
+    ticket_master.logical_delete
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def ticket_master_params

@@ -396,4 +396,8 @@ class ReserveFrame < ApplicationRecord
     result.push('Sat') if self.is_repeat_sat?
     result
   end
+
+  def logical_delete
+    update!(deleted_at: Time.zone.now)
+  end
 end

@@ -4,7 +4,7 @@ class Api::Internal::ProductsController < ApplicationController
   before_action :merchant_login_only!, only: :create
 
   def index
-    products = current_merchant_user.account.products.order(:id)
+    products = current_merchant_user.account.products.enabled.order(:id)
     products = JSON.parse(products.to_json(methods: [:product_types, :show_product_type_form]))
     render json: { status: 'success', products: products }, states: 200
   rescue => error
@@ -12,7 +12,7 @@ class Api::Internal::ProductsController < ApplicationController
   end
 
   def show
-    product = Product.find(params[:id])
+    product = Product.enabled.find(params[:id])
     product = JSON.parse(product.to_json(methods: [:product_types, :show_product_type_form]))
     render json: { status: 'success', product: product }, states: 200
   rescue => error
@@ -82,7 +82,7 @@ class Api::Internal::ProductsController < ApplicationController
 
   def insert_cart
     ActiveRecord::Base.transaction do
-      product = Product.find(product_params[:id])
+      product = Product.enabled.find(product_params[:id])
       product.cart_products.create!(
         end_user_id: current_end_user.id,
         account_id: product.account_id,
@@ -106,6 +106,14 @@ class Api::Internal::ProductsController < ApplicationController
       end
       render json: { status: 'success' }, status: 200
     end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def logical_delete
+    product = Product.find(:id)
+    product.logical_delete
+    render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

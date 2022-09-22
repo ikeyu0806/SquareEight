@@ -4,21 +4,21 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   before_action :merchant_login_only!, except: [:index, :show, :purchase, :purchase_info, :insert_cart]
 
   def index
-    monthly_payment_plans = current_merchant_user.account.monthly_payment_plans.order(:id)
+    monthly_payment_plans = current_merchant_user.account.monthly_payment_plans.order(:id).enabled
     render json: { status: 'success', monthly_payment_plans: monthly_payment_plans }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def show
-    monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find(params[:id])
+    monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.enabled.find(params[:id])
     render json: { status: 'success', monthly_payment_plan: monthly_payment_plan }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def purchase_info
-    monthly_payment_plan = MonthlyPaymentPlan.find(params[:id])
+    monthly_payment_plan = MonthlyPaymentPlan.enabled.find(params[:id])
     shared_component = monthly_payment_plan.account.shared_component
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
@@ -82,7 +82,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def insert_cart
     ActiveRecord::Base.transaction do
-      monthly_payment_plan = MonthlyPaymentPlan.find(monthly_payment_plan_params[:id])
+      monthly_payment_plan = MonthlyPaymentPlan.enabled.find(monthly_payment_plan_params[:id])
       # 既にカートに入っていたら追加しない
       raise "既にカートに入っています" if monthly_payment_plan.cart_monthly_payment_plans.find_by(end_user_id: current_end_user.id).present?
       monthly_payment_plan.cart_monthly_payment_plans.create!(
@@ -91,6 +91,14 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
         quantity: monthly_payment_plan_params[:purchase_quantity])
       render json: { status: 'success' }, status: 200
     end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def logical_delete
+    product = Product.find(:id)
+    product.logical_delete
+    render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

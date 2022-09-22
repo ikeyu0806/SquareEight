@@ -10,4 +10,8 @@ class Product < ApplicationRecord
   def show_product_type_form
     product_types.present? ? true : false
   end
+
+  def logical_delete
+    update!(deleted_at: Time.zone.now)
+  end
 end

@@ -2,7 +2,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
   before_action :merchant_login_only!, except: [:show]
 
   def index
-    questionnaire_masters = current_merchant_user.account.questionnaire_masters
+    questionnaire_masters = current_merchant_user.account.questionnaire_masters.enabled.order(:id)
     render json: { status: 'success', questionnaire_masters: questionnaire_masters }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -45,6 +45,14 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
     render json: { status: 'success',
                    answer_contents: answer_contents,
                    questionnaire_master: questionnaire_master }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def logical_delete
+    questionnaire_master = QuestionnaireMaster.find(:id)
+    questionnaire_master.logical_delete
+    render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

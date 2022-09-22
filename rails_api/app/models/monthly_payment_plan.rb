@@ -36,4 +36,8 @@ class MonthlyPaymentPlan < ApplicationRecord
     )
     client.delete_object(bucket: ENV["PRODUCT_IMAGE_BUCKET"], key: self.s3_object_name)
   end
+
+  def logical_delete
+    update!(deleted_at: Time.zone.now)
+  end
 end

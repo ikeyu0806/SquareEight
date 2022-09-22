@@ -4,7 +4,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
   before_action :merchant_login_only!, except: [:reserve_events, :show]
 
   def index
-    reserve_frames = current_merchant_user.account.reserve_frames
+    reserve_frames = current_merchant_user.account.reserve_frames.enabled.order(:id)
                      .order(:id)
                      .to_json(methods: [:payment_methods_text, :repeat_setting_text, :reception_type_text, :display_start_at, :display_end_at])
     reserve_frames = JSON.parse(reserve_frames)
@@ -16,7 +16,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
   def show
     # reduxのデフォルト0にして無駄なリクエスト来るんで一旦こうしとく
     render json: { status: 'success' } and return if params[:id].to_i.zero?
-    reserve_frame = ReserveFrame.find(params[:id])
+    reserve_frame = ReserveFrame.enabled.find(params[:id])
     shared_component = reserve_frame.account.shared_component
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,
                                                                     :resouce_ids,
@@ -173,6 +173,14 @@ class Api::Internal::ReserveFramesController < ApplicationController
                    resources: resources,
                    ticket_masters: ticket_masters,
                    monthly_payment_plans: monthly_payment_plans }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def logical_delete
+    reserve_frame = ReserveFrame.find(:id)
+    reserve_frame.logical_delete
+    render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
