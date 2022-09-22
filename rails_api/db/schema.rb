@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_21_072526) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_22_075757) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -181,6 +181,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_072526) do
     t.string "s3_object_name"
     t.string "stripe_plan_id"
     t.integer "publish_status", default: 0
+    t.datetime "deleted_at"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -241,6 +242,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_072526) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "publish_status", default: 0
+    t.datetime "deleted_at"
   end
 
   create_table "purchased_tickets", force: :cascade do |t|
@@ -269,6 +271,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_072526) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "publish_status", default: 0
+    t.datetime "deleted_at"
   end
 
   create_table "reservations", force: :cascade do |t|
@@ -363,6 +366,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_072526) do
     t.boolean "is_repeat_thu", default: false
     t.boolean "is_repeat_fri", default: false
     t.boolean "is_repeat_sat", default: false
+    t.datetime "deleted_at"
   end
 
   create_table "resources", force: :cascade do |t|
@@ -461,6 +465,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_21_072526) do
     t.boolean "is_expired"
     t.integer "effective_month"
     t.integer "publish_status", default: 0
+    t.datetime "deleted_at"
   end
 
   create_table "unreservable_frames", force: :cascade do |t|
