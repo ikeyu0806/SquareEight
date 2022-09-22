@@ -146,6 +146,34 @@ class ReserveFrame < ApplicationRecord
     return false
   end
 
+  def remaining_capacity_count_within_range(start_datetime, end_datetime)
+    reservation_count = self.reservations.where(start_at: start_datetime, end_at: end_datetime).count
+    return self.capacity - reservation_count
+  end
+
+  def remaining_capacity_count_with_datetime(datetime)
+    reservation_count = self.reservations.where("start_at <= ? and end_at >= ?", datetime, datetime).count
+    return self.capacity - reservation_count
+  end
+
+  # カレンダーの表示に使う
+  def reservable_status_with_date(date)
+    reserve_enable_flg = true
+    self.reserve_frame_reception_times.each do |time|
+      self.reservations.where(start_at: date.beginning_of_day..date.end_of_day).each do |reservation|
+        start_datetime = DateTime.new(date.year, date.month, date.day, time.reception_start_time.hour, time.reception_start_time.min, time.reception_start_time.sec, "+09:00")
+        end_datetime = DateTime.new(date.year, date.month, date.day, time.reception_end_time.hour, time.reception_end_time.min, time.reception_end_time.sec, "+09:00")
+        remaining_capacity_count = remaining_capacity_count_within_range(start_datetime, end_datetime)
+        reserve_enable_flg = false if remaining_capacity_count <= 0
+      end
+    end
+    if reserve_enable_flg
+      return { status: 'enable', text: '予約可能' }
+    else
+      return { status: 'disable', text: '予約不可' }
+    end
+  end
+
   def calendar_json(year, month, week = nil)
     result = []
     range_start_date = Date.new(year, month)
@@ -163,9 +191,10 @@ class ReserveFrame < ApplicationRecord
         if is_every_day_repeat
           (loop_start_date..loop_end_date).each do |date|
             next if is_cover_unreservable_frames_datetimes(date)
+            status_json = self.reservable_status_with_date(date)
             result << {
               start: date.strftime("%Y-%m-%d"),
-              title: '予約可能',
+              title: status_json[:text],
               url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
@@ -173,10 +202,11 @@ class ReserveFrame < ApplicationRecord
           skip_flg_count = 0 # repeat_interval_number_dayで間隔を反映させる処理に使う
           (loop_start_date..loop_end_date).each do |date|
             skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
+            status_json = self.reservable_status_with_date(date)
             if skip_flg_count.negative?
               result << {
                 start: date.strftime("%Y-%m-%d"),
-                title: '予約可能',
+                title: status_json[:text],
                 url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
               }
               skip_flg_count = repeat_interval_number_day
@@ -186,9 +216,10 @@ class ReserveFrame < ApplicationRecord
       when 'Week' then
         if is_every_week_repeat
           (loop_start_date..loop_end_date).select{|d| d.wday == self.start_at.wday}.each do |date|
+            status_json = self.reservable_status_with_date(date)
             result << {
               start: date.strftime("%Y-%m-%d"),
-              title: '予約可能',
+              title: status_json[:text],
               url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
@@ -196,10 +227,11 @@ class ReserveFrame < ApplicationRecord
           skip_flg_count = 0 # repeat_interval_number_weekで間隔を反映させる処理に使う
           (loop_start_date..loop_end_date).select{|d| d.wday == self.start_at.wday}.each do |date|
             skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
+            status_json = self.reservable_status_with_date(date)
             if skip_flg_count.negative?
               result << {
                 start: date.strftime("%Y-%m-%d"),
-                title: '予約可能',
+                title: status_json[:text],
                 url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
               }
               skip_flg_count = repeat_interval_number_week
@@ -209,27 +241,29 @@ class ReserveFrame < ApplicationRecord
       when 'Month' then
         if is_every_month_repeat
           (loop_start_date..loop_end_date).each do |date|
+            status_json = self.reservable_status_with_date(date)
             if is_cover_out_of_range_frames_datetimes(date)
               result << {
                 start: date.strftime("%Y-%m-%d"),
-                title: '予約可能',
+                title: status_json[:text],
                 url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
               }
             end
             next unless date.day == self.repeat_interval_month_date
             result << {
               start: date.strftime("%Y-%m-%d"),
-              title: '予約可能',
+              title: status_json[:text],
               url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
         else
           repeat_month_list_result = repeat_month_list
           (loop_start_date..loop_end_date).each do |date|
+            status_json = self.reservable_status_with_date(date)
             if is_cover_out_of_range_frames_datetimes(date)
               result << {
                 start: date.strftime("%Y-%m-%d"),
-                title: '予約可能',
+                title: status_json[:text],
                 url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
               }
             end
@@ -237,7 +271,7 @@ class ReserveFrame < ApplicationRecord
             if repeat_month_list_result.include?(date.strftime("%Y-%m"))
               result << {
                 start: date.strftime("%Y-%m-%d"),
-                title: '予約可能',
+                title: status_json[:text],
                 url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
               }
             end
@@ -254,17 +288,18 @@ class ReserveFrame < ApplicationRecord
         repeat_wdays.push(6) if self.is_repeat_sat?
 
         (loop_start_date..loop_end_date).each do |date|
+          status_json = self.reservable_status_with_date(date)
           if is_cover_out_of_range_frames_datetimes(date)
             result << {
               start: date.strftime("%Y-%m-%d"),
-              title: '予約可能',
+              title: status_json[:text],
               url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
             }
           else
             next unless repeat_wdays.include?(date.wday)
             result << {
               start: date.strftime("%Y-%m-%d"),
-              title: '予約可能',
+              title: status_json[:text],
               url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
@@ -272,9 +307,10 @@ class ReserveFrame < ApplicationRecord
       else
       end
     else
+      status_json = self.reservable_status_with_date(date)
       result << {
         start: self.start_at,
-        title: '予約可能',
+        title: status_json[:text],
         url: '/reserve/' + self.id.to_s + '?date=' + self.start_at.strftime("%Y-%m-%d")
       }
     end
@@ -355,10 +391,5 @@ class ReserveFrame < ApplicationRecord
     result.push('Fri') if self.is_repeat_fri?
     result.push('Sat') if self.is_repeat_sat?
     result
-  end
-
-  def remaining_capacity_count(start_datetime, end_datetime)
-    reservation_count = self.reservations.where(start_at: start_datetime, end_at: end_datetime).count
-    return self.capacity - reservation_count
   end
 end

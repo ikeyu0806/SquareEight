@@ -10,13 +10,13 @@ class Api::Internal::ReservationsController < ApplicationController
       end_at = reservation_params[:time].split("-")[1].split(":")
       start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i, 0, "+09:00")
       end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i, 0, "+09:00")
-      remaining_capacity_count = reserve_frame.remaining_capacity_count(start_datetime, end_datetime)
+      remaining_capacity_count = reserve_frame.remaining_capacity_count_within_range(start_datetime, end_datetime)
       raise '定員オーバです' if remaining_capacity_count <= 0
       # リソースチェック
       resources = reserve_frame.resources
       resources.each do |resource|
-        resource_remaining_capacity_count = resource.remaining_capacity_count(start_datetime, end_datetime)
-        raise '定員オーバです' if resource_remaining_capacity_count <= 0
+        resource_remaining_capacity_count = resource.remaining_capacity_count_within_range(start_datetime, end_datetime)
+        raise '予約できません。使用する設備備品やスタッフなどのリソースが足りていません' if resource_remaining_capacity_count <= 0
       end
       # 顧客ID登録
       # 同じ携帯電話番号の顧客データがなければ作成
