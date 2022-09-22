@@ -4,7 +4,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   before_action :merchant_login_only!, except: [:index, :show, :purchase, :purchase_info, :insert_cart]
 
   def index
-    monthly_payment_plans = current_merchant_user.account.monthly_payment_plans.order(:id).enabled
+    monthly_payment_plans = current_merchant_user.account.monthly_payment_plans.enabled.order(:id)
     render json: { status: 'success', monthly_payment_plans: monthly_payment_plans }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -96,8 +96,8 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   end
 
   def logical_delete
-    product = Product.find(params[:id])
-    product.logical_delete
+    monthly_payment_plan = MonthlyPaymentPlan.find(params[:id])
+    monthly_payment_plan.logical_delete
     render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

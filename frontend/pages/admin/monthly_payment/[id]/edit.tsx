@@ -95,7 +95,7 @@ const Edit: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
         <Container>
-          {stripeAccountEnable === 'Enable' && <CreateMonthlyPayment></CreateMonthlyPayment>}
+          {stripeAccountEnable === 'Enable' && <CreateMonthlyPayment showDeleteButton={true}></CreateMonthlyPayment>}
           {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
         </Container>
         <div className='text-center'>

@@ -1,8 +1,12 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
-import { Container, FormControl, Row, Col, Form } from 'react-bootstrap'
-import { getBase64 } from '../../functions/getBase64'
+import { Container, FormControl, Row, Col, Form, Button } from 'react-bootstrap'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { getBase64 } from 'functions/getBase64'
+import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie'
+import axios from 'axios'
 import { priceChanged,
          nameChanged,
          reserveIsUnlimitedChanged,
@@ -13,8 +17,15 @@ import { priceChanged,
          publishStatusChanged,
          base64ImageChanged } from 'redux/monthlyPaymentPlanSlice'
 
-const CreateMonthlyPayment = (): JSX.Element => {
+interface Props {
+  showDeleteButton?: boolean
+}
+
+const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
   const dispatch = useDispatch()
+  const router = useRouter()
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
+
   const [image, setImage] = useState('')
   const name = useSelector((state: RootState) => state.monthlyPaymentPlan.name)
   const price = useSelector((state: RootState) => state.monthlyPaymentPlan.price)
@@ -32,16 +43,53 @@ const CreateMonthlyPayment = (): JSX.Element => {
     )
   }
 
+  const execDelete = () => {
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      html: `${name}を削除します。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/${router.query.id}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '削除しました',
+            icon: 'info'
+          })
+          router.push('/admin/monthly_payment')
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '削除失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
+
   return (
     <>
       <Container>
         <Row>
           <Col lg={3} md={3}></Col>
           <Col lg={6} md={6}>
-          <div className='text-center mt50 mb50'>
-          <h3 className='mb15'>月額課金プラン作成</h3>
-          <span></span>
-          </div>
+          <div className='mt20 mb20'></div>
+          {showDeleteButton &&
+            <Row>
+              <Col sm={8}>
+                <h2 className='mt30'>月額課金プラン作成</h2>
+              </Col>
+              <Col>
+                <Button variant='danger' size='sm' onClick={() => execDelete()}>月額課金プランを削除</Button>
+              </Col>
+            </Row>}
           <Form.Label>プラン名</Form.Label>
           <FormControl
             value={name}

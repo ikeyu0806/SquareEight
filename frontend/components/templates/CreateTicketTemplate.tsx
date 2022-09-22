@@ -77,11 +77,11 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
         <Row>
           <Col lg={3} md={3}></Col>
           <Col lg={6} md={6}>
-            
             <div className='mt20 mb20'>
-            {showDeleteButton && <Row>
+            {showDeleteButton &&
+            <Row>
               <Col sm={9}>
-                <h2 className='mt30'>回数券を作成します</h2>
+                <h2 className='mt30'>回数券作成</h2>
               </Col>
               <Col>
                 <Button variant='danger' size='sm' onClick={() => execDelete()}>チケットを削除</Button>
