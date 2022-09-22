@@ -1,9 +1,13 @@
 import React, { useState, useRef, createRef, ChangeEvent } from 'react'
 import { Container, Row, Col, Form, FormControl, Button } from 'react-bootstrap'
-import { RootState } from '../../redux/store'
+import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import TrashIcon from 'components/atoms/TrashIcon'
-import { getBase64 } from '../../functions/getBase64'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { getBase64 } from 'functions/getBase64'
+import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie'
+import axios from 'axios'
 import { ProductType } from 'interfaces/ProductType'
 import { nameChanged,
          descriptionChanged,
@@ -16,8 +20,15 @@ import { nameChanged,
          publishStatusChanged,
          showProductTypeFormChanged } from 'redux/productSlice'
 
-const CreateProductTemplate = (): JSX.Element => {
+interface Props {
+  showDeleteButton?: boolean
+}
+
+const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const dispatch = useDispatch()
+  const router = useRouter()
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
+
   const [image, setImage] = useState('')
   const name = useSelector((state: RootState) => state.product.name)
   const price = useSelector((state: RootState) => state.product.price)
@@ -104,14 +115,53 @@ const CreateProductTemplate = (): JSX.Element => {
     dispatch(applyProductTypeChanged(true))
   }
 
+  const execDelete = () => {
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      html: `${name}を削除します。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/products/${router.query.id}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '削除しました',
+            icon: 'info'
+          })
+          router.push('/admin/product')
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '削除失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
+
   return (
     <>
       <Container>
         <Row>
           <Col lg={3} md={3}></Col>
           <Col lg={6} md={6}>
-            <h2 className='mt30'>物販商品を作成します</h2>
             <div className='mt20 mb20'>
+            {showDeleteButton &&
+            <Row>
+              <Col sm={8}>
+              <h2 className='mt30'>物販商品を作成します</h2>
+              </Col>
+              <Col>
+                <Button variant='danger' size='sm' onClick={() => execDelete()}>商品を削除</Button>
+              </Col>
+            </Row>}
               <Form.Group className='mb-3'>
                 <Form.Label>商品名</Form.Label>
                 <Form.Control placeholder=''

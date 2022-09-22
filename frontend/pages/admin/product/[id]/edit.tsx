@@ -107,7 +107,7 @@ const Edit: NextPage = () => {
       <MerchantUserAdminLayout>
         {stripeAccountEnable === 'Enable' &&
         <>
-          <CreateProductTemplate></CreateProductTemplate>
+          <CreateProductTemplate showDeleteButton={true}></CreateProductTemplate>
           <div className='text-center'>
             <Button onClick={updateProduct}>登録する</Button>
           </div>
