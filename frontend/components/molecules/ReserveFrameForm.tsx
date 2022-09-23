@@ -29,6 +29,8 @@ import {  startDateChanged,
           isLocalPaymentEnableChanged,
           isCreditCardPaymentEnableChanged,
           isTicketPaymentEnableChanged,
+          applyMultiLocalPaymentPriceChanged,
+          applyMultiCreditCardPaymentPriceChanged,
           isMonthlyPlanPaymentEnableChanged,
           reserveFrameReceptionTimesChanged,
           resourceIdsChanged,
@@ -59,6 +61,10 @@ const ReserveFrameForm = () => {
   const isCreditCardPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isCreditCardPaymentEnable)
   const isTicketPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isTicketPaymentEnable)
   const isMonthlyPlanPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isMonthlyPlanPaymentEnable)
+  const applyMultiLocalPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiLocalPaymentPrice)
+  const applyMultiCreditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiCreditCardPaymentPrice)
+  const multiLocalPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiLocalPaymentPrices)
+  const multiCreditCardPaymentPrices = useSelector((state: RootState) => state.reserveFrame.applyMultiLocalPaymentPrice)
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
@@ -176,6 +182,24 @@ const ReserveFrameForm = () => {
     return false
   }
 
+  const enableMultiLocalPaymentPriceForm = () => {
+    dispatch(applyMultiLocalPaymentPriceChanged(true))
+  }
+
+  const enableMultiCreditCardPaymentPriceForm = () => {
+    dispatch(applyMultiCreditCardPaymentPriceChanged(true))
+  }
+
+  const updateMultiLocalPaymentName = (event: React.ChangeEvent<HTMLInputElement>, localPaymentNameRef: number) => {
+  }
+
+  const updateMultiLocalPaymentPrice = (event: React.ChangeEvent<HTMLInputElement>, localPaymentPriceRef: number) => {
+  }
+
+  const deleteMultiLocalPayment = (formNum: number) => {
+
+  }
+
   return (
     <>
       <Form>
@@ -270,20 +294,70 @@ const ReserveFrameForm = () => {
               id='localPayment'
               checked={isLocalPaymentEnable}
               onChange={() => dispatch(isLocalPaymentEnableChanged(!isLocalPaymentEnable))}></Form.Check>
-            {isLocalPaymentEnable && <Row>
+            {isLocalPaymentEnable &&
+            <Row>
               <Col>
-                <Form.Group as={Row} className='mb-3'>
-                  <Col sm={3}>
-                    <Form.Control
-                      value={localPaymentPrice}
-                      onChange={(e) => dispatch(localPaymentPriceChanged(Number(e.target.value)))}
-                      type='number'
-                      min='0' />
-                  </Col>
-                  <Form.Label column sm={2}>
-                    円
-                  </Form.Label>
-                </Form.Group>
+              {!applyMultiLocalPaymentPrice && 
+                <>
+                  <Form.Group as={Row} className='mb-3'>
+                    <Col sm={3}>
+                      <Form.Control
+                        value={localPaymentPrice}
+                        onChange={(e) => dispatch(localPaymentPriceChanged(Number(e.target.value)))}
+                        type='number'
+                        min='0' />
+                    </Col>
+                    <Col sm={2}>
+                      <Form.Label>
+                        円
+                      </Form.Label>
+                    </Col>
+                  </Form.Group>
+                  <Row>
+                    <Col sm={4}>
+                      <Button
+                        onClick={() => enableMultiLocalPaymentPriceForm()}
+                        className='mb20 text-white'
+                        variant='info'>料金種別を追加する</Button>
+                    </Col>
+                  </Row>
+                </>}
+              {applyMultiLocalPaymentPrice &&
+                <>
+                  {multiLocalPaymentPrices.map((p, i) => {
+                    return (
+                      <Row key={i}>
+                        <Col sm={6}>
+                          <Form.Label>種別</Form.Label>
+                          <Form.Control
+                            value={p.name}
+                            onChange={(e: any) => updateMultiLocalPaymentName(e, i)}
+                            placeholder='大人'>
+                          </Form.Control>
+                        </Col>
+                        <Col sm={3}>
+                          <Form.Label>在庫</Form.Label>
+                          <Row>
+                            <Col sm={10}>
+                              <Form.Control placeholder='料金'
+                                    value={p.price}
+                                    min={0}
+                                    type='number'
+                                    onChange={(e: any) => updateMultiLocalPaymentPrice(e, i)} />
+                            </Col>
+                            <Col sm={2}>
+                              <a onClick={() => deleteMultiLocalPayment(i)}><TrashIcon
+                                width={20}
+                                height={20}
+                                fill={'#ff0000'}></TrashIcon></a>
+                            </Col>
+                          </Row>
+                        </Col>
+                      </Row>
+                    )
+                  })}
+                </>
+              }
               </Col>
             </Row>}
             {receptionType !== 'PhoneOnly' &&

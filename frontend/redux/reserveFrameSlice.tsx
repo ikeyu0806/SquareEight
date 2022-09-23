@@ -3,6 +3,7 @@ import { ReserveFrameReceptionTimeParam } from 'interfaces/ReserveFrameReception
 import { UnreservableFrameParam } from 'interfaces/UnreservableFrameParam'
 import { ReservableFrameTicketMasterParam } from 'interfaces/ReservableFrameTicketMasterParam'
 import { OutOfRepeatReservableFrameParam } from 'interfaces/OutOfRepeatReservableFrameParam'
+import { MultiPaymentMethod } from 'interfaces/MultiPaymentMethod'
 import { getZeroPaddingDate } from 'functions/getZeroPaddingDatetime'
 
 export const reserveFrameSlice = createSlice({
@@ -40,6 +41,10 @@ export const reserveFrameSlice = createSlice({
     isCreditCardPaymentEnable: false,
     isTicketPaymentEnable: false,
     isMonthlyPlanPaymentEnable: false,
+    applyMultiLocalPaymentPrice: false,
+    applyMultiCreditCardPaymentPrice: false,
+    multiLocalPaymentPrices: [{name: '大人', price: 1000}, {name: '子供', price: 500}] as MultiPaymentMethod[],
+    multiCreditCardPaymentPrices: [{name: '大人', price: 1000}, {name: '子供', price: 500}] as MultiPaymentMethod[],
     base64Image: null,
     s3ObjectPublicUrl: '',
     reserveFrameReceptionTimes: [] as ReserveFrameReceptionTimeParam[],
@@ -101,6 +106,18 @@ export const reserveFrameSlice = createSlice({
     },
     isEveryMonthRepeatChanged: (state, action: PayloadAction<boolean>) => {
       state.isEveryMonthRepeat = action.payload
+    },
+    applyMultiLocalPaymentPriceChanged: (state, action: PayloadAction<boolean>) => {
+      state.applyMultiLocalPaymentPrice = action.payload
+    },
+    applyMultiCreditCardPaymentPriceChanged: (state, action: PayloadAction<boolean>) => {
+      state.applyMultiCreditCardPaymentPrice = action.payload
+    },
+    multiLocalPaymentPricesChanged: (state, action: PayloadAction<MultiPaymentMethod[]>) => {
+      state.multiLocalPaymentPrices = action.payload
+    },
+    multiCreditCardPaymentPricesChanged: (state, action: PayloadAction<MultiPaymentMethod[]>) => {
+      state.multiCreditCardPaymentPrices = action.payload
     },
     capacityChanged: (state, action: PayloadAction<number>) => {
       state.capacity = action.payload
@@ -194,6 +211,8 @@ export const { repeatWDaysChanged } = reserveFrameSlice.actions
 export const { isEveryDayRepeatChanged } = reserveFrameSlice.actions
 export const { isEveryWeekRepeatChanged } = reserveFrameSlice.actions
 export const { isEveryMonthRepeatChanged } = reserveFrameSlice.actions
+export const { applyMultiLocalPaymentPriceChanged } = reserveFrameSlice.actions
+export const { applyMultiCreditCardPaymentPriceChanged } = reserveFrameSlice.actions
 export const { capacityChanged } = reserveFrameSlice.actions
 export const { repeatEndDateChanged } = reserveFrameSlice.actions
 export const { localPaymentPriceChanged } = reserveFrameSlice.actions
