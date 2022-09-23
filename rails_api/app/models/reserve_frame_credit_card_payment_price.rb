@@ -1,0 +1,2 @@
+class ReserveFrameCreditCardPaymentPrice < ApplicationRecord
+end

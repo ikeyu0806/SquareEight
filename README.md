@@ -4,6 +4,12 @@
 docker-compose up
 ```
 
+## dockerのシェル操作
+
+```
+docker exec -it square_eight_rails_api bash
+```
+
 ## ローカルでstripeのWebhookテスト
 ```
 brew install stripe/stripe-cli/stripe

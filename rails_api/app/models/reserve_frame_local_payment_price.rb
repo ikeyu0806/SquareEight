@@ -1,0 +1,2 @@
+class ReserveFrameLocalPaymentPrice < ApplicationRecord
+end
