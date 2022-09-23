@@ -67,7 +67,7 @@ const Home: NextPage = () => {
                   <Card.Img variant='top' src='/images/reserve_frame_modal.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>オンライン予約受付</div>
-                    <div className='mt20 text-start'>日ごと、週ごと、月ごとに受付日時を繰り返す予約メニューを登録できます。
+                    <div className={homeStyles.features_description_text}>日ごと、週ごと、月ごとに受付日時を繰り返す予約メニューを登録できます。
                     設備・備品やスタッフの数による予約受付の制限や特例営業日の設定にも対応しています。</div>
                   </Card.Body>
                 </Card>
@@ -77,7 +77,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_product.png' />
                     <div className={homeStyles.features_header_text}>商品の物販販売</div>
-                    <div className='mt20 text-start'>クレジットカード支払いに対応した物販商品を登録できます。</div>
+                    <div className={homeStyles.features_description_text}>クレジットカード支払いに対応した物販商品を登録できます。</div>
                   </Card.Body>
                 </Card>
               </Col>
@@ -86,7 +86,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_ticket.png' />
                     <div className={homeStyles.features_header_text}>回数券作成</div>
-                    <div className='mt20 text-start'>クレジットカード支払いに対応した回数券を登録できます。
+                    <div className={homeStyles.features_description_text}>クレジットカード支払いに対応した回数券を登録できます。
                     購入した回数券の使用状況を管理画面から把握できます。</div>
                   </Card.Body>
                 </Card>
@@ -99,7 +99,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_monthly_payment_plan.png' />
                     <div className={homeStyles.features_header_text}>月額課金プランの作成</div>
-                    <div className='mt20 text-start'>毎月自動でお客様から自動でお支払いを引き落とす月額課金プランを作成できます。習い事、レッスンの月謝引き落とし、オンラインサロンの運営、
+                    <div className={homeStyles.features_description_text}>毎月自動でお客様から自動でお支払いを引き落とす月額課金プランを作成できます。習い事、レッスンの月謝引き落とし、オンラインサロンの運営、
                     有料メールマガジンの開設に対応できます。</div>
                   </Card.Body>
                 </Card>
@@ -109,7 +109,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_webpage.png' />
                     <div className={homeStyles.features_header_text}>Webページの作成</div>
-                    <div className='mt20 text-start'>プログラミング知識不要でWebページを作成できます。</div>
+                    <div className={homeStyles.features_description_text}>プログラミング知識不要でWebページを作成できます。</div>
                   </Card.Body>
                 </Card>
               </Col>
@@ -118,7 +118,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <Card.Img variant='top' src='/images/questionnaire.png' />
                     <div className={homeStyles.features_header_text}>アンケートの作成</div>
-                    <div className='mt20 text-start'>Webアンケートを作成できます。テキスト入力、プルダウン、チェックボックス、ラジオボタン、日時入力フォームに対応しています。</div>
+                    <div className={homeStyles.features_description_text}>Webアンケートを作成できます。テキスト入力、プルダウン、チェックボックス、ラジオボタン、日時入力フォームに対応しています。</div>
                   </Card.Body>
                 </Card>
               </Col>
@@ -130,7 +130,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <Card.Img variant='top' src='/images/customer_index.png' />
                     <div className={homeStyles.features_header_text}>顧客管理</div>
-                    <div className='mt20 text-start'>予約を受け付けたお客様や商品を購入したお客様を自動で登録・管理できます。
+                    <div className={homeStyles.features_description_text}>予約を受け付けたお客様や商品を購入したお客様を自動で登録・管理できます。
                     お客様ごとにメモを登録できます。</div>
                   </Card.Body>
                 </Card>
@@ -140,7 +140,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_message_template.png' />
                     <div className={homeStyles.features_header_text}>メッセージテンプレートの作成</div>
-                    <div className='mt20 text-start'>メッセージテンプレートを作ってお客様にメール送信ができます。</div>
+                    <div className={homeStyles.features_description_text}>メッセージテンプレートを作ってお客様にメール送信ができます。</div>
                   </Card.Body>
                 </Card>
               </Col>
@@ -149,7 +149,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <Card.Img variant='top' src='/images/sales_chart.png' />
                     <div className={homeStyles.features_header_text}>売上管理</div>
-                    <div className='mt20 text-start'>オンライン決済の売り上げが記録されます。ダッシュボードでグラフ表示することができます。</div>
+                    <div className={homeStyles.features_description_text}>オンライン決済の売り上げが記録されます。ダッシュボードでグラフ表示することができます。</div>
                   </Card.Body>
                 </Card>
               </Col>
@@ -166,16 +166,16 @@ const Home: NextPage = () => {
               <h4>初期費用無料</h4>
             </div>
             <Row>
-              <Col>
+              <Col lg={3} sm={12}>
                 <FreePlanCard></FreePlanCard>
               </Col>
-              <Col>
+              <Col lg={3} sm={12}>
                 <LightPlanCard></LightPlanCard>
               </Col>
-              <Col>
+              <Col lg={3} sm={12}>
                 <StandardPlanCard></StandardPlanCard>
               </Col>
-              <Col>
+              <Col lg={3} sm={12}>
                 <PremiumPlanCard></PremiumPlanCard>
               </Col>
             </Row>

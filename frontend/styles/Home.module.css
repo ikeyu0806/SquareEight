@@ -4,10 +4,6 @@
   margin-bottom: 50px;
 }
 
-.planCard {
-  height: 400px;
-}
-
 @media screen and (max-width: 480px) {
 	/* スマホ用 */
   .headline {
@@ -15,9 +11,14 @@
   }
   .featureCard {
     height: 600px;
+    margin-bottom: 20px;
   }
   .features_header_text {
     font-size: 150%;
+  }
+  .planCard {
+    height: 400px;
+    margin-bottom: 20px;
   }
 }
 
@@ -28,10 +29,18 @@
   }
   .featureCard {
     height: 900px;
-    margin-bottom: 20px;;
+    margin-bottom: 20px;
   }
   .features_header_text {
     font-size: 300%;
+  }
+  .planCard {
+    height: 400px;
+  }
+  .features_description_text {
+    margin-top: 20px;
+    font-size: 150%;
+    text-align: left;
   }
 }
 
@@ -45,6 +54,13 @@
   }
   .featureCard {
     height: 600px;
+  }
+  .planCard {
+    height: 400px;
+  }
+  .features_description_text {
+    margin-top: 20px;
+    text-align: left;
   }
 }
 
