@@ -59,7 +59,15 @@
     height: 400px;
   }
   .features_description_text {
+    font-size: 100%;
     margin-top: 20px;
+    text-align: left;
+  }
+  .plan_price {
+    font-size: 150%;
+  }
+  .plan_description {
+    font-size: 100%;
     text-align: left;
   }
 }

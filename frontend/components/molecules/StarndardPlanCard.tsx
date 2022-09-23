@@ -26,11 +26,11 @@ const StandardPlanCard = ({showJoinButton}: Props): JSX.Element => {
           </>}
       </Card.Header>
       <Card.Body>
-        <h4>月額 1980円</h4>
+        <h4 className={cardStyles.plan_price}>月額 1980円</h4>
         <Row>
           <Col></Col>
           <Col xs={11}>
-            <Card.Text className='text-start'>
+            <Card.Text className={cardStyles.plan_description}>
               <TextWithCheckIcon text='ライトプランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='月間予約件数2000件' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='メール送信可能数 1000件' fill={'darkblue'}></TextWithCheckIcon><br/>
