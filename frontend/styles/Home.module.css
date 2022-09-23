@@ -4,10 +4,6 @@
   margin-bottom: 50px;
 }
 
-.featureCard {
-  height: 500px;
-}
-
 .planCard {
   height: 400px;
 }
@@ -17,12 +13,25 @@
   .headline {
     font-size: 300%;
   }
+  .featureCard {
+    height: 600px;
+  }
+  .features_header_text {
+    font-size: 150%;
+  }
 }
 
 /* タブレット用 */
 @media screen and (min-width: 481px) {
   .headline {
     font-size: 500%;
+  }
+  .featureCard {
+    height: 900px;
+    margin-bottom: 20px;;
+  }
+  .features_header_text {
+    font-size: 300%;
   }
 }
 
@@ -33,6 +42,9 @@
   }
   .features_header_text {
     font-size: 150%;
+  }
+  .featureCard {
+    height: 600px;
   }
 }
 

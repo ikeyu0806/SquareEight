@@ -62,7 +62,7 @@ const Home: NextPage = () => {
           <h2 className='mt50 mb50'>機能一覧</h2>
           <Container>
             <Row>
-              <Col>
+              <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
                   <Card.Img variant='top' src='/images/reserve_frame_modal.png' />
                   <Card.Body>
@@ -72,7 +72,7 @@ const Home: NextPage = () => {
                   </Card.Body>
                 </Card>
               </Col>
-              <Col>
+              <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_product.png' />
@@ -81,7 +81,7 @@ const Home: NextPage = () => {
                   </Card.Body>
                 </Card>
               </Col>
-              <Col>
+              <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_ticket.png' />
@@ -94,7 +94,7 @@ const Home: NextPage = () => {
             </Row>
             &thinsp;
             <Row>
-              <Col>
+              <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_monthly_payment_plan.png' />
@@ -104,7 +104,7 @@ const Home: NextPage = () => {
                   </Card.Body>
                 </Card>
               </Col>
-              <Col>
+              <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_webpage.png' />
@@ -113,7 +113,7 @@ const Home: NextPage = () => {
                   </Card.Body>
                 </Card>
               </Col>
-              <Col>
+              <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/questionnaire.png' />
@@ -125,7 +125,7 @@ const Home: NextPage = () => {
             </Row>
             &thinsp;
             <Row>
-              <Col>
+              <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/customer_index.png' />
@@ -135,7 +135,7 @@ const Home: NextPage = () => {
                   </Card.Body>
                 </Card>
               </Col>
-              <Col>
+              <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_message_template.png' />
@@ -144,7 +144,7 @@ const Home: NextPage = () => {
                   </Card.Body>
                 </Card>
               </Col>
-              <Col>
+              <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/sales_chart.png' />
