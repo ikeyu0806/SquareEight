@@ -13,6 +13,7 @@ import { getBase64 } from 'functions/getBase64'
 import ReserveFrameRepeatSetting from './ReserveFrameRepeatSetting'
 import TrashIcon from 'components/atoms/TrashIcon'
 import RequireBadge from 'components/atoms/RequireBadge'
+import { MultiPaymentMethod } from 'interfaces/MultiPaymentMethod'
 import {  startDateChanged,
           titleChanged,
           descriptionChanged,
@@ -31,6 +32,8 @@ import {  startDateChanged,
           isTicketPaymentEnableChanged,
           applyMultiLocalPaymentPriceChanged,
           applyMultiCreditCardPaymentPriceChanged,
+          multiLocalPaymentPricesChanged,
+          multiCreditCardPaymentPricesChanged,
           isMonthlyPlanPaymentEnableChanged,
           reserveFrameReceptionTimesChanged,
           resourceIdsChanged,
@@ -65,6 +68,11 @@ const ReserveFrameForm = () => {
   const applyMultiCreditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiCreditCardPaymentPrice)
   const multiLocalPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiLocalPaymentPrices)
   const multiCreditCardPaymentPrices = useSelector((state: RootState) => state.reserveFrame.applyMultiLocalPaymentPrice)
+  const multiLocalPaymentNameRefs = useRef<any>([])
+  multiLocalPaymentNameRefs.current = multiLocalPaymentPrices.map((_, i) => multiLocalPaymentNameRefs.current[i] ?? createRef())
+  const multiLocalPaymentPriceRefs = useRef<any>([])
+  multiLocalPaymentPriceRefs.current = multiLocalPaymentPrices.map((_, i) => multiLocalPaymentPriceRefs.current[i] ?? createRef())
+  const multiCreditCardPaymentNameRefs = useRef<any>([])
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
@@ -191,13 +199,52 @@ const ReserveFrameForm = () => {
   }
 
   const updateMultiLocalPaymentName = (event: React.ChangeEvent<HTMLInputElement>, localPaymentNameRef: number) => {
+    let updateLocalPaymentPrice: MultiPaymentMethod
+    let updateLocalPaymentPrices: MultiPaymentMethod[]
+    updateLocalPaymentPrices = []
+    updateLocalPaymentPrice = {name: '', price: 0}
+    updateLocalPaymentPrice.name = event.target.value
+    updateLocalPaymentPrice.price = multiLocalPaymentPrices[localPaymentNameRef].price
+    multiLocalPaymentPrices.map((p, i) => {
+      if (i == localPaymentNameRef) {
+        updateLocalPaymentPrices.push(updateLocalPaymentPrice)
+      } else {
+        updateLocalPaymentPrices.push(p)
+      }
+    })
+    dispatch(multiLocalPaymentPricesChanged(updateLocalPaymentPrices))
   }
 
   const updateMultiLocalPaymentPrice = (event: React.ChangeEvent<HTMLInputElement>, localPaymentPriceRef: number) => {
+    let updateLocalPaymentPrice: MultiPaymentMethod
+    let updateLocalPaymentPrices: MultiPaymentMethod[]
+    updateLocalPaymentPrices = []
+    updateLocalPaymentPrice = {name: '', price: 0}
+    updateLocalPaymentPrice.price = Number(event.target.value)
+    updateLocalPaymentPrice.name = multiLocalPaymentPrices[localPaymentPriceRef].name
+    multiLocalPaymentPrices.map((p, i) => {
+      if (i == localPaymentPriceRef) {
+        updateLocalPaymentPrices.push(updateLocalPaymentPrice)
+      } else {
+        updateLocalPaymentPrices.push(p)
+      }
+    })
+    dispatch(multiLocalPaymentPricesChanged(updateLocalPaymentPrices))
   }
 
   const deleteMultiLocalPayment = (formNum: number) => {
-
+    if (multiLocalPaymentPrices.length <= 2 ) {
+      dispatch(applyMultiLocalPaymentPriceChanged(false))
+      return
+    }
+    let updateLocalPaymentPrices: MultiPaymentMethod[]
+    updateLocalPaymentPrices = []
+    updateLocalPaymentPrices.map((p, i) => {
+      if (i !== formNum) {
+        updateLocalPaymentPrices.push(p)
+      }
+    })
+    dispatch(multiLocalPaymentPricesChanged(updateLocalPaymentPrices))
   }
 
   return (
