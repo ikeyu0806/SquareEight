@@ -25,6 +25,8 @@ MerchantUser.first_or_create!(
 )
 
 EndUser.first_or_create!(
+  first_name: "デモ",
+  last_name: "ユーザ",
   email: "end_user@develop.com",
   password: "Pass1234",
   stripe_customer_id: "cus_M9qiqO8wOda3Xo",

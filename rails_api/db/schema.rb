@@ -296,6 +296,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_23_095618) do
   end
 
   create_table "reserve_frame_credit_card_payment_prices", force: :cascade do |t|
+    t.integer "reserve_frame_id", null: false
     t.string "name", null: false
     t.integer "price", null: false
     t.datetime "created_at", null: false
@@ -303,6 +304,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_23_095618) do
   end
 
   create_table "reserve_frame_local_payment_prices", force: :cascade do |t|
+    t.integer "reserve_frame_id", null: false
     t.string "name", null: false
     t.integer "price", null: false
     t.datetime "created_at", null: false
