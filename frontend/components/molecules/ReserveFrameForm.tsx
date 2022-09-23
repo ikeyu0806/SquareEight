@@ -247,6 +247,16 @@ const ReserveFrameForm = () => {
     dispatch(multiLocalPaymentPricesChanged(updateLocalPaymentPrices))
   }
 
+  const addLocalPaymentPriceForm = () => {
+    let updateLocalPaymentPrices: MultiPaymentMethod[]
+    updateLocalPaymentPrices = []
+    multiLocalPaymentPrices.map((p, i) => {
+      updateLocalPaymentPrices.push(p)
+    })
+    updateLocalPaymentPrices.push({name: '', price: 0})
+    dispatch(multiLocalPaymentPricesChanged(updateLocalPaymentPrices))
+  }
+
   return (
     <>
       <Form>
@@ -403,6 +413,10 @@ const ReserveFrameForm = () => {
                       </Row>
                     )
                   })}
+                  <Button
+                    onClick={() => addLocalPaymentPriceForm()}
+                    className='mt10 text-white'
+                    variant='info'>追加する</Button>
                 </>
               }
               </Col>

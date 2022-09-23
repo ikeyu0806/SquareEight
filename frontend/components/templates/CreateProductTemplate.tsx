@@ -233,7 +233,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                       <Button
                         onClick={() => enableProductTypeForm()}
                         className='mt10 text-white'
-                        variant='info'>種類を追加する</Button>
+                        variant='info text-white'>種類を追加する</Button>
                     </Col>
                   </Row>}
                   {showProductTypeForm &&
