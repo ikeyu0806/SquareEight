@@ -67,12 +67,11 @@ const ReserveFrameForm = () => {
   const applyMultiLocalPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiLocalPaymentPrice)
   const applyMultiCreditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiCreditCardPaymentPrice)
   const multiLocalPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiLocalPaymentPrices)
-  const multiCreditCardPaymentPrices = useSelector((state: RootState) => state.reserveFrame.applyMultiLocalPaymentPrice)
+  const multiCreditCardPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiCreditCardPaymentPrices)
   const multiLocalPaymentNameRefs = useRef<any>([])
   multiLocalPaymentNameRefs.current = multiLocalPaymentPrices.map((_, i) => multiLocalPaymentNameRefs.current[i] ?? createRef())
-  const multiLocalPaymentPriceRefs = useRef<any>([])
-  multiLocalPaymentPriceRefs.current = multiLocalPaymentPrices.map((_, i) => multiLocalPaymentPriceRefs.current[i] ?? createRef())
-  const multiCreditCardPaymentNameRefs = useRef<any>([])
+  const multiCreditCardPaymentPriceRefs = useRef<any>([])
+  multiCreditCardPaymentPriceRefs.current = multiCreditCardPaymentPrices.map((_, i) => multiCreditCardPaymentPriceRefs.current[i] ?? createRef())
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
@@ -190,12 +189,9 @@ const ReserveFrameForm = () => {
     return false
   }
 
+  // 現地払い関連メソッド
   const enableMultiLocalPaymentPriceForm = () => {
     dispatch(applyMultiLocalPaymentPriceChanged(true))
-  }
-
-  const enableMultiCreditCardPaymentPriceForm = () => {
-    dispatch(applyMultiCreditCardPaymentPriceChanged(true))
   }
 
   const updateMultiLocalPaymentName = (event: React.ChangeEvent<HTMLInputElement>, localPaymentNameRef: number) => {
@@ -233,7 +229,7 @@ const ReserveFrameForm = () => {
   }
 
   const deleteMultiLocalPayment = (formNum: number) => {
-    if (multiLocalPaymentPrices.length < 2 ) {
+    if (multiLocalPaymentPrices.length <= 2 ) {
       dispatch(applyMultiLocalPaymentPriceChanged(false))
       return
     }
@@ -255,6 +251,70 @@ const ReserveFrameForm = () => {
     })
     updateLocalPaymentPrices.push({name: '', price: 0})
     dispatch(multiLocalPaymentPricesChanged(updateLocalPaymentPrices))
+  }
+
+  // クレジットカード払い関連メソッド
+  const enableMultiCreditCardPaymentPriceForm = () => {
+    dispatch(applyMultiCreditCardPaymentPriceChanged(true))
+  }
+
+  const updateMultiCreditCardPaymentName = (event: React.ChangeEvent<HTMLInputElement>, creditCardPaymentNameRef: number) => {
+    let updateCreditCardPaymentPrice: MultiPaymentMethod
+    let updateCreditCardPaymentPrices: MultiPaymentMethod[]
+    updateCreditCardPaymentPrices = []
+    updateCreditCardPaymentPrice = {name: '', price: 0}
+    updateCreditCardPaymentPrice.name = event.target.value
+    updateCreditCardPaymentPrice.price = multiCreditCardPaymentPrices[creditCardPaymentNameRef].price
+    multiCreditCardPaymentPrices.map((p, i) => {
+      if (i == creditCardPaymentNameRef) {
+        updateCreditCardPaymentPrices.push(updateCreditCardPaymentPrice)
+      } else {
+        updateCreditCardPaymentPrices.push(p)
+      }
+    })
+    dispatch(multiCreditCardPaymentPricesChanged(updateCreditCardPaymentPrices))
+  }
+  
+  const updateMultiCreditCardPaymentPrice = (event: React.ChangeEvent<HTMLInputElement>, CreditCardPaymentPriceRef: number) => {
+    let updateCreditCardPaymentPrice: MultiPaymentMethod
+    let updateCreditCardPaymentPrices: MultiPaymentMethod[]
+    updateCreditCardPaymentPrices = []
+    updateCreditCardPaymentPrice = {name: '', price: 0}
+    updateCreditCardPaymentPrice.price = Number(event.target.value)
+    updateCreditCardPaymentPrice.name = multiCreditCardPaymentPrices[CreditCardPaymentPriceRef].name
+    multiCreditCardPaymentPrices.map((p, i) => {
+      if (i == CreditCardPaymentPriceRef) {
+        updateCreditCardPaymentPrices.push(updateCreditCardPaymentPrice)
+      } else {
+        updateCreditCardPaymentPrices.push(p)
+      }
+    })
+    dispatch(multiCreditCardPaymentPricesChanged(updateCreditCardPaymentPrices))
+  }
+  
+  const deleteMultiCreditCardPayment = (formNum: number) => {
+    if (multiCreditCardPaymentPrices.length <= 2 ) {
+      dispatch(applyMultiCreditCardPaymentPriceChanged(false))
+      return
+    }
+    let updateCreditCardPaymentPrices: MultiPaymentMethod[]
+    updateCreditCardPaymentPrices = []
+    multiCreditCardPaymentPrices.map((p, i) => {
+      if (i !== formNum) {
+        updateCreditCardPaymentPrices.push(p)
+      }
+    })
+    dispatch(multiCreditCardPaymentPricesChanged(updateCreditCardPaymentPrices))
+  }
+
+  const addCreditCardPaymentPriceForm = () => {
+    let updateCreditCardPaymentPrices: MultiPaymentMethod[]
+    updateCreditCardPaymentPrices = []
+    multiLocalPaymentPrices.map((p, i) => {
+      updateCreditCardPaymentPrices.push(p)
+    })
+    updateCreditCardPaymentPrices.push({name: '', price: 0})
+    dispatch(multiCreditCardPaymentPricesChanged(updateCreditCardPaymentPrices))
   }
 
   return (
@@ -427,20 +487,76 @@ const ReserveFrameForm = () => {
               label='クレジットカード払い'
               checked={isCreditCardPaymentEnable}
               onChange={() => dispatch(isCreditCardPaymentEnableChanged(!isCreditCardPaymentEnable))}></Form.Check>}
-            {isCreditCardPaymentEnable && receptionType !== 'PhoneOnly' && <Row>
+            {isCreditCardPaymentEnable &&
+            receptionType !== 'PhoneOnly' &&
+            <Row>
               <Col>
-                <Form.Group as={Row} className='mb-3'>
-                  <Col sm={3}>
-                    <Form.Control
-                      value={creditCardPaymentPrice}
-                      onChange={(e) => dispatch(creditCardPaymentPriceChanged(Number(e.target.value)))}
-                      type='number'
-                      min='0' />
-                  </Col>
-                  <Form.Label column sm={2}>
-                    円
-                  </Form.Label>
-                </Form.Group>
+              {!applyMultiCreditCardPaymentPrice &&
+                <>
+                  <Form.Group as={Row} className='mb-3'>
+                    <Col sm={3}>
+                      <Form.Control
+                        value={creditCardPaymentPrice}
+                        onChange={(e) => dispatch(creditCardPaymentPriceChanged(Number(e.target.value)))}
+                        type='number'
+                        min='0' />
+                    </Col>
+                    <Col sm={2}>
+                      <Form.Label>
+                        円
+                      </Form.Label>
+                    </Col>
+                  </Form.Group>
+                  <Row>
+                    <Col sm={4}>
+                      <Button
+                        onClick={() => enableMultiCreditCardPaymentPriceForm()}
+                        className='mb20 text-white'
+                        variant='info'>料金種別を追加する</Button>
+                    </Col>
+                  </Row>
+                </>
+              }
+              {applyMultiCreditCardPaymentPrice &&
+                <>
+                  {multiCreditCardPaymentPrices.map((p, credit_pay_index) => {
+                    return (
+                      <Row key={credit_pay_index}>
+                        <Col sm={6}>
+                          <Form.Label>種別</Form.Label>
+                          <Form.Control
+                            value={p.name}
+                            onChange={(e: any) => updateMultiCreditCardPaymentName(e, credit_pay_index)}
+                            placeholder='大人'>
+                          </Form.Control>
+                        </Col>
+                        <Col sm={3}>
+                          <Form.Label>料金</Form.Label>
+                          <Row>
+                            <Col sm={10}>
+                              <Form.Control placeholder='料金'
+                                    value={p.price}
+                                    min={0}
+                                    type='number'
+                                    onChange={(e: any) => updateMultiCreditCardPaymentPrice(e, credit_pay_index)} />
+                            </Col>
+                            <Col sm={2}>
+                              <a onClick={() => deleteMultiCreditCardPayment(credit_pay_index)}><TrashIcon
+                                width={20}
+                                height={20}
+                                fill={'#ff0000'}></TrashIcon></a>
+                            </Col>
+                          </Row>
+                        </Col>
+                      </Row>
+                    )
+                  })}
+                  <Button
+                    onClick={() => addCreditCardPaymentPriceForm()}
+                    className='mt10 text-white'
+                    variant='info'>追加する</Button>
+                </>
+              }
               </Col>
             </Row>}
             {receptionType !== 'PhoneOnly' &&
