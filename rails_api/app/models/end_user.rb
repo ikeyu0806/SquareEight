@@ -17,6 +17,7 @@ class EndUser < ApplicationRecord
 
   validates :first_name, presence: true
   validates :last_name, presence: true
+  validates :password, password: true
 
   def payment_methods
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
