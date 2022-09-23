@@ -15,6 +15,9 @@ class EndUser < ApplicationRecord
   has_many :stripe_subscriptions
   has_many :monthly_payment_plans, through: :stripe_subscriptions
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
   def payment_methods
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     if self.stripe_customer_id.present?

@@ -16,6 +16,8 @@ const Signup: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const dispatch = useDispatch()
   const [email, setEmail] = useState('')
+  const [lastName, setLastName] = useState('')
+  const [firstName, setFirstName] = useState('')
   const [password, setPassword] = useState('')
   const [confirmPassword, setConfirmPassword] = useState('')
   const [cookies] = useCookies(['_square_eight_end_user_session'])
@@ -40,6 +42,8 @@ const Signup: NextPage = () => {
       `${process.env.BACKEND_URL}/api/internal/end_users`,
       {
         end_user: {
+          last_name: lastName,
+          first_name: firstName,
           email: email,
           password: password,
           password_confirmation: confirmPassword
@@ -70,7 +74,19 @@ const Signup: NextPage = () => {
                 <Card.Header>カスタマーアカウント登録</Card.Header>
                 <Card.Body>
                   <Form onSubmit={handleSubmit}>
-                    <Form.Group className='mb-3' controlId='formEmail'>
+                    <Form.Group className='mb-3'>
+                      <Form.Label>お名前（姓）</Form.Label>
+                      <Form.Control type='text'
+                                    placeholder='必須'
+                                    onChange={(e) => setLastName(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group className='mb-3'>
+                      <Form.Label>お名前（名）</Form.Label>
+                      <Form.Control type='text'
+                                    placeholder='必須'
+                                    onChange={(e) => setFirstName(e.target.value)}/>
+                    </Form.Group>
+                    <Form.Group className='mb-3'>
                       <Form.Label>メールアドレス</Form.Label>
                       <Form.Control type='email'
                                     placeholder='必須'
@@ -95,6 +111,7 @@ const Signup: NextPage = () => {
                     </Form.Group>
                     <div className='text-center'>
                       <Button variant='primary'
+                              disabled={!lastName || !firstName || !email || !password || (password !== confirmPassword)}
                               onClick={onSubmit}>
                         登録する
                       </Button>

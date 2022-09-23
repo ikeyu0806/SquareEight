@@ -3,8 +3,12 @@ class Customer < ApplicationRecord
   has_many :orders
   has_many :questionnaire_answers
 
+  validates :first_name, presence: true
+  validates :last_name, presence: true
+
   def full_name
     full_name = ((self.last_name || '') + (self.first_name || ''))
+    # 一応名前がない場合の分岐
     full_name.blank? ? '名前が登録されていません' : full_name
   end
 
