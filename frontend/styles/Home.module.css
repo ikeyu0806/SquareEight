@@ -17,8 +17,15 @@
     font-size: 150%;
   }
   .planCard {
-    height: 400px;
+    height: 55  0px;
     margin-bottom: 20px;
+  }
+  .plan_price {
+    font-size: 180%;
+  }
+  .plan_description {
+    font-size: 150%;
+    text-align: left;
   }
 }
 
@@ -39,6 +46,13 @@
   }
   .features_description_text {
     margin-top: 20px;
+    font-size: 150%;
+    text-align: left;
+  }
+  .plan_price {
+    font-size: 150%;
+  }
+  .plan_description {
     font-size: 150%;
     text-align: left;
   }
