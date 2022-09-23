@@ -12,6 +12,8 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
 import { MERCHANT_GOOGLE_AUTH_URL } from 'constants/socialLogin'
+import { emailRegex } from 'constants/emailRegex'
+import { passwordRegex } from 'constants/passwordRegex'
 
 const Signup: NextPage = () => {
   const merchantUserLoginStatus = useSelector((state: RootState) => state.currentMerchantUser.loginStatus)
@@ -38,6 +40,16 @@ const Signup: NextPage = () => {
   }, [dispatch, cookies._square_eight_merchant_session, merchantUserLoginStatus, router])
 
   const onSubmit = () => {
+    if (email && email.match(emailRegex) === null) {
+      dispatch(alertChanged({message: 'メールアドレスの形式に誤りがあります', show: true, type: 'danger'}))
+      return
+    }
+
+    if (password && password.match(passwordRegex) === null) {
+      dispatch(alertChanged({message: 'パスワードの形式に誤りがあります', show: true, type: 'danger'}))
+      return
+    }
+
     axios.post(
       `${process.env.BACKEND_URL}/api/internal/merchant_users`,
       {
@@ -78,7 +90,7 @@ const Signup: NextPage = () => {
                     <Form.Group className='mb-3' controlId='formEmail'>
                         <Form.Label>ビジネス名称</Form.Label>
                         <Form.Control type='text'
-                                      placeholder='企業名、店舗名、教室名など' 
+                                      placeholder='必須。企業名、店舗名、教室名など' 
                                       onChange={(e) => setBusinessName(e.target.value)}/>
                         <Form.Text className='text-muted'></Form.Text>
                       </Form.Group>
@@ -91,6 +103,7 @@ const Signup: NextPage = () => {
                     </Form.Group>
                     <Form.Group className='mb-3' controlId='formPassword'>
                       <Form.Label>パスワード</Form.Label>
+                      <div>半角英小文字大文字数字を1種類以上含めて8文字以上で設定してください</div>
                       <Form.Control type='password'
                                     placeholder='必須'
                                     onChange={(e) => setPassword(e.target.value)}/>
@@ -107,6 +120,7 @@ const Signup: NextPage = () => {
                     </Form.Group>
                     <div className='text-center'>
                       <Button variant='primary'
+                              disabled={!businessName || !email || !password || (password !== confirmPassword)}
                               onClick={onSubmit}>
                         登録する
                       </Button>

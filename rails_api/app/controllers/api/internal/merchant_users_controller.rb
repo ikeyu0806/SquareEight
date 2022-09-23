@@ -11,7 +11,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     ActiveRecord::Base.transaction do
       if merchant_user_params[:is_create_account]
         account = Account.new(business_name: merchant_user_params["business_name"])
-        account.shared_components.new
+        shared_component = SharedComponent.new(account: account)
         merchant_user = account.merchant_users.new(merchant_user_params.except(:business_name, :is_create_account))
       else
         merchant_user = MerchantUser.new(merchant_user_params.except(:business_name, :is_create_account))
@@ -22,6 +22,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       merchant_user.verification_code_expired_at = Time.zone.now + 1.days
       merchant_user.password = merchant_user_params[:password]
       merchant_user.save!
+      shared_component.save! if shared_component.present?
       encode_email = Base64.urlsafe_encode64(merchant_user.email)
       MerchantUserMailer.send_verification_code(merchant_user.email, encode_email, merchant_user.verification_code).deliver_later
     end
