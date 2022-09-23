@@ -233,13 +233,13 @@ const ReserveFrameForm = () => {
   }
 
   const deleteMultiLocalPayment = (formNum: number) => {
-    if (multiLocalPaymentPrices.length <= 2 ) {
+    if (multiLocalPaymentPrices.length < 2 ) {
       dispatch(applyMultiLocalPaymentPriceChanged(false))
       return
     }
     let updateLocalPaymentPrices: MultiPaymentMethod[]
     updateLocalPaymentPrices = []
-    updateLocalPaymentPrices.map((p, i) => {
+    multiLocalPaymentPrices.map((p, i) => {
       if (i !== formNum) {
         updateLocalPaymentPrices.push(p)
       }
@@ -381,29 +381,29 @@ const ReserveFrameForm = () => {
                 </>}
               {applyMultiLocalPaymentPrice &&
                 <>
-                  {multiLocalPaymentPrices.map((p, i) => {
+                  {multiLocalPaymentPrices.map((p, local_pay_index) => {
                     return (
-                      <Row key={i}>
+                      <Row key={local_pay_index}>
                         <Col sm={6}>
                           <Form.Label>種別</Form.Label>
                           <Form.Control
                             value={p.name}
-                            onChange={(e: any) => updateMultiLocalPaymentName(e, i)}
+                            onChange={(e: any) => updateMultiLocalPaymentName(e, local_pay_index)}
                             placeholder='大人'>
                           </Form.Control>
                         </Col>
                         <Col sm={3}>
-                          <Form.Label>在庫</Form.Label>
+                          <Form.Label>料金</Form.Label>
                           <Row>
                             <Col sm={10}>
                               <Form.Control placeholder='料金'
                                     value={p.price}
                                     min={0}
                                     type='number'
-                                    onChange={(e: any) => updateMultiLocalPaymentPrice(e, i)} />
+                                    onChange={(e: any) => updateMultiLocalPaymentPrice(e, local_pay_index)} />
                             </Col>
                             <Col sm={2}>
-                              <a onClick={() => deleteMultiLocalPayment(i)}><TrashIcon
+                              <a onClick={() => deleteMultiLocalPayment(local_pay_index)}><TrashIcon
                                 width={20}
                                 height={20}
                                 fill={'#ff0000'}></TrashIcon></a>
