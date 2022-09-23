@@ -11,6 +11,8 @@ import { useCookies } from 'react-cookie'
 import Router from 'next/router'
 import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
 import { END_USER_GOOGLE_AUTH_URL } from 'constants/socialLogin'
+import { emailRegex } from 'constants/emailRegex'
+import { passwordRegex } from 'constants/passwordRegex'
 
 const Signup: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
@@ -38,6 +40,16 @@ const Signup: NextPage = () => {
   }, [dispatch, cookies._square_eight_end_user_session, currentEndUserLogintStatus])
 
   const onSubmit = () => {
+    if (email && email.match(emailRegex) === null) {
+      dispatch(alertChanged({message: 'メールアドレスの形式に誤りがあります', show: true, type: 'danger'}))
+      return
+    }
+
+    if (password && password.match(passwordRegex) === null) {
+      dispatch(alertChanged({message: 'パスワードの形式に誤りがあります', show: true, type: 'danger'}))
+      return
+    }
+  
     axios.post(
       `${process.env.BACKEND_URL}/api/internal/end_users`,
       {
@@ -95,6 +107,7 @@ const Signup: NextPage = () => {
                     </Form.Group>
                     <Form.Group className='mb-3' controlId='formPassword'>
                       <Form.Label>パスワード</Form.Label>
+                      <div>半角英小文字大文字数字を1種類以上含めて8文字以上で設定してください</div>
                       <Form.Control type='password'
                                     placeholder='必須'
                                     onChange={(e) => setPassword(e.target.value)}/>
