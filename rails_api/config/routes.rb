@@ -121,6 +121,7 @@ Rails.application.routes.draw do
       get 'reservations/register_reservation_info', to: 'reservations#register_reservation_info'
       get 'reservations/:id', to: 'reservations#show'
       post 'reservations/:id/update_status', to: 'reservations#update_status'
+      post 'reservations/insert_time_payment_method', to: 'reservations#insert_time_payment_method'
       post 'reservations/register_by_merchant_control', to: 'reservations#register_by_merchant_control'
       post 'reservations', to: 'reservations#create'
       post 'reservations', to: 'reservations#register_by_merchant_control'

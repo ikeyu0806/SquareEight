@@ -73,19 +73,18 @@ const Index: NextPage = () => {
   }
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/reservations`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/insert_time_payment_method`,
     {
       reservations: {
-        title: reserveFrame?.title,
-        date: router.query.date,
+        reserve_frame_id: router.query.reserve_frame_id,
+        reservation_date: router.query.date,
         time: selectedTime,
         payment_method: selectedPaymentMethodType,
-        ticket_id: selectedTicketId,
-        selected_monthly_payment_plan_id: selectedMonthlyPaymentPlanId,
+        ticket_master_id: selectedTicketId,
+        monthly_payment_plan_id: selectedMonthlyPaymentPlanId,
         reserve_count: reserveCount,
-        selected_price: selectedPrice,
-        selected_consume_number: selectedConsumeNumber,
-        is_set_price: reserveFrame?.is_set_price
+        price: selectedPrice,
+        consume_number: selectedConsumeNumber,
       }
     },
     {
@@ -93,7 +92,7 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
-      router.push(`/reservation/${router.query.reserve_frame_id}/input_customer_draft`)
+      router.push(`/reservation/${response.data.reservation.id}/input_customer_info`)
     }).catch(error => {
       swalWithBootstrapButtons.fire({
         title: '予約失敗しました',

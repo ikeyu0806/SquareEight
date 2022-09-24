@@ -1,5 +1,33 @@
 class Api::Internal::ReservationsController < ApplicationController
-  before_action :merchant_login_only!, except: [:create, :show]
+  before_action :merchant_login_only!, except: [:create, :show, :insert_time_payment_method]
+
+  def insert_time_payment_method
+    ActiveRecord::Base.transaction do
+      date = reservation_params[:reservation_date].split("-")
+      start_at = reservation_params[:time].split("-")[0].split(":")
+      end_at = reservation_params[:time].split("-")[1].split(":")
+
+      start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i, 0, "+09:00")
+      end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i, 0, "+09:00")
+
+      reserve_frame = ReserveFrame.find(reservation_params[:reserve_frame_id])
+      reservation = reserve_frame
+      .reservations
+      .create!( number_of_people: reservation_params[:reserve_count],
+                price: reservation_params[:price],
+                start_at: start_datetime,
+                end_at: end_datetime,
+                status: 'inputTimeWithPaymentMethod',
+                payment_method: reservation_params[:payment_method],
+                ticket_master_id: reservation_params[:ticket_id],
+                monthly_payment_plan_id: reservation_params[:monthly_payment_plan_id],
+                ticket_consume_number: reservation_params[:consume_number].to_i,
+                end_user_id: current_end_user.present? ? current_end_user.id : nil)
+      render json: { status: 'success', reservation: reservation }, states: 200
+    end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
 
   def create
     ActiveRecord::Base.transaction do
@@ -61,7 +89,7 @@ class Api::Internal::ReservationsController < ApplicationController
                 representative_first_name: reservation_params[:first_name],
                 representative_last_name: reservation_params[:last_name],
                 payment_method: reservation_params[:payment_method],
-                ticket_master_id: reservation_params[:ticket_id],
+                ticket_master_id: reservation_params[:ticket_master_id],
                 monthly_payment_plan_id: reservation_params[:monthly_payment_plan_id],
                 ticket_consume_number: reservation_params[:consume_number].to_i,
                 end_user_id: current_end_user.present? ? current_end_user.id : nil)
@@ -246,6 +274,7 @@ class Api::Internal::ReservationsController < ApplicationController
                   :reserve_count,
                   :consume_number,
                   :ticket_id,
+                  :ticket_master_id,
                   :monthly_payment_plan_id,
                   :price,
                   :status,

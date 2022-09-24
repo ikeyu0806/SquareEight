@@ -2,10 +2,10 @@ require 'securerandom'
 
 class Reservation < ApplicationRecord
   belongs_to :reserve_frame
-  belongs_to :customer
+  has_one :customer, foreign_key: :id, primary_key: :customer_id
 
   enum payment_method: { localPayment: 0, creditCardPayment: 1, ticket: 2, monthlyPaymentPlan: 3 }
-  enum status: { pendingVerifivation: 0, confirm: 1 }
+  enum status: { pendingVerifivation: 0, confirm: 1, inputTimeWithPaymentMethod: 2, inputCustomerInfo: 3 }
 
   before_create :insert_viewable_key
 
