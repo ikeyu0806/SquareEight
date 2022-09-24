@@ -5,7 +5,7 @@ class Reservation < ApplicationRecord
   has_one :customer, foreign_key: :id, primary_key: :customer_id
 
   enum payment_method: { localPayment: 0, creditCardPayment: 1, ticket: 2, monthlyPaymentPlan: 3 }
-  enum status: { pendingVerifivation: 0, confirm: 1, inputTimeWithPaymentMethod: 2, inputCustomerInfo: 3 }
+  enum status: { pendingVerifivation: 0, confirm: 1, inputTimeWithPaymentMethod: 2 }
 
   before_create :insert_viewable_key
 
@@ -54,14 +54,17 @@ class Reservation < ApplicationRecord
   end
 
   def customer_name
+    return '顧客が登録されていません' if customer.blank?
     customer.full_name
   end
 
   def customer_email
+    return '顧客が登録されていません' if customer.blank?
     customer.email
   end
 
   def customer_phone_number
+    return '顧客が登録されていません' if customer.blank?
     customer.phone_number
   end
 

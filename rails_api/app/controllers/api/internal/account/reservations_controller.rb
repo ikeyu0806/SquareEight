@@ -6,6 +6,7 @@ class Api::Internal::Account::ReservationsController < ApplicationController
     target_end_date = Time.parse(params[:target_end_date])
     reservations = current_merchant_user
                    .reservations.where(start_at: target_start_date.beginning_of_day..target_end_date.end_of_day)
+                   .where(status: ['confirm', 'pendingVerifivation'])
                    .order(start_at: :desc)
                    .to_json(methods: [:reserve_frame_title,
                                       :display_reservation_datetime,
