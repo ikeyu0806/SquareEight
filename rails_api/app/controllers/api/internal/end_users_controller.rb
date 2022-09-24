@@ -29,8 +29,9 @@ class Api::Internal::EndUsersController < ApplicationController
   def current_end_user_as_customer_info
     login_status = current_end_user.present? ? 'Login' : 'Logout'
     # 共通ヘッダ、フッタ
+    reservation = Reservation.find(params[:reservation_id])
+    reserve_frame = reservation.reserve_frame
     if params[:reserve_frame_id].present?
-      reserve_frame = ReserveFrame.find(params[:reserve_frame_id])
       shared_component = reserve_frame.account.shared_component
     else
       shared_component = nil
@@ -51,11 +52,19 @@ class Api::Internal::EndUsersController < ApplicationController
 
     end_user = current_end_user.attributes.except(:password_digest, :stripe_customer_id) if current_end_user.present?
 
+    date = reservation.start_at.strftime("%Y-%m-%d")
+    time = reservation.start_at.strftime("%H:%M") + "-" + reservation.end_at.strftime("%H:%M")
+
     render json: { status: 'success',
                    end_user: end_user,
+                   date: date,
+                   time: time,
                    shared_component: shared_component,
-                   default_payment_method_id: default_payment_method_id,
-                   payment_methods: payment_methods,
+                   reserve_frame: reserve_frame,
+                   reservation: reservation,
+                   stripe_default_payment_method_id: default_payment_method_id,
+                   stripe_payment_methods: payment_methods,
+                   payment_method: reservation.payment_method,
                    purchased_ticket_ids: purchased_ticket_ids,
                    is_subscribe_plan: is_subscribe_plan,
                    is_purchase_ticket: is_purchase_ticket,
