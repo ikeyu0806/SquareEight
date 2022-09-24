@@ -400,6 +400,14 @@ class ReserveFrame < ApplicationRecord
     result
   end
 
+  def local_payment_prices_with_number_of_people
+    JSON.parse(reserve_frame_local_payment_prices.to_json(methods: [:reserve_number_of_people]))
+  end
+
+  def credit_card_payment_prices_with_number_of_people
+    JSON.parse(reserve_frame_credit_card_payment_prices.to_json(methods: [:reserve_number_of_people]))
+  end
+
   def logical_delete
     update!(deleted_at: Time.zone.now)
   end

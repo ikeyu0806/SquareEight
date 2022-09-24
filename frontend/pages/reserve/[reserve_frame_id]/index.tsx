@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef, createRef } from 'react'
 import type { NextPage } from 'next'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { ReserveFramePaymentMethodParam } from 'interfaces/ReserveFramePaymentMethodParam'
 import { useRouter } from 'next/router'
@@ -10,6 +11,8 @@ import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useCookies } from 'react-cookie'
+import { MultiPaymentMethod } from 'interfaces/MultiPaymentMethod'
+import { multiLocalPaymentPricesChanged, multiCreditCardPaymentPricesChanged } from 'redux/reserveFrameSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -35,6 +38,13 @@ const Index: NextPage = () => {
   const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>()
   const [reserveFramePaymentMethod, setReserveFramePaymentMethod] = useState<ReserveFramePaymentMethodParam>()
 
+  const multiLocalPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiLocalPaymentPrices)
+  const multiCreditCardPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiCreditCardPaymentPrices)
+  const multiLocalPaymentNameRefs = useRef<any>([])
+  multiLocalPaymentNameRefs.current = multiLocalPaymentPrices.map((_, i) => multiLocalPaymentNameRefs.current[i] ?? createRef())
+  const multiCreditCardPaymentPriceRefs = useRef<any>([])
+  multiCreditCardPaymentPriceRefs.current = multiCreditCardPaymentPrices.map((_, i) => multiCreditCardPaymentPriceRefs.current[i] ?? createRef())
+
   useEffect(() => {
     const fetchReserveFrame = () => {
       axios.get(
@@ -46,7 +56,8 @@ const Index: NextPage = () => {
         setReserveFramePaymentMethod(response.data.reserve_frame.payment_methods)
         const times_values = reserveFrameResponse?.reserve_frame_reception_times_values[0]
         setSelectedTime(times_values?.reception_start_time + '-' + times_values?.reception_end_time)
-
+        dispatch(multiLocalPaymentPricesChanged(response.data.reserve_frame.local_payment_prices_with_number_of_people))
+        dispatch(multiCreditCardPaymentPricesChanged(response.data.reserve_frame.credit_card_payment_prices_with_number_of_people))
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
@@ -70,6 +81,24 @@ const Index: NextPage = () => {
       return true
     }
     return false
+  }
+
+  const updateMultiLocalPaymentNumberOfPeople = (event: React.ChangeEvent<HTMLInputElement>, localPaymentPriceRef: number) => {
+    let updateLocalPaymentPrice: MultiPaymentMethod
+    let updateLocalPaymentPrices: MultiPaymentMethod[]
+    updateLocalPaymentPrices = []
+    updateLocalPaymentPrice = {name: '', price: 0}
+    updateLocalPaymentPrice.reserve_number_of_people = Number(event.target.value)
+    updateLocalPaymentPrice.name = multiLocalPaymentPrices[localPaymentPriceRef].name
+    updateLocalPaymentPrice.price = multiLocalPaymentPrices[localPaymentPriceRef].price
+    multiLocalPaymentPrices.map((p, i) => {
+      if (i == localPaymentPriceRef) {
+        updateLocalPaymentPrices.push(updateLocalPaymentPrice)
+      } else {
+        updateLocalPaymentPrices.push(p)
+      }
+    })
+    dispatch(multiLocalPaymentPricesChanged(updateLocalPaymentPrices))
   }
 
   const onSubmit = () => {
@@ -173,7 +202,7 @@ const Index: NextPage = () => {
                       <>
                         &emsp;
                         <div className='ml30 mb30'>予約人数を入力してください</div>
-                        {reserveFrame?.reserve_frame_local_payment_prices.map((p, i) => {
+                        {multiLocalPaymentPrices.map((p, i) => {
                           return (
                             <div key={i} className='ml30'>
                               <Row>
@@ -212,7 +241,7 @@ const Index: NextPage = () => {
                       <>
                         &emsp;
                         <div className='ml30 mb30'>予約人数を入力してください</div>
-                        {reserveFrame?.reserve_frame_credit_card_payment_prices.map((p, i) => {
+                        {multiCreditCardPaymentPrices.map((p, i) => {
                           return (
                             <div key={i} className='ml30'>
                               <Row>
