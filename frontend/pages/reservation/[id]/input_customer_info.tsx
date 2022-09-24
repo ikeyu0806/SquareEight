@@ -57,7 +57,7 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_end_user_session
       }
     }).then((response) => {
-      dispatch(loginStatusChanged('Login'))
+      dispatch(loginStatusChanged(response.data.login_status))
       // 予約情報
       setDate(response.data.date.split("-"))
       setTime(response.data.time)
@@ -94,6 +94,7 @@ const Index: NextPage = () => {
       dispatch((footerCopyRightTextChanged(response.data.shared_component.footer_copyright_text)))
       
     }).catch((e) => {
+      console.log(e)
       dispatch(loginStatusChanged('Logout'))
     })
     dispatch(hideShareButtonChanged(true))
@@ -101,16 +102,14 @@ const Index: NextPage = () => {
 
   const execReserve = () => {
     setIsLoading(true)
-    axios.post(`${process.env.BACKEND_URL}/api/internal/reservations`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/${router.query.id}/confirm`,
     {
       reservations: {
-        last_name: router.query.last_name,
-        first_name: router.query.first_name,
-        email: router.query.email,
-        phone_number: router.query.phone_number,
-        payment_method: paymentMethod,
-        consume_number: router.query.consume_number,
-        reserve_count: router.query.reserve_count,
+        id: router.query.id,
+        last_name: lastName,
+        first_name: firstName,
+        email: email,
+        phone_number: phoneNumber,
       }
     },
     {
@@ -202,7 +201,7 @@ const Index: NextPage = () => {
                   </>}
                   <h3>{title}</h3>
                   <div className='mt10 mb10'>予約時間: {date[0]}年{date[1]}月{date[2]}日 {time}</div>
-                  {!isSetPrice && <div>
+                  {isSetPrice && <div>
                     お支払い方法: {paymentMethodText(String(paymentMethod), price, consumeNumber, numberOfPeople)}
                     {isSubscribePlan && <span className='badge bg-info ml10'>加入済み</span>}
                   </div>}

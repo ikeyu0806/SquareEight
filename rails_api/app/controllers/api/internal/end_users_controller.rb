@@ -31,11 +31,7 @@ class Api::Internal::EndUsersController < ApplicationController
     # 共通ヘッダ、フッタ
     reservation = Reservation.find(params[:reservation_id])
     reserve_frame = reservation.reserve_frame
-    if params[:reserve_frame_id].present?
-      shared_component = reserve_frame.account.shared_component
-    else
-      shared_component = nil
-    end
+    shared_component = reserve_frame.account.shared_component
     if current_end_user.present? && current_end_user.stripe_customer_id.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
       purchased_ticket_ids = current_end_user.purchased_ticket_ids

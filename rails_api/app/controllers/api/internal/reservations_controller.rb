@@ -29,16 +29,20 @@ class Api::Internal::ReservationsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
-  def create
+  def register_customer_info
     ActiveRecord::Base.transaction do
-      reserve_frame = ReserveFrame.find(reservation_params[:reserve_frame_id])
+      render json: { status: 'success', reservation: reservation }, states: 200
+    end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def confirm
+    ActiveRecord::Base.transaction do
+      reservation = Reservation.find(reservation_params[:id])
+      reserve_frame = reservation.reserve_frame
       # 定員オーバチェック
-      date = reservation_params[:date].split("-")
-      start_at = reservation_params[:time].split("-")[0].split(":")
-      end_at = reservation_params[:time].split("-")[1].split(":")
-      start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i, 0, "+09:00")
-      end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i, 0, "+09:00")
-      remaining_capacity_count = reserve_frame.remaining_capacity_count_within_range(start_datetime, end_datetime)
+      remaining_capacity_count = reserve_frame.remaining_capacity_count_within_range(reservation.start_at, reservation.end_at)
       raise '定員オーバです' if remaining_capacity_count <= 0
       # リソースチェック
       resources = reserve_frame.resources
@@ -78,34 +82,41 @@ class Api::Internal::ReservationsController < ApplicationController
         customer.save!
       end
       # 確定
-      reservation = reserve_frame
-      .reservations
-      .create!(number_of_people: reservation_params[:reserve_count],
-                price: reservation_params[:price],
-                start_at: start_datetime,
-                end_at: end_datetime,
-                customer_id: customer.id,
+      reservation
+      .update!( customer_id: customer.id,
                 status: reserve_frame.reception_type == 'Immediate' ? 'confirm' : 'pendingVerifivation',
                 representative_first_name: reservation_params[:first_name],
                 representative_last_name: reservation_params[:last_name],
-                payment_method: reservation_params[:payment_method],
-                ticket_master_id: reservation_params[:ticket_master_id],
-                monthly_payment_plan_id: reservation_params[:monthly_payment_plan_id],
-                ticket_consume_number: reservation_params[:consume_number].to_i,
                 end_user_id: current_end_user.present? ? current_end_user.id : nil)
 
+      # 通知作成
+      # カスタマー向け
+      if current_end_user.present?
+        customer_notification_title = reservation.start_at.strftime("%Y年%m月%d日%H時%m分") + 'に' + reserve_frame.title + ' を予約しました'
+        end_user_notification_url = '/customer_page/reservation'
+        current_end_user
+        .end_user_notifications
+        .create!(title: customer_notification_title, url: end_user_notification_url)
+      end
+      # ビジネスオーナー向け  
+      account_notification_title = customer.full_name + 'が' + reservation.start_at.strftime("%Y年%m月%d日%H時%m分") + 'に' + reserve_frame.title + ' を予約しました'
+      account_notification_url = '/admin/reservation'
+      reserve_frame.account.account_notifications
+      .create!(title: account_notification_title, url: account_notification_url)
+  
       # 支払い実行
+      # StripeへのリクエストはActiveRecordのTransactionで取り消せないので最後に実行
       if reserve_frame.reception_type  == "Immediate" && reserve_frame.is_set_price?
-        case reservation_params[:payment_method]
+        case reservation.payment_method
         when 'creditCardPayment'
           raise 'ログインしてください' if current_end_user.blank?
           # 決済
           Stripe.api_key = Rails.configuration.stripe[:secret_key]
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
           default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
-          commission = (reservation_params[:price].to_i * 0.04).to_i
+          commission = (reservation.price * 0.04).to_i
           payment_intent = Stripe::PaymentIntent.create({
-            amount: reservation_params[:price],
+            amount: reservation.price,
             currency: 'jpy',
             payment_method_types: ['card'],
             payment_method: default_payment_method_id,
@@ -115,7 +126,7 @@ class Api::Internal::ReservationsController < ApplicationController
               'order_date': current_date_text,
               'account_business_name': reserve_frame.account.business_name,
               'purchase_product_name': reserve_frame.title,
-              'price': reservation_params[:price],
+              'price': reservation.price,
               'type': 'reservation',
               'reserve_frame_id': reserve_frame.id
             },
@@ -133,7 +144,7 @@ class Api::Internal::ReservationsController < ApplicationController
                                 account_id: reserve_frame.account.id,
                                 reservation_id: reservation.id,
                                 product_name: reserve_frame.title,
-                                price: reservation_params[:price],
+                                price: reservation.price,
                                 commission: commission)
           order.save!
         when 'ticket'
@@ -146,8 +157,8 @@ class Api::Internal::ReservationsController < ApplicationController
                               .order(:expired_at)
         
           total_remain_number = purchased_tickets.sum(:remain_number)
-          raise 'チケットが足りません' if total_remain_number < reservation_params[:consume_number].to_i
-          reservation_params[:consume_number].to_i.times do |count|
+          raise 'チケットが足りません' if total_remain_number < reserve_frame.consume_number
+          reserve_frame.consume_number.times do |count|
             purchased_ticket = purchased_tickets.where("remain_number > ?", 0).first
             purchased_ticket.update!(remain_number: purchased_ticket.remain_number - 1)
           end
@@ -158,21 +169,6 @@ class Api::Internal::ReservationsController < ApplicationController
         end
       end
 
-      # 通知作成
-      # カスタマー向け
-      if current_end_user.present?
-        customer_notification_title = reservation.start_at.strftime("%Y年%m月%d日%H時%m分") + 'に' + reserve_frame.title + ' を予約しました'
-        end_user_notification_url = '/customer_page/reservation'
-        current_end_user
-        .end_user_notifications
-        .create!(title: customer_notification_title, url: end_user_notification_url)
-      end
-      # ビジネスオーナー向け  
-      account_notification_title = customer.full_name + 'が' + reservation.start_at.strftime("%Y年%m月%d日%H時%m分") + 'に' + reserve_frame.title + ' を予約しました'
-      account_notification_url = '/admin/reservation'
-      reserve_frame.account.account_notifications
-      .create!(title: account_notification_title, url: account_notification_url)
-  
       render json: { status: 'success', reservation: reservation }, states: 200
     end
   rescue => error

@@ -33,7 +33,6 @@ const PaymentMethod: NextPage = () => {
         `${process.env.BACKEND_URL}/api/internal/reserve_frames/${router.query.reserve_frame_id}`
       )
       .then(function (response) {
-        console.log(response.data.reserve_frame)
         setReserveFrame(response.data.reserve_frame)
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))

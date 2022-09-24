@@ -123,7 +123,7 @@ Rails.application.routes.draw do
       post 'reservations/:id/update_status', to: 'reservations#update_status'
       post 'reservations/insert_time_payment_method', to: 'reservations#insert_time_payment_method'
       post 'reservations/register_by_merchant_control', to: 'reservations#register_by_merchant_control'
-      post 'reservations', to: 'reservations#create'
+      post 'reservations/:id/confirm', to: 'reservations#confirm'
       post 'reservations', to: 'reservations#register_by_merchant_control'
       get 'questionnaire_masters/:id/edit_info', to: 'questionnaire_masters#edit_info'
       get 'questionnaire_masters/:id/answers', to: 'questionnaire_masters#answers'
