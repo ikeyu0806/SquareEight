@@ -8,6 +8,8 @@ import { ReserveFramePaymentMethodParam } from 'interfaces/ReserveFramePaymentMe
 import { useRouter } from 'next/router'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { useCookies } from 'react-cookie'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -20,6 +22,7 @@ import {  navbarBrandTextChanged,
 const Index: NextPage = () => {
   const router = useRouter()
   const dispatch = useDispatch()
+  const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [selectedDate] = useState(String(router.query.date).split('-'))
   const [selectedTime, setSelectedTime] = useState('')
   const [reserveCount, setReserveCount] = useState(1)
@@ -67,6 +70,36 @@ const Index: NextPage = () => {
       return true
     }
     return false
+  }
+
+  const onSubmit = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/reservations`,
+    {
+      reservations: {
+        title: reserveFrame?.title,
+        date: router.query.date,
+        time: selectedTime,
+        payment_method: selectedPaymentMethodType,
+        ticket_id: selectedTicketId,
+        selected_monthly_payment_plan_id: selectedMonthlyPaymentPlanId,
+        reserve_count: reserveCount,
+        selected_price: selectedPrice,
+        selected_consume_number: selectedConsumeNumber,
+        is_set_price: reserveFrame?.is_set_price
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_end_user_session
+      }
+    }).then(response => {
+      router.push(`/reservation/${router.query.reserve_frame_id}/input_customer_draft`)
+    }).catch(error => {
+      swalWithBootstrapButtons.fire({
+        title: '予約失敗しました',
+        icon: 'error'
+      })
+    })
   }
 
   return (
@@ -260,7 +293,7 @@ const Index: NextPage = () => {
                   <Button
                     className='mt20'
                     disabled={validateOnSubmit()}
-                    onClick={() => router.push(`/reserve/${router.query.reserve_frame_id}/input_customer_info?title=${reserveFrame?.title}&date=${router.query.date}&time=${selectedTime}&payment_method=${selectedPaymentMethodType}&ticket_id=${selectedTicketId}&monthly_payment_plan_id=${selectedMonthlyPaymentPlanId}&reserve_count=${reserveCount}&price=${selectedPrice}&consume_number=${selectedConsumeNumber}&is_set_price=${reserveFrame?.is_set_price}`)}>
+                    onClick={() => onSubmit()}>
                     予約を進める
                   </Button>
                 </div>}
