@@ -126,15 +126,27 @@ const Index: NextPage = () => {
                 <>
                   {reserveFrame?.reception_type !== 'PhoneOnly' && <><hr /><div className='mb20'>お支払い方法を選択してください</div>
                   {reserveFramePaymentMethod?.local_payment_price !== undefined
-                    && <Form.Check
-                        type='radio'
-                        id='local_payment_check'
-                        checked={selectedPaymentMethodType === 'localPayment'}
-                        onChange={() => {
-                          setSelectedPaymentMethodType('localPayment')
-                          setSelectedPrice(Number(reserveFramePaymentMethod?.local_payment_price))
-                        }}
-                        label={`現地払い: ${reserveFramePaymentMethod?.local_payment_price}円`}></Form.Check>}
+                    &&
+                    <>
+                      <Form.Check
+                          type='radio'
+                          id='local_payment_check'
+                          checked={selectedPaymentMethodType === 'localPayment'}
+                          onChange={() => {
+                            setSelectedPaymentMethodType('localPayment')
+                            setSelectedPrice(Number(reserveFramePaymentMethod?.local_payment_price))
+                          }}
+                          label={`現地払い: ${reserveFramePaymentMethod?.local_payment_price}円`}></Form.Check>
+                      {reserveFrame?.reserve_frame_local_payment_prices.length &&
+                       <>
+                        {reserveFrame?.reserve_frame_local_payment_prices.map((p, i) => {
+                          return (
+                            <div key={i} className='ml30'>{p.name + ' 料金: ' + p.price}</div>
+                          )
+                        })}
+                       </>}
+                    </>
+                  }
                   {reserveFramePaymentMethod?.credit_card_payment_price !== undefined
                   && <Form.Check
                       type='radio'

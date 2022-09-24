@@ -27,7 +27,9 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                                     :reserve_frame_reception_times_values,
                                                                     :repeat_wdays,
                                                                     :out_of_range_frames_datetimes,
-                                                                    :unreservable_frames_datetimes]))
+                                                                    :unreservable_frames_datetimes,
+                                                                    :reserve_frame_local_payment_prices,
+                                                                    :reserve_frame_credit_card_payment_prices]))
     render json: { status: 'success', reserve_frame: reserve_frame_json, shared_component: shared_component }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

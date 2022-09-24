@@ -1,4 +1,5 @@
-import { ReserveFrameReceptionTimeParam } from "./ReserveFrameReceptionTimeParam"
+import { ReserveFrameReceptionTimeParam } from './ReserveFrameReceptionTimeParam'
+import { MultiPaymentMethod } from './MultiPaymentMethod'
 export interface ReserveFrameParam {
   id: string
   start_at: string
@@ -18,4 +19,6 @@ export interface ReserveFrameParam {
   payment_methods_text: string[]
   s3_object_public_url: string
   reserve_frame_reception_times_values: ReserveFrameReceptionTimeParam[]
+  reserve_frame_local_payment_prices: MultiPaymentMethod[]
+  reserve_frame_credit_card_payment_prices: MultiPaymentMethod[]
 }
