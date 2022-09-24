@@ -101,6 +101,24 @@ const Index: NextPage = () => {
     dispatch(multiLocalPaymentPricesChanged(updateLocalPaymentPrices))
   }
 
+  const updateMultiCreditCardPaymentNumberOfPeople = (event: React.ChangeEvent<HTMLInputElement>, creditCardPaymentPriceRef: number) => {
+    let updateCreditCardPaymentPrice: MultiPaymentMethod
+    let updateCreditCardPaymentPrices: MultiPaymentMethod[]
+    updateCreditCardPaymentPrices = []
+    updateCreditCardPaymentPrice = {name: '', price: 0}
+    updateCreditCardPaymentPrice.reserve_number_of_people = Number(event.target.value)
+    updateCreditCardPaymentPrice.name = multiCreditCardPaymentPrices[creditCardPaymentPriceRef].name
+    updateCreditCardPaymentPrice.price = multiCreditCardPaymentPrices[creditCardPaymentPriceRef].price
+    multiLocalPaymentPrices.map((p, i) => {
+      if (i == creditCardPaymentPriceRef) {
+        updateCreditCardPaymentPrices.push(updateCreditCardPaymentPrice)
+      } else {
+        updateCreditCardPaymentPrices.push(p)
+      }
+    })
+    dispatch(multiCreditCardPaymentPricesChanged(updateCreditCardPaymentPrices))
+  }
+
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/insert_time_payment_method`,
     {
@@ -251,8 +269,7 @@ const Index: NextPage = () => {
                                 <Col sm={4}>
                                   <Form.Label className='mt10'>人数</Form.Label>
                                   <Form.Control
-                                    onChange={(e) => setReserveCount(Number(e.target.value))}
-                                    value={reserveCount}
+                                    onChange={(e: any) => updateMultiCreditCardPaymentNumberOfPeople(e, i)}
                                     type='number'></Form.Control>
                                 </Col>
                                 <Col sm={3}></Col>
