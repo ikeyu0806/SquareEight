@@ -123,7 +123,8 @@ const Index: NextPage = () => {
                 </Row>
                 {reserveFrame?.is_set_price &&
                 <>
-                  {reserveFrame?.reception_type !== 'PhoneOnly' && <><hr /><div className='mb20'>お支払い方法を選択してください</div>
+                  {reserveFrame?.reception_type !== 'PhoneOnly' &&
+                  <><hr /><div className='mb20'>お支払い方法を選択してください</div>
                   {reserveFramePaymentMethod?.local_payment_price !== undefined
                     &&
                     <>
@@ -136,7 +137,7 @@ const Index: NextPage = () => {
                             setSelectedPrice(Number(reserveFramePaymentMethod?.local_payment_price))
                           }}
                           label={`現地払い: ${reserveFramePaymentMethod?.local_payment_price}円`}></Form.Check>
-                      {selectedPaymentMethodType === 'localPayment' && reserveFrame?.reserve_frame_local_payment_prices.length &&
+                      {((selectedPaymentMethodType === 'localPayment') && (reserveFrame?.reserve_frame_local_payment_prices.length !== 0)) &&
                       <>
                         &emsp;
                         <div className='ml30 mb30'>予約人数を入力してください</div>
@@ -175,7 +176,7 @@ const Index: NextPage = () => {
                         setSelectedPrice(Number(reserveFramePaymentMethod?.credit_card_payment_price))
                       }}
                       label={`クレジットカード払い: ${reserveFramePaymentMethod?.credit_card_payment_price}円`}></Form.Check>
-                    {selectedPaymentMethodType === 'creditCardPayment' && reserveFrame?.reserve_frame_credit_card_payment_prices.length &&
+                    {((selectedPaymentMethodType === 'creditCardPayment') && (reserveFrame?.reserve_frame_credit_card_payment_prices.length !== 0)) &&
                       <>
                         &emsp;
                         <div className='ml30 mb30'>予約人数を入力してください</div>
