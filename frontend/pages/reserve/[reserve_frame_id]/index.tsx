@@ -212,8 +212,8 @@ const Index: NextPage = () => {
                                 <Col sm={4}>
                                   <Form.Label className='mt10'>人数</Form.Label>
                                   <Form.Control
-                                    onChange={(e) => setReserveCount(Number(e.target.value))}
-                                    value={reserveCount}
+                                    onChange={(e: any) => updateMultiLocalPaymentNumberOfPeople(e, i)}
+                                    value={p.reserve_number_of_people}
                                     type='number'></Form.Control>
                                 </Col>
                                 <Col sm={3}></Col>
