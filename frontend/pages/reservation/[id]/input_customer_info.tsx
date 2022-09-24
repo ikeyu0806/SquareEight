@@ -135,22 +135,11 @@ const Index: NextPage = () => {
   }
 
   const onSubmit = () => {
-    switch(paymentMethod) {
-      case 'localPayment':
-        router.push(`/reservation/${router.query.id}/confirm`)
-        return
-      case 'creditCardPayment':
-      case 'ticket':
-      case 'monthlyPaymentPlan':
-        execReserve()
-        return
-      default:
-        // お支払い方法未設定
-        if (isSetPrice) {
-          execReserve()
-        }
-        return true
+    // お支払い方法未設定
+    if (isSetPrice) {
+      execReserve()
     }
+    return true
   }
 
   const loginValidate = () => {
@@ -265,7 +254,7 @@ const Index: NextPage = () => {
                       className='mt30'
                       onClick={onSubmit}>
                       {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
-                      {String(paymentMethod) === 'localPayment' ? '確認画面に進む' : '予約を確定する'}
+                      予約を確定する
                     </Button>
                   </div>}
                 </Card.Body>
