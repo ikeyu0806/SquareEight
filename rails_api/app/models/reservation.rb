@@ -3,6 +3,8 @@ require 'securerandom'
 class Reservation < ApplicationRecord
   belongs_to :reserve_frame
   has_one :customer, foreign_key: :id, primary_key: :customer_id
+  has_many :reservation_local_payment_prices
+  has_many :reservation_credit_card_payment_prices
 
   enum payment_method: { localPayment: 0, creditCardPayment: 1, ticket: 2, monthlyPaymentPlan: 3 }
   enum status: { pendingVerifivation: 0, confirm: 1, inputTimeWithPaymentMethod: 2 }
