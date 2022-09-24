@@ -110,14 +110,19 @@ class Api::Internal::ReserveFramesController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       reserve_frame = ReserveFrame.find(params[:id])
-      reserve_frame.attributes = reserve_frame_params.except(:unreservable_frames,
-                                                             :reserve_frame_reception_times,
-                                                             :repeat_interval_number_month_date,
-                                                             :resource_ids,
-                                                             :monthly_payment_plan_ids,
-                                                             :reservable_frame_ticket_master,
-                                                             :base64_image,
-                                                             :repeat_wdays)
+      reserve_frame.attributes = reserve_frame_params.except( :unreservable_frames,
+                                                              :out_of_range_frames,
+                                                              :reserve_frame_reception_times,
+                                                              :repeat_interval_number_month_date,
+                                                              :resource_ids,
+                                                              :monthly_payment_plan_ids,
+                                                              :reservable_frame_ticket_master,
+                                                              :base64_image,
+                                                              :repeat_wdays,
+                                                              :multi_local_payment_prices,
+                                                              :multi_credit_card_payment_prices,
+                                                              :apply_multi_local_payment_price,
+                                                              :apply_multi_credit_card_payment_price)
 
       if reserve_frame_params[:reserve_frame_reception_times].present?
         reserve_frame.reserve_frame_reception_times.delete_all
