@@ -138,7 +138,7 @@ const Index: NextPage = () => {
                           }}
                           label={`現地払い: ${reserveFramePaymentMethod?.local_payment_price}円`}></Form.Check>
                       {reserveFrame?.reserve_frame_local_payment_prices.length &&
-                       <>
+                      <>
                         &emsp;
                         <div className='ml30 mb30'>予約人数を入力してください</div>
                         {reserveFrame?.reserve_frame_local_payment_prices.map((p, i) => {
@@ -161,11 +161,13 @@ const Index: NextPage = () => {
                             </div>
                           )
                         })}
-                       </>}
+                      </>}
                     </>
                   }
                   {reserveFramePaymentMethod?.credit_card_payment_price !== undefined
-                  && <Form.Check
+                  &&
+                  <>
+                    <Form.Check
                       type='radio'
                       id='credit_card_payment_check'
                       checked={selectedPaymentMethodType === 'creditCardPayment'}
@@ -173,7 +175,33 @@ const Index: NextPage = () => {
                         setSelectedPaymentMethodType('creditCardPayment')
                         setSelectedPrice(Number(reserveFramePaymentMethod?.credit_card_payment_price))
                       }}
-                      label={`クレジットカード払い: ${reserveFramePaymentMethod?.credit_card_payment_price}円`}></Form.Check>}
+                      label={`クレジットカード払い: ${reserveFramePaymentMethod?.credit_card_payment_price}円`}></Form.Check>
+                    {reserveFrame?.reserve_frame_credit_card_payment_prices.length &&
+                      <>
+                        &emsp;
+                        <div className='ml30 mb30'>予約人数を入力してください</div>
+                        {reserveFrame?.reserve_frame_credit_card_payment_prices.map((p, i) => {
+                          return (
+                            <div key={i} className='ml30'>
+                              <Row>
+                                <Col sm={3}><div>{p.name + ': ¥' + p.price}</div></Col>
+                              </Row>
+                              <Row>
+                                <Col sm={4}>
+                                  <Form.Label className='mt10'>人数</Form.Label>
+                                  <Form.Control
+                                    onChange={(e) => setReserveCount(Number(e.target.value))}
+                                    value={reserveCount}
+                                    type='number'></Form.Control>
+                                </Col>
+                                <Col sm={3}></Col>
+                              </Row>
+                              <hr/>
+                            </div>
+                          )
+                        })}
+                      </>}
+                  </>}
                   {reserveFramePaymentMethod?.enable_monthly_payment_plans
                     && reserveFramePaymentMethod?.enable_monthly_payment_plans.map((plan, i) => {
                     return (
