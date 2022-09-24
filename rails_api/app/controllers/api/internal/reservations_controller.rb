@@ -1,5 +1,5 @@
 class Api::Internal::ReservationsController < ApplicationController
-  before_action :merchant_login_only!, except: [:create, :show, :insert_time_payment_method]
+  before_action :merchant_login_only!, except: [:create, :show, :insert_time_payment_method, :confirm]
 
   def insert_time_payment_method
     ActiveRecord::Base.transaction do
