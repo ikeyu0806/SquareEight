@@ -139,9 +139,26 @@ const Index: NextPage = () => {
                           label={`現地払い: ${reserveFramePaymentMethod?.local_payment_price}円`}></Form.Check>
                       {reserveFrame?.reserve_frame_local_payment_prices.length &&
                        <>
+                        &emsp;
+                        <div className='ml30 mb30'>予約人数を入力してください</div>
                         {reserveFrame?.reserve_frame_local_payment_prices.map((p, i) => {
                           return (
-                            <div key={i} className='ml30'>{p.name + ' 料金: ' + p.price}</div>
+                            <div key={i} className='ml30'>
+                              <Row>
+                                <Col sm={3}><div>{p.name + ': ¥' + p.price}</div></Col>
+                              </Row>
+                              <Row>
+                                <Col sm={4}>
+                                  <Form.Label className='mt10'>人数</Form.Label>
+                                  <Form.Control
+                                    onChange={(e) => setReserveCount(Number(e.target.value))}
+                                    value={reserveCount}
+                                    type='number'></Form.Control>
+                                </Col>
+                                <Col sm={3}></Col>
+                              </Row>
+                              <hr/>
+                            </div>
                           )
                         })}
                        </>}
@@ -190,18 +207,26 @@ const Index: NextPage = () => {
                       </>
                     )
                   })}
-                  <hr />
                 </>}
-                {['localPayment', 'creditCardPayment'].includes(String(selectedPaymentMethodType)) && <><div className='mb20'>人数を入力してください</div>
-                <Row>
-                  <Col sm={3}>
-                  <Form.Control
-                    onChange={(e) => setReserveCount(Number(e.target.value))}
-                    value={reserveCount}
-                    type='number'></Form.Control>
-                  </Col>
-                  <Col></Col>
-                </Row></>}</>}
+                { (String(selectedPaymentMethodType) === 'localPayment' &&
+                  !reserveFrame?.reserve_frame_local_payment_prices.length) ||
+                  (String(selectedPaymentMethodType) === 'creditCardPayment' &&
+                  !reserveFrame?.reserve_frame_credit_card_payment_prices.length)
+                  &&
+                  <>
+                    <hr />
+                    <div className='mb20'>人数を入力してください</div>
+                    <Row>
+                      <Col sm={3}>
+                        <Form.Control
+                          onChange={(e) => setReserveCount(Number(e.target.value))}
+                          value={reserveCount}
+                          type='number'></Form.Control>
+                      </Col>
+                      <Col></Col>
+                    </Row>
+                  </>
+                }</>}
                 {reserveFrame?.reception_type !== 'PhoneOnly'
                  && <div className='text-center'>
                   <Button
