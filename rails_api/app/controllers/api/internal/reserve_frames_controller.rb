@@ -48,7 +48,9 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                        :base64_image,
                                                        :repeat_wdays,
                                                        :multi_local_payment_prices,
-                                                       :multi_credit_card_payment_prices))                   
+                                                       :multi_credit_card_payment_prices,
+                                                       :apply_multi_local_payment_price,
+                                                       :apply_multi_credit_card_payment_price))                   
       reserve_frame_params[:reserve_frame_reception_times].each do |reception_time|
         reserve_frame.reserve_frame_reception_times.new(reception_start_time: reception_time[:reception_start_time], reception_end_time: reception_time[:reception_end_time])
       end
@@ -88,12 +90,12 @@ class Api::Internal::ReserveFramesController < ApplicationController
         reserve_frame.is_repeat_fri = true if reserve_frame_params[:repeat_wdays].include?("Fri")
         reserve_frame.is_repeat_sat = true if reserve_frame_params[:repeat_wdays].include?("Sat")
       end
-      if reserve_frame_params[:multi_local_payment_prices].present?
+      if reserve_frame_params[:apply_multi_local_payment_price]
         reserve_frame_params[:multi_local_payment_prices].each do |local_payment|
           reserve_frame.reserve_frame_local_payment_prices.new(name: local_payment[:name], price: local_payment[:price])
         end
       end
-      if reserve_frame_params[:multi_credit_card_payment_prices].present?
+      if reserve_frame_params[:apply_multi_credit_card_payment_price]
         reserve_frame_params[:multi_credit_card_payment_prices].each do |credit_card_payment|
           reserve_frame.reserve_frame_credit_card_payment_prices.new(name: credit_card_payment[:name], price: credit_card_payment[:price])
         end
@@ -235,6 +237,8 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :is_credit_card_payment_enable,
                   :is_ticket_payment_enable,
                   :is_monthly_plan_payment_enable,
+                  :apply_multi_local_payment_price,
+                  :apply_multi_credit_card_payment_price,
                   multi_local_payment_prices: [:name, :price],
                   multi_credit_card_payment_prices: [:name, :price],
                   repeat_wdays: [],

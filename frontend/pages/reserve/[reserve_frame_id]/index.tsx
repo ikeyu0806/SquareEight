@@ -38,7 +38,6 @@ const Index: NextPage = () => {
         `${process.env.BACKEND_URL}/api/internal/reserve_frames/${router.query.reserve_frame_id}`
       )
       .then(function (response) {
-        console.log(response.data.reserve_frame)
         const reserveFrameResponse: ReserveFrameParam = response.data.reserve_frame
         setReserveFrame(reserveFrameResponse)
         setReserveFramePaymentMethod(response.data.reserve_frame.payment_methods)
@@ -137,7 +136,7 @@ const Index: NextPage = () => {
                             setSelectedPrice(Number(reserveFramePaymentMethod?.local_payment_price))
                           }}
                           label={`現地払い: ${reserveFramePaymentMethod?.local_payment_price}円`}></Form.Check>
-                      {reserveFrame?.reserve_frame_local_payment_prices.length &&
+                      {selectedPaymentMethodType === 'localPayment' && reserveFrame?.reserve_frame_local_payment_prices.length &&
                       <>
                         &emsp;
                         <div className='ml30 mb30'>予約人数を入力してください</div>
@@ -176,7 +175,7 @@ const Index: NextPage = () => {
                         setSelectedPrice(Number(reserveFramePaymentMethod?.credit_card_payment_price))
                       }}
                       label={`クレジットカード払い: ${reserveFramePaymentMethod?.credit_card_payment_price}円`}></Form.Check>
-                    {reserveFrame?.reserve_frame_credit_card_payment_prices.length &&
+                    {selectedPaymentMethodType === 'creditCardPayment' && reserveFrame?.reserve_frame_credit_card_payment_prices.length &&
                       <>
                         &emsp;
                         <div className='ml30 mb30'>予約人数を入力してください</div>

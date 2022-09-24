@@ -50,7 +50,9 @@ const CreateReserveFrameModal = (): JSX.Element => {
   const isSetPrice = useSelector((state: RootState) => state.reserveFrame.isSetPrice)
   const multiLocalPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiLocalPaymentPrices)
   const multiCreditCardPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiCreditCardPaymentPrices)
-  
+  const applyMultiLocalPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiLocalPaymentPrice)
+  const applyMultiCreditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiCreditCardPaymentPrice)
+
   const createReserveFrame = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames`,
     {
@@ -92,7 +94,9 @@ const CreateReserveFrameModal = (): JSX.Element => {
         cancel_reception_hour_before: cancelReceptionHourBefore,
         cancel_reception_day_before: cancelReceptionDayBefore,
         multi_local_payment_prices: multiLocalPaymentPrices,
-        multi_credit_card_payment_prices: multiCreditCardPaymentPrices
+        multi_credit_card_payment_prices: multiCreditCardPaymentPrices,
+        apply_multi_local_payment_price: applyMultiLocalPaymentPrice,
+        apply_multi_credit_card_payment_price: applyMultiCreditCardPaymentPrice
       },
     },
     {

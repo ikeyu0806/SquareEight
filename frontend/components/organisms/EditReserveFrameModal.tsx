@@ -87,6 +87,8 @@ const EditReserveFrameModal = (): JSX.Element => {
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
   const isSetPrice = useSelector((state: RootState) => state.reserveFrame.isSetPrice)
+  const applyMultiLocalPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiLocalPaymentPrice)
+  const applyMultiCreditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiCreditCardPaymentPrice)
 
   const validateSubmit = () => {
     // 必須項目チェック
@@ -150,7 +152,9 @@ const EditReserveFrameModal = (): JSX.Element => {
         reservable_frame_ticket_master: reservableFrameTicketMaster,
         cancel_reception_hour_before: cancelReceptionHourBefore,
         cancel_reception_day_before: cancelReceptionDayBefore,
-        is_set_price: isSetPrice
+        is_set_price: isSetPrice,
+        apply_multi_local_payment_price: applyMultiLocalPaymentPrice,
+        apply_multi_credit_card_payment_price: applyMultiCreditCardPaymentPrice
       },
     },
     {
