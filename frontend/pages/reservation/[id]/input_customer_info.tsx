@@ -155,7 +155,7 @@ const Index: NextPage = () => {
   }
 
   const loginValidate = () => {
-    if (endUserLoginStatus === 'Logout' && ['creditCardPayment', 'ticket', 'monthlyPaymentPlan'].includes(String(paymentMethod))) {
+    if (endUserLoginStatus === 'Logout' && ['creditCardPayment', 'ticket', 'monthlyPaymentPlan'].includes(paymentMethod)) {
       return true
     }
     return false

@@ -1,4 +1,5 @@
 export const paymentMethodText = (paymentMethod: string, price: number, consumeNumber: number, reserveCount: number) => {
+  console.log("!!", paymentMethod)
   switch (paymentMethod) {
     case 'localPayment':
       return '現地払い ' + `￥${price * reserveCount}`
