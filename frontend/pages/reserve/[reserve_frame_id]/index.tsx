@@ -132,6 +132,8 @@ const Index: NextPage = () => {
         reserve_count: reserveCount,
         price: selectedPrice,
         consume_number: selectedConsumeNumber,
+        multi_local_payment_prices: multiLocalPaymentPrices,
+        multi_credit_card_payment_prices: multiCreditCardPaymentPrices
       }
     },
     {

@@ -3,6 +3,7 @@ class Api::Internal::ReservationsController < ApplicationController
 
   def insert_time_payment_method
     ActiveRecord::Base.transaction do
+      binding.pry
       date = reservation_params[:reservation_date].split("-")
       start_at = reservation_params[:time].split("-")[0].split(":")
       end_at = reservation_params[:time].split("-")[1].split(":")
@@ -274,6 +275,8 @@ class Api::Internal::ReservationsController < ApplicationController
                   :monthly_payment_plan_id,
                   :price,
                   :status,
-                  :is_select_customer)
+                  :is_select_customer,
+                  multi_local_payment_prices: [:name, :price, :reserve_number_of_people],
+                  multi_credit_card_payment_prices: [:name, :price, :reserve_number_of_people])
   end
 end
