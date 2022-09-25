@@ -239,7 +239,21 @@ const Index: NextPage = () => {
                         <div>
                             合計: {multiLocalPaymentPrices.reduce(function(sum, element){ return sum + element.price}, 0)}</div>
                       </>
-                    }
+                   }
+                   {/* クレジットカード払い */}
+                   {paymentMethod === 'creditCardPayment'
+                    && multiCreditCardPaymentPrices.length !== 0
+                    &&
+                      <>
+                        {multiCreditCardPaymentPrices.map((paymentPrice, i) => {
+                          return (
+                            <div key={i}>{paymentPrice.name} {paymentPrice.reserve_number_of_people}人 ￥{paymentPrice.price}</div>
+                          )
+                        })}
+                        <div>
+                            合計: {multiCreditCardPaymentPrices.reduce(function(sum, element){ return sum + element.price}, 0)}</div>
+                      </>
+                   }
                    { (showCustomerFormValidate()) &&
                     <>
                     <hr/>
