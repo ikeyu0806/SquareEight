@@ -196,28 +196,36 @@ const Index: NextPage = () => {
                   <h3>{title}</h3>
                   <div className='mt10 mb10'>予約時間: {date[0]}年{date[1]}月{date[2]}日 {time}</div>
                   {/* 支払い方法 */}
-
-                  {isSetPrice &&
-                  <div>
-                    お支払い方法: {paymentMethodText(String(paymentMethod), price, consumeNumber, numberOfPeople)}
-                    {isSubscribePlan && <span className='badge bg-info ml10'>加入済み</span>}
-                  </div>}
-                  {!isSubscribePlan
-                   && (String(paymentMethod) === 'monthlyPaymentPlan')
-                   && <div className='mt20 mb20'>プランに加入していません
-                        <a href={`/monthly_payment/${monthlyPaymentPlanId}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
-                        から加入してください</div>}
-                  {!isPurchaseTicket
-                   && (String(paymentMethod) === 'ticket')
-                   && <div className='mt20 mb20'>チケットを購入していません
-                        <a href={`/ticket/${ticketMasterId}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
-                        から購入してください</div>}
-                  <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(paymentMethod))
-                  // 予約人数
-                  &&
-                    <>予約人数: {numberOfPeople}</>}</div>
-                  { (showCustomerFormValidate()) &&
-                  <>
+                  {multiLocalPaymentPrices.length !== 0 &&
+                   multiCreditCardPaymentPrices.length !== 0 &&
+                   <>
+                    {isSetPrice &&
+                      <div>
+                        お支払い方法: {paymentMethodText(String(paymentMethod), price, consumeNumber, numberOfPeople)}
+                        {isSubscribePlan && <span className='badge bg-info ml10'>加入済み</span>}
+                      </div>}
+                      {!isSubscribePlan
+                      && (String(paymentMethod) === 'monthlyPaymentPlan')
+                      && <div className='mt20 mb20'>プランに加入していません
+                            <a href={`/monthly_payment/${monthlyPaymentPlanId}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
+                            から加入してください</div>}
+                      {!isPurchaseTicket
+                      && (String(paymentMethod) === 'ticket')
+                      && <div className='mt20 mb20'>チケットを購入していません
+                            <a href={`/ticket/${ticketMasterId}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
+                            から購入してください</div>}
+                      <div className='mt10 mb10'>
+                        {['localPayment', 'creditCardPayment'].includes(String(paymentMethod))
+                          // 予約人数
+                          &&
+                          <>
+                            予約人数: {numberOfPeople}
+                          </>
+                        }
+                      </div>
+                   </>}
+                   { (showCustomerFormValidate()) &&
+                    <>
                     <hr/>
                     <Form.Label className='mt10'>お名前（姓）</Form.Label>
                     <Form.Control
