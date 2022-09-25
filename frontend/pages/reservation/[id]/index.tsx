@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
+import { MultiPaymentMethod } from 'interfaces/MultiPaymentMethod'
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
@@ -14,8 +15,11 @@ export const Index = () => {
   const [displayReservationDatetime, setDisplayReservationDatetime] = useState('')
   const [numberOfPeople, setNumberOfPeople] = useState('')
   const [paymentMethod, setPaymentMethod] = useState('')
+  const [paymentMethodText, setPaymentMethodText] = useState('')
   const [price, setPrice] = useState(0)
   const [receptionType, setReceptionType] = useState('')
+  const [multiLocalPaymentPrices, setMultiLocalPaymentPrices] = useState<MultiPaymentMethod[]>([])
+  const [multiCreditCardPaymentPrices, setMultiCreditCardPaymentPrices] = useState<MultiPaymentMethod[]>([])
 
   useEffect(() => {
     const fetchReservation = () => {
@@ -26,9 +30,12 @@ export const Index = () => {
         setReserveFrameTitle(response.data.reservation.reserve_frame_title)
         setDisplayReservationDatetime(response.data.reservation.display_reservation_datetime)
         setNumberOfPeople(response.data.reservation.number_of_people)
-        setPaymentMethod(response.data.reservation.display_payment_method)
+        setPaymentMethod(response.data.reservation.payment_method)
+        setPaymentMethodText(response.data.reservation.display_payment_method)
         setPrice(response.data.reservation.price)
         setReceptionType(response.data.reservation.status)
+        setMultiLocalPaymentPrices(response.data.reservation.reservation_local_payment_prices)
+        setMultiCreditCardPaymentPrices(response.data.reservation.reservation_credit_card_payment_prices)
       })
       .catch(error => {
         console.log(error)
@@ -52,11 +59,44 @@ export const Index = () => {
                   <hr/>
                   <div>予約時間: {displayReservationDatetime}</div>
                   <hr/>
-                  <div>予約人数: {numberOfPeople}人</div>
-                  <hr/>
-                  <div>料金: ￥{price}</div>
-                  <hr/>
-                  <div>お支払い方法: {paymentMethod}</div>
+                  {/* 複数料金払いなしの場合 */}
+                  {multiLocalPaymentPrices.length === 0 &&
+                   multiCreditCardPaymentPrices.length === 0 &&
+                   <>
+                      <div>予約人数: {numberOfPeople}人</div>
+                      <hr/>
+                      <div>料金: ￥{price}</div>
+                      <hr/>
+                      <div>お支払い方法: {paymentMethodText}</div>
+                   </>
+                   }
+                  {paymentMethod === 'localPayment'
+                    && multiLocalPaymentPrices.length !== 0
+                    &&
+                      <>
+                        {multiLocalPaymentPrices.map((paymentPrice, i) => {
+                          return (
+                            <div key={i}>{paymentPrice.name} {paymentPrice.reserve_number_of_people}人 ￥{paymentPrice.price}</div>
+                          )
+                        })}
+                        <div>
+                            合計: {multiLocalPaymentPrices.reduce(function(sum, element){ return sum + element.price}, 0)}</div>
+                      </>
+                  }
+                  {/* クレジットカード払い */}
+                  {paymentMethod === 'creditCardPayment'
+                    && multiCreditCardPaymentPrices.length !== 0
+                    &&
+                      <>
+                        {multiCreditCardPaymentPrices.map((paymentPrice, i) => {
+                          return (
+                            <div key={i}>{paymentPrice.name} {paymentPrice.reserve_number_of_people}人 ￥{paymentPrice.price}</div>
+                          )
+                        })}
+                        <div>
+                            合計: {multiCreditCardPaymentPrices.reduce(function(sum, element){ return sum + element.price}, 0)}</div>
+                      </>
+                   }
                 </Card.Body>
               </Card>
             </Col>

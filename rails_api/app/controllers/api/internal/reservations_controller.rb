@@ -203,7 +203,12 @@ class Api::Internal::ReservationsController < ApplicationController
   def show
     reservation = Reservation.find(params[:id])
     raise 'key is not match' if reservation.viewable_key != params[:viewable_key]
-    reservation = JSON.parse(reservation.to_json(methods: [:reserve_frame_title, :display_payment_method, :display_status, :display_reservation_datetime]))
+    reservation = JSON.parse(reservation.to_json(methods: [:reserve_frame_title, 
+                                                           :display_payment_method,
+                                                           :display_status,
+                                                           :display_reservation_datetime,
+                                                           :reservation_local_payment_prices,
+                                                           :reservation_credit_card_payment_prices]))
     render json: { status: 'success', reservation: reservation }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
