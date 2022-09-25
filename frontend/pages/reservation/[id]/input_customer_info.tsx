@@ -9,6 +9,7 @@ import { useCookies } from 'react-cookie'
 import { loginStatusChanged } from 'redux/currentEndUserSlice'
 import { paymentMethodText } from 'functions/paymentMethodText'
 import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
+import { MultiPaymentMethod } from 'interfaces/MultiPaymentMethod'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
@@ -40,6 +41,9 @@ const Index: NextPage = () => {
   const [isSetPrice, setIsSetPrice] = useState(false)
   const [isCompleteReservation, setIsCompleteReservation] = useState(false)
   const [consumeNumber, setConsumeNumber] = useState(0)
+  const [multiLocalPaymentPrices, setMultiLocalPaymentPrices] = useState<MultiPaymentMethod[]>([])
+  const [multiCreditCardPaymentPrices, setMultiCreditCardPaymentPrices] = useState<MultiPaymentMethod[]>([])
+
   const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
@@ -69,7 +73,6 @@ const Index: NextPage = () => {
       setIsSubscribePlan(response.data.is_subscribe_plan || '')
       setIsPurchaseTicket(response.data.is_purchase_ticket || false)
       setNumberOfPeople(response.data.reservation.number_of_people)
-
       setPrice(response.data.reservation.price)
       setNumberOfPeople(response.data.reservation.number_of_people)
       setTicketMasterId(response.data.reserve_frame.ticket_master_id)
@@ -77,7 +80,9 @@ const Index: NextPage = () => {
       setTitle(response.data.reserve_frame.title)
       setIsSetPrice(response.data.reserve_frame.is_set_price)
       setConsumeNumber(response.data.reservation.ticket_consume_number)
-      
+      setMultiLocalPaymentPrices(response.data.reservation.reservation_local_payment_prices)
+      setMultiCreditCardPaymentPrices(response.data.reservation.reservation_credit_card_payment_prices)
+
       setLastName(response.data.end_user.last_name || '')
       setFirstName(response.data.end_user.first_name || '')
       setEmail(response.data.end_user.email || '')
@@ -190,7 +195,10 @@ const Index: NextPage = () => {
                   </>}
                   <h3>{title}</h3>
                   <div className='mt10 mb10'>予約時間: {date[0]}年{date[1]}月{date[2]}日 {time}</div>
-                  {isSetPrice && <div>
+                  {/* 支払い方法 */}
+
+                  {isSetPrice &&
+                  <div>
                     お支払い方法: {paymentMethodText(String(paymentMethod), price, consumeNumber, numberOfPeople)}
                     {isSubscribePlan && <span className='badge bg-info ml10'>加入済み</span>}
                   </div>}
@@ -204,7 +212,10 @@ const Index: NextPage = () => {
                    && <div className='mt20 mb20'>チケットを購入していません
                         <a href={`/ticket/${ticketMasterId}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
                         から購入してください</div>}
-                  <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(paymentMethod)) && <>予約人数: {numberOfPeople}</>}</div>
+                  <div className='mt10 mb10'>{['localPayment', 'creditCardPayment'].includes(String(paymentMethod))
+                  // 予約人数
+                  &&
+                    <>予約人数: {numberOfPeople}</>}</div>
                   { (showCustomerFormValidate()) &&
                   <>
                     <hr/>

@@ -1,5 +1,5 @@
 class Api::Internal::ReservationsController < ApplicationController
-  before_action :merchant_login_only!, except: [:create, :show, :insert_time_payment_method, :confirm]
+  before_action :merchant_login_only!, except: [:create, :show, :insert_time_payment_method, :confirm, :input_customer_info]
 
   def insert_time_payment_method
     ActiveRecord::Base.transaction do
@@ -277,6 +277,9 @@ class Api::Internal::ReservationsController < ApplicationController
     date = reservation.start_at.strftime("%Y-%m-%d")
     time = reservation.start_at.strftime("%H:%M") + "-" + reservation.end_at.strftime("%H:%M")
 
+    payment_method = reservation.payment_method
+    # ActiveRecordのインスタンスではなくなるので最後にJSONにする
+    reservation = JSON.parse(reservation.to_json(methods: [:reservation_local_payment_prices, :reservation_credit_card_payment_prices]))
     render json: { status: 'success',
                    end_user: end_user,
                    date: date,
@@ -286,7 +289,7 @@ class Api::Internal::ReservationsController < ApplicationController
                    reservation: reservation,
                    stripe_default_payment_method_id: default_payment_method_id,
                    stripe_payment_methods: payment_methods,
-                   payment_method: reservation.payment_method,
+                   payment_method: payment_method,
                    purchased_ticket_ids: purchased_ticket_ids,
                    is_subscribe_plan: is_subscribe_plan,
                    is_purchase_ticket: is_purchase_ticket,
