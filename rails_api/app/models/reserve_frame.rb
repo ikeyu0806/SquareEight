@@ -55,10 +55,24 @@ class ReserveFrame < ApplicationRecord
   def payment_methods_text
     result = []
     if is_local_payment_enable?
-      result.push("現地払い: ¥" + local_payment_price.to_s)
+      if reserve_frame_local_payment_prices.present?
+        multi_local_payment_text = []
+        reserve_frame_local_payment_prices.each do |local_payment|
+          multi_local_payment_text.push(local_payment.name + ": ￥" + local_payment.price.to_s)
+        end
+        result.push("現地払い: " + multi_local_payment_text.join(', '))
+      else
+        result.push("現地払い: ¥" + local_payment_price.to_s)
+      end
     end
 
     if is_credit_card_payment_enable?
+      multi_credir_payment_text = []
+      reserve_frame_credit_card_payment_prices.each do |credit_payment|
+        multi_credir_payment_text.push(credit_payment.name + ": ￥" + credit_payment.price.to_s)
+      end
+      result.push("クレジットカード払い: ¥" + multi_credir_payment_text.join(''))
+    else
       result.push("クレジットカード払い: ¥" + credit_card_payment_price.to_s)
     end
 
@@ -73,6 +87,7 @@ class ReserveFrame < ApplicationRecord
         result.push(reserve_ticket.ticket_master.name + " 消費枚数: " + reserve_ticket.consume_number.to_s + "枚")
       end
     end
+
     result
   end
 
