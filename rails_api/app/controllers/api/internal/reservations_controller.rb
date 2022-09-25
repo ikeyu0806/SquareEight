@@ -252,6 +252,50 @@ class Api::Internal::ReservationsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def input_customer_info
+    login_status = current_end_user.present? ? 'Login' : 'Logout'
+    # 共通ヘッダ、フッタ
+    reservation = Reservation.find(params[:reservation_id])
+    reserve_frame = reservation.reserve_frame
+    shared_component = reserve_frame.account.shared_component
+    if current_end_user.present? && current_end_user.stripe_customer_id.present?
+      default_payment_method_id, payment_methods = current_end_user.payment_methods
+      purchased_ticket_ids = current_end_user.purchased_ticket_ids
+      is_subscribe_plan = current_end_user.search_stripe_subscriptions.pluck("metadata")&.pluck("monthly_payment_plan_id").include?(params[:monthly_payment_plan_id])
+      is_purchase_ticket = current_end_user.purchased_tickets.pluck(:ticket_master_id).include?(params[:ticket_id].to_i)
+      subscribe_plan_ids = []
+    else
+      default_payment_method_id = nil
+      payment_methods = []
+      purchased_ticket_ids = []
+      is_subscribe_plan = false
+      is_purchase_ticket = false
+    end
+
+    end_user = current_end_user.attributes.except(:password_digest, :stripe_customer_id) if current_end_user.present?
+
+    date = reservation.start_at.strftime("%Y-%m-%d")
+    time = reservation.start_at.strftime("%H:%M") + "-" + reservation.end_at.strftime("%H:%M")
+
+    render json: { status: 'success',
+                   end_user: end_user,
+                   date: date,
+                   time: time,
+                   shared_component: shared_component,
+                   reserve_frame: reserve_frame,
+                   reservation: reservation,
+                   stripe_default_payment_method_id: default_payment_method_id,
+                   stripe_payment_methods: payment_methods,
+                   payment_method: reservation.payment_method,
+                   purchased_ticket_ids: purchased_ticket_ids,
+                   is_subscribe_plan: is_subscribe_plan,
+                   is_purchase_ticket: is_purchase_ticket,
+                   publish_status: reserve_frame.publish_status,
+                   login_status: login_status }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def reservation_params

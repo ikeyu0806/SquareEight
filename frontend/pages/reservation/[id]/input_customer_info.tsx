@@ -51,7 +51,7 @@ const Index: NextPage = () => {
   const [isPurchaseTicket, setIsPurchaseTicket] = useState(false)
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/current_end_user_as_customer_info?reservation_id=${router.query.id}`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/reservations/input_customer_info?reservation_id=${router.query.id}`,
     {
       headers: {
         'Session-Id': cookies._square_eight_end_user_session
