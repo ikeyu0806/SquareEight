@@ -109,7 +109,7 @@ const Index: NextPage = () => {
     updateCreditCardPaymentPrice.reserve_number_of_people = Number(event.target.value)
     updateCreditCardPaymentPrice.name = multiCreditCardPaymentPrices[creditCardPaymentPriceRef].name
     updateCreditCardPaymentPrice.price = multiCreditCardPaymentPrices[creditCardPaymentPriceRef].price
-    multiLocalPaymentPrices.map((p, i) => {
+    multiCreditCardPaymentPrices.map((p, i) => {
       if (i == creditCardPaymentPriceRef) {
         updateCreditCardPaymentPrices.push(updateCreditCardPaymentPrice)
       } else {

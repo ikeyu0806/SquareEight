@@ -25,12 +25,22 @@ class Api::Internal::ReservationsController < ApplicationController
                 end_user_id: current_end_user.present? ? current_end_user.id : nil)
       if reservation_params[:multi_local_payment_prices].present?
         reservation_params[:multi_local_payment_prices].each do |price_attr|
-          reservation.reservation_local_payment_prices.create!(price_attr)
+          next if price_attr[:reserve_number_of_people].blank?
+          next unless price_attr[:reserve_number_of_people].positive?
+          reservation.reservation_local_payment_prices
+          .create!( name: price_attr[:name],
+                    reserve_number_of_people: price_attr[:reserve_number_of_people],
+                    price: price_attr[:price] * price_attr[:reserve_number_of_people])
         end
       end
       if reservation_params[:multi_credit_card_payment_prices].present?
         reservation_params[:multi_credit_card_payment_prices].each do |price_attr|
-          reservation.reservation_credit_card_payment_prices.create!(price_attr)
+          next if price_attr[:reserve_number_of_people].blank?
+          next unless price_attr[:reserve_number_of_people].positive?
+          reservation.reservation_credit_card_payment_prices
+          .create!( name: price_attr[:name],
+                    reserve_number_of_people: price_attr[:reserve_number_of_people],
+                    price: price_attr[:price] * price_attr[:reserve_number_of_people])
         end
       end
       render json: { status: 'success', reservation: reservation }, states: 200
