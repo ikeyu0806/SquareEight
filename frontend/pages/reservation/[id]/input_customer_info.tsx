@@ -21,6 +21,7 @@ import {  navbarBrandTextChanged,
           navbarBrandBackgroundColorChanged,
           navbarBrandVariantColorChanged,
           footerCopyRightTextChanged } from 'redux/sharedComponentSlice'
+import { Prev } from 'react-bootstrap/esm/PageItem'
 
 const Index: NextPage = () => {
   const router = useRouter()
@@ -82,7 +83,6 @@ const Index: NextPage = () => {
       setConsumeNumber(response.data.reservation.ticket_consume_number)
       setMultiLocalPaymentPrices(response.data.reservation.reservation_local_payment_prices)
       setMultiCreditCardPaymentPrices(response.data.reservation.reservation_credit_card_payment_prices)
-
       setLastName(response.data.end_user.last_name || '')
       setFirstName(response.data.end_user.first_name || '')
       setEmail(response.data.end_user.email || '')
@@ -196,8 +196,9 @@ const Index: NextPage = () => {
                   <h3>{title}</h3>
                   <div className='mt10 mb10'>予約時間: {date[0]}年{date[1]}月{date[2]}日 {time}</div>
                   {/* 支払い方法 */}
-                  {multiLocalPaymentPrices.length !== 0 &&
-                   multiCreditCardPaymentPrices.length !== 0 &&
+                  {/* 料金一律の場合 */}
+                  {multiLocalPaymentPrices.length === 0 &&
+                   multiCreditCardPaymentPrices.length === 0 &&
                    <>
                     {isSetPrice &&
                       <div>
@@ -224,6 +225,21 @@ const Index: NextPage = () => {
                         }
                       </div>
                    </>}
+                   {/* 複数料金設定している場合 */}
+                   {/* 現地払い */}
+                   {paymentMethod === 'localPayment'
+                    && multiLocalPaymentPrices.length !== 0
+                    &&
+                      <>
+                        {multiLocalPaymentPrices.map((paymentPrice, i) => {
+                          return (
+                            <div key={i}>{paymentPrice.name} {paymentPrice.reserve_number_of_people}人 ￥{paymentPrice.price}</div>
+                          )
+                        })}
+                        <div>
+                            合計: {multiLocalPaymentPrices.reduce(function(sum, element){ return sum + element.price}, 0)}</div>
+                      </>
+                    }
                    { (showCustomerFormValidate()) &&
                     <>
                     <hr/>
