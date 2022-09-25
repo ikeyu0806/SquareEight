@@ -284,9 +284,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_24_234124) do
   end
 
   create_table "reservation_local_payment_prices", force: :cascade do |t|
-    t.string "name"
-    t.integer "price"
-    t.integer "reserve_number_of_people"
+    t.integer "reservation_id", null: false
+    t.string "name", null: false
+    t.integer "price", null: false
+    t.integer "reserve_number_of_people", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

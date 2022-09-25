@@ -3,7 +3,6 @@ class Api::Internal::ReservationsController < ApplicationController
 
   def insert_time_payment_method
     ActiveRecord::Base.transaction do
-      binding.pry
       date = reservation_params[:reservation_date].split("-")
       start_at = reservation_params[:time].split("-")[0].split(":")
       end_at = reservation_params[:time].split("-")[1].split(":")
@@ -24,6 +23,16 @@ class Api::Internal::ReservationsController < ApplicationController
                 monthly_payment_plan_id: reservation_params[:monthly_payment_plan_id],
                 ticket_consume_number: reservation_params[:consume_number].to_i,
                 end_user_id: current_end_user.present? ? current_end_user.id : nil)
+      if reservation_params[:multi_local_payment_prices].present?
+        reservation_params[:multi_local_payment_prices].each do |price_attr|
+          reservation.reservation_local_payment_prices.create!(price_attr)
+        end
+      end
+      if reservation_params[:multi_credit_card_payment_prices].present?
+        reservation_params[:multi_credit_card_payment_prices].each do |price_attr|
+          reservation.reservation_credit_card_payment_prices.create!(price_attr)
+        end
+      end
       render json: { status: 'success', reservation: reservation }, states: 200
     end
   rescue => error
