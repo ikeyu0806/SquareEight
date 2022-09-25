@@ -134,9 +134,14 @@ class Api::Internal::ReservationsController < ApplicationController
           Stripe.api_key = Rails.configuration.stripe[:secret_key]
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
           default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
+          if reservation.reservation_credit_card_payment_prices.present?
+            amount = reservation.reservation_credit_card_payment_prices.pluck(:price).inject {|result, item| result + item }
+          else
+            amount = reservation.price
+          end
           commission = (reservation.price * 0.04).to_i
           payment_intent = Stripe::PaymentIntent.create({
-            amount: reservation.price,
+            amount: amount,
             currency: 'jpy',
             payment_method_types: ['card'],
             payment_method: default_payment_method_id,
