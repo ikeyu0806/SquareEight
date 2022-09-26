@@ -1,3 +1,4 @@
+import { MultiPaymentMethod } from './MultiPaymentMethod'
 export interface ReservationParam {
   id: string
   representative_first_name: string
@@ -18,4 +19,6 @@ export interface ReservationParam {
   status: string
   reception_type: string
   viewable_key: string
+  reservation_local_payment_prices: MultiPaymentMethod[]
+  reservation_credit_card_payment_prices: MultiPaymentMethod[]
 }

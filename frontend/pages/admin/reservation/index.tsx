@@ -105,8 +105,40 @@ const Index: NextPage = () => {
                         <Col>
                           <h4 className='mb10'>{reservation.reserve_frame_title}</h4>
                           <div>{reservation.display_reservation_datetime}</div>
-                          <div>人数: {reservation.number_of_people}</div>
-                          <div>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</div>
+                          {/* 支払い方法と人数 */}
+                          {/* 料金一律の場合 */}
+                          {reservation.reservation_local_payment_prices.length === 0 &&
+                           reservation.reservation_credit_card_payment_prices.length === 0 &&
+                           <>
+                              <div>人数: {reservation.number_of_people}</div>
+                              <div>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</div>
+                           </>
+                          }
+                          {/* 現地払い複数料金 */}
+                          {reservation.payment_method === 'localPayment' && reservation.reservation_local_payment_prices.length !== 0 &&
+                            <div>
+                              支払い方法: 現地払い
+                              {reservation.reservation_local_payment_prices.map((paymentPrice, i) => {
+                                return (
+                                  <div key={i}>{paymentPrice.name} {paymentPrice.reserve_number_of_people}人 ￥{paymentPrice.price}</div>
+                                )
+                              })}
+                            <div>
+                              合計: {reservation.reservation_local_payment_prices.reduce(function(sum, element){ return sum + element.price}, 0)}</div>
+                            </div>
+                          }
+                          {reservation.payment_method === 'creditCardPayment' && reservation.reservation_credit_card_payment_prices.length !== 0 &&
+                            <div>
+                              支払い方法: クレジットカード払い
+                              {reservation.reservation_credit_card_payment_prices.map((paymentPrice, i) => {
+                                return (
+                                  <div key={i}>{paymentPrice.name} {paymentPrice.reserve_number_of_people}人 ￥{paymentPrice.price}</div>
+                                )
+                              })}
+                            <div>
+                              合計: {reservation.reservation_credit_card_payment_prices.reduce(function(sum, element){ return sum + element.price}, 0)}</div>
+                            </div>
+                          }
                           <div className='mt20'>
                             受付設定: {receptionTypeText(reservation.reception_type)}
                           </div>
