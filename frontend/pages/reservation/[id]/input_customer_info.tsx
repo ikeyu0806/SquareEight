@@ -131,9 +131,10 @@ const Index: NextPage = () => {
       })
       setIsCompleteReservation(true)
     }).catch(error => {
+      console.log(error.response.data.error)
       setIsLoading(false)
       swalWithBootstrapButtons.fire({
-        title: '送信失敗しました',
+        title: error.response.data.error,
         icon: 'error'
       })
     })

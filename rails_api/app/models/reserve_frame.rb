@@ -429,8 +429,8 @@ class ReserveFrame < ApplicationRecord
   def validate_reservation(reservation)
     # 公開非公開チェック
     raise '無効な予約枠です' unless self.Publish?
-     # 受付開始日チェック
-     raise if Date.today < reservation.start_at.to_date - self.reception_start_day_before
+    # 受付開始日チェック
+    raise '受付開始していません' if Date.today - self.reception_start_day_before > reservation.start_at.to_date
     # 受付締め切りチェック
     if cancel_reception == 'OnlyOnTheDay'
       raise '受付締め切り時間を過ぎています' if DateTime.now > reservation.start_at - self.cancel_reception_hour_before.hours
@@ -439,9 +439,10 @@ class ReserveFrame < ApplicationRecord
     end
     # 繰り返し範囲内の日がチェック
     # ["yyyy-mm-dd", "yyyy-mm-dd"]
-    reservable_dates = calendar_json(2022, 9).select{|calendar| calendar[:reservable] == true}.pluck(:start)
+    reservable_dates = calendar_json(reservation.start_at.year, reservation.start_at.month).select{|calendar| calendar[:reservable] == true}.pluck(:start)
     raise '予約可能不可日です' unless reservable_dates.include?(reservation.start_at.strftime("%Y-%m-%d"))
     # 有効な時間がチェック
+    raise '予約不可能時間です' unless reservable_status_with_date(Date.today)[:status] == 'enable'
     # 定員オーバチェック
     remaining_capacity_count = self.remaining_capacity_count_within_range(reservation.start_at, reservation.end_at)
     raise '定員オーバです' if remaining_capacity_count <= 0
@@ -452,7 +453,7 @@ class ReserveFrame < ApplicationRecord
       raise '予約できません。使用する設備備品やスタッフなどのリソースが足りていません' if resource_remaining_capacity_count <= 0
     end
     return { status: 'ok', error_message: nil }
-  rescue => e
+  rescue => error
     return { status: 'ng', error_message: error }
   end
 
