@@ -189,9 +189,9 @@ class ReserveFrame < ApplicationRecord
       end
     end
     if !reserve_enable_flg_array.uniq.include?(false)
-      return { status: 'enable', text: '予約可能' }
+      return { status: 'enable', text: '予約可能', reservable: true }
     else
-      return { status: 'disable', text: '予約不可' }
+      return { status: 'disable', text: '予約不可', reservable: false }
     end
   end
 
@@ -217,6 +217,7 @@ class ReserveFrame < ApplicationRecord
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: status_json[:text],
+              reservable: status_json[:reservable],
               url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
@@ -229,6 +230,7 @@ class ReserveFrame < ApplicationRecord
               result << {
                 start: date.strftime("%Y-%m-%d"),
                 title: status_json[:text],
+                reservable: status_json[:reservable],
                 url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
               }
               skip_flg_count = repeat_interval_number_day
@@ -242,6 +244,7 @@ class ReserveFrame < ApplicationRecord
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: status_json[:text],
+              reservable: status_json[:reservable],
               url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
@@ -254,6 +257,7 @@ class ReserveFrame < ApplicationRecord
               result << {
                 start: date.strftime("%Y-%m-%d"),
                 title: status_json[:text],
+                reservable: status_json[:reservable],
                 url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
               }
               skip_flg_count = repeat_interval_number_week
@@ -268,6 +272,7 @@ class ReserveFrame < ApplicationRecord
               result << {
                 start: date.strftime("%Y-%m-%d"),
                 title: status_json[:text],
+                reservable: status_json[:reservable],
                 url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
               }
             end
@@ -275,6 +280,7 @@ class ReserveFrame < ApplicationRecord
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: status_json[:text],
+              reservable: status_json[:reservable],
               url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
@@ -286,6 +292,7 @@ class ReserveFrame < ApplicationRecord
               result << {
                 start: date.strftime("%Y-%m-%d"),
                 title: status_json[:text],
+                reservable: status_json[:reservable],
                 url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
               }
             end
@@ -294,6 +301,7 @@ class ReserveFrame < ApplicationRecord
               result << {
                 start: date.strftime("%Y-%m-%d"),
                 title: status_json[:text],
+                reservable: status_json[:reservable],
                 url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
               }
             end
@@ -315,6 +323,7 @@ class ReserveFrame < ApplicationRecord
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: status_json[:text],
+              reservable: status_json[:reservable],
               url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
             }
           else
@@ -322,6 +331,7 @@ class ReserveFrame < ApplicationRecord
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: status_json[:text],
+              reservable: status_json[:reservable],
               url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
@@ -333,6 +343,7 @@ class ReserveFrame < ApplicationRecord
       result << {
         start: self.start_at,
         title: status_json[:text],
+        reservable: status_json[:reservable],
         url: '/reserve/' + self.id.to_s + '?date=' + self.start_at.strftime("%Y-%m-%d")
       }
     end

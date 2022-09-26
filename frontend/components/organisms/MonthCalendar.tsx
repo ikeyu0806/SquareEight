@@ -156,7 +156,8 @@ const MonthCalendar = (): JSX.Element => {
                         return (
                           <td key={i} valign='top'>
                             <div className='date-text'>{a.date_text}</div>
-                            <a className='badge bg-info mt10' href={a.url}>{a.title}</a>
+                            <a className={a.reservable ? 'badge bg-info mt10' : 'badge bg-danger mt10' }
+                               href={a.reservable ? a.url : ''}>{a.title}</a>
                           </td>
                         )
                       })}
