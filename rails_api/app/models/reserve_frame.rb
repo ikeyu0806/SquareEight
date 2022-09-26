@@ -429,15 +429,18 @@ class ReserveFrame < ApplicationRecord
   def validate_reservation(reservation)
     # 公開非公開チェック
     raise '無効な予約枠です' unless self.Publish?
-    # 受付開始日チェック
+     # 受付開始日チェック
+     raise if Date.today < reservation.start_at.to_date - self.reception_start_day_before
     # 受付締め切りチェック
     if cancel_reception == 'OnlyOnTheDay'
       raise '受付締め切り時間を過ぎています' if DateTime.now > reservation.start_at - self.cancel_reception_hour_before.hours
     else
       raise '受付締め切り時間を過ぎています' if Date.today > reservation.start_at.to_date - self.cancel_reception_day_before.days
     end
-    # 受付開始時間チェック
-    # 有効な日がチェック
+    # 繰り返し範囲内の日がチェック
+    # ["yyyy-mm-dd", "yyyy-mm-dd"]
+    reservable_dates = calendar_json(2022, 9).select{|calendar| calendar[:reservable] == true}.pluck(:start)
+    raise '予約可能不可日です' unless reservable_dates.include?(reservation.start_at.strftime("%Y-%m-%d"))
     # 有効な時間がチェック
     # 定員オーバチェック
     remaining_capacity_count = self.remaining_capacity_count_within_range(reservation.start_at, reservation.end_at)
