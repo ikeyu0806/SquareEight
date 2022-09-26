@@ -430,7 +430,7 @@ class ReserveFrame < ApplicationRecord
     # 公開非公開チェック
     raise '無効な予約枠です' unless self.Publish?
     # 受付開始日チェック
-    raise '受付開始していません' if Date.today - self.reception_start_day_before > reservation.start_at.to_date
+    raise '受付開始していません' if Date.today - self.reception_start_day_before.days > reservation.start_at.to_date
     # 受付締め切りチェック
     if cancel_reception == 'OnlyOnTheDay'
       raise '受付締め切り時間を過ぎています' if DateTime.now > reservation.start_at - self.cancel_reception_hour_before.hours
