@@ -415,6 +415,21 @@ class ReserveFrame < ApplicationRecord
     result
   end
 
+  def validate_reservation(reservation)
+    # 定員オーバチェック
+    remaining_capacity_count = self.remaining_capacity_count_within_range(reservation.start_at, reservation.end_at)
+    raise '定員オーバです' if remaining_capacity_count <= 0
+    # リソースチェック
+    resources = self.resources
+    resources.each do |resource|
+      resource_remaining_capacity_count = resource.remaining_capacity_count_within_range(start_datetime, end_datetime)
+      raise '予約できません。使用する設備備品やスタッフなどのリソースが足りていません' if resource_remaining_capacity_count <= 0
+    end
+    return { status: 'ok', error_message: nil }
+  rescue => e
+    return { status: 'ng', error_message: error }
+  end
+
   def local_payment_prices_with_number_of_people
     JSON.parse(reserve_frame_local_payment_prices.to_json(methods: [:reserve_number_of_people]))
   end

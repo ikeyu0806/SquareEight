@@ -61,15 +61,9 @@ class Api::Internal::ReservationsController < ApplicationController
     ActiveRecord::Base.transaction do
       reservation = Reservation.find(reservation_params[:id])
       reserve_frame = reservation.reserve_frame
-      # 定員オーバチェック
-      remaining_capacity_count = reserve_frame.remaining_capacity_count_within_range(reservation.start_at, reservation.end_at)
-      raise '定員オーバです' if remaining_capacity_count <= 0
-      # リソースチェック
-      resources = reserve_frame.resources
-      resources.each do |resource|
-        resource_remaining_capacity_count = resource.remaining_capacity_count_within_range(start_datetime, end_datetime)
-        raise '予約できません。使用する設備備品やスタッフなどのリソースが足りていません' if resource_remaining_capacity_count <= 0
-      end
+      # 定員、時間帯、リソースを確認して予約可能かvalidation
+      validate_result = reserve_frame.validate_reservation(reservation)
+      raise validate_result[:error_message] if validate_result[:status] == 'ng'
       # 顧客ID登録
       # 同じ携帯電話番号の顧客データがなければ作成
       if current_end_user.present?
