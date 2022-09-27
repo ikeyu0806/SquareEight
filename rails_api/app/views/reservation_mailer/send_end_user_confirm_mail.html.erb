@@ -12,6 +12,9 @@
     <div>予約時間: <%= @reservation_datetime %></div>
     <div>お支払い方法: <%= @payment_method %></div>
     <div>予約人数: <%= @number_of_people %></div>
+    <% if @price.present? %>
+      <div>料金: <%= @price %></div>
+    <% end %>
     <hr/>
     <div>Copyright SquareEight</div>
   </body>

@@ -195,7 +195,7 @@ class Api::Internal::ReservationsController < ApplicationController
       display_price = total_price.present? ? total_price : reservation.display_price
       display_number_of_people = reservation.number_of_people.to_s + '人' if display_number_of_people.blank?
       if reserve_frame.reception_type == 'Immediate' && reservation.customer.email.present?
-        ReservationMailer.send_end_user_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, display_reservation_datetime, display_payment_method, display_number_of_people).deliver_later
+        ReservationMailer.send_end_user_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, display_reservation_datetime, display_payment_method, display_number_of_people, display_price).deliver_later
       end
 
       merchant_emails = reserve_frame.account.merchant_users.pluck(:email).join(',')
@@ -226,7 +226,10 @@ class Api::Internal::ReservationsController < ApplicationController
       reservation = Reservation.find(reservation_params[:id])
       reservation.update!(status: reservation_params[:status])
       if reservation.customer.email.present?
-        ReservationMailer.send_end_user_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, reservation.display_reservation_datetime, reservation.display_payment_method, reservation.number_of_people).deliver_later
+        display_number_of_people, total_price = reservation.display_multi_payment_method_with_number_of_people
+        display_price = total_price.present? ? total_price : reservation.display_price
+        display_number_of_people = reservation.number_of_people.to_s + '人' if display_number_of_people.blank?
+        ReservationMailer.send_end_user_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, reservation.display_reservation_datetime, reservation.display_payment_method, display_number_of_people, display_price).deliver_later
       end
       render json: { status: 'success' }, states: 200
     end
