@@ -188,6 +188,10 @@ class Api::Internal::ReservationsController < ApplicationController
         end
       end
 
+      if reserve_frame.reception_type == 'Immediate' && reservation.customer.email.present?
+        ReservationMailer.send_end_user_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, reservation.display_reservation_datetime, reservation.display_payment_method, reservation.number_of_people).deliver_later
+      end
+
       render json: { status: 'success', reservation: reservation }, states: 200
     end
   rescue => error
@@ -212,7 +216,9 @@ class Api::Internal::ReservationsController < ApplicationController
     ActiveRecord::Base.transaction do
       reservation = Reservation.find(reservation_params[:id])
       reservation.update!(status: reservation_params[:status])
-      ReservationMailer.send_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, reservation.display_reservation_datetime, reservation.display_payment_method, reservation.number_of_people).deliver_later
+      if reservation.customer.email.present?
+        ReservationMailer.send_end_user_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, reservation.display_reservation_datetime, reservation.display_payment_method, reservation.number_of_people).deliver_later
+      end
       render json: { status: 'success' }, states: 200
     end
   rescue => error
