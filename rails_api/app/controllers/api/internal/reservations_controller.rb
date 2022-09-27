@@ -193,7 +193,7 @@ class Api::Internal::ReservationsController < ApplicationController
       end
 
       merchant_emails = reserve_frame.account.merchant_users.pluck(:email).join(',')
-      ReservationMailer.send_merchant_user_confirm_mail(merchant_emails, reservation.id, reserve_frame.id, customer.id, display_payment_method).deliver_later
+      ReservationMailer.send_merchant_confirm_mail(merchant_emails, reservation.id, reserve_frame.id, customer.id, display_payment_method).deliver_later
 
       render json: { status: 'success', reservation: reservation }, states: 200
     end

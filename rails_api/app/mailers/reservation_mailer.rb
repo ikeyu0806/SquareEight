@@ -10,11 +10,12 @@ class ReservationMailer < ApplicationMailer
     mail(to: @email, subject: @title)
   end
 
-  def send_merchant_user_confirm_mail(merchant_email, reservation_id, reserve_frame_id, customer_id, payment_method)
+  def send_merchant_confirm_mail(merchant_email, reservation_id, reserve_frame_id, customer_id, payment_method)
+    @email = merchant_email
     @reservation = Reservation.find(reservation_id)
     @reserve_frame = ReserveFrame.find(reserve_frame_id)
     @customer = Customer.find(customer_id)
     @payment_method = payment_method
-    mail(to: @email, subject: @title)
+    mail(to: @email, subject: @reserve_frame.title)
   end
 end
