@@ -11,10 +11,10 @@
 予約時間: <%= @reservation_datetime %>
 お支払い方法: <%= @payment_method %>
 <% if @price.present? %>
-  料金: <%= @price %>
+  料金: ￥<%= @price %>
 <% end %>
 予約人数: <%= @reservation.number_of_people %>
-予約ステータス: <%= @reservation_status %>
+予約ステータス: <%= @reservation.display_status %>
 
 ───────────────
 

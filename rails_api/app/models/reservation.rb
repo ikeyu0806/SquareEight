@@ -35,7 +35,7 @@ class Reservation < ApplicationRecord
   end
 
   def display_status
-    case payment_method
+    case status
     when 'pendingVerifivation'
       return '仮予約'
     when 'confirm'
