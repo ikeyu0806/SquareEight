@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div>下記内容にて、お客様からご予約がありました。</div>
+    <hr />
+    <div>[お申込内容]</div>
+    <div><%= @reseve_frame.title %></div>
+    <div>予約代表者の氏名: <%= @customer.name %></div>
+    <div>予約代表者のメールアドレス: <%= @customer.email %></div>
+    <div>予約代表者の電話番号: <%= @customer.phone_number %></div>
+    <div>予約時間: <%= @reservation_datetime %></div>
+    <div>お支払い方法: <%= @payment_method %></div>
+    <div>予約人数: <%= @reservation.number_of_people %></div>
+    <div>予約ステータス: <%= @reservation_status %></div>
+    <hr/>
+    <div>Copyright SquareEight</div>
+  </body>
+</html>

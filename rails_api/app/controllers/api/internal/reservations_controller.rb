@@ -187,10 +187,13 @@ class Api::Internal::ReservationsController < ApplicationController
         else
         end
       end
-
+      display_payment_method = reservation.display_payment_method
       if reserve_frame.reception_type == 'Immediate' && reservation.customer.email.present?
-        ReservationMailer.send_end_user_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, reservation.display_reservation_datetime, reservation.display_payment_method, reservation.number_of_people).deliver_later
+        ReservationMailer.send_end_user_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, reservation.display_reservation_datetime, display_payment_method, reservation.number_of_people).deliver_later
       end
+
+      merchant_emails = reserve_frame.account.merchant_users.pluck(:email).join(',')
+      ReservationMailer.send_merchant_user_confirm_mail(merchant_emails, reservation.id, reserve_frame.id, customer.id, display_payment_method).deliver_later
 
       render json: { status: 'success', reservation: reservation }, states: 200
     end
