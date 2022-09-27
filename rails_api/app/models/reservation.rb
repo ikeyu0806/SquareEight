@@ -34,21 +34,6 @@ class Reservation < ApplicationRecord
     end
   end
 
-  def display_payment_method_with_price
-    case payment_method
-    when 'localPayment'
-      return '現地払い'
-    when 'creditCardPayment'
-      return 'クレジットカード支払い'
-    when 'ticket'
-      return '回数券支払い'
-    when 'monthlyPaymentPlan'
-      return '月額課金'
-    else
-      return ''
-    end
-  end
-
   def display_status
     case payment_method
     when 'pendingVerifivation'
