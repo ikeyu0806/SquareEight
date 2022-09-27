@@ -34,6 +34,21 @@ class Reservation < ApplicationRecord
     end
   end
 
+  def display_payment_method_with_price
+    case payment_method
+    when 'localPayment'
+      return '現地払い'
+    when 'creditCardPayment'
+      return 'クレジットカード支払い'
+    when 'ticket'
+      return '回数券支払い'
+    when 'monthlyPaymentPlan'
+      return '月額課金'
+    else
+      return ''
+    end
+  end
+
   def display_status
     case payment_method
     when 'pendingVerifivation'
@@ -42,6 +57,14 @@ class Reservation < ApplicationRecord
       return '確定'
     else
       return ''
+    end
+  end
+
+  def display_price
+    if (['localPayment', 'creditCardPayment'].include?(self.payment_method))
+      return self.price
+    else
+      return nil
     end
   end
 
@@ -76,5 +99,31 @@ class Reservation < ApplicationRecord
 
   def insert_viewable_key
     self.viewable_key = SecureRandom.alphanumeric
+  end
+
+  def local_payment_prices_total_price
+    total_price = reservation_local_payment_prices.pluck(:price).inject {|result, item| result + item }
+  end
+
+  def credit_card_payment_prices_total_price
+    total_price = reservation_credit_card_payment_prices.pluck(:price).inject {|result, item| result + item }
+  end
+
+  def display_multi_payment_method_with_number_of_people
+    text_array = []
+    total_price = 0
+    if self.payment_method == 'localPayment'
+      reservation_local_payment_prices.each do |payment_method|
+        text_array.push(payment_method.name + ': ' + payment_method.reserve_number_of_people.to_s + '人')
+      end
+      total_price = local_payment_prices_total_price
+    end
+    if self.payment_method == 'creditCardPayment'
+      reservation_credit_card_payment_prices.each do |payment_method|
+        text_array.push(payment_method.name + ': ' + payment_method.reserve_number_of_people.to_s + '人')
+      end
+      total_price = reservation_credit_card_payment_prices.pluck(:price).inject {|result, item| result + item }
+    end
+    return text_array.join(' '), total_price
   end
 end
