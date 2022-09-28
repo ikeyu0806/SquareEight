@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+      <p><%= @end_user.full_name %>様</p>
+      <br />
+      <p>この度は、SquareEightにご登録いただき、誠にありがとうございます。</p>
+      <br />
+      <p>本メールをもちまして登録手続きが完了しましたことをお知らせいたします。</p>
+    <br/>
+    <div>マイページログインURL<div>
+    <div><%= ENV["FRONTEND_URL"] + "/customer/login" %></div>
+    <%= simple_format(h("
+      ---
+      ■  SquareEight
+      ※このメールは送信専用メールアドレスからシステムで自動的に配信されています。
+      ※ご返信いただいてもお応えいたしかねますのでご了承ください。
+    ")) %>
+  </body>
+</html>

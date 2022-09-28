@@ -143,4 +143,11 @@ class EndUser < ApplicationRecord
   def purchased_ticket_ids
     purchased_tickets.pluck(:id)
   end
+
+
+  def full_name
+    full_name = ((self.last_name || '') + (self.first_name || ''))
+    # 一応名前がない場合の分岐
+    full_name.blank? ? '名前が登録されていません' : full_name
+  end
 end

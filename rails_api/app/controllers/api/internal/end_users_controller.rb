@@ -118,6 +118,7 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if end_user.verification_code_expired_at < Time.zone.now
     end_user.update!(email_authentication_status: 'Enabled')
     session['end_user_id'] = end_user.id
+    EndUserMailer.registration_complete(end_user.id).deliver_later
     render json: { status: 'success', session_id: session.id, }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
