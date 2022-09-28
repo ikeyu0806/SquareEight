@@ -331,6 +331,14 @@ class Api::Internal::ReservationsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def cancel
+    reservation = Reservation.find(params[:id])
+    reservation.update!(status: 'cancel')
+    render json: { status: 'success' }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def reservation_params

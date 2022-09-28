@@ -7,7 +7,7 @@ class Reservation < ApplicationRecord
   has_many :reservation_credit_card_payment_prices
 
   enum payment_method: { localPayment: 0, creditCardPayment: 1, ticket: 2, monthlyPaymentPlan: 3 }
-  enum status: { pendingVerifivation: 0, confirm: 1, inputTimeWithPaymentMethod: 2 }
+  enum status: { pendingVerifivation: 0, confirm: 1, inputTimeWithPaymentMethod: 2, cancel: 3 }
 
   before_create :insert_viewable_key
 

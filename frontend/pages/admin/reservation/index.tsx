@@ -62,6 +62,36 @@ const Index: NextPage = () => {
     })
   }
 
+  const cancelReservation = (reservationId: string) => {
+    swalWithBootstrapButtons.fire({
+      title: 'キャンセルします',
+      html: '予約キャンセルします。<br />よろしいですか？',
+      icon: 'question',
+      confirmButtonText: 'キャンセルする',
+      cancelButtonText: 'キャンセルしない',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/reservations/${reservationId}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: 'キャンセルしました',
+            icon: 'info'
+          })
+          location.reload()
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: 'キャンセル失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
 
   return (
     <>
@@ -146,16 +176,25 @@ const Index: NextPage = () => {
                           <span>ステータス:
                           {reservation.status === 'confirm' && <><CheckIcon width={20} height={20} fill={'#00ff00'}/>予約確定</>}</span>
                           {reservation.status === 'pendingVerifivation'
-                            && <>
+                            &&
+                              <>
                                 <span className='text-danger'>予約確定待ち</span><br/>
                                 <a className='badge bg-primary' onClick={() => updateReservationStatus(reservation.id, 'confirm')}>予約を確定する</a>
-                              </>}
+                              </>
+                          }
+                          {reservation.status === 'cancel' && <span className='text-red'>キャンセル</span>}
                         </Col>
                         <Col>
                           <div className='mb10'>顧客情報</div>
                           <div>{reservation.customer_name}</div>
                           <div>メールアドレス: {reservation.customer_email}</div>
                           <div>電話番号: {reservation.customer_phone_number}</div>
+                          {reservation.status !== 'cancel' &&
+                            <Button
+                              className='mt30'
+                              variant='danger'
+                              onClick={() => cancelReservation(reservation.id)}
+                              size='sm'>キャンセル</Button>}
                         </Col>
                       </Row>                    
                     </ListGroup.Item>

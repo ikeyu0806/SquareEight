@@ -125,6 +125,7 @@ Rails.application.routes.draw do
       post 'reservations/register_by_merchant_control', to: 'reservations#register_by_merchant_control'
       post 'reservations/:id/confirm', to: 'reservations#confirm'
       post 'reservations', to: 'reservations#register_by_merchant_control'
+      delete 'reservations/:id', to: 'reservations#cancel'
       get 'questionnaire_masters/:id/edit_info', to: 'questionnaire_masters#edit_info'
       get 'questionnaire_masters/:id/answers', to: 'questionnaire_masters#answers'
       get 'questionnaire_masters/:id', to: 'questionnaire_masters#show'
