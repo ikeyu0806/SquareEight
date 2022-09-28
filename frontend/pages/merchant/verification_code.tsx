@@ -27,7 +27,7 @@ const VerificationCode: NextPage = () => {
     .then(response => {
       console.log(response.data.messsages)
       setCookie('_square_eight_merchant_session', response.data.session_id.public_id, { path: '/'})
-      router.push('/introduction/services?status=verify_code')
+      router.push('/admin/dashboard')
     })
     .catch(error => {
       dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
