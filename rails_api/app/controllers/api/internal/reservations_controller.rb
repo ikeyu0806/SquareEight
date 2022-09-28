@@ -334,6 +334,11 @@ class Api::Internal::ReservationsController < ApplicationController
   def cancel
     reservation = Reservation.find(params[:id])
     reservation.update!(status: 'cancel')
+    customer = reservation.customer
+    # swal2のcheckboxにチェックを入れると"1"になる
+    if params[:send_mail] == "1" && customer.email.present?
+      ReservationMailer.cancel_mail(reservation.id, customer.id).deliver_later
+    end
     render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

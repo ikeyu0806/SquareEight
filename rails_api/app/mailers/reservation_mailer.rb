@@ -24,4 +24,10 @@ class ReservationMailer < ApplicationMailer
     @number_of_people = number_of_people
     mail(to: @email, subject: @subject)
   end
+
+  def cancel_mail(reservation_id, customer_id)
+    @reservation = Reservation.find(reservation_id)
+    @customer = Customer.find(customer_id)
+    mail(to: @customer.email, subject: '予約をキャンセルしました')
+  end
 end

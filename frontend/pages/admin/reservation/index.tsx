@@ -66,6 +66,8 @@ const Index: NextPage = () => {
     swalWithBootstrapButtons.fire({
       title: 'キャンセルします',
       html: '予約キャンセルします。<br />よろしいですか？',
+      input: 'checkbox',
+      inputPlaceholder: '予約者にキャンセルメールを送る',
       icon: 'question',
       confirmButtonText: 'キャンセルする',
       cancelButtonText: 'キャンセルしない',
@@ -73,7 +75,7 @@ const Index: NextPage = () => {
       showCloseButton: true
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`${process.env.BACKEND_URL}/api/internal/reservations/${reservationId}`, {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/reservations/${reservationId}?send_mail=${result.value}`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           }
@@ -182,7 +184,7 @@ const Index: NextPage = () => {
                                 <a className='badge bg-primary' onClick={() => updateReservationStatus(reservation.id, 'confirm')}>予約を確定する</a>
                               </>
                           }
-                          {reservation.status === 'cancel' && <span className='text-red'>キャンセル</span>}
+                          {reservation.status === 'cancel' && <span className='text-danger'>キャンセル</span>}
                         </Col>
                         <Col>
                           <div className='mb10'>顧客情報</div>

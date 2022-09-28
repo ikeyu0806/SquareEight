@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div>この度はご利用いただきありがとうございます。</div>
+    <div>以下のご予約をキャンセルしました。</div>
+    <hr />
+    <div>[お申込内容]</div>
+    <div><%= @reservation.reserve_frame.title %></div>
+    <div>予約時間: <%= @reservation.display_reservation_datetime %></div>
+    <hr/>
+    <div>Copyright SquareEight</div>
+  </body>
+</html>
+この度はご利用いただきありがとうございます。
+以下のご予約をキャンセルしました。
+
+───────────────
+
+[お申込内容]
+<%= @reservation.reserve_frame.title %>
+予約時間: <%= @reservation.display_reservation_datetime %>
+
+───────────────
+
+Copyright SquareEight
