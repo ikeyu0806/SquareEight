@@ -12,4 +12,9 @@ class MerchantUserMailer < ApplicationMailer
     @url = ENV["FRONTEND_URL"] + '/merchant/update_email_verification_code?email=' + encode_email
     mail(to: @email, subject: "【検証コード】SquareEight")
   end
+
+  def registration_complete(email)
+    @email = email
+    mail(to: @email, subject: "【SquareEight】アカウント登録完了のご案内")
+  end
 end

@@ -90,6 +90,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if merchant_user.verification_code_expired_at < Time.zone.now
     merchant_user.update!(email_authentication_status: 'Enabled')
     session['merchant_user_id'] = merchant_user.id
+    MerchantUserMailer.registration_complete(merchant_user.email).deliver_later
     render json: { status: 'success', session_id: session.id, }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
