@@ -12,8 +12,11 @@ import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
 import { MultiPaymentMethod } from 'interfaces/MultiPaymentMethod'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
+import QuestionnaireItemAnswerForm from 'components/templates/QuestionnaireItemAnswerForm'
 import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
 import { QuestionnaireMasterItem } from 'interfaces/QuestionnaireMasterItem'
+import {  questionnaireMasterItemsChanged,
+          answerChangeDetectStateChanged } from 'redux/questionnaireMasterSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -46,6 +49,9 @@ const Index: NextPage = () => {
   const [multiCreditCardPaymentPrices, setMultiCreditCardPaymentPrices] = useState<MultiPaymentMethod[]>([])
 
   const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
+  const answerChangeDetectState = useSelector((state: RootState) => state.questionnaireMaster.answerChangeDetectState)
+  const disableSubmitAnswer = useSelector((state: RootState) => state.questionnaireMaster.disableSubmitAnswer)
+
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [paymentMethod, setPaymentMethod] = useState('')
@@ -63,11 +69,12 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_end_user_session
       }
     }).then((response) => {
+      console.log(response)
       dispatch(loginStatusChanged(response.data.login_status))
       // 予約情報
       setDate(response.data.date.split("-"))
       setTime(response.data.time)
-      setPublishStatus(response.data.publish_status || '')
+      setPublishStatus(response.data.reserve_frame.publish_status || '')
       setPaymentMethod(response.data.payment_method)
       setDefaultStripePaymentMethodId(response.data.stripe_default_payment_method_id)
       setStripePaymentMethods(response.data.stripe_payment_methods || [])
@@ -84,11 +91,11 @@ const Index: NextPage = () => {
       setConsumeNumber(response.data.reservation.ticket_consume_number)
       setMultiLocalPaymentPrices(response.data.reservation.reservation_local_payment_prices)
       setMultiCreditCardPaymentPrices(response.data.reservation.reservation_credit_card_payment_prices)
-      setLastName(response.data.end_user.last_name || '')
-      setFirstName(response.data.end_user.first_name || '')
-      setEmail(response.data.end_user.email || '')
-      setPhoneNumber(response.data.end_user.phone_number || '')
-
+      setLastName(response.data.end_user?.last_name || '')
+      setFirstName(response.data.end_user?.first_name || '')
+      setEmail(response.data.end_user?.email || '')
+      setPhoneNumber(response.data.end_user?.phone_number || '')
+      dispatch(questionnaireMasterItemsChanged(response.data.reserve_frame.parse_question_form_json))
       // ヘッダ、フッタ
       dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
       dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
@@ -158,6 +165,9 @@ const Index: NextPage = () => {
 
   const reserveValidate = () => {
     if (!lastName || !firstName || !email ||!phoneNumber) {
+      return true
+    }
+    if (disableSubmitAnswer) {
       return true
     }
     return false
@@ -262,19 +272,32 @@ const Index: NextPage = () => {
                     <Form.Label className='mt10'>お名前（姓）</Form.Label>
                     <Form.Control
                       value={lastName}
-                      onChange={(e) => setLastName(e.target.value)}></Form.Control>
+                      onChange={(e) => {
+                        setLastName(e.target.value)
+                        dispatch(answerChangeDetectStateChanged(answerChangeDetectState + 1))
+                      }}></Form.Control>
                     <Form.Label className='mt10'>お名前（名）</Form.Label>
                     <Form.Control
                       value={firstName}
-                      onChange={(e) => setFirstName(e.target.value)}></Form.Control>
+                      onChange={(e) => {
+                        setFirstName(e.target.value)
+                        dispatch(answerChangeDetectStateChanged(answerChangeDetectState + 1))
+                      }}></Form.Control>
                     <Form.Label className='mt10'>メールアドレス</Form.Label>
                     <Form.Control
                       value={email}
-                      onChange={(e) => setEmail(e.target.value)}></Form.Control>
+                      onChange={(e) => {
+                        setEmail(e.target.value)
+                        dispatch(answerChangeDetectStateChanged(answerChangeDetectState + 1))
+                      }}></Form.Control>
                     <Form.Label className='mt10'>携帯電話番号</Form.Label>
                     <Form.Control
                       value={phoneNumber}
-                      onChange={(e) => setPhoneNumber(e.target.value)}></Form.Control>
+                      onChange={(e) => {
+                        setPhoneNumber(e.target.value)
+                        dispatch(answerChangeDetectStateChanged(answerChangeDetectState + 1))
+                      }}></Form.Control>
+                    <QuestionnaireItemAnswerForm></QuestionnaireItemAnswerForm>
                   </>}
                   {endUserLoginStatus === 'Login' &&
                   <>

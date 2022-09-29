@@ -20,7 +20,6 @@ class Api::Internal::ReserveFramesController < ApplicationController
     shared_component = reserve_frame.account.shared_component
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,
                                                                     :resource_ids,
-                                                                    :parse_question_form_json,
                                                                     :start_date_input_value,
                                                                     :repeat_end_date_input_value,
                                                                     :monthly_payment_plan_ids,

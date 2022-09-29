@@ -312,6 +312,7 @@ class Api::Internal::ReservationsController < ApplicationController
     payment_method = reservation.payment_method
     # ActiveRecordのインスタンスではなくなるので最後にJSONにする
     reservation = JSON.parse(reservation.to_json(methods: [:reservation_local_payment_prices, :reservation_credit_card_payment_prices]))
+    reserve_frame = JSON.parse(reserve_frame.to_json(methods: [:parse_question_form_json]))
     render json: { status: 'success',
                    end_user: end_user,
                    date: date,
@@ -325,7 +326,6 @@ class Api::Internal::ReservationsController < ApplicationController
                    purchased_ticket_ids: purchased_ticket_ids,
                    is_subscribe_plan: is_subscribe_plan,
                    is_purchase_ticket: is_purchase_ticket,
-                   publish_status: reserve_frame.publish_status,
                    login_status: login_status }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
