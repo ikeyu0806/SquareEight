@@ -19,8 +19,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
     reserve_frame = ReserveFrame.enabled.find(params[:id])
     shared_component = reserve_frame.account.shared_component
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,
-                                                                    :resouce_ids,
-                                                                    :questionnaire_master_ids,
+                                                                    :resource_ids,
                                                                     :start_date_input_value,
                                                                     :repeat_end_date_input_value,
                                                                     :monthly_payment_plan_ids,

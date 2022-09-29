@@ -351,7 +351,7 @@ class ReserveFrame < ApplicationRecord
     result
   end
 
-  def resouce_ids
+  def resource_ids
     reserve_frame_resorces.pluck(:resource_id)
   end
 
