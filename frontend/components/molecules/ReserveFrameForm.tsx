@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie'
 import { RootState } from 'redux/store'
 import axios from 'axios'
 import { ResourceParam } from 'interfaces/ResourceParam'
+import { QuestionnaireMasterParam } from 'interfaces/QuestionnaireMasterParam'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { ReservableFrameTicketMasterParam } from 'interfaces/ReservableFrameTicketMasterParam'
@@ -37,6 +38,7 @@ import {  startDateChanged,
           isMonthlyPlanPaymentEnableChanged,
           reserveFrameReceptionTimesChanged,
           resourceIdsChanged,
+          questionnaireMasterIdsChanged,
           monthlyPaymentPlanIdsChanged,
           reservableFrameTicketMasterChanged,
           base64ImageChanged,
@@ -73,6 +75,7 @@ const ReserveFrameForm = () => {
   const multiCreditCardPaymentPriceRefs = useRef<any>([])
   multiCreditCardPaymentPriceRefs.current = multiCreditCardPaymentPrices.map((_, i) => multiCreditCardPaymentPriceRefs.current[i] ?? createRef())
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
+  const questionnaireMasterIds = useSelector((state: RootState) => state.reserveFrame.questionnaireMasterIds)
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.reserveFrame.s3ObjectPublicUrl)
@@ -82,13 +85,14 @@ const ReserveFrameForm = () => {
   const [reserveFrameReceptionStartTime, setReserveFrameReceptionStartTime] = useState('')
   const [reserveFrameReceptionEndTime, setReserveFrameReceptionEndTime] = useState('')
   const [selectableResources, setSelectableResources] = useState<ResourceParam[]>([])
+  const [selectedQuestionnaireMasters, setSelectedQuestionnaireMasters] = useState<QuestionnaireMasterParam[]>([])
   const [selectableTicketMasters, setSelectableTicketMasters] = useState<TicketMasterParam[]>([])
   const [selectableMonthlyPaymentPlans, setSelectableMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam[]>([])
   const [image, setImage] = useState('')
   const ticketRefs = useRef<any>([])
 
   useEffect(() => {
-    const fetchResources = () => {
+    const fetchRelatedData = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/reserve_frames/settable_relation_data`, {
           headers: { 
@@ -97,19 +101,18 @@ const ReserveFrameForm = () => {
         }
       )
       .then(function (response) {
-        const resourceResponse: ResourceParam[] = response.data.resources
-        setSelectableResources(resourceResponse)
+        setSelectedQuestionnaireMasters(response.data.questionnaire_masters)
+        setSelectableResources(response.data.resources)
+        setSelectableMonthlyPaymentPlans(response.data.monthly_payment_plans)
         const ticketMasterResponse: TicketMasterParam[] = response.data.ticket_masters
-        setSelectableTicketMasters(ticketMasterResponse)
-        const monthlyPaymentPlanResponse: MonthlyPaymentPlanParam[] = response.data.monthly_payment_plans
-        setSelectableMonthlyPaymentPlans(monthlyPaymentPlanResponse)
+        setSelectableTicketMasters(response.data.ticket_masters)
         ticketRefs.current = ticketMasterResponse.map((_, i) => ticketRefs.current[i] ?? createRef())
       })
       .catch(error => {
         console.log(error)
       })
     }
-    fetchResources()
+    fetchRelatedData()
   }, [router.query.id, cookies._square_eight_merchant_session])
 
   const handleChangeFile = (e: any) => {
@@ -168,12 +171,21 @@ const ReserveFrameForm = () => {
     dispatch(reservableFrameTicketMasterChanged(reservableFrameTicketMasterData))
   }
 
+  const updateQuestionnaireMasterIds = (questionnaireMasterId: string) => {
+    let filterQuestionnaireMasterIds: string[]
+    if (questionnaireMasterIds.includes(questionnaireMasterId)) {
+      filterQuestionnaireMasterIds = questionnaireMasterIds.filter((id) => id !== questionnaireMasterId)
+    } else {
+      filterQuestionnaireMasterIds = [...questionnaireMasterIds, questionnaireMasterId]
+    }
+    dispatch(questionnaireMasterIdsChanged(filterQuestionnaireMasterIds))
+  }
+
   const updateResourceIds = (resourceId: number) => {
     let filterResourceIds: number[]
     if (resourceIds.includes(resourceId)) {
       filterResourceIds = resourceIds.filter((id) => id !== resourceId)
     } else {
-
       filterResourceIds = [...resourceIds, resourceId]
     }
     dispatch(resourceIdsChanged(filterResourceIds))
@@ -824,6 +836,39 @@ const ReserveFrameForm = () => {
         <Col>
         </Col>
       </Row>
+
+      <hr />
+
+      <Form.Group className='mb-3'>
+        <Form.Label>アンケート設定</Form.Label>
+        <div>予約時にアンケートを受け付けることができます</div>
+        <br />
+        
+        {selectedQuestionnaireMasters.length
+        ?
+          <>
+            {selectedQuestionnaireMasters.map((questionnaire, i) => {
+            return (
+                <span key={i}>
+                  <Form.Check
+                    checked={questionnaireMasterIds.includes(questionnaire.id)}
+                    label={questionnaire.title}
+                    onChange={() => updateQuestionnaireMasterIds(questionnaire.id)}
+                    type='checkbox'></Form.Check>
+                </span>
+              )
+            })}
+          </>
+        :
+          <>
+            アンケートが登録されていません
+            <br/>
+            <a href='/admin/questionnaire/master/new'
+               target='_blank'
+               rel='noreferrer'>
+              アンケート登録
+            </a></>}
+      </Form.Group>
 
       <hr/>
 

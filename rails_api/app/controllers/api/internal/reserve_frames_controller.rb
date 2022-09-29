@@ -165,11 +165,13 @@ class Api::Internal::ReserveFramesController < ApplicationController
 
   def settable_relation_data
     account = current_merchant_user.account
+    questionnaire_masters = account.questionnaire_masters
     resources = account.resources
     ticket_masters = account.ticket_masters
     monthly_payment_plans = account.monthly_payment_plans
     render json: { status: 'success',
                    resources: resources,
+                   questionnaire_masters: questionnaire_masters,
                    ticket_masters: ticket_masters,
                    monthly_payment_plans: monthly_payment_plans }, states: 200
   rescue => error
