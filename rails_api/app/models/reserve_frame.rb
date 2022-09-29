@@ -2,7 +2,7 @@ include CalendarContent
 
 class ReserveFrame < ApplicationRecord
   belongs_to :account
-  has_one  :questionnaire_master
+  has_one  :questionnaire_master, foreign_key: :id, primary_key: :questionnaire_master_id
   has_many :unreservable_frames
   has_many :out_of_range_frames
   has_many :reserve_frame_resorces
@@ -464,6 +464,11 @@ class ReserveFrame < ApplicationRecord
 
   def credit_card_payment_prices_with_number_of_people
     JSON.parse(reserve_frame_credit_card_payment_prices.to_json(methods: [:reserve_number_of_people]))
+  end
+
+  def parse_question_form_json
+    return [] if questionnaire_master.blank?
+    return questionnaire_master.parse_question_form_json
   end
 
   def logical_delete
