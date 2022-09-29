@@ -13,6 +13,7 @@ import { MultiPaymentMethod } from 'interfaces/MultiPaymentMethod'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
+import { QuestionnaireMasterItem } from 'interfaces/QuestionnaireMasterItem'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -21,7 +22,6 @@ import {  navbarBrandTextChanged,
           navbarBrandBackgroundColorChanged,
           navbarBrandVariantColorChanged,
           footerCopyRightTextChanged } from 'redux/sharedComponentSlice'
-import { Prev } from 'react-bootstrap/esm/PageItem'
 
 const Index: NextPage = () => {
   const router = useRouter()
@@ -54,6 +54,7 @@ const Index: NextPage = () => {
   const [subscribePlanIds, setSubscribePlanIds] = useState<number[]>()
   const [isSubscribePlan, setIsSubscribePlan] = useState(false)
   const [isPurchaseTicket, setIsPurchaseTicket] = useState(false)
+  const [questionnaireMasterItems, setQuestionnaireMasterItems] = useState<QuestionnaireMasterItem[]>([])
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/reservations/input_customer_info?reservation_id=${router.query.id}`,

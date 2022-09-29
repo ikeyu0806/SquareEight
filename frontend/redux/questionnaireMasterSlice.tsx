@@ -13,6 +13,9 @@ export const questionnaireMasterSlice = createSlice({
     textFormRowCount: 1,
     currentMaxSortOrder: 0,
     publishStatus: '',
+    disableSubmitAnswer: false,
+    // 回答が変わったことの検知
+    answerChangeDetectState: 0,
     selectFormAnswers: [] as string[],
     radioButtonAnswers: [] as string[],
     checkboxAnswers: [] as string[],
@@ -34,6 +37,9 @@ export const questionnaireMasterSlice = createSlice({
     publishStatusChanged: (state, action: PayloadAction<string>) => {
       state.publishStatus = action.payload
     },
+    disableSubmitAnswerChanged: (state, action: PayloadAction<boolean>) => {
+      state.disableSubmitAnswer = action.payload
+    },
     questionChanged: (state, action: PayloadAction<string>) => {
       state.question = action.payload
     },
@@ -42,6 +48,9 @@ export const questionnaireMasterSlice = createSlice({
     },
     currentMaxSortOrderChanged: (state, action: PayloadAction<number>) => {
       state.currentMaxSortOrder = action.payload
+    },
+    answerChangeDetectStateChanged: (state, action: PayloadAction<number>) => {
+      state.answerChangeDetectState = action.payload
     },
     selectFormAnswersChanged: (state, action: PayloadAction<string[]>) => {
       state.selectFormAnswers = action.payload
@@ -63,9 +72,11 @@ export const { selectedFormTypeChanged } = questionnaireMasterSlice.actions
 export const { titleChanged } = questionnaireMasterSlice.actions
 export const { descriptionChanged } = questionnaireMasterSlice.actions
 export const { publishStatusChanged } = questionnaireMasterSlice.actions
+export const { disableSubmitAnswerChanged } = questionnaireMasterSlice.actions
 export const { questionChanged } = questionnaireMasterSlice.actions
 export const { currentMaxSortOrderChanged } = questionnaireMasterSlice.actions
 export const { textFormRowCountChanged } = questionnaireMasterSlice.actions
+export const { answerChangeDetectStateChanged } = questionnaireMasterSlice.actions
 export const { selectFormAnswersChanged } = questionnaireMasterSlice.actions
 export const { radioButtonAnswersChanged } = questionnaireMasterSlice.actions
 export const { checkboxAnswersChanged } = questionnaireMasterSlice.actions
