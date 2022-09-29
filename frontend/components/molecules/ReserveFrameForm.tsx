@@ -853,6 +853,7 @@ const ReserveFrameForm = () => {
                   <Form.Check
                     checked={questionnaireMasterIds.includes(questionnaire.id)}
                     label={questionnaire.title}
+                    id={'questionnaire' + String(i)}
                     onChange={() => updateQuestionnaireMasterIds(questionnaire.id)}
                     type='checkbox'></Form.Check>
                 </span>
@@ -885,6 +886,7 @@ const ReserveFrameForm = () => {
                   <Form.Check
                     checked={resourceIds.includes(resource.id)}
                     label={resource.name}
+                    id={'resource' + String(i)}
                     onChange={() => updateResourceIds(resource.id)}
                     type='checkbox'></Form.Check>
                 </span>
