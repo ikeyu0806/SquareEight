@@ -200,7 +200,7 @@ const QuestionnaireItemAnswerForm = () => {
               <span key={i}>
                 <Form.Label
                   ref={questionnaireMasterItemsQuestionRefs.current[i]}
-                  className='mt20'>{item.question}{answerChangeDetectState}</Form.Label>
+                  className='mt20'>{item.question}</Form.Label>
                 <Form.Control
                   onChange={() => dispatch(answerChangeDetectStateChanged(answerChangeDetectState + 1))}
                   ref={questionnaireMasterItemsAnswerRefs.current[i]}

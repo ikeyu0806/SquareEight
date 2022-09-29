@@ -340,9 +340,9 @@ class ReserveFrame < ApplicationRecord
       else
       end
     else
-      status_json = self.reservable_status_with_date(date)
+      status_json = self.reservable_status_with_date(self.start_at)
       result << {
-        start: self.start_at,
+        start: self.start_at.strftime("%Y-%m-%d"),
         title: status_json[:text],
         reservable: status_json[:reservable],
         url: '/reserve/' + self.id.to_s + '?date=' + self.start_at.strftime("%Y-%m-%d")
