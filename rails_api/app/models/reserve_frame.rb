@@ -6,6 +6,8 @@ class ReserveFrame < ApplicationRecord
   has_many :out_of_range_frames
   has_many :reserve_frame_resorces
   has_many :resources, through: :reserve_frame_resorces
+  has_many :reserve_frame_questionnaire_masters
+  has_many :questionnaire_masters, through: :reserve_frame_questionnaire_masters
   has_many :reserve_frame_monthly_payment_plans
   has_many :monthly_payment_plans, through: :reserve_frame_monthly_payment_plans
   has_many :reserve_frame_ticket_masters
