@@ -38,6 +38,7 @@ import {
   isEveryMonthRepeatChanged,
   reserveFrameReceptionTimesChanged,
   resourceIdsChanged,
+  questionnaireMasterIdsChanged,
   monthlyPaymentPlanIdsChanged,
   reservableFrameTicketMasterChanged,
   s3ObjectPublicUrlChanged,
@@ -144,6 +145,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         reserve_frame_reception_times: reserveFrameReceptionTimes,
         unreservable_frames: unreservableFrames,
         resource_ids: resourceIds,
+        questionnaire_master_ids: questionnaireMasterIds,
         is_local_payment_enable: isLocalPaymentEnable,
         is_credit_card_payment_enable: isCreditCardPaymentEnable,
         is_ticket_payment_enable: isTicketPaymentEnable,
@@ -247,6 +249,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         dispatch(repeatWDaysChanged(response.data.reserve_frame.repeat_wdays))
         dispatch(repeatEndDateChanged(response.data.reserve_frame.repeat_end_date_input_value))
         dispatch(resourceIdsChanged(response.data.reserve_frame.resouce_ids))
+        dispatch(questionnaireMasterIdsChanged(response.data.reserve_frame.questionnaire_master_ids))
         dispatch(monthlyPaymentPlanIdsChanged(response.data.reserve_frame.monthly_payment_plan_ids))
         dispatch(reservableFrameTicketMasterChanged(response.data.reserve_frame.reservable_frame_ticket_master))
         dispatch(s3ObjectPublicUrlChanged(response.data.reserve_frame.s3_object_public_url))

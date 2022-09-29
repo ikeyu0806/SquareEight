@@ -354,6 +354,9 @@ class ReserveFrame < ApplicationRecord
     reserve_frame_resorces.pluck(:resource_id)
   end
 
+  def questionnaire_master_ids
+  end
+
   def monthly_payment_plan_ids
     monthly_payment_plans.pluck(:monthly_payment_plan_id)
   end
