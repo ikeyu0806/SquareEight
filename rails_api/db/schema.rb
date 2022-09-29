@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_24_234124) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_29_013100) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -401,6 +401,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_24_234124) do
     t.boolean "is_repeat_fri", default: false
     t.boolean "is_repeat_sat", default: false
     t.datetime "deleted_at"
+    t.integer "questionnaire_master_id"
   end
 
   create_table "resources", force: :cascade do |t|

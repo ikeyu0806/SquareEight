@@ -41,7 +41,7 @@ const CreateReserveFrameModal = (): JSX.Element => {
   const isCreditCardPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isCreditCardPaymentEnable)
   const isTicketPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isTicketPaymentEnable)
   const isMonthlyPlanPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isMonthlyPlanPaymentEnable)
-  const questionnaireMasterIds = useSelector((state: RootState) => state.reserveFrame.questionnaireMasterIds)
+  const questionnaireMasterId = useSelector((state: RootState) => state.reserveFrame.questionnaireMasterId)
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
@@ -84,7 +84,7 @@ const CreateReserveFrameModal = (): JSX.Element => {
         reserve_frame_reception_times: reserveFrameReceptionTimes,
         out_of_range_frames: outOfRangeFrames,
         unreservable_frames: unreservableFrames,
-        questionnaire_master_ids: questionnaireMasterIds,
+        questionnaire_master_id: questionnaireMasterId,
         resource_ids: resourceIds,
         is_set_price: isSetPrice,
         is_local_payment_enable: isLocalPaymentEnable,

@@ -38,7 +38,7 @@ import {  startDateChanged,
           isMonthlyPlanPaymentEnableChanged,
           reserveFrameReceptionTimesChanged,
           resourceIdsChanged,
-          questionnaireMasterIdsChanged,
+          questionnaireMasterIdChanged,
           monthlyPaymentPlanIdsChanged,
           reservableFrameTicketMasterChanged,
           base64ImageChanged,
@@ -75,7 +75,7 @@ const ReserveFrameForm = () => {
   const multiCreditCardPaymentPriceRefs = useRef<any>([])
   multiCreditCardPaymentPriceRefs.current = multiCreditCardPaymentPrices.map((_, i) => multiCreditCardPaymentPriceRefs.current[i] ?? createRef())
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
-  const questionnaireMasterIds = useSelector((state: RootState) => state.reserveFrame.questionnaireMasterIds)
+  const questionnaireMasterId = useSelector((state: RootState) => state.reserveFrame.questionnaireMasterId)
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.reserveFrame.s3ObjectPublicUrl)
@@ -169,16 +169,6 @@ const ReserveFrameForm = () => {
     reservableFrameTicketMasterData = reservableFrameTicketMaster.filter(ticketMaster => ticketMaster.ticket_master_id !== ticketId)
     reservableFrameTicketMasterData.push({ticket_master_id: ticketId, consume_number: ticketRefs.current[ticketRefNumber].current?.value })
     dispatch(reservableFrameTicketMasterChanged(reservableFrameTicketMasterData))
-  }
-
-  const updateQuestionnaireMasterIds = (questionnaireMasterId: string) => {
-    let filterQuestionnaireMasterIds: string[]
-    if (questionnaireMasterIds.includes(questionnaireMasterId)) {
-      filterQuestionnaireMasterIds = questionnaireMasterIds.filter((id) => id !== questionnaireMasterId)
-    } else {
-      filterQuestionnaireMasterIds = [...questionnaireMasterIds, questionnaireMasterId]
-    }
-    dispatch(questionnaireMasterIdsChanged(filterQuestionnaireMasterIds))
   }
 
   const updateResourceIds = (resourceId: number) => {
@@ -851,11 +841,12 @@ const ReserveFrameForm = () => {
             return (
                 <span key={i}>
                   <Form.Check
-                    checked={questionnaireMasterIds.includes(questionnaire.id)}
+                    checked={questionnaireMasterId === questionnaire.id}
                     label={questionnaire.title}
+                    name='reserveFrameQuestionnaireMaster'
                     id={'questionnaire' + String(i)}
-                    onChange={() => updateQuestionnaireMasterIds(questionnaire.id)}
-                    type='checkbox'></Form.Check>
+                    onChange={() => dispatch(questionnaireMasterIdChanged(questionnaire.id))}
+                    type='radio'></Form.Check>
                 </span>
               )
             })}

@@ -242,7 +242,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                 :reserve_frame_reception_times,
                                 :repeat_interval_number_month_date,
                                 :resource_ids,
-                                :questionnaire_master_ids,
+                                :questionnaire_master_id,
                                 :monthly_payment_plan_ids,
                                 :reservable_frame_ticket_master,
                                 :base64_image,

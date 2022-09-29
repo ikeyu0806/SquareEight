@@ -38,7 +38,7 @@ import {
   isEveryMonthRepeatChanged,
   reserveFrameReceptionTimesChanged,
   resourceIdsChanged,
-  questionnaireMasterIdsChanged,
+  questionnaireMasterIdChanged,
   monthlyPaymentPlanIdsChanged,
   reservableFrameTicketMasterChanged,
   s3ObjectPublicUrlChanged,
@@ -82,6 +82,7 @@ const EditReserveFrameModal = (): JSX.Element => {
   const isTicketPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isTicketPaymentEnable)
   const isMonthlyPlanPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isMonthlyPlanPaymentEnable)
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
+  const questionnaireMasterId = useSelector((state: RootState) => state.reserveFrame.questionnaireMasterId)
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
   const base64Image = useSelector((state: RootState) => state.reserveFrame.base64Image)
@@ -145,7 +146,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         reserve_frame_reception_times: reserveFrameReceptionTimes,
         unreservable_frames: unreservableFrames,
         resource_ids: resourceIds,
-        questionnaire_master_ids: questionnaireMasterIds,
+        questionnaire_master_id: questionnaireMasterId,
         is_local_payment_enable: isLocalPaymentEnable,
         is_credit_card_payment_enable: isCreditCardPaymentEnable,
         is_ticket_payment_enable: isTicketPaymentEnable,
@@ -249,7 +250,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         dispatch(repeatWDaysChanged(response.data.reserve_frame.repeat_wdays))
         dispatch(repeatEndDateChanged(response.data.reserve_frame.repeat_end_date_input_value))
         dispatch(resourceIdsChanged(response.data.reserve_frame.resouce_ids))
-        dispatch(questionnaireMasterIdsChanged(response.data.reserve_frame.questionnaire_master_ids))
+        dispatch(questionnaireMasterIdChanged(response.data.reserve_frame.questionnaire_master_id))
         dispatch(monthlyPaymentPlanIdsChanged(response.data.reserve_frame.monthly_payment_plan_ids))
         dispatch(reservableFrameTicketMasterChanged(response.data.reserve_frame.reservable_frame_ticket_master))
         dispatch(s3ObjectPublicUrlChanged(response.data.reserve_frame.s3_object_public_url))

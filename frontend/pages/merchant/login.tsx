@@ -70,9 +70,6 @@ const Login: NextPage = () => {
                         <Form.Label>パスワード</Form.Label>
                         <Form.Control type='password' placeholder='パスワード' onChange={(e) => setPassword(e.target.value)} />
                       </Form.Group>
-                      <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-                        <Form.Check type='checkbox' label='プライバシーポリシーに同意しました' />
-                      </Form.Group>
                       <div className='text-center'>
                         <Button variant='primary' onClick={onSubmit}>
                           送信

@@ -2,12 +2,11 @@ include CalendarContent
 
 class ReserveFrame < ApplicationRecord
   belongs_to :account
+  has_one  :questionnaire_master
   has_many :unreservable_frames
   has_many :out_of_range_frames
   has_many :reserve_frame_resorces
   has_many :resources, through: :reserve_frame_resorces
-  has_many :reserve_frame_questionnaire_masters
-  has_many :questionnaire_masters, through: :reserve_frame_questionnaire_masters
   has_many :reserve_frame_monthly_payment_plans
   has_many :monthly_payment_plans, through: :reserve_frame_monthly_payment_plans
   has_many :reserve_frame_ticket_masters
@@ -354,9 +353,6 @@ class ReserveFrame < ApplicationRecord
 
   def resouce_ids
     reserve_frame_resorces.pluck(:resource_id)
-  end
-
-  def questionnaire_master_ids
   end
 
   def monthly_payment_plan_ids
