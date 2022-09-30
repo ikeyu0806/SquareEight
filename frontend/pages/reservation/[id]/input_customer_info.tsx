@@ -51,6 +51,7 @@ const Index: NextPage = () => {
   const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const answerChangeDetectState = useSelector((state: RootState) => state.questionnaireMaster.answerChangeDetectState)
   const disableSubmitAnswer = useSelector((state: RootState) => state.questionnaireMaster.disableSubmitAnswer)
+  const answersJson = useSelector((state: RootState) => state.questionnaireMaster.answersJson)
 
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
@@ -123,6 +124,7 @@ const Index: NextPage = () => {
         first_name: firstName,
         email: email,
         phone_number: phoneNumber,
+        answer: answersJson
       }
     },
     {

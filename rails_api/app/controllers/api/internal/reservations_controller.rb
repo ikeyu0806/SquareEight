@@ -95,6 +95,14 @@ class Api::Internal::ReservationsController < ApplicationController
         customer.end_user_id = current_end_user.id if current_end_user.present?
         customer.save!
       end
+      # アンケート回答登録
+      questionnaire_master = reserve_frame.questionnaire_master
+      if questionnaire_master.present?
+      questionnaire_master.questionnaire_answers
+                          .create!( customer_id: customer.id,
+                                    title: questionnaire_master.title,
+                                    answers_json: reservation_params[:answer].to_json)
+      end
       # 確定
       reservation
       .update!( customer_id: customer.id,
@@ -377,6 +385,7 @@ class Api::Internal::ReservationsController < ApplicationController
                   :price,
                   :status,
                   :is_select_customer,
+                  answer: [:question, :answer],
                   multi_local_payment_prices: [:name, :price, :reserve_number_of_people],
                   multi_credit_card_payment_prices: [:name, :price, :reserve_number_of_people])
   end
