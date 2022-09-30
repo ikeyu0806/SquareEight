@@ -1,0 +1,2 @@
+class ShippingFeePerRegion < ApplicationRecord
+end

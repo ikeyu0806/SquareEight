@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_09_29_013100) do
+ActiveRecord::Schema[7.0].define(version: 2022_09_30_130855) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -423,6 +423,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_29_013100) do
     t.string "navbar_brand_background_color", default: "light"
     t.string "navbar_brand_variant_color", default: "light"
     t.string "footer_copyright_text", default: "SquareEight"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shipping_fee_per_regions", force: :cascade do |t|
+    t.integer "product_id", null: false
+    t.integer "shipping_fee", null: false
+    t.integer "region", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
