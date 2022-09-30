@@ -180,7 +180,7 @@ class Api::Internal::ReservationsController < ApplicationController
           purchased_tickets = current_end_user
                               .purchased_tickets
                               .where(ticket_master_id: ticket_master.id)
-                              .where("expired_at >= ?", Time.zone.now)
+                              .expired
                               .order(:expired_at)
         
           total_remain_number = purchased_tickets.sum(:remain_number)

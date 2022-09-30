@@ -4,6 +4,8 @@ class PurchasedTicket < ApplicationRecord
   validates :expired_at, presence: true
   validates :remain_number, presence: true
 
+  scope :expired, -> { where("expired_at >= ?", Time.zone.now) }
+
   def name
     ticket_master.name
   end
@@ -18,5 +20,9 @@ class PurchasedTicket < ApplicationRecord
 
   def ticket_master_id
     ticket_master.id
+  end
+
+  def is_expired
+    expired_at < Time.zone.now
   end
 end

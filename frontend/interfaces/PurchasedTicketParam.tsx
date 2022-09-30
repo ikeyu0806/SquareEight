@@ -3,5 +3,6 @@ export interface PurchasedTicketParam {
   name: string
   display_expired_at: string
   remain_number: number
-  description?: string
+  description: string
+  is_expired: boolean
 }
