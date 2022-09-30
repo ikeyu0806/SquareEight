@@ -206,13 +206,9 @@ class ReserveFrame < ApplicationRecord
     # 開始日が明日以降の場合
     else
       loop_start_date = Date.parse(self.start_at.to_s)
-      # 受付回開始日考慮
-      # 今日が1/1で受付開始日が1/20。10日前から受付の場合、1/10がループ開始
-      if Date.today < loop_start_date - reception_start_day_before.days 
-        loop_start_date = loop_start_date - reception_start_day_before.days
-      end
     end
   
+    # 受付締め切り考慮
     if cancel_reception == "PossibleBeforeTheDay"
       loop_start_date = loop_start_date + cancel_reception_day_before.days 
     end
