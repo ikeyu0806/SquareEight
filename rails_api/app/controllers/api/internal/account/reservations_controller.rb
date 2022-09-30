@@ -19,6 +19,7 @@ class Api::Internal::Account::ReservationsController < ApplicationController
                                       :customer_phone_number,
                                       :reception_type,
                                       :reservation_local_payment_prices,
+                                      :questionnaire_master_id,
                                       :reservation_credit_card_payment_prices])
     reservations = JSON.parse(reservations)
     render json: { status: 'success', reservations: reservations }, states: 200

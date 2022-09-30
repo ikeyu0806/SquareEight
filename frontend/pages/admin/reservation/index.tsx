@@ -1,4 +1,5 @@
 import type { NextPage } from 'next'
+import Router from 'next/router'
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, ListGroup, Button, Form } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
@@ -197,6 +198,17 @@ const Index: NextPage = () => {
                               variant='danger'
                               onClick={() => cancelReservation(reservation.id)}
                               size='sm'>キャンセル</Button>}
+                          {reservation.questionnaire_master_id &&
+                            <>
+                              <br/>
+                              <Button
+                                className='mt10'
+                                variant='primary'
+                                size='sm'
+                                onClick={() => Router.push(`//admin/questionnaire/master/${reservation.questionnaire_master_id}/answer`)}>
+                                アンケート回答</Button>
+                            </>
+                          }
                         </Col>
                       </Row>                    
                     </ListGroup.Item>

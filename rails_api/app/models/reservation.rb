@@ -111,4 +111,8 @@ class Reservation < ApplicationRecord
     end
     return text_array.join(' '), total_price
   end
+
+  def questionnaire_master_id
+    reserve_frame.questionnaire_master_id
+  end
 end

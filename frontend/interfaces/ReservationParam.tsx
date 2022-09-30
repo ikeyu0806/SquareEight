@@ -19,6 +19,7 @@ export interface ReservationParam {
   status: string
   reception_type: string
   viewable_key: string
+  questionnaire_master_id: number
   reservation_local_payment_prices: MultiPaymentMethod[]
   reservation_credit_card_payment_prices: MultiPaymentMethod[]
 }
