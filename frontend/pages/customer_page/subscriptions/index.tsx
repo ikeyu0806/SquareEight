@@ -40,8 +40,8 @@ const Index: NextPage = () => {
                   <ListGroup.Item key={i}>
                     <Row>
                       <Col>
-                      プラン名: {subscription.metadata.name}<br/>
-                      購入先: {subscription.metadata.account_business_name}
+                        プラン名: {subscription.metadata.name}<br/>
+                        購入先: {subscription.metadata.account_business_name}
                       </Col>
                     </Row>
                   </ListGroup.Item>

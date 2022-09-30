@@ -470,6 +470,25 @@ class ReserveFrame < ApplicationRecord
       resource_remaining_capacity_count = resource.remaining_capacity_count_within_range(start_datetime, end_datetime)
       raise '予約できません。使用する設備備品やスタッフなどのリソースが足りていません' if resource_remaining_capacity_count <= 0
     end
+    # 月額課金の予約制限チェック
+    if reservation.payment_method == 'monthlyPaymentPlan'
+      monthly_payment_plan = reservation.monthly_payment_plan
+      unless monthly_payment_plan.reserve_is_unlimited?
+        if monthly_payment_plan.reserve_interval_unit == 'Day'
+          target_day_reservation_count = self.reservations
+                                         .where(start_at: reservation.start_at.beginning_of_day..reservation.start_at.end_of_day)
+                                         .where(status: 'confirm')
+                                         .where(monthly_payment_plan_id: monthly_payment_plan.id).count
+          raise 'プランの予約可能数を超えています' if target_day_reservation_count >= monthly_payment_plan.enable_reserve_count
+        elsif monthly_payment_plan.reserve_interval_unit == 'Week'
+          target_day_reservation_count = self.reservations
+                                         .where(start_at: (reservation.start_at - 1.week).beginning_of_day..reservation.start_at.end_of_day)
+                                         .where(status: 'confirm')
+                                         .where(monthly_payment_plan_id: monthly_payment_plan.id).count
+          raise 'プランの予約可能数を超えています' if target_day_reservation_count >= monthly_payment_plan.enable_reserve_count
+        end
+      end
+    end
     return { status: 'ok', error_message: nil }
   rescue => error
     return { status: 'ng', error_message: error }
