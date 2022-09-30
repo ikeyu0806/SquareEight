@@ -198,15 +198,36 @@ class ReserveFrame < ApplicationRecord
 
   def calendar_json(year, month, week = nil)
     result = []
+    # 受付開始日判定
     range_start_date = Date.new(year, month)
-    range_end_date = Date.new(year, month, -1)
-    loop_start_date =  Date.parse(self.start_at.to_s) < Date.today ? Date.today : Date.parse(self.start_at.to_s)
-    loop_start_date = loop_start_date + cancel_reception_day_before.days if cancel_reception == "PossibleBeforeTheDay"
+    # 開始日が昨日以前の場合
+    if Date.parse(self.start_at.to_s) < Date.today
+      loop_start_date =  Date.today
+    # 開始日が明日以降の場合
+    else
+      loop_start_date = Date.parse(self.start_at.to_s)
+      # 受付回開始日考慮
+      # 今日が1/1で受付開始日が1/20。10日前から受付の場合、1/10がループ開始
+      if Date.today < loop_start_date - reception_start_day_before.days 
+        loop_start_date = loop_start_date - reception_start_day_before.days
+      end
+    end
+  
+    if cancel_reception == "PossibleBeforeTheDay"
+      loop_start_date = loop_start_date + cancel_reception_day_before.days 
+    end
     loop_start_date = loop_start_date < range_start_date ? range_start_date : loop_start_date
 
+     # 受付終了日判定
+    range_end_date = Date.new(year, month, -1)
     loop_end_date = Date.parse(self.repeat_end_date.to_s)
     # loop_end_date = loop_end_date - reception_start_day_before.days
-    loop_end_date = loop_end_date > range_end_date ? range_end_date : loop_end_date
+    loop_end_date > range_end_date ? range_end_date : loop_end_date
+    # 受付回開始日考慮
+    # 今日が1/1で受付繰り返し日が1/20。10日前から受付の場合、1/10まで受付
+    if Date.today + reception_start_day_before.days < loop_end_date
+      loop_end_date = Date.today + reception_start_day_before.days
+    end
 
     if self.is_repeat
       case self.repeat_interval_type
