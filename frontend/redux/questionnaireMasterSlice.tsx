@@ -19,7 +19,8 @@ export const questionnaireMasterSlice = createSlice({
     selectFormAnswers: [] as string[],
     radioButtonAnswers: [] as string[],
     checkboxAnswers: [] as string[],
-    questionnaireMasterItems: [] as QuestionnaireMasterItem[]
+    questionnaireMasterItems: [] as QuestionnaireMasterItem[],
+    answersJson: [] as any
   },
   reducers: {
     showAddFormModalChanged: (state, action: PayloadAction<boolean>) => {
@@ -64,6 +65,9 @@ export const questionnaireMasterSlice = createSlice({
     questionnaireMasterItemsChanged: (state, action: PayloadAction<QuestionnaireMasterItem[]>) => {
       state.questionnaireMasterItems = action.payload
     },
+    answersJsonChanged: (state, action: PayloadAction<any>) => {
+      state.answersJson = action.payload
+    },
   },
 })
 
@@ -81,5 +85,6 @@ export const { selectFormAnswersChanged } = questionnaireMasterSlice.actions
 export const { radioButtonAnswersChanged } = questionnaireMasterSlice.actions
 export const { checkboxAnswersChanged } = questionnaireMasterSlice.actions
 export const { questionnaireMasterItemsChanged } = questionnaireMasterSlice.actions
+export const { answersJsonChanged } = questionnaireMasterSlice.actions
 
 export default questionnaireMasterSlice.reducer

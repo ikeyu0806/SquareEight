@@ -1,6 +1,8 @@
 import React, { useEffect, useRef, createRef } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
-import { disableSubmitAnswerChanged, answerChangeDetectStateChanged } from 'redux/questionnaireMasterSlice'
+import { disableSubmitAnswerChanged,
+         answerChangeDetectStateChanged,
+         answersJsonChanged } from 'redux/questionnaireMasterSlice'
 import { RootState } from 'redux/store'
 import { FORM_TYPE } from 'constants/formType'
 import { Form } from 'react-bootstrap'
@@ -15,7 +17,6 @@ const QuestionnaireItemAnswerForm = () => {
 
   const questionnaireMasterItemsAnswerRefs = useRef<any>([])
   questionnaireMasterItemsAnswerRefs.current = questionnaireMasterItems.map((_, i) => questionnaireMasterItemsAnswerRefs.current[i] ?? createRef())
-
 
   useEffect(() => {
     let answer: any[] = []
@@ -112,6 +113,7 @@ const QuestionnaireItemAnswerForm = () => {
     } else {
       dispatch((disableSubmitAnswerChanged(false)))
     }
+    dispatch(answersJsonChanged(answer))
   }, [dispatch, questionnaireMasterItemsAnswerRefs, questionnaireMasterItems, answerChangeDetectState])
 
   return (

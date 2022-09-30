@@ -35,6 +35,7 @@ const Index: NextPage = () => {
 
   const questionnaireMasterItems = useSelector((state: RootState) => state.questionnaireMaster.questionnaireMasterItems)
   const disableSubmitAnswer = useSelector((state: RootState) => state.questionnaireMaster.disableSubmitAnswer)
+  const answersJson = useSelector((state: RootState) => state.questionnaireMaster.answersJson)
 
   const questionnaireMasterItemsQuestionRefs = useRef<any>([])
   questionnaireMasterItemsQuestionRefs.current = questionnaireMasterItems.map((_, i) => questionnaireMasterItemsQuestionRefs.current[i] ?? createRef())
@@ -117,7 +118,7 @@ const Index: NextPage = () => {
             first_name: firstName,
             phone_number: phoneNumber,
             email: email,
-            answer: answer
+            answer: answersJson
           }
         },
         {
