@@ -179,24 +179,11 @@ const Index: NextPage = () => {
                       )
                     })}
                   </ListGroup>}
-                  {isRegisteredAddress &&  <>
-                  <hr className='mt40' />
-                  <h4 className='mt20'>お届け先</h4>
-                  <Form.Check type='radio'
-                              id='registerdAddress'
-                              name='selectDeliveryTarget'
-                              checked={isRegisteredAddress}
-                              onClick={() => setIsRegisteredAddress(true)}
-                              label='登録住所にお届け'></Form.Check >
-                  <Form.Check type='radio'
-                              name='selectDeliveryTarget'
-                              id='newAddress'
-                              checked={!isRegisteredAddress}
-                              onClick={() => setIsRegisteredAddress(false)}
-                              label='新規に入力する'></Form.Check ></>}
                   {isRegisteredAddress && deliveryTargets && isRequireDeliveryTargets
                     &&
                     <ListGroup className='mt20'>
+                      <hr/>
+                      <h4>お届け先</h4>
                       {deliveryTargets?.map((target, i) => {
                         return (
                           <ListGroup.Item key={i}>
@@ -238,7 +225,14 @@ const Index: NextPage = () => {
                                   && <>&nbsp;<div className='badge bg-danger mb10'>品切れ</div></> }<br />
                                   {item.show_type && <>{item.selected_type_name}<br/></>}
                                   数量: {item.quantity}<br />
-                                  ￥{item.price} 税率{item.tax_rate}%
+                                  ￥{item.price}
+                                  {item.show_type && <>{item.selected_type_name}<br/></>}
+                                  {item.delivery_charge_type === 'noSetting'
+                                  && <div className='mt10'>配送料無料</div>}
+                                  {item.delivery_charge_type === 'flatRate'
+                                  && <div className='mt10'>配送料: ¥{item.flat_rate_delivery_charge}</div>}
+                                  {item.delivery_charge_type === 'perPrefectures'
+                                  && <div className='mt10'>配送料: ¥{item.prefecture_delivery_charge}</div>}
                                 </Col>
                                 <Col>
                                   <Button

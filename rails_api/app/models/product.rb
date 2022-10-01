@@ -16,4 +16,8 @@ class Product < ApplicationRecord
   def logical_delete
     update!(deleted_at: Time.zone.now)
   end
+
+  def prefecture_delivery_charge(state)
+    shipping_fee_per_regions.find_by(region: state).shipping_fee
+  end
 end

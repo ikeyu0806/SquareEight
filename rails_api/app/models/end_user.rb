@@ -80,7 +80,8 @@ class EndUser < ApplicationRecord
           product_type_id: cart.product_type_id,
           remaining_inventory: cart.product.inventory,
           delivery_charge_type: cart.product.delivery_charge_type,
-          flat_rate_delivery_charge: cart.product.flat_rate_delivery_charge
+          flat_rate_delivery_charge: cart.product.flat_rate_delivery_charge,
+          prefecture_delivery_charge: cart.product.prefecture_delivery_charge(self.delivery_targets.find_by(is_default: true).state)
         })
         total_price += price
       else

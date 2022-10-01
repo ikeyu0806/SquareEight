@@ -17,7 +17,6 @@ const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [cartItems, setCartItems] = useState<CartItemParam[]>()
   const [totalPrice, setTotalPrice] = useState(0)
-  const showProductTypeForm = useSelector((state: RootState) => state.product.showProductTypeForm)
 
   useEffect(() => {
     const fetchProduct = () => {
