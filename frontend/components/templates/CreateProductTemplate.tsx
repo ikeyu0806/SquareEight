@@ -196,17 +196,27 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label>値段（税込）</Form.Label>
-                <Form.Control placeholder='値段'
-                              min={0}
-                              onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
-                              value={String(price)} />
+                <Row>
+                  <Col>
+                    <Form.Control placeholder='値段'
+                                min={0}
+                                onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
+                                value={String(price)} />
+                  </Col>
+                  <Col></Col>
+                </Row>
               </Form.Group>
               <Form.Group className='mb-3'>
                 <Form.Label>税率</Form.Label>
-                <Form.Select onChange={e => dispatch(taxRateChanged(Number(e.target.value)))}>
-                  <option value={10}>10%（標準税率）</option>
-                  <option value={8}>8%（軽減税率）</option>
-                </Form.Select>
+                <Row>
+                  <Col>
+                    <Form.Select onChange={e => dispatch(taxRateChanged(Number(e.target.value)))}>
+                      <option value={10}>10%（標準税率）</option>
+                      <option value={8}>8%（軽減税率）</option>
+                    </Form.Select>
+                  </Col>
+                  <Col></Col>
+                </Row>
               </Form.Group>
               <Row>
                 <Col>
@@ -225,8 +235,10 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
               </Row>
               <Form.Group className='mb-3'>
                 <Form.Label>在庫と種類</Form.Label>
-                {!showProductTypeForm && <Row>
+                {!showProductTypeForm &&
+                  <Row>
                     <Col>
+                      <Form.Label>在庫数</Form.Label>
                       <Form.Control placeholder='在庫'
                                     min={0}
                                     type='number'
@@ -237,6 +249,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                         className='mt10 text-white'
                         variant='info text-white'>種類を追加する</Button>
                     </Col>
+                    <Col></Col>
                   </Row>}
                   {showProductTypeForm &&
                     <>
@@ -252,7 +265,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                               </Form.Control>
                             </Col>
                             <Col sm={3}>
-                              <Form.Label>在庫</Form.Label>
+                              <Form.Label>在庫数</Form.Label>
                               <Row>
                                 <Col sm={10}>
                                   <Form.Control placeholder='在庫'
@@ -307,6 +320,16 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                     name='deliveryCharge'
                   ></Form.Check>
               </Form.Group>
+              {deliveryChargeType === 'flatRate' &&
+              <>
+                <Row>
+                  <Col>
+                    <Form.Label>配送料</Form.Label>
+                    <Form.Control></Form.Control>
+                  </Col>
+                  <Col></Col>
+                </Row>
+              </>}
             </div>
           </Col>
           <Col>
