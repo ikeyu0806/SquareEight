@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { ProductType } from 'interfaces/ProductType'
+import { prefecturesArray } from 'constants/prefecturesArray'
 import { nameChanged,
          descriptionChanged,
          base64ImageChanged,
@@ -326,6 +327,22 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                   <Col>
                     <Form.Label>配送料</Form.Label>
                     <Form.Control></Form.Control>
+                  </Col>
+                  <Col></Col>
+                </Row>
+              </>}
+              {deliveryChargeType === 'perPrefectures' &&
+              <>
+                <Row>
+                  <Col>
+                    {prefecturesArray.map((prefecture, i) => {
+                      return (
+                        <div key={i}>
+                          <Form.Label className='mt10'> {prefecture} 配送料</Form.Label>
+                          <Form.Control></Form.Control>
+                        </div>
+                      )
+                    })}
                   </Col>
                   <Col></Col>
                 </Row>
