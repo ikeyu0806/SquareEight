@@ -27,8 +27,9 @@ const New: NextPage = () => {
   const base64Image = useSelector((state: RootState) => state.product.base64Image)
   const applyProductType = useSelector((state: RootState) => state.product.applyProductType)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
+  const prefectureDeliveryCharges = useSelector((state: RootState) => state.product.prefectureDeliveryCharges)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
-
+  
   useEffect(() => {
     dispatch(publishStatusChanged('Unpublish'))
   }, [dispatch])
@@ -57,7 +58,8 @@ const New: NextPage = () => {
         inventory: inventory,
         publish_status: publishStatus,
         base64_image: base64Image,
-        product_types: applyProductType ? productTypes : []
+        product_types: applyProductType ? productTypes : [],
+        prefecture_delivery_charges: prefectureDeliveryCharges
       }
     },
     {

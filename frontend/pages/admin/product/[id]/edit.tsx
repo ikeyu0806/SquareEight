@@ -34,6 +34,7 @@ const Edit: NextPage = () => {
   const publishStatus = useSelector((state: RootState) => state.product.publishStatus)
   const applyProductType = useSelector((state: RootState) => state.product.applyProductType)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
+  const prefectureDeliveryCharges = useSelector((state: RootState) => state.product.prefectureDeliveryCharges)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
   useEffect(() => {
@@ -88,7 +89,8 @@ const Edit: NextPage = () => {
         inventory: inventory,
         publish_tatus: publishStatus,
         base64_image: base64Image,
-        product_types: applyProductType ? productTypes : []
+        product_types: applyProductType ? productTypes : [],
+        prefecture_delivery_charges: prefectureDeliveryCharges
       }
     },
     {
