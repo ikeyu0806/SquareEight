@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   has_many :shipping_fee_per_regions
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
+  enum delivery_charge_type: { noSetting: 0, flatRate: 1, perPrefectures: 2 }
 
   scope :enabled, -> { where(deleted_at: nil) }
 

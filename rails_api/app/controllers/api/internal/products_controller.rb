@@ -155,6 +155,8 @@ class Api::Internal::ProductsController < ApplicationController
                   :line2,
                   :phone_number,
                   :publish_status,
+                  :delivery_charge_type,
+                  :flat_rate_delivery_charge,
                   prefecture_delivery_charges: [:region, :shipping_fee],
                   product_types: [:name, :inventory])
   end

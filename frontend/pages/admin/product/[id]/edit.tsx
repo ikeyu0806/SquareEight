@@ -35,6 +35,9 @@ const Edit: NextPage = () => {
   const applyProductType = useSelector((state: RootState) => state.product.applyProductType)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
   const prefectureDeliveryCharges = useSelector((state: RootState) => state.product.prefectureDeliveryCharges)
+  const deliveryChargeType = useSelector((state: RootState) => state.product.deliveryChargeType)
+  const flatRateDeliveryCharge = useSelector((state: RootState) => state.product.flatRateDeliveryCharge)
+
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
   useEffect(() => {
@@ -90,7 +93,9 @@ const Edit: NextPage = () => {
         publish_tatus: publishStatus,
         base64_image: base64Image,
         product_types: applyProductType ? productTypes : [],
-        prefecture_delivery_charges: prefectureDeliveryCharges
+        prefecture_delivery_charges: prefectureDeliveryCharges,
+        delivery_charge_type: deliveryChargeType,
+        flat_rate_delivery_charge: flatRateDeliveryCharge
       }
     },
     {
