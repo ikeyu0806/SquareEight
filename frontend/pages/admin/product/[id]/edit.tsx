@@ -18,6 +18,9 @@ import {  nameChanged,
           descriptionChanged,
           productTypesChanged,
           s3ObjectPublicUrlChanged,
+          deliveryChargeTypeChanged,
+          flatRateDeliveryChargeChange,
+          prefectureDeliveryChargesChange,
           showProductTypeFormChanged } from 'redux/productSlice'
 
 const Edit: NextPage = () => {
@@ -50,16 +53,17 @@ const Edit: NextPage = () => {
         }
       )
       .then(function (response) {
-        const productResponse: ProductParam = response.data.product
-        dispatch(nameChanged(productResponse.name))
-        dispatch(priceChanged(productResponse.price))
-        dispatch(taxRateChanged(productResponse.tax_rate))
-        dispatch(inventoryChanged(productResponse.inventory))
-        dispatch(descriptionChanged(productResponse.description))
-        dispatch(s3ObjectPublicUrlChanged(productResponse.s3_object_public_url))
+        dispatch(nameChanged(response.data.product.name))
+        dispatch(priceChanged(response.data.product.price))
+        dispatch(taxRateChanged(response.data.product.tax_rate))
+        dispatch(inventoryChanged(response.data.product.inventory))
+        dispatch(descriptionChanged(response.data.product.description))
+        dispatch(s3ObjectPublicUrlChanged(response.data.product.s3_object_public_url))
         dispatch(productTypesChanged(response.data.product.product_types))
         dispatch(showProductTypeFormChanged(response.data.product.show_product_type_form))
-
+        dispatch(deliveryChargeTypeChanged(response.data.product.delivery_charge_type))
+        dispatch(prefectureDeliveryChargesChange(response.data.product.shipping_fee_per_regions))
+        dispatch(flatRateDeliveryChargeChange(response.data.product.flat_rate_delivery_charge))
       })
       .catch(error => {
         console.log(error)
