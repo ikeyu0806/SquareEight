@@ -21,7 +21,7 @@ class Api::Internal::ProductsController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      product = current_merchant_user.account.products.new(product_params.except(:base64_image, :product_types))
+      product = current_merchant_user.account.products.new(product_params.except(:base64_image, :product_types, :prefecture_delivery_charges))
       if product_params[:base64_image].present?
         file_name = "product_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         product.s3_object_public_url = put_s3_http_request_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
@@ -29,6 +29,9 @@ class Api::Internal::ProductsController < ApplicationController
       end
       product_params[:product_types].each do |product_type|
         product.product_types.new(name: product_type[:name], inventory: product_type[:inventory])
+      end
+      product_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
+        product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
       end
       product.save!
       render json: { status: 'success' }, states: 200
@@ -40,12 +43,20 @@ class Api::Internal::ProductsController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       product = Product.find(params[:id])
-      product.attributes = (product_params.except(:base64_image))
+      product.attributes = (product_params.except(:base64_image, :product_types, :prefecture_delivery_charges))
       if (product_params[:base64_image].present?)
         product.delete_s3_image if product.s3_object_public_url.present?
         file_name = "ticket_master_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         product.s3_object_public_url = put_s3_http_request_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         product.s3_object_name = file_name
+      end
+      product.product_types.delete_all
+      product_params[:product_types].each do |product_type|
+        product.product_types.new(name: product_type[:name], inventory: product_type[:inventory])
+      end
+      product.prefecture_delivery_charges.delete_all
+      product_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
+        product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
       end
       product.save!
       render json: { status: 'success' }, states: 200
