@@ -22,7 +22,8 @@ import { nameChanged,
          deliveryChargeTypeChanged,
          flatRateDeliveryChargeChange,
          prefectureDeliveryChargesChange,
-         showProductTypeFormChanged } from 'redux/productSlice'
+         showProductTypeFormChanged,
+         deliveryChargeWithOrderNumberChanged } from 'redux/productSlice'
 
 interface Props {
   showDeleteButton?: boolean
@@ -48,6 +49,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const deliveryChargeType = useSelector((state: RootState) => state.product.deliveryChargeType)
   const flatRateDeliveryCharge = useSelector((state: RootState) => state.product.flatRateDeliveryCharge)
   const prefectureDeliveryCharges = useSelector((state: RootState) => state.product.prefectureDeliveryCharges)
+  const deliveryChargeWithOrderNumber = useSelector((state: RootState) => state.product.deliveryChargeWithOrderNumber)
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -313,7 +315,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                 <Form.Label>配送料</Form.Label>
                   <Form.Check
                     type='radio'
-                    label='設定しない'
+                    label='配送料を無料にする'
                     checked={deliveryChargeType === 'noSetting'}
                     onChange={() => dispatch(deliveryChargeTypeChanged('noSetting'))}
                     id='noDeliveryCharge'
@@ -336,6 +338,27 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                     name='deliveryCharge'
                   ></Form.Check>
               </Form.Group>
+              {['flatRate', 'perPrefectures'].includes(deliveryChargeType) &&
+              <>
+                <Form.Check
+                  type='radio'
+                  checked={deliveryChargeWithOrderNumber === 'nationwideUniform'}
+                  onChange={() => dispatch(deliveryChargeWithOrderNumberChanged('nationwideUniform'))}
+                  label='注文数に関わらず一律の配送料を請求する。 配送料100円 注文数3の場合100円を顧客に請求します。'
+                  id='deliveryChargeWithOrderNumberFlat'
+                  name='deliveryChargeWithOrderNumber'
+                >
+                </Form.Check>
+                <Form.Check
+                  type='radio'
+                  checked={deliveryChargeWithOrderNumber === 'withOrderNumber'}
+                  onChange={() => dispatch(deliveryChargeWithOrderNumberChanged('withOrderNumber'))}
+                  label='注文数1つごとに配送料を請求する。 配送料100円 注文数3の場合300円を顧客に請求します。'
+                  id='deliveryChargeWithOrderNumber'
+                  name='deliveryChargeWithOrderNumber'
+                >
+                </Form.Check>
+              </>}
               {deliveryChargeType === 'flatRate' &&
               <>
                 <Row>
