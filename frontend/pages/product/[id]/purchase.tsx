@@ -14,14 +14,17 @@ import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { alertChanged } from 'redux/alertSlice'
 import { loginStatusChanged, paymentMethodsChanged, defaultPaymentMethodIdChanged } from 'redux/currentEndUserSlice'
 import { DeliveryTargetParam } from 'interfaces/DeliveryTargetParam'
-import { nameChanged,
-         priceChanged,
-         taxRateChanged,
-         inventoryChanged,
-         descriptionChanged,
-         productTypesChanged,
-         showProductTypeFormChanged,
-         publishStatusChanged,
+import {  nameChanged,
+          priceChanged,
+          taxRateChanged,
+          inventoryChanged,
+          descriptionChanged,
+          productTypesChanged,
+          showProductTypeFormChanged,
+          publishStatusChanged,
+          deliveryChargeTypeChanged,
+          flatRateDeliveryChargeChange,
+          prefectureDeliveryChargesChange,
          s3ObjectPublicUrlChanged } from 'redux/productSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
@@ -47,6 +50,9 @@ const Purchase: NextPage = () => {
   const publishStatus = useSelector((state: RootState) => state.product.publishStatus)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.product.s3ObjectPublicUrl)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
+  const prefectureDeliveryCharges = useSelector((state: RootState) => state.product.prefectureDeliveryCharges)
+  const deliveryChargeType = useSelector((state: RootState) => state.product.deliveryChargeType)
+  const flatRateDeliveryCharge = useSelector((state: RootState) => state.product.flatRateDeliveryCharge)
   const showProductTypeForm = useSelector((state: RootState) => state.product.showProductTypeForm)
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const defaultPaymentMethodId = useSelector((state: RootState) => state.currentEndUser.defaultPaymentMethodId)
@@ -73,14 +79,17 @@ const Purchase: NextPage = () => {
         }
       )
       .then(function (response) {
-        const productResponse: ProductParam = response.data.product
-        dispatch(nameChanged(productResponse.name))
-        dispatch(priceChanged(productResponse.price))
-        dispatch(taxRateChanged(productResponse.tax_rate))
-        dispatch(inventoryChanged(productResponse.inventory))
-        dispatch(descriptionChanged(productResponse.description))
-        dispatch(publishStatusChanged(productResponse.publish_status))
-        dispatch(s3ObjectPublicUrlChanged(productResponse.s3_object_public_url))
+        dispatch(nameChanged(response.data.product.name))
+        dispatch(priceChanged(response.data.product.price))
+        dispatch(taxRateChanged(response.data.product.tax_rate))
+        dispatch(inventoryChanged(response.data.product.inventory))
+        dispatch(descriptionChanged(response.data.product.description))
+        dispatch(publishStatusChanged(response.data.product.publish_status))
+        dispatch(s3ObjectPublicUrlChanged(response.data.product.s3_object_public_url))
+        dispatch(deliveryChargeTypeChanged(response.data.product.delivery_charge_type))
+        dispatch(prefectureDeliveryChargesChange(response.data.product.shipping_fee_per_regions))
+        dispatch(flatRateDeliveryChargeChange(response.data.product.flat_rate_delivery_charge))
+
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
@@ -238,6 +247,13 @@ const Purchase: NextPage = () => {
                 <h3>{name}</h3>
                 <div className='mt10'>{price}円（税込）</div>
                 <div className='mt10'>税率{taxRate}%</div>
+                <div>{deliveryChargeType === 'noSetting'
+                && <div className='mt10'>配送料無料</div>}</div>
+                <div>{deliveryChargeType === 'flatRate'
+                && <div className='mt10'>配送料: ￥{flatRateDeliveryCharge}</div>}</div>
+                <div>{deliveryChargeType === 'perPrefectures'
+                && <div className='mt10'>配送料: 都道府県ごとに異なります</div>}</div>
+                <hr/>
                 <div className='mt10'>{description}</div>
                 {showProductTypeForm &&
                 <>
@@ -254,6 +270,7 @@ const Purchase: NextPage = () => {
                       />
                     )
                   })}
+                  <hr />
                 </>}
                 <Row>
                   <Col sm={2}>
