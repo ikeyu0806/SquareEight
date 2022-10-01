@@ -39,6 +39,7 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
+        console.log(response)
         setIsRegisteredAddress(response.data.is_require_delivery_targets)
         setCurrentEndUserId(response.data.current_end_user_id)
         setTotalPrice(response.data.total_price)
@@ -182,10 +183,14 @@ const Index: NextPage = () => {
                   <hr className='mt40' />
                   <h4 className='mt20'>お届け先</h4>
                   <Form.Check type='radio'
+                              id='registerdAddress'
+                              name='selectDeliveryTarget'
                               checked={isRegisteredAddress}
                               onClick={() => setIsRegisteredAddress(true)}
                               label='登録住所にお届け'></Form.Check >
                   <Form.Check type='radio'
+                              name='selectDeliveryTarget'
+                              id='newAddress'
                               checked={!isRegisteredAddress}
                               onClick={() => setIsRegisteredAddress(false)}
                               label='新規に入力する'></Form.Check ></>}
@@ -220,37 +225,52 @@ const Index: NextPage = () => {
                       switch (item.item_type) {
                         case 'Product':
                           return(
-                            <>
-                              <ListGroup.Item key={i}>
-                                <Row>
-                                  {item.s3_object_public_url && <Col><img
-                                      className='d-block w-100 mt30'
-                                      src={item.s3_object_public_url}
-                                      alt='image'/></Col>}
-                                  <Col>
-                                    {item.business_name}<br/>
-                                    {item.product_name}
-                                    {item.remaining_inventory <= 0
-                                    && <>&nbsp;<div className='badge bg-danger mb10'>品切れ</div></> }<br />
-                                    {item.show_type && <>{item.selected_type_name}<br/></>}
-                                    数量: {item.quantity}<br />
-                                    ￥{item.price} 税率{item.tax_rate}%
-                                  </Col>
-                                  <Col>
-                                    <Button
-                                      onClick={() => deleteCartItem(item.id, item.item_type)}
-                                      className='mt50'
-                                      size='sm'
-                                      variant='danger'>
-                                      カートから削除
-                                    </Button>
-                                  </Col>
-                                </Row>
-                              </ListGroup.Item>
-                            </>)
+                            <ListGroup.Item key={i}>
+                              <Row>
+                                {item.s3_object_public_url && <Col><img
+                                    className='d-block w-100 mt30'
+                                    src={item.s3_object_public_url}
+                                    alt='image'/></Col>}
+                                <Col>
+                                  {item.business_name}<br/>
+                                  {item.product_name}
+                                  {item.remaining_inventory <= 0
+                                  && <>&nbsp;<div className='badge bg-danger mb10'>品切れ</div></> }<br />
+                                  {item.show_type && <>{item.selected_type_name}<br/></>}
+                                  数量: {item.quantity}<br />
+                                  ￥{item.price} 税率{item.tax_rate}%
+                                </Col>
+                                <Col>
+                                  <Button
+                                    onClick={() => deleteCartItem(item.id, item.item_type)}
+                                    className='mt50'
+                                    size='sm'
+                                    variant='danger'>
+                                    カートから削除
+                                  </Button>
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                            )
                         case 'TicketMaster':
                           return (
-                            <>
+                            <ListGroup.Item key={i}>
+                              <Row>
+                                {item.s3_object_public_url && <Col><img
+                                    className='d-block w-100'
+                                    src={item.s3_object_public_url}
+                                    alt='image'/></Col>}
+                                <Col>
+                                  {item.business_name}<br/>
+                                  {item.product_name} 有効期限: {item.is_expired === false ? `${item.effective_month}ヶ月` : '有効期限なし'} <br />
+                                  数量: {item.quantity}<br />
+                                  ￥{item.price}
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                          )
+                          case 'MonthlyPaymentPlan':
+                            return (
                               <ListGroup.Item key={i}>
                                 <Row>
                                   {item.s3_object_public_url && <Col><img
@@ -259,31 +279,11 @@ const Index: NextPage = () => {
                                       alt='image'/></Col>}
                                   <Col>
                                     {item.business_name}<br/>
-                                    {item.product_name} 有効期限: {item.is_expired === false ? `${item.effective_month}ヶ月` : '有効期限なし'} <br />
-                                    数量: {item.quantity}<br />
+                                    {item.product_name}<br />
                                     ￥{item.price}
                                   </Col>
                                 </Row>
                               </ListGroup.Item>
-                            </>
-                          )
-                          case 'MonthlyPaymentPlan':
-                            return (
-                              <>
-                                <ListGroup.Item key={i}>
-                                  <Row>
-                                    {item.s3_object_public_url && <Col><img
-                                        className='d-block w-100'
-                                        src={item.s3_object_public_url}
-                                        alt='image'/></Col>}
-                                    <Col>
-                                      {item.business_name}<br/>
-                                      {item.product_name}<br />
-                                      ￥{item.price}
-                                    </Col>
-                                  </Row>
-                                </ListGroup.Item>
-                              </>
                             )
                         default:
                           return (<></>)
