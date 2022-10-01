@@ -316,12 +316,14 @@ const Purchase: NextPage = () => {
                   <h4 className='mt20'>お届け先</h4>
                   <Form.Check type='radio'
                               id='registeredAddress'
-                              checked={isRegisteredAddress}
+                              name='targetAddress'
+                              defaultChecked={isRegisteredAddress}
                               onClick={() => setIsRegisteredAddress(true)}
                               label='登録住所にお届け'></Form.Check >
                   <Form.Check type='radio'
                               id='registerAddress'
-                              checked={!isRegisteredAddress}
+                              name='targetAddress'
+                              defaultChecked={!isRegisteredAddress}
                               onClick={() => setIsRegisteredAddress(false)}
                               label='新規に入力する'></Form.Check >
                   {isRegisteredAddress && currentEndUserLogintStatus === 'Login'
