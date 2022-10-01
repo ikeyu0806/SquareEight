@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ProductType } from 'interfaces/ProductType'
 import { DeliveryCharge } from 'interfaces/DeliveryCharge'
+import { prefecturesDeliveryTargetInitValue } from 'constants/prefecturesDeliveryTargetInitValue'
 
 export const productSlice = createSlice({
   name: 'alert',
@@ -18,7 +19,7 @@ export const productSlice = createSlice({
     productTypes: [{name: '', inventory: 1}, {name: '', inventory: 1}] as ProductType[],
     deliveryChargeType: 'noSetting',
     flatRateDeliveryCharge: 100,
-    prefectureDeliveryCharges: [] as DeliveryCharge[]
+    prefectureDeliveryCharges: prefecturesDeliveryTargetInitValue as DeliveryCharge[]
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
