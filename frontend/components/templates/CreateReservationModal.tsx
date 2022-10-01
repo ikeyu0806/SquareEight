@@ -147,7 +147,6 @@ const CreateReservationModal = (): JSX.Element => {
   }
 
   return (
-
     <Modal show={showRegisterReservationModal}>
       <Modal.Header>予約登録</Modal.Header>
       <Modal.Body>

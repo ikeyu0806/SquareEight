@@ -19,7 +19,8 @@ export const productSlice = createSlice({
     productTypes: [{name: '', inventory: 1}, {name: '', inventory: 1}] as ProductType[],
     deliveryChargeType: 'noSetting',
     flatRateDeliveryCharge: 100,
-    prefectureDeliveryCharges: prefecturesDeliveryTargetInitValue as DeliveryCharge[]
+    prefectureDeliveryCharges: prefecturesDeliveryTargetInitValue as DeliveryCharge[],
+    showPerPrefecturesChargeModal: false,
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -64,6 +65,9 @@ export const productSlice = createSlice({
     prefectureDeliveryChargesChange: (state, action: PayloadAction<DeliveryCharge[]>) => {
       state.prefectureDeliveryCharges = action.payload
     },
+    showPerPrefecturesChargeModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showPerPrefecturesChargeModal = action.payload
+    },
   },
 })
 
@@ -81,5 +85,6 @@ export const { productTypesChanged } = productSlice.actions
 export const { deliveryChargeTypeChanged } = productSlice.actions
 export const { flatRateDeliveryChargeChange } = productSlice.actions
 export const { prefectureDeliveryChargesChange } = productSlice.actions
+export const { showPerPrefecturesChargeModalChanged } = productSlice.actions
 
 export default productSlice.reducer

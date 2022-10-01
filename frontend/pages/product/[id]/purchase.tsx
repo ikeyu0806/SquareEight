@@ -9,7 +9,7 @@ import { RootState } from 'redux/store'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
-import { ProductParam } from 'interfaces/ProductParam'
+import PrefecturesChargeModal from 'components/templates/PrefecturesChargeModal'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { alertChanged } from 'redux/alertSlice'
 import { loginStatusChanged, paymentMethodsChanged, defaultPaymentMethodIdChanged } from 'redux/currentEndUserSlice'
@@ -25,6 +25,7 @@ import {  nameChanged,
           deliveryChargeTypeChanged,
           flatRateDeliveryChargeChange,
           prefectureDeliveryChargesChange,
+          showPerPrefecturesChargeModalChanged,
          s3ObjectPublicUrlChanged } from 'redux/productSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
@@ -50,7 +51,8 @@ const Purchase: NextPage = () => {
   const publishStatus = useSelector((state: RootState) => state.product.publishStatus)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.product.s3ObjectPublicUrl)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
-  const prefectureDeliveryCharges = useSelector((state: RootState) => state.product.prefectureDeliveryCharges)
+  const showPerPrefecturesChargeModal = useSelector((state: RootState) => state.product.showPerPrefecturesChargeModal)
+
   const deliveryChargeType = useSelector((state: RootState) => state.product.deliveryChargeType)
   const flatRateDeliveryCharge = useSelector((state: RootState) => state.product.flatRateDeliveryCharge)
   const showProductTypeForm = useSelector((state: RootState) => state.product.showProductTypeForm)
@@ -252,7 +254,7 @@ const Purchase: NextPage = () => {
                 <div>{deliveryChargeType === 'flatRate'
                 && <div className='mt10'>配送料: ￥{flatRateDeliveryCharge}</div>}</div>
                 <div>{deliveryChargeType === 'perPrefectures'
-                && <div className='mt10'>配送料: 都道府県ごとに異なります</div>}</div>
+                && <div className='mt10'>配送料: <a href='#' onClick={() => dispatch(showPerPrefecturesChargeModalChanged(true))}>都道府県ごとに異なります</a></div>}</div>
                 <hr/>
                 <div className='mt10'>{description}</div>
                 {showProductTypeForm &&
@@ -359,6 +361,7 @@ const Purchase: NextPage = () => {
           </Col>
         </Row>}
       </Container>
+      <PrefecturesChargeModal></PrefecturesChargeModal>
     </MerchantCustomLayout>
   )
 }
