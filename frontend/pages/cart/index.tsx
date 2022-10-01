@@ -1,17 +1,23 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
+import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from 'redux/store'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { CartItemParam } from 'interfaces/CartItemsParam'
+import { showPerPrefecturesChargeModalChanged } from 'redux/productSlice'
+import PrefecturesChargeModal from 'components/templates/PrefecturesChargeModal'
 
 const Index: NextPage = () => {
+  const dispatch = useDispatch()
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [cartItems, setCartItems] = useState<CartItemParam[]>()
   const [totalPrice, setTotalPrice] = useState(0)
+  const showProductTypeForm = useSelector((state: RootState) => state.product.showProductTypeForm)
 
   useEffect(() => {
     const fetchProduct = () => {
@@ -48,26 +54,46 @@ const Index: NextPage = () => {
                       switch (item.item_type) {
                         case 'Product':
                           return(
-                            <>
-                              <ListGroup.Item key={i}>
-                                <Row>
-                                  {item.s3_object_public_url && <Col><img
-                                      className='d-block w-100 mt30'
-                                      src={item.s3_object_public_url}
-                                      alt='image'/></Col>}
-                                  <Col>
-                                    {item.business_name}<br/>
-                                    {item.product_name}<br />
-                                    {item.show_type && <>{item.selected_type_name}<br/></>}
-                                    数量: {item.quantity}<br />
-                                    ￥{item.price} 税率{item.tax_rate}%
-                                  </Col>
-                                </Row>
-                              </ListGroup.Item>
-                            </>)
+                            <ListGroup.Item key={i}>
+                              <Row>
+                                {item.s3_object_public_url && <Col><img
+                                    className='d-block w-100 mt30'
+                                    src={item.s3_object_public_url}
+                                    alt='image'/></Col>}
+                                <Col>
+                                  {item.business_name}<br/>
+                                  {item.product_name}<br />
+                                  {item.show_type && <>{item.selected_type_name}<br/></>}
+                                  数量: {item.quantity}<br />
+                                  ￥{item.price} 税率{item.tax_rate}%
+                                  {item.delivery_charge_type === 'noSetting'
+                                  && <div className='mt10'>配送料無料</div>}
+                                  {item.delivery_charge_type === 'flatRate'
+                                  && <div className='mt10'>配送料: ￥{item.flat_rate_delivery_charge}</div>}
+                                  {item.delivery_charge_type === 'perPrefectures'
+                                  && <div className='mt10'>配送料: <a href='#' onClick={() => dispatch(showPerPrefecturesChargeModalChanged(true))}>都道府県ごとに異なります</a></div>}
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>)
                         case 'TicketMaster':
                           return (
-                            <>
+                            <ListGroup.Item key={i}>
+                              <Row>
+                                {item.s3_object_public_url && <Col><img
+                                    className='d-block w-100'
+                                    src={item.s3_object_public_url}
+                                    alt='image'/></Col>}
+                                <Col>
+                                  {item.business_name}<br/>
+                                  {item.product_name} 有効期限: {item.is_expired === false ? `${item.effective_month}ヶ月` : '有効期限なし'} <br />
+                                  数量: {item.quantity}<br />
+                                  ￥{item.price}
+                                </Col>
+                              </Row>
+                            </ListGroup.Item>
+                          )
+                          case 'MonthlyPaymentPlan':
+                            return (
                               <ListGroup.Item key={i}>
                                 <Row>
                                   {item.s3_object_public_url && <Col><img
@@ -76,31 +102,11 @@ const Index: NextPage = () => {
                                       alt='image'/></Col>}
                                   <Col>
                                     {item.business_name}<br/>
-                                    {item.product_name} 有効期限: {item.is_expired === false ? `${item.effective_month}ヶ月` : '有効期限なし'} <br />
-                                    数量: {item.quantity}<br />
+                                    {item.product_name}<br />
                                     ￥{item.price}
                                   </Col>
                                 </Row>
                               </ListGroup.Item>
-                            </>
-                          )
-                          case 'MonthlyPaymentPlan':
-                            return (
-                              <>
-                                <ListGroup.Item key={i}>
-                                  <Row>
-                                    {item.s3_object_public_url && <Col><img
-                                        className='d-block w-100'
-                                        src={item.s3_object_public_url}
-                                        alt='image'/></Col>}
-                                    <Col>
-                                      {item.business_name}<br/>
-                                      {item.product_name}<br />
-                                      ￥{item.price}
-                                    </Col>
-                                  </Row>
-                                </ListGroup.Item>
-                              </>
                             )
                         default:
                           return (<></>)
@@ -126,6 +132,7 @@ const Index: NextPage = () => {
           </Col>
         </Row>
       </Container>
+      <PrefecturesChargeModal></PrefecturesChargeModal>
     </EndUserLoginLayout>
   )
 }

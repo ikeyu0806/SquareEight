@@ -78,7 +78,9 @@ class EndUser < ApplicationRecord
           product_type_name: cart.product_type&.name,
           parent_product_id: cart.product.id,
           product_type_id: cart.product_type_id,
-          remaining_inventory: cart.product.inventory
+          remaining_inventory: cart.product.inventory,
+          delivery_charge_type: cart.product.delivery_charge_type,
+          flat_rate_delivery_charge: cart.product.flat_rate_delivery_charge
         })
         total_price += price
       else

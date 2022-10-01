@@ -26,7 +26,7 @@ import {  nameChanged,
           flatRateDeliveryChargeChange,
           prefectureDeliveryChargesChange,
           showPerPrefecturesChargeModalChanged,
-         s3ObjectPublicUrlChanged } from 'redux/productSlice'
+          s3ObjectPublicUrlChanged } from 'redux/productSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -51,7 +51,6 @@ const Purchase: NextPage = () => {
   const publishStatus = useSelector((state: RootState) => state.product.publishStatus)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.product.s3ObjectPublicUrl)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
-  const showPerPrefecturesChargeModal = useSelector((state: RootState) => state.product.showPerPrefecturesChargeModal)
 
   const deliveryChargeType = useSelector((state: RootState) => state.product.deliveryChargeType)
   const flatRateDeliveryCharge = useSelector((state: RootState) => state.product.flatRateDeliveryCharge)
@@ -249,12 +248,12 @@ const Purchase: NextPage = () => {
                 <h3>{name}</h3>
                 <div className='mt10'>{price}円（税込）</div>
                 <div className='mt10'>税率{taxRate}%</div>
-                <div>{deliveryChargeType === 'noSetting'
-                && <div className='mt10'>配送料無料</div>}</div>
-                <div>{deliveryChargeType === 'flatRate'
-                && <div className='mt10'>配送料: ￥{flatRateDeliveryCharge}</div>}</div>
-                <div>{deliveryChargeType === 'perPrefectures'
-                && <div className='mt10'>配送料: <a href='#' onClick={() => dispatch(showPerPrefecturesChargeModalChanged(true))}>都道府県ごとに異なります</a></div>}</div>
+                {deliveryChargeType === 'noSetting'
+                && <div className='mt10'>配送料無料</div>}
+                {deliveryChargeType === 'flatRate'
+                && <div className='mt10'>配送料: ￥{flatRateDeliveryCharge}</div>}
+                {deliveryChargeType === 'perPrefectures'
+                && <div className='mt10'>配送料: <a href='#' onClick={() => dispatch(showPerPrefecturesChargeModalChanged(true))}>都道府県ごとに異なります</a></div>}
                 <hr/>
                 <div className='mt10'>{description}</div>
                 {showProductTypeForm &&
@@ -297,20 +296,20 @@ const Purchase: NextPage = () => {
                   <hr className='mt40' />
                   <h4 className='mt20'>お支払い方法</h4>
                   {<ListGroup>
-                      {paymentMethods?.map((pay, i) => {
-                        return (
-                          <ListGroup.Item key={i}>
-                            {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
-                            {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
-                            {defaultPaymentMethodId !== pay.id
-                              &&
-                                <>
-                                  <br/>
-                                  <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
-                                </>}
-                          </ListGroup.Item>
-                        )
-                      })}
+                    {paymentMethods?.map((pay, i) => {
+                      return (
+                        <ListGroup.Item key={i}>
+                          {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
+                          {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
+                          {defaultPaymentMethodId !== pay.id
+                            &&
+                              <>
+                                <br/>
+                                <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
+                              </>}
+                        </ListGroup.Item>
+                      )
+                    })}
                    </ListGroup>}
                    <hr className='mt40' />
                   <h4 className='mt20'>お届け先</h4>
@@ -352,11 +351,13 @@ const Purchase: NextPage = () => {
                     && <div className='mb10 mt10'>お届け先が登録されていません
                       </div>}
                   {!isRegisteredAddress && currentEndUserLogintStatus === 'Login'
-                    && <><div className='mt20 mb20'></div><CreateDeliveryTarget></CreateDeliveryTarget></>}
-                    <Button className='mt30'
-                            disabled={validateSubmit()}
-                            onClick={() => insertCart()}>カートに入れる</Button>
-                  </>
+                    &&
+                    <>
+                      <div className='mt20 mb20'></div><CreateDeliveryTarget></CreateDeliveryTarget></>}
+                      <Button className='mt30'
+                              disabled={validateSubmit()}
+                              onClick={() => insertCart()}>カートに入れる</Button>
+                    </>
                 }
               </Card.Body>
             </Card>
