@@ -20,6 +20,8 @@ import { nameChanged,
          productTypesChanged,
          publishStatusChanged,
          deliveryChargeTypeChanged,
+         flatRateDeliveryChargeChange,
+         prefectureDeliveryChargesChange,
          showProductTypeFormChanged } from 'redux/productSlice'
 
 interface Props {
@@ -44,6 +46,8 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const productTypeInventoryRefs = useRef<any>([])
   productTypeInventoryRefs.current = productTypes.map((_, i) => productTypeInventoryRefs.current[i] ?? createRef())
   const deliveryChargeType = useSelector((state: RootState) => state.product.deliveryChargeType)
+  const flatRateDeliveryCharge = useSelector((state: RootState) => state.product.flatRateDeliveryCharge)
+  const prefectureDeliveryCharges = useSelector((state: RootState) => state.product.prefectureDeliveryCharges)
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -326,7 +330,9 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                 <Row>
                   <Col>
                     <Form.Label>配送料</Form.Label>
-                    <Form.Control></Form.Control>
+                    <Form.Control
+                      value={flatRateDeliveryCharge}
+                      onChange={(e) => dispatch(flatRateDeliveryChargeChange(Number(e.target.value)))}></Form.Control>
                   </Col>
                   <Col></Col>
                 </Row>

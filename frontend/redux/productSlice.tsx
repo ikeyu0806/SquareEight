@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ProductType } from 'interfaces/ProductType'
+import { DeliveryCharge } from 'interfaces/DeliveryCharge'
 
 export const productSlice = createSlice({
   name: 'alert',
@@ -16,6 +17,8 @@ export const productSlice = createSlice({
     showProductTypeForm: false,
     productTypes: [{name: '', inventory: 1}, {name: '', inventory: 1}] as ProductType[],
     deliveryChargeType: 'noSetting',
+    flatRateDeliveryCharge: 100,
+    prefectureDeliveryCharges: [] as DeliveryCharge[]
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -54,6 +57,12 @@ export const productSlice = createSlice({
     deliveryChargeTypeChanged: (state, action: PayloadAction<string>) => {
       state.deliveryChargeType = action.payload
     },
+    flatRateDeliveryChargeChange: (state, action: PayloadAction<number>) => {
+      state.flatRateDeliveryCharge = action.payload
+    },
+    prefectureDeliveryChargesChange: (state, action: PayloadAction<DeliveryCharge[]>) => {
+      state.prefectureDeliveryCharges = action.payload
+    },
   },
 })
 
@@ -69,5 +78,7 @@ export const { applyProductTypeChanged } = productSlice.actions
 export const { showProductTypeFormChanged } = productSlice.actions
 export const { productTypesChanged } = productSlice.actions
 export const { deliveryChargeTypeChanged } = productSlice.actions
+export const { flatRateDeliveryChargeChange } = productSlice.actions
+export const { prefectureDeliveryChargesChange } = productSlice.actions
 
 export default productSlice.reducer
