@@ -65,25 +65,34 @@ class EndUser < ApplicationRecord
       end
       price = cart.product.price * cart.quantity
       if merge_destination_item.blank?
+        product = cart.product
+        if product.delivery_charge_type == 'perPrefectures'
+          prefecture_delivery_charge = product.prefecture_delivery_charge(self.delivery_targets.find_by(is_default: true).state)
+        else
+          prefecture_delivery_charge = 0
+        end
+        product.prefecture_delivery_charge(self.delivery_targets.find_by(is_default: true).state)
         cart_items.push({
           id: cart.id,
-          product_name: cart.product.name,
+          product_name: product.name,
           price: price,
-          tax_rate: cart.product.tax_rate,
+          tax_rate: product.tax_rate,
           quantity: cart.quantity,
-          s3_object_public_url: cart.product.s3_object_public_url,
+          s3_object_public_url: product.s3_object_public_url,
           business_name: cart.account.business_name,
           item_type: 'Product',
           show_product_type: cart.show_product_type,
           product_type_name: cart.product_type&.name,
-          parent_product_id: cart.product.id,
+          parent_product_id: product.id,
           product_type_id: cart.product_type_id,
-          remaining_inventory: cart.product.inventory,
-          delivery_charge_type: cart.product.delivery_charge_type,
-          flat_rate_delivery_charge: cart.product.flat_rate_delivery_charge,
-          prefecture_delivery_charge: cart.product.prefecture_delivery_charge(self.delivery_targets.find_by(is_default: true).state)
+          remaining_inventory: product.inventory,
+          delivery_charge_type: product.delivery_charge_type,
+          flat_rate_delivery_charge: product.flat_rate_delivery_charge,
+          prefecture_delivery_charge: prefecture_delivery_charge
         })
         total_price += price
+        total_price += product.flat_rate_delivery_charge if product.delivery_charge_type == 'flatRate'
+        total_price += prefecture_delivery_charge 
       else
         merge_destination_item[:price] = merge_destination_item[:price] += price
         merge_destination_item[:quantity] = merge_destination_item[:quantity] += cart.quantity

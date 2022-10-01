@@ -70,7 +70,7 @@ const Index: NextPage = () => {
                                   {item.delivery_charge_type === 'flatRate'
                                   && <div className='mt10'>配送料: ￥{item.flat_rate_delivery_charge}</div>}
                                   {item.delivery_charge_type === 'perPrefectures'
-                                  && <div className='mt10'>配送料: <a href='#' onClick={() => dispatch(showPerPrefecturesChargeModalChanged(true))}>都道府県ごとに異なります</a></div>}
+                                  && <div className='mt10'>配送料: ¥{item.prefecture_delivery_charge}</div>}
                                 </Col>
                               </Row>
                             </ListGroup.Item>)
