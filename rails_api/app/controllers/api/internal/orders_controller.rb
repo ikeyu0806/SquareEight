@@ -23,6 +23,7 @@ class Api::Internal::OrdersController < ApplicationController
     total_commission = order.total_commission
     order_items = order.order_items
     render json: { statue: 'success',
+                   order: order,
                    order_items: order_items,
                    total_price: total_price,
                    total_commission: total_commission }, status: 200

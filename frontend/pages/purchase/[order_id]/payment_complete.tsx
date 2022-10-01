@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
+import { OrderParam } from 'interfaces/OrderParam'
 import { OrderItemParam } from 'interfaces/OrderItemParam'
 import { useRouter } from 'next/router'
 import axios from 'axios'
@@ -12,6 +13,7 @@ const PaymentComplete: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const dispatch = useDispatch()
   const router = useRouter()
+  const [order, setOrder] = useState<OrderParam>()
   const [orderItems, setOrderItems] = useState<OrderItemParam[]>([])
   const [totalPrice, setTotalPrice] = useState()
 
@@ -26,6 +28,7 @@ const PaymentComplete: NextPage = () => {
         }
       )
       .then(function (response) {
+        setOrder(response.data.order)
         setOrderItems(response.data.order_items)
         setTotalPrice(response.data.total_price)
       })
@@ -50,8 +53,9 @@ const PaymentComplete: NextPage = () => {
                     return (
                       <span key={i}>
                         {item.item_type === 'Product'
-                         ? <>{item.product_name}{item.product_type_name && <>&emsp;{item.product_type_name}</>}&emsp;¥{item.price * item.quantity}<br/></>
-                         : <>{item.product_name}{item.product_type_name && <>&emsp;{item.product_type_name}</>}&emsp;¥{item.price}<br/></>}
+                         ? <div>{item.product_name}{item.product_type_name && <>&emsp;{item.product_type_name}</>}&emsp;¥{item.price * item.quantity}<br/></div>
+                         : <div>{item.product_name}{item.product_type_name && <>&emsp;{item.product_type_name}</>}&emsp;¥{item.price}<br/></div>}
+                        <div>配送料: ¥{order?.delivery_charge}</div>
                       </span>
                     )
                   })}

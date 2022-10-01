@@ -8,4 +8,5 @@ export interface OrderParam {
   address: string
   postal_code: string
   include_product: boolean
+  delivery_charge: number
 }

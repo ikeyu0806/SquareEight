@@ -6,7 +6,7 @@ class Order < ApplicationRecord
     result = 0
     order_items.each do |item|
       if item.item_type == 'Product'
-        result = result + item.price * item.quantity
+        result = result + item.price * item.quantity + delivery_charge
       else
         result = result + item.price
       end
