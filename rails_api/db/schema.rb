@@ -430,7 +430,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_09_30_130855) do
   create_table "shipping_fee_per_regions", force: :cascade do |t|
     t.integer "product_id", null: false
     t.integer "shipping_fee", null: false
-    t.integer "region", null: false
+    t.string "region", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

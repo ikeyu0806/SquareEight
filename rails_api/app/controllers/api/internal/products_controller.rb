@@ -144,7 +144,7 @@ class Api::Internal::ProductsController < ApplicationController
                   :line2,
                   :phone_number,
                   :publish_status,
-                  prefecture_delivery_charges: [:name, :price],
+                  prefecture_delivery_charges: [:region, :shipping_fee],
                   product_types: [:name, :inventory])
   end
 end

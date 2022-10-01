@@ -1,4 +1,4 @@
 export interface DeliveryCharge {
-  name: string
-  price: number
+  region: string
+  shipping_fee: number
 }

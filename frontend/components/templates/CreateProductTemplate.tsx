@@ -153,12 +153,12 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
     })
   }
 
-  const updatePrefectureDeliveryCharge = (name :string, price: number) => {
+  const updatePrefectureDeliveryCharge = (region :string, shipping_fee: number) => {
     let updateDeliveryCharge: DeliveryCharge[] = prefectureDeliveryCharges
     updateDeliveryCharge = updateDeliveryCharge.map(
-      chargeObj => chargeObj.name === name
+      chargeObj => chargeObj.region === region
       ?
-        {name: chargeObj.name, price: price}
+        {region: chargeObj.region, shipping_fee: shipping_fee}
       :
         chargeObj)
     dispatch(prefectureDeliveryChargesChange(updateDeliveryCharge))
@@ -355,10 +355,10 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                     {prefectureDeliveryCharges.map((prefecture, i) => {
                       return (
                         <div key={i}>
-                          <Form.Label className='mt10'> {prefecture.name} 配送料</Form.Label>
+                          <Form.Label className='mt10'> {prefecture.region} 配送料</Form.Label>
                           <Form.Control
-                            onChange={(e) => updatePrefectureDeliveryCharge(prefecture.name, Number(e.target.value))}
-                            value={prefecture.price}
+                            onChange={(e) => updatePrefectureDeliveryCharge(prefecture.region, Number(e.target.value))}
+                            value={prefecture.shipping_fee}
                           ></Form.Control>
                         </div>
                       )
