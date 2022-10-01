@@ -14,7 +14,8 @@ export const productSlice = createSlice({
     s3ObjectPublicUrl: '',
     applyProductType: false,
     showProductTypeForm: false,
-    productTypes: [{name: '', inventory: 1}, {name: '', inventory: 1}] as ProductType[]
+    productTypes: [{name: '', inventory: 1}, {name: '', inventory: 1}] as ProductType[],
+    deliveryChargeType: 'noSetting',
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -50,6 +51,9 @@ export const productSlice = createSlice({
     productTypesChanged: (state, action: PayloadAction<ProductType[]>) => {
       state.productTypes = action.payload
     },
+    deliveryChargeTypeChanged: (state, action: PayloadAction<string>) => {
+      state.deliveryChargeType = action.payload
+    },
   },
 })
 
@@ -64,5 +68,6 @@ export const { publishStatusChanged } = productSlice.actions
 export const { applyProductTypeChanged } = productSlice.actions
 export const { showProductTypeFormChanged } = productSlice.actions
 export const { productTypesChanged } = productSlice.actions
+export const { deliveryChargeTypeChanged } = productSlice.actions
 
 export default productSlice.reducer

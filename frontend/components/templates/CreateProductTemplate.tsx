@@ -1,4 +1,4 @@
-import React, { useState, useRef, createRef, ChangeEvent } from 'react'
+import React, { useState, useRef, createRef } from 'react'
 import { Container, Row, Col, Form, FormControl, Button } from 'react-bootstrap'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
@@ -18,6 +18,7 @@ import { nameChanged,
          applyProductTypeChanged,
          productTypesChanged,
          publishStatusChanged,
+         deliveryChargeTypeChanged,
          showProductTypeFormChanged } from 'redux/productSlice'
 
 interface Props {
@@ -41,6 +42,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
   productTypeNameRefs.current = productTypes.map((_, i) => productTypeNameRefs.current[i] ?? createRef())
   const productTypeInventoryRefs = useRef<any>([])
   productTypeInventoryRefs.current = productTypes.map((_, i) => productTypeInventoryRefs.current[i] ?? createRef())
+  const deliveryChargeType = useSelector((state: RootState) => state.product.deliveryChargeType)
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -277,6 +279,33 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                     </>
                   }
                   <Col></Col>
+              </Form.Group>
+              <Form.Group className='mb-3'>
+                <Form.Label>配送料</Form.Label>
+                  <Form.Check
+                    type='radio'
+                    label='設定しない'
+                    checked={deliveryChargeType === 'noSetting'}
+                    onChange={() => dispatch(deliveryChargeTypeChanged('noSetting'))}
+                    id='noDeliveryCharge'
+                    name='deliveryCharge'
+                  ></Form.Check>
+                  <Form.Check
+                    type='radio'
+                    label='全国一律'
+                    checked={deliveryChargeType === 'flatRate'}
+                    onChange={() => dispatch(deliveryChargeTypeChanged('flatRate'))}
+                    id='flatDeliveryCharge'
+                    name='deliveryCharge'
+                  ></Form.Check>
+                  <Form.Check
+                    type='radio'
+                    checked={deliveryChargeType === 'perPrefectures'}
+                    onChange={() => dispatch(deliveryChargeTypeChanged('perPrefectures'))}
+                    label='都道府県ごとに設定する'
+                    id='prefecturesDeliveryCharge'
+                    name='deliveryCharge'
+                  ></Form.Check>
               </Form.Group>
             </div>
           </Col>
