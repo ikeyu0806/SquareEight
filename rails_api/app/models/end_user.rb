@@ -92,7 +92,7 @@ class EndUser < ApplicationRecord
         })
         total_price += price
         total_price += product.flat_rate_delivery_charge if product.delivery_charge_type == 'flatRate'
-        total_price += prefecture_delivery_charge 
+        total_price += prefecture_delivery_charge
       else
         merge_destination_item[:price] = merge_destination_item[:price] += price
         merge_destination_item[:quantity] = merge_destination_item[:quantity] += cart.quantity

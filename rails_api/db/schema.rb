@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_01_065118) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_01_132306) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -212,6 +212,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_01_065118) do
     t.string "address"
     t.string "postal_code"
     t.boolean "mailed"
+    t.integer "delivery_charge"
   end
 
   create_table "out_of_range_frames", force: :cascade do |t|

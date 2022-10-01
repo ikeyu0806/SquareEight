@@ -22,6 +22,7 @@ class Api::Internal::CashRegistersController < ApplicationController
   def purchase
     order = current_end_user.orders.new
     include_product = false
+    total_delivery_charge = 0
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     ActiveRecord::Base.transaction do
       current_end_user.cart_contents[0].each do |cart|
@@ -51,9 +52,16 @@ class Api::Internal::CashRegistersController < ApplicationController
               phone_number: current_end_user.phone_number
             )
           end
+          delivery_charge = 0
           # 決済実行
+          if product.delivery_charge_type == 'flatRate'
+            delivery_charge += product.flat_rate_delivery_charge
+          end
+          if product.delivery_charge_type == 'perPrefectures'
+            delivery_charge += product.prefecture_delivery_charge(current_end_user.delivery_targets.find_by(is_default: true).state)
+          end
           payment_intent = Stripe::PaymentIntent.create({
-            amount: product.price * cart[:quantity],
+            amount: product.price * cart[:quantity] + delivery_charge,
             currency: 'jpy',
             payment_method_types: ['card'],
             payment_method: default_payment_method_id,
@@ -78,6 +86,7 @@ class Api::Internal::CashRegistersController < ApplicationController
           Stripe::PaymentIntent.confirm(
             payment_intent.id
           )
+          total_delivery_charge += delivery_charge
           # 明細
           product_type = ProductType.find(cart[:product_type_id]) if cart[:product_type_id].present?
           order.order_items.new(item_type: 'Product',
@@ -229,6 +238,7 @@ class Api::Internal::CashRegistersController < ApplicationController
       if include_product
         order.set_delivery_target(current_end_user)
       end
+      order.delivery_charge = total_delivery_charge
       order.save!
       render json: { status: 'success', order_id: order.id }, status: 200
     end
