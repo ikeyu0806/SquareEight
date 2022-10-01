@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { ProductType } from 'interfaces/ProductType'
+import { DeliveryCharge } from 'interfaces/DeliveryCharge'
 import { nameChanged,
          descriptionChanged,
          base64ImageChanged,
@@ -152,8 +153,15 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
     })
   }
 
-  const setPrefectureDeliveryCharges = () => {
-    dispatch(deliveryChargeTypeChanged('perPrefectures'))
+  const updatePrefectureDeliveryCharge = (name :string, price: number) => {
+    let updateDeliveryCharge: DeliveryCharge[] = prefectureDeliveryCharges
+    updateDeliveryCharge = updateDeliveryCharge.map(
+      chargeObj => chargeObj.name === name
+      ?
+        {name: chargeObj.name, price: price}
+      :
+        chargeObj)
+    dispatch(prefectureDeliveryChargesChange(updateDeliveryCharge))
   }
 
   return (
@@ -322,7 +330,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                   <Form.Check
                     type='radio'
                     checked={deliveryChargeType === 'perPrefectures'}
-                    onChange={() => setPrefectureDeliveryCharges()}
+                    onChange={() => dispatch(deliveryChargeTypeChanged('perPrefectures'))}
                     label='都道府県ごとに設定する'
                     id='prefecturesDeliveryCharge'
                     name='deliveryCharge'
@@ -349,6 +357,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                         <div key={i}>
                           <Form.Label className='mt10'> {prefecture.name} 配送料</Form.Label>
                           <Form.Control
+                            onChange={(e) => updatePrefectureDeliveryCharge(prefecture.name, Number(e.target.value))}
                             value={prefecture.price}
                           ></Form.Control>
                         </div>
