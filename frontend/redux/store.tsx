@@ -20,6 +20,7 @@ import questionnaireMasterReducer from './questionnaireMasterSlice'
 import messageTemplateReducer from './messageTemplateSlice'
 import dashboardReducer from './dashboardSlice'
 import sharedComponentReducer from './sharedComponentSlice'
+import deliveryDatetimeReducer from './deliveryDatetimeSlice'
 
 export const store = configureStore({
   reducer: {
@@ -43,7 +44,8 @@ export const store = configureStore({
     questionnaireMaster: questionnaireMasterReducer,
     messageTemplate: messageTemplateReducer,
     dashboard: dashboardReducer,
-    sharedComponent: sharedComponentReducer
+    sharedComponent: sharedComponentReducer,
+    deliveryDatetime: deliveryDatetimeReducer
   },
 })
 

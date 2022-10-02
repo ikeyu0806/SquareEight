@@ -1,8 +1,13 @@
 import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import type { NextPage } from 'next'
+import { useDispatch } from 'react-redux'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import SetTargetProductModal from 'components/templates/SetTargetProductModal'
+import { showSetTargetProductModalChanged } from 'redux/deliveryDatetimeSlice'
 
 const Index: NextPage = () => {
+  const dispatch = useDispatch()
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -145,10 +150,14 @@ const Index: NextPage = () => {
             <div className='mb20'>対象商品</div>
             <div>配送日時指定は今後追加される商品もふくめ、すべての商品に適用されます。</div>
             <div className='mb20'>配送日時指定を適用したくない商品がある場合は、「対象商品を変更する」の商品リストからチェックを外してください。</div>
-            <Button>対象商品を変更する</Button>
+            <Button
+              onClick={() => dispatch(showSetTargetProductModalChanged(true))}>
+              対象商品を変更する
+            </Button>
           </Col>
         </Row>
       </Container>
+      <SetTargetProductModal></SetTargetProductModal>
     </MerchantUserAdminLayout>
   )  
 }

@@ -18,7 +18,7 @@ export const deliveryDatetimeSlice = createSlice({
     temporaryHolidays: [] as string[],
     deliveryTimeType: '',
     targetProducts: [] as ProductType[],
-    showSetTargetProduct: false
+    showSetTargetProductModal: false
   },
   reducers: {
     shortestDeliveryDayChanged: (state, action: PayloadAction<number>) => {
@@ -63,8 +63,8 @@ export const deliveryDatetimeSlice = createSlice({
     targetProductsChanged: (state, action: PayloadAction<ProductType[]>) => {
       state.targetProducts = action.payload
     },
-    showSetTargetProductChanged: (state, action: PayloadAction<boolean>) => {
-      state.showSetTargetProduct = action.payload
+    showSetTargetProductModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showSetTargetProductModal = action.payload
     },
   },
 })
@@ -83,7 +83,7 @@ export const { isHolidaySatChanged } = deliveryDatetimeSlice.actions
 export const { temporaryHolidaysChanged } = deliveryDatetimeSlice.actions
 export const { deliveryTimeTypeChanged } = deliveryDatetimeSlice.actions
 export const { targetProductsChanged } = deliveryDatetimeSlice.actions
-export const { showSetTargetProductChanged } = deliveryDatetimeSlice.actions
+export const { showSetTargetProductModalChanged } = deliveryDatetimeSlice.actions
 
 
 export default deliveryDatetimeSlice.reducer
