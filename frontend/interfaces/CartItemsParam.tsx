@@ -15,6 +15,5 @@ export interface CartItemParam {
   selected_type_name: string
   remaining_inventory: number
   delivery_charge_type: string
-  flat_rate_delivery_charge: number
-  prefecture_delivery_charge: number
+  delivery_charge: number
 }

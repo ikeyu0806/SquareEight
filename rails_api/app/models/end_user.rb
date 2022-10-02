@@ -66,10 +66,14 @@ class EndUser < ApplicationRecord
       price = cart.product.price * cart.quantity
       if merge_destination_item.blank?
         product = cart.product
-        if product.delivery_charge_type == 'perPrefectures'
-          prefecture_delivery_charge = product.prefecture_delivery_charge(self.delivery_targets.find_by(is_default: true).state)
-        else
-          prefecture_delivery_charge = 0
+        # 配送料
+        if product.delivery_charge_type == 'flatRate'
+          delivery_charge = product.flat_rate_delivery_charge
+        elsif product.delivery_charge_type == 'perPrefectures'
+          delivery_charge = product.prefecture_delivery_charge(self.delivery_targets.find_by(is_default: true).state)
+        end
+        if product.delivery_charge_with_order_number == 'withOrderNumber'
+          delivery_charge = delivery_charge * cart.quantity
         end
         product.prefecture_delivery_charge(self.delivery_targets.find_by(is_default: true).state)
         cart_items.push({
@@ -87,12 +91,11 @@ class EndUser < ApplicationRecord
           product_type_id: cart.product_type_id,
           remaining_inventory: product.inventory,
           delivery_charge_type: product.delivery_charge_type,
-          flat_rate_delivery_charge: product.flat_rate_delivery_charge,
-          prefecture_delivery_charge: prefecture_delivery_charge
+          delivery_charge: delivery_charge,
         })
         total_price += price
-        total_price += product.flat_rate_delivery_charge if product.delivery_charge_type == 'flatRate'
-        total_price += prefecture_delivery_charge
+        
+        total_price += delivery_charge
       else
         merge_destination_item[:price] = merge_destination_item[:price] += price
         merge_destination_item[:quantity] = merge_destination_item[:quantity] += cart.quantity

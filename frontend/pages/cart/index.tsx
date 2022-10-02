@@ -67,10 +67,8 @@ const Index: NextPage = () => {
                                   ￥{item.price} 税率{item.tax_rate}%
                                   {item.delivery_charge_type === 'noSetting'
                                   && <div className='mt10'>配送料無料</div>}
-                                  {item.delivery_charge_type === 'flatRate'
-                                  && <div className='mt10'>配送料: ￥{item.flat_rate_delivery_charge}</div>}
-                                  {item.delivery_charge_type === 'perPrefectures'
-                                  && <div className='mt10'>配送料: ¥{item.prefecture_delivery_charge}</div>}
+                                  {['flatRate', 'perPrefectures'].includes(item.delivery_charge_type)
+                                  && <div className='mt10'>配送料: ￥{item.delivery_charge}</div>}
                                 </Col>
                               </Row>
                             </ListGroup.Item>)
