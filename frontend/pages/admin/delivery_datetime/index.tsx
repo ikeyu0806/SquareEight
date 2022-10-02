@@ -1,11 +1,14 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import type { NextPage } from 'next'
+import { useCookies } from 'react-cookie'
+import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import SetTargetProductModal from 'components/templates/SetTargetProductModal'
 import { PrefecturesDeliveryTargetType } from 'interfaces/PrefecturesDeliveryTargetType'
+import { DeliveryTimes } from 'interfaces/DeliveryTimes'
 import { 
   shortestDeliveryDayChanged,
   longestDeliveryDayChanged,
@@ -22,12 +25,16 @@ import {
   deliveryTimeTypeChanged,
   targetProductsChanged,
   showSetTargetProductModalChanged,
+  deliveryTimesChanged,
   prefecturesDeliveryTargetChanged } from 'redux/deliveryDatetimeSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const [inputTemporaryHoliday, setInputTemporaryHoliday] = useState('')
+  const [inputDeliveryTimeStartAt, setInputDeliveryTimeStartAt] = useState('00:00')
+  const [inputDeliveryTimeEndAt, setInputDeliveryTimeEndAt] = useState('00:00')
 
   const shortestDeliveryDay = useSelector((state: RootState) => state.deliveryDatetime.shortestDeliveryDay)
   const longestDeliveryDay = useSelector((state: RootState) => state.deliveryDatetime.longestDeliveryDay)
@@ -44,7 +51,21 @@ const Index: NextPage = () => {
   const deliveryTimeType = useSelector((state: RootState) => state.deliveryDatetime.deliveryTimeType)
   const targetProducts = useSelector((state: RootState) => state.deliveryDatetime.targetProducts)
   const prefecturesDeliveryTarget = useSelector((state: RootState) => state.deliveryDatetime.prefecturesDeliveryTarget)
+  const deliveryTimes = useSelector((state: RootState) => state.deliveryDatetime.deliveryTimes)
   
+  useEffect(() => {
+    axios.get(`${process.env.BACKEND_URL}/api/internal/products`,
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    }).then((response) => {
+      
+    }).catch((error) => {
+      console.log(error)
+    })
+  }, [cookies._square_eight_merchant_session, dispatch])
+
   const addIemporaryHolidays = () => {
     if (temporaryHolidays.includes(inputTemporaryHoliday)) {
       return
@@ -52,6 +73,15 @@ const Index: NextPage = () => {
     let updateTemporaryHolidays: string[]
     updateTemporaryHolidays = temporaryHolidays
     dispatch(temporaryHolidaysChanged([...updateTemporaryHolidays, inputTemporaryHoliday]))
+  }
+
+  const addDeliveryTimes = () => {
+    console.log("!!!", inputDeliveryTimeStartAt, inputDeliveryTimeEndAt, deliveryTimes)
+    let updateTemporaryHolidays: DeliveryTimes[]
+    updateTemporaryHolidays = deliveryTimes
+    let addTemporaryHolidays: DeliveryTimes
+    addTemporaryHolidays = { start_at: inputDeliveryTimeStartAt, end_at: inputDeliveryTimeEndAt }
+    dispatch(deliveryTimesChanged([...updateTemporaryHolidays, addTemporaryHolidays]))
   }
 
   const updatePrefectureDeliveryTarget = (region :string, shortest_delivery_add_date: number) => {
@@ -69,8 +99,8 @@ const Index: NextPage = () => {
     <MerchantUserAdminLayout>
       <Container>
         <Row>
-          <Col lg={3} md={3}></Col>
-          <Col lg={6} md={6}>
+          <Col lg={3}></Col>
+          <Col lg={6}>
             <h3>配送日時設定</h3>
             <div className='mt20'>
               商品購入時に、お客様が配送日に指定できる期間を「最短お届け日（＋エリア別追加お届け日数）」〜「最長お届け日」で設定します。
@@ -128,7 +158,7 @@ const Index: NextPage = () => {
             </Row>
             <hr />
 
-            <div className='mb10'>エリア別追加お届け日数</div>
+            <div className='mb10'>都道府県別追加お届け日数</div>
             <div className='mb10'>都道府県ごとに、「最短お届け日」から追加でかかるお届け日数を設定できます。</div>
             <Form.Check
               onChange={(e) => dispatch(isSetPerAreaDeliveryDateChanged(!isSetPerAreaDeliveryDate))}
@@ -137,6 +167,7 @@ const Index: NextPage = () => {
               id='setAreaDeliveryDay'></Form.Check>
             {isSetPerAreaDeliveryDate &&
               <div>
+                <div className='mt10 mb10'>最短お届け日に加算する都道府県別日数</div>
                 {prefecturesDeliveryTarget.map((target, i) => {
                   return (
                     <div key={i} className='mb10'>
@@ -223,8 +254,9 @@ const Index: NextPage = () => {
                 type='date'></Form.Control>
               <div>{inputTemporaryHoliday}</div>
               <Button
+                variant='info'
                 onClick={() => addIemporaryHolidays()}
-                className='mt20'>臨時休業日に追加</Button>
+                className='mt20 text-white'>臨時休業日に追加</Button>
               {temporaryHolidays.map((holiday, i) => {
                 return (
                   <div key={i}>{holiday}</div>
@@ -265,14 +297,53 @@ const Index: NextPage = () => {
               checked={deliveryTimeType === 'other'}
               label='その他'></Form.Check>
             <div className='ml30 mb10'>時間区分を自分で設定する</div>
+            {deliveryTimeType === 'other'
+            &&
+              <>
+                {deliveryTimes.map((time, i) => {
+                  return (
+                    <div key={i}>{time.start_at} ~ {time.end_at}</div> 
+                  )
+                })}
+                <Row>
+                  <Col sm={4}>
+                    <Form.Control
+                      value={inputDeliveryTimeStartAt}
+                      onChange={(e) => setInputDeliveryTimeStartAt(e.target.value)}
+                      type='time'
+                    ></Form.Control>
+                  </Col>
+                  ~
+                  <Col sm={4}>
+                    <Form.Control
+                      value={inputDeliveryTimeEndAt}
+                      onChange={(e) => setInputDeliveryTimeEndAt(e.target.value)}
+                      type='time'
+                    ></Form.Control>
+                  </Col>
+                  <Col sm={8}></Col>
+                </Row>
+                <Button
+                  variant='info'
+                  onClick={() => addDeliveryTimes()}
+                  className='mt10 text-white'>
+                  配送日時に追加
+                </Button>
+              </>
+            }
             <hr />
             <div className='mb20'>対象商品</div>
             <div>配送日時指定は今後追加される商品もふくめ、すべての商品に適用されます。</div>
             <div className='mb20'>配送日時指定を適用したくない商品がある場合は、「対象商品を変更する」の商品リストからチェックを外してください。</div>
             <Button
+              variant='info'
+              className='text-white'
               onClick={() => dispatch(showSetTargetProductModalChanged(true))}>
               対象商品を変更する
             </Button>
+            <div className='text-center mt20'>
+              <Button>保存する</Button>
+            </div>
           </Col>
         </Row>
       </Container>
