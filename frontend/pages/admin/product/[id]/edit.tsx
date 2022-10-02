@@ -9,7 +9,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { ProductParam } from 'interfaces/ProductParam'
 import { alertChanged } from 'redux/alertSlice'
 import {  nameChanged,
           priceChanged,
@@ -21,6 +20,7 @@ import {  nameChanged,
           deliveryChargeTypeChanged,
           flatRateDeliveryChargeChange,
           prefectureDeliveryChargesChange,
+          deliveryChargeWithOrderNumberChanged,
           showProductTypeFormChanged } from 'redux/productSlice'
 
 const Edit: NextPage = () => {
@@ -65,6 +65,7 @@ const Edit: NextPage = () => {
         dispatch(deliveryChargeTypeChanged(response.data.product.delivery_charge_type))
         dispatch(prefectureDeliveryChargesChange(response.data.product.shipping_fee_per_regions))
         dispatch(flatRateDeliveryChargeChange(response.data.product.flat_rate_delivery_charge))
+        dispatch(deliveryChargeWithOrderNumberChanged(response.data.product.delivery_charge_with_order_number))
       })
       .catch(error => {
         console.log(error)
