@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ProductType } from 'interfaces/ProductParam'
+import { prefecturesDeliveryDateInitValue } from 'constants/prefecturesDeliveryDateInitValue'
+import { PrefecturesDeliveryTargetType } from 'interfaces/PrefecturesDeliveryTargetType'
 
 export const deliveryDatetimeSlice = createSlice({
   name: 'deliveryDatetime',
@@ -18,7 +20,8 @@ export const deliveryDatetimeSlice = createSlice({
     temporaryHolidays: [] as string[],
     deliveryTimeType: '',
     targetProducts: [] as ProductType[],
-    showSetTargetProductModal: false
+    showSetTargetProductModal: false,
+    prefecturesDeliveryTarget: prefecturesDeliveryDateInitValue as PrefecturesDeliveryTargetType[]
   },
   reducers: {
     shortestDeliveryDayChanged: (state, action: PayloadAction<number>) => {
@@ -66,6 +69,9 @@ export const deliveryDatetimeSlice = createSlice({
     showSetTargetProductModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showSetTargetProductModal = action.payload
     },
+    prefecturesDeliveryTargetChanged: (state, action: PayloadAction<PrefecturesDeliveryTargetType[]>) => {
+      state.prefecturesDeliveryTarget = action.payload
+    },
   },
 })
 
@@ -84,6 +90,6 @@ export const { temporaryHolidaysChanged } = deliveryDatetimeSlice.actions
 export const { deliveryTimeTypeChanged } = deliveryDatetimeSlice.actions
 export const { targetProductsChanged } = deliveryDatetimeSlice.actions
 export const { showSetTargetProductModalChanged } = deliveryDatetimeSlice.actions
-
+export const { prefecturesDeliveryTargetChanged } = deliveryDatetimeSlice.actions
 
 export default deliveryDatetimeSlice.reducer

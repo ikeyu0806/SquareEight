@@ -1,4 +1,4 @@
-export const prefecturesDeliveryTargetInitValue = [
+export const prefecturesDeliveryDateInitValue = [
   {region: '北海道', shortest_delivery_add_date: 0},
   {region: '青森県', shortest_delivery_add_date: 0},
   {region: '岩手県', shortest_delivery_add_date: 0},

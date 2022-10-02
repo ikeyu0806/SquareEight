@@ -41,7 +41,8 @@ const Index: NextPage = () => {
   const temporaryHolidays = useSelector((state: RootState) => state.deliveryDatetime.temporaryHolidays)
   const deliveryTimeType = useSelector((state: RootState) => state.deliveryDatetime.deliveryTimeType)
   const targetProducts = useSelector((state: RootState) => state.deliveryDatetime.targetProducts)
-
+  const prefecturesDeliveryTarget = useSelector((state: RootState) => state.deliveryDatetime.prefecturesDeliveryTarget)
+  
   const addIemporaryHolidays = () => {
     if (temporaryHolidays.includes(inputTemporaryHoliday)) {
       return
@@ -121,6 +122,25 @@ const Index: NextPage = () => {
               checked={isSetPerAreaDeliveryDate}
               label='エリア別の追加お届け日数を設定する'
               id='setAreaDeliveryDay'></Form.Check>
+            {isSetPerAreaDeliveryDate &&
+              <div>
+                {prefecturesDeliveryTarget.map((target, i) => {
+                  return (
+                    <div key={i}>
+                      <Row>
+                        <Col>{target.region}</Col>
+                        <Col>
+                          <Form.Control
+                            type='number'
+                            value={target.shortest_delivery_add_date}></Form.Control>
+                        </Col>
+                        <Col sm={8}></Col>
+                      </Row>
+                    </div>
+                  )
+                })}
+              </div>
+            }
             <hr />
 
             <div className='mb10'>休業日の設定</div>
