@@ -11,4 +11,5 @@ export interface OrderItemParam {
   postal_code: string
   order_name: string
   shipped: boolean
+  delivery_charge: number
 }

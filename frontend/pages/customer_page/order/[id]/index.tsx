@@ -49,6 +49,11 @@ const Index: NextPage = () => {
                 <Row>
                   <Col>
                     合計金額: ¥{order && order.total_price}
+                    {order?.delivery_charge &&
+                    <>
+                      <br />
+                      <div>配送料: ¥{order.delivery_charge}</div>
+                    </>}
                     <br />注文日: {order && order.order_date}
                   </Col>
                   <Col>
