@@ -60,6 +60,9 @@ class Api::Internal::CashRegistersController < ApplicationController
           if product.delivery_charge_type == 'perPrefectures'
             delivery_charge += product.prefecture_delivery_charge(current_end_user.delivery_targets.find_by(is_default: true).state)
           end
+          if product.delivery_charge_with_order_number == 'withOrderNumber'
+            delivery_charge = delivery_charge * cart[:quantity]
+          end
           payment_intent = Stripe::PaymentIntent.create({
             amount: product.price * cart[:quantity] + delivery_charge,
             currency: 'jpy',
