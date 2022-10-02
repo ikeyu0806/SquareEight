@@ -45,8 +45,7 @@ const Index: NextPage = () => {
   const addIemporaryHolidays = () => {
     let updateTemporaryHolidays: string[]
     updateTemporaryHolidays = temporaryHolidays
-    updateTemporaryHolidays.push(inputTemporaryHoliday)
-    dispatch(temporaryHolidaysChanged(updateTemporaryHolidays))
+    dispatch(temporaryHolidaysChanged([...updateTemporaryHolidays, inputTemporaryHoliday]))
   }
 
   return (
@@ -185,8 +184,9 @@ const Index: NextPage = () => {
                 value={inputTemporaryHoliday}
                 onChange={(e) => setInputTemporaryHoliday(e.target.value)}
                 type='date'></Form.Control>
+              <div>{inputTemporaryHoliday}</div>
               <Button
-                onChange={(e) => addIemporaryHolidays()}
+                onClick={() => addIemporaryHolidays()}
                 className='mt20'>臨時休業日に追加</Button>
               {temporaryHolidays.map((holiday, i) => {
                 return (
