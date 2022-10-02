@@ -43,6 +43,9 @@ const Index: NextPage = () => {
   const targetProducts = useSelector((state: RootState) => state.deliveryDatetime.targetProducts)
 
   const addIemporaryHolidays = () => {
+    if (temporaryHolidays.includes(inputTemporaryHoliday)) {
+      return
+    }
     let updateTemporaryHolidays: string[]
     updateTemporaryHolidays = temporaryHolidays
     dispatch(temporaryHolidaysChanged([...updateTemporaryHolidays, inputTemporaryHoliday]))
