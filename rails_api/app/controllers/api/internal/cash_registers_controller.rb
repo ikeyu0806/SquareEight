@@ -99,6 +99,7 @@ class Api::Internal::CashRegistersController < ApplicationController
                                 price: product.price,
                                 account_id: product.account.id,
                                 commission: commission,
+                                delivery_charge: delivery_charge,
                                 quantity: cart[:quantity])
           product.save!
           current_end_user.cart_products.where(product_id: product.id).delete_all
