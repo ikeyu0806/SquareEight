@@ -1,4 +1,4 @@
-import { Container, Row, Col, Card, ListGroup, Form } from 'react-bootstrap'
+import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 
@@ -50,7 +50,8 @@ const Index: NextPage = () => {
               <Col sm={6}></Col>
             </Row>
             <hr />
-            <div>注文日の当日扱い締め切り時間</div>
+
+            <div className='mb10'>注文日の当日扱い締め切り時間</div>
             <div>設定した時間を過ぎた注文の注文日を翌日扱いにして、お届け可能日が計算されるようになります。</div>
             <Row>
               <Col>
@@ -59,6 +60,12 @@ const Index: NextPage = () => {
               <Col sm={8}></Col>
             </Row>
             <hr />
+
+            <div className='mb10'>エリア別追加お届け日数</div>
+            <div>都道府県ごとに、「最短お届け日」から追加でかかるお届け日数を設定できます。</div>
+            <Form.Check label='エリア別の追加お届け日数を設定する' id='setAreaDeliveryDay'></Form.Check>
+            <hr />
+
             <div className='mb10'>配送時間の設定</div>
             <Form.Check
               type='radio'
@@ -87,7 +94,8 @@ const Index: NextPage = () => {
             <hr />
             <div className='mb20'>対象商品</div>
             <div>配送日時指定は今後追加される商品もふくめ、すべての商品に適用されます。</div>
-            <div>配送日時指定を適用したくない商品がある場合は、「対象商品を変更する」の商品リストからチェックを外してください。</div>
+            <div className='mb20'>配送日時指定を適用したくない商品がある場合は、「対象商品を変更する」の商品リストからチェックを外してください。</div>
+            <Button>対象商品を変更する</Button>
           </Col>
         </Row>
       </Container>
