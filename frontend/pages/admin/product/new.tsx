@@ -30,6 +30,7 @@ const New: NextPage = () => {
   const prefectureDeliveryCharges = useSelector((state: RootState) => state.product.prefectureDeliveryCharges)
   const deliveryChargeType = useSelector((state: RootState) => state.product.deliveryChargeType)
   const flatRateDeliveryCharge = useSelector((state: RootState) => state.product.flatRateDeliveryCharge)
+  const deliveryChargeWithOrderNumber = useSelector((state: RootState) => state.product.deliveryChargeWithOrderNumber)
 
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
@@ -64,7 +65,8 @@ const New: NextPage = () => {
         product_types: applyProductType ? productTypes : [],
         prefecture_delivery_charges: prefectureDeliveryCharges,
         delivery_charge_type: deliveryChargeType,
-        flat_rate_delivery_charge: flatRateDeliveryCharge
+        flat_rate_delivery_charge: flatRateDeliveryCharge,
+        delivery_charge_with_order_number: deliveryChargeWithOrderNumber
       }
     },
     {

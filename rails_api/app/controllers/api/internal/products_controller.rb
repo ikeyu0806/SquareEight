@@ -54,7 +54,7 @@ class Api::Internal::ProductsController < ApplicationController
       product_params[:product_types].each do |product_type|
         product.product_types.new(name: product_type[:name], inventory: product_type[:inventory])
       end
-      product.prefecture_delivery_charges.delete_all
+      product.shipping_fee_per_regions.delete_all
       product_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
         product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
       end
@@ -157,6 +157,7 @@ class Api::Internal::ProductsController < ApplicationController
                   :publish_status,
                   :delivery_charge_type,
                   :flat_rate_delivery_charge,
+                  :delivery_charge_with_order_number,
                   prefecture_delivery_charges: [:region, :shipping_fee],
                   product_types: [:name, :inventory])
   end

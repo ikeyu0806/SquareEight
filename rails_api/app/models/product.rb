@@ -2,7 +2,7 @@ class Product < ApplicationRecord
   belongs_to :account
   has_many :product_types
   has_many :cart_products
-  has_many :shipping_fee_per_regions
+  has_many :shipping_fee_per_regions, dependent: :delete_all
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
   enum delivery_charge_type: { noSetting: 0, flatRate: 1, perPrefectures: 2 }
