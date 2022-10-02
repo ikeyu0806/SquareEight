@@ -6,6 +6,7 @@ class Product < ApplicationRecord
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
   enum delivery_charge_type: { noSetting: 0, flatRate: 1, perPrefectures: 2 }
+  enum delivery_charge_with_order_number: { nationwideUniform: 0, withOrderNumber: 1 }
 
   scope :enabled, -> { where(deleted_at: nil) }
 

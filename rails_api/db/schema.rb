@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_01_132306) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_01_235927) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -246,6 +246,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_01_132306) do
     t.datetime "deleted_at"
     t.integer "delivery_charge_type"
     t.integer "flat_rate_delivery_charge"
+    t.integer "delivery_charge_with_order_number", default: 0
   end
 
   create_table "purchased_tickets", force: :cascade do |t|
