@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import SetTargetProductModal from 'components/templates/SetTargetProductModal'
+import { PrefecturesDeliveryTargetType } from 'interfaces/PrefecturesDeliveryTargetType'
 import { 
   shortestDeliveryDayChanged,
   longestDeliveryDayChanged,
@@ -20,7 +21,8 @@ import {
   temporaryHolidaysChanged,
   deliveryTimeTypeChanged,
   targetProductsChanged,
-  showSetTargetProductModalChanged } from 'redux/deliveryDatetimeSlice'
+  showSetTargetProductModalChanged,
+  prefecturesDeliveryTargetChanged } from 'redux/deliveryDatetimeSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -50,6 +52,17 @@ const Index: NextPage = () => {
     let updateTemporaryHolidays: string[]
     updateTemporaryHolidays = temporaryHolidays
     dispatch(temporaryHolidaysChanged([...updateTemporaryHolidays, inputTemporaryHoliday]))
+  }
+
+  const updatePrefectureDeliveryTarget = (region :string, shortest_delivery_add_date: number) => {
+    let updateDeliveryTarget: PrefecturesDeliveryTargetType[] = prefecturesDeliveryTarget
+    updateDeliveryTarget = updateDeliveryTarget.map(
+      chargeObj => chargeObj.region === region
+      ?
+        {region: chargeObj.region, shortest_delivery_add_date: shortest_delivery_add_date}
+      :
+        chargeObj)
+    dispatch(prefecturesDeliveryTargetChanged(updateDeliveryTarget))
   }
 
   return (
@@ -116,7 +129,7 @@ const Index: NextPage = () => {
             <hr />
 
             <div className='mb10'>エリア別追加お届け日数</div>
-            <div>都道府県ごとに、「最短お届け日」から追加でかかるお届け日数を設定できます。</div>
+            <div className='mb10'>都道府県ごとに、「最短お届け日」から追加でかかるお届け日数を設定できます。</div>
             <Form.Check
               onChange={(e) => dispatch(isSetPerAreaDeliveryDateChanged(!isSetPerAreaDeliveryDate))}
               checked={isSetPerAreaDeliveryDate}
@@ -126,12 +139,13 @@ const Index: NextPage = () => {
               <div>
                 {prefecturesDeliveryTarget.map((target, i) => {
                   return (
-                    <div key={i}>
+                    <div key={i} className='mb10'>
                       <Row>
                         <Col>{target.region}</Col>
                         <Col>
                           <Form.Control
                             type='number'
+                            onChange={(e) => updatePrefectureDeliveryTarget(target.region, Number(e.target.value))}
                             value={target.shortest_delivery_add_date}></Form.Control>
                         </Col>
                         <Col sm={8}></Col>
