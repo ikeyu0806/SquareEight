@@ -66,6 +66,56 @@ const Index: NextPage = () => {
             <Form.Check label='エリア別の追加お届け日数を設定する' id='setAreaDeliveryDay'></Form.Check>
             <hr />
 
+            <div className='mb10'>休業日の設定</div>
+            <div className='mb10'>定休日と臨時休業日を設定してください。臨時休業日は、翌々月まで設定できます。</div>
+            <div>定休日</div>
+              <Form.Check
+                inline
+                label='日'
+                name='holidayWday'
+                type='checkbox'
+                id='holidaySun' />
+              <Form.Check
+                inline
+                label='月'
+                name='holidayWday'
+                type='checkbox'
+                id='holidayMon' />
+              <Form.Check
+                inline
+                label='火'
+                name='holidayWday'
+                type='checkbox'
+                id='holidayTue' />
+              <Form.Check
+                inline
+                label='水'
+                name='holidayWday'
+                type='checkbox'
+                id='holidayWed' />
+              <Form.Check
+                inline
+                label='木'
+                name='holidayWday'
+                type='checkbox'
+                id='holidayThu' />
+              <Form.Check
+                inline
+                label='金'
+                name='holidayWday'
+                type='checkbox'
+                id='holidayFri' />
+              <Form.Check
+                inline
+                label='土'
+                name='holidayWday'
+                type='checkbox'
+                id='holidaySat' />
+              <div className='mt20'>臨時休業日</div>
+              <Form.Control type='date'></Form.Control>
+              <Button className='mt20'>臨時休業日に追加</Button>
+            <hr/>
+
             <div className='mb10'>配送時間の設定</div>
             <Form.Check
               type='radio'
