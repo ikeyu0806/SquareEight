@@ -158,6 +158,7 @@ class Api::Internal::ProductsController < ApplicationController
                   :delivery_charge_type,
                   :flat_rate_delivery_charge,
                   :delivery_charge_with_order_number,
+                  :delivery_datetime_target_flg,
                   prefecture_delivery_charges: [:region, :shipping_fee],
                   product_types: [:name, :inventory])
   end

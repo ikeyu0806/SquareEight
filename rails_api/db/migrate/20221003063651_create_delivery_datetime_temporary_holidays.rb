@@ -1,6 +1,7 @@
 class CreateDeliveryDatetimeTemporaryHolidays < ActiveRecord::Migration[7.0]
   def change
     create_table :delivery_datetime_temporary_holidays do |t|
+      t.integer :account_id, null: false
       t.date :delivery_holiday
 
       t.timestamps
