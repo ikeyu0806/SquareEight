@@ -1,7 +1,7 @@
 class CreateCustomDeliveryTimes < ActiveRecord::Migration[7.0]
   def change
     create_table :custom_delivery_times do |t|
-      t.integer :account_id, null: false
+      t.integer :delivery_datetime_setting_id, null: false
       t.string :delivery_time
 
       t.timestamps

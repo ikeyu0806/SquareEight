@@ -294,7 +294,6 @@ const Index: NextPage = () => {
                 value={inputTemporaryHoliday}
                 onChange={(e) => setInputTemporaryHoliday(e.target.value)}
                 type='date'></Form.Control>
-              <div>{inputTemporaryHoliday}</div>
               <Button
                 variant='info'
                 onClick={() => addIemporaryHolidays()}

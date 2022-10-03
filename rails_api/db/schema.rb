@@ -64,7 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_03_064609) do
   end
 
   create_table "custom_delivery_times", force: :cascade do |t|
-    t.integer "account_id", null: false
+    t.integer "delivery_datetime_setting_id", null: false
     t.string "delivery_time"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -106,7 +106,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_03_064609) do
   end
 
   create_table "delivery_datetime_temporary_holidays", force: :cascade do |t|
-    t.integer "account_id", null: false
+    t.integer "delivery_datetime_setting_id", null: false
     t.date "delivery_holiday"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
