@@ -1,0 +1,2 @@
+class DeliveryDatetimeSetting < ApplicationRecord
+end

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_02_012055) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_03_064609) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -63,6 +63,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_02_012055) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "custom_delivery_times", force: :cascade do |t|
+    t.integer "account_id"
+    t.string "delivery_time"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "customers", force: :cascade do |t|
     t.integer "end_user_id"
     t.string "first_name"
@@ -78,6 +85,29 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_02_012055) do
     t.datetime "updated_at", null: false
     t.integer "account_id", null: false
     t.text "notes"
+  end
+
+  create_table "delivery_datetime_settings", force: :cascade do |t|
+    t.integer "shortest_delivery_day"
+    t.integer "longest_delivery_day"
+    t.time "deadline_time"
+    t.boolean "is_set_per_area_delivery_date"
+    t.boolean "is_holiday_sun", default: false
+    t.boolean "is_holiday_mon", default: false
+    t.boolean "is_holiday_tue", default: false
+    t.boolean "is_holiday_wed", default: false
+    t.boolean "is_holiday_thu", default: false
+    t.boolean "is_holiday_fri", default: false
+    t.boolean "is_holiday_sat", default: false
+    t.integer "delivery_time_type"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "delivery_datetime_temporary_holidays", force: :cascade do |t|
+    t.date "delivery_holiday"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "delivery_targets", force: :cascade do |t|
@@ -248,6 +278,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_02_012055) do
     t.integer "delivery_charge_type"
     t.integer "flat_rate_delivery_charge"
     t.integer "delivery_charge_with_order_number", default: 0
+    t.boolean "delivery_datetime_target_flg", default: true
   end
 
   create_table "purchased_tickets", force: :cascade do |t|
