@@ -128,7 +128,7 @@ const Index: NextPage = () => {
         title: '送信しました',
         icon: 'info'
       })
-      router.push('/admin/product')
+      location.reload()
     }).catch(error => {
       swalWithBootstrapButtons.fire({
         title: '送信失敗しました',

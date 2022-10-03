@@ -1,6 +1,7 @@
 class CreateDeliveryDatetimeSettings < ActiveRecord::Migration[7.0]
   def change
     create_table :delivery_datetime_settings do |t|
+      t.integer :account_id, null: false
       t.integer :shortest_delivery_day
       t.integer :longest_delivery_day
       t.time :deadline_time

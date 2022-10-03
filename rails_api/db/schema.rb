@@ -88,6 +88,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_03_064609) do
   end
 
   create_table "delivery_datetime_settings", force: :cascade do |t|
+    t.integer "account_id", null: false
     t.integer "shortest_delivery_day"
     t.integer "longest_delivery_day"
     t.time "deadline_time"
