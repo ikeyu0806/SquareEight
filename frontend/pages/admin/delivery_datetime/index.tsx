@@ -9,6 +9,8 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import SetTargetProductModal from 'components/templates/SetTargetProductModal'
 import { PrefecturesDeliveryTargetType } from 'interfaces/PrefecturesDeliveryTargetType'
 import { DeliveryTimes } from 'interfaces/DeliveryTimes'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { useRouter } from 'next/router'
 import { 
   shortestDeliveryDayChanged,
   longestDeliveryDayChanged,
@@ -30,6 +32,7 @@ import {
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const [inputTemporaryHoliday, setInputTemporaryHoliday] = useState('')
@@ -93,6 +96,45 @@ const Index: NextPage = () => {
       :
         chargeObj)
     dispatch(prefecturesDeliveryTargetChanged(updateDeliveryTarget))
+  }
+
+  const onSubmit = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/delivery_datetime_settings/register`,
+    {
+      delivery_datetime_setting: {
+        shortest_delivery_day: shortestDeliveryDay,
+        longest_delivery_day: longestDeliveryDay,
+        deadline_time: deadlineTime,
+        is_set_per_area_delivery_date: isSetPerAreaDeliveryDate,
+        is_holiday_sun: isHolidaySun,
+        is_holiday_mon: isHolidayMon,
+        is_holiday_tue: isHolidayTue,
+        is_holiday_wed: isHolidayWed,
+        is_holiday_thu: isHolidayThu,
+        is_holiday_fri: isHolidayFri,
+        is_holiday_sat: isHolidaySat,
+        delivery_time_type: deliveryTimeType,
+        delivery_datetime_temporary_holidays: temporaryHolidays,
+        custom_delivery_times: deliveryTimes,
+        target_products: targetProducts
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    }).then(response => {
+      swalWithBootstrapButtons.fire({
+        title: '送信しました',
+        icon: 'info'
+      })
+      router.push('/admin/product')
+    }).catch(error => {
+      swalWithBootstrapButtons.fire({
+        title: '送信失敗しました',
+        icon: 'error'
+      })
+    })
   }
 
   return (
@@ -342,7 +384,8 @@ const Index: NextPage = () => {
               対象商品を変更する
             </Button>
             <div className='text-center mt20'>
-              <Button>保存する</Button>
+              <Button
+                onClick={() => onSubmit()}>保存する</Button>
             </div>
           </Col>
         </Row>
