@@ -93,9 +93,9 @@ class EndUser < ApplicationRecord
           delivery_charge_type: product.delivery_charge_type,
           delivery_charge: delivery_charge,
         })
-        total_price += price
+        total_price += product.price
         
-        total_price += delivery_charge
+        total_price += delivery_charge if delivery_charge.present?
       else
         merge_destination_item[:price] = merge_destination_item[:price] += price
         merge_destination_item[:quantity] = merge_destination_item[:quantity] += cart.quantity
