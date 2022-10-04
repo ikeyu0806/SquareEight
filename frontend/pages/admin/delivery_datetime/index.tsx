@@ -67,6 +67,7 @@ const Index: NextPage = () => {
       dispatch(shortestDeliveryDayChanged(response.data.delivery_datetime_setting.shortest_delivery_day))
       dispatch(longestDeliveryDayChanged(response.data.delivery_datetime_setting.longest_delivery_day))
       dispatch(deadlineTimeChanged(response.data.delivery_datetime_setting.deadline_time || '00:00'))
+      dispatch(isSetPerAreaDeliveryDateChanged(response.data.delivery_datetime_setting.is_set_per_area_delivery_date))
       dispatch(isHolidaySunChanged(response.data.delivery_datetime_setting.is_holiday_sun))
       dispatch(isHolidayMonChanged(response.data.delivery_datetime_setting.is_holiday_mon))
       dispatch(isHolidayTueChanged(response.data.delivery_datetime_setting.is_holiday_tue))
@@ -90,7 +91,6 @@ const Index: NextPage = () => {
   }
 
   const addDeliveryTimes = () => {
-    console.log("!!!", inputDeliveryTimeStartAt, inputDeliveryTimeEndAt, deliveryTimes)
     let updateTemporaryHolidays: DeliveryTimes[]
     updateTemporaryHolidays = deliveryTimes
     let addTemporaryHolidays: DeliveryTimes
@@ -169,7 +169,12 @@ const Index: NextPage = () => {
                   onChange={(e) => dispatch(shortestDeliveryDayChanged(Number(e.target.value)))}>
                   {[...Array(30)].map((_, i) => {
                     return (
-                      <option key={i} value={i + 1}>{i + 1}</option>
+                      <option
+                        key={i}
+                        selected={shortestDeliveryDay === i + 1}
+                        value={i + 1}>
+                        {i + 1}
+                      </option>
                     )
                   })}
                 </Form.Select>
@@ -188,7 +193,12 @@ const Index: NextPage = () => {
                   onChange={(e) => dispatch(longestDeliveryDayChanged(Number(e.target.value)))}>
                 {[...Array(30)].map((_, i) => {
                   return (
-                    <option key={i} value={i + 1}>{i + 1}</option>
+                    <option
+                      key={i}
+                      selected={longestDeliveryDay === i + 1}
+                      value={i + 1}>
+                      {i + 1}
+                    </option>
                   )
                 })}
                 </Form.Select>
