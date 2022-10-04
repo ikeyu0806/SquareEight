@@ -57,13 +57,24 @@ const Index: NextPage = () => {
   const deliveryTimes = useSelector((state: RootState) => state.deliveryDatetime.deliveryTimes)
   
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/products`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/delivery_datetime_settings`,
     {
       headers: {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
-      
+      console.log(response.data)
+      dispatch(shortestDeliveryDayChanged(response.data.delivery_datetime_setting.shortest_delivery_day))
+      dispatch(longestDeliveryDayChanged(response.data.delivery_datetime_setting.longest_delivery_day))
+      dispatch(deadlineTimeChanged(response.data.delivery_datetime_setting.deadline_time || '00:00'))
+      dispatch(isHolidaySunChanged(response.data.delivery_datetime_setting.is_holiday_sun))
+      dispatch(isHolidayMonChanged(response.data.delivery_datetime_setting.is_holiday_mon))
+      dispatch(isHolidayTueChanged(response.data.delivery_datetime_setting.is_holiday_tue))
+      dispatch(isHolidayWedChanged(response.data.delivery_datetime_setting.is_holiday_wed))
+      dispatch(isHolidayThuChanged(response.data.delivery_datetime_setting.is_holiday_thu))
+      dispatch(isHolidayFriChanged(response.data.delivery_datetime_setting.is_holiday_fri))
+      dispatch(isHolidaySatChanged(response.data.delivery_datetime_setting.is_holiday_sat))
+      dispatch(deliveryTimeTypeChanged(response.data.delivery_datetime_setting.delivery_time_type))
     }).catch((error) => {
       console.log(error)
     })

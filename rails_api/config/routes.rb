@@ -140,6 +140,7 @@ Rails.application.routes.draw do
       post 'message_templates', to: 'message_templates#create'
       get 'shared_components', to: 'shared_components#show'
       post 'shared_components/register', to: 'shared_components#register'
+      get 'delivery_datetime_settings', to: 'delivery_datetime_settings#index'
       post 'delivery_datetime_settings/register', to: 'delivery_datetime_settings#register'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
