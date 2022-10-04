@@ -127,7 +127,8 @@ const Index: NextPage = () => {
         delivery_time_type: deliveryTimeType,
         delivery_datetime_temporary_holidays: temporaryHolidays,
         custom_delivery_times: deliveryTimes,
-        target_products: targetProducts
+        target_products: targetProducts,
+        prefectures_delivery_target: prefecturesDeliveryTarget
       }
     },
     {

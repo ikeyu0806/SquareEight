@@ -3,6 +3,7 @@ class DeliveryDatetimeSetting < ApplicationRecord
 
   has_many :delivery_datetime_temporary_holidays
   has_many :custom_delivery_times
+  has_many :additional_delivery_days_per_region
 
   def display_deadline_time
     deadline_time.strftime("%H:%M")
