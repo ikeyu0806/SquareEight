@@ -3,7 +3,7 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
 
   def index
     delivery_datetime_setting = current_merchant_user.account.delivery_datetime_setting
-    delivery_datetime_setting = JSON.parse(delivery_datetime_setting.to_json(methods: [:delivery_datetime_temporary_holidays,                                                                             :custom_delivery_times]))
+    delivery_datetime_setting = JSON.parse(delivery_datetime_setting.to_json(methods: [:delivery_datetime_temporary_holidays, :custom_delivery_times, :display_deadline_time]))
     render json: { status: 'success', delivery_datetime_setting: delivery_datetime_setting }, states: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500

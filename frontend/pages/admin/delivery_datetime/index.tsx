@@ -66,7 +66,7 @@ const Index: NextPage = () => {
       console.log(response.data)
       dispatch(shortestDeliveryDayChanged(response.data.delivery_datetime_setting.shortest_delivery_day))
       dispatch(longestDeliveryDayChanged(response.data.delivery_datetime_setting.longest_delivery_day))
-      dispatch(deadlineTimeChanged(response.data.delivery_datetime_setting.deadline_time || '00:00'))
+      dispatch(deadlineTimeChanged(response.data.delivery_datetime_setting.display_deadline_time || '00:00'))
       dispatch(isSetPerAreaDeliveryDateChanged(response.data.delivery_datetime_setting.is_set_per_area_delivery_date))
       dispatch(isHolidaySunChanged(response.data.delivery_datetime_setting.is_holiday_sun))
       dispatch(isHolidayMonChanged(response.data.delivery_datetime_setting.is_holiday_mon))
