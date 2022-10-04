@@ -1,6 +1,7 @@
 class DeliveryDatetimeSetting < ApplicationRecord
   enum delivery_time_type: { yamato: 0, sagawa: 1, yupack: 2, other: 3 }
 
+  belongs_to :account
   has_many :delivery_datetime_temporary_holidays, dependent: :delete_all
   has_many :custom_delivery_times, dependent: :delete_all
   has_many :additional_delivery_days_per_regions, dependent: :delete_all
