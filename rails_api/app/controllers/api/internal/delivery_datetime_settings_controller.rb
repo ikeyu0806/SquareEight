@@ -16,7 +16,11 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
                                            .except(:delivery_datetime_temporary_holidays,
                                                    :custom_delivery_times, :target_products,
                                                    :deadline_time)
+
     delivery_datetime_setting.attributes = delivery_datetime_setting_attributes
+    deadline_time = delivery_datetime_setting_params[:deadline_time].split(":")
+    deadline_time = DateTime.new(2000, 01, 01, deadline_time[0].to_i, deadline_time[1].to_i, 0, "+09:00")
+    delivery_datetime_setting.deadline_time = deadline_time
     # 臨時休業日設定
     if delivery_datetime_setting_params[:delivery_datetime_temporary_holidays].present?
       delivery_datetime_setting.delivery_datetime_temporary_holidays.delete_all
