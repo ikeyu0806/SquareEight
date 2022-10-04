@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import SetTargetProductModal from 'components/templates/SetTargetProductModal'
-import { PrefecturesDeliveryTargetType } from 'interfaces/PrefecturesDeliveryTargetType'
+import { AdditionalDeliveryDays } from 'interfaces/AdditionalDeliveryDays'
 import { DeliveryTimes } from 'interfaces/DeliveryTimes'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useRouter } from 'next/router'
@@ -98,15 +98,15 @@ const Index: NextPage = () => {
     dispatch(deliveryTimesChanged([...updateTemporaryHolidays, addTemporaryHolidays]))
   }
 
-  const updatePrefectureDeliveryTarget = (region :string, shortest_delivery_add_date: number) => {
-    let updateDeliveryTarget: PrefecturesDeliveryTargetType[] = prefecturesDeliveryTarget
-    updateDeliveryTarget = updateDeliveryTarget.map(
+  const updatePrefectureDeliveryTarget = (region :string, additional_delivery_days: number) => {
+    let updateAdditionalDeliveryDays: AdditionalDeliveryDays[] = prefecturesDeliveryTarget
+    updateAdditionalDeliveryDays = updateAdditionalDeliveryDays.map(
       chargeObj => chargeObj.region === region
       ?
-        {region: chargeObj.region, shortest_delivery_add_date: shortest_delivery_add_date}
+        {region: chargeObj.region, additional_delivery_days: additional_delivery_days}
       :
         chargeObj)
-    dispatch(prefecturesDeliveryTargetChanged(updateDeliveryTarget))
+    dispatch(prefecturesDeliveryTargetChanged(updateAdditionalDeliveryDays))
   }
 
   const onSubmit = () => {
@@ -240,7 +240,7 @@ const Index: NextPage = () => {
                           <Form.Control
                             type='number'
                             onChange={(e) => updatePrefectureDeliveryTarget(target.region, Number(e.target.value))}
-                            value={target.shortest_delivery_add_date}></Form.Control>
+                            value={target.additional_delivery_days}></Form.Control>
                         </Col>
                         <Col sm={8}></Col>
                       </Row>
