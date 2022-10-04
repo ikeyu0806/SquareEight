@@ -14,6 +14,7 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
     delivery_datetime_setting = DeliveryDatetimeSetting.new(account_id: current_merchant_user.account.id) if delivery_datetime_setting.blank?
     delivery_datetime_setting_attributes = delivery_datetime_setting_params
                                            .except(:delivery_datetime_temporary_holidays,
+                                                   :additional_delivery_days_per_region,
                                                    :custom_delivery_times, :target_products,
                                                    :deadline_time)
 
@@ -21,6 +22,11 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
     deadline_time = delivery_datetime_setting_params[:deadline_time].split(":")
     deadline_time = DateTime.new(2000, 01, 01, deadline_time[0].to_i, deadline_time[1].to_i, 0, "+09:00")
     delivery_datetime_setting.deadline_time = deadline_time
+    # 都道府県別追加お届け日数
+    delivery_datetime_setting.additional_delivery_days_per_regions.delete_all
+    delivery_datetime_setting_params[:additional_delivery_days_per_region].each do |additional_delivery_day|
+      delivery_datetime_setting.additional_delivery_days_per_regions.new(region: additional_delivery_day[:region], additional_delivery_days: additional_delivery_day[:additional_delivery_days])
+    end
     # 臨時休業日設定
     if delivery_datetime_setting_params[:delivery_datetime_temporary_holidays].present?
       delivery_datetime_setting.delivery_datetime_temporary_holidays.delete_all
