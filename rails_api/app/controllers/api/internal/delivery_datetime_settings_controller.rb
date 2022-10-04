@@ -21,7 +21,6 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
                                                    :additional_delivery_days_per_region,
                                                    :custom_delivery_times,
                                                    :target_products,
-                                                   :delivery_time_type,
                                                    :deadline_time)
 
     delivery_datetime_setting.attributes = delivery_datetime_setting_attributes
