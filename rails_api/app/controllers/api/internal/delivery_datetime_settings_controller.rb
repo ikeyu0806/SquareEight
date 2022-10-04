@@ -6,6 +6,7 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
     delivery_datetime_setting = JSON.parse(delivery_datetime_setting.to_json(methods: [:display_delivery_datetime_temporary_holidays,
                                                                                        :additional_delivery_days_per_regions,
                                                                                        :custom_delivery_times,
+                                                                                       :display_custom_delivery_times,
                                                                                        :display_deadline_time]))
     render json: { status: 'success', delivery_datetime_setting: delivery_datetime_setting }, states: 200
   rescue => error
@@ -18,7 +19,9 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
     delivery_datetime_setting_attributes = delivery_datetime_setting_params
                                            .except(:delivery_datetime_temporary_holidays,
                                                    :additional_delivery_days_per_region,
-                                                   :custom_delivery_times, :target_products,
+                                                   :custom_delivery_times,
+                                                   :target_products,
+                                                   :delivery_time_type,
                                                    :deadline_time)
 
     delivery_datetime_setting.attributes = delivery_datetime_setting_attributes
@@ -43,7 +46,7 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
     if delivery_datetime_setting_params[:delivery_time_type] == 'other' && delivery_datetime_setting_params[:custom_delivery_times].present?
       delivery_datetime_setting.custom_delivery_times.delete_all
       delivery_datetime_setting_params[:custom_delivery_times].each do |delivery_time|
-        delivery_datetime_setting.custom_delivery_times.new(delivery_time: delivery_time["start_at"])
+        delivery_datetime_setting.custom_delivery_times.new(start_at: delivery_time["start_at"], end_at: delivery_time["end_at"])
       end
     end
     delivery_datetime_setting.save!

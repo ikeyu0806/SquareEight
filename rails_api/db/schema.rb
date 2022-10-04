@@ -73,7 +73,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_04_072101) do
 
   create_table "custom_delivery_times", force: :cascade do |t|
     t.integer "delivery_datetime_setting_id", null: false
-    t.time "delivery_time"
+    t.time "start_at"
+    t.time "end_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

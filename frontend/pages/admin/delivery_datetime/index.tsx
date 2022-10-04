@@ -78,6 +78,7 @@ const Index: NextPage = () => {
       dispatch(additionalDeliveryDaysChanged(response.data.delivery_datetime_setting.additional_delivery_days_per_regions))
       dispatch(deliveryTimeTypeChanged(response.data.delivery_datetime_setting.delivery_time_type))
       dispatch(temporaryHolidaysChanged(response.data.delivery_datetime_setting.display_delivery_datetime_temporary_holidays))
+      dispatch(deliveryTimesChanged(response.data.delivery_datetime_setting.display_custom_delivery_times))
     }).catch((error) => {
       console.log(error)
     })
@@ -365,7 +366,7 @@ const Index: NextPage = () => {
             {deliveryTimeType === 'other'
             &&
               <>
-                {deliveryTimes.map((time, i) => {
+                {deliveryTimes && deliveryTimes.map((time, i) => {
                   return (
                     <div key={i}>{time.start_at} ~ {time.end_at}</div> 
                   )
