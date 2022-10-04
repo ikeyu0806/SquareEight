@@ -8,4 +8,8 @@ class DeliveryDatetimeSetting < ApplicationRecord
   def display_deadline_time
     deadline_time.strftime("%H:%M")
   end
+
+  def display_delivery_datetime_temporary_holidays
+    delivery_datetime_temporary_holidays.map { |holiday| holiday.delivery_holiday }
+  end
 end

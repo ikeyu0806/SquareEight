@@ -77,6 +77,7 @@ const Index: NextPage = () => {
       dispatch(isHolidaySatChanged(response.data.delivery_datetime_setting.is_holiday_sat))
       dispatch(additionalDeliveryDaysChanged(response.data.delivery_datetime_setting.additional_delivery_days_per_regions))
       dispatch(deliveryTimeTypeChanged(response.data.delivery_datetime_setting.delivery_time_type))
+      dispatch(temporaryHolidaysChanged(response.data.delivery_datetime_setting.display_delivery_datetime_temporary_holidays))
     }).catch((error) => {
       console.log(error)
     })

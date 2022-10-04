@@ -3,7 +3,7 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
 
   def index
     delivery_datetime_setting = current_merchant_user.account.delivery_datetime_setting
-    delivery_datetime_setting = JSON.parse(delivery_datetime_setting.to_json(methods: [:delivery_datetime_temporary_holidays,
+    delivery_datetime_setting = JSON.parse(delivery_datetime_setting.to_json(methods: [:display_delivery_datetime_temporary_holidays,
                                                                                        :additional_delivery_days_per_regions,
                                                                                        :custom_delivery_times,
                                                                                        :display_deadline_time]))
