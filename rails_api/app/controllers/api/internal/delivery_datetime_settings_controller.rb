@@ -62,7 +62,7 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
                   :delivery_time_type,
                   delivery_datetime_temporary_holidays: [],
                   custom_delivery_times: [:start_at, :end_at],
-                  prefectures_delivery_target: [:region, :additional_delivery_days],
+                  additional_delivery_days_per_region: [:region, :additional_delivery_days],
                   target_products: []
                   )
   end

@@ -22,7 +22,7 @@ export const deliveryDatetimeSlice = createSlice({
     deliveryTimeType: '',
     targetProducts: [] as ProductType[],
     showSetTargetProductModal: false,
-    prefecturesDeliveryTarget: initAdditionalDeliveryDays as AdditionalDeliveryDays[],
+    additionalDeliveryDays: initAdditionalDeliveryDays as AdditionalDeliveryDays[],
     deliveryTimes: [] as DeliveryTimes[]
   },
   reducers: {
@@ -71,8 +71,8 @@ export const deliveryDatetimeSlice = createSlice({
     showSetTargetProductModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showSetTargetProductModal = action.payload
     },
-    prefecturesDeliveryTargetChanged: (state, action: PayloadAction<AdditionalDeliveryDays[]>) => {
-      state.prefecturesDeliveryTarget = action.payload
+    additionalDeliveryDaysChanged: (state, action: PayloadAction<AdditionalDeliveryDays[]>) => {
+      state.additionalDeliveryDays = action.payload
     },
     deliveryTimesChanged: (state, action: PayloadAction<DeliveryTimes[]>) => {
       state.deliveryTimes = action.payload
@@ -95,7 +95,7 @@ export const { temporaryHolidaysChanged } = deliveryDatetimeSlice.actions
 export const { deliveryTimeTypeChanged } = deliveryDatetimeSlice.actions
 export const { targetProductsChanged } = deliveryDatetimeSlice.actions
 export const { showSetTargetProductModalChanged } = deliveryDatetimeSlice.actions
-export const { prefecturesDeliveryTargetChanged } = deliveryDatetimeSlice.actions
+export const { additionalDeliveryDaysChanged } = deliveryDatetimeSlice.actions
 export const { deliveryTimesChanged } = deliveryDatetimeSlice.actions
 
 export default deliveryDatetimeSlice.reducer

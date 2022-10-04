@@ -28,7 +28,7 @@ import {
   targetProductsChanged,
   showSetTargetProductModalChanged,
   deliveryTimesChanged,
-  prefecturesDeliveryTargetChanged } from 'redux/deliveryDatetimeSlice'
+  additionalDeliveryDaysChanged } from 'redux/deliveryDatetimeSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -53,7 +53,7 @@ const Index: NextPage = () => {
   const temporaryHolidays = useSelector((state: RootState) => state.deliveryDatetime.temporaryHolidays)
   const deliveryTimeType = useSelector((state: RootState) => state.deliveryDatetime.deliveryTimeType)
   const targetProducts = useSelector((state: RootState) => state.deliveryDatetime.targetProducts)
-  const prefecturesDeliveryTarget = useSelector((state: RootState) => state.deliveryDatetime.prefecturesDeliveryTarget)
+  const additionalDeliveryDays = useSelector((state: RootState) => state.deliveryDatetime.additionalDeliveryDays)
   const deliveryTimes = useSelector((state: RootState) => state.deliveryDatetime.deliveryTimes)
   
   useEffect(() => {
@@ -99,14 +99,14 @@ const Index: NextPage = () => {
   }
 
   const updatePrefectureDeliveryTarget = (region :string, additional_delivery_days: number) => {
-    let updateAdditionalDeliveryDays: AdditionalDeliveryDays[] = prefecturesDeliveryTarget
+    let updateAdditionalDeliveryDays: AdditionalDeliveryDays[] = additionalDeliveryDays
     updateAdditionalDeliveryDays = updateAdditionalDeliveryDays.map(
       chargeObj => chargeObj.region === region
       ?
         {region: chargeObj.region, additional_delivery_days: additional_delivery_days}
       :
         chargeObj)
-    dispatch(prefecturesDeliveryTargetChanged(updateAdditionalDeliveryDays))
+    dispatch(additionalDeliveryDaysChanged(updateAdditionalDeliveryDays))
   }
 
   const onSubmit = () => {
@@ -128,7 +128,7 @@ const Index: NextPage = () => {
         delivery_datetime_temporary_holidays: temporaryHolidays,
         custom_delivery_times: deliveryTimes,
         target_products: targetProducts,
-        prefectures_delivery_target: prefecturesDeliveryTarget
+        additional_delivery_days_per_region: additionalDeliveryDays
       }
     },
     {
@@ -232,7 +232,7 @@ const Index: NextPage = () => {
             {isSetPerAreaDeliveryDate &&
               <div>
                 <div className='mt10 mb10'>最短お届け日に加算する都道府県別日数</div>
-                {prefecturesDeliveryTarget.map((target, i) => {
+                {additionalDeliveryDays.map((target, i) => {
                   return (
                     <div key={i} className='mb10'>
                       <Row>
