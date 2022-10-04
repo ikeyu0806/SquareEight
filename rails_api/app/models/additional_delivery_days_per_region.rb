@@ -1,0 +1,2 @@
+class AdditionalDeliveryDaysPerRegion < ApplicationRecord
+end
