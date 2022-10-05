@@ -100,7 +100,8 @@ class Api::Internal::CashRegistersController < ApplicationController
                                 account_id: product.account.id,
                                 commission: commission,
                                 delivery_charge: delivery_charge,
-                                quantity: cart[:quantity])
+                                quantity: cart[:quantity],
+                                delivery_date_text: cach_register_params[:delivery_date_text])
           product.save!
           current_end_user.cart_products.where(product_id: product.id).delete_all
 
@@ -248,5 +249,12 @@ class Api::Internal::CashRegistersController < ApplicationController
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  private
+
+  def cash_register_params
+    params.require(:cash_register)
+          .permit(:delivery_date_text)
   end
 end

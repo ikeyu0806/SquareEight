@@ -117,7 +117,11 @@ const Index: NextPage = () => {
   const execPurchase = () => {
     setIsLoading(true)
     axios.post(`${process.env.BACKEND_URL}/api/internal/cash_registers/purchase`,
-    {},
+    {
+      cash_register: {
+        delivery_date_text: isSelectDeliveryDatetime ? selectedDate + selectedTime : '指定なし'
+      }
+    },
     {
       headers: {
         'Session-Id': cookies._square_eight_end_user_session
