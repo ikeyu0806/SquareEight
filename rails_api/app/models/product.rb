@@ -53,8 +53,25 @@ class Product < ApplicationRecord
       # ループ終了
       wday_loop_flg = false
     end
+    # 都道府県別設定
+    if delivery_datetime_setting.is_set_per_area_delivery_date
+      additional_day = delivery_datetime_setting.additional_delivery_days_per_regions.find_by(region: state).additional_delivery_days
+      loop_start_date = loop_start_date + additional_day.days
+    end
     longest_delivery_day = delivery_datetime_setting.longest_delivery_day
+    result.push(loop_start_date)
+    loop_current_date = loop_start_date
+    # 最短お届け日を元に有効な日程を出力
     (shortest_delivery_day..longest_delivery_day).each do |d|
+      if holiday_wdays.include?(loop_current_date.wday)
+        loop_current_date = loop_current_date + 1.days
+        next
+      end
+      if delivery_datetime_setting.delivery_datetime_temporary_holidays.pluck(:delivery_holiday).include?(loop_current_date)
+        loop_current_date = loop_current_date + 1.days
+        next
+      end
+      result.push(loop_current_date)
     end
     return result
   end
