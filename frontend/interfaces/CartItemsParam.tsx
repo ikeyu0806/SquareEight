@@ -17,5 +17,6 @@ export interface CartItemParam {
   delivery_charge_type: string
   delivery_charge: number
   delivery_datetime_target_flg: boolean
+  shippable_date: string[]
   shippable_time: string[]
 }

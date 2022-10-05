@@ -93,6 +93,7 @@ class EndUser < ApplicationRecord
           delivery_charge_type: product.delivery_charge_type,
           delivery_charge: delivery_charge,
           delivery_datetime_target_flg: product.delivery_datetime_target_flg,
+          shippable_date: product.display_shippable_date(default_delivery_target.state),
           shippable_time: product.shippable_time,
         })
         total_price += price

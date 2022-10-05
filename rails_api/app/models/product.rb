@@ -94,6 +94,11 @@ class Product < ApplicationRecord
     return result
   end
 
+  def display_shippable_date(state)
+    dates = shippable_date(state)
+    dates.map{ |date| date.strftime("%Y-%m-%d") }
+  end
+
   def display_custom_delivery_times
     delivery_datetime_setting = DeliveryDatetimeSetting.find_by(account_id: account.id)
     result = []

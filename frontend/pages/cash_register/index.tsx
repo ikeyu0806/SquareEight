@@ -20,6 +20,7 @@ const Index: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isSelectDeliveryDatetime, setIsSelectDeliveryDatetime] = useState(false)
   const [isRequireDeliveryTargets, setIsRequireDeliveryTargets] = useState(false)
+  const [selectedDate, setSelectedDate] = useState('')
   const [selectedTime, setSelectedTime] = useState('')
   const [currentEndUserId, setCurrentEndUserId] = useState()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
@@ -261,6 +262,22 @@ const Index: NextPage = () => {
                                     {isSelectDeliveryDatetime
                                     &&
                                     <>
+                                      <div className='mt10'>日にちを選択してください</div>
+                                      {item.shippable_date.map((date, i) => {
+                                        return (
+                                          <Form.Check
+                                            type='radio'
+                                            key={i}
+                                            checked={selectedDate === date}
+                                            className='ml20'
+                                            label={date}
+                                            id={'shippableDate' + i}
+                                            name='shippableDate'
+                                          >
+                                          </Form.Check>
+                                        )
+                                      })}
+                                      <div className='mt10'>時間を選択してください</div>
                                       {item.shippable_time.map((time, i) => {
                                         return (
                                           <Form.Check
