@@ -254,6 +254,7 @@ const Index: NextPage = () => {
                                       onChange={() =>
                                         {
                                           setIsSelectDeliveryDatetime(true)
+                                          if (selectedDate == '') { setSelectedDate(item.shippable_date[0]) }
                                           if (selectedTime == '') { setSelectedTime(item.shippable_time[0]) }
                                         }
                                       }
@@ -269,6 +270,7 @@ const Index: NextPage = () => {
                                             type='radio'
                                             key={i}
                                             checked={selectedDate === date}
+                                            onChange={() => setSelectedDate(date)}
                                             className='ml20'
                                             label={date}
                                             id={'shippableDate' + i}
@@ -284,6 +286,7 @@ const Index: NextPage = () => {
                                             type='radio'
                                             key={i}
                                             checked={selectedTime === time}
+                                            onChange={() => setSelectedTime(time)}
                                             className='ml20'
                                             label={time}
                                             id={'shippableTime' + i}
