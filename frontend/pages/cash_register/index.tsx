@@ -18,6 +18,7 @@ const Index: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
+  const [isSelectDeliveryDatetime, setIsSelectDeliveryDatetime] = useState(false)
   const [isRequireDeliveryTargets, setIsRequireDeliveryTargets] = useState(false)
   const [currentEndUserId, setCurrentEndUserId] = useState()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
@@ -233,9 +234,24 @@ const Index: NextPage = () => {
                                   && <div className='mt10'>配送料: ￥{item.delivery_charge}</div>}
                                 </Col>
                                 <Col>
+                                  {item.delivery_datetime_target_flg
+                                  &&
+                                  <>
+                                    <div>配送日時</div>
+                                    <Form.Check
+                                      label='指定しない'
+                                      id='noSetDeliveryDate'
+                                      name='setDeliveryDate'
+                                      type='radio'></Form.Check>
+                                    <Form.Check
+                                      label='指定する'
+                                      id='setDeliveryDate'
+                                      name='setDeliveryDate'
+                                      type='radio'></Form.Check>
+                                  </>}
                                   <Button
                                     onClick={() => deleteCartItem(item.id, item.item_type)}
-                                    className='mt50'
+                                    className='mt10'
                                     size='sm'
                                     variant='danger'>
                                     カートから削除

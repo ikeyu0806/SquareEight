@@ -92,6 +92,8 @@ class EndUser < ApplicationRecord
           remaining_inventory: product.inventory,
           delivery_charge_type: product.delivery_charge_type,
           delivery_charge: delivery_charge,
+          delivery_datetime_target_flg: product.delivery_datetime_target_flg,
+          shippable_time: product.shippable_time,
         })
         total_price += price
         

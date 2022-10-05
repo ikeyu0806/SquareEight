@@ -16,4 +16,6 @@ export interface CartItemParam {
   remaining_inventory: number
   delivery_charge_type: string
   delivery_charge: number
+  delivery_datetime_target_flg: boolean
+  shippable_time: string[]
 }
