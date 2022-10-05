@@ -394,11 +394,13 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
               </>}
             </div>
             <Form.Group className='mb-3'>
+              <Form.Label>配送日時</Form.Label>
               <Form.Check
                 id='setDeliveryDate'
                 checked={deliveryDatetimeTargetFlg}
                 onChange={() => dispatch(deliveryDatetimeTargetFlgChanged(!deliveryDatetimeTargetFlg))}
-                label='配送日時を受け付ける' />
+                label='顧客の配送日時を受け付ける' />
+              <a href='/admin/delivery_datetime'>配送日時の設定はこちら</a>
             </Form.Group>
           </Col>
           <Col>
