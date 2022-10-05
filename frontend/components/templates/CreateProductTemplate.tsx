@@ -23,6 +23,7 @@ import { nameChanged,
          flatRateDeliveryChargeChange,
          prefectureDeliveryChargesChange,
          showProductTypeFormChanged,
+         deliveryDatetimeTargetFlgChanged,
          deliveryChargeWithOrderNumberChanged } from 'redux/productSlice'
 
 interface Props {
@@ -50,6 +51,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const flatRateDeliveryCharge = useSelector((state: RootState) => state.product.flatRateDeliveryCharge)
   const prefectureDeliveryCharges = useSelector((state: RootState) => state.product.prefectureDeliveryCharges)
   const deliveryChargeWithOrderNumber = useSelector((state: RootState) => state.product.deliveryChargeWithOrderNumber)
+  const deliveryDatetimeTargetFlg = useSelector((state: RootState) => state.product.deliveryDatetimeTargetFlg)
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -391,6 +393,13 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                 </Row>
               </>}
             </div>
+            <Form.Group className='mb-3'>
+              <Form.Check
+                id='setDeliveryDate'
+                checked={deliveryDatetimeTargetFlg}
+                onChange={() => dispatch(deliveryDatetimeTargetFlgChanged(!deliveryDatetimeTargetFlg))}
+                label='配送日時を受け付ける' />
+            </Form.Group>
           </Col>
           <Col>
           </Col>

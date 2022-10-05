@@ -21,7 +21,8 @@ export const productSlice = createSlice({
     flatRateDeliveryCharge: 100,
     prefectureDeliveryCharges: prefecturesDeliveryTargetInitValue as DeliveryCharge[],
     showPerPrefecturesChargeModal: false,
-    deliveryChargeWithOrderNumber: 'nationwideUniform'
+    deliveryChargeWithOrderNumber: 'nationwideUniform',
+    deliveryDatetimeTargetFlg: true
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -72,6 +73,9 @@ export const productSlice = createSlice({
     deliveryChargeWithOrderNumberChanged: (state, action: PayloadAction<string>) => {
       state.deliveryChargeWithOrderNumber = action.payload
     },
+    deliveryDatetimeTargetFlgChanged: (state, action: PayloadAction<boolean>) => {
+      state.deliveryDatetimeTargetFlg = action.payload
+    },
   },
 })
 
@@ -91,5 +95,6 @@ export const { flatRateDeliveryChargeChange } = productSlice.actions
 export const { prefectureDeliveryChargesChange } = productSlice.actions
 export const { showPerPrefecturesChargeModalChanged } = productSlice.actions
 export const { deliveryChargeWithOrderNumberChanged } = productSlice.actions
+export const { deliveryDatetimeTargetFlgChanged } = productSlice.actions
 
 export default productSlice.reducer

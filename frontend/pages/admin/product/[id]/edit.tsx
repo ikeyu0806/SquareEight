@@ -21,6 +21,7 @@ import {  nameChanged,
           flatRateDeliveryChargeChange,
           prefectureDeliveryChargesChange,
           deliveryChargeWithOrderNumberChanged,
+          deliveryDatetimeTargetFlgChanged,
           showProductTypeFormChanged } from 'redux/productSlice'
 
 const Edit: NextPage = () => {
@@ -41,6 +42,7 @@ const Edit: NextPage = () => {
   const deliveryChargeType = useSelector((state: RootState) => state.product.deliveryChargeType)
   const flatRateDeliveryCharge = useSelector((state: RootState) => state.product.flatRateDeliveryCharge)
   const deliveryChargeWithOrderNumber = useSelector((state: RootState) => state.product.deliveryChargeWithOrderNumber)
+  const deliveryDatetimeTargetFlg = useSelector((state: RootState) => state.product.deliveryDatetimeTargetFlg)
 
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
@@ -66,6 +68,7 @@ const Edit: NextPage = () => {
         dispatch(prefectureDeliveryChargesChange(response.data.product.shipping_fee_per_regions))
         dispatch(flatRateDeliveryChargeChange(response.data.product.flat_rate_delivery_charge))
         dispatch(deliveryChargeWithOrderNumberChanged(response.data.product.delivery_charge_with_order_number))
+        dispatch(deliveryDatetimeTargetFlgChanged(response.data.product.delivery_datetime_target_flg))
       })
       .catch(error => {
         console.log(error)
@@ -102,7 +105,8 @@ const Edit: NextPage = () => {
         prefecture_delivery_charges: prefectureDeliveryCharges,
         delivery_charge_type: deliveryChargeType,
         flat_rate_delivery_charge: flatRateDeliveryCharge,
-        delivery_charge_with_order_number: deliveryChargeWithOrderNumber
+        delivery_charge_with_order_number: deliveryChargeWithOrderNumber,
+        delivery_datetime_target_flg: deliveryDatetimeTargetFlg
       }
     },
     {
