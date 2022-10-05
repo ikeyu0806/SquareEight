@@ -11,7 +11,7 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
                                                                                        :display_deadline_time]))
     render json: { status: 'success',
                    products: products,
-                   delivery_datetime_setting: delivery_datetime_setting }, states: 200
+                   delivery_datetime_setting: delivery_datetime_setting }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
@@ -24,7 +24,8 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
                                                    :additional_delivery_days_per_region,
                                                    :custom_delivery_times,
                                                    :target_products,
-                                                   :deadline_time)
+                                                   :deadline_time,
+                                                   :products)
 
     delivery_datetime_setting.attributes = delivery_datetime_setting_attributes
     deadline_time = delivery_datetime_setting_params[:deadline_time].split(":")
@@ -51,8 +52,16 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
         delivery_datetime_setting.custom_delivery_times.new(start_at: delivery_time["start_at"], end_at: delivery_time["end_at"])
       end
     end
+
+    # 対象商品更新
+    target_product_ids = delivery_datetime_setting_params[:products].select{ |product| product[:delivery_datetime_target_flg] == true }.pluck(:id)
+    no_target_product_ids = delivery_datetime_setting_params[:products].select{ |product| product[:delivery_datetime_target_flg] == false }.pluck(:id)
+    products = current_merchant_user.account.products
+    products.where(id: target_product_ids).update_all(delivery_datetime_target_flg: true)
+    products.where(id: no_target_product_ids).update_all(delivery_datetime_target_flg: false)
+
     delivery_datetime_setting.save!
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
@@ -74,6 +83,7 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
                   :is_holiday_fri,
                   :is_holiday_sat,
                   :delivery_time_type,
+                  products: [:id, :name, :delivery_datetime_target_flg],
                   delivery_datetime_temporary_holidays: [],
                   custom_delivery_times: [:start_at, :end_at],
                   additional_delivery_days_per_region: [:region, :additional_delivery_days],
