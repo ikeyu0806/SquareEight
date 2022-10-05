@@ -68,43 +68,45 @@ const Index: NextPage = () => {
             <h4>注文管理</h4>
             <Row>
               <Col>
-                {orderItems && orderItems.map((item, i) => {
-                  return (
-                    <ListGroup.Item key={i}>
-                      <Row>
-                        <Col>
-                          購入者 {item.order_name}<br/>
-                          {item.product_name} <OrderItemTypeBadge itemType={item.item_type}/><br/>
-                          ￥{item.price}<br/>
-                          購入数 {item.quantity}
-                        </Col>
-                        <Col>
-                          {item.item_type === 'Product'
-                          &&
-                          <>
-                            <div className='mt10'>郵送先</div>
-                            <div>〒{item.postal_code}</div>
-                            <div>{item.address}</div>
-                            {!item.shipped &&
+                <ListGroup>
+                  {orderItems && orderItems.map((item, i) => {
+                    return (
+                      <ListGroup.Item key={i}>
+                        <Row>
+                          <Col>
+                            購入者 {item.order_name}<br/>
+                            {item.product_name} <OrderItemTypeBadge itemType={item.item_type}/><br/>
+                            ￥{item.price}<br/>
+                            購入数 {item.quantity}
+                          </Col>
+                          <Col>
+                            {item.item_type === 'Product'
+                            &&
                             <>
-                              <span className='badge bg-danger'>
-                                未発送
-                              </span>
-                              <a className='badge bg-primary ml10'
-                                 onClick={() => updateShippedStatus(item.id)}>
-                                発送済みに更新する
-                              </a>
+                              <div className='mt10'>郵送先</div>
+                              <div>〒{item.postal_code}</div>
+                              <div>{item.address}</div>
+                              {!item.shipped &&
+                              <>
+                                <span className='badge bg-danger'>
+                                  未発送
+                                </span>
+                                <a className='badge bg-primary ml10'
+                                  onClick={() => updateShippedStatus(item.id)}>
+                                  発送済みに更新する
+                                </a>
+                              </>}
+                              {item.shipped &&
+                              <span className='badge bg-info'>
+                                発送済み
+                              </span>}
                             </>}
-                            {item.shipped &&
-                            <span className='badge bg-info'>
-                              発送済み
-                            </span>}
-                          </>}
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  )
-                })}
+                          </Col>
+                        </Row>
+                      </ListGroup.Item>
+                    )
+                  })}
+                </ListGroup>
               </Col>
             </Row>
           </Col>
