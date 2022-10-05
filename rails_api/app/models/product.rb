@@ -94,6 +94,29 @@ class Product < ApplicationRecord
     return result
   end
 
+  def display_custom_delivery_times
+    delivery_datetime_setting = DeliveryDatetimeSetting.find_by(account_id: account.id)
+    result = []
+    delivery_datetime_setting.custom_delivery_times.each do |time|
+      result.push(time.start_at.strftime("%H時〜") + time.end_at.strftime("%H時"))
+    end
+    result
+  end
+
   def shippable_time
+    return [] unless self.delivery_datetime_target_flg
+    delivery_datetime_setting = DeliveryDatetimeSetting.find_by(account_id: account.id)
+    case delivery_datetime_setting.delivery_time_type
+    when 'yamato' then
+      return ['午前中', '14時〜16時', '16時〜18時', '18時〜20時', '19時〜21時']
+    when 'sagawa' then
+      return ['午前中', '12時〜14時', '14時〜16時', '16時〜18時', '18時〜20時', '19時〜21時', '19時〜21時']
+    when 'yupack' then
+      return ['午前中', '12時〜14時', '14時〜16時', '16時〜18時', '18時〜20時', '19時〜21時', '20時〜21時']
+    when 'other' then
+      display_custom_delivery_times
+    else
+      []
+    end
   end
 end
