@@ -1,7 +1,7 @@
 class Account < ApplicationRecord
   enum service_plan: { Free: 0, Light: 1, Standard: 2, Premium: 3 }
 
-  has_one :delivery_datetime_setting, foreign_key: :account_id, primary_key: :id
+  has_one :delivery_datetime_setting
   has_one :shared_component
   has_many :merchant_users, dependent: :destroy
   has_many :webpages
@@ -20,6 +20,7 @@ class Account < ApplicationRecord
   has_many :message_templates
   has_many :account_notifications
   has_many :stripe_payment_intents
+  has_many :delivery_datetime_settings
 
   # プランごとの設定
   PLAN_NAME =  { "Free" => "フリープラン", "Light" => "ライトプラン", "Standard" => "スタンダードプラン", "Premium" => "プレミアムプラン" }

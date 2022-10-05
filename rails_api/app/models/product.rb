@@ -21,4 +21,44 @@ class Product < ApplicationRecord
   def prefecture_delivery_charge(state)
     shipping_fee_per_regions.find_by(region: state).shipping_fee
   end
+
+  # 引数はstate。北海道、東京都とか
+  def shippable_date(state)
+    result = []
+    return [] unless self.delivery_datetime_target_flg
+    delivery_datetime_setting = DeliveryDatetimeSetting.find_by(account_id: account.id)
+    # 日曜0から土曜6まで休みの曜日
+    holiday_wdays = []
+    holiday_wdays.push(0) if delivery_datetime_setting.is_holiday_sun
+    holiday_wdays.push(1) if delivery_datetime_setting.is_holiday_mon
+    holiday_wdays.push(2) if delivery_datetime_setting.is_holiday_tue
+    holiday_wdays.push(3) if delivery_datetime_setting.is_holiday_wed
+    holiday_wdays.push(4) if delivery_datetime_setting.is_holiday_thu
+    holiday_wdays.push(5) if delivery_datetime_setting.is_holiday_fri
+    holiday_wdays.push(6) if delivery_datetime_setting.is_holiday_sat
+    # 最短お届け日
+    shortest_delivery_day = delivery_datetime_setting.shortest_delivery_day
+    # 定休日を飛ばして最短お届け日を計算
+    wday_loop_flg = true
+    loop_start_date = Date.today
+    while wday_loop_flg
+      if holiday_wdays.include?(loop_start_date.wday)
+        loop_start_date = loop_start_date + 1.days
+        next
+      end
+      if delivery_datetime_setting.delivery_datetime_temporary_holidays.pluck(:delivery_holiday).include?(loop_start_date)
+        loop_start_date = loop_start_date + 1.days
+        next
+      end
+      # ループ終了
+      wday_loop_flg = false
+    end
+    longest_delivery_day = delivery_datetime_setting.longest_delivery_day
+    (shortest_delivery_day..longest_delivery_day).each do |d|
+    end
+    return result
+  end
+
+  def shippable_time
+  end
 end
