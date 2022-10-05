@@ -25,7 +25,7 @@ import {
   isHolidaySatChanged,
   temporaryHolidaysChanged,
   deliveryTimeTypeChanged,
-  targetProductsChanged,
+  productsChanged,
   showSetTargetProductModalChanged,
   deliveryTimesChanged,
   additionalDeliveryDaysChanged } from 'redux/deliveryDatetimeSlice'
@@ -52,7 +52,7 @@ const Index: NextPage = () => {
   const isHolidaySat = useSelector((state: RootState) => state.deliveryDatetime.isHolidaySat)
   const temporaryHolidays = useSelector((state: RootState) => state.deliveryDatetime.temporaryHolidays)
   const deliveryTimeType = useSelector((state: RootState) => state.deliveryDatetime.deliveryTimeType)
-  const targetProducts = useSelector((state: RootState) => state.deliveryDatetime.targetProducts)
+  const products = useSelector((state: RootState) => state.deliveryDatetime.products)
   const additionalDeliveryDays = useSelector((state: RootState) => state.deliveryDatetime.additionalDeliveryDays)
   const deliveryTimes = useSelector((state: RootState) => state.deliveryDatetime.deliveryTimes)
   
@@ -79,6 +79,7 @@ const Index: NextPage = () => {
       dispatch(deliveryTimeTypeChanged(response.data.delivery_datetime_setting.delivery_time_type))
       dispatch(temporaryHolidaysChanged(response.data.delivery_datetime_setting.display_delivery_datetime_temporary_holidays))
       dispatch(deliveryTimesChanged(response.data.delivery_datetime_setting.display_custom_delivery_times))
+      dispatch(productsChanged(response.data.delivery_datetime_setting.products))
     }).catch((error) => {
       console.log(error)
     })
@@ -130,7 +131,7 @@ const Index: NextPage = () => {
         delivery_time_type: deliveryTimeType,
         delivery_datetime_temporary_holidays: temporaryHolidays,
         custom_delivery_times: deliveryTimes,
-        target_products: targetProducts,
+        products: products,
         additional_delivery_days_per_region: additionalDeliveryDays
       }
     },

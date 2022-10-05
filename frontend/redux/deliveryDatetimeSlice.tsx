@@ -1,8 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ProductType } from 'interfaces/ProductParam'
 import { AdditionalDeliveryDays } from 'interfaces/AdditionalDeliveryDays'
 import { DeliveryTimes } from 'interfaces/DeliveryTimes'
 import { initAdditionalDeliveryDays } from 'constants/initAdditionalDeliveryDays'
+import { ProductParam } from 'interfaces/ProductParam'
 
 export const deliveryDatetimeSlice = createSlice({
   name: 'deliveryDatetime',
@@ -20,10 +20,10 @@ export const deliveryDatetimeSlice = createSlice({
     isHolidaySat: false,
     temporaryHolidays: [] as string[],
     deliveryTimeType: '',
-    targetProducts: [] as ProductType[],
     showSetTargetProductModal: false,
     additionalDeliveryDays: initAdditionalDeliveryDays as AdditionalDeliveryDays[],
-    deliveryTimes: [] as DeliveryTimes[]
+    deliveryTimes: [] as DeliveryTimes[],
+    products: [] as ProductParam[]
   },
   reducers: {
     shortestDeliveryDayChanged: (state, action: PayloadAction<number>) => {
@@ -65,9 +65,6 @@ export const deliveryDatetimeSlice = createSlice({
     deliveryTimeTypeChanged: (state, action: PayloadAction<string>) => {
       state.deliveryTimeType = action.payload
     },
-    targetProductsChanged: (state, action: PayloadAction<ProductType[]>) => {
-      state.targetProducts = action.payload
-    },
     showSetTargetProductModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showSetTargetProductModal = action.payload
     },
@@ -76,6 +73,9 @@ export const deliveryDatetimeSlice = createSlice({
     },
     deliveryTimesChanged: (state, action: PayloadAction<DeliveryTimes[]>) => {
       state.deliveryTimes = action.payload
+    },
+    productsChanged: (state, action: PayloadAction<ProductParam[]>) => {
+      state.products = action.payload
     },
   },
 })
@@ -93,9 +93,9 @@ export const { isHolidayFriChanged } = deliveryDatetimeSlice.actions
 export const { isHolidaySatChanged } = deliveryDatetimeSlice.actions
 export const { temporaryHolidaysChanged } = deliveryDatetimeSlice.actions
 export const { deliveryTimeTypeChanged } = deliveryDatetimeSlice.actions
-export const { targetProductsChanged } = deliveryDatetimeSlice.actions
 export const { showSetTargetProductModalChanged } = deliveryDatetimeSlice.actions
 export const { additionalDeliveryDaysChanged } = deliveryDatetimeSlice.actions
 export const { deliveryTimesChanged } = deliveryDatetimeSlice.actions
+export const { productsChanged } = deliveryDatetimeSlice.actions
 
 export default deliveryDatetimeSlice.reducer
