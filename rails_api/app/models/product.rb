@@ -37,11 +37,16 @@ class Product < ApplicationRecord
     holiday_wdays.push(4) if delivery_datetime_setting.is_holiday_thu
     holiday_wdays.push(5) if delivery_datetime_setting.is_holiday_fri
     holiday_wdays.push(6) if delivery_datetime_setting.is_holiday_sat
-    # 最短お届け日
+    # 最短お届け日計算
     shortest_delivery_day = delivery_datetime_setting.shortest_delivery_day
     # 定休日を飛ばして最短お届け日を計算
     wday_loop_flg = true
     loop_start_date = Date.today
+    # 受付締め切り時間を過ぎていたら翌日扱い
+    if delivery_datetime_setting.deadline_time.to_time > Time.now
+      loop_start_date = loop_start_date + 1.days
+    end
+    # 最短受付日、営業日を考慮
     shortest_delivery_day.times do |i|
       if holiday_wdays.include?(loop_start_date.wday)
         loop_start_date = loop_start_date + 2.days
