@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { AdditionalDeliveryDays } from 'interfaces/AdditionalDeliveryDays'
 import { DeliveryTimes } from 'interfaces/DeliveryTimes'
 import { initAdditionalDeliveryDays } from 'constants/initAdditionalDeliveryDays'
-import { ProductParam } from 'interfaces/ProductParam'
+import { DeliveryDatetimeProduct } from 'interfaces/DeliveryDatetimeProduct'
 
 export const deliveryDatetimeSlice = createSlice({
   name: 'deliveryDatetime',
@@ -23,7 +23,7 @@ export const deliveryDatetimeSlice = createSlice({
     showSetTargetProductModal: false,
     additionalDeliveryDays: initAdditionalDeliveryDays as AdditionalDeliveryDays[],
     deliveryTimes: [] as DeliveryTimes[],
-    products: [] as ProductParam[]
+    products: [] as DeliveryDatetimeProduct[]
   },
   reducers: {
     shortestDeliveryDayChanged: (state, action: PayloadAction<number>) => {
@@ -74,7 +74,7 @@ export const deliveryDatetimeSlice = createSlice({
     deliveryTimesChanged: (state, action: PayloadAction<DeliveryTimes[]>) => {
       state.deliveryTimes = action.payload
     },
-    productsChanged: (state, action: PayloadAction<ProductParam[]>) => {
+    productsChanged: (state, action: PayloadAction<DeliveryDatetimeProduct[]>) => {
       state.products = action.payload
     },
   },

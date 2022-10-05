@@ -1,17 +1,40 @@
+import { useRef, createRef } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { useDispatch } from 'react-redux'
-import { showSetTargetProductModalChanged } from 'redux/deliveryDatetimeSlice'
+import {  showSetTargetProductModalChanged,
+          productsChanged } from 'redux/deliveryDatetimeSlice'
+import { DeliveryDatetimeProduct } from 'interfaces/DeliveryDatetimeProduct'
 
 const SetTargetProductModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const showSetTargetProductModal = useSelector((state: RootState) => state.deliveryDatetime.showSetTargetProductModal)
   const products = useSelector((state: RootState) => state.deliveryDatetime.products)
 
+  const productRefs = useRef<any>([])
+  productRefs.current = products.map((_, i) => productRefs.current[i] ?? createRef())
+
+  const updateProduct = (productRef: number) => {
+    let updateProduct: DeliveryDatetimeProduct
+    let updateProducts: DeliveryDatetimeProduct[]
+    updateProducts = []
+
+    updateProduct = { id: products[productRef].id, name: products[productRef].name, delivery_datetime_target_flg: !products[productRef].delivery_datetime_target_flg }
+    products.map((p, i) => {
+      if (i == productRef) {
+        updateProducts.push(updateProduct)
+      } else {
+        updateProducts.push(p)
+      }
+    })
+    dispatch(productsChanged(updateProducts))
+  }
+
   return (
     <Modal show={showSetTargetProductModal} size='lg'>
       <Modal.Body>
+        <div className='mb20'>配送日時指定を受け付けたくない商品はチェックを外してください</div>
         {products && products.map((p, i) => {
           return (
             <div key={i}>
@@ -20,6 +43,7 @@ const SetTargetProductModal = (): JSX.Element => {
                 id={i + p.name}
                 name='deliveryDateTargetProduct'
                 checked={p.delivery_datetime_target_flg}
+                onChange={() => updateProduct(i)}
               ></Form.Check>
             </div>
           )
