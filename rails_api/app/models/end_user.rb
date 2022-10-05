@@ -93,7 +93,7 @@ class EndUser < ApplicationRecord
           delivery_charge_type: product.delivery_charge_type,
           delivery_charge: delivery_charge,
         })
-        total_price += product.price
+        total_price += price
         
         total_price += delivery_charge if delivery_charge.present?
       else
