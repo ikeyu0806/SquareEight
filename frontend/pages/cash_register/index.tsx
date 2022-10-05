@@ -20,6 +20,7 @@ const Index: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [isSelectDeliveryDatetime, setIsSelectDeliveryDatetime] = useState(false)
   const [isRequireDeliveryTargets, setIsRequireDeliveryTargets] = useState(false)
+  const [selectedTime, setSelectedTime] = useState('')
   const [currentEndUserId, setCurrentEndUserId] = useState()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [totalPrice, setTotalPrice] = useState(0)
@@ -242,12 +243,39 @@ const Index: NextPage = () => {
                                       label='指定しない'
                                       id='noSetDeliveryDate'
                                       name='setDeliveryDate'
+                                      checked={isSelectDeliveryDatetime === false}
+                                      onChange={() => setIsSelectDeliveryDatetime(false)}
                                       type='radio'></Form.Check>
                                     <Form.Check
                                       label='指定する'
                                       id='setDeliveryDate'
                                       name='setDeliveryDate'
+                                      onChange={() =>
+                                        {
+                                          setIsSelectDeliveryDatetime(true)
+                                          if (selectedTime == '') { setSelectedTime(item.shippable_time[0]) }
+                                        }
+                                      }
+                                      checked={isSelectDeliveryDatetime === true}
                                       type='radio'></Form.Check>
+                                    {isSelectDeliveryDatetime
+                                    &&
+                                    <>
+                                      {item.shippable_time.map((time, i) => {
+                                        return (
+                                          <Form.Check
+                                            type='radio'
+                                            key={i}
+                                            checked={selectedTime === time}
+                                            className='ml20'
+                                            label={time}
+                                            id={'shippableTime' + i}
+                                            name='shippableTime'
+                                          >
+                                          </Form.Check>
+                                        )
+                                      })}
+                                    </>}
                                   </>}
                                   <Button
                                     onClick={() => deleteCartItem(item.id, item.item_type)}
