@@ -27,6 +27,7 @@ class Product < ApplicationRecord
     result = []
     return [] unless self.delivery_datetime_target_flg
     delivery_datetime_setting = DeliveryDatetimeSetting.find_by(account_id: account.id)
+    delivery_datetime_temporary_holidays = delivery_datetime_setting.delivery_datetime_temporary_holidays.pluck(:delivery_holiday)
     # 日曜0から土曜6まで休みの曜日
     holiday_wdays = []
     holiday_wdays.push(0) if delivery_datetime_setting.is_holiday_sun
@@ -41,12 +42,23 @@ class Product < ApplicationRecord
     # 定休日を飛ばして最短お届け日を計算
     wday_loop_flg = true
     loop_start_date = Date.today
+    shortest_delivery_day.times do |i|
+      if holiday_wdays.include?(loop_start_date.wday)
+        loop_start_date = loop_start_date + 2.days
+        next
+      end
+      if delivery_datetime_temporary_holidays.include?(loop_start_date)
+        loop_start_date = loop_start_date + 2.days
+        next
+      end
+      loop_start_date = loop_start_date + 1.days
+    end
     while wday_loop_flg
       if holiday_wdays.include?(loop_start_date.wday)
         loop_start_date = loop_start_date + 1.days
         next
       end
-      if delivery_datetime_setting.delivery_datetime_temporary_holidays.pluck(:delivery_holiday).include?(loop_start_date)
+      if delivery_datetime_temporary_holidays.include?(loop_start_date)
         loop_start_date = loop_start_date + 1.days
         next
       end
@@ -67,10 +79,11 @@ class Product < ApplicationRecord
         loop_current_date = loop_current_date + 1.days
         next
       end
-      if delivery_datetime_setting.delivery_datetime_temporary_holidays.pluck(:delivery_holiday).include?(loop_current_date)
+      if delivery_datetime_temporary_holidays.include?(loop_current_date)
         loop_current_date = loop_current_date + 1.days
         next
       end
+      loop_current_date = loop_current_date + 1.days
       result.push(loop_current_date)
     end
     return result
