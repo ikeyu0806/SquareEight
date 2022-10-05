@@ -79,7 +79,7 @@ const Index: NextPage = () => {
       dispatch(deliveryTimeTypeChanged(response.data.delivery_datetime_setting.delivery_time_type))
       dispatch(temporaryHolidaysChanged(response.data.delivery_datetime_setting.display_delivery_datetime_temporary_holidays))
       dispatch(deliveryTimesChanged(response.data.delivery_datetime_setting.display_custom_delivery_times))
-      dispatch(productsChanged(response.data.delivery_datetime_setting.products))
+      dispatch(productsChanged(response.data.products))
     }).catch((error) => {
       console.log(error)
     })
