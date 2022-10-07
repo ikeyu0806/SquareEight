@@ -12,4 +12,5 @@ export interface OrderItemParam {
   order_name: string
   shipped: boolean
   delivery_charge: number
+  delivery_date_text: string
 }

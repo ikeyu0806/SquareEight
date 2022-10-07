@@ -78,6 +78,7 @@ const Index: NextPage = () => {
                             {item.product_name} <OrderItemTypeBadge itemType={item.item_type}/><br/>
                             ￥{item.price}<br/>
                             購入数 {item.quantity}
+                            {item.delivery_date_text && <div>配送日時: {item.delivery_date_text}</div>}
                           </Col>
                           <Col>
                             {item.item_type === 'Product'

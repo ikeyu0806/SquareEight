@@ -51,10 +51,9 @@ const Index: NextPage = () => {
                           {order.product_names.map((name, i) => {
                             return (
                               <>
-                                <span>{name}</span>
-                                <br />合計金額: ¥{order.total_price}
-                                <br />注文日: {order.order_date}
-                                <br />
+                                <div>{name}</div>
+                                <div>合計金額: ¥{order.total_price}</div>
+                                <div>注文日: {order.order_date}</div>
                                 <a className='btn btn-primary btn-sm mt10' href={`/customer_page/order/${order.id}`}>
                                   詳細
                                 </a>

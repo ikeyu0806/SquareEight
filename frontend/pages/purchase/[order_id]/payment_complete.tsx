@@ -56,6 +56,7 @@ const PaymentComplete: NextPage = () => {
                          ? <div>{item.product_name}{item.product_type_name && <>&emsp;{item.product_type_name}</>}&emsp;¥{item.price * item.quantity}<br/></div>
                          : <div>{item.product_name}{item.product_type_name && <>&emsp;{item.product_type_name}</>}&emsp;¥{item.price}<br/></div>}
                         <div>配送料: ¥{order?.delivery_charge}</div>
+                        {item.delivery_date_text && <div>配送日時: {item.delivery_date_text}</div>}
                       </span>
                     )
                   })}
