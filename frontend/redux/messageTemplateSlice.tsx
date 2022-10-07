@@ -19,6 +19,7 @@ export const messageTemplateSlice = createSlice({
     targetCustomers: [] as CustomerParam[],
     customers: [] as CustomerParam[],
     customerGroups: [] as CustomerGroupParam[],
+    targetCustomerGroups: [] as CustomerGroupParam[],
     customerPaginationState: {
       currentPage: 1,
       totalPage: 0,
@@ -71,6 +72,9 @@ export const messageTemplateSlice = createSlice({
     customerGroupsChanged: (state, action: PayloadAction<CustomerGroupParam[]>) => {
       state.customerGroups = action.payload
     },
+    targetCustomerGroupsChanged: (state, action: PayloadAction<CustomerGroupParam[]>) => {
+      state.targetCustomerGroups = action.payload
+    },
     pageLinksChanged: (state, action: PayloadAction<PageLinksParam[]>) => {
       state.pageLinks = action.payload
     },
@@ -92,6 +96,7 @@ export const { targetEmailsChanged } = messageTemplateSlice.actions
 export const { targetCustomersChanged } = messageTemplateSlice.actions
 export const { customersChanged } = messageTemplateSlice.actions
 export const { customerGroupsChanged } = messageTemplateSlice.actions
+export const { targetCustomerGroupsChanged } = messageTemplateSlice.actions
 export const { customerPaginationStateChanged } = messageTemplateSlice.actions
 export const { pageLinksChanged } = messageTemplateSlice.actions
 export const { pageLinkPaginationStateChanged } = messageTemplateSlice.actions

@@ -103,7 +103,7 @@ const SendMessageTemplateModal = (): JSX.Element => {
     dispatch(targetEmailsChanged(updateTargetEmails))
   }
 
-  const insertCusomer = (id: string, last_name: string, first_name: string, email: string) => {
+  const insertCusomer = (id: number, last_name: string, first_name: string, email: string) => {
     let updateTargetCustomers: CustomerParam[]
     updateTargetCustomers = [...targetCustomers, {id: id, last_name: last_name, first_name: first_name, email: email } as CustomerParam]
     dispatch(targetCustomersChanged(updateTargetCustomers))
@@ -126,6 +126,13 @@ const SendMessageTemplateModal = (): JSX.Element => {
               label='顧客指定'></Form.Check>
             <Form.Check
               type='radio'
+              checked={targetType === 'CustomerGroup'}
+              onChange={() => dispatch(targetTypeChanged('CustomerGroup'))}
+              id='customerGroupSetRadio'
+              name='targetType'
+              label='顧客グループ指定'></Form.Check>
+            <Form.Check
+              type='radio'
               checked={targetType === 'Email'}
               onChange={() => dispatch(targetTypeChanged('Email'))}
               id='mailSetRadio'
@@ -142,7 +149,7 @@ const SendMessageTemplateModal = (): JSX.Element => {
 
             {targetType === 'Customer' &&
             <>
-              <div>送信先</div>
+              <div>送信先顧客</div>
               <ListGroup>
                 {targetCustomers.map((c, i) => {
                   return (
@@ -164,45 +171,58 @@ const SendMessageTemplateModal = (): JSX.Element => {
           <MessageTemplateVariables></MessageTemplateVariables>
           </Col>
           <Col md={4}>
-            <div className='mt10'>顧客一覧</div>
-            <div>
-              <ListGroup>
-                {customers.map((customer, i) => {
-                  const dataRangeMin =+ customerPaginationState.maxPerPage * (customerPaginationState.currentPage - 1)
-                  const dataRangeMax =+ customerPaginationState.maxPerPage * customerPaginationState.currentPage
-                  return dataRangeMin <= i && dataRangeMax > i && (
-                    <ListGroup.Item key={i}>
-                      <span className='badge bg-info'>{customer.last_name}{customer.first_name}</span><br/>
-                      メールアドレス: {customer.email}<br/>
-                      {targetType === 'Email'
-                        &&
-                        customer.email && <><Button size='sm' className='mt5' onClick={() => insertEmail(customer.email)}>
-                        送信先メールアドレスに追加</Button></>}
-                      {targetType === 'Customer'
-                        &&
-                        customer.email && <><Button size='sm' className='mt5' onClick={() => insertCusomer(customer.id, customer.last_name, customer.first_name, customer.email)}>
-                        送信先顧客に追加</Button></>}
-                    </ListGroup.Item>
-                  )
-                })}
-              </ListGroup>
-              <Pagination className='mt10'>
-                <Pagination.First onClick={displayFirstPage} />
-                <Pagination.Prev onClick={displayPrevPage}></Pagination.Prev>
-                {[...Array(customerPaginationState.totalPage)].map((_, i) => {
-                  return isDisplayPage(i) && (
-                    <Pagination.Item key={i}
-                                      active={i + 1 === customerPaginationState.currentPage}
-                                      onClick={() => displaySelectedPage(i)}>
-                      {i + 1}
-                    </Pagination.Item>
-                  )
-                })}
+            {targetType !== 'CustomerGroup' &&
+            <>
+              <div className='mt10'>顧客一覧</div>
+              <div>
+                <ListGroup>
+                  {customers.map((customer, i) => {
+                    const dataRangeMin =+ customerPaginationState.maxPerPage * (customerPaginationState.currentPage - 1)
+                    const dataRangeMax =+ customerPaginationState.maxPerPage * customerPaginationState.currentPage
+                    return dataRangeMin <= i && dataRangeMax > i && (
+                      <ListGroup.Item key={i}>
+                        <span className='badge bg-info'>{customer.last_name}{customer.first_name}</span><br/>
+                        メールアドレス: {customer.email}<br/>
+                        {targetType === 'Email'
+                          &&
+                          customer.email && <><Button size='sm' className='mt5' onClick={() => insertEmail(customer.email || '')}>
+                          送信先メールアドレスに追加</Button></>}
+                        {targetType === 'Customer'
+                          &&
+                          customer.email && <><Button size='sm' className='mt5' onClick={() => insertCusomer(customer.id, customer.last_name, customer.first_name, customer.email || '')}>
+                          送信先顧客に追加</Button></>}
+                      </ListGroup.Item>
+                    )
+                  })}
+                </ListGroup>
+                <Pagination className='mt10'>
+                  <Pagination.First onClick={displayFirstPage} />
+                  <Pagination.Prev onClick={displayPrevPage}></Pagination.Prev>
+                  {[...Array(customerPaginationState.totalPage)].map((_, i) => {
+                    return isDisplayPage(i) && (
+                      <Pagination.Item key={i}
+                                        active={i + 1 === customerPaginationState.currentPage}
+                                        onClick={() => displaySelectedPage(i)}>
+                        {i + 1}
+                      </Pagination.Item>
+                    )
+                  })}
 
-                <Pagination.Next onClick={displayNextPage}></Pagination.Next>
-                <Pagination.Last onClick={displayLastPage} />
-              </Pagination>
-            </div>
+                  <Pagination.Next onClick={displayNextPage}></Pagination.Next>
+                  <Pagination.Last onClick={displayLastPage} />
+                </Pagination>
+              </div>
+            </>}
+            {targetType === 'CustomerGroup' &&
+              <>
+                <div className='mt10'>顧客グループ一覧</div>
+                <div>
+                  <ListGroup>
+
+                  </ListGroup>
+                </div>
+              </>
+            }
           </Col>
         </Row>
       </Modal.Body>
