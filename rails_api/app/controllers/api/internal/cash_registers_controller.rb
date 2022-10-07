@@ -101,7 +101,7 @@ class Api::Internal::CashRegistersController < ApplicationController
                                 commission: commission,
                                 delivery_charge: delivery_charge,
                                 quantity: cart[:quantity],
-                                delivery_date_text: cach_register_params[:delivery_date_text])
+                                delivery_date_text: cash_register_params[:delivery_date_text])
           product.save!
           current_end_user.cart_products.where(product_id: product.id).delete_all
 
