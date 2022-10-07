@@ -164,6 +164,7 @@ Rails.application.routes.draw do
         get 'customers/:customer_id/orders', to: 'customers#orders'
         post 'customers', to: 'customers#create'
         post 'customers/:id/update', to: 'customers#update'
+        get 'customer_groups/:id', to: 'customer_groups#show'
         get 'customer_groups', to: 'customer_groups#index'
         post 'customer_groups', to: 'customer_groups#create'
         post 'customer_groups/:id/update', to: 'customer_groups#update'

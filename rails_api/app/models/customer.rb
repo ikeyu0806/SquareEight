@@ -1,7 +1,10 @@
 class Customer < ApplicationRecord
+  has_one :customer_group_relation, foreign_key: :id, primary_key: :customer_id
   has_one :end_user, foreign_key: :id, primary_key: :end_user_id
   has_many :orders
   has_many :questionnaire_answers
+  has_many :customer_group_relations
+  has_many :customer_groups, through: :customer_group_relations
 
   validates :first_name, presence: true
   validates :last_name, presence: true

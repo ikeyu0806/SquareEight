@@ -8,6 +8,13 @@ class Api::Internal::Account::CustomerGroupsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def show
+    customer_group = CustomerGroup.find(params[:id])
+    render json: { status: 'success', customer_group: customer_group }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def create
     customer_group = current_merchant_user.account.customer_groups.new(name: customer_group_params[:name])
     customer_group_params[:selected_customers].each do |customer|

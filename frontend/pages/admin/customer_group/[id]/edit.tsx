@@ -20,6 +20,23 @@ const Edit: NextPage = () => {
   const name = useSelector((state: RootState) => state.customerGroup.name)
   const selectedCustomers = useSelector((state: RootState) => state.customerGroup.selectedCustomers)
 
+  useEffect(() => {
+    const fetchCustomerGroups = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/account/customer_groups/${router.query.id}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          },
+        }
+      )
+      .then(function (response) {
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+  }, [cookies._square_eight_merchant_session, router.query.id])
+
   const updateCustomerGroup = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/account/customer_groups/${router.query.id}/update`,
     {
