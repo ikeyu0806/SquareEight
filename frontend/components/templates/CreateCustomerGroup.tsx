@@ -7,7 +7,6 @@ import { selectedCustomersChanged,
 
 const CreateCustomerGroup = (): JSX.Element => {
   const dispatch = useDispatch()
-  const name = useSelector((state: RootState) => state.customerGroup.name)
   const unselectedCustomers = useSelector((state: RootState) => state.customerGroup.unselectedCustomers)
   const selectedCustomers = useSelector((state: RootState) => state.customerGroup.selectedCustomers)
 

@@ -10,7 +10,12 @@ class Api::Internal::Account::CustomerGroupsController < ApplicationController
 
   def show
     customer_group = CustomerGroup.find(params[:id])
-    render json: { status: 'success', customer_group: customer_group }, states: 200
+    selected_customers = customer_group.customers
+    unselected_customers = current_merchant_user.account.customers.where.not(id: selected_customers.pluck(:id))
+    render json: {  status: 'success',
+                    customer_group: customer_group,
+                    selected_customers: selected_customers,
+                    unselected_customers: unselected_customers }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

@@ -6,9 +6,11 @@ import { Container, Row, Col, ListGroup, Form, Button } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import axios from 'axios'
 import { RootState } from 'redux/store'
-import { unselectedCustomersChanged } from 'redux/customerGroupSlice'
 import CreateCustomerGroup from 'components/templates/CreateCustomerGroup'
-import { nameChanged } from 'redux/customerGroupSlice'
+import {  nameChanged,
+          selectedCustomersChanged,
+          unselectedCustomersChanged } from 'redux/customerGroupSlice'
+
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useRouter } from 'next/router'
 
@@ -30,12 +32,16 @@ const Edit: NextPage = () => {
         }
       )
       .then(function (response) {
+        dispatch(nameChanged(response.data.customer_group.name))
+        dispatch(selectedCustomersChanged(response.data.selected_customers))
+        dispatch(unselectedCustomersChanged(response.data.unselected_customers))
       })
       .catch(error => {
         console.log(error)
       })
     }
-  }, [cookies._square_eight_merchant_session, router.query.id])
+    fetchCustomerGroups()
+  }, [cookies._square_eight_merchant_session, router.query.id, dispatch])
 
   const updateCustomerGroup = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/account/customer_groups/${router.query.id}/update`,
@@ -74,6 +80,7 @@ const Edit: NextPage = () => {
               <h4 className='mb20'>顧客グループ作成</h4>
               <Form.Label>グループ名</Form.Label>
               <Form.Control
+                value={name || ''}
                 onChange={(e) => dispatch(nameChanged(e.target.value))}></Form.Control>
             </Col>
             <Col md={4}>
