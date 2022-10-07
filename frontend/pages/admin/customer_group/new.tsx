@@ -1,5 +1,5 @@
 import type { NextPage } from 'next'
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, ListGroup, Form, Button } from 'react-bootstrap'
@@ -9,11 +9,15 @@ import { RootState } from 'redux/store'
 import { unselectedCustomersChanged } from 'redux/customerGroupSlice'
 import CreateCustomerGroup from 'components/templates/CreateCustomerGroup'
 import { nameChanged } from 'redux/customerGroupSlice'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { useRouter } from 'next/router'
 
 const New: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
+  const router = useRouter()
 
+  const name = useSelector((state: RootState) => state.customerGroup.name)
   const selectedCustomers = useSelector((state: RootState) => state.customerGroup.selectedCustomers)
 
   useEffect(() => {
@@ -29,6 +33,32 @@ const New: NextPage = () => {
       console.log(error)
     })
   }, [cookies._square_eight_merchant_session, dispatch])
+
+  const createCustomerGroup = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/account/customer_groups`,
+    {
+      customer_group: {
+        name: name,
+        selected_customers: selectedCustomers
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    }).then(response => {
+      swalWithBootstrapButtons.fire({
+        title: '送信しました',
+        icon: 'info'
+      })
+      router.push('/admin/customer_group')
+    }).catch(error => {
+      swalWithBootstrapButtons.fire({
+        title: '送信失敗しました',
+        icon: 'error'
+      })
+    })
+  }
 
   return (
     <MerchantUserAdminLayout>
@@ -46,7 +76,9 @@ const New: NextPage = () => {
             <Col md={4}>
             </Col>
             <Col md={2}>
-              <Button className='mt10'>保存する</Button>
+              <Button
+                onClick={() => createCustomerGroup()}
+                className='mt10'>保存する</Button>
             </Col>
             <Col md={1}>
             </Col>

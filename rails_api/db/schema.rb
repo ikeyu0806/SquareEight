@@ -87,6 +87,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_07_014058) do
   end
 
   create_table "customer_groups", force: :cascade do |t|
+    t.integer "account_id", null: false
     t.string "name", null: false
     t.integer "category", default: 0, null: false
     t.datetime "created_at", null: false
