@@ -20,6 +20,7 @@ import { showEditMessageTemplateModalChanged,
          pageLinksChanged,
          pageLinkPaginationStateChanged,
          customersChanged,
+         customerGroupsChanged,
          customerPaginationStateChanged } from 'redux/messageTemplateSlice'
 
 const Index: NextPage = () => {
@@ -46,6 +47,8 @@ const Index: NextPage = () => {
       dispatch(customersChanged(response.data.customers))
       const customersTotalPage = Math.ceil(response.data.customers.length / customerPaginationState.maxPerPage)
       dispatch(customerPaginationStateChanged(Object.assign({ ...customerPaginationState }, { totalPage: customersTotalPage })))
+      // 顧客グループ情報更新
+      dispatch(customerGroupsChanged(response.data.customer_groups))
     }).catch((error) => {
       console.log(error)
     })

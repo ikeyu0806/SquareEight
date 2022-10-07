@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { PageLinksParam } from 'interfaces/PageLinksParam'
 import { PagenationState } from 'interfaces/PagenationState'
 import { CustomerParam } from 'interfaces/CustomerParam'
+import { CustomerGroupParam } from 'interfaces/CustomerGroupParam'
 
 export const messageTemplateSlice = createSlice({
   name: 'messageTemplate',
@@ -17,6 +18,7 @@ export const messageTemplateSlice = createSlice({
     targetEmails: '',
     targetCustomers: [] as CustomerParam[],
     customers: [] as CustomerParam[],
+    customerGroups: [] as CustomerGroupParam[],
     customerPaginationState: {
       currentPage: 1,
       totalPage: 0,
@@ -66,6 +68,9 @@ export const messageTemplateSlice = createSlice({
     customerPaginationStateChanged: (state, action: PayloadAction<PagenationState>) => {
       state.customerPaginationState = action.payload
     },
+    customerGroupsChanged: (state, action: PayloadAction<CustomerGroupParam[]>) => {
+      state.customerGroups = action.payload
+    },
     pageLinksChanged: (state, action: PayloadAction<PageLinksParam[]>) => {
       state.pageLinks = action.payload
     },
@@ -86,6 +91,7 @@ export const { targetTypeChanged } = messageTemplateSlice.actions
 export const { targetEmailsChanged } = messageTemplateSlice.actions
 export const { targetCustomersChanged } = messageTemplateSlice.actions
 export const { customersChanged } = messageTemplateSlice.actions
+export const { customerGroupsChanged } = messageTemplateSlice.actions
 export const { customerPaginationStateChanged } = messageTemplateSlice.actions
 export const { pageLinksChanged } = messageTemplateSlice.actions
 export const { pageLinkPaginationStateChanged } = messageTemplateSlice.actions
