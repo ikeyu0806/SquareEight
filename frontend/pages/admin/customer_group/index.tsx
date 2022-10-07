@@ -44,7 +44,12 @@ const Index: NextPage = () => {
                     <Col>
                       {group.name}
                     </Col>
+                    <Col>
+                    </Col>
                     <Col></Col>
+                    <Col>
+                      <a href={`/admin/customer_group/${group.id}/edit`} className='btn btn-primary'>編集</a>
+                    </Col>
                   </Row>
                 </ListGroup.Item>
               )
