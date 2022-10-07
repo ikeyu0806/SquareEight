@@ -31,17 +31,9 @@ const New: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
-        <Row>
-          <Col lg={3}></Col>
-          <Col lg={6}>
-            <h4>顧客グループ作成</h4>
-            <ListGroup>
-              <CreateCustomerGroup />
-            </ListGroup>
-          </Col>
-        </Row>
-      </Container>
+      <ListGroup>
+        <CreateCustomerGroup />
+      </ListGroup>
     </MerchantUserAdminLayout>
   )
 }
