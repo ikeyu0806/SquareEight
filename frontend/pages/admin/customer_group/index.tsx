@@ -1,6 +1,13 @@
 import type { NextPage } from 'next'
+import React, { useEffect, useState } from 'react'
+import { useCookies } from 'react-cookie'
+import { useDispatch, useSelector } from 'react-redux'
 import { Container, Row, Col, ListGroup, Card } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import axios from 'axios'
+import { RootState } from 'redux/store'
+import { unselectedCustomersChanged } from 'redux/customerGroupSlice'
+import CreateCustomerGroup from 'components/templates/CreateCustomerGroup'
 
 const Index: NextPage = () => {
   return (

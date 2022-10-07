@@ -16,6 +16,7 @@ import currentEndUserReducer from './currentEndUserSlice'
 import currentSystemAdminUserReducer from './currentSystemAdminUserSlice'
 import deliveryTargetReducer from './deliveryTargetSlice'
 import customerReducer from './customerSlice'
+import customerGroupReducer from './customerGroupSlice'
 import questionnaireMasterReducer from './questionnaireMasterSlice'
 import messageTemplateReducer from './messageTemplateSlice'
 import dashboardReducer from './dashboardSlice'
@@ -41,6 +42,7 @@ export const store = configureStore({
     currentSystemAdminUser: currentSystemAdminUserReducer,
     deliveryTarget: deliveryTargetReducer,
     customer: customerReducer,
+    customerGroup: customerGroupReducer,
     questionnaireMaster: questionnaireMasterReducer,
     messageTemplate: messageTemplateReducer,
     dashboard: dashboardReducer,
