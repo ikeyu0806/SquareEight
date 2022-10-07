@@ -32,6 +32,13 @@ class Api::Internal::Account::CustomerGroupsController < ApplicationController
   end
 
   def update
+    customer_group = current_merchant_user.account.customer_groups.find(params[:id])
+    customer_group.name = customer_group_params[:name]
+    customer_group.customer_group_relations.delete_all
+    customer_group_params[:selected_customers].each do |customer|
+      customer_group.customer_group_relations.new(customer_id: customer[:id])
+    end
+    customer_group.save!
     render json: { status: 'success' }, states: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
