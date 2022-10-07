@@ -2,12 +2,12 @@ import { Container, Row, Col, ListGroup, Form, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { CustomerParam } from 'interfaces/CustomerParam'
-import { nameChanged,
-         selectedCustomersChanged,
+import { selectedCustomersChanged,
          unselectedCustomersChanged } from 'redux/customerGroupSlice'
 
 const CreateCustomerGroup = (): JSX.Element => {
   const dispatch = useDispatch()
+  const name = useSelector((state: RootState) => state.customerGroup.name)
   const unselectedCustomers = useSelector((state: RootState) => state.customerGroup.unselectedCustomers)
   const selectedCustomers = useSelector((state: RootState) => state.customerGroup.selectedCustomers)
 
@@ -27,23 +27,6 @@ const CreateCustomerGroup = (): JSX.Element => {
 
   return (
     <Container>
-      <Row>
-        <Col md={1}>
-        </Col>
-        <Col md={3}>
-          <h4 className='mb20'>顧客グループ作成</h4>
-          <Form.Label>グループ名</Form.Label>
-          <Form.Control></Form.Control>
-        </Col>
-        <Col md={4}>
-        </Col>
-        <Col md={2}>
-          <Button className='mt10'>保存する</Button>
-        </Col>
-        <Col md={1}>
-        </Col>
-      </Row>
-      &emsp;
       <Row>
         <Col md={1}></Col>
         <Col md={5}>
