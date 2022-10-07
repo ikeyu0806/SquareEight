@@ -62,7 +62,7 @@ const Index: NextPage = () => {
                       <span key={i}>
                         <div>購入先: {item.business_name}</div>
                         <div>{item.product_name} ￥{item.price}</div>
-                        <div>指定配送日時: {item.delivery_date_text}</div>
+                        {item.delivery_date_text && <div>指定配送日時: {item.delivery_date_text}</div>}
                       </span>
                     )
                   })}
