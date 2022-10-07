@@ -1,6 +1,13 @@
 class Api::Internal::Account::CustomerGroupsController < ApplicationController
   before_action :merchant_login_only!
 
+  def index
+    customer_groups = current_merchant_user.account.customer_groups
+    render json: { status: 'success', customer_groups: customer_groups }, states: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def create
     customer_group = current_merchant_user.account.customer_groups.new(name: customer_group_params[:name])
     customer_group_params[:selected_customers].each do |customer|
