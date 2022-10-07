@@ -45,7 +45,7 @@ const Index: NextPage = () => {
     })
   }, [cookies._square_eight_merchant_session, dispatch])
 
-  const showEditModal = (id: string, lastName: string, firstName: string, email: string, phoneNumber: string, notes: string) => {
+  const showEditModal = (id: number, lastName: string, firstName: string, email: string, phoneNumber: string, notes: string) => {
     dispatch(showEditCustomerModalChanged(true))
     dispatch(customerIdChanged(id))
     dispatch(lastNameChanged(lastName))
