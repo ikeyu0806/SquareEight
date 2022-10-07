@@ -1,10 +1,29 @@
 import { Container, Row, Col, ListGroup, Form, Button } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
+import { CustomerParam } from 'interfaces/CustomerParam'
+import { nameChanged,
+         selectedCustomersChanged,
+         unselectedCustomersChanged } from 'redux/customerGroupSlice'
 
 const CreateCustomerGroup = (): JSX.Element => {
+  const dispatch = useDispatch()
   const unselectedCustomers = useSelector((state: RootState) => state.customerGroup.unselectedCustomers)
   const selectedCustomers = useSelector((state: RootState) => state.customerGroup.selectedCustomers)
+
+  const addSelectedCustomers = (customer: CustomerParam) => {
+    let updateSelectedCustomers = [...selectedCustomers, customer]
+    dispatch(selectedCustomersChanged(updateSelectedCustomers))
+    let updateUnselectedCustomers = unselectedCustomers.filter(c => c.id !== customer.id)
+    dispatch(unselectedCustomersChanged(updateUnselectedCustomers))
+  }
+
+  const addUnselectedCustomers = (customer: CustomerParam) => {
+    let updateUnselectedCustomers = [...unselectedCustomers, customer]
+    dispatch(unselectedCustomersChanged(updateUnselectedCustomers))
+    let updateSelectedCustomers = selectedCustomers.filter(c => c.id !== customer.id)
+    dispatch(selectedCustomersChanged(updateSelectedCustomers))
+  }
 
   return (
     <Container>
@@ -41,7 +60,9 @@ const CreateCustomerGroup = (): JSX.Element => {
                       <div>{customer.phone_number}</div>
                     </Col>
                     <Col>
-                      <Button size='sm'>追加</Button>
+                      <Button
+                        onClick={() => addSelectedCustomers(customer)}
+                        size='sm'>追加</Button>
                     </Col>
                   </Row>
                 </ListGroup.Item>
@@ -63,7 +84,10 @@ const CreateCustomerGroup = (): JSX.Element => {
                       <div>{customer.phone_number}</div>
                     </Col>
                     <Col>
-                      <Button size='sm' variant='danger'>削除</Button>
+                      <Button
+                        onClick={() => addUnselectedCustomers(customer)}
+                        size='sm'
+                        variant='danger'>削除</Button>
                     </Col>
                   </Row>
                 </ListGroup.Item>
