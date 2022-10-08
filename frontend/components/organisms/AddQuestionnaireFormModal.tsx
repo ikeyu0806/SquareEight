@@ -124,36 +124,42 @@ const AddQuestionnaireFormModal = (): JSX.Element => {
           <Form.Check
             type='radio'
             label='テキスト'
+            id='textForm'
             checked={selectedFormType === FORM_TYPE.TEXT}
             onChange={() => dispatch(selectedFormTypeChanged(FORM_TYPE.TEXT))}
             value={selectedFormType}></Form.Check>
           <Form.Check
             type='radio'
             label='プルダウン'
+            id='pulldownForm'
             checked={selectedFormType === FORM_TYPE.SELECT}
             onChange={() => dispatch(selectedFormTypeChanged(FORM_TYPE.SELECT))}
             value={selectedFormType}></Form.Check>
           <Form.Check
             type='radio'
             label='チェックボックス'
+            id='checkboxForm'
             checked={selectedFormType === FORM_TYPE.CHECKBOX}
             onChange={() => dispatch(selectedFormTypeChanged(FORM_TYPE.CHECKBOX))}
             value={selectedFormType}></Form.Check>
           <Form.Check
             type='radio'
             label='ラジオボタン'
+            id='radioButtonForm'
             checked={selectedFormType === FORM_TYPE.RADIO}
             onChange={() => dispatch(selectedFormTypeChanged(FORM_TYPE.RADIO))}
             value={selectedFormType}></Form.Check>
           <Form.Check
             type='radio'
             label='日付'
+            id='dateForm'
             checked={selectedFormType === FORM_TYPE.DATE}
             onChange={() => dispatch(selectedFormTypeChanged(FORM_TYPE.DATE))}
             value={selectedFormType}></Form.Check>
           <Form.Check
             type='radio'
             label='時刻'
+            id='timeForm'
             checked={selectedFormType === FORM_TYPE.TIME}
             onChange={() => dispatch(selectedFormTypeChanged(FORM_TYPE.TIME))}
             value={selectedFormType}></Form.Check>
