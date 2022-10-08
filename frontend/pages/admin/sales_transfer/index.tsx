@@ -188,8 +188,8 @@ const Index: NextPage = () => {
                           <div>{stripeAccount?.individual?.email}</div>
                           <div>{stripeAccount?.business_url && <><hr />事業のウェブサイト</>}</div>
                           <div>{stripeAccount?.business_url}</div>
-                          <div>{stripeAccount?.business_profile.product_description && <><hr />商品、サービス内容の詳細</>}</div>
-                          <div>{stripeAccount?.business_profile.product_description}</div>
+                          <div>{stripeAccount?.business_profile?.product_description && <><hr />商品、サービス内容の詳細</>}</div>
+                          <div>{stripeAccount?.business_profile?.product_description}</div>
                           <div>{stripeAccount?.individual?.address_kanji.postal_code && <><hr />郵便番号</>}</div>
                           <div>{stripeAccount?.individual?.address_kanji.postal_code}</div>
                           <div>{stripeAccount?.individual && <><hr />住所（漢字）</>}</div>
