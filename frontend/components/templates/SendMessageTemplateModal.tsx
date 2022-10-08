@@ -170,6 +170,19 @@ const SendMessageTemplateModal = (): JSX.Element => {
               </ListGroup>
             </>}
 
+            {targetType === 'CustomerGroup' &&
+            <>
+              <div>送信先顧客グループ</div>
+              {targetCustomerGroups.map((group, i) => {
+                return (
+                  <span key={i} className='badge bg-info'>
+                    <div>{group.name}</div>
+                  </span>
+                )
+              })}
+              <br/>
+            </>}
+
             <Form.Label className='mt10'>送信内容</Form.Label>
             <FormControl
               value={content}
