@@ -110,7 +110,7 @@ const Index: NextPage = () => {
                     </>
                   }
                     {stripeAccount?.business_type == 'company'
-                      ?
+                      &&
                         <>
                         <div>{stripeAccount?.business_profile && <>事業形態</>}</div>
                         <div>{stripeAccount?.business_profile && <>法人（株式会社/合同会社/NPOなど）</>}</div>
@@ -168,8 +168,10 @@ const Index: NextPage = () => {
                           {stripeRepresentativePerson?.address_kana?.line1}
                           {stripeRepresentativePerson?.address_kana?.line2}
                         </div>
-                      </>
-                      :
+                      </>}
+                      
+                      {stripeAccount?.business_type == 'individual'
+                      &&
                       <>
                         <Card.Body>
                           <div>事業形態</div>
