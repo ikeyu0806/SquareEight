@@ -3,12 +3,14 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { RootState } from 'redux/store'
 import { CustomerParam } from 'interfaces/CustomerParam'
+import { CustomerGroupParam } from 'interfaces/CustomerGroupParam'
 import { Modal, Button, Form, FormControl, Row, Col, ListGroup, Pagination } from 'react-bootstrap'
 import { showSendMessageTemplateModalChanged,
          customerPaginationStateChanged,
          targetTypeChanged,
          targetCustomersChanged,
-         targetEmailsChanged } from 'redux/messageTemplateSlice'
+         targetEmailsChanged,
+         targetCustomerGroupsChanged } from 'redux/messageTemplateSlice'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import axios from 'axios'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
@@ -23,9 +25,11 @@ const SendMessageTemplateModal = (): JSX.Element => {
   const title = useSelector((state: RootState) => state.messageTemplate.title)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
   const customers = useSelector((state: RootState) => state.messageTemplate.customers)
+  const customerGroups = useSelector((state: RootState) => state.messageTemplate.customerGroups)
   const customerPaginationState = useSelector((state: RootState) => state.messageTemplate.customerPaginationState)
   const targetType = useSelector((state: RootState) => state.messageTemplate.targetType)
   const targetCustomers = useSelector((state: RootState) => state.messageTemplate.targetCustomers)
+  const targetCustomerGroups = useSelector((state: RootState) => state.messageTemplate.targetCustomerGroups)
   const targetEmails = useSelector((state: RootState) => state.messageTemplate.targetEmails)
 
   const sendMessage = () => {
@@ -107,7 +111,12 @@ const SendMessageTemplateModal = (): JSX.Element => {
     let updateTargetCustomers: CustomerParam[]
     updateTargetCustomers = [...targetCustomers, {id: id, last_name: last_name, first_name: first_name, email: email } as CustomerParam]
     dispatch(targetCustomersChanged(updateTargetCustomers))
-    console.log("!!targetCustomers", targetCustomers)
+  }
+
+  const insertCusomerGroup = (customerGroup: CustomerGroupParam) => {
+    let updateTargetCustomerGroups: CustomerGroupParam[]
+    updateTargetCustomerGroups = [...targetCustomerGroups, {id: customerGroup.id, name: customerGroup.name} as CustomerGroupParam]
+    dispatch(targetCustomerGroupsChanged(updateTargetCustomerGroups))
   }
 
   return (
@@ -218,7 +227,16 @@ const SendMessageTemplateModal = (): JSX.Element => {
                 <div className='mt10'>顧客グループ一覧</div>
                 <div>
                   <ListGroup>
-
+                    {customerGroups.map((group, i) => {
+                      return (
+                        <ListGroup.Item key={i}>
+                          <span className='badge bg-info'>{group.name}</span><br/>
+                          <Button size='sm' className='mt5' onClick={() => insertCusomerGroup(group)}>
+                            送信先顧客グループに追加
+                          </Button>
+                        </ListGroup.Item>
+                      )
+                    })}
                   </ListGroup>
                 </div>
               </>
