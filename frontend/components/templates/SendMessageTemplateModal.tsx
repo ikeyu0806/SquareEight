@@ -41,7 +41,8 @@ const SendMessageTemplateModal = (): JSX.Element => {
         title: title,
         target_type: targetType,
         target_customers: targetCustomers,
-        target_emails: targetEmails
+        target_emails: targetEmails,
+        target_customer_groups: targetCustomerGroups
       }
     },
     {
@@ -114,6 +115,7 @@ const SendMessageTemplateModal = (): JSX.Element => {
   }
 
   const insertCusomerGroup = (customerGroup: CustomerGroupParam) => {
+    if (targetCustomerGroups.includes(customerGroup)) { return }
     let updateTargetCustomerGroups: CustomerGroupParam[]
     updateTargetCustomerGroups = [...targetCustomerGroups, {id: customerGroup.id, name: customerGroup.name} as CustomerGroupParam]
     dispatch(targetCustomerGroupsChanged(updateTargetCustomerGroups))

@@ -48,13 +48,13 @@ const New: NextPage = () => {
       }
     }).then(response => {
       swalWithBootstrapButtons.fire({
-        title: '送信しました',
+        title: '登録しました',
         icon: 'info'
       })
       router.push('/admin/customer_group')
     }).catch(error => {
       swalWithBootstrapButtons.fire({
-        title: '送信失敗しました',
+        title: '登録失敗しました',
         icon: 'error'
       })
     })

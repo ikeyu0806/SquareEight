@@ -47,6 +47,18 @@ class Api::Internal::MessageTemplatesController < ApplicationController
         title = message_template_params["title"]
         MessageTemplateMailer.send_mail(email, title, content).deliver_later
       end
+    elsif message_template_params[:target_type] == 'CustomerGroup'
+      content = message_template_params["content"].gsub(/\n/, "<br />")
+      title = message_template_params["title"]
+      target_emails = []
+      message_template_params["target_customer_groups"].each do |group|
+        customer_group = CustomerGroup.find(group["id"])
+        target_emails = target_emails + customer_group.customers.pluck(:email)
+      end
+      target_emails = target_emails.uniq
+      target_emails.each do |email|
+        MessageTemplateMailer.send_mail(email, title, content).deliver_later
+      end
     else
       raise 'Invalid target_type'
     end
@@ -66,6 +78,7 @@ class Api::Internal::MessageTemplatesController < ApplicationController
                   :name,
                   :title,
                   :content,
-                  target_customers: [:id, :last_name, :first_name, :email, :phone_number])
+                  target_customers: [:id, :last_name, :first_name, :email, :phone_number],
+                  target_customer_groups: [:id, :name])
   end
 end
