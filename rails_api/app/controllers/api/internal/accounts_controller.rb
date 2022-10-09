@@ -136,7 +136,7 @@ class Api::Internal::AccountsController < ApplicationController
 
     if account_params[:business_type] == "individual"
       stripe_account.business_type = "individual"
-      stripe_account.save()
+      stripe_account.save
       stripe_account.business_profile.mcc = '5734'
       # stripe_account.business_profile.name = account_params[:business_profile_name]
       stripe_account.individual.last_name_kanji = account_params[:individual_last_name_kanji]
@@ -156,7 +156,7 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.individual.address_kana.line1 = account_params[:individual_line1_kana]
       stripe_account.individual.address_kana.line2 = account_params[:individual_line2_kana] if account_params[:individual_line2_kana].present?
 
-      # stripe_account.individual.personal_email = account_params[:individual_email]
+      stripe_account.business_profile.support_email = account_params[:individual_email]
       if account_params[:individual_phone_number].start_with?("+81")
         stripe_account.individual.phone = account_params[:individual_phone_number]
       else
@@ -171,7 +171,9 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.individual.dob.day = split_birth_date[2]
       stripe_account.tos_acceptance.date = Time.now.to_i
       stripe_account.tos_acceptance.ip = request.remote_ip
-  
+      stripe_account.save
+      # 画像登録の前に一旦save
+
       image_data = account_params[:individual_identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
       decode_image = Base64.decode64(image_data)
       extension = account_params[:individual_identification_image].split("/")[1].split(";")[0]
@@ -191,9 +193,8 @@ class Api::Internal::AccountsController < ApplicationController
           stripe_account: stripe_account.id
         }
       )
-  
       stripe_account.individual.verification.document = verification_document.id
-      stripe_account.save()
+      stripe_account.save
     elsif account_params[:business_type] == "company"
       stripe_account.business_type = "company"
       stripe_account.save
