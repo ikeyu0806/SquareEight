@@ -15,6 +15,7 @@ const StripeTerm = (): JSX.Element => {
       </p>
       <Form.Check 
         checked={isTermConfirmed}
+        id='stripeTerm'
         onChange={() => dispatch(isTermConfirmedChanged(!isTermConfirmed))}
         type='checkbox'
         label='利用規約に同意する'

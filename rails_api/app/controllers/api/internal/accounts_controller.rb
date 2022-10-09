@@ -136,39 +136,39 @@ class Api::Internal::AccountsController < ApplicationController
 
     if account_params[:business_type] == "individual"
       stripe_account.business_type = "individual"
-      stripe_account.mcc = '5734'
-      stripe_account.business_profile.name = account_params[:business_profile_name]
-      stripe_account.legal_entity.last_name_kanji = account_params[:individual_last_name_kanji]
-      stripe_account.legal_entity.last_name_kana = account_params[:individual_last_name_kana]
-      stripe_account.legal_entity.first_name_kanji = account_params[:individual_first_name_kanji]
-      stripe_account.legal_entity.first_name_kana = account_params[:individual_first_name_kana]
-      stripe_account.legal_entity.address_kanji.postal_code = account_params[:individual_postal_code_kanji]
-      stripe_account.legal_entity.address_kanji.state = account_params[:individual_state_kanji]
-      stripe_account.legal_entity.address_kanji.city = account_params[:individual_city_kanji]
-      stripe_account.legal_entity.address_kanji.town = account_params[:individual_town_kanji]
-      stripe_account.legal_entity.address_kanji.line1 = account_params[:individual_line1_kanji]
-      stripe_account.legal_entity.address_kanji.line2 = account_params[:individual_line2_kanji] if account_params[:individual_line2_kanji].present?
-      stripe_account.legal_entity.address_kana.postal_code = account_params[:individual_postal_code_kanji]
-      stripe_account.legal_entity.address_kana.state = account_params[:individual_state_kana]
-      stripe_account.legal_entity.address_kana.city = account_params[:individual_city_kana]
-      stripe_account.legal_entity.address_kana.town = account_params[:individual_town_kana]
-      stripe_account.legal_entity.address_kana.line1 = account_params[:individual_line1_kana]
-      stripe_account.legal_entity.address_kana.line2 = account_params[:individual_line2_kana] if account_params[:individual_line2_kana].present?
-      stripe_account.legal_entity.personal_email = account_params[:individual_email]
+      stripe_account.save()
+      stripe_account.business_profile.mcc = '5734'
+      # stripe_account.business_profile.name = account_params[:business_profile_name]
+      stripe_account.individual.last_name_kanji = account_params[:individual_last_name_kanji]
+      stripe_account.individual.last_name_kana = account_params[:individual_last_name_kana]
+      stripe_account.individual.first_name_kanji = account_params[:individual_first_name_kanji]
+      stripe_account.individual.first_name_kana = account_params[:individual_first_name_kana]
+      stripe_account.individual.address_kanji.postal_code = account_params[:individual_postal_code_kanji]
+      stripe_account.individual.address_kanji.state = account_params[:individual_state_kanji]
+      stripe_account.individual.address_kanji.city = account_params[:individual_city_kanji]
+      stripe_account.individual.address_kanji.town = account_params[:individual_town_kanji]
+      stripe_account.individual.address_kanji.line1 = account_params[:individual_line1_kanji]
+      stripe_account.individual.address_kanji.line2 = account_params[:individual_line2_kanji] if account_params[:individual_line2_kanji].present?
+      stripe_account.individual.address_kana.postal_code = account_params[:individual_postal_code_kanji]
+      stripe_account.individual.address_kana.state = account_params[:individual_state_kana]
+      stripe_account.individual.address_kana.city = account_params[:individual_city_kana]
+      stripe_account.individual.address_kana.town = account_params[:individual_town_kana]
+      stripe_account.individual.address_kana.line1 = account_params[:individual_line1_kana]
+      stripe_account.individual.address_kana.line2 = account_params[:individual_line2_kana] if account_params[:individual_line2_kana].present?
+
+      # stripe_account.individual.personal_email = account_params[:individual_email]
       if account_params[:individual_phone_number].start_with?("+81")
-        stripe_account.legal_entity.phone_number = account_params[:individual_phone_number]
-        stripe_account.legal_entity.personal_phone_number = account_params[:individual_phone_number]
+        stripe_account.individual.phone = account_params[:individual_phone_number]
       else
-        stripe_account.legal_entity.phone_number = '+81' + account_params[:individual_phone_number]
-        stripe_account.legal_entity.personal_phone_number = '+81' + account_params[:individual_phone_number]
+        stripe_account.individual.phone = '+81' + account_params[:individual_phone_number]
       end
-      stripe_account.business_url = account_params[:individual_business_url]
-      stripe_account.product_description = account_params[:individual_product_description]
-      stripe_account.legal_entity.gender = account_params[:individual_gender]
+      stripe_account.business_profile.url = account_params[:individual_business_url]
+      stripe_account.business_profile.product_description = account_params[:individual_product_description]
+      stripe_account.individual.gender = account_params[:individual_gender]
       split_birth_date = account_params["individual_birth_day"].split("-")
-      stripe_account.legal_entity.dob.year = split_birth_date[0]
-      stripe_account.legal_entity.dob.month = split_birth_date[1]
-      stripe_account.legal_entity.dob.day = split_birth_date[2]
+      stripe_account.individual.dob.year = split_birth_date[0]
+      stripe_account.individual.dob.month = split_birth_date[1]
+      stripe_account.individual.dob.day = split_birth_date[2]
       stripe_account.tos_acceptance.date = Time.now.to_i
       stripe_account.tos_acceptance.ip = request.remote_ip
   
@@ -192,8 +192,8 @@ class Api::Internal::AccountsController < ApplicationController
         }
       )
   
-      stripe_account.legal_entity.verification.document = verification_document.id
-      stripe_account.save
+      stripe_account.individual.verification.document = verification_document.id
+      stripe_account.save()
     elsif account_params[:business_type] == "company"
       stripe_account.business_type = "company"
       stripe_account.save

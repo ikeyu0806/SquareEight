@@ -240,12 +240,10 @@ const RegisterMerchantInfoForm = () => {
           !individualCityKanji ||
           !individualTownKanji ||
           !individualLine1Kanji ||
-          !individualLine2Kanji ||
           !individualStateKana ||
           !individualCityKana ||
           !individualTownKana ||
           !individualLine1Kana ||
-          !individualLine2Kana ||
           !individualPhoneNumber ||
           !individualBirthDay ||
           !individualGender ||
