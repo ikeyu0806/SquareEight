@@ -371,6 +371,7 @@ const RegisterMerchantInfoForm = () => {
       setIsLoading(false)
       swalWithBootstrapButtons.fire({
         title: '登録失敗しました',
+        text: error.response.data.error,
         icon: 'error'
       })
     })

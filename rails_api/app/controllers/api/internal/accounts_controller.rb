@@ -131,6 +131,7 @@ class Api::Internal::AccountsController < ApplicationController
           transfers: {requested: true},
         },
       })
+      stripe_account.save
       current_merchant_user.account.update!(stripe_account_id: stripe_account.id)
     else
       stripe_account = Stripe::Account.retrieve(current_merchant_user.account.stripe_account_id)
@@ -143,6 +144,7 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.business_profile.product_description = account_params[:individual_product_description]
       # stripe_account.business_profile.name = account_params[:business_profile_name]
       stripe_account.business_profile.support_email = account_params[:individual_email]
+      stripe_account.individual.email = account_params[:individual_email]
       stripe_account.individual.last_name_kanji = account_params[:individual_last_name_kanji]
       stripe_account.individual.last_name_kana = account_params[:individual_last_name_kana]
       stripe_account.individual.first_name_kanji = account_params[:individual_first_name_kanji]
@@ -173,30 +175,33 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.individual.dob.day = split_birth_date[2]
       stripe_account.tos_acceptance.date = Time.now.to_i
       stripe_account.tos_acceptance.ip = request.remote_ip
-      stripe_account.save
+
       # 画像登録の前に一旦save
-
-      image_data = account_params[:individual_identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
-      decode_image = Base64.decode64(image_data)
-      extension = account_params[:individual_identification_image].split("/")[1].split(";")[0]
-      content_type = account_params[:individual_identification_image].split(":")[1].split(";")[0]
-      obj_name =  "individual_identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
-
-      File.open(obj_name, 'wb') do |file|
-        file.write(decode_image)
-      end
-      individual_identification_image_file = File.open(obj_name, "r")
-      verification_document = Stripe::File.create(
-        {
-          purpose: 'identity_document',
-          file: individual_identification_image_file
-        },
-        {
-          stripe_account: stripe_account.id
-        }
-      )
-      stripe_account.individual.verification.document = verification_document.id
       stripe_account.save
+
+      if account_params[:representative_identification_image].present?
+        image_data = account_params[:individual_identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
+        decode_image = Base64.decode64(image_data)
+        extension = account_params[:individual_identification_image].split("/")[1].split(";")[0]
+        content_type = account_params[:individual_identification_image].split(":")[1].split(";")[0]
+        obj_name =  "individual_identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
+
+        File.open(obj_name, 'wb') do |file|
+          file.write(decode_image)
+        end
+        individual_identification_image_file = File.open(obj_name, "r")
+        verification_document = Stripe::File.create(
+          {
+            purpose: 'identity_document',
+            file: individual_identification_image_file
+          },
+          {
+            stripe_account: stripe_account.id
+          }
+        )
+        stripe_account.individual.verification.document = verification_document.id
+        stripe_account.save
+      end
     elsif account_params[:business_type] == "company"
       stripe_account.business_profile.mcc = '5734'
       stripe_account.business_profile.url = account_params[:company_business_url]
