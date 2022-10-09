@@ -279,29 +279,32 @@ class Api::Internal::AccountsController < ApplicationController
       person.address_kana.town = account_params[:representative_address_town_kana]
       person.address_kana.line1 = account_params[:representative_address_line1_kana]
       person.address_kana.line2 = account_params[:representative_address_line2_kana] if account_params[:representative_address_line2_kana].present?
+      person.save
 
       # 本人確認ドキュメント
-      image_data = account_params[:representative_identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
-      decode_image = Base64.decode64(image_data)
-      extension = account_params[:representative_identification_image].split("/")[1].split(";")[0]
-      content_type = account_params[:representative_identification_image].split(":")[1].split(";")[0]
-      obj_name =  "representative_identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
-  
-      File.open(obj_name, 'wb') do |file|
-        file.write(decode_image)
+      if account_params[:representative_identification_image].present?
+        image_data = account_params[:representative_identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
+        decode_image = Base64.decode64(image_data)
+        extension = account_params[:representative_identification_image].split("/")[1].split(";")[0]
+        content_type = account_params[:representative_identification_image].split(":")[1].split(";")[0]
+        obj_name =  "representative_identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
+    
+        File.open(obj_name, 'wb') do |file|
+          file.write(decode_image)
+        end
+        representative_identification_image_file = File.open(obj_name, "r")
+        verification_document = Stripe::File.create(
+          {
+            purpose: 'identity_document',
+            file: representative_identification_image_file
+          },
+          {
+            stripe_account: stripe_account.id
+          }
+        )
+        person.verification.document = verification_document
+        person.save
       end
-      representative_identification_image_file = File.open(obj_name, "r")
-      verification_document = Stripe::File.create(
-        {
-          purpose: 'identity_document',
-          file: representative_identification_image_file
-        },
-        {
-          stripe_account: stripe_account.id
-        }
-      )
-      person.verification.document = verification_document
-      person.save
     end
     render json: { status: 'success' }, states: 200
   rescue => error

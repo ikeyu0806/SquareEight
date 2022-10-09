@@ -85,6 +85,8 @@ const Index: NextPage = () => {
         result.push('取締役の生年月日（月）')
       } else if (due === 'directors.dob.day') {
         result.push('取締役の生年月日（日）')
+      } else if (due.match(/verification.document/)) {
+        result.push('本人確認書類')
       }
     })
     return result.join('、')
