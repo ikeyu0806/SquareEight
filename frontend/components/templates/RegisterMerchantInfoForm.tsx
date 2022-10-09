@@ -158,9 +158,10 @@ const RegisterMerchantInfoForm = () => {
       )
       .then(function (response) {
         console.log(response.data)
+        console.log(response.data.stripe_account.company, "company")
         if (response.data.stripe_account.business_type === 'company') {
           setBusinessType('company')
-          dispatch(businessProfileNameChanged(response.data.stripe_account.business_profile.name))
+          dispatch(companyBusinessNameChanged(response.data.stripe_account.company.name))
           dispatch(companyBusinessNameKanaChanged(response.data.stripe_account.company.name_kana))
           dispatch(companyPortalCodeChanged(response.data.stripe_account.company.address_kana.postal_code))
           dispatch(companyStateKanjiChanged(response.data.stripe_account.company.address_kanji.state))
