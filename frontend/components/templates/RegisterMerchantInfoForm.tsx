@@ -132,6 +132,12 @@ const RegisterMerchantInfoForm = () => {
     const representativePhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.representativePhoneNumber)
     const representativeGender = useSelector((state: RootState) => state.stripeCompanyAccount.representativeGender)
     const representativeBirthDay = useSelector((state: RootState) => state.stripeCompanyAccount.representativeBirthDay)
+    const isDirector = useSelector((state: RootState) => state.stripeCompanyAccount.isDirector)
+    const isExecutive = useSelector((state: RootState) => state.stripeCompanyAccount.isExecutive)
+    const isOwner = useSelector((state: RootState) => state.stripeCompanyAccount.isOwner)
+    const isRepresentative = useSelector((state: RootState) => state.stripeCompanyAccount.isRepresentative)
+    const percentOwnership = useSelector((state: RootState) => state.stripeCompanyAccount.percentOwnership)
+    const relationshipTitle = useSelector((state: RootState) => state.stripeCompanyAccount.relationshipTitle)
     const representativeAddressPostalCode = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressPostalCode)
     const representativeAddressStateKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressStateKanji)
     const representativeAddressTownKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressTownKanji)
@@ -144,6 +150,7 @@ const RegisterMerchantInfoForm = () => {
     const representativeAddressLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kana)
     const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
     const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
+
     const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.identificationImage)
     const isTermConfirmed = useSelector((state: RootState) => state.stripeAccount.isTermConfirmed)
 
@@ -358,7 +365,13 @@ const RegisterMerchantInfoForm = () => {
         representative_address_line1_kana: representativeAddressLine1Kana,
         representative_address_line2_kana: representativeAddressLine2Kana,
         representative_identification_image: representativeIdentificationImage,
-        is_director_register_complete: isDirectorRegisterComplete
+        is_director_register_complete: isDirectorRegisterComplete,
+        is_director: isDirector,
+        is_executive: isExecutive,
+        is_owner: isOwner,
+        is_representative: isRepresentative,
+        percent_ownership: percentOwnership,
+        relationship_title: relationshipTitle
       },
     },
     {

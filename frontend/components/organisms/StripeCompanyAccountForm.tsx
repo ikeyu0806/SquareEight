@@ -165,6 +165,8 @@ const StripeCompanyAccountForm = (): JSX.Element => {
                     value={companyDescription}
                     as='textarea'
                     rows={2}></Form.Control>
+      <hr />
+      <div className='mt20 mb30'>以下ビジネスアカウントの主たる代表者の情報を入力してください</div>
       <Form.Label className='mt10'>代表者の姓（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeLastNameKanjiChanged(e.target.value))}
                     value={representativeLastNameKanji}></Form.Control>
@@ -224,20 +226,33 @@ const StripeCompanyAccountForm = (): JSX.Element => {
       <Form.Label className='mt10'>代表者の自宅住所・建物、部屋番号、その他（カナ）</Form.Label>
       <Form.Control onChange={(e) => dispatch(representativeAddressLine2KanaChanged(e.target.value))}
                     value={representativeAddressLine2Kana}></Form.Control>
-      <Form.Label className='mt10'>代表者以外に取締役はいますか?</Form.Label>
+      <Form.Label className='mt10'>代表者の役職。CEOなど</Form.Label>
+      <Form.Control onChange={(e) => dispatch(relationshipTitleChanged(e.target.value))}
+                    value={relationshipTitle}></Form.Control>
       <Form.Check
-        type='switch'
-        checked={isDirectorRegisterComplete === true}
-        label='なし、代表者のみです'
-        onChange={() => dispatch(isDirectorRegisterCompleteChanged(!isDirectorRegisterComplete))}></Form.Check>
+        className='mt20'
+        label='この人は会社の25%以上を所有しています。'
+        id='isOwnerCheck'
+        defaultChecked={isOwner}
+        onChange={() => isOwnerChanged(!isOwner)}
+      ></Form.Check>
       <Form.Check
-        label='この人物はアカウントの主たる代表者として認められています。'
-        id='isRepresentativeCheck'
-        onChange={() => isRepresentativeChanged(!isRepresentative)}
+        className='mt20'
+        label='この人物は会社の取締役会のメンバーです。'
+        id='isDirectorCheck'
+        defaultChecked={isDirector}
+        onChange={() => isDirectorChanged(!isDirector)}
+      ></Form.Check>
+      <Form.Check
+        className='mt20'
+        label='この人物は会社の経営に重大な責任を負うエグゼクティブまたはシニアマネージャーです。'
+        id='isExecutiveCheck'
+        defaultChecked={isExecutive}
+        onChange={() => isExecutiveChanged(!isExecutive)}
       ></Form.Check>
       {representativeVerificationStatus !== 'verified'
         ? <>
-            <Form.Group controlId='formFile' className='mt10'>
+            <Form.Group controlId='formFile' className='mt20'>
               <Form.Label>
                 本人確認書類。以下のいずれかをアップロードしてください<br/>
                 &emsp;1. 運転免許書<br/>
