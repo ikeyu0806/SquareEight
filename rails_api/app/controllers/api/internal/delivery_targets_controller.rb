@@ -3,7 +3,7 @@ class Api::Internal::DeliveryTargetsController < ApplicationController
 
   def index
     delivery_targets = current_end_user.delivery_targets.order(:id)
-    render json: { status: 'success', delivery_targets: delivery_targets }, states: 200
+    render json: { status: 'success', delivery_targets: delivery_targets }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -13,14 +13,14 @@ class Api::Internal::DeliveryTargetsController < ApplicationController
       current_end_user.delivery_targets.update_all(is_default: false)
     end
     current_end_user.delivery_targets.create!(delivery_target_params)
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def destroy
     current_end_user.delivery_targets.find(params[:id]).destroy
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -29,7 +29,7 @@ class Api::Internal::DeliveryTargetsController < ApplicationController
     ActiveRecord::Base.transaction do
       current_end_user.delivery_targets.update_all(is_default: false)
       current_end_user.delivery_targets.find(params[:id]).update!(is_default: true)
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

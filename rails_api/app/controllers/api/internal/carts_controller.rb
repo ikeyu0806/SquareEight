@@ -3,7 +3,7 @@ class Api::Internal::CartsController < ApplicationController
 
   def account_index
     cart_items, total_price = current_end_user.cart_contents
-    render json: { status: 'success', cart_items: cart_items, total_price: total_price }, states: 200
+    render json: { status: 'success', cart_items: cart_items, total_price: total_price }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -20,7 +20,7 @@ class Api::Internal::CartsController < ApplicationController
       raise
     end
     cart_item.destroy
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

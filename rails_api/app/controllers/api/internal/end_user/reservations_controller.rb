@@ -11,7 +11,7 @@ class Api::Internal::EndUser::ReservationsController < ApplicationController
                                       :ticket_master_name,
                                       :monthly_payment_plan_name])
     reservations = JSON.parse(reservations)
-    render json: { status: 'success', reservations: reservations }, states: 200
+    render json: { status: 'success', reservations: reservations }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

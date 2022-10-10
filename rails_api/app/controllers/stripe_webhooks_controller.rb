@@ -66,7 +66,7 @@ class StripeWebhooksController < ApplicationController
         stripe_payment_intent.save!
       end
     
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

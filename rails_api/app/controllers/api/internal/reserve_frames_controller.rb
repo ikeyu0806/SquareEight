@@ -8,7 +8,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                      .order(:id)
                      .to_json(methods: [:payment_methods_text, :repeat_setting_text, :reception_type_text, :display_start_at, :display_end_at])
     reserve_frames = JSON.parse(reserve_frames)
-    render json: { status: 'success', reserve_frames: reserve_frames }, states: 200
+    render json: { status: 'success', reserve_frames: reserve_frames }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -32,7 +32,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                                     :reserve_frame_credit_card_payment_prices,
                                                                     :local_payment_prices_with_number_of_people,
                                                                     :credit_card_payment_prices_with_number_of_people]))
-    render json: { status: 'success', reserve_frame: reserve_frame_json, shared_component: shared_component }, states: 200
+    render json: { status: 'success', reserve_frame: reserve_frame_json, shared_component: shared_component }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -91,7 +91,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
         end
       end
       reserve_frame.save!
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -158,7 +158,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
 
   def reserve_events
     events = Account.find(params[:account_id]).reserve_calendar_json
-    render json: { status: 'success', events: events }, states: 200
+    render json: { status: 'success', events: events }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -173,7 +173,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                    resources: resources,
                    questionnaire_masters: questionnaire_masters,
                    ticket_masters: ticket_masters,
-                   monthly_payment_plans: monthly_payment_plans }, states: 200
+                   monthly_payment_plans: monthly_payment_plans }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -181,7 +181,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
   def logical_delete
     reserve_frame = ReserveFrame.find(params[:id])
     reserve_frame.logical_delete
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

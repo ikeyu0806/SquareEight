@@ -19,6 +19,7 @@ Rails.application.routes.draw do
       post 'accounts/register_stripe_business_info', to: 'accounts#register_stripe_business_info'
       post 'accounts/register_stripe_bank_account', to: 'accounts#register_stripe_bank_account'
       post 'accounts/update_selected_bank_account', to: 'accounts#update_selected_bank_account'
+      post 'accounts/create_stripe_person', to: 'accounts#create_stripe_person'
       post 'accounts/update_plan', to: 'accounts#update_plan'
       delete 'accounts/cancel_plan', to: 'accounts#cancel_plan'
       post 'accounts/withdrawal', to: 'accounts#withdrawal'

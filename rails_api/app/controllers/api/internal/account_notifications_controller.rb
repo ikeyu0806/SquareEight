@@ -1,14 +1,14 @@
 class Api::Internal::AccountNotificationsController < ApplicationController
   def index
     account_notifications = AccountNotification.all
-    render json: { status: 'success', account_notifications: account_notifications }, states: 200
+    render json: { status: 'success', account_notifications: account_notifications }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def show
     account_notification = AccountNotification.find(params[:id])
-    render json: { status: 'success', account_notification: account_notification }, states: 200
+    render json: { status: 'success', account_notification: account_notification }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

@@ -58,7 +58,7 @@ class Api::Internal::AccountsController < ApplicationController
     default_payment_method_id, payment_methods = current_merchant_user.account.payment_methods
     render json: { status: 'success',
                    payment_methods: payment_methods,
-                   default_payment_method_id: default_payment_method_id }, states: 200
+                   default_payment_method_id: default_payment_method_id }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
@@ -77,7 +77,7 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { status: 'success',
                    stripe_account: JSON.parse(stripe_account.to_json),
                    representative_person: JSON.parse(representative_person.to_json),
-                   selected_external_account_id: current_merchant_user.account.selected_external_account_id }, states: 200
+                   selected_external_account_id: current_merchant_user.account.selected_external_account_id }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
@@ -109,7 +109,7 @@ class Api::Internal::AccountsController < ApplicationController
           {customer: account.stripe_customer_id},
         )
       end
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
@@ -316,7 +316,7 @@ class Api::Internal::AccountsController < ApplicationController
         person.save
       end
     end
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
@@ -339,14 +339,14 @@ class Api::Internal::AccountsController < ApplicationController
     if current_merchant_user.account.selected_external_account_id.blank?
       current_merchant_user.account.update!(selected_external_account_id: external_account.id)
     end
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
 
   def update_selected_bank_account
     current_merchant_user.account.update!(selected_external_account_id: account_params[:external_account_id])
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
@@ -357,7 +357,7 @@ class Api::Internal::AccountsController < ApplicationController
       current_merchant_user.account.stripe_account_id,
       params[:external_account_id],
     )
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
@@ -365,7 +365,7 @@ class Api::Internal::AccountsController < ApplicationController
   def page_links
     account = current_merchant_user.account
     page_links = account.page_links
-    render json: { status: 'success', page_links: page_links }, states: 200
+    render json: { status: 'success', page_links: page_links }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
@@ -383,7 +383,7 @@ class Api::Internal::AccountsController < ApplicationController
     Stripe::PaymentMethod.detach(
       params[:payment_method_id],
     )
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
@@ -408,7 +408,7 @@ class Api::Internal::AccountsController < ApplicationController
     else
       representative = {}
     end
-    render json: { status: 'success', stripe_account: stripe_account, representative: representative }, states: 200
+    render json: { status: 'success', stripe_account: stripe_account, representative: representative }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
@@ -416,7 +416,7 @@ class Api::Internal::AccountsController < ApplicationController
   def stripe_payment_history
     stripe_payment_intents = current_merchant_user.account.stripe_payment_intents
     stripe_payment_intents = JSON.parse(stripe_payment_intents.to_json(methods: [:customer_fullname]))
-    render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, states: 200
+    render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
@@ -478,7 +478,7 @@ class Api::Internal::AccountsController < ApplicationController
   def questionnaire_answers
     account = current_merchant_user.account
     answer_contents = account.answer_contents
-    render json: { status: 'success', answer_contents: answer_contents }, states: 200
+    render json: { status: 'success', answer_contents: answer_contents }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
@@ -494,7 +494,15 @@ class Api::Internal::AccountsController < ApplicationController
         )
       end
       account.merchant_users.destroy_all
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
+    end
+  rescue => error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
+  def create_stripe_person
+    ActiveRecord::Base.transaction do
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { status: 'fail', error: error }, status: 500

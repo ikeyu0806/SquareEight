@@ -20,7 +20,7 @@ class Api::Internal::QuestionnaireAnswersController < ApplicationController
       account_notification_url = '/admin/customer/' + customer.id.to_s + '/questionnaire_answers'
       account.account_notifications
       .create!(title: account_notification_title, url: account_notification_url)
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

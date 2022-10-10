@@ -5,14 +5,14 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def index
     monthly_payment_plans = current_merchant_user.account.monthly_payment_plans.enabled.order(:id)
-    render json: { status: 'success', monthly_payment_plans: monthly_payment_plans }, states: 200
+    render json: { status: 'success', monthly_payment_plans: monthly_payment_plans }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def show
     monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.enabled.find(params[:id])
-    render json: { status: 'success', monthly_payment_plan: monthly_payment_plan }, states: 200
+    render json: { status: 'success', monthly_payment_plan: monthly_payment_plan }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -33,7 +33,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
                    monthly_payment_plan: monthly_payment_plan,
                    payment_methods: payment_methods,
                    default_payment_method_id: default_payment_method_id,
-                   login_status: login_status }, states: 200
+                   login_status: login_status }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -59,7 +59,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       })
       monthly_payment_plan.stripe_plan_id = stripe_plan.id
       monthly_payment_plan.save!
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -75,7 +75,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       monthly_payment_plan.s3_object_name = file_name
     end
     monthly_payment_plan.save!
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -98,7 +98,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   def logical_delete
     monthly_payment_plan = MonthlyPaymentPlan.find(params[:id])
     monthly_payment_plan.logical_delete
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

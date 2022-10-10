@@ -14,14 +14,14 @@ class Api::Internal::EndUsersController < ApplicationController
     system_notifications = SystemEndUserNotification.order(created_at: :desc).limit(5)
     render json: {  status: 'success',
                     notifications: notifications,
-                    system_notifications: system_notifications }, states: 200
+                    system_notifications: system_notifications }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def current_end_user_info
     end_user = current_end_user.attributes.except(:password_digest, :stripe_customer_id)
-    render json: { status: 'success', end_user: end_user }, states: 200
+    render json: { status: 'success', end_user: end_user }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -29,7 +29,7 @@ class Api::Internal::EndUsersController < ApplicationController
   def mypage_info
     end_user = current_end_user.attributes.except(:password_digest, :stripe_customer_id)
     delivery_target = current_end_user.default_delivery_target
-    render json: { status: 'success', end_user: end_user, delivery_target: delivery_target }, states: 200
+    render json: { status: 'success', end_user: end_user, delivery_target: delivery_target }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -43,7 +43,7 @@ class Api::Internal::EndUsersController < ApplicationController
     end
     render json: { status: 'success',
                    payment_methods: payment_methods,
-                   default_payment_method_id: default_payment_method_id }, states: 200
+                   default_payment_method_id: default_payment_method_id }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -61,7 +61,7 @@ class Api::Internal::EndUsersController < ApplicationController
       encode_email = Base64.urlsafe_encode64(end_user.email)
       EndUserMailer.send_verification_code(end_user.email, encode_email, end_user.verification_code).deliver_later
     end
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -81,7 +81,7 @@ class Api::Internal::EndUsersController < ApplicationController
         EndUserMailer.send_update_email_verification_code(end_user.wait_for_update_email, encode_email, end_user.verification_code).deliver_later
       end
       end_user.save!
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -105,7 +105,7 @@ class Api::Internal::EndUsersController < ApplicationController
           end_user.save!
         end
       end
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -119,7 +119,7 @@ class Api::Internal::EndUsersController < ApplicationController
     end_user.update!(email_authentication_status: 'Enabled')
     session['end_user_id'] = end_user.id
     EndUserMailer.registration_complete(end_user.id).deliver_later
-    render json: { status: 'success', session_id: session.id, }, states: 200
+    render json: { status: 'success', session_id: session.id, }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -131,7 +131,7 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if end_user.verification_code_expired_at < Time.zone.now
     end_user.update!(email: end_user.wait_for_update_email)
     session['end_user_id'] = end_user.id
-    render json: { status: 'success', session_id: session.id, }, states: 200
+    render json: { status: 'success', session_id: session.id, }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -161,7 +161,7 @@ class Api::Internal::EndUsersController < ApplicationController
           {customer: current_end_user.stripe_customer_id},
         )
       end
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -180,14 +180,14 @@ class Api::Internal::EndUsersController < ApplicationController
     Stripe::PaymentMethod.detach(
       params[:payment_method_id],
     )
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def disconnect_google_auth
     current_end_user.update!(google_auth_id: nil, google_auth_email: nil)
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -195,14 +195,14 @@ class Api::Internal::EndUsersController < ApplicationController
   def stripe_payment_history
     stripe_payment_intents = current_end_user.stripe_payment_intents
     stripe_payment_intents = JSON.parse(stripe_payment_intents.to_json(methods: [:account_business_name, :purchase_product_name]))
-    render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, states: 200
+    render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def subscription_lists
     stripe_payment_subscriptions = current_end_user.search_stripe_subscriptions
-    render json: { status: 'success', stripe_payment_subscriptions: stripe_payment_subscriptions }, states: 200
+    render json: { status: 'success', stripe_payment_subscriptions: stripe_payment_subscriptions }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

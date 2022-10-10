@@ -3,14 +3,14 @@ class Api::Internal::Account::CustomersController < ApplicationController
 
   def index
     customers = current_merchant_user.account.customers.order(:id)
-    render json: { status: 'success', customers: customers }, states: 200
+    render json: { status: 'success', customers: customers }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def create
     current_merchant_user.account.customers.create!(customer_params)
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -18,7 +18,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
   def update
     customer = current_merchant_user.account.customers.find(params[:id])
     customer.update!(customer_params)
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -38,7 +38,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
   def charges
     customer = Customer.find(params[:customer_id])
     stripe_payment_intents = customer.end_user.search_stripe_payment_intents
-    render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, states: 200
+    render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

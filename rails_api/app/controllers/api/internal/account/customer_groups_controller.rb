@@ -3,7 +3,7 @@ class Api::Internal::Account::CustomerGroupsController < ApplicationController
 
   def index
     customer_groups = current_merchant_user.account.customer_groups
-    render json: { status: 'success', customer_groups: customer_groups }, states: 200
+    render json: { status: 'success', customer_groups: customer_groups }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -15,7 +15,7 @@ class Api::Internal::Account::CustomerGroupsController < ApplicationController
     render json: {  status: 'success',
                     customer_group: customer_group,
                     selected_customers: selected_customers,
-                    unselected_customers: unselected_customers }, states: 200
+                    unselected_customers: unselected_customers }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -26,7 +26,7 @@ class Api::Internal::Account::CustomerGroupsController < ApplicationController
       customer_group.customer_group_relations.new(customer_id: customer[:id])
     end
     customer_group.save!
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -39,7 +39,7 @@ class Api::Internal::Account::CustomerGroupsController < ApplicationController
       customer_group.customer_group_relations.new(customer_id: customer[:id])
     end
     customer_group.save!
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

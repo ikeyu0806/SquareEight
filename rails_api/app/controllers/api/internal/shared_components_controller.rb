@@ -5,7 +5,7 @@ class Api::Internal::SharedComponentsController < ApplicationController
 
   def show
     shared_component = current_merchant_user.account.shared_component
-    render json: { status: 'success', shared_component: shared_component }, states: 200
+    render json: { status: 'success', shared_component: shared_component }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -22,7 +22,7 @@ class Api::Internal::SharedComponentsController < ApplicationController
       end
       shared_component.attributes = shared_component_params.except(:navbar_brand_image, :is_update_navbar_brand_image)
       shared_component.save!
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

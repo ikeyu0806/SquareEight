@@ -6,7 +6,7 @@ class Api::Internal::ProductsController < ApplicationController
   def index
     products = current_merchant_user.account.products.enabled.order(:id)
     products = JSON.parse(products.to_json(methods: [:product_types, :show_product_type_form]))
-    render json: { status: 'success', products: products }, states: 200
+    render json: { status: 'success', products: products }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -14,7 +14,7 @@ class Api::Internal::ProductsController < ApplicationController
   def show
     product = Product.enabled.find(params[:id])
     product = JSON.parse(product.to_json(methods: [:product_types, :show_product_type_form, :shipping_fee_per_regions, :delivery_charge_type]))
-    render json: { status: 'success', product: product }, states: 200
+    render json: { status: 'success', product: product }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -34,7 +34,7 @@ class Api::Internal::ProductsController < ApplicationController
         product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
       end
       product.save!
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -59,7 +59,7 @@ class Api::Internal::ProductsController < ApplicationController
         product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
       end
       product.save!
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -86,7 +86,7 @@ class Api::Internal::ProductsController < ApplicationController
                    delivery_targets: delivery_targets,
                    default_payment_method_id: default_payment_method_id,
                    current_end_user_id: current_end_user.present? ? current_end_user.id : nil,
-                   login_status: login_status }, states: 200
+                   login_status: login_status }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -124,7 +124,7 @@ class Api::Internal::ProductsController < ApplicationController
   def logical_delete
     product = Product.find(params[:id])
     product.logical_delete
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

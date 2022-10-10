@@ -43,7 +43,7 @@ class Api::Internal::ReservationsController < ApplicationController
                     price: price_attr[:price] * price_attr[:reserve_number_of_people])
         end
       end
-      render json: { status: 'success', reservation: reservation }, states: 200
+      render json: { status: 'success', reservation: reservation }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -51,7 +51,7 @@ class Api::Internal::ReservationsController < ApplicationController
 
   def register_customer_info
     ActiveRecord::Base.transaction do
-      render json: { status: 'success', reservation: reservation }, states: 200
+      render json: { status: 'success', reservation: reservation }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -209,7 +209,7 @@ class Api::Internal::ReservationsController < ApplicationController
       merchant_emails = reserve_frame.account.merchant_users.pluck(:email).join(',')
       ReservationMailer.send_merchant_confirm_mail(merchant_emails, "予約を受け付けました", reservation.id, reserve_frame.id, customer.id, display_reservation_datetime, display_payment_method, display_status, display_price, display_number_of_people).deliver_later
 
-      render json: { status: 'success', reservation: reservation }, states: 200
+      render json: { status: 'success', reservation: reservation }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -224,7 +224,7 @@ class Api::Internal::ReservationsController < ApplicationController
                                                            :display_reservation_datetime,
                                                            :reservation_local_payment_prices,
                                                            :reservation_credit_card_payment_prices]))
-    render json: { status: 'success', reservation: reservation }, states: 200
+    render json: { status: 'success', reservation: reservation }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -239,7 +239,7 @@ class Api::Internal::ReservationsController < ApplicationController
         display_number_of_people = reservation.number_of_people.to_s + '人' if display_number_of_people.blank?
         ReservationMailer.send_end_user_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, reservation.display_reservation_datetime, reservation.display_payment_method, display_number_of_people, display_price).deliver_later
       end
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -277,7 +277,7 @@ class Api::Internal::ReservationsController < ApplicationController
                           representative_first_name: reservation_params[:first_name],
                           representative_last_name: reservation_params[:last_name],
                           customer_id: customer.id)
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -287,7 +287,7 @@ class Api::Internal::ReservationsController < ApplicationController
     account = current_merchant_user.account
     reserve_frames = account.reserve_frames
     customers = JSON.parse(account.customers.to_json(methods: [:full_name]))
-    render json: { status: 'success', reserve_frames: reserve_frames, customers: customers }, states: 200
+    render json: { status: 'success', reserve_frames: reserve_frames, customers: customers }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -334,7 +334,7 @@ class Api::Internal::ReservationsController < ApplicationController
                    purchased_ticket_ids: purchased_ticket_ids,
                    is_subscribe_plan: is_subscribe_plan,
                    is_purchase_ticket: is_purchase_ticket,
-                   login_status: login_status }, states: 200
+                   login_status: login_status }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -347,7 +347,7 @@ class Api::Internal::ReservationsController < ApplicationController
     if params[:send_mail] == "1" && customer.email.present?
       ReservationMailer.cancel_mail(reservation.id, customer.id).deliver_later
     end
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

@@ -22,7 +22,7 @@ class Api::Internal::Account::ReservationsController < ApplicationController
                                       :questionnaire_master_id,
                                       :reservation_credit_card_payment_prices])
     reservations = JSON.parse(reservations)
-    render json: { status: 'success', reservations: reservations }, states: 200
+    render json: { status: 'success', reservations: reservations }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

@@ -7,7 +7,7 @@ class Api::Internal::CalendarController < ApplicationController
     render json: { status: 'success',
                    shared_component: shared_component,
                    reserve_frame: reserve_frame,
-                   calendar_content: calendar_content }, states: 200
+                   calendar_content: calendar_content }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

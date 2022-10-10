@@ -3,21 +3,21 @@ class Api::Internal::ResourcesController < ApplicationController
 
   def index
     resources = current_merchant_user.account.resources
-    render json: { status: 'success', resources: resources }, states: 200
+    render json: { status: 'success', resources: resources }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def edit
     resource = current_merchant_user.account.resources.find(params[:id])
-    render json: { status: 'success', resource: resource }, states: 200
+    render json: { status: 'success', resource: resource }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def create
     current_merchant_user.account.resources.create!(resource_params)
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -25,7 +25,7 @@ class Api::Internal::ResourcesController < ApplicationController
   def update
     resource = Resource.find(params[:id])
     resource.update!(resource_params)
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

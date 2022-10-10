@@ -5,14 +5,14 @@ class Api::Internal::TicketMastersController < ApplicationController
 
   def index
     ticket_masters = current_merchant_user.account.ticket_masters.enabled.order(:id)
-    render json: { status: 'success', ticket_masters: ticket_masters }, states: 200
+    render json: { status: 'success', ticket_masters: ticket_masters }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def show
     ticket_master = TicketMaster.find(params[:id])
-    render json: { status: 'success', ticket_master: ticket_master }, states: 200
+    render json: { status: 'success', ticket_master: ticket_master }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -33,7 +33,7 @@ class Api::Internal::TicketMastersController < ApplicationController
                    ticket_master: ticket_master,
                    payment_methods: payment_methods,
                    default_payment_method_id: default_payment_method_id,
-                   login_status: login_status }, states: 200
+                   login_status: login_status }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -47,7 +47,7 @@ class Api::Internal::TicketMastersController < ApplicationController
         ticket_master.s3_object_name = file_name
       end
       ticket_master.save!
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -64,7 +64,7 @@ class Api::Internal::TicketMastersController < ApplicationController
         ticket_master.s3_object_name = file_name
       end
       ticket_master.save!
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -86,7 +86,7 @@ class Api::Internal::TicketMastersController < ApplicationController
   def logical_delete
     ticket_master = TicketMaster.find(params[:id])
     ticket_master.logical_delete
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

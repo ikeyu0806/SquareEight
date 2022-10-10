@@ -26,7 +26,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       encode_email = Base64.urlsafe_encode64(merchant_user.email)
       MerchantUserMailer.send_verification_code(merchant_user.email, encode_email, merchant_user.verification_code).deliver_later
     end
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -49,7 +49,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
         MerchantUserMailer.send_update_email_verification_code(merchant_user.wait_for_update_email, encode_email, merchant_user.verification_code).deliver_later
       end
       merchant_user.save!
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -77,7 +77,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
           merchant_user.save!
         end
       end
-      render json: { status: 'success' }, states: 200
+      render json: { status: 'success' }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -91,7 +91,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     merchant_user.update!(email_authentication_status: 'Enabled')
     session['merchant_user_id'] = merchant_user.id
     MerchantUserMailer.registration_complete(merchant_user.email).deliver_later
-    render json: { status: 'success', session_id: session.id, }, states: 200
+    render json: { status: 'success', session_id: session.id, }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
@@ -103,20 +103,20 @@ class Api::Internal::MerchantUsersController < ApplicationController
     render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if merchant_user.verification_code_expired_at < Time.zone.now
     merchant_user.update!(email: merchant_user.wait_for_update_email)
     session['merchant_user_id'] = merchant_user.id
-    render json: { status: 'success', session_id: session.id, }, states: 200
+    render json: { status: 'success', session_id: session.id, }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def current_merchant_user_info
-    render json: { status: 'success', merchant_user: current_merchant_user }, states: 200
+    render json: { status: 'success', merchant_user: current_merchant_user }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def disconnect_google_auth
     current_merchant_user.update!(google_auth_id: nil, google_auth_email: nil)
-    render json: { status: 'success' }, states: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
