@@ -247,6 +247,12 @@ class Api::Internal::AccountsController < ApplicationController
           stripe_account.id
         )
         person.relationship.representative = true
+        # postgreにも登録
+        current_merchant_user.account.stripe_persons.create!(
+          stripe_person_id: person.id,
+          last_name: account_params[:representative_last_name_kanji],
+          first_name: account_params[:representative_first_name_kanji]
+        )
       end
       person.relationship.title = account_params[:relationship_title]
       person.relationship.owner = account_params[:is_owner]

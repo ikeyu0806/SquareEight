@@ -22,6 +22,7 @@ class Account < ApplicationRecord
   has_many :stripe_payment_intents
   has_many :delivery_datetime_settings
   has_many :customer_groups
+  has_many :stripe_persons
 
   # プランごとの設定
   PLAN_NAME =  { "Free" => "フリープラン", "Light" => "ライトプラン", "Standard" => "スタンダードプラン", "Premium" => "プレミアムプラン" }
