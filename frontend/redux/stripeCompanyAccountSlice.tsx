@@ -43,7 +43,13 @@ export const stripeCompanyAccountSlice = createSlice({
     representativeAddressLine1Kana: '',
     representativeAddressLine2Kana: '',
     representativeVerificationStatus: '',
-    isDirectorRegisterComplete: false
+    isDirectorRegisterComplete: false,
+    isDirector: false, // Whether the person is a director of the account’s legal entity. Directors are typically members of the governing board of the company, or responsible for ensuring the company meets its regulatory obligations.
+    isExecutive: false, // Whether the person has significant responsibility to control, manage, or direct the organization.
+    isOwner: false, // Whether the person is an owner of the account’s legal entity.
+    isRepresentative: false, // The percent owned by the person of the account’s legal entity.
+    percentOwnership: 100,
+    relationshipTitle: '', // CEOなど
   },
   reducers: {
     companyBusinessNameChanged: (state, action: PayloadAction<string>) => {
@@ -166,6 +172,24 @@ export const stripeCompanyAccountSlice = createSlice({
     isDirectorRegisterCompleteChanged: (state, action: PayloadAction<boolean>) => {
       state.isDirectorRegisterComplete = action.payload
     },
+    isDirectorChanged: (state, action: PayloadAction<boolean>) => {
+      state.isDirector = action.payload
+    },
+    isExecutiveChanged: (state, action: PayloadAction<boolean>) => {
+      state.isExecutive = action.payload
+    },
+    isOwnerChanged: (state, action: PayloadAction<boolean>) => {
+      state.isOwner = action.payload
+    },
+    isRepresentativeChanged: (state, action: PayloadAction<boolean>) => {
+      state.isRepresentative = action.payload
+    },
+    percentOwnershipChanged: (state, action: PayloadAction<number>) => {
+      state.percentOwnership = action.payload
+    },
+    relationshipTitleChanged: (state, action: PayloadAction<string>) => {
+      state.relationshipTitle = action.payload
+    },
   },
 })
 
@@ -209,5 +233,11 @@ export const { representativeAddressLine1KanaChanged } = stripeCompanyAccountSli
 export const { representativeAddressLine2KanaChanged } = stripeCompanyAccountSlice.actions
 export const { representativeVerificationStatusChanged } = stripeCompanyAccountSlice.actions
 export const { isDirectorRegisterCompleteChanged } = stripeCompanyAccountSlice.actions
+export const { isDirectorChanged } = stripeCompanyAccountSlice.actions
+export const { isExecutiveChanged } = stripeCompanyAccountSlice.actions
+export const { isOwnerChanged } = stripeCompanyAccountSlice.actions
+export const { isRepresentativeChanged } = stripeCompanyAccountSlice.actions
+export const { percentOwnershipChanged } = stripeCompanyAccountSlice.actions
+export const { relationshipTitleChanged } = stripeCompanyAccountSlice.actions
 
 export default stripeCompanyAccountSlice.reducer
