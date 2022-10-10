@@ -247,14 +247,13 @@ class Api::Internal::AccountsController < ApplicationController
           stripe_account.id
         )
         person.relationship.representative = true
-        person.relationship.title = account_params[:relationship_title]
-        person.relationship.owner = account_params[:is_owner]
-        person.relationship.executive = account_params[:is_executive]
-        person.relationship.director = account_params[:is_director]
-        binding.pry
-        person.relationship.percent_ownership = account_params[:percent_ownership]
-        current_merchant_user.account.update!(stripe_representative_person_id: person.id)
       end
+      person.relationship.title = account_params[:relationship_title]
+      person.relationship.owner = account_params[:is_owner]
+      person.relationship.executive = account_params[:is_executive]
+      person.relationship.director = account_params[:is_director]
+      person.relationship.percent_ownership = account_params[:percent_ownership]
+      current_merchant_user.account.update!(stripe_representative_person_id: person.id)
       person.save
       person.first_name_kanji = account_params[:representative_first_name_kanji]
       person.last_name_kanji = account_params[:representative_last_name_kanji]
