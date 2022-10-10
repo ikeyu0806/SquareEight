@@ -247,7 +247,10 @@ class Api::Internal::AccountsController < ApplicationController
           stripe_account.id
         )
         person.relationship.representative = true
-        person.relationship.title = 'CEO'
+        person.relationship.title = account_params[:relationship_title]
+        person.owner = account_params[:is_owner]
+        person.executive = account_params[:is_executive]
+        person.director = account_params[:is_director]
         current_merchant_user.account.update!(stripe_representative_person_id: person.id)
       end
       person.save
