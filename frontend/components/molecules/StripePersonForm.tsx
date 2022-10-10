@@ -155,7 +155,7 @@ const StripePersonForm = () => {
         defaultChecked={isExecutive}
         onChange={() => isExecutiveChanged(!isExecutive)}
       ></Form.Check>
-      <Form.Label className='mt10'>ビジネスの所有率</Form.Label>
+      <Form.Label className='mt10'>ビジネスの所有率（%）</Form.Label>
       <Row>
         <Col>
           <Form.Control
