@@ -9,7 +9,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
 import StripeTerm from 'components/organisms/StripeTerm'
-import { businessProfileNameChanged } from 'redux/stripeExternalAccountsSlice'
 import { getZeroPaddingString } from 'functions/getZeroPaddingString'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import {  individualFirstNameKanjiChanged,
@@ -292,7 +291,8 @@ const RegisterMerchantInfoForm = () => {
           !representativeAddressStateKana ||
           !representativeAddressTownKana ||
           !representativeAddressCityKana ||
-          !representativeAddressLine1Kana
+          !representativeAddressLine1Kana ||
+          !relationshipTitle
           ) {
         return true
       }
