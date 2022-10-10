@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_07_014058) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_10_070523) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -518,6 +518,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_07_014058) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "system_plan_name"
+  end
+
+  create_table "stripe_people", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "stripe_person_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "system_account_notifications", force: :cascade do |t|
