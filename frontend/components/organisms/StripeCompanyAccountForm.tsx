@@ -41,7 +41,13 @@ import {  companyBusinessNameChanged,
           representativeAddressLine1KanaChanged,
           representativeAddressLine2KanaChanged,
           isDirectorRegisterCompleteChanged,
-          identificationImageChanged
+          identificationImageChanged,
+          isDirectorChanged,
+          isExecutiveChanged,
+          isOwnerChanged,
+          isRepresentativeChanged,
+          percentOwnershipChanged,
+          relationshipTitleChanged
         } from 'redux/stripeCompanyAccountSlice'
 
 const StripeCompanyAccountForm = (): JSX.Element => {
@@ -84,6 +90,12 @@ const StripeCompanyAccountForm = (): JSX.Element => {
   const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
   const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
   const representativeVerificationStatus = useSelector((state: RootState) => state.stripeCompanyAccount.representativeVerificationStatus)
+  const isDirector = useSelector((state: RootState) => state.stripeCompanyAccount.isDirector)
+  const isExecutive = useSelector((state: RootState) => state.stripeCompanyAccount.isExecutive)
+  const isOwner = useSelector((state: RootState) => state.stripeCompanyAccount.isOwner)
+  const isRepresentative = useSelector((state: RootState) => state.stripeCompanyAccount.isRepresentative)
+  const percentOwnership = useSelector((state: RootState) => state.stripeCompanyAccount.percentOwnership)
+  const relationshipTitle = useSelector((state: RootState) => state.stripeCompanyAccount.relationshipTitle)
 
   const [image, setImage] = useState('')
 
@@ -218,6 +230,11 @@ const StripeCompanyAccountForm = (): JSX.Element => {
         checked={isDirectorRegisterComplete === true}
         label='なし、代表者のみです'
         onChange={() => dispatch(isDirectorRegisterCompleteChanged(!isDirectorRegisterComplete))}></Form.Check>
+      <Form.Check
+        label='この人物はアカウントの主たる代表者として認められています。'
+        id='isRepresentativeCheck'
+        onChange={() => isRepresentativeChanged(!isRepresentative)}
+      ></Form.Check>
       {representativeVerificationStatus !== 'verified'
         ? <>
             <Form.Group controlId='formFile' className='mt10'>

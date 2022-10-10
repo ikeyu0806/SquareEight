@@ -139,7 +139,7 @@ class Api::Internal::AccountsController < ApplicationController
     end
 
     if account_params[:business_type] == "individual"
-      stripe_account.business_profile.mcc = '5734'
+      stripe_account.business_profile.mcc = '5734' if Rails.env.development?
       stripe_account.business_profile.url = account_params[:individual_business_url]
       stripe_account.business_profile.product_description = account_params[:individual_product_description]
       # stripe_account.business_profile.name = account_params[:business_profile_name]
@@ -203,7 +203,7 @@ class Api::Internal::AccountsController < ApplicationController
         stripe_account.save
       end
     elsif account_params[:business_type] == "company"
-      stripe_account.business_profile.mcc = '5734'
+      stripe_account.business_profile.mcc = '5734' if Rails.env.development?
       stripe_account.business_profile.url = account_params[:company_business_url]
       stripe_account.business_profile.product_description = account_params[:company_description]
       stripe_account.company.name = account_params[:business_profile_name]
