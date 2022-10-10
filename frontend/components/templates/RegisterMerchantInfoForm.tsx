@@ -401,7 +401,7 @@ const RegisterMerchantInfoForm = () => {
     <>
       <Container>
         <Row>
-        <Col lg={3} md={3}></Col>
+          <Col lg={3} md={3}></Col>
           <Col lg={6} md={6}>
           <h4 className='mb20'>事業情報を入力してください</h4>
           <h5>決済機能の有効化に必要となります</h5>
