@@ -251,6 +251,7 @@ class Api::Internal::AccountsController < ApplicationController
         person.relationship.owner = account_params[:is_owner]
         person.relationship.executive = account_params[:is_executive]
         person.relationship.director = account_params[:is_director]
+        binding.pry
         person.relationship.percent_ownership = account_params[:percent_ownership]
         current_merchant_user.account.update!(stripe_representative_person_id: person.id)
       end

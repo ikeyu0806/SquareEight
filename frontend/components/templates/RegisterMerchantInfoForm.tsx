@@ -70,6 +70,11 @@ import {  companyBusinessNameChanged,
           representativeAddressLine1KanaChanged,
           representativeAddressLine2KanaChanged,
           isDirectorRegisterCompleteChanged,
+          isDirectorChanged,
+          isExecutiveChanged,
+          isOwnerChanged,
+          percentOwnershipChanged,
+          relationshipTitleChanged,
           representativeVerificationStatusChanged } from 'redux/stripeCompanyAccountSlice'
 
 const RegisterMerchantInfoForm = () => {
@@ -164,7 +169,6 @@ const RegisterMerchantInfoForm = () => {
       )
       .then(function (response) {
         console.log(response.data)
-        console.log(response.data.stripe_account.company, "company")
         if (response.data.stripe_account.business_type === 'company') {
           setBusinessType('company')
           dispatch(companyBusinessNameChanged(response.data.stripe_account.company.name))
@@ -203,7 +207,10 @@ const RegisterMerchantInfoForm = () => {
           dispatch(representativeAddressLine1KanaChanged(response.data.representative.address_kana.line1))
           dispatch(representativeAddressLine2KanaChanged(response.data.representative.address_kana.line2))
           dispatch(representativeVerificationStatusChanged(response.data.representative.verification.status))
-          dispatch(isDirectorRegisterCompleteChanged(response.data.stripe_account.company.directors_provided))
+          dispatch(isDirectorChanged(response.data.representative.relationship.director))
+          dispatch(isExecutiveChanged(response.data.representative.relationship.executive))
+          dispatch(isOwnerChanged(response.data.representative.relationship.owner))
+          dispatch(relationshipTitleChanged(response.data.representative.relationship.title))
         } else if (response.data.stripe_account.business_type === 'individual') {
           dispatch(individualFirstNameKanjiChanged(response.data.stripe_account.individual.first_name_kanji))
           dispatch(individualLastNameKanjiChanged(response.data.stripe_account.individual.last_name_kanji))
