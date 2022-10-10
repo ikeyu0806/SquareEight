@@ -500,8 +500,65 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
-  def create_stripe_person
+  def register_stripe_person
     ActiveRecord::Base.transaction do
+      stripe_account_id = current_merchant_user.account.stripe_account_id
+      if account_params[:stripe_person_id].present?
+        postgre_person = current_merchant_user.account.stripe_persons.find(account_params[:stripe_person_id])
+      end
+      if postgre_person.present?
+        person = Stripe::Account.retrieve_person(
+          stripe_account_id,
+          postgre_person.stripe_person_id
+        )
+      else
+        person = Stripe::Account.create_person(
+          stripe_account_id
+        )
+        person.relationship.representative = false
+        # postgreにも登録
+        current_merchant_user.account.stripe_persons.create!(
+          stripe_person_id: person.id,
+          last_name: account_params[:representative_last_name_kanji],
+          first_name: account_params[:representative_first_name_kanji]
+        )
+      end
+      person.relationship.title = account_params[:relationship_title]
+      person.relationship.owner = account_params[:is_owner]
+      person.relationship.executive = account_params[:is_executive]
+      person.relationship.director = account_params[:is_director]
+      person.relationship.percent_ownership = account_params[:percent_ownership]
+      current_merchant_user.account.update!(stripe_representative_person_id: person.id)
+      person.save
+      person.first_name_kanji = account_params[:representative_first_name_kanji]
+      person.last_name_kanji = account_params[:representative_last_name_kanji]
+      person.first_name_kana = account_params[:representative_first_name_kana] if account_params[:representative_first_name_kana].present?
+      person.last_name_kana = account_params[:representative_last_name_kana] if account_params[:representative_last_name_kana].present?
+      person.email = account_params[:representative_email]
+      split_birth_date = account_params[:representative_birth_day].split("-")
+      person.dob.year = split_birth_date[0]
+      person.dob.month = split_birth_date[1]
+      person.dob.day = split_birth_date[2]
+      person.gender = account_params[:representative_gender]
+      if account_params[:representative_phone_number].start_with?("+81")
+        person.phone = account_params[:representative_phone_number]
+      else
+        person.phone = '+81' + account_params[:representative_phone_number]
+      end
+      person.address_kanji.postal_code = account_params[:representative_address_postal_code]
+      person.address_kanji.state = account_params[:representative_address_state_kanji]
+      person.address_kanji.city = account_params[:representative_address_city_kanji]
+      person.address_kanji.town = account_params[:representative_address_town_kanji]
+      person.address_kanji.line1 = account_params[:representative_address_line1_kanji]
+      person.address_kanji.line2 = account_params[:representative_address_line2_kanji] if account_params[:representative_address_line2_kanji].present?
+
+      person.address_kana.postal_code = account_params[:representative_address_postal_code]
+      person.address_kana.state = account_params[:representative_address_state_kana]
+      person.address_kana.city = account_params[:representative_address_city_kana]
+      person.address_kana.town = account_params[:representative_address_town_kana]
+      person.address_kana.line1 = account_params[:representative_address_line1_kana]
+      person.address_kana.line2 = account_params[:representative_address_line2_kana] if account_params[:representative_address_line2_kana].present?
+      person.save
       render json: { status: 'success' }, status: 200
     end
   rescue => error
@@ -590,6 +647,7 @@ class Api::Internal::AccountsController < ApplicationController
                   :bank_code,
                   :branch_code,
                   :account_holder_name,
-                  :external_account_id)
+                  :external_account_id,
+                  :stripe_person_id)
   end
 end

@@ -45,7 +45,7 @@ const RegisterStripePerson: NextPage = () => {
 
   const onSubmit = () => {
     setIsLoading(true)
-    axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_person`,
     {
       account: {
         representative_last_name_kanji: representativeLastNameKanji,
