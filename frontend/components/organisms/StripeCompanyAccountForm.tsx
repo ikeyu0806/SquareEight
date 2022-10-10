@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import RequireBadge from 'components/atoms/RequireBadge'
 import { RootState } from 'redux/store'
@@ -250,6 +250,18 @@ const StripeCompanyAccountForm = (): JSX.Element => {
         defaultChecked={isExecutive}
         onChange={() => isExecutiveChanged(!isExecutive)}
       ></Form.Check>
+      <Form.Label className='mt10'>ビジネスの所有率</Form.Label>
+      <Row>
+        <Col>
+          <Form.Control
+            min={0}
+            max={100}
+            value={percentOwnership}
+            onChange={(e) => dispatch(percentOwnershipChanged(Number(e.target.value)))}
+            type='number'></Form.Control>
+        </Col>
+        <Col></Col>
+      </Row>
       {representativeVerificationStatus !== 'verified'
         ? <>
             <Form.Group controlId='formFile' className='mt20'>
