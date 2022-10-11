@@ -103,7 +103,9 @@ const EditStripePerson: NextPage = () => {
             <StripePersonForm></StripePersonForm>
             <Button
               className='mt20'
-              onClick={() => onSubmit()}>登録する</Button>
+              onClick={() => onSubmit()}>
+              {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}登録する
+            </Button>
           </Col>
         </Row>
       </Container>
