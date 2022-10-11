@@ -54,36 +54,71 @@ const StripeCompanyAccountForm = (): JSX.Element => {
                     value={companyBusinessNameKana}></Form.Control>
       <Form.Label className='mt10'>郵便番号<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyPortalCodeChanged(e.target.value))}
+                    type='text'
+                    name='postal_code'
+                    minLength={7}
+                    maxLength={8}
+                    pattern='\d*'
+                    autoComplete='shipping postal-code'
                     value={companyPortalCode}></Form.Control>
       <Form.Label className='mt10'>都道府県（漢字）<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(companyStateKanjiChanged(e.target.value))}
+      <Form.Control name='state'
+                    autoComplete='state'
+                    onChange={(e) => dispatch(companyStateKanjiChanged(e.target.value))}
                     value={companyStateKanji}></Form.Control>
       <Form.Label className='mt10'>都道府県（カナ）<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(companyStateKanaChanged(e.target.value))}
+      <Form.Control type='text'
+                    name='stateKana'
+                    autoComplete='stateKana'
+                    onChange={(e) => dispatch(companyStateKanaChanged(e.target.value))}
                     value={companyStateKana}></Form.Control>
       <Form.Label className='mt10'>区市町村（漢字）<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(companyCityKanjiChanged(e.target.value))}
+      <Form.Control type='text'
+                    name='city'
+                    autoComplete='city'
+                    onChange={(e) => dispatch(companyCityKanjiChanged(e.target.value))}
                     value={companyCityKanji}></Form.Control>
       <Form.Label className='mt10'>区市町村（カナ）<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(companyCityKanaChanged(e.target.value))}
+      <Form.Control type='text'
+                    name='cityKana'
+                    autoComplete='cityKana'
+                    onChange={(e) => dispatch(companyCityKanaChanged(e.target.value))}
                     value={companyCityKana}></Form.Control>
       <Form.Label className='mt10'>町名（丁目まで、漢字）<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(companyTownKanjiChanged(e.target.value))}
+      <Form.Control type='text'
+                    name='town'
+                    autoComplete='town'
+                    onChange={(e) => dispatch(companyTownKanjiChanged(e.target.value))}
                     value={companyTownKanji}></Form.Control>
       <Form.Label className='mt10'>町名（丁目まで、カナ）<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(companyTownKanaChanged(e.target.value))}
+      <Form.Control type='text'
+                    name='townKana'
+                    autoComplete='townKana'
+                    onChange={(e) => dispatch(companyTownKanaChanged(e.target.value))}
                     value={companyTownKana}></Form.Control>
       <Form.Label className='mt10'>番地、号（漢字）<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(companyLine1KanjiChanged(e.target.value))}
+      <Form.Control type='text'
+                    name='line1'
+                    autoComplete='line1'
+                    onChange={(e) => dispatch(companyLine1KanjiChanged(e.target.value))}
                     value={companyLine1Kanji}></Form.Control>
       <Form.Label className='mt10'>番地、号（カナ）<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(companyLine1KanaChanged(e.target.value))}
+      <Form.Control type='text'
+                    name='line1Kana'
+                    autoComplete='line1Kana'
+                    onChange={(e) => dispatch(companyLine1KanaChanged(e.target.value))}
                     value={companyLine1Kana}></Form.Control>
       <Form.Label className='mt10'>建物・部屋番号・その他（漢字）</Form.Label>
-      <Form.Control onChange={(e) => dispatch(companyLine2KanjiChanged(e.target.value))}
+      <Form.Control type='text'
+                    name='line2'
+                    autoComplete='line2'
+                    onChange={(e) => dispatch(companyLine2KanjiChanged(e.target.value))}
                     value={companyLine2Kanji}></Form.Control>
       <Form.Label className='mt10'>建物・部屋番号・その他（カナ）</Form.Label>
-      <Form.Control onChange={(e) => dispatch(companyLine2KanaChanged(e.target.value))}
+      <Form.Control type='text'
+                    name='line2Kana'
+                    autoComplete='line2Kana'
+                    onChange={(e) => dispatch(companyLine2KanaChanged(e.target.value))}
                     value={companyLine2Kana}></Form.Control>
       <Form.Label className='mt10'>法人番号<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyBusinessTaxIdChanged(e.target.value))}
