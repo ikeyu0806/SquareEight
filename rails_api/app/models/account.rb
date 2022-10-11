@@ -138,4 +138,9 @@ class Account < ApplicationRecord
   def system_plan_subscription_payments
     stripe_payment_intents.where(system_product_type: "SystemPlan")
   end
+
+  def stripe_account_names
+    return [] if stripe_persons.blank?
+    stripe_persons.map{|person| person.last_name + person.first_name}
+  end
 end

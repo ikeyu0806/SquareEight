@@ -18,6 +18,7 @@ const Index: NextPage = () => {
   const [stripeAccount, setStripeAccount] = useState<StripeAccountParam>()
   const [stripeRepresentativePerson, setStripeRepresentativePerson] = useState<StripePersonParam>()
   const [selectedExternalAccountId, setSelectedExternalAccountId] = useState('')
+  const [stripePersonNames, setStripePersonNames] = useState([])
 
   useEffect(() => {
     const fetchStripeConnectedAccount = () => {
@@ -34,6 +35,7 @@ const Index: NextPage = () => {
         setStripeAccount(stripeAccountResponse)
         setSelectedExternalAccountId(response.data.selected_external_account_id)
         setStripeRepresentativePerson(response.data.representative_person)
+        setStripePersonNames(response.data.stripe_person_names)
       })
       .catch(error => {
         console.log(error)
