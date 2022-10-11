@@ -5,6 +5,7 @@ class CreateStripePeople < ActiveRecord::Migration[7.0]
       t.string :stripe_person_id, null: false
       t.string :last_name
       t.string :first_name
+      t.boolean :is_representative, default: false
 
       t.timestamps
     end

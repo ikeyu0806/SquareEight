@@ -525,6 +525,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_10_070523) do
     t.string "stripe_person_id", null: false
     t.string "last_name"
     t.string "first_name"
+    t.boolean "is_representative", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
