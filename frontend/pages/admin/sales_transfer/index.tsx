@@ -8,6 +8,7 @@ import { useDispatch } from 'react-redux'
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap'
 import { StripeAccountParam } from 'interfaces/StripeAccountParam'
 import { StripePersonParam } from 'interfaces/StripePersonParam'
+import { ServiceStripePersonParam } from 'interfaces/ServiceStripePersonParam'
 import CheckIcon from 'components/atoms/CheckIcon'
 
 const Index: NextPage = () => {
@@ -18,7 +19,7 @@ const Index: NextPage = () => {
   const [stripeAccount, setStripeAccount] = useState<StripeAccountParam>()
   const [stripeRepresentativePerson, setStripeRepresentativePerson] = useState<StripePersonParam>()
   const [selectedExternalAccountId, setSelectedExternalAccountId] = useState('')
-  const [stripePersonNames, setStripePersonNames] = useState([])
+  const [stripePersons, setStripePersons] = useState<ServiceStripePersonParam[]>([])
 
   useEffect(() => {
     const fetchStripeConnectedAccount = () => {
@@ -35,7 +36,7 @@ const Index: NextPage = () => {
         setStripeAccount(stripeAccountResponse)
         setSelectedExternalAccountId(response.data.selected_external_account_id)
         setStripeRepresentativePerson(response.data.representative_person)
-        setStripePersonNames(response.data.stripe_person_names)
+        setStripePersons(response.data.stripe_persons)
       })
       .catch(error => {
         console.log(error)
@@ -249,6 +250,17 @@ const Index: NextPage = () => {
                   {stripeAccount?.external_accounts && <a href='/admin/sales_transfer/edit_bank_accounts' className='btn btn-primary ml10 mt10'>口座編集</a>}
                 </Card.Body>
               </Card>
+              {stripePersons && 
+                <Card className='mt20'>
+                  <Card.Header>代表者以外の登録済み事業所有者</Card.Header>
+                  <Card.Body>
+                    {stripePersons.map((person, i) => {
+                      return (
+                        <div key={i} className='mt10'>{person.last_name}{person.first_name}</div>
+                      )
+                    })}
+                  </Card.Body>
+                </Card>}
             </Col>
           </Row>
         </Container>
