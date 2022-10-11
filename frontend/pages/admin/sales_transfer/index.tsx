@@ -250,7 +250,7 @@ const Index: NextPage = () => {
                   {stripeAccount?.external_accounts && <a href='/admin/sales_transfer/edit_bank_accounts' className='btn btn-primary ml10 mt10'>口座編集</a>}
                 </Card.Body>
               </Card>
-              {stripePersons && 
+              {stripePersons.length !== 0 && 
                 <Card className='mt20'>
                   <Card.Header>代表者以外の登録済み事業所有者</Card.Header>
                   <Card.Body>

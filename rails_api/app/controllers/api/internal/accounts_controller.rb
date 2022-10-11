@@ -518,7 +518,6 @@ class Api::Internal::AccountsController < ApplicationController
         person = Stripe::Account.create_person(
           stripe_account_id
         )
-        person.relationship.representative = false
         # postgreにも登録
         current_merchant_user.account.stripe_persons.create!(
           stripe_person_id: person.id,
@@ -526,6 +525,7 @@ class Api::Internal::AccountsController < ApplicationController
           first_name: account_params[:representative_first_name_kanji]
         )
       end
+      person.relationship.representative = false
       person.relationship.title = account_params[:relationship_title]
       person.relationship.owner = account_params[:is_owner]
       person.relationship.executive = account_params[:is_executive]
