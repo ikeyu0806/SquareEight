@@ -9,6 +9,50 @@ import { useCookies } from 'react-cookie'
 import StripePersonForm from 'components/molecules/StripePersonForm'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { getZeroPaddingString } from 'functions/getZeroPaddingString'
+import {  companyBusinessNameChanged,
+  companyBusinessNameKanaChanged,
+  companyBusinessTaxIdChanged,
+  companyDescriptionChanged,
+  companyPortalCodeChanged,
+  companyStateKanjiChanged,
+  companyCityKanjiChanged,
+  companyTownKanjiChanged,
+  companyLine1KanjiChanged,
+  companyLine2KanjiChanged,
+  companyStateKanaChanged,
+  companyCityKanaChanged,
+  companyTownKanaChanged,
+  companyLine1KanaChanged,
+  companyLine2KanaChanged,
+  companyPhoneNumberChanged,
+  companyBusinessUrlChanged,
+  representativeLastNameKanjiChanged,
+  representativeFirstNameKanjiChanged,
+  representativeLastNameKanaChanged,
+  representativeFirstNameKanaChanged,
+  representativeGenderChanged,
+  representativeBirthDayChanged,
+  representativeEmailChanged,
+  representativePhoneNumberChanged,
+  representativeAddressPostalCodeChanged,
+  representativeAddressStateKanjiChanged,
+  representativeAddressCityKanjiChanged,
+  representativeAddressTownKanjiChanged,
+  representativeAddressLine1KanjiChanged,
+  representativeAddressLine2KanjiChanged,
+  representativeAddressStateKanaChanged,
+  representativeAddressCityKanaChanged,
+  representativeAddressTownKanaChanged,
+  representativeAddressLine1KanaChanged,
+  representativeAddressLine2KanaChanged,
+  isDirectorRegisterCompleteChanged,
+  isDirectorChanged,
+  isExecutiveChanged,
+  isOwnerChanged,
+  percentOwnershipChanged,
+  relationshipTitleChanged,
+  representativeVerificationStatusChanged } from 'redux/stripeCompanyAccountSlice'
 
 const EditStripePerson: NextPage = () => {
   const dispatch = useDispatch()
@@ -54,7 +98,31 @@ const EditStripePerson: NextPage = () => {
         }
       )
       .then(function (response) {
-        console.log(response.data)
+        dispatch(representativeLastNameKanjiChanged(response.data.stripe_person.last_name_kanji))
+        dispatch(representativeFirstNameKanjiChanged(response.data.stripe_person.first_name_kanji))
+        dispatch(representativeLastNameKanaChanged(response.data.stripe_person.last_name_kana))
+        dispatch(representativeFirstNameKanaChanged(response.data.stripe_person.first_name_kana))
+        dispatch(representativeEmailChanged(response.data.stripe_person.email))
+        dispatch(representativePhoneNumberChanged(response.data.stripe_person.phone))
+        dispatch(representativeBirthDayChanged(String(response.data.stripe_person.dob.year) + '-' + getZeroPaddingString(String(response.data.stripe_person.dob.month)) + '-' + getZeroPaddingString(String(response.data.stripe_person.dob.day))))
+        dispatch(representativeGenderChanged(response.data.stripe_person.gender))
+        dispatch(representativeAddressPostalCodeChanged(response.data.stripe_person.address_kana.postal_code))
+        dispatch(representativeAddressStateKanjiChanged(response.data.stripe_person.address_kanji.state))
+        dispatch(representativeAddressCityKanjiChanged(response.data.stripe_person.address_kanji.city))
+        dispatch(representativeAddressTownKanjiChanged(response.data.stripe_person.address_kanji.town))
+        dispatch(representativeAddressLine1KanjiChanged(response.data.stripe_person.address_kanji.line1))
+        dispatch(representativeAddressLine2KanjiChanged(response.data.stripe_person.address_kanji.line2))
+        dispatch(representativeAddressStateKanaChanged(response.data.stripe_person.address_kana.state))
+        dispatch(representativeAddressCityKanaChanged(response.data.stripe_person.address_kana.city))
+        dispatch(representativeAddressTownKanaChanged(response.data.stripe_person.address_kana.town))
+        dispatch(representativeAddressLine1KanaChanged(response.data.stripe_person.address_kana.line1))
+        dispatch(representativeAddressLine2KanaChanged(response.data.stripe_person.address_kana.line2))
+        dispatch(representativeVerificationStatusChanged(response.data.stripe_person.verification.status))
+        dispatch(isDirectorChanged(response.data.stripe_person.relationship.director))
+        dispatch(isExecutiveChanged(response.data.stripe_person.relationship.executive))
+        dispatch(isOwnerChanged(response.data.stripe_person.relationship.owner))
+        dispatch(relationshipTitleChanged(response.data.stripe_person.relationship.title))
+        dispatch(percentOwnershipChanged(response.data.stripe_person.relationship.percent_ownership))
       })
       .catch(error => {
         console.log(error)
