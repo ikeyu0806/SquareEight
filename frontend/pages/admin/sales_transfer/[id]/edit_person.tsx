@@ -1,8 +1,8 @@
 import { NextPage } from 'next'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { Container, Row, Col, Button } from 'react-bootstrap'
 import axios from 'axios'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
@@ -11,6 +11,7 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const EditStripePerson: NextPage = () => {
+  const dispatch = useDispatch()
   const [isLoading, setIsLoading] = useState(false)
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -42,6 +43,25 @@ const EditStripePerson: NextPage = () => {
   const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
   const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
   const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.identificationImage)
+
+  useEffect(() => {
+    const fetchStripePerson = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/accounts/${router.query.id}/stripe_person`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response.data)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchStripePerson()
+  }, [router.query.id, cookies._square_eight_merchant_session, dispatch])
 
   const onSubmit = () => {
     setIsLoading(true)

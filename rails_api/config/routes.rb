@@ -15,6 +15,7 @@ Rails.application.routes.draw do
       get 'accounts/stripe_connected_account', to: 'accounts#stripe_connected_account'
       get 'accounts/payment_methods', to: 'accounts#payment_methods'
       get 'accounts/stripe_payment_history', to: 'accounts#stripe_payment_history'
+      get 'accounts/:id/stripe_person', to: 'accounts#stripe_person'
       post 'accounts/register_credit_card', to: 'accounts#register_credit_card'
       post 'accounts/register_stripe_business_info', to: 'accounts#register_stripe_business_info'
       post 'accounts/register_stripe_bank_account', to: 'accounts#register_stripe_bank_account'

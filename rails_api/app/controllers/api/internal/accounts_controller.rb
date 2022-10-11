@@ -568,6 +568,17 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def stripe_person
+    service_stripe_person = StripePerson.find(params[:id])
+    stripe_person = Stripe::Account.retrieve_person(
+      current_merchant_user.account.stripe_account_id,
+      service_stripe_person.stripe_person_id,
+    )
+    render json: { status: 'success', stripe_person: stripe_person }, status: 200
+  rescue => error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   private
 
   def account_params
