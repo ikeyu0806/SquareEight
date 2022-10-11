@@ -256,7 +256,11 @@ const Index: NextPage = () => {
                   <Card.Body>
                     {stripePersons.map((person, i) => {
                       return (
-                        <div key={i} className='mt10'>{person.last_name}{person.first_name}</div>
+                        <div key={i} className='mt10'>
+                          {person.last_name}{person.first_name}
+                          <a className='ml20 btn btn-primary' href={`/admin/sales_transfer/${person.id}/edit_person`}>編集</a>
+                          <hr/>
+                        </div>
                       )
                     })}
                   </Card.Body>
