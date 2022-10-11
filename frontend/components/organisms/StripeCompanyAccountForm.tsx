@@ -59,7 +59,7 @@ const StripeCompanyAccountForm = (): JSX.Element => {
                     minLength={7}
                     maxLength={8}
                     pattern='\d*'
-                    autoComplete='shipping postal-code'
+                    autoComplete='postal-code'
                     value={companyPortalCode}></Form.Control>
       <Form.Label className='mt10'>都道府県（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control name='state'
