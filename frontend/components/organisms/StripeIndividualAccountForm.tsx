@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getBase64 } from 'functions/getBase64'
 import { RootState } from 'redux/store'
 import RequireBadge from 'components/atoms/RequireBadge'
+import { prefecturesArray } from 'constants/prefecturesArray'
 import {  individualFirstNameKanjiChanged,
           individualLastNameKanjiChanged,
           individualFirstNameKanaChanged,
@@ -64,7 +65,7 @@ const StripeIndividualAccountForm = (): JSX.Element => {
   const identificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
 
   return (
-    <>
+    <Form>
       <Form.Label className='mt10'>事業主様の姓（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(individualLastNameKanjiChanged(e.target.value))}
                     value={individualLastNameKanji}></Form.Control>
@@ -144,7 +145,7 @@ const StripeIndividualAccountForm = (): JSX.Element => {
                     onChange={(e) => dispatch(individualTownKanjiChanged(e.target.value))}
                     value={individualTownKanji}></Form.Control>
       <Form.Label className='mt10'>町名（丁目まで、カナ）<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control  type='text'
+      <Form.Control type='text'
                     name='townKana'
                     autoComplete='townKana'
                     onChange={(e) => dispatch(individualTownKanaChanged(e.target.value))}
@@ -184,7 +185,7 @@ const StripeIndividualAccountForm = (): JSX.Element => {
         </Form.Label>
         <Form.Control type='file' onChange={handleChangeFile} />
       </Form.Group>
-    </>
+    </Form>
   )
 }
 

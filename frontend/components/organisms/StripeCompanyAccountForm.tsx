@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import RequireBadge from 'components/atoms/RequireBadge'
 import StripePersonForm from 'components/molecules/StripePersonForm'
 import { RootState } from 'redux/store'
+import { prefecturesArray } from 'constants/prefecturesArray'
 import {  companyBusinessNameChanged,
           companyBusinessNameKanaChanged,
           companyBusinessTaxIdChanged,
@@ -45,7 +46,7 @@ const StripeCompanyAccountForm = (): JSX.Element => {
   const companyDescription = useSelector((state: RootState) => state.stripeCompanyAccount.companyDescription)
 
   return (
-    <>
+    <Form>
       <Form.Label className='mt10'>法人名、商号<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyBusinessNameChanged(e.target.value))}
                     value={companyBusinessName}></Form.Control>
@@ -140,7 +141,7 @@ const StripeCompanyAccountForm = (): JSX.Element => {
       <hr />
       <div className='mt20 mb30'>以下ビジネスアカウントの主たる代表者の情報を入力してください</div>
       <StripePersonForm></StripePersonForm>
-    </>
+    </Form>
   )
 }
 
