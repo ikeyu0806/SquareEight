@@ -251,7 +251,8 @@ class Api::Internal::AccountsController < ApplicationController
         current_merchant_user.account.stripe_persons.create!(
           stripe_person_id: person.id,
           last_name: account_params[:representative_last_name_kanji],
-          first_name: account_params[:representative_first_name_kanji]
+          first_name: account_params[:representative_first_name_kanji],
+          is_representative: true
         )
       end
       person.relationship.title = account_params[:relationship_title]

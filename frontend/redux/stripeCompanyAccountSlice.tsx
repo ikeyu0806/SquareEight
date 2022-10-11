@@ -29,7 +29,7 @@ export const stripeCompanyAccountSlice = createSlice({
     representativeFirstNameKana: '',
     representativeGender: 'male',
     representativeEmail: '',
-    representativeBirthDay: '',
+    representativeBirthDay: '2000-01-01',
     representativePhoneNumber: '',
     representativeAddressPostalCode: '',
     representativeAddressStateKanji: '',
