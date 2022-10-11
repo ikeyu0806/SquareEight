@@ -139,21 +139,21 @@ const StripePersonForm = () => {
         label='この人は会社の25%以上を所有しています。'
         id='isOwnerCheck'
         defaultChecked={isOwner}
-        onChange={() => isOwnerChanged(!isOwner)}
+        onChange={() => dispatch(isOwnerChanged(!isOwner))}
       ></Form.Check>
       <Form.Check
         className='mt20'
         label='この人物は会社の取締役会のメンバーです。'
         id='isDirectorCheck'
         defaultChecked={isDirector}
-        onChange={() => isDirectorChanged(!isDirector)}
+        onChange={() => dispatch(isDirectorChanged(!isDirector))}
       ></Form.Check>
       <Form.Check
         className='mt20'
         label='この人物は会社の経営に重大な責任を負うエグゼクティブまたはシニアマネージャーです。'
         id='isExecutiveCheck'
         defaultChecked={isExecutive}
-        onChange={() => isExecutiveChanged(!isExecutive)}
+        onChange={() => dispatch(isExecutiveChanged(!isExecutive))}
       ></Form.Check>
       <Form.Label className='mt10'>ビジネスの所有率（%）</Form.Label>
       <Row>
