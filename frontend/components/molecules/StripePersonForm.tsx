@@ -169,7 +169,8 @@ const StripePersonForm = () => {
       <Form.Label className='mt10'>役職。CEOなど<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(relationshipTitleChanged(e.target.value))}
                     value={relationshipTitle}></Form.Control>
-      <Form.Check
+      {/* 以下Optionalなので一旦コメントアウト。Stripeに要求されそうならコメント外す */}
+      {/* <Form.Check
         className='mt20'
         label='この人は会社の25%以上を所有しています。'
         id='isOwnerCheck'
@@ -201,7 +202,7 @@ const StripePersonForm = () => {
             type='number'></Form.Control>
         </Col>
         <Col></Col>
-      </Row>
+      </Row> */}
       {representativeVerificationStatus !== 'verified'
         ? <>
             <hr />

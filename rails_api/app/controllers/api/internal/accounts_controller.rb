@@ -258,10 +258,11 @@ class Api::Internal::AccountsController < ApplicationController
         )
       end
       person.relationship.title = account_params[:relationship_title]
-      person.relationship.owner = account_params[:is_owner]
-      person.relationship.executive = account_params[:is_executive]
-      person.relationship.director = account_params[:is_director]
-      person.relationship.percent_ownership = account_params[:percent_ownership]
+      # 以下optionalなので一旦コメントアウト。Stripeに怒られたら実装する
+      # person.relationship.owner = account_params[:is_owner]
+      # person.relationship.executive = account_params[:is_executive]
+      # person.relationship.director = account_params[:is_director]
+      # person.relationship.percent_ownership = account_params[:percent_ownership]
       current_merchant_user.account.update!(stripe_representative_person_id: person.id)
       person.save
       person.first_name_kanji = account_params[:representative_first_name_kanji]
@@ -315,7 +316,7 @@ class Api::Internal::AccountsController < ApplicationController
             stripe_account: stripe_account.id
           }
         )
-        person.verification.document = verification_document.front
+        person.verification.document.front = verification_document
         person.save
       end
     end
@@ -569,12 +570,13 @@ class Api::Internal::AccountsController < ApplicationController
   end
 
   def stripe_person
-    service_stripe_person = StripePerson.find(params[:id])
-    stripe_person = Stripe::Account.retrieve_person(
-      current_merchant_user.account.stripe_account_id,
-      service_stripe_person.stripe_person_id,
-    )
-    render json: { status: 'success', stripe_person: stripe_person }, status: 200
+    # 一旦使わない。
+    # service_stripe_person = StripePerson.find(params[:id])
+    # stripe_person = Stripe::Account.retrieve_person(
+    #   current_merchant_user.account.stripe_account_id,
+    #   service_stripe_person.stripe_person_id,
+    # )
+    # render json: { status: 'success', stripe_person: stripe_person }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
