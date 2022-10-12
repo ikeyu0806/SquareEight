@@ -141,6 +141,7 @@ class Api::Internal::AccountsController < ApplicationController
     end
 
     if account_params[:business_type] == "individual"
+      binding.pry
       stripe_account.business_profile.mcc = '5734' if Rails.env.development?
       stripe_account.business_profile.url = account_params[:individual_business_url]
       stripe_account.business_profile.product_description = account_params[:individual_product_description]
@@ -181,7 +182,7 @@ class Api::Internal::AccountsController < ApplicationController
       # 画像登録の前に一旦save
       stripe_account.save
 
-      if account_params[:representative_identification_image].present?
+      if account_params[:individual_identification_image].present?
         image_data = account_params[:individual_identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
         decode_image = Base64.decode64(image_data)
         extension = account_params[:individual_identification_image].split("/")[1].split(";")[0]
