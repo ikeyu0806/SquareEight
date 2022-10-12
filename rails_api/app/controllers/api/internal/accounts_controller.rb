@@ -201,7 +201,7 @@ class Api::Internal::AccountsController < ApplicationController
             stripe_account: stripe_account.id
           }
         )
-        stripe_account.individual.verification.document = verification_document.id
+        stripe_account.individual.verification.document.front = verification_document.id
         stripe_account.save
       end
     elsif account_params[:business_type] == "company"
@@ -315,7 +315,7 @@ class Api::Internal::AccountsController < ApplicationController
             stripe_account: stripe_account.id
           }
         )
-        person.verification.document = verification_document
+        person.verification.document = verification_document.front
         person.save
       end
     end
