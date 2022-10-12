@@ -204,6 +204,7 @@ const StripePersonForm = () => {
       </Row>
       {representativeVerificationStatus !== 'verified'
         ? <>
+            <hr />
             <Form.Group controlId='formFile' className='mt20'>
               <Form.Label>
                 本人確認書類。以下のいずれかをアップロードしてください<br/>
@@ -211,10 +212,16 @@ const StripePersonForm = () => {
                 &emsp;2. パスポート<br/>
                 &emsp;3. 外国国籍を持つ方の場合は在留カード<br/>
                 &emsp;4. 住基カード(顔写真入り)<br/>
-                &emsp;5. マイナンバーカード(顔写真入り)
+                &emsp;5. マイナンバーカード(顔写真入り)<br /><br />
+                アップロードするファイルは以下の要件を満たしている必要があります。<br />
+                &emsp;カラー画像 (8,000 ピクセル x 8,000 ピクセル以下)<br />
+                &emsp;10 MB 以下<br />
+                &emsp;本人確認書類の場合、JPG または PNG 形式が使用可能<br />
+                &emsp;住所または法人書類の場合、JPG、PNG、または PDF 形式が使用可能<br />
               </Form.Label>
               <Form.Control type='file' onChange={handleChangeFile} />
             </Form.Group>
+            <hr />
          </>
         :
         <div className='mt10'>本人確認書類は提出済みです</div>}
