@@ -183,10 +183,9 @@ const StripeIndividualAccountForm = (): JSX.Element => {
           &emsp;4. 住基カード(顔写真入り)<br/>
           &emsp;5. マイナンバーカード(顔写真入り)<br/><br/>
           アップロードするファイルは以下の要件を満たしている必要があります。<br />
-          &emsp;カラー画像 (8,000 ピクセル x 8,000 ピクセル以下)<br />
-          &emsp;10 MB 以下<br />
-          &emsp;本人確認書類の場合、JPG または PNG 形式が使用可能<br />
-          &emsp;住所または法人書類の場合、JPG、PNG、または PDF 形式が使用可能<br />
+          &emsp;・カラー画像 (8,000 ピクセル x 8,000 ピクセル以下)<br />
+          &emsp;・10 MB 以下<br />
+          &emsp;・JPG または PNG 形式が使用可能<br />
         </Form.Label>
         <Form.Control type='file' onChange={handleChangeFile} />
       </Form.Group>
