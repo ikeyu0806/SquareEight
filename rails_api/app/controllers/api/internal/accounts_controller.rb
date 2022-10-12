@@ -141,7 +141,6 @@ class Api::Internal::AccountsController < ApplicationController
     end
 
     if account_params[:business_type] == "individual"
-      binding.pry
       stripe_account.business_profile.mcc = '5734' if Rails.env.development?
       stripe_account.business_profile.url = account_params[:individual_business_url]
       stripe_account.business_profile.product_description = account_params[:individual_product_description]
