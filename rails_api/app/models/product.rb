@@ -27,6 +27,7 @@ class Product < ApplicationRecord
     result = []
     return [] unless self.delivery_datetime_target_flg
     delivery_datetime_setting = DeliveryDatetimeSetting.find_by(account_id: account.id)
+    return [] if delivery_datetime_setting.blank?
     delivery_datetime_temporary_holidays = delivery_datetime_setting.delivery_datetime_temporary_holidays.pluck(:delivery_holiday)
     # 日曜0から土曜6まで休みの曜日
     holiday_wdays = []
@@ -111,6 +112,7 @@ class Product < ApplicationRecord
   def shippable_time
     return [] unless self.delivery_datetime_target_flg
     delivery_datetime_setting = DeliveryDatetimeSetting.find_by(account_id: account.id)
+    return [] if delivery_datetime_setting.blank?
     case delivery_datetime_setting.delivery_time_type
     when 'yamato' then
       return ['午前中', '14時〜16時', '16時〜18時', '18時〜20時', '19時〜21時']
