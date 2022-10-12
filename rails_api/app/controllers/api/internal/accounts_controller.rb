@@ -231,9 +231,11 @@ class Api::Internal::AccountsController < ApplicationController
         stripe_account.company.phone = '+81' + account_params[:company_phone_number]
       end
 
-      if account_params[:is_director_register_complete] == true
-        stripe_account.company.directors_provided = true
-      end
+      # 一旦trueにしてしまう。Stripeに求められそうなら実装
+      # if account_params[:is_director_register_complete] == true
+      #   stripe_account.company.directors_provided = true
+      # end
+      stripe_account.company.directors_provided = true
 
       stripe_account.tos_acceptance.date = Time.now.to_i
       stripe_account.tos_acceptance.ip = request.remote_ip

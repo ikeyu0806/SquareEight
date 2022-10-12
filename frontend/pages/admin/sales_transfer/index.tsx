@@ -100,11 +100,11 @@ const Index: NextPage = () => {
       <MerchantUserAdminLayout>
         <Container>
           {stripeAccount?.requirements && stripeAccount?.requirements.currently_due?.length !== 0 && <Alert variant='warning'>{requirementsContents()}が不足しています</Alert>}
-          {stripeAccount?.business_type == 'company'
+          {/* {stripeAccount?.business_type == 'company'
             && <Alert variant='info'>
                 <a href='/admin/sales_transfer/register_stripe_person'>代表者以外にも事業を所有する幹部, オーナー, 取締役が存在する場合こちらから登録してください</a>
               </Alert>
-          }
+          } */}
           <Row>
             <Col>
               <Card className='mt20 mb20'>
