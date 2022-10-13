@@ -72,6 +72,8 @@ const StripeIndividualAccountForm = (): JSX.Element => {
   const individualBusinessUrl = useSelector((state: RootState) => state.stripeIndividualAccount.individualBusinessUrl)
   const individualProductDescription = useSelector((state: RootState) => state.stripeIndividualAccount.individualProductDescription)
   const identificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
+  const individualDocumentFront = useSelector((state: RootState) => state.stripeIndividualAccount.individualDocumentFront)
+  const individualAdditionalDocumentFront = useSelector((state: RootState) => state.stripeIndividualAccount.individualAdditionalDocumentFront)
 
   return (
     <Form>
@@ -188,7 +190,8 @@ const StripeIndividualAccountForm = (): JSX.Element => {
 
       <Form.Group controlId='formFile' className='mt10'>
         <Form.Label>
-          本人確認書類。以下のいずれかをアップロードしてください<RequireBadge></RequireBadge><br/>
+          本人確認書類{individualDocumentFront && <span className='ml10 badge bg-info'>提出済み</span>}<br/><br/>
+          以下のいずれかをアップロードしてください<RequireBadge></RequireBadge><br/>
           &emsp;1. 運転免許書<br/>
           &emsp;2. パスポート<br/>
           &emsp;3. 在留カード・特別永住者証明書<br/>
@@ -202,7 +205,7 @@ const StripeIndividualAccountForm = (): JSX.Element => {
 
       <Form.Group controlId='formFile' className='mt10'>
         <Form.Label>
-          公共料金の請求書など、ユーザの住所が確認できる書類を直接撮影したカラー画像。<br/>
+          公共料金の請求書など、ユーザの住所が確認できる書類を直接撮影したカラー画像。{individualAdditionalDocumentFront && <span className='ml10 badge bg-info'>提出済み</span>}<br/>
           必須ではありませんがStripeの審査に請求される場合があります。
           </Form.Label>
         <Form.Control type='file' onChange={handleAddiotionalFile} />

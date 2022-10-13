@@ -32,7 +32,9 @@ import {  individualFirstNameKanjiChanged,
           individualBusinessUrlChanged,
           individualProductDescriptionChanged,
           individualGenderChanged,
-          identificationImageChanged } from 'redux/stripeIndividualAccountSlice'
+          identificationImageChanged,
+          individualDocumentFrontChanged,
+          individualAdditionalDocumentFrontChanged } from 'redux/stripeIndividualAccountSlice'
 import {  companyBusinessNameChanged,
           companyBusinessNameKanaChanged,
           companyBusinessTaxIdChanged,
@@ -110,7 +112,7 @@ const RegisterMerchantInfoForm = () => {
     const individualProductDescription = useSelector((state: RootState) => state.stripeIndividualAccount.individualProductDescription)
     const individualIdentificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
     const individualAdditionalImage = useSelector((state: RootState) => state.stripeIndividualAccount.additionalImage)
-  
+
     // 企業情報
     const companyBusinessName = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessName)
     const companyBusinessNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessNameKana)
@@ -233,6 +235,8 @@ const RegisterMerchantInfoForm = () => {
           dispatch(individualBusinessUrlChanged(response.data.stripe_account.business_profile.url))
           dispatch(individualProductDescriptionChanged(response.data.stripe_account.business_profile.product_description))
           dispatch(individualGenderChanged(response.data.stripe_account.individual.gender))
+          dispatch(individualDocumentFrontChanged(response.data.stripe_account.individual.verification.document.front))
+          dispatch(individualAdditionalDocumentFrontChanged(response.data.stripe_account.individual.verification.additional_document.front))
         }
       })
       .catch(error => {
