@@ -51,6 +51,7 @@ const MerchantPaymentMethodIndex = (): JSX.Element => {
                     <ListGroup.Item key={i}>
                       {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
                       {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
+                      {(new Date(pay.card.exp_year, pay.card.exp_month) < new Date()) && <><span className='badge bg-danger ml10'>期限切れ</span></>}
                     </ListGroup.Item>
                   )
                 })}
