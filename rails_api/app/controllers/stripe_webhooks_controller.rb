@@ -2,6 +2,22 @@ class StripeWebhooksController < ApplicationController
   def index
     ActiveRecord::Base.transaction do
       stripe_params = JSON.parse(params.to_json)
+      if stripe_params["type"] == "account.updated"
+        stripe_account = StripeAccont.find_by(stripe_account_id: stripe_params["data"]["object"]["id"])
+        if stripe_params["data"]["object"]["payouts_enabled"] == true
+          # ビジネスオーナー向け  
+          account_notification_title = "Stripeへの決済有効申請が承認されました。"
+          account_notification_url = '/admin/sales_transfer'
+          stripe_account.account_notifications
+          .create!(title: account_notification_title, url: account_notification_url)
+        else
+          account_notification_title = "Stripeへの決済有効申請がまだ完了しておりません。追加必要項目を確認してください"
+          account_notification_url = '/admin/sales_transfer'
+          stripe_account.account_notifications
+          .create!(title: account_notification_title, url: account_notification_url)
+        end
+      end
+      # 決済実行時
       if stripe_params["type"] == "payment_intent.created"
         stripe_customer_id = stripe_params["data"]["object"]["customer"]
         stripe_payment_intent_id = stripe_params["data"]["object"]["id"]
