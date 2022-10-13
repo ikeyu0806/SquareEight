@@ -86,7 +86,7 @@ export const stripeIndividualAccountSlice = createSlice({
       state.individualBirthDay = action.payload
     },
     individualGenderChanged: (state, action: PayloadAction<string>) => {
-      state.individualBirthDay = action.payload
+      state.individualGender = action.payload
     },
     individualEmailChanged: (state, action: PayloadAction<string>) => {
       state.individualEmail = action.payload
