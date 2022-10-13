@@ -155,7 +155,8 @@ const StripeCompanyAccountForm = (): JSX.Element => {
 
       <Form.Group controlId='formFile' className='mt10'>
         <Form.Label>
-          法人確認書類。必須ではありませんがStripeの承認に必要な場合があります。{verificationDocumentFront && <span className='ml10 badge bg-info'>提出済み</span>}<br/><br/>
+          法人確認書類。{verificationDocumentFront && <span className='ml10 badge bg-info'>提出済み</span>}<br />
+          必須ではありませんがStripeの承認に必要な場合があります。<br/><br/>
           以下のいずれかをアップロードしてください<br/>
           &emsp;1. 登記謄本 (Touki)<br/>
           &emsp;2. 印鑑登録証明書 (Seal registration certificate)

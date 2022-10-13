@@ -77,6 +77,8 @@ import {  companyBusinessNameChanged,
           isOwnerChanged,
           percentOwnershipChanged,
           relationshipTitleChanged,
+          verificationDocumentImageChanged,
+          verificationDocumentFrontChanged,
           representativeVerificationStatusChanged } from 'redux/stripeCompanyAccountSlice'
 
 const RegisterMerchantInfoForm = () => {
@@ -214,6 +216,7 @@ const RegisterMerchantInfoForm = () => {
           dispatch(isExecutiveChanged(response.data.representative.relationship.executive))
           dispatch(isOwnerChanged(response.data.representative.relationship.owner))
           dispatch(relationshipTitleChanged(response.data.representative.relationship.title))
+          dispatch(verificationDocumentFrontChanged(response.data.stripe_account.company.verification.document.front))
         } else if (response.data.stripe_account.business_type === 'individual') {
           dispatch(individualFirstNameKanjiChanged(response.data.stripe_account.individual.first_name_kanji))
           dispatch(individualLastNameKanjiChanged(response.data.stripe_account.individual.last_name_kanji))
