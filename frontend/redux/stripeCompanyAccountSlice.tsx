@@ -49,7 +49,9 @@ export const stripeCompanyAccountSlice = createSlice({
     isOwner: false, // Whether the person is an owner of the account’s legal entity.
     isRepresentative: false, // The percent owned by the person of the account’s legal entity.
     percentOwnership: 100,
-    relationshipTitle: '', // CEOなど
+    relationshipTitle: '', // CEOなど,
+    verificationDocumentImage: '',
+    verificationDocumentFront: '',
   },
   reducers: {
     companyBusinessNameChanged: (state, action: PayloadAction<string>) => {
@@ -190,6 +192,12 @@ export const stripeCompanyAccountSlice = createSlice({
     relationshipTitleChanged: (state, action: PayloadAction<string>) => {
       state.relationshipTitle = action.payload
     },
+    verificationDocumentImageChanged: (state, action: PayloadAction<any>) => {
+      state.verificationDocumentImage = action.payload
+    },
+    verificationDocumentFrontChanged: (state, action: PayloadAction<string>) => {
+      state.verificationDocumentFront = action.payload
+    },
   },
 })
 
@@ -239,5 +247,7 @@ export const { isOwnerChanged } = stripeCompanyAccountSlice.actions
 export const { isRepresentativeChanged } = stripeCompanyAccountSlice.actions
 export const { percentOwnershipChanged } = stripeCompanyAccountSlice.actions
 export const { relationshipTitleChanged } = stripeCompanyAccountSlice.actions
+export const { verificationDocumentImageChanged } = stripeCompanyAccountSlice.actions
+export const { verificationDocumentFrontChanged } = stripeCompanyAccountSlice.actions
 
 export default stripeCompanyAccountSlice.reducer

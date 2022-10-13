@@ -1,6 +1,7 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
+import { getBase64 } from 'functions/getBase64'
 import RequireBadge from 'components/atoms/RequireBadge'
 import StripePersonForm from 'components/molecules/StripePersonForm'
 import { RootState } from 'redux/store'
@@ -22,10 +23,13 @@ import {  companyBusinessNameChanged,
           companyLine2KanaChanged,
           companyPhoneNumberChanged,
           companyBusinessUrlChanged,
+          verificationDocumentImageChanged,
+          verificationDocumentFrontChanged
         } from 'redux/stripeCompanyAccountSlice'
 
 const StripeCompanyAccountForm = (): JSX.Element => {
   const dispatch = useDispatch()
+  const [image, setImage] = useState('')
 
   const companyBusinessName = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessName)
   const companyBusinessNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessNameKana)
@@ -44,6 +48,16 @@ const StripeCompanyAccountForm = (): JSX.Element => {
   const companyPhoneNumber = useSelector((state: RootState) => state.stripeCompanyAccount.companyPhoneNumber)
   const companyBusinessUrl = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessUrl)
   const companyDescription = useSelector((state: RootState) => state.stripeCompanyAccount.companyDescription)
+  const verificationDocumentImage = useSelector((state: RootState) => state.stripeCompanyAccount.verificationDocumentImage)
+  const verificationDocumentFront = useSelector((state: RootState) => state.stripeCompanyAccount.verificationDocumentFront)
+
+  const handleCompanyFile = (e: any) => {
+    const { files } = e.target
+    setImage(window.URL.createObjectURL(files[0]))
+    getBase64(files[0]).then(
+      data => dispatch(verificationDocumentImageChanged(data))
+    )
+  }
 
   return (
     <Form>
@@ -139,6 +153,19 @@ const StripeCompanyAccountForm = (): JSX.Element => {
                     as='textarea'
                     rows={2}></Form.Control>
       <hr />
+
+      <Form.Group controlId='formFile' className='mt10'>
+        <Form.Label>
+          法人確認書類。必須ではありませんがStripeの承認に必要な場合があります。{verificationDocumentFront && <span className='ml10 badge bg-info'>提出済み</span>}<br/><br/>
+          以下のいずれかをアップロードしてください<br/>
+          &emsp;1. 登記謄本 (Touki)<br/>
+          &emsp;2. 印鑑登録証明書 (Seal registration certificate)
+          </Form.Label>
+        <Form.Control type='file' onChange={handleCompanyFile} />
+      </Form.Group>
+
+      <hr />
+  
       <div className='mt20 mb30'>以下ビジネスアカウントの主たる代表者の情報を入力してください</div>
       <StripePersonForm></StripePersonForm>
     </Form>
