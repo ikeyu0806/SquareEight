@@ -127,13 +127,13 @@ const StripeCompanyAccountForm = (): JSX.Element => {
                     name='line2'
                     autoComplete='line2'
                     onChange={(e) => dispatch(companyLine2KanjiChanged(e.target.value))}
-                    value={companyLine2Kanji}></Form.Control>
+                    value={companyLine2Kanji ?? ''}></Form.Control>
       <Form.Label className='mt10'>建物・部屋番号・その他（カナ）</Form.Label>
       <Form.Control type='text'
                     name='line2Kana'
                     autoComplete='line2Kana'
                     onChange={(e) => dispatch(companyLine2KanaChanged(e.target.value))}
-                    value={companyLine2Kana}></Form.Control>
+                    value={companyLine2Kana ?? ''}></Form.Control>
       <Form.Label className='mt10'>法人番号<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(companyBusinessTaxIdChanged(e.target.value))}
                     value={companyBusinessTaxId}></Form.Control>
@@ -169,7 +169,7 @@ const StripeCompanyAccountForm = (): JSX.Element => {
       <hr />
   
       <div className='mt20 mb30'>以下ビジネスアカウントの主たる代表者の情報を入力してください</div>
-      <StripePersonForm></StripePersonForm>
+      {/* <StripePersonForm></StripePersonForm> */}
     </Form>
   )
 }
