@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { getBase64 } from 'functions/getBase64'
 import { RootState } from 'redux/store'
 import RequireBadge from 'components/atoms/RequireBadge'
-import { prefecturesArray } from 'constants/prefecturesArray'
+import StripeFileRequirement from 'components/molecules/StripeFileRequirement'
 import {  individualFirstNameKanjiChanged,
           individualLastNameKanjiChanged,
           individualFirstNameKanaChanged,
@@ -211,14 +211,7 @@ const StripeIndividualAccountForm = (): JSX.Element => {
         <Form.Control type='file' onChange={handleAddiotionalFile} />
       </Form.Group>
 
-      <Card className='mt20'>
-        <Card.Body>
-        アップロードするファイルは以下の要件を満たしている必要があります。<br />
-        &emsp;・カラー画像 (8,000 ピクセル x 8,000 ピクセル以下)<br />
-        &emsp;・10 MB 以下<br />
-        &emsp;・JPG または PNG 形式が使用可能<br />
-        </Card.Body>
-      </Card>
+      <StripeFileRequirement />
     </Form>
   )
 }

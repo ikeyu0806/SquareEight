@@ -5,7 +5,7 @@ import { getBase64 } from 'functions/getBase64'
 import RequireBadge from 'components/atoms/RequireBadge'
 import StripePersonForm from 'components/molecules/StripePersonForm'
 import { RootState } from 'redux/store'
-import { prefecturesArray } from 'constants/prefecturesArray'
+import StripeFileRequirement from 'components/molecules/StripeFileRequirement'
 import {  companyBusinessNameChanged,
           companyBusinessNameKanaChanged,
           companyBusinessTaxIdChanged,
@@ -163,6 +163,8 @@ const StripeCompanyAccountForm = (): JSX.Element => {
           </Form.Label>
         <Form.Control type='file' onChange={handleCompanyFile} />
       </Form.Group>
+
+      <StripeFileRequirement />
 
       <hr />
   

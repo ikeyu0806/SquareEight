@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import RequireBadge from 'components/atoms/RequireBadge'
 import { RootState } from 'redux/store'
 import { getBase64 } from 'functions/getBase64'
+import StripeFileRequirement from './StripeFileRequirement'
 import {  representativeLastNameKanjiChanged,
           representativeFirstNameKanjiChanged,
           representativeLastNameKanaChanged,
@@ -213,14 +214,12 @@ const StripePersonForm = () => {
                 &emsp;2. パスポート<br/>
                 &emsp;3. 外国国籍を持つ方の場合は在留カード<br/>
                 &emsp;4. 住基カード(顔写真入り)<br/>
-                &emsp;5. マイナンバーカード(顔写真入り)<br /><br />
-                アップロードするファイルは以下の要件を満たしている必要があります。<br />
-                &emsp;・カラー画像 (8,000 ピクセル x 8,000 ピクセル以下)<br />
-                &emsp;・10 MB 以下<br />
-                &emsp;・JPG または PNG 形式が使用可能<br />
+                &emsp;5. マイナンバーカード(顔写真入り)<br />
               </Form.Label>
               <Form.Control type='file' onChange={handleChangeFile} />
             </Form.Group>
+
+            <StripeFileRequirement></StripeFileRequirement>
             <hr />
          </>
         :
