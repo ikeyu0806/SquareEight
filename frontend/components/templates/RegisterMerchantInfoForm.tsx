@@ -411,9 +411,9 @@ const RegisterMerchantInfoForm = () => {
           <h4 className='mb20'>事業情報を入力してください</h4>
           <h5>決済機能の有効化に必要となります</h5>
           <Form.Label className='mt20'>事業形態</Form.Label>
-          <Form.Select onChange={(e) => setBusinessType(e.target.value)}>
+          <Form.Select onChange={(e) => setBusinessType(e.target.value)} defaultValue={businessType}>
             <option value='individual'>個人事業主（副業も含む）</option>
-            <option value='company' selected={businessType === 'company'}>法人（株式会社/合同会社/NPOなど）</option>
+            <option value='company'>法人（株式会社/合同会社/NPOなど）</option>
           </Form.Select>
           {businessType === 'individual' && <StripeIndividualAccountForm></StripeIndividualAccountForm>}
           {businessType === 'company' && <StripeCompanyAccountForm></StripeCompanyAccountForm>}

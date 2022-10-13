@@ -178,13 +178,13 @@ const StripeIndividualAccountForm = (): JSX.Element => {
                     name='line2'
                     autoComplete='line2'
                     onChange={(e) => dispatch(individualLine2KanjiChanged(e.target.value))}
-                    value={individualLine2Kanji}></Form.Control>
+                    value={individualLine2Kanji || ''}></Form.Control>
       <Form.Label className='mt10'>建物・部屋番号・その他 （カナ）</Form.Label>
       <Form.Control type='text'
                     name='line2Kana'
                     autoComplete='line2Kana'
                     onChange={(e) => dispatch(individualLine2KanaChanged(e.target.value))}
-                    value={individualLine2Kana}></Form.Control>
+                    value={individualLine2Kana || ''}></Form.Control>
 
       <hr />          
 
