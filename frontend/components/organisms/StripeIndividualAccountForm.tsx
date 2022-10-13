@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form } from 'react-bootstrap'
+import { Form, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getBase64 } from 'functions/getBase64'
 import { RootState } from 'redux/store'
@@ -26,17 +26,26 @@ import {  individualFirstNameKanjiChanged,
           individualBusinessUrlChanged,
           individualProductDescriptionChanged,
           individualGenderChanged,
-          identificationImageChanged } from 'redux/stripeIndividualAccountSlice'
+          identificationImageChanged,
+          additionalImageChanged } from 'redux/stripeIndividualAccountSlice'
 
 const StripeIndividualAccountForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const [image, setImage] = useState('')
 
-  const handleChangeFile = (e: any) => {
+  const handleIdentificationFile = (e: any) => {
     const { files } = e.target
     setImage(window.URL.createObjectURL(files[0]))
     getBase64(files[0]).then(
       data => dispatch(identificationImageChanged(data))
+    )
+  }
+
+  const handleAddiotionalFile = (e: any) => {
+    const { files } = e.target
+    setImage(window.URL.createObjectURL(files[0]))
+    getBase64(files[0]).then(
+      data => dispatch(additionalImageChanged(data))
     )
   }
 
@@ -174,21 +183,39 @@ const StripeIndividualAccountForm = (): JSX.Element => {
                     autoComplete='line2Kana'
                     onChange={(e) => dispatch(individualLine2KanaChanged(e.target.value))}
                     value={individualLine2Kana}></Form.Control>
+
+      <hr />          
+
       <Form.Group controlId='formFile' className='mt10'>
         <Form.Label>
           本人確認書類。以下のいずれかをアップロードしてください<RequireBadge></RequireBadge><br/>
           &emsp;1. 運転免許書<br/>
           &emsp;2. パスポート<br/>
-          &emsp;3. 外国国籍を持つ方の場合は在留カード<br/>
-          &emsp;4. 住基カード(顔写真入り)<br/>
-          &emsp;5. マイナンバーカード(顔写真入り)<br/><br/>
-          アップロードするファイルは以下の要件を満たしている必要があります。<br />
-          &emsp;・カラー画像 (8,000 ピクセル x 8,000 ピクセル以下)<br />
-          &emsp;・10 MB 以下<br />
-          &emsp;・JPG または PNG 形式が使用可能<br />
+          &emsp;3. 在留カード・特別永住者証明書<br/>
+          &emsp;4. 住民票 <br/>
+          &emsp;5. マイナンバーカード(顔写真入り)<br/>
         </Form.Label>
-        <Form.Control type='file' onChange={handleChangeFile} />
+        <Form.Control type='file' onChange={handleIdentificationFile} />
       </Form.Group>
+
+      <hr />
+
+      <Form.Group controlId='formFile' className='mt10'>
+        <Form.Label>
+          公共料金の請求書など、ユーザの住所が確認できる書類を直接撮影したカラー画像。<br/>
+          必須ではありませんがStripeの審査に請求される場合があります。
+          </Form.Label>
+        <Form.Control type='file' onChange={handleAddiotionalFile} />
+      </Form.Group>
+
+      <Card className='mt20'>
+        <Card.Body>
+        アップロードするファイルは以下の要件を満たしている必要があります。<br />
+        &emsp;・カラー画像 (8,000 ピクセル x 8,000 ピクセル以下)<br />
+        &emsp;・10 MB 以下<br />
+        &emsp;・JPG または PNG 形式が使用可能<br />
+        </Card.Body>
+      </Card>
     </Form>
   )
 }

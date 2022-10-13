@@ -26,6 +26,7 @@ export const stripeIndividualAccountSlice = createSlice({
     individualBusinessUrl: '',
     individualProductDescription: '',
     identificationImage: '',
+    additionalImage: '',
   },
   reducers: {
     individualFirstNameKanjiChanged: (state, action: PayloadAction<string>) => {
@@ -97,6 +98,9 @@ export const stripeIndividualAccountSlice = createSlice({
     identificationImageChanged: (state, action: PayloadAction<any>) => {
       state.identificationImage = action.payload
     },
+    additionalImageChanged: (state, action: PayloadAction<any>) => {
+      state.additionalImage = action.payload
+    },
   },
 })
 
@@ -123,5 +127,6 @@ export const { individualEmailChanged } = stripeIndividualAccountSlice.actions
 export const { individualBusinessUrlChanged } = stripeIndividualAccountSlice.actions
 export const { individualProductDescriptionChanged } = stripeIndividualAccountSlice.actions
 export const { identificationImageChanged } = stripeIndividualAccountSlice.actions
+export const { additionalImageChanged } = stripeIndividualAccountSlice.actions
 
 export default stripeIndividualAccountSlice.reducer

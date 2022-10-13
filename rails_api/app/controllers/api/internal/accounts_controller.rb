@@ -204,6 +204,30 @@ class Api::Internal::AccountsController < ApplicationController
         stripe_account.individual.verification.document.front = verification_document.id
         stripe_account.save
       end
+
+      if account_params[:individual_additional_image].present?
+        image_data = account_params[:individual_additional_image].gsub(/^data:\w+\/\w+;base64,/, "")
+        decode_image = Base64.decode64(image_data)
+        extension = account_params[:individual_additional_image].split("/")[1].split(";")[0]
+        content_type = account_params[:individual_additional_image].split(":")[1].split(";")[0]
+        obj_name =  "individual_additional_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
+
+        File.open(obj_name, 'wb') do |file|
+          file.write(decode_image)
+        end
+        individual_additional_image = File.open(obj_name, "r")
+        verification_document = Stripe::File.create(
+          {
+            purpose: 'identity_document',
+            file: individual_additional_image
+          },
+          {
+            stripe_account: stripe_account.id
+          }
+        )
+        stripe_account.individual.verification.additional_document.front = verification_document.id
+        stripe_account.save
+      end
     elsif account_params[:business_type] == "company"
       stripe_account.business_profile.mcc = '5734' if Rails.env.development?
       stripe_account.business_profile.url = account_params[:company_business_url]

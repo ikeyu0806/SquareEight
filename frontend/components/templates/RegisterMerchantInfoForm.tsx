@@ -109,6 +109,7 @@ const RegisterMerchantInfoForm = () => {
     const individualBusinessUrl = useSelector((state: RootState) => state.stripeIndividualAccount.individualBusinessUrl)
     const individualProductDescription = useSelector((state: RootState) => state.stripeIndividualAccount.individualProductDescription)
     const individualIdentificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
+    const individualAdditionalImage = useSelector((state: RootState) => state.stripeIndividualAccount.additionalImage)
   
     // 企業情報
     const companyBusinessName = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessName)
@@ -335,6 +336,7 @@ const RegisterMerchantInfoForm = () => {
         individual_business_url: individualBusinessUrl,
         individual_product_description: individualProductDescription,
         individual_identification_image: individualIdentificationImage,
+        individual_additional_image: individualAdditionalImage,
         company_business_name_kana: companyBusinessNameKana,
         company_business_tax_id: companyBusinessTaxId,
         company_postal_code: companyPortalCode,
