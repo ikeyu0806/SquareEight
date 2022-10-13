@@ -159,6 +159,7 @@ const RegisterMerchantInfoForm = () => {
     const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
     const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.identificationImage)
     const isTermConfirmed = useSelector((state: RootState) => state.stripeAccount.isTermConfirmed)
+    const companyVerificationDocumentImage = useSelector((state: RootState) => state.stripeCompanyAccount.verificationDocumentImage)
 
   useEffect(() => {
     const fetchStripeBusinessInfo = () => {
@@ -357,6 +358,7 @@ const RegisterMerchantInfoForm = () => {
         company_phone_number: companyPhoneNumber,
         company_business_url: companyBusinessUrl,
         company_description: companyDescription,
+        company_verification_document_image: companyVerificationDocumentImage,
         representative_last_name_kanji: representativeLastNameKanji,
         representative_first_name_kanji: representativeFirstNameKanji,
         representative_last_name_kana: representativeLastNameKana,

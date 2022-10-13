@@ -265,6 +265,33 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.tos_acceptance.ip = request.remote_ip
 
       stripe_account.save
+
+      # 法人確認ドキュメント
+      if account_params[:company_verification_document_image].present?
+        image_data = account_params[:company_verification_document_image].gsub(/^data:\w+\/\w+;base64,/, "")
+        decode_image = Base64.decode64(image_data)
+        extension = account_params[:company_verification_document_image].split("/")[1].split(";")[0]
+        content_type = account_params[:company_verification_document_image].split(":")[1].split(";")[0]
+        obj_name =  "company_verification_document_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
+    
+        File.open(obj_name, 'wb') do |file|
+          file.write(decode_image)
+        end
+        company_verification_document_image_file = File.open(obj_name, "r")
+        verification_document = Stripe::File.create(
+          {
+            purpose: 'identity_document',
+            file: company_verification_document_image_file
+          },
+          {
+            stripe_account: stripe_account.id
+          }
+        )
+        stripe_account.company.verification.document.front = verification_document
+        stripe_account.save
+      end
+
+      # 法人代表者登録
       if current_merchant_user.account.stripe_representative_person_id.present?
         person = Stripe::Account.retrieve_person(
           current_merchant_user.account.stripe_account_id,
@@ -657,6 +684,7 @@ class Api::Internal::AccountsController < ApplicationController
                   :company_phone_number,
                   :company_business_url,
                   :company_description,
+                  :company_verification_document_image,
                   :individual_identification_image,
                   :representative_last_name_kanji,
                   :representative_first_name_kanji,

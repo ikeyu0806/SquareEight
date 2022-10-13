@@ -23,8 +23,7 @@ import {  companyBusinessNameChanged,
           companyLine2KanaChanged,
           companyPhoneNumberChanged,
           companyBusinessUrlChanged,
-          verificationDocumentImageChanged,
-          verificationDocumentFrontChanged
+          verificationDocumentImageChanged
         } from 'redux/stripeCompanyAccountSlice'
 
 const StripeCompanyAccountForm = (): JSX.Element => {
