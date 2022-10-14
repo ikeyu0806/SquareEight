@@ -121,6 +121,15 @@ class Api::Internal::MerchantUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def send_reset_password_email
+    merchant_user = MerchantUser.find_by(email: merchant_user_params[:email])
+    raise '未登録のメールアドレスです' if merchant_user.blank?
+    
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def merchant_user_params

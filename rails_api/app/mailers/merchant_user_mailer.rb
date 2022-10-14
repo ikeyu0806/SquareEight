@@ -17,4 +17,8 @@ class MerchantUserMailer < ApplicationMailer
     @email = email
     mail(to: @email, subject: "【SquareEight】アカウント登録完了のご案内")
   end
+
+  def reset_password(email)
+    mail(to: @email, subject: "【SquareEight】アカウント登録完了のご案内")
+  end
 end
