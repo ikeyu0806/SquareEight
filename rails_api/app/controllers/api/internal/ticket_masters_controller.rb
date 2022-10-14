@@ -19,6 +19,7 @@ class Api::Internal::TicketMastersController < ApplicationController
 
   def purchase_info
     ticket_master = TicketMaster.find(params[:id])
+    main_image_public_url = ticket_master.main_image_public_url
     shared_component = ticket_master.account.shared_component
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
@@ -30,6 +31,7 @@ class Api::Internal::TicketMastersController < ApplicationController
     end
     render json: { status: 'success',
                    shared_component: shared_component,
+                   main_image_public_url: main_image_public_url,
                    ticket_master: ticket_master,
                    payment_methods: payment_methods,
                    default_payment_method_id: default_payment_method_id,

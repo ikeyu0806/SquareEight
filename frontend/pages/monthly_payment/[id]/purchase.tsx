@@ -33,6 +33,7 @@ const Purchase: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const router = useRouter()
+  const [mainImagePublicUrl, setMainImagePublicUrl] = useState('')
   const name = useSelector((state: RootState) => state.monthlyPaymentPlan.name)
   const price = useSelector((state: RootState) => state.monthlyPaymentPlan.price)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
@@ -55,7 +56,6 @@ const Purchase: NextPage = () => {
       )
       .then(function (response) {
         const monthlyPaymentPlanResponse: MonthlyPaymentPlanParam = response.data.monthly_payment_plan
-        console.log({monthlyPaymentPlanResponse})
         dispatch(nameChanged(monthlyPaymentPlanResponse.name))
         dispatch(priceChanged(monthlyPaymentPlanResponse.price))
         dispatch(reserveIsUnlimitedChanged(monthlyPaymentPlanResponse.reserve_is_unlimited))
@@ -68,6 +68,7 @@ const Purchase: NextPage = () => {
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
+        setMainImagePublicUrl(response.data.main_image_public_url)
 
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
@@ -159,10 +160,10 @@ const Purchase: NextPage = () => {
               }
                 <div>{name}</div>
                 <div>{description}</div>
-                {s3ObjectPublicUrl
+                {mainImagePublicUrl
                   && <img
                       className='d-block w-100 mt30 mb30'
-                      src={s3ObjectPublicUrl}
+                      src={mainImagePublicUrl}
                       alt='image' />}
                 <hr />
                 <div>￥{price}</div>

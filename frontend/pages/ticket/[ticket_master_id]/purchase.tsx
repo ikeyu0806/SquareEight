@@ -34,6 +34,7 @@ const Purchase: NextPage = () => {
   const paymentMethods = useSelector((state: RootState) => state.currentEndUser.paymentMethods)
   const dispatch = useDispatch()
   const router = useRouter()
+  const [mainImagePublicUrl, setMainImagePublicUrl] = useState('')
   const name = useSelector((state: RootState) => state.ticketMaster.name)
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
@@ -63,7 +64,7 @@ const Purchase: NextPage = () => {
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
-
+        setMainImagePublicUrl(response.data.main_image_public_url)
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
@@ -153,10 +154,10 @@ const Purchase: NextPage = () => {
                     : <></>
                   }
                   <h3>{name}</h3>
-                  {s3ObjectPublicUrl
+                  {mainImagePublicUrl
                   && <img
                       className='d-block w-100 mt30 mb30'
-                      src={s3ObjectPublicUrl}
+                      src={mainImagePublicUrl}
                       alt='image' />}
                   <div className='mt10'>{issueNumber}枚</div>
                   <div className='mt10'>{price}円</div>
