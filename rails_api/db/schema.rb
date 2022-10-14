@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_14_044805) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_14_075301) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -187,6 +187,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_14_044805) do
     t.string "google_auth_id"
     t.string "google_auth_email"
     t.string "wait_for_update_email"
+    t.string "email_reset_key"
     t.index ["email"], name: "index_end_users_on_email", unique: true
   end
 
@@ -218,6 +219,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_14_044805) do
     t.string "first_name_kana"
     t.string "last_name_kana"
     t.string "wait_for_update_email"
+    t.string "email_reset_key"
     t.index ["email"], name: "index_merchant_users_on_email", unique: true
   end
 
