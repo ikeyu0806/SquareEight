@@ -2,6 +2,7 @@ class TicketMaster < ApplicationRecord
   belongs_to :account
   has_many :purchased_tickets
   has_many :cart_ticket_masters
+  has_many :ticket_master_image_relations
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
 

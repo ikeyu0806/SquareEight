@@ -2,6 +2,7 @@ class MonthlyPaymentPlan < ApplicationRecord
   enum reserve_interval_unit: { Day: 0, Week: 1 }
   belongs_to :account
   has_many :cart_monthly_payment_plans
+  has_many :monthly_payment_plan_image_relations
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
 
