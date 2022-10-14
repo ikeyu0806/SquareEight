@@ -137,7 +137,7 @@ const Purchase: NextPage = () => {
   return (
     <>
       <MerchantCustomLayout>
-        <Container>
+        <Container className='mt30'>
         {publishStatus === 'Unpublish' &&
           <div className='text-center'>非公開です</div>}
           {publishStatus === 'Publish' && 
