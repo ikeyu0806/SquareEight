@@ -1,0 +1,2 @@
+class ReserveFrameImageRelation < ApplicationRecord
+end
