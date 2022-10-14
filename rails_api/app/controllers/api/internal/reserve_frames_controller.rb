@@ -17,6 +17,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
     # reduxのデフォルト0にして無駄なリクエスト来るんで一旦こうしとく
     render json: { status: 'success' } and return if params[:id].to_i.zero?
     reserve_frame = ReserveFrame.enabled.find(params[:id])
+    main_image_public_url = reserve_frame.main_image_public_url
     shared_component = reserve_frame.account.shared_component
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,
                                                                     :resource_ids,
@@ -32,7 +33,10 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                                     :reserve_frame_credit_card_payment_prices,
                                                                     :local_payment_prices_with_number_of_people,
                                                                     :credit_card_payment_prices_with_number_of_people]))
-    render json: { status: 'success', reserve_frame: reserve_frame_json, shared_component: shared_component }, status: 200
+    render json: {  status: 'success',
+                    reserve_frame: reserve_frame_json,
+                    main_image_public_url: main_image_public_url,
+                    shared_component: shared_component }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

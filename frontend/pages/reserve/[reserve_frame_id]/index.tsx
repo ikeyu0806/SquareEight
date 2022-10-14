@@ -26,6 +26,7 @@ const Index: NextPage = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
+  const [mainImagePublicUrl, setMainImagePublicUrl] = useState('')
   const [selectedDate] = useState(String(router.query.date).split('-'))
   const [selectedTime, setSelectedTime] = useState('')
   const [reserveCount, setReserveCount] = useState(1)
@@ -58,6 +59,7 @@ const Index: NextPage = () => {
         setSelectedTime(times_values?.reception_start_time + '-' + times_values?.reception_end_time)
         dispatch(multiLocalPaymentPricesChanged(response.data.reserve_frame.local_payment_prices_with_number_of_people))
         dispatch(multiCreditCardPaymentPricesChanged(response.data.reserve_frame.credit_card_payment_prices_with_number_of_people))
+        setMainImagePublicUrl(response.data.main_image_public_url)
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
@@ -177,10 +179,10 @@ const Index: NextPage = () => {
                       </div>
                     </>}
                 <div>{reserveFrame?.description}</div>
-                {reserveFrame?.s3_object_public_url
+                {mainImagePublicUrl
                 && <img
                     className='d-block w-100 mt30 mb30'
-                    src={reserveFrame?.s3_object_public_url}
+                    src={mainImagePublicUrl}
                     alt='image' />}
                 <hr />
                 <div className='mb20'>

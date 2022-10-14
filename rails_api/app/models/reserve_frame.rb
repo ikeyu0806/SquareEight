@@ -509,6 +509,10 @@ class ReserveFrame < ApplicationRecord
     return questionnaire_master.parse_question_form_json
   end
 
+  def main_image_public_url
+    reserve_frame_image_relations.find_by(relation_status: "Main")&.account_s3_image&.s3_object_public_url
+  end
+
   def logical_delete
     update!(deleted_at: Time.zone.now)
   end
