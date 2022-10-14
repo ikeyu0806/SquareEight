@@ -9,19 +9,21 @@ const PasswordResetMail: NextPage = () => {
   const [email, setEmail] = useState('')
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/merchant/send_reset_password_email`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/merchant_users/send_reset_password_email`,
     {
       merchant_user: {
         email: email
       }
     }).then(response => {
       swalWithBootstrapButtons.fire({
-        title: '予約しました',
+        title: 'パスワードリセットを受け付けました',
         icon: 'info'
       })
     }).catch(error => {
+      console.log(error)
       swalWithBootstrapButtons.fire({
-        title: '予約失敗しました',
+        title: '送信失敗しました',
+        text: error.response.data.error,
         icon: 'error'
       })
     })

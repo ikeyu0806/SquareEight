@@ -124,7 +124,9 @@ class Api::Internal::MerchantUsersController < ApplicationController
   def send_reset_password_email
     merchant_user = MerchantUser.find_by(email: merchant_user_params[:email])
     raise '未登録のメールアドレスです' if merchant_user.blank?
-    
+    merchant_user.set_email_reset_key
+    url = ENV["FRONTEND_URL"] + "/merchant/input_reset_password" + "?key=" + merchant_user.email_reset_key
+    MerchantUserMailer.reset_password(merchant_user.email, url).deliver_later
     render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
