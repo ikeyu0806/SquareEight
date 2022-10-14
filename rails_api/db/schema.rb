@@ -233,6 +233,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_14_013732) do
   create_table "monthly_payment_plan_relations", force: :cascade do |t|
     t.integer "account_s3_image_id"
     t.integer "monthly_payment_plan_id"
+    t.integer "relation_status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -297,6 +298,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_14_013732) do
   create_table "product_image_relations", force: :cascade do |t|
     t.integer "account_s3_image_id"
     t.integer "product_id"
+    t.integer "relation_status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -587,6 +589,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_14_013732) do
   create_table "ticket_master_image_relations", force: :cascade do |t|
     t.integer "account_s3_image_id"
     t.integer "ticket_master_id"
+    t.integer "relation_status", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
