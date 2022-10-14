@@ -43,8 +43,10 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.new(monthly_payment_plan_params.except(:base64_image))
       if monthly_payment_plan_params[:base64_image].present?
         file_name = "monthly_paymeny_plan_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        monthly_payment_plan.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
-        monthly_payment_plan.s3_object_name = file_name
+        account_image = monthly_payment_plan.account_s3_images.new
+        account_image.account = current_merchant_user.account
+        account_image.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+        account_image.s3_object_name = file_name
       end
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
       product = Stripe::Product.create({
@@ -69,10 +71,12 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find(params[:id])
     monthly_payment_plan.attributes = monthly_payment_plan_params.except(:base64_image)
     if (monthly_payment_plan_params[:base64_image].present?)
-      monthly_payment_plan.delete_s3_image if monthly_payment_plan.s3_object_public_url.present?
+      ticket_master.ticket_master_image_relations.update_all(relation_status: "Sub")
       file_name = "monthly_paymeny_plan_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-      monthly_payment_plan.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
-      monthly_payment_plan.s3_object_name = file_name
+      account_image = monthly_payment_plan.account_s3_images.new
+      account_image.account = current_merchant_user.account
+      account_image.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+      account_image.s3_object_name = file_name
     end
     monthly_payment_plan.save!
     render json: { status: 'success' }, status: 200
