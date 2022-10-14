@@ -241,8 +241,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_125642) do
     t.datetime "updated_at", null: false
     t.integer "account_id"
     t.text "description"
-    t.string "s3_object_public_url"
-    t.string "s3_object_name"
     t.string "stripe_plan_id"
     t.integer "publish_status", default: 0
     t.datetime "deleted_at"
@@ -304,8 +302,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_125642) do
     t.integer "tax_rate"
     t.integer "inventory"
     t.text "description"
-    t.string "s3_object_public_url"
-    t.string "s3_object_name"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "publish_status", default: 0
@@ -457,8 +453,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_125642) do
     t.boolean "is_monthly_plan_payment_enable"
     t.integer "credit_card_payment_price"
     t.boolean "is_credit_card_payment_enable"
-    t.string "s3_object_public_url"
-    t.string "s3_object_name"
     t.boolean "is_every_day_repeat", default: true
     t.boolean "is_every_week_repeat", default: true
     t.boolean "is_every_month_repeat", default: true
@@ -583,9 +577,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_125642) do
     t.integer "price"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "s3_object_public_url"
     t.text "description"
-    t.string "s3_object_name"
     t.boolean "is_expired"
     t.integer "effective_month"
     t.integer "publish_status", default: 0

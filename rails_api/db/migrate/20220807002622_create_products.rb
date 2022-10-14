@@ -7,8 +7,6 @@ class CreateProducts < ActiveRecord::Migration[7.0]
       t.integer :tax_rate
       t.integer :inventory
       t.text :description
-      t.string :s3_object_public_url
-      t.string :s3_object_name
 
       t.timestamps
     end
