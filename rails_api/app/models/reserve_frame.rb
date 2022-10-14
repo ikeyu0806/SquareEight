@@ -15,6 +15,8 @@ class ReserveFrame < ApplicationRecord
   has_many :reservations
   has_many :reserve_frame_local_payment_prices
   has_many :reserve_frame_credit_card_payment_prices
+  has_many :reserve_frame_image_relations
+  has_many :account_s3_images, through: :reserve_frame_image_relations
 
   # WDayは週ごと
   enum repeat_interval_type: { Day: 0, Week: 1, Month: 2, WDay: 3 }
