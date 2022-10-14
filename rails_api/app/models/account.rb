@@ -23,6 +23,7 @@ class Account < ApplicationRecord
   has_many :delivery_datetime_settings
   has_many :customer_groups
   has_many :stripe_persons
+  has_many :account_s3_images
 
   # プランごとの設定
   PLAN_NAME =  { "Free" => "フリープラン", "Light" => "ライトプラン", "Standard" => "スタンダードプラン", "Premium" => "プレミアムプラン" }
