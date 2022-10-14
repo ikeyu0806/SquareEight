@@ -29,25 +29,25 @@ const PasswordResetMail: NextPage = () => {
 
   return (
     <WithoutSessionLayout>
-    <Container>
-      <Row>
-        <Col lg={4} md={3}></Col>
-          <Col>
-            <Card>
-              <Card.Header>パスワードリセットメールを送信</Card.Header>
-              <Card.Body>
-                <Form.Control
-                  onChange={(e) => setEmail(e.target.value)}
-                  placeholder='メールアドレスを入力してください'></Form.Control>
-                <div className='text-center'>
-                  <Button
-                    className='mt20'
-                    onClick={() => onSubmit()}>送信する</Button>
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
+      <Container>
+        <Row>
           <Col lg={4} md={3}></Col>
+            <Col>
+              <Card>
+                <Card.Header>パスワードリセットメールを送信</Card.Header>
+                <Card.Body>
+                  <Form.Control
+                    onChange={(e) => setEmail(e.target.value)}
+                    placeholder='メールアドレスを入力してください'></Form.Control>
+                  <div className='text-center'>
+                    <Button
+                      className='mt20'
+                      onClick={() => onSubmit()}>送信する</Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+            <Col lg={4} md={3}></Col>
         </Row>
       </Container>
     </WithoutSessionLayout>
