@@ -11,6 +11,7 @@ import { receptionTypeText } from 'functions/receptionTypeText'
 import CheckIcon from 'components/atoms/CheckIcon'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { getZeroPaddingDate } from 'functions/getZeroPaddingDatetime'
+import { getZeroPaddingDatePlusWeek } from 'functions/getZeroPaddingDatetime'
 import CreateReservationModal from 'components/templates/CreateReservationModal'
 import { useDispatch } from 'react-redux'
 import { showRegisterReservationModalChanged } from 'redux/reservationSlice'
@@ -21,7 +22,7 @@ const Index: NextPage = () => {
   const [reservations, setReservatons] = useState<ReservationParam[]>([])
   const date = new Date()
   const [targetStartDate, setTargetStartDate] = useState(getZeroPaddingDate())
-  const [targetEndDate, setTargetEndDate] = useState(getZeroPaddingDate())
+  const [targetEndDate, setTargetEndDate] = useState(getZeroPaddingDatePlusWeek())
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/account/reservations?target_start_date=${targetStartDate}&target_end_date=${targetEndDate}`,
