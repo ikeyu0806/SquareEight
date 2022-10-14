@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class EndUser < ApplicationRecord
   has_secure_password(validations: false)
 
@@ -162,6 +164,10 @@ class EndUser < ApplicationRecord
     purchased_tickets.pluck(:id)
   end
 
+  def set_email_reset_key
+    email_reset_key = SecureRandom.hex(10)
+    self.update!(email_reset_key: email_reset_key)
+  end
 
   def full_name
     full_name = ((self.last_name || '') + (self.first_name || ''))

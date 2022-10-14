@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class MerchantUser < ApplicationRecord
   has_secure_password(validations: false)
 
@@ -12,6 +14,11 @@ class MerchantUser < ApplicationRecord
 
   def stripe_account_enable
     account.stripe_account_id.present?
+  end
+
+  def set_email_reset_key
+    email_reset_key = SecureRandom.hex(10)
+    self.update!(email_reset_key: email_reset_key)
   end
 
   def stripe_customer_enable
