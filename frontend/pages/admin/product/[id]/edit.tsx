@@ -99,7 +99,7 @@ const Edit: NextPage = () => {
         description: description,
         tax_rate: taxRate,
         inventory: inventory,
-        publish_tatus: publishStatus,
+        publish_status: publishStatus,
         base64_image: base64Image,
         product_types: applyProductType ? productTypes : [],
         prefecture_delivery_charges: prefectureDeliveryCharges,
