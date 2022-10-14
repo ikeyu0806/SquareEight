@@ -41,6 +41,7 @@ const Purchase: NextPage = () => {
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [currentEndUserId, setCurrentEndUserId] = useState()
+  const [mainImagePublicUrl, setMainImagePublicUrl] = useState('')
   const [selectedProductTypeId, setSelectedProductTypeId] = useState<number | undefined>()
   const [isRegisteredAddress, setIsRegisteredAddress] = useState(true)
   const name = useSelector((state: RootState) => state.product.name)
@@ -101,6 +102,7 @@ const Purchase: NextPage = () => {
         if (response.data.product.product_types[0]) {
           setSelectedProductTypeId(response.data.product.product_types[0].id)
         }
+        setMainImagePublicUrl(response.data.main_image_public_url)
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
@@ -283,10 +285,10 @@ const Purchase: NextPage = () => {
                   </Col>
                   <Col></Col>
                 </Row>
-                {s3ObjectPublicUrl
+                {mainImagePublicUrl
                 && <img
                     className='d-block w-100 mt30 mb30'
-                    src={s3ObjectPublicUrl}
+                    src={mainImagePublicUrl}
                     alt='image' />}
                 {currentEndUserLogintStatus === 'Logout'
                 ?

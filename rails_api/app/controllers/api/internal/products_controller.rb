@@ -69,6 +69,7 @@ class Api::Internal::ProductsController < ApplicationController
 
   def purchase_info
     product = Product.find(params[:id])
+    main_image_public_url = product.main_image_public_url
     shared_component = product.account.shared_component
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
@@ -83,6 +84,7 @@ class Api::Internal::ProductsController < ApplicationController
     product = JSON.parse(product.to_json(methods: [:product_types, :show_product_type_form, :shipping_fee_per_regions, :delivery_charge_type]))
     render json: { status: 'success',
                    product: product,
+                   main_image_public_url: main_image_public_url,
                    shared_component: shared_component,
                    payment_methods: payment_methods,
                    delivery_targets: delivery_targets,
