@@ -1,0 +1,2 @@
+class TicketMasterImageRelation < ApplicationRecord
+end

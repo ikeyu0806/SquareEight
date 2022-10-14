@@ -1,0 +1,2 @@
+class MonthlyPaymentPlanRelation < ApplicationRecord
+end

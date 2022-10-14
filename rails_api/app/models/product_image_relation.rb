@@ -1,0 +1,2 @@
+class ProductImageRelation < ApplicationRecord
+end

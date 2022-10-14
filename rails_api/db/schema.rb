@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_10_13_125642) do
+ActiveRecord::Schema[7.0].define(version: 2022_10_14_013732) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -230,6 +230,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_125642) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "monthly_payment_plan_relations", force: :cascade do |t|
+    t.integer "account_s3_image_id"
+    t.integer "monthly_payment_plan_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "monthly_payment_plans", force: :cascade do |t|
     t.string "name"
     t.integer "price", null: false
@@ -283,6 +290,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_125642) do
     t.integer "reserve_frame_id"
     t.datetime "start_at"
     t.datetime "end_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "product_image_relations", force: :cascade do |t|
+    t.integer "account_s3_image_id"
+    t.integer "product_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -566,6 +580,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_13_125642) do
     t.integer "service_plan", null: false
     t.string "stripe_subscription_id", null: false
     t.datetime "canceled_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ticket_master_image_relations", force: :cascade do |t|
+    t.integer "account_s3_image_id"
+    t.integer "ticket_master_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
