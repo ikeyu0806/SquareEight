@@ -229,6 +229,21 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def resend_verification_code
+    ActiveRecord::Base.transaction do
+      end_user = EndUser.find_by(email: end_user_params[:email])
+      encode_email = Base64.urlsafe_encode64(end_user.email)
+      raise '検証コード確認済みのユーザです。' if end_user.email_authentication_status == 'Enabled'
+      end_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
+      end_user.verification_code_expired_at = Time.zone.now + 1.days
+      end_user.save!
+      EndUserMailer.send_verification_code(end_user.email, encode_email, end_user.verification_code).deliver_later
+    end
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def end_user_params

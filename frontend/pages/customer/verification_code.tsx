@@ -58,6 +58,9 @@ const VerificationCode: NextPage = () => {
                     </Form>
                   </Card.Body>
                 </Card>
+                <div className='text-center mt20'>
+                  <a href='/customer/resend_verification_code'>検証コードの再送</a>
+                </div>
               </Col>
             <Col lg={4} md={3}></Col>
           </Row>
