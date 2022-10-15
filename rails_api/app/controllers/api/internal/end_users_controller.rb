@@ -201,8 +201,8 @@ class Api::Internal::EndUsersController < ApplicationController
   end
 
   def subscription_lists
-    stripe_payment_subscriptions = current_end_user.search_stripe_subscriptions
-    render json: { status: 'success', stripe_payment_subscriptions: stripe_payment_subscriptions }, status: 200
+    subscriptions = JSON.parse(current_end_user.merchant_stripe_subscriptions.to_json(methods: [:monthly_payment_plan_name, :account_business_name]))
+    render json: { status: 'success', subscriptions: subscriptions }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

@@ -6,11 +6,12 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { StripeSubscriptionsParam } from 'interfaces/StripeSubscriptionsParam'
 import { useCookies } from 'react-cookie'
+import { MerchantStripeSubscription } from 'interfaces/MerchantStripeSubscription'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
-  const [stripeSubscriptions, setStripeSubscriptions] = useState<StripeSubscriptionsParam[]>()
+  const [stripeSubscriptions, setStripeSubscriptions] = useState<MerchantStripeSubscription[]>()
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/subscription_lists`,
@@ -19,7 +20,8 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_end_user_session
       }
     }).then((response) => {
-      setStripeSubscriptions(response.data.stripe_payment_subscriptions)
+      console.log(response.data)
+      setStripeSubscriptions(response.data.subscriptions)
     }).catch((error) => {
       console.log(error)
     })
@@ -40,8 +42,8 @@ const Index: NextPage = () => {
                   <ListGroup.Item key={i}>
                     <Row>
                       <Col>
-                        プラン名: {subscription.metadata.name}<br/>
-                        購入先: {subscription.metadata.account_business_name}
+                        プラン名: {subscription.monthly_payment_plan_name}<br/>
+                        購入先: {subscription.account_business_name}
                       </Col>
                     </Row>
                   </ListGroup.Item>

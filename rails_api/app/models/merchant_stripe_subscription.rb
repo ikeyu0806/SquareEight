@@ -6,7 +6,7 @@ class MerchantStripeSubscription < ApplicationRecord
     monthly_payment_plan.name
   end
 
-  def account_name
-    monthly_payment_plan.account.name
+  def account_business_name
+    monthly_payment_plan.account.business_name
   end
 end
