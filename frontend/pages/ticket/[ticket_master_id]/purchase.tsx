@@ -162,7 +162,7 @@ const Purchase: NextPage = () => {
                   <div className='mt10'>{issueNumber}枚</div>
                   <div className='mt10'>{price}円</div>
                   <div className='mt10'>有効期限: {effectiveMonth}ヶ月</div>
-                  <div className='mt10'>{description}</div>
+                  <div className='mt20 new-line'>{description}</div>
                   <hr />
                   <Row>
                     <Col sm={2}>

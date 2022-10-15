@@ -159,7 +159,7 @@ const Purchase: NextPage = () => {
                   <></>
               }
                 <div>{name}</div>
-                <div>{description}</div>
+                <div className='new-line mt20'>{description}</div>
                 {mainImagePublicUrl
                   && <img
                       className='d-block w-100 mt30 mb30'

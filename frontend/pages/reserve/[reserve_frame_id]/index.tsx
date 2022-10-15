@@ -178,7 +178,7 @@ const Index: NextPage = () => {
                         <div>受付電話番号: {reserveFrame.reception_phone_number}</div>
                       </div>
                     </>}
-                <div>{reserveFrame?.description}</div>
+                <div className='new-line mt20'>{reserveFrame?.description}</div>
                 {mainImagePublicUrl
                 && <img
                     className='d-block w-100 mt30 mb30'

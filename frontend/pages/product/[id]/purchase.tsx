@@ -257,7 +257,7 @@ const Purchase: NextPage = () => {
                 {deliveryChargeType === 'perPrefectures'
                 && <div className='mt10'>配送料: <a href='#' onClick={() => dispatch(showPerPrefecturesChargeModalChanged(true))}>都道府県ごとに異なります</a></div>}
                 <hr/>
-                <div className='mt10'>{description}</div>
+                <div className='new-line mt20'>{description}</div>
                 {showProductTypeForm &&
                 <>
                   {productTypes.map((type, i) => {
