@@ -4,7 +4,6 @@ import { Container, ListGroup, Row, Col } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
-import { StripeSubscriptionsParam } from 'interfaces/StripeSubscriptionsParam'
 import { useCookies } from 'react-cookie'
 import { MerchantStripeSubscription } from 'interfaces/MerchantStripeSubscription'
 
