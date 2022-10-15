@@ -138,6 +138,9 @@ const Index: NextPage = () => {
   }
 
   const validateOnSubmit = () => {
+    if (!defaultPaymentMethodId) {
+      return true
+    }
     if (includeNoRemainingInventory) {
       return true
     }
@@ -170,6 +173,12 @@ const Index: NextPage = () => {
               <Card.Header>レジ</Card.Header>
               <Card.Body>
                   <h4 className='mt20'>お支払い方法</h4>
+                  {paymentMethods.length === 0 &&
+                  <>
+                    クレジットカードが登録されていません。<br />
+                    <a  href='/customer_page/payment_method/register'
+                        target='_blank' rel='noreferrer'>こちらから登録お願いします。</a>
+                  </>}
                   {<ListGroup>
                     {paymentMethods?.map((pay, i) => {
                       return (
