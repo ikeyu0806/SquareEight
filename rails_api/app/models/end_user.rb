@@ -14,7 +14,7 @@ class EndUser < ApplicationRecord
   has_many :end_user_notifications
   has_many :stripe_payment_intents
   has_one :customer, foreign_key: :end_user_id, primary_key: :id
-  has_many :stripe_subscriptions
+  has_many :merchant_stripe_subscriptions
   has_many :monthly_payment_plans, through: :stripe_subscriptions
 
   validates :first_name, presence: true
