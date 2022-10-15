@@ -143,6 +143,21 @@ class Api::Internal::MerchantUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def resend_verification_code
+    ActiveRecord::Base.transaction do
+      merchant_user = MerchantUser.find_by(email: merchant_user_params[:email])
+      encode_email = Base64.urlsafe_encode64(merchant_user.email)
+      raise '検証コード確認済みのユーザです。' if merchant_user.email_authentication_status == 'Enabled'
+      merchant_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
+      merchant_user.verification_code_expired_at = Time.zone.now + 1.days
+      merchant_user.save!
+      MerchantUserMailer.send_verification_code(merchant_user.email, encode_email, merchant_user.verification_code).deliver_later
+    end
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def merchant_user_params

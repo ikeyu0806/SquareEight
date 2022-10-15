@@ -9,38 +9,16 @@ import { useDispatch } from 'react-redux'
 import { alertChanged } from '../../redux/alertSlice'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
-const VerificationCode: NextPage = () => {
-  const dispatch = useDispatch()
+const ResendVerificationCode: NextPage = () => {
   const router = useRouter()
-  const [verificationCode, setVerificationCode] = useState('')
-  const [cookies, setCookie, removeCookie] = useCookies(['_square_eight_merchant_session'])
-
-  const onSubmit = () => {
-    axios.post(
-      `${process.env.BACKEND_URL}/api/internal/merchant_users/confirm_verification_code`,
-      {
-        merchant_user: {
-          email: router.query.email,
-          verification_code: verificationCode
-        }
-      }
-    )
-    .then(response => {
-      console.log(response.data.messsages)
-      setCookie('_square_eight_merchant_session', response.data.session_id.public_id, { path: '/'})
-      router.push('/admin/dashboard')
-    })
-    .catch(error => {
-      dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
-    })
-  }
+  const [email, setEmail] = useState('')
 
   const resendVerificationCode = () => {
     axios.post(
       `${process.env.BACKEND_URL}/api/internal/merchant_users/resend_verification_code`,
       {
         merchant_user: {
-          email: router.query.email,
+          email: email,
         }
       }).then(response => {
         swalWithBootstrapButtons.fire({
@@ -65,25 +43,22 @@ const VerificationCode: NextPage = () => {
             <Col lg={4} md={3}></Col>
               <Col>
                 <Card>
-                  <Card.Header>検証コードを入力してください</Card.Header>
+                  <Card.Header>検証コードの再送</Card.Header>
                   <Card.Body>
                     <Form>
                       <Form.Group className='mb-3' controlId='formEmail'>
-                        <Form.Label>検証コード</Form.Label>
-                        <Form.Control onChange={(e) => setVerificationCode(e.target.value)} />
+                        <Form.Label>メールアドレスを入力してください</Form.Label>
+                        <Form.Control onChange={(e) => setEmail(e.target.value)} />
                         <Form.Text className='text-muted'></Form.Text>
                       </Form.Group>
                       <div className='text-center'>
-                        <Button onClick={onSubmit}>
+                        <Button onClick={resendVerificationCode}>
                           送信
                         </Button>
                       </div>
                     </Form>
                   </Card.Body>
                 </Card>
-                <div className='text-center mt20'>
-                  <a href='/merchant/resend_verification_code'>検証コードの再送</a>
-                </div>
               </Col>
             <Col lg={4} md={3}></Col>
           </Row>
@@ -93,4 +68,4 @@ const VerificationCode: NextPage = () => {
   )
 }
 
-export default VerificationCode
+export default ResendVerificationCode
