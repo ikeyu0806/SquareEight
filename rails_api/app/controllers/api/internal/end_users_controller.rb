@@ -201,7 +201,7 @@ class Api::Internal::EndUsersController < ApplicationController
   end
 
   def subscription_lists
-    subscriptions = JSON.parse(current_end_user.merchant_stripe_subscriptions.to_json(methods: [:monthly_payment_plan_name, :account_business_name]))
+    subscriptions = JSON.parse(current_end_user.merchant_stripe_subscriptions.where(canceled_at: nil).to_json(methods: [:monthly_payment_plan_name, :account_business_name]))
     render json: { status: 'success', subscriptions: subscriptions }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
