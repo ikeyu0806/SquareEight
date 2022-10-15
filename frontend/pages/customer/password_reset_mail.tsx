@@ -9,9 +9,9 @@ const PasswordResetMail: NextPage = () => {
   const [email, setEmail] = useState('')
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/merchant_users/send_reset_password_email`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/send_reset_password_email`,
     {
-      merchant_user: {
+      end_user: {
         email: email
       }
     }).then(response => {

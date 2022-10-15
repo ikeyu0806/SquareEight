@@ -86,7 +86,7 @@ const Login: NextPage = () => {
                   <a href='/merchant/signup'>新規登録はこちら</a>
                 </div>
                 <div className='text-center mt20'>
-                <a href='/merchant/password_reset_mail'>ログインできない方はこちら</a>
+                  <a href='/merchant/password_reset_mail'>ログインできない方はこちら</a>
                 </div>
               </Col>
             <Col lg={4} md={3}></Col>

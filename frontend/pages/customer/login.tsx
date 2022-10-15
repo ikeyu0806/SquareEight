@@ -75,7 +75,7 @@ const Login: NextPage = () => {
                       </Form.Group>
                       <div className='text-center'>
                         <Button variant='primary' onClick={onSubmit}>
-                          送信
+                          ログインする
                         </Button>
                       </div>
                       <hr />
@@ -84,6 +84,9 @@ const Login: NextPage = () => {
                         buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
                       <div className='text-center mt30'>
                         <a href='/customer/signup'>新規登録はこちら</a>
+                      </div>
+                      <div className='text-center mt20'>
+                        <a href='/customer/password_reset_mail'>ログインできない方はこちら</a>
                       </div>
                     </Form>
                   </Card.Body>

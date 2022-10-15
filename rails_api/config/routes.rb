@@ -48,6 +48,8 @@ Rails.application.routes.draw do
       post 'end_users/confirm_verification_code', to: 'end_users#confirm_verification_code'
       post 'end_users/confirm_update_email_verification_code', to: 'end_users#confirm_update_email_verification_code'
       post 'end_users/:payment_method_id/update_payment_method', to: 'end_users#update_payment_method'
+      post 'end_users/send_reset_password_email', to: 'end_users#send_reset_password_email'
+      post 'end_users/update_password', to: 'end_users#update_password'
       post 'end_users', to: 'end_users#create'
       delete 'end_users/:payment_method_id/detach_stripe_payment_method', to: 'end_users#detach_stripe_payment_method'
       delete 'end_users/disconnect_google_auth', to: 'end_users#disconnect_google_auth'

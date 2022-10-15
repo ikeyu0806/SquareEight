@@ -17,4 +17,14 @@ class EndUserMailer < ApplicationMailer
     @end_user = EndUser.find(end_user_id)
     mail(to: @end_user.email, subject: "【SquareEight】ユーザ登録完了のご案内")
   end
+
+  def registration_complete(email)
+    @email = email
+    mail(to: @email, subject: "【SquareEight】アカウント登録完了のご案内")
+  end
+
+  def reset_password(email, url)
+    @url = url
+    mail(to: email, subject: "【SquareEight】パスワードリセットを受け付けました")
+  end
 end

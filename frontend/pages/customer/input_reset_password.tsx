@@ -14,9 +14,9 @@ const InputResetPassword: NextPage = () => {
   const [confirmPassword, setConfirmPassword] = useState('')
   
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/merchant_users/update_password`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/update_password`,
     {
-      merchant_user: {
+      end_user: {
         email: email,
         password: password,
         key: router.query.key

@@ -207,6 +207,28 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def send_reset_password_email
+    end_user = EndUser.find_by(email: end_user_params[:email])
+    raise '未登録のメールアドレスです' if end_user.blank?
+    end_user.set_email_reset_key
+    url = ENV["FRONTEND_URL"] + "/customer/input_reset_password" + "?key=" + end_user.email_reset_key
+    EndUserMailer.reset_password(end_user.email, url).deliver_later
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def update_password
+    end_user = EndUser.find_by(email: end_user_params[:email])
+    raise "未登録のメールアドレスです" if end_user.blank?
+    raise "不正な操作です" if end_user.email_reset_key != end_user_params[:key]
+    end_user.password = end_user_params[:password]
+    end_user.save!
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def end_user_params
@@ -223,6 +245,7 @@ class Api::Internal::EndUsersController < ApplicationController
                                      :last_name,
                                      :first_name,
                                      :last_name_kana,
-                                     :first_name_kana,)
+                                     :first_name_kana,
+                                     :key)
   end
 end
