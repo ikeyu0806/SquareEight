@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, ListGroup, Row, Col } from 'react-bootstrap'
+import { Container, ListGroup, Row, Col, Button } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -43,6 +43,12 @@ const Index: NextPage = () => {
                       <Col>
                         プラン名: {subscription.monthly_payment_plan_name}<br/>
                         購入先: {subscription.account_business_name}
+                      </Col>
+                      <Col>
+                        <a  className='btn btn-primary'
+                            href={`/monthly_payment/${subscription.monthly_payment_plan_id}/purchase`}
+                            target='_blank'
+                            rel='noreferrer'>詳細</a>
                       </Col>
                     </Row>
                   </ListGroup.Item>
