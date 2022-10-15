@@ -132,6 +132,17 @@ class Api::Internal::MerchantUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def update_password
+    merchant_user = MerchantUser.find_by(email: merchant_user_params[:email])
+    raise "未登録のメールアドレスです" if merchant_user.blank?
+    raise "不正な操作です" if merchant_user.email_reset_key != merchant_user_params[:key]
+    merchant_user.password = merchant_user_params[:password]
+    merchant_user.save!
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def merchant_user_params
@@ -148,6 +159,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
                                           :business_name,
                                           :is_create_account,
                                           :google_auth_id,
-                                          :google_auth_email)
+                                          :google_auth_email,
+                                          :key)
   end
 end
