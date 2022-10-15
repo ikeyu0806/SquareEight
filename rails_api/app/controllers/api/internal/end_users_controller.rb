@@ -244,6 +244,19 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def cancel_subscription
+    ActiveRecord::Base.transaction do
+      merchant_stripe_subscription = MerchantStripeSubscription.find(params[:id])
+      Stripe::Subscription.cancel(
+        merchant_stripe_subscription.stripe_subscription_id,
+      )
+      merchant_stripe_subscription.update!(canceled_at: Time.zone.now)
+      render json: { status: 'success' }, status: 200
+    end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   private
 
   def end_user_params

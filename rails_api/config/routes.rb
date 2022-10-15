@@ -55,6 +55,7 @@ Rails.application.routes.draw do
       post 'end_users', to: 'end_users#create'
       delete 'end_users/:payment_method_id/detach_stripe_payment_method', to: 'end_users#detach_stripe_payment_method'
       delete 'end_users/disconnect_google_auth', to: 'end_users#disconnect_google_auth'
+      delete 'end_users/:id/cancel_subscription', to: 'end_users#cancel_subscription'
       get 'customers/:customer_id/questionnaire_answers', to: 'customers#questionnaire_answers'
       post 'customers', to: 'customers#create'
       get 'webpages/edit', to: 'webpages#edit'
