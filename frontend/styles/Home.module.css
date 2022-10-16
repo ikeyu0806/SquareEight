@@ -17,7 +17,7 @@
     font-size: 150%;
   }
   .planCard {
-    height: 55  0px;
+    height: 550px;
     margin-bottom: 20px;
   }
   .plan_price {
@@ -42,7 +42,7 @@
     font-size: 300%;
   }
   .planCard {
-    height: 400px;
+    height: 300px;
   }
   .features_description_text {
     margin-top: 20px;
@@ -70,7 +70,7 @@
     height: 600px;
   }
   .planCard {
-    height: 400px;
+    height: 300px;
   }
   .features_description_text {
     font-size: 100%;

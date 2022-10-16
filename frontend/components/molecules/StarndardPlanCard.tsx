@@ -33,7 +33,6 @@ const StandardPlanCard = ({showJoinButton}: Props): JSX.Element => {
             <Card.Text className={cardStyles.plan_description}>
               <TextWithCheckIcon text='ライトプランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='月間予約件数2000件' fill={'darkblue'}></TextWithCheckIcon><br/>
-              <TextWithCheckIcon text='テンプレートからのメール送信可能数 1000件' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='スタッフや設備備品などのリソースによる予約受付数制限' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='決済手数料5%' fill={'darkblue'}></TextWithCheckIcon><br/>
             </Card.Text>

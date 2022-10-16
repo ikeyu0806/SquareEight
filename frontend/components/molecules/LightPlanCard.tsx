@@ -35,7 +35,6 @@ const LightPlanCard = ({showJoinButton}: Props): JSX.Element => {
               <TextWithCheckIcon text='月間予約件数500件' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='広告非表示' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='登録顧客の表示数制限解除' fill={'darkblue'}></TextWithCheckIcon><br/>
-              <TextWithCheckIcon text='テンプレートからのメール送信可能数 500件' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='決済手数料5%' fill={'darkblue'}></TextWithCheckIcon><br/>
             </Card.Text>
           </Col>
