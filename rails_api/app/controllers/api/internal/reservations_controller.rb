@@ -61,6 +61,9 @@ class Api::Internal::ReservationsController < ApplicationController
     ActiveRecord::Base.transaction do
       reservation = Reservation.find(reservation_params[:id])
       reserve_frame = reservation.reserve_frame
+      account = reserve_frame.account
+      monthly_reservation_count = account.reservations.where(start_at: Time.zone.now - 30.days...Time.zone.now).count
+      raise "予約受付可能数を超えています" if monthly_reservation_count >= account.reservation_limit
       # 定員、時間帯、リソースを確認して予約可能かvalidation
       validate_result = reserve_frame.validate_reservation(reservation)
       raise validate_result[:error_message] if validate_result[:status] == 'ng'
