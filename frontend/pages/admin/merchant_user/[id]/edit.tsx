@@ -6,6 +6,8 @@ import { alertChanged } from 'redux/alertSlice'
 import { useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { emailRegex } from 'constants/emailRegex'
+import { passwordRegex } from 'constants/passwordRegex'
 import axios from 'axios'
 
 const Edit: NextPage = () => {
@@ -18,6 +20,7 @@ const Edit: NextPage = () => {
   const [firstNameKana, setFirstNameKana] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [isEnabledEmailLogin, setIsEnabledEmailLogin] = useState(false)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/merchant_users/current_merchant_user_info`,
@@ -31,6 +34,7 @@ const Edit: NextPage = () => {
       setLastNameKana(response.data.merchant_user.last_name_kana)
       setFirstNameKana(response.data.merchant_user.first_name_kana)
       setEmail(response.data.merchant_user.email)
+      setIsEnabledEmailLogin(response.data.merchant_user.is_enabled_email_login)
     }).catch((error) => {
       console.log(error)
     })
@@ -58,6 +62,25 @@ const Edit: NextPage = () => {
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })
+  }
+
+  const validateOnSubmit = () => {
+    if (!email) {
+      return true
+    }
+    if (!email.match(emailRegex)) {
+      return true
+    }
+    if (!isEnabledEmailLogin) {
+      if (!password) {
+        return true
+      }
+      if (!password.match(passwordRegex)) {
+        return true
+      }
+      return false
+    }
+    return false
   }
 
   return (
@@ -91,7 +114,9 @@ const Edit: NextPage = () => {
               onChange={(e) => setPassword(e.target.value)}
               value={password}></Form.Control>
             <div className='mt30 text-center'>
-              <Button onClick={onSubmit}>更新する</Button>
+              <Button
+                disabled={validateOnSubmit()}
+                onClick={onSubmit}>更新する</Button>
             </div>
           </Col>
         </Row>

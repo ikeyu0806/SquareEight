@@ -24,4 +24,9 @@ class MerchantUser < ApplicationRecord
   def stripe_customer_enable
     account.stripe_customer_id.present?
   end
+
+  def is_enabled_email_login
+    return true if email.present? && password_digest.present?
+    return false
+  end
 end

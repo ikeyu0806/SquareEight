@@ -109,6 +109,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
   end
 
   def current_merchant_user_info
+    current_merchant_user = JSON.parse(current_merchant_user.to_json(methods: [:is_enabled_email_login]))
     render json: { status: 'success', merchant_user: current_merchant_user }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
