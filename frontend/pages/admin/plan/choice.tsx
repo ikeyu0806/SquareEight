@@ -27,13 +27,6 @@ const Choice: NextPage = () => {
             <PremiumPlanCard showJoinButton={true}></PremiumPlanCard>
           </Col>
         </Row>
-
-        <div className='text-center'>
-          <a className='btn btn-danger mt30'
-             href='/admin/account/withdrawal'>
-            サービス退会はこちら
-          </a>
-        </div>
       </Container>
     </MerchantUserAdminLayout>
   )

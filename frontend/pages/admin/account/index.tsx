@@ -40,6 +40,12 @@ const Index: NextPage = () => {
               </Row>
             </Card.Body>
           </Card>
+          <div className='text-center'>
+            <a className='btn btn-danger mt30'
+              href='/admin/account/withdrawal'>
+              サービス退会はこちら
+            </a>
+          </div>
           </Col>
         </Row>
       </Container>
