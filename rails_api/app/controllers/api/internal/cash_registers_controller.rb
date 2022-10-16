@@ -40,8 +40,8 @@ class Api::Internal::CashRegistersController < ApplicationController
           end
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
           default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
-          commission = (cart[:price] * 0.04).to_i
           account = product.account
+          commission = (cart[:price] * account.application_fee_amount).to_i
           customer = account.customers.find_by(end_user_id: current_end_user.id)
           if customer.blank?
             customer = account.customers.create!(
@@ -119,8 +119,8 @@ class Api::Internal::CashRegistersController < ApplicationController
           ticket_master = TicketMaster.find(cart[:parent_ticket_master_id])
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
           default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
-          commission = (cart[:price] * 0.04).to_i
           account = ticket_master.account
+          commission = (cart[:price] * account.application_fee_amount).to_i
           customer = account.customers.find_by(end_user_id: current_end_user.id)
           if customer.blank?
             customer = account.customers.create!(
@@ -194,7 +194,7 @@ class Api::Internal::CashRegistersController < ApplicationController
           end
           stripe_subscription = Stripe::Subscription.create({
             customer: current_end_user.stripe_customer_id,
-            application_fee_percent: 4,
+            application_fee_percent: account.application_fee_percent,
             description: monthly_payment_plan.name,
             metadata: {
               'account_business_name': monthly_payment_plan.account.business_name,
@@ -224,7 +224,7 @@ class Api::Internal::CashRegistersController < ApplicationController
                                 product_name: monthly_payment_plan.name,
                                 price: monthly_payment_plan.price,
                                 account_id: monthly_payment_plan.account.id,
-                                commission: (monthly_payment_plan.price * 0.04).to_i)
+                                commission: (monthly_payment_plan.price * account.application_fee_amount).to_i)
           current_end_user.cart_monthly_payment_plans.where(monthly_payment_plan_id: monthly_payment_plan.id).delete_all
           # エンドユーザ通知
           end_user_notification_title = monthly_payment_plan.name + 'を購入しました。'
