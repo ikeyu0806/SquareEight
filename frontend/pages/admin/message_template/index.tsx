@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, ListGroup, Card, Button, Form } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup, Card, Button, Alert } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useCookies } from 'react-cookie'
 import { useDispatch, useSelector } from 'react-redux'
@@ -29,6 +29,7 @@ const Index: NextPage = () => {
   const [messageTemplates, setMessageTemplates] = useState<MessageTemplateParam[]>()
   const pageLinkPaginationState = useSelector((state: RootState) => state.messageTemplate.pageLinkPaginationState)
   const customerPaginationState = useSelector((state: RootState) => state.messageTemplate.customerPaginationState)
+  const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/message_templates`,
@@ -76,6 +77,9 @@ const Index: NextPage = () => {
         <Row>
           <Col lg={2}></Col>
           <Col lg={8}>
+            {servicePlan === 'Free' && <Alert variant='warning'>フリープランでテンプレートからの送信可能数は月50件までとなります</Alert>}
+            {servicePlan === 'Light' && <Alert variant='warning'>スタンダードプランでテンプレートからの送信可能数は月500件までとなります</Alert>}
+            {servicePlan === 'Standard' && <Alert variant='warning'>プレミアムプランでテンプレートからの送信可能数は月1000件までとなります</Alert>}
             <h3 className='mb20'>メッセージテンプレート</h3>
             <Button
               className='mb20'
