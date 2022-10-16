@@ -1,11 +1,11 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { Container, Row, Col, Card } from 'react-bootstrap'
+import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 
-const Index: NextPage = () => {
+const Edit: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [businessName, setBusinessName] = useState('')
   useEffect(() => {
@@ -31,24 +31,13 @@ const Index: NextPage = () => {
         <Row>
           <Col lg={3} md={3}></Col>
           <Col lg={6}>
-          <Card>
-            <Card.Header className='d-flex justify-content-between align-items-center'>
-              アカウント情報
-              <a className='btn btn-sm btn-primary' href='/admin/account/edit'>編集</a>
-            </Card.Header>
-            <Card.Body>
-              <Row>
-                <Col>ビジネス名称</Col>
-                <Col>{businessName}</Col>
-              </Row>
-            </Card.Body>
-          </Card>
-          <div className='text-center'>
-            <a className='btn btn-danger mt30'
-              href='/admin/account/withdrawal'>
-              サービス退会はこちら
-            </a>
-          </div>
+            <Form.Label>ビジネス名称</Form.Label>
+            <Form.Control
+              value={businessName}
+              onChange={(e) => setBusinessName(e.target.value)}></Form.Control>
+            <div className='text-center mt30'>
+              <Button>登録する</Button>
+            </div>
           </Col>
         </Row>
       </Container>
@@ -56,4 +45,4 @@ const Index: NextPage = () => {
   )
 }
 
-export default Index
+export default Edit
