@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, ListGroup, Card, Button, Form, Pagination } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup, Card, Button, Form, Pagination, Alert } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useCookies } from 'react-cookie'
 import { CustomerParam } from 'interfaces/CustomerParam'
@@ -27,6 +27,7 @@ const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [searchWord, setSearchWord] = useState('')
   const customerPaginationState = useSelector((state: RootState) => state.customer.customerPaginationState)
+  const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/account/customers`,
@@ -109,6 +110,9 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={2}></Col>
             <Col lg={8}>
+              {servicePlan === 'Free' && <Alert variant='warning'>フリープランでは登録顧客の最大表示数は50件となります</Alert>}
+              {servicePlan === 'Light' && <Alert variant='warning'>スタンダードプランでは登録顧客の最大表示数は500件となります</Alert>}
+              {servicePlan === 'Standard' && <Alert variant='warning'>プレミアムプランでは登録顧客の最大表示数は2000件となります</Alert>}
               <Card className='mb20'>
                 <Card.Header>絞り込み</Card.Header>
                 <Card.Body>
