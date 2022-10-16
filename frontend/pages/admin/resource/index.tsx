@@ -6,12 +6,15 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { Container, ListGroup, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import { ResourceParam } from 'interfaces/ResourceParam'
-import { resourceReceptionTimeSettingText } from 'functions/resourceReceptionTimeSettingText'
+import ResourceLimitAlert from 'components/molecules/ResourceLimitAlert'
+import { RootState } from 'redux/store'
+import { useSelector } from 'react-redux'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [resources, setResources] = useState<ResourceParam[]>([])
+  const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
 
   useEffect(() => {
     const fetchResources = () => {
@@ -41,26 +44,31 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
-              <a  href='/admin/resource/new'
-                className='btn btn-primary mb20'>
-              新規登録
-              </a>
-              <ListGroup>
-                {resources.map((resource, i) => {
-                  return (
-                    <ListGroup.Item key={i}>
-                      <Row>
-                        <Col>{resource.name}</Col>
-                        <Col>数量: {resource.quantity}</Col>
-                        <Col>
-                          <a className='btn btn-primary'
-                            href={`/admin/resource/${resource.id}/edit`}>編集</a>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  )
-                })}
-              </ListGroup>
+              <ResourceLimitAlert />
+              {['Standard', 'Premium'].includes(servicePlan) &&
+                <>
+                  <a  href='/admin/resource/new'
+                    className='btn btn-primary mb20'>
+                  新規登録
+                  </a>
+                  <ListGroup>
+                    {resources.map((resource, i) => {
+                      return (
+                        <ListGroup.Item key={i}>
+                          <Row>
+                            <Col>{resource.name}</Col>
+                            <Col>数量: {resource.quantity}</Col>
+                            <Col>
+                              <a className='btn btn-primary'
+                                href={`/admin/resource/${resource.id}/edit`}>編集</a>
+                            </Col>
+                          </Row>
+                        </ListGroup.Item>
+                      )
+                    })}
+                  </ListGroup>
+                </>
+              }
             </Col>
           </Row>
         </Container>

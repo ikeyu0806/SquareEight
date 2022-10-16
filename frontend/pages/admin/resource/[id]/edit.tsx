@@ -20,6 +20,7 @@ const Edit: NextPage = () => {
 
   const name = useSelector((state: RootState) => state.resource.name)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
+  const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
 
   useEffect(() => {
     const fetchMonthlyPaymentPlan = () => {
@@ -65,17 +66,21 @@ const Edit: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
-          <Row>
-            <Col lg={3} md={3}></Col>
-            <Col lg={6} md={6}>
-              <CreateResource></CreateResource>
-            </Col>
-          </Row>
-        </Container>
-        <div className='text-center'>
-          <Button onClick={onSubmit} className='mt10'>更新する</Button>
-        </div>
+        {['Standard', 'Premium'].includes(servicePlan) &&
+          <>
+            <Container>
+              <Row>
+                <Col lg={3} md={3}></Col>
+                <Col lg={6} md={6}>
+                  <CreateResource></CreateResource>
+                </Col>
+              </Row>
+            </Container>
+            <div className='text-center'>
+              <Button onClick={onSubmit} className='mt10'>更新する</Button>
+            </div>
+          </>
+        }
       </MerchantUserAdminLayout>
     </>
   )

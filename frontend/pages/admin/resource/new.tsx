@@ -17,6 +17,7 @@ const New: NextPage = () => {
 
   const name = useSelector((state: RootState) => state.resource.name)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
+  const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/resources`,
@@ -41,17 +42,21 @@ const New: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
-          <Row>
-            <Col lg={3} md={3}></Col>
-            <Col lg={6} md={6}>
-              <CreateResource></CreateResource>
-            </Col>
-          </Row>
-        </Container>
-        <div className='text-center'>
-          <Button onClick={onSubmit} className='mt10'>登録する</Button>
-        </div>
+        {['Standard', 'Premium'].includes(servicePlan) &&
+          <>
+            <Container>
+              <Row>
+                <Col lg={3} md={3}></Col>
+                <Col lg={6} md={6}>
+                  <CreateResource></CreateResource>
+                </Col>
+              </Row>
+            </Container>
+            <div className='text-center'>
+              <Button onClick={onSubmit} className='mt10'>登録する</Button>
+            </div>
+          </>
+        }
       </MerchantUserAdminLayout>
     </>
   )
