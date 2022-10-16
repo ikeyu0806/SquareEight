@@ -9,6 +9,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
+import ResourceLimitAlert from 'components/molecules/ResourceLimitAlert'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -42,21 +43,22 @@ const New: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        {['Standard', 'Premium'].includes(servicePlan) &&
-          <>
-            <Container>
-              <Row>
-                <Col lg={3} md={3}></Col>
-                <Col lg={6} md={6}>
+        <Container>
+          <Row>
+            <Col lg={3} md={3}></Col>
+            <Col lg={6} md={6}>
+              <ResourceLimitAlert />
+              {['Standard', 'Premium'].includes(servicePlan) &&
+                <>
                   <CreateResource></CreateResource>
-                </Col>
-              </Row>
-            </Container>
-            <div className='text-center'>
-              <Button onClick={onSubmit} className='mt10'>登録する</Button>
-            </div>
-          </>
-        }
+                  <div className='text-center'>
+                    <Button onClick={onSubmit} className='mt10'>登録する</Button>
+                  </div>
+                </>
+              }
+            </Col>
+          </Row>
+        </Container>
       </MerchantUserAdminLayout>
     </>
   )

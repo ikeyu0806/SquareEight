@@ -7,7 +7,7 @@ const ResourceLimitAlert = () => {
 
   return (
     <>
-      {['Free', 'Light'].includes(servicePlan) && <Alert variant='warning'>スタンダードプラン以上で設備・備品やスタッフなどリソースごとを使った予約受付可能数の制限ができます。</Alert>}
+      {['Free', 'Light'].includes(servicePlan) && <Alert variant='warning'>スタンダードプラン以上で設備・備品やスタッフなどリソースごとの予約受付可能数の制限ができます。</Alert>}
     </>
   )
 }
