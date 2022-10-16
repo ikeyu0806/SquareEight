@@ -1,6 +1,13 @@
 class Api::Internal::AccountsController < ApplicationController
   before_action :merchant_login_only!
 
+  def account_info
+    account = current_merchant_user.account
+    render json: { status: 'success', account: account }, status: 200
+  rescue => error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   def dashboard_contents
     account = current_merchant_user.account
     # 通知
