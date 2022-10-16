@@ -8,6 +8,14 @@ class Api::Internal::AccountsController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def update
+    account = current_merchant_user.account
+    account.update!(business_name: account_params[:business_name])
+    render json: { status: 'success', account: account }, status: 200
+  rescue => error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   def dashboard_contents
     account = current_merchant_user.account
     # 通知
@@ -646,6 +654,7 @@ class Api::Internal::AccountsController < ApplicationController
   def account_params
     params.require(:account)
           .permit(:id,
+                  :business_name,
                   :token,
                   :payment_method_id,
                   :business_profile_name,
