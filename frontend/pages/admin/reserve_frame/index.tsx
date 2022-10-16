@@ -11,6 +11,7 @@ import { reserveFrameIdChanged,
          showEditReserveFrameModalChanged } from 'redux/reserveFrameSlice'
 import CreateReserveFrameModal from 'components/organisms/CreateReserveFrameModal'
 import EditReserveFrameModal from 'components/organisms/EditReserveFrameModal'
+import ReservationLimitAlerts from 'components/molecules/ReservationLimitAlerts'
 
 const Index = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -43,6 +44,7 @@ const Index = (): JSX.Element => {
     <>
       <MerchantUserAdminLayout>
         <Container>
+          <ReservationLimitAlerts />
           <Button
             className='mb30'
             onClick={() => dispatch(showCreateReserveFrameModalChanged(true))}>新規登録</Button>

@@ -15,6 +15,7 @@ import { getZeroPaddingDatePlusWeek } from 'functions/getZeroPaddingDatetime'
 import CreateReservationModal from 'components/templates/CreateReservationModal'
 import { useDispatch } from 'react-redux'
 import { showRegisterReservationModalChanged } from 'redux/reservationSlice'
+import ReservationLimitAlerts from 'components/molecules/ReservationLimitAlerts'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -104,6 +105,7 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
+              <ReservationLimitAlerts />
               <Row>
                 <Col sm={9}>
                   <h4 className='mb20'>予約一覧</h4>
