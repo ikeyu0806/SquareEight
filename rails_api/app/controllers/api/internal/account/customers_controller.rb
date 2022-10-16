@@ -2,7 +2,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
   before_action :merchant_login_only!
 
   def index
-    customers = current_merchant_user.account.customers.order(:id)
+    customers = current_merchant_user.account.customers_with_limit.order(:id)
     render json: { status: 'success', customers: customers }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

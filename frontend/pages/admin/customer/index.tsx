@@ -45,14 +45,14 @@ const Index: NextPage = () => {
     })
   }, [cookies._square_eight_merchant_session, dispatch])
 
-  const showEditModal = (id: number, lastName: string, firstName: string, email: string, phoneNumber: string, notes: string) => {
+  const showEditModal = (customer: CustomerParam) => {
     dispatch(showEditCustomerModalChanged(true))
-    dispatch(customerIdChanged(id))
-    dispatch(lastNameChanged(lastName))
-    dispatch(firstNameChanged(firstName))
-    dispatch(emailChanged(email))
-    dispatch(notesChanged(notes))
-    dispatch(phoneNumberChanged(phoneNumber))
+    dispatch(customerIdChanged(customer.id))
+    dispatch(lastNameChanged(customer.last_name))
+    dispatch(firstNameChanged(customer.first_name))
+    dispatch(emailChanged(customer.email || ''))
+    dispatch(notesChanged(customer.notes || ''))
+    dispatch(phoneNumberChanged(customer.phone_number || ''))
   }
 
   const displayPrevPage = () => {
@@ -148,7 +148,7 @@ const Index: NextPage = () => {
                         <Col>
                           <Row>
                             <Col>
-                              <a onClick={() => showEditModal(customer.id, customer.last_name, customer.first_name, customer.email, customer.phone_number, customer.notes)}
+                              <a onClick={() => showEditModal(customer)}
                                 className='btn btn-primary mb20'>
                                 編集
                               </a>
