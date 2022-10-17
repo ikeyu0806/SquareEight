@@ -1,4 +1,7 @@
 import { NextPage } from 'next'
+import React, { useEffect } from 'react'
+import { useCookies } from 'react-cookie'
+import axios from 'axios'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
@@ -9,10 +12,30 @@ import { priceChanged, targetCustomerTypeChanged, messageContentTypeChanged } fr
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const price = useSelector((state: RootState) => state.paymentRequest.price)
   const targetCustomerType = useSelector((state: RootState) => state.paymentRequest.targetCustomerType)
   const messageContentType = useSelector((state: RootState) => state.paymentRequest.messageContentType)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
+
+  useEffect(() => {
+    const fetchPaymentRequestInitState = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/payment_requests/init_state`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response)
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchPaymentRequestInitState()
+  }, [cookies._square_eight_merchant_session])
 
   return (
     <MerchantUserAdminLayout>
