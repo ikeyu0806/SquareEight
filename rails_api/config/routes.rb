@@ -153,6 +153,7 @@ Rails.application.routes.draw do
       post 'shared_components/register', to: 'shared_components#register'
       get 'delivery_datetime_settings', to: 'delivery_datetime_settings#index'
       post 'delivery_datetime_settings/register', to: 'delivery_datetime_settings#register'
+      get 'payment_requests/init_state', to: 'payment_requests#init_stat'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'

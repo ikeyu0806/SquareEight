@@ -15,13 +15,13 @@ class Account < ApplicationRecord
   has_many :orders
   has_many :order_items
   has_many :customers
+  has_many :customer_groups
   has_many :questionnaire_masters
   has_many :questionnaire_answers, through: :customers
   has_many :message_templates
   has_many :account_notifications
   has_many :stripe_payment_intents
   has_many :delivery_datetime_settings
-  has_many :customer_groups
   has_many :stripe_persons
   has_many :account_s3_images
 
