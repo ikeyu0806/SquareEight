@@ -67,7 +67,10 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/questionnaire/master/'>アンケート一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/questionnaire/answer/'>アンケート回答一覧</NavDropdown.Item>
               </NavDropdown>
-              <Nav.Link href='/admin/charges'>売上</Nav.Link>
+              <NavDropdown title='決済' id='webpage-nav-dropdown'>
+                <NavDropdown.Item href='/admin/charges'>売上一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/payment_request/new'>決済リクエスト作成</NavDropdown.Item>
+              </NavDropdown>
               <NavDropdown title='アカウント設定' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/account/create_pages'>ページ一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/shared_component/edit'>ページ全体編集</NavDropdown.Item>
