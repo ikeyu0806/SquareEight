@@ -77,9 +77,6 @@ const Index: NextPage = () => {
         <Row>
           <Col lg={2}></Col>
           <Col lg={8}>
-            {servicePlan === 'Free' && <Alert variant='warning'>フリープランでテンプレートからの送信可能数は月50件までとなります</Alert>}
-            {servicePlan === 'Light' && <Alert variant='warning'>スタンダードプランでテンプレートからの送信可能数は月500件までとなります</Alert>}
-            {servicePlan === 'Standard' && <Alert variant='warning'>プレミアムプランでテンプレートからの送信可能数は月1000件までとなります</Alert>}
             <h3 className='mb20'>メッセージテンプレート</h3>
             <Button
               className='mb20'

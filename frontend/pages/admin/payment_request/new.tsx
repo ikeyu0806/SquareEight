@@ -2,8 +2,14 @@ import { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from 'redux/store'
+import { contentChanged } from "redux/messageTemplateSlice"
 
 const New: NextPage = () => {
+  const dispatch = useDispatch()
+  const content = useSelector((state: RootState) => state.messageTemplate.content)
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -22,7 +28,7 @@ const New: NextPage = () => {
         <Form.Check
           type='radio'
           label='未登録の顧客に送信'
-          name='targetCustomerChe1ck'
+          name='targetCustomerCheck'
           id='newCustomer'></Form.Check>
         <hr />
         <Form.Label>請求金額</Form.Label>
@@ -42,6 +48,8 @@ const New: NextPage = () => {
         <Row>
           <Col md={8}>
             <Form.Control
+              value={content}
+              onChange={(e) => dispatch(contentChanged(e.target.value))}
               as='textarea'
               rows={20}></Form.Control>
           </Col>

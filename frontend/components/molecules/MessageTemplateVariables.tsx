@@ -1,6 +1,5 @@
 import { ListGroup, Button } from "react-bootstrap"
-import { useSelector } from 'react-redux'
-import { useDispatch } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { contentChanged } from "redux/messageTemplateSlice"
 
