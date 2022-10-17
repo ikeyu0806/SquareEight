@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { CustomerParam } from 'interfaces/CustomerParam'
 import { CustomerGroupParam } from 'interfaces/CustomerGroupParam'
+import { MessageTemplateParam } from 'interfaces/MessageTemplateParam'
 
 export const paymentRequestSlice = createSlice({
   name: 'paymentRequest',
@@ -8,10 +9,11 @@ export const paymentRequestSlice = createSlice({
     price: 1000,
     targetCustomerType: 'registeredCustomer',
     messageContentType: 'inputMessage',
-    customers:  [] as CustomerParam[],
-    selectedCustomers:  [] as CustomerParam[],
-    customerGroups:  [] as CustomerGroupParam[],
-    selectedCustomerGroups:  [] as CustomerGroupParam[],
+    customers: [] as CustomerParam[],
+    selectedCustomers: [] as CustomerParam[],
+    customerGroups: [] as CustomerGroupParam[],
+    selectedCustomerGroups: [] as CustomerGroupParam[],
+    messageTemplates: [] as MessageTemplateParam[]
   },
   reducers: {
     priceChanged: (state, action: PayloadAction<number>) => {
@@ -35,6 +37,9 @@ export const paymentRequestSlice = createSlice({
     selectedCustomerGroupsChanged: (state, action: PayloadAction<CustomerGroupParam[]>) => {
       state.selectedCustomerGroups = action.payload
     },
+    messageTemplatesChanged: (state, action: PayloadAction<MessageTemplateParam[]>) => {
+      state.messageTemplates = action.payload
+    },
   },
 })
 
@@ -45,5 +50,6 @@ export const { customersChanged } = paymentRequestSlice.actions
 export const { selectedCustomersChanged } = paymentRequestSlice.actions
 export const { customerGroupsChanged } = paymentRequestSlice.actions
 export const { selectedCustomerGroupsChanged } = paymentRequestSlice.actions
+export const { messageTemplatesChanged } = paymentRequestSlice.actions
 
 export default paymentRequestSlice.reducer

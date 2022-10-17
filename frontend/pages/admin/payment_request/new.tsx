@@ -8,7 +8,14 @@ import MessageTemplateVariables from 'components/molecules/MessageTemplateVariab
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { contentChanged } from "redux/messageTemplateSlice"
-import { priceChanged, targetCustomerTypeChanged, messageContentTypeChanged } from 'redux/paymentRequestSlice'
+import {  priceChanged,
+          targetCustomerTypeChanged,
+          messageContentTypeChanged,
+          customersChanged,
+          selectedCustomersChanged,
+          customerGroupsChanged,
+          selectedCustomerGroupsChanged,
+          messageTemplatesChanged } from 'redux/paymentRequestSlice'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -29,13 +36,16 @@ const New: NextPage = () => {
       )
       .then(function (response) {
         console.log(response)
+        dispatch(customersChanged(response.data.customers))
+        dispatch(customerGroupsChanged(response.data.customer_groups))
+        dispatch(messageTemplatesChanged(response.data.message_templates))
       })
       .catch(error => {
         console.log(error)
       })
     }
     fetchPaymentRequestInitState()
-  }, [cookies._square_eight_merchant_session])
+  }, [cookies._square_eight_merchant_session, dispatch])
 
   return (
     <MerchantUserAdminLayout>
