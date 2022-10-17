@@ -23,6 +23,11 @@ const New: NextPage = () => {
   const price = useSelector((state: RootState) => state.paymentRequest.price)
   const targetCustomerType = useSelector((state: RootState) => state.paymentRequest.targetCustomerType)
   const messageContentType = useSelector((state: RootState) => state.paymentRequest.messageContentType)
+  const customers = useSelector((state: RootState) => state.paymentRequest.customers)
+  const selectedCustomers = useSelector((state: RootState) => state.paymentRequest.selectedCustomers)
+  const customerGroups = useSelector((state: RootState) => state.paymentRequest.customerGroups)
+  const selectedCustomerGroups = useSelector((state: RootState) => state.paymentRequest.selectedCustomerGroups)
+  const messageTemplates = useSelector((state: RootState) => state.paymentRequest.messageTemplates)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
 
   useEffect(() => {
@@ -73,6 +78,30 @@ const New: NextPage = () => {
           label='新規に顧客を登録して送信'
           name='targetCustomerCheck'
           id='newCustomer'></Form.Check>
+        {targetCustomerType === 'registeredCustomer' &&
+        <>
+          {customers.map((customer, i) => {
+            return (
+              <Form.Check
+                className='ml20'
+                id={'customer_' + i}
+                label={customer.last_name + customer.first_name + ' ' + customer.email}
+                key={i}></Form.Check>
+            )
+          })}
+        </>}
+        {targetCustomerType === 'customerGroup' &&
+        <>
+          {customerGroups.map((group, i) => {
+            return (
+              <Form.Check
+                className='ml20'
+                id={'group_' + i}
+                label={group.name}
+                key={i}></Form.Check>
+            )
+          })}
+        </>}
         <hr />
         <Form.Label>請求金額</Form.Label>
         <Form.Control
