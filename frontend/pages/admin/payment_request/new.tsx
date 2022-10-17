@@ -8,6 +8,7 @@ import MessageTemplateVariables from 'components/molecules/MessageTemplateVariab
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { contentChanged } from "redux/messageTemplateSlice"
+import CreateCustomerForm from 'components/organisms/CreateCustomerForm'
 import {  priceChanged,
           targetCustomerTypeChanged,
           messageContentTypeChanged,
@@ -101,6 +102,10 @@ const New: NextPage = () => {
                 key={i}></Form.Check>
             )
           })}
+        </>}
+        {targetCustomerType === 'newCustomer' &&
+        <>
+          <CreateCustomerForm />
         </>}
         <hr />
         <Form.Label>請求金額</Form.Label>
