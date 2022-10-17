@@ -22,6 +22,7 @@ import messageTemplateReducer from './messageTemplateSlice'
 import dashboardReducer from './dashboardSlice'
 import sharedComponentReducer from './sharedComponentSlice'
 import deliveryDatetimeReducer from './deliveryDatetimeSlice'
+import paymentRequestReducer from './paymentRequestSlice'
 
 export const store = configureStore({
   reducer: {
@@ -47,7 +48,8 @@ export const store = configureStore({
     messageTemplate: messageTemplateReducer,
     dashboard: dashboardReducer,
     sharedComponent: sharedComponentReducer,
-    deliveryDatetime: deliveryDatetimeReducer
+    deliveryDatetime: deliveryDatetimeReducer,
+    paymentRequest: paymentRequestReducer
   },
 })
 
