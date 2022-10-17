@@ -5,9 +5,13 @@ import MessageTemplateVariables from 'components/molecules/MessageTemplateVariab
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { contentChanged } from "redux/messageTemplateSlice"
+import { priceChanged, targetCustomerTypeChanged, messageContentTypeChanged } from 'redux/paymentRequestSlice'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
+  const price = useSelector((state: RootState) => state.paymentRequest.price)
+  const targetCustomerType = useSelector((state: RootState) => state.paymentRequest.targetCustomerType)
+  const messageContentType = useSelector((state: RootState) => state.paymentRequest.messageContentType)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
 
   return (
@@ -17,41 +21,54 @@ const New: NextPage = () => {
         <Form.Label>対象顧客</Form.Label>
         <Form.Check
           type='radio'
+          checked={targetCustomerType === 'registeredCustomer'}
+          onChange={() => dispatch(targetCustomerTypeChanged('registeredCustomer'))}
           label='登録済みの顧客に送信'
           name='targetCustomerCheck'
           id='registeredCustomer'></Form.Check>
         <Form.Check
           type='radio'
+          checked={targetCustomerType === 'customerGroup'}
+          onChange={() => dispatch(targetCustomerTypeChanged('customerGroup'))}
           label='顧客グループに送信'
           name='targetCustomerCheck'
           id='targetCustomerCustomer'></Form.Check>
         <Form.Check
           type='radio'
-          label='未登録の顧客に送信'
+          checked={targetCustomerType === 'newCustomer'}
+          onChange={() => dispatch(targetCustomerTypeChanged('newCustomer'))}
+          label='新規に顧客を登録して送信'
           name='targetCustomerCheck'
           id='newCustomer'></Form.Check>
         <hr />
         <Form.Label>請求金額</Form.Label>
-        <Form.Control type='number'></Form.Control>
+        <Form.Control
+          value={price}
+          onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
+          type='number'></Form.Control>
         <hr />
         <Form.Label>メール本文</Form.Label>
         <Form.Check
           type='radio'
-          label='登録済みのメッセージテンプレートから選択'
-          name='messageTemplate'
-          id='selectRegisteredMessageTemplate'></Form.Check>
-        <Form.Check
-          type='radio'
+          checked={messageContentType === 'inputMessage'}
+          onChange={() => dispatch(messageContentTypeChanged('inputMessage'))}
           label='メッセージを入力する'
           name='messageTemplate'
           id='createMessageTemplate'></Form.Check>
+        <Form.Check
+          type='radio'
+          checked={messageContentType === 'messageTemplate'}
+          onChange={() => dispatch(messageContentTypeChanged('messageTemplate'))}
+          label='登録済みのメッセージテンプレートから選択'
+          name='messageTemplate'
+          id='selectRegisteredMessageTemplate'></Form.Check>
         <Row>
           <Col md={8}>
             <Form.Control
               value={content}
               onChange={(e) => dispatch(contentChanged(e.target.value))}
               as='textarea'
-              rows={20}></Form.Control>
+              rows={30}></Form.Control>
           </Col>
           <Col md={4}>
             <MessageTemplateVariables />
