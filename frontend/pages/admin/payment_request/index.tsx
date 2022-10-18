@@ -46,7 +46,7 @@ const Index: NextPage = () => {
             {stripeAccountEnable === 'Enable' && <>
             <a className='btn btn-primary mt10 mb20'
               href='/admin/payment_request/new'>決済リクエスト登録</a>
-              <h3>回数券一覧</h3>
+              <h3>決済リクエスト一覧</h3>
               <ListGroup>
                 {paymentRequests.map((request, i) => {
                   return(

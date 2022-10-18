@@ -154,6 +154,7 @@ Rails.application.routes.draw do
       get 'delivery_datetime_settings', to: 'delivery_datetime_settings#index'
       post 'delivery_datetime_settings/register', to: 'delivery_datetime_settings#register'
       get 'payment_requests/init_state', to: 'payment_requests#init_stat'
+      get 'payment_requests', to: 'payment_requests#index'
       post 'payment_requests/send_payment_request_mail', to: 'payment_requests#send_payment_request_mail'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'

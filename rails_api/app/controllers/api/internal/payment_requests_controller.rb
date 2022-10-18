@@ -1,6 +1,14 @@
 class Api::Internal::PaymentRequestsController < ApplicationController
   before_action :merchant_login_only!
 
+  def index
+    payment_requests = current_merchant_user.account.stripe_payment_requests
+    stripe_payment_requests = JSON.parse(stripe_payment_requests.to_json(methods: [:display_status, :request_url]))
+    render json: {  status: 'success', payment_requests: payment_requests }, status: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def init_stat
     account = current_merchant_user.account
     customers = account.customers
