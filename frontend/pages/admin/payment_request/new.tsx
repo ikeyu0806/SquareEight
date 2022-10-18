@@ -9,6 +9,8 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { contentChanged } from "redux/messageTemplateSlice"
 import CreateCustomerForm from 'components/organisms/CreateCustomerForm'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { useRouter } from 'next/router'
 import {  priceChanged,
           targetCustomerTypeChanged,
           messageContentTypeChanged,
@@ -20,6 +22,7 @@ import {  priceChanged,
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const price = useSelector((state: RootState) => state.paymentRequest.price)
   const targetCustomerType = useSelector((state: RootState) => state.paymentRequest.targetCustomerType)
@@ -52,6 +55,50 @@ const New: NextPage = () => {
     }
     fetchPaymentRequestInitState()
   }, [cookies._square_eight_merchant_session, dispatch])
+
+  const onSubmit = () => {
+    swalWithBootstrapButtons.fire({
+      title: '送信します',
+      html: '決済リクエストを送信します',
+      icon: 'question',
+      confirmButtonText: '送信します',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.post(`${process.env.BACKEND_URL}/api/internal/send_payment_request_mail`,
+        {
+          message_template: {
+            price: price,
+            target_customer_type: targetCustomerType,
+            message_content_type: messageContentType,
+            customers: customers,
+            selected_customers: selectedCustomers,
+            customer_groups: customerGroups,
+            selected_customer_groups: selectedCustomerGroups,
+            content: content
+          }
+        },
+        {
+          headers: {
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '送信しました',
+            icon: 'info'
+          })
+          router.push('/payment_request')
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '送信失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
 
   return (
     <MerchantUserAdminLayout>
@@ -157,7 +204,7 @@ const New: NextPage = () => {
           </Col>
         </Row>
         <div className='text-center mt20'>
-          <Button>確定して送信する</Button>
+          <Button onClick={() => onSubmit()}>確定して送信する</Button>
         </div>
       </Container>
     </MerchantUserAdminLayout>
