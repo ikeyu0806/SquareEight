@@ -31,6 +31,14 @@ class Api::Internal::PaymentRequestsController < ApplicationController
     else
       raise '不正なパラメータです'
     end
+    payment_request__url = ''
+    content = MessageTemplate
+              .convert_content(
+                message_template_params[:content],
+                target_customer_param[:last_name],
+                target_customer_param[:first_name],
+                payment_request_params[:price],
+                payment_request__url)
     PaymentRequestMailer.payment_request_mail(email, payment_request_params[:title], content)
     render json: {  status: 'success' }, status: 200
   rescue => error
