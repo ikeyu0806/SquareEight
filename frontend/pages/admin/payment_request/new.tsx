@@ -3,6 +3,7 @@ import React, { useEffect, ChangeEvent } from 'react'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { CustomerParam } from 'interfaces/CustomerParam'
+import { CustomerGroupParam } from 'interfaces/CustomerGroupParam'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
@@ -124,6 +125,31 @@ const New: NextPage = () => {
     } 
   }
 
+  const customerGroupChecked = (e: ChangeEvent) => {
+    const target = e.target as any
+    if (target.checked === true) {
+      const checkedCustomerGroupID = target.value
+      const selectedCustomerGroup = customerGroups.find((p) => String(p.id) === checkedCustomerGroupID)
+      const checkCustomer = selectedCustomers.find((p) => String(p.id) === checkedCustomerGroupID)
+      if (checkCustomer !== undefined) {
+        return
+      }
+      let updateSelectedCustomerGroups: CustomerGroupParam[]
+      if (selectedCustomerGroups !== undefined && selectedCustomerGroup !== undefined) {
+        updateSelectedCustomerGroups = [...selectedCustomerGroups, selectedCustomerGroup]
+        if (updateSelectedCustomerGroups !== undefined) {
+          dispatch(selectedCustomerGroupsChanged(updateSelectedCustomerGroups))
+        }
+      }
+    } else {
+      let updateSelectedCustomerGroups: CustomerGroupParam[]
+      updateSelectedCustomerGroups = selectedCustomerGroups.filter(customer => String(customer.id) !== target.value)
+      if (updateSelectedCustomerGroups !== undefined) {
+        dispatch(selectedCustomerGroupsChanged(updateSelectedCustomerGroups))
+      }
+    } 
+  }
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -170,6 +196,7 @@ const New: NextPage = () => {
               <Form.Check
                 className='ml20'
                 id={'group_' + i}
+                onChange={(e) => customerGroupChecked(e)}
                 label={group.name}
                 key={i}></Form.Check>
             )
