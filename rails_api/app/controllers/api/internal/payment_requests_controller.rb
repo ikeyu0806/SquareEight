@@ -13,4 +13,10 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
+
+  def send_payment_request_mail
+    render json: {  status: 'success' }, status: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
 end

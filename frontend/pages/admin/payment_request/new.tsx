@@ -67,9 +67,9 @@ const New: NextPage = () => {
       showCloseButton: true
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.post(`${process.env.BACKEND_URL}/api/internal/send_payment_request_mail`,
+        axios.post(`${process.env.BACKEND_URL}/api/internal/payment_requests/send_payment_request_mail`,
         {
-          message_template: {
+          payment_request: {
             price: price,
             target_customer_type: targetCustomerType,
             message_content_type: messageContentType,
