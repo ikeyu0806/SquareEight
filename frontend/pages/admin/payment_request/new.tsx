@@ -82,7 +82,6 @@ const New: NextPage = () => {
           payment_request: {
             price: price,
             target_customer_type: targetCustomerType,
-            message_content_type: messageContentType,
             selected_customers: selectedCustomers,
             selected_customer_groups: selectedCustomerGroups,
             content: content

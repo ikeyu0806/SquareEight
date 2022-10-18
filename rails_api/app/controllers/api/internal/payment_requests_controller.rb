@@ -29,8 +29,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                   :content,
                   :target_customer_type,
                   selected_customers: [:email],
-                  selected_customer_groups: [:id]
-                  )
+                  selected_customer_groups: [:id])
   end
 
   def customer_params
