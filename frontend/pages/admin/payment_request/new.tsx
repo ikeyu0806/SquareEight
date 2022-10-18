@@ -263,6 +263,7 @@ const New: NextPage = () => {
         </>}
         <Form.Label>タイトル<RequireBadge /></Form.Label>
         <Form.Control
+          className='mb20'
           onChange={(e) => dispatch(titleChanged(e.target.value))}
           value={title} />
         <Row>

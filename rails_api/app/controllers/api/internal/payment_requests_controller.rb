@@ -28,18 +28,19 @@ class Api::Internal::PaymentRequestsController < ApplicationController
     when 'newCustomer' then
       email = customer_params[:email]
       customer = current_merchant_user.customers.create!(customer_params)
+      stripe_payment_request = account.stripe_payment_requests.create!(price: payment_request_params[:price], customer_id: customer.id)
+      payment_request__url = ENV["FRONTEND_URL"] + '/' + stripe_payment_request.id.to_s + '/payment_request'
+      content = MessageTemplate
+                .convert_content(
+                  message_template_params[:content],
+                  target_customer_param[:last_name],
+                  target_customer_param[:first_name],
+                  payment_request_params[:price],
+                  payment_request_url)
+      PaymentRequestMailer.payment_request_mail(email, payment_request_params[:title], content)
     else
       raise '不正なパラメータです'
     end
-    payment_request__url = ''
-    content = MessageTemplate
-              .convert_content(
-                message_template_params[:content],
-                target_customer_param[:last_name],
-                target_customer_param[:first_name],
-                payment_request_params[:price],
-                payment_request_url)
-    PaymentRequestMailer.payment_request_mail(email, payment_request_params[:title], content)
     render json: {  status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
