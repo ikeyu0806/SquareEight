@@ -1,7 +1,8 @@
 import { NextPage } from 'next'
-import React, { useEffect } from 'react'
+import React, { useEffect, ChangeEvent } from 'react'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
+import { CustomerParam } from 'interfaces/CustomerParam'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
@@ -98,6 +99,31 @@ const New: NextPage = () => {
     })
   }
 
+  const customerChecked = (e: ChangeEvent) => {
+    const target = e.target as any
+    if (target.checked === true) {
+      const checkedCustomerID = target.value
+      const selectedCustomer = customers.find((p) => String(p.id) === checkedCustomerID)
+      const checkCustomer = selectedCustomers.find((p) => String(p.id) === checkedCustomerID)
+      if (checkCustomer !== undefined) {
+        return
+      }
+      let updateSelectedCustomers: CustomerParam[]
+      if (selectedCustomers !== undefined && selectedCustomer !== undefined) {
+        updateSelectedCustomers = [...selectedCustomers, selectedCustomer]
+        if (updateSelectedCustomers !== undefined) {
+          dispatch(selectedCustomersChanged(updateSelectedCustomers))
+        }
+      }
+    } else {
+      let updateSelectedCustomers: CustomerParam[]
+      updateSelectedCustomers = selectedCustomers.filter(customer => String(customer.id) !== target.value)
+      if (updateSelectedCustomers !== undefined) {
+        dispatch(selectedCustomersChanged(updateSelectedCustomers))
+      }
+    } 
+  }
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -131,6 +157,7 @@ const New: NextPage = () => {
               <Form.Check
                 className='ml20'
                 id={'customer_' + i}
+                onChange={(e) => customerChecked(e)}
                 label={customer.last_name + customer.first_name + ' ' + customer.email}
                 key={i}></Form.Check>
             )
