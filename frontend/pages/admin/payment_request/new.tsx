@@ -168,6 +168,24 @@ const New: NextPage = () => {
     } 
   }
 
+  const validateOnSubmit = () => {
+    if (targetCustomerType === 'newCustomer') {
+      if (!email) {
+        return true
+      }
+    }
+
+    if (!title) {
+      return true
+    }
+
+    if (!content) {
+      return true
+    }
+
+    return false
+  }
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -281,7 +299,9 @@ const New: NextPage = () => {
           </Col>
         </Row>
         <div className='text-center mt20'>
-          <Button onClick={() => onSubmit()}>確定して送信する</Button>
+          <Button
+            disabled={validateOnSubmit()}
+            onClick={() => onSubmit()}>確定して送信する</Button>
         </div>
       </Container>
     </MerchantUserAdminLayout>
