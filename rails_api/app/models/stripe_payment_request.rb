@@ -1,0 +1,2 @@
+class StripePaymentRequest < ApplicationRecord
+end

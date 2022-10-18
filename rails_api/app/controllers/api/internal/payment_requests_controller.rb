@@ -38,7 +38,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                 target_customer_param[:last_name],
                 target_customer_param[:first_name],
                 payment_request_params[:price],
-                payment_request__url)
+                payment_request_url)
     PaymentRequestMailer.payment_request_mail(email, payment_request_params[:title], content)
     render json: {  status: 'success' }, status: 200
   rescue => error
