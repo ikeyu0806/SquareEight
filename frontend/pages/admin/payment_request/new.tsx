@@ -107,7 +107,7 @@ const New: NextPage = () => {
             title: '送信しました',
             icon: 'info'
           })
-          router.push('/payment_request')
+          router.push('/admin/payment_request')
         }).catch(error => {
           swalWithBootstrapButtons.fire({
             title: '送信失敗しました',
@@ -201,6 +201,7 @@ const New: NextPage = () => {
               <Form.Check
                 className='ml20'
                 id={'customer_' + i}
+                value={customer.id}
                 onChange={(e) => customerChecked(e)}
                 label={customer.last_name + customer.first_name + ' ' + customer.email}
                 key={i}></Form.Check>
@@ -214,6 +215,7 @@ const New: NextPage = () => {
               <Form.Check
                 className='ml20'
                 id={'group_' + i}
+                value={group.id}
                 onChange={(e) => customerGroupChecked(e)}
                 label={group.name}
                 key={i}></Form.Check>

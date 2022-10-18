@@ -19,16 +19,16 @@ class Api::Internal::PaymentRequestsController < ApplicationController
     case payment_request_params[:target_customer_type]
     when 'registeredCustomer' then
       payment_request_params[:selected_customers].each do |customer|
-        stripe_payment_request = account.stripe_payment_requests.create!(price: payment_request_params[:price], customer_id: customer.id)
+        stripe_payment_request = account.stripe_payment_requests.create!(price: payment_request_params[:price], customer_id: customer[:id])
         payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.id.to_s
         content = MessageTemplate
                   .convert_content(
-                    message_template_params[:content],
-                    customer.last_name,
-                    customer.first_name,
+                    payment_request_params[:content],
+                    customer[:last_name],
+                    customer[:first_name],
                     payment_request_params[:price],
                     payment_request_url)
-        PaymentRequestMailer.payment_request_mail(customer.email, payment_request_params[:title], content)
+        PaymentRequestMailer.payment_request_mail(customer[:email], payment_request_params[:title], content)
       end
     when 'targetCustomerCustomer' then
       customer_groups = current_merchant_user.customer_groups.where(id: payment_request_params[:selected_customer_groups].pluck(:id))
