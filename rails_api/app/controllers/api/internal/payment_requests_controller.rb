@@ -31,7 +31,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
         PaymentRequestMailer.payment_request_mail(customer[:email], payment_request_params[:title], content).deliver_later
       end
     when 'customerGroup' then
-      customer_groups = current_merchant_user.account.customer_groups.where(id: payment_request_params[:selected_customer_groups].pluck(:id))
+      customer_groups = account.customer_groups.where(id: payment_request_params[:selected_customer_groups].pluck(:id))
       customer_groups.each do |group|
         group.customers.each do |customer|
           stripe_payment_request = account.stripe_payment_requests.create!(price: payment_request_params[:price], customer_id: customer.id)
@@ -48,14 +48,14 @@ class Api::Internal::PaymentRequestsController < ApplicationController
       end
     when 'newCustomer' then
       email = customer_params[:email]
-      customer = current_merchant_user.customers.create!(customer_params)
+      customer = account.customers.create!(customer_params)
       stripe_payment_request = account.stripe_payment_requests.create!(price: payment_request_params[:price], customer_id: customer.id)
       payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.id.to_s
       content = MessageTemplate
                 .convert_content(
-                  message_template_params[:content],
-                  target_customer_param[:last_name],
-                  target_customer_param[:first_name],
+                  payment_request_params[:content],
+                  customer.last_name,
+                  customer.first_name,
                   payment_request_params[:price],
                   payment_request_url)
       PaymentRequestMailer.payment_request_mail(email, payment_request_params[:title], content).deliver_later
@@ -94,7 +94,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   end
 
   def customer_params
-    params.require(:customers)
+    params.require(:customer)
           .permit(:id,
                   :first_name,
                   :last_name,
