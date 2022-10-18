@@ -129,6 +129,21 @@ const New: NextPage = () => {
           label='登録済みのメッセージテンプレートから選択'
           name='messageTemplate'
           id='selectRegisteredMessageTemplate'></Form.Check>
+        {messageContentType === 'messageTemplate' &&
+        <>
+           {messageTemplates.map((template, i) => {
+            return (
+              <Form.Check
+                id={template.id + 'template'}
+                className='ml20'
+                type='radio'
+                key={i}
+                label={template.name}
+                onChange={(e) => dispatch(contentChanged(template.content))}
+              ></Form.Check>
+            )
+           })}
+        </>}
         <Row>
           <Col md={8}>
             <Form.Control
