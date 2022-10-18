@@ -15,6 +15,23 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   end
 
   def send_payment_request_mail
+    case payment_request_params[:target_customer_type]
+    when 'registeredCustomer' then
+      email = payment_request_params[:selected_customers].pluck(:email).uniq.join(",")
+    when 'targetCustomerCustomer' then
+      email = []
+      customer_groups = current_merchant_user.customer_groups.where(id: payment_request_params[:selected_customer_groups].pluck(:id))
+      customer_groups.each do |group|
+        email.push(group.customers.pluck(email))
+      end
+      email = email.flatten.uniq.join(',')
+    when 'newCustomer' then
+      email = customer_params[:email]
+      customer = current_merchant_user.customers.create!(customer_params)
+    else
+      raise '不正なパラメータです'
+    end
+    PaymentRequestMailer.payment_request_mail(email, payment_request_params[:title], content)
     render json: {  status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -26,6 +43,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
     params.require(:payment_request)
           .permit(:id,
                   :price,
+                  :title,
                   :content,
                   :target_customer_type,
                   selected_customers: [:email],

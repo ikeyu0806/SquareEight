@@ -9,9 +9,10 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { contentChanged } from "redux/messageTemplateSlice"
+import { titleChanged, contentChanged } from "redux/messageTemplateSlice"
 import CreateCustomerForm from 'components/organisms/CreateCustomerForm'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import RequireBadge from 'components/atoms/RequireBadge'
 import { useRouter } from 'next/router'
 import {  priceChanged,
           targetCustomerTypeChanged,
@@ -34,8 +35,8 @@ const New: NextPage = () => {
   const customerGroups = useSelector((state: RootState) => state.paymentRequest.customerGroups)
   const selectedCustomerGroups = useSelector((state: RootState) => state.paymentRequest.selectedCustomerGroups)
   const messageTemplates = useSelector((state: RootState) => state.paymentRequest.messageTemplates)
+  const title = useSelector((state: RootState) => state.messageTemplate.title)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
-
   const firstName = useSelector((state: RootState) => state.customer.firstName)
   const lastName = useSelector((state: RootState) => state.customer.lastName)
   const firstNameKana = useSelector((state: RootState) => state.customer.firstNameKana)
@@ -84,6 +85,7 @@ const New: NextPage = () => {
             target_customer_type: targetCustomerType,
             selected_customers: selectedCustomers,
             selected_customer_groups: selectedCustomerGroups,
+            title: title,
             content: content
           },
           customer: {
@@ -259,6 +261,10 @@ const New: NextPage = () => {
             )
            })}
         </>}
+        <Form.Label>タイトル<RequireBadge /></Form.Label>
+        <Form.Control
+          onChange={(e) => dispatch(titleChanged(e.target.value))}
+          value={title} />
         <Row>
           <Col md={8}>
             <Form.Control
