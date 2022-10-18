@@ -26,8 +26,9 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
-        const ticketMasterResponse: PaymentRequestParam[] = response.data.payment_requests
-        setPaymentRequests(ticketMasterResponse)
+        console.log(response.data)
+        const paymentRequestResponse: PaymentRequestParam[] = response.data.payment_requests
+        setPaymentRequests(paymentRequestResponse)
       })
       .catch(error => {
         console.log(error)
