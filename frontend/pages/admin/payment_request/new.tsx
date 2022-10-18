@@ -36,6 +36,14 @@ const New: NextPage = () => {
   const messageTemplates = useSelector((state: RootState) => state.paymentRequest.messageTemplates)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
 
+  const firstName = useSelector((state: RootState) => state.customer.firstName)
+  const lastName = useSelector((state: RootState) => state.customer.lastName)
+  const firstNameKana = useSelector((state: RootState) => state.customer.firstNameKana)
+  const lastNameKana = useSelector((state: RootState) => state.customer.lastNameKana)
+  const email = useSelector((state: RootState) => state.customer.email)
+  const notes = useSelector((state: RootState) => state.customer.notes)
+  const phoneNumber = useSelector((state: RootState) => state.customer.phoneNumber)
+
   useEffect(() => {
     const fetchPaymentRequestInitState = () => {
       axios.get(
@@ -78,6 +86,15 @@ const New: NextPage = () => {
             selected_customers: selectedCustomers,
             selected_customer_groups: selectedCustomerGroups,
             content: content
+          },
+          customer: {
+            first_name: firstName,
+            last_name: lastName,
+            first_name_kana: firstNameKana,
+            last_name_kana: lastNameKana,
+            email: email,
+            notes: notes,
+            phone_number: phoneNumber
           }
         },
         {

@@ -32,4 +32,17 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                   selected_customer_groups: [:id]
                   )
   end
+
+  def customer_params
+    params.require(:customers)
+          .permit(:id,
+                  :first_name,
+                  :last_name,
+                  :first_name_kana,
+                  :email,
+                  :phone_number,
+                  :gender,
+                  :dob,
+                  :notes)
+  end
 end
