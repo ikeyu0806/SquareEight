@@ -73,9 +73,7 @@ const New: NextPage = () => {
             price: price,
             target_customer_type: targetCustomerType,
             message_content_type: messageContentType,
-            customers: customers,
             selected_customers: selectedCustomers,
-            customer_groups: customerGroups,
             selected_customer_groups: selectedCustomerGroups,
             content: content
           }

@@ -19,4 +19,17 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
+
+  private
+
+  def payment_request_params
+    params.require(:payment_request)
+          .permit(:id,
+                  :price,
+                  :content,
+                  :target_customer_type,
+                  selected_customers: [:email],
+                  selected_customer_groups: [:id]
+                  )
+  end
 end

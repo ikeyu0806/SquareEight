@@ -69,6 +69,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
               </NavDropdown>
               <NavDropdown title='決済' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/charges'>売上一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/payment_request'>決済リクエスト一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/payment_request/new'>決済リクエスト作成</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='アカウント設定' id='webpage-nav-dropdown'>
