@@ -28,7 +28,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                     customer[:first_name],
                     payment_request_params[:price],
                     payment_request_url)
-        PaymentRequestMailer.payment_request_mail(customer[:email], payment_request_params[:title], content)
+        PaymentRequestMailer.payment_request_mail(customer[:email], payment_request_params[:title], content).deliver_later
       end
     when 'targetCustomerCustomer' then
       customer_groups = current_merchant_user.customer_groups.where(id: payment_request_params[:selected_customer_groups].pluck(:id))
@@ -44,7 +44,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                         customer.first_name,
                         payment_request_params[:price],
                         payment_request_url)
-            PaymentRequestMailer.payment_request_mail(customer.email, payment_request_params[:title], content)
+            PaymentRequestMailer.payment_request_mail(customer.email, payment_request_params[:title], content).deliver_later
           end
         end
       end
@@ -60,7 +60,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                   target_customer_param[:first_name],
                   payment_request_params[:price],
                   payment_request_url)
-      PaymentRequestMailer.payment_request_mail(email, payment_request_params[:title], content)
+      PaymentRequestMailer.payment_request_mail(email, payment_request_params[:title], content).deliver_later
     else
       raise '不正なパラメータです'
     end
