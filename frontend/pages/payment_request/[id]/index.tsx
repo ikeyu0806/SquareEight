@@ -103,29 +103,35 @@ const Index: NextPage = () => {
                     </>
                   : <></>
                 }
-                                {currentEndUserLogintStatus === 'Logout'
+                {currentEndUserLogintStatus === 'Logout'
                 ?
                   <></>
                 :
                   <>
-                  <hr className='mt40' />
-                  <h4 className='mt20'>お支払い方法</h4>
-                  {<ListGroup>
-                    {paymentMethods?.map((pay, i) => {
-                      return (
-                        <ListGroup.Item key={i}>
-                          {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
-                          {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
-                          {defaultPaymentMethodId !== pay.id
-                            &&
-                              <>
-                                <br/>
-                                <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
-                              </>}
-                        </ListGroup.Item>
-                      )
-                    })}
-                   </ListGroup>}
+                    <hr className='mt40' />
+                    <h4 className='mt20'>お支払い方法</h4>
+                    {paymentMethods.length === 0 &&
+                    <>
+                      クレジットカードが登録されていません。<br />
+                      <a  href='/customer_page/payment_method/register'
+                          target='_blank' rel='noreferrer'>こちらから登録お願いします。</a>
+                    </>}
+                    {<ListGroup>
+                      {paymentMethods?.map((pay, i) => {
+                        return (
+                          <ListGroup.Item key={i}>
+                            {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
+                            {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
+                            {defaultPaymentMethodId !== pay.id
+                              &&
+                                <>
+                                  <br/>
+                                  <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
+                                </>}
+                          </ListGroup.Item>
+                        )
+                      })}
+                    </ListGroup>}
                   </>
                 }
               </Card.Body>

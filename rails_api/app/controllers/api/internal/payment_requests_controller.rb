@@ -10,8 +10,8 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   end
 
   def show
-    payment_requst = PaymentRequest.find(params[:id])
-    shared_component = webpage.account.shared_component
+    payment_requst = StripePaymentRequest.find(params[:id])
+    shared_component = payment_requst.account.shared_component
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
       login_status = 'Login'
