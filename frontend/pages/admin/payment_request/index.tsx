@@ -54,7 +54,16 @@ const Index: NextPage = () => {
                     <ListGroup.Item key={i}>
                     <Row>
                       <Col>
-                        {request.request_url}
+                        <div>送信先</div>
+                        <div>{request.customer_name} {request.customer_email}</div>
+                      </Col>
+                      <Col>
+                        <a
+                          href={request.request_url}
+                          target='_blank'
+                          rel='noreferrer'
+                          className='btn btn-primary'>決済URL</a>
+                        
                       </Col>
                     </Row>
                   </ListGroup.Item>

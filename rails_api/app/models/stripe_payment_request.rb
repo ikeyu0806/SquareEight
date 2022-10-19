@@ -1,6 +1,7 @@
 class StripePaymentRequest < ApplicationRecord
   enum status: { Pending: 0, Paid: 1 }
   belongs_to :account
+  belongs_to :customer
 
   def display_status
     case status
@@ -14,6 +15,14 @@ class StripePaymentRequest < ApplicationRecord
   end
 
   def request_url
-    ENV["FRONTEND_URL"] + "payment_request/" + self.id.to_s
+    ENV["FRONTEND_URL"] + "/payment_request/" + self.id.to_s
+  end
+
+  def customer_name
+    customer.last_name + customer.first_name
+  end
+
+  def customer_email
+    customer.email
   end
 end
