@@ -146,10 +146,10 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                             commission: commission)
       order.save!
       # エンドユーザ通知
-      end_user_notification_title = 'お支払いが完了しました'
+      end_user_notification_title = payment_request.name + 'のお支払いが完了しました'
       current_end_user.create_product_purchase_notification(end_user_notification_title)
       # ビジネスオーナー向け通知
-      account_notification_title = customer.full_name + 'からお支払いを受けつけました。'
+      account_notification_title = customer.full_name + 'から' + payment_request.name + 'のお支払いを受けつけました。'
       account_notification_url = '/admin/customer/' + customer.id.to_s + '/order'
       account
       .account_notifications
