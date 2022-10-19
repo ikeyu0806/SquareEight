@@ -115,7 +115,7 @@ const Index: NextPage = () => {
           <Col lg={3} md={1}></Col>
           <Col lg={6} md={10}>
             <Card className='mt20'>
-              <Card.Header>決済</Card.Header>
+              <Card.Header>{paymentRequest?.name}のお支払い</Card.Header>
               <Card.Body>
                 <h3>お支払い金額: ￥{paymentRequest?.price}</h3>
                 {currentEndUserLogintStatus === 'Logout'
