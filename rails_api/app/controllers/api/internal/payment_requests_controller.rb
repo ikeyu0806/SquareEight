@@ -24,6 +24,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                     default_payment_method_id: default_payment_method_id,
                     payment_methods: payment_methods,
                     payment_request: payment_request,
+                    login_status: login_status,
                     shared_component: shared_component }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

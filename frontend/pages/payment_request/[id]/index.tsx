@@ -96,20 +96,14 @@ const Index: NextPage = () => {
             <Card className='mt20'>
               <Card.Header>決済</Card.Header>
               <Card.Body>
-                <div>お支払い金額: ￥{paymentRequest?.price}</div>
-                {currentEndUserLogintStatus === 'Logout'
-                  ? 
-                    <>
-                      <div></div>
-                      <a href='/customer/login' target='_blank' rel='noreferrer'>カスタマーアカウントでログインしてください</a><br/>
-                      <div className='mt20'>購入にはアカウント登録とクレジットカード登録が必要になります</div>
-                      <div className='mt40'></div>
-                    </>
-                  : <></>
-                }
+                <h3>お支払い金額: ￥{paymentRequest?.price}</h3>
                 {currentEndUserLogintStatus === 'Logout'
                 ?
-                  <></>
+                  <>
+                    <a href='/customer/login' target='_blank' rel='noreferrer'>カスタマーアカウントでログインしてください</a><br/>
+                    <div className='mt20'>お支払いにはアカウント登録とクレジットカード登録が必要になります。</div>
+                    <div className='mt40'></div>
+                  </>
                 :
                   <>
                     <hr className='mt40' />
