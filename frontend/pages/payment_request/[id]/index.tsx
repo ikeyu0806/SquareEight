@@ -24,6 +24,7 @@ const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const router = useRouter()
+  const [isLoading, setIsLoading] = useState(false)
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const defaultPaymentMethodId = useSelector((state: RootState) => state.currentEndUser.defaultPaymentMethodId)
   const paymentMethods = useSelector((state: RootState) => state.currentEndUser.paymentMethods)
@@ -88,6 +89,7 @@ const Index: NextPage = () => {
   }
 
   const execPurchase = () => {
+    setIsLoading(true)
     axios.post(`${process.env.BACKEND_URL}/api/internal/payment_requests/exec_payment`,
     {
       payment_request: {
@@ -103,6 +105,7 @@ const Index: NextPage = () => {
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })
+    setIsLoading(false)
   }
 
   return (
@@ -150,7 +153,10 @@ const Index: NextPage = () => {
                     </ListGroup>}
                     {paymentMethods.length !== 0 &&
                     <div className='text-center mt20'>
-                      <Button onClick={() => execPurchase()}>決済を実行する</Button>
+                      <Button onClick={() => execPurchase()}>
+                        {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
+                        決済を実行する
+                      </Button>
                     </div>}
                   </>
                 }

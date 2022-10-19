@@ -10,7 +10,8 @@ class StripePaymentIntent < ApplicationRecord
                               MonthlyPaymentPlan: 1,
                               TicketMaster: 2,
                               Reservation: 3,
-                              SystemPlan: 4 }
+                              SystemPlan: 4,
+                              PaymentRequest: 5 }
 
   def customer_fullname
     end_user&.customer&.full_name
