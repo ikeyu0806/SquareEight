@@ -18,11 +18,11 @@ class StripePaymentRequest < ApplicationRecord
     ENV["FRONTEND_URL"] + "/payment_request/" + self.id.to_s
   end
 
-  def customer_name
+  def billing_customer_name
     customer.last_name + customer.first_name
   end
 
-  def customer_email
+  def billing_customer_email
     customer.email
   end
 end

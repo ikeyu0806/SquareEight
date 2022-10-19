@@ -4,7 +4,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
 
   def index
     payment_requests = current_merchant_user.account.stripe_payment_requests
-    payment_requests = JSON.parse(payment_requests.to_json(methods: [:display_status, :request_url, :customer_name, :customer_email]))
+    payment_requests = JSON.parse(payment_requests.to_json(methods: [:display_status, :request_url, :billing_customer_name, :billing_customer_email]))
     render json: {  status: 'success', payment_requests: payment_requests }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

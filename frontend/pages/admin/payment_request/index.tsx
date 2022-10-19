@@ -56,8 +56,8 @@ const Index: NextPage = () => {
                       <Col>
                         {request.status === 'Pending' && <span  className='badge bg-danger'>未払い</span>}
                         {request.status === 'Paid' && <span  className='badge bg-info'>支払い済み</span>}
-                        <div>送信先</div>
-                        <div>{request.customer_name} {request.customer_email}</div>
+                        <div>請求先顧客</div>
+                        <div>{request.billing_customer_name} {request.billing_customer_email}</div>
                       </Col>
                       <Col>
                         <a

@@ -4,6 +4,6 @@ export interface PaymentRequestParam {
   status: string
   request_url: string
   display_status: string
-  customer_name: string
-  customer_email: string
+  billing_customer_name: string
+  billing_customer_email: string
 }
