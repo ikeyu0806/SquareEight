@@ -114,6 +114,12 @@ const Index: NextPage = () => {
         <Row>
           <Col lg={3} md={1}></Col>
           <Col lg={6} md={10}>
+          {paymentRequest?.status === 'Paid' &&
+            <div className='mt30 text-center'>
+              <h3>決済完了しています</h3>
+            </div>
+          }
+          {paymentRequest?.status === 'Pending' &&
             <Card className='mt20'>
               <Card.Header>{paymentRequest?.name}のお支払い</Card.Header>
               <Card.Body>
@@ -161,7 +167,7 @@ const Index: NextPage = () => {
                   </>
                 }
               </Card.Body>
-            </Card>
+            </Card>}
           </Col>
         </Row>
       </Container>
