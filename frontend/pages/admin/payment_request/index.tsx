@@ -54,6 +54,8 @@ const Index: NextPage = () => {
                     <ListGroup.Item key={i}>
                     <Row>
                       <Col>
+                        {request.status === 'Pending' && <span  className='badge bg-danger'>未払い</span>}
+                        {request.status === 'Paid' && <span  className='badge bg-info'>支払い済み</span>}
                         <div>送信先</div>
                         <div>{request.customer_name} {request.customer_email}</div>
                       </Col>
