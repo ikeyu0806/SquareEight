@@ -157,6 +157,7 @@ Rails.application.routes.draw do
       get 'payment_requests/:id', to: 'payment_requests#show'
       get 'payment_requests', to: 'payment_requests#index'
       post 'payment_requests/send_payment_request_mail', to: 'payment_requests#send_payment_request_mail'
+      post 'payment_requests/exec_payment', to: 'payment_requests#exec_payment'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'

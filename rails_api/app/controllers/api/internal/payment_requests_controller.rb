@@ -1,5 +1,6 @@
 class Api::Internal::PaymentRequestsController < ApplicationController
-  before_action :merchant_login_only!, except: [:show]
+  before_action :merchant_login_only!, except: [:show, :exec_payment]
+  before_action :end_user_login_only!, only: [:exec_payment]
 
   def index
     payment_requests = current_merchant_user.account.stripe_payment_requests
@@ -91,6 +92,59 @@ class Api::Internal::PaymentRequestsController < ApplicationController
     else
       raise '不正なパラメータです'
     end
+    render json: {  status: 'success' }, status: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
+  def exec_payment
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    payment_request = StripePaymentRequest.find(payment_request_params[:id])
+    account = payment_request.account
+    commission = account.application_fee_amount.to_i
+    stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
+    default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
+    payment_intent = Stripe::PaymentIntent.create({
+      amount: payment_request.price,
+      currency: 'jpy',
+      payment_method_types: ['card'],
+      payment_method: default_payment_method_id,
+      customer: current_end_user.stripe_customer_id,
+      application_fee_amount: commission,
+      metadata: {
+        'order_date': current_date_text,
+        'payment_request_id': payment_request.id,
+        'account_business_name': account.business_name,
+        'price': payment_request.price,
+        'type': 'product',
+        'end_user_id': current_end_user.id,
+        'account_id': account.id
+      },
+      transfer_data: {
+        destination: account.stripe_account_id
+      }
+    })
+    Stripe::PaymentIntent.confirm(
+      payment_intent.id
+    )
+    # order作成
+    order = current_end_user.orders.new
+    order.order_items.new(item_type: 'PaymentRequest',
+                          product_name: '',
+                          price: payment_request.price,
+                          account_id: account.id,
+                          commission: commission)
+    order.save!
+    # エンドユーザ通知
+    end_user_notification_title = 'お支払いが完了しました'
+    current_end_user.create_product_purchase_notification(end_user_notification_title)
+    # ビジネスオーナー向け通知
+    account_notification_title = customer.full_name + 'からお支払いを受けつけました。'
+    account_notification_url = '/admin/customer/' + customer.id.to_s + '/order'
+    account
+    .account_notifications
+    .create!(title: account_notification_title, url: account_notification_url)
+    payment_request.update!(status: 'Paid')
     render json: {  status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

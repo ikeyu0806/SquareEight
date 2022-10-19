@@ -87,6 +87,24 @@ const Index: NextPage = () => {
     })
   }
 
+  const execPurchase = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/payment_requests/exec_payment`,
+    {
+      payment_request: {
+        id: router.query.id
+      },
+    },
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_end_user_session
+      }
+    }).then(response => {
+      location.reload()
+    }).catch(error => {
+      dispatch(alertChanged({message: error, show: true, type: 'danger'}))
+    })
+  }
+
   return (
     <MerchantCustomLayout>
       <Container>
@@ -130,6 +148,10 @@ const Index: NextPage = () => {
                         )
                       })}
                     </ListGroup>}
+                    {paymentMethods.length !== 0 &&
+                    <div className='text-center mt20'>
+                      <Button onClick={() => execPurchase()}>決済を実行する</Button>
+                    </div>}
                   </>
                 }
               </Card.Body>
