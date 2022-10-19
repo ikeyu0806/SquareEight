@@ -122,6 +122,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
         customer: current_end_user.stripe_customer_id,
         application_fee_amount: commission,
         metadata: {
+          'purchase_product_name': payment_request.name,
           'order_date': current_date_text,
           'payment_request_id': payment_request.id,
           'account_business_name': account.business_name,
@@ -137,14 +138,6 @@ class Api::Internal::PaymentRequestsController < ApplicationController
       Stripe::PaymentIntent.confirm(
         payment_intent.id
       )
-      # order作成
-      order = current_end_user.orders.new
-      order.order_items.new(item_type: 'PaymentRequest',
-                            product_name: '',
-                            price: payment_request.price,
-                            account_id: account.id,
-                            commission: commission)
-      order.save!
       # エンドユーザ通知
       end_user_notification_title = payment_request.name + 'のお支払いが完了しました'
       current_end_user.create_product_purchase_notification(end_user_notification_title)
