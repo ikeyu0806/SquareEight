@@ -9,6 +9,14 @@ class Api::Internal::PaymentRequestsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
+  def show
+    payment_requst = PaymentRequest.find(params[:id])
+    shared_component = webpage.account.shared_component
+    render json: { status: 'success', payment_requst: payment_requst, shared_component: shared_component }, status: 200
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
+  end
+
   def init_stat
     account = current_merchant_user.account
     customers = account.customers

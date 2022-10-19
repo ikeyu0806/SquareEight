@@ -1,6 +1,4 @@
 import { ReactNode } from 'react'
-import CommonNavbar from 'components/organisms/CommonNavbar'
-import RegularFooter from 'components/organisms/RegularFooter'
 import MerchantCustomNavbar from 'components/molecules/MerchantCustomNavbar'
 import MerchantCustomFooter from 'components/molecules/MerchantCustomFooter'
 interface Props {
