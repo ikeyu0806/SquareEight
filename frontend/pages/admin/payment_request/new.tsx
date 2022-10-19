@@ -15,6 +15,7 @@ import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import RequireBadge from 'components/atoms/RequireBadge'
 import { useRouter } from 'next/router'
 import {  priceChanged,
+          nameChanged,
           targetCustomerTypeChanged,
           messageContentTypeChanged,
           customersChanged,
@@ -27,6 +28,7 @@ const New: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
+  const name = useSelector((state: RootState) => state.paymentRequest.name)
   const price = useSelector((state: RootState) => state.paymentRequest.price)
   const targetCustomerType = useSelector((state: RootState) => state.paymentRequest.targetCustomerType)
   const messageContentType = useSelector((state: RootState) => state.paymentRequest.messageContentType)
@@ -81,6 +83,7 @@ const New: NextPage = () => {
         axios.post(`${process.env.BACKEND_URL}/api/internal/payment_requests/send_payment_request_mail`,
         {
           payment_request: {
+            name: name,
             price: price,
             target_customer_type: targetCustomerType,
             selected_customers: selectedCustomers,
@@ -175,6 +178,10 @@ const New: NextPage = () => {
       }
     }
 
+    if (!name) {
+      return true
+    }
+
     if (!title) {
       return true
     }
@@ -245,7 +252,12 @@ const New: NextPage = () => {
           <CreateCustomerForm />
         </>}
         <hr />
-        <Form.Label>請求金額</Form.Label>
+        <Form.Label>請求対象の商品名、イベント名など。請求画面に表示されます<RequireBadge /></Form.Label>
+        <Form.Control
+          className='mb20'
+          value={name}
+          onChange={(e) => dispatch(nameChanged(e.target.value))}></Form.Control>
+        <Form.Label>請求金額<RequireBadge /></Form.Label>
         <Form.Control
           value={price}
           onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}

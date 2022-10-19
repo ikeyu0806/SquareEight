@@ -6,6 +6,7 @@ import { MessageTemplateParam } from 'interfaces/MessageTemplateParam'
 export const paymentRequestSlice = createSlice({
   name: 'paymentRequest',
   initialState: {
+    name: '',
     price: 1000,
     targetCustomerType: 'registeredCustomer',
     messageContentType: 'inputMessage',
@@ -16,6 +17,9 @@ export const paymentRequestSlice = createSlice({
     messageTemplates: [] as MessageTemplateParam[]
   },
   reducers: {
+    nameChanged: (state, action: PayloadAction<string>) => {
+      state.name = action.payload
+    },
     priceChanged: (state, action: PayloadAction<number>) => {
       state.price = action.payload
     },
@@ -43,6 +47,7 @@ export const paymentRequestSlice = createSlice({
   },
 })
 
+export const { nameChanged } = paymentRequestSlice.actions
 export const { priceChanged } = paymentRequestSlice.actions
 export const { targetCustomerTypeChanged } = paymentRequestSlice.actions
 export const { messageContentTypeChanged } = paymentRequestSlice.actions

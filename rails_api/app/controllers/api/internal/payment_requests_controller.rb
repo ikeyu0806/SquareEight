@@ -49,7 +49,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
     case payment_request_params[:target_customer_type]
     when 'registeredCustomer' then
       payment_request_params[:selected_customers].each do |customer|
-        stripe_payment_request = account.stripe_payment_requests.create!(price: payment_request_params[:price], customer_id: customer[:id])
+        stripe_payment_request = account.stripe_payment_requests.create!(name: payment_request_params[:name], price: payment_request_params[:price], customer_id: customer[:id])
         payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.id.to_s
         content = MessageTemplate
                   .convert_content(
@@ -166,6 +166,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   def payment_request_params
     params.require(:payment_request)
           .permit(:id,
+                  :name,
                   :price,
                   :title,
                   :content,
