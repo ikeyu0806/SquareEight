@@ -1,5 +1,5 @@
 class Api::Internal::PaymentRequestsController < ApplicationController
-  before_action :merchant_login_only!
+  before_action :merchant_login_only!, except: [:show]
 
   def index
     payment_requests = current_merchant_user.account.stripe_payment_requests
@@ -12,7 +12,18 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   def show
     payment_requst = PaymentRequest.find(params[:id])
     shared_component = webpage.account.shared_component
-    render json: { status: 'success', payment_requst: payment_requst, shared_component: shared_component }, status: 200
+    if current_end_user.present?
+      default_payment_method_id, payment_methods = current_end_user.payment_methods
+      login_status = 'Login'
+    else
+      default_payment_method_id = nil
+      payment_methods = []
+      login_status = 'Logout'
+    end
+    render json: {  status: 'success',
+                    default_payment_method_id: default_payment_method_id,
+                    payment_methods: payment_methods,
+                    payment_requst: payment_requst, shared_component: shared_component }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
