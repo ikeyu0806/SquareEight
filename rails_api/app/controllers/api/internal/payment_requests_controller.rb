@@ -10,8 +10,8 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   end
 
   def show
-    payment_requst = StripePaymentRequest.find(params[:id])
-    shared_component = payment_requst.account.shared_component
+    payment_request = StripePaymentRequest.find(params[:id])
+    shared_component = payment_request.account.shared_component
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
       login_status = 'Login'
@@ -23,7 +23,8 @@ class Api::Internal::PaymentRequestsController < ApplicationController
     render json: {  status: 'success',
                     default_payment_method_id: default_payment_method_id,
                     payment_methods: payment_methods,
-                    payment_requst: payment_requst, shared_component: shared_component }, status: 200
+                    payment_request: payment_request,
+                    shared_component: shared_component }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

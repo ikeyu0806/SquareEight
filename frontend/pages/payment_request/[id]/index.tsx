@@ -10,6 +10,7 @@ import axios from 'axios'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { alertChanged } from 'redux/alertSlice'
 import { loginStatusChanged, paymentMethodsChanged, defaultPaymentMethodIdChanged } from 'redux/currentEndUserSlice'
+import { PaymentRequestParam } from 'interfaces/PaymentRequestParam'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -26,6 +27,7 @@ const Index: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const defaultPaymentMethodId = useSelector((state: RootState) => state.currentEndUser.defaultPaymentMethodId)
   const paymentMethods = useSelector((state: RootState) => state.currentEndUser.paymentMethods)
+  const [paymentRequest, setPaymentRequest] = useState<PaymentRequestParam>()
 
   useEffect(() => {
     const fetchWebpage = () => {
@@ -38,6 +40,7 @@ const Index: NextPage = () => {
       )
       .then(function (response) {
         console.log(response.data)
+        setPaymentRequest(response.data.payment_request)
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
@@ -93,6 +96,7 @@ const Index: NextPage = () => {
             <Card className='mt20'>
               <Card.Header>決済</Card.Header>
               <Card.Body>
+                <div>お支払い金額: ￥{paymentRequest?.price}</div>
                 {currentEndUserLogintStatus === 'Logout'
                   ? 
                     <>
