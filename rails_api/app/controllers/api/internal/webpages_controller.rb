@@ -9,7 +9,7 @@ class Api::Internal::WebpagesController < ApplicationController
   end
 
   def show
-    webpage = Webpage.find(params[:id])
+    webpage = Webpage.find_by(public_id: params[:id])
     webpage_json = JSON.parse(webpage.to_json(methods: [:block_contents]))
     shared_component = webpage.account.shared_component
     render json: { status: 'success', webpage: webpage_json, shared_component: shared_component }, status: 200
@@ -28,7 +28,7 @@ class Api::Internal::WebpagesController < ApplicationController
   end
 
   def edit
-    webpage = Webpage.find(params[:id])
+    webpage = Webpage.find_by(public_id: params[:id])
     webpage_json = JSON.parse(webpage.to_json(methods: :block_contents))
     render json: { status: 'success',
                    webpage: webpage_json,
@@ -39,7 +39,7 @@ class Api::Internal::WebpagesController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      webpage = Webpage.find(webpage_params[:id])
+      webpage = Webpage.find_by(webpage_params: params[:id])
       webpage.tag = webpage_params[:tag]
       webpage.delete_block_images
       webpage.webpage_blocks.delete_all
@@ -53,7 +53,7 @@ class Api::Internal::WebpagesController < ApplicationController
 
   def destroy
     ActiveRecord::Base.transaction do
-      webpage = Webpage.find(params[:id])
+      webpage = Webpage.find_by(public_id: params[:id])
       webpage.delete_block_images
       webpage.webpage_blocks.delete_all
       webpage.destroy
@@ -68,6 +68,7 @@ class Api::Internal::WebpagesController < ApplicationController
   def webpage_params
     params.require(:webpage)
     .permit(:id,
+            :public_id,
             :tag,
             :publish_status,
             page_content: [blockContent: [:blockID,

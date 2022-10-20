@@ -11,4 +11,5 @@ export interface WebpageParam {
   block_contents: PageContentState[]
   header_json?: WebsiteHeaderType
   footer_json?: WebsiteFooterType
+  public_id: string
 }

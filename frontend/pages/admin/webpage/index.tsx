@@ -47,8 +47,8 @@ const Index: NextPage = () => {
                       <Row>
                         <Col><span>{webpage.tag}</span></Col>
                         <Col>
-                          <a className='btn btn-primary ml10' href={`/admin/webpage/${webpage.id}/edit`}>編集</a>
-                          <a className='btn btn-primary ml10' href={`/webpages/${webpage.id}`} target='_blank' rel='noreferrer'>プレビュー</a>
+                          <a className='btn btn-primary ml10' href={`/admin/webpage/${webpage.public_id}/edit`}>編集</a>
+                          <a className='btn btn-primary ml10' href={`/webpages/${webpage.public_id}`} target='_blank' rel='noreferrer'>プレビュー</a>
                         </Col>
                       </Row>
                     </ListGroup.Item>
