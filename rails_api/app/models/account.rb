@@ -98,22 +98,22 @@ class Account < ApplicationRecord
     # 作成したWebページ、予約ページ、回数券購入ページ、月額課金プラン加入ページのリンクを返却
     result = []
     self.webpages.each do |w|
-      result.push({ text: w.tag, value: '/webpages/' + w.id.to_s, label: 'Webページ', publish_status: w.publish_status })
+      result.push({ text: w.tag, value: '/webpages/' + w.public_id, label: 'Webページ', publish_status: w.publish_status })
     end
     self.reserve_frames.enabled.each do |r|
-      result.push({ text: r.title, value: '/reserve_frame/' + r.id.to_s + '/calendar', label: '予約ページ', publish_status: r.publish_status })
+      result.push({ text: r.title, value: '/reserve_frame/' + r.public_id + '/calendar', label: '予約ページ', publish_status: r.publish_status })
     end
     self.products.enabled.each do |p|
-      result.push({ text: p.name, value: '/product/' + p.id.to_s + '/purchase', label: '物販商品購入ページ', publish_status: p.publish_status  })
+      result.push({ text: p.name, value: '/product/' + p.public_id + '/purchase', label: '物販商品購入ページ', publish_status: p.publish_status  })
     end
     self.ticket_masters.enabled.each do |t|
-      result.push({ text: t.name, value: '/ticket/' + t.id.to_s + '/purchase/', label: 'チケット購入ページ', publish_status: t.publish_status })
+      result.push({ text: t.name, value: '/ticket/' + t.public_id + '/purchase/', label: 'チケット購入ページ', publish_status: t.publish_status })
     end
     self.monthly_payment_plans.enabled.each do |m|
-      result.push({ text: m.name, value: '/monthly_payment/' + m.id.to_s + '/purchase/', label: '月額課金加入ページ', publish_status: m.publish_status })
+      result.push({ text: m.name, value: '/monthly_payment/' + m.public_id + '/purchase/', label: '月額課金加入ページ', publish_status: m.publish_status })
     end
     self.questionnaire_masters.enabled.each do |q|
-      result.push({ text: q.title, value: '/questionnaire/' + q.id.to_s, label: 'アンケート', publish_status: q.publish_status })
+      result.push({ text: q.title, value: '/questionnaire/' + q.public_id, label: 'アンケート', publish_status: q.publish_status })
     end
     result
   end
