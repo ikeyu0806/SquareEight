@@ -125,7 +125,7 @@ const Purchase: NextPage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/products/insert_cart`,
     {
       product: {
-        id: router.query.id,
+        public_id: router.query.public_id,
         purchase_quantity: purchaseQuantitity,
         is_registered_address: isRegisteredAddress,
         first_name: firstName,

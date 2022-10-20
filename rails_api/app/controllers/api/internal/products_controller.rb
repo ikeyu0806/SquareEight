@@ -99,7 +99,7 @@ class Api::Internal::ProductsController < ApplicationController
 
   def insert_cart
     ActiveRecord::Base.transaction do
-      product = Product.enabled.find(product_params[:id])
+      product = Product.enabled.find_by(public_id: product_params[:public_id])
       product.cart_products.create!(
         end_user_id: current_end_user.id,
         account_id: product.account_id,
@@ -140,6 +140,7 @@ class Api::Internal::ProductsController < ApplicationController
   def product_params
     params.require(:product)
           .permit(:id,
+                  :public_id,
                   :name,
                   :price,
                   :tax_rate,
