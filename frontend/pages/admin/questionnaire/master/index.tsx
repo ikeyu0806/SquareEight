@@ -44,15 +44,15 @@ const Index = (): JSX.Element => {
                         <a className='btn btn-primary'
                              target='_blank'
                              rel='noreferrer'
-                             href={`/questionnaire/${questionare.id}`}>プレビュー</a>
+                             href={`/questionnaire/${questionare.public_id}`}>プレビュー</a>
                         </Col>
                         <Col sm={2}>
                         <a className='btn btn-primary ml30'
-                             href={`/admin/questionnaire/master/${questionare.id}/edit`}>編集</a>
+                             href={`/admin/questionnaire/master/${questionare.public_id}/edit`}>編集</a>
                         </Col>
                         <Col sm={3}>    
                           <a className='btn btn-primary ml30'
-                             href={`/admin/questionnaire/master/${questionare.id}/answer`}>回答一覧</a>
+                             href={`/admin/questionnaire/master/${questionare.public_id}/answer`}>回答一覧</a>
                         </Col>
                       </Row>
                     </ListGroup.Item>

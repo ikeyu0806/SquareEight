@@ -24,7 +24,7 @@ class Api::Internal::MessageTemplatesController < ApplicationController
   end
 
   def update
-    message_template = MessageTemplate.find(params[:id])
+    message_template = MessageTemplate.find_by(public_id: params[:id])
     message_template.update!(message_template_params)
     render json: { statue: 'success' }, status: 200
   rescue => e

@@ -60,7 +60,7 @@ const Index: NextPage = () => {
                             <Col>数量: {resource.quantity}</Col>
                             <Col>
                               <a className='btn btn-primary'
-                                href={`/admin/resource/${resource.id}/edit`}>編集</a>
+                                href={`/admin/resource/${resource.public_id}/edit`}>編集</a>
                             </Col>
                           </Row>
                         </ListGroup.Item>

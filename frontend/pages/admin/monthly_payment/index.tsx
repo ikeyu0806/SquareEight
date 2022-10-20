@@ -61,11 +61,11 @@ const Index: NextPage = () => {
                         予約受付設定 {plan.reserve_is_unlimited ? '無制限' : String(plan.reserve_interval_number) + (plan.reserve_interval_unit === 'Day' ? '日に' : '週に') + String(plan.enable_reserve_count) + '回予約可能' }
                       </Col>
                       <Col>
-                        <a className='btn btn-primary btn-sm' href={`/admin/monthly_payment/${plan.id}/edit`}>編集</a>
+                        <a className='btn btn-primary btn-sm' href={`/admin/monthly_payment/${plan.public_id}/edit`}>編集</a>
                         <br/>
                         <a className='btn btn-primary mt10 btn-sm'
                            target='_blank' rel='noreferrer'
-                           href={`/monthly_payment/${plan.id}/purchase`}>購入ページプレビュー</a>
+                           href={`/monthly_payment/${plan.public_id}/purchase`}>購入ページプレビュー</a>
                       </Col>
                     </Row>
                   </ListGroup.Item>

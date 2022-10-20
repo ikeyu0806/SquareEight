@@ -19,7 +19,7 @@ class Api::Internal::DeliveryTargetsController < ApplicationController
   end
 
   def destroy
-    current_end_user.delivery_targets.find(params[:id]).destroy
+    current_end_user.delivery_targets.find_by(public_id: params[:id]).destroy
     render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -28,7 +28,7 @@ class Api::Internal::DeliveryTargetsController < ApplicationController
   def update_default
     ActiveRecord::Base.transaction do
       current_end_user.delivery_targets.update_all(is_default: false)
-      current_end_user.delivery_targets.find(params[:id]).update!(is_default: true)
+      current_end_user.delivery_targets.find_by(public_id: params[:id]).update!(is_default: true)
       render json: { status: 'success' }, status: 200
     end
   rescue => error

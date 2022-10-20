@@ -16,14 +16,14 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
   end
 
   def update
-    QuestionnaireMaster.find(params[:id]).update!(questionnaire_master_params.except(:id))
+    QuestionnaireMaster.find_by(public_id: params[:id]).update!(questionnaire_master_params.except(:id))
     render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def show
-    questionnaire_master = QuestionnaireMaster.find(params[:id])
+    questionnaire_master = QuestionnaireMaster.find_by(public_id: params[:id])
     shared_component = questionnaire_master.account.shared_component
     questionnaire_master = JSON.parse(questionnaire_master.to_json(methods: [:parse_question_form_json]))
     render json: { status: 'success', questionnaire_master: questionnaire_master, shared_component: shared_component }, status: 200
@@ -32,7 +32,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
   end
 
   def edit_info
-    questionnaire_master = QuestionnaireMaster.find(params[:id])
+    questionnaire_master = QuestionnaireMaster.find_by(public_id: params[:id])
     questionnaire_master = JSON.parse(questionnaire_master.to_json(methods: [:parse_question_form_json, :current_max_sort_order]))
     render json: { status: 'success', questionnaire_master: questionnaire_master }, status: 200
   rescue => error
@@ -40,7 +40,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
   end
 
   def answers
-    questionnaire_master = QuestionnaireMaster.find(params[:id])
+    questionnaire_master = QuestionnaireMaster.find_by(public_id: params[:id])
     answer_contents = questionnaire_master.answer_contents
     render json: { status: 'success',
                    answer_contents: answer_contents,
@@ -50,7 +50,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
   end
 
   def logical_delete
-    questionnaire_master = QuestionnaireMaster.find(params[:id])
+    questionnaire_master = QuestionnaireMaster.find_by(public_id: params[:id])
     questionnaire_master.logical_delete
     render json: { status: 'success' }, status: 200
   rescue => error

@@ -11,7 +11,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   end
 
   def show
-    payment_request = StripePaymentRequest.find(params[:id])
+    payment_request = StripePaymentRequest.find_by(public_id: params[:id])
     shared_component = payment_request.account.shared_component
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods

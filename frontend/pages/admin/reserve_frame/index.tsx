@@ -96,7 +96,7 @@ const Index = (): JSX.Element => {
                     <a className='btn btn-primary ml10'
                        target='_blank'
                        rel='noreferrer'
-                       href={`/reserve_frame/${reserveFrame.id}/calendar`}>プレビュー</a>
+                       href={`/reserve_frame/${reserveFrame.public_id}/calendar`}>プレビュー</a>
                     </td>
                   </tr>
                 )

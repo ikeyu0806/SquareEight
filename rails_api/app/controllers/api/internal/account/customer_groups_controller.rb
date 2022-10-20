@@ -9,7 +9,7 @@ class Api::Internal::Account::CustomerGroupsController < ApplicationController
   end
 
   def show
-    customer_group = CustomerGroup.find(params[:id])
+    customer_group = CustomerGroup.find_by(public_id: params[:id])
     selected_customers = customer_group.customers
     unselected_customers = current_merchant_user.account.customers.where.not(id: selected_customers.pluck(:id))
     render json: {  status: 'success',
@@ -32,7 +32,7 @@ class Api::Internal::Account::CustomerGroupsController < ApplicationController
   end
 
   def update
-    customer_group = current_merchant_user.account.customer_groups.find(params[:id])
+    customer_group = current_merchant_user.account.customer_groups.find_by(public_id: params[:id])
     customer_group.name = customer_group_params[:name]
     customer_group.customer_group_relations.delete_all
     customer_group_params[:selected_customers].each do |customer|

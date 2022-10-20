@@ -219,7 +219,7 @@ class Api::Internal::ReservationsController < ApplicationController
   end
 
   def show
-    reservation = Reservation.find(params[:id])
+    reservation = Reservation.find_by(public_id: params[:id])
     raise 'key is not match' if reservation.viewable_key != params[:viewable_key]
     reservation = JSON.parse(reservation.to_json(methods: [:reserve_frame_title, 
                                                            :display_payment_method,
@@ -234,7 +234,7 @@ class Api::Internal::ReservationsController < ApplicationController
 
   def update_status
     ActiveRecord::Base.transaction do
-      reservation = Reservation.find(reservation_params[:id])
+      reservation = Reservation.find_by(public_id: reservation_params[:id])
       reservation.update!(status: reservation_params[:status])
       if reservation.customer.email.present?
         display_number_of_people, total_price = reservation.display_multi_payment_method_with_number_of_people
@@ -298,7 +298,7 @@ class Api::Internal::ReservationsController < ApplicationController
   def input_customer_info
     login_status = current_end_user.present? ? 'Login' : 'Logout'
     # 共通ヘッダ、フッタ
-    reservation = Reservation.find(params[:reservation_id])
+    reservation = Reservation.find_by(public_id: params[:reservation_id])
     reserve_frame = reservation.reserve_frame
     shared_component = reserve_frame.account.shared_component
     if current_end_user.present? && current_end_user.stripe_customer_id.present?
@@ -343,7 +343,7 @@ class Api::Internal::ReservationsController < ApplicationController
   end
 
   def cancel
-    reservation = Reservation.find(params[:id])
+    reservation = Reservation.find_by(public_id: params[:id])
     reservation.update!(status: 'cancel')
     customer = reservation.customer
     # swal2のcheckboxにチェックを入れると"1"になる

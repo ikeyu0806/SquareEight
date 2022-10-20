@@ -68,7 +68,7 @@ class Api::Internal::EndUsersController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      end_user = EndUser.find(params[:id])
+      end_user = EndUser.find_by(public_id: params[:id])
       init_email = end_user.email
       end_user.attributes = end_user_params.except(:password)
       end_user.password = end_user_params[:password] if end_user_params[:password].present?
