@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
-import { reserveFrameIdChanged,
+import { publicIdChanged,
          showCreateReserveFrameModalChanged,
          showEditReserveFrameModalChanged } from 'redux/reserveFrameSlice'
 import CreateReserveFrameModal from 'components/organisms/CreateReserveFrameModal'
@@ -89,7 +89,7 @@ const Index = (): JSX.Element => {
                       <a className='btn btn-primary'
                          onClick={() => {
                           dispatch(showEditReserveFrameModalChanged(true))
-                          dispatch(reserveFrameIdChanged(Number(reserveFrame.id)))
+                          dispatch(publicIdChanged(reserveFrame.public_id))
                         }}>編集</a>
                     </td>
                     <td>

@@ -111,7 +111,7 @@ Rails.application.routes.draw do
       get 'orders', to: 'orders#index'
       get 'order_items', to: 'order_items#index'
       post 'order_items/:public_id/update_shipped', to: 'order_items#update_shipped'
-      get 'calendar/:reserve_frame_id/monthly_reserve_frames', to: 'calendar#monthly_reserve_frames'
+      get 'calendar/:public_id/monthly_reserve_frames', to: 'calendar#monthly_reserve_frames'
       get 'account_notifications/:public_id', to: 'account_notifications#show'
       get 'account_notifications', to: 'account_notifications#index'
       get 'system_account_notifications/:public_id', to: 'system_account_notifications#show'

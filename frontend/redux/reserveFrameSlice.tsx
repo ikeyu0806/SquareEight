@@ -10,6 +10,7 @@ export const reserveFrameSlice = createSlice({
   name: 'reserveFrame',
   initialState: {
     reserveFrameId: 0,
+    publicId: '',
     showCreateReserveFrameModal: false,
     showEditReserveFrameModal: false,
     startDate: getZeroPaddingDate(),
@@ -59,6 +60,9 @@ export const reserveFrameSlice = createSlice({
   reducers: {
     reserveFrameIdChanged: (state, action: PayloadAction<number>) => {
       state.reserveFrameId = action.payload
+    },
+    publicIdChanged: (state, action: PayloadAction<string>) => {
+      state.publicId = action.payload
     },
     showCreateReserveFrameModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showCreateReserveFrameModal = action.payload
@@ -199,6 +203,7 @@ export const reserveFrameSlice = createSlice({
 })
 
 export const { reserveFrameIdChanged } = reserveFrameSlice.actions
+export const { publicIdChanged } = reserveFrameSlice.actions
 export const { showCreateReserveFrameModalChanged } = reserveFrameSlice.actions
 export const { showEditReserveFrameModalChanged } = reserveFrameSlice.actions
 export const { startDateChanged } = reserveFrameSlice.actions
