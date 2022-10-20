@@ -1,4 +1,6 @@
 class MerchantStripeSubscription < ApplicationRecord
+  include PublicIdModule
+
   belongs_to :monthly_payment_plan
   belongs_to :end_user
 

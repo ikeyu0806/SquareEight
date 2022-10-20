@@ -1,4 +1,6 @@
 class MonthlyPaymentPlan < ApplicationRecord
+  include PublicIdModule
+
   enum reserve_interval_unit: { Day: 0, Week: 1 }
   belongs_to :account
   has_many :cart_monthly_payment_plans

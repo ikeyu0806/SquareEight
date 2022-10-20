@@ -1,4 +1,6 @@
 class StripePaymentRequest < ApplicationRecord
+  include PublicIdModule
+
   enum status: { Pending: 0, Paid: 1 }
   belongs_to :account
   belongs_to :customer

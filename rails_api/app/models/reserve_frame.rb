@@ -1,6 +1,8 @@
 include CalendarContent
 
 class ReserveFrame < ApplicationRecord
+  include PublicIdModule
+
   belongs_to :account
   has_one  :questionnaire_master, foreign_key: :id, primary_key: :questionnaire_master_id
   has_many :unreservable_frames

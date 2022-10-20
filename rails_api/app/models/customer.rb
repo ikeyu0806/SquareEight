@@ -1,4 +1,6 @@
 class Customer < ApplicationRecord
+  include PublicIdModule
+
   has_one :customer_group_relation, foreign_key: :id, primary_key: :customer_id
   has_one :end_user, foreign_key: :id, primary_key: :end_user_id
   has_many :orders

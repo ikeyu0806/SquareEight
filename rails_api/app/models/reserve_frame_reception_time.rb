@@ -1,4 +1,6 @@
 class ReserveFrameReceptionTime < ApplicationRecord
+  include PublicIdModule
+
   def reception_start_date_input_value
     reception_start_time.strftime("%H:%M")
   end

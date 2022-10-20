@@ -1,4 +1,6 @@
 class MessageTemplate < ApplicationRecord
+  include PublicIdModule
+
   belongs_to :account
 
   validates :name, presence: true

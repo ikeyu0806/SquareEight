@@ -1,4 +1,6 @@
 class PurchasedTicket < ApplicationRecord
+  include PublicIdModule
+
   belongs_to :ticket_master
 
   validates :expired_at, presence: true

@@ -1,4 +1,6 @@
 class Resource < ApplicationRecord
+  include PublicIdModule
+
   has_many :reserve_frame_resorces
   has_many :reserve_frames, through: :reserve_frame_resorces
   has_many :reservations, through: :reserve_frames

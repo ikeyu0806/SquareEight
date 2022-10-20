@@ -1,6 +1,8 @@
 require 'securerandom'
 
 class EndUser < ApplicationRecord
+  include PublicIdModule
+
   has_secure_password(validations: false)
 
   has_many :orders

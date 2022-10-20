@@ -1,4 +1,6 @@
 class CartProduct < ApplicationRecord
+  include PublicIdModule
+
   belongs_to :account
   belongs_to :end_user
   belongs_to :product
