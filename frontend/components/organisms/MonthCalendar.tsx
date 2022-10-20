@@ -29,7 +29,7 @@ const MonthCalendar = (): JSX.Element => {
   useEffect(() => {
     const fetchCalendarContent = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/calendar/${router.query.reserve_frame_id}/monthly_reserve_frames`,
+        `${process.env.BACKEND_URL}/api/internal/calendar/${router.query.public_id}/monthly_reserve_frames`,
         {
           params: {
             target_year: currentYear,
@@ -57,7 +57,7 @@ const MonthCalendar = (): JSX.Element => {
       })
     }
     fetchCalendarContent()
-  }, [dispatch, router.query.id, router.query.reserve_frame_id, currentYear, currentMonth])
+  }, [dispatch, router.query.id, router.query.public_id, currentYear, currentMonth])
 
   const displayPrevMonth = () => {
     const fetchPrevMonthCalendarContent = () => {

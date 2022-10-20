@@ -43,7 +43,7 @@ const Index: NextPage = () => {
       })
     }
     fetchStripeConnectedAccount()
-  }, [router.query.id, cookies._square_eight_merchant_session, dispatch])
+  }, [cookies._square_eight_merchant_session, dispatch])
 
   const requirementsContents = () => {
     let result = [] as string[]
