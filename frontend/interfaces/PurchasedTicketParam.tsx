@@ -1,4 +1,5 @@
 export interface PurchasedTicketParam {
+  public_id: string
   id: number
   name: string
   display_expired_at: string

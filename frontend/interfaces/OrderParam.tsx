@@ -1,4 +1,5 @@
 export interface OrderParam {
+  public_id: string
   id: number
   total_price: number
   total_commission: number

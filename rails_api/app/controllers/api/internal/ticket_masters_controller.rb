@@ -11,14 +11,14 @@ class Api::Internal::TicketMastersController < ApplicationController
   end
 
   def show
-    ticket_master = TicketMaster.find(params[:id])
+    ticket_master = TicketMaster.find_by(public_id: params[:id])
     render json: { status: 'success', ticket_master: ticket_master }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def purchase_info
-    ticket_master = TicketMaster.find(params[:id])
+    ticket_master = TicketMaster.find_by(public_id: params[:id])
     main_image_public_url = ticket_master.main_image_public_url
     shared_component = ticket_master.account.shared_component
     if current_end_user.present?

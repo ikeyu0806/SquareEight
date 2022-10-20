@@ -1,6 +1,7 @@
 import { ReserveFrameReceptionTimeParam } from './ReserveFrameReceptionTimeParam'
 import { MultiPaymentMethod } from './MultiPaymentMethod'
 export interface ReserveFrameParam {
+  public_id: string
   id: string
   start_at: string
   end_at: string

@@ -1,4 +1,5 @@
 export interface ProductParam {
+  public_id: string
   id: string
   name: string
   description: string

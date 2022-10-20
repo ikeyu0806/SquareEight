@@ -1,5 +1,6 @@
 import { MultiPaymentMethod } from './MultiPaymentMethod'
 export interface ReservationParam {
+  public_id: string
   id: string
   representative_first_name: string
   representative_last_name: string

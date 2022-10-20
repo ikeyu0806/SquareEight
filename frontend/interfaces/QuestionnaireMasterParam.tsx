@@ -1,4 +1,5 @@
 export interface QuestionnaireMasterParam {
+  public_id: string
   id: string
   title: string
   description: string

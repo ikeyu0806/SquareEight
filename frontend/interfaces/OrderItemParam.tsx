@@ -1,4 +1,5 @@
 export interface OrderItemParam {
+  public_id: string
   id: string
   item_type: string
   product_name: string
