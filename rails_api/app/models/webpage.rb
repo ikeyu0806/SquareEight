@@ -1,7 +1,5 @@
-require 'securerandom'
-
 class Webpage < ApplicationRecord
-  before_create :set_public_id
+  include PublicIdModule
 
   belongs_to :account
   has_many :webpage_blocks, dependent: :delete_all
@@ -80,13 +78,5 @@ class Webpage < ApplicationRecord
 
   def footer_json
     website.default_header_content.present? ? JSON.parse(website.default_footer_content) : []
-  end
-
-  private
-
-  def set_public_id
-    while self.public_id.blank? || self.class.find_by(public_id: self.public_id).present? do
-      self.public_id = SecureRandom.uuid
-    end
   end
 end
