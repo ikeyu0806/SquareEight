@@ -219,7 +219,7 @@ class Api::Internal::ReservationsController < ApplicationController
   end
 
   def show
-    reservation = Reservation.find_by(public_id: params[:id])
+    reservation = Reservation.find_by(public_id: params[:public_id])
     raise 'key is not match' if reservation.viewable_key != params[:viewable_key]
     reservation = JSON.parse(reservation.to_json(methods: [:reserve_frame_title, 
                                                            :display_payment_method,
@@ -343,7 +343,7 @@ class Api::Internal::ReservationsController < ApplicationController
   end
 
   def cancel
-    reservation = Reservation.find_by(public_id: params[:id])
+    reservation = Reservation.find_by(public_id: params[:public_id])
     reservation.update!(status: 'cancel')
     customer = reservation.customer
     # swal2のcheckboxにチェックを入れると"1"になる

@@ -12,7 +12,7 @@ class Api::Internal::ProductsController < ApplicationController
   end
 
   def show
-    product = Product.enabled.find_by(public_id: params[:id])
+    product = Product.enabled.find_by(public_id: params[:public_id])
     product = JSON.parse(product.to_json(methods: [:product_types, :show_product_type_form, :shipping_fee_per_regions, :delivery_charge_type]))
     render json: { status: 'success', product: product }, status: 200
   rescue => error
@@ -44,7 +44,7 @@ class Api::Internal::ProductsController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      product = Product.find_by(public_id: params[:id])
+      product = Product.find_by(public_id: params[:public_id])
       product.attributes = (product_params.except(:base64_image, :product_types, :prefecture_delivery_charges))
       if product_params[:base64_image].present?
         product.product_image_relations.update_all(relation_status: "Sub")
@@ -70,7 +70,7 @@ class Api::Internal::ProductsController < ApplicationController
   end
 
   def purchase_info
-    product = Product.find_by(public_id: params[:id])
+    product = Product.find_by(public_id: params[:public_id])
     main_image_public_url = product.main_image_public_url
     shared_component = product.account.shared_component
     if current_end_user.present?
@@ -128,7 +128,7 @@ class Api::Internal::ProductsController < ApplicationController
   end
 
   def logical_delete
-    product = Product.find_by(public_id: params[:id])
+    product = Product.find_by(public_id: params[:public_id])
     product.logical_delete
     render json: { status: 'success' }, status: 200
   rescue => error

@@ -33,7 +33,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      merchant_user = MerchantUser.find(params[:id])
+      merchant_user = MerchantUser.find(params[:public_id])
       init_email = merchant_user.email
       merchant_user.last_name = merchant_user_params[:last_name]
       merchant_user.first_name = merchant_user_params[:first_name]

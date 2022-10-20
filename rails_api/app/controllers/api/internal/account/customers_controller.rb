@@ -16,7 +16,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
   end
 
   def update
-    customer = current_merchant_user.account.customers.find_by(public_id: params[:id])
+    customer = current_merchant_user.account.customers.find_by(public_id: params[:public_id])
     customer.update!(customer_params)
     render json: { status: 'success' }, status: 200
   rescue => error
@@ -24,7 +24,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
   end
 
   def orders
-    customer = Customer.find_by(public_id: params[:customer_id])
+    customer = Customer.find_by(public_id: params[:public_id])
     if customer.end_user.present?
       orders = JSON.parse(customer.end_user.orders.to_json(methods: [:total_price, :total_commission, :product_names, :order_date, :include_product]))
     else
@@ -36,7 +36,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
   end
 
   def charges
-    customer = Customer.find_by(public_id: params[:customer_id])
+    customer = Customer.find_by(public_id: params[:public_id])
     stripe_payment_intents = customer.end_user.search_stripe_payment_intents
     render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, status: 200
   rescue => error

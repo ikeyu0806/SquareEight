@@ -11,11 +11,11 @@ class Api::Internal::CartsController < ApplicationController
   def delete_cart_item
     case params[:item_type]
     when 'Product'
-      cart_item = CartProduct.find(params[:id])
+      cart_item = CartProduct.find(params[:public_id])
     when 'TicketMaster'
-      cart_item = CartTicketMaster.find(params[:id])
+      cart_item = CartTicketMaster.find(params[:public_id])
     when 'MonthlyPaymentPlan'
-      cart_item = CartMonthlyPaymentPlan.find(params[:id])
+      cart_item = CartMonthlyPaymentPlan.find(params[:public_id])
     else
       raise
     end

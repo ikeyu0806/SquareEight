@@ -9,7 +9,7 @@ class Api::Internal::PurchasedTicketsController < ApplicationController
   end
 
   def show
-    purchased_ticket = JSON.parse(PurchasedTicket.find_by(public_id: params[:id]).to_json(methods: [:name, :display_expired_at]))
+    purchased_ticket = JSON.parse(PurchasedTicket.find_by(public_id: params[:public_id]).to_json(methods: [:name, :display_expired_at]))
     render json: { statue: 'success', purchased_ticket: purchased_ticket }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

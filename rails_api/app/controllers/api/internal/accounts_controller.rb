@@ -122,7 +122,7 @@ class Api::Internal::AccountsController < ApplicationController
         )
       else
         Stripe::PaymentMethod.attach(
-          account_params[:payment_method_id],
+          account_params[:public_id],
           {customer: account.stripe_customer_id},
         )
       end
@@ -446,14 +446,14 @@ class Api::Internal::AccountsController < ApplicationController
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe::Customer.update(
       current_merchant_user.account.stripe_customer_id,
-      {invoice_settings: {default_payment_method: params[:payment_method_id]}},
+      {invoice_settings: {default_payment_method: params[:public_id]}},
     )
   end
 
   def detach_stripe_payment_method
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe::PaymentMethod.detach(
-      params[:payment_method_id],
+      params[:public_id],
     )
     render json: { status: 'success' }, status: 200
   rescue => error
@@ -639,7 +639,7 @@ class Api::Internal::AccountsController < ApplicationController
 
   def stripe_person
     # 一旦使わない。
-    # service_stripe_person = StripePerson.find(params[:id])
+    # service_stripe_person = StripePerson.find(params[:public_id])
     # stripe_person = Stripe::Account.retrieve_person(
     #   current_merchant_user.account.stripe_account_id,
     #   service_stripe_person.stripe_person_id,
@@ -656,6 +656,7 @@ class Api::Internal::AccountsController < ApplicationController
           .permit(:id,
                   :business_name,
                   :token,
+                  :public_id,
                   :payment_method_id,
                   :business_profile_name,
                   :business_type,

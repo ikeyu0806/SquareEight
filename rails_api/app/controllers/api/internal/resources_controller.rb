@@ -9,7 +9,7 @@ class Api::Internal::ResourcesController < ApplicationController
   end
 
   def edit
-    resource = current_merchant_user.account.resources.find_by(public_id: params[:id])
+    resource = current_merchant_user.account.resources.find_by(public_id: params[:public_id])
     render json: { status: 'success', resource: resource }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -23,7 +23,7 @@ class Api::Internal::ResourcesController < ApplicationController
   end
 
   def update
-    resource = Resource.find_by(public_id: params[:id])
+    resource = Resource.find_by(public_id: params[:public_id])
     resource.update!(resource_params)
     render json: { status: 'success' }, status: 200
   rescue => error

@@ -7,7 +7,7 @@ class Api::Internal::AccountNotificationsController < ApplicationController
   end
 
   def show
-    account_notification = AccountNotification.find_by(public_id: params[:id])
+    account_notification = AccountNotification.find_by(public_id: params[:public_id])
     render json: { status: 'success', account_notification: account_notification }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
