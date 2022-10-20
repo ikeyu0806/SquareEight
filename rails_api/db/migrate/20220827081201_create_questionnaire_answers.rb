@@ -5,6 +5,7 @@ class CreateQuestionnaireAnswers < ActiveRecord::Migration[7.0]
       t.integer :customer_id
       t.string :title
       t.text :answers_json
+      t.string :public_id, null: false
 
       t.timestamps
     end

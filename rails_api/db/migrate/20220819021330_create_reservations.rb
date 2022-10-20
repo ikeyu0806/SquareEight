@@ -12,6 +12,7 @@ class CreateReservations < ActiveRecord::Migration[7.0]
       t.integer :price
       t.string :representative_first_name
       t.string :representative_last_name
+      t.string :public_id, null: false
 
       t.timestamps
     end

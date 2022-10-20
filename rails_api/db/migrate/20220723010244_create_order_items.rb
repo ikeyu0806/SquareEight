@@ -9,6 +9,7 @@ class CreateOrderItems < ActiveRecord::Migration[7.0]
       t.string :product_name, null: false
       t.integer :price, null: false
       t.integer :commission, null: false
+      t.string :public_id, null: false
 
       t.timestamps
     end

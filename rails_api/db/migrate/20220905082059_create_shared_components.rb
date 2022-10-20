@@ -11,6 +11,7 @@ class CreateSharedComponents < ActiveRecord::Migration[7.0]
       t.string :navbar_brand_background_color, default: 'light'
       t.string :navbar_brand_variant_color, default: 'light'
       t.string :footer_copyright_text, default: 'SquareEight'
+      t.string :public_id, null: false
 
       t.timestamps
     end

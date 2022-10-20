@@ -5,6 +5,7 @@ class CreateReservationCreditCardPaymentPrices < ActiveRecord::Migration[7.0]
       t.string :name, null: false
       t.integer :price, null: false
       t.integer :reserve_number_of_people, null: false
+      t.string :public_id, null: false
 
       t.timestamps
     end

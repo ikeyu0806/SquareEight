@@ -7,6 +7,7 @@ class CreateMonthlyPaymentPlans < ActiveRecord::Migration[7.0]
       t.integer :reserve_interval_number
       t.integer :reserve_interval_unit
       t.integer :enable_reserve_count
+      t.string :public_id, null: false
 
       t.timestamps
     end

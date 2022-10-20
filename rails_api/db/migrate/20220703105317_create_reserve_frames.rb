@@ -20,6 +20,7 @@ class CreateReserveFrames < ActiveRecord::Migration[7.0]
       t.integer :cancel_reception, default: 0
       t.integer :cancel_reception_hour_before
       t.integer :cancel_reception_day_before
+      t.string :public_id, null: false
 
       t.timestamps
     end

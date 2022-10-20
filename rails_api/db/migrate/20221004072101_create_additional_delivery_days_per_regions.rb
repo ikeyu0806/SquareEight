@@ -4,6 +4,7 @@ class CreateAdditionalDeliveryDaysPerRegions < ActiveRecord::Migration[7.0]
       t.integer :delivery_datetime_setting_id, null: false
       t.string :region, null: false
       t.integer :additional_delivery_days, default: 0
+      t.string :public_id, null: false
 
       t.timestamps
     end

@@ -7,6 +7,7 @@ class CreateProducts < ActiveRecord::Migration[7.0]
       t.integer :tax_rate
       t.integer :inventory
       t.text :description
+      t.string :public_id, null: false
 
       t.timestamps
     end

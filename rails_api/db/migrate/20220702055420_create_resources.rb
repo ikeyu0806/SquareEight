@@ -4,6 +4,7 @@ class CreateResources < ActiveRecord::Migration[7.0]
       t.integer :account_id, null: false
       t.string :name, null: false
       t.integer :quantity, null: false
+      t.string :public_id, null: false
 
       t.timestamps
     end

@@ -5,6 +5,7 @@ class CreateMessageTemplates < ActiveRecord::Migration[7.0]
       t.string :name, null: false
       t.string :title, null: false
       t.text :content, null: false
+      t.string :public_id, null: false
 
       t.timestamps
     end

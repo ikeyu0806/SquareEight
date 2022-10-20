@@ -5,6 +5,7 @@ class CreateCartTicketMasters < ActiveRecord::Migration[7.0]
       t.integer :end_user_id
       t.integer :ticket_master_id
       t.integer :quantity
+      t.string :public_id, null: false
 
       t.timestamps
     end

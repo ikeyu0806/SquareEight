@@ -4,6 +4,7 @@ class CreateCustomDeliveryTimes < ActiveRecord::Migration[7.0]
       t.integer :delivery_datetime_setting_id, null: false
       t.time :start_at
       t.time :end_at
+      t.string :public_id, null: false
 
       t.timestamps
     end

@@ -17,6 +17,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
   create_table "account_notifications", force: :cascade do |t|
     t.integer "account_id"
     t.string "title"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "url"
@@ -26,12 +27,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "account_id", null: false
     t.string "s3_object_public_url", null: false
     t.string "s3_object_name", null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "accounts", force: :cascade do |t|
     t.string "business_name"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "stripe_customer_id"
@@ -47,6 +50,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "delivery_datetime_setting_id", null: false
     t.string "region", null: false
     t.integer "additional_delivery_days", default: 0
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -56,6 +60,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "end_user_id"
     t.integer "monthly_payment_plan_id"
     t.integer "quantity"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -65,6 +70,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "end_user_id"
     t.integer "product_id"
     t.integer "quantity"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "product_type_id"
@@ -75,6 +81,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "end_user_id"
     t.integer "ticket_master_id"
     t.integer "quantity"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -83,6 +90,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "delivery_datetime_setting_id", null: false
     t.time "start_at"
     t.time "end_at"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -90,6 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
   create_table "customer_group_relations", force: :cascade do |t|
     t.integer "customer_id", null: false
     t.integer "customer_group_id", null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -98,6 +107,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "account_id", null: false
     t.string "name", null: false
     t.integer "category", default: 0, null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -113,6 +123,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "gender"
     t.datetime "dob"
     t.text "custom_items_answer"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "account_id", null: false
@@ -133,6 +144,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.boolean "is_holiday_fri", default: false
     t.boolean "is_holiday_sat", default: false
     t.integer "delivery_time_type"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -140,6 +152,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
   create_table "delivery_datetime_temporary_holidays", force: :cascade do |t|
     t.integer "delivery_datetime_setting_id", null: false
     t.date "delivery_holiday"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -156,6 +169,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.string "line2"
     t.string "phone_number"
     t.boolean "is_default"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -163,6 +177,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
   create_table "end_user_notifications", force: :cascade do |t|
     t.integer "end_user_id"
     t.string "title"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "url"
@@ -177,6 +192,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.string "verification_code"
     t.datetime "verification_code_expired_at"
     t.integer "email_authentication_status"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "first_name"
@@ -196,6 +212,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "monthly_payment_plan_id", null: false
     t.string "stripe_subscription_id", null: false
     t.datetime "canceled_at"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -210,6 +227,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.string "verification_code"
     t.datetime "verification_code_expired_at"
     t.integer "email_authentication_status"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "google_auth_id"
@@ -228,6 +246,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.string "name", null: false
     t.string "title", null: false
     t.text "content", null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -236,6 +255,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "account_s3_image_id"
     t.integer "monthly_payment_plan_id"
     t.integer "relation_status", default: 0
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -247,6 +267,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "reserve_interval_number"
     t.integer "reserve_interval_unit"
     t.integer "enable_reserve_count"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "account_id"
@@ -265,6 +286,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.string "product_name", null: false
     t.integer "price", null: false
     t.integer "commission", null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "product_id"
@@ -280,6 +302,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "end_user_id"
     t.integer "customer_id"
     t.integer "cart_id"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
@@ -293,6 +316,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "reserve_frame_id"
     t.datetime "start_at"
     t.datetime "end_at"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -301,6 +325,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "account_s3_image_id"
     t.integer "product_id"
     t.integer "relation_status", default: 0
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -309,6 +334,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "product_id"
     t.string "name"
     t.integer "inventory"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -320,6 +346,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "tax_rate"
     t.integer "inventory"
     t.text "description"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "publish_status", default: 0
@@ -335,6 +362,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "ticket_master_id"
     t.integer "remain_number"
     t.datetime "expired_at"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -344,6 +372,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "customer_id"
     t.string "title"
     t.text "answers_json"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -353,6 +382,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.string "title"
     t.string "description"
     t.text "question_form_json"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "publish_status", default: 0
@@ -364,6 +394,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.string "name", null: false
     t.integer "price", null: false
     t.integer "reserve_number_of_people", null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -373,6 +404,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.string "name", null: false
     t.integer "price", null: false
     t.integer "reserve_number_of_people", null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -389,6 +421,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "price"
     t.string "representative_first_name"
     t.string "representative_last_name"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "ticket_master_id"
@@ -402,6 +435,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "reserve_frame_id", null: false
     t.string "name", null: false
     t.integer "price", null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -410,6 +444,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "account_s3_image_id"
     t.integer "reserve_frame_id"
     t.integer "relation_status", default: 0
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -418,6 +453,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "reserve_frame_id", null: false
     t.string "name", null: false
     t.integer "price", null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -425,6 +461,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
   create_table "reserve_frame_monthly_payment_plans", force: :cascade do |t|
     t.integer "reserve_frame_id"
     t.integer "monthly_payment_plan_id"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -433,6 +470,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "reserve_frame_id"
     t.time "reception_start_time", null: false
     t.time "reception_end_time"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -440,6 +478,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
   create_table "reserve_frame_resorces", force: :cascade do |t|
     t.integer "reserve_frame_id"
     t.integer "resource_id"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -448,6 +487,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "reserve_frame_id"
     t.integer "ticket_master_id"
     t.integer "consume_number"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -472,6 +512,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "cancel_reception", default: 0
     t.integer "cancel_reception_hour_before"
     t.integer "cancel_reception_day_before"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.boolean "is_local_payment_enable"
@@ -499,6 +540,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "account_id", null: false
     t.string "name", null: false
     t.integer "quantity", null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -514,6 +556,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.string "navbar_brand_background_color", default: "light"
     t.string "navbar_brand_variant_color", default: "light"
     t.string "footer_copyright_text", default: "SquareEight"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -522,6 +565,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "product_id", null: false
     t.integer "shipping_fee", null: false
     t.string "region", null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -543,6 +587,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "system_product_type"
     t.integer "end_user_id"
     t.integer "account_id"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "system_plan_name"
@@ -555,6 +600,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "end_user_id"
     t.integer "price", null: false
     t.integer "status", default: 0
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name"
@@ -566,6 +612,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.string "last_name"
     t.string "first_name"
     t.boolean "is_representative", default: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -573,6 +620,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
   create_table "system_account_notifications", force: :cascade do |t|
     t.string "title"
     t.text "content"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -587,6 +635,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.string "verification_code"
     t.datetime "verification_code_expired_at"
     t.integer "authentication_status"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["email"], name: "index_system_admin_users_on_email", unique: true
@@ -595,6 +644,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
   create_table "system_end_user_notifications", force: :cascade do |t|
     t.string "title"
     t.text "content"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -604,6 +654,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "service_plan", null: false
     t.string "stripe_subscription_id", null: false
     t.datetime "canceled_at"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -612,6 +663,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "account_s3_image_id"
     t.integer "ticket_master_id"
     t.integer "relation_status", default: 0
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -621,6 +673,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "account_id"
     t.integer "issue_number"
     t.integer "price"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.text "description"
@@ -634,6 +687,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "reserve_frame_id"
     t.datetime "start_at"
     t.datetime "end_at"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
@@ -642,6 +696,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "webpage_id", null: false
     t.text "content_json", null: false
     t.integer "block_type"
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
