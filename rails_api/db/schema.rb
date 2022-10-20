@@ -648,7 +648,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
 
   create_table "webpages", force: :cascade do |t|
     t.integer "account_id", null: false
-    t.string "tag", null: false, comment: "タグ"
+    t.string "tag", null: false
+    t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "publish_status", default: 0
