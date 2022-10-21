@@ -6,7 +6,7 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
     create(:merchant_user, account: account)
   }
 
-  describe 'GET /api/internal/stripe_account_info' do
+  describe 'GET /api/internal/account_info' do
     context 'login as merchant_user' do
       it 'should return 200' do
         allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
@@ -18,6 +18,31 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
     context 'without login' do
       it 'should return 401' do
         get '/api/internal/accounts/stripe_account_info'
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'POST /api/internal/accounts/update' do
+    let(:params) {
+      {
+        account: {
+          business_name: 'update_test'
+       }
+      }
+    }
+
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        post '/api/internal/accounts/update', params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'without login' do
+      it 'should return 401' do
+        post '/api/internal/accounts/update', params: params
         expect(response.status).to eq 401
       end
     end
