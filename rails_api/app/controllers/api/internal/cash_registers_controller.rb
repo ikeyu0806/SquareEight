@@ -245,7 +245,7 @@ class Api::Internal::CashRegistersController < ApplicationController
       end
       order.delivery_charge = total_delivery_charge
       order.save!
-      render json: { status: 'success', order_id: order.id }, status: 200
+      render json: { status: 'success', order_public_id: order.public_id }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

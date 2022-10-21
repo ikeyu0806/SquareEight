@@ -129,7 +129,7 @@ const Index: NextPage = () => {
     }).then(response => {
       dispatch(alertChanged({message: '購入しました', show: true}))
       setIsLoading(false)
-      router.push(`/purchase/${response.data.order_id}/payment_complete`)
+      router.push(`/purchase/${response.data.order_public_id}/payment_complete`)
     }).catch(error => {
       console.log(error.response.data.error)
       dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
