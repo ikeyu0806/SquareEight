@@ -57,7 +57,7 @@ const MonthCalendar = (): JSX.Element => {
       })
     }
     fetchCalendarContent()
-  }, [dispatch, router.query.public_id, router.query.public_id, currentYear, currentMonth])
+  }, [dispatch, router.query.public_id, currentYear, currentMonth])
 
   const displayPrevMonth = () => {
     const fetchPrevMonthCalendarContent = () => {

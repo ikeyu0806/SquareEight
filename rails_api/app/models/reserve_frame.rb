@@ -240,7 +240,7 @@ class ReserveFrame < ApplicationRecord
               start: date.strftime("%Y-%m-%d"),
               title: status_json[:text],
               reservable: status_json[:reservable],
-              url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+              url: '/reserve/' + self.public_id + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
         else
@@ -253,7 +253,7 @@ class ReserveFrame < ApplicationRecord
                 start: date.strftime("%Y-%m-%d"),
                 title: status_json[:text],
                 reservable: status_json[:reservable],
-                url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+                url: '/reserve/' + self.public_id + '?date=' + date.strftime("%Y-%m-%d")
               }
               skip_flg_count = repeat_interval_number_day
             end
@@ -267,7 +267,7 @@ class ReserveFrame < ApplicationRecord
               start: date.strftime("%Y-%m-%d"),
               title: status_json[:text],
               reservable: status_json[:reservable],
-              url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+              url: '/reserve/' + self.public_id + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
         else
@@ -280,7 +280,7 @@ class ReserveFrame < ApplicationRecord
                 start: date.strftime("%Y-%m-%d"),
                 title: status_json[:text],
                 reservable: status_json[:reservable],
-                url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+                url: '/reserve/' + self.public_id + '?date=' + date.strftime("%Y-%m-%d")
               }
               skip_flg_count = repeat_interval_number_week
             end
@@ -295,7 +295,7 @@ class ReserveFrame < ApplicationRecord
                 start: date.strftime("%Y-%m-%d"),
                 title: status_json[:text],
                 reservable: status_json[:reservable],
-                url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+                url: '/reserve/' + self.public_id + '?date=' + date.strftime("%Y-%m-%d")
               }
             end
             next unless date.day == self.repeat_interval_month_date
@@ -303,7 +303,7 @@ class ReserveFrame < ApplicationRecord
               start: date.strftime("%Y-%m-%d"),
               title: status_json[:text],
               reservable: status_json[:reservable],
-              url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+              url: '/reserve/' + self.public_id + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
         else
@@ -315,7 +315,7 @@ class ReserveFrame < ApplicationRecord
                 start: date.strftime("%Y-%m-%d"),
                 title: status_json[:text],
                 reservable: status_json[:reservable],
-                url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+                url: '/reserve/' + self.public_id + '?date=' + date.strftime("%Y-%m-%d")
               }
             end
             next unless date.day == self.repeat_interval_month_date
@@ -324,7 +324,7 @@ class ReserveFrame < ApplicationRecord
                 start: date.strftime("%Y-%m-%d"),
                 title: status_json[:text],
                 reservable: status_json[:reservable],
-                url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+                url: '/reserve/' + self.public_id + '?date=' + date.strftime("%Y-%m-%d")
               }
             end
           end
@@ -346,7 +346,7 @@ class ReserveFrame < ApplicationRecord
               start: date.strftime("%Y-%m-%d"),
               title: status_json[:text],
               reservable: status_json[:reservable],
-              url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+              url: '/reserve/' + self.public_id + '?date=' + date.strftime("%Y-%m-%d")
             }
           else
             next unless repeat_wdays.include?(date.wday)
@@ -354,7 +354,7 @@ class ReserveFrame < ApplicationRecord
               start: date.strftime("%Y-%m-%d"),
               title: status_json[:text],
               reservable: status_json[:reservable],
-              url: '/reserve/' + self.id.to_s + '?date=' + date.strftime("%Y-%m-%d")
+              url: '/reserve/' + self.public_id + '?date=' + date.strftime("%Y-%m-%d")
             }
           end
         end
@@ -366,7 +366,7 @@ class ReserveFrame < ApplicationRecord
         start: self.start_at.strftime("%Y-%m-%d"),
         title: status_json[:text],
         reservable: status_json[:reservable],
-        url: '/reserve/' + self.id.to_s + '?date=' + self.start_at.strftime("%Y-%m-%d")
+        url: '/reserve/' + self.public_id + '?date=' + self.start_at.strftime("%Y-%m-%d")
       }
     end
     result
