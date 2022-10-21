@@ -9,6 +9,7 @@ import { QuestionnaireAnswerParam } from 'interfaces/QuestionnaireAnswerParam'
 import { AnswersParam } from 'interfaces/QuestionnaireAnswerParam'
 import { CustomerParam } from 'interfaces/CustomerParam'
 import { Container, Row, Col, Card } from 'react-bootstrap'
+import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -19,6 +20,7 @@ const Index: NextPage = () => {
   const [answer, setAnswer] = useState<AnswersParam[]>([])
 
   useEffect(() => {
+    dispatch(hideShareButtonChanged(true))
     axios.get(`${process.env.BACKEND_URL}/api/internal/questionnaire_answers/${router.query.public_id}`,
     {
       headers: {
