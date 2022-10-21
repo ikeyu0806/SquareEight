@@ -17,7 +17,7 @@ class StripePaymentRequest < ApplicationRecord
   end
 
   def request_url
-    ENV["FRONTEND_URL"] + "/payment_request/" + self.id.to_s
+    ENV["FRONTEND_URL"] + "/payment_request/" + self.public_id
   end
 
   def billing_customer_name
