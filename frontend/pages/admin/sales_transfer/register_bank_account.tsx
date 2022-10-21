@@ -6,7 +6,7 @@ import {loadStripe} from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
 
-const stripePromise = loadStripe('pk_test_pzo8bTj4ggDEV52y7gnVsdWt')
+const stripePromise = loadStripe(String(process.env.STRIPE_PUBLISHABLE_KEY))
 
 const Register: NextPage = () => {
   const handleSubmit = (e: any) => {
