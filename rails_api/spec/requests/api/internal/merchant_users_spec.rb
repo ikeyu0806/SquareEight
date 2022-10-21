@@ -40,7 +40,7 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
   describe 'POST /api/internal/merchant_users/confirm_verification_code' do
     let(:account) { create(:business_account) }
     let!(:merchant_user) {
-      create(:business_user,
+      create(:merchant_user,
               account: account,
               verification_code: "123456",
               verification_code_expired_at: Time.zone.now + 1.days)
