@@ -10,7 +10,6 @@ import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
 const QuestionnaireAnswer = (): JSX.Element => {
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
-  const [questionnaireMaster, setQuestionnaireMaster] = useState<QuestionnaireMasterParam>()
   const [questionnaireAnswers, setQuestionnaireAnswers] = useState<QuestionnaireAnswerParam[]>()
 
   useEffect(() => {

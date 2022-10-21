@@ -9,7 +9,7 @@ class Api::Internal::CustomersController < ApplicationController
   end
 
   def questionnaire_answers
-    customer = Customer.find_by(public_id: params[:public_id])
+    customer = Customer.find_by(public_id: params[:customer_public_id])
     answer_contents = customer.answer_contents
     render json: { status: 'success', answer_contents: answer_contents }, status: 200
   rescue => error
