@@ -428,7 +428,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.integer "monthly_payment_plan_id"
     t.string "stripe_payment_intent_id"
     t.integer "ticket_consume_number"
-    t.string "viewable_key"
   end
 
   create_table "reserve_frame_credit_card_payment_prices", force: :cascade do |t|
