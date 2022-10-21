@@ -78,7 +78,7 @@ class Api::Internal::TicketMastersController < ApplicationController
 
   def insert_cart
     ActiveRecord::Base.transaction do
-      ticket_master = TicketMaster.find(ticket_master_params[:id])
+      ticket_master = TicketMaster.find_by(public_id: ticket_master_params[:public_id])
       ticket_master.cart_ticket_masters.create!(
         end_user_id: current_end_user.id,
         account_id: ticket_master.account_id,
@@ -102,6 +102,7 @@ class Api::Internal::TicketMastersController < ApplicationController
   def ticket_master_params
     params.require(:ticket_master)
           .permit(:id,
+                  :public_id,
                   :name,
                   :issue_number,
                   :price,

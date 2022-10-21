@@ -48,7 +48,7 @@ const Home: NextPage = () => {
             <div className='text-center'>
               <div className={homeStyles.headline}>SquareEight</div>
               <div className={homeStyles.serviceDescription}>
-                無料から使えるオンラインビジネスプラットフォーム
+                無料から使えるWebページ作成・顧客管理クラウドサービス
               </div>
             </div>
           </Col>

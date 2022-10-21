@@ -87,7 +87,7 @@ const Purchase: NextPage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters/insert_cart`,
     {
       ticket_master: {
-        id: router.query.ticket_master_id,
+        public_id: router.query.public_id,
         purchase_quantity: purchaseQuantitity
       },
     },
