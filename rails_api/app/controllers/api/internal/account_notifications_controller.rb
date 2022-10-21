@@ -8,13 +8,6 @@ class Api::Internal::AccountNotificationsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
-  def show
-    account_notification = current_merchant_user.account.account_notifications.find_by(public_id: params[:public_id])
-    render json: { status: 'success', account_notification: account_notification }, status: 200
-  rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
-  end
-
   private
 
   def notification_params
