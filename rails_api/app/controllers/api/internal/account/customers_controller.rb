@@ -37,7 +37,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
 
   def charges
     customer = Customer.find_by(public_id: params[:customer_public_id])
-    stripe_payment_intents = customer.end_user.search_stripe_payment_intents
+    stripe_payment_intents = customer.end_user&.stripe_payment_intents
     render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
