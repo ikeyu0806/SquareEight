@@ -2,7 +2,10 @@ class Api::Internal::QuestionnaireAnswersController < ApplicationController
 
   def show
     questionnaire_answer = QuestionnaireAnswer.find_by(public_id: params[:public_id])
-    render json: { status: 'success', questionnaire_answer: questionnaire_answer }, status: 200
+    customer = questionnaire_answer.customer
+    render json: { status: 'success',
+                   customer: customer,
+                   questionnaire_answer: questionnaire_answer }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
