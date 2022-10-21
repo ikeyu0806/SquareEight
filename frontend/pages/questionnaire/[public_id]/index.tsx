@@ -111,7 +111,7 @@ const Index: NextPage = () => {
       showCloseButton: true
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.post(`${process.env.BACKEND_URL}/api/internal/questionnaire_answers/${router.query.id}`,
+        axios.post(`${process.env.BACKEND_URL}/api/internal/questionnaire_answers/${router.query.public_id}`,
         {
           questionnaire_answer: {
             last_name: lastName,
