@@ -137,7 +137,7 @@ const Index: NextPage = () => {
         title: '送信しました',
         icon: 'info'
       }).then((result) => {
-        router.push(`/reservation/${response.data.reservation.id}?key=${response.data.reservation.viewable_key}`)
+        router.push(`/reservation/${response.data.reservation.public_id}?key=${response.data.reservation.viewable_key}`)
       })
       setIsCompleteReservation(true)
     }).catch(error => {
