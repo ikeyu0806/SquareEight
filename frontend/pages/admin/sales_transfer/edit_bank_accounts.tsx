@@ -37,7 +37,7 @@ const EditBankAccounts: NextPage = () => {
       })
     }
     fetchStripeConnectedAccount()
-  }, [router.query.id, cookies._square_eight_merchant_session, dispatch])
+  }, [router.query.public_id, cookies._square_eight_merchant_session, dispatch])
 
   const deleteBankAccount = (externalAccountId: string) => {
     swalWithBootstrapButtons.fire({

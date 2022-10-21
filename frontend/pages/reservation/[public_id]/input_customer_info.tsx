@@ -64,7 +64,7 @@ const Index: NextPage = () => {
   const [questionnaireMasterItems, setQuestionnaireMasterItems] = useState<QuestionnaireMasterItem[]>([])
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/reservations/input_customer_info?reservation_id=${router.query.id}`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/reservations/input_customer_info?reservation_id=${router.query.public_id}`,
     {
       headers: {
         'Session-Id': cookies._square_eight_end_user_session
@@ -112,14 +112,14 @@ const Index: NextPage = () => {
       dispatch(loginStatusChanged('Logout'))
     })
     dispatch(hideShareButtonChanged(true))
-  }, [dispatch, cookies._square_eight_end_user_session, router.query.id])
+  }, [dispatch, cookies._square_eight_end_user_session, router.query.public_id])
 
   const execReserve = () => {
     setIsLoading(true)
-    axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/${router.query.id}/confirm`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/${router.query.public_id}/confirm`,
     {
       reservations: {
-        id: router.query.id,
+        id: router.query.public_id,
         last_name: lastName,
         first_name: firstName,
         email: email,

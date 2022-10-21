@@ -91,7 +91,7 @@ const Edit: NextPage = () => {
         }
       })
     }
-    axios.post(`${process.env.BACKEND_URL}/api/internal/products/${router.query.id}/update`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/products/${router.query.public_id}/update`,
     {
       product: {
         name: name,

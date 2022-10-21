@@ -24,7 +24,7 @@ export const Index = () => {
   useEffect(() => {
     const fetchReservation = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/reservations/${router.query.id}?viewable_key=${router.query.key}`
+        `${process.env.BACKEND_URL}/api/internal/reservations/${router.query.public_id}?viewable_key=${router.query.key}`
       )
       .then(function (response) {
         setReserveFrameTitle(response.data.reservation.reserve_frame_title)
@@ -43,7 +43,7 @@ export const Index = () => {
     }
     fetchReservation()
     dispatch(hideShareButtonChanged(true))
-  }, [router.query.id, router.query.key, dispatch])
+  }, [router.query.public_id, router.query.key, dispatch])
 
   return (
     <>

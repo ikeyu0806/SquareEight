@@ -137,7 +137,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
       showCloseButton: true
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`${process.env.BACKEND_URL}/api/internal/products/${router.query.id}`, {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/products/${router.query.public_id}`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           }

@@ -93,7 +93,7 @@ const Index: NextPage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/payment_requests/exec_payment`,
     {
       payment_request: {
-        id: router.query.id
+        id: router.query.public_id
       },
     },
     {

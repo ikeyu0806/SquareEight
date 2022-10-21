@@ -14,7 +14,7 @@ const QuestionnaireAnswer = (): JSX.Element => {
   const [questionnaireAnswers, setQuestionnaireAnswers] = useState<QuestionnaireAnswerParam[]>()
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/customers/${router.query.id}/questionnaire_answers`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/customers/${router.query.public_id}/questionnaire_answers`,
     {
       headers: {
         'Session-Id': cookies._square_eight_merchant_session

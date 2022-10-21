@@ -38,7 +38,7 @@ const EditSharedComponentPage: NextPage = () => {
       })
     }
     fetchWebpage()
-  }, [router.query.id, cookies._square_eight_merchant_session, router.query.website_id, dispatch])
+  }, [router.query.public_id, cookies._square_eight_merchant_session, router.query.website_id, dispatch])
 
   const updateSharedComponent = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/webpages/update_shared_component`,

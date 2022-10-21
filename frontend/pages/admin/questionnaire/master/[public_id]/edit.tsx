@@ -81,7 +81,7 @@ const Edit: NextPage = () => {
       showCloseButton: true
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`${process.env.BACKEND_URL}/api/internal/questionnaire_masters/${router.query.id}`, {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/questionnaire_masters/${router.query.public_id}`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           }
@@ -130,7 +130,7 @@ const Edit: NextPage = () => {
       <AddQuestionnaireFormModal></AddQuestionnaireFormModal>
       <div className='text-center mt30'>
         <Button
-          onClick={() => onSubmit(String(router.query.id))}
+          onClick={() => onSubmit(String(router.query.public_id))}
           disabled={validateSubmit()}>登録する</Button>
       </div>
     </MerchantUserAdminLayout>

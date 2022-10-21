@@ -54,7 +54,7 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
       showCloseButton: true
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/${router.query.id}`, {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/${router.query.public_id}`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           }

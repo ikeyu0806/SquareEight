@@ -45,7 +45,7 @@ const Edit: NextPage = () => {
   }, [router.query.public_id, cookies._square_eight_merchant_session, dispatch])
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/resources/${router.query.id}/update`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/resources/${router.query.public_id}/update`,
     {
       resources: {
         name: name,

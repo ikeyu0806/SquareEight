@@ -44,7 +44,7 @@ const Edit: NextPage = () => {
   }, [cookies._square_eight_merchant_session, router.query.public_id, dispatch])
 
   const updateCustomerGroup = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/account/customer_groups/${router.query.id}/update`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/account/customer_groups/${router.query.public_id}/update`,
     {
       customer_group: {
         name: name,

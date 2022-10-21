@@ -36,7 +36,7 @@ const CardList: NextPage = () => {
       })
     }
     fetchCustomerId()
-  }, [router.query.id, cookies._square_eight_merchant_session])
+  }, [router.query.public_id, cookies._square_eight_merchant_session])
 
   const updateDefaultCard = (payment_method_id: string) => {
     swalWithBootstrapButtons.fire({

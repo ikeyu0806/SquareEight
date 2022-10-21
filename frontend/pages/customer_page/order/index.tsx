@@ -32,7 +32,7 @@ const Index: NextPage = () => {
       })
     }
     fetchOrders()
-  }, [router.query.id, cookies._square_eight_end_user_session])
+  }, [router.query.public_id, cookies._square_eight_end_user_session])
 
   return (
     <EndUserLoginLayout>

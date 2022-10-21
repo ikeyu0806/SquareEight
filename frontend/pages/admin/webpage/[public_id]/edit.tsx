@@ -45,7 +45,7 @@ const Edit: NextPage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/webpages/update`,
     {
       webpage: {
-        id: router.query.id,
+        id: router.query.public_id,
         page_content: pageContent,
         tag: webpageTag,
         publish_status: publishStatus

@@ -31,7 +31,7 @@ const Index: NextPage = () => {
       })
     }
     fetchProducts()
-  }, [router.query.id, cookies._square_eight_merchant_session])
+  }, [router.query.public_id, cookies._square_eight_merchant_session])
 
   return (
     <>

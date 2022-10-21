@@ -248,7 +248,7 @@ const RegisterMerchantInfoForm = () => {
       })
     }
     fetchStripeBusinessInfo()
-  }, [router.query.id, cookies._square_eight_merchant_session, dispatch])
+  }, [router.query.public_id, cookies._square_eight_merchant_session, dispatch])
 
   const validateSubmit = () => {
     if (!isTermConfirmed) { return true }

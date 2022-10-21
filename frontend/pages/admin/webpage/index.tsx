@@ -30,7 +30,7 @@ const Index: NextPage = () => {
       })
     }
     fetchWebpages()
-  }, [router.query.id, cookies._square_eight_merchant_session, router.query.website_id])
+  }, [router.query.public_id, cookies._square_eight_merchant_session, router.query.website_id])
 
   return (
     <>

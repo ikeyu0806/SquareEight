@@ -17,7 +17,7 @@ const Index: NextPage = () => {
   useEffect(() => {
     const fetchOrders = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/account/customers/${router.query.id}/orders`, {
+        `${process.env.BACKEND_URL}/api/internal/account/customers/${router.query.public_id}/orders`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           },
@@ -32,7 +32,7 @@ const Index: NextPage = () => {
       })
     }
     fetchOrders()
-  }, [router.query.id, cookies._square_eight_merchant_session])
+  }, [router.query.public_id, cookies._square_eight_merchant_session])
 
   return (
     <MerchantUserAdminLayout>

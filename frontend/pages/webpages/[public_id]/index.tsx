@@ -50,7 +50,7 @@ const Index: NextPage = () => {
       })
     }
     fetchWebpage()
-  }, [router.query.id, cookies._square_eight_merchant_session, router.query.public_id, dispatch])
+  }, [router.query.public_id, cookies._square_eight_merchant_session, router.query.public_id, dispatch])
 
   return (
     <MerchantCustomLayout>
