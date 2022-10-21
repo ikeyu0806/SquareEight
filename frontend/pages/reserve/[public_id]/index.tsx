@@ -125,7 +125,7 @@ const Index: NextPage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/insert_time_payment_method`,
     {
       reservations: {
-        reserve_frame_id: router.query.reserve_frame_id,
+        reserve_frame_public_id: router.query.public_id,
         reservation_date: router.query.date,
         time: selectedTime,
         payment_method: selectedPaymentMethodType,

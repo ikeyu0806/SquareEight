@@ -10,7 +10,7 @@ class Api::Internal::ReservationsController < ApplicationController
       start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i, 0, "+09:00")
       end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i, 0, "+09:00")
 
-      reserve_frame = ReserveFrame.find(reservation_params[:reserve_frame_id])
+      reserve_frame = ReserveFrame.find_by(public_id: reservation_params[:reserve_frame_public_id])
       reservation = reserve_frame
       .reservations
       .create!( number_of_people: reservation_params[:reserve_count],
@@ -360,6 +360,7 @@ class Api::Internal::ReservationsController < ApplicationController
   def reservation_params
     params.require(:reservations)
           .permit(:id,
+                  :reserve_frame_public_id,
                   :public_id,
                   :last_name,
                   :first_name,
