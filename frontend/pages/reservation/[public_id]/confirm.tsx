@@ -80,7 +80,7 @@ const PaymentMethod: NextPage = () => {
         title: '予約しました',
         icon: 'info'
       }).then((result) => {
-        router.push(`/reservation/${response.data.reservation.id}?key=${response.data.reservation.viewable_key}`)
+        router.push(`/reservation/${response.data.reservation.id}`)
       })
     }).catch(error => {
       swalWithBootstrapButtons.fire({
