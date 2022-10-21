@@ -14,8 +14,6 @@ class Api::Internal::ReserveFramesController < ApplicationController
   end
 
   def show
-    # reduxのデフォルト0にして無駄なリクエスト来るんで一旦こうしとく
-    render json: { status: 'success' } and return if params[:public_id].to_i.zero?
     reserve_frame = ReserveFrame.enabled.find_by(public_id: params[:public_id])
     main_image_public_url = reserve_frame.main_image_public_url
     shared_component = reserve_frame.account.shared_component

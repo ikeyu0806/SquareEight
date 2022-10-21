@@ -360,6 +360,7 @@ class Api::Internal::ReservationsController < ApplicationController
   def reservation_params
     params.require(:reservations)
           .permit(:id,
+                  :public_id,
                   :last_name,
                   :first_name,
                   :first_name_kana,
