@@ -29,6 +29,7 @@ const Index = (): JSX.Element => {
         <Row>
           <Col lg={2}></Col>
           <Col lg={8}>
+            <a className='btn btn-primary mb20' href='/admin/questionnaire/master/new'>アンケート作成</a>
             <Card>
               <Card.Header>アンケート一覧</Card.Header>
               <ListGroup variant='flush'>
