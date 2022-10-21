@@ -93,7 +93,7 @@ const Index: NextPage = () => {
                                   未発送
                                 </span>
                                 <a className='badge bg-primary ml10'
-                                  onClick={() => updateShippedStatus(item.id)}>
+                                  onClick={() => updateShippedStatus(item.public_id)}>
                                   発送済みに更新する
                                 </a>
                               </>}
