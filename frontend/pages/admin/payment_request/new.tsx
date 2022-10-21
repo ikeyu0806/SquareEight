@@ -288,7 +288,10 @@ const New: NextPage = () => {
                 type='radio'
                 key={i}
                 label={template.name}
-                onChange={(e) => dispatch(contentChanged(template.content))}
+                onChange={(e) => {
+                  dispatch(contentChanged(template.content))
+                  dispatch(titleChanged(template.title))
+                }}
               ></Form.Check>
             )
            })}
