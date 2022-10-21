@@ -17,6 +17,7 @@ class CreateStripePaymentIntents < ActiveRecord::Migration[7.0]
       t.integer :system_product_type
       t.integer :end_user_id
       t.integer :account_id
+      t.string :public_id, null: false
 
       t.timestamps
     end

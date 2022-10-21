@@ -1,4 +1,5 @@
 export interface MonthlyPaymentPlanParam {
+  public_id: string
   id: number
   name: string
   price: number

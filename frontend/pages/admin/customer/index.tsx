@@ -157,18 +157,18 @@ const Index: NextPage = () => {
                                 編集
                               </a>
                               <br/>
-                              <a href={`/admin/customer/${customer.id}/questionnaire_answers`}
+                              <a href={`/admin/customer/${customer.public_id}/questionnaire_answers`}
                                 className='btn btn-primary'>
                                 アンケート回答
                               </a>
                             </Col>
                             <Col>
-                              <a href={`/admin/customer/${customer.id}/order`}
+                              <a href={`/admin/customer/${customer.public_id}/order`}
                                 className='btn btn-primary mb20'>
                                 注文履歴
                               </a>
                               <br/>
-                              <a href={`/admin/customer/${customer.id}/charges`}
+                              <a href={`/admin/customer/${customer.public_id}/charges`}
                                 className='btn btn-primary'>
                                 お支払い履歴
                               </a>

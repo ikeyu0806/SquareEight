@@ -102,14 +102,14 @@ const Index: NextPage = () => {
                         </Col>
                         <Col>
                           <div className='text-center'>
-                            <Button onClick={() => showEditModal(message.id, message.name, message.title, message.content)}>
+                            <Button onClick={() => showEditModal(message.public_id, message.name, message.title, message.content)}>
                                 編集
                               </Button>
                           </div>
                         </Col>
                         <Col>
                           <div className='text-center'>
-                            <Button onClick={() => showSendModal(message.id, message.name, message.title,message.content)}>
+                            <Button onClick={() => showSendModal(message.public_id, message.name, message.title,message.content)}>
                               メール送信
                             </Button>
                           </div>

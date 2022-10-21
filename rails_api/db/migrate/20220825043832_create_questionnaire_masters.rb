@@ -5,6 +5,7 @@ class CreateQuestionnaireMasters < ActiveRecord::Migration[7.0]
       t.string :title
       t.string :description
       t.text :question_form_json
+      t.string :public_id, null: false
 
       t.timestamps
     end

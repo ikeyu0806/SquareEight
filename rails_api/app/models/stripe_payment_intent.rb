@@ -1,4 +1,6 @@
 class StripePaymentIntent < ApplicationRecord
+  include PublicIdModule
+
   has_one :end_user, foreign_key: :id, primary_key: :end_user_id
   has_one :account, foreign_key: :id, primary_key: :account_id
   has_one :product, foreign_key: :id, primary_key: :product_id

@@ -1,4 +1,6 @@
 class Order < ApplicationRecord
+  include PublicIdModule
+
   has_one :end_user
   has_many :order_items
 

@@ -1,4 +1,5 @@
 export interface CustomerParam {
+  public_id: string
   id: number
   first_name: string
   last_name: string

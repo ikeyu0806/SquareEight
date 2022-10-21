@@ -6,7 +6,7 @@ import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
-import { reserveFrameIdChanged,
+import { publicIdChanged,
          showCreateReserveFrameModalChanged,
          showEditReserveFrameModalChanged } from 'redux/reserveFrameSlice'
 import CreateReserveFrameModal from 'components/organisms/CreateReserveFrameModal'
@@ -38,7 +38,7 @@ const Index = (): JSX.Element => {
       })
     }
     fetchReserveFrames()
-  }, [router.query.id, cookies._square_eight_merchant_session])
+  }, [router.query.public_id, cookies._square_eight_merchant_session])
 
   return (
     <>
@@ -89,14 +89,14 @@ const Index = (): JSX.Element => {
                       <a className='btn btn-primary'
                          onClick={() => {
                           dispatch(showEditReserveFrameModalChanged(true))
-                          dispatch(reserveFrameIdChanged(Number(reserveFrame.id)))
+                          dispatch(publicIdChanged(reserveFrame.public_id))
                         }}>編集</a>
                     </td>
                     <td>
                     <a className='btn btn-primary ml10'
                        target='_blank'
                        rel='noreferrer'
-                       href={`/reserve_frame/${reserveFrame.id}/calendar`}>プレビュー</a>
+                       href={`/reserve_frame/${reserveFrame.public_id}/calendar`}>プレビュー</a>
                     </td>
                   </tr>
                 )

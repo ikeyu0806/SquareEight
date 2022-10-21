@@ -2,7 +2,7 @@ class Api::Internal::QuestionnaireAnswersController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      questionnaire_master = QuestionnaireMaster.find(params[:questionnaire_master_id])
+      questionnaire_master = QuestionnaireMaster.find_by(public_id: params[:questionnaire_master_id])
       account = questionnaire_master.account
       # 電話番号、メールアドレスに一致するcustomerがなければ作成
       customer = account.customers.find_by(phone_number: questionnaire_answer_params[:phone_number])
@@ -17,7 +17,7 @@ class Api::Internal::QuestionnaireAnswersController < ApplicationController
                                     answers_json: questionnaire_answer_params[:answer].to_json)
       # 通知作成
       account_notification_title = customer.full_name + 'が ' + questionnaire_master.title + ' アンケートに回答しました'
-      account_notification_url = '/admin/customer/' + customer.id.to_s + '/questionnaire_answers'
+      account_notification_url = '/admin/customer/' + customer.public_id + '/questionnaire_answers'
       account.account_notifications
       .create!(title: account_notification_title, url: account_notification_url)
       render json: { status: 'success' }, status: 200

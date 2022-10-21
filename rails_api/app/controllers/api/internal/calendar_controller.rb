@@ -1,8 +1,8 @@
 class Api::Internal::CalendarController < ApplicationController
   def monthly_reserve_frames
-    reserve_frame = ReserveFrame.find(params[:reserve_frame_id])
+    reserve_frame = ReserveFrame.find_by(public_id: params[:public_id])
     shared_component = reserve_frame.account.shared_component
-    service = MonthCalendarService.new(params[:target_year].to_i, params[:target_month].to_i, params[:reserve_frame_id])
+    service = MonthCalendarService.new(params[:target_year].to_i, params[:target_month].to_i, reserve_frame.id)
     calendar_content = service.reserve_content_json
     render json: { status: 'success',
                    shared_component: shared_component,

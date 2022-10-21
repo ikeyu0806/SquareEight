@@ -1,4 +1,6 @@
 class DeliveryDatetimeSetting < ApplicationRecord
+  include PublicIdModule
+
   enum delivery_time_type: { yamato: 0, sagawa: 1, yupack: 2, other: 3 }
 
   belongs_to :account

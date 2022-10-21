@@ -35,6 +35,7 @@ const Index: NextPage = () => {
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
+            <a className='btn btn-primary mb20' href='/admin/customer_group/new'>顧客グループ作成</a>
             <h4>顧客グループ</h4>
             <ListGroup>
             {customerGroups.map((group, i) => {
@@ -48,7 +49,7 @@ const Index: NextPage = () => {
                     </Col>
                     <Col></Col>
                     <Col>
-                      <a href={`/admin/customer_group/${group.id}/edit`} className='btn btn-primary'>編集</a>
+                      <a href={`/admin/customer_group/${group.public_id}/edit`} className='btn btn-primary'>編集</a>
                     </Col>
                   </Row>
                 </ListGroup.Item>

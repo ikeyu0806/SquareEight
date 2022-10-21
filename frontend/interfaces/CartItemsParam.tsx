@@ -1,4 +1,5 @@
 export interface CartItemParam {
+  public_id: string
   id: string
   quantity: number
   product_name: string

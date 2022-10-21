@@ -1,4 +1,6 @@
 class OrderItem < ApplicationRecord
+  include PublicIdModule
+
   enum item_type: { TicketMaster: 0, MonthlyPaymentPlan: 1, Product: 2, Reservation: 3, PaymentRequest: 4 }
 
   belongs_to :order

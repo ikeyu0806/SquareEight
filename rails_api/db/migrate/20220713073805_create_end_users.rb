@@ -9,6 +9,7 @@ class CreateEndUsers < ActiveRecord::Migration[7.0]
       t.string :verification_code
       t.datetime :verification_code_expired_at
       t.integer :authentication_status
+      t.string :public_id, null: false
 
       t.timestamps
     end

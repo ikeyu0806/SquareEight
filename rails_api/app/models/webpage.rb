@@ -1,4 +1,6 @@
 class Webpage < ApplicationRecord
+  include PublicIdModule
+
   belongs_to :account
   has_many :webpage_blocks, dependent: :delete_all
 

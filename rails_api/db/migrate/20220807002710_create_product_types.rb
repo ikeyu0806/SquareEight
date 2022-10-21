@@ -4,6 +4,7 @@ class CreateProductTypes < ActiveRecord::Migration[7.0]
       t.integer :product_id
       t.string :name
       t.integer :inventory
+      t.string :public_id, null: false
 
       t.timestamps
     end

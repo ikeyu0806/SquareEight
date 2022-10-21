@@ -5,6 +5,7 @@ class CreatePurchasedTickets < ActiveRecord::Migration[7.0]
       t.integer :ticket_master_id
       t.integer :remain_number
       t.datetime :expired_at
+      t.string :public_id, null: false
 
       t.timestamps
     end

@@ -6,6 +6,7 @@ class CreateStripePaymentRequests < ActiveRecord::Migration[7.0]
       t.integer :end_user_id
       t.integer :price, null: false
       t.integer :status, default: 0
+      t.string :public_id, null: false
 
       t.timestamps
     end

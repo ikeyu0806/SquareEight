@@ -14,6 +14,7 @@ class CreateDeliveryDatetimeSettings < ActiveRecord::Migration[7.0]
       t.boolean :is_holiday_fri, default: false
       t.boolean :is_holiday_sat, default: false
       t.integer :delivery_time_type
+      t.string :public_id, null: false
 
       t.timestamps
     end

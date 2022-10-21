@@ -4,6 +4,8 @@ class CreateReserveFrameTicketMasters < ActiveRecord::Migration[7.0]
       t.integer :reserve_frame_id
       t.integer :ticket_master_id
       t.integer :consume_number
+      t.string :public_id, null: false
+
       t.timestamps
     end
   end

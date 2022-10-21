@@ -32,7 +32,7 @@ const PurchaseMonthlyPayment = (): JSX.Element => {
                     alt='image' />}
               <div>￥{price}</div>
               <div>{reserveIntervalNumber}日に{enableReserveCount}回予約可能</div>
-              <a className='btn btn-primary mt30' href={`/monthly_payment/${router.query.id}/payment`}>購入に進む</a>
+              <a className='btn btn-primary mt30' href={`/monthly_payment/${router.query.public_id}/payment`}>購入に進む</a>
             </Card.Body>
           </Card>
           </Col>

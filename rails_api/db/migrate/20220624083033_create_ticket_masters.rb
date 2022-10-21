@@ -5,6 +5,7 @@ class CreateTicketMasters < ActiveRecord::Migration[7.0]
       t.integer :account_id
       t.integer :issue_number
       t.integer :price
+      t.string :public_id, null: false
 
       t.timestamps
     end

@@ -53,6 +53,7 @@ const EditReserveFrameModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const reserveFrameId = useSelector((state: RootState) => state.reserveFrame.reserveFrameId)
+  const publicId = useSelector((state: RootState) => state.reserveFrame.publicId)
   const title = useSelector((state: RootState) => state.reserveFrame.title)
   const description = useSelector((state: RootState) => state.reserveFrame.description)
   const startDate = useSelector((state: RootState) => state.reserveFrame.startDate)
@@ -118,7 +119,7 @@ const EditReserveFrameModal = (): JSX.Element => {
   }
 
   const updateReserveFrame = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames/${reserveFrameId}`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames/${publicId}`,
     {
       reserve_frame: {
         title: title,
@@ -192,7 +193,7 @@ const EditReserveFrameModal = (): JSX.Element => {
       showCloseButton: true
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`${process.env.BACKEND_URL}/api/internal/reserve_frames/${reserveFrameId}`, {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/reserve_frames/${publicId}`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           }
@@ -215,7 +216,7 @@ const EditReserveFrameModal = (): JSX.Element => {
   useEffect(() => {
     const fetchReserveFrame = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/reserve_frames/${reserveFrameId}`, {
+        `${process.env.BACKEND_URL}/api/internal/reserve_frames/${publicId}`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           },
@@ -264,7 +265,7 @@ const EditReserveFrameModal = (): JSX.Element => {
       })  
     }
     fetchReserveFrame()
-  }, [router.query.id, cookies._square_eight_merchant_session, dispatch, reserveFrameId])
+  }, [router.query.public_id, cookies._square_eight_merchant_session, dispatch, publicId])
 
   return (
     <>

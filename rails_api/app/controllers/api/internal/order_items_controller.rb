@@ -10,7 +10,7 @@ class Api::Internal::OrderItemsController < ApplicationController
   end
 
   def update_shipped
-    order_item = OrderItem.find(params[:id])
+    order_item = OrderItem.find_by(public_id: params[:public_id])
     order_item.update!(shipped: true)
     render json: { status: 'success' }, status: 200
   rescue => error

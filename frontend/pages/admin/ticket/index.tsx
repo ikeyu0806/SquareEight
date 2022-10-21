@@ -35,7 +35,7 @@ const Index: NextPage = () => {
       })
     }
     fetchTicketMasters()
-  }, [router.query.id, cookies._square_eight_merchant_session, router.query.website_id])
+  }, [router.query.public_id, cookies._square_eight_merchant_session, router.query.website_id])
 
   return (
     <>
@@ -60,12 +60,12 @@ const Index: NextPage = () => {
                         値段 ￥{ticket.price}
                       </Col>
                       <Col>
-                        <a href={`/admin/ticket/${ticket.id}/edit`}
+                        <a href={`/admin/ticket/${ticket.public_id}/edit`}
                            className='btn btn-primary btn-sm'>
                           編集
                         </a>
                         <br/>
-                        <a href={`/ticket/${ticket.id}/purchase`}
+                        <a href={`/ticket/${ticket.public_id}/purchase`}
                           className='btn btn-primary mt10 btn-sm'
                           target='_blank'
                           rel='noreferrer'>

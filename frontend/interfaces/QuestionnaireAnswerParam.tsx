@@ -1,4 +1,5 @@
 export interface QuestionnaireAnswerParam {
+  public_id: string
   id: string
   customer_name: string
   answer_datetime: string

@@ -43,7 +43,7 @@ const Index: NextPage = () => {
       })
     }
     fetchStripeConnectedAccount()
-  }, [router.query.id, cookies._square_eight_merchant_session, dispatch])
+  }, [cookies._square_eight_merchant_session, dispatch])
 
   const requirementsContents = () => {
     let result = [] as string[]
@@ -258,7 +258,7 @@ const Index: NextPage = () => {
                       return (
                         <div key={i} className='mt10'>
                           {person.last_name}{person.first_name}
-                          <a className='ml20 btn btn-primary' href={`/admin/sales_transfer/${person.id}/edit_person`}>編集</a>
+                          <a className='ml20 btn btn-primary' href={`/admin/sales_transfer/${person.public_id}/edit_person`}>編集</a>
                           <hr/>
                         </div>
                       )

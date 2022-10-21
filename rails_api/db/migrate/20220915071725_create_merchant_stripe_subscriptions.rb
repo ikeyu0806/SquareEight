@@ -5,6 +5,7 @@ class CreateMerchantStripeSubscriptions < ActiveRecord::Migration[7.0]
       t.integer :monthly_payment_plan_id, null: false
       t.string :stripe_subscription_id, null: false
       t.datetime :canceled_at
+      t.string :public_id, null: false
 
       t.timestamps
     end

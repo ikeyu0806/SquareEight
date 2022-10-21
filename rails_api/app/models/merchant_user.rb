@@ -1,6 +1,8 @@
 require 'securerandom'
 
 class MerchantUser < ApplicationRecord
+  include PublicIdModule
+
   has_secure_password(validations: false)
 
   belongs_to :account

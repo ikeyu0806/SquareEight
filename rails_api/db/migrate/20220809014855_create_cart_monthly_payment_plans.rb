@@ -5,6 +5,7 @@ class CreateCartMonthlyPaymentPlans < ActiveRecord::Migration[7.0]
       t.integer :end_user_id
       t.integer :monthly_payment_plan_id
       t.integer :quantity
+      t.string :public_id, null: false
 
       t.timestamps
     end

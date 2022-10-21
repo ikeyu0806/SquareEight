@@ -1,4 +1,6 @@
 class QuestionnaireAnswer < ApplicationRecord
+  include PublicIdModule
+
   belongs_to :questionnaire_master
   belongs_to :customer
 

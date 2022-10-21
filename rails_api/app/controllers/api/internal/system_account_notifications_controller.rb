@@ -17,14 +17,14 @@ class Api::Internal::SystemAccountNotificationsController < ApplicationControlle
   end
 
   def show
-    system_account_notification = SystemAccountNotification.find(params[:id])
+    system_account_notification = SystemAccountNotification.find_by(public_id: params[:public_id])
     render json: { status: 'success', system_account_notification: system_account_notification }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def update
-    SystemAccountNotification.find(params[:id]).update!(notification_params)
+    SystemAccountNotification.find(params[:public_id]).update!(notification_params)
     render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

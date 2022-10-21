@@ -1,4 +1,6 @@
 class StripePaymentRequest < ApplicationRecord
+  include PublicIdModule
+
   enum status: { Pending: 0, Paid: 1 }
   belongs_to :account
   belongs_to :customer
@@ -15,7 +17,7 @@ class StripePaymentRequest < ApplicationRecord
   end
 
   def request_url
-    ENV["FRONTEND_URL"] + "/payment_request/" + self.id.to_s
+    ENV["FRONTEND_URL"] + "/payment_request/" + self.public_id
   end
 
   def billing_customer_name

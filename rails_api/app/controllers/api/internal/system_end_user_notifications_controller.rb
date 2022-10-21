@@ -14,14 +14,14 @@ class Api::Internal::SystemEndUserNotificationsController < ApplicationControlle
   end
 
   def show
-    system_end_user_notification = SystemEndUserNotification.find(params[:id])
+    system_end_user_notification = SystemEndUserNotification.find_by(public_id: params[:public_id])
     render json: { status: 'success', system_end_user_notification: system_end_user_notification }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def update
-    SystemEndUserNotification.find(params[:id]).update!(notification_params)
+    SystemEndUserNotification.find_by(public_id: params[:public_id]).update!(notification_params)
     render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

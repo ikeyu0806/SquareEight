@@ -1,4 +1,6 @@
 class ReserveFrameLocalPaymentPrice < ApplicationRecord
+  include PublicIdModule
+
   # 予約画面の予約人数初期表示
   def default_reserve_number_of_people
     1

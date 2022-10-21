@@ -11,7 +11,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   end
 
   def show
-    payment_request = StripePaymentRequest.find(params[:id])
+    payment_request = StripePaymentRequest.find_by(public_id: params[:public_id])
     shared_component = payment_request.account.shared_component
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
@@ -109,7 +109,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                             first_name: current_end_user.first_name,
                             last_name: current_end_user.last_name)
       end
-      payment_request = StripePaymentRequest.find(payment_request_params[:id])
+      payment_request = StripePaymentRequest.find_by(public_id: payment_request_params[:public_id])
       account = payment_request.account
       commission = account.application_fee_amount.to_i
       stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
@@ -159,6 +159,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   def payment_request_params
     params.require(:payment_request)
           .permit(:id,
+                  :public_id,
                   :name,
                   :price,
                   :title,

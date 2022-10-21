@@ -5,6 +5,7 @@ class CreateSystemStripeSubscriptions < ActiveRecord::Migration[7.0]
       t.integer :service_plan, null: false
       t.string :stripe_subscription_id, null: false
       t.datetime :canceled_at
+      t.string :public_id, null: false
 
       t.timestamps
     end

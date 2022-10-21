@@ -4,6 +4,7 @@ class CreateReserveFrameLocalPaymentPrices < ActiveRecord::Migration[7.0]
       t.integer :reserve_frame_id, null: false
       t.string :name, null: false
       t.integer :price, null: false
+      t.string :public_id, null: false
 
       t.timestamps
     end

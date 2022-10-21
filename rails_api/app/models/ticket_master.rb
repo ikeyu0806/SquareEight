@@ -1,4 +1,6 @@
 class TicketMaster < ApplicationRecord
+  include PublicIdModule
+
   belongs_to :account
   has_many :purchased_tickets
   has_many :cart_ticket_masters

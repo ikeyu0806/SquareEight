@@ -1,7 +1,7 @@
 version: '3'
 
 services:
-  frontend:
+  square_eight_frontend:
     container_name: square_eight_frontend
     build:
       context: frontend
@@ -13,7 +13,7 @@ services:
       - 3111:3000
     networks:
       - square_eight_network
-  rails_api:
+  square_eight_rails_api:
     container_name: square_eight_rails_api
     build:
       context: rails_api
@@ -27,11 +27,11 @@ services:
     ports:
       - 3222:3000
     depends_on:
-      - postgresql
-      - redis
+      - square_eight_postgresql
+      - square_eight_redis
     networks:
       - square_eight_network
-  postgresql:
+  square_eight_postgresql:
     container_name: square_eight_postgresql
     build:
       context: rails_api
@@ -40,10 +40,10 @@ services:
     volumes:
       - ./rails_api/cache/postgres/data:/var/lib/postgresql/data
     ports:
-      - "54322:5432"
+      - "54321:5432"
     networks:
       - square_eight_network
-  redis:
+  square_eight_redis:
     container_name: square_eight_redis
     build:
       context: ./rails_api

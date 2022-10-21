@@ -111,7 +111,7 @@ class Api::Internal::CashRegistersController < ApplicationController
           current_end_user.create_product_purchase_notification(end_user_notification_title)
           # ビジネスオーナー向け通知
           account_notification_title = customer.full_name + 'が' + product.name + 'を購入しました。'
-          account_notification_url = '/admin/customer/' + customer.id.to_s + '/order'
+          account_notification_url = '/admin/customer/' + customer.public_id + '/order'
           product.account
           .account_notifications
           .create!(title: account_notification_title, url: account_notification_url)
@@ -174,7 +174,7 @@ class Api::Internal::CashRegistersController < ApplicationController
           current_end_user.create_product_purchase_notification(end_user_notification_title)
           # ビジネスオーナー向け通知
           account_notification_title = customer.full_name + 'が' + ticket_master.name + 'を購入しました。'
-          account_notification_url = '/admin/customer/' + customer.id.to_s + '/order'
+          account_notification_url = '/admin/customer/' + customer.public_id + '/order'
           ticket_master.account
           .account_notifications
           .create!(title: account_notification_title, url: account_notification_url)
@@ -231,7 +231,7 @@ class Api::Internal::CashRegistersController < ApplicationController
           current_end_user.create_product_purchase_notification(end_user_notification_title)
           # ビジネスオーナー向け通知
           account_notification_title = customer.full_name + 'が' + monthly_payment_plan.name + 'を購入しました。'
-          account_notification_url = '/admin/customer/' + customer.id.to_s + '/order'
+          account_notification_url = '/admin/customer/' + customer.public_id + '/order'
           monthly_payment_plan.account
           .account_notifications
           .create!(title: account_notification_title, url: account_notification_url)
@@ -245,7 +245,7 @@ class Api::Internal::CashRegistersController < ApplicationController
       end
       order.delivery_charge = total_delivery_charge
       order.save!
-      render json: { status: 'success', order_id: order.id }, status: 200
+      render json: { status: 'success', order_public_id: order.public_id }, status: 200
     end
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500

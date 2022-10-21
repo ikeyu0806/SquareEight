@@ -18,7 +18,7 @@ const New: NextPage = () => {
   useEffect(() => {
     const fetchNotification = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/system_end_user_notifications/${router.query.id}`, {
+        `${process.env.BACKEND_URL}/api/internal/system_end_user_notifications/${router.query.public_id}`, {
           headers: { 
             'Session-Id': cookies._square_eight_system_admin_user_session
           },
@@ -34,10 +34,10 @@ const New: NextPage = () => {
       })
     }
     fetchNotification()
-  }, [router.query.id, cookies._square_eight_system_admin_user_session, router.query.website_id])
+  }, [router.query.public_id, cookies._square_eight_system_admin_user_session, router.query.website_id])
 
   const createNotification = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/system_end_user_notifications/${router.query.id}`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/system_end_user_notifications/${router.query.public_id}`,
     {
       notification: {
         title: title,

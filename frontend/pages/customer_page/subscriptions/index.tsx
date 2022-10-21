@@ -78,7 +78,7 @@ const Index: NextPage = () => {
                       </Col>
                       <Col>
                         <a  className='btn btn-primary'
-                            href={`/monthly_payment/${subscription.id}/purchase`}
+                            href={`/monthly_payment/${subscription.public_id}/purchase`}
                             target='_blank'
                             rel='noreferrer'>購入ページ</a>
                         <Button

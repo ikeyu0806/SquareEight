@@ -1,4 +1,5 @@
 export interface TicketMasterParam {
+  public_id: string
   id: number
   name: string
   issue_number: number

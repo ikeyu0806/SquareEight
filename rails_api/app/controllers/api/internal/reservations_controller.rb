@@ -10,7 +10,7 @@ class Api::Internal::ReservationsController < ApplicationController
       start_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, start_at[0].to_i, start_at[1].to_i, 0, "+09:00")
       end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i, 0, "+09:00")
 
-      reserve_frame = ReserveFrame.find(reservation_params[:reserve_frame_id])
+      reserve_frame = ReserveFrame.find_by(public_id: reservation_params[:reserve_frame_public_id])
       reservation = reserve_frame
       .reservations
       .create!( number_of_people: reservation_params[:reserve_count],
@@ -59,7 +59,7 @@ class Api::Internal::ReservationsController < ApplicationController
 
   def confirm
     ActiveRecord::Base.transaction do
-      reservation = Reservation.find(reservation_params[:id])
+      reservation = Reservation.find_by(public_id: reservation_params[:public_id])
       reserve_frame = reservation.reserve_frame
       account = reserve_frame.account
       monthly_reservation_count = account.reservations.where(start_at: Time.zone.now - 30.days...Time.zone.now).count
@@ -219,8 +219,7 @@ class Api::Internal::ReservationsController < ApplicationController
   end
 
   def show
-    reservation = Reservation.find(params[:id])
-    raise 'key is not match' if reservation.viewable_key != params[:viewable_key]
+    reservation = Reservation.find_by(public_id: params[:public_id])
     reservation = JSON.parse(reservation.to_json(methods: [:reserve_frame_title, 
                                                            :display_payment_method,
                                                            :display_status,
@@ -234,7 +233,7 @@ class Api::Internal::ReservationsController < ApplicationController
 
   def update_status
     ActiveRecord::Base.transaction do
-      reservation = Reservation.find(reservation_params[:id])
+      reservation = Reservation.find_by(public_id: reservation_params[:id])
       reservation.update!(status: reservation_params[:status])
       if reservation.customer.email.present?
         display_number_of_people, total_price = reservation.display_multi_payment_method_with_number_of_people
@@ -298,7 +297,7 @@ class Api::Internal::ReservationsController < ApplicationController
   def input_customer_info
     login_status = current_end_user.present? ? 'Login' : 'Logout'
     # 共通ヘッダ、フッタ
-    reservation = Reservation.find(params[:reservation_id])
+    reservation = Reservation.find_by(public_id: params[:reservation_id])
     reserve_frame = reservation.reserve_frame
     shared_component = reserve_frame.account.shared_component
     if current_end_user.present? && current_end_user.stripe_customer_id.present?
@@ -343,7 +342,7 @@ class Api::Internal::ReservationsController < ApplicationController
   end
 
   def cancel
-    reservation = Reservation.find(params[:id])
+    reservation = Reservation.find_by(public_id: params[:public_id])
     reservation.update!(status: 'cancel')
     customer = reservation.customer
     # swal2のcheckboxにチェックを入れると"1"になる
@@ -360,6 +359,8 @@ class Api::Internal::ReservationsController < ApplicationController
   def reservation_params
     params.require(:reservations)
           .permit(:id,
+                  :reserve_frame_public_id,
+                  :public_id,
                   :last_name,
                   :first_name,
                   :first_name_kana,

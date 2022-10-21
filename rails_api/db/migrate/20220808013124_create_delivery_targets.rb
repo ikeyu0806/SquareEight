@@ -12,6 +12,7 @@ class CreateDeliveryTargets < ActiveRecord::Migration[7.0]
       t.string :line2
       t.string :phone_number
       t.boolean :is_default
+      t.string :public_id, null: false
 
       t.timestamps
     end

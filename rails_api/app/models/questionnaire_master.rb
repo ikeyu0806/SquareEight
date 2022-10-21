@@ -1,4 +1,6 @@
 class QuestionnaireMaster < ApplicationRecord
+  include PublicIdModule
+
   belongs_to :account
   has_many :questionnaire_answers
 

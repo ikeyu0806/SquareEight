@@ -1,4 +1,5 @@
 export interface MerchantStripeSubscription {
+  public_id: string
   id: number
   account_business_name: string
   canceled_at: string

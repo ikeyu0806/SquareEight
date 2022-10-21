@@ -14,9 +14,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
   end
 
   def show
-    # reduxのデフォルト0にして無駄なリクエスト来るんで一旦こうしとく
-    render json: { status: 'success' } and return if params[:id].to_i.zero?
-    reserve_frame = ReserveFrame.enabled.find(params[:id])
+    reserve_frame = ReserveFrame.enabled.find_by(public_id: params[:public_id])
     main_image_public_url = reserve_frame.main_image_public_url
     shared_component = reserve_frame.account.shared_component
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,
@@ -105,7 +103,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      reserve_frame = ReserveFrame.find(params[:id])
+      reserve_frame = ReserveFrame.find_by(public_id: params[:public_id])
       reserve_frame.attributes = reserve_frame_instance_attribute_params
 
       if reserve_frame_params[:reserve_frame_reception_times].present?
@@ -188,7 +186,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
   end
 
   def logical_delete
-    reserve_frame = ReserveFrame.find(params[:id])
+    reserve_frame = ReserveFrame.find_by(public_id: params[:public_id])
     reserve_frame.logical_delete
     render json: { status: 'success' }, status: 200
   rescue => error

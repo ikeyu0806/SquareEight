@@ -11,6 +11,7 @@ class CreateCustomers < ActiveRecord::Migration[7.0]
       t.integer :gender
       t.datetime :dob
       t.text :custom_items_answer
+      t.string :public_id, null: false
 
       t.timestamps
     end

@@ -11,14 +11,14 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   end
 
   def show
-    monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.enabled.find(params[:id])
+    monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.enabled.find_by(public_id: params[:public_id])
     render json: { status: 'success', monthly_payment_plan: monthly_payment_plan }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
 
   def purchase_info
-    monthly_payment_plan = MonthlyPaymentPlan.enabled.find(params[:id])
+    monthly_payment_plan = MonthlyPaymentPlan.enabled.find_by(public_id: params[:public_id])
     main_image_public_url = monthly_payment_plan.main_image_public_url
     shared_component = monthly_payment_plan.account.shared_component
     if current_end_user.present?
@@ -70,7 +70,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   end
 
   def update
-    monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find(params[:id])
+    monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find_by(public_id: params[:public_id])
     monthly_payment_plan.attributes = monthly_payment_plan_params.except(:base64_image)
     if (monthly_payment_plan_params[:base64_image].present?)
       ticket_master.ticket_master_image_relations.update_all(relation_status: "Sub")
@@ -88,7 +88,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def insert_cart
     ActiveRecord::Base.transaction do
-      monthly_payment_plan = MonthlyPaymentPlan.enabled.find(monthly_payment_plan_params[:id])
+      monthly_payment_plan = MonthlyPaymentPlan.enabled.find_by(public_id: monthly_payment_plan_params[:id])
       # 既にカートに入っていたら追加しない
       raise "既にカートに入っています" if monthly_payment_plan.cart_monthly_payment_plans.find_by(end_user_id: current_end_user.id).present?
       monthly_payment_plan.cart_monthly_payment_plans.create!(
@@ -102,7 +102,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   end
 
   def logical_delete
-    monthly_payment_plan = MonthlyPaymentPlan.find(params[:id])
+    monthly_payment_plan = MonthlyPaymentPlan.find_by(public_id: params[:public_id])
     monthly_payment_plan.logical_delete
     render json: { status: 'success' }, status: 200
   rescue => error
