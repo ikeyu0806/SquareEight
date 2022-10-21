@@ -49,7 +49,7 @@ const Index: NextPage = () => {
                     <td className='text-center'>{payment.name}</td>
                     <td className='text-center'>{payment.account_business_name}</td>
                     <td className='text-center'>￥{payment.amount}</td>
-                    <td className='text-center'>{payment.order_date}</td>
+                    <td className='text-center'>{payment.metadata.order_date}</td>
                   </tr>
                 )
               })}

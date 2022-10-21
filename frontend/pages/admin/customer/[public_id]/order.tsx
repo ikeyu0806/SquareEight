@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
-import { Container, Row, Col, ListGroup, Card } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup } from 'react-bootstrap'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'

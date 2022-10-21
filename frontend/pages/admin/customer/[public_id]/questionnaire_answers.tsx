@@ -1,11 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import axios from 'axios'
-import { QuestionnaireMasterParam } from 'interfaces/QuestionnaireMasterParam'
 import { QuestionnaireAnswerParam } from 'interfaces/QuestionnaireAnswerParam'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
+import { Container, Card } from 'react-bootstrap'
 
 const QuestionnaireAnswer = (): JSX.Element => {
   const router = useRouter()
