@@ -471,7 +471,7 @@ class ReserveFrame < ApplicationRecord
     # リソースチェック
     resources = self.resources
     resources.each do |resource|
-      resource_remaining_capacity_count = resource.remaining_capacity_count_within_range(start_datetime, end_datetime)
+      resource_remaining_capacity_count = resource.remaining_capacity_count_within_range(reservation.start_at, reservation.end_at)
       raise '予約できません。使用する設備備品やスタッフなどのリソースが足りていません' if resource_remaining_capacity_count <= 0
     end
     # 月額課金の予約制限チェック
