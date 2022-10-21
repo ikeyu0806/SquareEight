@@ -129,7 +129,7 @@ const Index: NextPage = () => {
             title: '送信しました',
             icon: 'info'
           })
-          location.reload()
+          router.push(`/questionnaire_answer/${response.data.questionnaire_answer.public_id}`)
         }).catch(error => {
           swalWithBootstrapButtons.fire({
             title: '送信失敗しました',
