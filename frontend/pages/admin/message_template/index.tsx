@@ -13,7 +13,7 @@ import axios from 'axios'
 import { showEditMessageTemplateModalChanged,
          showCreateMessageTemplateModalChanged,
          showSendMessageTemplateModalChanged,
-         idChanged,
+         publicIdChanged,
          nameChanged,
          titleChanged,
          contentChanged,
@@ -55,17 +55,17 @@ const Index: NextPage = () => {
     })
   }, [cookies._square_eight_merchant_session, dispatch])
 
-  const showEditModal = (id: string, name: string, title: string, content: string) => {
+  const showEditModal = (publicId: string, name: string, title: string, content: string) => {
     dispatch(showEditMessageTemplateModalChanged(true))
-    dispatch(idChanged(id))
+    dispatch(publicIdChanged(publicId))
     dispatch(nameChanged(name))
     dispatch(titleChanged(title))
     dispatch(contentChanged(content))
   }
 
-  const showSendModal = (id: string, name: string, title: string, content: string) => {
+  const showSendModal = (publicId: string, name: string, title: string, content: string) => {
     dispatch(showSendMessageTemplateModalChanged(true))
-    dispatch(idChanged(id))
+    dispatch(publicIdChanged(publicId))
     dispatch(nameChanged(name))
     dispatch(titleChanged(title))
     dispatch(contentChanged(content))

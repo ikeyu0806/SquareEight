@@ -8,6 +8,7 @@ export const messageTemplateSlice = createSlice({
   name: 'messageTemplate',
   initialState: {
     id: '',
+    publicId: '',
     showCreateMessageTemplateModal: false,
     showEditMessageTemplateModal: false,
     showSendMessageTemplateModal: false,
@@ -35,6 +36,9 @@ export const messageTemplateSlice = createSlice({
   reducers: {
     idChanged: (state, action: PayloadAction<string>) => {
       state.id = action.payload
+    },
+    publicIdChanged: (state, action: PayloadAction<string>) => {
+      state.publicId = action.payload
     },
     showCreateMessageTemplateModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showCreateMessageTemplateModal = action.payload
@@ -85,6 +89,7 @@ export const messageTemplateSlice = createSlice({
 })
 
 export const { idChanged } = messageTemplateSlice.actions
+export const { publicIdChanged } = messageTemplateSlice.actions
 export const { showCreateMessageTemplateModalChanged } = messageTemplateSlice.actions
 export const { showEditMessageTemplateModalChanged } = messageTemplateSlice.actions
 export const { showSendMessageTemplateModalChanged } = messageTemplateSlice.actions

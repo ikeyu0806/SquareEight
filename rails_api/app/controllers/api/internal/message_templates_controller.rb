@@ -66,12 +66,21 @@ class Api::Internal::MessageTemplatesController < ApplicationController
     render json: { statue: 'fail', error: e }, status: 500
   end
 
+  def destroy
+    message_template = MessageTemplate.find_by(public_id: params[:public_id])
+    message_template.destroy
+    render json: { statue: 'success' }, status: 200
+  rescue => e
+    render json: { statue: 'fail', error: e }, status: 500
+  end
+
 
   private
 
   def message_template_params
     params.require(:message_template)
           .permit(:id,
+                  :public_id,
                   :target_type,
                   :target_emails,
                   :name,
