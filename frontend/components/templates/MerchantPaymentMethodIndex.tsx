@@ -59,11 +59,11 @@ const MerchantPaymentMethodIndex = (): JSX.Element => {
               }
           </Card.Text>
             <a className='btn btn-primary ml10'
-                    href='/admin/payment_method/register'>
+               href='/admin/payment_method/register'>
               新規カード登録
             </a>
             <a className='btn btn-primary ml10'
-                    href='/admin/payment_method/card_list'>
+               href='/admin/payment_method/card_list'>
               お支払いカードの変更・登録削除
             </a>
         </Card.Body>

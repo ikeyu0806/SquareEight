@@ -122,7 +122,7 @@ class Api::Internal::AccountsController < ApplicationController
         )
       else
         Stripe::PaymentMethod.attach(
-          account_params[:public_id],
+          account_params[:payment_method_id],
           {customer: account.stripe_customer_id},
         )
       end
