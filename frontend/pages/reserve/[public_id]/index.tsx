@@ -143,7 +143,7 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
-      router.push(`/reservation/${response.data.reservation.id}/input_customer_info`)
+      router.push(`/reservation/${response.data.reservation.public_id}/input_customer_info`)
     }).catch(error => {
       swalWithBootstrapButtons.fire({
         title: '予約失敗しました',

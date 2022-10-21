@@ -59,7 +59,7 @@ class Api::Internal::ReservationsController < ApplicationController
 
   def confirm
     ActiveRecord::Base.transaction do
-      reservation = Reservation.find(reservation_params[:id])
+      reservation = Reservation.find_by(public_id: reservation_params[:public_id])
       reserve_frame = reservation.reserve_frame
       account = reserve_frame.account
       monthly_reservation_count = account.reservations.where(start_at: Time.zone.now - 30.days...Time.zone.now).count

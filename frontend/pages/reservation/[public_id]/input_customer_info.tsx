@@ -119,7 +119,7 @@ const Index: NextPage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/${router.query.public_id}/confirm`,
     {
       reservations: {
-        id: router.query.public_id,
+        public_id: router.query.public_id,
         last_name: lastName,
         first_name: firstName,
         email: email,
