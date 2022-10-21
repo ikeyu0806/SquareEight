@@ -17,7 +17,7 @@ class Api::Internal::QuestionnaireAnswersController < ApplicationController
                                     answers_json: questionnaire_answer_params[:answer].to_json)
       # 通知作成
       account_notification_title = customer.full_name + 'が ' + questionnaire_master.title + ' アンケートに回答しました'
-      account_notification_url = '/admin/customer/' + customer.id.to_s + '/questionnaire_answers'
+      account_notification_url = '/admin/customer/' + customer.public_id + '/questionnaire_answers'
       account.account_notifications
       .create!(title: account_notification_title, url: account_notification_url)
       render json: { status: 'success' }, status: 200
