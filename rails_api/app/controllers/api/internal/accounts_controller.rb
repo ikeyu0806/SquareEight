@@ -448,6 +448,9 @@ class Api::Internal::AccountsController < ApplicationController
       current_merchant_user.account.stripe_customer_id,
       {invoice_settings: {default_payment_method: params[:public_id]}},
     )
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def detach_stripe_payment_method

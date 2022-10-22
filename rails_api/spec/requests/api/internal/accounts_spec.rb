@@ -285,5 +285,40 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
       end
     end
   end
+
+  describe 'GET /api/internal/accounts/page_links' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        get '/api/internal/accounts/page_links'
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'without login' do
+      it 'should return 401' do
+        get '/api/internal/accounts/page_links'
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'POST /api/internal/accounts/:public_id/update_payment_method' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        allow(Stripe::Customer).to receive(:update).and_return(true)
+        post '/api/internal/accounts/1234-abcd/update_payment_method'
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'without login' do
+      it 'should return 401' do
+        post '/api/internal/accounts/1234-abcd/update_payment_method'
+        expect(response.status).to eq 401
+      end
+    end
+  end
   
 end
