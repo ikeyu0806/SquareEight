@@ -434,4 +434,47 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
       end
     end
   end
+
+  describe 'GET /api/internal/accounts/questionnaire_answers' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        get '/api/internal/accounts/questionnaire_answers'
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'without login' do
+      it 'should return 401' do
+        get '/api/internal/accounts/questionnaire_answers'
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'POST /api/internal/accounts/withdrawal' do
+    let(:params) {
+      {
+        account: {
+          business_name: 'update_test'
+       }
+      }
+    }
+
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        allow_any_instance_of(Stripe::Subscription).to receive(:delete).and_return(merchant_user)
+        post '/api/internal/accounts/withdrawal', params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'without login' do
+      it 'should return 401' do
+        post '/api/internal/accounts/withdrawal', params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
