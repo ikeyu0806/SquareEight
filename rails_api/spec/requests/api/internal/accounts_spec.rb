@@ -237,5 +237,35 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
       end
     end
   end
+
+  describe 'POST /api/internal/accounts/register_stripe_bank_account' do
+    let(:params) {
+      {
+        account: {
+          account_number: '42424242424242',
+          bank_code: '001',
+          branch_code: '001',
+          account_holder_name: 'hoge hugas'
+       }
+      }
+    }
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        stripe_external_account_instance_double = double('stripe_external_account_instance_double')
+        allow(stripe_external_account_instance_double).to receive(:id).and_return("demo_id")
+        allow(Stripe::Account).to receive(:create_external_account).and_return(stripe_external_account_instance_double)
+        post '/api/internal/accounts/register_stripe_bank_account', params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'without login' do
+      it 'should return 401' do
+        post '/api/internal/accounts/register_stripe_bank_account', params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
   
 end
