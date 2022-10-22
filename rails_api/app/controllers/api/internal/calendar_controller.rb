@@ -1,4 +1,6 @@
 class Api::Internal::CalendarController < ApplicationController
+  before_action :merchant_login_only!
+
   def monthly_reserve_frames
     reserve_frame = ReserveFrame.find_by(public_id: params[:public_id])
     shared_component = reserve_frame.account.shared_component
