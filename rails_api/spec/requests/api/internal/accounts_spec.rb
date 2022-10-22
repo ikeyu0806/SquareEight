@@ -408,4 +408,30 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
       end
     end
   end
+
+  describe 'DELETE /api/internal/accounts/cancel_plan' do
+    context 'cancel Standard Plan' do
+      let(:standard_plan_subscription) { create(:standard_plan_subscription, account_id: account.id) }
+      let(:standard_plan_account) { create(:business_account, stripe_subscription_id: standard_plan_subscription.stripe_subscription_id) }
+      let(:standard_plan_merchant_user) {
+        create(:merchant_user, account: standard_plan_account)
+      }
+
+      context 'login as merchant_user' do
+        it 'should return 200' do
+          allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(standard_plan_merchant_user)
+          allow( Stripe::Subscription).to receive(:cancel).and_return(true)
+          delete '/api/internal/accounts/cancel_plan'
+          expect(response.status).to eq 200
+        end
+      end
+
+      context 'without login' do
+        it 'should return 401' do
+          delete '/api/internal/accounts/cancel_plan'
+          expect(response.status).to eq 401
+        end
+      end
+    end
+  end
 end
