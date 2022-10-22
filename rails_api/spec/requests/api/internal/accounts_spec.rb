@@ -391,9 +391,9 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
       context 'login as merchant_user' do
         it 'should return 200' do
           allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
-          allow( Stripe::Subscription).to receive(:cancel).and_return(true)
+          allow(Stripe::Subscription).to receive(:cancel).and_return(true)
           stripe_subscription_instance_double = double('stripe_subscription_instance_double')
-          allow( Stripe::Subscription).to receive(:create).and_return(stripe_subscription_instance_double)
+          allow(Stripe::Subscription).to receive(:create).and_return(stripe_subscription_instance_double)
           allow(stripe_subscription_instance_double).to receive(:id).and_return(1)
           post '/api/internal/accounts/update_plan', params: params
           expect(response.status).to eq 200
@@ -465,6 +465,63 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
       it 'should return 200' do
         allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
         allow_any_instance_of(Stripe::Subscription).to receive(:delete).and_return(merchant_user)
+        post '/api/internal/accounts/withdrawal', params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'without login' do
+      it 'should return 401' do
+        post '/api/internal/accounts/withdrawal', params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'POST /api/internal/accounts/register_stripe_person' do
+    let(:params) {
+      {
+        account: {
+          representative_phone_number: '09011112222',
+          representative_birth_day: '2000-01-01'
+       }
+      }
+    }
+
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        stripe_person_instance_double = double('stripe_person_instance_double')
+        allow(Stripe::Account).to receive(:retrieve_person).and_return(stripe_person_instance_double)
+        allow(stripe_person_instance_double).to receive(:id).and_return('hoge')
+        allow(stripe_person_instance_double).to receive(:gender).and_return(true)
+        allow(stripe_person_instance_double).to receive(:first_name_kanji).and_return(true)
+        allow(stripe_person_instance_double).to receive(:last_name_kanji).and_return(true)
+        allow(stripe_person_instance_double).to receive(:first_name_kana).and_return(true)
+        allow(stripe_person_instance_double).to receive(:last_name_kana).and_return(true)
+        allow(stripe_person_instance_double).to receive(:email).and_return(true)
+        allow(stripe_person_instance_double).to receive(:save).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:relationship, :representative=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:relationship, :title=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:relationship, :owner=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:relationship, :executive=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:relationship, :director=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:relationship, :percent_ownership=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:dob, :year=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:dob, :month=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:dob, :day=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:address_kanji, :postal_code=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:address_kanji, :state=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:address_kanji, :city=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:address_kanji, :town=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:address_kanji, :line1=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:address_kanji, :line2=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:address_kana, :postal_code=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:address_kana, :state=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:address_kana, :city=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:address_kana, :town=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:address_kana, :line1=).and_return(true)
+        allow(stripe_person_instance_double).to receive_message_chain(:address_kana, :line2=).and_return(true)
         post '/api/internal/accounts/withdrawal', params: params
         expect(response.status).to eq 200
       end
