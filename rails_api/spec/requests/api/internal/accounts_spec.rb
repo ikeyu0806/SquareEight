@@ -355,4 +355,57 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
       end
     end
   end
+
+  describe 'GET /api/internal/accounts/stripe_payment_history' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        get '/api/internal/accounts/stripe_payment_history'
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'without login' do
+      it 'should return 401' do
+        get '/api/internal/accounts/stripe_payment_history'
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'POST /api/internal/accounts/update_plan' do
+    context 'upgrade plan Light to Standard' do
+      let(:light_plan_account) { create(:business_account, stripe_subscription_id: light_plan_subscription.id) }
+      let(:merchant_user) {
+        create(:merchant_user, account: account)
+      }
+      let(:light_plan_subscription) { create(:light_plan_subscription, account_id: account.id) }
+      let(:params) {
+        {
+          account: {
+            service_plan: 'Standard'
+         }
+        }
+      }
+
+      context 'login as merchant_user' do
+        it 'should return 200' do
+          allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+          allow( Stripe::Subscription).to receive(:cancel).and_return(true)
+          stripe_subscription_instance_double = double('stripe_subscription_instance_double')
+          allow( Stripe::Subscription).to receive(:create).and_return(stripe_subscription_instance_double)
+          allow(stripe_subscription_instance_double).to receive(:id).and_return(1)
+          post '/api/internal/accounts/update_plan', params: params
+          expect(response.status).to eq 200
+        end
+      end
+  
+      context 'without login' do
+        it 'should return 401' do
+          post '/api/internal/accounts/update_plan', params: params
+          expect(response.status).to eq 401
+        end
+      end
+    end
+  end
 end
