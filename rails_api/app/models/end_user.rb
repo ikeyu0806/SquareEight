@@ -3,6 +3,8 @@ require 'securerandom'
 class EndUser < ApplicationRecord
   include PublicIdModule
 
+  enum email_authentication_status: { Disabled: 0, Enabled: 1 }
+
   has_secure_password(validations: false)
 
   has_many :orders
