@@ -267,5 +267,23 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
       end
     end
   end
+
+  describe 'DELETE /api/internal/accounts/delete_bank_account' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow(Stripe::Account).to receive(:delete_external_account).and_return(true)
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        delete '/api/internal/accounts/delete_bank_account/demo_id'
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'without login' do
+      it 'should return 401' do
+        delete '/api/internal/accounts/delete_bank_account/demo_id'
+        expect(response.status).to eq 401
+      end
+    end
+  end
   
 end
