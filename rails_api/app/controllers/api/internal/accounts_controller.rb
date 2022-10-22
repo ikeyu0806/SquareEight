@@ -448,6 +448,9 @@ class Api::Internal::AccountsController < ApplicationController
       current_merchant_user.account.stripe_customer_id,
       {invoice_settings: {default_payment_method: params[:public_id]}},
     )
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def detach_stripe_payment_method
@@ -633,18 +636,6 @@ class Api::Internal::AccountsController < ApplicationController
       person.save
       render json: { status: 'success' }, status: 200
     end
-  rescue => error
-    render json: { status: 'fail', error: error }, status: 500
-  end
-
-  def stripe_person
-    # 一旦使わない。
-    # service_stripe_person = StripePerson.find(params[:public_id])
-    # stripe_person = Stripe::Account.retrieve_person(
-    #   current_merchant_user.account.stripe_account_id,
-    #   service_stripe_person.stripe_person_id,
-    # )
-    # render json: { status: 'success', stripe_person: stripe_person }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end

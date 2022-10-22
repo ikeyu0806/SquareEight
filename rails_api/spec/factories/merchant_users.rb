@@ -1,9 +1,10 @@
 FactoryBot.define do
-  factory :business_user, class: MerchantUser do
+  factory :merchant_user, class: MerchantUser do
     email { 'merchant_user@develop.com' }
-    name { 'GCS管理者' }
+    last_name { '鈴木' }
+    first_name { '一郎' }
     password { 'Pass1234' }
     authority_category { 'MerchantAdmin' }
-    authentication_status { 'Enabled' }
+    email_authentication_status { 'Enabled' }
   end
 end
