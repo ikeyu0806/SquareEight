@@ -163,4 +163,21 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
       end
     end
   end
+
+  describe 'DELETE /api/internal/merchant_users/disconnect_google_auth' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        delete '/api/internal/merchant_users/disconnect_google_auth'
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        delete '/api/internal/merchant_users/disconnect_google_auth'
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
