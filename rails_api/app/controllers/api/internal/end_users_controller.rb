@@ -2,7 +2,6 @@ require 'securerandom'
 
 class Api::Internal::EndUsersController < ApplicationController
   before_action :end_user_login_only!, except: [:create,
-                                                :update,
                                                 :find_or_create_by_google_auth,
                                                 :confirm_verification_code,
                                                 :confirm_update_email_verification_code,

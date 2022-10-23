@@ -73,4 +73,52 @@ RSpec.describe 'Api::Internal::EndUsersController', type: :request do
       end
     end
   end
+
+  describe 'POST /api/internal/end_users' do
+    let(:params) {
+      {
+        end_user: {
+         email: "create@test.com",
+         password: "Pass1234",
+         first_name: "太郎",
+         last_name: "デモ"
+       }
+      }
+    }
+
+    context 'not login' do
+      it 'should return 200' do
+        post '/api/internal/end_users', params: params
+        expect(response.status).to eq 200
+      end
+    end
+  end
+
+  describe 'POST /api/internal/end_users/:public_id/update' do
+    let(:params) {
+      {
+        end_user: {
+         email: "update@test.com",
+         password: "Pass123456",
+         first_name: "更新",
+         last_name: "デモ"
+       }
+      }
+    }
+
+    context 'login as end_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
+        post "/api/internal/end_users/#{end_user.public_id}/update", params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        post "/api/internal/end_users/#{end_user.public_id}/update", params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
