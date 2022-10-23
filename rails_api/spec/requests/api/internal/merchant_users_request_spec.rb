@@ -1,6 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
+  let(:account) { create(:business_account) }
+  let(:merchant_user) {
+    create(:merchant_user, account: account)
+  }
+
   describe 'POST /api/internal/merchant_users' do
     let(:params) {
       {
@@ -33,6 +38,44 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
       it 'should return 500' do
         post "/api/internal/merchant_users", params: params
         expect(response.status).to eq 500
+      end
+    end
+  end
+
+  describe 'POST /api/internal/:public_id/merchant_users' do
+    let(:params) {
+      {
+        merchant_user: {
+         email: "update@test.com",
+         first_name: "更新",
+         last_name: "デモ",
+         password: "Pass12345"
+       }
+      }
+    }
+
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        post "/api/internal/merchant_users/#{merchant_user.public_id}/update", params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      let(:params) {
+        {
+          merchant_user: {
+           name: "登録エラーテスト",
+           password: "Pass1234",
+           authority_category: "MerchantAdmin",
+           is_create_account: true
+         }
+        }
+      }
+      it 'should return 401' do
+        post "/api/internal/merchant_users/#{merchant_user.public_id}/update", params: params
+        expect(response.status).to eq 401
       end
     end
   end

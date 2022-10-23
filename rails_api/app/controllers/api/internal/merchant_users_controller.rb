@@ -1,7 +1,7 @@
 require 'securerandom'
 
 class Api::Internal::MerchantUsersController < ApplicationController
-  before_action :merchant_login_only!, only: [:current_merchant_user_info, :disconnect_google_auth]
+  before_action :merchant_login_only!, only: [:update, :current_merchant_user_info, :disconnect_google_auth]
 
   VERIFICATION_CODE_LENGTH = 6
 
@@ -33,7 +33,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      merchant_user = MerchantUser.find(params[:public_id])
+      merchant_user = MerchantUser.find_by(public_id: params[:public_id])
       init_email = merchant_user.email
       merchant_user.last_name = merchant_user_params[:last_name]
       merchant_user.first_name = merchant_user_params[:first_name]
