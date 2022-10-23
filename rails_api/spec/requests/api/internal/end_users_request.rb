@@ -183,4 +183,33 @@ RSpec.describe 'Api::Internal::EndUsersController', type: :request do
       end
     end
   end
+
+  describe 'POST /api/internal/end_users/register_credit_card' do
+    let(:params) {
+      {
+        end_user: {
+          payment_method_id: 'payment_,method_id_demo'
+       }
+      }
+    }
+
+    context 'login as end_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
+        stripe_customer_instance = double({id: 'stripe_customer_id_demo'})
+        allow(Stripe::Customer).to receive(:create).and_return(stripe_customer_instance)
+        allow(Stripe::Customer).to receive(:update).and_return(true)
+        allow(Stripe::PaymentMethod).to receive(:attach).and_return(true)
+        post '/api/internal/end_users/register_credit_card', params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        post '/api/internal/end_users/register_credit_card', params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
