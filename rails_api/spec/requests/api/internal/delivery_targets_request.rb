@@ -69,4 +69,21 @@ RSpec.describe 'Api::Internal::DeliveryTargetsController', type: :request do
       end
     end
   end
+
+  describe 'POST /api/internal/update_default' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
+        post "/api/internal/delivery_targets/#{delivery_target.public_id}/update_default"
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        post "/api/internal/delivery_targets/#{delivery_target.public_id}/update_default"
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
