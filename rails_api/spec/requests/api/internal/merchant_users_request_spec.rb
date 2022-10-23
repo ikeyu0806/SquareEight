@@ -180,4 +180,59 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
       end
     end
   end
+
+  describe 'POST /api/internal/merchant_users/send_reset_password_email' do
+    let(:params) {
+      {
+        merchant_user: {
+         email: merchant_user.email
+       }
+      }
+    }
+
+    context 'not login' do
+      it 'should return 200' do
+        post "/api/internal/merchant_users/send_reset_password_email", params: params
+        expect(response.status).to eq 200
+      end
+    end
+  end
+
+  describe 'POST /api/internal/merchant_users/update_password' do
+    let(:params) {
+      {
+        merchant_user: {
+         email: merchant_user.email
+       }
+      }
+    }
+
+    context 'not login' do
+      it 'should return 200' do
+        post "/api/internal/merchant_users/update_password", params: params
+        expect(response.status).to eq 200
+      end
+    end
+  end
+
+  describe 'POST /api/internal/merchant_users/resend_verification_code' do
+    let(:params) {
+      {
+        merchant_user: {
+         email: disabled_merchant_user.email
+       }
+      }
+    }
+
+    let(:disabled_merchant_user) {
+      create(:merchant_user, account: account, email_authentication_status: 'Disabled')
+    }
+
+    context 'not login' do
+      it 'should return 200' do
+        post "/api/internal/merchant_users/resend_verification_code", params: params
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end

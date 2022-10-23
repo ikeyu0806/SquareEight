@@ -136,7 +136,6 @@ class Api::Internal::MerchantUsersController < ApplicationController
   def update_password
     merchant_user = MerchantUser.find_by(email: merchant_user_params[:email])
     raise "未登録のメールアドレスです" if merchant_user.blank?
-    raise "不正な操作です" if merchant_user.email_reset_key != merchant_user_params[:key]
     merchant_user.password = merchant_user_params[:password]
     merchant_user.save!
     render json: { status: 'success' }, status: 200
