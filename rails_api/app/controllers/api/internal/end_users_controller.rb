@@ -1,7 +1,8 @@
 require 'securerandom'
 
 class Api::Internal::EndUsersController < ApplicationController
-  before_action :end_user_login_only!, only: [:current_end_user_info,
+  before_action :end_user_login_only!, only: [:customer_toppage_info,
+                                              :current_end_user_info,
                                               :register_credit_card,
                                               :update_payment_method,
                                               :detach_stripe_payment_method,
