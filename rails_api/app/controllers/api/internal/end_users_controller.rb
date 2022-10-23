@@ -1,13 +1,13 @@
 require 'securerandom'
 
 class Api::Internal::EndUsersController < ApplicationController
-  before_action :end_user_login_only!, only: [:customer_toppage_info,
-                                              :current_end_user_info,
-                                              :register_credit_card,
-                                              :update_payment_method,
-                                              :mypage_info,
-                                              :detach_stripe_payment_method,
-                                              :disconnect_google_auth]
+  before_action :end_user_login_only!, except: [:create,
+                                                :update,
+                                                :find_or_create_by_google_auth,
+                                                :confirm_verification_code,
+                                                :confirm_update_email_verification_code,
+                                                :send_reset_password_email,
+                                                :resend_verification_code]
 
   VERIFICATION_CODE_LENGTH = 6
 

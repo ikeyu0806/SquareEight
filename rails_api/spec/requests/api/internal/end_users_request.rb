@@ -56,4 +56,21 @@ RSpec.describe 'Api::Internal::EndUsersController', type: :request do
       end
     end
   end
+
+  describe 'GET get /api/internal/end_users/payment_methods' do
+    context 'login as end_user' do      
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
+        get '/api/internal/end_users/payment_methods'
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        get '/api/internal/end_users/payment_methods'
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
