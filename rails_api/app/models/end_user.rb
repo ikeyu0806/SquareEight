@@ -21,8 +21,6 @@ class EndUser < ApplicationRecord
   has_many :merchant_stripe_subscriptions
   has_many :monthly_payment_plans, through: :stripe_subscriptions
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
   validates :password, password: true
 
   def payment_methods

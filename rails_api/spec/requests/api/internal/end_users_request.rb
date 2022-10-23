@@ -121,4 +121,30 @@ RSpec.describe 'Api::Internal::EndUsersController', type: :request do
       end
     end
   end
+
+  describe 'POST /api/internal/end_users/find_or_create_by_google_auth' do
+    let(:params) {
+      {
+        end_user: {
+          google_auth_email: "google_auth@test.com",
+          google_auth_id: "google_auth_id"
+       }
+      }
+    }
+
+    context 'login as end_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
+        post '/api/internal/end_users/find_or_create_by_google_auth', params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 200' do
+        post '/api/internal/end_users/find_or_create_by_google_auth', params: params
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end
