@@ -44,17 +44,35 @@ RSpec.describe 'Api::Internal::CartsController', type: :request do
       end
 
       context 'delete cart_ticket_master' do
+        let(:ticket_master) { create(:ticket_master, account: account) }
+        let!(:cart_ticket_master) {
+          create(:cart_ticket_master, account: account, end_user: end_user, ticket_master: ticket_master)
+        }
+        let(:params) {
+          {
+            item_type: 'TicketMaster'
+          }
+        }
         it 'should return 200' do
           allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
-          delete "/api/internal/carts/delete_cart_item/"
+          delete "/api/internal/carts/delete_cart_item/#{cart_ticket_master.public_id}", params: params
           expect(response.status).to eq 200
         end
       end
 
-      context 'delete cart_monthly_patment_plan' do
+      context 'delete cart_monthly_payment_plan' do
+        let(:monthly_payment_plan) { create(:monthly_payment_plan, account: account) }
+        let!(:cart_monthly_payment_plan) {
+          create(:cart_monthly_payment_plan, account: account, end_user: end_user, monthly_payment_plan: monthly_payment_plan)
+        }
+        let(:params) {
+          {
+            item_type: 'MonthlyPaymentPlan'
+          }
+        }
         it 'should return 200' do
           allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
-          delete "/api/internal/carts/delete_cart_item/"
+          delete "/api/internal/carts/delete_cart_item/#{cart_monthly_payment_plan.public_id}", params: params
           expect(response.status).to eq 200
         end
       end
@@ -62,7 +80,7 @@ RSpec.describe 'Api::Internal::CartsController', type: :request do
 
     context 'not login' do
       it 'should return 401' do
-        delete "/api/internal/carts/delete_cart_item/"
+        delete "/api/internal/carts/delete_cart_item/hoge"
         expect(response.status).to eq 401
       end
     end
