@@ -212,4 +212,40 @@ RSpec.describe 'Api::Internal::EndUsersController', type: :request do
       end
     end
   end
+
+  describe 'POST /api/internal/end_users/update_payment_method' do
+    context 'login as end_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
+        allow(Stripe::Customer).to receive(:update).and_return(true)
+        post "/api/internal/end_users/#{'payment_method__demo'}/update_payment_method"
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        post "/api/internal/end_users/#{'payment_method__demo'}/update_payment_method"
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'DELETE /api/internal/end_users/detach_stripe_payment_method' do
+    context 'login as end_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
+        allow(Stripe::PaymentMethod).to receive(:detach).and_return(true)
+        delete "/api/internal/end_users/#{'payment_method__demo'}/detach_stripe_payment_method"
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        delete "/api/internal/end_users/#{'payment_method__demo'}/detach_stripe_payment_method"
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
