@@ -5,6 +5,7 @@ RSpec.describe 'Api::Internal::EndUsersController', type: :request do
   let!(:end_user_notification) { create(:end_user_notification, end_user: end_user) }
   let!(:system_end_user_notification) { create(:system_end_user_notification) }
   let!(:delivery_target) { create(:delivery_target, end_user_id: end_user.id) }
+  let(:account) { create(:business_account) }
 
   describe 'GET get /api/internal/end_users/customer_toppage_info' do
     context 'login as end_user' do      
@@ -244,6 +245,47 @@ RSpec.describe 'Api::Internal::EndUsersController', type: :request do
     context 'not login' do
       it 'should return 401' do
         delete "/api/internal/end_users/#{'payment_method__demo'}/detach_stripe_payment_method"
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'DELETE /api/internal/end_users/disconnect_google_auth' do
+    context 'login as end_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
+        delete '/api/internal/end_users/disconnect_google_auth'
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        delete '/api/internal/end_users/disconnect_google_auth'
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'DELETE get /api/internal/end_users/cancel_subscription' do
+    let(:monthly_payment_plan) { create(:monthly_payment_plan, account: account) }
+    let(:merchant_stripe_subscription) {
+      create(:merchant_stripe_subscription,
+              monthly_payment_plan_id: monthly_payment_plan.id,
+              end_user: end_user)
+    }
+    context 'login as end_user' do      
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
+        allow(Stripe::Subscription).to receive(:cancel).and_return(true)
+        delete "/api/internal/end_users/#{merchant_stripe_subscription.public_id}/cancel_subscription"
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        delete "/api/internal/end_users/#{merchant_stripe_subscription.public_id}/cancel_subscription"
         expect(response.status).to eq 401
       end
     end

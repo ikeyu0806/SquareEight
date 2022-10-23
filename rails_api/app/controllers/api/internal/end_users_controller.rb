@@ -250,7 +250,7 @@ class Api::Internal::EndUsersController < ApplicationController
 
   def cancel_subscription
     ActiveRecord::Base.transaction do
-      merchant_stripe_subscription = MerchantStripeSubscription.find(params[:public_id])
+      merchant_stripe_subscription = MerchantStripeSubscription.find_by(public_id: params[:public_id])
       Stripe::Subscription.cancel(
         merchant_stripe_subscription.stripe_subscription_id,
       )
