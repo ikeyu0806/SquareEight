@@ -7,5 +7,7 @@ FactoryBot.define do
     password { 'Pass1234' }
     authority_category { 'MerchantAdmin' }
     email_authentication_status { 'Enabled' }
+    verification_code { '123456' }
+    verification_code_expired_at { Time.zone.now + 1.days }
   end
 end

@@ -97,14 +97,6 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
   end
 
   describe 'POST /api/internal/merchant_users/confirm_verification_code' do
-    let(:account) { create(:business_account) }
-    let!(:merchant_user) {
-      create(:merchant_user,
-              account: account,
-              verification_code: "123456",
-              verification_code_expired_at: Time.zone.now + 1.days)
-    }
-
     let(:params) {
       {
         merchant_user: {
@@ -114,9 +106,11 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
       }
     }
 
-    it 'should return 200' do
-      post "/api/internal/merchant_users/confirm_verification_code", params: params
-      expect(response.status).to eq 200
+    context 'not login' do
+      it 'should return 200' do
+        post "/api/internal/merchant_users/confirm_verification_code", params: params
+        expect(response.status).to eq 200
+      end
     end
 
     context 'verification_code is invalid' do
@@ -131,6 +125,24 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
       it 'should return 401' do
         post "/api/internal/merchant_users/confirm_verification_code", params: params
         expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'POST /api/internal/merchant_users/confirm_update_email_verification_code' do
+    let(:params) {
+      {
+        merchant_user: {
+         email: Base64.urlsafe_encode64(merchant_user.email),
+         verification_code: merchant_user.verification_code
+       }
+      }
+    }
+
+    context 'not login' do
+      it 'should return 200' do
+        post "/api/internal/merchant_users/confirm_update_email_verification_code", params: params
+        expect(response.status).to eq 200
       end
     end
   end
