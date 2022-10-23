@@ -38,7 +38,7 @@ const Index: NextPage = () => {
       showCloseButton: true
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`${process.env.BACKEND_URL}/api/internal/end_users/${subscription.id}/cancel_subscription`, {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/end_users/${subscription.public_id}/cancel_subscription`, {
           headers: { 
             'Session-Id': cookies._square_eight_end_user_session
           }
