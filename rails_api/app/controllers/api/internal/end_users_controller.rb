@@ -5,6 +5,7 @@ class Api::Internal::EndUsersController < ApplicationController
                                               :current_end_user_info,
                                               :register_credit_card,
                                               :update_payment_method,
+                                              :mypage_info,
                                               :detach_stripe_payment_method,
                                               :disconnect_google_auth]
 
