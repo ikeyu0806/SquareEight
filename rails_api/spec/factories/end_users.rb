@@ -1,6 +1,7 @@
 FactoryBot.define do
   factory :end_user, class: EndUser do
     email { 'end_user@develop.com' }
+    wait_for_update_email { 'end_user@develop.com' }
     last_name { 'デモ' }
     first_name { '一郎' }
     password { 'Pass1234' }

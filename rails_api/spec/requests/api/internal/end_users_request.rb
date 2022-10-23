@@ -165,4 +165,22 @@ RSpec.describe 'Api::Internal::EndUsersController', type: :request do
       end
     end
   end
+
+  describe 'POST /api/internal/end_users/confirm_update_email_verification_code' do
+    let(:params) {
+      {
+        end_user: {
+         email: Base64.urlsafe_encode64(end_user.email),
+         verification_code: end_user.verification_code,
+       }
+      }
+    }
+
+    context 'not login' do
+      it 'should return 200' do
+        post '/api/internal/end_users/confirm_update_email_verification_code', params: params
+        expect(response.status).to eq 200
+      end
+    end
+  end
 end
