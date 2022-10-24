@@ -7,6 +7,8 @@ RSpec.describe 'Api::Internal::PaymentRequestsController', type: :request do
   }
   let(:end_user) { create(:end_user) }
   let(:customer) { create(:customer, account_id: account.id) }
+  let(:customer_group) { create(:customer_group, account_id: account.id) }
+  let!(:customer_group_relation) { create(:customer_group_relation, customer_id: customer.id, customer_group_id: customer_group.id) }
   let!(:stripe_payment_request) { create(:stripe_payment_request,
                                           account_id: account.id,
                                           end_user_id: end_user.id,
@@ -50,6 +52,98 @@ RSpec.describe 'Api::Internal::PaymentRequestsController', type: :request do
     context 'not login' do
       it 'should return 401' do
         get '/api/internal/payment_requests/init_state'
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'POST /api/internal/payment_requests/send_payment_request_mail' do
+    context 'login as merchant_user' do
+      context 'target_type is registeredCustomer' do
+        let(:params) {
+          {
+            payment_request: {
+              target_customer_type: 'registeredCustomer',
+              selected_customers: [customer],
+              title: 'update_demo_title',
+              content: 'update_demo_content'
+            },
+            customer: {
+              first_name: 'デモ',
+              last_name: '太郎',
+              first_name_kana: 'デモ',
+              last_name_kana: 'タロウ',
+              email: 'demo@example.com',
+              phone_number: '11122223333',
+            }
+          }
+        }
+        it 'should return 200' do
+          allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+          post '/api/internal/payment_requests/send_payment_request_mail', params: params
+          expect(response.status).to eq 200
+        end
+      end
+
+      context 'target_type is newCustomer' do
+        let(:params) {
+          {
+            payment_request: {
+              target_customer_type: 'newCustomer',
+              target_emails: 'demoa@example.com,demob@example.com',
+              title: 'update_demo_title',
+              content: 'update_demo_content',
+              price: 1000
+            },
+            customer: {
+              first_name: 'デモ',
+              last_name: '太郎',
+              first_name_kana: 'デモ',
+              last_name_kana: 'タロウ',
+              email: 'demo@example.com',
+              phone_number: '11122223333',
+            }
+          }
+        }
+        it 'should return 200' do
+          allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+          post '/api/internal/payment_requests/send_payment_request_mail', params: params
+          expect(response.status).to eq 200
+        end
+      end
+
+      context 'target_type is customerGroup' do
+        let(:params) {
+          {
+            payment_request: {
+              target_customer_type: 'customerGroup',
+              selected_customer_groups: [customer_group],
+              title: 'update_demo_title',
+              content: 'update_demo_content'
+            }
+          }
+        }
+        it 'should return 200' do
+          allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+          post '/api/internal/payment_requests/send_payment_request_mail', params: params
+          expect(response.status).to eq 200
+        end
+      end
+    end
+
+    context 'not login' do
+      let(:params) {
+        {
+          payment_request: {
+            target_customer_type: 'customerGroup',
+            selected_customer_groups: [customer_group],
+            title: 'update_demo_title',
+            content: 'update_demo_content'
+          }
+        }
+      }
+      it 'should return 401' do
+        post '/api/internal/payment_requests/send_payment_request_mail', params: params
         expect(response.status).to eq 401
       end
     end
