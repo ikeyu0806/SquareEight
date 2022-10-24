@@ -5,7 +5,7 @@ class CreateReserveFrames < ActiveRecord::Migration[7.0]
       t.datetime :start_at, null: false
       t.string :title, null: false
       t.text :description
-      t.boolean :is_repeat
+      t.boolean :is_repeat, null: false
       t.integer :repeat_interval_type
       t.integer :repeat_interval_number_day
       t.integer :repeat_interval_number_week
