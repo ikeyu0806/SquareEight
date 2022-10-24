@@ -100,17 +100,17 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   def exec_payment
     ActiveRecord::Base.transaction do
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
-      customer = current_end_user.customer
-      if customer.blank?
-        customer = current_end_user
-                   .customer
-                   .create!(email: current_end_user.email,
-                            phone_number: current_end_user.phone_number,
-                            first_name: current_end_user.first_name,
-                            last_name: current_end_user.last_name)
-      end
       payment_request = StripePaymentRequest.find_by(public_id: payment_request_params[:public_id])
       account = payment_request.account
+      customer = current_end_user.customer
+      if customer.blank?
+        customer = Customer.create!(email: current_end_user.email,
+                                    phone_number: current_end_user.phone_number,
+                                    first_name: current_end_user.first_name,
+                                    last_name: current_end_user.last_name,
+                                    end_user_id: current_end_user.id,
+                                    account_id: account.id)
+      end
       commission = account.application_fee_amount.to_i
       stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
       default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
