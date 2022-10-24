@@ -86,4 +86,35 @@ RSpec.describe 'Api::Internal::MonthlyPaymentPlansController', type: :request do
       end
     end
   end
+
+  describe 'POST /api/internal/:public_id/monthly_payment_plans' do
+    let(:params) {
+      {
+        monthly_payment_plans: {
+          name: 'update_demo_name',
+          price: 1000,
+          reserve_is_unlimited: false,
+          enable_reserve_count: 2,
+          reserve_interval_number: 2,
+          reserve_interval_unit: 'Week',
+          publish_status: 'Publish',
+        }
+      }
+    }
+
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        post "/api/internal/monthly_payment_plans/#{monthly_payment_plan.public_id}/update", params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        post "/api/internal/monthly_payment_plans/#{monthly_payment_plan.public_id}/update", params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
