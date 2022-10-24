@@ -22,4 +22,21 @@ RSpec.describe 'Api::Internal::PurchasedTicketsRequestController', type: :reques
       end
     end
   end
+
+  describe 'GET /api/internal/purchased_tickets/:public_id' do
+    context 'login as end_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
+        get "/api/internal/purchased_tickets/#{purchased_ticket.public_id}"
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        get "/api/internal/purchased_tickets/#{purchased_ticket.public_id}"
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
