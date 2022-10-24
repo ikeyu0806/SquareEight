@@ -39,11 +39,10 @@ const Index: NextPage = () => {
     })
   }, [cookies._square_eight_merchant_session, targetStartDate, targetEndDate])
 
-  const updateReservationStatus = (reservationId: string, reservationStatus: string) => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/${reservationId}/update_status`,
+  const updateReservationStatus = (reservationPublicId: string, reservationStatus: string) => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/${reservationPublicId}/update_status`,
     {
       reservations: {
-        id: reservationId,
         status: reservationStatus
       }
     },
@@ -185,7 +184,7 @@ const Index: NextPage = () => {
                             &&
                               <>
                                 <span className='text-danger'>予約確定待ち</span><br/>
-                                <a className='badge bg-primary' onClick={() => updateReservationStatus(reservation.id, 'confirm')}>予約を確定する</a>
+                                <a className='badge bg-primary' onClick={() => updateReservationStatus(reservation.public_id, 'confirm')}>予約を確定する</a>
                               </>
                           }
                           {reservation.status === 'cancel' && <span className='text-danger'>キャンセル</span>}
