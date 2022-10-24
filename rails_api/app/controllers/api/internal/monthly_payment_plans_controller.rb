@@ -2,6 +2,7 @@ include Base64Image
 
 class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   before_action :merchant_login_only!, except: [:purchase, :purchase_info, :insert_cart]
+  before_action :end_user_login_only!, only: [:insert_cart]
 
   def index
     monthly_payment_plans = current_merchant_user.account.monthly_payment_plans.enabled.order(:id)
@@ -88,7 +89,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def insert_cart
     ActiveRecord::Base.transaction do
-      monthly_payment_plan = MonthlyPaymentPlan.enabled.find_by(public_id: monthly_payment_plan_params[:id])
+      monthly_payment_plan = MonthlyPaymentPlan.enabled.find_by(public_id: monthly_payment_plan_params[:public_id])
       # 既にカートに入っていたら追加しない
       raise "既にカートに入っています" if monthly_payment_plan.cart_monthly_payment_plans.find_by(end_user_id: current_end_user.id).present?
       monthly_payment_plan.cart_monthly_payment_plans.create!(
@@ -113,6 +114,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def monthly_payment_plan_params
     params.require(:monthly_payment_plans).permit(:id,
+                                                  :public_id,
                                                   :name,
                                                   :price,
                                                   :description,

@@ -5,6 +5,7 @@ RSpec.describe 'Api::Internal::MonthlyPaymentPlansController', type: :request do
   let(:merchant_user) {
     create(:merchant_user, account: account)
   }
+  let(:end_user) { create(:end_user) }
   let!(:monthly_payment_plan) { create(:monthly_payment_plan, account: account) }
 
   describe 'GET /api/internal/monthly_payment_plans' do
@@ -113,6 +114,32 @@ RSpec.describe 'Api::Internal::MonthlyPaymentPlansController', type: :request do
     context 'not login' do
       it 'should return 401' do
         post "/api/internal/monthly_payment_plans/#{monthly_payment_plan.public_id}/update", params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'POST /api/internal/monthly_payment_plans/insert_cart' do
+    let(:params) {
+      {
+        monthly_payment_plans: {
+          public_id: monthly_payment_plan.public_id,
+          purchase_quantity: 1
+        }
+      }
+    }
+
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
+        post '/api/internal/monthly_payment_plans/insert_cart', params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        post '/api/internal/monthly_payment_plans/insert_cart', params: params
         expect(response.status).to eq 401
       end
     end

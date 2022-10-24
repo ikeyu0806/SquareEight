@@ -92,7 +92,7 @@ const Purchase: NextPage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/insert_cart`,
     {
       monthly_payment_plans: {
-        id: router.query.public_id
+        public_id: router.query.public_id
       },
     },
     {
