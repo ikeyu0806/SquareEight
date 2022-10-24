@@ -11,6 +11,8 @@ FactoryBot.define do
     is_monthly_plan_payment_enable { true }
     start_at { Time.zone.now }
     repeat_end_date { Time.zone.now + 1.month }
+    repeat_interval_type { 'Day' }
+    is_repeat { true }
     is_every_day_repeat { true }
     is_every_week_repeat { true }
     is_every_month_repeat { true }
@@ -23,5 +25,7 @@ FactoryBot.define do
     is_repeat_sat { false }
     reception_type { 'Immediate' }
     reception_start_day_before { 1 }
+    cancel_reception_hour_before { 1 }
+    cancel_reception_day_before { 1 }
   end
 end

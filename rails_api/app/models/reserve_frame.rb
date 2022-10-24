@@ -225,7 +225,7 @@ class ReserveFrame < ApplicationRecord
     loop_end_date > range_end_date ? range_end_date : loop_end_date
     # 受付回開始日考慮
     # 今日が1/1で受付繰り返し日が1/20。10日前から受付の場合、1/10まで受付
-    if Date.today + reception_start_day_before.days < loop_end_date
+    if Date.today + reception_start_day_before.days > loop_end_date
       loop_end_date = Date.today + reception_start_day_before.days
     end
 
