@@ -1,7 +1,8 @@
 include Base64Image
 
 class Api::Internal::ProductsController < ApplicationController
-  before_action :merchant_login_only!, only: [:index, :create, :update]
+  before_action :merchant_login_only!, only: [:index, :create, :update, :logical_delete]
+  before_action :end_user_login_only!, only: [:insert_cart]
 
   def index
     products = current_merchant_user.account.products.enabled.order(:id)
