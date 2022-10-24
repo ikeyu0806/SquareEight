@@ -49,14 +49,6 @@ class Api::Internal::ReservationsController < ApplicationController
     render json: { statue: 'fail', error: error }, status: 500
   end
 
-  def register_customer_info
-    ActiveRecord::Base.transaction do
-      render json: { status: 'success', reservation: reservation }, status: 200
-    end
-  rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
-  end
-
   def confirm
     ActiveRecord::Base.transaction do
       reservation = Reservation.find_by(public_id: reservation_params[:public_id])
