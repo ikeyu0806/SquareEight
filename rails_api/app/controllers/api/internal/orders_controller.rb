@@ -18,7 +18,7 @@ class Api::Internal::OrdersController < ApplicationController
   end
 
   def order_items
-    order = Order.find_by(public_id: params[:order_id])
+    order = Order.find_by(public_id: params[:order_public_id])
     total_price = order.total_price
     total_commission = order.total_commission
     order_items = order.order_items

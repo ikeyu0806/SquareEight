@@ -4,6 +4,7 @@ FactoryBot.define do
     product_name { 'product_demo' }
     price { 1000 }
     commission { 60 }
+    quantity { 1 }
     delivery_charge { 0 }
     delivery_date_text { '指定なし' }
   end
@@ -13,6 +14,7 @@ FactoryBot.define do
     product_name { 'monthly_payment_plan_demo' }
     price { 1000 }
     commission { 60 }
+    quantity { 1 }
   end
 
   factory :ticket_master_order_item, class: OrderItem do
@@ -20,5 +22,6 @@ FactoryBot.define do
     product_name { 'ticket_master_demo' }
     price { 1000 }
     commission { 60 }
+    quantity { 1 }
   end
 end

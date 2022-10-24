@@ -106,7 +106,7 @@ Rails.application.routes.draw do
       post 'delivery_targets', to: 'delivery_targets#create'
       delete 'delivery_targets/:public_id', to: 'delivery_targets#destroy'
       get 'orders/:public_id', to: 'orders#show'
-      get 'orders/:order_id/order_items', to: 'orders#order_items'
+      get 'orders/:order_public_id/order_items', to: 'orders#order_items'
       get 'orders', to: 'orders#index'
       get 'order_items', to: 'order_items#index'
       post 'order_items/:public_id/update_shipped', to: 'order_items#update_shipped'
