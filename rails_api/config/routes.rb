@@ -142,7 +142,7 @@ Rails.application.routes.draw do
       post 'questionnaire_masters/:public_id/update', to: 'questionnaire_masters#update'
       delete 'questionnaire_masters/:public_id', to: 'questionnaire_masters#logical_delete'
       get 'questionnaire_answers/:public_id', to: 'questionnaire_answers#show'
-      post 'questionnaire_answers/:questionnaire_master_id', to: 'questionnaire_answers#create'
+      post 'questionnaire_answers/:questionnaire_master_public_id', to: 'questionnaire_answers#create'
       get 'message_templates', to: 'message_templates#index'
       post 'message_templates/send_mail', to: 'message_templates#send_mail'
       post 'message_templates/:public_id', to: 'message_templates#update'

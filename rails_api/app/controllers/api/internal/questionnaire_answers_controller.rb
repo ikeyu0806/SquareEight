@@ -12,7 +12,7 @@ class Api::Internal::QuestionnaireAnswersController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      questionnaire_master = QuestionnaireMaster.find_by(public_id: params[:questionnaire_master_id])
+      questionnaire_master = QuestionnaireMaster.find_by(public_id: params[:questionnaire_master_public_id])
       account = questionnaire_master.account
       # 電話番号、メールアドレスに一致するcustomerがなければ作成
       customer = account.customers.find_by(phone_number: questionnaire_answer_params[:phone_number])
