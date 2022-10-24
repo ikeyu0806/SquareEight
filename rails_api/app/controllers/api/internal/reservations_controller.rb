@@ -225,7 +225,7 @@ class Api::Internal::ReservationsController < ApplicationController
 
   def update_status
     ActiveRecord::Base.transaction do
-      reservation = Reservation.find_by(public_id: reservation_params[:id])
+      reservation = Reservation.find_by(public_id: params[:public_id])
       reservation.update!(status: reservation_params[:status])
       if reservation.customer.email.present?
         display_number_of_people, total_price = reservation.display_multi_payment_method_with_number_of_people
