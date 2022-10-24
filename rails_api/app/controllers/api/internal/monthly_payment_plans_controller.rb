@@ -1,7 +1,7 @@
 include Base64Image
 
 class Api::Internal::MonthlyPaymentPlansController < ApplicationController
-  before_action :merchant_login_only!, except: [:index, :show, :purchase, :purchase_info, :insert_cart]
+  before_action :merchant_login_only!, except: [:purchase, :purchase_info, :insert_cart]
 
   def index
     monthly_payment_plans = current_merchant_user.account.monthly_payment_plans.enabled.order(:id)
