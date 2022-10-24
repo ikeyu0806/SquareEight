@@ -156,4 +156,21 @@ RSpec.describe 'Api::Internal::MessageTemplatesController', type: :request do
       end
     end
   end
+
+  describe 'DELETE /api/internal/message_templates/:public_id' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        delete "/api/internal/message_templates/#{message_template.public_id}"
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        delete "/api/internal/message_templates/#{message_template.public_id}"
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
