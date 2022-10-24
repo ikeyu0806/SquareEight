@@ -68,6 +68,12 @@ RSpec.describe 'Api::Internal::MonthlyPaymentPlansController', type: :request do
     context 'login as merchant_user' do
       it 'should return 200' do
         allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        stripe_product_instance = double('stripe_product_instance')
+        stripe_plan_instance = double('stripe_plan_instance')
+        allow(Stripe::Product).to receive(:create).and_return(stripe_product_instance)
+        allow(Stripe::Plan).to receive(:create).and_return(stripe_plan_instance)
+        allow(stripe_product_instance).to receive(:id).and_return('demo_id')
+        allow(stripe_plan_instance).to receive(:id).and_return('demo_id')
         post '/api/internal/monthly_payment_plans', params: params
         expect(response.status).to eq 200
       end
