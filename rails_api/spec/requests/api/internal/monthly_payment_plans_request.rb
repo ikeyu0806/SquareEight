@@ -129,7 +129,7 @@ RSpec.describe 'Api::Internal::MonthlyPaymentPlansController', type: :request do
       }
     }
 
-    context 'login as merchant_user' do
+    context 'login as end_user' do
       it 'should return 200' do
         allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
         post '/api/internal/monthly_payment_plans/insert_cart', params: params
@@ -140,6 +140,23 @@ RSpec.describe 'Api::Internal::MonthlyPaymentPlansController', type: :request do
     context 'not login' do
       it 'should return 401' do
         post '/api/internal/monthly_payment_plans/insert_cart', params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'DELETE /api/internal/monthly_payment_plans/:public_id' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        delete "/api/internal/monthly_payment_plans/#{monthly_payment_plan.public_id}"
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        delete "/api/internal/monthly_payment_plans/#{monthly_payment_plan.public_id}"
         expect(response.status).to eq 401
       end
     end
