@@ -23,4 +23,38 @@ RSpec.describe 'Api::Internal::ProductsRequestController', type: :request do
       end
     end
   end
+
+  describe 'GET /api/internal/products/:public_id' do
+    context 'not login' do
+      it 'should return 200' do
+        get "/api/internal/products/#{product.public_id}"
+        expect(response.status).to eq 200
+      end
+    end
+  end
+
+  describe 'POST /api/internal/products' do
+    let(:params) {
+      {
+        product: {
+          name: 'demo_product',
+          price: 1000
+        }
+      }
+    }
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        post '/api/internal/products', params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        post '/api/internal/products', params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end

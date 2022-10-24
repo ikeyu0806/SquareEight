@@ -29,11 +29,15 @@ class Api::Internal::ProductsController < ApplicationController
         account_image.s3_object_public_url = put_s3_http_request_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
       end
-      product_params[:product_types].each do |product_type|
-        product.product_types.new(name: product_type[:name], inventory: product_type[:inventory])
+      if product_params[:product_types].present?
+        product_params[:product_types].each do |product_type|
+          product.product_types.new(name: product_type[:name], inventory: product_type[:inventory])
+        end
       end
-      product_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
-        product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
+      if product_params[:prefecture_delivery_charges].present?
+        product_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
+          product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
+        end
       end
       product.save!
       render json: { status: 'success' }, status: 200
