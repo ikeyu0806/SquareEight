@@ -8,6 +8,7 @@ RSpec.describe 'Api::Internal::MessageTemplatesController', type: :request do
   let(:customer) { create(:customer, account_id: account.id) }
   let(:customer_group) { create(:customer_group, account_id: account.id) }
   let!(:customer_group_relation) { create(:customer_group_relation, customer_id: customer.id, customer_group_id: customer_group.id) }
+  let(:message_template) { create(:message_template, account_id: account.id) }
 
   describe 'GET /api/internal/message_templates' do
     context 'login as merchant_user' do
@@ -48,6 +49,33 @@ RSpec.describe 'Api::Internal::MessageTemplatesController', type: :request do
     context 'not login' do
       it 'should return 401' do
         post '/api/internal/message_templates', params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'POST /api/internal/message_templates/:public_id' do
+    let(:params) {
+      {
+        message_template: {
+          name: 'update_demo_name',
+          title: 'update_demo_title',
+          content: 'update_demo_content',
+        }
+      }
+    }
+
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        post "/api/internal/message_templates/#{message_template.public_id}", params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        post "/api/internal/message_templates/#{message_template.public_id}", params: params
         expect(response.status).to eq 401
       end
     end
