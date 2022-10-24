@@ -80,4 +80,80 @@ RSpec.describe 'Api::Internal::MessageTemplatesController', type: :request do
       end
     end
   end
+
+  describe 'POST /api/internal/message_templates/send_mail' do
+    context 'login as merchant_user' do
+      context 'target_type is Customer' do
+        let(:params) {
+          {
+            message_template: {
+              target_type: 'Customer',
+              target_customers: [customer],
+              title: 'update_demo_title',
+              content: 'update_demo_content'
+            }
+          }
+        }
+        it 'should return 200' do
+          allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+          post '/api/internal/message_templates/send_mail', params: params
+          expect(response.status).to eq 200
+        end
+      end
+
+      context 'target_type is Email' do
+        let(:params) {
+          {
+            message_template: {
+
+              target_type: 'Email',
+              target_emails: 'demoa@example.com,demob@example.com',
+              title: 'update_demo_title',
+              content: 'update_demo_content'
+            }
+          }
+        }
+        it 'should return 200' do
+          allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+          post '/api/internal/message_templates/send_mail', params: params
+          expect(response.status).to eq 200
+        end
+      end
+
+      context 'target_type is CustomerGroup' do
+        let(:params) {
+          {
+            message_template: {
+              target_type: 'CustomerGroup',
+              target_customer_groups: [customer_group],
+              title: 'update_demo_title',
+              content: 'update_demo_content'
+            }
+          }
+        }
+        it 'should return 200' do
+          allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+          post '/api/internal/message_templates/send_mail', params: params
+          expect(response.status).to eq 200
+        end
+      end
+    end
+
+    context 'not login' do
+      let(:params) {
+        {
+          message_template: {
+            target_type: 'Customer',
+            target_customers: [customer],
+            title: 'update_demo_title',
+            content: 'update_demo_content'
+          }
+        }
+      }
+      it 'should return 401' do
+        post '/api/internal/message_templates/send_mail', params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
