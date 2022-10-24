@@ -28,4 +28,30 @@ RSpec.describe 'Api::Internal::PaymentRequestsController', type: :request do
       end
     end
   end
+
+  describe 'GET /api/internal/payment_requests' do
+    context 'not login' do
+      it 'should return 200' do
+        get "/api/internal/payment_requests/#{stripe_payment_request.public_id}"
+        expect(response.status).to eq 200
+      end
+    end
+  end
+
+  describe 'GET /api/internal/payment_requests/init_state' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        get '/api/internal/payment_requests/init_state'
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        get '/api/internal/payment_requests/init_state'
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
