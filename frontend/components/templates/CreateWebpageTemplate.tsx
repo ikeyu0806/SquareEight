@@ -65,8 +65,7 @@ const CreateWebpageTemplate = ({showDeleteButton}: Props): JSX.Element => {
         <div className='mb20'>
           <Form.Group className='mb-3'>
             <Form.Label>管理用のページ名称を入力してください。</Form.Label>
-            <Form.Control placeholder='企業情報ページ、採用情報ページなど'
-                          onChange={(e) => dispatch(webpageTagChanged(e.target.value))}
+            <Form.Control onChange={(e) => dispatch(webpageTagChanged(e.target.value))}
                           value={webpageTag} />
           </Form.Group>
         </div>

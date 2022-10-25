@@ -39,7 +39,7 @@ class Api::Internal::WebpagesController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      webpage = Webpage.find_by(webpage_params: params[:public_id])
+      webpage = Webpage.find_by(public_id: params[:public_id])
       webpage.tag = webpage_params[:tag]
       webpage.delete_block_images
       webpage.webpage_blocks.delete_all
