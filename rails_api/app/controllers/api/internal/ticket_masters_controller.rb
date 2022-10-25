@@ -59,7 +59,7 @@ class Api::Internal::TicketMastersController < ApplicationController
 
   def update
     ActiveRecord::Base.transaction do
-      ticket_master = TicketMaster.find(params[:public_id])
+      ticket_master = TicketMaster.find_by(public_id: params[:public_id])
       ticket_master.attributes = (ticket_master_params.except(:base64_image))
       if (ticket_master_params[:base64_image].present?)
         ticket_master.ticket_master_image_relations.update_all(relation_status: "Sub")
@@ -90,7 +90,7 @@ class Api::Internal::TicketMastersController < ApplicationController
   end
 
   def logical_delete
-    ticket_master = TicketMaster.find(params[:public_id])
+    ticket_master = TicketMaster.find_by(public_id: params[:public_id])
     ticket_master.logical_delete
     render json: { status: 'success' }, status: 200
   rescue => error
