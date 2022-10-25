@@ -118,4 +118,21 @@ RSpec.describe 'Api::Internal::ReservationsController', type: :request do
       end
     end
   end
+
+  describe 'GET /api/internal/reservations/register_reservation_info' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        get '/api/internal/reservations/register_reservation_info?reservation_public_id=' + local_payment_reservation.public_id
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        get '/api/internal/reservations/register_reservation_info?reservation_public_id=' + local_payment_reservation.public_id
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end

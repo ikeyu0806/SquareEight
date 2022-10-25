@@ -291,7 +291,7 @@ class Api::Internal::ReservationsController < ApplicationController
   def input_customer_info
     login_status = current_end_user.present? ? 'Login' : 'Logout'
     # 共通ヘッダ、フッタ
-    reservation = Reservation.find_by(public_id: params[:reservation_id])
+    reservation = Reservation.find_by(public_id: params[:reservation_public_id])
     reserve_frame = reservation.reserve_frame
     shared_component = reserve_frame.account.shared_component
     if current_end_user.present? && current_end_user.stripe_customer_id.present?

@@ -64,7 +64,7 @@ const Index: NextPage = () => {
   const [questionnaireMasterItems, setQuestionnaireMasterItems] = useState<QuestionnaireMasterItem[]>([])
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/reservations/input_customer_info?reservation_id=${router.query.public_id}`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/reservations/input_customer_info?reservation_public_id=${router.query.public_id}`,
     {
       headers: {
         'Session-Id': cookies._square_eight_end_user_session
