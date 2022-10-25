@@ -160,7 +160,10 @@ class Api::Internal::ReserveFramesController < ApplicationController
         reserve_frame.is_repeat_sat = true if reserve_frame_params[:repeat_wdays].include?("Sat")
       end
       reserve_frame.save!
+      render json: { status: 'success' }, status: 200
     end
+  rescue => error
+    render json: { statue: 'fail', error: error }, status: 500
   end
 
   def reserve_events
