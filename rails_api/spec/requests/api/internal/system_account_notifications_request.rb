@@ -67,4 +67,30 @@ RSpec.describe 'Api::Internal::SystemAccountNotificationsController', type: :req
       end
     end
   end
+
+  describe 'POST /api/internal/system_account_notifications' do
+    let(:params) {
+      {
+        notification: {
+          title: 'update title',
+          content: 'update content'
+        }
+      }
+    }
+
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_system_admin_user).and_return(system_admin_user)
+        post '/api/internal/system_account_notifications/' + system_account_notification.public_id, params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        post '/api/internal/system_account_notifications/' + system_account_notification.public_id, params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
