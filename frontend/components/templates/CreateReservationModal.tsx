@@ -18,7 +18,7 @@ import {  customerIdChanged,
           emailChanged,
           notesChanged,
           phoneNumberChanged } from 'redux/customerSlice'
-import {  reserveFrameIdChanged,
+import {  reserveFramePublicIdChanged,
           reservationDateChanged,
           startTimeChanged,
           endTimeChanged,
@@ -28,7 +28,7 @@ import {  reserveFrameIdChanged,
 const CreateReservationModal = (): JSX.Element => {
   const dispatch = useDispatch()
   // Reservation
-  const reserveFrameId = useSelector((state: RootState) => state.reservation.reserveFrameId)
+  const reserveFramePublicId = useSelector((state: RootState) => state.reservation.reserveFramePublicId)
   const reservationDate = useSelector((state: RootState) => state.reservation.reservationDate)
   const startTime = useSelector((state: RootState) => state.reservation.startTime)
   const endTime = useSelector((state: RootState) => state.reservation.endTime)
@@ -64,7 +64,7 @@ const CreateReservationModal = (): JSX.Element => {
         const customerResponse: CustomerParam[] = response.data.customers
         setReserveFrames(reserveFrameResponse)
         setCustomers(customerResponse)
-        dispatch(reserveFrameIdChanged(Number(reserveFrameResponse[0].id)))
+        dispatch(reserveFramePublicIdChanged(reserveFrameResponse[0].public_id))
       })
       .catch(error => {
         console.log(error)
@@ -77,7 +77,7 @@ const CreateReservationModal = (): JSX.Element => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/register_by_merchant_control`,
     {
       reservations: {
-        reserve_frame_id: reserveFrameId,
+        reserve_frame_public_id: reserveFramePublicId,
         reservation_date: reservationDate,
         start_time: startTime,
         end_time: endTime,

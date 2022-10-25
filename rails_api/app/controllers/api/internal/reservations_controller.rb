@@ -248,7 +248,7 @@ class Api::Internal::ReservationsController < ApplicationController
       end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i, 0, "+09:00")
       # Customer
       if reservation_params[:is_select_customer] == true
-        customer = Customer.find(reservation_params[:customer_id])
+        customer = Customer.find_by(public_id: reservation_params[:customer_public_id])
       else
         customer = Customer.new
       end
@@ -261,8 +261,10 @@ class Api::Internal::ReservationsController < ApplicationController
       customer.phone_number = reservation_params[:phone_number]
       customer.notes = reservation_params[:notes]
       customer.save!
+
+      reserve_frame = ReserveFrame.find_by(public_id: reservation_params[:reserve_frame_public_id])
       # create reservation
-      Reservation.create!(reserve_frame_id: reservation_params[:reserve_frame_id],
+      Reservation.create!(reserve_frame_id: reserve_frame.id,
                           start_at: start_datetime,
                           status: 'confirm',
                           end_at: end_datetime,
@@ -371,6 +373,7 @@ class Api::Internal::ReservationsController < ApplicationController
                   :number_of_people,
                   :end_user_id,
                   :customer_id,
+                  :customer_public_id,
                   :type,
                   :payment_method,
                   :reserve_count,

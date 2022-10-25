@@ -83,4 +83,39 @@ RSpec.describe 'Api::Internal::ReservationsController', type: :request do
       end
     end
   end
+
+  describe 'POST /api/internal/reservations/register_by_merchant_control' do
+    let(:params) {
+      {
+        reservations: {
+          reservation_date: (Time.zone.now + 1.weeks).strftime("%Y-%m-%d"),
+          start_time: (Time.zone.now + 1.weeks).strftime("%H:%M"),
+          end_time: (Time.zone.now + 1.weeks + 1.hours).strftime("%H:%M"),
+          is_select_customer: true,
+          customer_public_id: customer.public_id,
+          last_name: 'test',
+          first_name: 'taro',
+          email: 'test@example.com',
+          phone_number: '09011112222',
+          number_of_people: 1,
+          price: 1000,
+          reserve_frame_public_id: reserve_frame.public_id
+        }
+      }
+    }
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        post '/api/internal/reservations/register_by_merchant_control', params: params
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        post '/api/internal/reservations/register_by_merchant_control', params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end

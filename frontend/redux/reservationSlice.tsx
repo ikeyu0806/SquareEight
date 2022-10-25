@@ -5,6 +5,7 @@ export const reservationSlice = createSlice({
   name: 'reservation',
   initialState: {
     reserveFrameId: 0,
+    reserveFramePublicId: '',
     reservationDate: '',
     startTime: '',
     endTime: '',
@@ -16,6 +17,9 @@ export const reservationSlice = createSlice({
   reducers: {
     reserveFrameIdChanged: (state, action: PayloadAction<number>) => {
       state.reserveFrameId = action.payload
+    },
+    reserveFramePublicIdChanged: (state, action: PayloadAction<string>) => {
+      state.reserveFramePublicId = action.payload
     },
     reservationDateChanged: (state, action: PayloadAction<string>) => {
       state.reservationDate = action.payload
@@ -42,6 +46,7 @@ export const reservationSlice = createSlice({
 })
 
 export const { reserveFrameIdChanged } = reservationSlice.actions
+export const { reserveFramePublicIdChanged } = reservationSlice.actions
 export const { reservationDateChanged } = reservationSlice.actions
 export const { startTimeChanged } = reservationSlice.actions
 export const { endTimeChanged } = reservationSlice.actions
