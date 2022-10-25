@@ -5,6 +5,7 @@ export const customerSlice = createSlice({
   name: 'alert',
   initialState: {
     customerId: 0,
+    customerPublicId: '',
     firstName: '',
     lastName: '',
     firstNameKana: '',
@@ -24,6 +25,9 @@ export const customerSlice = createSlice({
   reducers: {
     customerIdChanged: (state, action: PayloadAction<number>) => {
       state.customerId = action.payload
+    },
+    customerPublicIdChanged: (state, action: PayloadAction<string>) => {
+      state.customerPublicId = action.payload
     },
     firstNameChanged: (state, action: PayloadAction<string>) => {
       state.firstName = action.payload
@@ -62,6 +66,7 @@ export const customerSlice = createSlice({
 })
 
 export const { customerIdChanged } = customerSlice.actions
+export const { customerPublicIdChanged } = customerSlice.actions
 export const { firstNameChanged } = customerSlice.actions
 export const { lastNameChanged } = customerSlice.actions
 export const { firstNameKanaChanged } = customerSlice.actions

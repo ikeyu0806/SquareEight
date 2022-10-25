@@ -10,6 +10,7 @@ import { CustomerParam } from 'interfaces/CustomerParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import CreateCustomerForm from 'components/organisms/CreateCustomerForm'
 import {  customerIdChanged,
+          customerPublicIdChanged,
           firstNameChanged,
           firstNameKanaChanged,
           lastNameChanged,
@@ -82,7 +83,7 @@ const CreateReservationModal = (): JSX.Element => {
         end_time: endTime,
         price: price,
         number_of_people: numberOfPeople,
-        customer_id: customerId,
+        customer_public_id: customerId,
         first_name: firstName,
         last_name: lastName,
         first_name_kana: firstNameKana,
@@ -119,10 +120,10 @@ const CreateReservationModal = (): JSX.Element => {
     return false
   }
 
-  const insertCustomerForm = (customerId: string) => {
+  const insertCustomerForm = (customerPublicId: string) => {
     let customer: CustomerParam
-    customer = customers.find(c => c.id === Number(customerId)) as CustomerParam
-    dispatch(customerIdChanged(customer.id))
+    customer = customers.find(c => c.public_id === customerPublicId) as CustomerParam
+    dispatch(customerPublicIdChanged(customer.public_id))
     dispatch(firstNameChanged(customer.first_name || ''))
     dispatch(firstNameKanaChanged(customer.first_name_kana || ''))
     dispatch(lastNameChanged(customer.last_name || ''))
