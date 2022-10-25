@@ -144,4 +144,38 @@ RSpec.describe 'Api::Internal::ReserveFramesController', type: :request do
       end
     end
   end
+
+  describe 'GET /api/internal/reserve_frames/settable_relation_data' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        get '/api/internal/reserve_frames/settable_relation_data'
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        get '/api/internal/reserve_frames/settable_relation_data'
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'DELETE /api/internal/reserve_frames/:public_id' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        delete "/api/internal/reserve_frames/#{reserve_frame.public_id}"
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        delete "/api/internal/reserve_frames/#{reserve_frame.public_id}"
+        expect(response.status).to eq 401
+      end
+    end
+  end
 end
