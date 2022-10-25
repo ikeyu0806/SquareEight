@@ -1,4 +1,7 @@
 class Api::Internal::SystemEndUserNotificationsController < ApplicationController
+  before_action :end_user_login_only!, only: [:index, :show]
+  before_action :system_admin_user_login_only!, only: [:create, :update]
+
   def index
     system_end_user_notifications = SystemEndUserNotification.all
     render json: { status: 'success', system_end_user_notifications: system_end_user_notifications }, status: 200
