@@ -1,7 +1,7 @@
 include Base64Image
 
 class Api::Internal::ReserveFramesController < ApplicationController
-  before_action :merchant_login_only!, except: [:reserve_events, :show]
+  before_action :merchant_login_only!, except: [:show]
 
   def index
     reserve_frames = current_merchant_user.account.reserve_frames.enabled.order(:id)
@@ -162,13 +162,6 @@ class Api::Internal::ReserveFramesController < ApplicationController
       reserve_frame.save!
       render json: { status: 'success' }, status: 200
     end
-  rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
-  end
-
-  def reserve_events
-    events = Account.find(params[:account_id]).reserve_calendar_json
-    render json: { status: 'success', events: events }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end
