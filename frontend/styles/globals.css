@@ -188,3 +188,11 @@ a {
 .new-line {
   white-space: pre-wrap;
 }
+
+.border-solid {
+  border: solid;
+}
+
+.padding-20 {
+  padding: 20px;
+}

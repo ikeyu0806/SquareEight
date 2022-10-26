@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
-import { Container, Table, Button, ListGroup, Row, Col } from 'react-bootstrap'
+import { Container, Button, ListGroup, Row, Col } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -48,13 +48,12 @@ const Index = (): JSX.Element => {
           <Button
             className='mb30'
             onClick={() => dispatch(showCreateReserveFrameModalChanged(true))}>新規登録</Button>
-          <ListGroup>
             {reserveFrames.map((reserveFrame, i) => {
               return (
-                <ListGroup.Item key={i}>
+                <div key={i} className='mb30 border-solid padding-20'>
                   <Row>
                     <Col>
-                      <div>予約メニュー名: {reserveFrame.title}</div>
+                      <h3>{reserveFrame.title}</h3>
                       <hr />
                       <div>定員: {reserveFrame.capacity}</div>
                       <hr />
@@ -89,10 +88,9 @@ const Index = (): JSX.Element => {
                       </div>
                     </Col>
                   </Row>
-                </ListGroup.Item>
+                </div>
               )
             })}
-          </ListGroup>
           <CreateReserveFrameModal></CreateReserveFrameModal>
           <EditReserveFrameModal></EditReserveFrameModal>
         </Container>
