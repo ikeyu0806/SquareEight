@@ -250,7 +250,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         dispatch(isEveryMonthRepeatChanged(response.data.reserve_frame.is_every_month_repeat))
         dispatch(repeatWDaysChanged(response.data.reserve_frame.repeat_wdays))
         dispatch(repeatEndDateChanged(response.data.reserve_frame.repeat_end_date_input_value))
-        dispatch(resourceIdsChanged(response.data.reserve_frame.resouce_ids))
+        dispatch(resourceIdsChanged(response.data.reserve_frame.resource_ids))
         dispatch(questionnaireMasterIdChanged(response.data.reserve_frame.questionnaire_master_id))
         dispatch(monthlyPaymentPlanIdsChanged(response.data.reserve_frame.monthly_payment_plan_ids))
         dispatch(reservableFrameTicketMasterChanged(response.data.reserve_frame.reservable_frame_ticket_master))
