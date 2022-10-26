@@ -34,16 +34,18 @@ class StripeWebhooksController < ApplicationController
         reserve_frame_id = stripe_params["data"]["object"]["metadata"]["reserve_frame_id"]
         payment_request_id = stripe_params["data"]["object"]["metadata"]["payment_request_id"]
         order_date = current_date_text
-        system_product_type = ''
-        system_product_type = 'Product' if product_id.present?
-        system_product_type = 'TicketMaster' if ticket_master_id.present?
-        system_product_type = 'Reservation' if reserve_frame_id.present?
-        system_product_type = 'PaymentRequest' if payment_request_id.present?
-  
+
         end_user = EndUser.find_by(stripe_customer_id: stripe_customer_id)
         account = Account.find_by(stripe_account_id: transfer_destination_account_id)
         stripe_payment_intent = StripePaymentIntent.find_or_initialize_by(stripe_payment_intent_id: stripe_payment_intent_id)
+        if stripe_payment_intent.system_product_type.blank?
+          system_product_type = 'Product' if product_id.present?
+          system_product_type = 'TicketMaster' if ticket_master_id.present?
+          system_product_type = 'Reservation' if reserve_frame_id.present?
+          system_product_type = 'PaymentRequest' if payment_request_id.present?  
+        end
         purchase_product_name = stripe_params["data"]["object"]["metadata"]["purchase_product_name"]
+        account_id = stripe_payment_intent.account_id.present? ? stripe_payment_intent.account_id : account&.id
         # DBに登録
         stripe_payment_intent.attributes = {
           amount: amount,
@@ -56,9 +58,9 @@ class StripeWebhooksController < ApplicationController
           purchase_product_name: purchase_product_name,
           reserve_frame_id: reserve_frame_id,
           payment_request_id: payment_request_id,
-          system_product_type: system_product_type,
+          system_product_type: stripe_payment_intent.system_product_type,
           end_user_id: end_user&.id,
-          account_id: account&.id
+          account_id: account_id
         }
         stripe_payment_intent.save!
       end
@@ -69,9 +71,6 @@ class StripeWebhooksController < ApplicationController
         stripe_payment_intent_id = stripe_params["data"]["object"]["payment_intent"]
         stripe_payment_intent = StripePaymentIntent.find_or_initialize_by(stripe_payment_intent_id: stripe_payment_intent_id)
         monthly_payment_plan_id = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["monthly_payment_plan_id"]
-        if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["product_type"] == "system_plan"
-          stripe_payment_intent.system_product_type = "SystemPlan"
-        end
         if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["system_plan_name"].present?
           stripe_payment_intent.system_plan_name = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["system_plan_name"]
         end
@@ -83,6 +82,9 @@ class StripeWebhooksController < ApplicationController
         stripe_payment_intent.stripe_customer_id = stripe_customer_id
         if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["account_id"].present?
           stripe_payment_intent.account_id = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["account_id"]
+        end
+        if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["product_type"] == "system_plan"
+          stripe_payment_intent.system_product_type = "SystemPlan"
         end
         stripe_payment_intent.save!
       end
