@@ -1,11 +1,10 @@
 require 'rails_helper'
 
-RSpec.describe 'Api::Internal::CustomersController', type: :request do
+RSpec.describe 'Api::Internal::Account::CustomerGroupsController', type: :request do
   let(:account) { create(:business_account) }
   let(:merchant_user) {
     create(:merchant_user, account: account)
   }
-  let(:customer) { create(:customer, account_id: account.id) }
   let(:customer) { create(:customer, account_id: account.id) }
   let(:customer_group) { create(:customer_group, account_id: account.id) }
   let!(:customer_group_relation) { create(:customer_group_relation, customer_id: customer.id, customer_group_id: customer_group.id) }
