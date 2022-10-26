@@ -33,7 +33,6 @@ class StripeWebhooksController < ApplicationController
         ticket_master_id = stripe_params["data"]["object"]["metadata"]["ticket_master_id"]
         reserve_frame_id = stripe_params["data"]["object"]["metadata"]["reserve_frame_id"]
         payment_request_id = stripe_params["data"]["object"]["metadata"]["payment_request_id"]
-        order_date = current_date_text
 
         end_user = EndUser.find_by(stripe_customer_id: stripe_customer_id)
         account = Account.find_by(stripe_account_id: transfer_destination_account_id)
@@ -46,6 +45,7 @@ class StripeWebhooksController < ApplicationController
         end
         purchase_product_name = stripe_params["data"]["object"]["metadata"]["purchase_product_name"]
         account_id = stripe_payment_intent.account_id.present? ? stripe_payment_intent.account_id : account&.id
+        order_date = stripe_payment_intent.order_date.present? ? stripe_payment_intent.order_date : current_date_text
         # DBに登録
         stripe_payment_intent.attributes = {
           amount: amount,
