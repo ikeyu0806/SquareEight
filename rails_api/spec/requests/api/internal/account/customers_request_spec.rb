@@ -54,7 +54,7 @@ RSpec.describe 'Api::Internal::Account::CustomersController', type: :request do
     end
   end
 
-  describe 'POST /api/internal/account/customers/:public_id/update(' do
+  describe 'POST /api/internal/account/customers/:public_id/update' do
     let(:params) {
       {
         customer: {
@@ -79,6 +79,40 @@ RSpec.describe 'Api::Internal::Account::CustomersController', type: :request do
     context 'not login' do
       it 'should return 401' do
         post "/api/internal/account/customers/#{customer.public_id}/update", params: params
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'GET /api/internal/account/customers/:customer_public_id/orders' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        get "/api/internal/account/customers/#{customer.public_id}/orders"
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        get "/api/internal/account/customers/#{customer.public_id}/orders"
+        expect(response.status).to eq 401
+      end
+    end
+  end
+
+  describe 'GET /api/internal/account/customers/:customer_public_id/charges' do
+    context 'login as merchant_user' do
+      it 'should return 200' do
+        allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
+        get "/api/internal/account/customers/#{customer.public_id}/charges"
+        expect(response.status).to eq 200
+      end
+    end
+
+    context 'not login' do
+      it 'should return 401' do
+        get "/api/internal/account/customers/#{customer.public_id}/charges"
         expect(response.status).to eq 401
       end
     end
