@@ -22,6 +22,7 @@ class Api::Internal::WebpagesController < ApplicationController
       webpage = current_merchant_user.account.webpages.create!(tag: webpage_params[:tag])
       webpage.publish_status = webpage_params[:publish_status]
       webpage.create_webblocks(webpage_params[:page_content])
+      webpage.save!
       render json: { status: 'success' }, status: 200
     end
   rescue => error
