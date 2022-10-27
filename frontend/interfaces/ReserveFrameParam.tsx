@@ -25,6 +25,7 @@ export interface ReserveFrameParam {
   is_repeat_thu: boolean
   is_repeat_fri: boolean
   is_repeat_sat: boolean
+  repeat_interval_type: string
   payment_methods_text: string[]
   s3_object_public_url: string
   reserve_frame_reception_times_values: ReserveFrameReceptionTimeParam[]

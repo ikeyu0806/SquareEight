@@ -40,6 +40,18 @@ const Index = (): JSX.Element => {
     fetchReserveFrames()
   }, [router.query.public_id, cookies._square_eight_merchant_session])
 
+  const repeatIntervalTypeText = (repeatIntervalType: string) => {
+    switch (repeatIntervalType) {
+      case 'Day':
+        return (<div>日ごと</div>)
+      case 'Week':
+        return (<div>週ごと</div>)
+      case 'Month':
+        return (<div>月ごと</div>)
+      case 'WDay':
+        return (<div>曜日ごと</div>)
+    }
+  }
   return (
     <>
       <MerchantUserAdminLayout>
@@ -75,6 +87,7 @@ const Index = (): JSX.Element => {
                       <hr />
                       <div>繰り返し設定</div>
                       {!reserveFrame.is_repeat && <div>繰り返さない</div>}
+                      {reserveFrame.is_repeat && <>{repeatIntervalTypeText(reserveFrame.repeat_interval_type)}</>}
                       <hr />
                       <div>お支払い方法</div>
                       <div>
