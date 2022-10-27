@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
-import { Container, Button, ListGroup, Row, Col } from 'react-bootstrap'
+import { Container, Button, Row, Col } from 'react-bootstrap'
+import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -66,7 +67,7 @@ const Index = (): JSX.Element => {
                   <Row>
                     <Col>
                       <h3>{reserveFrame.title}</h3>
-                      <span>{reserveFrame.publish_status === 'Publish' ? '公開' : '非公開'}</span>
+                      <span><PublishStatusBadge publishStatus={reserveFrame.publish_status} /></span>
                       <hr />
                       <div>定員: {reserveFrame.capacity}</div>
                       <hr />
