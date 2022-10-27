@@ -34,7 +34,7 @@ export const reserveFrameSlice = createSlice({
     publishStatus: '',
     receptionType: 'Immediate',
     receptionPhoneNumber: '',
-    receptionStartDayBefore: 1,
+    receptionStartDayBefore: 30,
     cancelReception: 'OnlyOnTheDay',
     cancelReceptionHourBefore: 1,
     cancelReceptionDayBefore: 1,
