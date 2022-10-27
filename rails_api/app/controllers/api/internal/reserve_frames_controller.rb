@@ -6,7 +6,12 @@ class Api::Internal::ReserveFramesController < ApplicationController
   def index
     reserve_frames = current_merchant_user.account.reserve_frames.enabled.order(:id)
                      .order(:id)
-                     .to_json(methods: [:payment_methods_text, :repeat_setting_text, :reception_type_text, :display_start_at, :display_end_at])
+                     .to_json(methods: [:payment_methods_text,
+                                        :repeat_setting_text,
+                                        :reception_type_text,
+                                        :display_start_at,
+                                        :display_end_at,
+                                        :reserve_frame_reception_times_values])
     reserve_frames = JSON.parse(reserve_frames)
     render json: { status: 'success', reserve_frames: reserve_frames }, status: 200
   rescue => error

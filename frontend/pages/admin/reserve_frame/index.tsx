@@ -23,7 +23,7 @@ const Index = (): JSX.Element => {
     const fetchReserveFrames = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/reserve_frames`, {
-          headers: { 
+          headers: {
             'Session-Id': cookies._square_eight_merchant_session
           },
         }
@@ -65,6 +65,11 @@ const Index = (): JSX.Element => {
                         </Col>
                         <Col>
                           <div>受付時間</div>
+                          <div>{reserveFrame.reserve_frame_reception_times_values.map((time, i) => {
+                            return (
+                              <div key={i + 10}>{time.reception_start_time}-{time.reception_end_time}</div>
+                            )
+                          })}</div>
                         </Col>
                       </Row>
                       <hr />
