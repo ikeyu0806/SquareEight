@@ -20,6 +20,7 @@ class Api::Internal::WebpagesController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       webpage = current_merchant_user.account.webpages.create!(tag: webpage_params[:tag])
+      webpage.publish_status = webpage_params[:publish_status]
       webpage.create_webblocks(webpage_params[:page_content])
       render json: { status: 'success' }, status: 200
     end
@@ -41,6 +42,7 @@ class Api::Internal::WebpagesController < ApplicationController
     ActiveRecord::Base.transaction do
       webpage = Webpage.find_by(public_id: params[:public_id])
       webpage.tag = webpage_params[:tag]
+      webpage.publish_status = webpage_params[:publish_status]
       webpage.delete_block_images
       webpage.webpage_blocks.delete_all
       webpage.create_webblocks(webpage_params[:page_content])

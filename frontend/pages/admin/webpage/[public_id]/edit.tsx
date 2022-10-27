@@ -42,7 +42,7 @@ const Edit: NextPage = () => {
   }, [router.query.public_id, cookies._square_eight_merchant_session, dispatch])
 
   const updateWebpage = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/webpages/update`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/webpages/${router.query.public_id}/update`,
     {
       webpage: {
         id: router.query.public_id,

@@ -63,7 +63,7 @@ Rails.application.routes.draw do
       get 'webpages/:public_id', to: 'webpages#show'
       get 'webpages', to: 'webpages#index'
       post 'webpages/complete_create_homepage', to: 'webpages#complete_create_homepage'
-      post 'webpages/update', to: 'webpages#update'
+      post 'webpages/:public_id/update', to: 'webpages#update'
       post 'webpages', to: 'webpages#create'
       delete 'webpages/:public_id', to: 'webpages#destroy'
       get 'products/:public_id/purchase_info', to: 'products#purchase_info'

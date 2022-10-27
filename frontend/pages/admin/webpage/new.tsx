@@ -15,13 +15,15 @@ const New: NextPage = () => {
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
   const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
+  const publishStatus = useSelector((state: RootState) => state.webpage.publishStatus)
 
   const createWebpage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/webpages`,
     {
       webpage: {
         page_content: pageContent,
-        tag: webpageTag
+        tag: webpageTag,
+        publish_status: publishStatus
       }
     },
     {
