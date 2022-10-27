@@ -122,6 +122,14 @@ const Index = (): JSX.Element => {
                       </div>
                       <hr />
                       <div>アンケート設定</div>
+                      {reserveFrame.questionnaire_master_title_with_public_id
+                      &&
+                      <a href={`/admin/questionnaire/master/${reserveFrame.questionnaire_master_title_with_public_id.public_id}/edit`}
+                         target='_blank'
+                         rel='noreferrer'>
+                        {reserveFrame.questionnaire_master_title_with_public_id.title}
+                      </a>}
+                      {!reserveFrame.questionnaire_master_title_with_public_id && <div>アンケートは設定されていません</div>}
                       <hr />
                       <div>
                         <a className='btn btn-primary'

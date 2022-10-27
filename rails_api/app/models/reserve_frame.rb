@@ -392,6 +392,11 @@ class ReserveFrame < ApplicationRecord
     resources.map{|r| {name: r.name, public_id: r.public_id}}
   end
 
+  def questionnaire_master_title_with_public_id
+    return nil if questionnaire_master.blank?
+    {title: questionnaire_master.title, public_id: questionnaire_master.public_id}
+  end
+
   def monthly_payment_plan_ids
     monthly_payment_plans.pluck(:monthly_payment_plan_id)
   end
