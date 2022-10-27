@@ -5,6 +5,7 @@ import { Container, Row, Col, ListGroup } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import { WebpageParam } from 'interfaces/WebpageParam'
 
 const Index: NextPage = () => {
@@ -45,7 +46,10 @@ const Index: NextPage = () => {
                   return (
                     <ListGroup.Item key={i}>
                       <Row>
-                        <Col><span>{webpage.tag}</span></Col>
+                        <Col>
+                          <span>{webpage.tag}</span>
+                          <PublishStatusBadge publishStatus={webpage.publish_status}></PublishStatusBadge>
+                        </Col>
                         <Col>
                           <a className='btn btn-primary ml10' href={`/admin/webpage/${webpage.public_id}/edit`}>編集</a>
                           <a className='btn btn-primary ml10' href={`/webpages/${webpage.public_id}`} target='_blank' rel='noreferrer'>プレビュー</a>
