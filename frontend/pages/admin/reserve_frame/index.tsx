@@ -86,13 +86,56 @@ const Index = (): JSX.Element => {
                         </Col>
                       </Row>
                       <hr />
-                      <div>繰り返し設定</div><br />
+                      <div className='mb10'>繰り返し設定</div>
                       {!reserveFrame.is_repeat && <div>繰り返さない</div>}
                       {reserveFrame.is_repeat &&
                         <>
                           <div>{repeatIntervalTypeText(reserveFrame.repeat_interval_type)}</div>
                           <div>{reserveFrame.repeat_setting_text}</div>
-                        </>}
+                        </>
+                      }
+                      <hr />
+                      <div>繰り返し範囲外予約受付日時</div>
+                      {reserveFrame.out_of_range_frames_datetimes && reserveFrame.out_of_range_frames_datetimes.length
+                        ?
+                          <>
+                            {reserveFrame.out_of_range_frames_datetimes.map((frame, i) => {
+                              return (
+                                <span key={i} className='mb10'>
+                                  <div>開始日時: {frame.start_at}</div>
+                                  <div>終了日時: {frame.end_at}</div>
+                                </span>
+                              )
+                            })}
+                          </>
+                        :
+                          <div className='mt20 mb10'>予約受付不可日時が設定されていません</div>
+                        }
+                      <hr />
+                      <div>予約受付不可日時設定</div>
+                      {reserveFrame.unreservable_frames_datetimes && reserveFrame.unreservable_frames_datetimes.length
+                        ?
+                          <>
+                            {reserveFrame.unreservable_frames_datetimes.map((frame, i) => {
+                              return (
+                                <span key={i} className='mb10'>
+                                  <div>開始日時: {frame.start_at}</div>
+                                  <div>終了日時: {frame.end_at}</div>
+                                </span>
+                              )
+                            })}
+                          </>
+                        :
+                          <div className='mt20 mb10'>予約受付不可日時が設定されていません</div>
+                        }
+                    </Col>
+                    <Col>
+                      <div>
+                        受付設定: {reserveFrame.reception_type_text}
+                      </div>
+                      <hr />
+                      <div>受付開始</div>
+                      <div>受付締め切り</div>
                       <hr />
                       <div>お支払い方法</div>
                       <div>
@@ -101,11 +144,6 @@ const Index = (): JSX.Element => {
                           <span key={i}>{text}<br/></span>
                         )
                       })}</div>
-                    </Col>
-                    <Col>
-                      <div>
-                        受付設定: {reserveFrame.reception_type_text}
-                      </div>
                       <hr />
                       <div>リソース一覧</div>
                       <div>{reserveFrame.resources_name_with_public_id &&
