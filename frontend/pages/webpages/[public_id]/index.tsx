@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { pageContentChanged } from 'redux/webpageSlice'
+import { pageContentChanged, publishStatusChanged } from 'redux/webpageSlice'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import RenderWebpage from 'components/organisms/RenderWebpage'
 import {  navbarBrandTextChanged,
@@ -23,6 +23,7 @@ const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
+  const publishStatus = useSelector((state: RootState) => state.webpage.publishStatus)
 
   useEffect(() => {
     const fetchWebpage = () => {
@@ -36,6 +37,7 @@ const Index: NextPage = () => {
       .then(function (response) {
         console.log(response.data)
         dispatch(pageContentChanged({blockContent: response.data.webpage.block_contents}))
+        dispatch(publishStatusChanged(response.data.webpage.publish_status))
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
         dispatch((navbarBrandImageChanged(response.data.shared_component.navbar_brand_image_s3_object_public_url)))
@@ -50,13 +52,13 @@ const Index: NextPage = () => {
       })
     }
     fetchWebpage()
-  }, [router.query.public_id, cookies._square_eight_merchant_session, router.query.public_id, dispatch])
+  }, [router.query.public_id, cookies._square_eight_merchant_session, dispatch])
 
   return (
     <MerchantCustomLayout>
       <Container>
         &thinsp;
-        <RenderWebpage></RenderWebpage>
+        {publishStatus === 'Publish' ? <RenderWebpage></RenderWebpage> : <div className='text-center'>非公開です</div>}
       </Container>
     </MerchantCustomLayout>
   )
