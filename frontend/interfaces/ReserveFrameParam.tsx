@@ -17,6 +17,14 @@ export interface ReserveFrameParam {
   reception_phone_number: string
   repeat_setting_text :string
   reception_type_text: string
+  is_repeat: boolean
+  is_repeat_sun: boolean
+  is_repeat_mon: boolean
+  is_repeat_tue: boolean
+  is_repeat_wed: boolean
+  is_repeat_thu: boolean
+  is_repeat_fri: boolean
+  is_repeat_sat: boolean
   payment_methods_text: string[]
   s3_object_public_url: string
   reserve_frame_reception_times_values: ReserveFrameReceptionTimeParam[]

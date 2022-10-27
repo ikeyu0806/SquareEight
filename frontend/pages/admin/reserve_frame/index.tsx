@@ -54,11 +54,22 @@ const Index = (): JSX.Element => {
                   <Row>
                     <Col>
                       <h3>{reserveFrame.title}</h3>
+                      <span>{reserveFrame.publish_status === 'Publish' ? '公開' : '非公開'}</span>
                       <hr />
                       <div>定員: {reserveFrame.capacity}</div>
                       <hr />
-                      <div>開始日-終了日</div>
-                      <div>{reserveFrame.display_start_at}{reserveFrame.display_end_at && <><br/>{reserveFrame.display_end_at}</>}<br/></div>
+                      <Row>
+                        <Col>
+                          <div>開始日-終了日</div>
+                          <div>{reserveFrame.display_start_at}{reserveFrame.display_end_at && <><br/>{reserveFrame.display_end_at}</>}<br/></div>
+                        </Col>
+                        <Col>
+                          <div>受付時間</div>
+                        </Col>
+                      </Row>
+                      <hr />
+                      <div>繰り返し設定</div>
+                      {!reserveFrame.is_repeat && <div>繰り返さない</div>}
                       <hr />
                       <div>お支払い方法</div>
                       <div>
@@ -69,11 +80,13 @@ const Index = (): JSX.Element => {
                       })}</div>
                     </Col>
                     <Col>
-                      <div>公開設定/受付設定</div>
                       <div>
-                        {reserveFrame.publish_status === 'Publish' ? '公開' : '非公開'}<br/>
                         {reserveFrame.reception_type_text}
                       </div>
+                      <hr />
+                      <div>リソース一覧</div>
+                      <hr />
+                      <div>アンケート設定</div>
                       <hr />
                       <div>
                         <a className='btn btn-primary'
