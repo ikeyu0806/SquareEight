@@ -17,19 +17,14 @@ import { showEditMessageTemplateModalChanged,
          nameChanged,
          titleChanged,
          contentChanged,
-         pageLinksChanged,
-         pageLinkPaginationStateChanged,
          customersChanged,
          customerGroupsChanged,
-         customerPaginationStateChanged } from 'redux/messageTemplateSlice'
+         pageLinksChanged } from 'redux/messageTemplateSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [messageTemplates, setMessageTemplates] = useState<MessageTemplateParam[]>()
-  const pageLinkPaginationState = useSelector((state: RootState) => state.messageTemplate.pageLinkPaginationState)
-  const customerPaginationState = useSelector((state: RootState) => state.messageTemplate.customerPaginationState)
-  const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/message_templates`,
@@ -40,16 +35,11 @@ const Index: NextPage = () => {
     }).then((response) => {
       console.log(response.data)
       setMessageTemplates(response.data.message_templates)
-      // ページリンク情報更新
-      dispatch(pageLinksChanged(response.data.page_links))
-      const pageLinksTotalPage = Math.ceil(response.data.page_links.length / pageLinkPaginationState.maxPerPage)
-      dispatch(pageLinkPaginationStateChanged(Object.assign({ ...pageLinkPaginationState }, { totalPage: pageLinksTotalPage })))
       // 顧客情報更新
       dispatch(customersChanged(response.data.customers))
-      const customersTotalPage = Math.ceil(response.data.customers.length / customerPaginationState.maxPerPage)
-      dispatch(customerPaginationStateChanged(Object.assign({ ...customerPaginationState }, { totalPage: customersTotalPage })))
       // 顧客グループ情報更新
       dispatch(customerGroupsChanged(response.data.customer_groups))
+      dispatch(pageLinksChanged(response.data.page_links))
     }).catch((error) => {
       console.log(error)
     })

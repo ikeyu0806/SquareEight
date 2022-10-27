@@ -6,7 +6,6 @@ import { CustomerParam } from 'interfaces/CustomerParam'
 import { CustomerGroupParam } from 'interfaces/CustomerGroupParam'
 import { Modal, Button, Form, FormControl, Row, Col, ListGroup, Pagination } from 'react-bootstrap'
 import { showSendMessageTemplateModalChanged,
-         customerPaginationStateChanged,
          targetTypeChanged,
          targetCustomersChanged,
          targetEmailsChanged,
@@ -26,7 +25,6 @@ const SendMessageTemplateModal = (): JSX.Element => {
   const content = useSelector((state: RootState) => state.messageTemplate.content)
   const customers = useSelector((state: RootState) => state.messageTemplate.customers)
   const customerGroups = useSelector((state: RootState) => state.messageTemplate.customerGroups)
-  const customerPaginationState = useSelector((state: RootState) => state.messageTemplate.customerPaginationState)
   const targetType = useSelector((state: RootState) => state.messageTemplate.targetType)
   const targetCustomers = useSelector((state: RootState) => state.messageTemplate.targetCustomers)
   const targetCustomerGroups = useSelector((state: RootState) => state.messageTemplate.targetCustomerGroups)
@@ -61,45 +59,6 @@ const SendMessageTemplateModal = (): JSX.Element => {
         icon: 'error'
       })
     })
-  }
-
-  const displayPrevPage = () => {
-    if (customerPaginationState.currentPage <= 1) return
-    dispatch(customerPaginationStateChanged({currentPage: customerPaginationState.currentPage - 1, totalPage: customerPaginationState.totalPage, maxPerPage: customerPaginationState.maxPerPage}))
-  }
-
-  const displayNextPage = () => {
-    if (customerPaginationState.currentPage >= customerPaginationState.totalPage) return
-    dispatch(customerPaginationStateChanged({currentPage: customerPaginationState.currentPage + 1, totalPage: customerPaginationState.totalPage, maxPerPage: customerPaginationState.maxPerPage}))
-  }
-
-  const displaySelectedPage = (i: number) => {
-    dispatch(customerPaginationStateChanged({currentPage: i + 1, totalPage: customerPaginationState.totalPage, maxPerPage: customerPaginationState.maxPerPage}))
-  }
-
-  const displayFirstPage = () => {
-    dispatch(customerPaginationStateChanged({currentPage: 1, totalPage: customerPaginationState.totalPage, maxPerPage: customerPaginationState.maxPerPage}))
-  }
-
-  const displayLastPage = () => {
-    dispatch(customerPaginationStateChanged({currentPage: customerPaginationState.totalPage, totalPage: customerPaginationState.totalPage, maxPerPage: customerPaginationState.maxPerPage}))
-  }
-
-  const isDisplayPage = (i: number) => {
-    // 最初のページの制御
-    if ([0, 1, 2, 3].includes(customerPaginationState.currentPage)) {
-      if ([0, 1, 2, 3, 4].includes(i)) {
-        return true
-      } else {
-        return false
-      }
-    } else {
-      if (i + 4 > customerPaginationState.currentPage  && customerPaginationState.currentPage > i - 2) {
-        return true
-      } else {
-        return false
-      }
-    }
   }
 
   const insertEmail = (selectedEmail: string) => {
@@ -201,9 +160,7 @@ const SendMessageTemplateModal = (): JSX.Element => {
               <div>
                 <ListGroup>
                   {customers.map((customer, i) => {
-                    const dataRangeMin =+ customerPaginationState.maxPerPage * (customerPaginationState.currentPage - 1)
-                    const dataRangeMax =+ customerPaginationState.maxPerPage * customerPaginationState.currentPage
-                    return dataRangeMin <= i && dataRangeMax > i && (
+                    return (
                       <ListGroup.Item key={i}>
                         <span className='badge bg-info'>{customer.last_name}{customer.first_name}</span><br/>
                         メールアドレス: {customer.email}<br/>
@@ -219,22 +176,6 @@ const SendMessageTemplateModal = (): JSX.Element => {
                     )
                   })}
                 </ListGroup>
-                <Pagination className='mt10'>
-                  <Pagination.First onClick={displayFirstPage} />
-                  <Pagination.Prev onClick={displayPrevPage}></Pagination.Prev>
-                  {[...Array(customerPaginationState.totalPage)].map((_, i) => {
-                    return isDisplayPage(i) && (
-                      <Pagination.Item key={i}
-                                        active={i + 1 === customerPaginationState.currentPage}
-                                        onClick={() => displaySelectedPage(i)}>
-                        {i + 1}
-                      </Pagination.Item>
-                    )
-                  })}
-
-                  <Pagination.Next onClick={displayNextPage}></Pagination.Next>
-                  <Pagination.Last onClick={displayLastPage} />
-                </Pagination>
               </div>
             </>}
             {targetType === 'CustomerGroup' &&

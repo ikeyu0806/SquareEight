@@ -4,7 +4,7 @@ import { Form, FormControl, Row, Col, ListGroup, Button, Pagination } from 'reac
 import { useSelector } from 'react-redux'
 import { useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { nameChanged, titleChanged, contentChanged, pageLinkPaginationStateChanged } from 'redux/messageTemplateSlice'
+import { nameChanged, titleChanged, contentChanged } from 'redux/messageTemplateSlice'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
 
 const CreateMessageTemplateForm = (): JSX.Element => {
@@ -13,46 +13,6 @@ const CreateMessageTemplateForm = (): JSX.Element => {
   const title = useSelector((state: RootState) => state.messageTemplate.title)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
   const pageLinks = useSelector((state: RootState) => state.messageTemplate.pageLinks)
-  const pageLinkPaginationState = useSelector((state: RootState) => state.messageTemplate.pageLinkPaginationState)
-
-  const displayPrevPage = () => {
-    if (pageLinkPaginationState.currentPage <= 1) return
-    dispatch(pageLinkPaginationStateChanged({currentPage: pageLinkPaginationState.currentPage - 1, totalPage: pageLinkPaginationState.totalPage, maxPerPage: pageLinkPaginationState.maxPerPage}))
-  }
-
-  const displayNextPage = () => {
-    if (pageLinkPaginationState.currentPage >= pageLinkPaginationState.totalPage) return
-    dispatch(pageLinkPaginationStateChanged({currentPage: pageLinkPaginationState.currentPage + 1, totalPage: pageLinkPaginationState.totalPage, maxPerPage: pageLinkPaginationState.maxPerPage}))
-  }
-
-  const displaySelectedPage = (i: number) => {
-    dispatch(pageLinkPaginationStateChanged({currentPage: i + 1, totalPage: pageLinkPaginationState.totalPage, maxPerPage: pageLinkPaginationState.maxPerPage}))
-  }
-
-  const displayFirstPage = () => {
-    dispatch(pageLinkPaginationStateChanged({currentPage: 1, totalPage: pageLinkPaginationState.totalPage, maxPerPage: pageLinkPaginationState.maxPerPage}))
-  }
-
-  const displayLastPage = () => {
-    dispatch(pageLinkPaginationStateChanged({currentPage: pageLinkPaginationState.totalPage, totalPage: pageLinkPaginationState.totalPage, maxPerPage: pageLinkPaginationState.maxPerPage}))
-  }
-
-  const isDisplayPage = (i: number) => {
-    // 最初のページの制御
-    if ([0, 1, 2, 3].includes(pageLinkPaginationState.currentPage)) {
-      if ([0, 1, 2, 3, 4].includes(i)) {
-        return true
-      } else {
-        return false
-      }
-    } else {
-      if (i + 4 > pageLinkPaginationState.currentPage  && pageLinkPaginationState.currentPage > i - 2) {
-        return true
-      } else {
-        return false
-      }
-    }
-  }
 
   const insertPageLink = (pageLink: string) => {
    let updateContent: string
@@ -88,9 +48,7 @@ const CreateMessageTemplateForm = (): JSX.Element => {
           <div>
             <ListGroup>
               {pageLinks.map((link, i) => {
-                const dataRangeMin =+ pageLinkPaginationState.maxPerPage * (pageLinkPaginationState.currentPage - 1)
-                const dataRangeMax =+ pageLinkPaginationState.maxPerPage * pageLinkPaginationState.currentPage
-                return dataRangeMin <= i && dataRangeMax > i && (
+                return (
                   <ListGroup.Item key={i}>
                     <span className='badge bg-info'>{link.label}</span><br/>
                     {link.text}<br/>
@@ -100,22 +58,6 @@ const CreateMessageTemplateForm = (): JSX.Element => {
                 )
               })}
             </ListGroup>
-            <Pagination className='mt10'>
-              <Pagination.First onClick={displayFirstPage} />
-              <Pagination.Prev onClick={displayPrevPage}></Pagination.Prev>
-              {[...Array(pageLinkPaginationState.totalPage)].map((_, i) => {
-                return isDisplayPage(i) && (
-                  <Pagination.Item key={i}
-                                    active={i + 1 === pageLinkPaginationState.currentPage}
-                                    onClick={() => displaySelectedPage(i)}>
-                    {i + 1}
-                  </Pagination.Item>
-                )
-              })}
-
-              <Pagination.Next onClick={displayNextPage}></Pagination.Next>
-              <Pagination.Last onClick={displayLastPage} />
-            </Pagination>
           </div>
         </Col>
       </Row>

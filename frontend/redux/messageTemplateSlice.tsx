@@ -21,17 +21,7 @@ export const messageTemplateSlice = createSlice({
     customers: [] as CustomerParam[],
     customerGroups: [] as CustomerGroupParam[],
     targetCustomerGroups: [] as CustomerGroupParam[],
-    customerPaginationState: {
-      currentPage: 1,
-      totalPage: 0,
-      maxPerPage: 7
-    } as PagenationState,
-    pageLinks: [] as PageLinksParam[],
-    pageLinkPaginationState: {
-      currentPage: 1,
-      totalPage: 0,
-      maxPerPage: 7
-    } as PagenationState
+    pageLinks: [] as PageLinksParam[]
   },
   reducers: {
     idChanged: (state, action: PayloadAction<string>) => {
@@ -70,9 +60,6 @@ export const messageTemplateSlice = createSlice({
     customersChanged: (state, action: PayloadAction<CustomerParam[]>) => {
       state.customers = action.payload
     },
-    customerPaginationStateChanged: (state, action: PayloadAction<PagenationState>) => {
-      state.customerPaginationState = action.payload
-    },
     customerGroupsChanged: (state, action: PayloadAction<CustomerGroupParam[]>) => {
       state.customerGroups = action.payload
     },
@@ -81,9 +68,6 @@ export const messageTemplateSlice = createSlice({
     },
     pageLinksChanged: (state, action: PayloadAction<PageLinksParam[]>) => {
       state.pageLinks = action.payload
-    },
-    pageLinkPaginationStateChanged: (state, action: PayloadAction<PagenationState>) => {
-      state.pageLinkPaginationState = action.payload
     },
   },
 })
@@ -102,8 +86,6 @@ export const { targetCustomersChanged } = messageTemplateSlice.actions
 export const { customersChanged } = messageTemplateSlice.actions
 export const { customerGroupsChanged } = messageTemplateSlice.actions
 export const { targetCustomerGroupsChanged } = messageTemplateSlice.actions
-export const { customerPaginationStateChanged } = messageTemplateSlice.actions
 export const { pageLinksChanged } = messageTemplateSlice.actions
-export const { pageLinkPaginationStateChanged } = messageTemplateSlice.actions
 
 export default messageTemplateSlice.reducer
