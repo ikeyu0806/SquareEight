@@ -85,9 +85,13 @@ const Index = (): JSX.Element => {
                         </Col>
                       </Row>
                       <hr />
-                      <div>繰り返し設定</div>
+                      <div>繰り返し設定</div><br />
                       {!reserveFrame.is_repeat && <div>繰り返さない</div>}
-                      {reserveFrame.is_repeat && <>{repeatIntervalTypeText(reserveFrame.repeat_interval_type)}</>}
+                      {reserveFrame.is_repeat &&
+                        <>
+                          <div>{repeatIntervalTypeText(reserveFrame.repeat_interval_type)}</div>
+                          <div>{reserveFrame.repeat_setting_text}</div>
+                        </>}
                       <hr />
                       <div>お支払い方法</div>
                       <div>
@@ -99,7 +103,7 @@ const Index = (): JSX.Element => {
                     </Col>
                     <Col>
                       <div>
-                        {reserveFrame.reception_type_text}
+                        受付設定: {reserveFrame.reception_type_text}
                       </div>
                       <hr />
                       <div>リソース一覧</div>

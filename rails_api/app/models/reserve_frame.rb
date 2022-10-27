@@ -99,11 +99,23 @@ class ReserveFrame < ApplicationRecord
   def repeat_setting_text
     case repeat_interval_type
     when "Day"
-      repeat_interval_number_day.to_s + "日" + "ごとに繰り返す"
+      if is_every_day_repeat
+        return "毎日繰り返す"
+      else
+        return repeat_interval_number_day.to_s + "日" + "ごとに繰り返す"
+      end
     when "Week"
-      repeat_interval_number_week.to_s + "週間" + "ごとに繰り返す"
+      if is_every_day_repeat
+        return "毎週繰り返す"
+      else
+        return repeat_interval_number_week.to_s + "週間" + "ごとに繰り返す"
+      end
     when "Month"
-      repeat_interval_number_month.to_s + "ヶ月ごとの" + repeat_interval_month_date.to_s + "日に設定"
+      if is_every_month_repeat
+        return "毎月繰り返す"
+      else
+        return repeat_interval_number_month.to_s + "ヶ月ごとの" + repeat_interval_month_date.to_s + "日に設定"
+      end
     when "WDay"
       repeat_wdays = []
       repeat_wdays.push("日") if is_repeat_sun?
@@ -113,7 +125,7 @@ class ReserveFrame < ApplicationRecord
       repeat_wdays.push("木") if is_repeat_thu?
       repeat_wdays.push("金") if is_repeat_fri?
       repeat_wdays.push("土") if is_repeat_sat?
-      "曜日ごとに繰り返す: " + repeat_wdays.join(", ")
+      return "曜日ごとに繰り返す: " + repeat_wdays.join(", ")
     else
       raise
     end
