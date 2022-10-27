@@ -536,6 +536,14 @@ class ReserveFrame < ApplicationRecord
     reserve_frame_image_relations.find_by(relation_status: "Main")&.account_s3_image&.s3_object_public_url
   end
 
+  def cancel_reception_text
+    if self.cancel_reception == "OnlyOnTheDay"
+      "当日の#{cancel_reception_hour_before}時間前まで受付"
+    elsif self.cancel_reception == "PossibleBeforeTheDay"
+      "#{cancel_reception_day_before}日前まで受付"
+    end
+  end
+
   def logical_delete
     update!(deleted_at: Time.zone.now)
   end

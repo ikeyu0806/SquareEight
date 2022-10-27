@@ -15,7 +15,8 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                         :questionnaire_master_title_with_public_id,
                                         :reserve_frame_reception_times_values,
                                         :out_of_range_frames_datetimes,
-                                        :unreservable_frames_datetimes,])
+                                        :unreservable_frames_datetimes,
+                                        :cancel_reception_text])
     reserve_frames = JSON.parse(reserve_frames)
     render json: { status: 'success', reserve_frames: reserve_frames }, status: 200
   rescue => error
