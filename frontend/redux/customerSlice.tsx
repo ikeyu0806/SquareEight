@@ -16,11 +16,6 @@ export const customerSlice = createSlice({
     showCreateCustomerModal: false,
     showEditCustomerModal: false,
     showCustomerMailSendModal: false,
-    customerPaginationState: {
-      currentPage: 1,
-      totalPage: 0,
-      maxPerPage: 7
-    } as PagenationState,
   },
   reducers: {
     customerIdChanged: (state, action: PayloadAction<number>) => {
@@ -59,9 +54,6 @@ export const customerSlice = createSlice({
     showCustomerMailSendModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showCustomerMailSendModal = action.payload
     },
-    customerPaginationStateChanged: (state, action: PayloadAction<PagenationState>) => {
-      state.customerPaginationState = action.payload
-    },
   },
 })
 
@@ -77,6 +69,5 @@ export const { notesChanged } = customerSlice.actions
 export const { showCreateCustomerModalChanged } = customerSlice.actions
 export const { showEditCustomerModalChanged } = customerSlice.actions
 export const { showCustomerMailSendModalChanged } = customerSlice.actions
-export const { customerPaginationStateChanged } = customerSlice.actions
 
 export default customerSlice.reducer
