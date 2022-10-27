@@ -11,6 +11,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                         :reception_type_text,
                                         :display_start_at,
                                         :display_end_at,
+                                        :resources_name_with_public_id,
                                         :reserve_frame_reception_times_values])
     reserve_frames = JSON.parse(reserve_frames)
     render json: { status: 'success', reserve_frames: reserve_frames }, status: 200

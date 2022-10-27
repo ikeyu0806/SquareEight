@@ -1,5 +1,7 @@
 import { ReserveFrameReceptionTimeParam } from './ReserveFrameReceptionTimeParam'
 import { MultiPaymentMethod } from './MultiPaymentMethod'
+import { ResourceParam } from './ResourceParam'
+
 export interface ReserveFrameParam {
   public_id: string
   id: string
@@ -31,4 +33,5 @@ export interface ReserveFrameParam {
   reserve_frame_reception_times_values: ReserveFrameReceptionTimeParam[]
   reserve_frame_local_payment_prices: MultiPaymentMethod[]
   reserve_frame_credit_card_payment_prices: MultiPaymentMethod[]
+  resources_name_with_public_id: ResourceParam[]
 }

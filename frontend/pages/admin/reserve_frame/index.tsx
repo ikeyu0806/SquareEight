@@ -107,6 +107,19 @@ const Index = (): JSX.Element => {
                       </div>
                       <hr />
                       <div>リソース一覧</div>
+                      <div>{reserveFrame.resources_name_with_public_id &&
+                        reserveFrame.resources_name_with_public_id.map((r, i) => {
+                          return (
+                            <div key={i}>
+                              <a href={`/admin/resource/${r.public_id}/edit`}
+                                 target='_blank'
+                                 rel='noreferrer'>{r.name}</a>
+                            </div>
+                          )
+                        })}
+                        {reserveFrame.resources_name_with_public_id.length === 0
+                        && <div>リソースは設定されていません</div>}
+                      </div>
                       <hr />
                       <div>アンケート設定</div>
                       <hr />

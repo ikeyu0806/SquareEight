@@ -388,6 +388,10 @@ class ReserveFrame < ApplicationRecord
     reserve_frame_resorces.pluck(:resource_id)
   end
 
+  def resources_name_with_public_id
+    resources.map{|r| {name: r.name, public_id: r.public_id}}
+  end
+
   def monthly_payment_plan_ids
     monthly_payment_plans.pluck(:monthly_payment_plan_id)
   end
