@@ -7,8 +7,8 @@ class ReserveFrame < ApplicationRecord
   has_one  :questionnaire_master, foreign_key: :id, primary_key: :questionnaire_master_id
   has_many :unreservable_frames
   has_many :out_of_range_frames
-  has_many :reserve_frame_resorces
-  has_many :resources, through: :reserve_frame_resorces
+  has_many :reserve_frame_resources
+  has_many :resources, through: :reserve_frame_resources
   has_many :reserve_frame_monthly_payment_plans
   has_many :monthly_payment_plans, through: :reserve_frame_monthly_payment_plans
   has_many :reserve_frame_ticket_masters
@@ -389,7 +389,7 @@ class ReserveFrame < ApplicationRecord
   end
 
   def resource_ids
-    reserve_frame_resorces.pluck(:resource_id)
+    reserve_frame_resources.pluck(:resource_id)
   end
 
   def resources_name_with_public_id

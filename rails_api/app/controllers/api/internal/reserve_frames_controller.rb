@@ -63,9 +63,9 @@ class Api::Internal::ReserveFramesController < ApplicationController
         reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
       end
       if reserve_frame_params[:resource_ids].present?
-        reserve_frame.reserve_frame_resorces.delete_all
+        reserve_frame.reserve_frame_resources.delete_all
         reserve_frame_params[:resource_ids].each do |resource_id|
-          reserve_frame.reserve_frame_resorces.new(resource_id: resource_id)
+          reserve_frame.reserve_frame_resources.new(resource_id: resource_id)
         end
       end
       if reserve_frame.is_monthly_plan_payment_enable?
@@ -135,9 +135,9 @@ class Api::Internal::ReserveFramesController < ApplicationController
         end
       end
       if reserve_frame_params[:resource_ids].present?
-        reserve_frame.reserve_frame_resorces.delete_all
+        reserve_frame.reserve_frame_resources.delete_all
         reserve_frame_params[:resource_ids].each do |resource_id|
-          reserve_frame.reserve_frame_resorces.new(resource_id: resource_id)
+          reserve_frame.reserve_frame_resources.new(resource_id: resource_id)
         end
       end
       if reserve_frame.is_monthly_plan_payment_enable?

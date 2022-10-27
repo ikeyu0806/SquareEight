@@ -474,7 +474,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "reserve_frame_resorces", force: :cascade do |t|
+  create_table "reserve_frame_resources", force: :cascade do |t|
     t.integer "reserve_frame_id"
     t.integer "resource_id"
     t.string "public_id", null: false
@@ -496,7 +496,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_10_19_064928) do
     t.datetime "start_at", null: false
     t.string "title", null: false
     t.text "description"
-    t.boolean "is_repeat"
+    t.boolean "is_repeat", null: false
     t.integer "repeat_interval_type"
     t.integer "repeat_interval_number_day"
     t.integer "repeat_interval_number_week"

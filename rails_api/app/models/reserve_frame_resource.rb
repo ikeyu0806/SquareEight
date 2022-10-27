@@ -1,4 +1,4 @@
-class ReserveFrameResorce < ApplicationRecord
+class ReserveFrameResource < ApplicationRecord
   include PublicIdModule
 
   belongs_to :reserve_frame
