@@ -29,6 +29,7 @@ export interface ReserveFrameParam {
   is_repeat_thu: boolean
   is_repeat_fri: boolean
   is_repeat_sat: boolean
+  reception_start_day_before: number
   repeat_interval_type: string
   payment_methods_text: string[]
   s3_object_public_url: string

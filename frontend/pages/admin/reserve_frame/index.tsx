@@ -134,7 +134,7 @@ const Index = (): JSX.Element => {
                         受付設定: {reserveFrame.reception_type_text}
                       </div>
                       <hr />
-                      <div>受付開始</div>
+                      <div>受付開始: {reserveFrame.reception_start_day_before}日前から</div>
                       <div>受付締め切り</div>
                       <hr />
                       <div>お支払い方法</div>
