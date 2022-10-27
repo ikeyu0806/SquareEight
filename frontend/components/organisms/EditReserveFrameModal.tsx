@@ -78,6 +78,7 @@ const EditReserveFrameModal = (): JSX.Element => {
   const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
   const reserveFrameReceptionTimes = useSelector((state: RootState) => state.reserveFrame.reserveFrameReceptionTimes)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
+  const outOfRangeFrames = useSelector((state: RootState) => state.reserveFrame.outOfRangeFrames)
   const isLocalPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isLocalPaymentEnable)
   const isCreditCardPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isCreditCardPaymentEnable)
   const isTicketPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isTicketPaymentEnable)
@@ -146,6 +147,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         cancel_reception: cancelReception,
         reserve_frame_reception_times: reserveFrameReceptionTimes,
         unreservable_frames: unreservableFrames,
+        out_of_range_frames: outOfRangeFrames,
         resource_ids: resourceIds,
         questionnaire_master_id: questionnaireMasterId,
         is_local_payment_enable: isLocalPaymentEnable,
