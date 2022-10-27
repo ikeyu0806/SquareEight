@@ -96,6 +96,7 @@ const Index = (): JSX.Element => {
                       }
                       <hr />
                       <div>繰り返し範囲外予約受付日時</div>
+                      <div>※終了日{reserveFrame.display_end_at && <>{'(' + reserveFrame.display_end_at + ')'}</>}以降の日時は反映されません</div>
                       {reserveFrame.out_of_range_frames_datetimes && reserveFrame.out_of_range_frames_datetimes.length
                         ?
                           <>
