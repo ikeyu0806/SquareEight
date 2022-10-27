@@ -87,6 +87,7 @@ const Edit: NextPage = () => {
             </Col>
             <Col md={2}>
               <Button
+                disabled={!name}
                 onClick={() => updateCustomerGroup()}
                 className='mt10'>保存する</Button>
             </Col>

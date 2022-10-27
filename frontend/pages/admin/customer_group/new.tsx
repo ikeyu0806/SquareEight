@@ -77,6 +77,7 @@ const New: NextPage = () => {
             </Col>
             <Col md={2}>
               <Button
+                disabled={!name}
                 onClick={() => createCustomerGroup()}
                 className='mt10'>保存する</Button>
             </Col>
