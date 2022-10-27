@@ -195,20 +195,24 @@ class ReserveFrame < ApplicationRecord
   # カレンダーの表示に使う
   def reservable_status_with_date(date)
     reserve_enable_flg_array = []
-    self.reserve_frame_reception_times.each do |time|
-      reserve_enable_flg = true
-      self.reservations.where(start_at: date.beginning_of_day..date.end_of_day).each do |reservation|
-        start_datetime = DateTime.new(date.year, date.month, date.day, time.reception_start_time.hour, time.reception_start_time.min, time.reception_start_time.sec, "+09:00")
-        end_datetime = DateTime.new(date.year, date.month, date.day, time.reception_end_time.hour, time.reception_end_time.min, time.reception_end_time.sec, "+09:00")
-        remaining_capacity_count = remaining_capacity_count_within_range(start_datetime, end_datetime)
-        reserve_enable_flg = false if remaining_capacity_count <= 0
-        reserve_enable_flg_array.push(reserve_enable_flg)
-      end
-    end
-    if !reserve_enable_flg_array.uniq.include?(false)
-      return { status: 'enable', text: '予約可能', reservable: true }
+    if date.to_date < Date.today
+      return {}
     else
-      return { status: 'disable', text: '予約不可', reservable: false }
+      self.reserve_frame_reception_times.each do |time|
+        reserve_enable_flg = true
+        self.reservations.where(start_at: date.beginning_of_day..date.end_of_day).each do |reservation|
+          start_datetime = DateTime.new(date.year, date.month, date.day, time.reception_start_time.hour, time.reception_start_time.min, time.reception_start_time.sec, "+09:00")
+          end_datetime = DateTime.new(date.year, date.month, date.day, time.reception_end_time.hour, time.reception_end_time.min, time.reception_end_time.sec, "+09:00")
+          remaining_capacity_count = remaining_capacity_count_within_range(start_datetime, end_datetime)
+          reserve_enable_flg = false if remaining_capacity_count <= 0
+          reserve_enable_flg_array.push(reserve_enable_flg)
+        end
+      end
+      if !reserve_enable_flg_array.uniq.include?(false)
+        return { status: 'enable', text: '予約可能', reservable: true }
+      else
+        return { status: 'disable', text: '予約不可', reservable: false }
+      end
     end
   end
 
