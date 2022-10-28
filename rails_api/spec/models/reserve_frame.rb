@@ -27,4 +27,33 @@ RSpec.describe ReserveFrame, type: :model do
       expect(payment_methods_text).to include "100枚発行 消費枚数: 1枚"
     end
   end
+
+  describe 'repeat_setting_text' do
+    context 'day repeat' do
+      it do
+        expect(reserve_frame.repeat_setting_text).to eq '毎日繰り返す'
+      end
+    end
+
+    context 'week repeat' do
+      let(:week_reserve_frame) { create(:reserve_frame, repeat_interval_type: 'Week', account: account) }
+      it do
+        expect(week_reserve_frame.repeat_setting_text).to eq '毎週繰り返す'
+      end
+    end
+
+    context 'month repeat' do
+      let(:month_reserve_frame) { create(:reserve_frame, repeat_interval_type: 'Month', account: account) }
+      it do
+        expect(month_reserve_frame.repeat_setting_text).to eq '毎月繰り返す'
+      end
+    end
+
+    context 'wday repeat' do
+      let(:wday_reserve_frame) { create(:reserve_frame, repeat_interval_type: 'WDay', account: account) }
+      it do
+        expect(wday_reserve_frame.repeat_setting_text).to eq '曜日ごとに繰り返す: 月, 火, 水, 木, 金'
+      end
+    end
+  end
 end
