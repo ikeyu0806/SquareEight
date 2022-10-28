@@ -87,4 +87,12 @@ RSpec.describe ReserveFrame, type: :model do
       expect(repeat_month_list).to include((Time.zone.now + (reserve_frame.repeat_interval_number_month + 1).month).strftime("%Y-%m"))
     end
   end
+
+  describe 'unreservable_frames_datetimes_range' do
+    let!(:unreservable_frame) { create(:unreservable_frame, reserve_frame_id: reserve_frame.id) }
+    it do
+      unreservable_frames_datetimes_range = reserve_frame.unreservable_frames_datetimes_range
+      expect(unreservable_frames_datetimes_range).to eq [unreservable_frame.start_at..unreservable_frame.end_at]
+    end
+  end
 end
