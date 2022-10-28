@@ -197,6 +197,8 @@ class ReserveFrame < ApplicationRecord
     reserve_enable_flg_array = []
     if date.to_date < Date.today
       return {}
+    elsif date.to_date- reception_start_day_before.days > Date.today 
+      return {}
     else
       self.reserve_frame_reception_times.each do |time|
         reserve_enable_flg = true
