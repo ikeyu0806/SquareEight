@@ -56,4 +56,27 @@ RSpec.describe ReserveFrame, type: :model do
       end
     end
   end
+
+  describe 'reception_type_text' do
+    context 'Immediate repeat' do
+      let(:immediate_reserve_frame) { create(:reserve_frame, reception_type: 'Immediate', account: account) }
+      it do
+        expect(immediate_reserve_frame.reception_type_text).to eq '即時予約'
+      end
+    end
+
+    context 'week repeat' do
+      let(:temporary_reserve_frame) { create(:reserve_frame, reception_type: 'Temporary', account: account) }
+      it do
+        expect(temporary_reserve_frame.reception_type_text).to eq '仮予約'
+      end
+    end
+
+    context 'month repeat' do
+      let(:phone_only_reserve_frame) { create(:reserve_frame, reception_type: 'PhoneOnly', account: account) }
+      it do
+        expect(phone_only_reserve_frame.reception_type_text).to eq '電話のみ'
+      end
+    end
+  end
 end
