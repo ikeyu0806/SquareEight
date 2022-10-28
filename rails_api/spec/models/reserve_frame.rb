@@ -17,4 +17,14 @@ RSpec.describe ReserveFrame, type: :model do
       expect(payment_methods[:enable_tickets].pluck(:ticket_name)).to include ticket_master.name
     end
   end
+
+  describe 'payment_methods_text' do
+    it 'should return expect value' do
+      payment_methods_text = reserve_frame.payment_methods_text
+      expect(payment_methods_text).to include "現地払い: ¥1000"
+      expect(payment_methods_text).to include "クレジットカード払い: ¥1000"
+      expect(payment_methods_text).to include "月額課金 1週辺り1回予約可能"
+      expect(payment_methods_text).to include "100枚発行 消費枚数: 1枚"
+    end
+  end
 end
