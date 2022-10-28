@@ -32,11 +32,19 @@ class ReserveFrame < ApplicationRecord
     result = {}
 
     if is_local_payment_enable?
-      result[:local_payment_price] = local_payment_price
+      if reserve_frame_local_payment_prices.present?
+        result[:multi_local_payment_price] = reserve_frame_local_payment_prices.map{ |local_payment| { name: local_payment.name, price: local_payment.price } }
+      else
+        result[:local_payment_price] = local_payment_price
+      end
     end
 
     if is_credit_card_payment_enable?
-      result[:credit_card_payment_price] = credit_card_payment_price
+      if reserve_frame_credit_card_payment_prices.present?
+        result[:multi_credit_card_payment_price] = reserve_frame_credit_card_payment_prices.map{ |credit_card_payment| { name: credit_card_payment.name, price: credit_card_payment.price } }
+      else
+        result[:credit_card_payment_price] = credit_card_payment_price
+      end
     end
 
     if is_monthly_plan_payment_enable?
@@ -195,8 +203,10 @@ class ReserveFrame < ApplicationRecord
   # カレンダーの表示に使う
   def reservable_status_with_date(date)
     reserve_enable_flg_array = []
+    # 過去日付は表示しない
     if date.to_date < Date.today
       return {}
+    # 受付開始日考慮
     elsif date.to_date- reception_start_day_before.days > Date.today 
       return {}
     else
