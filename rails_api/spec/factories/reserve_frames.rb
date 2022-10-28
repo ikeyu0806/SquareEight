@@ -10,7 +10,7 @@ FactoryBot.define do
     is_ticket_payment_enable { true }
     is_monthly_plan_payment_enable { true }
     start_at { Time.zone.now }
-    repeat_end_date { Time.zone.now + 1.month }
+    repeat_end_date { Time.zone.now + 3.month }
     repeat_interval_type { 'Day' }
     is_repeat { true }
     is_every_day_repeat { true }
@@ -23,6 +23,9 @@ FactoryBot.define do
     is_repeat_thu { true }
     is_repeat_fri { true }
     is_repeat_sat { false }
+    repeat_interval_number_day { 1 }
+    repeat_interval_number_week { 1 }
+    repeat_interval_number_month { 1 }
     reception_type { 'Immediate' }
     reception_start_day_before { 1 }
     cancel_reception_hour_before { 1 }

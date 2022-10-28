@@ -79,4 +79,12 @@ RSpec.describe ReserveFrame, type: :model do
       end
     end
   end
+
+  describe 'repeat_month_list' do
+    it do
+      repeat_month_list = reserve_frame.repeat_month_list
+      expect(repeat_month_list).to include(Time.zone.now.strftime("%Y-%m"))
+      expect(repeat_month_list).to include((Time.zone.now + (reserve_frame.repeat_interval_number_month + 1).month).strftime("%Y-%m"))
+    end
+  end
 end
