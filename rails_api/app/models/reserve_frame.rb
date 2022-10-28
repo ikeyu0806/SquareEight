@@ -34,17 +34,15 @@ class ReserveFrame < ApplicationRecord
     if is_local_payment_enable?
       if reserve_frame_local_payment_prices.present?
         result[:multi_local_payment_price] = reserve_frame_local_payment_prices.map{ |local_payment| { name: local_payment.name, price: local_payment.price } }
-      else
-        result[:local_payment_price] = local_payment_price
       end
+      result[:local_payment_price] = local_payment_price
     end
 
     if is_credit_card_payment_enable?
       if reserve_frame_credit_card_payment_prices.present?
         result[:multi_credit_card_payment_price] = reserve_frame_credit_card_payment_prices.map{ |credit_card_payment| { name: credit_card_payment.name, price: credit_card_payment.price } }
-      else
-        result[:credit_card_payment_price] = credit_card_payment_price
       end
+      result[:credit_card_payment_price] = credit_card_payment_price
     end
 
     if is_monthly_plan_payment_enable?
