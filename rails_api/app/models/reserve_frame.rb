@@ -191,7 +191,7 @@ class ReserveFrame < ApplicationRecord
   end
 
   def remaining_capacity_count_within_range(start_datetime, end_datetime)
-    reservation_count = self.reservations.where(start_at: start_datetime, end_at: end_datetime, status: 'confirm').count
+    reservation_count = self.reservations.where(start_at: start_datetime, end_at: end_datetime, status: 'confirm').pluck(:number_of_people).inject(:+)
     return self.capacity - reservation_count
   end
 
