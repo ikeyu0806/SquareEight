@@ -161,8 +161,8 @@ RSpec.describe ReserveFrame, type: :model do
       end
 
       context '5 reservations' do
-        let(:reservation_start_at) { Time.new(Time.zone.now.year, Time.zone.now.month, (Time.zone.now + 3.days).day, 14) }
-        let(:reservation_end_at) { Time.new(Time.zone.now.year, Time.zone.now.month, (Time.zone.now + 3.days).day, 15) }
+        let(:reservation_start_at) { Time.new((Time.zone.now + 3.days).year, (Time.zone.now + 3.days).month, (Time.zone.now + 3.days).day, 14) }
+        let(:reservation_end_at) { Time.new((Time.zone.now + 3.days).year, (Time.zone.now + 3.days).month, (Time.zone.now + 3.days).day, 15) }
         let!(:five_reservations) {
           create_list(:local_payment_reservation, 5,
                        reserve_frame: reserve_frame,
@@ -172,9 +172,9 @@ RSpec.describe ReserveFrame, type: :model do
         let(:first_five_reservation) { local_payment_reservations.first }
         it do
           json = reserve_frame.reservable_status_with_date(first_five_reservation.start_at)
-          expect(json[:status]).to eq 'enable'
-          expect(json[:text]).to eq '予約可能'
-          expect(json[:reservable]).to eq true
+          expect(json[:status]).to eq 'disable'
+          expect(json[:text]).to eq '予約不可'
+          expect(json[:reservable]).to eq false
         end
       end
     end
