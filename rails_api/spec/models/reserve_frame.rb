@@ -203,5 +203,13 @@ RSpec.describe ReserveFrame, type: :model do
         expect(result[:error_message]).to eq nil
       end
     end
+
+    context 'disable reservation' do
+      it do
+        result = reserve_frame.validate_reservation(first_no_vacant_reservation)
+        expect(result[:status]).to eq 'ng'
+        expect(result[:error_message].to_s).to eq '予約可能不可日です'
+      end
+    end
   end
 end
