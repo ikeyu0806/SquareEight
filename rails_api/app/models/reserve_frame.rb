@@ -502,9 +502,6 @@ class ReserveFrame < ApplicationRecord
     raise '予約可能不可日です' unless reservable_dates.include?(reservation.start_at.strftime("%Y-%m-%d"))
     # 有効な時間がチェック
     raise '予約不可能時間です' unless reservable_status_with_date(Date.today)[:status] == 'enable'
-    # 定員オーバチェック
-    remaining_capacity_count = self.remaining_capacity_count_within_range(reservation.start_at, reservation.end_at)
-    raise '定員オーバです' if remaining_capacity_count <= 0
     # リソースチェック
     resources = self.resources
     resources.each do |resource|
