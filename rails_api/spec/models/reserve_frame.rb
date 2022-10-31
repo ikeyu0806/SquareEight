@@ -21,6 +21,16 @@ RSpec.describe ReserveFrame, type: :model do
   }
   let(:first_reservation) { local_payment_reservations.first }
 
+  let(:no_vacant_reservation_start_at) { Time.new((Time.zone.now + 5.days).year, (Time.zone.now + 5.days).month, (Time.zone.now + 5.days).day, 14) }
+  let(:no_vacant_reservation_end_at) { Time.new((Time.zone.now + 5.days).year, (Time.zone.now + 5.days).month, (Time.zone.now + 5.days).day, 15) }
+  let!(:no_vacant_reservations) {
+    create_list(:local_payment_reservation, 5,
+                 reserve_frame: reserve_frame,
+                 start_at: no_vacant_reservation_start_at,
+                 end_at: no_vacant_reservation_end_at)
+  }
+  let(:first_no_vacant_reservation) { no_vacant_reservations.first }
+
   describe 'payment_methods' do
     it 'should return expect value' do
       payment_methods = reserve_frame.payment_methods
@@ -161,22 +171,18 @@ RSpec.describe ReserveFrame, type: :model do
       end
 
       context '5 reservations' do
-        let(:reservation_start_at) { Time.new((Time.zone.now + 3.days).year, (Time.zone.now + 3.days).month, (Time.zone.now + 3.days).day, 14) }
-        let(:reservation_end_at) { Time.new((Time.zone.now + 3.days).year, (Time.zone.now + 3.days).month, (Time.zone.now + 3.days).day, 15) }
-        let!(:five_reservations) {
-          create_list(:local_payment_reservation, 5,
-                       reserve_frame: reserve_frame,
-                       start_at: reservation_start_at,
-                       end_at: reservation_end_at)
-        }
-        let(:first_five_reservation) { local_payment_reservations.first }
         it do
-          json = reserve_frame.reservable_status_with_date(first_five_reservation.start_at)
+          json = reserve_frame.reservable_status_with_date(first_no_vacant_reservation.start_at)
           expect(json[:status]).to eq 'disable'
           expect(json[:text]).to eq '予約不可'
           expect(json[:reservable]).to eq false
         end
       end
+    end
+  end
+
+  describe 'calendar_json' do
+    context 'this month' do
     end
   end
 end
