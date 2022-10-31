@@ -206,9 +206,18 @@ RSpec.describe ReserveFrame, type: :model do
 
     context 'disable reservation' do
       it do
+        binding.pry
         result = reserve_frame.validate_reservation(first_no_vacant_reservation)
         expect(result[:status]).to eq 'ng'
         expect(result[:error_message].to_s).to eq '予約可能不可日です'
+      end
+    end
+  end
+
+  describe 'cancel_reception_text' do
+    context 'OnlyOnTheDay' do
+      it do
+        expect(reserve_frame.cancel_reception_text).to eq '当日の1時間前まで受付'
       end
     end
   end
