@@ -207,7 +207,7 @@ class ReserveFrame < ApplicationRecord
     if date.to_date < Date.today
       return {}
     # 受付開始日考慮
-    elsif date.to_date- reception_start_day_before.days > Date.today 
+    elsif date.to_date - reception_start_day_before.days > Date.today 
       return {}
     else
       self.reserve_frame_reception_times.each do |time|

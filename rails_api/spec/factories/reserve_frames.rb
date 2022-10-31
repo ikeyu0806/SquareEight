@@ -2,7 +2,7 @@ FactoryBot.define do
   factory :reserve_frame, class: ReserveFrame do
     title { 'reserve_frame_demo' }
     publish_status { 'Publish' }
-    capacity { 10 }
+    capacity { 5 }
     local_payment_price { 1000 }
     credit_card_payment_price { 1000 }
     is_local_payment_enable { true }
@@ -27,7 +27,7 @@ FactoryBot.define do
     repeat_interval_number_week { 1 }
     repeat_interval_number_month { 1 }
     reception_type { 'Immediate' }
-    reception_start_day_before { 1 }
+    reception_start_day_before { 30 }
     cancel_reception_hour_before { 1 }
     cancel_reception_day_before { 1 }
   end
