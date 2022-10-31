@@ -195,10 +195,10 @@ class ReserveFrame < ApplicationRecord
     return self.capacity - reservation_count
   end
 
-  def remaining_capacity_count_with_datetime(datetime)
-    reservation_count = self.reservations.where("start_at <= ? and end_at >= ?", datetime, datetime).count
-    return self.capacity - reservation_count
-  end
+  # def remaining_capacity_count_with_datetime(datetime)
+  #   reservation_count = self.reservations.where("start_at <= ? and end_at >= ?", datetime, datetime).count
+  #   return self.capacity - reservation_count
+  # end
 
   # カレンダーの表示に使う
   def reservable_status_with_date(date)
