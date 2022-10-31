@@ -30,5 +30,9 @@ FactoryBot.define do
     reception_start_day_before { 30 }
     cancel_reception_hour_before { 1 }
     cancel_reception_day_before { 1 }
+
+    trait :cancel_possible_before_the_day do
+      cancel_reception { 'PossibleBeforeTheDay' }
+    end
   end
 end
