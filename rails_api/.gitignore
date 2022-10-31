@@ -32,3 +32,4 @@ cache/
 docker/docker_local.env
 .DS_Store
 *identification_image*
+*company_verification_document_image*
