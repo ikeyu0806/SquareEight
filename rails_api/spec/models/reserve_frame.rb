@@ -189,6 +189,8 @@ RSpec.describe ReserveFrame, type: :model do
         calendar_json = reserve_frame.calendar_json(Time.zone.now.year, Time.zone.now.month)
         expect(calendar_json.find{|json| json[:start] == three_days_after_date }[:title]).to eq "予約可能"
         expect(calendar_json.find{|json| json[:start] == five_days_after_date }[:title]).to eq "予約不可"
+        expect(calendar_json.pluck(:title).first(reserve_frame.reception_start_day_before)).not_to include(nil)
+        expect(calendar_json.pluck(:title).last(calendar_json.count - reserve_frame.reception_start_day_before)).not_to include("予約可能", "予約不可")
       end
     end
   end
