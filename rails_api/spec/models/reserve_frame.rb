@@ -10,6 +10,14 @@ RSpec.describe ReserveFrame, type: :model do
   let!(:unreservable_frame) { create(:unreservable_frame, reserve_frame_id: reserve_frame.id) }
   let!(:out_of_range_frame) { create(:out_of_range_frame, reserve_frame_id: reserve_frame.id) }
 
+  # reservation
+  let(:start_at) { Time.zone.now }
+  let(:end_at) { Time.zone.now + 1.hours }
+  let!(:local_payment_reservations) {
+    create_list(:local_payment_reservation, 3, reserve_frame: reserve_frame, start_at: start_at, end_at: end_at)
+  }
+  let(:first_reservation) { local_payment_reservations.first }
+
   describe 'payment_methods' do
     it 'should return expect value' do
       payment_methods = reserve_frame.payment_methods
@@ -133,14 +141,17 @@ RSpec.describe ReserveFrame, type: :model do
   end
 
   describe 'remaining_capacity_count_within_range' do
-    let(:start_at) { Time.zone.now }
-    let(:end_at) { Time.zone.now + 1.hours }
-    let!(:local_payment_reservations) {
-      create_list(:local_payment_reservation, 3, reserve_frame: reserve_frame, start_at: start_at, end_at: end_at)
-    }
-    let(:first_reservation) { local_payment_reservations.first }
     it do
       expect(reserve_frame.remaining_capacity_count_within_range(first_reservation.start_at, first_reservation.end_at)).to eq 7
+    end
+  end
+
+  describe 'reservable_status_with_date' do
+    it do
+      json = reserve_frame.reservable_status_with_date(first_reservation.start_at)
+      expect(json[:status]).to eq 'enable'
+      expect(json[:text]).to eq '予約可能'
+      expect(json[:reservable]).to eq true
     end
   end
 end
