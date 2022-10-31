@@ -194,4 +194,14 @@ RSpec.describe ReserveFrame, type: :model do
       end
     end
   end
+
+  describe 'validate_reservation' do
+    context 'enable reservation' do
+      it do
+        result = reserve_frame.validate_reservation(first_reservation)
+        expect(result[:status]).to eq 'ok'
+        expect(result[:error_message]).to eq nil
+      end
+    end
+  end
 end
