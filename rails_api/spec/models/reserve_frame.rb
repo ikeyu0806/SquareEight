@@ -183,6 +183,13 @@ RSpec.describe ReserveFrame, type: :model do
 
   describe 'calendar_json' do
     context 'this month' do
+      it do
+        three_days_after_date = (Time.zone.now + 3.days).strftime("%Y-%m-%d")
+        five_days_after_date = (Time.zone.now + 5.days).strftime("%Y-%m-%d")
+        calendar_json = reserve_frame.calendar_json(Time.zone.now.year, Time.zone.now.month)
+        expect(calendar_json.find{|json| json[:start] == three_days_after_date }[:title]).to eq "予約可能"
+        expect(calendar_json.find{|json| json[:start] == five_days_after_date }[:title]).to eq "予約不可"
+      end
     end
   end
 end
