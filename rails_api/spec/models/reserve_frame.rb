@@ -8,6 +8,7 @@ RSpec.describe ReserveFrame, type: :model do
   let!(:reserve_frame_monthly_payment_plan) { create(:reserve_frame_monthly_payment_plan, reserve_frame_id: reserve_frame.id, monthly_payment_plan_id: monthly_payment_plan.id) }
   let!(:reserve_frame_ticket_master) { create(:reserve_frame_ticket_master, reserve_frame_id: reserve_frame.id, ticket_master_id: ticket_master.id) }
   let!(:unreservable_frame) { create(:unreservable_frame, reserve_frame_id: reserve_frame.id) }
+  let!(:out_of_range_frame) { create(:out_of_range_frame, reserve_frame_id: reserve_frame.id) }
 
   describe 'payment_methods' do
     it 'should return expect value' do
@@ -107,6 +108,13 @@ RSpec.describe ReserveFrame, type: :model do
       it do
         expect(reserve_frame.is_cover_unreservable_frames_datetimes Date.yesterday).to be_falsey
       end
+    end
+  end
+
+  describe 'out_of_range_frames_datetimes_range' do
+    it do
+      out_of_range_frames_datetimes_range = reserve_frame.out_of_range_frames_datetimes_range
+      expect(out_of_range_frames_datetimes_range).to eq [out_of_range_frame.start_at..out_of_range_frame.end_at]
     end
   end
 end
