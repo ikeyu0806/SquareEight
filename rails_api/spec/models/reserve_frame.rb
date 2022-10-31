@@ -117,4 +117,18 @@ RSpec.describe ReserveFrame, type: :model do
       expect(out_of_range_frames_datetimes_range).to eq [out_of_range_frame.start_at..out_of_range_frame.end_at]
     end
   end
+
+  describe 'is_cover_unreservable_frames_datetimes' do
+    context 'after 3 days' do
+      it do
+        expect(reserve_frame.is_cover_out_of_range_frames_datetimes(Date.today + 3.days)).to be_truthy
+      end
+    end
+
+    context 'today' do
+      it do
+        expect(reserve_frame.is_cover_out_of_range_frames_datetimes Date.today).to be_falsey
+      end
+    end
+  end
 end
