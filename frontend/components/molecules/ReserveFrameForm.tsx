@@ -42,7 +42,9 @@ import {  startDateChanged,
           monthlyPaymentPlanIdsChanged,
           reservableFrameTicketMasterChanged,
           base64ImageChanged,
-          isSetPriceChanged } from 'redux/reserveFrameSlice'
+          isSetPriceChanged,
+          isAcceptCancelChanged,
+          cancelReceptionDayBeforeChanged } from 'redux/reserveFrameSlice'
 
 const ReserveFrameForm = () => {
   const router = useRouter()
@@ -81,6 +83,8 @@ const ReserveFrameForm = () => {
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.reserveFrame.s3ObjectPublicUrl)
   const receptionType = useSelector((state: RootState) => state.reserveFrame.receptionType)
   const isSetPrice = useSelector((state: RootState) => state.reserveFrame.isSetPrice)
+  const isAcceptCancel = useSelector((state: RootState) => state.reserveFrame.isAcceptCancel)
+  const cancelReceptionDaybefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDaybefore)
 
   const [reserveFrameReceptionStartTime, setReserveFrameReceptionStartTime] = useState('')
   const [reserveFrameReceptionEndTime, setReserveFrameReceptionEndTime] = useState('')
@@ -807,6 +811,29 @@ const ReserveFrameForm = () => {
       </Row>}
       </Form.Group>
 
+      <hr />
+        <div className='mb10'>キャンセル受付</div>
+          <Form.Check type='radio'
+                      label='キャンセルを受け付けない'
+                      id='isAcceptCancelFalse'
+                      name='isAcceptCancel'
+                      checked={isAcceptCancel === false}
+                      onChange={() => dispatch(isAcceptCancelChanged(false))} />
+          <Form.Check type='radio'
+                      label='キャンセルを受け付ける'
+                      id='isAcceptCancelTrue'
+                      name='isAcceptCancel'
+                      checked={isAcceptCancel === true}
+                      onChange={() => dispatch(isAcceptCancelChanged(true))} />
+          {isAcceptCancel &&
+          <>
+            <Row>
+              <Col sm={2}>
+                <Form.Control type='number'></Form.Control>
+              </Col>
+              <Col>日前までキャンセルを受け付ける</Col>
+            </Row>
+          </>}
       <hr/>
 
       <Row>

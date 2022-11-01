@@ -49,6 +49,8 @@ export const reserveFrameSlice = createSlice({
     multiCreditCardPaymentPrices: [{name: '大人', price: 1000}, {name: '子供', price: 500}] as MultiPaymentMethod[],
     base64Image: null,
     s3ObjectPublicUrl: '',
+    isAcceptCancel: false,
+    cancelReceptionDaybefore: 1,
     reserveFrameReceptionTimes: [] as ReserveFrameReceptionTimeParam[],
     outOfRangeFrames: [] as OutOfRepeatReservableFrameParam[],
     unreservableFrames: [] as UnreservableFrameParam[],
@@ -175,6 +177,12 @@ export const reserveFrameSlice = createSlice({
     s3ObjectPublicUrlChanged: (state, action: PayloadAction<any>) => {
       state.s3ObjectPublicUrl = action.payload
     },
+    isAcceptCancelChanged: (state, action: PayloadAction<boolean>) => {
+      state.isAcceptCancel = action.payload
+    },
+    cancelReceptionDayBeforeChanged: (state, action: PayloadAction<number>) => {
+      state.cancelReceptionDaybefore = action.payload
+    },
     reserveFrameReceptionTimesChanged: (state, action: PayloadAction<ReserveFrameReceptionTimeParam[]>) => {
       state.reserveFrameReceptionTimes = action.payload
     },
@@ -240,6 +248,8 @@ export const { isCreditCardPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isTicketPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isMonthlyPlanPaymentEnableChanged } = reserveFrameSlice.actions
 export const { base64ImageChanged } = reserveFrameSlice.actions
+export const { isAcceptCancelChanged } = reserveFrameSlice.actions
+export const { cancelReceptionDayBeforeChanged } = reserveFrameSlice.actions
 export const { s3ObjectPublicUrlChanged } = reserveFrameSlice.actions
 export const { reserveFrameReceptionTimesChanged } = reserveFrameSlice.actions
 export const { outOfRangeFramesChanged } = reserveFrameSlice.actions
