@@ -172,6 +172,11 @@ const Index: NextPage = () => {
     if (disableSubmitAnswer) {
       return true
     }
+    if (paymentMethod === 'creditCardPayment') {
+      if (StripePaymentMethods?.length === 0) {
+        return true
+      }
+    }
     return false
   }
 
@@ -304,7 +309,11 @@ const Index: NextPage = () => {
                   {endUserLoginStatus === 'Login' &&
                   <>
                     {
-                    !StripePaymentMethods?.length && <> <hr />カードが登録されていません</>
+                    !StripePaymentMethods?.length &&
+                    <>
+                      <hr />カードが登録されていません
+                      <br /><a href='/customer_page/payment_method/register' target='_blank' rel='noreferrer'>登録はこちら</a>
+                    </>
                     }
                     {paymentMethod === 'creditCardPayment' &&
                       <>
