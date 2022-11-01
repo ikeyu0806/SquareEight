@@ -28,11 +28,11 @@ FactoryBot.define do
     repeat_interval_number_month { 1 }
     reception_type { 'Immediate' }
     reception_start_day_before { 30 }
-    cancel_reception_hour_before { 1 }
-    cancel_reception_day_before { 1 }
+    reception_deadline_hour_before { 1 }
+    reception_deadline_day_before { 1 }
 
     trait :cancel_possible_before_the_day do
-      cancel_reception { 'PossibleBeforeTheDay' }
+      reception_deadline { 'PossibleBeforeTheDay' }
     end
   end
 end

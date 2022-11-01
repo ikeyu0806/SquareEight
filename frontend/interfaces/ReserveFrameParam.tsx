@@ -33,7 +33,7 @@ export interface ReserveFrameParam {
   repeat_interval_type: string
   payment_methods_text: string[]
   s3_object_public_url: string
-  cancel_reception_text: string
+  reception_deadline_text: string
   reserve_frame_reception_times_values: ReserveFrameReceptionTimeParam[]
   reserve_frame_local_payment_prices: MultiPaymentMethod[]
   reserve_frame_credit_card_payment_prices: MultiPaymentMethod[]

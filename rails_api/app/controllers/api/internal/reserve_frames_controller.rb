@@ -16,7 +16,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                         :reserve_frame_reception_times_values,
                                         :out_of_range_frames_datetimes,
                                         :unreservable_frames_datetimes,
-                                        :cancel_reception_text])
+                                        :reception_deadline_text])
     reserve_frames = JSON.parse(reserve_frames)
     render json: { status: 'success', reserve_frames: reserve_frames }, status: 200
   rescue => error
@@ -227,9 +227,9 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :reception_type,
                   :reception_start_day_before,
                   :reception_phone_number,
-                  :cancel_reception,
-                  :cancel_reception_day_before,
-                  :cancel_reception_hour_before,
+                  :reception_deadline,
+                  :reception_deadline_day_before,
+                  :reception_deadline_hour_before,
                   :is_set_price,
                   :is_local_payment_enable,
                   :is_credit_card_payment_enable,

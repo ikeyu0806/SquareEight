@@ -33,7 +33,7 @@ const CreateReserveFrameModal = (): JSX.Element => {
   const receptionType = useSelector((state: RootState) => state.reserveFrame.receptionType)
   const receptionStartDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionStartDayBefore)
   const receptionPhoneNumber = useSelector((state: RootState) => state.reserveFrame.receptionPhoneNumber)
-  const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
+  const receptionDeadline = useSelector((state: RootState) => state.reserveFrame.receptionDeadline)
   const reserveFrameReceptionTimes = useSelector((state: RootState) => state.reserveFrame.reserveFrameReceptionTimes)  
   const outOfRangeFrames = useSelector((state: RootState) => state.reserveFrame.outOfRangeFrames)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
@@ -46,8 +46,8 @@ const CreateReserveFrameModal = (): JSX.Element => {
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
   const base64Image = useSelector((state: RootState) => state.reserveFrame.base64Image)
-  const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
-  const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
+  const receptionDeadlineHourBefore = useSelector((state: RootState) => state.reserveFrame.receptionDeadlineHourBefore)
+  const receptionDeadlineDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionDeadlineDayBefore)
   const isSetPrice = useSelector((state: RootState) => state.reserveFrame.isSetPrice)
   const multiLocalPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiLocalPaymentPrices)
   const multiCreditCardPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiCreditCardPaymentPrices)
@@ -80,7 +80,7 @@ const CreateReserveFrameModal = (): JSX.Element => {
         reception_type: receptionType,
         reception_start_day_before: receptionStartDayBefore,
         reception_phone_number: receptionPhoneNumber,
-        cancel_reception: cancelReception,
+        reception_deadline: receptionDeadline,
         reserve_frame_reception_times: reserveFrameReceptionTimes,
         out_of_range_frames: outOfRangeFrames,
         unreservable_frames: unreservableFrames,
@@ -93,8 +93,8 @@ const CreateReserveFrameModal = (): JSX.Element => {
         is_monthly_plan_payment_enable: isMonthlyPlanPaymentEnable,
         monthly_payment_plan_ids: monthlyPaymentPlanIds,
         reservable_frame_ticket_master: reservableFrameTicketMaster,
-        cancel_reception_hour_before: cancelReceptionHourBefore,
-        cancel_reception_day_before: cancelReceptionDayBefore,
+        reception_deadline_hour_before: receptionDeadlineHourBefore,
+        reception_deadline_day_before: receptionDeadlineDayBefore,
         multi_local_payment_prices: multiLocalPaymentPrices,
         multi_credit_card_payment_prices: multiCreditCardPaymentPrices,
         apply_multi_local_payment_price: applyMultiLocalPaymentPrice,

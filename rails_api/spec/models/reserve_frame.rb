@@ -213,17 +213,17 @@ RSpec.describe ReserveFrame, type: :model do
     end
   end
 
-  describe 'cancel_reception_text' do
+  describe 'reception_deadline_text' do
     context 'OnlyOnTheDay' do
       it do
-        expect(reserve_frame.cancel_reception_text).to eq '当日の1時間前まで受付'
+        expect(reserve_frame.reception_deadline_text).to eq '当日の1時間前まで受付'
       end
     end
 
     context 'PossibleBeforeTheDay' do
       let(:reserve_frame) { create(:reserve_frame, :cancel_possible_before_the_day, account: account) }
       it do
-        expect(reserve_frame.cancel_reception_text).to eq '1日前まで受付'
+        expect(reserve_frame.reception_deadline_text).to eq '1日前まで受付'
       end
     end
   end

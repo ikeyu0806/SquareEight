@@ -24,7 +24,7 @@ class ReserveFrame < ApplicationRecord
   enum repeat_interval_type: { Day: 0, Week: 1, Month: 2, WDay: 3 }
   enum publish_status: { Unpublish: 0, Publish: 1 }
   enum reception_type: { Immediate: 0, Temporary: 1, PhoneOnly: 2 }
-  enum cancel_reception: { OnlyOnTheDay: 0, PossibleBeforeTheDay: 1 }
+  enum reception_deadline: { OnlyOnTheDay: 0, PossibleBeforeTheDay: 1 }
 
   scope :enabled, -> { where(deleted_at: nil) }
 
@@ -246,8 +246,8 @@ class ReserveFrame < ApplicationRecord
     end
   
     # 受付締め切り考慮
-    if cancel_reception == "PossibleBeforeTheDay"
-      loop_start_date = loop_start_date + cancel_reception_day_before.days 
+    if reception_deadline == "PossibleBeforeTheDay"
+      loop_start_date = loop_start_date + reception_deadline_day_before.days 
     end
     loop_start_date = loop_start_date < range_start_date ? range_start_date : loop_start_date
 
@@ -496,10 +496,10 @@ class ReserveFrame < ApplicationRecord
     # 受付開始日チェック
     raise '受付開始していません' if Date.today - self.reception_start_day_before.days > reservation.start_at.to_date
     # 受付締め切りチェック
-    if cancel_reception == 'OnlyOnTheDay'
-      raise '受付締め切り時間を過ぎています' if DateTime.now > reservation.start_at - self.cancel_reception_hour_before.hours
+    if reception_deadline == 'OnlyOnTheDay'
+      raise '受付締め切り時間を過ぎています' if DateTime.now > reservation.start_at - self.reception_deadline_hour_before.hours
     else
-      raise '受付締め切り時間を過ぎています' if Date.today > reservation.start_at.to_date - self.cancel_reception_day_before.days
+      raise '受付締め切り時間を過ぎています' if Date.today > reservation.start_at.to_date - self.reception_deadline_day_before.days
     end
     # 繰り返し範囲内の日がチェック
     # ["yyyy-mm-dd", "yyyy-mm-dd"]
@@ -554,11 +554,11 @@ class ReserveFrame < ApplicationRecord
     reserve_frame_image_relations.find_by(relation_status: "Main")&.account_s3_image&.s3_object_public_url
   end
 
-  def cancel_reception_text
-    if self.cancel_reception == "OnlyOnTheDay"
-      "当日の#{cancel_reception_hour_before}時間前まで受付"
-    elsif self.cancel_reception == "PossibleBeforeTheDay"
-      "#{cancel_reception_day_before}日前まで受付"
+  def reception_deadline_text
+    if self.reception_deadline == "OnlyOnTheDay"
+      "当日の#{reception_deadline_hour_before}時間前まで受付"
+    elsif self.reception_deadline == "PossibleBeforeTheDay"
+      "#{reception_deadline_day_before}日前まで受付"
     end
   end
 
