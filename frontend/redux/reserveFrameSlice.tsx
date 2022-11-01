@@ -50,6 +50,7 @@ export const reserveFrameSlice = createSlice({
     base64Image: null,
     s3ObjectPublicUrl: '',
     isAcceptCancel: false,
+    isAcceptCancelOnTheDay: false,
     cancelReceptionDaybefore: 1,
     reserveFrameReceptionTimes: [] as ReserveFrameReceptionTimeParam[],
     outOfRangeFrames: [] as OutOfRepeatReservableFrameParam[],
@@ -180,6 +181,9 @@ export const reserveFrameSlice = createSlice({
     isAcceptCancelChanged: (state, action: PayloadAction<boolean>) => {
       state.isAcceptCancel = action.payload
     },
+    isAcceptCancelOnTheDayChanged: (state, action: PayloadAction<boolean>) => {
+      state.isAcceptCancelOnTheDay = action.payload
+    },
     cancelReceptionDayBeforeChanged: (state, action: PayloadAction<number>) => {
       state.cancelReceptionDaybefore = action.payload
     },
@@ -249,6 +253,7 @@ export const { isTicketPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isMonthlyPlanPaymentEnableChanged } = reserveFrameSlice.actions
 export const { base64ImageChanged } = reserveFrameSlice.actions
 export const { isAcceptCancelChanged } = reserveFrameSlice.actions
+export const { isAcceptCancelOnTheDayChanged } = reserveFrameSlice.actions
 export const { cancelReceptionDayBeforeChanged } = reserveFrameSlice.actions
 export const { s3ObjectPublicUrlChanged } = reserveFrameSlice.actions
 export const { reserveFrameReceptionTimesChanged } = reserveFrameSlice.actions

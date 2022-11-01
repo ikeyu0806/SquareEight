@@ -44,7 +44,8 @@ import {  startDateChanged,
           base64ImageChanged,
           isSetPriceChanged,
           isAcceptCancelChanged,
-          cancelReceptionDayBeforeChanged } from 'redux/reserveFrameSlice'
+          cancelReceptionDayBeforeChanged,
+          isAcceptCancelOnTheDayChanged } from 'redux/reserveFrameSlice'
 
 const ReserveFrameForm = () => {
   const router = useRouter()
@@ -84,6 +85,7 @@ const ReserveFrameForm = () => {
   const receptionType = useSelector((state: RootState) => state.reserveFrame.receptionType)
   const isSetPrice = useSelector((state: RootState) => state.reserveFrame.isSetPrice)
   const isAcceptCancel = useSelector((state: RootState) => state.reserveFrame.isAcceptCancel)
+  const isAcceptCancelOnTheDay = useSelector((state: RootState) => state.reserveFrame.isAcceptCancelOnTheDay)
   const cancelReceptionDaybefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDaybefore)
 
   const [reserveFrameReceptionStartTime, setReserveFrameReceptionStartTime] = useState('')
@@ -826,14 +828,32 @@ const ReserveFrameForm = () => {
                       checked={isAcceptCancel === true}
                       onChange={() => dispatch(isAcceptCancelChanged(true))} />
           {isAcceptCancel &&
-          <>
-            <Row>
-              <Col sm={2}>
-                <Form.Control type='number'></Form.Control>
-              </Col>
-              <Col>日前までキャンセルを受け付ける</Col>
-            </Row>
-          </>}
+          // isAcceptCancelOnTheDay
+          <div className='ml20'>
+            <Form.Check type='radio'
+                        label='当日までキャンセルを受け付ける'
+                        id='isAcceptCancelOnTheDayTrue'
+                        name='isAcceptCancelOnTheDay'
+                        checked={isAcceptCancelOnTheDay === true}
+                        onChange={() => dispatch(isAcceptCancelOnTheDayChanged(true))} />
+            <Form.Check type='radio'
+                        label='前日以前までキャンセルを受け付ける'
+                        id='isAcceptCancelOnTheDayFalse'
+                        name='isAcceptCancelOnTheDay'
+                        checked={isAcceptCancelOnTheDay === false}
+                        onChange={() => dispatch(isAcceptCancelOnTheDayChanged(false))} />
+            {!isAcceptCancelOnTheDay &&
+            <>
+              <Row>
+                <Col sm={2}>
+                  <Form.Control type='number'></Form.Control>
+                </Col>
+                <Col>日前までキャンセルを受け付ける</Col>
+              </Row>
+            </>
+            }
+          </div>
+        }
       <hr/>
 
       <Row>
