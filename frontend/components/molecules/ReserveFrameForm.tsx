@@ -25,9 +25,9 @@ import {  startDateChanged,
           receptionTypeChanged,
           receptionPhoneNumberChanged,
           receptionStartDayBeforeChanged,
-          cancelReceptionChanged,
-          cancelReceptionHourBeforeChanged,
-          cancelReceptionDayBeforeChanged,
+          receptionDeadlineChanged,
+          receptionDeadlineHourBeforeChanged,
+          receptionDeadlineDayBeforeChanged,
           isLocalPaymentEnableChanged,
           isCreditCardPaymentEnableChanged,
           isTicketPaymentEnableChanged,
@@ -58,9 +58,9 @@ const ReserveFrameForm = () => {
   const publishStatus = useSelector((state: RootState) => state.reserveFrame.publishStatus)
   const receptionStartDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionStartDayBefore)
   const receptionPhoneNumber = useSelector((state: RootState) => state.reserveFrame.receptionPhoneNumber)
-  const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
-  const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
-  const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
+  const receptionDeadline = useSelector((state: RootState) => state.reserveFrame.receptionDeadline)
+  const receptionDeadlineHourBefore = useSelector((state: RootState) => state.reserveFrame.receptionDeadlineHourBefore)
+  const receptionDeadlineDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionDeadlineDayBefore)
   const reserveFrameReceptionTimes = useSelector((state: RootState) => state.reserveFrame.reserveFrameReceptionTimes)
   const isLocalPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isLocalPaymentEnable)
   const isCreditCardPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isCreditCardPaymentEnable)
@@ -762,24 +762,24 @@ const ReserveFrameForm = () => {
                         id='onlyOntheDay'
                         inline
                         name='deadline'
-                        checked={cancelReception === 'OnlyOnTheDay'}
-                        onChange={() => dispatch(cancelReceptionChanged('OnlyOnTheDay'))} />
+                        checked={receptionDeadline === 'OnlyOnTheDay'}
+                        onChange={() => dispatch(receptionDeadlineChanged('OnlyOnTheDay'))} />
             <Form.Check type='checkbox'
                         label='前日以前を指定する'
                         id='possibleBeforeTheDay'
                         inline
-                        checked={cancelReception === 'PossibleBeforeTheDay'}
-                        onChange={() => dispatch(cancelReceptionChanged('PossibleBeforeTheDay'))} />
+                        checked={receptionDeadline === 'PossibleBeforeTheDay'}
+                        onChange={() => dispatch(receptionDeadlineChanged('PossibleBeforeTheDay'))} />
           </Col>
         </Row>
-        {cancelReception === 'OnlyOnTheDay' ? 
+        {receptionDeadline === 'OnlyOnTheDay' ? 
           <Row>
             <Col>
             <Form.Group as={Row} className='mb-3'>
               <Col sm={2}>
                 <Form.Control
-                  value={cancelReceptionHourBefore}
-                  onChange={(e) => dispatch(cancelReceptionHourBeforeChanged(Number(e.target.value)))}
+                  value={receptionDeadlineHourBefore}
+                  onChange={(e) => dispatch(receptionDeadlineHourBeforeChanged(Number(e.target.value)))}
                   type='number'
                   min='1' />
               </Col>
@@ -794,8 +794,8 @@ const ReserveFrameForm = () => {
           <Form.Group as={Row} className='mb-3'>
             <Col sm={2}>
               <Form.Control
-                value={cancelReceptionDayBefore}
-                onChange={(e) => dispatch(cancelReceptionDayBeforeChanged(Number(e.target.value)))}
+                value={receptionDeadlineDayBefore}
+                onChange={(e) => dispatch(receptionDeadlineDayBeforeChanged(Number(e.target.value)))}
                 type='number'
                 min='0' />
             </Col>

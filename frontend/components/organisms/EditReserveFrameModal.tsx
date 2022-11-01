@@ -18,9 +18,9 @@ import {
   publishStatusChanged,
   receptionTypeChanged,
   receptionStartDayBeforeChanged,
-  cancelReceptionChanged,
-  cancelReceptionHourBeforeChanged,
-  cancelReceptionDayBeforeChanged,
+  receptionDeadlineChanged,
+  receptionDeadlineHourBeforeChanged,
+  receptionDeadlineDayBeforeChanged,
   repeatIntervalTypeChanged,
   repeatWDaysChanged,
   repeatEndDateChanged,
@@ -75,7 +75,7 @@ const EditReserveFrameModal = (): JSX.Element => {
   const receptionType = useSelector((state: RootState) => state.reserveFrame.receptionType)
   const receptionStartDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionStartDayBefore)
   const receptionPhoneNumber = useSelector((state: RootState) => state.reserveFrame.receptionPhoneNumber)
-  const cancelReception = useSelector((state: RootState) => state.reserveFrame.cancelReception)
+  const receptionDeadline = useSelector((state: RootState) => state.reserveFrame.receptionDeadline)
   const reserveFrameReceptionTimes = useSelector((state: RootState) => state.reserveFrame.reserveFrameReceptionTimes)
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
   const outOfRangeFrames = useSelector((state: RootState) => state.reserveFrame.outOfRangeFrames)
@@ -88,8 +88,8 @@ const EditReserveFrameModal = (): JSX.Element => {
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
   const base64Image = useSelector((state: RootState) => state.reserveFrame.base64Image)
-  const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
-  const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
+  const receptionDeadlineHourBefore = useSelector((state: RootState) => state.reserveFrame.receptionDeadlineHourBefore)
+  const receptionDeadlineDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionDeadlineDayBefore)
   const isSetPrice = useSelector((state: RootState) => state.reserveFrame.isSetPrice)
   const applyMultiLocalPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiLocalPaymentPrice)
   const applyMultiCreditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiCreditCardPaymentPrice)
@@ -144,7 +144,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         publish_status: publishStatus,
         reception_type: receptionType,
         reception_start_day_before: receptionStartDayBefore,
-        cancel_reception: cancelReception,
+        reception_deadline: receptionDeadline,
         reserve_frame_reception_times: reserveFrameReceptionTimes,
         unreservable_frames: unreservableFrames,
         out_of_range_frames: outOfRangeFrames,
@@ -156,8 +156,8 @@ const EditReserveFrameModal = (): JSX.Element => {
         is_monthly_plan_payment_enable: isMonthlyPlanPaymentEnable,
         monthly_payment_plan_ids: monthlyPaymentPlanIds,
         reservable_frame_ticket_master: reservableFrameTicketMaster,
-        cancel_reception_hour_before: cancelReceptionHourBefore,
-        cancel_reception_day_before: cancelReceptionDayBefore,
+        reception_deadline_hour_before: receptionDeadlineHourBefore,
+        reception_deadline_day_before: receptionDeadlineDayBefore,
         is_set_price: isSetPrice,
         apply_multi_local_payment_price: applyMultiLocalPaymentPrice,
         apply_multi_credit_card_payment_price: applyMultiCreditCardPaymentPrice
@@ -234,9 +234,9 @@ const EditReserveFrameModal = (): JSX.Element => {
         dispatch(publishStatusChanged(response.data.reserve_frame.publish_status))
         dispatch(receptionTypeChanged(response.data.reserve_frame.reception_type))
         dispatch(receptionStartDayBeforeChanged(response.data.reserve_frame.reception_start_day_before))
-        dispatch(cancelReceptionChanged(response.data.reserve_frame.cancel_reception))
-        dispatch(cancelReceptionHourBeforeChanged(response.data.reserve_frame.cancel_reception_hour_before))
-        dispatch(cancelReceptionDayBeforeChanged(response.data.reserve_frame.cancel_reception_day_before))
+        dispatch(receptionDeadlineChanged(response.data.reserve_frame.reception_deadline))
+        dispatch(receptionDeadlineHourBeforeChanged(response.data.reserve_frame.reception_deadline_hour_before))
+        dispatch(receptionDeadlineDayBeforeChanged(response.data.reserve_frame.reception_deadline_day_before))
         dispatch(isLocalPaymentEnableChanged(response.data.reserve_frame.is_local_payment_enable))
         dispatch(isCreditCardPaymentEnableChanged(response.data.reserve_frame.is_credit_card_payment_enable))
         dispatch(isTicketPaymentEnableChanged(response.data.reserve_frame.is_ticket_payment_enable))

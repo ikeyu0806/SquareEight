@@ -35,9 +35,9 @@ export const reserveFrameSlice = createSlice({
     receptionType: 'Immediate',
     receptionPhoneNumber: '',
     receptionStartDayBefore: 30,
-    cancelReception: 'OnlyOnTheDay',
-    cancelReceptionHourBefore: 1,
-    cancelReceptionDayBefore: 1,
+    receptionDeadline: 'OnlyOnTheDay',
+    receptionDeadlineHourBefore: 1,
+    receptionDeadlineDayBefore: 1,
     isLocalPaymentEnable: false,
     isCreditCardPaymentEnable: false,
     isTicketPaymentEnable: false,
@@ -148,14 +148,14 @@ export const reserveFrameSlice = createSlice({
     receptionStartDayBeforeChanged: (state, action: PayloadAction<number>) => {
       state.receptionStartDayBefore = action.payload
     },
-    cancelReceptionChanged: (state, action: PayloadAction<string>) => {
-      state.cancelReception = action.payload
+    receptionDeadlineChanged: (state, action: PayloadAction<string>) => {
+      state.receptionDeadline = action.payload
     },
-    cancelReceptionHourBeforeChanged: (state, action: PayloadAction<number>) => {
-      state.cancelReceptionHourBefore = action.payload
+    receptionDeadlineHourBeforeChanged: (state, action: PayloadAction<number>) => {
+      state.receptionDeadlineHourBefore = action.payload
     },
-    cancelReceptionDayBeforeChanged: (state, action: PayloadAction<number>) => {
-      state.cancelReceptionDayBefore = action.payload
+    receptionDeadlineDayBeforeChanged: (state, action: PayloadAction<number>) => {
+      state.receptionDeadlineDayBefore = action.payload
     },
     isLocalPaymentEnableChanged: (state, action: PayloadAction<boolean>) => {
       state.isLocalPaymentEnable = action.payload
@@ -232,9 +232,9 @@ export const { publishStatusChanged } = reserveFrameSlice.actions
 export const { receptionTypeChanged } = reserveFrameSlice.actions
 export const { receptionPhoneNumberChanged } = reserveFrameSlice.actions
 export const { receptionStartDayBeforeChanged } = reserveFrameSlice.actions
-export const { cancelReceptionChanged } = reserveFrameSlice.actions
-export const { cancelReceptionHourBeforeChanged } = reserveFrameSlice.actions
-export const { cancelReceptionDayBeforeChanged } = reserveFrameSlice.actions
+export const { receptionDeadlineChanged } = reserveFrameSlice.actions
+export const { receptionDeadlineHourBeforeChanged } = reserveFrameSlice.actions
+export const { receptionDeadlineDayBeforeChanged } = reserveFrameSlice.actions
 export const { isLocalPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isCreditCardPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isTicketPaymentEnableChanged } = reserveFrameSlice.actions
