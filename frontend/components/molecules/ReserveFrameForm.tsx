@@ -45,6 +45,7 @@ import {  startDateChanged,
           isSetPriceChanged,
           isAcceptCancelChanged,
           cancelReceptionDayBeforeChanged,
+          cancelReceptionHourBeforeChanged,
           isAcceptCancelOnTheDayChanged } from 'redux/reserveFrameSlice'
 
 const ReserveFrameForm = () => {
@@ -86,7 +87,8 @@ const ReserveFrameForm = () => {
   const isSetPrice = useSelector((state: RootState) => state.reserveFrame.isSetPrice)
   const isAcceptCancel = useSelector((state: RootState) => state.reserveFrame.isAcceptCancel)
   const isAcceptCancelOnTheDay = useSelector((state: RootState) => state.reserveFrame.isAcceptCancelOnTheDay)
-  const cancelReceptionDaybefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDaybefore)
+  const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
+  const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
 
   const [reserveFrameReceptionStartTime, setReserveFrameReceptionStartTime] = useState('')
   const [reserveFrameReceptionEndTime, setReserveFrameReceptionEndTime] = useState('')
@@ -842,11 +844,27 @@ const ReserveFrameForm = () => {
                         name='isAcceptCancelOnTheDay'
                         checked={isAcceptCancelOnTheDay === false}
                         onChange={() => dispatch(isAcceptCancelOnTheDayChanged(false))} />
+          {isAcceptCancelOnTheDay &&
+            <>
+              <Row>
+                <Col sm={2}>
+                  <Form.Control
+                    value={cancelReceptionHourBefore}
+                    onChange={(e) => dispatch(cancelReceptionHourBeforeChanged(Number(e.target.value)))}
+                    type='number'></Form.Control>
+                </Col>
+                <Col>時間前までキャンセルを受け付ける</Col>
+              </Row>
+            </>
+            }
             {!isAcceptCancelOnTheDay &&
             <>
               <Row>
                 <Col sm={2}>
-                  <Form.Control type='number'></Form.Control>
+                  <Form.Control
+                    value={cancelReceptionDayBefore}
+                    onChange={(e) => dispatch(cancelReceptionDayBeforeChanged(Number(e.target.value)))}
+                    type='number'></Form.Control>
                 </Col>
                 <Col>日前までキャンセルを受け付ける</Col>
               </Row>

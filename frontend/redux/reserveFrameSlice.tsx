@@ -51,7 +51,8 @@ export const reserveFrameSlice = createSlice({
     s3ObjectPublicUrl: '',
     isAcceptCancel: false,
     isAcceptCancelOnTheDay: false,
-    cancelReceptionDaybefore: 1,
+    cancelReceptionDayBefore: 1,
+    cancelReceptionHourBefore: 1,
     reserveFrameReceptionTimes: [] as ReserveFrameReceptionTimeParam[],
     outOfRangeFrames: [] as OutOfRepeatReservableFrameParam[],
     unreservableFrames: [] as UnreservableFrameParam[],
@@ -185,7 +186,10 @@ export const reserveFrameSlice = createSlice({
       state.isAcceptCancelOnTheDay = action.payload
     },
     cancelReceptionDayBeforeChanged: (state, action: PayloadAction<number>) => {
-      state.cancelReceptionDaybefore = action.payload
+      state.cancelReceptionDayBefore = action.payload
+    },
+    cancelReceptionHourBeforeChanged: (state, action: PayloadAction<number>) => {
+      state.cancelReceptionHourBefore = action.payload
     },
     reserveFrameReceptionTimesChanged: (state, action: PayloadAction<ReserveFrameReceptionTimeParam[]>) => {
       state.reserveFrameReceptionTimes = action.payload
@@ -255,6 +259,7 @@ export const { base64ImageChanged } = reserveFrameSlice.actions
 export const { isAcceptCancelChanged } = reserveFrameSlice.actions
 export const { isAcceptCancelOnTheDayChanged } = reserveFrameSlice.actions
 export const { cancelReceptionDayBeforeChanged } = reserveFrameSlice.actions
+export const { cancelReceptionHourBeforeChanged } = reserveFrameSlice.actions
 export const { s3ObjectPublicUrlChanged } = reserveFrameSlice.actions
 export const { reserveFrameReceptionTimesChanged } = reserveFrameSlice.actions
 export const { outOfRangeFramesChanged } = reserveFrameSlice.actions
