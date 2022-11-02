@@ -40,10 +40,12 @@ const Index: NextPage = () => {
                       <ListGroup.Item key={i}>
                         <div className='mb10'>{reservation.reserve_frame_title}</div>
                         <span>{reservation.display_reservation_datetime}</span>
-                        <br />
+                        <hr />
                         <span>人数: {reservation.number_of_people}</span>
-                        <br />
+                        <hr />
                         <span>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</span>
+                        <hr />
+                        <span>キャンセル</span>
                       </ListGroup.Item>
                     )
                   })}

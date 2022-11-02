@@ -109,6 +109,27 @@ class Reservation < ApplicationRecord
     return text_array.join(' '), total_price
   end
 
+  def is_cancelable
+    if reserve_frame.is_accept_cancel
+      # 当日キャンセル可能か
+      if reserve_frame.is_accept_cancel_on_the_day
+        if Time.zone.now >= start_at - reserve_frame.cancel_reception_day_before.hours
+          return false
+        else
+          return true
+        end
+      else
+        if Time.zone.now.to_date >= start_at - reserve_frame.cancel_reception_day_before.days
+          return false
+        else
+          return true
+        end
+      end
+    else
+      return false
+    end
+  end
+
   def questionnaire_master_id
     reserve_frame.questionnaire_master_id
   end
