@@ -45,7 +45,7 @@ const Index: NextPage = () => {
                         <hr />
                         <span>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</span>
                         <hr />
-                        <span>キャンセル</span>
+                        <span>キャンセル: </span>
                       </ListGroup.Item>
                     )
                   })}

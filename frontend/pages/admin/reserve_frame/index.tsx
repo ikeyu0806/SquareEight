@@ -140,15 +140,7 @@ const Index = (): JSX.Element => {
                       <div>受付締め切り: {reserveFrame.reception_deadline_text}</div>
                       <hr />
                       <div>
-                        キャンセル受付: {reserveFrame.is_accept_cancel
-                        ?
-                          <>
-                            キャンセル可能。{reserveFrame.is_accept_cancel_on_the_day
-                              ? <>当日の{reserveFrame.cancel_reception_hour_before}時間前まで</>
-                              : <>{reserveFrame.cancel_reception_day_before}日前まで</> }
-                          </>
-                        :
-                          <>キャンセル不可</>}
+                        キャンセル受付: {reserveFrame.cancel_reception_text}
                       </div>
                       <hr />
                       <div>お支払い方法</div>

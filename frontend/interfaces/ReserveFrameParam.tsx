@@ -38,6 +38,8 @@ export interface ReserveFrameParam {
   cancel_reception_day_before: number
   cancel_reception_hour_before: number
   reception_deadline_text: string
+  cancel_reception_text: string
+  is_cancelable: boolean
   reserve_frame_reception_times_values: ReserveFrameReceptionTimeParam[]
   reserve_frame_local_payment_prices: MultiPaymentMethod[]
   reserve_frame_credit_card_payment_prices: MultiPaymentMethod[]
