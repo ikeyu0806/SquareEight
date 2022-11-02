@@ -53,6 +53,8 @@ const CreateReserveFrameModal = (): JSX.Element => {
   const multiCreditCardPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiCreditCardPaymentPrices)
   const applyMultiLocalPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiLocalPaymentPrice)
   const applyMultiCreditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiCreditCardPaymentPrice)
+  const isAcceptCancel = useSelector((state: RootState) => state.reserveFrame.isAcceptCancel)
+  const isAcceptCancelOnTheDay = useSelector((state: RootState) => state.reserveFrame.isAcceptCancelOnTheDay)
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
 
@@ -101,6 +103,8 @@ const CreateReserveFrameModal = (): JSX.Element => {
         multi_credit_card_payment_prices: multiCreditCardPaymentPrices,
         apply_multi_local_payment_price: applyMultiLocalPaymentPrice,
         apply_multi_credit_card_payment_price: applyMultiCreditCardPaymentPrice,
+        is_accept_cancel: isAcceptCancel,
+        is_accept_cancel_on_the_day: isAcceptCancelOnTheDay,
         cancel_reception_hour_before: cancelReceptionHourBefore,
         cancel_reception_day_before: cancelReceptionDayBefore
       },
