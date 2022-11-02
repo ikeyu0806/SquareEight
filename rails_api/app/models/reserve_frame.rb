@@ -562,6 +562,18 @@ class ReserveFrame < ApplicationRecord
     end
   end
 
+  def cancel_reception_text
+    if self.is_accept_cancel
+      if self.is_accept_cancel_on_the_day
+        "当日の#{self.cancel_reception_hour_before.to_s}時間前まで"
+      else
+        "#{self.cancel_reception_day_before.to_s}日前まで"
+      end
+    else
+      "キャンセル不可"
+    end
+  end
+
   def logical_delete
     update!(deleted_at: Time.zone.now)
   end

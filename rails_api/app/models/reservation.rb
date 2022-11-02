@@ -130,6 +130,10 @@ class Reservation < ApplicationRecord
     end
   end
 
+  def cancel_reception_text
+    reserve_frame.cancel_reception_text
+  end
+
   def questionnaire_master_id
     reserve_frame.questionnaire_master_id
   end

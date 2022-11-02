@@ -145,7 +145,7 @@ const Index = (): JSX.Element => {
                           <>
                             キャンセル可能。{reserveFrame.is_accept_cancel_on_the_day
                               ? <>当日の{reserveFrame.cancel_reception_hour_before}時間前まで</>
-                              : <>前日{reserveFrame.cancel_reception_day_before}日前まで</> }
+                              : <>{reserveFrame.cancel_reception_day_before}日前まで</> }
                           </>
                         :
                           <>キャンセル不可</>}
