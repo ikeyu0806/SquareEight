@@ -44,7 +44,11 @@ import {
   s3ObjectPublicUrlChanged,
   outOfRangeFramesChanged,
   unreservableFramesChanged,
-  isRepeatChanged } from 'redux/reserveFrameSlice'
+  isRepeatChanged,
+  isAcceptCancelChanged,
+  isAcceptCancelOnTheDayChanged,
+  cancelReceptionDayBeforeChanged,
+  cancelReceptionHourBeforeChanged } from 'redux/reserveFrameSlice'
 
 const EditReserveFrameModal = (): JSX.Element => {
   const showEditReserveFrameModal = useSelector((state: RootState) => state.reserveFrame.showEditReserveFrameModal)
@@ -269,6 +273,10 @@ const EditReserveFrameModal = (): JSX.Element => {
         dispatch(unreservableFramesChanged(response.data.reserve_frame.unreservable_frames_datetimes))
         dispatch(isRepeatChanged(response.data.reserve_frame.is_repeat))
         dispatch(isSetPriceChanged(response.data.reserve_frame.is_set_price))
+        dispatch(isAcceptCancelChanged(response.data.reserve_frame.is_accept_cancel))
+        dispatch(isAcceptCancelOnTheDayChanged(response.data.reserve_frame.is_accept_cancel_on_the_day))
+        dispatch(cancelReceptionDayBeforeChanged(response.data.reserve_frame.cancel_reception_day_before))
+        dispatch(cancelReceptionHourBeforeChanged(response.data.reserve_frame.cancel_reception_hour_before))
       })
       .catch(error => {
         console.log(error)

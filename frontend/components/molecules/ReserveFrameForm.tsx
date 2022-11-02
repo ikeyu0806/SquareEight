@@ -44,9 +44,9 @@ import {  startDateChanged,
           base64ImageChanged,
           isSetPriceChanged,
           isAcceptCancelChanged,
+          isAcceptCancelOnTheDayChanged,
           cancelReceptionDayBeforeChanged,
-          cancelReceptionHourBeforeChanged,
-          isAcceptCancelOnTheDayChanged } from 'redux/reserveFrameSlice'
+          cancelReceptionHourBeforeChanged } from 'redux/reserveFrameSlice'
 
 const ReserveFrameForm = () => {
   const router = useRouter()

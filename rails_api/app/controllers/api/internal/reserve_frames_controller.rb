@@ -263,7 +263,6 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                 :reservable_frame_ticket_master,
                                 :base64_image,
                                 :repeat_wdays,
-                                :is_accept_cancel,
                                 :multi_local_payment_prices,
                                 :multi_credit_card_payment_prices,
                                 :apply_multi_local_payment_price,
