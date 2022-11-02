@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, ListGroup, Card } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup, Card, Button } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import { useCookies } from 'react-cookie'
 import { ReservationParam } from 'interfaces/ReservationParam'
@@ -45,7 +45,9 @@ const Index: NextPage = () => {
                         <hr />
                         <span>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</span>
                         <hr />
-                        <span>キャンセル: </span>
+                        <span>
+                          キャンセル: {reservation.cancel_reception_text}{reservation.is_cancelable && <><Button size='sm' variant='danger' className='ml10'>キャンセルする</Button></>}
+                        </span>
                       </ListGroup.Item>
                     )
                   })}
