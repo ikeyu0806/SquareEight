@@ -506,7 +506,7 @@ class ReserveFrame < ApplicationRecord
     reservable_dates = calendar_json(reservation.start_at.year, reservation.start_at.month).select{|calendar| calendar[:reservable] == true}.pluck(:start)
     raise '予約可能不可日です' unless reservable_dates.include?(reservation.start_at.strftime("%Y-%m-%d"))
     # 有効な時間がチェック
-    raise '予約不可能時間です' unless reservable_status_with_date(Date.today)[:status] == 'enable'
+    raise '予約不可能時間です' unless reservable_status_with_date(reservation.start_at)[:status] == 'enable'
     # リソースチェック
     resources = self.resources
     resources.each do |resource|
