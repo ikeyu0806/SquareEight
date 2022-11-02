@@ -534,7 +534,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_01_013413) do
     t.datetime "deleted_at"
     t.integer "questionnaire_master_id"
     t.boolean "is_accept_cancel", default: false
+    t.boolean "is_accept_cancel_on_the_day", default: false
     t.integer "cancel_reception_day_before"
+    t.integer "cancel_reception_hour_before"
   end
 
   create_table "resources", force: :cascade do |t|
