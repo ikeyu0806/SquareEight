@@ -844,7 +844,7 @@ const ReserveFrameForm = () => {
                         name='isAcceptCancelOnTheDay'
                         checked={isAcceptCancelOnTheDay === false}
                         onChange={() => dispatch(isAcceptCancelOnTheDayChanged(false))} />
-          {isAcceptCancelOnTheDay &&
+            {isAcceptCancelOnTheDay &&
             <>
               <Row>
                 <Col sm={2}>
