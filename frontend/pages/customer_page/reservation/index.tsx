@@ -5,6 +5,7 @@ import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import { useCookies } from 'react-cookie'
 import { ReservationParam } from 'interfaces/ReservationParam'
 import { paymentMethodText } from 'functions/paymentMethodText'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import axios from 'axios'
 
 const Index: NextPage = () => {
@@ -25,8 +26,35 @@ const Index: NextPage = () => {
     })
   }, [cookies._square_eight_end_user_session])
 
-  const execCancel = () => {
-
+  const execCancel = (publicId: string) => {
+    swalWithBootstrapButtons.fire({
+      title: 'キャンセルします',
+      html: '予約キャンセルします。<br />よろしいですか？',
+      icon: 'question',
+      confirmButtonText: 'キャンセルする',
+      cancelButtonText: 'キャンセルしない',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/end_users/reservations/${publicId}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_end_user_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: 'キャンセルしました',
+            icon: 'info'
+          })
+          location.reload()
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: 'キャンセル失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
   }
 
   return (
@@ -54,7 +82,7 @@ const Index: NextPage = () => {
                           &&
                             <>
                               <Button
-                                onClick={() => execCancel()}
+                                onClick={() => execCancel(reservation.public_id)}
                                 size='sm'
                                 variant='danger'
                                 className='ml10'>キャンセルする</Button>
