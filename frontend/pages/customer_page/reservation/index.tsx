@@ -25,6 +25,10 @@ const Index: NextPage = () => {
     })
   }, [cookies._square_eight_end_user_session])
 
+  const execCancel = () => {
+
+  }
+
   return (
     <>
       <EndUserLoginLayout>
@@ -46,7 +50,15 @@ const Index: NextPage = () => {
                         <span>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</span>
                         <hr />
                         <span>
-                          キャンセル: {reservation.cancel_reception_text}{reservation.is_cancelable && <><Button size='sm' variant='danger' className='ml10'>キャンセルする</Button></>}
+                          キャンセル: {reservation.cancel_reception_text}{reservation.is_cancelable
+                          &&
+                            <>
+                              <Button
+                                onClick={() => execCancel()}
+                                size='sm'
+                                variant='danger'
+                                className='ml10'>キャンセルする</Button>
+                            </>}
                         </span>
                       </ListGroup.Item>
                     )
