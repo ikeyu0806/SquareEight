@@ -288,6 +288,7 @@ class ReserveFrame < ApplicationRecord
         else
           skip_flg_count = 0 # repeat_interval_number_dayで間隔を反映させる処理に使う
           (loop_start_date..loop_end_date).each do |date|
+            next if is_cover_unreservable_frames_dates(date)
             skip_flg_count = skip_flg_count - 1 unless skip_flg_count.negative?
             status_json = self.reservable_status_with_date(date)
             if skip_flg_count.negative?
@@ -304,6 +305,7 @@ class ReserveFrame < ApplicationRecord
       when 'Week' then
         if is_every_week_repeat
           (loop_start_date..loop_end_date).select{|d| d.wday == self.start_at.wday}.each do |date|
+            next if is_cover_unreservable_frames_dates(date)
             status_json = self.reservable_status_with_date(date)
             result << {
               start: date.strftime("%Y-%m-%d"),
@@ -331,6 +333,7 @@ class ReserveFrame < ApplicationRecord
       when 'Month' then
         if is_every_month_repeat
           (loop_start_date..loop_end_date).each do |date|
+            next if is_cover_unreservable_frames_dates(date)
             status_json = self.reservable_status_with_date(date)
             if is_cover_out_of_range_frames_dates(date)
               result << {
@@ -351,6 +354,7 @@ class ReserveFrame < ApplicationRecord
         else
           repeat_month_list_result = repeat_month_list
           (loop_start_date..loop_end_date).each do |date|
+            next if is_cover_unreservable_frames_dates(date)
             status_json = self.reservable_status_with_date(date)
             if is_cover_out_of_range_frames_dates(date)
               result << {
@@ -382,6 +386,7 @@ class ReserveFrame < ApplicationRecord
         repeat_wdays.push(6) if self.is_repeat_sat?
 
         (loop_start_date..loop_end_date).each do |date|
+          next if is_cover_unreservable_frames_dates(date)
           status_json = self.reservable_status_with_date(date)
           if is_cover_out_of_range_frames_dates(date)
             result << {
