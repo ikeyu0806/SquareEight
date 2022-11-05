@@ -4,4 +4,5 @@ export const ATOM_TYPE = {
   IMAGE: 'image',
   IMAGE_SLIDE: 'imageSlide',
   EXTERNAL_LINKS: 'externalLinks',
+  IFRAME: 'iframe'
 }
