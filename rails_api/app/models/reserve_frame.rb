@@ -256,10 +256,15 @@ class ReserveFrame < ApplicationRecord
     loop_end_date = Date.parse(self.repeat_end_date.to_s)
     # loop_end_date = loop_end_date - reception_start_day_before.days
     loop_end_date > range_end_date ? range_end_date : loop_end_date
+    # loop_end_date月末以降だったら月末で上書き
+    end_of_month = range_start_date.end_of_month
+    loop_end_date = loop_end_date > end_of_month ? end_of_month : loop_end_date
     # 受付回開始日考慮
+    # reception_start_day_beforeが大きすぎるとループが重くなる。最大31日しか表示しない
+    additional_days = reception_start_day_before > 31 ? 31 : reception_start_day_before
     # 今日が1/1で受付繰り返し日が1/20。10日前から受付の場合、1/10まで受付
-    if Date.today + reception_start_day_before.days > loop_end_date
-      loop_end_date = Date.today + reception_start_day_before.days
+    if Date.today + additional_days.days > loop_end_date
+      loop_end_date = Date.today + additional_days.days
     end
 
     if self.is_repeat
