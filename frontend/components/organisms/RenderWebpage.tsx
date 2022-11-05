@@ -40,7 +40,11 @@ const RenderWebpage = ({editPage}: Props): JSX.Element => {
                     <Col key={i2 + 12}>
                       {(atom as ExternalLinkBlockStateType).content.map((c, i3) => {
                         return (
-                          <a href={c.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i3 + 100}>{c.text}</a>
+                          <a href={c.url}
+                             className='list-group-item list-group-item-action'
+                             target='_blank'
+                             rel='noreferrer'
+                             key={i3 + 100}>{c.text}</a>
                         )
                       })}
                     </Col>)
