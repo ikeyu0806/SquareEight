@@ -1,5 +1,5 @@
 import React from 'react'
-import { Card, Carousel } from 'react-bootstrap'
+import { Card } from 'react-bootstrap'
 import { selectedAtomTypeChanged, atomTypeChanged } from 'redux/webpageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
