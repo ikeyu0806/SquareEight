@@ -168,23 +168,23 @@ class ReserveFrame < ApplicationRecord
     result
   end
 
-  def unreservable_frames_datetimes_range
+  def unreservable_frames_dates_range
     unreservable_frames.map { |frame| frame.start_at..frame.end_at }
   end
 
-  def is_cover_unreservable_frames_datetimes(date)
-    unreservable_frames_datetimes_range.each do |unreservable_frames_datetime|
-      return true if unreservable_frames_datetime.cover?(date)
+  def is_cover_unreservable_frames_dates(date)
+    unreservable_frames_dates_range.each do |unreservable_frames_date|
+      return true if unreservable_frames_date.cover?(date)
     end
     return false
   end
 
-  def out_of_range_frames_datetimes_range
+  def out_of_range_frames_dates_range
     out_of_range_frames.map { |frame| frame.start_at..frame.end_at }
   end
 
-  def is_cover_out_of_range_frames_datetimes(date)
-    out_of_range_frames_datetimes_range.each do |out_of_range_frames_datetime|
+  def is_cover_out_of_range_frames_dates(date)
+    out_of_range_frames_dates_range.each do |out_of_range_frames_datetime|
       return true if out_of_range_frames_datetime.cover?(date)
     end
     return false
@@ -272,7 +272,7 @@ class ReserveFrame < ApplicationRecord
       when 'Day' then
         if is_every_day_repeat
           (loop_start_date..loop_end_date).each do |date|
-            next if is_cover_unreservable_frames_datetimes(date)
+            next if is_cover_unreservable_frames_dates(date)
             status_json = self.reservable_status_with_date(date)
             result << {
               start: date.strftime("%Y-%m-%d"),
@@ -328,7 +328,7 @@ class ReserveFrame < ApplicationRecord
         if is_every_month_repeat
           (loop_start_date..loop_end_date).each do |date|
             status_json = self.reservable_status_with_date(date)
-            if is_cover_out_of_range_frames_datetimes(date)
+            if is_cover_out_of_range_frames_dates(date)
               result << {
                 start: date.strftime("%Y-%m-%d"),
                 title: status_json[:text],
@@ -348,7 +348,7 @@ class ReserveFrame < ApplicationRecord
           repeat_month_list_result = repeat_month_list
           (loop_start_date..loop_end_date).each do |date|
             status_json = self.reservable_status_with_date(date)
-            if is_cover_out_of_range_frames_datetimes(date)
+            if is_cover_out_of_range_frames_dates(date)
               result << {
                 start: date.strftime("%Y-%m-%d"),
                 title: status_json[:text],
@@ -379,7 +379,7 @@ class ReserveFrame < ApplicationRecord
 
         (loop_start_date..loop_end_date).each do |date|
           status_json = self.reservable_status_with_date(date)
-          if is_cover_out_of_range_frames_datetimes(date)
+          if is_cover_out_of_range_frames_dates(date)
             result << {
               start: date.strftime("%Y-%m-%d"),
               title: status_json[:text],
@@ -465,20 +465,20 @@ class ReserveFrame < ApplicationRecord
     client.delete_object(bucket: ENV["PRODUCT_IMAGE_BUCKET"], key: self.s3_object_name)
   end
 
-  def out_of_range_frames_datetimes
+  def out_of_range_frames_dates
     result = []
     out_of_range_frames.each do |out_of_range_frame|
-      result.push({"start_at": out_of_range_frame.start_at.strftime("%Y-%m-%d %H:%M"),
-                   "end_at": out_of_range_frame.end_at.strftime("%Y-%m-%d %H:%M")})
+      result.push({"start_at": out_of_range_frame.start_at.strftime("%Y-%m-%d"),
+                   "end_at": out_of_range_frame.end_at.strftime("%Y-%m-%d")})
     end
     result
   end
 
-  def unreservable_frames_datetimes
+  def unreservable_frames_dates
     result = []
     unreservable_frames.each do |unreservable_frame|
-      result.push({"start_at": unreservable_frame.start_at.strftime("%Y-%m-%d %H:%M"),
-                   "end_at": unreservable_frame.end_at.strftime("%Y-%m-%d %H:%M")})
+      result.push({"start_at": unreservable_frame.start_at.strftime("%Y-%m-%d"),
+                   "end_at": unreservable_frame.end_at.strftime("%Y-%m-%d")})
     end
     result
   end

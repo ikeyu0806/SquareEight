@@ -14,8 +14,8 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                         :resources_name_with_public_id,
                                         :questionnaire_master_title_with_public_id,
                                         :reserve_frame_reception_times_values,
-                                        :out_of_range_frames_datetimes,
-                                        :unreservable_frames_datetimes,
+                                        :out_of_range_frames_dates,
+                                        :unreservable_frames_dates,
                                         :reception_deadline_text,
                                         :cancel_reception_text])
     reserve_frames = JSON.parse(reserve_frames)

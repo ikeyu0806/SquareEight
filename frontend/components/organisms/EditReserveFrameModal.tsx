@@ -270,7 +270,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         dispatch(reservableFrameTicketMasterChanged(response.data.reserve_frame.reservable_frame_ticket_master))
         dispatch(s3ObjectPublicUrlChanged(response.data.reserve_frame.s3_object_public_url))
         dispatch(outOfRangeFramesChanged(response.data.reserve_frame.out_of_range_frames_datetimes))
-        dispatch(unreservableFramesChanged(response.data.reserve_frame.unreservable_frames_datetimes))
+        dispatch(unreservableFramesChanged(response.data.reserve_frame.unreservable_frames_dates))
         dispatch(isRepeatChanged(response.data.reserve_frame.is_repeat))
         dispatch(isSetPriceChanged(response.data.reserve_frame.is_set_price))
         dispatch(isAcceptCancelChanged(response.data.reserve_frame.is_accept_cancel))
