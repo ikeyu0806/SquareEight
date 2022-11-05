@@ -78,7 +78,9 @@ const Index: NextPage = () => {
                         <span>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</span>
                         <hr />
                         <span>
-                          キャンセル: {reservation.cancel_reception_text}{reservation.is_cancelable
+                          {reservation.status !== 'cancel' && <>キャンセル: {reservation.cancel_reception_text}</>}
+                          {reservation.status === 'cancel' && <span className='badge bg-danger'>キャンセル済み</span>}
+                          {reservation.is_cancelable
                           &&
                             <>
                               <Button
