@@ -15,7 +15,7 @@ const SelectHeadingAtomModal = (): JSX.Element => {
       <Card>
         <Card.Body>
           <input className='form-check-input mr10'
-                 checked={selectedAtomType === ATOM_TYPE.HEADING}
+                 defaultChecked={selectedAtomType === ATOM_TYPE.HEADING}
                  type='radio'/>
           <span>見出し</span>
           <div className='mt10'>見出しのテキストを追加します。</div>

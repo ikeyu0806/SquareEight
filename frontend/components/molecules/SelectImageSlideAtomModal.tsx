@@ -15,7 +15,7 @@ const SelectImageSlideAtomModal = (): JSX.Element => {
       <Card>
         <Card.Body>
           <input className='form-check-input mr10'
-                 checked={selectedAtomType === ATOM_TYPE.IMAGE_SLIDE}
+                 defaultChecked={selectedAtomType === ATOM_TYPE.IMAGE_SLIDE}
                  type='radio'/>
           <span>画像スライド</span>
           <div className='mt10'>画像スライドを追加します</div>

@@ -17,7 +17,7 @@ const SelectExternalLinkAtomModal = (): JSX.Element => {
         <Card.Body>
           <input className='form-check-input mr10'
                  type='radio'
-                 checked={selectedAtomType === BLOCK_TYPE.EXTERNAL_LINKS} />
+                 defaultChecked={selectedAtomType === BLOCK_TYPE.EXTERNAL_LINKS} />
           <span>ページリンク</span>
           <div className='mt10'>
             ページリンク集を追加します。<br/>

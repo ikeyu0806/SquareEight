@@ -15,7 +15,7 @@ const SelectImageAtomModal = (): JSX.Element => {
       <Card>
         <Card.Body>
           <input className='form-check-input mr10'
-                 checked={selectedAtomType === ATOM_TYPE.IMAGE}
+                 defaultChecked={selectedAtomType === ATOM_TYPE.IMAGE}
                  type='radio'/>
           <span>画像</span>
           <div className='mt10'>画像を追加します</div>
