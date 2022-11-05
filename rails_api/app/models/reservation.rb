@@ -110,6 +110,7 @@ class Reservation < ApplicationRecord
   end
 
   def is_cancelable
+    return false unless status === 'confirm'
     if reserve_frame.is_accept_cancel
       # 当日キャンセル可能か
       if reserve_frame.is_accept_cancel_on_the_day

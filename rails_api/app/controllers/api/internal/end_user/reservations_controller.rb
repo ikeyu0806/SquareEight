@@ -4,6 +4,7 @@ class Api::Internal::EndUser::ReservationsController < ApplicationController
   def index
     reservations = current_end_user
                    .reservations
+                   .order(id: :desc)
                    .to_json(methods: [:reserve_frame_title,
                                       :display_reservation_datetime,
                                       :display_payment_method,
