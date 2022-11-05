@@ -44,6 +44,6 @@ export interface ReserveFrameParam {
   reserve_frame_credit_card_payment_prices: MultiPaymentMethod[]
   resources_name_with_public_id: ResourceParam[]
   questionnaire_master_title_with_public_id: QuestionnaireMasterParam
-  unreservable_frames_datetimes: UnreservableFrameParam[]
-  out_of_range_frames_datetimes: UnreservableFrameParam[]
+  unreservable_frames_dates: UnreservableFrameParam[]
+  out_of_range_frames_dates: UnreservableFrameParam[]
 }

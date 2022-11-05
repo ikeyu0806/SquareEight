@@ -97,10 +97,10 @@ const Index = (): JSX.Element => {
                       <hr />
                       <div>繰り返し範囲外予約受付日時</div>
                       <div>※終了日{reserveFrame.display_end_at && <>{'(' + reserveFrame.display_end_at + ')'}</>}以降の日時は反映されません</div>
-                      {reserveFrame.out_of_range_frames_datetimes && reserveFrame.out_of_range_frames_datetimes.length
+                      {reserveFrame.out_of_range_frames_dates && reserveFrame.out_of_range_frames_dates.length
                         ?
                           <>
-                            {reserveFrame.out_of_range_frames_datetimes.map((frame, i) => {
+                            {reserveFrame.out_of_range_frames_dates.map((frame, i) => {
                               return (
                                 <span key={i} className='mb10'>
                                   <div>開始日時: {frame.start_at}</div>
@@ -114,10 +114,10 @@ const Index = (): JSX.Element => {
                         }
                       <hr />
                       <div>予約受付不可日時設定</div>
-                      {reserveFrame.unreservable_frames_datetimes && reserveFrame.unreservable_frames_datetimes.length
+                      {reserveFrame.unreservable_frames_dates && reserveFrame.unreservable_frames_dates.length
                         ?
                           <>
-                            {reserveFrame.unreservable_frames_datetimes.map((frame, i) => {
+                            {reserveFrame.unreservable_frames_dates.map((frame, i) => {
                               return (
                                 <span key={i} className='mb10'>
                                   <div>開始日時: {frame.start_at}</div>

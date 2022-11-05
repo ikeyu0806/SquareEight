@@ -111,44 +111,44 @@ RSpec.describe ReserveFrame, type: :model do
     end
   end
 
-  describe 'unreservable_frames_datetimes_range' do
+  describe 'unreservable_frames_dates_range' do
     it do
-      unreservable_frames_datetimes_range = reserve_frame.unreservable_frames_datetimes_range
-      expect(unreservable_frames_datetimes_range).to eq [unreservable_frame.start_at..unreservable_frame.end_at]
+      unreservable_frames_dates_range = reserve_frame.unreservable_frames_dates_range
+      expect(unreservable_frames_dates_range).to eq [unreservable_frame.start_at..unreservable_frame.end_at]
     end
   end
 
-  describe 'is_cover_unreservable_frames_datetimes' do
+  describe 'is_cover_unreservable_frames_dates' do
     context 'today' do
       it do
-        expect(reserve_frame.is_cover_unreservable_frames_datetimes Date.today).to be_truthy
+        expect(reserve_frame.is_cover_unreservable_frames_dates Date.today).to be_truthy
       end
     end
 
     context 'yesterday' do
       it do
-        expect(reserve_frame.is_cover_unreservable_frames_datetimes Date.yesterday).to be_falsey
+        expect(reserve_frame.is_cover_unreservable_frames_dates Date.yesterday).to be_falsey
       end
     end
   end
 
-  describe 'out_of_range_frames_datetimes_range' do
+  describe 'out_of_range_frames_dates_range' do
     it do
-      out_of_range_frames_datetimes_range = reserve_frame.out_of_range_frames_datetimes_range
-      expect(out_of_range_frames_datetimes_range).to eq [out_of_range_frame.start_at..out_of_range_frame.end_at]
+      out_of_range_frames_dates_range = reserve_frame.out_of_range_frames_dates_range
+      expect(out_of_range_frames_dates_range).to eq [out_of_range_frame.start_at..out_of_range_frame.end_at]
     end
   end
 
-  describe 'is_cover_unreservable_frames_datetimes' do
+  describe 'is_cover_unreservable_frames_dates' do
     context 'after 3 days' do
       it do
-        expect(reserve_frame.is_cover_out_of_range_frames_datetimes(Date.today + 3.days)).to be_truthy
+        expect(reserve_frame.is_cover_out_of_range_frames_dates(Date.today + 3.days)).to be_truthy
       end
     end
 
     context 'today' do
       it do
-        expect(reserve_frame.is_cover_out_of_range_frames_datetimes Date.today).to be_falsey
+        expect(reserve_frame.is_cover_out_of_range_frames_dates Date.today).to be_falsey
       end
     end
   end
