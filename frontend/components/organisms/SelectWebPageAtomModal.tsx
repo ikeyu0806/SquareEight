@@ -9,7 +9,7 @@ import SelectImageAtomModal from 'components/molecules/SelectImageAtomModal'
 import SelectImageSlideAtomModal from 'components/molecules/SelectImageSlideAtomModal'
 import SelectExternalLinkAtomModal from 'components/molecules/SelectExternalLinkAtomModal'
 
-const SelectHomepageAtomModal = (): JSX.Element => {
+const SelectWebPageAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const selectedAtomType = useSelector((state: RootState) => state.webpage.selectedAtomType)
   const showBlockSample = useSelector((state: RootState) => state.webpage.showBlockSample)
@@ -52,4 +52,4 @@ const SelectHomepageAtomModal = (): JSX.Element => {
   )
 }
 
-export default SelectHomepageAtomModal
+export default SelectWebPageAtomModal

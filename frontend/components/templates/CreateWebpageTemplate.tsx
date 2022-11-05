@@ -25,7 +25,7 @@ const CreateWebpageTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const deletePage = () => {
     swalWithBootstrapButtons.fire({
       title: '削除します',
-      html: `${name}を削除します。<br />よろしいですか？`,
+      html: `${webpageTag}を削除します。<br />よろしいですか？`,
       icon: 'question',
       confirmButtonText: '削除する',
       cancelButtonText: 'キャンセル',
