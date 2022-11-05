@@ -1,5 +1,5 @@
 import React from 'react'
-import { Row, Col } from 'react-bootstrap'
+import { Row, Col, ListGroup } from 'react-bootstrap'
 import UpdateBlockStateIcons from 'components/organisms/UpdateBlockStateIcons'
 import HeadingBlock from 'components/organisms/HeadingBlock'
 import TextBlock from 'components/organisms/TextBlock'
@@ -38,15 +38,17 @@ const RenderWebpage = ({editPage}: Props): JSX.Element => {
                 case ATOM_TYPE.EXTERNAL_LINKS:
                   return (
                     <Col key={i2 + 12}>
-                      {(atom as ExternalLinkBlockStateType).content.map((c, i3) => {
-                        return (
-                          <a href={c.url}
-                             className='list-group-item list-group-item-action'
-                             target='_blank'
-                             rel='noreferrer'
-                             key={i3 + 100}>{c.text}</a>
-                        )
-                      })}
+                      <ListGroup>
+                        {(atom as ExternalLinkBlockStateType).content.map((c, i3) => {
+                          return (
+                            <a href={c.url}
+                              className='list-group-item list-group-item-action'
+                              target='_blank'
+                              rel='noreferrer'
+                              key={i3 + 100}>{c.text}</a>
+                          )
+                        })}
+                      </ListGroup>
                     </Col>)
                 case ATOM_TYPE.IMAGE:
                   return (

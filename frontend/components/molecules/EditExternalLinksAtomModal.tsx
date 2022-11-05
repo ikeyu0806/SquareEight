@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Button, Modal, Form } from 'react-bootstrap'
+import { Button, Modal, Form, ListGroup } from 'react-bootstrap'
 import { pageContentChanged,
          showBlockModalChanged,
          blockTypeChanged,
@@ -171,9 +171,11 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
           </Form.Group>
           <h5 className='mt20'>プレビュー</h5>
           <br />
-          {blockContent.map((json, i) => {
-            return (<a href={json.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{json.text}</a>)
-          })}
+          <ListGroup>
+            {blockContent.map((json, i) => {
+              return (<a href={json.url} className='list-group-item list-group-item-action' target='_blank' rel='noreferrer' key={i}>{json.text}</a>)
+            })}
+          </ListGroup>
         </Form>
       </Modal.Body>
       <Modal.Footer>
