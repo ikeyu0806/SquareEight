@@ -58,24 +58,28 @@ const ReserveFrameRepeatSetting = () => {
 
   const validateAddOutOfRangeFrame = () => {
     // 入力されているか
-    if (!outOfRangeFramesStartDate || !outOfRangeFramesEndDate) {
+    if (!outOfRangeFramesStartDate) {
       return true
     }
     // 開始日が終了日以降になってないか
-    if (outOfRangeFramesStartDate >= outOfRangeFramesEndDate) {
-      return true
+    if (outOfRangeFramesEndDate) {
+      if (outOfRangeFramesStartDate >= outOfRangeFramesEndDate) {
+        return true
+      }
     }
     return false
   }
 
   const validateAddUnreservableFrame = () => {
     // 入力されているか
-    if (!unreservableFramesStartDate || !unreservableFramesEndDate) {
+    if (!unreservableFramesStartDate) {
       return true
     }
     // 開始日が終了日以降になってないか
-    if (unreservableFramesStartDate >= unreservableFramesEndDate) {
-      return true
+    if (unreservableFramesEndDate) {
+      if (unreservableFramesStartDate >= unreservableFramesEndDate) {
+        return true
+      }
     }
     return false
   }

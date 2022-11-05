@@ -169,7 +169,9 @@ class ReserveFrame < ApplicationRecord
   end
 
   def unreservable_frames_dates_range
-    unreservable_frames.map { |frame| frame.start_at..frame.end_at }
+    unreservable_frames.map do |frame|
+      frame.end_at.present? ? frame.start_at.beginning_of_day..frame.end_at.end_of_day : frame.start_at.beginning_of_day..frame.start_at.end_of_day
+    end
   end
 
   def is_cover_unreservable_frames_dates(date)
@@ -180,7 +182,9 @@ class ReserveFrame < ApplicationRecord
   end
 
   def out_of_range_frames_dates_range
-    out_of_range_frames.map { |frame| frame.start_at..frame.end_at }
+    out_of_range_frames.map do |frame|
+      frame.end_at.present? ? frame.start_at.beginning_of_day..frame.end_at.end_of_day : frame.start_at.beginning_of_day..frame.start_at.end_of_day
+    end
   end
 
   def is_cover_out_of_range_frames_dates(date)
@@ -469,7 +473,7 @@ class ReserveFrame < ApplicationRecord
     result = []
     out_of_range_frames.each do |out_of_range_frame|
       result.push({"start_at": out_of_range_frame.start_at.strftime("%Y-%m-%d"),
-                   "end_at": out_of_range_frame.end_at.strftime("%Y-%m-%d")})
+                   "end_at": out_of_range_frame.end_at&.strftime("%Y-%m-%d")})
     end
     result
   end
@@ -478,7 +482,7 @@ class ReserveFrame < ApplicationRecord
     result = []
     unreservable_frames.each do |unreservable_frame|
       result.push({"start_at": unreservable_frame.start_at.strftime("%Y-%m-%d"),
-                   "end_at": unreservable_frame.end_at.strftime("%Y-%m-%d")})
+                   "end_at": unreservable_frame.end_at&.strftime("%Y-%m-%d")})
     end
     result
   end
