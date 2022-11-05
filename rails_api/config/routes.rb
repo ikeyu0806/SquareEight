@@ -54,7 +54,6 @@ Rails.application.routes.draw do
       post 'end_users/update_password', to: 'end_users#update_password'
       post 'end_users/resend_verification_code', to: 'end_users#resend_verification_code'
       post 'end_users', to: 'end_users#create'
-      delete 'end_users/reservations/:public_id', to: 'end_users#cancel_reservation'
       delete 'end_users/:payment_method_id/detach_stripe_payment_method', to: 'end_users#detach_stripe_payment_method'
       delete 'end_users/disconnect_google_auth', to: 'end_users#disconnect_google_auth'
       delete 'end_users/:public_id/cancel_subscription', to: 'end_users#cancel_subscription'
@@ -169,6 +168,7 @@ Rails.application.routes.draw do
         post 'sessions', to: 'sessions#create'
         delete 'sessions', to: 'sessions#destroy'
         get 'reservations', to: 'reservations#index'
+        delete 'reservations/:public_id/cancel_reservation', to: 'reservations#cancel_reservation'
       end
       namespace :account do
         get 'stripe_payment_intents/system_plan_subscription_payments', to: 'stripe_payment_intents#system_plan_subscription_payments'
