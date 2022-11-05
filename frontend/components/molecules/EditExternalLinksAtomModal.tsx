@@ -153,7 +153,7 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
             {pageLinks.map((link, i) => {
               return (
                 <option key={i} value={link.value}>
-                  {link.text}&emsp;<span>【{link.label}】</span>
+                  {link.text}&emsp;【{link.label}】
                 </option>
               )
             })}
