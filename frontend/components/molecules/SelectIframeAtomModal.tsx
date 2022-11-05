@@ -18,7 +18,7 @@ const SelectIframeAtomModal = (): JSX.Element => {
           <input className='form-check-input mr10'
                  defaultChecked={selectedAtomType === ATOM_TYPE.IFRAME}
                  type='radio'/>
-          <span>見出し</span>
+          <span>ページ埋め込み（iframe）</span>
           <div className='mt10'>別ページの埋め込み（iframe）を追加します。</div>
           {showBlockSample && 
             <>

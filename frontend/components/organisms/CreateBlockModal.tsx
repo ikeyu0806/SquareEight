@@ -5,6 +5,7 @@ import { RootState } from 'redux/store'
 import EditHeadingAtomModal from 'components/molecules/EditHeadingAtomModal'
 import EditTextAtomModal from 'components/molecules/EditTextAtomModal'
 import EditExternalLinksAtomModal from 'components/molecules/EditExternalLinksAtomModal'
+import EditIframeAtomModal from 'components/molecules/EditIframeAtomModal'
 import SelectWebPageAtomModal from 'components/organisms/SelectWebPageAtomModal'
 import EditImageBlockAtomModal from 'components/molecules/EditImageBlockAtomModal'
 import EditImageSlideBlockAtomModal from 'components/molecules/EditImageSlideBlockAtomModal'
@@ -22,6 +23,7 @@ const CreateBlockModal = (): JSX.Element => {
         {selectedAtomType === ATOM_TYPE.TEXT && <EditTextAtomModal></EditTextAtomModal>}
         {selectedAtomType === ATOM_TYPE.HEADING && <EditHeadingAtomModal></EditHeadingAtomModal>}
         {selectedAtomType === ATOM_TYPE.EXTERNAL_LINKS && <EditExternalLinksAtomModal></EditExternalLinksAtomModal>}
+        {selectedAtomType === ATOM_TYPE.IFRAME && <EditIframeAtomModal></EditIframeAtomModal>}
         {selectedAtomType === ATOM_TYPE.IMAGE && <EditImageBlockAtomModal></EditImageBlockAtomModal>}
         {selectedAtomType === ATOM_TYPE.IMAGE_SLIDE && <EditImageSlideBlockAtomModal></EditImageSlideBlockAtomModal>}
       </Modal>
