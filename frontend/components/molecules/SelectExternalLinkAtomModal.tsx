@@ -17,7 +17,6 @@ const SelectExternalLinkAtomModal = (): JSX.Element => {
         <Card.Body>
           <input className='form-check-input mr10'
                  type='radio'
-                 onChange={() => dispatch(atomTypeChanged(ATOM_TYPE.EXTERNAL_LINKS))}
                  checked={selectedAtomType === BLOCK_TYPE.EXTERNAL_LINKS} />
           <span>ページリンク</span>
           <div className='mt10'>

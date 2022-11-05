@@ -16,7 +16,6 @@ const SelectTextAtomModal = (): JSX.Element => {
         <Card.Body>
           <input className='form-check-input mr10'
                  checked={selectedAtomType === ATOM_TYPE.TEXT}
-                 onChange={() => dispatch(atomTypeChanged(ATOM_TYPE.TEXT))}
                  type='radio'/>
           <span>テキスト</span>
           <div className='mt10'>テキストを追加します。</div>

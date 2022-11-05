@@ -13,17 +13,17 @@ import { ATOM_TYPE } from 'constants/atomType'
 const CreateBlockModal = (): JSX.Element => {
   const showBlockModal = useSelector((state: RootState) => state.webpage.showBlockModal)
   const blockType = useSelector((state: RootState) => state.webpage.blockType)
-  const atomType = useSelector((state: RootState) => state.webpage.atomType)
+  const selectedAtomType = useSelector((state: RootState) => state.webpage.selectedAtomType)
 
   return (
     <>
       <Modal show={showBlockModal} size='lg'>
-        {atomType === '' && <SelectWebPageAtomModal></SelectWebPageAtomModal>}
-        {atomType === ATOM_TYPE.TEXT && <EditTextAtomModal></EditTextAtomModal>}
-        {atomType === ATOM_TYPE.HEADING && <EditHeadingAtomModal></EditHeadingAtomModal>}
-        {atomType === ATOM_TYPE.EXTERNAL_LINKS && <EditExternalLinksAtomModal></EditExternalLinksAtomModal>}
-        {atomType === ATOM_TYPE.IMAGE && <EditImageBlockAtomModal></EditImageBlockAtomModal>}
-        {atomType === ATOM_TYPE.IMAGE_SLIDE && <EditImageSlideBlockAtomModal></EditImageSlideBlockAtomModal>}
+        {selectedAtomType === '' && <SelectWebPageAtomModal></SelectWebPageAtomModal>}
+        {selectedAtomType === ATOM_TYPE.TEXT && <EditTextAtomModal></EditTextAtomModal>}
+        {selectedAtomType === ATOM_TYPE.HEADING && <EditHeadingAtomModal></EditHeadingAtomModal>}
+        {selectedAtomType === ATOM_TYPE.EXTERNAL_LINKS && <EditExternalLinksAtomModal></EditExternalLinksAtomModal>}
+        {selectedAtomType === ATOM_TYPE.IMAGE && <EditImageBlockAtomModal></EditImageBlockAtomModal>}
+        {selectedAtomType === ATOM_TYPE.IMAGE_SLIDE && <EditImageSlideBlockAtomModal></EditImageSlideBlockAtomModal>}
       </Modal>
     </>
   )
