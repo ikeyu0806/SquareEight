@@ -33,6 +33,7 @@ export interface ExternalLinkTextWithUrl {
 }
 
 export interface IframeAtom {
+  atomType: string
   src: string
   width: number
   height: number

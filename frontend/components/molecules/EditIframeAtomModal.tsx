@@ -56,19 +56,17 @@ const EditIframeAtomModal = (): JSX.Element => {
   }
 
   const addAtomNewBlockFunc = () => {
-    let targetBlockContentState: BlockContent | undefined = pageContent.blockContent.find(content => content.blockID === selectedBlockID)
-    if (targetBlockContentState !== undefined) {
-      let updateAtoms: IframeAtom[] = targetBlockContentState.atoms as IframeAtom[]
-      updateAtoms = [...updateAtoms, { atomType: ATOM_TYPE.IFRAME, src: inputSrc, width: inputWidth, height: inputHeight } as IframeAtom]
-      let insertBlockContentState: BlockContent = { atoms: updateAtoms, blockID: targetBlockContentState.blockID, sortOrder: targetBlockContentState.sortOrder }
-      let filterBlockContents = pageContent.blockContent.filter(content => content.blockID !== insertBlockContentState.blockID)
-      let updatePageContentState: PageContentState = { blockContent: [...filterBlockContents, insertBlockContentState] }
-      dispatch((pageContentChanged(updatePageContentState)))
+      let IframeAtomState: IframeAtom
+      IframeAtomState = { atomType: 'iframe', src: inputSrc, width: inputWidth, height: inputHeight }
+      let blockID = new Date().getTime().toString(16)
+      let BlockState: BlockContent
+      BlockState = { blockID: blockID, atoms: [IframeAtomState], sortOrder: currentMaxSortOrder + 1 }
+      let updatePageContentState: PageContentState = { blockContent: [...pageContent.blockContent, BlockState] }
+      dispatch(pageContentChanged(updatePageContentState))
       dispatch(showBlockModalChanged(false))
       dispatch(atomTypeChanged(''))
       dispatch(selectedAtomTypeChanged(''))
-      dispatch(addAtomSelectedBlockChanged(false))
-    }
+      dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
   }
 
   const addAtomSelectedBlockFunc = () => {
