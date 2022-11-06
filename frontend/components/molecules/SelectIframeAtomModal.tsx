@@ -22,6 +22,7 @@ const SelectIframeAtomModal = (): JSX.Element => {
           <div className='mt10'>別ページの埋め込み（iframe）を追加します。</div>
           {showBlockSample && 
             <>
+              <hr />
               <iframe src='/' width={600} height={500} />
             </>
           }
