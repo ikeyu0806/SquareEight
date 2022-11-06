@@ -85,6 +85,10 @@ class Api::Internal::WebpagesController < ApplicationController
                                             :base64Image,
                                             :image,
                                             :url,
+                                            # iframe
+                                            :src,
+                                            :width,
+                                            :height,
                                             # 画像スライド
                                             imageSlide: [
                                               :title,
@@ -97,7 +101,7 @@ class Api::Internal::WebpagesController < ApplicationController
                                               # ページリンク 
                                               :text,
                                               :url,
-                                            ]
+                                            ],
                                           ]]])
   end
 end
