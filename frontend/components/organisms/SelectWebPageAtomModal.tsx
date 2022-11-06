@@ -9,6 +9,7 @@ import SelectImageAtomModal from 'components/molecules/SelectImageAtomModal'
 import SelectImageSlideAtomModal from 'components/molecules/SelectImageSlideAtomModal'
 import SelectExternalLinkAtomModal from 'components/molecules/SelectExternalLinkAtomModal'
 import SelectIframeAtomModal from 'components/molecules/SelectIframeAtomModal'
+import SelectHTMLAtomModal from 'components/molecules/SelectHTMLAtomModal'
 
 const SelectWebPageAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -41,6 +42,8 @@ const SelectWebPageAtomModal = (): JSX.Element => {
             <SelectExternalLinkAtomModal></SelectExternalLinkAtomModal>
             <br />
             <SelectIframeAtomModal></SelectIframeAtomModal>
+            <br />
+            <SelectHTMLAtomModal></SelectHTMLAtomModal>
             <br />
             <SelectImageAtomModal></SelectImageAtomModal>
             <br />

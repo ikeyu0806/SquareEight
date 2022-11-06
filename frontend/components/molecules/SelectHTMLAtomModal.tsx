@@ -6,30 +6,24 @@ import { RootState } from 'redux/store'
 import { ATOM_TYPE } from 'constants/atomType'
 
 
-const SelectIframeAtomModal = (): JSX.Element => {
+const SelectHTMLAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const showBlockSample = useSelector((state: RootState) => state.webpage.showBlockSample)
   const selectedAtomType = useSelector((state: RootState) => state.webpage.selectedAtomType)
 
   return(
-    <div onClick={() => dispatch(selectedAtomTypeChanged(ATOM_TYPE.IFRAME))}>
+    <div onClick={() => dispatch(selectedAtomTypeChanged(ATOM_TYPE.HTML))}>
       <Card>
         <Card.Body>
           <input className='form-check-input mr10'
-                 defaultChecked={selectedAtomType === ATOM_TYPE.IFRAME}
+                 defaultChecked={selectedAtomType === ATOM_TYPE.HTML}
                  type='radio'/>
-          <span>ページ埋め込み（iframe）</span>
-          <div className='mt10'>別ページの埋め込み（iframe）を追加します。</div>
-          {showBlockSample && 
-            <>
-              <hr />
-              <iframe src='/' width={600} height={500} />
-            </>
-          }
+          <span>HTML埋め込み</span>
+          <div className='mt10'>HTMLを直接埋め込んでコンテンツを表示できます</div>
         </Card.Body>
       </Card>
     </div>
   )
 }
 
-export default SelectIframeAtomModal
+export default SelectHTMLAtomModal

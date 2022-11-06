@@ -4,5 +4,6 @@ export const BLOCK_TYPE = {
   IMAGE_SLIDE: 'imageSlide',
   TEXT_IMAGE: 'textImage',
   EXTERNAL_LINKS: 'externalLinks',
-  IFRAME: 'iframe'
+  IFRAME: 'iframe',
+  HTML: 'html'
 } as const
