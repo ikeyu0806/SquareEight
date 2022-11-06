@@ -59,17 +59,19 @@ const RenderWebpage = ({editPage}: Props): JSX.Element => {
                   )
                 case ATOM_TYPE.HTML:
                   return (
-                    parse((atom as HTMLAtom).html)
+                    <Col key={i2 + 14}>
+                      {parse((atom as HTMLAtom).html)}
+                    </Col>
                   )
                 case ATOM_TYPE.IMAGE:
                   return (
-                    <Col key={i2 + 14}>
+                    <Col key={i2 + 15}>
                       <ImageBlock atomState={(atom as ImageAtom)}></ImageBlock>
                     </Col>
                   )
                 case ATOM_TYPE.IMAGE_SLIDE:
                   return (
-                    <Col key={i2 + 15}>
+                    <Col key={i2 + 16}>
                       <ImageSlideBlock atomState={(atom as ImageSlide).imageSlide}></ImageSlideBlock>
                     </Col>
                   )
