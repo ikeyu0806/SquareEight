@@ -161,4 +161,8 @@ class Account < ApplicationRecord
     return [] if stripe_persons.blank?
     stripe_persons.map{|person| person.last_name + person.first_name}
   end
+
+  def merchant_user_emails
+    merchant_users.pluck(:email)
+  end
 end
