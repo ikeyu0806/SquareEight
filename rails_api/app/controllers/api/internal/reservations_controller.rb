@@ -341,7 +341,7 @@ class Api::Internal::ReservationsController < ApplicationController
     customer = reservation.customer
     # swal2のcheckboxにチェックを入れると"1"になる
     if params[:send_mail] == "1" && customer.email.present?
-      ReservationMailer.cancel_mail(reservation.id, customer.id).deliver_later
+      ReservationMailer.cancel_mail_to_customer(reservation.id, customer.id).deliver_later
     end
     render json: { status: 'success' }, status: 200
   rescue => error
