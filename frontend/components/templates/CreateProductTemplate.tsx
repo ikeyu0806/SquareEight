@@ -67,7 +67,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
     productTypes.map((p, i) => {
       updateProductTypes.push(p)
     })
-    updateProductTypes.push({name: '', inventory: 0})
+    updateProductTypes.push({public_id: '', name: '', inventory: 0})
     dispatch(productTypesChanged(updateProductTypes))
   }
 
@@ -75,7 +75,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
     let updateProductType: ProductType
     let updateProductTypes: ProductType[]
     updateProductTypes = []
-    updateProductType = {name: '', inventory: 0}
+    updateProductType = {public_id: '', name: '', inventory: 0}
     updateProductType.name = event.target.value
     updateProductType.inventory = productTypes[productTypeNameRef].inventory
     productTypes.map((p, i) => {
@@ -92,7 +92,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
     let updateProductType: ProductType
     let updateProductTypes: ProductType[]
     updateProductTypes = []
-    updateProductType = {name: '', inventory: 0}
+    updateProductType = {public_id: '', name: '', inventory: 0}
     updateProductType.inventory = Number(event.target.value)
     updateProductType.name = productTypes[inventoryRef].name
     productTypes.map((p, i) => {
