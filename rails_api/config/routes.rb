@@ -7,6 +7,9 @@ Rails.application.routes.draw do
   post 'stripe_webhooks', to: 'stripe_webhooks#index'
 
   namespace :api do
+    namespace :batch do
+      post 'reservations/remind_date_notifications', to: 'reservations#remind_date_notifications'
+    end
     namespace :internal do
       get 'accounts/stripe_account_info', to: 'accounts#stripe_account_info'
       get 'accounts/dashboard_contents', to: 'accounts#dashboard_contents'

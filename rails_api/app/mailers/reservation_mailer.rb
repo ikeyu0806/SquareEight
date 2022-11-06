@@ -38,4 +38,10 @@ class ReservationMailer < ApplicationMailer
     email = account.merchant_user_emails.join(',')
     mail(to: email, subject: @customer.full_name + 'さんが予約をキャンセルしました')
   end
+
+  def remind_mail_to_customer(reservation_id)
+    @reservation = Reservation.find(reservation_id)
+    @customer = reservation.customer
+    mail(to: @customer.email, subject: '通知: ' + @reservation.reserve_frame.title + start_at.strftime("%Y/%m/%d %H:%M~"))
+  end
 end
