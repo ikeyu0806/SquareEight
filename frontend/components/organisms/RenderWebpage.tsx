@@ -3,7 +3,7 @@ import { Row, Col, ListGroup } from 'react-bootstrap'
 import UpdateBlockStateIcons from 'components/organisms/UpdateBlockStateIcons'
 import HeadingBlock from 'components/organisms/HeadingBlock'
 import TextBlock from 'components/organisms/TextBlock'
-import { HeadingAtom, ImageSlide, TextAtom, ImageAtom } from 'interfaces/PageContentState'
+import { HeadingAtom, ImageSlide, TextAtom, IframeAtom, ImageAtom } from 'interfaces/PageContentState'
 import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
 import { ATOM_TYPE } from 'constants/atomType'
 import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
@@ -23,7 +23,7 @@ const RenderWebpage = ({editPage}: Props): JSX.Element => {
       {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
         return [
           <Row key={i}>
-            {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[] | ImageAtom[] | ImageSlide[]).map((atom, i2) => {
+            {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[] | IframeAtom[] | ImageAtom[] | ImageSlide[]).map((atom, i2) => {
               {switch(atom.atomType) {
                 case ATOM_TYPE.HEADING:
                   return (
@@ -50,15 +50,21 @@ const RenderWebpage = ({editPage}: Props): JSX.Element => {
                         })}
                       </ListGroup>
                     </Col>)
-                case ATOM_TYPE.IMAGE:
+                case ATOM_TYPE.IFRAME:
                   return (
                     <Col key={i2 + 13}>
+                      <iframe src={(atom as IframeAtom).src} height={(atom as IframeAtom).height} width={(atom as IframeAtom).width} />
+                    </Col>
+                  )
+                case ATOM_TYPE.IMAGE:
+                  return (
+                    <Col key={i2 + 14}>
                       <ImageBlock atomState={(atom as ImageAtom)}></ImageBlock>
                     </Col>
                   )
                 case ATOM_TYPE.IMAGE_SLIDE:
                   return (
-                    <Col key={i2 + 14}>
+                    <Col key={i2 + 15}>
                       <ImageSlideBlock atomState={(atom as ImageSlide).imageSlide}></ImageSlideBlock>
                     </Col>
                   )
