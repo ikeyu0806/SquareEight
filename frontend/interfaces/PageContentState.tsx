@@ -4,7 +4,7 @@ export interface PageContentState {
 
 export interface BlockContent {
   blockID: string
-  atoms: HeadingAtom[] | TextAtom[] | ExternalLinkBlockStateType[] | ImageAtom[] | ImageSlide[]
+  atoms: HeadingAtom[] | TextAtom[] | ExternalLinkBlockStateType[] | IframeAtom[] | ImageAtom[] | ImageSlide[]
   sortOrder: number
 }
 
@@ -22,14 +22,20 @@ export interface TextAtom {
   text: string
 }
 
-
 export type placementType = 'left' | 'center' | 'right'
 export type headingSizeType = 1 | 2 | 3 | 4 | 5 | 6
 
 // リンク
 export interface ExternalLinkTextWithUrl {
+  atomType: string
   text: string
   url: string
+}
+
+export interface IframeAtom {
+  src: string
+  width: number
+  height: number
 }
 
 export interface ExternalLinkBlockStateType {
