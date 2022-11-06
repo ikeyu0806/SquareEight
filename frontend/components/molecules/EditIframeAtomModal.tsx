@@ -26,6 +26,7 @@ const EditIframeAtomModal = (): JSX.Element => {
   const [inputSrc, setInputSrc] = useState('')
   const [inputWidth, setInputWidth] = useState(300)
   const [inputHeight, setInputHeight] = useState(300)
+  const [inputSrcType, setInputSrcType] = useState('inputSrc')
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
   const currentMaxSortOrder = useSelector((state: RootState) => state.webpage.currentMaxSortOrder)
   const addAtomSelectedBlock = useSelector((state: RootState) => state.webpage.addAtomSelectedBlock)
@@ -106,16 +107,32 @@ const EditIframeAtomModal = (): JSX.Element => {
       </Modal.Header>
       <Modal.Body>
         <Form.Group>
-          <Form.Text>URL、パスを入力してください</Form.Text>
+          <div>src設定</div>
+          <Form.Check
+            type='radio'
+            id='inputSrcTypeCheck'
+            name='srcTypeCheck'
+            label='URL、パスを入力する'
+            checked={inputSrcType === 'inputSrc'}
+            onChange={() => setInputSrcType('inputSrc')}
+          />
+          <Form.Check
+            type='radio'
+            id='pageLinkSrcTypeCheck'
+            name='srcTypeCheck'
+            label='SquareEightで作成したページを埋め込む'
+            checked={inputSrcType === 'pageLink'}
+            onChange={() => setInputSrcType('pageLink')}
+          />
           <Form.Control placeholder=''
                         value={inputSrc}
                         onChange={(e) => setInputSrc(e.target.value)}></Form.Control>
-          <Form.Text>iframeの縦幅を入力してください</Form.Text>
+          <div>iframeの縦幅を入力してください</div>
           <Form.Control placeholder=''
                         type='number'
                         value={inputHeight}
                         onChange={(e) => setInputHeight(Number(e.target.value))}></Form.Control>
-          <Form.Text>iframeの横幅を入力してください</Form.Text>
+          <div>iframeの横幅を入力してください</div>
           <Form.Control placeholder=''
                         type='number'
                         value={inputWidth}
