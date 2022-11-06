@@ -12,9 +12,10 @@ import { titleChanged,
 
 const CreateQuestionnaireMaster = (): JSX.Element => {
   const dispatch = useDispatch()
-  const questionnaireMasterItems = useSelector((state: RootState) => state.questionnaireMaster.questionnaireMasterItems)
+  const publishStatus = useSelector((state: RootState) => state.questionnaireMaster.publishStatus)
   const title = useSelector((state: RootState) => state.questionnaireMaster.title)
   const description = useSelector((state: RootState) => state.questionnaireMaster.description)
+
   return (
     <>
       <Form.Label>アンケートのタイトル<RequireBadge></RequireBadge></Form.Label>
@@ -46,7 +47,10 @@ const CreateQuestionnaireMaster = (): JSX.Element => {
           <Col>
             <Form.Group className='mb-3'>
               <Form.Label>公開設定</Form.Label>
-              <Form.Select placeholder='メニュー名' onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
+              <Form.Select
+                placeholder='メニュー名'
+                value={publishStatus || 'Unpublish'}
+                onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
                 <option value='Unpublish'>非公開</option>
                 <option value='Publish'>公開</option>
               </Form.Select>

@@ -31,6 +31,7 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const effectiveMonth = useSelector((state: RootState) => state.ticketMaster.effectiveMonth)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
+  const publishStatus = useSelector((state: RootState) => state.monthlyPaymentPlan.publishStatus)
 
   const execDelete = () => {
     swalWithBootstrapButtons.fire({
@@ -126,7 +127,10 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
                 <Col>
                   <Form.Group className='mb-3'>
                     <Form.Label>公開設定</Form.Label>
-                    <Form.Select placeholder='メニュー名' onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
+                    <Form.Select
+                      placeholder='メニュー名'
+                      value={publishStatus || 'Unpublish'}
+                      onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
                       <option value='Unpublish'>非公開</option>
                       <option value='Publish'>公開</option>
                     </Form.Select>

@@ -34,6 +34,7 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
+  const publishStatus = useSelector((state: RootState) => state.monthlyPaymentPlan.publishStatus)
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -150,7 +151,9 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
             <Col>
               <Form.Group className='mb-3'>
                 <Form.Label>公開設定</Form.Label>
-                <Form.Select placeholder='メニュー名' onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
+                <Form.Select placeholder='メニュー名'
+                  value={publishStatus || 'Unpublish'}
+                  onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
                   <option value='Unpublish'>非公開</option>
                   <option value='Publish'>公開</option>
                 </Form.Select>
