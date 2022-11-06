@@ -4,6 +4,7 @@ class Reservation < ApplicationRecord
   include PublicIdModule
 
   belongs_to :reserve_frame
+  has_one :account, through: :reserve_frame
   has_one :customer, foreign_key: :id, primary_key: :customer_id
   has_one :monthly_payment_plan, foreign_key: :id, primary_key: :monthly_payment_plan_id
   has_many :reservation_local_payment_prices

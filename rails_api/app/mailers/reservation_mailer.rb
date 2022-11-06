@@ -30,4 +30,11 @@ class ReservationMailer < ApplicationMailer
     @customer = Customer.find(customer_id)
     mail(to: @customer.email, subject: '予約をキャンセルしました')
   end
+
+  def cancel_mail_to_merchant(reservation_id, customer_id)
+    @reservation = Reservation.find(reservation_id)
+    @customer = Customer.find(customer_id)
+    account = @reservation.account
+    mail(to: account.email, subject: @customer + 'さんが予約をキャンセルしました')
+  end
 end
