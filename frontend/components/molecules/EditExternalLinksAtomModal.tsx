@@ -60,7 +60,7 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
   
   const onClickAddLinkButton = () => {
     let updateBlockContent: ExternalLinkTextWithUrl[]
-    updateBlockContent = [...blockContent, {text: inputLinkText, url: inputLink }]
+    updateBlockContent = [...blockContent, {atomType: ATOM_TYPE.TEXT, text: inputLinkText, url: inputLink }]
     setBlockContent(updateBlockContent)
     clearInputTextState()
   }
