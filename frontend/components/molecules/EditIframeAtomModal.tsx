@@ -127,12 +127,23 @@ const EditIframeAtomModal = (): JSX.Element => {
           <Form.Control placeholder=''
                         value={inputSrc}
                         onChange={(e) => setInputSrc(e.target.value)}></Form.Control>
-          <div>iframeの縦幅を入力してください</div>
+          {inputSrcType === 'pageLink'
+            &&
+            <Form.Select onChange={(e) => setInputSrc(e.target.value)} className='mt20'>
+            {pageLinks.map((link, i) => {
+              return (
+                <option key={i} value={link.value}>
+                  {link.text}&emsp;【{link.label}】
+                </option>
+              )
+            })}
+          </Form.Select>}
+          <div className='mt20'>iframeの縦幅を入力してください</div>
           <Form.Control placeholder=''
                         type='number'
                         value={inputHeight}
                         onChange={(e) => setInputHeight(Number(e.target.value))}></Form.Control>
-          <div>iframeの横幅を入力してください</div>
+          <div className='mt20'>iframeの横幅を入力してください</div>
           <Form.Control placeholder=''
                         type='number'
                         value={inputWidth}
