@@ -3,7 +3,6 @@ import { Card, ListGroup } from 'react-bootstrap'
 import { selectedAtomTypeChanged, atomTypeChanged } from 'redux/webpageSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
-import { BLOCK_TYPE } from 'constants/blockType'
 import { ATOM_TYPE } from 'constants/atomType'
 
 const SelectExternalLinkAtomModal = (): JSX.Element => {
@@ -17,7 +16,7 @@ const SelectExternalLinkAtomModal = (): JSX.Element => {
         <Card.Body>
           <input className='form-check-input mr10'
                  type='radio'
-                 defaultChecked={selectedAtomType === BLOCK_TYPE.EXTERNAL_LINKS} />
+                 defaultChecked={selectedAtomType === ATOM_TYPE.EXTERNAL_LINKS} />
           <span>ページリンク</span>
           <div className='mt10'>
             ページリンク集を追加します。<br/>

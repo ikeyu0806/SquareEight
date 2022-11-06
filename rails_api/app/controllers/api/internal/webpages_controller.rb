@@ -90,6 +90,8 @@ class Api::Internal::WebpagesController < ApplicationController
                                             :src,
                                             :width,
                                             :height,
+                                            # html
+                                            :html,
                                             # 画像スライド
                                             imageSlide: [
                                               :title,

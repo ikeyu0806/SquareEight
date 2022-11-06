@@ -9,6 +9,7 @@ import EditIframeAtomModal from 'components/molecules/EditIframeAtomModal'
 import SelectWebPageAtomModal from 'components/organisms/SelectWebPageAtomModal'
 import EditImageBlockAtomModal from 'components/molecules/EditImageBlockAtomModal'
 import EditImageSlideBlockAtomModal from 'components/molecules/EditImageSlideBlockAtomModal'
+import EditHTMLAtomModal from 'components/molecules/EditHTMLAtomModal'
 import { ATOM_TYPE } from 'constants/atomType'
 
 const CreateBlockModal = (): JSX.Element => {
@@ -23,6 +24,7 @@ const CreateBlockModal = (): JSX.Element => {
         {selectedAtomType === ATOM_TYPE.TEXT && <EditTextAtomModal></EditTextAtomModal>}
         {selectedAtomType === ATOM_TYPE.HEADING && <EditHeadingAtomModal></EditHeadingAtomModal>}
         {selectedAtomType === ATOM_TYPE.EXTERNAL_LINKS && <EditExternalLinksAtomModal></EditExternalLinksAtomModal>}
+        {selectedAtomType === ATOM_TYPE.HTML && <EditHTMLAtomModal></EditHTMLAtomModal>}
         {selectedAtomType === ATOM_TYPE.IFRAME && <EditIframeAtomModal></EditIframeAtomModal>}
         {selectedAtomType === ATOM_TYPE.IMAGE && <EditImageBlockAtomModal></EditImageBlockAtomModal>}
         {selectedAtomType === ATOM_TYPE.IMAGE_SLIDE && <EditImageSlideBlockAtomModal></EditImageSlideBlockAtomModal>}

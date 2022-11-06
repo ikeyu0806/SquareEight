@@ -3,13 +3,14 @@ import { Row, Col, ListGroup } from 'react-bootstrap'
 import UpdateBlockStateIcons from 'components/organisms/UpdateBlockStateIcons'
 import HeadingBlock from 'components/organisms/HeadingBlock'
 import TextBlock from 'components/organisms/TextBlock'
-import { HeadingAtom, ImageSlide, TextAtom, IframeAtom, ImageAtom } from 'interfaces/PageContentState'
+import { HeadingAtom, ImageSlide, TextAtom, IframeAtom, HTMLAtom, ImageAtom } from 'interfaces/PageContentState'
 import { ExternalLinkBlockStateType } from 'interfaces/PageContentState'
 import { ATOM_TYPE } from 'constants/atomType'
 import ImageSlideBlock from 'components/organisms/ImageSlideBlock'
 import ImageBlock from 'components/organisms/ImageBlock'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
+import parse from 'html-react-parser'
 
 interface Props {
   editPage?: boolean
@@ -23,7 +24,7 @@ const RenderWebpage = ({editPage}: Props): JSX.Element => {
       {pageContent.blockContent && pageContent.blockContent.map((block, i) => {
         return [
           <Row key={i}>
-            {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[] | IframeAtom[] | ImageAtom[] | ImageSlide[]).map((atom, i2) => {
+            {(block.atoms as HeadingAtom[] | ExternalLinkBlockStateType[] | IframeAtom[] | HTMLAtom[] | ImageAtom[] | ImageSlide[]).map((atom, i2) => {
               {switch(atom.atomType) {
                 case ATOM_TYPE.HEADING:
                   return (
@@ -56,15 +57,21 @@ const RenderWebpage = ({editPage}: Props): JSX.Element => {
                       <iframe src={(atom as IframeAtom).src} height={(atom as IframeAtom).height} width={(atom as IframeAtom).width} />
                     </Col>
                   )
-                case ATOM_TYPE.IMAGE:
+                case ATOM_TYPE.HTML:
                   return (
                     <Col key={i2 + 14}>
+                      {parse((atom as HTMLAtom).html)}
+                    </Col>
+                  )
+                case ATOM_TYPE.IMAGE:
+                  return (
+                    <Col key={i2 + 15}>
                       <ImageBlock atomState={(atom as ImageAtom)}></ImageBlock>
                     </Col>
                   )
                 case ATOM_TYPE.IMAGE_SLIDE:
                   return (
-                    <Col key={i2 + 15}>
+                    <Col key={i2 + 16}>
                       <ImageSlideBlock atomState={(atom as ImageSlide).imageSlide}></ImageSlideBlock>
                     </Col>
                   )
