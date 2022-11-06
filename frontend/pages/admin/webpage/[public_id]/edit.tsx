@@ -7,7 +7,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
-import { webpageTagChanged, pageContentChanged, currentMaxSortOrderChanged } from 'redux/webpageSlice'
+import { webpageTagChanged, pageContentChanged, currentMaxSortOrderChanged, publishStatusChanged } from 'redux/webpageSlice'
 import { Button } from 'react-bootstrap'
 import { alertChanged } from 'redux/alertSlice'
 
@@ -29,9 +29,11 @@ const Edit: NextPage = () => {
         }
       )
       .then(function (response) {
+        console.log(response.data)
+        dispatch(publishStatusChanged(response.data.webpage.publish_status))
         dispatch(webpageTagChanged(response.data.webpage.tag))
         dispatch(pageContentChanged({blockContent: response.data.webpage.block_contents}))
-        dispatch(currentMaxSortOrderChanged(response.data.max_sort_order))
+        dispatch(currentMaxSortOrderChanged(response.data.webpage.max_sort_order))
       })
       .catch(error => {
         dispatch(alertChanged({message: error, show: true, type: 'danger'}))

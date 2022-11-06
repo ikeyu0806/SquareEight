@@ -10,9 +10,10 @@ class Api::Internal::WebpagesController < ApplicationController
 
   def show
     webpage = Webpage.find_by(public_id: params[:public_id])
-    webpage_json = JSON.parse(webpage.to_json(methods: [:block_contents]))
+    webpage_json = JSON.parse(webpage.to_json(methods: [:block_contents, :max_sort_order]))
     shared_component = webpage.account.shared_component
-    render json: { status: 'success', webpage: webpage_json, shared_component: shared_component }, status: 200
+    render json: { status: 'success',
+                   webpage: webpage_json, shared_component: shared_component }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
   end

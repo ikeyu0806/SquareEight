@@ -21,6 +21,7 @@ const CreateWebpageTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
+  const publishStatus = useSelector((state: RootState) => state.webpage.publishStatus)
 
   const deletePage = () => {
     swalWithBootstrapButtons.fire({
@@ -74,7 +75,9 @@ const CreateWebpageTemplate = ({showDeleteButton}: Props): JSX.Element => {
             <Col>
               <Form.Group className='mb-3'>
                 <Form.Label>公開設定</Form.Label>
-                <Form.Select placeholder='メニュー名' onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
+                <Form.Select
+                  onChange={(e) => dispatch(publishStatusChanged(e.target.value))}
+                  value={publishStatus || 'Unpublish'}>
                   <option value='Unpublish'>非公開</option>
                   <option value='Publish'>公開</option>
                 </Form.Select>
