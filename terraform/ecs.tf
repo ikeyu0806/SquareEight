@@ -74,9 +74,38 @@ resource "aws_ecs_task_definition" "square-eight" {
   # rails起動時はmigration、assets:precompile、pumaの起動を実行
   container_definitions = <<EOL
 [
+    {
+    "name": "square_eight_rails_api",
+    "image": "606213504831.dkr.ecr.ap-northeast-1.amazonaws.com/square-eight-${terraform.workspace}/rails-api:latest",
+    "essential": true,
+    "workingDirectory": "/rails-api/rails",
+    "command": [
+      "bash",
+      "-c",
+      "bundle exec rails db:migrate && bundle exec puma -C /rails-api/rails/config/puma.rb"
+    ],
+    "environmentFiles": [{
+      "value": "arn:aws:s3:::square-eight-ecs-env/docker_ecs_${terraform.workspace}.env",
+      "type": "s3"
+    }],
+    "portMappings": [
+      {
+        "containerPort": 3000,
+        "hostPort": 3000
+      }
+    ],
+    "logConfiguration": {
+      "logDriver": "awslogs",
+      "options": {
+        "awslogs-region": "ap-northeast-1",
+        "awslogs-stream-prefix": "square-eight-${terraform.workspace}-rails-api",
+        "awslogs-group": "/ecs/square-eight-${terraform.workspace}-rails-api"
+      }
+    }
+  },
   {
     "name": "nginx",
-    "image": "314488254505.dkr.ecr.ap-northeast-1.amazonaws.com/square-eight-${terraform.workspace}/nginx:latest",
+    "image": "606213504831.dkr.ecr.ap-northeast-1.amazonaws.com/square_eight_${terraform.workspace}/nginx:latest",
     "essential": true,
     "workingDirectory": "/",
     "memory": 512,
