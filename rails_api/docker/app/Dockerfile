@@ -3,12 +3,12 @@ FROM ruby:3.1.0
 RUN apt-get update
 RUN apt-get install -y vim
 
-RUN mkdir -p /app/rails
-ENV APP_ROOT /app/rails
+RUN mkdir -p /workdir
+ENV APP_ROOT /workdir
 
-RUN mkdir -p /app/rails/tmp/sockets
-RUN mkdir -p /app/rails/tmp/pids
-RUN mkdir -p /app/rails/log
+RUN mkdir -p /workdir/tmp/sockets
+RUN mkdir -p /workdir/tmp/pids
+RUN mkdir -p /workdir/log
 
 WORKDIR $APP_ROOT
 
@@ -20,4 +20,4 @@ RUN bundle install
 # timezone
 ENV TZ Asia/Tokyo
 
-VOLUME /app/rails/tmp
+VOLUME /workdir/tmp
