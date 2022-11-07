@@ -41,7 +41,7 @@ class ReservationMailer < ApplicationMailer
 
   def remind_mail_to_customer(reservation_id)
     @reservation = Reservation.find(reservation_id)
-    @customer = reservation.customer
-    mail(to: @customer.email, subject: '通知: ' + @reservation.reserve_frame.title + start_at.strftime("%Y/%m/%d %H:%M~"))
+    @customer = @reservation.customer
+    mail(to: @customer.email, subject: '通知: ' + @reservation.reserve_frame.title + @reservation.start_at.strftime("%Y/%m/%d %H:%M~"))
   end
 end
