@@ -1,6 +1,6 @@
 # ロードバランサのセキュリティグループ設定。HTTPとHTTPSのインバウンドを許可
-resource "aws_security_group_rule" "square_eight-alb-http" {
-  security_group_id = aws_security_group.square_eight-alb.id
+resource "aws_security_group_rule" "square-eight-alb-http" {
+  security_group_id = aws_security_group.square-eight-alb.id
 
   type = "ingress"
 
@@ -11,8 +11,8 @@ resource "aws_security_group_rule" "square_eight-alb-http" {
   cidr_blocks = ["0.0.0.0/0"]
 }
 
-resource "aws_security_group_rule" "square_eight-alb-https" {
-  security_group_id = aws_security_group.square_eight-alb.id
+resource "aws_security_group_rule" "square-eight-alb-https" {
+  security_group_id = aws_security_group.square-eight-alb.id
 
   type = "ingress"
 
@@ -23,8 +23,8 @@ resource "aws_security_group_rule" "square_eight-alb-https" {
   cidr_blocks = ["0.0.0.0/0"]
 }
 
-resource "aws_security_group_rule" "square_eight-alb-https-deploy-test" {
-  security_group_id = aws_security_group.square_eight-alb.id
+resource "aws_security_group_rule" "square-eight-alb-https-deploy-test" {
+  security_group_id = aws_security_group.square-eight-alb.id
 
   type = "ingress"
 
@@ -36,8 +36,8 @@ resource "aws_security_group_rule" "square_eight-alb-https-deploy-test" {
 }
 
 # この設定に誤りがあると504エラーが起こる
-resource "aws_security_group_rule" "square_eight-ecs" {
-  security_group_id = aws_security_group.square_eight-ecs.id
+resource "aws_security_group_rule" "square-eight-ecs" {
+  security_group_id = aws_security_group.square-eight-ecs.id
 
   type      = "ingress"
   from_port = 80
@@ -48,8 +48,8 @@ resource "aws_security_group_rule" "square_eight-ecs" {
   cidr_blocks = [var.vpc_cidr_block]
 }
 
-resource "aws_security_group_rule" "square_eight-ecs-test" {
-  security_group_id = aws_security_group.square_eight-ecs.id
+resource "aws_security_group_rule" "square-eight-ecs-test" {
+  security_group_id = aws_security_group.square-eight-ecs.id
 
   type      = "ingress"
   from_port = 8080

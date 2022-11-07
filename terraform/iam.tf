@@ -2,10 +2,10 @@
 # AssumeRoleを使ってIAMの権限をECSタスクに付与
 # 環境変数を取り出すためS3への接続権限付与
 resource "aws_iam_role" "ecs_task_execution_role" {
-  name               = "ECSsquare_eight${terraform.workspace}EcsTaskRole"
+  name               = "ECSsquare-eight${terraform.workspace}EcsTaskRole"
   assume_role_policy = data.aws_iam_policy_document.assume_role.json
-  managed_policy_arns = [aws_iam_policy.square_eight_s3_policy.arn,
-  aws_iam_policy.square_eight_ecs_exec_policy.arn]
+  managed_policy_arns = [aws_iam_policy.square-eight_s3_policy.arn,
+  aws_iam_policy.square-eight_ecs_exec_policy.arn]
 }
 
 # AssumeRoleを定義
@@ -21,8 +21,8 @@ data "aws_iam_policy_document" "assume_role" {
 }
 
 # 環境変数の参照。GetとListの権限が必要
-resource "aws_iam_policy" "square_eight_s3_policy" {
-  name = "square_eight-ecs-${terraform.workspace}-s3-policy"
+resource "aws_iam_policy" "square-eight_s3_policy" {
+  name = "square-eight-ecs-${terraform.workspace}-s3-policy"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -40,8 +40,8 @@ resource "aws_iam_policy" "square_eight_s3_policy" {
 }
 
 # セッションマネージャの権限付与。ecs execute-commandコマンドでECSのコンテナのシェルを実行するのに必要
-resource "aws_iam_policy" "square_eight_ecs_exec_policy" {
-  name = "square_eight-${terraform.workspace}-ecs-exec-policy"
+resource "aws_iam_policy" "square-eight_ecs_exec_policy" {
+  name = "square-eight-${terraform.workspace}-ecs-exec-policy"
 
   policy = jsonencode({
     Version = "2012-10-17"
@@ -77,7 +77,7 @@ data "aws_iam_policy_document" "codedeploy_assumerole" {
 }
 
 resource "aws_iam_role" "codedeploy" {
-  name               = "square_eight-ecs-pipeline-${terraform.workspace}"
+  name               = "square-eight-ecs-pipeline-${terraform.workspace}"
   assume_role_policy = data.aws_iam_policy_document.codedeploy_assumerole.json
 }
 

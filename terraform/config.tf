@@ -1,6 +1,6 @@
 terraform {
   backend "s3" {
-    bucket = "square_eight-dev-ecs-tfstate"
+    bucket = "square-eight-ecs-tfstate"
     key    = "terraform.tfstate"
     region = "ap-northeast-1"
   }

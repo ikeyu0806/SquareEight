@@ -1,8 +1,8 @@
 # ECSのセキュリティグループ
-resource "aws_security_group" "square_eight-ecs" {
-  name        = "square_eight-ecs-${terraform.workspace}"
-  description = "square_eight-ecs-${terraform.workspace}"
-  vpc_id      = aws_vpc.square_eight.id
+resource "aws_security_group" "square-eight-ecs" {
+  name        = "square-eight-ecs-${terraform.workspace}"
+  description = "square-eight-ecs-${terraform.workspace}"
+  vpc_id      = aws_vpc.square-eight.id
 
   egress {
     from_port = 0
@@ -13,15 +13,15 @@ resource "aws_security_group" "square_eight-ecs" {
   }
 
   tags = {
-    Name = "square_eight-ecs-${terraform.workspace}-ecs"
+    Name = "square-eight-ecs-${terraform.workspace}-ecs"
   }
 }
 
 # ロードバランサのセキュリティグループ
-resource "aws_security_group" "square_eight-alb" {
-  name        = "square_eight-ecs-${terraform.workspace}-alb"
-  description = "square_eight-ecs-${terraform.workspace} alb"
-  vpc_id      = aws_vpc.square_eight.id
+resource "aws_security_group" "square-eight-alb" {
+  name        = "square-eight-ecs-${terraform.workspace}-alb"
+  description = "square-eight-ecs-${terraform.workspace} alb"
+  vpc_id      = aws_vpc.square-eight.id
 
   egress {
     from_port   = 0
@@ -31,6 +31,6 @@ resource "aws_security_group" "square_eight-alb" {
   }
 
   tags = {
-    Name = "square_eight-ecs-${terraform.workspace}-alb"
+    Name = "square-eight-ecs-${terraform.workspace}-alb"
   }
 }

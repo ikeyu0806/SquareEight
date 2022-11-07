@@ -1,8 +1,8 @@
 # VPCをインターネットに接続させるために必要
-resource "aws_internet_gateway" "square_eight" {
-  vpc_id = aws_vpc.square_eight.id
+resource "aws_internet_gateway" "square-eight" {
+  vpc_id = aws_vpc.square-eight.id
 
   tags = {
-    Name = "square_eight-ecs-${terraform.workspace}"
+    Name = "square-eight-ecs-${terraform.workspace}"
   }
 }

@@ -1,20 +1,20 @@
 variable "app_task_cpu" {}
 variable "app_task_memory" {}
 
-resource "aws_ecs_cluster" "square_eight" {
-  name = "square_eight-${terraform.workspace}"
+resource "aws_ecs_cluster" "square-eight" {
+  name = "square-eight-${terraform.workspace}"
 }
 
 # Railsとnginxのサービス、タスク
-resource "aws_ecs_service" "square_eight" {
-  name = "square_eight-${terraform.workspace}"
+resource "aws_ecs_service" "square-eight" {
+  name = "square-eight-${terraform.workspace}"
 
   # terraform実行時にALBが作成されていないと失敗する時があるので依存関係指定
-  depends_on = [aws_lb.square_eight-alb,
-    aws_lb_listener_rule.square_eight,
+  depends_on = [aws_lb.square-eight-alb,
+    aws_lb_listener_rule.square-eight,
   aws_lb_target_group.blue]
 
-  cluster = aws_ecs_cluster.square_eight.name
+  cluster = aws_ecs_cluster.square-eight.name
 
   launch_type = "FARGATE"
 
@@ -25,12 +25,12 @@ resource "aws_ecs_service" "square_eight" {
   enable_execute_command = true
 
   # このタスク定義を元にタスクが起動
-  task_definition = aws_ecs_task_definition.square_eight.arn
+  task_definition = aws_ecs_task_definition.square-eight.arn
 
   # サブネットの指定
   network_configuration {
-    subnets         = [aws_subnet.square_eight-private-1a.id, aws_subnet.square_eight-private-1c.id]
-    security_groups = [aws_security_group.square_eight-ecs.id]
+    subnets         = [aws_subnet.square-eight-private-1a.id, aws_subnet.square-eight-private-1c.id]
+    security_groups = [aws_security_group.square-eight-ecs.id]
   }
 
   # ロードバランサにはnginxを接続
@@ -51,9 +51,9 @@ resource "aws_ecs_service" "square_eight" {
 }
 
 
-resource "aws_ecs_task_definition" "square_eight" {
+resource "aws_ecs_task_definition" "square-eight" {
   # ここで登録したファミリーの中でバージョンが管理される
-  family = "square_eight_${terraform.workspace}"
+  family = "square-eight_${terraform.workspace}"
 
   # EC2 or Fagateを指定
   requires_compatibilities = ["FARGATE"]
@@ -76,7 +76,7 @@ resource "aws_ecs_task_definition" "square_eight" {
 [
   {
     "name": "nginx",
-    "image": "314488254505.dkr.ecr.ap-northeast-1.amazonaws.com/square_eight-${terraform.workspace}/nginx:latest",
+    "image": "314488254505.dkr.ecr.ap-northeast-1.amazonaws.com/square-eight-${terraform.workspace}/nginx:latest",
     "essential": true,
     "workingDirectory": "/",
     "memory": 512,
@@ -85,7 +85,7 @@ resource "aws_ecs_task_definition" "square_eight" {
       "options": {
         "awslogs-region": "ap-northeast-1",
         "awslogs-stream-prefix": "nginx",
-        "awslogs-group": "/ecs/square_eight-${terraform.workspace}-nginx"
+        "awslogs-group": "/ecs/square-eight-${terraform.workspace}-nginx"
       }
     },
     "portMappings": [

@@ -1,14 +1,14 @@
 # ECSのサービスに紐づくロードバランサ
-resource "aws_lb" "square_eight-alb" {
+resource "aws_lb" "square-eight-alb" {
   load_balancer_type = "application"
-  name               = "square_eight-ecs-${terraform.workspace}"
+  name               = "square-eight-ecs-${terraform.workspace}"
 
-  security_groups = [aws_security_group.square_eight-alb.id]
-  subnets         = [aws_subnet.square_eight-public-1a.id, aws_subnet.square_eight-public-1c.id]
+  security_groups = [aws_security_group.square-eight-alb.id]
+  subnets         = [aws_subnet.square-eight-public-1a.id, aws_subnet.square-eight-public-1c.id]
 }
 
-resource "aws_lb_listener_rule" "square_eight" {
-  listener_arn = aws_lb_listener.square_eight.arn
+resource "aws_lb_listener_rule" "square-eight" {
+  listener_arn = aws_lb_listener.square-eight.arn
 
   action {
     type             = "forward"
@@ -23,11 +23,11 @@ resource "aws_lb_listener_rule" "square_eight" {
 }
 
 # HTTPリクエストをHTTPSに転送する
-resource "aws_lb_listener" "square_eight" {
+resource "aws_lb_listener" "square-eight" {
   port     = "80"
   protocol = "HTTP"
 
-  load_balancer_arn = aws_lb.square_eight-alb.arn
+  load_balancer_arn = aws_lb.square-eight-alb.arn
 
   # BLUE/GREENデプロイ時に入れ替えるため差分を無視する
   lifecycle {
@@ -45,8 +45,8 @@ resource "aws_lb_listener" "square_eight" {
   }
 }
 
-resource "aws_alb_listener" "square_eight-alb-443" {
-  load_balancer_arn = aws_lb.square_eight-alb.arn
+resource "aws_alb_listener" "square-eight-alb-443" {
+  load_balancer_arn = aws_lb.square-eight-alb.arn
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
@@ -62,8 +62,8 @@ resource "aws_alb_listener" "square_eight-alb-443" {
   }
 }
 
-resource "aws_alb_listener" "square_eight-alb-8443" {
-  load_balancer_arn = aws_lb.square_eight-alb.arn
+resource "aws_alb_listener" "square-eight-alb-8443" {
+  load_balancer_arn = aws_lb.square-eight-alb.arn
   port              = "8443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
@@ -81,10 +81,10 @@ resource "aws_alb_listener" "square_eight-alb-8443" {
 
 # ECSのBLUE/GREENデプロイメントを実行するためにターゲットグループを２つ用意する
 resource "aws_lb_target_group" "blue" {
-  name        = "square_eight-${terraform.workspace}-blue"
+  name        = "square-eight-${terraform.workspace}-blue"
   port        = 80
   protocol    = "HTTP"
-  vpc_id      = aws_vpc.square_eight.id
+  vpc_id      = aws_vpc.square-eight.id
   target_type = "ip"
 
   # assets:precompileに時間がかかり、途中ヘルスチェックでエラー判定されてしまうためintervalを長めに
@@ -101,10 +101,10 @@ resource "aws_lb_target_group" "blue" {
 }
 
 resource "aws_lb_target_group" "green" {
-  name        = "square_eight-${terraform.workspace}-green"
+  name        = "square-eight-${terraform.workspace}-green"
   port        = 80
   protocol    = "HTTP"
-  vpc_id      = aws_vpc.square_eight.id
+  vpc_id      = aws_vpc.square-eight.id
   target_type = "ip"
 
   health_check {
