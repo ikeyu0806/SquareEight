@@ -134,7 +134,7 @@ const Index: NextPage = () => {
     }).then(response => {
       setIsLoading(false)
       swalWithBootstrapButtons.fire({
-        title: '送信しました',
+        title: '予約しました',
         icon: 'info'
       }).then((result) => {
         router.push(`/reservation/${response.data.reservation.public_id}`)
