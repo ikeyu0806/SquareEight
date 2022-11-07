@@ -20,3 +20,14 @@ resource "aws_nat_gateway" "square-eight-nat-1c" {
     Name = "square-eight-ecs-${terraform.workspace}-1c"
   }
 }
+
+resource "aws_nat_gateway" "square-eight-nat-1d" {
+  subnet_id     = aws_subnet.square-eight-public-1d.id
+  allocation_id = aws_eip.square-eight-nat-1d.id
+
+  depends_on = [aws_internet_gateway.square-eight]
+
+  tags = {
+    Name = "square-eight-ecs-${terraform.workspace}-1d"
+  }
+}
