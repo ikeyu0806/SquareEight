@@ -50,7 +50,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
     when 'registeredCustomer' then
       payment_request_params[:selected_customers].each do |customer|
         stripe_payment_request = account.stripe_payment_requests.create!(name: payment_request_params[:name], price: payment_request_params[:price], customer_id: customer[:id])
-        payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.id.to_s
+        payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.public_id
         content = MessageTemplate
                   .convert_content(
                     payment_request_params[:content],
@@ -65,7 +65,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
       customer_groups.each do |group|
         group.customers.each do |customer|
           stripe_payment_request = account.stripe_payment_requests.create!(price: payment_request_params[:price], customer_id: customer.id)
-          payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.id.to_s
+          payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.public_id
           content = MessageTemplate
                     .convert_content(
                       payment_request_params[:content],
@@ -80,7 +80,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
       email = customer_params[:email]
       customer = account.customers.create!(customer_params)
       stripe_payment_request = account.stripe_payment_requests.create!(price: payment_request_params[:price], customer_id: customer.id)
-      payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.id.to_s
+      payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.public_id
       content = MessageTemplate
                 .convert_content(
                   payment_request_params[:content],

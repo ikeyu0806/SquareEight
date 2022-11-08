@@ -9,7 +9,7 @@ import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { titleChanged, contentChanged } from "redux/messageTemplateSlice"
+import { titleChanged, contentChanged } from 'redux/messageTemplateSlice'
 import CreateCustomerForm from 'components/organisms/CreateCustomerForm'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import RequireBadge from 'components/atoms/RequireBadge'
