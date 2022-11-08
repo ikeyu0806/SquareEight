@@ -141,6 +141,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
       # エンドユーザ通知
       end_user_notification_title = payment_request.name + 'のお支払いが完了しました'
       current_end_user.create_product_purchase_notification(end_user_notification_title)
+      PaymentRequestMailer.payment_request_mail(payment_request.id).deliver_later
       # ビジネスオーナー向け通知
       account_notification_title = customer.full_name + 'から' + payment_request.name + 'のお支払いを受けつけました。'
       account_notification_url = '/admin/charges'
