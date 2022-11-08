@@ -117,6 +117,8 @@ const Index: NextPage = () => {
           {paymentRequest?.status === 'Paid' &&
             <div className='mt30 text-center'>
               <h3>決済完了しています</h3>
+              <h3>￥{paymentRequest?.price}</h3>
+              <div>ご登録メールアドレスに決済完了メールを送信しました</div>
             </div>
           }
           {paymentRequest?.status === 'Pending' &&
