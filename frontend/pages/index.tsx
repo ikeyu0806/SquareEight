@@ -12,11 +12,13 @@ import { Container,
          Button,
          Card,
          Row,
-         Col } from 'react-bootstrap'
+         Col,
+         Alert } from 'react-bootstrap'
 
 const Home: NextPage = () => {
   return (
     <>
+      {/* <Alert>2023年2月28日までキャンペーン中。予約数、顧客表示数制限なし</Alert> */}
       <Navbar collapseOnSelect expand='lg' bg='light'>
         <Container>
           <Navbar.Brand href='/' className='font-weight-bold'>SquareEight</Navbar.Brand>

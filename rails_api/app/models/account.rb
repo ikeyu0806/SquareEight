@@ -45,7 +45,7 @@ class Account < ApplicationRecord
   scope :enabled, -> { where(deleted_at: nil) }
 
   def reservation_limit
-    return 1000000000 if Time.zone.now < Account::UNLIMITED_CAMPAIGN_END_AT.end_of_day
+    # return 1000000000 if Time.zone.now < Account::UNLIMITED_CAMPAIGN_END_AT.end_of_day
     Account::RESERVATION_LIMIT[self.service_plan]
   end
 
@@ -55,7 +55,7 @@ class Account < ApplicationRecord
   # end
 
   def customers_with_limit
-    return 1000000000 if Time.zone.now < Account::UNLIMITED_CAMPAIGN_END_AT.end_of_day
+    # return 1000000000 if Time.zone.now < Account::UNLIMITED_CAMPAIGN_END_AT.end_of_day
     customers.limit(Account::CUSTOMER_DISPLAY_LIMIT[self.service_plan])
   end
 
