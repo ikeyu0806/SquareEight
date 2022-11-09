@@ -85,7 +85,7 @@ resource "aws_ecs_task_definition" "square-eight" {
       "bundle exec rails db:migrate && bundle exec puma -C /workdir/config/puma.rb"
     ],
     "environmentFiles": [{
-      "value": "arn:aws:s3:::square-eight-ecs-env/docker_ecs_${terraform.workspace}.env",
+      "value": "arn:aws:s3:::square-eight-env-files/docker_ecs_${terraform.workspace}.env",
       "type": "s3"
     }],
     "portMappings": [
