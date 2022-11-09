@@ -25,22 +25,19 @@ class Api::Internal::AccountsController < ApplicationController
     # グラフのラベル
     week_days =  (0..6).to_a.map{|i| (Time.now - i.days).strftime("%Y/%m/%d")}.reverse
     # 顧客数グラフ
-    customers = account.customers.where(created_at: 1.week.ago.beginning_of_day..Time.zone.now.end_of_day)
-    if customers.present?
-      group_by_customers_count = customers.map{|customer| customer.created_at.strftime("%Y/%m/%d")}.group_by(&:itself).transform_values(&:size)
-      customer_count_array = week_days.map do |day|
-        group_by_customers_count[day].present? ? group_by_customers_count[day] : 0
+    customers = account.customers.where(created_at: (1.week.ago + 1.days).beginning_of_day..Time.zone.now.end_of_day)
+
+    group_by_customers_count = customers.map{|customer| customer.created_at.strftime("%Y/%m/%d")}.group_by(&:itself).transform_values(&:size)
+    customer_count_array = week_days.map do |day|
+      group_by_customers_count[day].present? ? group_by_customers_count[day] : 0
+    end
+    # 新規顧客が0の日付を埋めて一週間以前の顧客総数を足し込む
+    customer_count_array = customer_count_array.each_with_index do |a, i|
+      if i > 0
+        customer_count_array[i] = customer_count_array[i] + customer_count_array[i - 1]
+      else
+        customer_count_array[i] = customer_count_array[i] + account.customers.where("created_at <= ?", (1.week.ago).end_of_day).count
       end
-      # 新規顧客が0の日付を埋めて一週間以前の顧客総数を足し込む
-      customer_count_array = customer_count_array.each_with_index do |a, i|
-        if i > 0
-          customer_count_array[i] = customer_count_array[i] + customer_count_array[i - 1]
-        else
-          customer_count_array[i] = customer_count_array[i] + account.customers.where("created_at <= ?", 1.week.ago ).count
-        end
-      end
-    else
-      customer_count_array = []
     end
     # 売上グラフ
     payment_intents = account.stripe_payment_intents
