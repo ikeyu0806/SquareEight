@@ -50,7 +50,7 @@ resource "aws_alb_listener" "square-eight-alb-443" {
   port              = "443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = "arn:aws:acm:ap-northeast-1:606213504831:certificate/123e4017-9cf5-4c16-8e91-bb1d9eb1ce70"
+  certificate_arn   = "arn:aws:acm:ap-northeast-1:606213504831:certificate/59f7f964-5aa2-439a-af29-1475aecc9351"
 
   lifecycle {
     ignore_changes = [default_action]
@@ -67,7 +67,7 @@ resource "aws_alb_listener" "square-eight-alb-8443" {
   port              = "8443"
   protocol          = "HTTPS"
   ssl_policy        = "ELBSecurityPolicy-2016-08"
-  certificate_arn   = "arn:aws:acm:ap-northeast-1:606213504831:certificate/123e4017-9cf5-4c16-8e91-bb1d9eb1ce70"
+  certificate_arn   = "arn:aws:acm:ap-northeast-1:606213504831:certificate/59f7f964-5aa2-439a-af29-1475aecc9351"
 
   lifecycle {
     ignore_changes = [default_action]
