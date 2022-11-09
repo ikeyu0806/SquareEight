@@ -35,7 +35,7 @@ resource "aws_subnet" "square-eight-public-1d" {
 
   availability_zone = "ap-northeast-1d"
 
-  cidr_block = var.subnet_public_1c_cidr_block
+  cidr_block = var.subnet_public_1d_cidr_block
 
   tags = {
     Name = "square-eight-ecs-${terraform.workspace}-public-1d"
@@ -69,7 +69,7 @@ resource "aws_subnet" "square-eight-private-1d" {
   vpc_id = aws_vpc.square-eight.id
 
   availability_zone = "ap-northeast-1d"
-  cidr_block        = var.subnet_private_1c_cidr_block
+  cidr_block        = var.subnet_private_1d_cidr_block
 
   tags = {
     Name = "square-eight-ecs-${terraform.workspace}-private-1d"
