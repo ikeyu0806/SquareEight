@@ -37,7 +37,7 @@ const PaymentComplete: NextPage = () => {
       })
     }
     fetchOrderItems()
-  }, [router.query.public_id, router.query.public_id, dispatch, cookies._square_eight_end_user_session])
+  }, [router.query.public_id, dispatch, cookies._square_eight_end_user_session])
 
   return (
     <>

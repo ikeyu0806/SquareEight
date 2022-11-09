@@ -71,7 +71,7 @@ const Callback: NextPage = () => {
       })
     }
     fetchAccessToken()
-  }, [router.query.code])
+  }, [router.query.code, findOrCreateMerchantByGoogleAuth])
 
   return (
     <WithoutSessionLayout>
