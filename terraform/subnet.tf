@@ -4,6 +4,7 @@ variable "subnet_public_1d_cidr_block" {}
 variable "subnet_private_1a_cidr_block" {}
 variable "subnet_private_1c_cidr_block" {}
 variable "subnet_private_1d_cidr_block" {}
+variable "vpc_id" {}
 
 # インターネットに接続させるパブリックサブネット
 resource "aws_subnet" "square-eight-public-1a" {

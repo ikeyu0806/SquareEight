@@ -1,3 +1,5 @@
+variable "vpc_cidr_block" {}
+
 # ロードバランサのセキュリティグループ設定。HTTPとHTTPSのインバウンドを許可
 resource "aws_security_group_rule" "square-eight-alb-http" {
   security_group_id = aws_security_group.square-eight-alb.id
