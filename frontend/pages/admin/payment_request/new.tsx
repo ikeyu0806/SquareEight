@@ -314,7 +314,6 @@ const New: NextPage = () => {
           </Col>
         </Row>
         <div className='text-center mt20'>
-        <span className='spinner-border spinner-border-sm' role='status'></span>
           <Button
             disabled={validateOnSubmit()}
             onClick={() => onSubmit()}>
