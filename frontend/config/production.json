@@ -3,9 +3,9 @@
   "BACKEND_URL": "https://api.square-eight.net",
   "GOOGLE_AUTH_END_USER_CLIENT_ID": "441756043288-mpgeq3kjul1cp5i4bm6gklqif03uo69i.apps.googleusercontent.com",
   "GOOGLE_AUTH_END_USER_CLIENT_SECRET": "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",
-  "GOOGLE_AUTH_END_USER_REDIRECT_URL": "http://localhost:3111/google_auth/customer/callback",
+  "GOOGLE_AUTH_END_USER_REDIRECT_URL": "https://square-eight.net/google_auth/customer/callback",
   "GOOGLE_AUTH_MERCHANT_USER_CLIENT_ID": "441756043288-ibrcu2ab0896g6bncpvei9q444i9cl1d.apps.googleusercontent.com",
   "GOOGLE_AUTH_MERCHANT_USER_CLIENT_SECRET": "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",
-  "GOOGLE_AUTH_MERCHANT_USER_REDIRECT_URL": "http://localhost:3111/google_auth/merchant/callback",
+  "GOOGLE_AUTH_MERCHANT_USER_REDIRECT_URL": "https://square-eight.net/google_auth/merchant/callback",
   "STRIPE_PUBLISHABLE_KEY": "pk_test_pzo8bTj4ggDEV52y7gnVsdWt"
 }
