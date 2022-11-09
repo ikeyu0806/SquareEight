@@ -15,11 +15,7 @@ const Index: NextPage = () => {
               <Card.Body>
                 <div>サービス管理人: 池谷祐貴</div>
                 <hr/>
-                <div><a href='https://ikeyu0806.hatenablog.com/'>ブログ</a></div>
-                <hr />
                 <div><a href='https://jp.linkedin.com/in/%E7%A5%90%E8%B2%B4-%E6%B1%A0%E8%B0%B7-61a31661'>Linkdin</a></div>
-                <hr/>
-                <div><a href='https://ikeyu0806.github.io/'>ポートフォリオ</a></div>
                 <hr/>
                 <div>お問い合わせは<a href='/inquiry'>こちら</a></div>
               </Card.Body>
