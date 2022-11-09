@@ -1,3 +1,4 @@
+vpc_id                       = "vpc-08f614a0e33beb9fa"
 subnet_public_1a_cidr_block  = "10.62.1.0/24"
 subnet_public_1c_cidr_block  = "10.62.2.0/24"
 subnet_public_1d_cidr_block  = "10.62.3.0/24"

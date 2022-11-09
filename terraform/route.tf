@@ -1,6 +1,6 @@
 # VPCのルートテーブル
 resource "aws_route_table" "square-eight-public" {
-  vpc_id = "vpc-08f614a0e33beb9fa!"
+  vpc_id = var.vpc_id
 
   tags = {
     Name = "square-eight-ecs-${terraform.workspace}-public"
@@ -32,7 +32,7 @@ resource "aws_route_table_association" "square-eight-public-1d" {
 
 # プライベートサブネットとVPCの紐付け
 resource "aws_route_table" "square-eight-private-1a" {
-  vpc_id = "vpc-08f614a0e33beb9fa!"
+  vpc_id = var.vpc_id
 
   tags = {
     Name = "square-eight-ecs-${terraform.workspace}-private-1a"
@@ -40,7 +40,7 @@ resource "aws_route_table" "square-eight-private-1a" {
 }
 
 resource "aws_route_table" "square-eight-private-1c" {
-  vpc_id = "vpc-08f614a0e33beb9fa!"
+  vpc_id = var.vpc_id
 
   tags = {
     Name = "square-eight-ecs-${terraform.workspace}-private-1c"
@@ -48,7 +48,7 @@ resource "aws_route_table" "square-eight-private-1c" {
 }
 
 resource "aws_route_table" "square-eight-private-1d" {
-  vpc_id = "vpc-08f614a0e33beb9fa!"
+  vpc_id = var.vpc_id
 
   tags = {
     Name = "square-eight-ecs-${terraform.workspace}-private-1d"

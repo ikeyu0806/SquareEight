@@ -2,7 +2,7 @@
 resource "aws_security_group" "square-eight-ecs" {
   name        = "square-eight-ecs-${terraform.workspace}"
   description = "square-eight-ecs-${terraform.workspace}"
-  vpc_id      = "vpc-08f614a0e33beb9fa!"
+  vpc_id      = var.vpc_id
 
   egress {
     from_port = 0
@@ -21,7 +21,7 @@ resource "aws_security_group" "square-eight-ecs" {
 resource "aws_security_group" "square-eight-alb" {
   name        = "square-eight-ecs-${terraform.workspace}-alb"
   description = "square-eight-ecs-${terraform.workspace} alb"
-  vpc_id      = "vpc-08f614a0e33beb9fa!"
+  vpc_id      = var.vpc_id
 
   egress {
     from_port   = 0

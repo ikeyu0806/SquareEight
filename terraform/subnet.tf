@@ -7,7 +7,7 @@ variable "subnet_private_1d_cidr_block" {}
 
 # インターネットに接続させるパブリックサブネット
 resource "aws_subnet" "square-eight-public-1a" {
-  vpc_id = "vpc-08f614a0e33beb9fa!"
+  vpc_id = var.vpc_id
 
   availability_zone = "ap-northeast-1a"
 
@@ -19,7 +19,7 @@ resource "aws_subnet" "square-eight-public-1a" {
 }
 
 resource "aws_subnet" "square-eight-public-1c" {
-  vpc_id = "vpc-08f614a0e33beb9fa!"
+  vpc_id = var.vpc_id
 
   availability_zone = "ap-northeast-1c"
 
@@ -31,7 +31,7 @@ resource "aws_subnet" "square-eight-public-1c" {
 }
 
 resource "aws_subnet" "square-eight-public-1d" {
-  vpc_id = "vpc-08f614a0e33beb9fa!"
+  vpc_id = var.vpc_id
 
   availability_zone = "ap-northeast-1d"
 
@@ -44,7 +44,7 @@ resource "aws_subnet" "square-eight-public-1d" {
 
 # 以下ECSのFagateを起動させるプライベートサブネット
 resource "aws_subnet" "square-eight-private-1a" {
-  vpc_id = "vpc-08f614a0e33beb9fa!"
+  vpc_id = var.vpc_id
 
   availability_zone = "ap-northeast-1a"
   cidr_block        = var.subnet_private_1a_cidr_block
@@ -55,7 +55,7 @@ resource "aws_subnet" "square-eight-private-1a" {
 }
 
 resource "aws_subnet" "square-eight-private-1c" {
-  vpc_id = "vpc-08f614a0e33beb9fa!"
+  vpc_id = var.vpc_id
 
   availability_zone = "ap-northeast-1c"
   cidr_block        = var.subnet_private_1c_cidr_block
@@ -66,7 +66,7 @@ resource "aws_subnet" "square-eight-private-1c" {
 }
 
 resource "aws_subnet" "square-eight-private-1d" {
-  vpc_id = "vpc-08f614a0e33beb9fa!"
+  vpc_id = var.vpc_id
 
   availability_zone = "ap-northeast-1d"
   cidr_block        = var.subnet_private_1d_cidr_block
