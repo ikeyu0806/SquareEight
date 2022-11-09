@@ -19,6 +19,7 @@ const Join: NextPage = () => {
   const paymentMethods = useSelector((state: RootState) => state.currentMerchantUser.paymentMethods)
 
   const execJoinPlan = () => {
+    setIsLoading(true)
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/update_plan`,
     {
       account: {
@@ -30,10 +31,10 @@ const Join: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
-      console.log(response)
+      setIsLoading(false)
       router.push(`/admin/plan/complete?plan=${router.query.plan}`)
     }).catch(error => {
-      console.log(error)
+      setIsLoading(false)
       dispatch(alertChanged({message: '登録に失敗しました。', type: 'danger', show: true}))
     })
   }
