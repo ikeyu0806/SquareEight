@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import React, { useEffect, useState, ChangeEvent } from 'react'
+import React, { useEffect, ChangeEvent } from 'react'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { CustomerParam } from 'interfaces/CustomerParam'
@@ -28,7 +28,6 @@ const New: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
-  const [isLoading, setIsLoading] = useState(false)
   const name = useSelector((state: RootState) => state.paymentRequest.name)
   const price = useSelector((state: RootState) => state.paymentRequest.price)
   const targetCustomerType = useSelector((state: RootState) => state.paymentRequest.targetCustomerType)
@@ -81,7 +80,6 @@ const New: NextPage = () => {
       showCloseButton: true
     }).then((result) => {
       if (result.isConfirmed) {
-        setIsLoading(true)
         axios.post(`${process.env.BACKEND_URL}/api/internal/payment_requests/send_payment_request_mail`,
         {
           payment_request: {
@@ -112,14 +110,12 @@ const New: NextPage = () => {
             title: '送信しました',
             icon: 'info'
           })
-          setIsLoading(false)
           router.push('/admin/payment_request')
         }).catch(error => {
           swalWithBootstrapButtons.fire({
             title: '送信失敗しました',
             icon: 'error'
           })
-          setIsLoading(false)
         })
       }
     })
@@ -318,10 +314,10 @@ const New: NextPage = () => {
           </Col>
         </Row>
         <div className='text-center mt20'>
+        <span className='spinner-border spinner-border-sm' role='status'></span>
           <Button
             disabled={validateOnSubmit()}
             onClick={() => onSubmit()}>
-            {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
             確定して送信する
           </Button>
         </div>

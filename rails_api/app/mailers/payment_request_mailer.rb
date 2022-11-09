@@ -8,6 +8,6 @@ class PaymentRequestMailer < ApplicationMailer
     @payment_request = StripePaymentRequest.find(payment_request_id)
     @account = @payment_request.account
     subject = '【' + @account.business_name + '】決済が完了しました'
-    mail(to: @account.merchant_user_emails, subject: subject)
+    mail(to: @payment_request.customer.end_user.email, subject: subject)
   end
 end

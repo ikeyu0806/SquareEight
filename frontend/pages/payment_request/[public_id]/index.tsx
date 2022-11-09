@@ -101,11 +101,12 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_end_user_session
       }
     }).then(response => {
+      setIsLoading(false)
       location.reload()
     }).catch(error => {
+      setIsLoading(false)
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })
-    setIsLoading(false)
   }
 
   return (
