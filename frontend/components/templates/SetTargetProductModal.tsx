@@ -20,7 +20,7 @@ const SetTargetProductModal = (): JSX.Element => {
     let updateProducts: DeliveryDatetimeProduct[]
     updateProducts = []
 
-    updateProduct = { id: products[productRef].id, name: products[productRef].name, delivery_datetime_target_flg: !products[productRef].delivery_datetime_target_flg }
+    updateProduct = { public_id: '', id: products[productRef].id, name: products[productRef].name, delivery_datetime_target_flg: !products[productRef].delivery_datetime_target_flg }
     products.map((p, i) => {
       if (i == productRef) {
         updateProducts.push(updateProduct)
