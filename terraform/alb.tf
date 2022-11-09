@@ -84,7 +84,7 @@ resource "aws_lb_target_group" "blue" {
   name        = "square-eight-${terraform.workspace}-blue"
   port        = 80
   protocol    = "HTTP"
-  vpc_id      = aws_vpc.square-eight.id
+  vpc_id      = "vpc-08f614a0e33beb9fa!"
   target_type = "ip"
 
   # assets:precompileに時間がかかり、途中ヘルスチェックでエラー判定されてしまうためintervalを長めに
@@ -104,7 +104,7 @@ resource "aws_lb_target_group" "green" {
   name        = "square-eight-${terraform.workspace}-green"
   port        = 80
   protocol    = "HTTP"
-  vpc_id      = aws_vpc.square-eight.id
+  vpc_id      = "vpc-08f614a0e33beb9fa!"
   target_type = "ip"
 
   health_check {

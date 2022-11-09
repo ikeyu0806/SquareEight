@@ -1,4 +1,3 @@
-vpc_cidr_block               = "10.62.0.0/16"
 subnet_public_1a_cidr_block  = "10.62.1.0/24"
 subnet_public_1c_cidr_block  = "10.62.2.0/24"
 subnet_public_1d_cidr_block  = "10.62.3.0/24"
