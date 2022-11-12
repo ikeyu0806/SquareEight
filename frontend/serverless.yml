@@ -6,6 +6,7 @@ SquareEightFrontend:
       apiLambda: ${env.API_LAMBDA_NAME}
       imageLambda: ${env.IMAGE_LAMBDA_NAME}
     region: "us-east-1"
+    roleArn: "arn:aws:iam::606213504831:role/NextJsServerlessComponentFullAccess"
     bucketName: ${env.SERVERLESS_BACKET_NAME}
     bucketRegion: "ap-northeast-1"
     certificate:
