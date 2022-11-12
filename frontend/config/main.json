@@ -7,5 +7,12 @@
   "GOOGLE_AUTH_MERCHANT_USER_CLIENT_ID": "441756043288-ibrcu2ab0896g6bncpvei9q444i9cl1d.apps.googleusercontent.com",
   "GOOGLE_AUTH_MERCHANT_USER_CLIENT_SECRET": "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",
   "GOOGLE_AUTH_MERCHANT_USER_REDIRECT_URL": "https://square-eight.net/google_auth/merchant/callback",
-  "STRIPE_PUBLISHABLE_KEY": "pk_test_pzo8bTj4ggDEV52y7gnVsdWt"
+  "STRIPE_PUBLISHABLE_KEY": "pk_test_pzo8bTj4ggDEV52y7gnVsdWt",
+  "SERVERLESS_NAME": "square-eight-serverless-func-main",
+  "SERVERLESS_BACKET_NAME": "square-eight-serverless-main",
+  "DEFAULT_LAMBDA_NAME": "square-eight-nextjs-lambda-main",
+  "API_LAMBDA_NAME": "square-eight-api-lambda-main",
+  "IMAGE_LAMBDA_NAME": "square-eight-image-lambda-main",
+  "ACM_CEATIFICATION_ARN": "arn:aws:acm:ap-northeast-1:606213504831:certificate/598c911a-71e0-4ef7-aea8-422d21b77ce7",
+  "CLOUDFRONT_ALIAS_DOMAIN": "square-eight.net"
 }

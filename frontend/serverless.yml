@@ -1,0 +1,14 @@
+SquareEightFrontend:
+  component: '@sls-next/serverless-component'
+  inputs:
+    name:
+      defaultLambda: ${env.DEFAULT_LAMBDA_NAME}
+      apiLambda: ${env.API_LAMBDA_NAME}
+      imageLambda: ${env.IMAGE_LAMBDA_NAME}
+    region: "us-east-1"
+    bucketName: ${env.SERVERLESS_BACKET_NAME}
+    bucketRegion: "ap-northeast-1"
+    certificate:
+      acmCertificateArn: ${env.ACM_CEATIFICATION_ARN}
+      tags:
+        Name: ${env.SERVERLESS_NAME}
