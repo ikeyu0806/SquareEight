@@ -3,7 +3,7 @@ resource "aws_appautoscaling_target" "square-eight" {
   resource_id        = "service/${aws_ecs_cluster.square-eight.name}/${aws_ecs_service.square-eight.name}"
   scalable_dimension = "ecs:service:DesiredCount"
   min_capacity       = 2
-  max_capacity       = 100
+  max_capacity       = 1000
 }
 
 resource "aws_appautoscaling_policy" "square-eight-scale-out-cpu" {

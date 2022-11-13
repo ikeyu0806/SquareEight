@@ -78,7 +78,7 @@ resource "aws_ecs_task_definition" "square-eight" {
     "name": "square_eight_rails_api",
     "image": "606213504831.dkr.ecr.ap-northeast-1.amazonaws.com/square-eight-${terraform.workspace}/rails-api:latest",
     "essential": true,
-    "workingDirectory": "/rails-api/rails",
+    "workingDirectory": "/workdir",
     "command": [
       "bash",
       "-c",
