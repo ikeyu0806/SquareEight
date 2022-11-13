@@ -20,12 +20,16 @@ stripe listen --forward-to localhost:3222/stripe_webhooks
 ```
 
 ## デプロイ
+フロントエンドのインフラは`sls-next/serverless-component`で管理しています。
+
 フロントエンドデプロイ
 ```
 APP_ENV=main serverless
 ```
 
 ## terraform
+バックエンドのインフラはterraformで管理しています。
+
 ```
 # 初期化
 terraform init
@@ -34,7 +38,7 @@ terraform workspace new main
 # 作成
 terraform apply --var-file=main.tfvars
 # 削除
-terraform destory
+terraform destory --var-file=main.tfvars
 ```
 
 
