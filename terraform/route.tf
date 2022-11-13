@@ -11,7 +11,7 @@ resource "aws_route_table" "square-eight-public" {
 resource "aws_route" "square-eight-public" {
   destination_cidr_block = "0.0.0.0/0"
   route_table_id         = aws_route_table.square-eight-public.id
-  gateway_id             = aws_internet_gateway.square-eight.id
+  gateway_id             = "igw-ca1645ae"
 }
 
 # サブネットとルートテーブルの紐付け

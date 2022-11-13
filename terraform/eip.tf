@@ -2,8 +2,6 @@
 resource "aws_eip" "square-eight-nat-1a" {
   vpc = true
 
-  depends_on = [aws_internet_gateway.square-eight]
-
   tags = {
     Name = "square-eight-${terraform.workspace}-natgw-1a"
   }
@@ -12,8 +10,6 @@ resource "aws_eip" "square-eight-nat-1a" {
 resource "aws_eip" "square-eight-nat-1c" {
   vpc = true
 
-  depends_on = [aws_internet_gateway.square-eight]
-
   tags = {
     Name = "square-eight-${terraform.workspace}-natgw-1c"
   }
@@ -21,8 +17,6 @@ resource "aws_eip" "square-eight-nat-1c" {
 
 resource "aws_eip" "square-eight-nat-1d" {
   vpc = true
-
-  depends_on = [aws_internet_gateway.square-eight]
 
   tags = {
     Name = "square-eight-${terraform.workspace}-natgw-1d"
