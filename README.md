@@ -18,3 +18,9 @@ stripe login
 
 stripe listen --forward-to localhost:3222/stripe_webhooks
 ```
+
+## デプロイ
+フロントエンドデプロイ
+```
+APP_ENV=main serverless
+```
