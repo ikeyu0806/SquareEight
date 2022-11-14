@@ -1,3 +1,5 @@
+# ローカル開発
+
 ## サービス起動
 
 ```
@@ -19,7 +21,9 @@ stripe login
 stripe listen --forward-to localhost:3222/stripe_webhooks
 ```
 
-## デプロイ
+# デプロイ
+
+## serverless-component
 フロントエンドのインフラは`sls-next/serverless-component`で管理しています。
 
 フロントエンドデプロイ
@@ -41,7 +45,6 @@ terraform apply --var-file=main.tfvars
 terraform destory --var-file=main.tfvars
 ```
 
-
 以下のリソースはterraformの管理対象外です。
 
 ストレージ関連はterraform destoryの対象から外すため、VPCはRDS、Redis作成前に作成したいので除外しています。
@@ -52,3 +55,18 @@ terraform destory --var-file=main.tfvars
 - Redis
 - CloudWatch
 - S3
+- ECR
+
+## ECRへのイメージpush
+
+```
+# rails
+cd rails_api
+aws ecr get-login-password --region ap-northeast-1 | docker login --username AWS --password-stdin 606213504831.dkr.ecr.ap-northeast-1.amazonaws.com
+docker build -f docker/app/Dockerfile -t square-eight-main/rails-api .
+docker tag square-eight-main/rails-api:latest 606213504831.dkr.ecr.ap-northeast-1.amazonaws.com/square-eight-main/rails-api:latest
+docker push 606213504831.dkr.ecr.ap-northeast-1.amazonaws.com/square-eight-main/rails-api:latest
+
+# nginx
+
+```
