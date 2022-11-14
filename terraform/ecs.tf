@@ -107,7 +107,7 @@ resource "aws_ecs_task_definition" "square-eight" {
     "name": "nginx",
     "image": "606213504831.dkr.ecr.ap-northeast-1.amazonaws.com/square-eight-${terraform.workspace}/nginx:latest",
     "essential": true,
-    "workingDirectory": "/",
+    "workingDirectory": "/workdir",
     "memory": 512,
     "logConfiguration": {
       "logDriver": "awslogs",
