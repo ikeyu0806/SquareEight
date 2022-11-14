@@ -92,7 +92,7 @@ resource "aws_lb_target_group" "blue" {
     interval = 300
     timeout  = 120
     port     = 80
-    path     = "/"
+    path     = "/health"
   }
 
   lifecycle {
@@ -111,7 +111,7 @@ resource "aws_lb_target_group" "green" {
     interval = 300
     timeout  = 120
     port     = 80
-    path     = "/"
+    path     = "/health"
   }
 
   lifecycle {

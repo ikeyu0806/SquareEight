@@ -195,6 +195,8 @@ Rails.application.routes.draw do
     end
   end
 
+  get '/health' => 'health_check#index'
+
   if Rails.env.development?
     mount LetterOpenerWeb::Engine, at: "/letter_opener"
   end
