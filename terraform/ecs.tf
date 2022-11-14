@@ -75,7 +75,7 @@ resource "aws_ecs_task_definition" "square-eight" {
   container_definitions = <<EOL
 [
   {
-    "name": "square_eight_rails_api",
+    "name": "square_eight_${terraform.workspace}_rails_api",
     "image": "606213504831.dkr.ecr.ap-northeast-1.amazonaws.com/square-eight-${terraform.workspace}/rails-api:latest",
     "essential": true,
     "workingDirectory": "/workdir",
@@ -117,6 +117,12 @@ resource "aws_ecs_task_definition" "square-eight" {
         "awslogs-group": "/ecs/square-eight-${terraform.workspace}-nginx"
       }
     },
+    "volumesFrom": [
+      {
+        "readOnly": false,
+        "sourceContainer": "square_eight_${terraform.workspace}_rails_api"
+      }
+    ],
     "portMappings": [
       {
         "containerPort": 80,
