@@ -28,7 +28,6 @@ services:
       - 3222:3000
     depends_on:
       - square_eight_postgresql
-      - square_eight_redis
     networks:
       - square_eight_network
   square_eight_postgresql:
