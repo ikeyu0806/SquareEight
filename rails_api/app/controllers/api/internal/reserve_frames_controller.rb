@@ -179,10 +179,10 @@ class Api::Internal::ReserveFramesController < ApplicationController
 
   def settable_relation_data
     account = current_merchant_user.account
-    questionnaire_masters = account.questionnaire_masters
+    questionnaire_masters = account.questionnaire_masters.enabled
     resources = account.resources
-    ticket_masters = account.ticket_masters
-    monthly_payment_plans = account.monthly_payment_plans
+    ticket_masters = account.ticket_masters.enabled
+    monthly_payment_plans = account.monthly_payment_plans.enabled
     render json: { status: 'success',
                    resources: resources,
                    questionnaire_masters: questionnaire_masters,
