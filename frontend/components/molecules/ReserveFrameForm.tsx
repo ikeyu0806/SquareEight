@@ -392,7 +392,7 @@ const ReserveFrameForm = () => {
 
         <Form.Group className='mb-3'>
           <Row>
-            <Form.Label>料金</Form.Label>
+            <Form.Label>お支払い方法</Form.Label>
             <Col>
             <Form.Group>
               <Form.Check type='checkbox'

@@ -5,6 +5,7 @@ import { RootState } from 'redux/store'
 import TrashIcon from 'components/atoms/TrashIcon'
 import { UnreservableFrameParam } from 'interfaces/UnreservableFrameParam'
 import { OutOfRepeatReservableFrameParam } from 'interfaces/OutOfRepeatReservableFrameParam'
+import RequireBadge from 'components/atoms/RequireBadge'
 import {
   isRepeatChanged,
   isEveryDayRepeatChanged,
@@ -365,7 +366,7 @@ const ReserveFrameRepeatSetting = () => {
             }
             <Col>
               <Form.Group>
-              <Form.Label>繰り返し範囲外予約受付開始日</Form.Label>
+              <Form.Label>繰り返し範囲外予約受付開始日<RequireBadge /></Form.Label>
                 <Row>
                   <Col>
                     <Form.Control
@@ -421,7 +422,7 @@ const ReserveFrameRepeatSetting = () => {
             }
             <Col>
               <Form.Group>
-              <Form.Label>予約不可開始日</Form.Label>
+              <Form.Label>予約不可開始日<RequireBadge /></Form.Label>
                 <Row>
                   <Col>
                     <Form.Control
