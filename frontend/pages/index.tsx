@@ -68,7 +68,7 @@ const Home: NextPage = () => {
                 <Card className={homeStyles.featureCard}>
                   <Card.Img variant='top' src='/images/reserve_frame_modal.png' />
                   <Card.Body>
-                    <div className={homeStyles.features_header_text}>オンライン予約受付</div>
+                    <div className={homeStyles.features_header_text}>オンライン予約ページ作成</div>
                     <div className={homeStyles.features_description_text}>日ごと、週ごと、月ごとに受付日時を繰り返す予約メニューを登録できます。
                     設備・備品やスタッフの数による予約受付の制限や特例営業日の設定にも対応しています。</div>
                   </Card.Body>
@@ -78,7 +78,7 @@ const Home: NextPage = () => {
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/create_product.png' />
-                    <div className={homeStyles.features_header_text}>商品の物販販売</div>
+                    <div className={homeStyles.features_header_text}>商品の物販販売ページ作成</div>
                     <div className={homeStyles.features_description_text}>クレジットカード支払いに対応した物販商品を登録できます。</div>
                   </Card.Body>
                 </Card>
@@ -119,7 +119,7 @@ const Home: NextPage = () => {
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
                     <Card.Img variant='top' src='/images/questionnaire.png' />
-                    <div className={homeStyles.features_header_text}>アンケートの作成</div>
+                    <div className={homeStyles.features_header_text}>オンラインアンケートの作成</div>
                     <div className={homeStyles.features_description_text}>Webアンケートを作成できます。テキスト入力、プルダウン、チェックボックス、ラジオボタン、日時入力フォームに対応しています。</div>
                   </Card.Body>
                 </Card>
