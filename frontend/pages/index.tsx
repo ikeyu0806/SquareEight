@@ -119,10 +119,13 @@ const Home: NextPage = () => {
               </Col>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
-                  <Card.Img variant='top' src='/images/create_webpage.png' />
+                  <Card.Img variant='top' src='/images/webpage_icatch.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>Webページの作成</div>
                     <div className={homeStyles.features_description_text}>プログラミング知識不要でWebページを作成できます。</div>
+                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/20/squareeight%e3%82%92%e4%bd%bf%e3%81%88%e3%81%b0%e8%aa%b0%e3%81%a7%e3%82%82%e7%b0%a1%e5%8d%98%e3%81%abweb%e3%83%9a%e3%83%bc%e3%82%b8%e3%82%92%e4%bd%9c%e6%88%90%e3%81%a7%e3%81%8d%e3%81%be%e3%81%99/'>
+                      もっと見る
+                    </a>
                   </Card.Body>
                 </Card>
               </Col>
@@ -142,8 +145,8 @@ const Home: NextPage = () => {
             &thinsp;
             <Row>
               <Col lg={4} sm={12}>
-                <Card.Img variant='top' src='/images/customer_index.png' />
                 <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/customer_index.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>顧客管理</div>
                     <div className={homeStyles.features_description_text}>予約を受け付けたお客様や商品を購入したお客様を自動で登録・管理できます。
@@ -152,8 +155,8 @@ const Home: NextPage = () => {
                 </Card>
               </Col>
               <Col lg={4} sm={12}>
-                <Card.Img variant='top' src='/images/create_message_template.png' />
                 <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/create_message_template.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>メッセージテンプレートの作成</div>
                     <div className={homeStyles.features_description_text}>メッセージテンプレートを作ってお客様にメール送信ができます。</div>
