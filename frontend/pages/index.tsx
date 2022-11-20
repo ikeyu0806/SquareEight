@@ -107,17 +107,19 @@ const Home: NextPage = () => {
             <Row>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
-                  <Card.Img variant='top' src='/images/create_monthly_payment_plan.png' />
+                  <Card.Img variant='top' src='/images/mothly_payment_plan_icatch.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>月額課金プランの作成</div>
-                    <div className={homeStyles.features_description_text}>毎月自動でお客様から自動でお支払いを引き落とす月額課金プランを作成できます。習い事、レッスンの月謝引き落とし、オンラインサロンの運営、
-                    有料メールマガジンの開設に対応できます。</div>
+                    <div className={homeStyles.features_description_text}>毎月自動でお客様から自動でお支払いを引き落とす月額課金プランを作成できます。</div>
+                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/20/squareeight%e3%81%a7%e3%81%ae%e6%9c%88%e9%a1%8d%e8%aa%b2%e9%87%91%e3%83%97%e3%83%a9%e3%83%b3%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
+                      もっと見る
+                    </a>
                   </Card.Body>
                 </Card>
               </Col>
               <Col lg={4} sm={12}>
-                <Card.Img variant='top' src='/images/create_webpage.png' />
                 <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/create_webpage.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>Webページの作成</div>
                     <div className={homeStyles.features_description_text}>プログラミング知識不要でWebページを作成できます。</div>
