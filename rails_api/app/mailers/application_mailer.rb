@@ -1,4 +1,4 @@
 class ApplicationMailer < ActionMailer::Base
-  default from: "noreply@" + "square-eight.net"
+  default from: "noreply@" + ENV["AWS_SES_DOMAIN"]
   layout "mailer"
 end
