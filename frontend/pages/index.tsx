@@ -66,7 +66,7 @@ const Home: NextPage = () => {
             <Row>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
-                  <Card.Img variant='top' src='/images/reserve_frame_modal.png' />
+                  <Card.Img variant='top' src='/images/reserve_icatch.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>オンライン予約ページ作成</div>
                     <div className={homeStyles.features_description_text}>日ごと、週ごと、月ごとに受付日時を繰り返す予約メニューを登録できます。
@@ -76,8 +76,8 @@ const Home: NextPage = () => {
               </Col>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/product_icatch.png' />
                   <Card.Body>
-                    <Card.Img variant='top' src='/images/create_product.png' />
                     <div className={homeStyles.features_header_text}>商品の物販販売ページ作成</div>
                     <div className={homeStyles.features_description_text}>クレジットカード支払いに対応した物販商品を登録できます。</div>
                   </Card.Body>
@@ -86,7 +86,7 @@ const Home: NextPage = () => {
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
-                    <Card.Img variant='top' src='/images/create_ticket.png' />
+                    <Card.Img variant='top' src='/images/ticket_icatch.png' />
                     <div className={homeStyles.features_header_text}>回数券作成</div>
                     <div className={homeStyles.features_description_text}>クレジットカード支払いに対応した回数券を登録できます。
                     購入した回数券の使用状況を管理画面から把握できます。</div>
@@ -118,7 +118,7 @@ const Home: NextPage = () => {
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
-                    <Card.Img variant='top' src='/images/questionnaire.png' />
+                    <Card.Img variant='top' src='/images/questionnaire_master icatch.png' />
                     <div className={homeStyles.features_header_text}>オンラインアンケートの作成</div>
                     <div className={homeStyles.features_description_text}>Webアンケートを作成できます。テキスト入力、プルダウン、チェックボックス、ラジオボタン、日時入力フォームに対応しています。</div>
                   </Card.Body>
@@ -129,8 +129,8 @@ const Home: NextPage = () => {
             <Row>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/customer_index.png' />
                   <Card.Body>
-                    <Card.Img variant='top' src='/images/customer_index.png' />
                     <div className={homeStyles.features_header_text}>顧客管理</div>
                     <div className={homeStyles.features_description_text}>予約を受け付けたお客様や商品を購入したお客様を自動で登録・管理できます。
                     お客様ごとにメモを登録できます。</div>
@@ -139,8 +139,8 @@ const Home: NextPage = () => {
               </Col>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/create_message_template.png' />
                   <Card.Body>
-                    <Card.Img variant='top' src='/images/create_message_template.png' />
                     <div className={homeStyles.features_header_text}>メッセージテンプレートの作成</div>
                     <div className={homeStyles.features_description_text}>メッセージテンプレートを作ってお客様にメール送信ができます。</div>
                   </Card.Body>
@@ -148,8 +148,8 @@ const Home: NextPage = () => {
               </Col>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/sales_chart.png' />
                   <Card.Body>
-                    <Card.Img variant='top' src='/images/sales_chart.png' />
                     <div className={homeStyles.features_header_text}>売上管理</div>
                     <div className={homeStyles.features_description_text}>オンライン決済の売り上げが記録されます。ダッシュボードでグラフ表示することができます。</div>
                   </Card.Body>
