@@ -368,7 +368,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
               <>
                 <Row>
                   <Col>
-                    <Form.Label>配送料</Form.Label>
+                    <Form.Label>配送料（円）</Form.Label>
                     <Form.Control
                       value={flatRateDeliveryCharge}
                       onChange={(e) => dispatch(flatRateDeliveryChargeChange(Number(e.target.value)))}></Form.Control>
@@ -383,7 +383,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                     {prefectureDeliveryCharges.map((prefecture, i) => {
                       return (
                         <div key={i}>
-                          <Form.Label className='mt10'> {prefecture.region} 配送料</Form.Label>
+                          <Form.Label className='mt10'> {prefecture.region} 配送料（円）</Form.Label>
                           <Form.Control
                             onChange={(e) => updatePrefectureDeliveryCharge(prefecture.region, Number(e.target.value))}
                             value={prefecture.shipping_fee}
