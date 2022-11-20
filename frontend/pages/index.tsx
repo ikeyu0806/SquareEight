@@ -71,6 +71,9 @@ const Home: NextPage = () => {
                     <div className={homeStyles.features_header_text}>オンライン予約ページ作成</div>
                     <div className={homeStyles.features_description_text}>日ごと、週ごと、月ごとに受付日時を繰り返す予約メニューを登録できます。
                     設備・備品やスタッフの数による予約受付の制限や特例営業日の設定にも対応しています。</div>
+                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/18/squareeight%e3%81%a7%e3%81%ae%e3%82%aa%e3%83%b3%e3%83%a9%e3%82%a4%e3%83%b3%e4%ba%88%e7%b4%84%e3%83%9a%e3%83%bc%e3%82%b8%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
+                      もっと見る
+                    </a>
                   </Card.Body>
                 </Card>
               </Col>
@@ -80,16 +83,22 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>商品の物販販売ページ作成</div>
                     <div className={homeStyles.features_description_text}>クレジットカード支払いに対応した物販商品を登録できます。</div>
+                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/20/squareeight%e3%81%a7%e3%81%ae%e7%89%a9%e8%b2%a9%e3%83%9a%e3%83%bc%e3%82%b8%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
+                      もっと見る
+                    </a>
                   </Card.Body>
                 </Card>
               </Col>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/ticket_icatch.png' />
                   <Card.Body>
-                    <Card.Img variant='top' src='/images/ticket_icatch.png' />
                     <div className={homeStyles.features_header_text}>回数券作成</div>
                     <div className={homeStyles.features_description_text}>クレジットカード支払いに対応した回数券を登録できます。
                     購入した回数券の使用状況を管理画面から把握できます。</div>
+                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/20/squareeight%e3%81%a7%e3%81%ae%e5%9b%9e%e6%95%b0%e5%88%b8%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
+                      もっと見る
+                    </a>
                   </Card.Body>
                 </Card>
               </Col>
@@ -98,8 +107,8 @@ const Home: NextPage = () => {
             <Row>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/create_monthly_payment_plan.png' />
                   <Card.Body>
-                    <Card.Img variant='top' src='/images/create_monthly_payment_plan.png' />
                     <div className={homeStyles.features_header_text}>月額課金プランの作成</div>
                     <div className={homeStyles.features_description_text}>毎月自動でお客様から自動でお支払いを引き落とす月額課金プランを作成できます。習い事、レッスンの月謝引き落とし、オンラインサロンの運営、
                     有料メールマガジンの開設に対応できます。</div>
@@ -107,20 +116,23 @@ const Home: NextPage = () => {
                 </Card>
               </Col>
               <Col lg={4} sm={12}>
+                <Card.Img variant='top' src='/images/create_webpage.png' />
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
-                    <Card.Img variant='top' src='/images/create_webpage.png' />
                     <div className={homeStyles.features_header_text}>Webページの作成</div>
                     <div className={homeStyles.features_description_text}>プログラミング知識不要でWebページを作成できます。</div>
                   </Card.Body>
                 </Card>
               </Col>
               <Col lg={4} sm={12}>
+                <Card.Img variant='top' src='/images/questionnaire_master icatch.png' />
                 <Card className={homeStyles.featureCard}>
                   <Card.Body>
-                    <Card.Img variant='top' src='/images/questionnaire_master icatch.png' />
                     <div className={homeStyles.features_header_text}>オンラインアンケートの作成</div>
                     <div className={homeStyles.features_description_text}>Webアンケートを作成できます。テキスト入力、プルダウン、チェックボックス、ラジオボタン、日時入力フォームに対応しています。</div>
+                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/19/squareeight%e3%81%a7%e3%81%ae%e3%82%aa%e3%83%b3%e3%83%a9%e3%82%a4%e3%83%b3%e3%82%a2%e3%83%b3%e3%82%b1%e3%83%bc%e3%83%88%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
+                      もっと見る
+                    </a>
                   </Card.Body>
                 </Card>
               </Col>
@@ -128,8 +140,8 @@ const Home: NextPage = () => {
             &thinsp;
             <Row>
               <Col lg={4} sm={12}>
+                <Card.Img variant='top' src='/images/customer_index.png' />
                 <Card className={homeStyles.featureCard}>
-                  <Card.Img variant='top' src='/images/customer_index.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>顧客管理</div>
                     <div className={homeStyles.features_description_text}>予約を受け付けたお客様や商品を購入したお客様を自動で登録・管理できます。
@@ -138,8 +150,8 @@ const Home: NextPage = () => {
                 </Card>
               </Col>
               <Col lg={4} sm={12}>
+                <Card.Img variant='top' src='/images/create_message_template.png' />
                 <Card className={homeStyles.featureCard}>
-                  <Card.Img variant='top' src='/images/create_message_template.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>メッセージテンプレートの作成</div>
                     <div className={homeStyles.features_description_text}>メッセージテンプレートを作ってお客様にメール送信ができます。</div>
