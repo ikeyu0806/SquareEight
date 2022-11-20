@@ -125,8 +125,8 @@ const Home: NextPage = () => {
                 </Card>
               </Col>
               <Col lg={4} sm={12}>
-                <Card.Img variant='top' src='/images/questionnaire_master icatch.png' />
                 <Card className={homeStyles.featureCard}>
+                <Card.Img variant='top' src='/images/questionnaire_master_icatch.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>オンラインアンケートの作成</div>
                     <div className={homeStyles.features_description_text}>Webアンケートを作成できます。テキスト入力、プルダウン、チェックボックス、ラジオボタン、日時入力フォームに対応しています。</div>
