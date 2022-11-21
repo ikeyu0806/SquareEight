@@ -159,10 +159,13 @@ const Home: NextPage = () => {
               </Col>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
-                  <Card.Img variant='top' src='/images/create_message_template.png' />
+                  <Card.Img variant='top' src='/images/message_template_icatch.png' />
                   <Card.Body>
-                    <div className={homeStyles.features_header_text}>メッセージテンプレートの作成</div>
+                    <div className={homeStyles.features_header_text}>メッセージテンプレート</div>
                     <div className={homeStyles.features_description_text}>メッセージテンプレートを作ってお客様にメール送信ができます。</div>
+                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/21/squareeight%e3%81%ae%e3%83%a1%e3%83%83%e3%82%bb%e3%83%bc%e3%82%b8%e3%83%86%e3%83%b3%e3%83%97%e3%83%ac%e3%83%bc%e3%83%88%e6%a9%9f%e8%83%bd%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
+                      もっと見る
+                    </a>
                   </Card.Body>
                 </Card>
               </Col>
