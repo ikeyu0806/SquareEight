@@ -146,11 +146,14 @@ const Home: NextPage = () => {
             <Row>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
-                  <Card.Img variant='top' src='/images/customer_index.png' />
+                  <Card.Img variant='top' src='/images/customer_icatch.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>顧客管理</div>
                     <div className={homeStyles.features_description_text}>予約を受け付けたお客様や商品を購入したお客様を自動で登録・管理できます。
                     お客様ごとにメモを登録できます。</div>
+                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/20/squareeight%e3%81%a7%e3%81%ae%e5%9b%9e%e6%95%b0%e5%88%b8%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
+                      もっと見る
+                    </a>
                   </Card.Body>
                 </Card>
               </Col>
