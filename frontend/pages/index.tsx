@@ -171,10 +171,13 @@ const Home: NextPage = () => {
               </Col>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
-                  <Card.Img variant='top' src='/images/sales_chart.png' />
+                  <Card.Img variant='top' src='/images/sales_icatch.png' />
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>売上管理</div>
                     <div className={homeStyles.features_description_text}>オンライン決済の売り上げが記録されます。ダッシュボードでグラフ表示することができます。</div>
+                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/21/squareeight%e3%81%a7%e3%81%ae%e3%82%aa%e3%83%b3%e3%83%a9%e3%82%a4%e3%83%b3%e5%a3%b2%e3%82%8a%e4%b8%8a%e3%81%92%e7%ae%a1%e7%90%86%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
+                      もっと見る
+                    </a>
                   </Card.Body>
                 </Card>
               </Col>
