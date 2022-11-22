@@ -7,6 +7,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
     payment_requests = JSON.parse(payment_requests.to_json(methods: [:display_status, :request_url, :billing_customer_name, :billing_customer_email]))
     render json: {  status: 'success', payment_requests: payment_requests }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -28,6 +29,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                     login_status: login_status,
                     shared_component: shared_component }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -41,6 +43,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                     customer_groups: customer_groups,
                     message_templates: message_templates }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -94,6 +97,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
     end
     render json: {  status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -153,6 +157,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
       render json: {  status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

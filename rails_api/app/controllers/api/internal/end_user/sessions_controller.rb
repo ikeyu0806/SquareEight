@@ -16,6 +16,7 @@ class Api::Internal::EndUser::SessionsController < ApplicationController
                    end_user: end_user,
                    error: nil }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 401
   end
 
@@ -29,6 +30,7 @@ class Api::Internal::EndUser::SessionsController < ApplicationController
                    end_user: end_user,
                    error: nil }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 401
   end
 
@@ -37,6 +39,7 @@ class Api::Internal::EndUser::SessionsController < ApplicationController
     render json: { status: 'success',
                    session_id: request.headers["Session-Id"] }
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: e }, status: 500
   end
 

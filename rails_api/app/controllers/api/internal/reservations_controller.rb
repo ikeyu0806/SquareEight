@@ -46,6 +46,7 @@ class Api::Internal::ReservationsController < ApplicationController
       render json: { status: 'success', reservation: reservation }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -208,6 +209,7 @@ class Api::Internal::ReservationsController < ApplicationController
       render json: { status: 'success', reservation: reservation }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -221,6 +223,7 @@ class Api::Internal::ReservationsController < ApplicationController
                                                            :reservation_credit_card_payment_prices]))
     render json: { status: 'success', reservation: reservation }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -237,6 +240,7 @@ class Api::Internal::ReservationsController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -277,6 +281,7 @@ class Api::Internal::ReservationsController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -286,6 +291,7 @@ class Api::Internal::ReservationsController < ApplicationController
     customers = JSON.parse(account.customers.to_json(methods: [:full_name]))
     render json: { status: 'success', reserve_frames: reserve_frames, customers: customers }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -333,6 +339,7 @@ class Api::Internal::ReservationsController < ApplicationController
                    is_purchase_ticket: is_purchase_ticket,
                    login_status: login_status }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -346,6 +353,7 @@ class Api::Internal::ReservationsController < ApplicationController
     end
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

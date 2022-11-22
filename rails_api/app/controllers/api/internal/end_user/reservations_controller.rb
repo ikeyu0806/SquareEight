@@ -16,6 +16,7 @@ class Api::Internal::EndUser::ReservationsController < ApplicationController
     reservations = JSON.parse(reservations)
     render json: { status: 'success', reservations: reservations }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -32,6 +33,7 @@ class Api::Internal::EndUser::ReservationsController < ApplicationController
     .create!(title: account_notification_title, url: account_notification_url)
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 end

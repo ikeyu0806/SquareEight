@@ -5,6 +5,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
     customers = current_merchant_user.account.customers_with_limit.order(:id)
     render json: { status: 'success', customers: customers }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -12,6 +13,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
     current_merchant_user.account.customers.create!(customer_params)
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -20,6 +22,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
     customer.update!(customer_params)
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -31,7 +34,8 @@ class Api::Internal::Account::CustomersController < ApplicationController
       orders = []
     end
     render json: { status: 'success', orders: orders }, status: 200
-  rescue => e
+  rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: e }, status: 500
   end
 
@@ -40,6 +44,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
     stripe_payment_intents = customer.end_user&.stripe_payment_intents
     render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

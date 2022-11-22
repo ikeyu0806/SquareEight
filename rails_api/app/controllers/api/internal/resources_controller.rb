@@ -5,6 +5,7 @@ class Api::Internal::ResourcesController < ApplicationController
     resources = current_merchant_user.account.resources
     render json: { status: 'success', resources: resources }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -12,6 +13,7 @@ class Api::Internal::ResourcesController < ApplicationController
     resource = current_merchant_user.account.resources.find_by(public_id: params[:public_id])
     render json: { status: 'success', resource: resource }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -19,6 +21,7 @@ class Api::Internal::ResourcesController < ApplicationController
     current_merchant_user.account.resources.create!(resource_params)
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -27,6 +30,7 @@ class Api::Internal::ResourcesController < ApplicationController
     resource.update!(resource_params)
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

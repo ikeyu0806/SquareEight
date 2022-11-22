@@ -13,6 +13,7 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
                    products: products,
                    delivery_datetime_setting: delivery_datetime_setting }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -63,6 +64,7 @@ class Api::Internal::DeliveryDatetimeSettingsController < ApplicationController
     delivery_datetime_setting.save!
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

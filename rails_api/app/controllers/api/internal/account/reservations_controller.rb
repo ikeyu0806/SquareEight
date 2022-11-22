@@ -24,6 +24,7 @@ class Api::Internal::Account::ReservationsController < ApplicationController
     reservations = JSON.parse(reservations)
     render json: { status: 'success', reservations: reservations }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 end

@@ -21,6 +21,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
     reserve_frames = JSON.parse(reserve_frames)
     render json: { status: 'success', reserve_frames: reserve_frames }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -47,6 +48,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                     main_image_public_url: main_image_public_url,
                     shared_component: shared_component }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -109,6 +111,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -174,6 +177,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -189,6 +193,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                    ticket_masters: ticket_masters,
                    monthly_payment_plans: monthly_payment_plans }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -197,6 +202,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
     reserve_frame.logical_delete
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

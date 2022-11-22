@@ -28,6 +28,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     end
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -52,6 +53,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -80,6 +82,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -93,6 +96,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     MerchantUserMailer.registration_complete(merchant_user.email).deliver_now
     render json: { status: 'success', session_id: session.id, }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -105,6 +109,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     session['merchant_user_id'] = merchant_user.id
     render json: { status: 'success', session_id: session.id, }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -116,6 +121,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     current_merchant_user = JSON.parse(user.to_json(methods: [:is_enabled_email_login]))
     render json: { status: 'success', merchant_user: current_merchant_user }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -123,6 +129,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     current_merchant_user.update!(google_auth_id: nil, google_auth_email: nil)
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -134,6 +141,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     MerchantUserMailer.reset_password(merchant_user.email, url).deliver_now
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -144,6 +152,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     merchant_user.save!
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -159,6 +168,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     end
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

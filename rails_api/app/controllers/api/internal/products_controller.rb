@@ -9,6 +9,7 @@ class Api::Internal::ProductsController < ApplicationController
     products = JSON.parse(products.to_json(methods: [:product_types, :show_product_type_form]))
     render json: { status: 'success', products: products }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -17,6 +18,7 @@ class Api::Internal::ProductsController < ApplicationController
     product = JSON.parse(product.to_json(methods: [:product_types, :show_product_type_form, :shipping_fee_per_regions, :delivery_charge_type]))
     render json: { status: 'success', product: product }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -44,6 +46,7 @@ class Api::Internal::ProductsController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -71,6 +74,7 @@ class Api::Internal::ProductsController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -99,6 +103,7 @@ class Api::Internal::ProductsController < ApplicationController
                    current_end_user_id: current_end_user.present? ? current_end_user.id : nil,
                    login_status: login_status }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -129,6 +134,7 @@ class Api::Internal::ProductsController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -137,6 +143,7 @@ class Api::Internal::ProductsController < ApplicationController
     product.logical_delete
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

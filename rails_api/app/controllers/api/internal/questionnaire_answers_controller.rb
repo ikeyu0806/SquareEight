@@ -7,6 +7,7 @@ class Api::Internal::QuestionnaireAnswersController < ApplicationController
                    customer: customer,
                    questionnaire_answer: questionnaire_answer }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -33,6 +34,7 @@ class Api::Internal::QuestionnaireAnswersController < ApplicationController
       render json: { status: 'success', questionnaire_answer: questionnaire_answer }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

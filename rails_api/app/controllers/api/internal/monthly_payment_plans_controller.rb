@@ -8,6 +8,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     monthly_payment_plans = current_merchant_user.account.monthly_payment_plans.enabled.order(:id)
     render json: { status: 'success', monthly_payment_plans: monthly_payment_plans }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -15,6 +16,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.enabled.find_by(public_id: params[:public_id])
     render json: { status: 'success', monthly_payment_plan: monthly_payment_plan }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -38,6 +40,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
                    default_payment_method_id: default_payment_method_id,
                    login_status: login_status }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -68,6 +71,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -85,6 +89,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     monthly_payment_plan.save!
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -100,6 +105,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -108,6 +114,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     monthly_payment_plan.logical_delete
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

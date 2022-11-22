@@ -5,6 +5,7 @@ class Api::Internal::AccountsController < ApplicationController
     account = current_merchant_user.account
     render json: { status: 'success', account: account }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -13,6 +14,7 @@ class Api::Internal::AccountsController < ApplicationController
     account.update!(business_name: account_params[:business_name])
     render json: { status: 'success', account: account }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -63,6 +65,7 @@ class Api::Internal::AccountsController < ApplicationController
                    customer_count_array: customer_count_array,
                    system_notifications: system_notifications }
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -72,6 +75,7 @@ class Api::Internal::AccountsController < ApplicationController
                    payment_methods: payment_methods,
                    default_payment_method_id: default_payment_method_id }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -94,6 +98,7 @@ class Api::Internal::AccountsController < ApplicationController
                     representative_person: JSON.parse(representative_person.to_json),
                     selected_external_account_id: current_merchant_user.account.selected_external_account_id }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -389,6 +394,7 @@ class Api::Internal::AccountsController < ApplicationController
     end
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -413,6 +419,7 @@ class Api::Internal::AccountsController < ApplicationController
     end
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -420,6 +427,7 @@ class Api::Internal::AccountsController < ApplicationController
     current_merchant_user.account.update!(selected_external_account_id: account_params[:external_account_id])
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -432,6 +440,7 @@ class Api::Internal::AccountsController < ApplicationController
     )
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -440,6 +449,7 @@ class Api::Internal::AccountsController < ApplicationController
     page_links = account.page_links
     render json: { status: 'success', page_links: page_links }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -452,6 +462,7 @@ class Api::Internal::AccountsController < ApplicationController
     )
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -463,6 +474,7 @@ class Api::Internal::AccountsController < ApplicationController
     )
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -488,6 +500,7 @@ class Api::Internal::AccountsController < ApplicationController
     end
     render json: { status: 'success', stripe_account: stripe_account, representative: representative }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -496,6 +509,7 @@ class Api::Internal::AccountsController < ApplicationController
     stripe_payment_intents = JSON.parse(stripe_payment_intents.to_json(methods: [:customer_fullname]))
     render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -533,6 +547,7 @@ class Api::Internal::AccountsController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -550,6 +565,7 @@ class Api::Internal::AccountsController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -558,6 +574,7 @@ class Api::Internal::AccountsController < ApplicationController
     answer_contents = account.answer_contents
     render json: { status: 'success', answer_contents: answer_contents }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -576,6 +593,7 @@ class Api::Internal::AccountsController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -643,6 +661,7 @@ class Api::Internal::AccountsController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

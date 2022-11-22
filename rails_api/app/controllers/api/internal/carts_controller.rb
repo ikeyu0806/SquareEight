@@ -5,6 +5,7 @@ class Api::Internal::CartsController < ApplicationController
     cart_items, total_price = current_end_user.cart_contents
     render json: { status: 'success', cart_items: cart_items, total_price: total_price }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -22,6 +23,7 @@ class Api::Internal::CartsController < ApplicationController
     cart_item.destroy
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

@@ -5,7 +5,8 @@ class Api::Internal::Merchant::SessionsController < ApplicationController
     render json: { status: 'success',
                    user: user,
                    service_plan: current_merchant_user.account.service_plan }
-  rescue => e
+  rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: e }, status: 401
   end
 
@@ -19,6 +20,7 @@ class Api::Internal::Merchant::SessionsController < ApplicationController
                    merchant_user: merchant_user,
                    error: nil }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 401
   end
 
@@ -32,6 +34,7 @@ class Api::Internal::Merchant::SessionsController < ApplicationController
                    merchant_user: merchant_user,
                    error: nil }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 401
   end
 
@@ -40,6 +43,7 @@ class Api::Internal::Merchant::SessionsController < ApplicationController
     render json: { status: 'success',
                    session_id: request.headers["Session-Id"] }
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: e }, status: 500
   end
 

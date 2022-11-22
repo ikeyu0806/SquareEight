@@ -12,14 +12,16 @@ class Api::Internal::MessageTemplatesController < ApplicationController
                    customers: customers,
                    customer_groups: customer_groups,
                    page_links: page_links }, status: 200
-  rescue => e
+  rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: e }, status: 500
   end
 
   def create
     current_merchant_user.account.message_templates.create!(message_template_params)
     render json: { status: 'success' }, status: 200
-  rescue => e
+  rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: e }, status: 500
   end
 
@@ -27,7 +29,8 @@ class Api::Internal::MessageTemplatesController < ApplicationController
     message_template = MessageTemplate.find_by(public_id: params[:public_id])
     message_template.update!(message_template_params)
     render json: { status: 'success' }, status: 200
-  rescue => e
+  rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: e }, status: 500
   end
 
@@ -62,7 +65,8 @@ class Api::Internal::MessageTemplatesController < ApplicationController
       raise 'Invalid target_type'
     end
     render json: { status: 'success' }, status: 200
-  rescue => e
+  rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: e }, status: 500
   end
 
@@ -70,7 +74,8 @@ class Api::Internal::MessageTemplatesController < ApplicationController
     message_template = MessageTemplate.find_by(public_id: params[:public_id])
     message_template.destroy
     render json: { status: 'success' }, status: 200
-  rescue => e
+  rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: e }, status: 500
   end
 

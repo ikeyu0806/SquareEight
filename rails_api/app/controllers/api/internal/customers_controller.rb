@@ -7,6 +7,7 @@ class Api::Internal::CustomersController < ApplicationController
     customer.save!
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -15,6 +16,7 @@ class Api::Internal::CustomersController < ApplicationController
     answer_contents = customer.answer_contents
     render json: { status: 'success', answer_contents: answer_contents }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

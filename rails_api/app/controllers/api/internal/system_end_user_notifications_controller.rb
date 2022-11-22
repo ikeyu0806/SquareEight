@@ -6,6 +6,7 @@ class Api::Internal::SystemEndUserNotificationsController < ApplicationControlle
     system_end_user_notifications = SystemEndUserNotification.all
     render json: { status: 'success', system_end_user_notifications: system_end_user_notifications }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -13,6 +14,7 @@ class Api::Internal::SystemEndUserNotificationsController < ApplicationControlle
     SystemEndUserNotification.create!(notification_params)
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -20,6 +22,7 @@ class Api::Internal::SystemEndUserNotificationsController < ApplicationControlle
     system_end_user_notification = SystemEndUserNotification.find_by(public_id: params[:public_id])
     render json: { status: 'success', system_end_user_notification: system_end_user_notification }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
@@ -27,6 +30,7 @@ class Api::Internal::SystemEndUserNotificationsController < ApplicationControlle
     SystemEndUserNotification.find_by(public_id: params[:public_id]).update!(notification_params)
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 

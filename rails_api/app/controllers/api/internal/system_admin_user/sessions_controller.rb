@@ -2,7 +2,8 @@ class Api::Internal::SystemAdminUser::SessionsController < ApplicationController
   def login_status
     raise if current_system_admin_user.blank?
     render json: { status: 'success', user: current_system_admin_user}
-  rescue => e
+  rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: e }, status: 401
   end
 
@@ -16,6 +17,7 @@ class Api::Internal::SystemAdminUser::SessionsController < ApplicationController
                    system_admin_user: system_admin_user,
                    error: nil }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 401
   end
 
@@ -29,6 +31,7 @@ class Api::Internal::SystemAdminUser::SessionsController < ApplicationController
                    system_admin_user: system_admin_user,
                    error: nil }, status: 200
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 401
   end
 
@@ -37,6 +40,7 @@ class Api::Internal::SystemAdminUser::SessionsController < ApplicationController
     render json: { status: 'success',
                    session_id: request.headers["Session-Id"] }
   rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: e }, status: 500
   end
 
