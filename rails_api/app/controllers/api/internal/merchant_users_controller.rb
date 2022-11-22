@@ -109,7 +109,11 @@ class Api::Internal::MerchantUsersController < ApplicationController
   end
 
   def current_merchant_user_info
-    current_merchant_user = JSON.parse(current_merchant_user.to_json(methods: [:is_enabled_email_login]))
+    # なぜかApplicationControllerのcurrent_merchant_userがnilになるので一旦こうする
+    session_hash = Rails.cache.fetch('_session_id:2::' + Digest::SHA256.hexdigest(request.headers["Session-Id"]))
+    raise "session not exists" if session_hash.blank?
+    user = MerchantUser.find(session_hash["merchant_user_id"])
+    current_merchant_user = JSON.parse(user.to_json(methods: [:is_enabled_email_login]))
     render json: { status: 'success', merchant_user: current_merchant_user }, status: 200
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
