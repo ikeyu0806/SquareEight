@@ -17,7 +17,7 @@ class StripeWebhooksController < ApplicationController
           .create!(title: account_notification_title, url: account_notification_url)
         end
         email = account.merchant_users.pluck(:email).join(",")
-        StripeWebhookMailer.account_update_mail(email, account.id, stripe_params["data"]["object"]["payouts_enabled"]).deliver_later
+        StripeWebhookMailer.account_update_mail(email, account.id, stripe_params["data"]["object"]["payouts_enabled"]).deliver_now
       end
       # 決済実行時
       if stripe_params["type"] == "payment_intent.created"

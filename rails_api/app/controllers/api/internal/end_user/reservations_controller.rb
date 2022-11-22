@@ -24,7 +24,7 @@ class Api::Internal::EndUser::ReservationsController < ApplicationController
     reservation.update!(status: 'cancel')
     customer = reservation.customer
     # ビジネスオーナー向け通知
-    ReservationMailer.cancel_mail_to_merchant(reservation.id, customer.id).deliver_later
+    ReservationMailer.cancel_mail_to_merchant(reservation.id, customer.id).deliver_now
     account_notification_title = customer.full_name + 'が' + '予約をキャンセルしました'
     account_notification_url = '/admin/reservation/'
     reservation.account

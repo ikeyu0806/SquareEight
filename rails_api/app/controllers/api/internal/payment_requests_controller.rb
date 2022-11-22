@@ -58,7 +58,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                     customer[:first_name],
                     payment_request_params[:price],
                     payment_request_url)
-        PaymentRequestMailer.payment_request_mail(customer[:email], payment_request_params[:title], content).deliver_later
+        PaymentRequestMailer.payment_request_mail(customer[:email], payment_request_params[:title], content).deliver_now
       end
     when 'customerGroup' then
       customer_groups = account.customer_groups.where(id: payment_request_params[:selected_customer_groups].pluck(:id))
@@ -73,7 +73,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                       customer.first_name,
                       payment_request_params[:price],
                       payment_request_url)
-          PaymentRequestMailer.payment_request_mail(customer.email, payment_request_params[:title], content).deliver_later
+          PaymentRequestMailer.payment_request_mail(customer.email, payment_request_params[:title], content).deliver_now
         end
       end
     when 'newCustomer' then
@@ -88,7 +88,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
                   customer.first_name,
                   payment_request_params[:price],
                   payment_request_url)
-      PaymentRequestMailer.payment_request_mail(email, payment_request_params[:title], content).deliver_later
+      PaymentRequestMailer.payment_request_mail(email, payment_request_params[:title], content).deliver_now
     else
       raise '不正なパラメータです'
     end
@@ -141,7 +141,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
       # エンドユーザ通知
       end_user_notification_title = payment_request.name + 'のお支払いが完了しました'
       current_end_user.create_product_purchase_notification(end_user_notification_title)
-      PaymentRequestMailer.payment_complete_mail(payment_request.id).deliver_later
+      PaymentRequestMailer.payment_complete_mail(payment_request.id).deliver_now
       # ビジネスオーナー向け通知
       account_notification_title = customer.full_name + 'から' + payment_request.name + 'のお支払いを受けつけました。'
       account_notification_url = '/admin/charges'

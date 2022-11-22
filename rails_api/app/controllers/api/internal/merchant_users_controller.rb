@@ -24,7 +24,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       merchant_user.save!
       shared_component.save! if shared_component.present?
       encode_email = Base64.urlsafe_encode64(merchant_user.email)
-      MerchantUserMailer.send_verification_code(merchant_user.email, encode_email, merchant_user.verification_code).deliver_later
+      MerchantUserMailer.send_verification_code(merchant_user.email, encode_email, merchant_user.verification_code).deliver_now
     end
     render json: { status: 'success' }, status: 200
   rescue => error
@@ -46,7 +46,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
         merchant_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
         merchant_user.verification_code_expired_at = Time.zone.now + 1.days
         encode_email = Base64.urlsafe_encode64(merchant_user.wait_for_update_email)
-        MerchantUserMailer.send_update_email_verification_code(merchant_user.wait_for_update_email, encode_email, merchant_user.verification_code).deliver_later
+        MerchantUserMailer.send_update_email_verification_code(merchant_user.wait_for_update_email, encode_email, merchant_user.verification_code).deliver_now
       end
       merchant_user.save!
       render json: { status: 'success' }, status: 200
@@ -90,7 +90,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if merchant_user.verification_code_expired_at < Time.zone.now
     merchant_user.update!(email_authentication_status: 'Enabled')
     session['merchant_user_id'] = merchant_user.id
-    MerchantUserMailer.registration_complete(merchant_user.email).deliver_later
+    MerchantUserMailer.registration_complete(merchant_user.email).deliver_now
     render json: { status: 'success', session_id: session.id, }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -127,7 +127,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     raise '未登録のメールアドレスです' if merchant_user.blank?
     merchant_user.set_email_reset_key
     url = ENV["FRONTEND_URL"] + "/merchant/input_reset_password" + "?key=" + merchant_user.email_reset_key
-    MerchantUserMailer.reset_password(merchant_user.email, url).deliver_later
+    MerchantUserMailer.reset_password(merchant_user.email, url).deliver_now
     render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -151,7 +151,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       merchant_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
       merchant_user.verification_code_expired_at = Time.zone.now + 1.days
       merchant_user.save!
-      MerchantUserMailer.send_verification_code(merchant_user.email, encode_email, merchant_user.verification_code).deliver_later
+      MerchantUserMailer.send_verification_code(merchant_user.email, encode_email, merchant_user.verification_code).deliver_now
     end
     render json: { status: 'success' }, status: 200
   rescue => error

@@ -3,7 +3,7 @@ class Api::Batch::ReservationsController < ApplicationController
     day = Time.new(reservation_params[:year], reservation_params[:month], reservation_params[:day])
     reservations = Reservation.where(start_at: day.beginning_of_day..day.end_of_day)
     reservations.each do |reservation|
-      ReservationMailer.remind_mail_to_customer(reservation.id).deliver_later
+      ReservationMailer.remind_mail_to_customer(reservation.id).deliver_now
     end
     render json: { status: 'success' }, status: 200
   rescue => error

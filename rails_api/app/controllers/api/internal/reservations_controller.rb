@@ -198,11 +198,11 @@ class Api::Internal::ReservationsController < ApplicationController
       display_price = total_price.present? ? total_price : reservation.display_price
       display_number_of_people = reservation.number_of_people.to_s + '人' if display_number_of_people.blank?
       if reserve_frame.reception_type == 'Immediate' && reservation.customer.email.present?
-        ReservationMailer.send_end_user_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, display_reservation_datetime, display_payment_method, display_number_of_people, display_price).deliver_later
+        ReservationMailer.send_end_user_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, display_reservation_datetime, display_payment_method, display_number_of_people, display_price).deliver_now
       end
 
       merchant_emails = reserve_frame.account.merchant_users.pluck(:email).join(',')
-      ReservationMailer.send_merchant_confirm_mail(merchant_emails, "予約を受け付けました", reservation.id, reserve_frame.id, customer.id, display_reservation_datetime, display_payment_method, display_status, display_price, display_number_of_people).deliver_later
+      ReservationMailer.send_merchant_confirm_mail(merchant_emails, "予約を受け付けました", reservation.id, reserve_frame.id, customer.id, display_reservation_datetime, display_payment_method, display_status, display_price, display_number_of_people).deliver_now
 
       render json: { status: 'success', reservation: reservation }, status: 200
     end
@@ -231,7 +231,7 @@ class Api::Internal::ReservationsController < ApplicationController
         display_number_of_people, total_price = reservation.display_multi_payment_method_with_number_of_people
         display_price = total_price.present? ? total_price : reservation.display_price
         display_number_of_people = reservation.number_of_people.to_s + '人' if display_number_of_people.blank?
-        ReservationMailer.send_end_user_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, reservation.display_reservation_datetime, reservation.display_payment_method, display_number_of_people, display_price).deliver_later
+        ReservationMailer.send_end_user_confirm_mail(reservation.customer.email, "予約を確定しました", reservation.reserve_frame.title, reservation.display_reservation_datetime, reservation.display_payment_method, display_number_of_people, display_price).deliver_now
       end
       render json: { status: 'success' }, status: 200
     end
@@ -341,7 +341,7 @@ class Api::Internal::ReservationsController < ApplicationController
     customer = reservation.customer
     # swal2のcheckboxにチェックを入れると"1"になる
     if params[:send_mail] == "1" && customer.email.present?
-      ReservationMailer.cancel_mail_to_customer(reservation.id, customer.id).deliver_later
+      ReservationMailer.cancel_mail_to_customer(reservation.id, customer.id).deliver_now
     end
     render json: { status: 'success' }, status: 200
   rescue => error

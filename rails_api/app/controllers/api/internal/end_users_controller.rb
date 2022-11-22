@@ -60,7 +60,7 @@ class Api::Internal::EndUsersController < ApplicationController
       end_user.password = end_user_params[:password]
       end_user.save!
       encode_email = Base64.urlsafe_encode64(end_user.email)
-      EndUserMailer.send_verification_code(end_user.email, encode_email, end_user.verification_code).deliver_later
+      EndUserMailer.send_verification_code(end_user.email, encode_email, end_user.verification_code).deliver_now
     end
     render json: { status: 'success' }, status: 200
   rescue => error
@@ -79,7 +79,7 @@ class Api::Internal::EndUsersController < ApplicationController
         end_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
         end_user.verification_code_expired_at = Time.zone.now + 1.days
         encode_email = Base64.urlsafe_encode64(end_user.wait_for_update_email)
-        EndUserMailer.send_update_email_verification_code(end_user.wait_for_update_email, encode_email, end_user.verification_code).deliver_later
+        EndUserMailer.send_update_email_verification_code(end_user.wait_for_update_email, encode_email, end_user.verification_code).deliver_now
       end
       end_user.save!
       render json: { status: 'success' }, status: 200
@@ -119,7 +119,7 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if end_user.verification_code_expired_at < Time.zone.now
     end_user.update!(email_authentication_status: 'Enabled')
     session['end_user_id'] = end_user.id
-    EndUserMailer.registration_complete(end_user.id).deliver_later
+    EndUserMailer.registration_complete(end_user.id).deliver_now
     render json: { status: 'success', session_id: session.id, }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -216,7 +216,7 @@ class Api::Internal::EndUsersController < ApplicationController
     raise '未登録のメールアドレスです' if end_user.blank?
     end_user.set_email_reset_key
     url = ENV["FRONTEND_URL"] + "/customer/input_reset_password" + "?key=" + end_user.email_reset_key
-    EndUserMailer.reset_password(end_user.email, url).deliver_later
+    EndUserMailer.reset_password(end_user.email, url).deliver_now
     render json: { status: 'success' }, status: 200
   rescue => error
     render json: { statue: 'fail', error: error }, status: 500
@@ -241,7 +241,7 @@ class Api::Internal::EndUsersController < ApplicationController
       end_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
       end_user.verification_code_expired_at = Time.zone.now + 1.days
       end_user.save!
-      EndUserMailer.send_verification_code(end_user.email, encode_email, end_user.verification_code).deliver_later
+      EndUserMailer.send_verification_code(end_user.email, encode_email, end_user.verification_code).deliver_now
     end
     render json: { status: 'success' }, status: 200
   rescue => error
