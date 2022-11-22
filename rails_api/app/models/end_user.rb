@@ -25,6 +25,7 @@ class EndUser < ApplicationRecord
 
   def payment_methods
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     if self.stripe_customer_id.present?
       customer = Stripe::Customer.retrieve(self.stripe_customer_id)
       default_payment_method_id = customer["invoice_settings"]["default_payment_method"]
