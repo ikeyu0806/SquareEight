@@ -24,6 +24,6 @@ class Api::Internal::Account::ReservationsController < ApplicationController
     reservations = JSON.parse(reservations)
     render json: { status: 'success', reservations: reservations }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 end

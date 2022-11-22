@@ -7,7 +7,7 @@ class Api::Internal::QuestionnaireAnswersController < ApplicationController
                    customer: customer,
                    questionnaire_answer: questionnaire_answer }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def create
@@ -33,7 +33,7 @@ class Api::Internal::QuestionnaireAnswersController < ApplicationController
       render json: { status: 'success', questionnaire_answer: questionnaire_answer }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private

@@ -3,7 +3,7 @@ class Api::Internal::SystemAdminUser::SessionsController < ApplicationController
     raise if current_system_admin_user.blank?
     render json: { status: 'success', user: current_system_admin_user}
   rescue => e
-    render json: { statue: 'fail', error: e }, status: 401
+    render json: { status: 'fail', error: e }, status: 401
   end
 
   def create
@@ -16,7 +16,7 @@ class Api::Internal::SystemAdminUser::SessionsController < ApplicationController
                    system_admin_user: system_admin_user,
                    error: nil }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 401
+    render json: { status: 'fail', error: error }, status: 401
   end
 
   def create_by_google_auth
@@ -29,7 +29,7 @@ class Api::Internal::SystemAdminUser::SessionsController < ApplicationController
                    system_admin_user: system_admin_user,
                    error: nil }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 401
+    render json: { status: 'fail', error: error }, status: 401
   end
 
   def destroy
@@ -37,7 +37,7 @@ class Api::Internal::SystemAdminUser::SessionsController < ApplicationController
     render json: { status: 'success',
                    session_id: request.headers["Session-Id"] }
   rescue => error
-    render json: { statue: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: e }, status: 500
   end
 
   private

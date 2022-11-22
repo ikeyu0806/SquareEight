@@ -5,7 +5,7 @@ class Api::Internal::WebpagesController < ApplicationController
     webpages = current_merchant_user.account.webpages
     render json: { status: 'success', webpages: webpages }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def show
@@ -15,7 +15,7 @@ class Api::Internal::WebpagesController < ApplicationController
     render json: { status: 'success',
                    webpage: webpage_json, shared_component: shared_component }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def create
@@ -27,7 +27,7 @@ class Api::Internal::WebpagesController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def edit
@@ -37,7 +37,7 @@ class Api::Internal::WebpagesController < ApplicationController
                    webpage: webpage_json,
                    max_sort_order: webpage.max_sort_order }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update
@@ -52,7 +52,7 @@ class Api::Internal::WebpagesController < ApplicationController
     end
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def destroy
@@ -64,7 +64,7 @@ class Api::Internal::WebpagesController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private

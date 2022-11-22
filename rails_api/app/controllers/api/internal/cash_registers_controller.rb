@@ -16,7 +16,7 @@ class Api::Internal::CashRegistersController < ApplicationController
                     include_no_remaining_inventory: cart_items.pluck(:remaining_inventory).include?(0),
                     default_payment_method_id: default_payment_method_id, }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def purchase
@@ -248,7 +248,7 @@ class Api::Internal::CashRegistersController < ApplicationController
       render json: { status: 'success', order_public_id: order.public_id }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private

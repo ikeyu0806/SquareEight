@@ -7,28 +7,28 @@ class Api::Internal::MessageTemplatesController < ApplicationController
     customers = account.customers.order(:id)
     customer_groups = account.customer_groups
     page_links = account.page_links
-    render json: { statue: 'success',
+    render json: { status: 'success',
                    message_templates: message_templates,
                    customers: customers,
                    customer_groups: customer_groups,
                    page_links: page_links }, status: 200
   rescue => e
-    render json: { statue: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: e }, status: 500
   end
 
   def create
     current_merchant_user.account.message_templates.create!(message_template_params)
-    render json: { statue: 'success' }, status: 200
+    render json: { status: 'success' }, status: 200
   rescue => e
-    render json: { statue: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: e }, status: 500
   end
 
   def update
     message_template = MessageTemplate.find_by(public_id: params[:public_id])
     message_template.update!(message_template_params)
-    render json: { statue: 'success' }, status: 200
+    render json: { status: 'success' }, status: 200
   rescue => e
-    render json: { statue: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: e }, status: 500
   end
 
   def send_mail
@@ -61,17 +61,17 @@ class Api::Internal::MessageTemplatesController < ApplicationController
     else
       raise 'Invalid target_type'
     end
-    render json: { statue: 'success' }, status: 200
+    render json: { status: 'success' }, status: 200
   rescue => e
-    render json: { statue: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: e }, status: 500
   end
 
   def destroy
     message_template = MessageTemplate.find_by(public_id: params[:public_id])
     message_template.destroy
-    render json: { statue: 'success' }, status: 200
+    render json: { status: 'success' }, status: 200
   rescue => e
-    render json: { statue: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: e }, status: 500
   end
 
 

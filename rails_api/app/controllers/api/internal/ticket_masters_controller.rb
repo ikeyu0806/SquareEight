@@ -7,14 +7,14 @@ class Api::Internal::TicketMastersController < ApplicationController
     ticket_masters = current_merchant_user.account.ticket_masters.enabled.order(:id)
     render json: { status: 'success', ticket_masters: ticket_masters }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def show
     ticket_master = TicketMaster.find_by(public_id: params[:public_id])
     render json: { status: 'success', ticket_master: ticket_master }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def purchase_info
@@ -37,7 +37,7 @@ class Api::Internal::TicketMastersController < ApplicationController
                    default_payment_method_id: default_payment_method_id,
                    login_status: login_status }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def create
@@ -54,7 +54,7 @@ class Api::Internal::TicketMastersController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update
@@ -73,7 +73,7 @@ class Api::Internal::TicketMastersController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def insert_cart
@@ -86,7 +86,7 @@ class Api::Internal::TicketMastersController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def logical_delete
@@ -94,7 +94,7 @@ class Api::Internal::TicketMastersController < ApplicationController
     ticket_master.logical_delete
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private

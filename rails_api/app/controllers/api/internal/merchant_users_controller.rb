@@ -28,7 +28,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     end
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update
@@ -52,7 +52,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def find_or_create_by_google_auth
@@ -80,7 +80,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def confirm_verification_code
@@ -93,7 +93,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     MerchantUserMailer.registration_complete(merchant_user.email).deliver_now
     render json: { status: 'success', session_id: session.id, }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def confirm_update_email_verification_code
@@ -105,21 +105,21 @@ class Api::Internal::MerchantUsersController < ApplicationController
     session['merchant_user_id'] = merchant_user.id
     render json: { status: 'success', session_id: session.id, }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def current_merchant_user_info
     current_merchant_user = JSON.parse(current_merchant_user.to_json(methods: [:is_enabled_email_login]))
     render json: { status: 'success', merchant_user: current_merchant_user }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def disconnect_google_auth
     current_merchant_user.update!(google_auth_id: nil, google_auth_email: nil)
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def send_reset_password_email
@@ -130,7 +130,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     MerchantUserMailer.reset_password(merchant_user.email, url).deliver_now
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update_password
@@ -140,7 +140,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     merchant_user.save!
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def resend_verification_code
@@ -155,7 +155,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     end
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private

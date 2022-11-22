@@ -7,7 +7,7 @@ class Api::Internal::SharedComponentsController < ApplicationController
     shared_component = current_merchant_user.account.shared_component
     render json: { status: 'success', shared_component: shared_component }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def register
@@ -25,7 +25,7 @@ class Api::Internal::SharedComponentsController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private

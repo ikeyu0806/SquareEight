@@ -6,7 +6,7 @@ class Api::Internal::Merchant::SessionsController < ApplicationController
                    user: user,
                    service_plan: current_merchant_user.account.service_plan }
   rescue => e
-    render json: { statue: 'fail', error: e }, status: 401
+    render json: { status: 'fail', error: e }, status: 401
   end
 
   def create
@@ -19,7 +19,7 @@ class Api::Internal::Merchant::SessionsController < ApplicationController
                    merchant_user: merchant_user,
                    error: nil }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 401
+    render json: { status: 'fail', error: error }, status: 401
   end
 
   def create_by_google_auth
@@ -32,7 +32,7 @@ class Api::Internal::Merchant::SessionsController < ApplicationController
                    merchant_user: merchant_user,
                    error: nil }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 401
+    render json: { status: 'fail', error: error }, status: 401
   end
 
   def destroy
@@ -40,7 +40,7 @@ class Api::Internal::Merchant::SessionsController < ApplicationController
     render json: { status: 'success',
                    session_id: request.headers["Session-Id"] }
   rescue => error
-    render json: { statue: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: e }, status: 500
   end
 
   private

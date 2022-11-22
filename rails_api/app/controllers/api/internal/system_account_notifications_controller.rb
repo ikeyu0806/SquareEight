@@ -6,28 +6,28 @@ class Api::Internal::SystemAccountNotificationsController < ApplicationControlle
     system_account_notifications = SystemAccountNotification.all
     render json: { status: 'success', system_account_notifications: system_account_notifications }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def create
     SystemAccountNotification.create!(notification_params)
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def show
     system_account_notification = SystemAccountNotification.find_by(public_id: params[:public_id])
     render json: { status: 'success', system_account_notification: system_account_notification }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update
     SystemAccountNotification.find_by(public_id: params[:public_id]).update!(notification_params)
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private

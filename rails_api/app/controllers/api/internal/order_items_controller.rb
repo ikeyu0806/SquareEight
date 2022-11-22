@@ -6,7 +6,7 @@ class Api::Internal::OrderItemsController < ApplicationController
     order_items = JSON.parse(order_items.to_json(methods: [:address, :postal_code, :order_name]))
     render json: { status: 'success', order_items: order_items }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update_shipped
@@ -14,6 +14,6 @@ class Api::Internal::OrderItemsController < ApplicationController
     order_item.update!(shipped: true)
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 end

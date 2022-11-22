@@ -5,14 +5,14 @@ class Api::Internal::Account::CustomersController < ApplicationController
     customers = current_merchant_user.account.customers_with_limit.order(:id)
     render json: { status: 'success', customers: customers }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def create
     current_merchant_user.account.customers.create!(customer_params)
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update
@@ -20,7 +20,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
     customer.update!(customer_params)
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def orders
@@ -30,9 +30,9 @@ class Api::Internal::Account::CustomersController < ApplicationController
     else
       orders = []
     end
-    render json: { statue: 'success', orders: orders }, status: 200
+    render json: { status: 'success', orders: orders }, status: 200
   rescue => e
-    render json: { statue: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: e }, status: 500
   end
 
   def charges
@@ -40,7 +40,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
     stripe_payment_intents = customer.end_user&.stripe_payment_intents
     render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private

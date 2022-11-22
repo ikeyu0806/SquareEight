@@ -9,6 +9,6 @@ class Api::Internal::CalendarController < ApplicationController
                    reserve_frame: reserve_frame,
                    calendar_content: calendar_content }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 end

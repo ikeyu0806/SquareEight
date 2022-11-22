@@ -5,7 +5,7 @@ class Api::Internal::DeliveryTargetsController < ApplicationController
     delivery_targets = current_end_user.delivery_targets.order(:id)
     render json: { status: 'success', delivery_targets: delivery_targets }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def create
@@ -15,14 +15,14 @@ class Api::Internal::DeliveryTargetsController < ApplicationController
     current_end_user.delivery_targets.create!(delivery_target_params)
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def destroy
     current_end_user.delivery_targets.find_by(public_id: params[:public_id]).destroy
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update_default
@@ -32,7 +32,7 @@ class Api::Internal::DeliveryTargetsController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private

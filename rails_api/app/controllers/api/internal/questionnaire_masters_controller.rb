@@ -5,21 +5,21 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
     questionnaire_masters = current_merchant_user.account.questionnaire_masters.enabled.order(:id)
     render json: { status: 'success', questionnaire_masters: questionnaire_masters }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def create
     questionnaire_master = current_merchant_user.account.questionnaire_masters.create!(questionnaire_master_params)
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update
     QuestionnaireMaster.find_by(public_id: params[:public_id]).update!(questionnaire_master_params.except(:id))
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def show
@@ -28,7 +28,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
     questionnaire_master = JSON.parse(questionnaire_master.to_json(methods: [:parse_question_form_json]))
     render json: { status: 'success', questionnaire_master: questionnaire_master, shared_component: shared_component }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def edit_info
@@ -36,7 +36,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
     questionnaire_master = JSON.parse(questionnaire_master.to_json(methods: [:parse_question_form_json, :current_max_sort_order]))
     render json: { status: 'success', questionnaire_master: questionnaire_master }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def answers
@@ -46,7 +46,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
                    answer_contents: answer_contents,
                    questionnaire_master: questionnaire_master }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def logical_delete
@@ -54,7 +54,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
     questionnaire_master.logical_delete
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private

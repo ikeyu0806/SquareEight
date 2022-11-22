@@ -3,7 +3,7 @@ class Api::Internal::InquiryController < ApplicationController
     InquiryMailer.send_mail_to_admin(inquiry_params[:email], inquiry_params[:content]).deliver_now
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private

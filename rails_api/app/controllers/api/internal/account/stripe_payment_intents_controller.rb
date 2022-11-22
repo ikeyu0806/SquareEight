@@ -5,6 +5,6 @@ class Api::Internal::Account::StripePaymentIntentsController < ApplicationContro
     system_plan_subscription_payments = current_merchant_user.account.system_plan_subscription_payments.order(id: :desc)
     render json: { status: 'success', system_plan_subscription_payments: system_plan_subscription_payments }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 end

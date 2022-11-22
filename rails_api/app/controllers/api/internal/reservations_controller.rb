@@ -46,7 +46,7 @@ class Api::Internal::ReservationsController < ApplicationController
       render json: { status: 'success', reservation: reservation }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def confirm
@@ -207,7 +207,7 @@ class Api::Internal::ReservationsController < ApplicationController
       render json: { status: 'success', reservation: reservation }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def show
@@ -220,7 +220,7 @@ class Api::Internal::ReservationsController < ApplicationController
                                                            :reservation_credit_card_payment_prices]))
     render json: { status: 'success', reservation: reservation }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update_status
@@ -236,7 +236,7 @@ class Api::Internal::ReservationsController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def register_by_merchant_control
@@ -276,7 +276,7 @@ class Api::Internal::ReservationsController < ApplicationController
       render json: { status: 'success' }, status: 200
     end
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def register_reservation_info
@@ -285,7 +285,7 @@ class Api::Internal::ReservationsController < ApplicationController
     customers = JSON.parse(account.customers.to_json(methods: [:full_name]))
     render json: { status: 'success', reserve_frames: reserve_frames, customers: customers }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def input_customer_info
@@ -332,7 +332,7 @@ class Api::Internal::ReservationsController < ApplicationController
                    is_purchase_ticket: is_purchase_ticket,
                    login_status: login_status }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def cancel
@@ -345,7 +345,7 @@ class Api::Internal::ReservationsController < ApplicationController
     end
     render json: { status: 'success' }, status: 200
   rescue => error
-    render json: { statue: 'fail', error: error }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private
