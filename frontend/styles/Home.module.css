@@ -35,7 +35,7 @@
     font-size: 500%;
   }
   .featureCard {
-    height: 900px;
+    height: 800px;
     margin-bottom: 20px;
   }
   .features_header_text {
@@ -43,6 +43,7 @@
   }
   .planCard {
     height: 300px;
+    margin-bottom: 20px;
   }
   .features_description_text {
     margin-top: 20px;
