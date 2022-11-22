@@ -77,6 +77,7 @@ class Api::Internal::AccountsController < ApplicationController
 
   def stripe_connected_account
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     stripe_account = Stripe::Account.retrieve(current_merchant_user.account.stripe_account_id)
     stripe_persons = current_merchant_user.account.stripe_persons.where(is_representative: false)
     if current_merchant_user.account.stripe_representative_person_id.present?
