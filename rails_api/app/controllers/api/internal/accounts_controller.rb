@@ -102,7 +102,6 @@ class Api::Internal::AccountsController < ApplicationController
       account = current_merchant_user.account
       if account.stripe_customer_id.blank?
         customer = Stripe::Customer.create({
-          source: account_params[:card_token],
           email: account.merchant_users.first.email,
           name: account.business_name
         })
