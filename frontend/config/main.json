@@ -7,7 +7,7 @@
   "GOOGLE_AUTH_MERCHANT_USER_CLIENT_ID": "699580283254-j5kpe887uq94mekuiaa583tvqo657usc.apps.googleusercontent.com",
   "GOOGLE_AUTH_MERCHANT_USER_CLIENT_SECRET": "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",
   "GOOGLE_AUTH_MERCHANT_USER_REDIRECT_URL": "https://square-eight.net/google_auth/merchant/callback",
-  "STRIPE_PUBLISHABLE_KEY": "pk_test_pzo8bTj4ggDEV52y7gnVsdWt",
+  "STRIPE_PUBLISHABLE_KEY": "pk_live_urOT8mGZEiw7p17v4U9rGn7L",
   "SERVERLESS_NAME": "square-eight-serverless-func-main",
   "SERVERLESS_BACKET_NAME": "square-eight-serverless-main",
   "DEFAULT_LAMBDA_NAME": "square-eight-nextjs-lambda-main",
