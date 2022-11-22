@@ -139,6 +139,7 @@ class Api::Internal::EndUsersController < ApplicationController
 
   def register_credit_card
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     ActiveRecord::Base.transaction do
       if current_end_user.stripe_customer_id.blank?
         customer = Stripe::Customer.create({
@@ -170,6 +171,7 @@ class Api::Internal::EndUsersController < ApplicationController
 
   def update_payment_method
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     Stripe::Customer.update(
       current_end_user.stripe_customer_id,
       {invoice_settings: {default_payment_method: params[:payment_method_id]}},
@@ -181,6 +183,7 @@ class Api::Internal::EndUsersController < ApplicationController
 
   def detach_stripe_payment_method
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     Stripe::PaymentMethod.detach(
       params[:payment_method_id],
     )

@@ -99,6 +99,7 @@ class Api::Internal::AccountsController < ApplicationController
 
   def register_credit_card
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     ActiveRecord::Base.transaction do
       account = current_merchant_user.account
       if account.stripe_customer_id.blank?
@@ -392,6 +393,7 @@ class Api::Internal::AccountsController < ApplicationController
 
   def register_stripe_bank_account
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     external_account = Stripe::Account.create_external_account(
       current_merchant_user.account.stripe_account_id,
       {
@@ -422,6 +424,7 @@ class Api::Internal::AccountsController < ApplicationController
 
   def delete_bank_account
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     Stripe::Account.delete_external_account(
       current_merchant_user.account.stripe_account_id,
       params[:external_account_id],
@@ -441,6 +444,7 @@ class Api::Internal::AccountsController < ApplicationController
 
   def update_payment_method
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     Stripe::Customer.update(
       current_merchant_user.account.stripe_customer_id,
       {invoice_settings: {default_payment_method: params[:public_id]}},
@@ -452,6 +456,7 @@ class Api::Internal::AccountsController < ApplicationController
 
   def detach_stripe_payment_method
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     Stripe::PaymentMethod.detach(
       params[:public_id],
     )
@@ -561,6 +566,7 @@ class Api::Internal::AccountsController < ApplicationController
       account.update!(deleted_at: Time.zone.now)
       if account.stripe_subscription_id.present?
         Stripe.api_key = Rails.configuration.stripe[:secret_key]
+        Stripe.api_version = '2022-08-01'
         Stripe::Subscription.delete(
           account.stripe_subscription_id,
         )
@@ -573,6 +579,8 @@ class Api::Internal::AccountsController < ApplicationController
   end
 
   def register_stripe_person
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     ActiveRecord::Base.transaction do
       stripe_account_id = current_merchant_user.account.stripe_account_id
       if account_params[:stripe_person_id].present?

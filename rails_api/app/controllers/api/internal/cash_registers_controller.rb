@@ -24,6 +24,7 @@ class Api::Internal::CashRegistersController < ApplicationController
     include_product = false
     total_delivery_charge = 0
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     ActiveRecord::Base.transaction do
       current_end_user.cart_contents[0].each do |cart|
         case cart[:item_type]

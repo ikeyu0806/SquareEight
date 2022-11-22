@@ -129,6 +129,7 @@ class Api::Internal::ReservationsController < ApplicationController
           raise 'ログインしてください' if current_end_user.blank?
           # 決済
           Stripe.api_key = Rails.configuration.stripe[:secret_key]
+          Stripe.api_version = '2022-08-01'
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
           default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
           if reservation.reservation_credit_card_payment_prices.present?

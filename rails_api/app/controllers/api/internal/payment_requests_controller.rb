@@ -100,6 +100,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   def exec_payment
     ActiveRecord::Base.transaction do
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
+      Stripe.api_version = '2022-08-01'
       payment_request = StripePaymentRequest.find_by(public_id: payment_request_params[:public_id])
       account = payment_request.account
       customer = current_end_user.customer

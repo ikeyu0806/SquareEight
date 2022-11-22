@@ -52,6 +52,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
         account_image.s3_object_name = file_name
       end
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
+      Stripe.api_version = '2022-08-01'
       product = Stripe::Product.create({
         name: monthly_payment_plan_params[:name]
       })
