@@ -35,28 +35,6 @@ const VerificationCode: NextPage = () => {
     })
   }
 
-  const resendVerificationCode = () => {
-    axios.post(
-      `${process.env.BACKEND_URL}/api/internal/merchant_users/resend_verification_code`,
-      {
-        merchant_user: {
-          email: router.query.email,
-        }
-      }).then(response => {
-        swalWithBootstrapButtons.fire({
-          title: '検証コードを再送信しました',
-          icon: 'info'
-        })
-      }).catch(error => {
-        console.log(error)
-        swalWithBootstrapButtons.fire({
-          title: '送信失敗しました',
-          text: error.response.data.error,
-          icon: 'error'
-        })
-      })
-  }
-
   return (
     <>
       <WithoutSessionLayout>
