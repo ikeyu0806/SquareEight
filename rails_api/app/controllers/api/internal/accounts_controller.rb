@@ -141,6 +141,10 @@ class Api::Internal::AccountsController < ApplicationController
   end
 
   def register_stripe_business_info
+    Rails.logger.info "EXEC register_stripe_business_info action"
+    Rails.logger.info "account_params"
+    Rails.logger.info account_params
+
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe.api_version = '2022-08-01'
     if current_merchant_user.account.stripe_account_id.blank?
