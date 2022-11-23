@@ -2,7 +2,7 @@ class Api::Internal::EndUser::SessionsController < ApplicationController
   def login_status
     raise if current_end_user.blank?
     render json: { status: 'success', user: current_end_user}
-  rescue => e
+  rescue => error
     render json: { status: 'fail', error: error }, status: 401
   end
 
