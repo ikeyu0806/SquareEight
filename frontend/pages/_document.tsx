@@ -1,4 +1,5 @@
 import { Html, Head, Main, NextScript } from 'next/document'
+import parse from 'html-react-parser'
 
 const MyDocument = () => {
   const url = process.env.square_eight_FRONTEND_URL
@@ -23,6 +24,10 @@ const MyDocument = () => {
         <link rel='icon' href='/favicons/s-alphabet-icon.svg' />
         <script src='https://js.stripe.com/v3/'></script>
         <script src='https://apis.google.com/js/platform.js' async defer></script>
+        {process.env.APP_ENV === 'main' &&
+        parse(
+          '<script async src="https://www.googletagmanager.com/gtag/js?id=G-HNQ6QMTVJ7"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "G-HNQ6QMTVJ7");</script>'
+        )}
       </Head>
       <body className='system-font-family'>
         <Main />
