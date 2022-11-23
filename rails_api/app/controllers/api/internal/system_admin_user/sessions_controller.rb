@@ -4,7 +4,7 @@ class Api::Internal::SystemAdminUser::SessionsController < ApplicationController
     render json: { status: 'success', user: current_system_admin_user}
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 401
+    render json: { status: 'fail', error: error }, status: 401
   end
 
   def create
@@ -41,7 +41,7 @@ class Api::Internal::SystemAdminUser::SessionsController < ApplicationController
                    session_id: request.headers["Session-Id"] }
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private

@@ -6,7 +6,7 @@ class Api::Internal::OrdersController < ApplicationController
     render json: { status: 'success', orders: orders }, status: 200
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def show
@@ -16,7 +16,7 @@ class Api::Internal::OrdersController < ApplicationController
     render json: { status: 'success', order: order, order_items: order_items }, status: 200
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def order_items
@@ -31,6 +31,6 @@ class Api::Internal::OrdersController < ApplicationController
                    total_commission: total_commission }, status: 200
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 end

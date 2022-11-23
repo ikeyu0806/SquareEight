@@ -14,7 +14,7 @@ class Api::Internal::MessageTemplatesController < ApplicationController
                    page_links: page_links }, status: 200
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def create
@@ -22,7 +22,7 @@ class Api::Internal::MessageTemplatesController < ApplicationController
     render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def update
@@ -31,7 +31,7 @@ class Api::Internal::MessageTemplatesController < ApplicationController
     render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def send_mail
@@ -67,7 +67,7 @@ class Api::Internal::MessageTemplatesController < ApplicationController
     render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def destroy
@@ -76,7 +76,7 @@ class Api::Internal::MessageTemplatesController < ApplicationController
     render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
 

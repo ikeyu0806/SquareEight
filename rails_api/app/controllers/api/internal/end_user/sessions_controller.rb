@@ -3,7 +3,7 @@ class Api::Internal::EndUser::SessionsController < ApplicationController
     raise if current_end_user.blank?
     render json: { status: 'success', user: current_end_user}
   rescue => e
-    render json: { status: 'fail', error: e }, status: 401
+    render json: { status: 'fail', error: error }, status: 401
   end
 
   def create
@@ -40,7 +40,7 @@ class Api::Internal::EndUser::SessionsController < ApplicationController
                    session_id: request.headers["Session-Id"] }
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private

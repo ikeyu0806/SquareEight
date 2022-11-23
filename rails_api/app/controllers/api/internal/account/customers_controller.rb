@@ -36,7 +36,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
     render json: { status: 'success', orders: orders }, status: 200
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   def charges

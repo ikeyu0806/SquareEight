@@ -7,7 +7,7 @@ class Api::Internal::Merchant::SessionsController < ApplicationController
                    service_plan: current_merchant_user.account.service_plan }
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 401
+    render json: { status: 'fail', error: error }, status: 401
   end
 
   def create
@@ -44,7 +44,7 @@ class Api::Internal::Merchant::SessionsController < ApplicationController
                    session_id: request.headers["Session-Id"] }
   rescue => error
     Rails.logger.error error
-    render json: { status: 'fail', error: e }, status: 500
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private
