@@ -56,7 +56,7 @@ const RegisterMerchantBank = () => {
         <Form.Label className='mt10'>口座番号</Form.Label>
         <Form.Control onChange={(e) => dispatch((accountNumberChanged(e.target.value)))}
                       value={accountNumber}></Form.Control>
-        <Form.Label className='mt10'>口座名義人</Form.Label>
+        <Form.Label className='mt10'>口座名義人。カタカナもしくは英字</Form.Label>
         <Form.Control onChange={(e) => dispatch((accountHolderNameChanged(e.target.value)))}
                       value={accountHolderName}></Form.Control>
         <Form.Label className='mt10'>銀行コード</Form.Label>

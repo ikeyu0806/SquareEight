@@ -45,8 +45,9 @@ const Index: NextPage = () => {
     fetchStripeConnectedAccount()
   }, [cookies._square_eight_merchant_session, dispatch])
 
-  const requirementsContents = () => {
+  const requirementsContentText = () => {
     let result = [] as string[]
+    let waitMccFlg = false
     stripeAccount?.requirements.currently_due.map(due => {
       if (due === 'external_account') {
         result.push('銀行口座の登録')
@@ -90,16 +91,21 @@ const Index: NextPage = () => {
         result.push('取締役の生年月日（日）')
       } else if (due.match(/verification.document/)) {
         result.push('本人確認書類')
+      } else if (due.match(/mcc/)) {
+        result.push('業種')
+        waitMccFlg = true
       }
     })
-    return result.join('、')
+    let resultText = result.join('、') + 'が不足しています。'
+    if (waitMccFlg) { resultText = resultText + '業種はStripeによって自動で判定されますので入力後に時間をおいてから確認お願いします。'}
+    return (resultText)
   }
 
   return (
     <>
       <MerchantUserAdminLayout>
         <Container>
-          {stripeAccount?.requirements && stripeAccount?.requirements.currently_due?.length !== 0 && <Alert variant='warning'>{requirementsContents()}が不足しています</Alert>}
+          {stripeAccount?.requirements && stripeAccount?.requirements.currently_due?.length !== 0 && <Alert variant='warning'>{requirementsContentText()}</Alert>}
           {/* {stripeAccount?.business_type == 'company'
             && <Alert variant='info'>
                 <a href='/admin/sales_transfer/register_stripe_person'>代表者以外にも事業を所有する幹部, オーナー, 取締役が存在する場合こちらから登録してください</a>
