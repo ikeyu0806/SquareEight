@@ -8,15 +8,10 @@ const InquiryTemplate = (): JSX.Element => {
   const [content, setContent] = useState('')
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/inquiry`,
-    {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/inquiry`, {
       inquiry: {
         email: email,
         content: content
-      }
-    },
-    {
-      headers: {
       }
     }).then(response => {
       swalWithBootstrapButtons.fire({
