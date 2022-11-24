@@ -60,10 +60,10 @@ class Api::Internal::ReserveFramesController < ApplicationController
         reserve_frame.reserve_frame_reception_times.new(reception_start_time: reception_time[:reception_start_time], reception_end_time: reception_time[:reception_end_time])
       end
       reserve_frame_params[:out_of_range_frames].uniq.each do |frame|
-        reserve_frame.out_of_range_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
+        reserve_frame.out_of_range_frames.new(start_at: frame[:start_at])
       end
       reserve_frame_params[:unreservable_frames].uniq.each do |frame|
-        reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
+        reserve_frame.unreservable_frames.new(start_at: frame[:start_at])
       end
       if reserve_frame_params[:resource_ids].present?
         reserve_frame.reserve_frame_resources.delete_all
@@ -129,13 +129,13 @@ class Api::Internal::ReserveFramesController < ApplicationController
       if reserve_frame_params[:unreservable_frames].present?
         reserve_frame.unreservable_frames.delete_all
         reserve_frame_params[:unreservable_frames].uniq.each do |frame|
-          reserve_frame.unreservable_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
+          reserve_frame.unreservable_frames.new(start_at: frame[:start_at])
         end
       end
       if reserve_frame_params[:out_of_range_frames].present?
         reserve_frame.out_of_range_frames.delete_all
         reserve_frame_params[:out_of_range_frames].uniq.each do |frame|
-          reserve_frame.out_of_range_frames.new(start_at: frame[:start_at], end_at: frame[:end_at])
+          reserve_frame.out_of_range_frames.new(start_at: frame[:start_at])
         end
       end
       if reserve_frame_params[:resource_ids].present?
@@ -255,8 +255,8 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   resource_ids: [],
                   monthly_payment_plan_ids: [],
                   reserve_frame_reception_times: [:reception_start_time, :reception_end_time],
-                  unreservable_frames: [:start_at, :end_at],
-                  out_of_range_frames: [:start_at, :end_at],
+                  unreservable_frames: [:start_at],
+                  out_of_range_frames: [:start_at],
                   reservable_frame_ticket_master: [:ticket_master_id, :consume_number])
   end
 
