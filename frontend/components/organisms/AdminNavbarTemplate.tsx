@@ -12,6 +12,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
+  const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
   const logout = () => {
@@ -100,9 +101,9 @@ const AdminNavbarTemplate = (): JSX.Element => {
       {alertState.show && <Alert variant={alertState.type} onClose={() => dispatch(alertChanged({message: '', show: false}))} dismissible>
         {alertState.message}
       </Alert>}
-      <Alert variant='warning'>
+      {stripeAccountEnable === 'Disable' && <Alert variant='warning'>
         <div className='text-center'>ご登録ありがとうございます。事業情報の登録が完了していないため顧客へのオンライン決済の提供が有効になっておりません。<a href='/admin/sales_transfer'>登録はこちら</a></div>
-      </Alert>
+      </Alert>}
     </>
   )
 }
