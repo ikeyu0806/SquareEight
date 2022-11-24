@@ -102,7 +102,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
         {alertState.message}
       </Alert>}
       {stripeAccountEnable === 'Disable' && <Alert variant='warning'>
-        <div className='text-center'>ご登録ありがとうございます。事業情報の登録が完了していないため顧客へのオンライン決済の提供が有効になっておりません。<a href='/admin/sales_transfer'>登録はこちら</a></div>
+        <div className='text-center'>ビジネスアカウントへのご登録ありがとうございます。<br />事業情報の登録が完了していないため顧客へのオンライン決済の提供が有効になっておりません。<a href='/admin/sales_transfer'>登録はこちら</a></div>
       </Alert>}
     </>
   )
