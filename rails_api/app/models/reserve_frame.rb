@@ -170,7 +170,7 @@ class ReserveFrame < ApplicationRecord
 
   def unreservable_frames_dates_range
     unreservable_frames.map do |frame|
-      frame.end_at.present? ? frame.start_at.beginning_of_day..frame.end_at.end_of_day : frame.start_at.beginning_of_day..frame.start_at.end_of_day
+      frame.start_at.beginning_of_day..frame.start_at.end_of_day
     end
   end
 
@@ -183,7 +183,7 @@ class ReserveFrame < ApplicationRecord
 
   def out_of_range_frames_dates_range
     out_of_range_frames.map do |frame|
-      frame.end_at.present? ? frame.start_at.beginning_of_day..frame.end_at.end_of_day : frame.start_at.beginning_of_day..frame.start_at.end_of_day
+      frame.start_at.beginning_of_day..frame.start_at.end_of_day
     end
   end
 
