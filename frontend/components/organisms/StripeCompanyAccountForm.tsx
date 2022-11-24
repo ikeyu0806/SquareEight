@@ -29,6 +29,7 @@ import {  companyBusinessNameChanged,
 const StripeCompanyAccountForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const [image, setImage] = useState('')
+  const [isImageSizeOver, setIsImageSizeOver] = useState(false)
 
   const companyBusinessName = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessName)
   const companyBusinessNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessNameKana)
@@ -52,6 +53,7 @@ const StripeCompanyAccountForm = (): JSX.Element => {
 
   const handleCompanyFile = (e: any) => {
     const { files } = e.target
+    if (files[0].size >= 10000000) { setIsImageSizeOver(true) }
     setImage(window.URL.createObjectURL(files[0]))
     getBase64(files[0]).then(
       data => dispatch(verificationDocumentImageChanged(data))
@@ -161,6 +163,7 @@ const StripeCompanyAccountForm = (): JSX.Element => {
           &emsp;1. 登記謄本 (Touki)<br/>
           &emsp;2. 印鑑登録証明書 (Seal registration certificate)
           </Form.Label>
+          {isImageSizeOver && <div className='color-red'>画像のサイズが10MBを超えています</div>}
         <Form.Control type='file' onChange={handleCompanyFile} />
       </Form.Group>
 
