@@ -36,6 +36,7 @@ import {  representativeLastNameKanjiChanged,
 const StripePersonForm = () => {
   const dispatch = useDispatch()
 
+  const [isImageSizeOver, setIsImageSizeOver] = useState(false)
   const representativeLastNameKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeLastNameKanji)
   const representativeFirstNameKanji = useSelector((state: RootState) => state.stripeCompanyAccount.representativeFirstNameKanji)
   const representativeLastNameKana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeLastNameKana)
@@ -62,9 +63,11 @@ const StripePersonForm = () => {
   const relationshipTitle = useSelector((state: RootState) => state.stripeCompanyAccount.relationshipTitle)
 
   const [image, setImage] = useState('')
+  
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
+    if (files[0].size >= 10000000) { setIsImageSizeOver(true) }
     setImage(window.URL.createObjectURL(files[0]))
     getBase64(files[0]).then(
       data => dispatch(identificationImageChanged(data))
@@ -216,6 +219,7 @@ const StripePersonForm = () => {
               &emsp;4. 住基カード(顔写真入り)<br/>
               &emsp;5. マイナンバーカード(顔写真入り)<br />
             </Form.Label>
+            {isImageSizeOver && <div className='color-red'>画像のサイズが10MBを超えています</div>}
             <Form.Control type='file' onChange={handleChangeFile} />
           </Form.Group>
 
