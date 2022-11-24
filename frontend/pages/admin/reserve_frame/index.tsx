@@ -103,8 +103,7 @@ const Index = (): JSX.Element => {
                             {reserveFrame.out_of_range_frames_dates.map((frame, i) => {
                               return (
                                 <span key={i} className='mb10'>
-                                  <div>開始日時: {frame.start_at}</div>
-                                  <div>終了日時: {frame.end_at}</div>
+                                  <div>{frame.start_at}</div>
                                 </span>
                               )
                             })}
@@ -120,8 +119,7 @@ const Index = (): JSX.Element => {
                             {reserveFrame.unreservable_frames_dates.map((frame, i) => {
                               return (
                                 <span key={i} className='mb10'>
-                                  <div>開始日時: {frame.start_at}</div>
-                                  <div>終了日時: {frame.end_at}</div>
+                                  <div>{frame.start_at}</div>
                                 </span>
                               )
                             })}

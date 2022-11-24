@@ -477,8 +477,7 @@ class ReserveFrame < ApplicationRecord
   def out_of_range_frames_dates
     result = []
     out_of_range_frames.each do |out_of_range_frame|
-      result.push({"start_at": out_of_range_frame.start_at.strftime("%Y-%m-%d"),
-                   "end_at": out_of_range_frame.end_at&.strftime("%Y-%m-%d")})
+      result.push({"start_at": out_of_range_frame.start_at.strftime("%Y-%m-%d")})
     end
     result
   end
@@ -486,8 +485,7 @@ class ReserveFrame < ApplicationRecord
   def unreservable_frames_dates
     result = []
     unreservable_frames.each do |unreservable_frame|
-      result.push({"start_at": unreservable_frame.start_at.strftime("%Y-%m-%d"),
-                   "end_at": unreservable_frame.end_at&.strftime("%Y-%m-%d")})
+      result.push({"start_at": unreservable_frame.start_at.strftime("%Y-%m-%d")})
     end
     result
   end
