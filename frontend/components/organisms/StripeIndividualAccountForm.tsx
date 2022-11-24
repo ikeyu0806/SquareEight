@@ -35,6 +35,7 @@ const StripeIndividualAccountForm = (): JSX.Element => {
 
   const handleIdentificationFile = (e: any) => {
     const { files } = e.target
+    if (files[0].size >= 10000000) { setIsIndividualImageSizeOver(true) }
     setImage(window.URL.createObjectURL(files[0]))
     getBase64(files[0]).then(
       data => dispatch(identificationImageChanged(data))
@@ -43,12 +44,15 @@ const StripeIndividualAccountForm = (): JSX.Element => {
 
   const handleAddiotionalFile = (e: any) => {
     const { files } = e.target
+    if (files[0].size >= 10000000) { setIsAdditionalImageSizeOver(true) }
     setImage(window.URL.createObjectURL(files[0]))
     getBase64(files[0]).then(
       data => dispatch(additionalImageChanged(data))
     )
   }
 
+  const [isIndividualImageSizeOver, setIsIndividualImageSizeOver] = useState(false)
+  const [isAdditionalImageSizeOver, setIsAdditionalImageSizeOver] = useState(false)
   const individualFirstNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualFirstNameKanji)
   const individualLastNameKanji = useSelector((state: RootState) => state.stripeIndividualAccount.individualLastNameKanji)
   const individualFirstNameKana = useSelector((state: RootState) => state.stripeIndividualAccount.individualFirstNameKana)
@@ -198,6 +202,7 @@ const StripeIndividualAccountForm = (): JSX.Element => {
           &emsp;4. 住民票 <br/>
           &emsp;5. マイナンバーカード(顔写真入り)<br/>
         </Form.Label>
+        {isIndividualImageSizeOver && <div className='color-red'>画像のサイズが10MBを超えています</div>}
         <Form.Control type='file' onChange={handleIdentificationFile} />
       </Form.Group>
 
@@ -208,6 +213,7 @@ const StripeIndividualAccountForm = (): JSX.Element => {
           公共料金の請求書など、ユーザの住所が確認できる書類を直接撮影したカラー画像。{individualAdditionalDocumentFront && <span className='ml10 badge bg-info'>提出済み</span>}<br/>
           必須ではありませんがStripeの審査に請求される場合があります。
           </Form.Label>
+          {isAdditionalImageSizeOver && <div className='color-red'>画像のサイズが10MBを超えています</div>}
         <Form.Control type='file' onChange={handleAddiotionalFile} />
       </Form.Group>
 
