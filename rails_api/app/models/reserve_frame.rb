@@ -490,6 +490,15 @@ class ReserveFrame < ApplicationRecord
     result
   end
 
+  # フロントエンドに渡すメソッド
+  def out_of_range_frames_to_webform
+    out_of_range_frames.map{ |frame| frame.start_at.strftime("%Y-%m-%d") }
+  end
+
+  def unreservable_frames_to_webform
+    unreservable_frames.map{ |frame| frame.start_at.strftime("%Y-%m-%d") }
+  end
+
   def repeat_wdays
     result = []
     result.push('Sun') if self.is_repeat_sun?

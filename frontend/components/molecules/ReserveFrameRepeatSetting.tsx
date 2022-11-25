@@ -38,14 +38,12 @@ const ReserveFrameRepeatSetting = () => {
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
 
   const addOutOfRangeReservableFrames = () => {
-    const startAt = outOfRangeFramesDate
-    dispatch((outOfRangeFramesChanged([...outOfRangeFrames, startAt])))
+    dispatch((outOfRangeFramesChanged([...outOfRangeFrames, outOfRangeFramesDate])))
     setoutOfRangeFramesDate('')
   }
 
   const addUnreservableFrames = () => {
-    const startAt = unreservableFramesDate
-    dispatch((unreservableFramesChanged([...unreservableFrames, startAt])))
+    dispatch((unreservableFramesChanged([...unreservableFrames, unreservableFramesDate])))
     setunreservableFramesDate('')
   }
 
