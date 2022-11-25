@@ -71,7 +71,7 @@ const Home: NextPage = () => {
                     <div className={homeStyles.features_header_text}>オンライン予約ページ作成</div>
                     <div className={homeStyles.features_description_text}>日ごと、週ごと、月ごとに受付日時を繰り返す予約メニューを登録できます。
                     設備・備品やスタッフの数による予約受付の制限や特例営業日の設定にも対応しています。</div>
-                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/18/squareeight%e3%81%a7%e3%81%ae%e3%82%aa%e3%83%b3%e3%83%a9%e3%82%a4%e3%83%b3%e4%ba%88%e7%b4%84%e3%83%9a%e3%83%bc%e3%82%b8%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/11/18/squareeight%e3%81%a7%e3%81%ae%e3%82%aa%e3%83%b3%e3%83%a9%e3%82%a4%e3%83%b3%e4%ba%88%e7%b4%84%e3%83%9a%e3%83%bc%e3%82%b8%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
                       もっと見る
                     </a>
                   </Card.Body>
@@ -83,7 +83,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>商品の物販販売ページ作成</div>
                     <div className={homeStyles.features_description_text}>クレジットカード支払いに対応した物販商品を登録できます。</div>
-                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/20/squareeight%e3%81%a7%e3%81%ae%e7%89%a9%e8%b2%a9%e3%83%9a%e3%83%bc%e3%82%b8%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/11/20/squareeight%e3%81%a7%e3%81%ae%e7%89%a9%e8%b2%a9%e3%83%9a%e3%83%bc%e3%82%b8%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
                       もっと見る
                     </a>
                   </Card.Body>
@@ -96,7 +96,7 @@ const Home: NextPage = () => {
                     <div className={homeStyles.features_header_text}>回数券作成</div>
                     <div className={homeStyles.features_description_text}>クレジットカード支払いに対応した回数券を登録できます。
                     購入した回数券の使用状況を管理画面から把握できます。</div>
-                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/20/squareeight%e3%81%a7%e3%81%ae%e5%9b%9e%e6%95%b0%e5%88%b8%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/11/20/squareeight%e3%81%a7%e3%81%ae%e5%9b%9e%e6%95%b0%e5%88%b8%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
                       もっと見る
                     </a>
                   </Card.Body>
@@ -111,7 +111,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>月額課金プランの作成</div>
                     <div className={homeStyles.features_description_text}>毎月自動でお客様から自動でお支払いを引き落とす月額課金プランを作成できます。</div>
-                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/20/squareeight%e3%81%a7%e3%81%ae%e6%9c%88%e9%a1%8d%e8%aa%b2%e9%87%91%e3%83%97%e3%83%a9%e3%83%b3%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/11/20/squareeight%e3%81%a7%e3%81%ae%e6%9c%88%e9%a1%8d%e8%aa%b2%e9%87%91%e3%83%97%e3%83%a9%e3%83%b3%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
                       もっと見る
                     </a>
                   </Card.Body>
@@ -123,7 +123,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>Webページの作成</div>
                     <div className={homeStyles.features_description_text}>プログラミング知識不要でWebページを作成できます。</div>
-                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/20/squareeight%e3%82%92%e4%bd%bf%e3%81%88%e3%81%b0%e8%aa%b0%e3%81%a7%e3%82%82%e7%b0%a1%e5%8d%98%e3%81%abweb%e3%83%9a%e3%83%bc%e3%82%b8%e3%82%92%e4%bd%9c%e6%88%90%e3%81%a7%e3%81%8d%e3%81%be%e3%81%99/'>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/11/20/squareeight%e3%82%92%e4%bd%bf%e3%81%88%e3%81%b0%e8%aa%b0%e3%81%a7%e3%82%82%e7%b0%a1%e5%8d%98%e3%81%abweb%e3%83%9a%e3%83%bc%e3%82%b8%e3%82%92%e4%bd%9c%e6%88%90%e3%81%a7%e3%81%8d%e3%81%be%e3%81%99/'>
                       もっと見る
                     </a>
                   </Card.Body>
@@ -135,7 +135,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>オンラインアンケートの作成</div>
                     <div className={homeStyles.features_description_text}>Webアンケートを作成できます。テキスト入力、プルダウン、チェックボックス、ラジオボタン、日時入力フォームに対応しています。</div>
-                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/19/squareeight%e3%81%a7%e3%81%ae%e3%82%aa%e3%83%b3%e3%83%a9%e3%82%a4%e3%83%b3%e3%82%a2%e3%83%b3%e3%82%b1%e3%83%bc%e3%83%88%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/11/19/squareeight%e3%81%a7%e3%81%ae%e3%82%aa%e3%83%b3%e3%83%a9%e3%82%a4%e3%83%b3%e3%82%a2%e3%83%b3%e3%82%b1%e3%83%bc%e3%83%88%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
                       もっと見る
                     </a>
                   </Card.Body>
@@ -151,7 +151,7 @@ const Home: NextPage = () => {
                     <div className={homeStyles.features_header_text}>顧客管理</div>
                     <div className={homeStyles.features_description_text}>予約を受け付けたお客様や商品を購入したお客様を自動で登録・管理できます。
                     お客様ごとにメモを登録できます。</div>
-                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/20/squareeight%e3%81%a7%e3%81%ae%e5%9b%9e%e6%95%b0%e5%88%b8%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/11/20/squareeight%e3%81%a7%e3%81%ae%e5%9b%9e%e6%95%b0%e5%88%b8%e3%81%ae%e4%bd%9c%e3%82%8a%e6%96%b9/'>
                       もっと見る
                     </a>
                   </Card.Body>
@@ -163,7 +163,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>メッセージテンプレート</div>
                     <div className={homeStyles.features_description_text}>メッセージテンプレートを作ってお客様にメール送信ができます。</div>
-                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/21/squareeight%e3%81%ae%e3%83%a1%e3%83%83%e3%82%bb%e3%83%bc%e3%82%b8%e3%83%86%e3%83%b3%e3%83%97%e3%83%ac%e3%83%bc%e3%83%88%e6%a9%9f%e8%83%bd%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/11/21/squareeight%e3%81%ae%e3%83%a1%e3%83%83%e3%82%bb%e3%83%bc%e3%82%b8%e3%83%86%e3%83%b3%e3%83%97%e3%83%ac%e3%83%bc%e3%83%88%e6%a9%9f%e8%83%bd%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
                       もっと見る
                     </a>
                   </Card.Body>
@@ -175,7 +175,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>売上管理</div>
                     <div className={homeStyles.features_description_text}>オンライン決済の売り上げが記録されます。ダッシュボードでグラフ表示することができます。</div>
-                    <a className='btn btn-primary mt20' href='http://square-eight-method.net/2022/11/21/squareeight%e3%81%a7%e3%81%ae%e3%82%aa%e3%83%b3%e3%83%a9%e3%82%a4%e3%83%b3%e5%a3%b2%e3%82%8a%e4%b8%8a%e3%81%92%e7%ae%a1%e7%90%86%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/11/21/squareeight%e3%81%a7%e3%81%ae%e3%82%aa%e3%83%b3%e3%83%a9%e3%82%a4%e3%83%b3%e5%a3%b2%e3%82%8a%e4%b8%8a%e3%81%92%e7%ae%a1%e7%90%86%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
                       もっと見る
                     </a>
                   </Card.Body>
