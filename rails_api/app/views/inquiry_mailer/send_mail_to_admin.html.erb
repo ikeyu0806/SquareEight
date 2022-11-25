@@ -7,7 +7,7 @@
   <body>
       <p>以下の内容でお問い合わせを受け付けました</p>
       <br />
-      <p><%= @content %></p>
+      <div style="white-space:pre-wrap; word-wrap:break-word;"><%= @content %></div>
     <br/>
     <%= simple_format(h("
       ---
