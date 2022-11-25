@@ -6,19 +6,19 @@ import FreePlanCard from 'components/molecules/FreePlanCard'
 import LightPlanCard from 'components/molecules/LightPlanCard'
 import StandardPlanCard from 'components/molecules/StarndardPlanCard'
 import PremiumPlanCard from 'components/molecules/PremiumPlanCard'
+import CampaignAlert from 'components/atoms/CampaignAlert'
 import { Container,
          Navbar,
          Nav,
          Button,
          Card,
          Row,
-         Col,
-         Alert } from 'react-bootstrap'
+         Col } from 'react-bootstrap'
 
 const Home: NextPage = () => {
   return (
     <>
-      {/* <Alert>2023年2月28日までキャンペーン中。予約数、顧客表示数制限なし</Alert> */}
+      
       <Navbar collapseOnSelect expand='lg' bg='light'>
         <Container>
           <Navbar.Brand href='/' className='font-weight-bold'>SquareEight</Navbar.Brand>
@@ -44,6 +44,7 @@ const Home: NextPage = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
+      <CampaignAlert></CampaignAlert>
       <Container className='mt20 mb30' id='about'>
         <Row>
           <Col>
