@@ -644,7 +644,7 @@ const ReserveFrameForm = () => {
               </div>
             }
           </div>}
-      </Form.Group>
+        </Form.Group>
 
         <hr/>
 
@@ -665,25 +665,25 @@ const ReserveFrameForm = () => {
     
         <Form.Group className='mb-3'>
           <Form.Label>受付時刻<RequireBadge /></Form.Label>
-            <br/>
-            {reserveFrameReceptionTimes.length
-              ?
-                <>
-                  {reserveFrameReceptionTimes.map((times, i) => {
-                    return (
-                      <div key={i} className='mb10'>
-                        <span>開始時刻: {times.reception_start_time}</span><br/>
-                        <span>終了時刻: {times.reception_end_time}</span>
-                        <a className='color-black none-under-decoration ml10'
-                           onClick={() => deleteReserveFrameReceptionTimes(times.reception_start_time, times.reception_end_time)}>
-                          <TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>
-                        </a>
-                      </div>
-                    )
-                  })}
-                </>
-              :
-                <div className='mt10 mb10'>受付時刻が設定されていません</div>
+          <br/>
+          {reserveFrameReceptionTimes.length
+            ?
+              <>
+                {reserveFrameReceptionTimes.map((times, i) => {
+                  return (
+                    <div key={i} className='mb10'>
+                      <span>開始時刻: {times.reception_start_time}</span><br/>
+                      <span>終了時刻: {times.reception_end_time}</span>
+                      <a className='color-black none-under-decoration ml10'
+                          onClick={() => deleteReserveFrameReceptionTimes(times.reception_start_time, times.reception_end_time)}>
+                        <TrashIcon width={20} height={20} fill={'#ff0000'}></TrashIcon>
+                      </a>
+                    </div>
+                  )
+                })}
+              </>
+            :
+              <div className='mt10 mb10'>受付時刻が設定されていません</div>
             }
         </Form.Group>
     

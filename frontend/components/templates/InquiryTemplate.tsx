@@ -1,11 +1,13 @@
 import React, { useState } from 'react'
 import { Container, Row, Col, Form, Button } from 'react-bootstrap'
 import axios from 'axios'
+import { useRouter } from 'next/router'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const InquiryTemplate = (): JSX.Element => {
   const [email, setEmail] = useState('')
   const [content, setContent] = useState('')
+  const router = useRouter()
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/inquiry`, {
@@ -14,11 +16,7 @@ const InquiryTemplate = (): JSX.Element => {
         content: content
       }
     }).then(response => {
-      swalWithBootstrapButtons.fire({
-        title: '送信しました',
-        icon: 'info'
-      })
-      location.reload()
+      router.push('/inquiry/confirm')
     }).catch(error => {
       swalWithBootstrapButtons.fire({
         title: '送信失敗しました',
@@ -38,7 +36,7 @@ const InquiryTemplate = (): JSX.Element => {
           <Col lg={6} md={6}>
             <Form>
               <Form.Group className='mb-3'>
-                <Form.Label>メールアドレス</Form.Label>
+                <Form.Label>返信先メールアドレス</Form.Label>
                 <Form.Control
                   type='email'
                   value={email}

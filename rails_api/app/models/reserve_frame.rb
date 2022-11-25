@@ -170,7 +170,7 @@ class ReserveFrame < ApplicationRecord
 
   def unreservable_frames_dates_range
     unreservable_frames.map do |frame|
-      frame.end_at.present? ? frame.start_at.beginning_of_day..frame.end_at.end_of_day : frame.start_at.beginning_of_day..frame.start_at.end_of_day
+      frame.start_at.beginning_of_day..frame.start_at.end_of_day
     end
   end
 
@@ -183,7 +183,7 @@ class ReserveFrame < ApplicationRecord
 
   def out_of_range_frames_dates_range
     out_of_range_frames.map do |frame|
-      frame.end_at.present? ? frame.start_at.beginning_of_day..frame.end_at.end_of_day : frame.start_at.beginning_of_day..frame.start_at.end_of_day
+      frame.start_at.beginning_of_day..frame.start_at.end_of_day
     end
   end
 
@@ -477,8 +477,7 @@ class ReserveFrame < ApplicationRecord
   def out_of_range_frames_dates
     result = []
     out_of_range_frames.each do |out_of_range_frame|
-      result.push({"start_at": out_of_range_frame.start_at.strftime("%Y-%m-%d"),
-                   "end_at": out_of_range_frame.end_at&.strftime("%Y-%m-%d")})
+      result.push({"start_at": out_of_range_frame.start_at.strftime("%Y-%m-%d")})
     end
     result
   end
@@ -486,10 +485,18 @@ class ReserveFrame < ApplicationRecord
   def unreservable_frames_dates
     result = []
     unreservable_frames.each do |unreservable_frame|
-      result.push({"start_at": unreservable_frame.start_at.strftime("%Y-%m-%d"),
-                   "end_at": unreservable_frame.end_at&.strftime("%Y-%m-%d")})
+      result.push({"start_at": unreservable_frame.start_at.strftime("%Y-%m-%d")})
     end
     result
+  end
+
+  # フロントエンドに渡すメソッド
+  def out_of_range_frames_to_webform
+    out_of_range_frames.map{ |frame| frame.start_at.strftime("%Y-%m-%d") }
+  end
+
+  def unreservable_frames_to_webform
+    unreservable_frames.map{ |frame| frame.start_at.strftime("%Y-%m-%d") }
   end
 
   def repeat_wdays

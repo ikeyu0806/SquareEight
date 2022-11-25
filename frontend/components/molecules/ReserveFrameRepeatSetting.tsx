@@ -3,8 +3,6 @@ import { Button, Form, Col, Row } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import TrashIcon from 'components/atoms/TrashIcon'
-import { UnreservableFrameParam } from 'interfaces/UnreservableFrameParam'
-import { OutOfRepeatReservableFrameParam } from 'interfaces/OutOfRepeatReservableFrameParam'
 import RequireBadge from 'components/atoms/RequireBadge'
 import {
   isRepeatChanged,
@@ -24,10 +22,8 @@ import {
 const ReserveFrameRepeatSetting = () => {
   const dispatch = useDispatch()
   const isRepeat = useSelector((state: RootState) => state.reserveFrame.isRepeat)
-  const [outOfRangeFramesStartDate, setOutOfRangeFramesStartDate] = useState('')
-  const [outOfRangeFramesEndDate, setOutOfRangeFramesEndDate] = useState('')
-  const [unreservableFramesStartDate, setUnreservableFramesStartDate] = useState('')
-  const [unreservableFramesEndDate, setUnreservableFramesEndDate] = useState('')
+  const [outOfRangeFramesDate, setoutOfRangeFramesDate] = useState('')
+  const [unreservableFramesDate, setunreservableFramesDate] = useState('')
   const repeatIntervalType = useSelector((state: RootState) => state.reserveFrame.repeatIntervalType)
   const repeatIntervalNumberDay = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberDay)
   const repeatIntervalNumberWeek = useSelector((state: RootState) => state.reserveFrame.repeatIntervalNumberWeek)
@@ -42,58 +38,40 @@ const ReserveFrameRepeatSetting = () => {
   const unreservableFrames = useSelector((state: RootState) => state.reserveFrame.unreservableFrames)
 
   const addOutOfRangeReservableFrames = () => {
-    const startAt = outOfRangeFramesStartDate
-    const endAt = outOfRangeFramesEndDate
-    dispatch((outOfRangeFramesChanged([...outOfRangeFrames, { start_at: startAt, end_at: endAt }])))
-    setOutOfRangeFramesStartDate('')
-    setOutOfRangeFramesEndDate('')
+    dispatch((outOfRangeFramesChanged([...outOfRangeFrames, outOfRangeFramesDate])))
+    setoutOfRangeFramesDate('')
   }
 
   const addUnreservableFrames = () => {
-    const startAt = unreservableFramesStartDate
-    const endAt = unreservableFramesEndDate
-    dispatch((unreservableFramesChanged([...unreservableFrames, { start_at: startAt, end_at: endAt }])))
-    setUnreservableFramesStartDate('')
-    setUnreservableFramesEndDate('')
+    dispatch((unreservableFramesChanged([...unreservableFrames, unreservableFramesDate])))
+    setunreservableFramesDate('')
   }
 
   const validateAddOutOfRangeFrame = () => {
     // 入力されているか
-    if (!outOfRangeFramesStartDate) {
+    if (!outOfRangeFramesDate) {
       return true
-    }
-    // 開始日が終了日以降になってないか
-    if (outOfRangeFramesEndDate) {
-      if (outOfRangeFramesStartDate >= outOfRangeFramesEndDate) {
-        return true
-      }
     }
     return false
   }
 
   const validateAddUnreservableFrame = () => {
     // 入力されているか
-    if (!unreservableFramesStartDate) {
+    if (!unreservableFramesDate) {
       return true
-    }
-    // 開始日が終了日以降になってないか
-    if (unreservableFramesEndDate) {
-      if (unreservableFramesStartDate >= unreservableFramesEndDate) {
-        return true
-      }
     }
     return false
   }
 
-  const deleteOutOfRangeFrame = (startAt: string, endAt: string) => {
-    let updateOutOfRangeFrame: OutOfRepeatReservableFrameParam[]
-    updateOutOfRangeFrame = outOfRangeFrames.filter(frame => { (frame.start_at + frame.end_at) !== (startAt + endAt) })
+  const deleteOutOfRangeFrame = (targetDate: string) => {
+    let updateOutOfRangeFrame: string[]
+    updateOutOfRangeFrame = outOfRangeFrames.filter(frame => { frame !== targetDate })
     dispatch(outOfRangeFramesChanged(updateOutOfRangeFrame))
   }
 
-  const deleteUnreservableFrame = (startAt: string, endAt: string) => {
-    let updateUnreservableFrame: UnreservableFrameParam[]
-    updateUnreservableFrame = unreservableFrames.filter(frame => { (frame.start_at + frame.end_at) !== (startAt + endAt) })
+  const deleteUnreservableFrame = (targetDate: string) => {
+    let updateUnreservableFrame: string[]
+    updateUnreservableFrame = unreservableFrames.filter(frame => { frame !== targetDate })
     dispatch(unreservableFramesChanged(updateUnreservableFrame))
   }
 
@@ -354,9 +332,8 @@ const ReserveFrameRepeatSetting = () => {
                 {outOfRangeFrames.map((frame, i) => {
                   return (
                     <span key={i} className='mb10'>
-                      <span>開始日: {frame.start_at}</span><br/>
-                      <span>終了日: {frame.end_at}</span>
-                      <a className='color-black none-under-decoration' onClick={() => deleteOutOfRangeFrame(frame.start_at, frame.end_at)}><TrashIcon width={20} height={20} fill={'#ff0000'} /></a>
+                      <span>{frame}</span><br/>
+                      <a className='color-black none-under-decoration' onClick={() => deleteOutOfRangeFrame(frame)}><TrashIcon width={20} height={20} fill={'#ff0000'} /></a>
                     </span>
                   )
                 })}
@@ -366,26 +343,13 @@ const ReserveFrameRepeatSetting = () => {
             }
             <Col>
               <Form.Group>
-              <Form.Label>繰り返し範囲外予約受付開始日<RequireBadge /></Form.Label>
+              <Form.Label>繰り返し範囲外予約受付日<RequireBadge /></Form.Label>
                 <Row>
                   <Col>
                     <Form.Control
                       type='date'
-                      value={outOfRangeFramesStartDate}
-                      onChange={(e) =>  setOutOfRangeFramesStartDate(e.target.value)} />
-                  </Col>
-                  <Col>
-                  </Col>
-                </Row>
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label>繰り返し範囲外予約受付終了日</Form.Label>
-                <Row>
-                  <Col>
-                    <Form.Control
-                      type='date'
-                      value={outOfRangeFramesEndDate}
-                      onChange={(e) =>  setOutOfRangeFramesEndDate(e.target.value)} />
+                      value={outOfRangeFramesDate}
+                      onChange={(e) =>  setoutOfRangeFramesDate(e.target.value)} />
                   </Col>
                   <Col>
                   </Col>
@@ -410,9 +374,8 @@ const ReserveFrameRepeatSetting = () => {
                 {unreservableFrames.map((frame, i) => {
                   return (
                     <span key={i} className='mb10'>
-                      <span>開始日: {frame.start_at}</span><br/>
-                      <span>終了日: {frame.end_at}</span>
-                      <a className='color-black none-under-decoration' onClick={() => deleteUnreservableFrame(frame.start_at, frame.end_at)}><TrashIcon width={20} height={20} fill={'#ff0000'} /></a>
+                      <span>{frame}</span>
+                      <a className='color-black none-under-decoration' onClick={() => deleteUnreservableFrame(frame)}><TrashIcon width={20} height={20} fill={'#ff0000'} /></a>
                     </span>
                   )
                 })}
@@ -422,26 +385,13 @@ const ReserveFrameRepeatSetting = () => {
             }
             <Col>
               <Form.Group>
-              <Form.Label>予約不可開始日<RequireBadge /></Form.Label>
+              <Form.Label>予約不日<RequireBadge /></Form.Label>
                 <Row>
                   <Col>
                     <Form.Control
                       type='date'
-                      value={unreservableFramesStartDate}
-                      onChange={(e) =>  setUnreservableFramesStartDate(e.target.value)} />
-                  </Col>
-                  <Col>
-                  </Col>
-                </Row>
-              </Form.Group>
-              <Form.Group className='mb-3'>
-                <Form.Label>予約不可終了日</Form.Label>
-                <Row>
-                  <Col>
-                    <Form.Control
-                      type='date'
-                      value={unreservableFramesEndDate}
-                      onChange={(e) =>  setUnreservableFramesEndDate(e.target.value)} />
+                      value={unreservableFramesDate}
+                      onChange={(e) =>  setunreservableFramesDate(e.target.value)} />
                   </Col>
                   <Col>
                   </Col>

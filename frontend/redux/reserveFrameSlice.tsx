@@ -1,8 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ReserveFrameReceptionTimeParam } from 'interfaces/ReserveFrameReceptionTimeParam'
-import { UnreservableFrameParam } from 'interfaces/UnreservableFrameParam'
 import { ReservableFrameTicketMasterParam } from 'interfaces/ReservableFrameTicketMasterParam'
-import { OutOfRepeatReservableFrameParam } from 'interfaces/OutOfRepeatReservableFrameParam'
 import { MultiPaymentMethod } from 'interfaces/MultiPaymentMethod'
 import { getZeroPaddingDate } from 'functions/getZeroPaddingDatetime'
 
@@ -54,8 +52,8 @@ export const reserveFrameSlice = createSlice({
     cancelReceptionDayBefore: 1,
     cancelReceptionHourBefore: 1,
     reserveFrameReceptionTimes: [] as ReserveFrameReceptionTimeParam[],
-    outOfRangeFrames: [] as OutOfRepeatReservableFrameParam[],
-    unreservableFrames: [] as UnreservableFrameParam[],
+    outOfRangeFrames: [] as string[],
+    unreservableFrames: [] as string[],
     resourceIds: [] as number[],
     reserveEvents: [],
     monthlyPaymentPlanIds: [] as number[],
@@ -194,10 +192,10 @@ export const reserveFrameSlice = createSlice({
     reserveFrameReceptionTimesChanged: (state, action: PayloadAction<ReserveFrameReceptionTimeParam[]>) => {
       state.reserveFrameReceptionTimes = action.payload
     },
-    outOfRangeFramesChanged: (state, action: PayloadAction<OutOfRepeatReservableFrameParam[]>) => {
+    outOfRangeFramesChanged: (state, action: PayloadAction<string[]>) => {
       state.outOfRangeFrames = action.payload
     },
-    unreservableFramesChanged: (state, action: PayloadAction<UnreservableFrameParam[]>) => {
+    unreservableFramesChanged: (state, action: PayloadAction<string[]>) => {
       state.unreservableFrames = action.payload
     },
     resourceIdsChanged: (state, action: PayloadAction<number[]>) => {
