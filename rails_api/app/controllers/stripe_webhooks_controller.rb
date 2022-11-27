@@ -58,7 +58,7 @@ class StripeWebhooksController < ApplicationController
           purchase_product_name: purchase_product_name,
           reserve_frame_id: reserve_frame_id,
           payment_request_id: payment_request_id,
-          system_product_type: stripe_payment_intent.system_product_type,
+          system_product_type: system_product_type,
           end_user_id: end_user&.id,
           account_id: account_id
         }
