@@ -20,7 +20,7 @@ const MerchantCustomFooter = () => {
       {hideShareButton !== true &&
       <>
         <LineShareButton
-          url={process.env.FRONTEND_URL + router.pathname}
+          url={process.env.FRONTEND_URL + router.asPath}
           title='SquareEight'>
           <LineIcon
             size={40}
@@ -28,7 +28,7 @@ const MerchantCustomFooter = () => {
         </LineShareButton>
         <TwitterShareButton
           className='ml20'
-          url={process.env.FRONTEND_URL + router.pathname}
+          url={process.env.FRONTEND_URL + router.asPath}
           title='SquareEight'>
           <TwitterIcon
             size={40}
@@ -36,7 +36,7 @@ const MerchantCustomFooter = () => {
         </TwitterShareButton>
         <FacebookShareButton
           className='ml20'
-          url={process.env.FRONTEND_URL + router.pathname}
+          url={process.env.FRONTEND_URL + router.asPath}
           title='SquareEight'>
           <FacebookIcon
             size={40}
