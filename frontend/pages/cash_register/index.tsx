@@ -319,6 +319,7 @@ const Index: NextPage = () => {
                                   </Button>
                                 </Col>
                               </Row>
+                              <hr />
                             </ListGroup.Item>
                             )
                         case 'TicketMaster':
@@ -335,7 +336,17 @@ const Index: NextPage = () => {
                                   数量: {item.quantity}<br />
                                   ￥{item.price}
                                 </Col>
+                                <Col>
+                                  <Button
+                                    onClick={() => deleteCartItem(item.id, item.item_type)}
+                                    className='mt60'
+                                    size='sm'
+                                    variant='danger'>
+                                    カートから削除
+                                  </Button>
+                                </Col>
                               </Row>
+                              <hr />
                             </ListGroup.Item>
                           )
                           case 'MonthlyPaymentPlan':
@@ -351,7 +362,17 @@ const Index: NextPage = () => {
                                     {item.product_name}<br />
                                     ￥{item.price}
                                   </Col>
+                                  <Col>
+                                    <Button
+                                      onClick={() => deleteCartItem(item.id, item.item_type)}
+                                      className='mt60'
+                                      size='sm'
+                                      variant='danger'>
+                                      カートから削除
+                                    </Button>
+                                  </Col>
                                 </Row>
+                                <hr />
                               </ListGroup.Item>
                             )
                         default:
