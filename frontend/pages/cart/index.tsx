@@ -1,18 +1,15 @@
 import React, { useEffect, useState } from 'react'
 import type { NextPage } from 'next'
-import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap'
+import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
-import { useSelector, useDispatch } from 'react-redux'
-import { RootState } from 'redux/store'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { CartItemParam } from 'interfaces/CartItemsParam'
-import { showPerPrefecturesChargeModalChanged } from 'redux/productSlice'
 import PrefecturesChargeModal from 'components/templates/PrefecturesChargeModal'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const Index: NextPage = () => {
-  const dispatch = useDispatch()
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [cartItems, setCartItems] = useState<CartItemParam[]>()
@@ -37,6 +34,22 @@ const Index: NextPage = () => {
     }
     fetchProduct()
   }, [cookies._square_eight_end_user_session])
+
+  const deleteCartItem = (publicId: string, itemType: string) => {
+    axios.delete(`${process.env.BACKEND_URL}/api/internal/carts/delete_cart_item/${publicId}?item_type=${itemType}`,
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_end_user_session
+      }
+    }).then(response => {
+      location.reload()
+    }).catch(error => {
+      swalWithBootstrapButtons.fire({
+        title: '削除失敗しました',
+        icon: 'error'
+      })
+    })
+  }
 
   return (
     <EndUserLoginLayout>
@@ -70,6 +83,14 @@ const Index: NextPage = () => {
                                   {['flatRate', 'perPrefectures'].includes(item.delivery_charge_type)
                                   && <div className='mt10'>配送料: ￥{item.delivery_charge}</div>}
                                 </Col>
+                                <Col>
+                                  <Button
+                                    onClick={() => deleteCartItem(item.public_id, item.item_type)}
+                                    size='sm'
+                                    variant='danger'>
+                                    カートから削除
+                                  </Button>
+                                </Col>
                               </Row>
                             </ListGroup.Item>)
                         case 'TicketMaster':
@@ -86,6 +107,14 @@ const Index: NextPage = () => {
                                   数量: {item.quantity}<br />
                                   ￥{item.price}
                                 </Col>
+                                <Col>
+                                  <Button
+                                    onClick={() => deleteCartItem(item.public_id, item.item_type)}
+                                    size='sm'
+                                    variant='danger'>
+                                    カートから削除
+                                  </Button>
+                                </Col>
                               </Row>
                             </ListGroup.Item>
                           )
@@ -101,6 +130,14 @@ const Index: NextPage = () => {
                                     {item.business_name}<br/>
                                     {item.product_name}<br />
                                     ￥{item.price}
+                                  </Col>
+                                  <Col>
+                                    <Button
+                                      onClick={() => deleteCartItem(item.public_id, item.item_type)}
+                                      size='sm'
+                                      variant='danger'>
+                                      カートから削除
+                                    </Button>
                                   </Col>
                                 </Row>
                               </ListGroup.Item>
