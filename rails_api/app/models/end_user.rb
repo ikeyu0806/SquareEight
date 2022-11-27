@@ -83,6 +83,7 @@ class EndUser < ApplicationRecord
         product.prefecture_delivery_charge(self.delivery_targets.find_by(is_default: true).state)
         cart_items.push({
           id: cart.id,
+          public_id: cart.public_id,
           product_name: product.name,
           price: price,
           tax_rate: product.tax_rate,
@@ -116,6 +117,7 @@ class EndUser < ApplicationRecord
       if merge_destination_item.blank?
         cart_items.push({
           id: cart.id,
+          public_id: cart.public_id,
           product_name: cart.ticket_master.name,
           price: price,
           issue_number: cart.ticket_master.issue_number * cart.quantity,
@@ -141,6 +143,7 @@ class EndUser < ApplicationRecord
       if merge_destination_item.blank?
         cart_items.push({
           id: cart.id,
+          public_id: cart.public_id,
           product_name: cart.monthly_payment_plan.plan_text,
           price: cart.monthly_payment_plan.price,
           s3_object_public_url: cart.monthly_payment_plan.main_image_public_url,

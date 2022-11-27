@@ -147,8 +147,8 @@ const Index: NextPage = () => {
     return false
   }
 
-  const deleteCartItem = (itemId: string, itemType: string) => {
-    axios.delete(`${process.env.BACKEND_URL}/api/internal/carts/delete_cart_item/${itemId}?item_type=${itemType}`,
+  const deleteCartItem = (publicId: string, itemType: string) => {
+    axios.delete(`${process.env.BACKEND_URL}/api/internal/carts/delete_cart_item/${publicId}?item_type=${itemType}`,
     {
       headers: {
         'Session-Id': cookies._square_eight_end_user_session
@@ -311,7 +311,7 @@ const Index: NextPage = () => {
                                     </>}
                                   </>}
                                   <Button
-                                    onClick={() => deleteCartItem(item.id, item.item_type)}
+                                    onClick={() => deleteCartItem(item.public_id, item.item_type)}
                                     className='mt10'
                                     size='sm'
                                     variant='danger'>
@@ -338,7 +338,7 @@ const Index: NextPage = () => {
                                 </Col>
                                 <Col>
                                   <Button
-                                    onClick={() => deleteCartItem(item.id, item.item_type)}
+                                    onClick={() => deleteCartItem(item.public_id, item.item_type)}
                                     className='mt60'
                                     size='sm'
                                     variant='danger'>
@@ -364,7 +364,7 @@ const Index: NextPage = () => {
                                   </Col>
                                   <Col>
                                     <Button
-                                      onClick={() => deleteCartItem(item.id, item.item_type)}
+                                      onClick={() => deleteCartItem(item.public_id, item.item_type)}
                                       className='mt60'
                                       size='sm'
                                       variant='danger'>
