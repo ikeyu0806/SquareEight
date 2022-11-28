@@ -12,7 +12,7 @@ const StripeMccForm = (): JSX.Element => {
 
   return (
     <>
-      <div className='mt10'>業種を選択してください</div>
+      <div className='mt10'>業種のカテゴリを選択してください</div>
       <div className='ml20'>
         <Form.Check
           type='radio'
@@ -119,6 +119,8 @@ const StripeMccForm = (): JSX.Element => {
           id='mccTypeRegulated'
           onChange={() => dispatch(mccTypeChanged('regulated'))}
           checked={mccType === 'regulated'} />
+      </div>
+      <div>業種を選択してください</div>
         {mccType === 'popular' &&
           <Form.Select
             className='mt10 mb10'
@@ -127,7 +129,67 @@ const StripeMccForm = (): JSX.Element => {
             <option value='5699'>衣料、アクセサリー</option>
             <option value='7392'>コンサルティングサービス</option>
           </Form.Select>}
-      </div>
+        {mccType === 'retail' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value='5699'>衣料、アクセサリー</option>
+            <option value='5499'>コンビニエンスストア</option>
+            <option value='5977'>美容商品</option>
+            <option value='5712'>インテリア及び家具</option>
+            <option value='7629'>家電</option>
+            <option value='5533'>自動車部品及び付属品</option>
+            <option value='5932'>宝石店、腕時計、掛け時計/置き時計、銀器の店</option>
+            <option value='5944'>貴石、貴金属、時計、宝石</option>
+            <option value='5999'>その他の販売業</option>
+          </Form.Select>}
+        {mccType === 'digital' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value='5734'>ソフトウェアサービス（Saas）</option>
+            <option value='5817'>アプリ</option>
+            <option value='5815'>書籍、映画、音楽のデジタルメディア</option>
+            <option value='5816'>ゲーム</option>
+            <option value='5734'>ブログ及び記事</option>
+            <option value='5734'>その他のデジタルサービス</option>
+          </Form.Select>}
+        {mccType === 'foodBusiness' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value='5812'>飲食店</option>
+            <option value='5411'>食料品店</option>
+            <option value='5812'>ケータリング</option>
+            <option value='5499'>その他の飲食業</option>
+          </Form.Select>}
+        {mccType === 'professional' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value='7392'>コンサルティング</option>
+            <option value='2741'>印刷および出版</option>
+            <option value='8111'>弁護士・法律事務所</option>
+            {/* <option value=''>破産サービス</option> */}
+            <option value='9223'>ベイルボンド</option>
+            <option value='8931'>会計、監査、税務サービス</option>
+            <option value='7379'>コンピュータ修理</option>
+            <option value='8734'>試験研究所</option>
+            <option value='5511'>自動車サービス</option>
+            <option value='7512'>レンタカー</option>
+            <option value='5511'>自動車販売</option>
+            {/* <option value=''>リードジェネレーション</option> */}
+            <option value='5969'>ダイレクトマーケティング</option>
+            {/* <option value=''>ライフライン設備</option> */}
+            <option value='9399'>官公庁</option>
+            <option value='5967'>テレマーケティング</option>
+            {/* <option value=''>クレジットカウンセリングまたは信用回復</option> */}
+            {/* <option value=''>住宅ローンコンサルティングサービス</option> */}
+            {/* <option value=''>債務削減サービス</option> */}
+            <option value='6399'>保証サービス</option>
+            <option value='5969'>その他のマーケティングサービス</option>
+            <option value='7299'>その他のビジネスサービス</option>
+          </Form.Select>}
     </>
   )
 }
