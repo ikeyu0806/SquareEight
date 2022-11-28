@@ -5,6 +5,7 @@ import { getBase64 } from 'functions/getBase64'
 import { RootState } from 'redux/store'
 import RequireBadge from 'components/atoms/RequireBadge'
 import StripeFileRequirement from 'components/molecules/StripeFileRequirement'
+import StripeMccForm from 'components/molecules/StripeMccForm'
 import {  individualFirstNameKanjiChanged,
           individualLastNameKanjiChanged,
           individualFirstNameKanaChanged,
@@ -107,6 +108,9 @@ const StripeIndividualAccountForm = (): JSX.Element => {
       <Form.Label className='mt10'>事業責任者のメールアドレス<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(individualEmailChanged(e.target.value))}
                     value={individualEmail}></Form.Control>
+      <hr />
+      <StripeMccForm />
+      <hr />
       <Form.Label className='mt10'>
         事業のウェブサイト<RequireBadge></RequireBadge><br/>
         Web サイトをお持ちでない場合は、ソーシャルメディアのページ、LinkedIn、またはその他の関連リンクを入力してください。

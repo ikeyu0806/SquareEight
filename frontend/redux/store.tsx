@@ -7,6 +7,7 @@ import stripeAccountSlice from './stripeAccountSlice'
 import stripeCompanyAccountSlice from './stripeCompanyAccountSlice'
 import stripeIndividualAccountSlice from './stripeIndividualAccountSlice'
 import stripeExternalAccountsSlice from './stripeExternalAccountsSlice'
+import stripeBusinessInfoSlice from './stripeBusinessInfoSlice'
 import monthlyPaymentPlanReducer from './monthlyPaymentPlanSlice'
 import resourceReducer from './resourceSlice'
 import reserveFrameReducer from './reserveFrameSlice'
@@ -34,6 +35,7 @@ export const store = configureStore({
     stripeAccount: stripeAccountSlice,
     stripeIndividualAccount: stripeIndividualAccountSlice,
     stripeExternalAccount: stripeExternalAccountsSlice,
+    stripeBusinessInfo: stripeBusinessInfoSlice,
     monthlyPaymentPlan: monthlyPaymentPlanReducer,
     resource: resourceReducer,
     reserveFrame: reserveFrameReducer,
