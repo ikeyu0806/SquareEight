@@ -5,16 +5,13 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-      <p>SquareEightに仮登録しました。</p>
-      <br />
-      <p><%= @verification_code %></p>
-      <br />
-      <p>以下のページから上記の検証コードを入力してユーザ登録を完了してください。</p>
-    <p>
+      <div>SquareEightに仮登録しました。</div>
+      <div class="mt10"><%= @verification_code %></div>
+      <div class="mt10">以下のページから上記の検証コードを入力してユーザ登録を完了してください。</div>
+    <div class="mt10">
       <%= link_to @url, @url %>
-    </p>
-    <br/>
-    <p>※1日以上経過した場合は下記URLから再度メールアドレスをご登録ください<p>
+    </div>
+    <div class="mt10">※1日以上経過した場合は下記URLから再度メールアドレスをご登録ください</div>
     <%= simple_format(h("
       ---
       ■  SquareEight
@@ -23,3 +20,9 @@
     ")) %>
   </body>
 </html>
+<style>
+  .mt10 {
+    margin-top: 10px;
+  }
+</style>
+

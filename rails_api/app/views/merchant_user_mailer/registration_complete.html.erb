@@ -4,9 +4,8 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-      <p>この度は、SquareEightにご登録いただき、誠にありがとうございます。</p>
-      <br />
-      <p>本メールをもちまして登録手続きが完了しましたことをお知らせいたします。</p>
+      <div>この度は、SquareEightにご登録いただき、誠にありがとうございます。</div>
+      <div class="mt10">本メールをもちまして登録手続きが完了しましたことをお知らせいたします。</div>
     <br/>
     <div>マイページログインURL<div>
     <div><%= ENV["FRONTEND_URL"] + "/merchant/login" %></div>
@@ -18,3 +17,8 @@
     ")) %>
   </body>
 </html>
+<style>
+  .mt10 {
+    margin-top: 10px;
+  }
+</style>
