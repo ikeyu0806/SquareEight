@@ -11,6 +11,7 @@ import { RootState } from 'redux/store'
 import StripeTerm from 'components/organisms/StripeTerm'
 import { getZeroPaddingString } from 'functions/getZeroPaddingString'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { mccChanged, mccTypeChanged } from 'redux/stripeBusinessInfoSlice'
 import {  individualFirstNameKanjiChanged,
           individualLastNameKanjiChanged,
           individualFirstNameKanaChanged,
@@ -244,6 +245,8 @@ const RegisterMerchantInfoForm = () => {
           dispatch(individualDocumentFrontChanged(response.data.stripe_account.individual.verification.document.front))
           dispatch(individualAdditionalDocumentFrontChanged(response.data.stripe_account.individual.verification.additional_document.front))
         }
+        dispatch(mccChanged(response.data.stripe_account.business_profile.mcc))
+        dispatch(mccTypeChanged(response.data.mcc_type))
       })
       .catch(error => {
         console.log(error)

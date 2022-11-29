@@ -161,11 +161,13 @@ class Api::Internal::AccountsController < ApplicationController
         },
       })
       stripe_account.save
-      current_merchant_user.account.update!(stripe_account_id: stripe_account.id, mcc: account_params[:mcc], mcc_type: account_params[:mcc_type])
+      current_merchant_user.account.update!(stripe_account_id: stripe_account.id)
     else
       stripe_account = Stripe::Account.retrieve(current_merchant_user.account.stripe_account_id)
       stripe_account.save
     end
+
+    current_merchant_user.account.update!(mcc: account_params[:mcc].to_i, mcc_type: account_params[:mcc_type])
 
     if account_params[:business_type] == "individual"
       stripe_account.business_profile.mcc = account_params[:mcc]
@@ -506,7 +508,7 @@ class Api::Internal::AccountsController < ApplicationController
     else
       representative = {}
     end
-    render json: { status: 'success', stripe_account: stripe_account, representative: representative }, status: 200
+    render json: { status: 'success', stripe_account: stripe_account, representative: representative, mcc_type: current_merchant_user.account.mcc_type }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
