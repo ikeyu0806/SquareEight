@@ -8,7 +8,6 @@ import { mccTypeChanged, mccChanged } from 'redux/stripeBusinessInfoSlice'
 const StripeMccForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const mccType = useSelector((state: RootState) => state.stripeBusinessInfo.mccType)
-  const mcc = useSelector((state: RootState) => state.stripeBusinessInfo.mcc)
 
   return (
     <>
