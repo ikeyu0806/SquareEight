@@ -13,7 +13,8 @@ const FreePlanCard = (): JSX.Element => {
           <Col xs={11}>
             <Card.Text className={cardStyles.plan_description}>
               <TextWithCheckIcon text='オンライン予約受付 月間50件' fill={'darkblue'}></TextWithCheckIcon><br/>
-              <TextWithCheckIcon text='登録顧客を50件まで表示' fill={'darkblue'}></TextWithCheckIcon><br/>
+              <TextWithCheckIcon text='登録顧客を10件まで表示' fill={'darkblue'}></TextWithCheckIcon><br/>
+              <TextWithCheckIcon text='オンラインアンケート 月間30件まで受付' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='メールテンプレート5件まで作成' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='決済手数料6%' fill={'darkblue'}></TextWithCheckIcon><br/>
             </Card.Text>

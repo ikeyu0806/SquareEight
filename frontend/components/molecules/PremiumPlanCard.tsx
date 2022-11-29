@@ -41,6 +41,7 @@ const PremiumPlanCard = ({showJoinButton}: Props): JSX.Element => {
           <Col xs={11}>
             <Card.Text className={cardStyles.plan_description}>
               <TextWithCheckIcon text='スタンダードプランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
+              <TextWithCheckIcon text='電話によるお問い合わせ受付・導入フォロー' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='複数ビジネスアカウント登録機能' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='登録顧客の表示制限解除' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='月間予約件数制限解除' fill={'darkblue'}></TextWithCheckIcon><br/>
