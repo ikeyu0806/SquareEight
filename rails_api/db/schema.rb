@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_24_064746) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_29_043052) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -44,6 +44,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_24_064746) do
     t.integer "service_plan", default: 0
     t.string "stripe_subscription_id"
     t.datetime "deleted_at"
+    t.integer "mcc"
+    t.string "mcc_type"
   end
 
   create_table "additional_delivery_days_per_regions", force: :cascade do |t|

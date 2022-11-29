@@ -161,14 +161,14 @@ class Api::Internal::AccountsController < ApplicationController
         },
       })
       stripe_account.save
-      current_merchant_user.account.update!(stripe_account_id: stripe_account.id)
+      current_merchant_user.account.update!(stripe_account_id: stripe_account.id, mcc: account_params[:mcc], mcc_type: account_params[:mcc_type])
     else
       stripe_account = Stripe::Account.retrieve(current_merchant_user.account.stripe_account_id)
       stripe_account.save
     end
 
     if account_params[:business_type] == "individual"
-      stripe_account.business_profile.mcc = '5734' if Rails.env.development?
+      stripe_account.business_profile.mcc = account_params[:mcc]
       stripe_account.business_profile.url = account_params[:individual_business_url]
       stripe_account.business_profile.product_description = account_params[:individual_product_description]
       # stripe_account.business_profile.name = account_params[:business_profile_name]
@@ -759,6 +759,8 @@ class Api::Internal::AccountsController < ApplicationController
                   :branch_code,
                   :account_holder_name,
                   :external_account_id,
-                  :stripe_person_id)
+                  :stripe_person_id,
+                  :mcc,
+                  :mcc_type)
   end
 end
