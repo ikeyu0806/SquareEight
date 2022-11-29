@@ -30,13 +30,13 @@ class Account < ApplicationRecord
 
   # プランごとの設定
   PLAN_NAME =  { "Free" => "フリープラン", "Light" => "ライトプラン", "Standard" => "スタンダードプラン", "Premium" => "プレミアムプラン" }
-  RESERVATION_LIMIT = { "Free" => 30, "Light" => 500, "Standard" => 2000, "Premium" => 10000 }
+  RESERVATION_LIMIT = { "Free" => 10, "Light" => 500, "Standard" => 2000, "Premium" => 10000 }
   # SEND_MAIL_LIMIT = { "Free" => 50, "Light" => 500, "Standard" => 1000, "Premium" => 10000 }
-  STRIPE_CHARGE_FEE = { "Free" => 70, "Light" => 70, "Standard" => 70, "Premium" => 50 }
-  CUSTOMER_DISPLAY_LIMIT = { "Free" => 50, "Light" => 200, "Standard" => 500, "Premium" => nil }
+  STRIPE_CHARGE_FEE = { "Free" => 80, "Light" => 70, "Standard" => 70, "Premium" => 50 }
+  CUSTOMER_DISPLAY_LIMIT = { "Free" => 10, "Light" => 200, "Standard" => 500, "Premium" => nil }
   PLAN_PRICE = { "Free" => 0, "Light" => 1480, "Standard" => 2980, "Premium" => 6980 }
-  STRIPE_APPLICATION_FEE_AMOUNT = { "Free" => 0.06, "Light" => 0.05, "Standard" => 0.05, "Premium" => 0.04 }
-  STRIPE_APPLICATION_FEE_PERCENT = { "Free" => 6, "Light" => 5, "Standard" => 5, "Premium" => 4 }
+  STRIPE_APPLICATION_FEE_AMOUNT = { "Free" => 0.08, "Light" => 0.05, "Standard" => 0.05, "Premium" => 0.04 }
+  STRIPE_APPLICATION_FEE_PERCENT = { "Free" => 8, "Light" => 5, "Standard" => 5, "Premium" => 4 }
 
   # キャンペーン
   # 無制限キャンペーン
