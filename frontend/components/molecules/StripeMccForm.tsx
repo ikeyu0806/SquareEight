@@ -8,6 +8,7 @@ import { mccTypeChanged, mccChanged } from 'redux/stripeBusinessInfoSlice'
 const StripeMccForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const mccType = useSelector((state: RootState) => state.stripeBusinessInfo.mccType)
+  const mcc = useSelector((state: RootState) => state.stripeBusinessInfo.mcc)
 
   return (
     <>
@@ -122,6 +123,7 @@ const StripeMccForm = (): JSX.Element => {
       <div>業種を選択してください</div>
         {mccType === 'popular' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='5734'>ソフトウェア</option>
@@ -130,6 +132,7 @@ const StripeMccForm = (): JSX.Element => {
           </Form.Select>}
         {mccType === 'retail' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='5699'>衣料、アクセサリー</option>
@@ -144,17 +147,18 @@ const StripeMccForm = (): JSX.Element => {
           </Form.Select>}
         {mccType === 'digital' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='5734'>ソフトウェアサービス（Saas）</option>
             <option value='5817'>アプリ</option>
             <option value='5815'>書籍、映画、音楽のデジタルメディア</option>
             <option value='5816'>ゲーム</option>
-            <option value='5734'>ブログ及び記事</option>
             <option value='5734'>その他のデジタルサービス</option>
           </Form.Select>}
         {mccType === 'foodBusiness' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='5812'>飲食店</option>
@@ -164,6 +168,7 @@ const StripeMccForm = (): JSX.Element => {
           </Form.Select>}
         {mccType === 'professional' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='7392'>コンサルティング</option>
@@ -174,7 +179,6 @@ const StripeMccForm = (): JSX.Element => {
             <option value='8931'>会計、監査、税務サービス</option>
             <option value='7379'>コンピュータ修理</option>
             <option value='8734'>試験研究所</option>
-            <option value='5511'>自動車サービス</option>
             <option value='7512'>レンタカー</option>
             <option value='5511'>自動車販売</option>
             {/* <option value=''>リードジェネレーション</option> */}
@@ -191,6 +195,7 @@ const StripeMccForm = (): JSX.Element => {
           </Form.Select>}
         {mccType === 'membership' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='8641'>市民、友愛または社会団体</option>
@@ -201,6 +206,7 @@ const StripeMccForm = (): JSX.Element => {
           </Form.Select>}
         {mccType === 'personal' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='7221'>写真スタジオ</option>
@@ -216,6 +222,7 @@ const StripeMccForm = (): JSX.Element => {
           </Form.Select>}
         {mccType === 'transportation' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             {/* <option value=''>ライドシェア</option> */}
@@ -223,8 +230,7 @@ const StripeMccForm = (): JSX.Element => {
             <option value='4215'>宅配サービス</option>
             <option value='7523'>駐車場</option>
             <option value='4722'>旅行代理店</option>
-            <option value='4214'>貨物運送業</option>
-            <option value='4214'>配送または転送</option>
+            <option value='4214'>貨物運送業、配送業</option>
             {/* <option value=''>通勤者輸送</option> */}
             <option value='4411'>クルーズライン</option>
             <option value='4511'>航空会社と航空運送業者</option>
@@ -232,6 +238,7 @@ const StripeMccForm = (): JSX.Element => {
           </Form.Select>}
         {mccType === 'travel' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='6513'>不動産賃貸業</option>
@@ -241,6 +248,7 @@ const StripeMccForm = (): JSX.Element => {
           </Form.Select>}
           {mccType === 'medical' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='5047'>医療機器</option>
@@ -260,6 +268,7 @@ const StripeMccForm = (): JSX.Element => {
           </Form.Select>}
           {mccType === 'education' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='8351'>託児サービス</option>
@@ -270,6 +279,7 @@ const StripeMccForm = (): JSX.Element => {
           </Form.Select>}
           {mccType === 'entertainment' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='7922'>イベントチケット代理店</option>
@@ -287,6 +297,7 @@ const StripeMccForm = (): JSX.Element => {
           </Form.Select>}
           {mccType === 'construction' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='8911'>総合建築業</option>
@@ -300,11 +311,11 @@ const StripeMccForm = (): JSX.Element => {
           </Form.Select>}
           {mccType === 'financial' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='6399'>保険</option>
             <option value='6211'>セキュリティブローカーまたはディーラー</option>
-            <option value='4829'>為替商</option>
             <option value='4829'>為替取引</option>
             {/* <option value=''>海外送金</option> */}
             {/* <option value=''>小切手現金化</option> */}
@@ -320,6 +331,7 @@ const StripeMccForm = (): JSX.Element => {
           </Form.Select>}
           {mccType === 'regulated' &&
           <Form.Select
+            value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='5912'>薬局または医薬品</option>
