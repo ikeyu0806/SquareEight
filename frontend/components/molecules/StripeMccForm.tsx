@@ -280,43 +280,58 @@ const StripeMccForm = (): JSX.Element => {
             <option value='7996'>遊園地、カーニバル、サーカス</option>
             <option value='7999'>占い師</option>
             <option value='7832'>映画館</option>
-            <option value='7995'>賭事またはファンタジースポーツ</option>
+            {/* <option value='7995'>賭事またはファンタジースポーツ</option> */}
             <option value='7995'>宝くじ</option>
             {/* <option value=''>スポーツ予測または予想サービス</option> */}
             {/* <option value=''>オンラインカジノ</option> */}
             <option value='7999'>その他のエンターテイメント、レクリエーション</option>
           </Form.Select>}
-          {mccType === '' &&
+          {mccType === 'construction' &&
           <Form.Select
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
-            <option value=''></option>
-            <option value=''></option>
-            <option value=''></option>
+            <option value='8911'>総合建築業</option>
+            <option value='1731'>電気工事業者</option>
+            <option value='1750'>工務店</option>
+            <option value='1799'>特別貿易業者</option>
+            <option value='4814'>テレコムサービス</option>
+            <option value='4812'>通信機器</option>
+            <option value='7623'>エアコン・暖房設備業者</option>
+            <option value='8911'>その他の建築サービス</option>
           </Form.Select>}
-          {mccType === '' &&
+          {mccType === 'financial' &&
           <Form.Select
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
-            <option value=''></option>
-            <option value=''></option>
-            <option value=''></option>
+            <option value='6399'>保険</option>
+            <option value='6211'>セキュリティブローカーまたはディーラー</option>
+            <option value='4829'>為替商</option>
+            <option value='4829'>為替取引</option>
+            {/* <option value=''>海外送金</option> */}
+            {/* <option value=''>小切手現金化</option> */}
+            {/* <option value=''>ローンまたはリース</option> */}
+            {/* <option value=''>債権回収業者</option> */}
+            {/* <option value=''>融資・送金サービス</option>
+            <option value=''>投資サービス</option>
+            <option value=''>バーチャル通貨</option>
+            <option value=''>デジタルウォレット</option>
+            <option value=''>仮想通貨</option> */}
+            <option value='6012'>その他の金融機関</option>
+            <option value='7321'>財務情報及び調査</option>
           </Form.Select>}
-          {mccType === '' &&
+          {mccType === 'regulated' &&
           <Form.Select
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
-            <option value=''></option>
-            <option value=''></option>
-            <option value=''></option>
-          </Form.Select>}
-          {mccType === '' &&
-          <Form.Select
-            className='mt10 mb10'
-            onChange={(e) => dispatch(mccChanged(e.target.value))}>
-            <option value=''></option>
-            <option value=''></option>
-            <option value=''></option>
+            <option value='5912'>薬局または医薬品</option>
+            <option value='5122'>タバコまたは葉巻</option>
+            <option value='7399'>アダルトコンテンツまたはサービス</option>
+            <option value='5999'>ヴェポライザー、電子タバコ、ニコチンリキッドまたは関連製品</option>
+            {/* <option value=''>武器または軍需</option> */}
+            {/* <option value=''>サプリメントまたは健康補助食品</option> */}
+            {/* <option value=''>マリファナ（薬局）</option> */}
+            <option value='5999'>タバコ</option>
+            <option value='5999'>アルコール</option>
           </Form.Select>}
     </>
   )
