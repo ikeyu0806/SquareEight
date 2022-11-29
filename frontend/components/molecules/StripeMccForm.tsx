@@ -324,12 +324,6 @@ const StripeMccForm = (): JSX.Element => {
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
             <option value='5912'>薬局または医薬品</option>
             <option value='5122'>タバコまたは葉巻</option>
-            <option value='7399'>アダルトコンテンツまたはサービス</option>
-            <option value='5999'>ヴェポライザー、電子タバコ、ニコチンリキッドまたは関連製品</option>
-            {/* <option value=''>武器または軍需</option> */}
-            {/* <option value=''>サプリメントまたは健康補助食品</option> */}
-            {/* <option value=''>マリファナ（薬局）</option> */}
-            <option value='5999'>タバコ</option>
             <option value='5999'>アルコール</option>
           </Form.Select>}
     </>
