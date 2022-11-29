@@ -215,45 +215,76 @@ const StripeMccForm = (): JSX.Element => {
             <option value='7273'>デート/エスコートサービス</option>
             <option value='7399'>その他の個人向けサービス</option>
           </Form.Select>}
-        {mccType === '' &&
+        {mccType === 'transportation' &&
           <Form.Select
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
-            <option value=''></option>
-            <option value=''></option>
-            <option value=''></option>
+            {/* <option value=''>ライドシェア</option> */}
+            <option value='4121'>タクシーとリムジン</option>
+            <option value='4215'>宅配サービス</option>
+            <option value='7523'>駐車場</option>
+            <option value='4722'>旅行代理店</option>
+            <option value='4214'>貨物運送業</option>
+            <option value='4214'>配送または転送</option>
+            {/* <option value=''>通勤者輸送</option> */}
+            <option value='4411'>クルーズライン</option>
+            <option value='4511'>航空会社と航空運送業者</option>
+            <option value='4789'>その他の輸送サービス</option>
           </Form.Select>}
-        {mccType === '' &&
+        {mccType === 'travel' &&
           <Form.Select
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
-            <option value=''></option>
-            <option value=''></option>
-            <option value=''></option>
+            <option value='6513'>不動産賃貸業</option>
+            <option value='7011'>ホテル、簡易宿泊、モーテル</option>
+            <option value='7012'>タイムシェア</option>
+            {/* <option value=''>その他の旅行、宿泊施設</option> */}
           </Form.Select>}
-          {mccType === '' &&
+          {mccType === 'medical' &&
           <Form.Select
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
-            <option value=''></option>
-            <option value=''></option>
-            <option value=''></option>
+            <option value='5047'>医療機器</option>
+            <option value='8011'>医師</option>
+            <option value='8042'>検眼士、眼鏡店</option>
+            <option value='8021'>歯科医および矯正歯科医</option>
+            <option value='8041'>カイロプラクティック</option>
+            {/* <option value=''>介護または介護施設</option> */}
+            <option value='8062'>病院</option>
+            {/* <option value=''>個人募金・クラウドファンディング</option> */}
+            {/* <option value=''>精神衛生サービス</option> */}
+            {/* <option value=''>介護付き住宅</option> */}
+            <option value='742'>獣医</option>
+            {/* <option value='8099'>医療組織</option> */}
+            {/* <option value=''>テレメディスンと遠隔医療</option> */}
+            <option value='8099'>その他の医療サービス</option>
           </Form.Select>}
-          {mccType === '' &&
+          {mccType === 'education' &&
           <Form.Select
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
-            <option value=''></option>
-            <option value=''></option>
-            <option value=''></option>
+            <option value='8351'>託児サービス</option>
+            <option value='8220'>短大または大学</option>
+            <option value='8249'>専門または職業学校</option>
+            <option value='8211'>小・中学校</option>
+            <option value='8299'>その他の教育サービス</option>
           </Form.Select>}
-          {mccType === '' &&
+          {mccType === 'entertainment' &&
           <Form.Select
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
-            <option value=''></option>
-            <option value=''></option>
-            <option value=''></option>
+            <option value='7922'>イベントチケット代理店</option>
+            <option value='7991'>観光名所</option>
+            <option value='7033'>レクリエーションキャンプ</option>
+            <option value='7929'>ミュージシャン、バンド、オーケストラ</option>
+            <option value='7996'>遊園地、カーニバル、サーカス</option>
+            <option value='7999'>占い師</option>
+            <option value='7832'>映画館</option>
+            <option value='7995'>賭事またはファンタジースポーツ</option>
+            <option value='7995'>宝くじ</option>
+            {/* <option value=''>スポーツ予測または予想サービス</option> */}
+            {/* <option value=''>オンラインカジノ</option> */}
+            <option value='7999'>その他のエンターテイメント、レクリエーション</option>
           </Form.Select>}
           {mccType === '' &&
           <Form.Select
