@@ -190,6 +190,103 @@ const StripeMccForm = (): JSX.Element => {
             <option value='5969'>その他のマーケティングサービス</option>
             <option value='7299'>その他のビジネスサービス</option>
           </Form.Select>}
+        {mccType === 'membership' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value='8641'>市民、友愛または社会団体</option>
+            <option value='8398'>慈善または社会福祉団体</option>
+            <option value='8661'>宗教団体</option>
+            {/* <option value=''>カントリークラブ</option> */}
+            {/* <option value=''>その他</option> */}
+          </Form.Select>}
+        {mccType === 'personal' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value='7221'>写真スタジオ</option>
+            {/* <option value=''>ヘルスおよびエスティックサロン</option> */}
+            <option value='7230'>美容室、床屋</option>
+            <option value='780'>造園業</option>
+            <option value='7297'>マッサージパーラー</option>
+            <option value='7277'>カウンセリングサービス</option>
+            {/* <option value=''>ヘルス&ウェルネスコーチング</option> */}
+            <option value='7210'>ランドリーまたはクリーニング</option>
+            <option value='7273'>デート/エスコートサービス</option>
+            <option value='7399'>その他の個人向けサービス</option>
+          </Form.Select>}
+        {mccType === '' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value=''></option>
+            <option value=''></option>
+            <option value=''></option>
+          </Form.Select>}
+        {mccType === '' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value=''></option>
+            <option value=''></option>
+            <option value=''></option>
+          </Form.Select>}
+          {mccType === '' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value=''></option>
+            <option value=''></option>
+            <option value=''></option>
+          </Form.Select>}
+          {mccType === '' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value=''></option>
+            <option value=''></option>
+            <option value=''></option>
+          </Form.Select>}
+          {mccType === '' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value=''></option>
+            <option value=''></option>
+            <option value=''></option>
+          </Form.Select>}
+          {mccType === '' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value=''></option>
+            <option value=''></option>
+            <option value=''></option>
+          </Form.Select>}
+          {mccType === '' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value=''></option>
+            <option value=''></option>
+            <option value=''></option>
+          </Form.Select>}
+          {mccType === '' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value=''></option>
+            <option value=''></option>
+            <option value=''></option>
+          </Form.Select>}
+          {mccType === '' &&
+          <Form.Select
+            className='mt10 mb10'
+            onChange={(e) => dispatch(mccChanged(e.target.value))}>
+            <option value=''></option>
+            <option value=''></option>
+            <option value=''></option>
+          </Form.Select>}
     </>
   )
 }
