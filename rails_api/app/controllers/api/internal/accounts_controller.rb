@@ -528,6 +528,7 @@ class Api::Internal::AccountsController < ApplicationController
       account = current_merchant_user.account
       account.update!(service_plan: account_params[:service_plan])
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
+      Stripe.api_version = '2022-08-01'
       if account_params[:service_plan] == 'Free' && account.stripe_subscription_id.present?
         Stripe::Subscription.cancel(
           account.stripe_subscription_id,
@@ -562,6 +563,8 @@ class Api::Internal::AccountsController < ApplicationController
   end
 
   def cancel_plan
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     ActiveRecord::Base.transaction do
       account = current_merchant_user.account
       cancel_subscription_id = account.stripe_subscription_id

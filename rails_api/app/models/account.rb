@@ -34,7 +34,7 @@ class Account < ApplicationRecord
   # SEND_MAIL_LIMIT = { "Free" => 50, "Light" => 500, "Standard" => 1000, "Premium" => 10000 }
   STRIPE_CHARGE_FEE = { "Free" => 70, "Light" => 70, "Standard" => 70, "Premium" => 50 }
   CUSTOMER_DISPLAY_LIMIT = { "Free" => 50, "Light" => 200, "Standard" => 500, "Premium" => nil }
-  PLAN_PRICE = { "Free" => 0, "Light" => 980, "Standard" => 1980, "Premium" => 4980 }
+  PLAN_PRICE = { "Free" => 0, "Light" => 1480, "Standard" => 2980, "Premium" => 6980 }
   STRIPE_APPLICATION_FEE_AMOUNT = { "Free" => 0.06, "Light" => 0.05, "Standard" => 0.05, "Premium" => 0.04 }
   STRIPE_APPLICATION_FEE_PERCENT = { "Free" => 6, "Light" => 5, "Standard" => 5, "Premium" => 4 }
 

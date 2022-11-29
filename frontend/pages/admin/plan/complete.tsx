@@ -23,9 +23,9 @@ const Choice: NextPage = () => {
                   
                 <h3 className='text-center mt20'>
                   ご請求額: ￥
-                  {router.query.plan === 'Light' && 980}
-                  {router.query.plan === 'Standard' && 1980}
-                  {router.query.plan === 'Premium' && 4980}
+                  {router.query.plan === 'Light' && 1480}
+                  {router.query.plan === 'Standard' && 2980}
+                  {router.query.plan === 'Premium' && 6980}
                 </h3>
                 <div className='text-center'>
                   <a
