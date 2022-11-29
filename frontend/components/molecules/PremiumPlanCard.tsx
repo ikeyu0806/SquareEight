@@ -14,22 +14,28 @@ const PremiumPlanCard = ({showJoinButton}: Props): JSX.Element => {
 
   return (
     <Card className={cardStyles.planCard}>
-      <Card.Header className='d-flex justify-content-between align-items-center card-header'>
-        プレミアム
-        {showJoinButton
-          &&
-          <>
-            {
-              currentServicePlan === 'Premium'
-              ?
-                <CancelSystemPlanButton></CancelSystemPlanButton>
-              :
-                <a className='btn btn-primary' href='/admin/plan/join?plan=Premium'>加入する</a>
-            }
-          </>}
-      </Card.Header>
+      {showJoinButton
+        ?
+          <Card.Header className='d-flex justify-content-between align-items-center card-header'>
+          プレミアム
+          {showJoinButton
+            &&
+            <>
+              {
+                currentServicePlan === 'Premium'
+                ?
+                  <CancelSystemPlanButton></CancelSystemPlanButton>
+                :
+                  <a className='btn btn-primary' href='/admin/plan/join?plan=Premium'>加入する</a>
+              }
+            </>}
+          </Card.Header>
+        :
+          <Card.Header>
+            プレミアム
+          </Card.Header>}
       <Card.Body>
-        <h4 className={cardStyles.plan_price}>月額 4980円</h4>
+        <h4 className={cardStyles.plan_price}>月額 6980円</h4>
         <Row>
           <Col></Col>
           <Col xs={11}>

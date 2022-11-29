@@ -14,19 +14,25 @@ const LightPlanCard = ({showJoinButton}: Props): JSX.Element => {
 
   return (
     <Card className={cardStyles.planCard}>
-      <Card.Header className='d-flex justify-content-between align-items-center card-header'>
-        ライト{showJoinButton
-          &&
-          <>
-            {currentServicePlan === 'Light'
-            ?
-              <CancelSystemPlanButton></CancelSystemPlanButton>
-            :
-              <a className='btn btn-primary' href='/admin/plan/join?plan=Light'>加入する</a>}
-          </>}
-      </Card.Header>
+      {showJoinButton
+        ?
+        <Card.Header className={'d-flex justify-content-between align-items-center card-header'}>
+          ライト
+            <>
+              {currentServicePlan === 'Light'
+              ?
+                <CancelSystemPlanButton></CancelSystemPlanButton>
+              :
+                <a className='btn btn-primary' href='/admin/plan/join?plan=Light'>加入する</a>}
+            </>
+        </Card.Header>
+      :
+        <Card.Header>
+          ライト
+        </Card.Header>
+      }
       <Card.Body>
-        <h4 className={cardStyles.plan_price}>月額 980円</h4>
+        <h4 className={cardStyles.plan_price}>月額 1480円</h4>
         <Row>
           <Col></Col>
           <Col xs={11}>
