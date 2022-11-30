@@ -20,7 +20,7 @@ MerchantUser.first_or_create!(
   account_id: account.id,
   email: "merchant_user@develop.com",
   password: "Pass1234",
-  authority_category: "MerchantAdmin",
+  authority_category: "RootUser",
   email_authentication_status: "Enabled"
 )
 
