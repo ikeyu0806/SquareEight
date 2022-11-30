@@ -74,7 +74,7 @@ const Index: NextPage = () => {
               メッセージテンプレート作成
             </Button>
             <Card>
-              <Card.Header>アンケート一覧</Card.Header>
+              <Card.Header>テンプレート一覧</Card.Header>
                 <ListGroup variant='flush'>
                 {messageTemplates && messageTemplates.map((message, i) => {
                   return (
