@@ -127,6 +127,12 @@ const Invitation: NextPage = () => {
                       <td className='text-center'>○</td>
                     </tr>
                     <tr>
+                      <td className='text-center'>顧客の登録・更新・削除</td>
+                      <td className='text-center'>○</td>
+                      <td className='text-center'>○</td>
+                      <td className='text-center'>×</td>
+                    </tr>
+                    <tr>
                       <td className='text-center'>顧客グループの登録・更新・削除</td>
                       <td className='text-center'>○</td>
                       <td className='text-center'>○</td>
@@ -137,12 +143,6 @@ const Invitation: NextPage = () => {
                       <td className='text-center'>○</td>
                       <td className='text-center'>○</td>
                       <td className='text-center'>○</td>
-                    </tr>
-                    <tr>
-                      <td className='text-center'>顧客の登録・更新・削除</td>
-                      <td className='text-center'>○</td>
-                      <td className='text-center'>○</td>
-                      <td className='text-center'>×</td>
                     </tr>
                     <tr>
                       <td className='text-center'>メッセージテンプレートの閲覧</td>
@@ -199,15 +199,15 @@ const Invitation: NextPage = () => {
                       <td className='text-center'>○</td>
                     </tr>
                     <tr>
-                      <td className='text-center'>お支払いクレジットカードの登録</td>
+                      <td className='text-center'>お支払いクレジットカードの登録・更新・削除</td>
                       <td className='text-center'>○</td>
-                      <td className='text-center'>×</td>
+                      <td className='text-center'>○</td>
                       <td className='text-center'>×</td>
                     </tr>
                     <tr>
-                      <td className='text-center'>事業情報・銀行口座の登録</td>
+                      <td className='text-center'>事業情報・銀行口座の登録・更新・削除</td>
                       <td className='text-center'>○</td>
-                      <td className='text-center'>×</td>
+                      <td className='text-center'>○</td>
                       <td className='text-center'>×</td>
                     </tr>
                     <tr>
