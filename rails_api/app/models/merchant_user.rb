@@ -10,7 +10,7 @@ class MerchantUser < ApplicationRecord
   has_many :customers, through: :account
 
   enum email_authentication_status: { Disabled: 0, Enabled: 1 }
-  enum authority_category: { MerchantAdmin: 0, Staff: 1 }
+  enum authority_category: { RootUser: 0, CommonUser: 1 }
 
   validates :authority_category, presence: true
   validates :password, password: true
