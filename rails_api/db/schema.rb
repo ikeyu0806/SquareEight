@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_29_043052) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_30_064739) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -240,6 +240,60 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_043052) do
     t.string "last_name_kana"
     t.string "wait_for_update_email"
     t.string "email_reset_key"
+    t.boolean "allow_read_merchant_user", default: false
+    t.boolean "allow_create_merchant_user", default: false
+    t.boolean "allow_update_merchant_user", default: false
+    t.boolean "allow_delete_merchant_user", default: false
+    t.boolean "allow_read_reserve_frame", default: false
+    t.boolean "allow_create_reserve_frame", default: false
+    t.boolean "allow_update_reserve_frame", default: false
+    t.boolean "allow_delete_reserve_frame", default: false
+    t.boolean "allow_read_reservation", default: false
+    t.boolean "allow_create_reservation", default: false
+    t.boolean "allow_update_reservation", default: false
+    t.boolean "allow_delete_reservation", default: false
+    t.boolean "allow_read_ticket_master", default: false
+    t.boolean "allow_create_ticket_master", default: false
+    t.boolean "allow_update_ticket_master", default: false
+    t.boolean "allow_delete_ticket_master", default: false
+    t.boolean "allow_read_monthly_payment_plan", default: false
+    t.boolean "allow_create_monthly_payment_plan", default: false
+    t.boolean "allow_update_monthly_payment_plan", default: false
+    t.boolean "allow_delete_monthly_payment_plan", default: false
+    t.boolean "allow_read_resource", default: false
+    t.boolean "allow_create_resource", default: false
+    t.boolean "allow_update_resource", default: false
+    t.boolean "allow_delete_resource", default: false
+    t.boolean "allow_read_product", default: false
+    t.boolean "allow_create_product", default: false
+    t.boolean "allow_update_product", default: false
+    t.boolean "allow_delete_product", default: false
+    t.boolean "allow_update_delivery_setting", default: false
+    t.boolean "allow_update_product_shipping_status", default: false
+    t.boolean "allow_read_customer", default: false
+    t.boolean "allow_create_customer", default: false
+    t.boolean "allow_update_customer", default: false
+    t.boolean "allow_delete_customer", default: false
+    t.boolean "allow_read_customer_group", default: false
+    t.boolean "allow_create_customer_group", default: false
+    t.boolean "allow_update_customer_group", default: false
+    t.boolean "allow_delete_customer_group", default: false
+    t.boolean "allow_read_webpage", default: false
+    t.boolean "allow_create_webpage", default: false
+    t.boolean "allow_update_webpage", default: false
+    t.boolean "allow_delete_webpage", default: false
+    t.boolean "allow_read_questionnaire_master", default: false
+    t.boolean "allow_create_questionnaire_master", default: false
+    t.boolean "allow_update_questionnaire_master", default: false
+    t.boolean "allow_delete_questionnaire_master", default: false
+    t.boolean "allow_read_questionnaire_answer", default: false
+    t.boolean "allow_read_sales", default: false
+    t.boolean "allow_read_payment_request", default: false
+    t.boolean "allow_create_payment_request", default: false
+    t.boolean "allow_read_credit_card", default: false
+    t.boolean "allow_update_credit_card", default: false
+    t.boolean "allow_read_stripe_business_info", default: false
+    t.boolean "allow_update_stripe_business_info", default: false
     t.index ["email"], name: "index_merchant_users_on_email", unique: true
   end
 
