@@ -1,9 +1,17 @@
 require 'securerandom'
 
 class Api::Internal::MerchantUsersController < ApplicationController
-  before_action :merchant_login_only!, only: [:update, :current_merchant_user_info, :disconnect_google_auth]
+  before_action :merchant_login_only!, only: [:index, :update, :current_merchant_user_info, :disconnect_google_auth]
 
   VERIFICATION_CODE_LENGTH = 6
+
+  def index
+    merchant_users = current_merchant_user.account.merchant_users.order(:id)
+    render json: { merchant_users: merchant_users, status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
 
   # 仮登録して検証コード送信
   # 同じメールアドレスのユーザが存在していればパスワード上書きして再送信
