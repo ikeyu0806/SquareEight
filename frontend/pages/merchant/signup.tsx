@@ -58,8 +58,7 @@ const Signup: NextPage = () => {
           password: password,
           password_confirmation: confirmPassword,
           business_name: businessName,
-          is_create_account: true,
-          authority_category: "MerchantAdmin"
+          is_create_account: true
         }
       }
     )

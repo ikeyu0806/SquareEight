@@ -25,10 +25,15 @@ class Api::Internal::MerchantUsersController < ApplicationController
         merchant_user = MerchantUser.new(merchant_user_params.except(:business_name, :is_create_account))
       end
       merchant_user.email_authentication_status = 'Disabled'
-      merchant_user.authority_category = merchant_user_params["authority_category"]
+      merchant_user.authority_category = "RootUser"
       merchant_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
       merchant_user.verification_code_expired_at = Time.zone.now + 1.days
       merchant_user.password = merchant_user_params[:password]
+      # root_userはallowで始まるカラムを全部trueにする
+      permission_columns = MerchantUser.column_names.select{|column| column.match(/^allow/)}
+      permission_columns.each do |column|
+        merchant_user.send(column + "=", true)
+      end
       merchant_user.save!
       shared_component.save! if shared_component.present?
       encode_email = Base64.urlsafe_encode64(merchant_user.email)
