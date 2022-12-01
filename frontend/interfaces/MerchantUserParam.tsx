@@ -9,4 +9,5 @@ export interface MerchantUserParam {
   google_auth_id: string
   google_auth_email: string
   authority_category: string
+  email_authentication_status: string
 }

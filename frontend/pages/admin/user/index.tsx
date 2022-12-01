@@ -44,11 +44,20 @@ const Index: NextPage = () => {
               {merchantUsers.map((user, i) => {
                 return (
                   <ListGroup.Item key={i}>
-                    <div>メールアドレス: {user.email}</div>
-                    <div>
-                      {user.last_name === null && user.first_name === null && <>名前が登録されていません</>}
-                      {user.last_name !== null || user.first_name !== null && <>{user.last_name}{user.first_name}</>}
-                    </div>
+                    <Row>
+                      <Col sm={7}>
+                        <div>メールアドレス: {user.email}</div>
+                        <div>
+                          {user.last_name === null && user.first_name === null && <>名前が登録されていません</>}
+                          {user.last_name !== null || user.first_name !== null && <>{user.last_name}{user.first_name}</>}
+                        </div>
+                      </Col>
+                      <Col sm={5}>
+                          {user.authority_category === 'RootUser' && <div className='badge bg-info text-white mr10'>ルートユーザ</div>}
+                          {user.email_authentication_status === 'Enabled' && <div className='badge bg-primary'>本人確認済み</div>}
+                          {user.email_authentication_status === 'Disabled' && <div className='badge bg-danger'>本人未認証</div>}
+                      </Col>
+                    </Row>
                   </ListGroup.Item>
                 )
               })}
