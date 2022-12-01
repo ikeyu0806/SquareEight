@@ -51,6 +51,11 @@ class Api::Internal::MerchantUsersController < ApplicationController
     merchant_user.email_authentication_status = 'Disabled'
     merchant_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
     merchant_user.verification_code_expired_at = Time.zone.now + 1.days
+    if merchant_user.authority_category == 'AdminUser'
+      merchant_user.set_admin_user_default_permission
+    elsif merchant_user.authority_category == 'CommonUser'
+      merchant_user.set_common_user_default_permission
+    end
     encode_email = Base64.urlsafe_encode64(merchant_user.email)
     MerchantUserMailer.send_additional_user_verification_code(merchant_user.email, encode_email, merchant_user.verification_code).deliver_now
     merchant_user.save!
