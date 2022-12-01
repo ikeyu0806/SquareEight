@@ -15,7 +15,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
 
   # 仮登録して検証コード送信
   # 同じメールアドレスのユーザが存在していればパスワード上書きして再送信
-  def create
+  def invite_root_user
     ActiveRecord::Base.transaction do
       if merchant_user_params[:is_create_account]
         account = Account.new(business_name: merchant_user_params["business_name"])

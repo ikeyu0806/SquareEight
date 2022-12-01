@@ -51,7 +51,7 @@ const Signup: NextPage = () => {
     }
 
     axios.post(
-      `${process.env.BACKEND_URL}/api/internal/merchant_users`,
+      `${process.env.BACKEND_URL}/api/internal/merchant_users/invite_root_user`,
       {
         merchant_user: {
           email: email,
