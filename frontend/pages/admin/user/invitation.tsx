@@ -16,11 +16,6 @@ const Invitation: NextPage = () => {
         <Row>
           <Col md={3}></Col>
           <Col md={6}>
-            <div className='mb20'>
-              <Button onClick={() => dispatch(showPermissionGuideModalChanged(true))}>
-                ユーザ権限について
-              </Button>
-            </div>
             <Form.Label>名前(姓)</Form.Label>
             <Form.Control></Form.Control>
             <Form.Label>名前(名)</Form.Label>
@@ -28,10 +23,23 @@ const Invitation: NextPage = () => {
             <Form.Label>メールアドレス</Form.Label>
             <Form.Control></Form.Control>
             <Form.Label>管理者権限</Form.Label>
-            <Form.Select>
-              <option>管理者</option>
-              <option>一般ユーザ</option>
-            </Form.Select>
+            <Row>
+              <Col sm={7}>
+                <Form.Select>
+                  <option>管理者</option>
+                  <option>一般ユーザ</option>
+                </Form.Select>
+              </Col>
+              <Col sm={5}>
+                <Button
+                  variant='info'
+                  className='text-white'
+                  onClick={() => dispatch(showPermissionGuideModalChanged(true))}>
+                  ユーザ権限について
+                </Button>
+              </Col>
+            </Row>
+
             <Button className='mt30'>登録する</Button>
           </Col>
         </Row>
