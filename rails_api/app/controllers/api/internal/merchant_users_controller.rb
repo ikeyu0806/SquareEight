@@ -1,7 +1,7 @@
 require 'securerandom'
 
 class Api::Internal::MerchantUsersController < ApplicationController
-  before_action :merchant_login_only!, only: [:index, :update, :current_merchant_user_info, :disconnect_google_auth]
+  before_action :merchant_login_only!, only: [:index, :update, :current_merchant_user_info, :disconnect_google_auth, :invite_additional_user]
 
   VERIFICATION_CODE_LENGTH = 6
 
@@ -46,6 +46,12 @@ class Api::Internal::MerchantUsersController < ApplicationController
   end
 
   def invite_additional_user
+    merchant_user = MerchantUser.new(merchant_user_params)
+    merchant_user.account = current_merchant_user.account
+    merchant_user.email_authentication_status = 'Disabled'
+    merchant_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
+    merchant_user.verification_code_expired_at = Time.zone.now + 1.days
+    merchant_user.save!
     render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error

@@ -7,10 +7,12 @@ import { useDispatch } from 'react-redux'
 import MerchantUserPermissionGuideModal from 'components/templates/MerchantUserPermissionGuideModal'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
 
 const Invitation: NextPage = () => {
   const dispatch = useDispatch()
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [lastName, setLastName] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -25,6 +27,11 @@ const Invitation: NextPage = () => {
         first_name: firstName,
         email: email,
         authority_category: authorityCategory
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
       dispatch(alertChanged({message: '送信しました。', show: false}))
