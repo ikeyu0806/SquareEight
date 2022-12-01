@@ -45,6 +45,13 @@ class Api::Internal::MerchantUsersController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def invite_additional_user
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   def update
     ActiveRecord::Base.transaction do
       merchant_user = MerchantUser.find_by(public_id: params[:public_id])

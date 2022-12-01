@@ -41,6 +41,7 @@ Rails.application.routes.draw do
       post 'merchant_users/update_password', to: 'merchant_users#update_password'
       post 'merchant_users/resend_verification_code', to: 'merchant_users#resend_verification_code'
       post 'merchant_users/invite_root_user', to: 'merchant_users#invite_root_user'
+      post 'merchant_users/invite_additional_user', to: 'merchant_users#invite_additional_user'      
       delete 'merchant_users/disconnect_google_auth', to: 'merchant_users#disconnect_google_auth'
       get 'end_users/customer_toppage_info', to: 'end_users#customer_toppage_info'
       get 'end_users/stripe_payment_history', to: 'end_users#stripe_payment_history'
