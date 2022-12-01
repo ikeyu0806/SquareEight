@@ -51,6 +51,8 @@ class Api::Internal::MerchantUsersController < ApplicationController
     merchant_user.email_authentication_status = 'Disabled'
     merchant_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
     merchant_user.verification_code_expired_at = Time.zone.now + 1.days
+    encode_email = Base64.urlsafe_encode64(merchant_user.email)
+    MerchantUserMailer.send_additional_user_verification_code(merchant_user.email, encode_email, merchant_user.verification_code).deliver_now
     merchant_user.save!
     render json: { status: 'success' }, status: 200
   rescue => error
