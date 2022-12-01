@@ -24,6 +24,8 @@ import dashboardReducer from './dashboardSlice'
 import sharedComponentReducer from './sharedComponentSlice'
 import deliveryDatetimeReducer from './deliveryDatetimeSlice'
 import paymentRequestReducer from './paymentRequestSlice'
+import merchantUserPermissionReducer from './merchantUserPermissionSlice'
+
 
 export const store = configureStore({
   reducer: {
@@ -51,7 +53,8 @@ export const store = configureStore({
     dashboard: dashboardReducer,
     sharedComponent: sharedComponentReducer,
     deliveryDatetime: deliveryDatetimeReducer,
-    paymentRequest: paymentRequestReducer
+    paymentRequest: paymentRequestReducer,
+    merchantUserPermission: merchantUserPermissionReducer
   },
 })
 

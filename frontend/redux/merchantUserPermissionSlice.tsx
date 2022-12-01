@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export const merchantUserPermissionSlice = createSlice({
   name: 'merchantUserPermission',
   initialState: {
+    showPermissionGuideModal: false,
     allowReadMerchantUser: false,
     allowCreateMerchantUser: false,
     allowUpdateMerchantUser: false,
@@ -57,6 +58,9 @@ export const merchantUserPermissionSlice = createSlice({
     allowUpdateStripeBusinessInfo: false,
   },
   reducers: {
+    showPermissionGuideModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showPermissionGuideModal = action.payload
+    },
     allowReadMerchantUserChanged: (state, action: PayloadAction<boolean>) => {
       state.allowReadMerchantUser = action.payload
     },
@@ -213,6 +217,7 @@ export const merchantUserPermissionSlice = createSlice({
   },
 })
 
+export const { showPermissionGuideModalChanged } = merchantUserPermissionSlice.actions
 export const { allowReadMerchantUserChanged } = merchantUserPermissionSlice.actions
 export const { allowCreateMerchantUserChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateMerchantUserChanged } = merchantUserPermissionSlice.actions
