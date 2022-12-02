@@ -5,7 +5,55 @@ import UserPermissionListGroupItem from 'components/molecules/UserPermissionList
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import {  allowReadMerchantUserChanged,
-          allowCreateMerchantUserChanged } from 'redux/settingFormMerchantUserPermissionSlice'
+          allowCreateMerchantUserChanged,
+          allowUpdateMerchantUserChanged,
+          allowDeleteMerchantUserChanged,
+          allowReadReserveFrameChanged,
+          allowCreateReserveFrameChanged,
+          allowUpdateReserveFrameChanged,
+          allowDeleteReserveFrameChanged,
+          allowReadReservationChanged,
+          allowCreateReservationChanged,
+          allowUpdateReservationChanged,
+          allowDeleteReservationChanged,
+          allowReadTicketMasterChanged,
+          allowCreateTicketMasterChanged,
+          allowUpdateTicketMasterChanged,
+          allowDeleteTicketMasterChanged,
+          allowReadMonthlyPaymentPlanChanged,
+          allowCreateMonthlyPaymentPlanChanged,
+          allowUpdateMonthlyPaymentPlanChanged,
+          allowDeleteMonthlyPaymentPlanChanged,
+          allowReadResourceChanged,
+          allowCreateResourceChanged,
+          allowUpdateResourceChanged,
+          allowDeleteResourceChanged,
+          allowReadProductChanged,
+          allowCreateProductChanged,
+          allowUpdateProductChanged,
+          allowDeleteProductChanged,
+          allowReadCustomerChanged,
+          allowCreateCustomerChanged,
+          allowUpdateCustomerChanged,
+          allowDeleteCustomerChanged,
+          allowReadCustomerGroupChanged,
+          allowCreateCustomerGroupChanged,
+          allowUpdateCustomerGroupChanged,
+          allowDeleteCustomerGroupChanged,
+          allowReadWebpageChanged,
+          allowCreateWebpageChanged,
+          allowUpdateWebpageChanged,
+          allowDeleteWebpageChanged,
+          allowReadQuestionnaireMasterChanged,
+          allowCreateQuestionnaireMasterChanged,
+          allowUpdateQuestionnaireMasterChanged,
+          allowDeleteQuestionnaireMasterChanged,
+          allowReadQuestionnaireAnswerChanged,
+          allowCreatePaymentRequestChanged,
+          allowReadPaymentSalesChanged,
+          allowUpdateCreditCardChanged,
+          allowReadStripeBusinessInfoChanged,
+          allowUpdateStripeBusinessInfoChanged } from 'redux/settingFormMerchantUserPermissionSlice'
 
 const Permission: NextPage = () => {
   const dispatch = useDispatch()
@@ -15,12 +63,15 @@ const Permission: NextPage = () => {
   const allowDeleteMerchantUser = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteMerchantUser)
   const allowReadReserveFrame = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadReserveFrame)
   const allowCreateReserveFrame = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateReserveFrame)
+  const allowUpdateReserveFrame = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateReserveFrame)
+  const allowDeleteReserveFrame = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteReserveFrame)
   const allowReadReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadReservation)
   const allowCreateReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateReservation)
   const allowDeleteReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteReservation)
   const allowReadTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadTicketMaster)
   const allowCreateTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateTicketMaster)
   const allowDeleteTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteTicketMaster)
+  const allowReadMonthlyPaymentPlan = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadMonthlyPaymentPlan)
   const allowCreateMonthlyPaymentPlan = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateMonthlyPaymentPlan)
   const allowUpdateMonthlyPaymentPlan = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateMonthlyPaymentPlan)
   const allowDeleteMonthlyPaymentPlan = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteMonthlyPaymentPlan)
@@ -68,6 +119,126 @@ const Permission: NextPage = () => {
                 text={'ユーザ閲覧'}
                 onChange={() => dispatch(allowReadMerchantUserChanged(allowReadMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
                 checked={allowReadMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ更新'}
+                onChange={() => dispatch(allowUpdateMerchantUserChanged(allowUpdateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowUpdateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ削除'}
+                onChange={() => dispatch(allowDeleteMerchantUserChanged(allowDeleteMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowDeleteMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'予約メニュー閲覧'}
+                onChange={() => dispatch(allowReadReserveFrameChanged(allowReadReserveFrame === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadReserveFrame === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'予約メニュー登録'}
+                onChange={() => dispatch(allowCreateReserveFrameChanged(allowCreateReserveFrame === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateReserveFrame === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'予約メニュー更新'}
+                onChange={() => dispatch(allowUpdateReserveFrameChanged(allowUpdateReserveFrame === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowUpdateReserveFrame === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'予約メニュー削除'}
+                onChange={() => dispatch(allowDeleteReserveFrameChanged(allowDeleteReserveFrame === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowDeleteReserveFrame === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'予約閲覧'}
+                onChange={() => dispatch(allowReadReservationChanged(allowReadReservation === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadReservation === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'予約登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'予約削除'}
+                onChange={() => dispatch(allowDeleteReservationChanged(allowDeleteReservation === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowDeleteReservation === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'回数券閲覧'}
+                onChange={() => dispatch(allowReadTicketMasterChanged(allowReadTicketMaster === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadTicketMaster === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'回数券登録'}
+                onChange={() => dispatch(allowCreateTicketMasterChanged(allowCreateTicketMaster === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateTicketMaster === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'月額課金プラン閲覧'}
+                onChange={() => dispatch(allowReadMonthlyPaymentPlanChanged(allowReadMonthlyPaymentPlan === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadMonthlyPaymentPlan === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'月額課金プラン登録'}
+                onChange={() => dispatch(allowCreateMonthlyPaymentPlanChanged(allowCreateMonthlyPaymentPlan === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMonthlyPaymentPlan === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'月額課金プラン更新'}
+                onChange={() => dispatch(allowUpdateMonthlyPaymentPlanChanged(allowUpdateMonthlyPaymentPlan === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowUpdateMonthlyPaymentPlan === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'月額課金プラン削除'}
+                onChange={() => dispatch(allowDeleteMonthlyPaymentPlanChanged(allowDeleteMonthlyPaymentPlan === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowDeleteMonthlyPaymentPlan === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
               <UserPermissionListGroupItem
                 text={'ユーザ登録'}
                 onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}

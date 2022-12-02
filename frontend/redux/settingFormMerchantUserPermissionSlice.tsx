@@ -221,6 +221,7 @@ export const { showPermissionGuideModalChanged } = settingFormMerchantUserPermis
 export const { allowReadMerchantUserChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowCreateMerchantUserChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowUpdateMerchantUserChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowDeleteMerchantUserChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowReadReserveFrameChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowCreateReserveFrameChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowUpdateReserveFrameChanged } = settingFormMerchantUserPermissionSlice.actions

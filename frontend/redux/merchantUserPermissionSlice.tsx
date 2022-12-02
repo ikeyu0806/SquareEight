@@ -221,6 +221,7 @@ export const { showPermissionGuideModalChanged } = merchantUserPermissionSlice.a
 export const { allowReadMerchantUserChanged } = merchantUserPermissionSlice.actions
 export const { allowCreateMerchantUserChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateMerchantUserChanged } = merchantUserPermissionSlice.actions
+export const { allowDeleteMerchantUserChanged } = merchantUserPermissionSlice.actions
 export const { allowReadReserveFrameChanged } = merchantUserPermissionSlice.actions
 export const { allowCreateReserveFrameChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateReserveFrameChanged } = merchantUserPermissionSlice.actions
