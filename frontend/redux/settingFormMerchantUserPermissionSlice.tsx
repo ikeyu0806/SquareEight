@@ -41,6 +41,10 @@ export const settingFormMerchantUserPermissionSlice = createSlice({
     allowCreateCustomerGroup: 'Unconfirmed',
     allowUpdateCustomerGroup: 'Unconfirmed',
     allowDeleteCustomerGroup: 'Unconfirmed',
+    allowReadMessageTemplate: 'Unconfirmed',
+    allowCreateMessageTemplate: 'Unconfirmed',
+    allowUpdateMessageTemplate: 'Unconfirmed',
+    allowDeleteMessageTemplate: 'Unconfirmed',
     allowReadWebpage: 'Unconfirmed',
     allowCreateWebpage: 'Unconfirmed',
     allowUpdateWebpage: 'Unconfirmed',
@@ -169,6 +173,18 @@ export const settingFormMerchantUserPermissionSlice = createSlice({
     allowDeleteCustomerGroupChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteCustomerGroup = action.payload
     },
+    allowReadMessageTemplateChanged: (state, action: PayloadAction<string>) => {
+      state.allowReadMessageTemplate = action.payload
+    },
+    allowCreateMessageTemplateChanged: (state, action: PayloadAction<string>) => {
+      state.allowCreateMessageTemplate = action.payload
+    },
+    allowUpdateMessageTemplateChanged: (state, action: PayloadAction<string>) => {
+      state.allowUpdateMessageTemplate = action.payload
+    },
+    allowDeleteMessageTemplateChanged: (state, action: PayloadAction<string>) => {
+      state.allowDeleteMessageTemplate = action.payload
+    },
     allowReadWebpageChanged: (state, action: PayloadAction<string>) => {
       state.allowReadWebpage = action.payload
     },
@@ -254,6 +270,10 @@ export const { allowReadCustomerGroupChanged } = settingFormMerchantUserPermissi
 export const { allowCreateCustomerGroupChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowUpdateCustomerGroupChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowDeleteCustomerGroupChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowReadMessageTemplateChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowCreateMessageTemplateChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowUpdateMessageTemplateChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowDeleteMessageTemplateChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowReadWebpageChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowCreateWebpageChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowUpdateWebpageChanged } = settingFormMerchantUserPermissionSlice.actions

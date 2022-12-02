@@ -41,6 +41,10 @@ export const merchantUserPermissionSlice = createSlice({
     allowCreateCustomerGroup: 'Unconfirmed',
     allowUpdateCustomerGroup: 'Unconfirmed',
     allowDeleteCustomerGroup: 'Unconfirmed',
+    allowReadMessageTemplate: 'Unconfirmed',
+    allowCreateMessageTemplate: 'Unconfirmed',
+    allowUpdateMessageTemplate: 'Unconfirmed',
+    allowDeleteMessageTemplate: 'Unconfirmed',
     allowReadWebpage: 'Unconfirmed',
     allowCreateWebpage: 'Unconfirmed',
     allowUpdateWebpage: 'Unconfirmed',
@@ -169,6 +173,18 @@ export const merchantUserPermissionSlice = createSlice({
     allowDeleteCustomerGroupChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteCustomerGroup = action.payload
     },
+    allowReadMessageTemplateChanged: (state, action: PayloadAction<string>) => {
+      state.allowReadMessageTemplate = action.payload
+    },
+    allowCreateMessageTemplateChanged: (state, action: PayloadAction<string>) => {
+      state.allowCreateMessageTemplate = action.payload
+    },
+    allowUpdateMessageTemplateChanged: (state, action: PayloadAction<string>) => {
+      state.allowUpdateMessageTemplate = action.payload
+    },
+    allowDeleteMessageTemplateChanged: (state, action: PayloadAction<string>) => {
+      state.allowDeleteMessageTemplate = action.payload
+    },
     allowReadWebpageChanged: (state, action: PayloadAction<string>) => {
       state.allowReadWebpage = action.payload
     },
@@ -254,6 +270,10 @@ export const { allowReadCustomerGroupChanged } = merchantUserPermissionSlice.act
 export const { allowCreateCustomerGroupChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateCustomerGroupChanged } = merchantUserPermissionSlice.actions
 export const { allowDeleteCustomerGroupChanged } = merchantUserPermissionSlice.actions
+export const { allowReadMessageTemplateChanged } = merchantUserPermissionSlice.actions
+export const { allowCreateMessageTemplateChanged } = merchantUserPermissionSlice.actions
+export const { allowUpdateMessageTemplateChanged } = merchantUserPermissionSlice.actions
+export const { allowDeleteMessageTemplateChanged } = merchantUserPermissionSlice.actions
 export const { allowReadWebpageChanged } = merchantUserPermissionSlice.actions
 export const { allowCreateWebpageChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateWebpageChanged } = merchantUserPermissionSlice.actions
