@@ -121,9 +121,9 @@ const Permission: NextPage = () => {
     <MerchantUserAdminLayout>
       <Container>
         <Row>
-          <Col lg={4}>
+          <Col lg={3}>
           </Col>
-          <Col lg={4}>
+          <Col lg={6}>
             <ListGroup>
               <UserPermissionListGroupItem
                 text={'ユーザ閲覧'}

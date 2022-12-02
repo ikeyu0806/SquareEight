@@ -11,7 +11,7 @@ const UserPermissionListGroupItem = ({text, onChange, checked}: Props): JSX.Elem
     <>
       <ListGroup.Item>
         <Row>
-          <Col>
+          <Col lg={7} md={8}>
             {text}
           </Col>
           <Col>
@@ -26,7 +26,7 @@ const UserPermissionListGroupItem = ({text, onChange, checked}: Props): JSX.Elem
               <Col>
                 <span>{checked ? '有効' : '無効'}</span>
               </Col>
-              <Col sm={1}></Col>
+              <Col sm={2}></Col>
             </Row>
           </Col>
         </Row>
