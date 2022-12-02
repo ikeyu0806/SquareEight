@@ -1,8 +1,14 @@
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Container, Row, Col, ListGroup, Form } from 'react-bootstrap'
+import { useSelector, useDispatch } from 'react-redux'
+import { RootState } from 'redux/store'
+import { allowReadMerchantUserChanged } from 'redux/merchantUserPermissionSlice'
 
 const Permission: NextPage = () => {
+  const dispatch = useDispatch()
+  const allowReadMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowReadMerchantUser)
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -20,7 +26,10 @@ const Permission: NextPage = () => {
                     <Row>
                       <Col sm={2}></Col>
                       <Col>
-                        <Form.Check type='switch'></Form.Check>
+                        <Form.Check
+                          onChange={() => dispatch(allowReadMerchantUserChanged(allowReadMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                          checked={allowReadMerchantUser === 'Allow'}
+                          type='switch'></Form.Check>
                       </Col>
                       <Col>
                         <span>有効</span>
