@@ -44,8 +44,6 @@ module RailsApi
 
     config.time_zone = 'Asia/Tokyo'
 
-    config.logger = Logger.new(STDOUT)
-
     config.action_controller.forgery_protection_origin_check = false
     Rails.application.config.hosts << "api.square-eight.net"
     Rails.application.config.hosts << "healthcheck.localhost"
