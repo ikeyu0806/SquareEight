@@ -12,6 +12,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
+  const email = useSelector((state: RootState) => state.currentMerchantUser.email)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
@@ -31,12 +32,12 @@ const AdminNavbarTemplate = (): JSX.Element => {
         <Container>
           <Navbar.Brand href='/'>
             <span className='font-weight-bold'>
-            SquareEight
+              SquareEight
             </span></Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='me-auto font-size-15'>
-              <Nav.Link href='/admin/dashboard'>ダッシュボード</Nav.Link>
+              <Nav.Link href='/admin/dashboard'>ホーム</Nav.Link>
               <NavDropdown title='予約' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/reservation'>予約管理</NavDropdown.Item>
@@ -73,7 +74,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/payment_request'>決済リクエスト一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/payment_request/new'>決済リクエスト作成</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='アカウント設定' id='webpage-nav-dropdown'>
+              <NavDropdown title='アカウント' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/account/create_pages'>ページ一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/shared_component/edit'>ページ全体編集</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/account/'>アカウント情報</NavDropdown.Item>
@@ -93,6 +94,8 @@ const AdminNavbarTemplate = (): JSX.Element => {
               <Row>
                 <Col sm={3}>
                   <PlanLabel></PlanLabel>
+                  <br />
+                  <div className='badge bg-primary ml10'>{email}</div>
                 </Col>
               </Row>
             </Nav>

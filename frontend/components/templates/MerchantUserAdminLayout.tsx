@@ -8,6 +8,7 @@ import { useCookies } from 'react-cookie'
 import WithoutSessionLayout from './WithoutSessionLayout'
 import { loginStatusChanged,
          servicePlanChanged,
+         emailChanged,
          stripeAccountEnableChanged,
          stripeCustomerEnableChanged } from 'redux/currentMerchantUserSlice'
 
@@ -31,6 +32,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(stripeAccountEnableChanged(response.data.user.stripe_account_enable ? 'Enable' : 'Disable'))
       dispatch(stripeCustomerEnableChanged(response.data.user.stripe_customer_enable ? 'Enable' : 'Disable'))
       dispatch(servicePlanChanged(response.data.service_plan))
+      dispatch(emailChanged(response.data.user.email))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
