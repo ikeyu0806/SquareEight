@@ -25,7 +25,7 @@ import sharedComponentReducer from './sharedComponentSlice'
 import deliveryDatetimeReducer from './deliveryDatetimeSlice'
 import paymentRequestReducer from './paymentRequestSlice'
 import merchantUserPermissionReducer from './merchantUserPermissionSlice'
-
+import settingFormMerchantUserPermissionReducer from './settingFormMerchantUserPermissionSlice'
 
 export const store = configureStore({
   reducer: {
@@ -54,7 +54,8 @@ export const store = configureStore({
     sharedComponent: sharedComponentReducer,
     deliveryDatetime: deliveryDatetimeReducer,
     paymentRequest: paymentRequestReducer,
-    merchantUserPermission: merchantUserPermissionReducer
+    merchantUserPermission: merchantUserPermissionReducer,
+    settingFormMerchantUserPermission: settingFormMerchantUserPermissionReducer
   },
 })
 

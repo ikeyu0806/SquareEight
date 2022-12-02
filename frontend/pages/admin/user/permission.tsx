@@ -4,56 +4,57 @@ import { Container, Row, Col, ListGroup, Form } from 'react-bootstrap'
 import UserPermissionListGroupItem from 'components/molecules/UserPermissionListGroupItem'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { allowReadMerchantUserChanged } from 'redux/merchantUserPermissionSlice'
+import {  allowReadMerchantUserChanged,
+          allowCreateMerchantUserChanged } from 'redux/settingFormMerchantUserPermissionSlice'
 
 const Permission: NextPage = () => {
   const dispatch = useDispatch()
-  const allowReadMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowReadMerchantUser)
-  const allowCreateMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowCreateMerchantUser)
-  const allowUpdateMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateMerchantUser)
-  const allowDeleteMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteMerchantUser)
-  const allowReadReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowReadReserveFrame)
-  const allowCreateReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowCreateReserveFrame)
-  const allowReadReservation = useSelector((state: RootState) => state.merchantUserPermission.allowReadReservation)
-  const allowCreateReservation = useSelector((state: RootState) => state.merchantUserPermission.allowCreateReservation)
-  const allowDeleteReservation = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteReservation)
-  const allowReadTicketMaster = useSelector((state: RootState) => state.merchantUserPermission.allowReadTicketMaster)
-  const allowCreateTicketMaster = useSelector((state: RootState) => state.merchantUserPermission.allowCreateTicketMaster)
-  const allowDeleteTicketMaster = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteTicketMaster)
-  const allowCreateMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowCreateMonthlyPaymentPlan)
-  const allowUpdateMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateMonthlyPaymentPlan)
-  const allowDeleteMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteMonthlyPaymentPlan)
-  const allowReadResource = useSelector((state: RootState) => state.merchantUserPermission.allowReadResource)
-  const allowCreateResource = useSelector((state: RootState) => state.merchantUserPermission.allowCreateResource)
-  const allowUpdateResource = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateResource)
-  const allowDeleteResource = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteResource)
-  const allowReadProduct = useSelector((state: RootState) => state.merchantUserPermission.allowReadProduct)
-  const allowCreateProduct = useSelector((state: RootState) => state.merchantUserPermission.allowCreateProduct)
-  const allowUpdateProduct = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateProduct)
-  const allowDeleteProduct = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteProduct)
-  const allowUpdateDeliveryTarget = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateDeliveryTarget)
-  const allowReadCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowReadCustomer)
-  const allowCreateCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowCreateCustomer)
-  const allowUpdateCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateCustomer)
-  const allowDeleteCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteCustomer)
-  const allowReadCustomerGroup = useSelector((state: RootState) => state.merchantUserPermission.allowReadCustomerGroup)
-  const allowCreateCustomerGroup = useSelector((state: RootState) => state.merchantUserPermission.allowCreateCustomerGroup)
-  const allowUpdateCustomerGroup = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateCustomerGroup)
-  const allowDeleteCustomerGroup = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteCustomerGroup)
-  const allowReadWebpage = useSelector((state: RootState) => state.merchantUserPermission.allowReadWebpage)
-  const allowCreateWebpage = useSelector((state: RootState) => state.merchantUserPermission.allowCreateWebpage)
-  const allowUpdateWebpage = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateWebpage)
-  const allowDeleteWebpage = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteWebpage)
-  const allowReadQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowReadQuestionnaireMaster)
-  const allowCreateQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowCreateQuestionnaireMaster)
-  const allowUpdateQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateQuestionnaireMaster)
-  const allowDeleteQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteQuestionnaireMaster)
-  const allowReadQuestionnaireAnswer = useSelector((state: RootState) => state.merchantUserPermission.allowReadQuestionnaireAnswer)
-  const allowCreatePaymentRequest = useSelector((state: RootState) => state.merchantUserPermission.allowCreatePaymentRequest)
-  const allowReadPaymentSales = useSelector((state: RootState) => state.merchantUserPermission.allowReadPaymentSales)
-  const allowUpdateCreditCard = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateCreditCard)
-  const allowReadStripeBusinessInfo = useSelector((state: RootState) => state.merchantUserPermission.allowReadStripeBusinessInfo)
-  const allowUpdateStripeBusinessInfo = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateStripeBusinessInfo)
+  const allowReadMerchantUser = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadMerchantUser)
+  const allowCreateMerchantUser = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateMerchantUser)
+  const allowUpdateMerchantUser = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateMerchantUser)
+  const allowDeleteMerchantUser = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteMerchantUser)
+  const allowReadReserveFrame = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadReserveFrame)
+  const allowCreateReserveFrame = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateReserveFrame)
+  const allowReadReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadReservation)
+  const allowCreateReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateReservation)
+  const allowDeleteReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteReservation)
+  const allowReadTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadTicketMaster)
+  const allowCreateTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateTicketMaster)
+  const allowDeleteTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteTicketMaster)
+  const allowCreateMonthlyPaymentPlan = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateMonthlyPaymentPlan)
+  const allowUpdateMonthlyPaymentPlan = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateMonthlyPaymentPlan)
+  const allowDeleteMonthlyPaymentPlan = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteMonthlyPaymentPlan)
+  const allowReadResource = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadResource)
+  const allowCreateResource = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateResource)
+  const allowUpdateResource = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateResource)
+  const allowDeleteResource = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteResource)
+  const allowReadProduct = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadProduct)
+  const allowCreateProduct = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateProduct)
+  const allowUpdateProduct = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateProduct)
+  const allowDeleteProduct = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteProduct)
+  const allowUpdateDeliveryTarget = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateDeliveryTarget)
+  const allowReadCustomer = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadCustomer)
+  const allowCreateCustomer = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateCustomer)
+  const allowUpdateCustomer = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateCustomer)
+  const allowDeleteCustomer = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteCustomer)
+  const allowReadCustomerGroup = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadCustomerGroup)
+  const allowCreateCustomerGroup = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateCustomerGroup)
+  const allowUpdateCustomerGroup = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateCustomerGroup)
+  const allowDeleteCustomerGroup = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteCustomerGroup)
+  const allowReadWebpage = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadWebpage)
+  const allowCreateWebpage = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateWebpage)
+  const allowUpdateWebpage = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateWebpage)
+  const allowDeleteWebpage = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteWebpage)
+  const allowReadQuestionnaireMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadQuestionnaireMaster)
+  const allowCreateQuestionnaireMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateQuestionnaireMaster)
+  const allowUpdateQuestionnaireMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateQuestionnaireMaster)
+  const allowDeleteQuestionnaireMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteQuestionnaireMaster)
+  const allowReadQuestionnaireAnswer = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadQuestionnaireAnswer)
+  const allowCreatePaymentRequest = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreatePaymentRequest)
+  const allowReadPaymentSales = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadPaymentSales)
+  const allowUpdateCreditCard = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateCreditCard)
+  const allowReadStripeBusinessInfo = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadStripeBusinessInfo)
+  const allowUpdateStripeBusinessInfo = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateStripeBusinessInfo)
 
   return (
     <MerchantUserAdminLayout>
@@ -64,27 +65,13 @@ const Permission: NextPage = () => {
           <Col lg={4}>
             <ListGroup>
               <UserPermissionListGroupItem
+                text={'ユーザ閲覧'}
                 onChange={() => dispatch(allowReadMerchantUserChanged(allowReadMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
                 checked={allowReadMerchantUser === 'Allow'} />
-              <ListGroup.Item>
-                <Row>
-                  <Col>
-                    ユーザ登録
-                  </Col>
-                  <Col>
-                    <Row>
-                      <Col sm={2}></Col>
-                      <Col>
-                        <Form.Check type='switch'></Form.Check>
-                      </Col>
-                      <Col>
-                        <span>有効</span>
-                      </Col>
-                      <Col sm={1}></Col>
-                    </Row>
-                  </Col>
-                </Row>
-              </ListGroup.Item>
+              <UserPermissionListGroupItem
+                text={'ユーザ登録'}
+                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMerchantUser === 'Allow'} />
             </ListGroup>
           </Col>
         </Row>

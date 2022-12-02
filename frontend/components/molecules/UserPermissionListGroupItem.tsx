@@ -1,17 +1,18 @@
 import { Container, Row, Col, ListGroup, Form } from 'react-bootstrap'
 
 interface Props {
+  text: string
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void
   checked: boolean
 }
 
-const UserPermissionListGroupItem = ({onChange, checked}: Props): JSX.Element => {
+const UserPermissionListGroupItem = ({text, onChange, checked}: Props): JSX.Element => {
   return (
     <>
       <ListGroup.Item>
         <Row>
           <Col>
-            ユーザ閲覧
+            {text}
           </Col>
           <Col>
             <Row>
@@ -23,7 +24,7 @@ const UserPermissionListGroupItem = ({onChange, checked}: Props): JSX.Element =>
                   type='switch'></Form.Check>
               </Col>
               <Col>
-                <span>有効</span>
+                <span>{checked ? '有効' : '無効'}</span>
               </Col>
               <Col sm={1}></Col>
             </Row>
