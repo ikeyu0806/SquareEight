@@ -53,10 +53,10 @@ const Index: NextPage = () => {
                         </div>
                       </Col>
                       <Col sm={5}>
-                          {user.authority_category === 'RootUser' && <div className='badge bg-info text-white mr10'>ルートユーザ</div>}
-                          {user.email_authentication_status === 'Enabled' && <div className='badge bg-info'>本人確認済み</div>}
-                          {user.email_authentication_status === 'Disabled' && <div className='badge bg-danger'>本人未認証</div>}
-                          {user.authority_category !== 'RootUser' && <div className='mt10'><a  href='/admin/user/permission' className='btn btn-primary'>権限設定</a></div>}
+                        {user.authority_category === 'RootUser' && <div className='badge bg-info text-white mr10'>ルートユーザ</div>}
+                        {user.email_authentication_status === 'Enabled' && <div className='badge bg-info'>本人確認済み</div>}
+                        {user.email_authentication_status === 'Disabled' && <div className='badge bg-danger'>本人未認証</div>}
+                        {user.authority_category !== 'RootUser' && <div className='mt10'><a  href={`/admin/user/${user.public_id}/permission`} className='btn btn-primary'>権限設定</a></div>}
                       </Col>
                     </Row>
                   </ListGroup.Item>
