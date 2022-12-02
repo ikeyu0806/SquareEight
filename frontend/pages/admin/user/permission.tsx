@@ -40,6 +40,10 @@ import {  allowReadMerchantUserChanged,
           allowCreateCustomerGroupChanged,
           allowUpdateCustomerGroupChanged,
           allowDeleteCustomerGroupChanged,
+          allowReadMessageTemplateChanged,
+          allowCreateMessageTemplateChanged,
+          allowUpdateMessageTemplateChanged,
+          allowDeleteMessageTemplateChanged,
           allowReadWebpageChanged,
           allowCreateWebpageChanged,
           allowUpdateWebpageChanged,
@@ -93,6 +97,10 @@ const Permission: NextPage = () => {
   const allowCreateCustomerGroup = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateCustomerGroup)
   const allowUpdateCustomerGroup = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateCustomerGroup)
   const allowDeleteCustomerGroup = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteCustomerGroup)
+  const allowReadMessageTemplate = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadMessageTemplate)
+  const allowCreateMessageTemplate = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateMessageTemplate)
+  const allowUpdateMessageTemplate = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateMessageTemplate)
+  const allowDeleteMessageTemplate = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteMessageTemplate)
   const allowReadWebpage = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadWebpage)
   const allowCreateWebpage = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateWebpage)
   const allowUpdateWebpage = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateWebpage)
@@ -249,6 +257,22 @@ const Permission: NextPage = () => {
                 text={'顧客グループ削除'}
                 onChange={() => dispatch(allowDeleteCustomerGroupChanged(allowDeleteCustomerGroup === 'Allow' ? 'Forbit' : 'Allow' ))}
                 checked={allowDeleteCustomerGroup === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'メッセージテンプレート閲覧'}
+                onChange={() => dispatch(allowReadMessageTemplateChanged(allowReadMessageTemplate === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadMessageTemplate === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'メッセージテンプレート登録'}
+                onChange={() => dispatch(allowCreateMessageTemplateChanged(allowCreateMessageTemplate === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateMessageTemplate === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'メッセージテンプレート更新'}
+                onChange={() => dispatch(allowUpdateMessageTemplateChanged(allowUpdateMessageTemplate === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowUpdateMessageTemplate === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'メッセージテンプレート削除'}
+                onChange={() => dispatch(allowDeleteMessageTemplateChanged(allowDeleteMessageTemplate === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowDeleteMessageTemplate === 'Allow'} />
               <UserPermissionListGroupItem
                 text={'Webページ閲覧'}
                 onChange={() => dispatch(allowReadWebpageChanged(allowReadWebpage === 'Allow' ? 'Forbit' : 'Allow' ))}
