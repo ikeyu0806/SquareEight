@@ -263,6 +263,7 @@ export const { allowCreateQuestionnaireMasterChanged } = settingFormMerchantUser
 export const { allowUpdateQuestionnaireMasterChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowDeleteQuestionnaireMasterChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowReadQuestionnaireAnswerChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowReadPaymentRequestChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowCreatePaymentRequestChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowReadPaymentSalesChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowUpdateCreditCardChanged } = settingFormMerchantUserPermissionSlice.actions

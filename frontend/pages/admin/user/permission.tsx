@@ -49,6 +49,7 @@ import {  allowReadMerchantUserChanged,
           allowUpdateQuestionnaireMasterChanged,
           allowDeleteQuestionnaireMasterChanged,
           allowReadQuestionnaireAnswerChanged,
+          allowReadPaymentRequestChanged,
           allowCreatePaymentRequestChanged,
           allowReadPaymentSalesChanged,
           allowUpdateCreditCardChanged,
@@ -101,6 +102,7 @@ const Permission: NextPage = () => {
   const allowUpdateQuestionnaireMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateQuestionnaireMaster)
   const allowDeleteQuestionnaireMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteQuestionnaireMaster)
   const allowReadQuestionnaireAnswer = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadQuestionnaireAnswer)
+  const allowReadPaymentRequest = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadPaymentRequest)
   const allowCreatePaymentRequest = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreatePaymentRequest)
   const allowReadPaymentSales = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadPaymentSales)
   const allowUpdateCreditCard = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateCreditCard)
@@ -247,6 +249,66 @@ const Permission: NextPage = () => {
                 text={'顧客グループ削除'}
                 onChange={() => dispatch(allowDeleteCustomerGroupChanged(allowDeleteCustomerGroup === 'Allow' ? 'Forbit' : 'Allow' ))}
                 checked={allowDeleteCustomerGroup === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'Webページ閲覧'}
+                onChange={() => dispatch(allowReadWebpageChanged(allowReadWebpage === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadWebpage === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'Webページ登録'}
+                onChange={() => dispatch(allowCreateWebpageChanged(allowCreateWebpage === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateWebpage === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'Webページ更新'}
+                onChange={() => dispatch(allowUpdateWebpageChanged(allowUpdateWebpage === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowUpdateWebpage === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'Webページ削除'}
+                onChange={() => dispatch(allowDeleteWebpageChanged(allowDeleteWebpage === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowDeleteWebpage === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'アンケートマスタ閲覧'}
+                onChange={() => dispatch(allowReadQuestionnaireMasterChanged(allowReadQuestionnaireMaster === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadQuestionnaireMaster === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'アンケートマスタ登録'}
+                onChange={() => dispatch(allowCreateQuestionnaireMasterChanged(allowCreateQuestionnaireMaster === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateQuestionnaireMaster === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'アンケートマスタ更新'}
+                onChange={() => dispatch(allowUpdateQuestionnaireMasterChanged(allowUpdateQuestionnaireMaster === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowUpdateQuestionnaireMaster === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'アンケートマスタ削除'}
+                onChange={() => dispatch(allowDeleteQuestionnaireMasterChanged(allowDeleteQuestionnaireMaster === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowDeleteQuestionnaireMaster === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'アンケート回答閲覧'}
+                onChange={() => dispatch(allowReadQuestionnaireAnswerChanged(allowReadQuestionnaireAnswer === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadQuestionnaireAnswer === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'決済リクエスト閲覧'}
+                onChange={() => dispatch(allowReadPaymentRequestChanged(allowReadPaymentRequest === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadPaymentRequest === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'決済リクエスト登録'}
+                onChange={() => dispatch(allowCreatePaymentRequestChanged(allowCreatePaymentRequest === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreatePaymentRequest === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'売り上げ閲覧'}
+                onChange={() => dispatch(allowReadPaymentSalesChanged(allowReadPaymentSales === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadPaymentSales === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'クレジットカード登録'}
+                onChange={() => dispatch(allowUpdateCreditCardChanged(allowUpdateCreditCard === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowUpdateCreditCard === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'事業情報閲覧'}
+                onChange={() => dispatch(allowReadStripeBusinessInfoChanged(allowReadStripeBusinessInfo === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadStripeBusinessInfo === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'事業情報登録'}
+                onChange={() => dispatch(allowUpdateStripeBusinessInfoChanged(allowUpdateStripeBusinessInfo === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowUpdateStripeBusinessInfo === 'Allow'} />
             </ListGroup>
           </Col>
         </Row>
