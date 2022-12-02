@@ -184,65 +184,69 @@ const Permission: NextPage = () => {
                 onChange={() => dispatch(allowDeleteMonthlyPaymentPlanChanged(allowDeleteMonthlyPaymentPlan === 'Allow' ? 'Forbit' : 'Allow' ))}
                 checked={allowDeleteMonthlyPaymentPlan === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'リソース閲覧'}
+                onChange={() => dispatch(allowReadResourceChanged(allowReadResource === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadResource === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'リソース登録'}
+                onChange={() => dispatch(allowCreateResourceChanged(allowCreateResource === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateResource === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'リソース更新'}
+                onChange={() => dispatch(allowUpdateResourceChanged(allowUpdateResource === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowUpdateResource === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'リソース削除'}
+                onChange={() => dispatch(allowDeleteResourceChanged(allowDeleteResource === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowDeleteResource === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'商品閲覧'}
+                onChange={() => dispatch(allowReadProductChanged(allowReadProduct === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadProduct === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'商品登録'}
+                onChange={() => dispatch(allowCreateProductChanged(allowCreateProduct === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateProduct === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'商品更新'}
+                onChange={() => dispatch(allowUpdateProductChanged(allowUpdateProduct === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowUpdateProduct === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'商品削除'}
+                onChange={() => dispatch(allowDeleteProductChanged(allowDeleteProduct === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowDeleteProduct === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'顧客閲覧'}
+                onChange={() => dispatch(allowReadCustomerChanged(allowReadCustomer === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadCustomer === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'顧客登録'}
+                onChange={() => dispatch(allowCreateCustomerChanged(allowCreateCustomer === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateCustomer === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'顧客更新'}
+                onChange={() => dispatch(allowUpdateCustomerChanged(allowUpdateCustomer === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowUpdateCustomer === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'顧客削除'}
+                onChange={() => dispatch(allowDeleteCustomerChanged(allowDeleteCustomer === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowDeleteCustomer === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'顧客グループ閲覧'}
+                onChange={() => dispatch(allowReadCustomerGroupChanged(allowReadCustomerGroup === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowReadCustomerGroup === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'顧客グループ登録'}
+                onChange={() => dispatch(allowCreateCustomerGroupChanged(allowCreateCustomerGroup === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowCreateCustomerGroup === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'ユーザ登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                text={'顧客グループ更新'}
+                onChange={() => dispatch(allowUpdateCustomerGroupChanged(allowUpdateCustomerGroup === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowUpdateCustomerGroup === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'顧客グループ削除'}
+                onChange={() => dispatch(allowDeleteCustomerGroupChanged(allowDeleteCustomerGroup === 'Allow' ? 'Forbit' : 'Allow' ))}
+                checked={allowDeleteCustomerGroup === 'Allow'} />
             </ListGroup>
           </Col>
         </Row>
