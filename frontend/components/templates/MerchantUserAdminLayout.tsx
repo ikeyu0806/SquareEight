@@ -11,6 +11,55 @@ import { loginStatusChanged,
          emailChanged,
          stripeAccountEnableChanged,
          stripeCustomerEnableChanged } from 'redux/currentMerchantUserSlice'
+import {  allowReadMerchantUserChanged,
+          allowCreateMerchantUserChanged,
+          allowUpdateMerchantUserChanged,
+          allowReadReserveFrameChanged,
+          allowCreateReserveFrameChanged,
+          allowUpdateReserveFrameChanged,
+          allowDeleteReserveFrameChanged,
+          allowReadReservationChanged,
+          allowCreateReservationChanged,
+          allowUpdateReservationChanged,
+          allowDeleteReservationChanged,
+          allowReadTicketMasterChanged,
+          allowCreateTicketMasterChanged,
+          allowUpdateTicketMasterChanged,
+          allowDeleteTicketMasterChanged,
+          allowReadMonthlyPaymentPlanChanged,
+          allowCreateMonthlyPaymentPlanChanged,
+          allowUpdateMonthlyPaymentPlanChanged,
+          allowDeleteMonthlyPaymentPlanChanged,
+          allowReadResourceChanged,
+          allowCreateResourceChanged,
+          allowUpdateResourceChanged,
+          allowDeleteResourceChanged,
+          allowReadProductChanged,
+          allowCreateProductChanged,
+          allowUpdateProductChanged,
+          allowDeleteProductChanged,
+          allowReadCustomerChanged,
+          allowCreateCustomerChanged,
+          allowUpdateCustomerChanged,
+          allowDeleteCustomerChanged,
+          allowReadCustomerGroupChanged,
+          allowCreateCustomerGroupChanged,
+          allowUpdateCustomerGroupChanged,
+          allowDeleteCustomerGroupChanged,
+          allowReadWebpageChanged,
+          allowCreateWebpageChanged,
+          allowUpdateWebpageChanged,
+          allowDeleteWebpageChanged,
+          allowReadQuestionnaireMasterChanged,
+          allowCreateQuestionnaireMasterChanged,
+          allowUpdateQuestionnaireMasterChanged,
+          allowDeleteQuestionnaireMasterChanged,
+          allowReadQuestionnaireAnswerChanged,
+          allowCreatePaymentRequestChanged,
+          allowReadPaymentSalesChanged,
+          allowUpdateCreditCardChanged,
+          allowReadStripeBusinessInfoChanged,
+          allowUpdateStripeBusinessInfoChanged, } from 'redux/merchantUserPermissionSlice'
 
 interface Props {
   children: ReactNode
@@ -33,6 +82,56 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(stripeCustomerEnableChanged(response.data.user.stripe_customer_enable ? 'Enable' : 'Disable'))
       dispatch(servicePlanChanged(response.data.service_plan))
       dispatch(emailChanged(response.data.user.email))
+      // 権限
+      dispatch(allowReadMerchantUserChanged(response.data.user.allow_read_merchant_user))
+      dispatch(allowCreateMerchantUserChanged(response.data.user.allow_create_merchant_user))
+      dispatch(allowUpdateMerchantUserChanged(response.data.user.allow_update_merchant_user))
+      dispatch(allowReadReserveFrameChanged(response.data.user.allow_read_reserve_frame))
+      dispatch(allowCreateReserveFrameChanged(response.data.user.allow_create_reserve_frame))
+      dispatch(allowUpdateReserveFrameChanged(response.data.user.allow_update_reserve_frame))
+      dispatch(allowDeleteReserveFrameChanged(response.data.user.allow_delete_reserve_frame))
+      dispatch(allowReadReservationChanged(response.data.user.allow_read_reservations))
+      dispatch(allowCreateReservationChanged(response.data.user.allow_create_reservations))
+      dispatch(allowUpdateReservationChanged(response.data.user.allow_update_reservations))
+      dispatch(allowDeleteReservationChanged(response.data.user.allow_delete_reservations))
+      dispatch(allowReadTicketMasterChanged(response.data.user.allow_read_ticket_master))
+      dispatch(allowCreateTicketMasterChanged(response.data.user.allow_create_ticket_master))
+      dispatch(allowUpdateTicketMasterChanged(response.data.user.allow_update_ticket_master))
+      dispatch(allowDeleteTicketMasterChanged(response.data.user.allow_delete_ticket_master))
+      dispatch(allowReadMonthlyPaymentPlanChanged(response.data.user.allow_read_monthly_payment_plan))
+      dispatch(allowCreateMonthlyPaymentPlanChanged(response.data.user.allow_create_monthly_payment_plan))
+      dispatch(allowUpdateMonthlyPaymentPlanChanged(response.data.user.allow_update_monthly_payment_plan))
+      dispatch(allowDeleteMonthlyPaymentPlanChanged(response.data.user.allow_delete_monthly_payment_plan))
+      dispatch(allowReadResourceChanged(response.data.user.allow_read_resource))
+      dispatch(allowCreateResourceChanged(response.data.user.allow_create_resource))
+      dispatch(allowUpdateResourceChanged(response.data.user.allow_update_resource))
+      dispatch(allowDeleteResourceChanged(response.data.user.allow_delete_resource))
+      dispatch(allowReadProductChanged(response.data.user.allow_read_product))
+      dispatch(allowCreateProductChanged(response.data.user.allow_create_product))
+      dispatch(allowUpdateProductChanged(response.data.user.allow_update_product))
+      dispatch(allowDeleteProductChanged(response.data.user.allow_delete_product))
+      dispatch(allowReadCustomerChanged(response.data.user.allow_read_customer))
+      dispatch(allowCreateCustomerChanged(response.data.user.allow_create_customer))
+      dispatch(allowUpdateCustomerChanged(response.data.user.allow_update_customer))
+      dispatch(allowDeleteCustomerChanged(response.data.user.allow_delete_customer))
+      dispatch(allowReadCustomerGroupChanged(response.data.user.allow_read_customer_group))
+      dispatch(allowCreateCustomerGroupChanged(response.data.user.allow_create_customer_group))
+      dispatch(allowUpdateCustomerGroupChanged(response.data.user.allow_update_customer_group))
+      dispatch(allowDeleteCustomerGroupChanged(response.data.user.allow_delete_customer_group))
+      dispatch(allowReadWebpageChanged(response.data.user.allow_read_webpage))
+      dispatch(allowCreateWebpageChanged(response.data.user.allow_create_webpage))
+      dispatch(allowUpdateWebpageChanged(response.data.user.allow_update_webpage))
+      dispatch(allowDeleteWebpageChanged(response.data.user.allow_delete_webpage))
+      dispatch(allowReadQuestionnaireMasterChanged(response.data.user.allow_read_questionnaire_master))
+      dispatch(allowCreateQuestionnaireMasterChanged(response.data.user.allow_create_questionnaire_master))
+      dispatch(allowUpdateQuestionnaireMasterChanged(response.data.user.allow_update_questionnaire_master))
+      dispatch(allowDeleteQuestionnaireMasterChanged(response.data.user.allow_delete_questionnaire_master))
+      dispatch(allowReadQuestionnaireAnswerChanged(response.data.user.allow_create_questionnaire_master))
+      dispatch(allowCreatePaymentRequestChanged(response.data.user.allow_create_payment_request))
+      dispatch(allowReadPaymentSalesChanged(response.data.user.allow_read_payment_sales))
+      dispatch(allowUpdateCreditCardChanged(response.data.user.allow_update_credit_card))
+      dispatch(allowReadStripeBusinessInfoChanged(response.data.user.allow_read_stripe_business_info))
+      dispatch(allowUpdateStripeBusinessInfoChanged(response.data.user.allow_read_merchan))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })

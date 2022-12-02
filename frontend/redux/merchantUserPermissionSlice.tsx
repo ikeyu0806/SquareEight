@@ -211,7 +211,7 @@ export const merchantUserPermissionSlice = createSlice({
     allowReadStripeBusinessInfoChanged: (state, action: PayloadAction<boolean>) => {
       state.allowReadStripeBusinessInfo = action.payload
     },
-    allowStripeBusinessInfoChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateStripeBusinessInfoChanged: (state, action: PayloadAction<boolean>) => {
       state.allowUpdateStripeBusinessInfo = action.payload
     },
   },
@@ -221,6 +221,7 @@ export const { showPermissionGuideModalChanged } = merchantUserPermissionSlice.a
 export const { allowReadMerchantUserChanged } = merchantUserPermissionSlice.actions
 export const { allowCreateMerchantUserChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateMerchantUserChanged } = merchantUserPermissionSlice.actions
+export const { allowReadReserveFrameChanged } = merchantUserPermissionSlice.actions
 export const { allowCreateReserveFrameChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateReserveFrameChanged } = merchantUserPermissionSlice.actions
 export const { allowDeleteReserveFrameChanged } = merchantUserPermissionSlice.actions
@@ -265,6 +266,6 @@ export const { allowCreatePaymentRequestChanged } = merchantUserPermissionSlice.
 export const { allowReadPaymentSalesChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateCreditCardChanged } = merchantUserPermissionSlice.actions
 export const { allowReadStripeBusinessInfoChanged } = merchantUserPermissionSlice.actions
-export const { allowStripeBusinessInfoChanged } = merchantUserPermissionSlice.actions
+export const { allowUpdateStripeBusinessInfoChanged } = merchantUserPermissionSlice.actions
 
 export default merchantUserPermissionSlice.reducer
