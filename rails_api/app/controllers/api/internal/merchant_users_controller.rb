@@ -32,7 +32,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       # root_userはallowで始まるカラムを全部trueにする
       permission_columns = MerchantUser.column_names.select{|column| column.match(/^allow/)}
       permission_columns.each do |column|
-        merchant_user.send(column + "=", true)
+        merchant_user.send(column + "=", 'Allow')
       end
       merchant_user.save!
       shared_component.save! if shared_component.present?

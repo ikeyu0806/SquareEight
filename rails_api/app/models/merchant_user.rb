@@ -12,6 +12,59 @@ class MerchantUser < ApplicationRecord
   enum email_authentication_status: { Disabled: 0, Enabled: 1 }
   enum authority_category: { RootUser: 0, AdminUser: 1, CommonUser: 2 }
 
+  enum allow_read_merchant_user: { Forbid: 0, Allow: 1 }
+  enum allow_create_merchant_user: { Forbid: 0, Allow: 1 }
+  enum allow_update_merchant_user: { Forbid: 0, Allow: 1 }
+  enum allow_delete_merchant_user: { Forbid: 0, Allow: 1 }
+  enum allow_read_reserve_frame: { Forbid: 0, Allow: 1 }
+  enum allow_create_reserve_frame: { Forbid: 0, Allow: 1 }
+  enum allow_update_reserve_frame: { Forbid: 0, Allow: 1 }
+  enum allow_delete_reserve_frame: { Forbid: 0, Allow: 1 }
+  enum allow_create_reservation: { Forbid: 0, Allow: 1 }
+  enum allow_update_reservation: { Forbid: 0, Allow: 1 }
+  enum allow_delete_reservation: { Forbid: 0, Allow: 1 }
+  enum allow_read_ticket_master: { Forbid: 0, Allow: 1 }
+  enum allow_create_ticket_master: { Forbid: 0, Allow: 1 }
+  enum allow_update_ticket_master: { Forbid: 0, Allow: 1 }
+  enum allow_delete_ticket_master: { Forbid: 0, Allow: 1 }
+  enum allow_read_monthly_payment_plan: { Forbid: 0, Allow: 1 }
+  enum allow_create_monthly_payment_plan: { Forbid: 0, Allow: 1 }
+  enum allow_update_monthly_payment_plan: { Forbid: 0, Allow: 1 }
+  enum allow_delete_monthly_payment_plan: { Forbid: 0, Allow: 1 }
+  enum allow_read_resource: { Forbid: 0, Allow: 1 }
+  enum allow_create_resource: { Forbid: 0, Allow: 1 }
+  enum allow_update_resource: { Forbid: 0, Allow: 1 }
+  enum allow_delete_resource: { Forbid: 0, Allow: 1 }
+  enum allow_create_product: { Forbid: 0, Allow: 1 }
+  enum allow_update_product: { Forbid: 0, Allow: 1 }
+  enum allow_delete_product: { Forbid: 0, Allow: 1 }
+  enum allow_update_delivery_setting: { Forbid: 0, Allow: 1 }
+  enum allow_update_product_shipping_status: { Forbid: 0, Allow: 1 }
+  enum allow_read_customer: { Forbid: 0, Allow: 1 }
+  enum allow_create_customer: { Forbid: 0, Allow: 1 }
+  enum allow_update_customer: { Forbid: 0, Allow: 1 }
+  enum allow_delete_customer: { Forbid: 0, Allow: 1 }
+  enum allow_read_customer_group: { Forbid: 0, Allow: 1 }
+  enum allow_create_customer_group: { Forbid: 0, Allow: 1 }
+  enum allow_update_customer_group: { Forbid: 0, Allow: 1 }
+  enum allow_delete_customer_group: { Forbid: 0, Allow: 1 }
+  enum allow_read_webpage: { Forbid: 0, Allow: 1 }
+  enum allow_create_webpage: { Forbid: 0, Allow: 1 }
+  enum allow_update_webpage: { Forbid: 0, Allow: 1 }
+  enum allow_delete_webpage: { Forbid: 0, Allow: 1 }
+  enum allow_read_questionnaire_master: { Forbid: 0, Allow: 1 }
+  enum allow_create_questionnaire_master: { Forbid: 0, Allow: 1 }
+  enum allow_update_questionnaire_master: { Forbid: 0, Allow: 1 }
+  enum allow_delete_questionnaire_master: { Forbid: 0, Allow: 1 }
+  enum allow_read_questionnaire_answer: { Forbid: 0, Allow: 1 }
+  enum allow_read_sales: { Forbid: 0, Allow: 1 }
+  enum allow_read_payment_request: { Forbid: 0, Allow: 1 }
+  enum allow_create_payment_request: { Forbid: 0, Allow: 1 }
+  enum allow_read_credit_card: { Forbid: 0, Allow: 1 }
+  enum allow_update_credit_card: { Forbid: 0, Allow: 1 }
+  enum allow_read_stripe_business_info: { Forbid: 0, Allow: 1 }
+  enum allow_update_stripe_business_info: { Forbid: 0, Allow: 1 }
+
   validates :authority_category, presence: true
   validates :password, password: true
 
@@ -34,116 +87,116 @@ class MerchantUser < ApplicationRecord
   end
 
   def set_admin_user_default_permission
-    self.allow_read_merchant_user = true
-    self.allow_create_merchant_user = true
-    self.allow_update_merchant_user = false
-    self.allow_delete_merchant_user = true
-    self.allow_read_reserve_frame = true
-    self.allow_create_reserve_frame = true
-    self.allow_update_reserve_frame = true
-    self.allow_delete_reserve_frame = true
-    self.allow_read_reservation = true
-    self.allow_create_reservation = true
-    self.allow_update_reservation = true
-    self.allow_delete_reservation = true
-    self.allow_read_ticket_master = true
-    self.allow_create_ticket_master = true
-    self.allow_update_ticket_master = true
-    self.allow_delete_ticket_master = true
-    self.allow_read_monthly_payment_plan = true
-    self.allow_create_monthly_payment_plan = true
-    self.allow_update_monthly_payment_plan = true
-    self.allow_delete_monthly_payment_plan = true
-    self.allow_read_resource = true
-    self.allow_create_resource = true
-    self.allow_update_resource = true
-    self.allow_delete_resource = true
-    self.allow_read_product = true
-    self.allow_create_product = true
-    self.allow_update_product = true
-    self.allow_delete_product = true
-    self.allow_update_delivery_setting = true
-    self.allow_update_product_shipping_status = true
-    self.allow_read_customer = true
-    self.allow_create_customer = true
-    self.allow_update_customer = true
-    self.allow_delete_customer = true
-    self.allow_read_customer_group = true
-    self.allow_create_customer_group = true
-    self.allow_update_customer_group = true
-    self.allow_delete_customer_group = true
-    self.allow_read_webpage = true
-    self.allow_create_webpage = true
-    self.allow_update_webpage = true
-    self.allow_delete_webpage = true
-    self.allow_read_questionnaire_master = true
-    self.allow_create_questionnaire_master = true
-    self.allow_update_questionnaire_master = true
-    self.allow_delete_questionnaire_master = true
-    self.allow_read_questionnaire_answer = true
-    self.allow_read_sales = true
-    self.allow_read_payment_request = true
-    self.allow_create_payment_request = true
-    self.allow_read_credit_card = true
-    self.allow_update_credit_card = true
-    self.allow_read_stripe_business_info = true
-    self.allow_update_stripe_business_info  = true
+    self.allow_read_merchant_user = 'Allow'
+    self.allow_create_merchant_user = 'Allow'
+    self.allow_update_merchant_user = 'Forbid'
+    self.allow_delete_merchant_user = 'Allow'
+    self.allow_read_reserve_frame = 'Allow'
+    self.allow_create_reserve_frame = 'Allow'
+    self.allow_update_reserve_frame = 'Allow'
+    self.allow_delete_reserve_frame = 'Allow'
+    self.allow_read_reservation = 'Allow'
+    self.allow_create_reservation = 'Allow'
+    self.allow_update_reservation = 'Allow'
+    self.allow_delete_reservation = 'Allow'
+    self.allow_read_ticket_master = 'Allow'
+    self.allow_create_ticket_master = 'Allow'
+    self.allow_update_ticket_master = 'Allow'
+    self.allow_delete_ticket_master = 'Allow'
+    self.allow_read_monthly_payment_plan = 'Allow'
+    self.allow_create_monthly_payment_plan = 'Allow'
+    self.allow_update_monthly_payment_plan = 'Allow'
+    self.allow_delete_monthly_payment_plan = 'Allow'
+    self.allow_read_resource = 'Allow'
+    self.allow_create_resource = 'Allow'
+    self.allow_update_resource = 'Allow'
+    self.allow_delete_resource = 'Allow'
+    self.allow_read_product = 'Allow'
+    self.allow_create_product = 'Allow'
+    self.allow_update_product = 'Allow'
+    self.allow_delete_product = 'Allow'
+    self.allow_update_delivery_setting = 'Allow'
+    self.allow_update_product_shipping_status = 'Allow'
+    self.allow_read_customer = 'Allow'
+    self.allow_create_customer = 'Allow'
+    self.allow_update_customer = 'Allow'
+    self.allow_delete_customer = 'Allow'
+    self.allow_read_customer_group = 'Allow'
+    self.allow_create_customer_group = 'Allow'
+    self.allow_update_customer_group = 'Allow'
+    self.allow_delete_customer_group = 'Allow'
+    self.allow_read_webpage = 'Allow'
+    self.allow_create_webpage = 'Allow'
+    self.allow_update_webpage = 'Allow'
+    self.allow_delete_webpage = 'Allow'
+    self.allow_read_questionnaire_master = 'Allow'
+    self.allow_create_questionnaire_master = 'Allow'
+    self.allow_update_questionnaire_master = 'Allow'
+    self.allow_delete_questionnaire_master = 'Allow'
+    self.allow_read_questionnaire_answer = 'Allow'
+    self.allow_read_sales = 'Allow'
+    self.allow_read_payment_request = 'Allow'
+    self.allow_create_payment_request = 'Allow'
+    self.allow_read_credit_card = 'Allow'
+    self.allow_update_credit_card = 'Allow'
+    self.allow_read_stripe_business_info = 'Allow'
+    self.allow_update_stripe_business_info  = 'Allow'
   end
 
   def set_common_user_default_permission
-    self.allow_read_merchant_user = true
-    self.allow_create_merchant_user = false
-    self.allow_update_merchant_user = false
-    self.allow_delete_merchant_user = false
-    self.allow_read_reserve_frame = true
+    self.allow_read_merchant_user = 'Allow'
+    self.allow_create_merchant_user = 'Forbid'
+    self.allow_update_merchant_user = 'Forbid'
+    self.allow_delete_merchant_user = 'Forbid'
+    self.allow_read_reserve_frame = 'Allow'
     self.allow_create_reserve_frame = 
-    self.allow_update_reserve_frame = false
-    self.allow_delete_reserve_frame = false
-    self.allow_read_reservation = true
-    self.allow_create_reservation = false
-    self.allow_update_reservation = false
-    self.allow_delete_reservation = false
-    self.allow_read_ticket_master = true
-    self.allow_create_ticket_master = false
-    self.allow_update_ticket_master = false
-    self.allow_delete_ticket_master = false
-    self.allow_read_monthly_payment_plan = true
-    self.allow_create_monthly_payment_plan = false
-    self.allow_update_monthly_payment_plan = false
-    self.allow_delete_monthly_payment_plan = false
-    self.allow_read_resource = true
-    self.allow_create_resource = false
-    self.allow_update_resource = false
-    self.allow_delete_resource = false
-    self.allow_read_product = true
-    self.allow_create_product = false
-    self.allow_update_product = false
-    self.allow_delete_product = false
-    self.allow_update_delivery_setting = false
-    self.allow_update_product_shipping_status = true
-    self.allow_read_customer = true
-    self.allow_create_customer = false
-    self.allow_update_customer = false
-    self.allow_delete_customer = false
-    self.allow_read_customer_group = true
-    self.allow_create_customer_group = false
-    self.allow_update_customer_group = false
-    self.allow_delete_customer_group = false
-    self.allow_read_webpage = true
-    self.allow_create_webpage = false
-    self.allow_update_webpage = false
-    self.allow_delete_webpage = false
-    self.allow_read_questionnaire_master = true
-    self.allow_create_questionnaire_master = false
-    self.allow_update_questionnaire_master = false
-    self.allow_delete_questionnaire_master = false
-    self.allow_read_questionnaire_answer = true
-    self.allow_read_sales = true
-    self.allow_read_payment_request = true
-    self.allow_create_payment_request = false
-    self.allow_read_credit_card = true
-    self.allow_update_credit_card = false
-    self.allow_read_stripe_business_info = false
-    self.allow_update_stripe_business_info  = false
+    self.allow_update_reserve_frame = 'Forbid'
+    self.allow_delete_reserve_frame = 'Forbid'
+    self.allow_read_reservation = 'Allow'
+    self.allow_create_reservation = 'Forbid'
+    self.allow_update_reservation = 'Forbid'
+    self.allow_delete_reservation = 'Forbid'
+    self.allow_read_ticket_master = 'Allow'
+    self.allow_create_ticket_master = 'Forbid'
+    self.allow_update_ticket_master = 'Forbid'
+    self.allow_delete_ticket_master = 'Forbid'
+    self.allow_read_monthly_payment_plan = 'Allow'
+    self.allow_create_monthly_payment_plan = 'Forbid'
+    self.allow_update_monthly_payment_plan = 'Forbid'
+    self.allow_delete_monthly_payment_plan = 'Forbid'
+    self.allow_read_resource = 'Allow'
+    self.allow_create_resource = 'Forbid'
+    self.allow_update_resource = 'Forbid'
+    self.allow_delete_resource = 'Forbid'
+    self.allow_read_product = 'Allow'
+    self.allow_create_product = 'Forbid'
+    self.allow_update_product = 'Forbid'
+    self.allow_delete_product = 'Forbid'
+    self.allow_update_delivery_setting = 'Forbid'
+    self.allow_update_product_shipping_status = 'Allow'
+    self.allow_read_customer = 'Allow'
+    self.allow_create_customer = 'Forbid'
+    self.allow_update_customer = 'Forbid'
+    self.allow_delete_customer = 'Forbid'
+    self.allow_read_customer_group = 'Allow'
+    self.allow_create_customer_group = 'Forbid'
+    self.allow_update_customer_group = 'Forbid'
+    self.allow_delete_customer_group = 'Forbid'
+    self.allow_read_webpage = 'Allow'
+    self.allow_create_webpage = 'Forbid'
+    self.allow_update_webpage = 'Forbid'
+    self.allow_delete_webpage = 'Forbid'
+    self.allow_read_questionnaire_master = 'Allow'
+    self.allow_create_questionnaire_master = 'Forbid'
+    self.allow_update_questionnaire_master = 'Forbid'
+    self.allow_delete_questionnaire_master = 'Forbid'
+    self.allow_read_questionnaire_answer = 'Allow'
+    self.allow_read_sales = 'Allow'
+    self.allow_read_payment_request = 'Allow'
+    self.allow_create_payment_request = 'Forbid'
+    self.allow_read_credit_card = 'Allow'
+    self.allow_update_credit_card = 'Forbid'
+    self.allow_read_stripe_business_info = 'Forbid'
+    self.allow_update_stripe_business_info  = 'Forbid'
   end
 end

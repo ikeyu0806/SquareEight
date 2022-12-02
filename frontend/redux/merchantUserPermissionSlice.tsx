@@ -4,214 +4,214 @@ export const merchantUserPermissionSlice = createSlice({
   name: 'merchantUserPermission',
   initialState: {
     showPermissionGuideModal: false,
-    allowReadMerchantUser: false,
-    allowCreateMerchantUser: false,
-    allowUpdateMerchantUser: false,
-    allowDeleteMerchantUser: false,
-    allowReadReserveFrame: false,
-    allowCreateReserveFrame: false,
-    allowUpdateReserveFrame: false,
-    allowDeleteReserveFrame: false,
-    allowReadReservation: false,
-    allowCreateReservation: false,
-    allowUpdateReservation: false,
-    allowDeleteReservation: false,
-    allowReadTicketMaster: false,
-    allowCreateTicketMaster: false,
-    allowUpdateTicketMaster: false,
-    allowDeleteTicketMaster: false,
-    allowReadMonthlyPaymentPlan: false,
-    allowCreateMonthlyPaymentPlan: false,
-    allowUpdateMonthlyPaymentPlan: false,
-    allowDeleteMonthlyPaymentPlan: false,
-    allowReadResource: false,
-    allowCreateResource: false,
-    allowUpdateResource: false,
-    allowDeleteResource: false,
-    allowReadProduct: false,
-    allowCreateProduct: false,
-    allowUpdateProduct: false,
-    allowDeleteProduct: false,
-    allowUpdateDeliveryTarget: false,
-    allowReadCustomer: false,
-    allowCreateCustomer: false,
-    allowUpdateCustomer: false,
-    allowDeleteCustomer: false,
-    allowReadCustomerGroup: false,
-    allowCreateCustomerGroup: false,
-    allowUpdateCustomerGroup: false,
-    allowDeleteCustomerGroup: false,
-    allowReadWebpage: false,
-    allowCreateWebpage: false,
-    allowUpdateWebpage: false,
-    allowDeleteWebpage: false,
-    allowReadQuestionnaireMaster: false,
-    allowCreateQuestionnaireMaster: false,
-    allowUpdateQuestionnaireMaster: false,
-    allowDeleteQuestionnaireMaster: false,
-    allowReadQuestionnaireAnswer: false,
-    allowReadPaymentRequest: false,
-    allowCreatePaymentRequest: false,
-    allowReadPaymentSales: false,
-    allowUpdateCreditCard: false,
-    allowReadStripeBusinessInfo: false,
-    allowUpdateStripeBusinessInfo: false,
+    allowReadMerchantUser: 'Unconfirmed',
+    allowCreateMerchantUser: 'Unconfirmed',
+    allowUpdateMerchantUser: 'Unconfirmed',
+    allowDeleteMerchantUser: 'Unconfirmed',
+    allowReadReserveFrame: 'Unconfirmed',
+    allowCreateReserveFrame: 'Unconfirmed',
+    allowUpdateReserveFrame: 'Unconfirmed',
+    allowDeleteReserveFrame: 'Unconfirmed',
+    allowReadReservation: 'Unconfirmed',
+    allowCreateReservation: 'Unconfirmed',
+    allowUpdateReservation: 'Unconfirmed',
+    allowDeleteReservation: 'Unconfirmed',
+    allowReadTicketMaster: 'Unconfirmed',
+    allowCreateTicketMaster: 'Unconfirmed',
+    allowUpdateTicketMaster: 'Unconfirmed',
+    allowDeleteTicketMaster: 'Unconfirmed',
+    allowReadMonthlyPaymentPlan: 'Unconfirmed',
+    allowCreateMonthlyPaymentPlan: 'Unconfirmed',
+    allowUpdateMonthlyPaymentPlan: 'Unconfirmed',
+    allowDeleteMonthlyPaymentPlan: 'Unconfirmed',
+    allowReadResource: 'Unconfirmed',
+    allowCreateResource: 'Unconfirmed',
+    allowUpdateResource: 'Unconfirmed',
+    allowDeleteResource: 'Unconfirmed',
+    allowReadProduct: 'Unconfirmed',
+    allowCreateProduct: 'Unconfirmed',
+    allowUpdateProduct: 'Unconfirmed',
+    allowDeleteProduct: 'Unconfirmed',
+    allowUpdateDeliveryTarget: 'Unconfirmed',
+    allowReadCustomer: 'Unconfirmed',
+    allowCreateCustomer: 'Unconfirmed',
+    allowUpdateCustomer: 'Unconfirmed',
+    allowDeleteCustomer: 'Unconfirmed',
+    allowReadCustomerGroup: 'Unconfirmed',
+    allowCreateCustomerGroup: 'Unconfirmed',
+    allowUpdateCustomerGroup: 'Unconfirmed',
+    allowDeleteCustomerGroup: 'Unconfirmed',
+    allowReadWebpage: 'Unconfirmed',
+    allowCreateWebpage: 'Unconfirmed',
+    allowUpdateWebpage: 'Unconfirmed',
+    allowDeleteWebpage: 'Unconfirmed',
+    allowReadQuestionnaireMaster: 'Unconfirmed',
+    allowCreateQuestionnaireMaster: 'Unconfirmed',
+    allowUpdateQuestionnaireMaster: 'Unconfirmed',
+    allowDeleteQuestionnaireMaster: 'Unconfirmed',
+    allowReadQuestionnaireAnswer: 'Unconfirmed',
+    allowReadPaymentRequest: 'Unconfirmed',
+    allowCreatePaymentRequest: 'Unconfirmed',
+    allowReadPaymentSales: 'Unconfirmed',
+    allowUpdateCreditCard: 'Unconfirmed',
+    allowReadStripeBusinessInfo: 'Unconfirmed',
+    allowUpdateStripeBusinessInfo: 'Unconfirmed',
   },
   reducers: {
     showPermissionGuideModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showPermissionGuideModal = action.payload
     },
-    allowReadMerchantUserChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadMerchantUserChanged: (state, action: PayloadAction<string>) => {
       state.allowReadMerchantUser = action.payload
     },
-    allowCreateMerchantUserChanged: (state, action: PayloadAction<boolean>) => {
+    allowCreateMerchantUserChanged: (state, action: PayloadAction<string>) => {
       state.allowCreateMerchantUser = action.payload
     },
-    allowUpdateMerchantUserChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateMerchantUserChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateMerchantUser = action.payload
     },
-    allowDeleteMerchantUserChanged: (state, action: PayloadAction<boolean>) => {
+    allowDeleteMerchantUserChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteMerchantUser = action.payload
     },
-    allowReadReserveFrameChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadReserveFrameChanged: (state, action: PayloadAction<string>) => {
       state.allowReadReserveFrame = action.payload
     },
-    allowCreateReserveFrameChanged: (state, action: PayloadAction<boolean>) => {
+    allowCreateReserveFrameChanged: (state, action: PayloadAction<string>) => {
       state.allowCreateReserveFrame = action.payload
     },
-    allowUpdateReserveFrameChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateReserveFrameChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateReserveFrame = action.payload
     },
-    allowDeleteReserveFrameChanged: (state, action: PayloadAction<boolean>) => {
+    allowDeleteReserveFrameChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteReserveFrame = action.payload
     },
-    allowReadReservationChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadReservationChanged: (state, action: PayloadAction<string>) => {
       state.allowReadReservation = action.payload
     },
-    allowCreateReservationChanged: (state, action: PayloadAction<boolean>) => {
+    allowCreateReservationChanged: (state, action: PayloadAction<string>) => {
       state.allowCreateReservation = action.payload
     },
-    allowUpdateReservationChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateReservationChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateReservation = action.payload
     },
-    allowDeleteReservationChanged: (state, action: PayloadAction<boolean>) => {
+    allowDeleteReservationChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteReservation = action.payload
     },
-    allowReadTicketMasterChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadTicketMasterChanged: (state, action: PayloadAction<string>) => {
       state.allowReadTicketMaster = action.payload
     },
-    allowCreateTicketMasterChanged: (state, action: PayloadAction<boolean>) => {
+    allowCreateTicketMasterChanged: (state, action: PayloadAction<string>) => {
       state.allowCreateTicketMaster = action.payload
     },
-    allowUpdateTicketMasterChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateTicketMasterChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateTicketMaster = action.payload
     },
-    allowDeleteTicketMasterChanged: (state, action: PayloadAction<boolean>) => {
+    allowDeleteTicketMasterChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteTicketMaster = action.payload
     },
-    allowReadMonthlyPaymentPlanChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadMonthlyPaymentPlanChanged: (state, action: PayloadAction<string>) => {
       state.allowReadMonthlyPaymentPlan = action.payload
     },
-    allowCreateMonthlyPaymentPlanChanged: (state, action: PayloadAction<boolean>) => {
+    allowCreateMonthlyPaymentPlanChanged: (state, action: PayloadAction<string>) => {
       state.allowCreateMonthlyPaymentPlan = action.payload
     },
-    allowUpdateMonthlyPaymentPlanChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateMonthlyPaymentPlanChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateMonthlyPaymentPlan = action.payload
     },
-    allowDeleteMonthlyPaymentPlanChanged: (state, action: PayloadAction<boolean>) => {
+    allowDeleteMonthlyPaymentPlanChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteMonthlyPaymentPlan= action.payload
     },
-    allowReadResourceChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadResourceChanged: (state, action: PayloadAction<string>) => {
       state.allowReadResource = action.payload
     },
-    allowCreateResourceChanged: (state, action: PayloadAction<boolean>) => {
+    allowCreateResourceChanged: (state, action: PayloadAction<string>) => {
       state.allowCreateResource = action.payload
     },
-    allowUpdateResourceChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateResourceChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateResource = action.payload
     },
-    allowDeleteResourceChanged: (state, action: PayloadAction<boolean>) => {
+    allowDeleteResourceChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteResource = action.payload
     },
-    allowReadProductChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadProductChanged: (state, action: PayloadAction<string>) => {
       state.allowReadProduct = action.payload
     },
-    allowCreateProductChanged: (state, action: PayloadAction<boolean>) => {
+    allowCreateProductChanged: (state, action: PayloadAction<string>) => {
       state.allowCreateProduct = action.payload
     },
-    allowUpdateProductChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateProductChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateProduct = action.payload
     },
-    allowDeleteProductChanged: (state, action: PayloadAction<boolean>) => {
+    allowDeleteProductChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteProduct = action.payload
     },
-    allowReadCustomerChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadCustomerChanged: (state, action: PayloadAction<string>) => {
       state.allowReadCustomer = action.payload
     },
-    allowCreateCustomerChanged: (state, action: PayloadAction<boolean>) => {
+    allowCreateCustomerChanged: (state, action: PayloadAction<string>) => {
       state.allowCreateCustomer = action.payload
     },
-    allowUpdateCustomerChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateCustomerChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateCustomer = action.payload
     },
-    allowDeleteCustomerChanged: (state, action: PayloadAction<boolean>) => {
+    allowDeleteCustomerChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteCustomer = action.payload
     },
-    allowReadCustomerGroupChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadCustomerGroupChanged: (state, action: PayloadAction<string>) => {
       state.allowReadCustomerGroup = action.payload
     },
-    allowCreateCustomerGroupChanged: (state, action: PayloadAction<boolean>) => {
+    allowCreateCustomerGroupChanged: (state, action: PayloadAction<string>) => {
       state.allowCreateCustomerGroup = action.payload
     },
-    allowUpdateCustomerGroupChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateCustomerGroupChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateCustomerGroup = action.payload
     },
-    allowDeleteCustomerGroupChanged: (state, action: PayloadAction<boolean>) => {
+    allowDeleteCustomerGroupChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteCustomerGroup = action.payload
     },
-    allowReadWebpageChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadWebpageChanged: (state, action: PayloadAction<string>) => {
       state.allowReadWebpage = action.payload
     },
-    allowCreateWebpageChanged: (state, action: PayloadAction<boolean>) => {
+    allowCreateWebpageChanged: (state, action: PayloadAction<string>) => {
       state.allowCreateWebpage = action.payload
     },
-    allowUpdateWebpageChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateWebpageChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateWebpage = action.payload
     },
-    allowDeleteWebpageChanged: (state, action: PayloadAction<boolean>) => {
+    allowDeleteWebpageChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteWebpage = action.payload
     },
-    allowReadQuestionnaireMasterChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadQuestionnaireMasterChanged: (state, action: PayloadAction<string>) => {
       state.allowReadQuestionnaireMaster = action.payload
     },
-    allowCreateQuestionnaireMasterChanged: (state, action: PayloadAction<boolean>) => {
+    allowCreateQuestionnaireMasterChanged: (state, action: PayloadAction<string>) => {
       state.allowCreateQuestionnaireMaster = action.payload
     },
-    allowUpdateQuestionnaireMasterChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateQuestionnaireMasterChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateQuestionnaireMaster = action.payload
     },
-    allowDeleteQuestionnaireMasterChanged: (state, action: PayloadAction<boolean>) => {
+    allowDeleteQuestionnaireMasterChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteQuestionnaireMaster = action.payload
     },
-    allowReadQuestionnaireAnswerChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadQuestionnaireAnswerChanged: (state, action: PayloadAction<string>) => {
       state.allowReadQuestionnaireAnswer = action.payload
     },
-    allowReadPaymentRequestChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadPaymentRequestChanged: (state, action: PayloadAction<string>) => {
       state.allowReadPaymentRequest = action.payload
     },
-    allowCreatePaymentRequestChanged: (state, action: PayloadAction<boolean>) => {
+    allowCreatePaymentRequestChanged: (state, action: PayloadAction<string>) => {
       state.allowCreatePaymentRequest = action.payload
     },
-    allowReadPaymentSalesChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadPaymentSalesChanged: (state, action: PayloadAction<string>) => {
       state.allowReadPaymentSales = action.payload
     },
-    allowUpdateCreditCardChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateCreditCardChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateCreditCard = action.payload
     },
-    allowReadStripeBusinessInfoChanged: (state, action: PayloadAction<boolean>) => {
+    allowReadStripeBusinessInfoChanged: (state, action: PayloadAction<string>) => {
       state.allowReadStripeBusinessInfo = action.payload
     },
-    allowUpdateStripeBusinessInfoChanged: (state, action: PayloadAction<boolean>) => {
+    allowUpdateStripeBusinessInfoChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateStripeBusinessInfo = action.payload
     },
   },
