@@ -20,6 +20,7 @@ class MerchantUser < ApplicationRecord
   enum allow_create_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_delete_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_reservation: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_create_reservation: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_reservation: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_delete_reservation: { Forbid: 0, Allow: 1 }, _prefix: true
@@ -35,6 +36,7 @@ class MerchantUser < ApplicationRecord
   enum allow_create_resource: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_resource: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_delete_resource: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_product: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_create_product: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_product: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_delete_product: { Forbid: 0, Allow: 1 }, _prefix: true
