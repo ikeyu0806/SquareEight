@@ -12,58 +12,58 @@ class MerchantUser < ApplicationRecord
   enum email_authentication_status: { Disabled: 0, Enabled: 1 }
   enum authority_category: { RootUser: 0, AdminUser: 1, CommonUser: 2 }
 
-  enum allow_read_merchant_user: { Forbid: 0, Allow: 1 }
-  enum allow_create_merchant_user: { Forbid: 0, Allow: 1 }
-  enum allow_update_merchant_user: { Forbid: 0, Allow: 1 }
-  enum allow_delete_merchant_user: { Forbid: 0, Allow: 1 }
-  enum allow_read_reserve_frame: { Forbid: 0, Allow: 1 }
-  enum allow_create_reserve_frame: { Forbid: 0, Allow: 1 }
-  enum allow_update_reserve_frame: { Forbid: 0, Allow: 1 }
-  enum allow_delete_reserve_frame: { Forbid: 0, Allow: 1 }
-  enum allow_create_reservation: { Forbid: 0, Allow: 1 }
-  enum allow_update_reservation: { Forbid: 0, Allow: 1 }
-  enum allow_delete_reservation: { Forbid: 0, Allow: 1 }
-  enum allow_read_ticket_master: { Forbid: 0, Allow: 1 }
-  enum allow_create_ticket_master: { Forbid: 0, Allow: 1 }
-  enum allow_update_ticket_master: { Forbid: 0, Allow: 1 }
-  enum allow_delete_ticket_master: { Forbid: 0, Allow: 1 }
-  enum allow_read_monthly_payment_plan: { Forbid: 0, Allow: 1 }
-  enum allow_create_monthly_payment_plan: { Forbid: 0, Allow: 1 }
-  enum allow_update_monthly_payment_plan: { Forbid: 0, Allow: 1 }
-  enum allow_delete_monthly_payment_plan: { Forbid: 0, Allow: 1 }
-  enum allow_read_resource: { Forbid: 0, Allow: 1 }
-  enum allow_create_resource: { Forbid: 0, Allow: 1 }
-  enum allow_update_resource: { Forbid: 0, Allow: 1 }
-  enum allow_delete_resource: { Forbid: 0, Allow: 1 }
-  enum allow_create_product: { Forbid: 0, Allow: 1 }
-  enum allow_update_product: { Forbid: 0, Allow: 1 }
-  enum allow_delete_product: { Forbid: 0, Allow: 1 }
-  enum allow_update_delivery_setting: { Forbid: 0, Allow: 1 }
-  enum allow_update_product_shipping_status: { Forbid: 0, Allow: 1 }
-  enum allow_read_customer: { Forbid: 0, Allow: 1 }
-  enum allow_create_customer: { Forbid: 0, Allow: 1 }
-  enum allow_update_customer: { Forbid: 0, Allow: 1 }
-  enum allow_delete_customer: { Forbid: 0, Allow: 1 }
-  enum allow_read_customer_group: { Forbid: 0, Allow: 1 }
-  enum allow_create_customer_group: { Forbid: 0, Allow: 1 }
-  enum allow_update_customer_group: { Forbid: 0, Allow: 1 }
-  enum allow_delete_customer_group: { Forbid: 0, Allow: 1 }
-  enum allow_read_webpage: { Forbid: 0, Allow: 1 }
-  enum allow_create_webpage: { Forbid: 0, Allow: 1 }
-  enum allow_update_webpage: { Forbid: 0, Allow: 1 }
-  enum allow_delete_webpage: { Forbid: 0, Allow: 1 }
-  enum allow_read_questionnaire_master: { Forbid: 0, Allow: 1 }
-  enum allow_create_questionnaire_master: { Forbid: 0, Allow: 1 }
-  enum allow_update_questionnaire_master: { Forbid: 0, Allow: 1 }
-  enum allow_delete_questionnaire_master: { Forbid: 0, Allow: 1 }
-  enum allow_read_questionnaire_answer: { Forbid: 0, Allow: 1 }
-  enum allow_read_sales: { Forbid: 0, Allow: 1 }
-  enum allow_read_payment_request: { Forbid: 0, Allow: 1 }
-  enum allow_create_payment_request: { Forbid: 0, Allow: 1 }
-  enum allow_read_credit_card: { Forbid: 0, Allow: 1 }
-  enum allow_update_credit_card: { Forbid: 0, Allow: 1 }
-  enum allow_read_stripe_business_info: { Forbid: 0, Allow: 1 }
-  enum allow_update_stripe_business_info: { Forbid: 0, Allow: 1 }
+  enum allow_read_merchant_user: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_create_merchant_user: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_merchant_user: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_delete_merchant_user: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_create_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_delete_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_create_reservation: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_reservation: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_delete_reservation: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_ticket_master: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_create_ticket_master: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_ticket_master: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_delete_ticket_master: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_monthly_payment_plan: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_create_monthly_payment_plan: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_monthly_payment_plan: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_delete_monthly_payment_plan: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_resource: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_create_resource: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_resource: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_delete_resource: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_create_product: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_product: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_delete_product: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_delivery_setting: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_product_shipping_status: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_customer: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_create_customer: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_customer: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_delete_customer: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_customer_group: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_create_customer_group: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_customer_group: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_delete_customer_group: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_webpage: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_create_webpage: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_webpage: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_delete_webpage: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_questionnaire_master: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_create_questionnaire_master: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_questionnaire_master: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_delete_questionnaire_master: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_questionnaire_answer: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_sales: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_payment_request: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_create_payment_request: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_credit_card: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_credit_card: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_stripe_business_info: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_stripe_business_info: { Forbid: 0, Allow: 1 }, _prefix: true
 
   validates :authority_category, presence: true
   validates :password, password: true
@@ -149,7 +149,7 @@ class MerchantUser < ApplicationRecord
     self.allow_update_merchant_user = 'Forbid'
     self.allow_delete_merchant_user = 'Forbid'
     self.allow_read_reserve_frame = 'Allow'
-    self.allow_create_reserve_frame = 
+    self.allow_create_reserve_frame = 'Allow'
     self.allow_update_reserve_frame = 'Forbid'
     self.allow_delete_reserve_frame = 'Forbid'
     self.allow_read_reservation = 'Allow'
