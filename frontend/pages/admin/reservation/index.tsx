@@ -13,9 +13,11 @@ import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { getZeroPaddingDate } from 'functions/getZeroPaddingDatetime'
 import { getZeroPaddingDatePlusWeek } from 'functions/getZeroPaddingDatetime'
 import CreateReservationModal from 'components/templates/CreateReservationModal'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { showRegisterReservationModalChanged } from 'redux/reservationSlice'
 import ReservationLimitAlerts from 'components/molecules/ReservationLimitAlerts'
+import { RootState } from 'redux/store'
+import Unauauthorized from 'components/templates/Unauauthorized'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -25,6 +27,10 @@ const Index: NextPage = () => {
   const [targetStartDate, setTargetStartDate] = useState(getZeroPaddingDate())
   const [targetEndDate, setTargetEndDate] = useState(getZeroPaddingDatePlusWeek())
 
+  const allowReadReservation = useSelector((state: RootState) => state.merchantUserPermission.allowReadReservation)
+  const allowCreateReservation = useSelector((state: RootState) => state.merchantUserPermission.allowCreateReservation)
+  const allowUpdateReservation = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateReservation)
+
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/account/reservations?target_start_date=${targetStartDate}&target_end_date=${targetEndDate}`,
     {
@@ -32,7 +38,6 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
-      console.log(response.data)
       setReservatons(response.data.reservations)
     }).catch((error) => {
       console.log(error)
@@ -100,7 +105,7 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowReadReservation === 'Allow' && <Container>
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
@@ -219,7 +224,8 @@ const Index: NextPage = () => {
               </ListGroup>
             </Col>
           </Row>
-        </Container>
+        </Container>}
+        {allowReadReservation === 'Forbid' && <Unauauthorized></Unauauthorized>}
         <CreateReservationModal />
       </MerchantUserAdminLayout>
     </>
