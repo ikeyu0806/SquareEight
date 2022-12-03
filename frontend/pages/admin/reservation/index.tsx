@@ -115,9 +115,9 @@ const Index: NextPage = () => {
                   <h4 className='mb20'>予約一覧</h4>
                 </Col>
                 <Col>
-                  <Button onClick={() => dispatch(showRegisterReservationModalChanged(true))}>
+                  {allowCreateReservation === 'Allow' && <Button onClick={() => dispatch(showRegisterReservationModalChanged(true))}>
                     予約登録
-                  </Button>
+                  </Button>}
                 </Col>
               </Row>
               <Form.Label>対象日付</Form.Label>
