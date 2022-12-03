@@ -9,6 +9,9 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
+import { RootState } from 'redux/store'
+import { useSelector } from 'react-redux'
+import Unauauthorized from 'components/templates/Unauauthorized'
 
 const Invitation: NextPage = () => {
   const dispatch = useDispatch()
@@ -18,6 +21,7 @@ const Invitation: NextPage = () => {
   const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
   const [authorityCategory, setAuthorityCategory] = useState('AdminUser')
+  const allowCreateMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowCreateMerchantUser)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/merchant_users/invite_additional_user`,
@@ -43,7 +47,7 @@ const Invitation: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowCreateMerchantUser === 'Allow' && <Container>
         <Row>
           <Col md={3}></Col>
           <Col md={6}>
@@ -76,7 +80,8 @@ const Invitation: NextPage = () => {
               className='mt30'>招待メールを送信する</Button>
           </Col>
         </Row>
-      </Container>
+      </Container>}
+      {allowCreateMerchantUser === 'Forbid' && <Unauauthorized />}
       <MerchantUserPermissionGuideModal></MerchantUserPermissionGuideModal>
     </MerchantUserAdminLayout>
   )
