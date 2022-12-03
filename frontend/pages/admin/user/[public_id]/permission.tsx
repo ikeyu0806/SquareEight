@@ -1,9 +1,14 @@
 import type { NextPage } from 'next'
+import { useEffect, useState } from 'react'
+import axios from 'axios'
+import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { Container, Row, Col, ListGroup, Form } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup, Card } from 'react-bootstrap'
 import UserPermissionListGroupItem from 'components/molecules/UserPermissionListGroupItem'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
+import { MerchantUserParam } from 'interfaces/MerchantUserParam'
 import {  allowReadMerchantUserChanged,
           allowCreateMerchantUserChanged,
           allowUpdateMerchantUserChanged,
@@ -62,6 +67,10 @@ import {  allowReadMerchantUserChanged,
 
 const Permission: NextPage = () => {
   const dispatch = useDispatch()
+  const router = useRouter()
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
+  const [merchantUser, setMerchantUser] = useState<MerchantUserParam>()
+
   const allowReadMerchantUser = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadMerchantUser)
   const allowCreateMerchantUser = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateMerchantUser)
   const allowUpdateMerchantUser = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateMerchantUser)
@@ -117,6 +126,74 @@ const Permission: NextPage = () => {
   const allowReadStripeBusinessInfo = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadStripeBusinessInfo)
   const allowUpdateStripeBusinessInfo = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateStripeBusinessInfo)
 
+  useEffect(() => {
+    const fetchMerchantUser = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/merchant_users/${router.query.public_id}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          },
+        }
+      )
+      .then(function (response) {
+        setMerchantUser(response.data.merchant_user)
+        dispatch(allowReadMerchantUserChanged(response.data.merchant_user.allow_read_merchant_user))
+        dispatch(allowCreateMerchantUserChanged(response.data.merchant_user.allow_create_merchant_user))
+        dispatch(allowUpdateMerchantUserChanged(response.data.merchant_user.allow_update_merchant_user))
+        dispatch(allowReadReserveFrameChanged(response.data.merchant_user.allow_read_reserve_frame))
+        dispatch(allowCreateReserveFrameChanged(response.data.merchant_user.allow_create_reserve_frame))
+        dispatch(allowUpdateReserveFrameChanged(response.data.merchant_user.allow_update_reserve_frame))
+        dispatch(allowDeleteReserveFrameChanged(response.data.merchant_user.allow_delete_reserve_frame))
+        dispatch(allowReadReservationChanged(response.data.merchant_user.allow_read_reservations))
+        dispatch(allowCreateReservationChanged(response.data.merchant_user.allow_create_reservations))
+        dispatch(allowUpdateReservationChanged(response.data.merchant_user.allow_update_reservations))
+        dispatch(allowDeleteReservationChanged(response.data.merchant_user.allow_delete_reservations))
+        dispatch(allowReadTicketMasterChanged(response.data.merchant_user.allow_read_ticket_master))
+        dispatch(allowCreateTicketMasterChanged(response.data.merchant_user.allow_create_ticket_master))
+        dispatch(allowUpdateTicketMasterChanged(response.data.merchant_user.allow_update_ticket_master))
+        dispatch(allowDeleteTicketMasterChanged(response.data.merchant_user.allow_delete_ticket_master))
+        dispatch(allowReadMonthlyPaymentPlanChanged(response.data.merchant_user.allow_read_monthly_payment_plan))
+        dispatch(allowCreateMonthlyPaymentPlanChanged(response.data.merchant_user.allow_create_monthly_payment_plan))
+        dispatch(allowUpdateMonthlyPaymentPlanChanged(response.data.merchant_user.allow_update_monthly_payment_plan))
+        dispatch(allowDeleteMonthlyPaymentPlanChanged(response.data.merchant_user.allow_delete_monthly_payment_plan))
+        dispatch(allowReadResourceChanged(response.data.merchant_user.allow_read_resource))
+        dispatch(allowCreateResourceChanged(response.data.merchant_user.allow_create_resource))
+        dispatch(allowUpdateResourceChanged(response.data.merchant_user.allow_update_resource))
+        dispatch(allowDeleteResourceChanged(response.data.merchant_user.allow_delete_resource))
+        dispatch(allowReadProductChanged(response.data.merchant_user.allow_read_product))
+        dispatch(allowCreateProductChanged(response.data.merchant_user.allow_create_product))
+        dispatch(allowUpdateProductChanged(response.data.merchant_user.allow_update_product))
+        dispatch(allowDeleteProductChanged(response.data.merchant_user.allow_delete_product))
+        dispatch(allowReadCustomerChanged(response.data.merchant_user.allow_read_customer))
+        dispatch(allowCreateCustomerChanged(response.data.merchant_user.allow_create_customer))
+        dispatch(allowUpdateCustomerChanged(response.data.merchant_user.allow_update_customer))
+        dispatch(allowDeleteCustomerChanged(response.data.merchant_user.allow_delete_customer))
+        dispatch(allowReadCustomerGroupChanged(response.data.merchant_user.allow_read_customer_group))
+        dispatch(allowCreateCustomerGroupChanged(response.data.merchant_user.allow_create_customer_group))
+        dispatch(allowUpdateCustomerGroupChanged(response.data.merchant_user.allow_update_customer_group))
+        dispatch(allowDeleteCustomerGroupChanged(response.data.merchant_user.allow_delete_customer_group))
+        dispatch(allowReadWebpageChanged(response.data.merchant_user.allow_read_webpage))
+        dispatch(allowCreateWebpageChanged(response.data.merchant_user.allow_create_webpage))
+        dispatch(allowUpdateWebpageChanged(response.data.merchant_user.allow_update_webpage))
+        dispatch(allowDeleteWebpageChanged(response.data.merchant_user.allow_delete_webpage))
+        dispatch(allowReadQuestionnaireMasterChanged(response.data.merchant_user.allow_read_questionnaire_master))
+        dispatch(allowCreateQuestionnaireMasterChanged(response.data.merchant_user.allow_create_questionnaire_master))
+        dispatch(allowUpdateQuestionnaireMasterChanged(response.data.merchant_user.allow_update_questionnaire_master))
+        dispatch(allowDeleteQuestionnaireMasterChanged(response.data.merchant_user.allow_delete_questionnaire_master))
+        dispatch(allowReadQuestionnaireAnswerChanged(response.data.merchant_user.allow_create_questionnaire_master))
+        dispatch(allowCreatePaymentRequestChanged(response.data.merchant_user.allow_create_payment_request))
+        dispatch(allowReadPaymentSalesChanged(response.data.merchant_user.allow_read_payment_sales))
+        dispatch(allowUpdateCreditCardChanged(response.data.merchant_user.allow_update_credit_card))
+        dispatch(allowReadStripeBusinessInfoChanged(response.data.merchant_user.allow_read_stripe_business_info))
+        dispatch(allowUpdateStripeBusinessInfoChanged(response.data.merchant_user.allow_read_merchan))
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchMerchantUser()
+  }, [router.query.public_id, cookies._square_eight_merchant_session, dispatch])
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -124,7 +201,14 @@ const Permission: NextPage = () => {
           <Col lg={3}>
           </Col>
           <Col lg={6}>
-            <ListGroup>
+            <h3>ユーザ権限設定</h3>
+            <Card>
+              <Card.Body>
+                <div>お名前: {merchantUser?.last_name}{merchantUser?.first_name}</div>
+                <div>メールアドレス: {merchantUser?.email}</div>
+              </Card.Body>
+            </Card>
+            <ListGroup className='mt20'>
               <UserPermissionListGroupItem
                 text={'ユーザ閲覧'}
                 onChange={() => dispatch(allowReadMerchantUserChanged(allowReadMerchantUser === 'Allow' ? 'Forbit' : 'Allow' ))}

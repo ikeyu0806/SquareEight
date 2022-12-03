@@ -13,6 +13,14 @@ class Api::Internal::MerchantUsersController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def show
+    merchant_user = MerchantUser.find_by(public_id: params[:public_id])
+    render json: { merchant_user: merchant_user, status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   # 仮登録して検証コード送信
   # 同じメールアドレスのユーザが存在していればパスワード上書きして再送信
   def invite_root_user
