@@ -12,6 +12,7 @@ import { alertChanged } from 'redux/alertSlice'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import Unauauthorized from 'components/templates/Unauauthorized'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const Invitation: NextPage = () => {
   const dispatch = useDispatch()
@@ -38,10 +39,15 @@ const Invitation: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
-      dispatch(alertChanged({message: '送信しました。', show: false}))
-      router.push('/admin/user')
+      swalWithBootstrapButtons.fire({
+        title: '保存しました',
+        icon: 'info',
+      })
     }).catch(error => {
-      dispatch(alertChanged({message: '送信失敗しました。', show: true, type: 'danger'}))
+      swalWithBootstrapButtons.fire({
+        title: '保存失敗しました',
+        icon: 'error'
+      })
     })
   }
 
