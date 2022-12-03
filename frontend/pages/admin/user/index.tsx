@@ -8,6 +8,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
+import Unauauthorized from 'components/templates/Unauauthorized'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -68,6 +69,7 @@ const Index: NextPage = () => {
           </Col>
         </Row>
       </Container>}
+      {allowReadMerchantUser === 'Forbid' && <Unauauthorized />}
     </MerchantUserAdminLayout>
   )
 }
