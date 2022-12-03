@@ -4,6 +4,7 @@ class AddMerchantUserPermissionColumns < ActiveRecord::Migration[7.0]
     add_column :merchant_users, :allow_create_merchant_user, :integer, default: 0
     add_column :merchant_users, :allow_update_merchant_user, :integer, default: 0
     add_column :merchant_users, :allow_delete_merchant_user, :integer, default: 0
+    add_column :merchant_users, :allow_update_merchant_user_permission, :integer, default: 0
     add_column :merchant_users, :allow_read_reserve_frame, :integer, default: 0
     add_column :merchant_users, :allow_create_reserve_frame, :integer, default: 0
     add_column :merchant_users, :allow_update_reserve_frame, :integer, default: 0

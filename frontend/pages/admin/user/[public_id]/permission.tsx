@@ -14,6 +14,7 @@ import {  allowReadMerchantUserChanged,
           allowCreateMerchantUserChanged,
           allowUpdateMerchantUserChanged,
           allowDeleteMerchantUserChanged,
+          allowUpdateMerchantUserPermissionChanged,
           allowReadReserveFrameChanged,
           allowCreateReserveFrameChanged,
           allowUpdateReserveFrameChanged,
@@ -76,6 +77,7 @@ const Permission: NextPage = () => {
   const allowCreateMerchantUser = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateMerchantUser)
   const allowUpdateMerchantUser = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateMerchantUser)
   const allowDeleteMerchantUser = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteMerchantUser)
+  const allowUpdateMerchantUserPermission = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateMerchantUserPermission)  
   const allowReadReserveFrame = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadReserveFrame)
   const allowCreateReserveFrame = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateReserveFrame)
   const allowUpdateReserveFrame = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateReserveFrame)
@@ -144,6 +146,7 @@ const Permission: NextPage = () => {
         dispatch(allowReadMerchantUserChanged(response.data.merchant_user.allow_read_merchant_user))
         dispatch(allowCreateMerchantUserChanged(response.data.merchant_user.allow_create_merchant_user))
         dispatch(allowUpdateMerchantUserChanged(response.data.merchant_user.allow_update_merchant_user))
+        dispatch(allowUpdateMerchantUserPermissionChanged(response.data.merchant_user.allow_update_merchant_user_permission))
         dispatch(allowReadReserveFrameChanged(response.data.merchant_user.allow_read_reserve_frame))
         dispatch(allowCreateReserveFrameChanged(response.data.merchant_user.allow_create_reserve_frame))
         dispatch(allowUpdateReserveFrameChanged(response.data.merchant_user.allow_update_reserve_frame))
@@ -304,6 +307,10 @@ const Permission: NextPage = () => {
                 text={'ユーザ削除'}
                 onChange={() => dispatch(allowDeleteMerchantUserChanged(allowDeleteMerchantUser === 'Allow' ? 'Forbid' : 'Allow' ))}
                 checked={allowDeleteMerchantUser === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'ユーザ権限設定'}
+                onChange={() => dispatch(allowUpdateMerchantUserPermissionChanged(allowUpdateMerchantUserPermission === 'Allow' ? 'Forbid' : 'Allow' ))}
+                checked={allowUpdateMerchantUserPermission === 'Allow'} />
               <UserPermissionListGroupItem
                 text={'予約メニュー閲覧'}
                 onChange={() => dispatch(allowReadReserveFrameChanged(allowReadReserveFrame === 'Allow' ? 'Forbid' : 'Allow' ))}

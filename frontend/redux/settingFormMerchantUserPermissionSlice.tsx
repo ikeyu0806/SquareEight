@@ -8,6 +8,7 @@ export const settingFormMerchantUserPermissionSlice = createSlice({
     allowCreateMerchantUser: 'Unconfirmed',
     allowUpdateMerchantUser: 'Unconfirmed',
     allowDeleteMerchantUser: 'Unconfirmed',
+    allowUpdateMerchantUserPermission: 'Unconfirmed',
     allowReadReserveFrame: 'Unconfirmed',
     allowCreateReserveFrame: 'Unconfirmed',
     allowUpdateReserveFrame: 'Unconfirmed',
@@ -76,6 +77,9 @@ export const settingFormMerchantUserPermissionSlice = createSlice({
     },
     allowDeleteMerchantUserChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteMerchantUser = action.payload
+    },
+    allowUpdateMerchantUserPermissionChanged: (state, action: PayloadAction<string>) => {
+      state.allowUpdateMerchantUserPermission = action.payload
     },
     allowReadReserveFrameChanged: (state, action: PayloadAction<string>) => {
       state.allowReadReserveFrame = action.payload
@@ -238,6 +242,7 @@ export const { allowReadMerchantUserChanged } = settingFormMerchantUserPermissio
 export const { allowCreateMerchantUserChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowUpdateMerchantUserChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowDeleteMerchantUserChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowUpdateMerchantUserPermissionChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowReadReserveFrameChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowCreateReserveFrameChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowUpdateReserveFrameChanged } = settingFormMerchantUserPermissionSlice.actions
