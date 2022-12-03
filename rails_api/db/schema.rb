@@ -244,6 +244,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_064739) do
     t.integer "allow_create_merchant_user", default: 0
     t.integer "allow_update_merchant_user", default: 0
     t.integer "allow_delete_merchant_user", default: 0
+    t.integer "allow_update_merchant_user_permission", default: 0
     t.integer "allow_read_reserve_frame", default: 0
     t.integer "allow_create_reserve_frame", default: 0
     t.integer "allow_update_reserve_frame", default: 0

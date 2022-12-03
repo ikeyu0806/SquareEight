@@ -26,6 +26,7 @@ MerchantUser.first_or_create!(
   allow_create_merchant_user: "Allow",
   allow_update_merchant_user: "Allow",
   allow_delete_merchant_user: "Allow",
+  allow_update_merchant_user_permission: "Allow",
   allow_read_reserve_frame: "Allow",
   allow_create_reserve_frame: "Allow",
   allow_update_reserve_frame: "Allow",
