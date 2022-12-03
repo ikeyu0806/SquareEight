@@ -6,11 +6,14 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { MerchantUserParam } from 'interfaces/MerchantUserParam'
 import axios from 'axios'
 import { useRouter } from 'next/router'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [merchantUsers, setMerchantUsers] = useState<MerchantUserParam[]>([])
+  const allowReadMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowReadMerchantUser)
 
   useEffect(() => {
     const fetchProducts = () => {
@@ -22,7 +25,6 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
-        console.log(response.data)
         const merchantUserResponse: MerchantUserParam[] = response.data.merchant_users
         setMerchantUsers(merchantUserResponse)
       })
@@ -35,7 +37,7 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowReadMerchantUser === 'Allow' && <Container>
         <Row>
           <Col md={3}></Col>
           <Col md={6}>
@@ -65,7 +67,7 @@ const Index: NextPage = () => {
             </ListGroup>
           </Col>
         </Row>
-      </Container>
+      </Container>}
     </MerchantUserAdminLayout>
   )
 }

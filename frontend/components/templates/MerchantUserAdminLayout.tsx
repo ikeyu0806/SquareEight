@@ -77,6 +77,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
+      console.log(response.data.user)
       dispatch(loginStatusChanged('Login'))
       dispatch(stripeAccountEnableChanged(response.data.user.stripe_account_enable ? 'Enable' : 'Disable'))
       dispatch(stripeCustomerEnableChanged(response.data.user.stripe_customer_enable ? 'Enable' : 'Disable'))
