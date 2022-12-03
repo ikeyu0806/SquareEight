@@ -102,6 +102,9 @@ const EditReserveFrameModal = (): JSX.Element => {
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
 
+  const allowDeleteReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteReserveFrame)
+  const allowUpdateReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateReserveFrame)
+
   const validateSubmit = () => {
     // 必須項目チェック
     if (!title || !capacity || !startDate || !reserveFrameReceptionTimes.length) {
@@ -295,13 +298,13 @@ const EditReserveFrameModal = (): JSX.Element => {
           <ReserveFrameForm></ReserveFrameForm>
         </Modal.Body>
         <Modal.Footer>
-          <Button className='me-auto'
+          {allowDeleteReserveFrame === 'Allow' && <Button className='me-auto'
                   onClick={() => deleteReserveFrame()}
                   variant='danger'
-                  size='sm'>予約枠を削除</Button>
-          <Button variant='primary' 
+                  size='sm'>予約枠を削除</Button>}
+          {allowUpdateReserveFrame === 'Allow' && <Button variant='primary' 
                   disabled={validateSubmit()}
-                  onClick={updateReserveFrame}>登録する</Button>
+                  onClick={updateReserveFrame}>登録する</Button>}
           <Button variant='secondary' onClick={() => dispatch(showEditReserveFrameModalChanged(false))}>閉じる</Button>
         </Modal.Footer>
       </Modal>

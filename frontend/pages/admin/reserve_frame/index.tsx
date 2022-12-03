@@ -22,6 +22,7 @@ const Index = (): JSX.Element => {
   const router = useRouter()
   const [reserveFrames, setReserveFrames] = useState<ReserveFrameParam[]>([])
   const allowReadReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowReadReserveFrame)
+  const allowCreateReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowCreateReserveFrame)
   const allowUpdateReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateReserveFrame)
 
   useEffect(() => {
@@ -62,9 +63,9 @@ const Index = (): JSX.Element => {
       <MerchantUserAdminLayout>
         {allowReadReserveFrame === 'Allow' && <Container>
           {/* <ReservationLimitAlerts /> */}
-          <Button
+          {allowCreateReserveFrame === 'Allow' && <Button
             className='mb30'
-            onClick={() => dispatch(showCreateReserveFrameModalChanged(true))}>新規登録</Button>
+            onClick={() => dispatch(showCreateReserveFrameModalChanged(true))}>新規登録</Button>}
             {reserveFrames.map((reserveFrame, i) => {
               return (
                 <div key={i} className='mb30 border-solid padding-20'>
