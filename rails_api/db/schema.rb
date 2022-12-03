@@ -250,8 +250,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_064739) do
     t.integer "allow_delete_reserve_frame", default: 0
     t.integer "allow_read_reservation", default: 0
     t.integer "allow_create_reservation", default: 0
-    t.integer "allow_update_reservation", default: 0
-    t.integer "allow_delete_reservation", default: 0
+    t.integer "allow_confirm_reservation", default: 0
+    t.integer "allow_cancel_reservation", default: 0
     t.integer "allow_read_ticket_master", default: 0
     t.integer "allow_create_ticket_master", default: 0
     t.integer "allow_update_ticket_master", default: 0

@@ -10,8 +10,8 @@ class AddMerchantUserPermissionColumns < ActiveRecord::Migration[7.0]
     add_column :merchant_users, :allow_delete_reserve_frame, :integer, default: 0
     add_column :merchant_users, :allow_read_reservation, :integer, default: 0
     add_column :merchant_users, :allow_create_reservation, :integer, default: 0
-    add_column :merchant_users, :allow_update_reservation, :integer, default: 0
-    add_column :merchant_users, :allow_delete_reservation, :integer, default: 0
+    add_column :merchant_users, :allow_confirm_reservation, :integer, default: 0
+    add_column :merchant_users, :allow_cancel_reservation, :integer, default: 0
     add_column :merchant_users, :allow_read_ticket_master, :integer, default: 0
     add_column :merchant_users, :allow_create_ticket_master, :integer, default: 0
     add_column :merchant_users, :allow_update_ticket_master, :integer, default: 0
@@ -67,8 +67,8 @@ class AddMerchantUserPermissionColumns < ActiveRecord::Migration[7.0]
     remove_column :merchant_users, :allow_delete_reserve_frame, :integer, default: 0
     remove_column :merchant_users, :allow_read_reservation, :integer, default: 0
     remove_column :merchant_users, :allow_create_reservation, :integer, default: 0
-    remove_column :merchant_users, :allow_update_reservation, :integer, default: 0
-    remove_column :merchant_users, :allow_delete_reservation, :integer, default: 0
+    remove_column :merchant_users, :allow_confirm_reservation, :integer, default: 0
+    remove_column :merchant_users, :allow_cancel_reservation, :integer, default: 0
     remove_column :merchant_users, :allow_read_ticket_master, :integer, default: 0
     remove_column :merchant_users, :allow_create_ticket_master, :integer, default: 0
     remove_column :merchant_users, :allow_update_ticket_master, :integer, default: 0

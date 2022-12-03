@@ -22,8 +22,8 @@ class MerchantUser < ApplicationRecord
   enum allow_delete_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_read_reservation: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_create_reservation: { Forbid: 0, Allow: 1 }, _prefix: true
-  enum allow_update_reservation: { Forbid: 0, Allow: 1 }, _prefix: true
-  enum allow_delete_reservation: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_confirm_reservation: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_cancel_reservation: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_read_ticket_master: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_create_ticket_master: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_ticket_master: { Forbid: 0, Allow: 1 }, _prefix: true
@@ -99,8 +99,8 @@ class MerchantUser < ApplicationRecord
     self.allow_delete_reserve_frame = 'Allow'
     self.allow_read_reservation = 'Allow'
     self.allow_create_reservation = 'Allow'
-    self.allow_update_reservation = 'Allow'
-    self.allow_delete_reservation = 'Allow'
+    self.allow_confirm_reservation = 'Allow'
+    self.allow_cancel_reservation = 'Allow'
     self.allow_read_ticket_master = 'Allow'
     self.allow_create_ticket_master = 'Allow'
     self.allow_update_ticket_master = 'Allow'
@@ -156,8 +156,8 @@ class MerchantUser < ApplicationRecord
     self.allow_delete_reserve_frame = 'Forbid'
     self.allow_read_reservation = 'Allow'
     self.allow_create_reservation = 'Forbid'
-    self.allow_update_reservation = 'Forbid'
-    self.allow_delete_reservation = 'Forbid'
+    self.allow_confirm_reservation = 'Forbid'
+    self.allow_cancel_reservation = 'Forbid'
     self.allow_read_ticket_master = 'Allow'
     self.allow_create_ticket_master = 'Forbid'
     self.allow_update_ticket_master = 'Forbid'
