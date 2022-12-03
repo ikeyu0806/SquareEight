@@ -227,6 +227,15 @@ class Api::Internal::MerchantUsersController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def update_permission
+    merchant_user = MerchantUser.find_by(public_id: params[:public_id])
+    merchant_user.update!(merchant_user_params)
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   private
 
   def merchant_user_params
@@ -244,6 +253,60 @@ class Api::Internal::MerchantUsersController < ApplicationController
                                           :is_create_account,
                                           :google_auth_id,
                                           :google_auth_email,
-                                          :key)
+                                          :key,
+                                          :allow_read_merchant_user,
+                                          :allow_create_merchant_user,
+                                          :allow_update_merchant_user,
+                                          :allow_delete_merchant_user,
+                                          :allow_read_reserve_frame,
+                                          :allow_create_reserve_frame,
+                                          :allow_update_reserve_frame,
+                                          :allow_delete_reserve_frame,
+                                          :allow_read_reservation,
+                                          :allow_create_reservation,
+                                          :allow_update_reservation,
+                                          :allow_delete_reservation,
+                                          :allow_read_ticket_master,
+                                          :allow_create_ticket_master,
+                                          :allow_update_ticket_master,
+                                          :allow_delete_ticket_master,
+                                          :allow_read_monthly_payment_plan,
+                                          :allow_create_monthly_payment_plan,
+                                          :allow_update_monthly_payment_plan,
+                                          :allow_delete_monthly_payment_plan,
+                                          :allow_read_resource,
+                                          :allow_create_resource,
+                                          :allow_update_resource,
+                                          :allow_delete_resource,
+                                          :allow_read_product,
+                                          :allow_create_product,
+                                          :allow_update_product,
+                                          :allow_delete_product,
+                                          :allow_update_delivery_setting,
+                                          :allow_update_product_shipping_status,
+                                          :allow_read_customer,
+                                          :allow_create_customer,
+                                          :allow_update_customer,
+                                          :allow_delete_customer,
+                                          :allow_read_customer_group,
+                                          :allow_create_customer_group,
+                                          :allow_update_customer_group,
+                                          :allow_delete_customer_group,
+                                          :allow_read_webpage,
+                                          :allow_create_webpage,
+                                          :allow_update_webpage,
+                                          :allow_delete_webpage,
+                                          :allow_read_questionnaire_master,
+                                          :allow_create_questionnaire_master,
+                                          :allow_update_questionnaire_master,
+                                          :allow_delete_questionnaire_master,
+                                          :allow_read_questionnaire_answer,
+                                          :allow_read_sales,
+                                          :allow_read_payment_request,
+                                          :allow_create_payment_request,
+                                          :allow_read_credit_card,
+                                          :allow_update_credit_card,
+                                          :allow_read_stripe_business_info,
+                                          :allow_update_stripe_business_info)
   end
 end

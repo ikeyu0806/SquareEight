@@ -35,6 +35,7 @@ Rails.application.routes.draw do
       get 'merchant_users/:public_id', to: 'merchant_users#show'
       get 'merchant_users', to: 'merchant_users#index'
       post 'merchant_users/:public_id/update', to: 'merchant_users#update'
+      post 'merchant_users/:public_id/update_permission', to: 'merchant_users#update_permission'
       post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'
       post 'merchant_users/confirm_update_email_verification_code', to: 'merchant_users#confirm_update_email_verification_code'
       post 'merchant_users/find_or_create_by_google_auth', to: 'merchant_users#find_or_create_by_google_auth'
