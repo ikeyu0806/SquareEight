@@ -8,7 +8,6 @@ import MerchantUserPermissionGuideModal from 'components/templates/MerchantUserP
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
-import { alertChanged } from 'redux/alertSlice'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import Unauauthorized from 'components/templates/Unauauthorized'

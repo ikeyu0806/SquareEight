@@ -4,7 +4,7 @@ import { Container, Button, Row, Col } from 'react-bootstrap'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { publicIdChanged,
@@ -13,12 +13,16 @@ import { publicIdChanged,
 import CreateReserveFrameModal from 'components/organisms/CreateReserveFrameModal'
 import EditReserveFrameModal from 'components/organisms/EditReserveFrameModal'
 import ReservationLimitAlerts from 'components/molecules/ReservationLimitAlerts'
+import { RootState } from 'redux/store'
+import Unauauthorized from 'components/templates/Unauauthorized'
 
 const Index = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [reserveFrames, setReserveFrames] = useState<ReserveFrameParam[]>([])
+  const allowReadReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowReadReserveFrame)
+  const allowUpdateReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateReserveFrame)
 
   useEffect(() => {
     const fetchReserveFrames = () => {
@@ -56,8 +60,8 @@ const Index = (): JSX.Element => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
-          <ReservationLimitAlerts />
+        {allowReadReserveFrame === 'Allow' && <Container>
+          {/* <ReservationLimitAlerts /> */}
           <Button
             className='mb30'
             onClick={() => dispatch(showCreateReserveFrameModalChanged(true))}>新規登録</Button>
@@ -175,11 +179,11 @@ const Index = (): JSX.Element => {
                       {!reserveFrame.questionnaire_master_title_with_public_id && <div>アンケートは設定されていません</div>}
                       <hr />
                       <div>
-                        <a className='btn btn-primary'
+                        {allowUpdateReserveFrame === 'Allow' && <a className='btn btn-primary'
                          onClick={() => {
                           dispatch(showEditReserveFrameModalChanged(true))
                           dispatch(publicIdChanged(reserveFrame.public_id))
-                        }}>編集</a>
+                        }}>編集</a>}
                         <a className='btn btn-primary ml20'
                            target='_blank'
                            rel='noreferrer'
@@ -192,7 +196,8 @@ const Index = (): JSX.Element => {
             })}
           <CreateReserveFrameModal></CreateReserveFrameModal>
           <EditReserveFrameModal></EditReserveFrameModal>
-        </Container>
+        </Container>}
+        {allowReadReserveFrame === 'Forbid' && <Unauauthorized />}
       </MerchantUserAdminLayout>
     </>
   )
