@@ -14,8 +14,8 @@ export const settingFormMerchantUserPermissionSlice = createSlice({
     allowDeleteReserveFrame: 'Unconfirmed',
     allowReadReservation: 'Unconfirmed',
     allowCreateReservation: 'Unconfirmed',
-    allowUpdateReservation: 'Unconfirmed',
-    allowDeleteReservation: 'Unconfirmed',
+    allowConfirmReservation: 'Unconfirmed',
+    allowCancelReservation: 'Unconfirmed',
     allowReadTicketMaster: 'Unconfirmed',
     allowCreateTicketMaster: 'Unconfirmed',
     allowUpdateTicketMaster: 'Unconfirmed',
@@ -95,11 +95,11 @@ export const settingFormMerchantUserPermissionSlice = createSlice({
     allowCreateReservationChanged: (state, action: PayloadAction<string>) => {
       state.allowCreateReservation = action.payload
     },
-    allowUpdateReservationChanged: (state, action: PayloadAction<string>) => {
-      state.allowUpdateReservation = action.payload
+    allowConfirmReservationChanged: (state, action: PayloadAction<string>) => {
+      state.allowConfirmReservation = action.payload
     },
-    allowDeleteReservationChanged: (state, action: PayloadAction<string>) => {
-      state.allowDeleteReservation = action.payload
+    allowCancelReservationChanged: (state, action: PayloadAction<string>) => {
+      state.allowCancelReservation = action.payload
     },
     allowReadTicketMasterChanged: (state, action: PayloadAction<string>) => {
       state.allowReadTicketMaster = action.payload
@@ -244,8 +244,8 @@ export const { allowUpdateReserveFrameChanged } = settingFormMerchantUserPermiss
 export const { allowDeleteReserveFrameChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowReadReservationChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowCreateReservationChanged } = settingFormMerchantUserPermissionSlice.actions
-export const { allowUpdateReservationChanged } = settingFormMerchantUserPermissionSlice.actions
-export const { allowDeleteReservationChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowConfirmReservationChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowCancelReservationChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowReadTicketMasterChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowCreateTicketMasterChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowUpdateTicketMasterChanged } = settingFormMerchantUserPermissionSlice.actions

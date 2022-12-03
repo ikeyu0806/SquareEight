@@ -29,7 +29,7 @@ const Index: NextPage = () => {
 
   const allowReadReservation = useSelector((state: RootState) => state.merchantUserPermission.allowReadReservation)
   const allowCreateReservation = useSelector((state: RootState) => state.merchantUserPermission.allowCreateReservation)
-  const allowUpdateReservation = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateReservation)
+  const allowConfirmReservation = useSelector((state: RootState) => state.merchantUserPermission.allowConfirmReservation)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/account/reservations?target_start_date=${targetStartDate}&target_end_date=${targetEndDate}`,

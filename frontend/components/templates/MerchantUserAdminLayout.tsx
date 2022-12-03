@@ -20,8 +20,8 @@ import {  allowReadMerchantUserChanged,
           allowDeleteReserveFrameChanged,
           allowReadReservationChanged,
           allowCreateReservationChanged,
-          allowUpdateReservationChanged,
-          allowDeleteReservationChanged,
+          allowConfirmReservationChanged,
+          allowCancelReservationChanged,
           allowReadTicketMasterChanged,
           allowCreateTicketMasterChanged,
           allowUpdateTicketMasterChanged,
@@ -93,8 +93,8 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowDeleteReserveFrameChanged(response.data.user.allow_delete_reserve_frame))
       dispatch(allowReadReservationChanged(response.data.user.allow_read_reservation))
       dispatch(allowCreateReservationChanged(response.data.user.allow_create_reservation))
-      dispatch(allowUpdateReservationChanged(response.data.user.allow_update_reservation))
-      dispatch(allowDeleteReservationChanged(response.data.user.allow_delete_reservation))
+      dispatch(allowConfirmReservationChanged(response.data.user.allow_confirm_reservation))
+      dispatch(allowCancelReservationChanged(response.data.user.allow_cancel_reservation))
       dispatch(allowReadTicketMasterChanged(response.data.user.allow_read_ticket_master))
       dispatch(allowCreateTicketMasterChanged(response.data.user.allow_create_ticket_master))
       dispatch(allowUpdateTicketMasterChanged(response.data.user.allow_update_ticket_master))

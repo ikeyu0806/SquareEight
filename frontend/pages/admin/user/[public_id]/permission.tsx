@@ -20,8 +20,8 @@ import {  allowReadMerchantUserChanged,
           allowDeleteReserveFrameChanged,
           allowReadReservationChanged,
           allowCreateReservationChanged,
-          allowUpdateReservationChanged,
-          allowDeleteReservationChanged,
+          allowConfirmReservationChanged,
+          allowCancelReservationChanged,
           allowReadTicketMasterChanged,
           allowCreateTicketMasterChanged,
           allowUpdateTicketMasterChanged,
@@ -82,8 +82,8 @@ const Permission: NextPage = () => {
   const allowDeleteReserveFrame = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteReserveFrame)
   const allowReadReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadReservation)
   const allowCreateReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateReservation)
-  const allowUpdateReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateReservation)
-  const allowDeleteReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteReservation)
+  const allowConfirmReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowConfirmReservation)
+  const allowCancelReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCancelReservation)
   const allowReadTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadTicketMaster)
   const allowCreateTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateTicketMaster)
   const allowUpdateTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateTicketMaster)
@@ -139,6 +139,7 @@ const Permission: NextPage = () => {
         }
       )
       .then(function (response) {
+        console.log(response.data.merchant_user)
         setMerchantUser(response.data.merchant_user)
         dispatch(allowReadMerchantUserChanged(response.data.merchant_user.allow_read_merchant_user))
         dispatch(allowCreateMerchantUserChanged(response.data.merchant_user.allow_create_merchant_user))
@@ -147,10 +148,10 @@ const Permission: NextPage = () => {
         dispatch(allowCreateReserveFrameChanged(response.data.merchant_user.allow_create_reserve_frame))
         dispatch(allowUpdateReserveFrameChanged(response.data.merchant_user.allow_update_reserve_frame))
         dispatch(allowDeleteReserveFrameChanged(response.data.merchant_user.allow_delete_reserve_frame))
-        dispatch(allowReadReservationChanged(response.data.merchant_user.allow_read_reservations))
-        dispatch(allowCreateReservationChanged(response.data.merchant_user.allow_create_reservations))
-        dispatch(allowUpdateReservationChanged(response.data.merchant_user.allow_update_reservations))
-        dispatch(allowDeleteReservationChanged(response.data.merchant_user.allow_delete_reservations))
+        dispatch(allowReadReservationChanged(response.data.merchant_user.allow_read_reservation))
+        dispatch(allowCreateReservationChanged(response.data.merchant_user.allow_create_reservation))
+        dispatch(allowConfirmReservationChanged(response.data.merchant_user.allow_update_reservation))
+        dispatch(allowCancelReservationChanged(response.data.merchant_user.allow_delete_reservation))
         dispatch(allowReadTicketMasterChanged(response.data.merchant_user.allow_read_ticket_master))
         dispatch(allowCreateTicketMasterChanged(response.data.merchant_user.allow_create_ticket_master))
         dispatch(allowUpdateTicketMasterChanged(response.data.merchant_user.allow_update_ticket_master))
@@ -211,7 +212,7 @@ const Permission: NextPage = () => {
         allow_delete_reserve_frame: allowDeleteReserveFrame,
         allow_read_reservation: allowReadReservation,
         allow_create_reservation: allowCreateReservation,
-        allow_delete_reservation: allowDeleteReservation,
+        allow_delete_reservation: allowCancelReservation,
         allow_read_ticket_master: allowReadTicketMaster,
         allow_create_ticket_master: allowCreateTicketMaster,
         allow_update_ticket_master: allowUpdateTicketMaster,
@@ -329,12 +330,12 @@ const Permission: NextPage = () => {
                 checked={allowCreateReservation === 'Allow'} />
               <UserPermissionListGroupItem
                 text={'予約確定'}
-                onChange={() => dispatch(allowUpdateMerchantUserChanged(allowUpdateReservation === 'Allow' ? 'Forbid' : 'Allow' ))}
-                checked={allowUpdateReservation === 'Allow'} />
+                onChange={() => dispatch(allowUpdateMerchantUserChanged(allowConfirmReservation === 'Allow' ? 'Forbid' : 'Allow' ))}
+                checked={allowConfirmReservation === 'Allow'} />
               <UserPermissionListGroupItem
                 text={'予約キャンセル'}
-                onChange={() => dispatch(allowDeleteReservationChanged(allowDeleteReservation === 'Allow' ? 'Forbid' : 'Allow' ))}
-                checked={allowDeleteReservation === 'Allow'} />
+                onChange={() => dispatch(allowCancelReservationChanged(allowCancelReservation === 'Allow' ? 'Forbid' : 'Allow' ))}
+                checked={allowCancelReservation === 'Allow'} />
               <UserPermissionListGroupItem
                 text={'回数券閲覧'}
                 onChange={() => dispatch(allowReadTicketMasterChanged(allowReadTicketMaster === 'Allow' ? 'Forbid' : 'Allow' ))}
