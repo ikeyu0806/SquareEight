@@ -85,6 +85,7 @@ const Permission: NextPage = () => {
   const allowDeleteReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteReservation)
   const allowReadTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadTicketMaster)
   const allowCreateTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateTicketMaster)
+  const allowUpdateTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateTicketMaster)
   const allowDeleteTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteTicketMaster)
   const allowReadMonthlyPaymentPlan = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadMonthlyPaymentPlan)
   const allowCreateMonthlyPaymentPlan = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateMonthlyPaymentPlan)
@@ -199,7 +200,58 @@ const Permission: NextPage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/merchant_users/${router.query.public_id}/update_permission`,
     {
       merchant_user: {
-        allow_read_merchant_user: allowReadMerchantUser
+        allow_read_merchant_user: allowReadMerchantUser,
+        allow_create_merchant_user: allowCreateMerchantUser,
+        allow_update_merchant_user: allowUpdateMerchantUser,
+        allow_delete_merchant_user: allowDeleteMerchantUser,
+        allow_read_reserve_frame: allowReadReserveFrame,
+        allow_create_reserve_frame: allowCreateReserveFrame,
+        allow_update_reserve_frame: allowUpdateReserveFrame,
+        allow_delete_reserve_frame: allowDeleteReserveFrame,
+        allow_read_reservation: allowReadReservation,
+        allow_create_reservation: allowCreateReservation,
+        allow_delete_reservation: allowDeleteReservation,
+        allow_read_ticket_master: allowReadTicketMaster,
+        allow_create_ticket_master: allowCreateTicketMaster,
+        allow_update_ticket_master: allowUpdateTicketMaster,
+        allow_delete_ticket_master: allowDeleteTicketMaster,
+        allow_read_monthly_payment_plan: allowReadMonthlyPaymentPlan,
+        allow_create_monthly_payment_plan: allowCreateMonthlyPaymentPlan,
+        allow_update_monthly_payment_plan: allowUpdateMonthlyPaymentPlan,
+        allow_delete_monthly_payment_plan: allowDeleteMonthlyPaymentPlan,
+        allow_read_resource: allowReadResource,
+        allow_create_resource: allowCreateResource,
+        allow_update_resource: allowUpdateResource,
+        allow_delete_resource: allowDeleteResource,
+        allow_read_product: allowReadProduct,
+        allow_create_product: allowCreateProduct,
+        allow_update_product: allowUpdateProduct,
+        allow_delete_product: allowDeleteProduct,
+        allow_update_delivery_setting: allowUpdateDeliveryTarget,
+        // allow_update_product_shipping_status: allowUpdateProductShippingStatus,
+        allow_read_customer: allowReadCustomer,
+        allow_create_customer: allowCreateCustomer,
+        allow_update_customer: allowUpdateCustomer,
+        allow_delete_customer: allowDeleteCustomer,
+        allow_read_customer_group: allowReadCustomerGroup,
+        allow_create_customer_group: allowCreateCustomerGroup,
+        allow_update_customer_group: allowUpdateCustomerGroup,
+        allow_delete_customer_group: allowDeleteCustomerGroup,
+        allow_read_webpage: allowReadWebpage,
+        allow_create_webpage: allowCreateWebpage,
+        allow_update_webpage: allowUpdateWebpage,
+        allow_delete_webpage: allowDeleteWebpage,
+        allow_read_questionnaire_master: allowReadQuestionnaireMaster,
+        allow_create_questionnaire_master: allowCreateQuestionnaireMaster,
+        allow_update_questionnaire_master: allowUpdateQuestionnaireMaster,
+        allow_delete_questionnaire_master: allowDeleteQuestionnaireMaster,
+        allow_read_questionnaire_answer: allowReadQuestionnaireAnswer,
+        allow_read_sales: allowReadPaymentSales,
+        allow_read_payment_request: allowReadPaymentRequest,
+        allow_create_payment_request: allowCreatePaymentRequest,
+        allow_update_credit_card: allowUpdateCreditCard,
+        allow_read_stripe_business_info: allowReadStripeBusinessInfo,
+        allow_update_stripe_business_info: allowUpdateStripeBusinessInfo
       }
     },
     {
