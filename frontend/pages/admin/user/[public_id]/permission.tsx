@@ -82,6 +82,7 @@ const Permission: NextPage = () => {
   const allowDeleteReserveFrame = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteReserveFrame)
   const allowReadReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadReservation)
   const allowCreateReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateReservation)
+  const allowUpdateReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateReservation)
   const allowDeleteReservation = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteReservation)
   const allowReadTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadTicketMaster)
   const allowCreateTicketMaster = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateTicketMaster)
@@ -324,10 +325,14 @@ const Permission: NextPage = () => {
                 checked={allowReadReservation === 'Allow'} />
               <UserPermissionListGroupItem
                 text={'予約登録'}
-                onChange={() => dispatch(allowCreateMerchantUserChanged(allowCreateMerchantUser === 'Allow' ? 'Forbid' : 'Allow' ))}
-                checked={allowCreateMerchantUser === 'Allow'} />
+                onChange={() => dispatch(allowCreateReservationChanged(allowCreateReservation === 'Allow' ? 'Forbid' : 'Allow' ))}
+                checked={allowCreateReservation === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'予約削除'}
+                text={'予約確定'}
+                onChange={() => dispatch(allowUpdateMerchantUserChanged(allowUpdateReservation === 'Allow' ? 'Forbid' : 'Allow' ))}
+                checked={allowUpdateReservation === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'予約キャンセル'}
                 onChange={() => dispatch(allowDeleteReservationChanged(allowDeleteReservation === 'Allow' ? 'Forbid' : 'Allow' ))}
                 checked={allowDeleteReservation === 'Allow'} />
               <UserPermissionListGroupItem
@@ -338,6 +343,14 @@ const Permission: NextPage = () => {
                 text={'回数券登録'}
                 onChange={() => dispatch(allowCreateTicketMasterChanged(allowCreateTicketMaster === 'Allow' ? 'Forbid' : 'Allow' ))}
                 checked={allowCreateTicketMaster === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'回数券登録'}
+                onChange={() => dispatch(allowCreateTicketMasterChanged(allowCreateTicketMaster === 'Allow' ? 'Forbid' : 'Allow' ))}
+                checked={allowCreateTicketMaster === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'回数券削除'}
+                onChange={() => dispatch(allowDeleteTicketMasterChanged(allowDeleteTicketMaster === 'Allow' ? 'Forbid' : 'Allow' ))}
+                checked={allowDeleteTicketMaster === 'Allow'} />
               <UserPermissionListGroupItem
                 text={'月額課金プラン閲覧'}
                 onChange={() => dispatch(allowReadMonthlyPaymentPlanChanged(allowReadMonthlyPaymentPlan === 'Allow' ? 'Forbid' : 'Allow' ))}
