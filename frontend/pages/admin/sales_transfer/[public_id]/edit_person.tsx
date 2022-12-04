@@ -87,6 +87,7 @@ const EditStripePerson: NextPage = () => {
   const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
   const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
   const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.identificationImage)
+  const allowUpdateStripeBusinessInfo = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateStripeBusinessInfo)
 
   useEffect(() => {
     const fetchStripePerson = () => {
@@ -184,7 +185,7 @@ const EditStripePerson: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowUpdateStripeBusinessInfo === 'Allow' && <Container>
         <Row>
           <Col lg={3} md={1}></Col>
           <Col lg={6} md={10}>
@@ -196,7 +197,7 @@ const EditStripePerson: NextPage = () => {
             </Button>
           </Col>
         </Row>
-      </Container>
+      </Container>}
     </MerchantUserAdminLayout>
   )
 }

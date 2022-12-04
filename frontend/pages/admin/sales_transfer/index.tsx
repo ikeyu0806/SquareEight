@@ -4,7 +4,8 @@ import axios from 'axios'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 import { Container, Row, Col, Card, Button, Alert } from 'react-bootstrap'
 import { StripeAccountParam } from 'interfaces/StripeAccountParam'
 import { StripePersonParam } from 'interfaces/StripePersonParam'
@@ -20,6 +21,8 @@ const Index: NextPage = () => {
   const [stripeRepresentativePerson, setStripeRepresentativePerson] = useState<StripePersonParam>()
   const [selectedExternalAccountId, setSelectedExternalAccountId] = useState('')
   const [stripePersons, setStripePersons] = useState<ServiceStripePersonParam[]>([])
+  const allowReadStripeBusinessInfo = useSelector((state: RootState) => state.merchantUserPermission.allowReadStripeBusinessInfo)
+  const allowUpdateStripeBusinessInfo = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateStripeBusinessInfo)
 
   useEffect(() => {
     const fetchStripeConnectedAccount = () => {
@@ -104,7 +107,7 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowReadStripeBusinessInfo === 'Allow' && <Container>
           {stripeAccount?.requirements && stripeAccount?.requirements.currently_due?.length !== 0 && <Alert variant='warning'>{requirementsContentText()}</Alert>}
           {/* {stripeAccount?.business_type == 'company'
             && <Alert variant='info'>
@@ -224,7 +227,7 @@ const Index: NextPage = () => {
                                 {stripeAccount?.individual?.address_kana.line2}</div>
                         </Card.Body>
                       </>}
-                  <a href='/admin/sales_transfer/register_business_info' className='btn btn-primary mt20'>事業情報登録</a>
+                  {allowUpdateStripeBusinessInfo === 'Allow' && <a href='/admin/sales_transfer/register_business_info' className='btn btn-primary mt20'>事業情報登録</a>}
                 </Card.Body>
               </Card>
             </Col>
@@ -252,8 +255,8 @@ const Index: NextPage = () => {
                       <div>口座が登録されていません。<br/>事業所情報入力後に口座を登録してください</div>
                     </>
                   }
-                  {stripeAccount?.external_accounts && <a href='/admin/sales_transfer/register_bank_account' className='btn btn-primary mt10'>新規口座登録</a>}
-                  {stripeAccount?.external_accounts && <a href='/admin/sales_transfer/edit_bank_accounts' className='btn btn-primary ml10 mt10'>口座編集</a>}
+                  {stripeAccount?.external_accounts && allowUpdateStripeBusinessInfo === 'Allow' && <a href='/admin/sales_transfer/register_bank_account' className='btn btn-primary mt10'>新規口座登録</a>}
+                  {stripeAccount?.external_accounts && allowUpdateStripeBusinessInfo === 'Allow' && <a href='/admin/sales_transfer/edit_bank_accounts' className='btn btn-primary ml10 mt10'>口座編集</a>}
                 </Card.Body>
               </Card>
               {stripePersons.length !== 0 && 
@@ -273,7 +276,7 @@ const Index: NextPage = () => {
                 </Card>}
             </Col>
           </Row>
-        </Container>
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )

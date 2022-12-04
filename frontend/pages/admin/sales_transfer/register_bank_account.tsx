@@ -5,17 +5,21 @@ import RegisterMerchantBank from 'components/templates/RegisterMerchantBank'
 import {loadStripe} from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import { Container, Row, Col, Card, Form, Button } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 
 const stripePromise = loadStripe(String(process.env.STRIPE_PUBLISHABLE_KEY))
 
 const Register: NextPage = () => {
+  const allowUpdateStripeBusinessInfo = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateStripeBusinessInfo)
+
   const handleSubmit = (e: any) => {
     e.preventDefault()
   }
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowUpdateStripeBusinessInfo === 'Allow' && <Container>
           <Row>
             <Col lg={4} md={3}></Col>
             <Col lg={4} md={5}>
@@ -28,7 +32,7 @@ const Register: NextPage = () => {
               </Form>
             </Col>
           </Row>
-        </Container>
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )

@@ -4,10 +4,11 @@ import axios from 'axios'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { Container, Card, Button } from 'react-bootstrap'
 import { StripeAccountParam } from 'interfaces/StripeAccountParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { RootState } from 'redux/store'
 
 const EditBankAccounts: NextPage = () => {
   const dispatch = useDispatch()
@@ -16,6 +17,7 @@ const EditBankAccounts: NextPage = () => {
 
   const [stripeAccount, setStripeAccount] = useState<StripeAccountParam>()
   const [selectedExternalAccountId, setSelectedExternalAccountId] = useState('')
+  const allowUpdateStripeBusinessInfo = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateStripeBusinessInfo)
 
   useEffect(() => {
     const fetchStripeConnectedAccount = () => {
@@ -93,7 +95,7 @@ const EditBankAccounts: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowUpdateStripeBusinessInfo === 'Allow' && <Container>
           <Card className='mt20'>
             <Card.Header>売上振込先口座編集</Card.Header>
             <Card.Body>
@@ -122,7 +124,7 @@ const EditBankAccounts: NextPage = () => {
               <a href='/admin/sales_transfer/register_bank_account' className='btn btn-primary ml10'>口座編集</a>
             </Card.Body>
           </Card>
-        </Container>
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )

@@ -4,16 +4,20 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import RegisterMerchantInfoForm from 'components/templates/RegisterMerchantInfoForm'
 import {loadStripe} from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 
 const stripePromise = loadStripe(String(process.env.STRIPE_PUBLISHABLE_KEY))
 
 const Register: NextPage = () => {
+  const allowUpdateStripeBusinessInfo = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateStripeBusinessInfo)
+
   return (
     <>
       <MerchantUserAdminLayout>
-        <Elements stripe={stripePromise}>
+        {allowUpdateStripeBusinessInfo === 'Allow' && <Elements stripe={stripePromise}>
           <RegisterMerchantInfoForm />
-        </Elements>
+        </Elements>}
       </MerchantUserAdminLayout>
     </>
   )
