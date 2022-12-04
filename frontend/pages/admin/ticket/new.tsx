@@ -24,6 +24,7 @@ const New: NextPage = () => {
   const publishStatus = useSelector((state: RootState) => state.ticketMaster.publishStatus)
   const base64Image = useSelector((state: RootState) => state.ticketMaster.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+  const allowCreateTicketMaster = useSelector((state: RootState) => state.merchantUserPermission.allowCreateTicketMaster)
 
   useEffect(() => {
     dispatch(publishStatusChanged('Unpublish'))
@@ -56,7 +57,7 @@ const New: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        {stripeAccountEnable === 'Enable' &&
+        {stripeAccountEnable === 'Enable' && allowCreateTicketMaster === 'Allow' &&
         <>
           <CreateTicketTemplate></CreateTicketTemplate>
           <div className='text-center'>

@@ -27,6 +27,7 @@ const Edit: NextPage = () => {
   const publishStatus = useSelector((state: RootState) => state.ticketMaster.publishStatus)
   const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+  const allowUpdateTicketMaster = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateTicketMaster)
 
   useEffect(() => {
     const fetchTicketMasters = () => {
@@ -78,7 +79,7 @@ const Edit: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        {stripeAccountEnable === 'Enable' &&
+        {stripeAccountEnable === 'Enable' && allowUpdateTicketMaster === 'ALlow' &&
         <>
           <CreateTicketTemplate showDeleteButton={true}></CreateTicketTemplate>
           <div className='text-center'>

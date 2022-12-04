@@ -17,6 +17,9 @@ const Index: NextPage = () => {
   const [ticketMasters, setTicketMasters] = useState<TicketMasterParam[]>([])
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
+  const allowReadTicketMaster = useSelector((state: RootState) => state.merchantUserPermission.allowReadTicketMaster)
+  const allowUpdateTicketMaster = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateTicketMaster)
+
   useEffect(() => {
     const fetchTicketMasters = () => {
       axios.get(
@@ -40,48 +43,47 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
-        <Row>
-          <Col lg={3}></Col>
-          <Col lg={6}>
+        {allowReadTicketMaster === 'Allow' && <Container>
+          <Row>
+            <Col lg={3}></Col>
+            <Col lg={6}>
             {stripeAccountEnable === 'Enable' && <>
-            <a className='btn btn-primary mt10 mb20'
-              href='/admin/ticket/new'>回数券登録</a>
+              <a className='btn btn-primary mt10 mb20' href='/admin/ticket/new'>回数券登録</a>
               <h3>回数券一覧</h3>
-              <ListGroup>
-                {ticketMasters.map((ticket, i) => {
-                  return(
-                    <ListGroup.Item key={i}>
-                    <Row>
-                      <Col>
-                        表示名 {ticket.name}
-                        <PublishStatusBadge publishStatus={ticket.publish_status} /><br/>
-                        発行枚数 {ticket.issue_number}枚<br/>
-                        値段 ￥{ticket.price}
-                      </Col>
-                      <Col>
-                        <a href={`/admin/ticket/${ticket.public_id}/edit`}
-                           className='btn btn-primary btn-sm'>
-                          編集
-                        </a>
-                        <br/>
-                        <a href={`/ticket/${ticket.public_id}/purchase`}
-                          className='btn btn-primary mt10 btn-sm'
-                          target='_blank'
-                          rel='noreferrer'>
-                          購入ページプレビュー
-                        </a>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                  )
-                })}
+                <ListGroup>
+                  {ticketMasters.map((ticket, i) => {
+                    return(
+                      <ListGroup.Item key={i}>
+                      <Row>
+                        <Col>
+                          表示名 {ticket.name}
+                          <PublishStatusBadge publishStatus={ticket.publish_status} /><br/>
+                          発行枚数 {ticket.issue_number}枚<br/>
+                          値段 ￥{ticket.price}
+                        </Col>
+                        <Col>
+                          {allowUpdateTicketMaster === 'Allow' && <a href={`/admin/ticket/${ticket.public_id}/edit`}
+                            className='btn btn-primary btn-sm'>
+                            編集
+                          </a>}
+                          <br/>
+                          <a href={`/ticket/${ticket.public_id}/purchase`}
+                            className='btn btn-primary mt10 btn-sm'
+                            target='_blank'
+                            rel='noreferrer'>
+                            購入ページプレビュー
+                          </a>
+                        </Col>
+                      </Row>
+                    </ListGroup.Item>
+                    )
+                  })}
                 </ListGroup>
               </>}
               {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
             </Col>
           </Row>
-        </Container>
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )
