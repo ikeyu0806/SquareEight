@@ -31,7 +31,7 @@ const New: NextPage = () => {
   const deliveryChargeType = useSelector((state: RootState) => state.product.deliveryChargeType)
   const flatRateDeliveryCharge = useSelector((state: RootState) => state.product.flatRateDeliveryCharge)
   const deliveryChargeWithOrderNumber = useSelector((state: RootState) => state.product.deliveryChargeWithOrderNumber)
-
+  const allowCreateProduct = useSelector((state: RootState) => state.merchantUserPermission.allowCreateProduct)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
   useEffect(() => {
@@ -90,7 +90,7 @@ const New: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        {stripeAccountEnable === 'Enable' &&
+        {stripeAccountEnable === 'Enable' && allowCreateProduct == 'Allow' &&
         <>
           <CreateProductTemplate></CreateProductTemplate>
           <div className='text-center'>

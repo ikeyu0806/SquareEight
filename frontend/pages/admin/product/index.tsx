@@ -6,12 +6,17 @@ import { ProductParam } from 'interfaces/ProductParam'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
+import { RootState } from 'redux/store'
+import { useSelector } from 'react-redux'
 import axios from 'axios'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [products, setProducts] = useState<ProductParam[]>([])
+  const allowReadProduct = useSelector((state: RootState) => state.merchantUserPermission.allowReadProduct)
+  const allowCreateProduct = useSelector((state: RootState) => state.merchantUserPermission.allowCreateProduct)
+  const allowUpdateProduct = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateProduct)
 
   useEffect(() => {
     const fetchProducts = () => {
@@ -36,12 +41,12 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowReadProduct === 'Allow' && <Container>
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
-              <a className='btn btn-primary mt10 mb10'
-                 href='/admin/product/new'>物販商品登録</a>
+              {allowCreateProduct === 'Allow' && <a className='btn btn-primary mt10 mb10'
+                 href='/admin/product/new'>物販商品登録</a>}
               <Card>
                 <Card.Header>物販商品一覧</Card.Header>
                 <ListGroup variant='flush'>
@@ -66,9 +71,9 @@ const Index: NextPage = () => {
                           </Col>
                           <Col>
                             <div className='mt30'>
-                              <a className='btn btn-sm btn-primary' href={`/admin/product/${p.public_id}/edit`}>
+                            {allowUpdateProduct === 'Allow' && <a className='btn btn-sm btn-primary' href={`/admin/product/${p.public_id}/edit`}>
                                 編集
-                              </a>
+                              </a>}
                               <a className='btn btn-sm btn-primary ml10'
                                  href={`/product/${p.public_id}/purchase`}
                                  target='_blank' rel='noreferrer'>
@@ -84,7 +89,7 @@ const Index: NextPage = () => {
               </Card>
             </Col>
           </Row>
-        </Container>
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )

@@ -43,7 +43,7 @@ const Edit: NextPage = () => {
   const flatRateDeliveryCharge = useSelector((state: RootState) => state.product.flatRateDeliveryCharge)
   const deliveryChargeWithOrderNumber = useSelector((state: RootState) => state.product.deliveryChargeWithOrderNumber)
   const deliveryDatetimeTargetFlg = useSelector((state: RootState) => state.product.deliveryDatetimeTargetFlg)
-
+  const allowUpdateProduct = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateProduct)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
 
   useEffect(() => {
@@ -123,7 +123,7 @@ const Edit: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        {stripeAccountEnable === 'Enable' &&
+        {stripeAccountEnable === 'Enable' && allowUpdateProduct === 'Allow' &&
         <>
           <CreateProductTemplate showDeleteButton={true}></CreateProductTemplate>
           <div className='text-center'>
