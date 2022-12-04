@@ -25,6 +25,9 @@ const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [messageTemplates, setMessageTemplates] = useState<MessageTemplateParam[]>()
+  const allowReadMessageTemplate = useSelector((state: RootState) => state.merchantUserPermission.allowReadMessageTemplate)
+  const allowCreateMessageTemplate = useSelector((state: RootState) => state.merchantUserPermission.allowCreateMessageTemplate)
+  const allowUpdateMessageTemplate = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateMessageTemplate)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/message_templates`,
@@ -63,16 +66,16 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowReadMessageTemplate === 'Allow' && <Container>
         <Row>
           <Col lg={2}></Col>
           <Col lg={8}>
             <h3 className='mb20'>メッセージテンプレート</h3>
-            <Button
+            {allowCreateMessageTemplate === 'Allow' && <Button
               className='mb20'
               onClick={() => dispatch(showCreateMessageTemplateModalChanged(true))}>
               メッセージテンプレート作成
-            </Button>
+            </Button>}
             <Card>
               <Card.Header>テンプレート一覧</Card.Header>
                 <ListGroup variant='flush'>
@@ -90,13 +93,13 @@ const Index: NextPage = () => {
                             メールのタイトル: {message.title}
                           </div>
                         </Col>
-                        <Col>
+                        {allowUpdateMessageTemplate === 'Allow' && <Col>
                           <div className='text-center'>
                             <Button onClick={() => showEditModal(message.public_id, message.name, message.title, message.content)}>
                                 編集
-                              </Button>
+                            </Button>
                           </div>
-                        </Col>
+                        </Col>}
                         <Col>
                           <div className='text-center'>
                             <Button onClick={() => showSendModal(message.public_id, message.name, message.title,message.content)}>
@@ -112,7 +115,7 @@ const Index: NextPage = () => {
             </Card>
           </Col>
         </Row>
-      </Container>
+      </Container>}
       <CreateMessageTemplateModal></CreateMessageTemplateModal>
       <EditMessageTemplateModal></EditMessageTemplateModal>
       <SendMessageTemplateModal></SendMessageTemplateModal>
