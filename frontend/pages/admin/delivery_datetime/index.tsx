@@ -156,7 +156,7 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      {allowUpdateDeliveryDatetime === 'allow' && <Container>
+      {allowUpdateDeliveryDatetime === 'Allow' && <Container>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
