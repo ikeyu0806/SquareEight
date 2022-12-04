@@ -57,7 +57,7 @@ export const merchantUserPermissionSlice = createSlice({
     allowReadQuestionnaireAnswer: 'Unconfirmed',
     allowReadPaymentRequest: 'Unconfirmed',
     allowCreatePaymentRequest: 'Unconfirmed',
-    allowReadPaymentSales: 'Unconfirmed',
+    allowReadSales: 'Unconfirmed',
     allowUpdateCreditCard: 'Unconfirmed',
     allowReadStripeBusinessInfo: 'Unconfirmed',
     allowUpdateStripeBusinessInfo: 'Unconfirmed',
@@ -225,8 +225,8 @@ export const merchantUserPermissionSlice = createSlice({
     allowCreatePaymentRequestChanged: (state, action: PayloadAction<string>) => {
       state.allowCreatePaymentRequest = action.payload
     },
-    allowReadPaymentSalesChanged: (state, action: PayloadAction<string>) => {
-      state.allowReadPaymentSales = action.payload
+    allowReadSalesChanged: (state, action: PayloadAction<string>) => {
+      state.allowReadSales = action.payload
     },
     allowUpdateCreditCardChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateCreditCard = action.payload
@@ -293,7 +293,7 @@ export const { allowUpdateQuestionnaireMasterChanged } = merchantUserPermissionS
 export const { allowDeleteQuestionnaireMasterChanged } = merchantUserPermissionSlice.actions
 export const { allowReadQuestionnaireAnswerChanged } = merchantUserPermissionSlice.actions
 export const { allowCreatePaymentRequestChanged } = merchantUserPermissionSlice.actions
-export const { allowReadPaymentSalesChanged } = merchantUserPermissionSlice.actions
+export const { allowReadSalesChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateCreditCardChanged } = merchantUserPermissionSlice.actions
 export const { allowReadStripeBusinessInfoChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateStripeBusinessInfoChanged } = merchantUserPermissionSlice.actions

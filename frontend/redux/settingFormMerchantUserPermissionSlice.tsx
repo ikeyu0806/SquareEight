@@ -57,7 +57,7 @@ export const settingFormMerchantUserPermissionSlice = createSlice({
     allowReadQuestionnaireAnswer: 'Unconfirmed',
     allowReadPaymentRequest: 'Unconfirmed',
     allowCreatePaymentRequest: 'Unconfirmed',
-    allowReadPaymentSales: 'Unconfirmed',
+    allowReadSales: 'Unconfirmed',
     allowUpdateCreditCard: 'Unconfirmed',
     allowReadStripeBusinessInfo: 'Unconfirmed',
     allowUpdateStripeBusinessInfo: 'Unconfirmed',
@@ -225,8 +225,8 @@ export const settingFormMerchantUserPermissionSlice = createSlice({
     allowCreatePaymentRequestChanged: (state, action: PayloadAction<string>) => {
       state.allowCreatePaymentRequest = action.payload
     },
-    allowReadPaymentSalesChanged: (state, action: PayloadAction<string>) => {
-      state.allowReadPaymentSales = action.payload
+    allowReadSalesChanged: (state, action: PayloadAction<string>) => {
+      state.allowReadSales = action.payload
     },
     allowUpdateCreditCardChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateCreditCard = action.payload
@@ -294,7 +294,7 @@ export const { allowDeleteQuestionnaireMasterChanged } = settingFormMerchantUser
 export const { allowReadQuestionnaireAnswerChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowReadPaymentRequestChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowCreatePaymentRequestChanged } = settingFormMerchantUserPermissionSlice.actions
-export const { allowReadPaymentSalesChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowReadSalesChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowUpdateCreditCardChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowReadStripeBusinessInfoChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowUpdateStripeBusinessInfoChanged } = settingFormMerchantUserPermissionSlice.actions

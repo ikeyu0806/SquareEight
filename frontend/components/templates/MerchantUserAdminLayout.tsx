@@ -57,7 +57,7 @@ import {  allowReadMerchantUserChanged,
           allowDeleteQuestionnaireMasterChanged,
           allowReadQuestionnaireAnswerChanged,
           allowCreatePaymentRequestChanged,
-          allowReadPaymentSalesChanged,
+          allowReadSalesChanged,
           allowUpdateCreditCardChanged,
           allowReadStripeBusinessInfoChanged,
           allowUpdateStripeBusinessInfoChanged, } from 'redux/merchantUserPermissionSlice'
@@ -131,7 +131,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowDeleteQuestionnaireMasterChanged(response.data.user.allow_delete_questionnaire_master))
       dispatch(allowReadQuestionnaireAnswerChanged(response.data.user.allow_create_questionnaire_master))
       dispatch(allowCreatePaymentRequestChanged(response.data.user.allow_create_payment_request))
-      dispatch(allowReadPaymentSalesChanged(response.data.user.allow_read_payment_sales))
+      dispatch(allowReadSalesChanged(response.data.user.allow_read_sales))
       dispatch(allowUpdateCreditCardChanged(response.data.user.allow_update_credit_card))
       dispatch(allowReadStripeBusinessInfoChanged(response.data.user.allow_read_stripe_business_info))
       dispatch(allowUpdateStripeBusinessInfoChanged(response.data.user.allow_read_merchan))

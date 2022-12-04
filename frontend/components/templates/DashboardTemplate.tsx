@@ -6,16 +6,19 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { Notification } from 'interfaces/Notification'
 import { useRouter } from 'next/router'
+import { RootState } from 'redux/store'
 import { weekDaysChanged,
          transferAmountArrayChanged,
          feeAmountArrayChanged,
          customerCountArrayChanged } from 'redux/dashboardSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 
 const DashboardTemplate = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [systemNotifications, setSystemNotifications] = useState<Notification[]>([])
+  const allowReadSales = useSelector((state: RootState) => state.merchantUserPermission.allowReadSales)
+  const allowReadCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowReadCustomer)
   const router = useRouter()
   const dispatch = useDispatch()
 
@@ -92,10 +95,10 @@ const DashboardTemplate = (): JSX.Element => {
       <br />
       <Row>
         <Col>
-          <CustomersLineChart></CustomersLineChart>
+          {allowReadCustomer === 'Allow' && <CustomersLineChart></CustomersLineChart>}
         </Col>
         <Col>
-          <SalesBarChart></SalesBarChart>
+          {allowReadSales === 'Allow' && <SalesBarChart></SalesBarChart>}
         </Col>
       </Row>
     </Container>

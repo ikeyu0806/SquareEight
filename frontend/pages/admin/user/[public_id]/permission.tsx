@@ -62,7 +62,7 @@ import {  allowReadMerchantUserChanged,
           allowReadQuestionnaireAnswerChanged,
           allowReadPaymentRequestChanged,
           allowCreatePaymentRequestChanged,
-          allowReadPaymentSalesChanged,
+          allowReadSalesChanged,
           allowUpdateCreditCardChanged,
           allowReadStripeBusinessInfoChanged,
           allowUpdateStripeBusinessInfoChanged } from 'redux/settingFormMerchantUserPermissionSlice'
@@ -126,7 +126,7 @@ const Permission: NextPage = () => {
   const allowReadQuestionnaireAnswer = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadQuestionnaireAnswer)
   const allowReadPaymentRequest = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadPaymentRequest)
   const allowCreatePaymentRequest = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreatePaymentRequest)
-  const allowReadPaymentSales = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadPaymentSales)
+  const allowReadSales = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadSales)
   const allowUpdateCreditCard = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateCreditCard)
   const allowReadStripeBusinessInfo = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadStripeBusinessInfo)
   const allowUpdateStripeBusinessInfo = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateStripeBusinessInfo)
@@ -189,7 +189,7 @@ const Permission: NextPage = () => {
         dispatch(allowDeleteQuestionnaireMasterChanged(response.data.merchant_user.allow_delete_questionnaire_master))
         dispatch(allowReadQuestionnaireAnswerChanged(response.data.merchant_user.allow_create_questionnaire_master))
         dispatch(allowCreatePaymentRequestChanged(response.data.merchant_user.allow_create_payment_request))
-        dispatch(allowReadPaymentSalesChanged(response.data.merchant_user.allow_read_payment_sales))
+        dispatch(allowReadSalesChanged(response.data.merchant_user.allow_read_payment_sales))
         dispatch(allowUpdateCreditCardChanged(response.data.merchant_user.allow_update_credit_card))
         dispatch(allowReadStripeBusinessInfoChanged(response.data.merchant_user.allow_read_stripe_business_info))
         dispatch(allowUpdateStripeBusinessInfoChanged(response.data.merchant_user.allow_read_merchan))
@@ -251,7 +251,7 @@ const Permission: NextPage = () => {
         allow_update_questionnaire_master: allowUpdateQuestionnaireMaster,
         allow_delete_questionnaire_master: allowDeleteQuestionnaireMaster,
         allow_read_questionnaire_answer: allowReadQuestionnaireAnswer,
-        allow_read_sales: allowReadPaymentSales,
+        allow_read_sales: allowReadSales,
         allow_read_payment_request: allowReadPaymentRequest,
         allow_create_payment_request: allowCreatePaymentRequest,
         allow_update_credit_card: allowUpdateCreditCard,
@@ -501,8 +501,8 @@ const Permission: NextPage = () => {
                 checked={allowCreatePaymentRequest === 'Allow'} />
               <UserPermissionListGroupItem
                 text={'売り上げ閲覧'}
-                onChange={() => dispatch(allowReadPaymentSalesChanged(allowReadPaymentSales === 'Allow' ? 'Forbid' : 'Allow' ))}
-                checked={allowReadPaymentSales === 'Allow'} />
+                onChange={() => dispatch(allowReadSalesChanged(allowReadSales === 'Allow' ? 'Forbid' : 'Allow' ))}
+                checked={allowReadSales === 'Allow'} />
               <UserPermissionListGroupItem
                 text={'クレジットカード登録'}
                 onChange={() => dispatch(allowUpdateCreditCardChanged(allowUpdateCreditCard === 'Allow' ? 'Forbid' : 'Allow' ))}
