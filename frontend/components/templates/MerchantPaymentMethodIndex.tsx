@@ -14,6 +14,7 @@ const MerchantPaymentMethodIndex = (): JSX.Element => {
   const dispatch = useDispatch()
   const defaultPaymentMethodId = useSelector((state: RootState) => state.currentMerchantUser.defaultPaymentMethodId)
   const paymentMethods = useSelector((state: RootState) => state.currentMerchantUser.paymentMethods)
+  const allowUpdateCreditCard = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateCreditCard)
 
   useEffect(() => {
     const fetchCustomerId = () => {
@@ -38,7 +39,7 @@ const MerchantPaymentMethodIndex = (): JSX.Element => {
 
   return (
     <>
-      <Card>
+      {allowUpdateCreditCard === 'Allow' && <Card>
         <Card.Header>クレジットカード一覧</Card.Header>
         <Card.Body>
           <Card.Text>
@@ -67,7 +68,7 @@ const MerchantPaymentMethodIndex = (): JSX.Element => {
               お支払いカードの変更・登録削除
             </a>
         </Card.Body>
-      </Card>
+      </Card>}
     </>
   )
 }

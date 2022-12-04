@@ -7,8 +7,9 @@ import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { StripePaymentMethodsParam } from 'interfaces/StripePaymentMethodsParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { alertChanged } from 'redux/alertSlice'
+import { RootState } from 'redux/store'
 
 const CardList: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -16,6 +17,7 @@ const CardList: NextPage = () => {
   const dispatch = useDispatch()
   const [paymentMethods, setPaymentMethods] = useState<StripePaymentMethodsParam[]>()
   const [defaultPaymentMethodId, setDefaultPaymentMethodId] = useState('')
+  const allowUpdateCreditCard = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateCreditCard)
 
   useEffect(() => {
     const fetchCustomerId = () => {
@@ -89,7 +91,7 @@ const CardList: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowUpdateCreditCard === 'Allow' && <Container>
           <Row>
             <Col lg={3} md={3}></Col>
             <Col lg={6} md={8}>
@@ -125,7 +127,7 @@ const CardList: NextPage = () => {
               </Card>
             </Col>
           </Row>
-        </Container>
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )

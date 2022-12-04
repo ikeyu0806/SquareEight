@@ -1,7 +1,7 @@
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import type { NextPage } from 'next'
 import MerchantPaymentMethodIndex from 'components/templates/MerchantPaymentMethodIndex'
-import { Container, Card, Button, Row, Col, ListGroup } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
 
 const Index: NextPage = () => {
   return (
