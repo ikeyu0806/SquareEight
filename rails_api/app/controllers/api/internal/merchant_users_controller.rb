@@ -282,7 +282,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
                                           :allow_create_product,
                                           :allow_update_product,
                                           :allow_delete_product,
-                                          :allow_update_delivery_setting,
+                                          :allow_update_delivery_datetime,
                                           :allow_update_product_shipping_status,
                                           :allow_read_customer,
                                           :allow_create_customer,

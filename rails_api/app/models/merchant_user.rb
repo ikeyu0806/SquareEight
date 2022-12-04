@@ -40,7 +40,7 @@ class MerchantUser < ApplicationRecord
   enum allow_create_product: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_product: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_delete_product: { Forbid: 0, Allow: 1 }, _prefix: true
-  enum allow_update_delivery_setting: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_delivery_datetime: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_product_shipping_status: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_read_customer: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_create_customer: { Forbid: 0, Allow: 1 }, _prefix: true
@@ -118,7 +118,7 @@ class MerchantUser < ApplicationRecord
     self.allow_create_product = 'Allow'
     self.allow_update_product = 'Allow'
     self.allow_delete_product = 'Allow'
-    self.allow_update_delivery_setting = 'Allow'
+    self.allow_update_delivery_datetime = 'Allow'
     self.allow_update_product_shipping_status = 'Allow'
     self.allow_read_customer = 'Allow'
     self.allow_create_customer = 'Allow'
@@ -176,7 +176,7 @@ class MerchantUser < ApplicationRecord
     self.allow_create_product = 'Forbid'
     self.allow_update_product = 'Forbid'
     self.allow_delete_product = 'Forbid'
-    self.allow_update_delivery_setting = 'Forbid'
+    self.allow_update_delivery_datetime = 'Forbid'
     self.allow_update_product_shipping_status = 'Allow'
     self.allow_read_customer = 'Allow'
     self.allow_create_customer = 'Forbid'

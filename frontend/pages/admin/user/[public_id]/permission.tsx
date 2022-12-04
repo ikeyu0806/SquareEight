@@ -102,7 +102,7 @@ const Permission: NextPage = () => {
   const allowCreateProduct = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateProduct)
   const allowUpdateProduct = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateProduct)
   const allowDeleteProduct = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowDeleteProduct)
-  const allowUpdateDeliveryTarget = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateDeliveryTarget)
+  const allowUpdateDeliveryDatetime = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateDeliveryDatetime)
   const allowReadCustomer = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadCustomer)
   const allowCreateCustomer = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateCustomer)
   const allowUpdateCustomer = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateCustomer)
@@ -232,7 +232,7 @@ const Permission: NextPage = () => {
         allow_create_product: allowCreateProduct,
         allow_update_product: allowUpdateProduct,
         allow_delete_product: allowDeleteProduct,
-        allow_update_delivery_setting: allowUpdateDeliveryTarget,
+        allow_update_delivery_setting: allowUpdateDeliveryDatetime,
         // allow_update_product_shipping_status: allowUpdateProductShippingStatus,
         allow_read_customer: allowReadCustomer,
         allow_create_customer: allowCreateCustomer,

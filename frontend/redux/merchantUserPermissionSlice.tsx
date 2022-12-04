@@ -33,7 +33,7 @@ export const merchantUserPermissionSlice = createSlice({
     allowCreateProduct: 'Unconfirmed',
     allowUpdateProduct: 'Unconfirmed',
     allowDeleteProduct: 'Unconfirmed',
-    allowUpdateDeliveryTarget: 'Unconfirmed',
+    allowUpdateDeliveryDatetime: 'Unconfirmed',
     allowReadCustomer: 'Unconfirmed',
     allowCreateCustomer: 'Unconfirmed',
     allowUpdateCustomer: 'Unconfirmed',
@@ -153,6 +153,9 @@ export const merchantUserPermissionSlice = createSlice({
     allowDeleteProductChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteProduct = action.payload
     },
+    allowUpdateDeliveryDatetimeChanged: (state, action: PayloadAction<string>) => {
+      state.allowUpdateDeliveryDatetime = action.payload
+    },
     allowReadCustomerChanged: (state, action: PayloadAction<string>) => {
       state.allowReadCustomer = action.payload
     },
@@ -267,6 +270,7 @@ export const { allowReadProductChanged } = merchantUserPermissionSlice.actions
 export const { allowCreateProductChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateProductChanged } = merchantUserPermissionSlice.actions
 export const { allowDeleteProductChanged } = merchantUserPermissionSlice.actions
+export const { allowUpdateDeliveryDatetimeChanged } = merchantUserPermissionSlice.actions
 export const { allowReadCustomerChanged } = merchantUserPermissionSlice.actions
 export const { allowCreateCustomerChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateCustomerChanged } = merchantUserPermissionSlice.actions

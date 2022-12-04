@@ -55,7 +55,8 @@ const Index: NextPage = () => {
   const products = useSelector((state: RootState) => state.deliveryDatetime.products)
   const additionalDeliveryDays = useSelector((state: RootState) => state.deliveryDatetime.additionalDeliveryDays)
   const deliveryTimes = useSelector((state: RootState) => state.deliveryDatetime.deliveryTimes)
-  
+  const allowUpdateDeliveryDatetime = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateDeliveryDatetime)
+
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/delivery_datetime_settings`,
     {
@@ -155,7 +156,7 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowUpdateDeliveryDatetime === 'allow' && <Container>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
@@ -414,7 +415,7 @@ const Index: NextPage = () => {
             </div>
           </Col>
         </Row>
-      </Container>
+      </Container>}
       <SetTargetProductModal></SetTargetProductModal>
     </MerchantUserAdminLayout>
   )  

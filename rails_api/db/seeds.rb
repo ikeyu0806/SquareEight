@@ -51,7 +51,7 @@ MerchantUser.first_or_create!(
   allow_create_product: "Allow",
   allow_update_product: "Allow",
   allow_delete_product: "Allow",
-  allow_update_delivery_setting: "Allow",
+  allow_update_delivery_datetime: "Allow",
   allow_update_product_shipping_status: "Allow",
   allow_read_customer: "Allow",
   allow_create_customer: "Allow",

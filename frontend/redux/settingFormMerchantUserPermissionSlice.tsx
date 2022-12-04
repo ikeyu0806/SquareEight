@@ -33,7 +33,7 @@ export const settingFormMerchantUserPermissionSlice = createSlice({
     allowCreateProduct: 'Unconfirmed',
     allowUpdateProduct: 'Unconfirmed',
     allowDeleteProduct: 'Unconfirmed',
-    allowUpdateDeliveryTarget: 'Unconfirmed',
+    allowUpdateDeliveryDatetime: 'Unconfirmed',
     allowReadCustomer: 'Unconfirmed',
     allowCreateCustomer: 'Unconfirmed',
     allowUpdateCustomer: 'Unconfirmed',
@@ -153,6 +153,9 @@ export const settingFormMerchantUserPermissionSlice = createSlice({
     allowDeleteProductChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteProduct = action.payload
     },
+    allowUpdateDeliveryDatetimeChanged: (state, action: PayloadAction<string>) => {
+      state.allowUpdateDeliveryDatetime = action.payload
+    },
     allowReadCustomerChanged: (state, action: PayloadAction<string>) => {
       state.allowReadCustomer = action.payload
     },
@@ -267,6 +270,7 @@ export const { allowReadProductChanged } = settingFormMerchantUserPermissionSlic
 export const { allowCreateProductChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowUpdateProductChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowDeleteProductChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowUpdateDeliveryDatetimeChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowReadCustomerChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowCreateCustomerChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowUpdateCustomerChanged } = settingFormMerchantUserPermissionSlice.actions

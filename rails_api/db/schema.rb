@@ -269,7 +269,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_064739) do
     t.integer "allow_create_product", default: 0
     t.integer "allow_update_product", default: 0
     t.integer "allow_delete_product", default: 0
-    t.integer "allow_update_delivery_setting", default: 0
+    t.integer "allow_update_delivery_datetime", default: 0
     t.integer "allow_update_product_shipping_status", default: 0
     t.integer "allow_read_customer", default: 0
     t.integer "allow_create_customer", default: 0

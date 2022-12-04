@@ -29,7 +29,7 @@ class AddMerchantUserPermissionColumns < ActiveRecord::Migration[7.0]
     add_column :merchant_users, :allow_create_product, :integer, default: 0
     add_column :merchant_users, :allow_update_product, :integer, default: 0
     add_column :merchant_users, :allow_delete_product, :integer, default: 0
-    add_column :merchant_users, :allow_update_delivery_setting, :integer, default: 0
+    add_column :merchant_users, :allow_update_delivery_datetime, :integer, default: 0
     add_column :merchant_users, :allow_update_product_shipping_status, :integer, default: 0
     add_column :merchant_users, :allow_read_customer, :integer, default: 0
     add_column :merchant_users, :allow_create_customer, :integer, default: 0
@@ -86,7 +86,7 @@ class AddMerchantUserPermissionColumns < ActiveRecord::Migration[7.0]
     remove_column :merchant_users, :allow_create_product, :integer, default: 0
     remove_column :merchant_users, :allow_update_product, :integer, default: 0
     remove_column :merchant_users, :allow_delete_product, :integer, default: 0
-    remove_column :merchant_users, :allow_update_delivery_setting, :integer, default: 0
+    remove_column :merchant_users, :allow_update_delivery_datetime, :integer, default: 0
     remove_column :merchant_users, :allow_update_product_shipping_status, :integer, default: 0
     remove_column :merchant_users, :allow_read_customer, :integer, default: 0
     remove_column :merchant_users, :allow_create_customer, :integer, default: 0
