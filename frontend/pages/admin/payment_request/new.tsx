@@ -46,6 +46,7 @@ const New: NextPage = () => {
   const email = useSelector((state: RootState) => state.customer.email)
   const notes = useSelector((state: RootState) => state.customer.notes)
   const phoneNumber = useSelector((state: RootState) => state.customer.phoneNumber)
+  const allowCreatePaymentRequest = useSelector((state: RootState) => state.merchantUserPermission.allowCreatePaymentRequest)
 
   useEffect(() => {
     const fetchPaymentRequestInitState = () => {
@@ -195,7 +196,7 @@ const New: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowCreatePaymentRequest === 'Allow' && <Container>
         <h3>決済リクエスト作成</h3>
         <Form.Label>対象顧客</Form.Label>
         <Form.Check
@@ -320,7 +321,7 @@ const New: NextPage = () => {
             確定して送信する
           </Button>
         </div>
-      </Container>
+      </Container>}
     </MerchantUserAdminLayout>
   )
 }

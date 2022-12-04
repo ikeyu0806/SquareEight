@@ -15,6 +15,7 @@ const Index: NextPage = () => {
   const router = useRouter()
   const [paymentRequests, setPaymentRequests] = useState<PaymentRequestParam[]>([])
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+  const allowReadPaymentRequest = useSelector((state: RootState) => state.merchantUserPermission.allowReadPaymentRequest)
 
   useEffect(() => {
     const fetchPaymentRequests = () => {
@@ -40,7 +41,7 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowReadPaymentRequest === 'Allow' && <Container>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
@@ -76,7 +77,7 @@ const Index: NextPage = () => {
               {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
             </Col>
           </Row>
-        </Container>
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )
