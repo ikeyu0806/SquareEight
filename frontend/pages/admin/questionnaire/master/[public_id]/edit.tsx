@@ -24,6 +24,7 @@ const Edit: NextPage = () => {
   const description = useSelector((state: RootState) => state.questionnaireMaster.description)
   const publishStatus = useSelector((state: RootState) => state.questionnaireMaster.publishStatus)
   const [cookies] = useCookies(['_square_eight_merchant_session'])
+  const allowUpdateQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateQuestionnaireMaster)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/questionnaire_masters/${router.query.public_id}/edit_info`,
@@ -103,36 +104,38 @@ const Edit: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
-        <Row>
-          <Col lg={3}></Col>
-          <Col lg={6}>
-            <Row>
-              <Col sm={8}></Col>
-              <Col>
-                <Button
-                  onClick={() => execDelete()}
-                  variant='danger'>
-                  アンケートを削除
-                </Button>
-              </Col>
+      {allowUpdateQuestionnaireMaster === 'Allow' && <>
+        <Container>
+          <Row>
+            <Col lg={3}></Col>
+            <Col lg={6}>
+              <Row>
+                <Col sm={8}></Col>
+                <Col>
+                  <Button
+                    onClick={() => execDelete()}
+                    variant='danger'>
+                    アンケートを削除
+                  </Button>
+                </Col>
+              </Row>
+              &emsp;
+              <Card>
+                <Card.Header>アンケート作成</Card.Header>
+                <Card.Body>
+                  <CreateQuestionnaireMaster></CreateQuestionnaireMaster>
+                </Card.Body>
+              </Card>
+            </Col>
             </Row>
-            &emsp;
-            <Card>
-              <Card.Header>アンケート作成</Card.Header>
-              <Card.Body>
-                <CreateQuestionnaireMaster></CreateQuestionnaireMaster>
-              </Card.Body>
-            </Card>
-          </Col>
-          </Row>
-      </Container>
-      <AddQuestionnaireFormModal></AddQuestionnaireFormModal>
-      <div className='text-center mt30'>
-        <Button
-          onClick={() => onSubmit(String(router.query.public_id))}
-          disabled={validateSubmit()}>登録する</Button>
-      </div>
+        </Container>
+        <AddQuestionnaireFormModal></AddQuestionnaireFormModal>
+        <div className='text-center mt30'>
+          <Button
+            onClick={() => onSubmit(String(router.query.public_id))}
+            disabled={validateSubmit()}>登録する</Button>
+        </div>
+      </>}
     </MerchantUserAdminLayout>
   )
 }

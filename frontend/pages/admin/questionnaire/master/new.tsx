@@ -20,6 +20,7 @@ const New: NextPage = () => {
   const description = useSelector((state: RootState) => state.questionnaireMaster.description)
   const publishStatus = useSelector((state: RootState) => state.questionnaireMaster.publishStatus)
   const [cookies] = useCookies(['_square_eight_merchant_session'])
+  const allowCreateQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowCreateQuestionnaireMaster)
 
   useEffect(() => {
     dispatch(publishStatusChanged('Unpublish'))
@@ -56,25 +57,27 @@ const New: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
-        <Row>
-          <Col lg={3}></Col>
-          <Col lg={6}>
-            <Card>
-              <Card.Header>アンケート作成</Card.Header>
-              <Card.Body>
-                <CreateQuestionnaireMaster></CreateQuestionnaireMaster>
-              </Card.Body>
-            </Card>
-          </Col>
-          </Row>
-      </Container>
-      <AddQuestionnaireFormModal></AddQuestionnaireFormModal>
-      <div className='text-center mt30'>
-        <Button
-          onClick={() => onSubmit()}
-          disabled={validateSubmit()}>登録する</Button>
-      </div>
+      {allowCreateQuestionnaireMaster === 'Allow' && <>
+        <Container>
+          <Row>
+            <Col lg={3}></Col>
+            <Col lg={6}>
+              <Card>
+                <Card.Header>アンケート作成</Card.Header>
+                <Card.Body>
+                  <CreateQuestionnaireMaster></CreateQuestionnaireMaster>
+                </Card.Body>
+              </Card>
+            </Col>
+            </Row>
+        </Container>
+        <AddQuestionnaireFormModal></AddQuestionnaireFormModal>
+        <div className='text-center mt30'>
+          <Button
+            onClick={() => onSubmit()}
+            disabled={validateSubmit()}>登録する</Button>
+        </div>
+      </>}
     </MerchantUserAdminLayout>
   )
 }

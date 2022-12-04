@@ -5,10 +5,14 @@ import { QuestionnaireMasterParam } from 'interfaces/QuestionnaireMasterParam'
 import { useCookies } from 'react-cookie'
 import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 
 const Index = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [questionnaireMasters, setQuestionnaireMasters] = useState<QuestionnaireMasterParam[]>()
+  const allowReadQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowReadQuestionnaireMaster)
+  const allowUpdateQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateQuestionnaireMaster)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/questionnaire_masters`,
@@ -25,7 +29,7 @@ const Index = (): JSX.Element => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowReadQuestionnaireMaster === 'Allow' && <Container>
         <Row>
           <Col lg={2}></Col>
           <Col lg={8}>
@@ -47,10 +51,10 @@ const Index = (): JSX.Element => {
                              rel='noreferrer'
                              href={`/questionnaire/${questionare.public_id}`}>プレビュー</a>
                         </Col>
-                        <Col sm={2}>
+                        {allowUpdateQuestionnaireMaster === 'Allow' && <Col sm={2}>
                         <a className='btn btn-primary ml30'
                              href={`/admin/questionnaire/master/${questionare.public_id}/edit`}>編集</a>
-                        </Col>
+                        </Col>}
                         <Col sm={3}>    
                           <a className='btn btn-primary ml30'
                              href={`/admin/questionnaire/master/${questionare.public_id}/answer`}>回答一覧</a>
@@ -63,7 +67,7 @@ const Index = (): JSX.Element => {
             </Card>
           </Col>
         </Row>
-      </Container>
+      </Container>}
     </MerchantUserAdminLayout>
   )
 }
