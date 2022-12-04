@@ -28,6 +28,7 @@ const Index: NextPage = () => {
   const allowReadCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowReadCustomer)
   const allowCreateCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowCreateCustomer)
   const allowUpdateCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateCustomer)
+  const allowReadQuestionnaireAnswer = useSelector((state: RootState) => state.merchantUserPermission.allowReadQuestionnaireAnswer)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/account/customers`,
@@ -109,10 +110,10 @@ const Index: NextPage = () => {
                                 編集
                               </a>}
                               <br/>
-                              <a href={`/admin/customer/${customer.public_id}/questionnaire_answers`}
+                              {allowReadQuestionnaireAnswer === 'Allow' && <a href={`/admin/customer/${customer.public_id}/questionnaire_answers`}
                                 className='btn btn-primary'>
                                 アンケート回答
-                              </a>
+                              </a>}
                             </Col>
                             <Col>
                               <a href={`/admin/customer/${customer.public_id}/order`}

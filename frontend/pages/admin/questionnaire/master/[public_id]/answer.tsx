@@ -5,13 +5,16 @@ import { QuestionnaireMasterParam } from 'interfaces/QuestionnaireMasterParam'
 import { QuestionnaireAnswerParam } from 'interfaces/QuestionnaireAnswerParam'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
+import { Container, Row, Card } from 'react-bootstrap'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 
 const Answer = (): JSX.Element => {
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [questionnaireMaster, setQuestionnaireMaster] = useState<QuestionnaireMasterParam>()
   const [questionnaireAnswers, setQuestionnaireAnswers] = useState<QuestionnaireAnswerParam[]>()
+  const allowReadQuestionnaireAnswer = useSelector((state: RootState) => state.merchantUserPermission.allowReadQuestionnaireAnswer)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/questionnaire_masters/${router.query.public_id}/answers`,
@@ -29,7 +32,7 @@ const Answer = (): JSX.Element => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowReadQuestionnaireAnswer === 'Allow' && <Container>
         <h3 className='mb20'>{questionnaireMaster?.title}回答一覧</h3>
         {questionnaireAnswers && questionnaireAnswers.map((answer, i) => {
           return (
@@ -50,7 +53,7 @@ const Answer = (): JSX.Element => {
             </Card>
           )
         })}
-      </Container>
+      </Container>}
     </MerchantUserAdminLayout>
   )
 }
