@@ -3,16 +3,18 @@ import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { Container, Row, Col, ListGroup } from 'react-bootstrap'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { OrderParam } from 'interfaces/OrderParam'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import { RootState } from 'redux/store'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [orders, setOrders] = useState<OrderParam[]>([])
+  const allowReadCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowReadCustomer)
 
   useEffect(() => {
     const fetchOrders = () => {
@@ -36,7 +38,7 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowReadCustomer === 'Allow' && <Container>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
@@ -75,7 +77,7 @@ const Index: NextPage = () => {
             </ListGroup> 
           </Col>
         </Row>
-      </Container>
+      </Container>}
     </MerchantUserAdminLayout>
   )
 }

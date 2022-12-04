@@ -3,16 +3,18 @@ import React, { useEffect, useState } from 'react'
 import { Container, Table } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { StripePaymentIntentsParam } from 'interfaces/StripePaymentIntentsParam'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { RootState } from 'redux/store'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [stripePaymentIntents, setStripePaymentIntents] = useState<StripePaymentIntentsParam[]>()
+  const allowReadCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowReadCustomer)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/account/customers/${router.query.public_id}/charges`,
@@ -32,7 +34,7 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowReadCustomer === 'Allow' && <Container>
           <Table bordered>
             <thead>
               <tr>
@@ -55,7 +57,7 @@ const Index: NextPage = () => {
               })}
             </tbody>
           </Table>
-        </Container>
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )

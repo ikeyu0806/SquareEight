@@ -25,6 +25,9 @@ const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [searchWord, setSearchWord] = useState('')
   const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
+  const allowReadCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowReadCustomer)
+  const allowCreateCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowCreateCustomer)
+  const allowUpdateCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateCustomer)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/account/customers`,
@@ -59,7 +62,7 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowReadCustomer === 'Allow' && <Container>
           <Row>
             <Col lg={2}></Col>
             <Col lg={8}>
@@ -79,9 +82,9 @@ const Index: NextPage = () => {
                 </Row>
                 </Card.Body>
               </Card>
-              <Button
+              {allowCreateCustomer === 'Allow' && <Button
                 className='mb20'
-                onClick={() => dispatch(showCreateCustomerModalChanged(true))}>顧客新規登録</Button>
+                onClick={() => dispatch(showCreateCustomerModalChanged(true))}>顧客新規登録</Button>}
               <h3>顧客一覧</h3>
               <ListGroup>
                 
@@ -101,10 +104,10 @@ const Index: NextPage = () => {
                         <Col>
                           <Row>
                             <Col>
-                              <a onClick={() => showEditModal(customer)}
+                              {allowUpdateCustomer === 'Allow' && <a onClick={() => showEditModal(customer)}
                                 className='btn btn-primary mb20'>
                                 編集
-                              </a>
+                              </a>}
                               <br/>
                               <a href={`/admin/customer/${customer.public_id}/questionnaire_answers`}
                                 className='btn btn-primary'>
@@ -135,7 +138,7 @@ const Index: NextPage = () => {
           <CreateCustomerModal></CreateCustomerModal>
           <EditCustomerModal></EditCustomerModal>
           <CustomerMailSendModal></CustomerMailSendModal>
-        </Container>
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )
