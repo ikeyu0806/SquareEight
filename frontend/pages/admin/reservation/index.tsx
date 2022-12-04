@@ -189,7 +189,7 @@ const Index: NextPage = () => {
                             &&
                               <>
                                 <span className='text-danger'>予約確定待ち</span><br/>
-                                <a className='badge bg-primary' onClick={() => updateReservationStatus(reservation.public_id, 'confirm')}>予約を確定する</a>
+                                {allowConfirmReservation === 'Allow' && <a className='badge bg-primary' onClick={() => updateReservationStatus(reservation.public_id, 'confirm')}>予約を確定する</a>}
                               </>
                           }
                           {reservation.status === 'cancel' && <span className='text-danger'>キャンセル</span>}

@@ -337,7 +337,7 @@ const Permission: NextPage = () => {
                 checked={allowCreateReservation === 'Allow'} />
               <UserPermissionListGroupItem
                 text={'予約確定'}
-                onChange={() => dispatch(allowUpdateMerchantUserChanged(allowConfirmReservation === 'Allow' ? 'Forbid' : 'Allow' ))}
+                onChange={() => dispatch(allowConfirmReservationChanged(allowConfirmReservation === 'Allow' ? 'Forbid' : 'Allow' ))}
                 checked={allowConfirmReservation === 'Allow'} />
               <UserPermissionListGroupItem
                 text={'予約キャンセル'}
