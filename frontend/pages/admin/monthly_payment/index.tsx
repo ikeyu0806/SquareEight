@@ -16,6 +16,8 @@ const Index: NextPage = () => {
   const router = useRouter()
   const [monthlyPaymentPlans, setMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam[]>([])
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+  const allowReadMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowReadMonthlyPaymentPlan)
+  const allowUpdateMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateMonthlyPaymentPlan)
 
   useEffect(() => {
     const fetchMonthlyPaymentPlans = () => {
@@ -40,7 +42,7 @@ const Index: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
         <br />
-        <Container>
+        {allowReadMonthlyPaymentPlan === 'Allow' && <Container>
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
@@ -61,7 +63,7 @@ const Index: NextPage = () => {
                         予約受付設定 {plan.reserve_is_unlimited ? '無制限' : String(plan.reserve_interval_number) + (plan.reserve_interval_unit === 'Day' ? '日に' : '週に') + String(plan.enable_reserve_count) + '回予約可能' }
                       </Col>
                       <Col>
-                        <a className='btn btn-primary btn-sm' href={`/admin/monthly_payment/${plan.public_id}/edit`}>編集</a>
+                        {allowUpdateMonthlyPaymentPlan === 'Allow' && <a className='btn btn-primary btn-sm' href={`/admin/monthly_payment/${plan.public_id}/edit`}>編集</a>}
                         <br/>
                         <a className='btn btn-primary mt10 btn-sm'
                            target='_blank' rel='noreferrer'
@@ -76,7 +78,7 @@ const Index: NextPage = () => {
               {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
             </Col>
           </Row>
-        </Container>
+        </Container>}
         
       </MerchantUserAdminLayout>
     </>

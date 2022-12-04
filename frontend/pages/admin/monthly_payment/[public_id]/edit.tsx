@@ -36,6 +36,7 @@ const Edit: NextPage = () => {
   const publishStatus = useSelector((state: RootState) => state.monthlyPaymentPlan.publishStatus)
   const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+  const allowUpdateMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateMonthlyPaymentPlan)
 
   useEffect(() => {
     const fetchMonthlyPaymentPlan = () => {
@@ -94,13 +95,13 @@ const Edit: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowUpdateMonthlyPaymentPlan === 'Allow' && <Container>
           {stripeAccountEnable === 'Enable' && <CreateMonthlyPayment showDeleteButton={true}></CreateMonthlyPayment>}
           {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
-        </Container>
-        <div className='text-center'>
-          {stripeAccountEnable === 'Enable' && <Button onClick={onSubmit} className='mt10'>更新する</Button>}
-        </div>
+          <div className='text-center'>
+            {stripeAccountEnable === 'Enable' && <Button onClick={onSubmit} className='mt10'>更新する</Button>}
+          </div>
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )

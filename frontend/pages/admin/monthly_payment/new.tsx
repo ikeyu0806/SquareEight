@@ -28,6 +28,7 @@ const New: NextPage = () => {
   const publishStatus = useSelector((state: RootState) => state.monthlyPaymentPlan.publishStatus)
   const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+  const allowCreateMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowCreateMonthlyPaymentPlan)
 
   useEffect(() => {
     dispatch(publishStatusChanged('Unpublish'))
@@ -63,13 +64,13 @@ const New: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowCreateMonthlyPaymentPlan === 'Allow' && <Container>
           {stripeAccountEnable === 'Enable' && <CreateMonthlyPayment></CreateMonthlyPayment>}
           {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
-        </Container>
-        {stripeAccountEnable === 'Enable' && <div className='text-center'>
+          {stripeAccountEnable === 'Enable' && <div className='text-center'>
           <Button onClick={onSubmit} className='mt10'>登録する</Button>
         </div>}
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )
