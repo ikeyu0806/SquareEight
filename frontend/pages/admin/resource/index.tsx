@@ -15,6 +15,9 @@ const Index: NextPage = () => {
   const router = useRouter()
   const [resources, setResources] = useState<ResourceParam[]>([])
   const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
+  const allowReadResource = useSelector((state: RootState) => state.merchantUserPermission.allowReadResource)
+  const allowCreateResource = useSelector((state: RootState) => state.merchantUserPermission.allowCreateResource)
+  const allowUpdateResource = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateResource)
 
   useEffect(() => {
     const fetchResources = () => {
@@ -40,17 +43,17 @@ const Index: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
         <br />
-        <Container>
+        {allowReadResource === 'Allow' && <Container>
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
               <ResourceLimitAlert />
               {['Standard', 'Premium'].includes(servicePlan) &&
                 <>
-                  <a  href='/admin/resource/new'
+                  {allowCreateResource === 'Allow' && <a  href='/admin/resource/new'
                     className='btn btn-primary mb20'>
                   新規登録
-                  </a>
+                  </a>}
                   <ListGroup>
                     {resources.map((resource, i) => {
                       return (
@@ -58,10 +61,10 @@ const Index: NextPage = () => {
                           <Row>
                             <Col>{resource.name}</Col>
                             <Col>数量: {resource.quantity}</Col>
-                            <Col>
+                            {allowUpdateResource === 'Allow' && <Col>
                               <a className='btn btn-primary'
                                 href={`/admin/resource/${resource.public_id}/edit`}>編集</a>
-                            </Col>
+                            </Col>}
                           </Row>
                         </ListGroup.Item>
                       )
@@ -71,7 +74,7 @@ const Index: NextPage = () => {
               }
             </Col>
           </Row>
-        </Container>
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )

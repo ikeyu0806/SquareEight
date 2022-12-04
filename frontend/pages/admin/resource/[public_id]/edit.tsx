@@ -22,6 +22,7 @@ const Edit: NextPage = () => {
   const name = useSelector((state: RootState) => state.resource.name)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
   const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
+  const allowUpdateResource = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateResource)
 
   useEffect(() => {
     const fetchMonthlyPaymentPlan = () => {
@@ -67,7 +68,7 @@ const Edit: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowUpdateResource === 'Allow' && <Container>
           <Row>
             <Col lg={3} md={3}></Col>
             <Col lg={6} md={6}>
@@ -82,7 +83,7 @@ const Edit: NextPage = () => {
               }
             </Col>
           </Row>
-        </Container>
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )
