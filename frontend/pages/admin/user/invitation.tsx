@@ -39,12 +39,12 @@ const Invitation: NextPage = () => {
       }
     }).then(response => {
       swalWithBootstrapButtons.fire({
-        title: '保存しました',
+        title: '送信しました',
         icon: 'info',
       })
     }).catch(error => {
       swalWithBootstrapButtons.fire({
-        title: '保存失敗しました',
+        title: '送信失敗しました',
         icon: 'error'
       })
     })
