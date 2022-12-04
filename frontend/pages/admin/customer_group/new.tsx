@@ -19,6 +19,7 @@ const New: NextPage = () => {
 
   const name = useSelector((state: RootState) => state.customerGroup.name)
   const selectedCustomers = useSelector((state: RootState) => state.customerGroup.selectedCustomers)
+  const allowCreateCustomerGroup = useSelector((state: RootState) => state.merchantUserPermission.allowCreateCustomerGroup)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/account/customers`,
@@ -63,7 +64,7 @@ const New: NextPage = () => {
   return (
     <MerchantUserAdminLayout>
       <ListGroup>
-        <Container>
+      {allowCreateCustomerGroup === 'Allow' && <Container>
           <Row>
             <Col md={1}>
             </Col>
@@ -84,7 +85,7 @@ const New: NextPage = () => {
             <Col md={1}>
             </Col>
           </Row>
-        </Container>
+        </Container>}
         &emsp;
         <CreateCustomerGroup />
       </ListGroup>

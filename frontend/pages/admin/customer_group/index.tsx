@@ -1,6 +1,8 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 import { Container, Row, Col, ListGroup } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { CustomerGroupParam } from 'interfaces/CustomerGroupParam'
@@ -9,6 +11,9 @@ import axios from 'axios'
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [customerGroups, setCustomerGroups] = useState<CustomerGroupParam[]>([])
+  const allowReadCustomerGroup = useSelector((state: RootState) => state.merchantUserPermission.allowReadCustomerGroup)
+  const allowCreateCustomerGroup = useSelector((state: RootState) => state.merchantUserPermission.allowCreateCustomerGroup)
+  const allowUpdateCustomerGroup = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateCustomerGroup)
 
   useEffect(() => {
     const fetchCustomerGroups = () => {
@@ -31,11 +36,11 @@ const Index: NextPage = () => {
   
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowReadCustomerGroup === 'Allow' && <Container>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
-            <a className='btn btn-primary mb20' href='/admin/customer_group/new'>顧客グループ作成</a>
+            {allowCreateCustomerGroup === 'Allow' && <a className='btn btn-primary mb20' href='/admin/customer_group/new'>顧客グループ作成</a>}
             <h4>顧客グループ</h4>
             <ListGroup>
             {customerGroups.map((group, i) => {
@@ -48,9 +53,9 @@ const Index: NextPage = () => {
                     <Col>
                     </Col>
                     <Col></Col>
-                    <Col>
+                    {allowUpdateCustomerGroup === 'Allow' && <Col>
                       <a href={`/admin/customer_group/${group.public_id}/edit`} className='btn btn-primary'>編集</a>
-                    </Col>
+                    </Col>}
                   </Row>
                 </ListGroup.Item>
               )
@@ -58,7 +63,7 @@ const Index: NextPage = () => {
             </ListGroup>
           </Col>
         </Row>
-      </Container>
+      </Container>}
     </MerchantUserAdminLayout>
   )
 }

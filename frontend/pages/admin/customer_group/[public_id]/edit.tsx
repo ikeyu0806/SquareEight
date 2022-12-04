@@ -2,10 +2,10 @@ import type { NextPage } from 'next'
 import React, { useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 import { Container, Row, Col, ListGroup, Form, Button } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import axios from 'axios'
-import { RootState } from 'redux/store'
 import CreateCustomerGroup from 'components/templates/CreateCustomerGroup'
 import {  nameChanged,
           selectedCustomersChanged,
@@ -21,6 +21,7 @@ const Edit: NextPage = () => {
 
   const name = useSelector((state: RootState) => state.customerGroup.name)
   const selectedCustomers = useSelector((state: RootState) => state.customerGroup.selectedCustomers)
+  const allowUpdateCustomerGroup = useSelector((state: RootState) => state.merchantUserPermission.allowCreateCustomerGroup)
 
   useEffect(() => {
     const fetchCustomerGroups = () => {
@@ -71,7 +72,7 @@ const Edit: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <ListGroup>
+      {allowUpdateCustomerGroup === 'Allow' && <ListGroup>
         <Container>
           <Row>
             <Col md={1}>
@@ -97,7 +98,7 @@ const Edit: NextPage = () => {
         </Container>
         &emsp;
         <CreateCustomerGroup />
-      </ListGroup>
+      </ListGroup>}
     </MerchantUserAdminLayout>
   )
 }
