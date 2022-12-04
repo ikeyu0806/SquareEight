@@ -153,7 +153,7 @@ class MerchantUser < ApplicationRecord
     self.allow_delete_merchant_user = 'Forbid'
     self.allow_update_merchant_user_permission = 'Forbid'
     self.allow_read_reserve_frame = 'Allow'
-    self.allow_create_reserve_frame = 'Allow'
+    self.allow_create_reserve_frame = 'Forbid'
     self.allow_update_reserve_frame = 'Forbid'
     self.allow_delete_reserve_frame = 'Forbid'
     self.allow_read_reservation = 'Allow'
