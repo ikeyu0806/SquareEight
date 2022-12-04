@@ -7,11 +7,15 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import { WebpageParam } from 'interfaces/WebpageParam'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [webpages, setWebpages] = useState<WebpageParam[]>([])
+  const allowReadWebpage = useSelector((state: RootState) => state.merchantUserPermission.allowReadWebpage)
+  const allowUpdateWebpage = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateWebpage)
 
   useEffect(() => {
     const fetchWebpages = () => {
@@ -36,7 +40,7 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowReadWebpage === 'Allow' && <Container>
           <Row>
             <Col md={3}></Col>
             <Col md={6}>
@@ -51,7 +55,7 @@ const Index: NextPage = () => {
                           <PublishStatusBadge publishStatus={webpage.publish_status}></PublishStatusBadge>
                         </Col>
                         <Col>
-                          <a className='btn btn-primary ml10' href={`/admin/webpage/${webpage.public_id}/edit`}>編集</a>
+                          {allowUpdateWebpage === 'Allow' && <a className='btn btn-primary ml10' href={`/admin/webpage/${webpage.public_id}/edit`}>編集</a>}
                           <a className='btn btn-primary ml10' href={`/webpages/${webpage.public_id}`} target='_blank' rel='noreferrer'>プレビュー</a>
                         </Col>
                       </Row>
@@ -61,7 +65,7 @@ const Index: NextPage = () => {
               </ListGroup>
             </Col>
           </Row>
-        </Container>
+        </Container>}
       </MerchantUserAdminLayout>
     </>
   )

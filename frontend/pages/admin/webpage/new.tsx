@@ -16,6 +16,7 @@ const New: NextPage = () => {
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
   const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
   const publishStatus = useSelector((state: RootState) => state.webpage.publishStatus)
+  const allowCreateWebpage = useSelector((state: RootState) => state.merchantUserPermission.allowCreateWebpage)
 
   const createWebpage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/webpages`,
@@ -41,13 +42,15 @@ const New: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <div className='mt30'></div>
-        <CreateWebpageTemplate></CreateWebpageTemplate>
-        <div className='text-center mt50'>
-          <Button
-            disabled={!webpageTag}
-            onClick={createWebpage}>登録する</Button>
-        </div>
+        {allowCreateWebpage === 'Allow' && <>
+          <div className='mt30'></div>
+          <CreateWebpageTemplate></CreateWebpageTemplate>
+          <div className='text-center mt50'>
+            <Button
+              disabled={!webpageTag}
+              onClick={createWebpage}>登録する</Button>
+          </div>
+        </>}
       </MerchantUserAdminLayout>
     </>
   )

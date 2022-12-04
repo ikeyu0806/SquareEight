@@ -18,6 +18,7 @@ const Edit: NextPage = () => {
   const pageContent = useSelector((state: RootState) => state.webpage.pageContent)
   const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
   const publishStatus = useSelector((state: RootState) => state.webpage.publishStatus)
+  const allowUpdateWebpage = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateWebpage)
 
   useEffect(() => {
     const fetchWebpage = () => {
@@ -65,16 +66,18 @@ const Edit: NextPage = () => {
 
   return (
     <>
-      <MerchantUserAdminLayout>
-      <div className='mt30'></div>
-      <CreateWebpageTemplate showDeleteButton={true}></CreateWebpageTemplate>
-      <br/>
-      <br/>
-      <br/>
-      <div className='text-center'>
-        <Button onClick={updateWebpage}>更新する</Button>
-      </div>
-      </MerchantUserAdminLayout>
+      {allowUpdateWebpage === 'Allow' && <>
+        <MerchantUserAdminLayout>
+        <div className='mt30'></div>
+        <CreateWebpageTemplate showDeleteButton={true}></CreateWebpageTemplate>
+        <br/>
+        <br/>
+        <br/>
+        <div className='text-center'>
+          <Button onClick={updateWebpage}>更新する</Button>
+        </div>
+        </MerchantUserAdminLayout>
+      </>}
     </>
   )
 }
