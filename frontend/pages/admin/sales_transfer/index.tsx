@@ -11,6 +11,7 @@ import { StripeAccountParam } from 'interfaces/StripeAccountParam'
 import { StripePersonParam } from 'interfaces/StripePersonParam'
 import { ServiceStripePersonParam } from 'interfaces/ServiceStripePersonParam'
 import CheckIcon from 'components/atoms/CheckIcon'
+import Unauauthorized from 'components/templates/Unauauthorized'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -277,6 +278,7 @@ const Index: NextPage = () => {
             </Col>
           </Row>
         </Container>}
+        {allowReadStripeBusinessInfo === 'Forbid' && <Unauauthorized />}
       </MerchantUserAdminLayout>
     </>
   )

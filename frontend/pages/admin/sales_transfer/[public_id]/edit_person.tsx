@@ -10,6 +10,7 @@ import StripePersonForm from 'components/molecules/StripePersonForm'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { getZeroPaddingString } from 'functions/getZeroPaddingString'
+import Unauauthorized from 'components/templates/Unauauthorized'
 import {  companyBusinessNameChanged,
   companyBusinessNameKanaChanged,
   companyBusinessTaxIdChanged,
@@ -198,6 +199,7 @@ const EditStripePerson: NextPage = () => {
           </Col>
         </Row>
       </Container>}
+      {allowUpdateStripeBusinessInfo === 'Forbid' && <Unauauthorized />}
     </MerchantUserAdminLayout>
   )
 }

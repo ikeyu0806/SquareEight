@@ -9,6 +9,7 @@ import { useCookies } from 'react-cookie'
 import StripePersonForm from 'components/molecules/StripePersonForm'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import Unauauthorized from 'components/templates/Unauauthorized'
 
 const RegisterStripePerson: NextPage = () => {
   const [isLoading, setIsLoading] = useState(false)
@@ -111,6 +112,7 @@ const RegisterStripePerson: NextPage = () => {
           </Col>
         </Row>
       </Container>}
+      {allowUpdateStripeBusinessInfo === 'Forbid' && <Unauauthorized />}
     </MerchantUserAdminLayout>
   )
 }
