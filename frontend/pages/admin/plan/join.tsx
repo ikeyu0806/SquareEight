@@ -10,6 +10,7 @@ import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import { alertChanged } from 'redux/alertSlice'
 import { useDispatch } from 'react-redux'
+import Unauauthorized from 'components/templates/Unauauthorized'
 
 const Join: NextPage = () => {
   const dispatch = useDispatch()
@@ -17,6 +18,7 @@ const Join: NextPage = () => {
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const paymentMethods = useSelector((state: RootState) => state.currentMerchantUser.paymentMethods)
+  const allowUpdateSharedComponent = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateSharedComponent)
 
   const execJoinPlan = () => {
     setIsLoading(true)
@@ -41,7 +43,7 @@ const Join: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowUpdateSharedComponent === 'Allow' && <Container>
         <Row>
           <Col md={7}>
             <MerchantPaymentMethodIndex></MerchantPaymentMethodIndex>
@@ -71,7 +73,8 @@ const Join: NextPage = () => {
             </Card>
           </Col>
         </Row>
-      </Container>
+      </Container>}
+      {allowUpdateSharedComponent === 'Forbid' && <Unauauthorized />}
     </MerchantUserAdminLayout>
   )
 }

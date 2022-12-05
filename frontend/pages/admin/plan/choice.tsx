@@ -5,11 +5,16 @@ import FreePlanCard from 'components/molecules/FreePlanCard'
 import LightPlanCard from 'components/molecules/LightPlanCard'
 import StandardPlanCard from 'components/molecules/StarndardPlanCard'
 import PremiumPlanCard from 'components/molecules/PremiumPlanCard'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
+import Unauauthorized from 'components/templates/Unauauthorized'
 
 const Choice: NextPage = () => {
+  const allowUpdateSharedComponent = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateSharedComponent)
+
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowUpdateSharedComponent === 'Allow' && <Container>
         <div className='text-center'>
           <h3 className='mb30'>プラン一覧</h3>
         </div>
@@ -27,7 +32,8 @@ const Choice: NextPage = () => {
             <PremiumPlanCard showJoinButton={true}></PremiumPlanCard>
           </Col>
         </Row>
-      </Container>
+      </Container>}
+      {allowUpdateSharedComponent === 'Forbid' && <Unauauthorized />}
     </MerchantUserAdminLayout>
   )
 }
