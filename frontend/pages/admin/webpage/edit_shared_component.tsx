@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
 import { websiteHeaderChanged, websiteFooterChanged } from 'redux/webpageSlice'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const EditSharedComponentPage: NextPage = () => {
   const dispatch = useDispatch()
@@ -72,7 +72,7 @@ const EditSharedComponentPage: NextPage = () => {
           <Button onClick={updateSharedComponent}>編集を完了</Button>
         </div>
       </>}
-      {allowUpdateSharedComponent === 'Forbid' && <Unauauthorized />}
+      {allowUpdateSharedComponent === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

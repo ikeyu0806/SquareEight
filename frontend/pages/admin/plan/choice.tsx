@@ -7,7 +7,7 @@ import StandardPlanCard from 'components/molecules/StarndardPlanCard'
 import PremiumPlanCard from 'components/molecules/PremiumPlanCard'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Choice: NextPage = () => {
   const allowUpdateSharedComponent = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateSharedComponent)
@@ -33,7 +33,7 @@ const Choice: NextPage = () => {
           </Col>
         </Row>
       </Container>}
-      {allowUpdateSharedComponent === 'Forbid' && <Unauauthorized />}
+      {allowUpdateSharedComponent === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

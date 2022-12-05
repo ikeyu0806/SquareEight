@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
 import { useDispatch, useSelector } from 'react-redux'
 import { alertChanged } from 'redux/alertSlice'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -52,7 +52,7 @@ const New: NextPage = () => {
               onClick={createWebpage}>登録する</Button>
           </div>
         </>}
-        {allowCreateWebpage === 'Forbid' && <Unauauthorized />}
+        {allowCreateWebpage === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )

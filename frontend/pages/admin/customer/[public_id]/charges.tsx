@@ -8,7 +8,7 @@ import { StripePaymentIntentsParam } from 'interfaces/StripePaymentIntentsParam'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -59,7 +59,7 @@ const Index: NextPage = () => {
             </tbody>
           </Table>
         </Container>}
-        {allowReadCustomer === 'Forbid' && <Unauauthorized />}
+        {allowReadCustomer === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )

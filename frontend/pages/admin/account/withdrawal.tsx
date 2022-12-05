@@ -7,7 +7,7 @@ import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Withdrawal: NextPage = () => {
   const router = useRouter()
@@ -63,7 +63,7 @@ const Withdrawal: NextPage = () => {
           </Col>
         </Row>
       </Container>}
-      {!isRootUser && <Unauauthorized />}
+      {!isRootUser && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

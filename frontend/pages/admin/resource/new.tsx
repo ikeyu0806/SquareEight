@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
 import ResourceLimitAlert from 'components/molecules/ResourceLimitAlert'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -61,7 +61,7 @@ const New: NextPage = () => {
             </Col>
           </Row>
         </Container>}
-        {allowCreateResource === 'Forbid' && <Unauauthorized />}
+        {allowCreateResource === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )

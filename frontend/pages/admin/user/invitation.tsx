@@ -10,7 +10,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const Invitation: NextPage = () => {
@@ -86,7 +86,7 @@ const Invitation: NextPage = () => {
           </Col>
         </Row>
       </Container>}
-      {allowCreateMerchantUser === 'Forbid' && <Unauauthorized />}
+      {allowCreateMerchantUser === 'Forbid' && <Unauthorized />}
       <MerchantUserPermissionGuideModal></MerchantUserPermissionGuideModal>
     </MerchantUserAdminLayout>
   )

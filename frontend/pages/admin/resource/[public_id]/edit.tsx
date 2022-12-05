@@ -13,7 +13,7 @@ import { alertChanged } from 'redux/alertSlice'
 import { ResourceParam } from 'interfaces/ResourceParam'
 import { nameChanged, quantityChanged } from 'redux/resourceSlice'
 import ResourceLimitAlert from 'components/molecules/ResourceLimitAlert'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -85,7 +85,7 @@ const Edit: NextPage = () => {
             </Col>
           </Row>
         </Container>}
-        {allowUpdateResource === 'Forbid' && <Unauauthorized />}
+        {allowUpdateResource === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )

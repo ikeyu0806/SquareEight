@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { Container, Card } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Answer = (): JSX.Element => {
   const router = useRouter()
@@ -55,7 +55,7 @@ const Answer = (): JSX.Element => {
           )
         })}
       </Container>}
-      {allowReadQuestionnaireAnswer === 'Forbid' && <Unauauthorized />}
+      {allowReadQuestionnaireAnswer === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

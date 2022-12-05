@@ -11,7 +11,7 @@ import SharedComponentHeaderForm from 'components/organisms/SharedComponentHeade
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import axios from 'axios'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 import { navbarBrandTextChanged,
          navbarBrandTypeChanged,
          navbarBrandImageChanged,
@@ -133,7 +133,7 @@ const Edit: NextPage = () => {
         </div>
         <MerchantCustomFooter></MerchantCustomFooter>
       </Container>}
-      {allowUpdateSharedComponent === 'Forbid' && <Unauauthorized></Unauauthorized>}
+      {allowUpdateSharedComponent === 'Forbid' && <Unauthorized></Unauthorized>}
     </MerchantUserAdminLayout>
   )
 }

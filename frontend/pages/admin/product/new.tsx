@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useDispatch } from 'react-redux'
 import { publishStatusChanged } from 'redux/productSlice'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -102,7 +102,7 @@ const New: NextPage = () => {
           </div>
         </>}
         {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
-        {allowCreateProduct === 'Forbid' && <Unauauthorized />}
+        {allowCreateProduct === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )

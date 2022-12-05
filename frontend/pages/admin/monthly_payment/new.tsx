@@ -12,7 +12,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { publishStatusChanged } from 'redux/monthlyPaymentPlanSlice'
 import { alertChanged } from 'redux/alertSlice'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -72,7 +72,7 @@ const New: NextPage = () => {
           <Button onClick={onSubmit} className='mt10'>登録する</Button>
         </div>}
         </Container>}
-        {allowCreateMonthlyPaymentPlan === 'Forbid' && <Unauauthorized />}
+        {allowCreateMonthlyPaymentPlan === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )

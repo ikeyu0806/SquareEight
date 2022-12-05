@@ -10,7 +10,7 @@ import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import { alertChanged } from 'redux/alertSlice'
 import { useDispatch } from 'react-redux'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Join: NextPage = () => {
   const dispatch = useDispatch()
@@ -74,7 +74,7 @@ const Join: NextPage = () => {
           </Col>
         </Row>
       </Container>}
-      {allowUpdateSharedComponent === 'Forbid' && <Unauauthorized />}
+      {allowUpdateSharedComponent === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

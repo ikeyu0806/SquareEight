@@ -13,7 +13,7 @@ import { publicIdChanged,
 import CreateReserveFrameModal from 'components/organisms/CreateReserveFrameModal'
 import EditReserveFrameModal from 'components/organisms/EditReserveFrameModal'
 import { RootState } from 'redux/store'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Index = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -197,7 +197,7 @@ const Index = (): JSX.Element => {
           <CreateReserveFrameModal></CreateReserveFrameModal>
           <EditReserveFrameModal></EditReserveFrameModal>
         </Container>}
-        {allowReadReserveFrame === 'Forbid' && <Unauauthorized />}
+        {allowReadReserveFrame === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )

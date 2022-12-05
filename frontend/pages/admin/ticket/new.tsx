@@ -11,7 +11,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { alertChanged } from 'redux/alertSlice'
 import { publishStatusChanged } from 'redux/ticketMasterSlice'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -66,7 +66,7 @@ const New: NextPage = () => {
           </div>
         </>}
         {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
-        {allowCreateTicketMaster === 'Forbid' && <Unauauthorized />}
+        {allowCreateTicketMaster === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )

@@ -18,7 +18,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import CreateCustomerModal from 'components/templates/CreateCustomerModal'
 import EditCustomerModal from 'components/templates/EditCustomerModal'
 import CustomerMailSendModal from 'components/templates/CustomerMailSendModal'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -141,7 +141,7 @@ const Index: NextPage = () => {
           <EditCustomerModal></EditCustomerModal>
           <CustomerMailSendModal></CustomerMailSendModal>
         </Container>}
-        {allowReadCustomer === 'Forbid' && <Unauauthorized />}
+        {allowReadCustomer === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )

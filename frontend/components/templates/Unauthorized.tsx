@@ -1,6 +1,6 @@
 import { Container, Row, Col } from 'react-bootstrap'
 
-const Unauauthorized = () => {
+const Unauthorized = () => {
   return (
     <Container>
       <div className='text-center'>
@@ -11,4 +11,4 @@ const Unauauthorized = () => {
   )
 }
 
-export default Unauauthorized
+export default Unauthorized

@@ -11,7 +11,7 @@ import CreateCustomerGroup from 'components/templates/CreateCustomerGroup'
 import { nameChanged } from 'redux/customerGroupSlice'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useRouter } from 'next/router'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const New: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -87,7 +87,7 @@ const New: NextPage = () => {
             </Col>
           </Row>
         </Container>}
-        {allowCreateCustomerGroup === 'Forbid' && <Unauauthorized />}
+        {allowCreateCustomerGroup === 'Forbid' && <Unauthorized />}
         &emsp;
         <CreateCustomerGroup />
       </ListGroup>

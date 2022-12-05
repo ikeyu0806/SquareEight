@@ -5,7 +5,7 @@ import { QuestionnaireAnswerParam } from 'interfaces/QuestionnaireAnswerParam'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { Container, Card } from 'react-bootstrap'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 
@@ -52,7 +52,7 @@ const QuestionnaireAnswer = (): JSX.Element => {
           )
         })}
       </Container>}
-      {allowReadQuestionnaireAnswer === 'Forbid' && <Unauauthorized />}
+      {allowReadQuestionnaireAnswer === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

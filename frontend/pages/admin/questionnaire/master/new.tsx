@@ -11,7 +11,7 @@ import { Card, Row, Col, Container, Button } from 'react-bootstrap'
 import AddQuestionnaireFormModal from 'components/organisms/AddQuestionnaireFormModal'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { publishStatusChanged } from 'redux/questionnaireMasterSlice'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -79,7 +79,7 @@ const New: NextPage = () => {
             disabled={validateSubmit()}>登録する</Button>
         </div>
       </>}
-      {allowCreateQuestionnaireMaster === 'Forbid' && <Unauauthorized />}
+      {allowCreateQuestionnaireMaster === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

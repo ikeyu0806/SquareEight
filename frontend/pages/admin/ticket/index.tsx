@@ -10,7 +10,7 @@ import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -85,7 +85,7 @@ const Index: NextPage = () => {
             </Col>
           </Row>
         </Container>}
-        {allowReadTicketMaster === 'Forbid' && <Unauauthorized />}
+        {allowReadTicketMaster === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )

@@ -9,7 +9,7 @@ import { ResourceParam } from 'interfaces/ResourceParam'
 import ResourceLimitAlert from 'components/molecules/ResourceLimitAlert'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -76,7 +76,7 @@ const Index: NextPage = () => {
             </Col>
           </Row>
         </Container>}
-        {allowCreateResource === 'Forbid' && <Unauauthorized />}
+        {allowCreateResource === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )

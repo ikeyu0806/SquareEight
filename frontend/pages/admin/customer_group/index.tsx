@@ -6,7 +6,7 @@ import { RootState } from 'redux/store'
 import { Container, Row, Col, ListGroup } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { CustomerGroupParam } from 'interfaces/CustomerGroupParam'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 import axios from 'axios'
 
 const Index: NextPage = () => {
@@ -65,7 +65,7 @@ const Index: NextPage = () => {
           </Col>
         </Row>
       </Container>}
-      {allowReadCustomerGroup === 'Forbid' && <Unauauthorized />}
+      {allowReadCustomerGroup === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

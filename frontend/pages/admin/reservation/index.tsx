@@ -17,7 +17,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { showRegisterReservationModalChanged } from 'redux/reservationSlice'
 import ReservationLimitAlerts from 'components/molecules/ReservationLimitAlerts'
 import { RootState } from 'redux/store'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -225,7 +225,7 @@ const Index: NextPage = () => {
             </Col>
           </Row>
         </Container>}
-        {allowReadReservation === 'Forbid' && <Unauauthorized></Unauauthorized>}
+        {allowReadReservation === 'Forbid' && <Unauthorized></Unauthorized>}
         <CreateReservationModal />
       </MerchantUserAdminLayout>
     </>

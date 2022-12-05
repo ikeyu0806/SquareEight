@@ -14,7 +14,7 @@ import CreateCustomerForm from 'components/organisms/CreateCustomerForm'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import RequireBadge from 'components/atoms/RequireBadge'
 import { useRouter } from 'next/router'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 import {  priceChanged,
           nameChanged,
           targetCustomerTypeChanged,
@@ -323,7 +323,7 @@ const New: NextPage = () => {
           </Button>
         </div>
       </Container>}
-      {allowCreatePaymentRequest === 'Forbid' && <Unauauthorized />}
+      {allowCreatePaymentRequest === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

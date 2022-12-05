@@ -6,7 +6,7 @@ import {loadStripe} from '@stripe/stripe-js'
 import { Elements } from '@stripe/react-stripe-js'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const stripePromise = loadStripe(String(process.env.STRIPE_PUBLISHABLE_KEY))
 
@@ -19,7 +19,7 @@ const Register: NextPage = () => {
         {allowUpdateStripeBusinessInfo === 'Allow' && <Elements stripe={stripePromise}>
           <RegisterMerchantInfoForm />
         </Elements>}
-        {allowUpdateStripeBusinessInfo === 'Forbid' && <Unauauthorized />}
+        {allowUpdateStripeBusinessInfo === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )

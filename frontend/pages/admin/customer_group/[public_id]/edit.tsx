@@ -13,7 +13,7 @@ import {  nameChanged,
 
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useRouter } from 'next/router'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Edit: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -100,7 +100,7 @@ const Edit: NextPage = () => {
         &emsp;
         <CreateCustomerGroup />
       </ListGroup>}
-      {allowUpdateCustomerGroup === 'Forbid' && <Unauauthorized />}
+      {allowUpdateCustomerGroup === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { MerchantUserParam } from 'interfaces/MerchantUserParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 import {  allowReadMerchantUserChanged,
           allowCreateMerchantUserChanged,
           allowUpdateMerchantUserChanged,
@@ -545,7 +545,7 @@ const Permission: NextPage = () => {
           </Col>
         </Row>
       </Container>}
-      {allowUpdateMerchantUserPermission === 'Forbid' && <Unauauthorized />}
+      {allowUpdateMerchantUserPermission === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

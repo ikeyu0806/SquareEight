@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { OrderParam } from 'interfaces/OrderParam'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { RootState } from 'redux/store'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -79,7 +79,7 @@ const Index: NextPage = () => {
           </Col>
         </Row>
       </Container>}
-      {allowReadCustomer === 'Forbid' && <Unauauthorized />}
+      {allowReadCustomer === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

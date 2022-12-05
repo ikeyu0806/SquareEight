@@ -10,7 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { webpageTagChanged, pageContentChanged, currentMaxSortOrderChanged, publishStatusChanged } from 'redux/webpageSlice'
 import { Button } from 'react-bootstrap'
 import { alertChanged } from 'redux/alertSlice'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -79,7 +79,7 @@ const Edit: NextPage = () => {
         </div>
         </MerchantUserAdminLayout>
       </>}
-      {allowUpdateWebpage === 'Forbid' && <Unauauthorized />}
+      {allowUpdateWebpage === 'Forbid' && <Unauthorized />}
     </>
   )
 }

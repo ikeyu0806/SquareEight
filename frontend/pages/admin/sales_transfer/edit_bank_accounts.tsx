@@ -9,7 +9,7 @@ import { Container, Card, Button } from 'react-bootstrap'
 import { StripeAccountParam } from 'interfaces/StripeAccountParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { RootState } from 'redux/store'
-import Unauauthorized from 'components/templates/Unauauthorized'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const EditBankAccounts: NextPage = () => {
   const dispatch = useDispatch()
@@ -126,7 +126,7 @@ const EditBankAccounts: NextPage = () => {
             </Card.Body>
           </Card>
         </Container>}
-        {allowUpdateStripeBusinessInfo === 'Allow' && <Unauauthorized />}
+        {allowUpdateStripeBusinessInfo === 'Allow' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )
