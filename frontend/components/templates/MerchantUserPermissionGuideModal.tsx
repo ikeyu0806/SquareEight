@@ -206,7 +206,7 @@ const MerchantUserPermissionGuideModal = (): JSX.Element => {
                     <td className='text-center'>お支払い履歴の閲覧</td>
                     <td className='text-center'>○</td>
                     <td className='text-center'>○</td>
-                    <td className='text-center'>○</td>
+                    <td className='text-center'>×</td>
                   </tr>
                   <tr>
                     <td className='text-center'>お支払いクレジットカードの登録・更新・削除</td>
@@ -222,12 +222,6 @@ const MerchantUserPermissionGuideModal = (): JSX.Element => {
                   </tr>
                   <tr>
                     <td className='text-center'>SquareEightのプラン変更</td>
-                    <td className='text-center'>○</td>
-                    <td className='text-center'>×</td>
-                    <td className='text-center'>×</td>
-                  </tr>
-                  <tr>
-                    <td className='text-center'>サービス退会</td>
                     <td className='text-center'>○</td>
                     <td className='text-center'>×</td>
                     <td className='text-center'>×</td>

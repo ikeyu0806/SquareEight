@@ -94,10 +94,10 @@ class MerchantUser < ApplicationRecord
 
   def set_admin_user_default_permission
     self.allow_read_merchant_user = 'Allow'
-    self.allow_create_merchant_user = 'Allow'
+    self.allow_create_merchant_user = 'Forbid'
     self.allow_update_merchant_user = 'Forbid'
-    self.allow_delete_merchant_user = 'Allow'
-    self.allow_update_merchant_user_permission = 'Allow'
+    self.allow_delete_merchant_user = 'Forbid'
+    self.allow_update_merchant_user_permission = 'Forbid'
     self.allow_read_reserve_frame = 'Allow'
     self.allow_create_reserve_frame = 'Allow'
     self.allow_update_reserve_frame = 'Allow'
