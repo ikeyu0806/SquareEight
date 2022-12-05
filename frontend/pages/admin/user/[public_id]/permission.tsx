@@ -10,6 +10,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { MerchantUserParam } from 'interfaces/MerchantUserParam'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import Unauauthorized from 'components/templates/Unauauthorized'
 import {  allowReadMerchantUserChanged,
           allowCreateMerchantUserChanged,
           allowUpdateMerchantUserChanged,
@@ -290,7 +291,7 @@ const Permission: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowUpdateMerchantUserPermission === 'Allow' && <Container>
         <Row>
           <Col lg={3}>
           </Col>
@@ -543,7 +544,8 @@ const Permission: NextPage = () => {
             <Button className='mt10' onClick={onSubmit}>設定を保存する</Button>
           </Col>
         </Row>
-      </Container>
+      </Container>}
+      {allowUpdateMerchantUserPermission === 'Forbid' && <Unauauthorized />}
     </MerchantUserAdminLayout>
   )
 }
