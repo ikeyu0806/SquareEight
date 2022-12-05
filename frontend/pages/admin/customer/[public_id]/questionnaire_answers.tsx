@@ -5,11 +5,15 @@ import { QuestionnaireAnswerParam } from 'interfaces/QuestionnaireAnswerParam'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { Container, Card } from 'react-bootstrap'
+import Unauauthorized from 'components/templates/Unauauthorized'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 
 const QuestionnaireAnswer = (): JSX.Element => {
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [questionnaireAnswers, setQuestionnaireAnswers] = useState<QuestionnaireAnswerParam[]>()
+  const allowReadQuestionnaireAnswer = useSelector((state: RootState) => state.merchantUserPermission.allowReadQuestionnaireAnswer)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/customers/${router.query.public_id}/questionnaire_answers`,
@@ -27,7 +31,7 @@ const QuestionnaireAnswer = (): JSX.Element => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowReadQuestionnaireAnswer === 'Allow' && <Container>
         <h3 className='mb20'>回答一覧</h3>
         {questionnaireAnswers && questionnaireAnswers.map((answer, i) => {
           return (
@@ -47,7 +51,8 @@ const QuestionnaireAnswer = (): JSX.Element => {
             </Card>
           )
         })}
-      </Container>
+      </Container>}
+      {allowReadQuestionnaireAnswer === 'Forbid' && <Unauauthorized />}
     </MerchantUserAdminLayout>
   )
 }
