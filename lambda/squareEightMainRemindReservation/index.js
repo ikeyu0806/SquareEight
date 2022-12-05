@@ -1,9 +1,9 @@
 const https = require('https')
 
 let options = {
-  hostname: 'httpbin.org',
+  hostname: 'square-eight.net',
   port: 443,
-  path: '/post',
+  path: '/post/batch/reservations/remind_date_notifications',
   method: 'POST',
   headers: {
     'Content-Type': 'application/json'
