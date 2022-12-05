@@ -1,6 +1,7 @@
 import React, { useState } from 'react'
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import RequireBadge from 'components/atoms/RequireBadge'
 import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import { showPermissionGuideModalChanged } from 'redux/merchantUserPermissionSlice'
 import { useDispatch } from 'react-redux'
@@ -60,9 +61,9 @@ const Invitation: NextPage = () => {
             <Form.Control onChange={(e) => setLastName(e.target.value)}></Form.Control>
             <Form.Label className='mt10'>名前(名)</Form.Label>
             <Form.Control onChange={(e) => setFirstName(e.target.value)}></Form.Control>
-            <Form.Label className='mt10'>メールアドレス</Form.Label>
+            <Form.Label className='mt10'>メールアドレス<RequireBadge /></Form.Label>
             <Form.Control onChange={(e) => setEmail(e.target.value)}></Form.Control>
-            <Form.Label className='mt10'>管理者権限</Form.Label>
+            <Form.Label className='mt10'>デフォルト権限</Form.Label>
             <Row>
               <Col sm={7}>
                 <Form.Select onChange={(e) => setAuthorityCategory(e.target.value)}>
@@ -81,6 +82,7 @@ const Invitation: NextPage = () => {
             </Row>
 
             <Button
+              disabled={!email}
               onClick={() => onSubmit()}
               className='mt30'>招待メールを送信する</Button>
           </Col>
