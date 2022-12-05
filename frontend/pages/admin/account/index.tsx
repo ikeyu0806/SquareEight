@@ -4,10 +4,14 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { Container, Row, Col, Card } from 'react-bootstrap'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [businessName, setBusinessName] = useState('')
+  const isRootUser = useSelector((state: RootState) => state.currentMerchantUser.isRootUser)
+
   useEffect(() => {
     const fetchAccountInfo = () => {
       axios.get(`${process.env.BACKEND_URL}/api/internal/accounts/account_info`,
@@ -43,12 +47,12 @@ const Index: NextPage = () => {
               </Row>
             </Card.Body>
           </Card>
-          <div className='text-center'>
+          {isRootUser && <div className='text-center'>
             <a className='btn btn-danger mt30'
               href='/admin/account/withdrawal'>
               サービス退会はこちら
             </a>
-          </div>
+          </div>}
           </Col>
         </Row>
       </Container>

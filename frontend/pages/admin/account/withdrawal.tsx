@@ -5,10 +5,14 @@ import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
+import Unauauthorized from 'components/templates/Unauauthorized'
 
 const Withdrawal: NextPage = () => {
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
+  const isRootUser = useSelector((state: RootState) => state.currentMerchantUser.isRootUser)
 
   const onSubmit = () => {
     swalWithBootstrapButtons.fire({
@@ -38,7 +42,7 @@ const Withdrawal: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {isRootUser && <Container>
         <Row>
           <Col md={3}></Col>
           <Col md={6}>
@@ -58,8 +62,8 @@ const Withdrawal: NextPage = () => {
             </Card>
           </Col>
         </Row>
-       
-      </Container>
+      </Container>}
+      {!isRootUser && <Unauauthorized />}
     </MerchantUserAdminLayout>
   )
 }
