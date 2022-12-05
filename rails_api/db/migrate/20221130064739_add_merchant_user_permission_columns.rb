@@ -55,6 +55,10 @@ class AddMerchantUserPermissionColumns < ActiveRecord::Migration[7.0]
     add_column :merchant_users, :allow_update_credit_card, :integer, default: 0
     add_column :merchant_users, :allow_read_stripe_business_info, :integer, default: 0
     add_column :merchant_users, :allow_update_stripe_business_info, :integer, default: 0
+    add_column :merchant_users, :allow_read_system_plan_subscription_payments, :integer, default: 0
+    add_column :merchant_users, :allow_update_shared_component, :integer, default: 0
+    add_column :merchant_users, :allow_update_merchant_user_permisson, :integer, default: 0
+    add_column :merchant_users, :allow_update_system_plan, :integer, default: 0
   end
 
   def down
@@ -112,5 +116,9 @@ class AddMerchantUserPermissionColumns < ActiveRecord::Migration[7.0]
     remove_column :merchant_users, :allow_update_credit_card, :integer, default: 0
     remove_column :merchant_users, :allow_read_stripe_business_info, :integer, default: 0
     remove_column :merchant_users, :allow_update_stripe_business_info, :integer, default: 0
+    remove_column :merchant_users, :allow_read_system_plan_subscription_payments, :integer, default: 0
+    remove_column :merchant_users, :allow_update_shared_component, :integer, default: 0
+    remove_column :merchant_users, :allow_update_merchant_user_permisson, :integer, default: 0
+    remove_column :merchant_users, :allow_update_system_plan, :integer, default: 0
   end
 end
