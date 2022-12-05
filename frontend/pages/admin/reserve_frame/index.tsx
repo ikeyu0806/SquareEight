@@ -12,7 +12,6 @@ import { publicIdChanged,
          showEditReserveFrameModalChanged } from 'redux/reserveFrameSlice'
 import CreateReserveFrameModal from 'components/organisms/CreateReserveFrameModal'
 import EditReserveFrameModal from 'components/organisms/EditReserveFrameModal'
-import ReservationLimitAlerts from 'components/molecules/ReservationLimitAlerts'
 import { RootState } from 'redux/store'
 import Unauauthorized from 'components/templates/Unauauthorized'
 

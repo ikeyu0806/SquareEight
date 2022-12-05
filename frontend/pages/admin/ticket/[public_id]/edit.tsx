@@ -11,6 +11,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { alertChanged } from 'redux/alertSlice'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
+import Unauauthorized from 'components/templates/Unauauthorized'
 import { nameChanged, priceChanged,
          issueNumberChanged,
          descriptionChanged,
@@ -86,6 +87,7 @@ const Edit: NextPage = () => {
             <Button onClick={createTicket}>登録する</Button>
           </div>
         </>}
+        {allowUpdateTicketMaster === 'Forbid' && <Unauauthorized />}
         {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
       </MerchantUserAdminLayout>
     </>
