@@ -11,6 +11,7 @@ export const currentMerchantUserSlice = createSlice({
     email: '',
     servicePlan: '',
     defaultPaymentMethodId: '',
+    isRootUser: false,
     paymentMethods: [] as StripePaymentMethodsParam[],
     stripeAccountEnable: 'Unconfirmed' as StripeEnableStatus,
     stripeCustomerEnable: 'Unconfirmed' as StripeEnableStatus,
@@ -32,6 +33,9 @@ export const currentMerchantUserSlice = createSlice({
     defaultPaymentMethodIdChanged: (state, action: PayloadAction<string>) => {
       state.defaultPaymentMethodId = action.payload
     },
+    isRootUserChanged: (state, action: PayloadAction<boolean>) => {
+      state.isRootUser = action.payload
+    },
     paymentMethodsChanged: (state, action: PayloadAction<StripePaymentMethodsParam[]>) => {
       state.paymentMethods = action.payload
     },
@@ -52,6 +56,7 @@ export const { accountIdChanged } = currentMerchantUserSlice.actions
 export const { emailChanged } = currentMerchantUserSlice.actions
 export const { servicePlanChanged } = currentMerchantUserSlice.actions
 export const { defaultPaymentMethodIdChanged } = currentMerchantUserSlice.actions
+export const { isRootUserChanged } = currentMerchantUserSlice.actions
 export const { paymentMethodsChanged } = currentMerchantUserSlice.actions
 export const { stripeAccountEnableChanged } = currentMerchantUserSlice.actions
 export const { stripeCustomerEnableChanged } = currentMerchantUserSlice.actions

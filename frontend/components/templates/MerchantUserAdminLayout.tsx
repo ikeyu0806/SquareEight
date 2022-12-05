@@ -9,6 +9,7 @@ import WithoutSessionLayout from './WithoutSessionLayout'
 import { loginStatusChanged,
          servicePlanChanged,
          emailChanged,
+         isRootUserChanged,
          stripeAccountEnableChanged,
          stripeCustomerEnableChanged } from 'redux/currentMerchantUserSlice'
 import {  allowReadMerchantUserChanged,
@@ -83,6 +84,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(stripeCustomerEnableChanged(response.data.user.stripe_customer_enable ? 'Enable' : 'Disable'))
       dispatch(servicePlanChanged(response.data.service_plan))
       dispatch(emailChanged(response.data.user.email))
+      dispatch(isRootUserChanged(response.data.user.is_root_user))
       // 権限
       dispatch(allowReadMerchantUserChanged(response.data.user.allow_read_merchant_user))
       dispatch(allowCreateMerchantUserChanged(response.data.user.allow_create_merchant_user))
