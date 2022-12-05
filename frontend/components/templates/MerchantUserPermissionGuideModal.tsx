@@ -215,6 +215,12 @@ const MerchantUserPermissionGuideModal = (): JSX.Element => {
                     <td className='text-center'>×</td>
                   </tr>
                   <tr>
+                    <td className='text-center'>ページ全体編集</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>×</td>
+                  </tr>
+                  <tr>
                     <td className='text-center'>お支払いクレジットカードの登録・更新・削除</td>
                     <td className='text-center'>○</td>
                     <td className='text-center'>○</td>
