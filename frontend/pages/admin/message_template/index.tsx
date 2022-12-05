@@ -10,6 +10,7 @@ import CreateMessageTemplateModal from 'components/templates/CreateMessageTempla
 import EditMessageTemplateModal from 'components/templates/EditMessageTemplateModal'
 import SendMessageTemplateModal from 'components/templates/SendMessageTemplateModal'
 import axios from 'axios'
+import Unauauthorized from 'components/templates/Unauauthorized'
 import { showEditMessageTemplateModalChanged,
          showCreateMessageTemplateModalChanged,
          showSendMessageTemplateModalChanged,
@@ -116,6 +117,7 @@ const Index: NextPage = () => {
           </Col>
         </Row>
       </Container>}
+      {allowReadMessageTemplate === 'Forbid' && <Unauauthorized />}
       <CreateMessageTemplateModal></CreateMessageTemplateModal>
       <EditMessageTemplateModal></EditMessageTemplateModal>
       <SendMessageTemplateModal></SendMessageTemplateModal>

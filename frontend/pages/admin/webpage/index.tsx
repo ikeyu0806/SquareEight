@@ -9,6 +9,7 @@ import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import { WebpageParam } from 'interfaces/WebpageParam'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
+import Unauauthorized from 'components/templates/Unauauthorized'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -66,6 +67,7 @@ const Index: NextPage = () => {
             </Col>
           </Row>
         </Container>}
+        {allowReadWebpage === 'Forbid' && <Unauauthorized />}
       </MerchantUserAdminLayout>
     </>
   )
