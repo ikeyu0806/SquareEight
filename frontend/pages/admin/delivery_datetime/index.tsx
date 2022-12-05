@@ -11,6 +11,7 @@ import { AdditionalDeliveryDays } from 'interfaces/AdditionalDeliveryDays'
 import { DeliveryTimes } from 'interfaces/DeliveryTimes'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useRouter } from 'next/router'
+import Unauauthorized from 'components/templates/Unauauthorized'
 import { 
   shortestDeliveryDayChanged,
   longestDeliveryDayChanged,
@@ -416,6 +417,7 @@ const Index: NextPage = () => {
           </Col>
         </Row>
       </Container>}
+      {allowUpdateDeliveryDatetime === 'Forbid' && <Unauauthorized />}
       <SetTargetProductModal></SetTargetProductModal>
     </MerchantUserAdminLayout>
   )  
