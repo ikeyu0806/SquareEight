@@ -65,7 +65,10 @@ import {  allowReadMerchantUserChanged,
           allowReadSalesChanged,
           allowUpdateCreditCardChanged,
           allowReadStripeBusinessInfoChanged,
-          allowUpdateStripeBusinessInfoChanged } from 'redux/settingFormMerchantUserPermissionSlice'
+          allowUpdateStripeBusinessInfoChanged,
+          allowReadSystemPlanSubscriptionPaymentsChanged,
+          allowUpdateSharedComponentChanged,
+          allowUpdateSystemPlanChanged } from 'redux/settingFormMerchantUserPermissionSlice'
 
 const Permission: NextPage = () => {
   const dispatch = useDispatch()
@@ -130,6 +133,9 @@ const Permission: NextPage = () => {
   const allowUpdateCreditCard = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateCreditCard)
   const allowReadStripeBusinessInfo = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadStripeBusinessInfo)
   const allowUpdateStripeBusinessInfo = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateStripeBusinessInfo)
+  const allowReadSystemPlanSubscriptionPayments = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadSystemPlanSubscriptionPayments)
+  const allowUpdateSharedComponent = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateSharedComponent)
+  const allowUpdateSystemPlan = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowUpdateSystemPlan)
 
   useEffect(() => {
     const fetchMerchantUser = () => {
@@ -193,6 +199,9 @@ const Permission: NextPage = () => {
         dispatch(allowUpdateCreditCardChanged(response.data.merchant_user.allow_update_credit_card))
         dispatch(allowReadStripeBusinessInfoChanged(response.data.merchant_user.allow_read_stripe_business_info))
         dispatch(allowUpdateStripeBusinessInfoChanged(response.data.merchant_user.allow_read_merchan))
+        dispatch(allowReadSystemPlanSubscriptionPaymentsChanged(response.data.merchant_user.allow_read_system_plan_subscription_payments))
+        dispatch(allowUpdateSharedComponentChanged(response.data.merchant_user.allow_update_shared_component))
+        dispatch(allowUpdateSystemPlanChanged(response.data.merchant_user.allow_update_system_plan))
       })
       .catch(error => {
         console.log(error)
@@ -256,7 +265,10 @@ const Permission: NextPage = () => {
         allow_create_payment_request: allowCreatePaymentRequest,
         allow_update_credit_card: allowUpdateCreditCard,
         allow_read_stripe_business_info: allowReadStripeBusinessInfo,
-        allow_update_stripe_business_info: allowUpdateStripeBusinessInfo
+        allow_update_stripe_business_info: allowUpdateStripeBusinessInfo,
+        allow_read_system_plan_subscription_payments: allowReadSystemPlanSubscriptionPayments,
+        allow_update_shared_component: allowUpdateSharedComponent,
+        allow_update_system_plan: allowUpdateSystemPlan,
       }
     },
     {
@@ -500,6 +512,10 @@ const Permission: NextPage = () => {
                 onChange={() => dispatch(allowCreatePaymentRequestChanged(allowCreatePaymentRequest === 'Allow' ? 'Forbid' : 'Allow' ))}
                 checked={allowCreatePaymentRequest === 'Allow'} />
               <UserPermissionListGroupItem
+                text={'ページ共通レイアウト設定'}
+                onChange={() => dispatch(allowReadSystemPlanSubscriptionPaymentsChanged(allowReadSystemPlanSubscriptionPayments === 'Allow' ? 'Forbid' : 'Allow' ))}
+                checked={allowReadSystemPlanSubscriptionPayments === 'Allow'} />
+              <UserPermissionListGroupItem
                 text={'売り上げ閲覧'}
                 onChange={() => dispatch(allowReadSalesChanged(allowReadSales === 'Allow' ? 'Forbid' : 'Allow' ))}
                 checked={allowReadSales === 'Allow'} />
@@ -515,6 +531,14 @@ const Permission: NextPage = () => {
                 text={'事業情報登録'}
                 onChange={() => dispatch(allowUpdateStripeBusinessInfoChanged(allowUpdateStripeBusinessInfo === 'Allow' ? 'Forbid' : 'Allow' ))}
                 checked={allowUpdateStripeBusinessInfo === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'支払い履歴閲覧'}
+                onChange={() => dispatch(allowReadSystemPlanSubscriptionPaymentsChanged(allowReadSystemPlanSubscriptionPayments === 'Allow' ? 'Forbid' : 'Allow' ))}
+                checked={allowReadSystemPlanSubscriptionPayments === 'Allow'} />
+              <UserPermissionListGroupItem
+                text={'SquareEightプラン変更'}
+                onChange={() => dispatch(allowUpdateSystemPlanChanged(allowUpdateSystemPlan === 'Allow' ? 'Forbid' : 'Allow' ))}
+                checked={allowUpdateSystemPlan === 'Allow'} />
             </ListGroup>
             <Button className='mt10' onClick={onSubmit}>設定を保存する</Button>
           </Col>

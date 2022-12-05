@@ -297,7 +297,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_064739) do
     t.integer "allow_update_stripe_business_info", default: 0
     t.integer "allow_read_system_plan_subscription_payments", default: 0
     t.integer "allow_update_shared_component", default: 0
-    t.integer "allow_update_merchant_user_permisson", default: 0
     t.integer "allow_update_system_plan", default: 0
     t.index ["email"], name: "index_merchant_users_on_email", unique: true
   end

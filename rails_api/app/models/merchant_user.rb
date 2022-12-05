@@ -16,6 +16,7 @@ class MerchantUser < ApplicationRecord
   enum allow_create_merchant_user: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_merchant_user: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_delete_merchant_user: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_merchant_user_permission: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_read_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_create_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
@@ -68,7 +69,6 @@ class MerchantUser < ApplicationRecord
   enum allow_update_stripe_business_info: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_read_system_plan_subscription_payments: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_shared_component: { Forbid: 0, Allow: 1 }, _prefix: true
-  enum allow_update_merchant_user_permisson: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_system_plan: { Forbid: 0, Allow: 1 }, _prefix: true
 
   validates :authority_category, presence: true
@@ -150,7 +150,6 @@ class MerchantUser < ApplicationRecord
     self.allow_update_stripe_business_info  = 'Allow'
     self.allow_read_system_plan_subscription_payments  = 'Allow'
     self.allow_update_shared_component  = 'Allow'
-    self.allow_update_merchant_user_permisson  = 'Forbid'
     self.allow_update_system_plan  = 'Forbid'
   end
 
@@ -212,7 +211,6 @@ class MerchantUser < ApplicationRecord
     self.allow_update_stripe_business_info  = 'Forbid'
     self.allow_read_system_plan_subscription_payments  = 'Forbid'
     self.allow_update_shared_component  = 'Forbid'
-    self.allow_update_merchant_user_permisson  = 'Forbid'
     self.allow_update_system_plan  = 'Forbid'
   end
 end

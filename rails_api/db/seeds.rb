@@ -76,7 +76,10 @@ MerchantUser.first_or_create!(
   allow_read_credit_card: "Allow",
   allow_update_credit_card: "Allow",
   allow_read_stripe_business_info: "Allow",
-  allow_update_stripe_business_info: "Allow"
+  allow_update_stripe_business_info: "Allow",
+  allow_read_system_plan_subscription_payments: "Allow",
+  allow_update_shared_component: "Allow",
+  allow_update_system_plan: "Allow"
 )
 
 EndUser.first_or_create!(

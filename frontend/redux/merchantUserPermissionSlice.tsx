@@ -63,7 +63,6 @@ export const merchantUserPermissionSlice = createSlice({
     allowUpdateStripeBusinessInfo: 'Unconfirmed',
     allowReadSystemPlanSubscriptionPayments: 'Unconfirmed',
     allowUpdateSharedComponent: 'Unconfirmed',
-    allowUpdateMerchantUserPermisson: 'Unconfirmed',
     allowUpdateSystemPlan: 'Unconfirmed',
   },
   reducers: {
@@ -247,9 +246,6 @@ export const merchantUserPermissionSlice = createSlice({
     allowUpdateSharedComponentChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateSharedComponent = action.payload
     },
-    allowUpdateMerchantUserPermissonChanged: (state, action: PayloadAction<string>) => {
-      state.allowUpdateMerchantUserPermisson = action.payload
-    },
     allowUpdateSystemPlanChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateStripeBusinessInfo = action.payload
     },
@@ -315,7 +311,6 @@ export const { allowReadStripeBusinessInfoChanged } = merchantUserPermissionSlic
 export const { allowUpdateStripeBusinessInfoChanged } = merchantUserPermissionSlice.actions
 export const { allowReadSystemPlanSubscriptionPaymentsChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateSharedComponentChanged } = merchantUserPermissionSlice.actions
-export const { allowUpdateMerchantUserPermissonChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateSystemPlanChanged } = merchantUserPermissionSlice.actions
 
 export default merchantUserPermissionSlice.reducer
