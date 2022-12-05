@@ -12,6 +12,7 @@ import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import GuideStripeAccountRegister from 'components/templates/GuideStripeAccountRegister'
+import Unauauthorized from 'components/templates/Unauauthorized'
 import { priceChanged,
          nameChanged,
          reserveIsUnlimitedChanged,
@@ -102,6 +103,7 @@ const Edit: NextPage = () => {
             {stripeAccountEnable === 'Enable' && <Button onClick={onSubmit} className='mt10'>更新する</Button>}
           </div>
         </Container>}
+        {allowUpdateMonthlyPaymentPlan === 'Forbid' && <Unauauthorized />}
       </MerchantUserAdminLayout>
     </>
   )
