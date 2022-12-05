@@ -61,6 +61,10 @@ export const settingFormMerchantUserPermissionSlice = createSlice({
     allowUpdateCreditCard: 'Unconfirmed',
     allowReadStripeBusinessInfo: 'Unconfirmed',
     allowUpdateStripeBusinessInfo: 'Unconfirmed',
+    allowReadSystemPlanSubscriptionPayments: 'Unconfirmed',
+    allowUpdateSharedComponent: 'Unconfirmed',
+    allowUpdateMerchantUserPermisson: 'Unconfirmed',
+    allowUpdateSystemPlan: 'Unconfirmed',
   },
   reducers: {
     showPermissionGuideModalChanged: (state, action: PayloadAction<boolean>) => {
@@ -237,6 +241,18 @@ export const settingFormMerchantUserPermissionSlice = createSlice({
     allowUpdateStripeBusinessInfoChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateStripeBusinessInfo = action.payload
     },
+    allowReadSystemPlanSubscriptionPaymentsChanged: (state, action: PayloadAction<string>) => {
+      state.allowReadSystemPlanSubscriptionPayments = action.payload
+    },
+    allowUpdateSharedComponentChanged: (state, action: PayloadAction<string>) => {
+      state.allowUpdateSharedComponent = action.payload
+    },
+    allowUpdateMerchantUserPermissonChanged: (state, action: PayloadAction<string>) => {
+      state.allowUpdateMerchantUserPermisson = action.payload
+    },
+    allowUpdateSystemPlanChanged: (state, action: PayloadAction<string>) => {
+      state.allowUpdateStripeBusinessInfo = action.payload
+    },
   },
 })
 
@@ -298,5 +314,9 @@ export const { allowReadSalesChanged } = settingFormMerchantUserPermissionSlice.
 export const { allowUpdateCreditCardChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowReadStripeBusinessInfoChanged } = settingFormMerchantUserPermissionSlice.actions
 export const { allowUpdateStripeBusinessInfoChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowReadSystemPlanSubscriptionPaymentsChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowUpdateSharedComponentChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowUpdateMerchantUserPermissonChanged } = settingFormMerchantUserPermissionSlice.actions
+export const { allowUpdateSystemPlanChanged } = settingFormMerchantUserPermissionSlice.actions
 
 export default settingFormMerchantUserPermissionSlice.reducer
