@@ -62,6 +62,7 @@ import {  allowReadMerchantUserChanged,
           allowReadSalesChanged,
           allowUpdateCreditCardChanged,
           allowReadStripeBusinessInfoChanged,
+          allowReadSystemPlanSubscriptionPaymentsChanged,
           allowUpdateStripeBusinessInfoChanged, } from 'redux/merchantUserPermissionSlice'
 
 interface Props {
@@ -139,6 +140,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowUpdateCreditCardChanged(response.data.user.allow_update_credit_card))
       dispatch(allowReadStripeBusinessInfoChanged(response.data.user.allow_read_stripe_business_info))
       dispatch(allowUpdateStripeBusinessInfoChanged(response.data.user.allow_read_merchan))
+      dispatch(allowReadSystemPlanSubscriptionPaymentsChanged(response.data.user.allow_read_system_plan_subscription_payments))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
