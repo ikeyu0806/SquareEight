@@ -29,7 +29,8 @@ resource "aws_ecs_service" "square-eight" {
 
   # サブネットの指定
   network_configuration {
-    subnets         = [aws_subnet.square-eight-private-1a.id, aws_subnet.square-eight-private-1c.id, aws_subnet.square-eight-private-1d.id]
+    # subnets         = [aws_subnet.square-eight-private-1a.id, aws_subnet.square-eight-private-1c.id, aws_subnet.square-eight-private-1d.id]
+    subnets         = [aws_subnet.square-eight-private-1a.id]
     security_groups = [aws_security_group.square-eight-ecs.id]
   }
 
