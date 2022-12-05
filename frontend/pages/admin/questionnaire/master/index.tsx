@@ -7,6 +7,7 @@ import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
+import Unauauthorized from 'components/templates/Unauauthorized'
 
 const Index = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -68,6 +69,7 @@ const Index = (): JSX.Element => {
           </Col>
         </Row>
       </Container>}
+      {allowReadQuestionnaireMaster === 'Forbid' && <Unauauthorized />}
     </MerchantUserAdminLayout>
   )
 }

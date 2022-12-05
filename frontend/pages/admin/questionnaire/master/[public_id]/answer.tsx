@@ -5,9 +5,10 @@ import { QuestionnaireMasterParam } from 'interfaces/QuestionnaireMasterParam'
 import { QuestionnaireAnswerParam } from 'interfaces/QuestionnaireAnswerParam'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
-import { Container, Row, Card } from 'react-bootstrap'
+import { Container, Card } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
+import Unauauthorized from 'components/templates/Unauauthorized'
 
 const Answer = (): JSX.Element => {
   const router = useRouter()
@@ -54,6 +55,7 @@ const Answer = (): JSX.Element => {
           )
         })}
       </Container>}
+      {allowReadQuestionnaireAnswer === 'Forbid' && <Unauauthorized />}
     </MerchantUserAdminLayout>
   )
 }

@@ -11,6 +11,7 @@ import CreateQuestionnaireMaster from 'components/templates/CreateQuestionnaireM
 import { Card, Row, Col, Container, Button } from 'react-bootstrap'
 import AddQuestionnaireFormModal from 'components/organisms/AddQuestionnaireFormModal'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import Unauauthorized from 'components/templates/Unauauthorized'
 import { titleChanged,
          descriptionChanged,
          questionnaireMasterItemsChanged,
@@ -136,6 +137,7 @@ const Edit: NextPage = () => {
             disabled={validateSubmit()}>登録する</Button>
         </div>
       </>}
+      {allowUpdateQuestionnaireMaster === 'Forbid' && <Unauauthorized />}
     </MerchantUserAdminLayout>
   )
 }
