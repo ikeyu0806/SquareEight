@@ -10,6 +10,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
 import ResourceLimitAlert from 'components/molecules/ResourceLimitAlert'
+import Unauauthorized from 'components/templates/Unauauthorized'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -19,6 +20,7 @@ const New: NextPage = () => {
   const name = useSelector((state: RootState) => state.resource.name)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
   const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
+  const allowCreateResource = useSelector((state: RootState) => state.merchantUserPermission.allowCreateResource)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/resources`,
@@ -43,7 +45,7 @@ const New: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <Container>
+        {allowCreateResource === 'Allow' &&<Container>
           <Row>
             <Col lg={3} md={3}></Col>
             <Col lg={6} md={6}>
@@ -58,7 +60,8 @@ const New: NextPage = () => {
               }
             </Col>
           </Row>
-        </Container>
+        </Container>}
+        {allowCreateResource === 'Forbid' && <Unauauthorized />}
       </MerchantUserAdminLayout>
     </>
   )
