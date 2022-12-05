@@ -240,6 +240,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_064739) do
     t.string "last_name_kana"
     t.string "wait_for_update_email"
     t.string "email_reset_key"
+    t.boolean "is_root_user", default: false
     t.integer "allow_read_merchant_user", default: 0
     t.integer "allow_create_merchant_user", default: 0
     t.integer "allow_update_merchant_user", default: 0

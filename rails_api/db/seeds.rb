@@ -22,6 +22,7 @@ MerchantUser.first_or_create!(
   password: "Pass1234",
   authority_category: "RootUser",
   email_authentication_status: "Enabled",
+  is_root_user: true,
   allow_read_merchant_user: "Allow",
   allow_create_merchant_user: "Allow",
   allow_update_merchant_user: "Allow",

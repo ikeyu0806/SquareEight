@@ -1,5 +1,6 @@
 class AddMerchantUserPermissionColumns < ActiveRecord::Migration[7.0]
   def up
+    add_column :merchant_users, :is_root_user, :boolean, default: false
     add_column :merchant_users, :allow_read_merchant_user, :integer, default: 0
     add_column :merchant_users, :allow_create_merchant_user, :integer, default: 0
     add_column :merchant_users, :allow_update_merchant_user, :integer, default: 0

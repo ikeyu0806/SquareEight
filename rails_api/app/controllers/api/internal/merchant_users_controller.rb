@@ -32,6 +32,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       else
         merchant_user = MerchantUser.new(merchant_user_params.except(:business_name, :is_create_account))
       end
+      merchant_user.is_root_user = true
       merchant_user.email_authentication_status = 'Disabled'
       merchant_user.authority_category = "RootUser"
       merchant_user.verification_code = SecureRandom.random_number(10**VERIFICATION_CODE_LENGTH)
