@@ -4,7 +4,8 @@ resource "aws_lb" "square-eight-alb" {
   name               = "square-eight-ecs-${terraform.workspace}"
 
   security_groups = [aws_security_group.square-eight-alb.id]
-  subnets         = [aws_subnet.square-eight-public-1a.id, aws_subnet.square-eight-public-1c.id, aws_subnet.square-eight-public-1d.id]
+  # subnets         = [aws_subnet.square-eight-public-1a.id, aws_subnet.square-eight-public-1c.id, aws_subnet.square-eight-public-1d.id]
+  subnets         = [aws_subnet.square-eight-public-1a.id]
 }
 
 resource "aws_lb_listener_rule" "square-eight" {
