@@ -42,6 +42,11 @@ const Invitation: NextPage = () => {
       swalWithBootstrapButtons.fire({
         title: '送信しました',
         icon: 'info',
+        confirmButtonText: 'OK'
+      }).then((result) => {
+        if (result.isConfirmed) {
+          router.push('/admin/user')
+        }
       })
     }).catch(error => {
       swalWithBootstrapButtons.fire({
