@@ -10,6 +10,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { alertChanged } from 'redux/alertSlice'
+import Unauauthorized from 'components/templates/Unauauthorized'
 import {  nameChanged,
           priceChanged,
           taxRateChanged,
@@ -134,6 +135,7 @@ const Edit: NextPage = () => {
           </div>
         </>}
         {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
+        {allowUpdateProduct === 'Forbid' && <Unauauthorized />}
       </MerchantUserAdminLayout>
     </>
   )
