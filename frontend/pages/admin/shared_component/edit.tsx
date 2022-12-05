@@ -11,6 +11,7 @@ import SharedComponentHeaderForm from 'components/organisms/SharedComponentHeade
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import axios from 'axios'
+import Unauauthorized from 'components/templates/Unauauthorized'
 import { navbarBrandTextChanged,
          navbarBrandTypeChanged,
          navbarBrandImageChanged,
@@ -33,6 +34,7 @@ const Edit: NextPage = () => {
   const navbarBrandVariantColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandVariantColor)
   const isUpdateNavbarBrandImage =  useSelector((state: RootState) => state.sharedComponent.isUpdateNavbarBrandImage)
   const footerCopyRightText =  useSelector((state: RootState) => state.sharedComponent.footerCopyRightText)
+  const allowUpdateSharedComponent = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateSharedComponent)
 
   useEffect(() => {
     const fetchSharedComponent = () => {
@@ -44,7 +46,6 @@ const Edit: NextPage = () => {
         }
       )
       .then(function (response) {
-        console.log(response.data)
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
         dispatch((navbarBrandImageChanged(response.data.shared_component.navbar_brand_image_s3_object_public_url)))
@@ -96,7 +97,7 @@ const Edit: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container className='mb30'>
+      {allowUpdateSharedComponent === 'Allow' && <Container className='mb30'>
         <h3 className='mb30'>ページ共通部分編集</h3>
         <div>ページ共通のヘッダ、フッタを設定します。</div>
         <div className='mb30'>ここで設定した内容はSquareEightで作成したWebページ、商品購入ページ、予約ページ、アンケートページに反映されます</div>
@@ -131,7 +132,8 @@ const Edit: NextPage = () => {
           </Container>
         </div>
         <MerchantCustomFooter></MerchantCustomFooter>
-      </Container>
+      </Container>}
+      {allowUpdateSharedComponent === 'Forbid' && <Unauauthorized></Unauauthorized>}
     </MerchantUserAdminLayout>
   )
 }

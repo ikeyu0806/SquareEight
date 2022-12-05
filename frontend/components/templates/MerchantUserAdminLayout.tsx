@@ -58,6 +58,7 @@ import {  allowReadMerchantUserChanged,
           allowDeleteQuestionnaireMasterChanged,
           allowReadQuestionnaireAnswerChanged,
           allowCreatePaymentRequestChanged,
+          allowUpdateSharedComponentChanged,
           allowReadSalesChanged,
           allowUpdateCreditCardChanged,
           allowReadStripeBusinessInfoChanged,
@@ -133,6 +134,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowDeleteQuestionnaireMasterChanged(response.data.user.allow_delete_questionnaire_master))
       dispatch(allowReadQuestionnaireAnswerChanged(response.data.user.allow_create_questionnaire_master))
       dispatch(allowCreatePaymentRequestChanged(response.data.user.allow_create_payment_request))
+      dispatch(allowUpdateSharedComponentChanged(response.data.user.allow_update_shared_component))
       dispatch(allowReadSalesChanged(response.data.user.allow_read_sales))
       dispatch(allowUpdateCreditCardChanged(response.data.user.allow_update_credit_card))
       dispatch(allowReadStripeBusinessInfoChanged(response.data.user.allow_read_stripe_business_info))
