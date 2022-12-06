@@ -1,0 +1,42 @@
+# コスト節約のためEC2でのプレリリースをdocker-composeで実装したい
+version: '3'
+volumes:
+  tmp-data:
+services:
+  square_eight_pre_release_rails_api:
+    container_name: square_eight_pre_release_rails_api
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    env_file: ./docker/docker_ecs_main.env
+    command: bash -c "/workdir/docker/app/entrypoint_pre_release.sh"
+    volumes:
+      - .:/workdir
+      - tmp-data:/workdir/tmp
+    tty: true
+    stdin_open: true
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: ap-northeast-1
+        awslogs-group: /ecs/square-eight-main-rails-api
+    networks:
+      - square_eight_pre_release_network
+  square_eight_pre_release_nginx:
+    container_name: square_eight_pre_release_nginx
+    build:
+      context: .
+      dockerfile: docker/nginx/Dockerfile
+    volumes:
+      - tmp-data:/workdir/tmp
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: ap-northeast-1
+        awslogs-group: /ecs/square-eight-main-nginx
+    ports:
+      - 80:80
+    networks:
+          - square_eight_pre_release_network
+networks:
+  square_eight_pre_release_network:
