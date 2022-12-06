@@ -15,11 +15,11 @@ services:
       - tmp-data:/workdir/tmp
     tty: true
     stdin_open: true
-    # logging:
-    #   driver: awslogs
-    #   options:
-    #     awslogs-region: ap-northeast-1
-    #     awslogs-group: /ecs/square-eight-main-rails-api
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: ap-northeast-1
+        awslogs-group: /ecs/square-eight-main-rails-api
     networks:
       - square_eight_pre_release_network
   square_eight_pre_release_nginx:
@@ -29,11 +29,11 @@ services:
       dockerfile: docker/nginx/Dockerfile
     volumes:
       - tmp-data:/workdir/tmp
-    # logging:
-    #   driver: awslogs
-    #   options:
-    #     awslogs-region: ap-northeast-1
-    #     awslogs-group: /ecs/square-eight-main-nginx
+    logging:
+      driver: awslogs
+      options:
+        awslogs-region: ap-northeast-1
+        awslogs-group: /ecs/square-eight-main-nginx
     ports:
       - 80:80
     networks:
