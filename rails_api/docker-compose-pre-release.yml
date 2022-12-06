@@ -36,6 +36,8 @@ services:
         awslogs-group: /ecs/square-eight-main-nginx
     ports:
       - 80:80
+    depends_on:
+      - square_eight_pre_release_rails_api
     networks:
           - square_eight_pre_release_network
 networks:
