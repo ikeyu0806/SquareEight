@@ -1,0 +1,22 @@
+# コスト節約のためEC2でのプレリリースをdocker-composeで実装したい
+version: '3'
+
+services:
+  square_eight_pre_release_rails_api:
+    container_name: square_eight_pre_release_rails_api
+    build:
+      context: .
+      dockerfile: docker/app/Dockerfile
+    env_file: ./docker/docker_ecs_main.env
+    command: bash -c "/workdir/docker/app/entrypoint_pre_release.sh"
+    volumes:
+      - .:/workdir
+    tty: true
+    stdin_open: true
+    ports:
+      - 8011:3000
+    networks:
+      - square_eight_pre_release_network
+
+networks:
+  square_eight_pre_release_network:

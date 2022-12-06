@@ -19,7 +19,7 @@ services:
       context: rails_api
       dockerfile: docker/app/Dockerfile
     env_file: ./rails_api/docker/docker_local.env
-    command: bash -c "/workdir/docker/app/docker_rails_init_dev.sh"
+    command: bash -c "/workdir/docker/app/entrypoint_local.sh"
     volumes:
       - ./rails_api:/workdir
     tty: true
