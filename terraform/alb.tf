@@ -3,7 +3,7 @@ resource "aws_lb" "square-eight-alb" {
   load_balancer_type = "application"
   name               = "square-eight-ecs-${terraform.workspace}"
 
-  security_groups = [aws_security_group.square-eight-alb.id]
+  security_groups = [aws_security_group.square-eight-alb.id, aws_subnet.square-eight-public-1c.id]
   # subnets         = [aws_subnet.square-eight-public-1a.id, aws_subnet.square-eight-public-1c.id, aws_subnet.square-eight-public-1d.id]
   subnets         = [aws_subnet.square-eight-public-1a.id]
 }
