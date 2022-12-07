@@ -184,6 +184,46 @@ const Home: NextPage = () => {
               </Col>
             </Row>
             &thinsp;
+            <Row>
+              <Col lg={4} sm={12}>
+                <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/multi_user_icatch.png' />
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>複数管理ユーザ登録</div>
+                    <div className={homeStyles.features_description_text}>管理画面のユーザを複数登録できます。
+                    お客様ごとにメモを登録できます。</div>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/12/07/%e3%80%90squareeight%e3%80%91%e8%a4%87%e6%95%b0%e7%ae%a1%e7%90%86%e3%83%a6%e3%83%bc%e3%82%b6%e7%99%bb%e9%8c%b2%e6%a9%9f%e8%83%bd%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
+                      もっと見る
+                    </a>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col lg={4} sm={12}>
+                <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/user_permission_icatch.png' />
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>管理ユーザの権限設定</div>
+                    <div className={homeStyles.features_description_text}>ユーザごとに管理画面の操作権限を設定できます。</div>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/12/07/%e3%80%90squareeight%e3%80%91%e3%83%a6%e3%83%bc%e3%82%b6%e6%a8%a9%e9%99%90%e8%a8%ad%e5%ae%9a%e6%a9%9f%e8%83%bd%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
+                      もっと見る
+                    </a>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col lg={4} sm={12}>
+                <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/payment_request_icatch.png' />
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>決済リクエスト機能</div>
+                    <div className={homeStyles.features_description_text}>クレジットカード決済のリクエストページを作成できます。</div>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/12/07/%e3%80%90squareeight%e3%80%91%e6%b1%ba%e6%b8%88%e3%83%aa%e3%82%af%e3%82%a8%e3%82%b9%e3%83%88%e6%a9%9f%e8%83%bd%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
+                      もっと見る
+                    </a>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+            &thinsp;
           </Container>
         </div>
       </div>
