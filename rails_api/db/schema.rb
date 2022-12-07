@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_30_064739) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_07_055443) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -299,6 +299,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_30_064739) do
     t.integer "allow_read_system_plan_subscription_payments", default: 0
     t.integer "allow_update_shared_component", default: 0
     t.integer "allow_update_system_plan", default: 0
+    t.integer "allow_read_message_template", default: 0
+    t.integer "allow_update_message_template", default: 0
     t.index ["email"], name: "index_merchant_users_on_email", unique: true
   end
 

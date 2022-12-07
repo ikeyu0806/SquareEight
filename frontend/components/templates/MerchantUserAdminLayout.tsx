@@ -50,6 +50,9 @@ import {  allowReadMerchantUserChanged,
           allowUpdateCustomerGroupChanged,
           allowDeleteCustomerGroupChanged,
           allowReadMessageTemplateChanged,
+          allowCreateMessageTemplateChanged,
+          allowUpdateMessageTemplateChanged,
+          allowDeleteMessageTemplateChanged,
           allowReadWebpageChanged,
           allowCreateWebpageChanged,
           allowUpdateWebpageChanged,
@@ -130,6 +133,9 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowUpdateCustomerGroupChanged(response.data.user.allow_update_customer_group))
       dispatch(allowDeleteCustomerGroupChanged(response.data.user.allow_delete_customer_group))
       dispatch(allowReadMessageTemplateChanged(response.data.user.allow_read_message_template))
+      dispatch(allowCreateMessageTemplateChanged(response.data.user.allow_create_message_template))
+      dispatch(allowUpdateMessageTemplateChanged(response.data.user.allow_update_message_template))
+      dispatch(allowDeleteMessageTemplateChanged(response.data.user.allow_delete_message_template))
       dispatch(allowReadWebpageChanged(response.data.user.allow_read_webpage))
       dispatch(allowCreateWebpageChanged(response.data.user.allow_create_webpage))
       dispatch(allowUpdateWebpageChanged(response.data.user.allow_update_webpage))
