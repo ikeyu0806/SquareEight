@@ -76,6 +76,7 @@ const Permission: NextPage = () => {
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [merchantUser, setMerchantUser] = useState<MerchantUserParam>()
+  const currentMerchantUserallowUpdateMerchantUserPermission = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateMerchantUserPermission)  
 
   const allowReadMerchantUser = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowReadMerchantUser)
   const allowCreateMerchantUser = useSelector((state: RootState) => state.settingFormMerchantUserPermission.allowCreateMerchantUser)
@@ -291,7 +292,7 @@ const Permission: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      {allowUpdateMerchantUserPermission === 'Allow' && <Container>
+      {currentMerchantUserallowUpdateMerchantUserPermission === 'Allow' && <Container>
         <Row>
           <Col lg={3}>
           </Col>
@@ -545,7 +546,7 @@ const Permission: NextPage = () => {
           </Col>
         </Row>
       </Container>}
-      {allowUpdateMerchantUserPermission === 'Forbid' && <Unauthorized />}
+      {currentMerchantUserallowUpdateMerchantUserPermission === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

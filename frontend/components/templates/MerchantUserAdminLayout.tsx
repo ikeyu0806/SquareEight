@@ -15,6 +15,7 @@ import { loginStatusChanged,
 import {  allowReadMerchantUserChanged,
           allowCreateMerchantUserChanged,
           allowUpdateMerchantUserChanged,
+          allowUpdateMerchantUserPermissionChanged,
           allowReadReserveFrameChanged,
           allowCreateReserveFrameChanged,
           allowUpdateReserveFrameChanged,
@@ -92,6 +93,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowReadMerchantUserChanged(response.data.user.allow_read_merchant_user))
       dispatch(allowCreateMerchantUserChanged(response.data.user.allow_create_merchant_user))
       dispatch(allowUpdateMerchantUserChanged(response.data.user.allow_update_merchant_user))
+      dispatch(allowUpdateMerchantUserPermissionChanged(response.data.user.allow_update_merchant_user_permission))
       dispatch(allowReadReserveFrameChanged(response.data.user.allow_read_reserve_frame))
       dispatch(allowCreateReserveFrameChanged(response.data.user.allow_create_reserve_frame))
       dispatch(allowUpdateReserveFrameChanged(response.data.user.allow_update_reserve_frame))
