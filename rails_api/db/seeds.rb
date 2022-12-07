@@ -62,10 +62,10 @@ MerchantUser.first_or_create!(
   allow_create_customer_group: "Allow",
   allow_update_customer_group: "Allow",
   allow_delete_customer_group: "Allow",
-  allow_read_message_template = 'Allow'
-  allow_create_message_template = 'Allow'
-  allow_update_message_template = 'Allow'
-  allow_delete_message_template = 'Allow'
+  allow_read_message_template: 'Allow',
+  allow_create_message_template: 'Allow',
+  allow_update_message_template: 'Allow',
+  allow_delete_message_template: 'Allow',
   allow_read_webpage: "Allow",
   allow_create_webpage: "Allow",
   allow_update_webpage: "Allow",

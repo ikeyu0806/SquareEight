@@ -300,7 +300,9 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_055443) do
     t.integer "allow_update_shared_component", default: 0
     t.integer "allow_update_system_plan", default: 0
     t.integer "allow_read_message_template", default: 0
+    t.integer "allow_create_message_template", default: 0
     t.integer "allow_update_message_template", default: 0
+    t.integer "allow_delete_message_template", default: 0
     t.index ["email"], name: "index_merchant_users_on_email", unique: true
   end
 
