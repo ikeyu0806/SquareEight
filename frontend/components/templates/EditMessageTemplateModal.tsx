@@ -17,6 +17,8 @@ const EditMessageTemplateModal = (): JSX.Element => {
   const name = useSelector((state: RootState) => state.messageTemplate.name)
   const title = useSelector((state: RootState) => state.messageTemplate.title)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
+  const allowUpdateMessageTemplate = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateMessageTemplate)
+  const allowDeleteMessageTemplate = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteMessageTemplate)
 
   const updateTemplate = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/message_templates/${publicId}`,
@@ -82,22 +84,22 @@ const EditMessageTemplateModal = (): JSX.Element => {
         <Col lg={11} md={9}>
           メッセージテンプレート編集
         </Col>
-        <Col>
+        {allowDeleteMessageTemplate === 'Allow' && <Col>
           <Button
             onClick={() => execDelete()}
             variant='danger'
             className='ml10'>削除する</Button>
-        </Col>
+        </Col>}
       </Modal.Header>
       <Modal.Body>
         <CreateMessageTemplateForm></CreateMessageTemplateForm>
       </Modal.Body>
       <Modal.Footer>
-        <Button
+        {allowUpdateMessageTemplate === 'Allow' && <Button
           disabled={validateSubmit()}
           onClick={() => updateTemplate()}>
           登録する
-        </Button>
+        </Button>}
         <Button variant='secondary' onClick={() => dispatch(showEditMessageTemplateModalChanged(false))}>
           閉じる
         </Button>
