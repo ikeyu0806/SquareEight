@@ -304,6 +304,7 @@ export const { allowCreateQuestionnaireMasterChanged } = merchantUserPermissionS
 export const { allowUpdateQuestionnaireMasterChanged } = merchantUserPermissionSlice.actions
 export const { allowDeleteQuestionnaireMasterChanged } = merchantUserPermissionSlice.actions
 export const { allowReadQuestionnaireAnswerChanged } = merchantUserPermissionSlice.actions
+export const { allowReadPaymentRequestChanged } = merchantUserPermissionSlice.actions
 export const { allowCreatePaymentRequestChanged } = merchantUserPermissionSlice.actions
 export const { allowReadSalesChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateCreditCardChanged } = merchantUserPermissionSlice.actions
