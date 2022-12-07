@@ -37,7 +37,6 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
-      console.log(response.data)
       setMessageTemplates(response.data.message_templates)
       // 顧客情報更新
       dispatch(customersChanged(response.data.customers))

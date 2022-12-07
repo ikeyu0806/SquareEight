@@ -51,6 +51,8 @@ class MerchantUser < ApplicationRecord
   enum allow_create_customer_group: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_customer_group: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_delete_customer_group: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_message_template: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_message_template: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_read_webpage: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_create_webpage: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_webpage: { Forbid: 0, Allow: 1 }, _prefix: true
@@ -132,6 +134,8 @@ class MerchantUser < ApplicationRecord
     self.allow_create_customer_group = 'Allow'
     self.allow_update_customer_group = 'Allow'
     self.allow_delete_customer_group = 'Allow'
+    self.allow_read_message_template = 'Allow'
+    self.allow_update_message_template = 'Allow'
     self.allow_read_webpage = 'Allow'
     self.allow_create_webpage = 'Allow'
     self.allow_update_webpage = 'Allow'
@@ -193,6 +197,8 @@ class MerchantUser < ApplicationRecord
     self.allow_create_customer_group = 'Forbid'
     self.allow_update_customer_group = 'Forbid'
     self.allow_delete_customer_group = 'Forbid'
+    self.allow_read_message_template = 'Allow'
+    self.allow_update_message_template = 'Forbid'
     self.allow_read_webpage = 'Allow'
     self.allow_create_webpage = 'Forbid'
     self.allow_update_webpage = 'Forbid'
