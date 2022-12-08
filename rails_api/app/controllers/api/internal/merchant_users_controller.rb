@@ -91,7 +91,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       merchant_user.first_name = merchant_user_params[:first_name]
       merchant_user.last_name_kana = merchant_user_params[:last_name_kana]
       merchant_user.first_name_kana = merchant_user_params[:first_name_kana]
-      merchant_user.password = merchant_user_params[:password]
+      merchant_user.password = merchant_user_params[:password] if merchant_user_params[:password].present?
       # メールアドレス変更/追加時
       if merchant_user_params[:email].present? && init_email != merchant_user_params[:email]
         merchant_user.wait_for_update_email = merchant_user_params[:email]

@@ -77,10 +77,7 @@ const Edit: NextPage = () => {
     if (!email.match(emailRegex)) {
       return true
     }
-    if (!isEnabledEmailLogin) {
-      if (!password) {
-        return true
-      }
+    if (password) {
       if (!password.match(passwordRegex)) {
         return true
       }
@@ -115,7 +112,7 @@ const Edit: NextPage = () => {
             <Form.Control
               onChange={(e) => setEmail(e.target.value)}
               value={email}></Form.Control>
-              <Form.Label className='mt10'>パスワード</Form.Label>
+              <Form.Label className='mt10'>パスワード(変更する場合は入力してください)</Form.Label>
             <Form.Control
               onChange={(e) => setPassword(e.target.value)}
               value={password}></Form.Control>
