@@ -7,6 +7,7 @@ import LightPlanCard from 'components/molecules/LightPlanCard'
 import StandardPlanCard from 'components/molecules/StarndardPlanCard'
 import PremiumPlanCard from 'components/molecules/PremiumPlanCard'
 import CampaignAlert from 'components/atoms/CampaignAlert'
+import SquareEightLogo from 'components/atoms/SquareEightLogo'
 import { Container,
          Navbar,
          Nav,
@@ -21,7 +22,7 @@ const Home: NextPage = () => {
       
       <Navbar collapseOnSelect expand='lg' bg='light'>
         <Container>
-          <Navbar.Brand href='/' className='font-weight-bold'>SquareEight</Navbar.Brand>
+          <Navbar.Brand href='/' className='font-weight-bold'><SquareEightLogo width={150} height={55} /></Navbar.Brand>
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
           <Navbar.Collapse id='responsive-navbar-nav'>
             <Nav className='me-auto'>
