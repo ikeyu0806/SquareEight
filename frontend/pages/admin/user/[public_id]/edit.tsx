@@ -108,7 +108,7 @@ const Edit: NextPage = () => {
             <Form.Control
               onChange={(e) => setFirstNameKana(e.target.value)}
               value={firstNameKana}></Form.Control>
-              <Form.Label className='mt10'>メールアドレス</Form.Label>
+              <Form.Label className='mt10'>メールアドレス(変更した場合本人確認メールが送られます)</Form.Label>
             <Form.Control
               onChange={(e) => setEmail(e.target.value)}
               value={email}></Form.Control>
