@@ -34,6 +34,7 @@ Rails.application.routes.draw do
       get 'merchant_users/current_merchant_user_info', to: 'merchant_users#current_merchant_user_info'
       get 'merchant_users/:public_id', to: 'merchant_users#show'
       get 'merchant_users', to: 'merchant_users#index'
+      delete 'merchant_users/:public_id', to: 'merchant_users#destroy'
       post 'merchant_users/:public_id/update', to: 'merchant_users#update'
       post 'merchant_users/:public_id/update_permission', to: 'merchant_users#update_permission'
       post 'merchant_users/confirm_verification_code', to: 'merchant_users#confirm_verification_code'

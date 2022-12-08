@@ -15,6 +15,7 @@ const Index: NextPage = () => {
   const router = useRouter()
   const [merchantUsers, setMerchantUsers] = useState<MerchantUserParam[]>([])
   const allowReadMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowReadMerchantUser)
+  const allowUpdateMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateMerchantUser)
   const allowDeleteMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteMerchantUser)
 
   useEffect(() => {
@@ -63,6 +64,7 @@ const Index: NextPage = () => {
                         {user.authority_category !== 'RootUser' && <div className='mt10'><a  href={`/admin/user/${user.public_id}/permission`} className='btn btn-primary btn-sm'>権限設定</a></div>}
                       </Col>
                       <Col sm={3}>
+                        {allowUpdateMerchantUser === 'Allow' && <div><a className='btn btn-primary btn-sm mb10'>編集</a></div>}
                         {allowDeleteMerchantUser === 'Allow' && <Button variant='danger' size='sm'>削除</Button>}
                       </Col>
                     </Row>

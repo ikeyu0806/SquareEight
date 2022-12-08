@@ -93,7 +93,12 @@ class MerchantUser < ApplicationRecord
 
   def is_enabled_email_login
     return true if email.present? && password_digest.present?
-    return false
+    false
+  end
+
+  def is_root_user
+    return true if authority_category == 'RootUser'
+    false
   end
 
   def set_admin_user_default_permission
