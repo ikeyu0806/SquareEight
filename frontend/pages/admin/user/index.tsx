@@ -96,8 +96,11 @@ const Index: NextPage = () => {
                         {user.authority_category !== 'RootUser' && <div className='mt10'><a  href={`/admin/user/${user.public_id}/permission`} className='btn btn-primary btn-sm'>権限設定</a></div>}
                       </Col>
                       <Col sm={3}>
-                        {allowUpdateMerchantUser === 'Allow' && <div><a className='btn btn-primary btn-sm mb10'>編集</a></div>}
-                        {allowDeleteMerchantUser === 'Allow' && user.authority_category !== 'RootUser' && <Button variant='danger' size='sm' onClick={() => deleteMerchantUser(user.public_id)}>削除</Button>}
+                        {allowUpdateMerchantUser === 'Allow'
+                          && user.authority_category !== 'RootUser'
+                          && <div><a className='btn btn-primary btn-sm mb10' href={`/admin/user/${user.public_id}/edit`}>編集</a></div>}
+                        {allowDeleteMerchantUser === 'Allow'
+                          && user.authority_category !== 'RootUser' && <Button variant='danger' size='sm' onClick={() => deleteMerchantUser(user.public_id)}>削除</Button>}
                       </Col>
                     </Row>
                   </ListGroup.Item>
