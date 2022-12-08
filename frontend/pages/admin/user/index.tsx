@@ -9,6 +9,7 @@ import { useRouter } from 'next/router'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import Unauthorized from 'components/templates/Unauthorized'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -38,6 +39,37 @@ const Index: NextPage = () => {
     fetchProducts()
   }, [router.query.public_id, cookies._square_eight_merchant_session])
 
+  const deleteMerchantUser = (publicId: string) => {
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      html: 'ユーザを削除します。<br />よろしいですか？',
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/merchant_users/${publicId}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '削除しました',
+            icon: 'info'
+          })
+          location.reload()
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '削除失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
+
   return (
     <MerchantUserAdminLayout>
       {allowReadMerchantUser === 'Allow' && <Container>
@@ -65,7 +97,7 @@ const Index: NextPage = () => {
                       </Col>
                       <Col sm={3}>
                         {allowUpdateMerchantUser === 'Allow' && <div><a className='btn btn-primary btn-sm mb10'>編集</a></div>}
-                        {allowDeleteMerchantUser === 'Allow' && <Button variant='danger' size='sm'>削除</Button>}
+                        {allowDeleteMerchantUser === 'Allow' && user.authority_category !== 'RootUser' && <Button variant='danger' size='sm' onClick={() => deleteMerchantUser(user.public_id)}>削除</Button>}
                       </Col>
                     </Row>
                   </ListGroup.Item>
