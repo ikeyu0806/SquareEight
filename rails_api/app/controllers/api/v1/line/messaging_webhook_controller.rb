@@ -2,8 +2,8 @@ include LineClientModule
 
 class Api::V1::Line::MessagingWebhookController < ApplicationController
   def index
-    account = Account.find_by(public_id: params[:account_public_id])
-    client = line_messaging_client(account.channel_id, account.channel_secret, account.channel_token)
+    line_account = LineOfficialAccount.find_by(public_id: params[:line_account_public_id])
+    client = line_messaging_client(line_account.channel_id, line_account.channel_secret, line_account.channel_token)
 
     body = request.body.read
 
