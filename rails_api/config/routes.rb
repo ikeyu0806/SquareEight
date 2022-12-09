@@ -170,6 +170,7 @@ Rails.application.routes.draw do
       get 'payment_requests', to: 'payment_requests#index'
       post 'payment_requests/send_payment_request_mail', to: 'payment_requests#send_payment_request_mail'
       post 'payment_requests/exec_payment', to: 'payment_requests#exec_payment'
+      post 'line_official_accounts/register_message_api_channel', to: 'line_official_accounts#register_message_api_channel'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'
