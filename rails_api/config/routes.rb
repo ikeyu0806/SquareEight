@@ -10,6 +10,11 @@ Rails.application.routes.draw do
     namespace :batch do
       post 'reservations/remind_date_notifications', to: 'reservations#remind_date_notifications'
     end
+    namespace :v1 do
+      namespace :line do
+        post 'messaging_webhook', to: 'messaging_webhook#index'
+      end
+    end
     namespace :internal do
       get 'accounts/stripe_account_info', to: 'accounts#stripe_account_info'
       get 'accounts/dashboard_contents', to: 'accounts#dashboard_contents'
