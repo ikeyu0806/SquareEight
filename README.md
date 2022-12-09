@@ -72,3 +72,11 @@ docker build -f docker/nginx/Dockerfile  -t square-eight-main/nginx .
 docker tag square-eight-main/nginx:latest 606213504831.dkr.ecr.ap-northeast-1.amazonaws.com/square-eight-main/nginx:latest
 docker push 606213504831.dkr.ecr.ap-northeast-1.amazonaws.com/square-eight-main/nginx:latest
 ```
+
+## ローカルをインターネット公開
+ngrok
+
+```
+ngrok config add-authtoken xxxxxxxxxxxxxx
+ngrok http 3222
+```
