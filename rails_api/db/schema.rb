@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_09_060911) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_09_085612) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -219,6 +219,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_09_060911) do
     t.string "login_channel_secret"
     t.string "login_channel_token"
     t.string "qr_code_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "line_users", force: :cascade do |t|
+    t.string "public_id", null: false
+    t.integer "account_id", null: false
+    t.string "line_user_id"
+    t.string "line_display_name"
+    t.string "line_picture_url"
+    t.integer "customer_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
