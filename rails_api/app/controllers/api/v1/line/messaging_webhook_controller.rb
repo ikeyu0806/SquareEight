@@ -1,10 +1,9 @@
-include LINEClientModule
+include LineClientModule
 
 class Api::V1::Line::MessagingWebhookController < ApplicationController
   def index
-    @line_messaging_client
+    client = line_messaging_client
 
-    binding.pry
     body = request.body.read
 
     signature = request.env['HTTP_X_LINE_SIGNATURE']

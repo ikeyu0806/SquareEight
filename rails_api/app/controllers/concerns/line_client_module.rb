@@ -1,4 +1,4 @@
-module LINEClientModule
+module LineClientModule
   extend ActiveSupport::Concern
 
   def line_messaging_client
