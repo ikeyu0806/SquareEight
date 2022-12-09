@@ -12,7 +12,7 @@ Rails.application.routes.draw do
     end
     namespace :v1 do
       namespace :line do
-        post 'messaging_webhook', to: 'messaging_webhook#index'
+        post 'messaging_webhook/:account_public_id', to: 'messaging_webhook#index'
       end
     end
     namespace :internal do

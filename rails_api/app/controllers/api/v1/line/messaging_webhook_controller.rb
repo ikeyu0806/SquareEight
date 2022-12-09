@@ -2,7 +2,8 @@ include LineClientModule
 
 class Api::V1::Line::MessagingWebhookController < ApplicationController
   def index
-    client = line_messaging_client
+    account = Account.find_by(public_id: params[:account_public_id])
+    client = line_messaging_client(account.channel_id, account.channel_secret, account.channel_token)
 
     body = request.body.read
 
@@ -29,5 +30,9 @@ class Api::V1::Line::MessagingWebhookController < ApplicationController
         end
       end
     end
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
   end
 end
