@@ -5,6 +5,8 @@ class Api::V1::Line::MessagingWebhookController < ApplicationController
     line_account = LineOfficialAccount.find_by(public_id: params[:line_account_public_id])
     client = line_messaging_client(line_account.channel_id, line_account.channel_secret, line_account.channel_token)
 
+    account = line_account.account
+
     body = request.body.read
 
     signature = request.env['HTTP_X_LINE_SIGNATURE']
@@ -23,6 +25,8 @@ class Api::V1::Line::MessagingWebhookController < ApplicationController
             text: event.message['text']
           }
           client.reply_message(event['replyToken'], message)
+          line_user = account.line_users.find_or_initialize_by(line_user_id: event["source"]["userId"])
+          line_user.save!
         # when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         #   response = client.get_message_content(event.message['id'])
         #   tf = Tempfile.open("content")
