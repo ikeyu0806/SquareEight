@@ -35,7 +35,10 @@ const Index: NextPage = () => {
             <ListGroup>
               {lineOfficialAccounts.map((account, i) => {
                 return (
-                  <ListGroup.Item key={i}>{account.messaging_api_webhook_url}</ListGroup.Item>
+                  <ListGroup.Item key={i}>
+                    <div>アカウント名: {account.name}</div>
+                    <div className='mt10'>Webhook Url: {account.messaging_api_webhook_url}</div>
+                  </ListGroup.Item>
                 )
               })}
             </ListGroup>

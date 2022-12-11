@@ -13,6 +13,7 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
   def register_message_api_channel
     account = current_merchant_user.account
     account.line_official_accounts.create!(
+      name: line_official_account_params[:name],
       channel_id: line_official_account_params[:channel_id],
       channel_secret: line_official_account_params[:channel_secret],
       channel_token: line_official_account_params[:channel_token]
@@ -26,6 +27,6 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
   private
 
   def line_official_account_params
-    params.require(:line_official_account).permit(:id, :channel_id, :channel_secret, :channel_token)
+    params.require(:line_official_account).permit(:id, :name, :channel_id, :channel_secret, :channel_token)
   end
 end

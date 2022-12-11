@@ -13,6 +13,7 @@ const New = () => {
   const router = useRouter()
   const dispatch = useDispatch()
 
+  const [name, setName] = useState('')
   const [channelId, setChannelId] = useState('')
   const [channelSecret, setChannelSecret] = useState('')
   const [channelToken, setChannelToken] = useState('')
@@ -21,6 +22,7 @@ const New = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/register_message_api_channel`,
     {
       line_official_account: {
+        name: name,
         channel_id: channelId,
         channel_secret: channelSecret,
         channel_token: channelToken
@@ -44,12 +46,14 @@ const New = () => {
         <Row>
         <Col lg={3}></Col>
           <Col lg={6}>
-            <div>LINE公式アカウントのChannel情報を登録してください</div>
-            <div className='mt20'>Channel ID</div>
+            <div className='mt20'>公式アカウント名</div>
+            <Form.Control onChange={(e) => setName(e.target.value)}></Form.Control>
+            <div className='mt20'>LINE公式アカウントのChannel情報を登録してください</div>
+            <div className='mt5'>Channel ID</div>
             <Form.Control onChange={(e) => setChannelId(e.target.value)}></Form.Control>
-            <div>Channel secret</div>
+            <div className='mt5'>Channel secret</div>
             <Form.Control onChange={(e) => setChannelSecret(e.target.value)}></Form.Control>
-            <div>Channel token</div>
+            <div className='mt5'>Channel token</div>
             <Form.Control as='textarea' rows={4} onChange={(e) => setChannelToken(e.target.value)}></Form.Control>
             <Button className='mt20' onClick={onSubmit}>登録する</Button>
           </Col>
