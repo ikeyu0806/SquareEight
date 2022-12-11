@@ -10,6 +10,15 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def line_users
+    line_official_account = LineOfficialAccount.find_by(public_id: params[:public_id])
+    line_users = line_official_account.line_users
+    render json: { status: 'success', line_users: line_users }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   def register_message_api_channel
     account = current_merchant_user.account
     account.line_official_accounts.create!(
