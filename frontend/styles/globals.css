@@ -164,6 +164,10 @@ a {
   background-color:	#00008B;
 }
 
+.bg-gray {
+  background-color: #E7EDF3;
+}
+
 #sidebar {
   /* don't forget to add all the previously mentioned styles here too */
   background: #7386D5;

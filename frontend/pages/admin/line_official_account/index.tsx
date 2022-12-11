@@ -31,13 +31,13 @@ const Index: NextPage = () => {
           <Col lg={2}></Col>
           <Col lg={8}>
             <a className='btn btn-primary' href='/admin/line_official_account/new'>LINE公式アカウントを登録する</a>
-            <div>公式アカウント一覧</div>
+            <div className='mt20'>公式アカウント一覧</div>
             <ListGroup>
               {lineOfficialAccounts.map((account, i) => {
                 return (
                   <ListGroup.Item key={i}>
                     <div>アカウント名: {account.name}</div>
-                    <div className='mt10'>Webhook Url: {account.messaging_api_webhook_url}</div>
+                    <div className='mt10'>Webhook Url <div className='bg-gray'>{account.messaging_api_webhook_url}</div></div>
                   </ListGroup.Item>
                 )
               })}
