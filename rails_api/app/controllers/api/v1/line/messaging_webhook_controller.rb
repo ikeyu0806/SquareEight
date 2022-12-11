@@ -27,8 +27,8 @@ class Api::V1::Line::MessagingWebhookController < ApplicationController
       case event
       when Line::Bot::Event::Message
         case event.type
-        when Line::Bot::Event::MessageType::Follow
-        # when Line::Bot::Event::MessageType::Text
+        # when Line::Bot::Event::MessageType::Follow
+        when Line::Bot::Event::MessageType::Text
           message = {
             type: 'text',
             text: event.message['text']
@@ -37,8 +37,12 @@ class Api::V1::Line::MessagingWebhookController < ApplicationController
           line_user_profile = Faraday.get("https://api.line.me/v2/profile/#{event["source"]["userId"]}") do |request|
             request.headers["Authorization"] = "Bearer " + line_account.channel_token
           end
+          line_user_response = client.get_profile(event["source"]["userId"])
+          line_user_response = JSON.parse(line_user_response.body)
           line_user = line_account.line_users.find_or_initialize_by(line_user_id: event["source"]["userId"])
           line_user.account = account
+          line_user.line_display_name = line_user_response["displayName"]
+          line_user.line_picture_url = line_user_response["pictureUrl"]
           line_user.save!
         # when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         #   response = client.get_message_content(event.message['id'])
