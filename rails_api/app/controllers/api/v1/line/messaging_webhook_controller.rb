@@ -13,18 +13,30 @@ class Api::V1::Line::MessagingWebhookController < ApplicationController
     unless client.validate_signature(body, signature)
       error 400 do 'Bad Request' end
     end
+
+    access_token_response = Faraday.post("https://api.line.me/oauth2/v2.1/token") do |request|
+      request.headers["Content-Type"] = "application/x-www-form-urlencoded"
+      request.body = {
+        grant_type: 'authorization_code',
+        
+      }
+    end
   
     events = client.parse_events_from(body)
     events.each do |event|
       case event
       when Line::Bot::Event::Message
         case event.type
-        when Line::Bot::Event::MessageType::Text
+        when Line::Bot::Event::MessageType::Follow
+        # when Line::Bot::Event::MessageType::Text
           message = {
             type: 'text',
             text: event.message['text']
           }
           client.reply_message(event['replyToken'], message)
+          line_user_profile = Faraday.get("https://api.line.me/v2/profile/#{event["source"]["userId"]}") do |request|
+            request.headers["Authorization"] = "Bearer " + line_account.channel_token
+          end
           line_user = line_account.line_users.find_or_initialize_by(line_user_id: event["source"]["userId"])
           line_user.account = account
           line_user.save!
