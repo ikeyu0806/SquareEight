@@ -26,6 +26,7 @@ class Api::V1::Line::MessagingWebhookController < ApplicationController
           }
           client.reply_message(event['replyToken'], message)
           line_user = account.line_users.find_or_initialize_by(line_user_id: event["source"]["userId"])
+          line_user.line_official_account_id = line_account.id
           line_user.save!
         # when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
         #   response = client.get_message_content(event.message['id'])
