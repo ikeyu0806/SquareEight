@@ -3,6 +3,7 @@ class CreateLineOfficialAccount < ActiveRecord::Migration[7.0]
     create_table :line_official_accounts do |t|
       t.string :public_id, null: false
       t.integer :account_id, null: false
+      t.string :name, null: false
       t.string :channel_id
       t.string :channel_secret
       t.string :channel_token
