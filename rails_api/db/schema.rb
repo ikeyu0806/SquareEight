@@ -210,6 +210,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_11_050830) do
   end
 
   create_table "line_official_account_user_relations", force: :cascade do |t|
+    t.string "public_id", null: false
     t.integer "line_official_account_id", null: false
     t.integer "line_user_id", null: false
     t.datetime "created_at", null: false
