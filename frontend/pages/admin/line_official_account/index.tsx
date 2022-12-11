@@ -52,10 +52,17 @@ const Index: NextPage = () => {
               {lineOfficialAccounts.map((account, i) => {
                 return (
                   <ListGroup.Item key={i}>
-                    <div>アカウント名: {account.name}</div>
+                    <Row>
+                      <Col>
+                        <div>アカウント名: {account.name}</div>
+                      </Col>
+                      <Col>
+                        <div><a className='btn btn-primary' href={`/admin/line_official_account/${account.public_id}/line_user`}>友だち一覧</a></div>
+                      </Col>
+                    </Row>
                     <div className='mt10'>
                       <div>Webhook Url
-                        <Button size='sm' className='ml10' onClick={() => copyWebhookUrl(account.messaging_api_webhook_url)}>コピー</Button></div>
+                        <Button size='sm' variant='info' className='text-white ml10' onClick={() => copyWebhookUrl(account.messaging_api_webhook_url)}>コピー</Button></div>
                         <div className='bg-gray mt10'>{account.messaging_api_webhook_url}
                       </div>
                     </div>
