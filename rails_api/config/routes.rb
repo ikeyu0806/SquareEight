@@ -10,6 +10,11 @@ Rails.application.routes.draw do
     namespace :batch do
       post 'reservations/remind_date_notifications', to: 'reservations#remind_date_notifications'
     end
+    namespace :v1 do
+      namespace :line do
+        post 'messaging_webhook/:line_account_public_id', to: 'messaging_webhook#index'
+      end
+    end
     namespace :internal do
       get 'accounts/stripe_account_info', to: 'accounts#stripe_account_info'
       get 'accounts/dashboard_contents', to: 'accounts#dashboard_contents'
@@ -165,6 +170,11 @@ Rails.application.routes.draw do
       get 'payment_requests', to: 'payment_requests#index'
       post 'payment_requests/send_payment_request_mail', to: 'payment_requests#send_payment_request_mail'
       post 'payment_requests/exec_payment', to: 'payment_requests#exec_payment'
+      get 'line_official_accounts/:public_id/line_users', to: 'line_official_accounts#line_users'
+      get 'line_official_accounts', to: 'line_official_accounts#index'
+      post 'line_official_accounts/:public_id/push_message', to: 'line_official_accounts#push_message'
+      post 'line_official_accounts/:public_id/broadcast', to: 'line_official_accounts#broadcast'
+      post 'line_official_accounts/register_message_api_channel', to: 'line_official_accounts#register_message_api_channel'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'

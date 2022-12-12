@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_07_055443) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_11_050830) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -207,6 +207,40 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_07_055443) do
     t.string "wait_for_update_email"
     t.string "email_reset_key"
     t.index ["email"], name: "index_end_users_on_email", unique: true
+  end
+
+  create_table "line_official_account_user_relations", force: :cascade do |t|
+    t.string "public_id", null: false
+    t.integer "line_official_account_id", null: false
+    t.integer "line_user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "line_official_accounts", force: :cascade do |t|
+    t.string "public_id", null: false
+    t.integer "account_id", null: false
+    t.string "name", null: false
+    t.string "channel_id"
+    t.string "channel_secret"
+    t.string "channel_token"
+    t.string "login_channel_id"
+    t.string "login_channel_secret"
+    t.string "login_channel_token"
+    t.string "qr_code_url"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "line_users", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "public_id", null: false
+    t.string "line_user_id"
+    t.string "line_display_name"
+    t.string "line_picture_url"
+    t.integer "customer_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "merchant_stripe_subscriptions", force: :cascade do |t|

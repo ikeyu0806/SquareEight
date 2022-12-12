@@ -58,6 +58,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/customer'>顧客</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/customer_group'>顧客グループ一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/customer_group/new'>顧客グループ作成</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/line_official_account'>LINE公式アカウント</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/message_template'>メッセージテンプレート</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='Webページ' id='webpage-nav-dropdown'>

@@ -124,6 +124,10 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
+    faraday (2.7.1)
+      faraday-net_http (>= 2.0, < 3.1)
+      ruby2_keywords (>= 0.0.4)
+    faraday-net_http (3.0.2)
     globalid (1.0.0)
       activesupport (>= 5.0)
     i18n (1.12.0)
@@ -141,6 +145,7 @@ GEM
       letter_opener (~> 1.7)
       railties (>= 5.2)
       rexml
+    line-bot-api (1.26.0)
     loofah (2.19.0)
       crass (~> 1.0.2)
       nokogiri (>= 1.5.9)
@@ -243,6 +248,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.11.1)
+    ruby2_keywords (0.0.5)
     stripe (7.1.0)
     strscan (3.0.4)
     thor (1.2.1)
@@ -264,7 +270,9 @@ DEPENDENCIES
   bootsnap
   debug
   factory_bot_rails
+  faraday
   letter_opener_web
+  line-bot-api
   nokogiri
   pg (~> 1.1)
   pry-byebug
