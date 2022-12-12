@@ -2,22 +2,25 @@ import React, { useState } from 'react'
 import { Modal, Button, Row, Col, Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { messageChanged, showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
+import { messageChanged, showPushMessageModalChanged, isSendPaymentRequestChanged } from 'redux/lineOfficialAccountSlice'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import LineMessageForm from 'components/atoms/LineMessageForm'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
+import { priceChanged } from 'redux/paymentRequestSlice'
 
 const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [isUseMessageTemplate, setIsUseMessageTemplate] = useState(false)
   const showPushMessageModal = useSelector((state: RootState) => state.lineOfficialAccount.showPushMessageModal)
+  const isSendPaymentRequest = useSelector((state: RootState) => state.lineOfficialAccount.isSendPaymentRequest)
   const message = useSelector((state: RootState) => state.lineOfficialAccount.message)
   const publicId = useSelector((state: RootState) => state.lineOfficialAccount.publicId)
   const messageTemplates = useSelector((state: RootState) => state.lineOfficialAccount.messageTemplates)
+  const price = useSelector((state: RootState) => state.paymentRequest.price)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${publicId}/broadcast`,
@@ -55,8 +58,17 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
           </Col>
           <Col md={3}>
             <Form.Check
+              onChange={() => dispatch(isSendPaymentRequestChanged(!isSendPaymentRequest))}
+              defaultChecked={isSendPaymentRequest}
               label='決済リクエストを送る'
               id='isSendPaymentRequest' />
+            {isSendPaymentRequest &&
+              <div className='ml10 mt10'>
+                <div>決済金額</div>
+                <Form.Control
+                  onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
+                  value={price}  />  
+              </div>}
             <hr />
             <Form.Check
               type='radio'
