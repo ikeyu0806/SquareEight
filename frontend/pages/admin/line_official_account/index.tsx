@@ -6,9 +6,12 @@ import { LineOfficialAccountParam } from 'interfaces/LineOfficialAccountParam'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
+import { useRouter } from 'next/router'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
+  const router = useRouter()
   const [lineOfficialAccounts, setLineOfficialAccounts] = useState<LineOfficialAccountParam[]>([])
 
   useEffect(() => {
@@ -46,7 +49,7 @@ const Index: NextPage = () => {
         <Row>
           <Col lg={2}></Col>
           <Col lg={8}>
-            <a className='btn btn-primary' href='/admin/line_official_account/new'>LINE公式アカウントを登録する</a>
+            <LineBrandColorButton text='LINE公式アカウントを登録する' onClick={() => router.push('/admin/line_official_account/new')}></LineBrandColorButton>
             <div className='mt20'>公式アカウント一覧</div>
             <ListGroup>
               {lineOfficialAccounts.map((account, i) => {
@@ -57,7 +60,7 @@ const Index: NextPage = () => {
                         <div>アカウント名: {account.name}</div>
                       </Col>
                       <Col>
-                        <div><a className='btn btn-primary' href={`/admin/line_official_account/${account.public_id}/line_user`}>友だち一覧</a></div>
+                        <LineBrandColorButton text='友だち一覧' onClick={() => router.push(`/admin/line_official_account/${account.public_id}/line_user`)}></LineBrandColorButton>
                       </Col>
                     </Row>
                     <div className='mt10'>

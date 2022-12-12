@@ -58,6 +58,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/customer'>顧客</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/customer_group'>顧客グループ一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/customer_group/new'>顧客グループ作成</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/line_official_account'>LINE公式アカウント</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/message_template'>メッセージテンプレート</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='Webページ' id='webpage-nav-dropdown'>
@@ -81,7 +82,6 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/user/'>ユーザ一覧・追加</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/sales_transfer'>事業情報・売上振込先口座</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/line_official_account'>LINE公式アカウント連携</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/plan/choice'>プラン変更</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/system_plan_subscription_payments'>お支払い履歴</NavDropdown.Item>
               </NavDropdown>
