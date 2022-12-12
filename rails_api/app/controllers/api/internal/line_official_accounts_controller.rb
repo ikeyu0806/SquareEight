@@ -36,7 +36,7 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
   end
 
   def push_message
-    line_official_account = LineOfficialAccount.find_by(public_id: params[:public_id])
+    line_account = LineOfficialAccount.find_by(public_id: params[:public_id])
     client = line_messaging_client(line_account.channel_id, line_account.channel_secret, line_account.channel_token)
     line_user = LineUser.find_by(public_id: line_official_account_params[:line_user_public_id])
     client.push_message(line_user.line_user_id, {

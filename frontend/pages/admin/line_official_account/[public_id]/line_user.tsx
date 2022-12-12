@@ -8,7 +8,8 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { LineUserParam } from 'interfaces/LineUserParam'
 import lineUserStyles from 'styles/lineUser.module.css'
-import { showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
+import {  showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
+import { lineUserPublicIdChanged } from 'redux/lineUserSlice'
 import { useDispatch } from 'react-redux'
 
 const LineUser: NextPage = () => {
@@ -51,7 +52,10 @@ const LineUser: NextPage = () => {
                         <span className='ml20'>{line_user.line_display_name}</span>
                       </Col>
                       <Col>
-                        <Button onClick={() => dispatch(showPushMessageModalChanged(true))}>メッセージを送る</Button>
+                        <Button onClick={() =>  {
+                          dispatch(showPushMessageModalChanged(true))
+                          dispatch(lineUserPublicIdChanged(line_user.public_id))
+                        }}>メッセージを送る</Button>
                       </Col>
                     </Row>
                   </ListGroup.Item>
