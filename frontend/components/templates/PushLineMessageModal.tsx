@@ -7,6 +7,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 
 const PushLineMessageModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -52,7 +53,7 @@ const PushLineMessageModal = (): JSX.Element => {
           rows={20}></Form.Control>
       </Modal.Body>
       <Modal.Footer>
-        <Button onClick={onSubmit}>送信する</Button>
+        <LineBrandColorButton onClick={onSubmit} text='送信する'></LineBrandColorButton>
         <Button variant='secondary' onClick={() => dispatch(showPushMessageModalChanged(false))}>
           閉じる
         </Button>

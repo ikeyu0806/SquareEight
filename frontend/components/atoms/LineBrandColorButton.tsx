@@ -1,7 +1,7 @@
 import { Button } from 'react-bootstrap'
 
 interface Props {
-  onClick: (event: React.MouseEvent<HTMLInputElement>) => void
+  onClick: any
   text: string
 }
 
