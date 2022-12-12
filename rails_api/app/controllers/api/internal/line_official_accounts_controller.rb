@@ -45,7 +45,7 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
     line_user = LineUser.find_by(public_id: line_official_account_params[:line_user_public_id])
     line_response = client.push_message(line_user.line_user_id, {
       type: 'text',
-      text: line_official_account_params[:message]
+      text: MessageTemplate.convert_content(line_official_account_params[:message])
     })
     raise "送信失敗しました" if line_response.code != "200"
     render json: { status: 'success' }, status: 200
@@ -59,7 +59,7 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
     client = line_messaging_client(line_account.channel_id, line_account.channel_secret, line_account.channel_token)
     line_response = client.broadcast({
       type: 'text',
-      text: line_official_account_params[:message]
+      text: MessageTemplate.convert_content(line_official_account_params[:message])
     })
     raise "送信失敗しました" if line_response.code != "200"
     render json: { status: 'success' }, status: 200
