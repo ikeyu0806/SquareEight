@@ -8,6 +8,7 @@ import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import LineMessageForm from 'components/atoms/LineMessageForm'
+import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
 
 const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -44,14 +45,19 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   }
 
   return (
-    <Modal show={showPushMessageModal} size='lg'>
+    <Modal show={showPushMessageModal} fullscreen={true}>
       <Modal.Header>LINEメッセージを送信します</Modal.Header>
       <Modal.Body>
         <Row>
-          <Col sm={7}>
+          <Col md={5}>
+            メッセージ本文
             <LineMessageForm />
           </Col>
-          <Col sm={5}>
+          <Col md={3}>
+            <Form.Check
+              label='決済リクエストを送る'
+              id='isSendPaymentRequest' />
+            <hr />
             <Form.Check
               type='radio'
               name='isUseMessageTemplate'
@@ -63,7 +69,7 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
               type='radio'
               name='isUseMessageTemplate'
               id='useMessageTemplate'
-              label='メッセージテンプレートから入力'
+              label='メッセージテンプレートから本文を入力'
               onChange={() => setIsUseMessageTemplate(true)}
               checked={isUseMessageTemplate} />
             {isUseMessageTemplate && <div className='ml10'>
@@ -71,6 +77,7 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
                 return (
                   <Form.Check
                     key={i}
+                    type='radio'
                     label={template.name}
                     name='MessageTemplate'
                     id={'messageTemplate' + i}
@@ -79,6 +86,9 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
                 )
               })}
             </div>}
+          </Col>
+          <Col>
+            <MessageTemplateVariables />
           </Col>
         </Row>
       </Modal.Body>
