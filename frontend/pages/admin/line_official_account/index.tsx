@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import { useRouter } from 'next/router'
-import { showPushMessageModalChanged, publicIdChanged } from 'redux/lineOfficialAccountSlice'
+import { showPushMessageModalChanged, publicIdChanged, messageTemplatesChanged } from 'redux/lineOfficialAccountSlice'
 import { useDispatch } from 'react-redux'
 import BroadcastLineAccountFriendsModal from 'components/templates/BroadcastLineAccountFriendsModal'
 
@@ -25,12 +25,12 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
-      console.log(response.data)
       setLineOfficialAccounts(response.data.line_official_accounts)
+      dispatch(messageTemplatesChanged(response.data.message_templates))
     }).catch((error) => {
       console.log(error)
     })
-  }, [cookies._square_eight_merchant_session])
+  }, [cookies._square_eight_merchant_session, dispatch])
 
   const copyWebhookUrl = (url: string) => {
     navigator.clipboard.writeText(`${process.env.FRONTEND_URL}${url}`)

@@ -6,7 +6,10 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
   def index
     line_official_accounts = current_merchant_user.account.line_official_accounts.order(:id)
     line_official_accounts = JSON.parse(line_official_accounts.to_json(methods: [:messaging_api_webhook_url]))
-    render json: { status: 'success', line_official_accounts: line_official_accounts }, status: 200
+    message_templates = current_merchant_user.account.message_templates.order(:id)
+    render json: {  status: 'success',
+                    line_official_accounts: line_official_accounts,
+                    message_templates: message_templates }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
@@ -15,7 +18,8 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
   def line_users
     line_official_account = LineOfficialAccount.find_by(public_id: params[:public_id])
     line_users = line_official_account.line_users
-    render json: { status: 'success', line_users: line_users }, status: 200
+    message_templates = current_merchant_user.account.message_templates.order(:id)
+    render json: { status: 'success', line_users: line_users, message_templates: message_templates }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

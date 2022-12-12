@@ -1,8 +1,8 @@
-import React from 'react'
-import { Modal, Button } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Modal, Button, Row, Col, Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
+import { messageChanged, showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
@@ -12,9 +12,11 @@ import LineMessageForm from 'components/atoms/LineMessageForm'
 const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
+  const [isUseMessageTemplate, setIsUseMessageTemplate] = useState(false)
   const showPushMessageModal = useSelector((state: RootState) => state.lineOfficialAccount.showPushMessageModal)
   const message = useSelector((state: RootState) => state.lineOfficialAccount.message)
   const publicId = useSelector((state: RootState) => state.lineOfficialAccount.publicId)
+  const messageTemplates = useSelector((state: RootState) => state.lineOfficialAccount.messageTemplates)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${publicId}/broadcast`,
@@ -42,10 +44,43 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   }
 
   return (
-    <Modal show={showPushMessageModal}>
+    <Modal show={showPushMessageModal} size='lg'>
       <Modal.Header>LINEメッセージを送信します</Modal.Header>
       <Modal.Body>
-        <LineMessageForm />
+        <Row>
+          <Col sm={7}>
+            <LineMessageForm />
+          </Col>
+          <Col sm={5}>
+            <Form.Check
+              type='radio'
+              name='isUseMessageTemplate'
+              id='notUseMessageTemplate'
+              label='メッセージテンプレートを使用しない'
+              onChange={() => setIsUseMessageTemplate(false)}
+              checked={!isUseMessageTemplate} />
+            <Form.Check
+              type='radio'
+              name='isUseMessageTemplate'
+              id='useMessageTemplate'
+              label='メッセージテンプレートから入力'
+              onChange={() => setIsUseMessageTemplate(true)}
+              checked={isUseMessageTemplate} />
+            {isUseMessageTemplate && <div className='ml10'>
+              {messageTemplates.map((template, i) => {
+                return (
+                  <Form.Check
+                    key={i}
+                    label={template.name}
+                    name='MessageTemplate'
+                    id={'messageTemplate' + i}
+                    onChange={() => dispatch(messageChanged(template.content))}
+                  />
+                )
+              })}
+            </div>}
+          </Col>
+        </Row>
       </Modal.Body>
       <Modal.Footer>
         <LineBrandColorButton onClick={onSubmit} text='送信する'></LineBrandColorButton>
