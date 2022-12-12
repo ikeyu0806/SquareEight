@@ -1,3 +1,5 @@
+include LineClientModule
+
 class Api::Internal::LineOfficialAccountsController < ApplicationController
   before_action :merchant_login_only!
 
@@ -33,9 +35,30 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def push_message
+    line_official_account = LineOfficialAccount.find_by(public_id: params[:public_id])
+    client = line_messaging_client(line_account.channel_id, line_account.channel_secret, line_account.channel_token)
+    line_user = LineUser.find_by(public_id: line_official_account_params[:line_user_public_id])
+    client.push_message(line_user.line_user_id, {
+      type: 'text',
+      text: line_official_account_params[:message]
+    })
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   private
 
   def line_official_account_params
-    params.require(:line_official_account).permit(:id, :name, :channel_id, :channel_secret, :channel_token)
+    params.require(:line_official_account)
+          .permit(:id,
+                  :name,
+                  :message,
+                  :channel_id,
+                  :channel_secret,
+                  :channel_token,
+                  :line_user_public_id)
   end
 end
