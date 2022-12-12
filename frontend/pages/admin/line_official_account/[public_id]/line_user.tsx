@@ -2,15 +2,19 @@ import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import PushLineMessageModal from 'components/templates/PushLineMessageModal'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { LineUserParam } from 'interfaces/LineUserParam'
 import lineUserStyles from 'styles/lineUser.module.css'
+import { showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
+import { useDispatch } from 'react-redux'
 
 const LineUser: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
+  const dispatch = useDispatch()
   const [lineUsers, setLineUsers] = useState<LineUserParam[]>([])
 
   useEffect(() => {
@@ -33,15 +37,23 @@ const LineUser: NextPage = () => {
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
+            <h3 className='mb20'>友だち一覧</h3>
             <ListGroup>
               {lineUsers.map((line_user, i) => {
                 return (
                   <ListGroup.Item key={i}>
-                    <img
-                      className={lineUserStyles.line_picture_url}
-                      src={line_user.line_picture_url}
-                      alt='line_picture_url' />
-                    <span className='ml20'>{line_user.line_display_name}</span>
+                    <Row>
+                      <Col>
+                        <img
+                          className={lineUserStyles.line_picture_url}
+                          src={line_user.line_picture_url}
+                          alt='line_picture_url' />
+                        <span className='ml20'>{line_user.line_display_name}</span>
+                      </Col>
+                      <Col>
+                        <Button onClick={() => dispatch(showPushMessageModalChanged(true))}>メッセージを送る</Button>
+                      </Col>
+                    </Row>
                   </ListGroup.Item>
                 )
               })}
@@ -49,6 +61,7 @@ const LineUser: NextPage = () => {
           </Col>
         </Row>
       </Container>
+      <PushLineMessageModal></PushLineMessageModal>
     </MerchantUserAdminLayout>
   )
 }

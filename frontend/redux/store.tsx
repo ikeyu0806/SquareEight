@@ -26,6 +26,7 @@ import deliveryDatetimeReducer from './deliveryDatetimeSlice'
 import paymentRequestReducer from './paymentRequestSlice'
 import merchantUserPermissionReducer from './merchantUserPermissionSlice'
 import settingFormMerchantUserPermissionReducer from './settingFormMerchantUserPermissionSlice'
+import lineOfficialAccountReducer from './lineOfficialAccountSlice'
 
 export const store = configureStore({
   reducer: {
@@ -55,7 +56,8 @@ export const store = configureStore({
     deliveryDatetime: deliveryDatetimeReducer,
     paymentRequest: paymentRequestReducer,
     merchantUserPermission: merchantUserPermissionReducer,
-    settingFormMerchantUserPermission: settingFormMerchantUserPermissionReducer
+    settingFormMerchantUserPermission: settingFormMerchantUserPermissionReducer,
+    lineOfficialAccount: lineOfficialAccountReducer
   },
 })
 
