@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import { Container, Row, Col, ListGroup } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import PushLineMessageModal from 'components/templates/PushLineMessageModal'
+import PushIndividualLineMessageModal from 'components/templates/PushIndividualLineMessageModal'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
@@ -71,7 +71,7 @@ const LineUser: NextPage = () => {
           </Col>
         </Row>
       </Container>
-      <PushLineMessageModal></PushLineMessageModal>
+      <PushIndividualLineMessageModal></PushIndividualLineMessageModal>
     </MerchantUserAdminLayout>
   )
 }

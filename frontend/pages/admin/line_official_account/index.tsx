@@ -60,7 +60,8 @@ const Index: NextPage = () => {
                         <div>アカウント名: {account.name}</div>
                       </Col>
                       <Col>
-                        <LineBrandColorButton text='友だち一覧' onClick={() => router.push(`/admin/line_official_account/${account.public_id}/line_user`)}></LineBrandColorButton>
+                        <LineBrandColorButton text='友だち一覧' onClick={() => router.push(`/admin/line_official_account/${account.public_id}/line_user`)} />
+                        <div className='mt10'><LineBrandColorButton text='友だち全員にメッセージを送信' onClick={() => console.log('')}/></div>
                       </Col>
                     </Row>
                     <div className='mt10'>

@@ -2,19 +2,19 @@ import React, { useState } from 'react'
 import { Modal, Button, Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
+import { messageChanged, showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 
-const PushLineMessageModal = (): JSX.Element => {
+const PushIndividualLineMessageModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
-  const [message, setMessage] = useState('')
   const showPushMessageModal = useSelector((state: RootState) => state.lineOfficialAccount.showPushMessageModal)
+  const message = useSelector((state: RootState) => state.lineOfficialAccount.message)
   const lineUserPublicId = useSelector((state: RootState) => state.lineUser.lineUserPublicId)
 
   const onSubmit = () => {
@@ -48,7 +48,7 @@ const PushLineMessageModal = (): JSX.Element => {
       <Modal.Header>LINEメッセージを送信します</Modal.Header>
       <Modal.Body>
         <Form.Control
-          onChange={(e) => setMessage(e.target.value)}
+          onChange={(e) => dispatch(messageChanged(e.target.value))}
           as='textarea'
           rows={20}></Form.Control>
       </Modal.Body>
@@ -62,4 +62,4 @@ const PushLineMessageModal = (): JSX.Element => {
   )
 }
 
-export default PushLineMessageModal
+export default PushIndividualLineMessageModal
