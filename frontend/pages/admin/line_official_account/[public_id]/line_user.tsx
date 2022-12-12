@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
-import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import PushLineMessageModal from 'components/templates/PushLineMessageModal'
 import axios from 'axios'
@@ -11,6 +11,7 @@ import lineUserStyles from 'styles/lineUser.module.css'
 import {  showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
 import { lineUserPublicIdChanged } from 'redux/lineUserSlice'
 import { useDispatch } from 'react-redux'
+import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 
 const LineUser: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -32,6 +33,11 @@ const LineUser: NextPage = () => {
     })
   }, [cookies._square_eight_merchant_session, router.query.public_id])
 
+  const clickSendMessageButton = (lineUserPublicId: string) => {
+    dispatch(showPushMessageModalChanged(true))
+    dispatch(lineUserPublicIdChanged(lineUserPublicId))
+  }
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -52,10 +58,10 @@ const LineUser: NextPage = () => {
                         <span className='ml20'>{line_user.line_display_name}</span>
                       </Col>
                       <Col>
-                        <Button onClick={() =>  {
-                          dispatch(showPushMessageModalChanged(true))
-                          dispatch(lineUserPublicIdChanged(line_user.public_id))
-                        }}>メッセージを送る</Button>
+                        <LineBrandColorButton
+                          text='メッセージを送る'
+                          onClick={() => clickSendMessageButton(line_user.public_id)}
+                        ></LineBrandColorButton>
                       </Col>
                     </Row>
                   </ListGroup.Item>

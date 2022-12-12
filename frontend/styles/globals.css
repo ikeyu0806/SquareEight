@@ -143,6 +143,10 @@ a {
   color: green;
 }
 
+.line-forest-green {
+  color: #06C755;
+}
+
 .link-text {
   color: blue;
   text-decoration: underline;
