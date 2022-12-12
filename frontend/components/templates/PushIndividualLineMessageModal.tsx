@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
+import LineMessageForm from 'components/atoms/LineMessageForm'
 
 const PushIndividualLineMessageModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -47,10 +48,7 @@ const PushIndividualLineMessageModal = (): JSX.Element => {
     <Modal show={showPushMessageModal}>
       <Modal.Header>LINEメッセージを送信します</Modal.Header>
       <Modal.Body>
-        <Form.Control
-          onChange={(e) => dispatch(messageChanged(e.target.value))}
-          as='textarea'
-          rows={20}></Form.Control>
+        <LineMessageForm />
       </Modal.Body>
       <Modal.Footer>
         <LineBrandColorButton onClick={onSubmit} text='送信する'></LineBrandColorButton>
