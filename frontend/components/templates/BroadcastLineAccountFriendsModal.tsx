@@ -10,7 +10,7 @@ import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import LineMessageForm from 'components/atoms/LineMessageForm'
 
-const PushIndividualLineMessageModal = (): JSX.Element => {
+const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -19,7 +19,7 @@ const PushIndividualLineMessageModal = (): JSX.Element => {
   const lineUserPublicId = useSelector((state: RootState) => state.lineUser.lineUserPublicId)
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${router.query.public_id}/broadcast`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${router.query.public_id}/push_message`,
     {
       line_official_account: {
         line_user_public_id: lineUserPublicId,
@@ -60,4 +60,4 @@ const PushIndividualLineMessageModal = (): JSX.Element => {
   )
 }
 
-export default PushIndividualLineMessageModal
+export default BroadcastLineAccountFriendsModal
