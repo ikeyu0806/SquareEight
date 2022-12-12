@@ -21,6 +21,7 @@ const PushLineMessageModal = (): JSX.Element => {
     {
       line_official_account: {
         line_user_public_id: lineUserPublicId,
+        message: message
       }
     },
     {
