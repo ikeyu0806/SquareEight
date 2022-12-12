@@ -15,7 +15,7 @@ const PushIndividualLineMessageModal = (): JSX.Element => {
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const showPushMessageModal = useSelector((state: RootState) => state.lineOfficialAccount.showPushMessageModal)
-  const message = useSelector((state: RootState) => state.lineOfficialAccount.message)
+  const content = useSelector((state: RootState) => state.messageTemplate.content)
   const lineUserPublicId = useSelector((state: RootState) => state.lineUser.lineUserPublicId)
 
   const onSubmit = () => {
@@ -23,7 +23,7 @@ const PushIndividualLineMessageModal = (): JSX.Element => {
     {
       line_official_account: {
         line_user_public_id: lineUserPublicId,
-        message: message
+        message: content
       }
     },
     {

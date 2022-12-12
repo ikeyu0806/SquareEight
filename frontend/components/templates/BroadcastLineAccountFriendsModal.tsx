@@ -2,7 +2,8 @@ import React, { useState } from 'react'
 import { Modal, Button, Row, Col, Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { messageChanged, showPushMessageModalChanged, isSendPaymentRequestChanged } from 'redux/lineOfficialAccountSlice'
+import { showPushMessageModalChanged, isSendPaymentRequestChanged } from 'redux/lineOfficialAccountSlice'
+import { contentChanged } from 'redux/messageTemplateSlice'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
@@ -17,7 +18,7 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   const [isUseMessageTemplate, setIsUseMessageTemplate] = useState(false)
   const showPushMessageModal = useSelector((state: RootState) => state.lineOfficialAccount.showPushMessageModal)
   const isSendPaymentRequest = useSelector((state: RootState) => state.lineOfficialAccount.isSendPaymentRequest)
-  const message = useSelector((state: RootState) => state.lineOfficialAccount.message)
+  const content = useSelector((state: RootState) => state.messageTemplate.content)
   const publicId = useSelector((state: RootState) => state.lineOfficialAccount.publicId)
   const messageTemplates = useSelector((state: RootState) => state.lineOfficialAccount.messageTemplates)
   const price = useSelector((state: RootState) => state.paymentRequest.price)
@@ -26,7 +27,7 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${publicId}/broadcast`,
     {
       line_official_account: {
-        message: message
+        message: content
       }
     },
     {
@@ -93,7 +94,7 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
                     label={template.name}
                     name='MessageTemplate'
                     id={'messageTemplate' + i}
-                    onChange={() => dispatch(messageChanged(template.content))}
+                    onChange={() => dispatch(contentChanged(template.content))}
                   />
                 )
               })}

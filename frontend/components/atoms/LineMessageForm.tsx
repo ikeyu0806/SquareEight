@@ -1,16 +1,16 @@
 import { Form } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { messageChanged } from 'redux/lineOfficialAccountSlice'
+import { contentChanged } from 'redux/messageTemplateSlice'
 import { RootState } from 'redux/store'
 
 const LineMessageForm = (): JSX.Element => {
   const dispatch = useDispatch()
-  const message = useSelector((state: RootState) => state.lineOfficialAccount.message)
+  const content = useSelector((state: RootState) => state.messageTemplate.content)
 
   return (
     <Form.Control
-      onChange={(e) => dispatch(messageChanged(e.target.value))}
-      value={message}
+      onChange={(e) => dispatch(contentChanged(e.target.value))}
+      value={content}
       as='textarea'
       rows={20}></Form.Control>
   )
