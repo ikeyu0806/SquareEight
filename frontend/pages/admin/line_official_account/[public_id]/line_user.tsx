@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { LineUserParam } from 'interfaces/LineUserParam'
+import lineUserStyles from 'styles/lineUser.module.css'
 
 const LineUser: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -30,23 +31,17 @@ const LineUser: NextPage = () => {
     <MerchantUserAdminLayout>
       <Container>
         <Row>
-          <Col lg={2}></Col>
-          <Col lg={8}>
+          <Col lg={3}></Col>
+          <Col lg={6}>
             <ListGroup>
               {lineUsers.map((line_user, i) => {
                 return (
                   <ListGroup.Item key={i}>
-                    <Row>
-                      <Col>
-                        <img
-                          className='linePictureUrl'
-                          src={line_user.line_picture_url}
-                          alt='line_picture_url' />
-                      </Col>
-                      <Col>
-                        <div>{line_user.line_display_name}</div>
-                      </Col>
-                    </Row>
+                    <img
+                      className={lineUserStyles.line_picture_url}
+                      src={line_user.line_picture_url}
+                      alt='line_picture_url' />
+                    <span className='ml20'>{line_user.line_display_name}</span>
                   </ListGroup.Item>
                 )
               })}
