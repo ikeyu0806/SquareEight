@@ -50,6 +50,20 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def broadcast
+    line_account = LineOfficialAccount.find_by(public_id: params[:public_id])
+    client = line_messaging_client(line_account.channel_id, line_account.channel_secret, line_account.channel_token)
+    line_response = client.broadcast({
+      type: 'text',
+      text: line_official_account_params[:message]
+    })
+    raise "送信失敗しました" if line_response.code != "200"
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   private
 
   def line_official_account_params

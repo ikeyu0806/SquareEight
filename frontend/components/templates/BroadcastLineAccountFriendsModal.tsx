@@ -4,7 +4,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
 import axios from 'axios'
-import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
@@ -12,17 +11,15 @@ import LineMessageForm from 'components/atoms/LineMessageForm'
 
 const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   const dispatch = useDispatch()
-  const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const showPushMessageModal = useSelector((state: RootState) => state.lineOfficialAccount.showPushMessageModal)
   const message = useSelector((state: RootState) => state.lineOfficialAccount.message)
-  const lineUserPublicId = useSelector((state: RootState) => state.lineUser.lineUserPublicId)
+  const publicId = useSelector((state: RootState) => state.lineOfficialAccount.publicId)
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${router.query.public_id}/push_message`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${publicId}/broadcast`,
     {
       line_official_account: {
-        line_user_public_id: lineUserPublicId,
         message: message
       }
     },

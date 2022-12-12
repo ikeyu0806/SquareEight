@@ -19,7 +19,7 @@ const PushIndividualLineMessageModal = (): JSX.Element => {
   const lineUserPublicId = useSelector((state: RootState) => state.lineUser.lineUserPublicId)
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${router.query.public_id}/broadcast`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${router.query.public_id}/push_message`,
     {
       line_official_account: {
         line_user_public_id: lineUserPublicId,

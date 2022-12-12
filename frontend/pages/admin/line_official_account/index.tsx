@@ -8,7 +8,7 @@ import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import { useRouter } from 'next/router'
-import { showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
+import { showPushMessageModalChanged, publicIdChanged } from 'redux/lineOfficialAccountSlice'
 import { useDispatch } from 'react-redux'
 import BroadcastLineAccountFriendsModal from 'components/templates/BroadcastLineAccountFriendsModal'
 
@@ -65,7 +65,14 @@ const Index: NextPage = () => {
                       </Col>
                       <Col>
                         <LineBrandColorButton text='友だち一覧' onClick={() => router.push(`/admin/line_official_account/${account.public_id}/line_user`)} />
-                        <div className='mt10'><LineBrandColorButton text='友だち全員にメッセージを送信' onClick={() => dispatch(showPushMessageModalChanged(true))}/></div>
+                        <div className='mt10'>
+                          <LineBrandColorButton
+                            text='友だち全員にメッセージを送信'
+                            onClick={() => {
+                              dispatch(showPushMessageModalChanged(true));
+                              dispatch(publicIdChanged(account.public_id))
+                            }}/>
+                        </div>
                       </Col>
                     </Row>
                     <div className='mt10'>
