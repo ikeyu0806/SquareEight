@@ -13,7 +13,8 @@ import { showCreateCustomerModalChanged,
          lastNameChanged,
          emailChanged,
          notesChanged,
-         phoneNumberChanged } from 'redux/customerSlice'
+         phoneNumberChanged,
+         customerPublicIdChanged } from 'redux/customerSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import CreateCustomerModal from 'components/templates/CreateCustomerModal'
 import EditCustomerModal from 'components/templates/EditCustomerModal'
@@ -110,7 +111,13 @@ const Index: NextPage = () => {
                         <Col>
                           <Row>
                             <Col>
-                              {customer.email && <Button className='mb20' onClick={() => dispatch(showCustomerMailSendModalChanged(true))}>メール送信</Button>}
+                              {customer.email &&
+                                <Button
+                                  className='mb20'
+                                  onClick={() => {
+                                    dispatch(showCustomerMailSendModalChanged(true));
+                                    dispatch(customerPublicIdChanged(customer.public_id));
+                                  }}>メール送信</Button>}
                               {allowUpdateCustomer === 'Allow' && <a onClick={() => showEditModal(customer)}
                                 className='btn btn-primary mb20'>
                                 編集
