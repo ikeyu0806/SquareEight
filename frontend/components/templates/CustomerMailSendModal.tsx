@@ -1,23 +1,25 @@
 import React from 'react'
-import { Modal, Button, Row, Col } from 'react-bootstrap'
+import { Modal, Button, Row, Col, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
-import { alertChanged } from 'redux/alertSlice'
 import { showCustomerMailSendModalChanged } from 'redux/customerSlice'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
 import PaymentRequestSendForm from 'components/molecules/PaymentRequestSendForm'
 import SelectMessageTemplateForm from 'components/molecules/SelectMessageTemplateForm'
 import MessageTemplateContentForm from 'components/atoms/MessageTemplateContentForm'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { titleChanged } from 'redux/messageTemplateSlice'
 
 const CustomerMailSendModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
   const showCustomerMailSendModal = useSelector((state: RootState) => state.customer.showCustomerMailSendModal)
   const customerPublicId =  useSelector((state: RootState) => state.customer.customerPublicId)
+  const messageTemplatePublicId =  useSelector((state: RootState) => state.messageTemplate.publicId)
+  const title = useSelector((state: RootState) => state.messageTemplate.title)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
   const price = useSelector((state: RootState) => state.paymentRequest.price)
   const paymentRequestName = useSelector((state: RootState) => state.paymentRequest.name)
@@ -26,11 +28,13 @@ const CustomerMailSendModal = (): JSX.Element => {
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/customers/${customerPublicId}/send_mail`,
     {
-      customer: {
+      customers: {
+        mail_title: title,
         message: content,
         is_send_payment_request: isSendPaymentRequest,
         price: price,
-        payment_request_name: paymentRequestName
+        payment_request_name: paymentRequestName,
+        message_template_public_id: messageTemplatePublicId
       }
     },
     {
@@ -56,7 +60,11 @@ const CustomerMailSendModal = (): JSX.Element => {
       <Modal.Body>
         <Row>
           <Col md={5}>
-            メッセージ本文
+            <div>メールタイトル</div>
+            <Form.Control
+              onChange={(e) => dispatch(titleChanged(e.target.value))}
+            ></Form.Control>
+            <div>メッセージ本文</div>
             <MessageTemplateContentForm />
           </Col>
           <Col md={3}>
