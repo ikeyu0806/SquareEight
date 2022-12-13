@@ -3,10 +3,12 @@ export interface CustomerParam {
   id: number
   first_name: string
   last_name: string
-  first_name_kana?: string
-  last_name_kana?: string
-  email?: string
-  phone_number?: string
-  notes?: string
-  full_name?: string
+  first_name_kana: string
+  last_name_kana: string
+  email: string
+  phone_number: string
+  notes: string
+  full_name: string
+  line_display_name: string
+  line_picture_url: string
 }

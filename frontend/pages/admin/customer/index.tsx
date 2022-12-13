@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie'
 import { CustomerParam } from 'interfaces/CustomerParam'
 import axios from 'axios'
 import { RootState } from 'redux/store'
+import lineUserStyles from 'styles/lineUser.module.css'
 import { showCreateCustomerModalChanged,
          showEditCustomerModalChanged,
          customerIdChanged,
@@ -117,7 +118,13 @@ const Index: NextPage = () => {
                         }}>メール送信</Button>
                     </>}</td>
                   <td>{customer.phone_number}</td>
-                  <td></td>
+                  <td>
+                    {customer.line_picture_url && <img
+                      className={lineUserStyles.line_picture_url}
+                      src={customer.line_picture_url}
+                      alt='line_picture_url' />}
+                    {customer.line_display_name && <>{customer.line_display_name}</>}
+                  </td>
                   <td>
                     {allowReadQuestionnaireAnswer === 'Allow' &&
                       <a href={`/admin/customer/${customer.public_id}/questionnaire_answers`}
