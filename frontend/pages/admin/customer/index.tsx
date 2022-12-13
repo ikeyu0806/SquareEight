@@ -87,7 +87,7 @@ const Index: NextPage = () => {
             </Row>
             </Card.Body>
           </Card>
-          <Table>
+          <Table bordered>
             <thead>
               <tr>
                 <th>お名前</th>
@@ -108,7 +108,7 @@ const Index: NextPage = () => {
                     <>
                       <div>{customer.email}</div>
                       <Button
-                        variant='secondary'
+                        variant='primary'
                         className='mt10'
                         size='sm'
                         onClick={() => {
@@ -121,24 +121,24 @@ const Index: NextPage = () => {
                   <td>
                     {allowReadQuestionnaireAnswer === 'Allow' &&
                       <a href={`/admin/customer/${customer.public_id}/questionnaire_answers`}
-                        className='btn btn-secondary btn-sm'>
+                        className='btn btn-primary btn-sm'>
                         アンケート回答
                       </a>}
                   </td>
                   <td>
                     <a href={`/admin/customer/${customer.public_id}/order`}
-                      className='btn btn-secondary btn-sm mb20'>
+                      className='btn btn-primary btn-sm mb20'>
                       注文履歴
                     </a>
                     <br/>
                     <a href={`/admin/customer/${customer.public_id}/charges`}
-                      className='btn btn-secondary btn-sm'>
+                      className='btn btn-primary btn-sm'>
                       お支払い履歴
                     </a>
                   </td>
                   <td>
                     {allowUpdateCustomer === 'Allow' && <a onClick={() => showEditModal(customer)}
-                      className='btn btn-secondary btn-sm mb20'>
+                      className='btn btn-primary btn-sm mb20'>
                       編集
                     </a>}
                   </td>
