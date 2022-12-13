@@ -8,9 +8,6 @@ class Customer < ApplicationRecord
   has_many :customer_group_relations
   has_many :customer_groups, through: :customer_group_relations
 
-  validates :first_name, presence: true
-  validates :last_name, presence: true
-
   def full_name
     full_name = ((self.last_name || '') + (self.first_name || ''))
     # 一応名前がない場合の分岐

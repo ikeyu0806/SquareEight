@@ -10,7 +10,7 @@ import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import LineMessageForm from 'components/atoms/LineMessageForm'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
-import { priceChanged } from 'redux/paymentRequestSlice'
+import { nameChanged, priceChanged } from 'redux/paymentRequestSlice'
 
 const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -22,12 +22,16 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   const publicId = useSelector((state: RootState) => state.lineOfficialAccount.publicId)
   const messageTemplates = useSelector((state: RootState) => state.lineOfficialAccount.messageTemplates)
   const price = useSelector((state: RootState) => state.paymentRequest.price)
+  const paymentRequestName = useSelector((state: RootState) => state.paymentRequest.name)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${publicId}/broadcast`,
     {
       line_official_account: {
-        message: content
+        message: content,
+        is_send_payment_request: isSendPaymentRequest,
+        price: price,
+        payment_request_name: paymentRequestName
       }
     },
     {
@@ -65,6 +69,10 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
               id='isSendPaymentRequest' />
             {isSendPaymentRequest &&
               <div className='ml10 mt10'>
+                <div>請求対象の商品名、イベント名など。請求画面に表示されます</div>
+                <Form.Control
+                  onChange={(e) => dispatch(nameChanged(e.target.value))}
+                  value={paymentRequestName}  />  
                 <div>決済金額</div>
                 <Form.Control
                   onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}

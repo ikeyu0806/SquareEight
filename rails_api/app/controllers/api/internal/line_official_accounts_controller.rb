@@ -57,11 +57,34 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
   def broadcast
     line_account = LineOfficialAccount.find_by(public_id: params[:public_id])
     client = line_messaging_client(line_account.channel_id, line_account.channel_secret, line_account.channel_token)
-    line_response = client.broadcast({
-      type: 'text',
-      text: MessageTemplate.convert_content(line_official_account_params[:message])
-    })
-    raise "送信失敗しました" if line_response.code != "200"
+
+    line_account.line_users.each do |line_user|
+      last_name = ''
+      first_name = ''
+      price = ''
+      payment_request_url = ''
+
+      if line_user.customer.present?
+        customer = line_user.customer
+      else
+        customer = current_merchant_user.account.customers.create!
+        line_user.update!(customer_id: customer.id)
+      end
+  
+      if line_official_account_params[:is_send_payment_request]
+        price = line_official_account_params[:price]
+        stripe_payment_request = current_merchant_user.account.stripe_payment_requests.create!(name: line_official_account_params[:payment_request_name], price: price, customer: customer)
+        payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.public_id
+      end
+  
+      message = MessageTemplate.convert_content(line_official_account_params[:message], last_name, first_name, price, payment_request_url)
+      line_response = client.push_message(line_user.line_user_id, {
+        type: 'text',
+        text: message
+      })
+      # raise "送信失敗しました" if line_response.code != "200"
+    end
+  
     render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
@@ -75,6 +98,9 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
           .permit(:id,
                   :name,
                   :message,
+                  :is_send_payment_request,
+                  :payment_request_name,
+                  :price,
                   :channel_id,
                   :channel_secret,
                   :channel_token,
