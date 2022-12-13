@@ -3,6 +3,7 @@ class Customer < ApplicationRecord
 
   has_one :customer_group_relation, foreign_key: :id, primary_key: :customer_id
   has_one :end_user, foreign_key: :id, primary_key: :end_user_id
+  has_one :line_user, foreign_key: :id, primary_key: :line_user_id
   has_many :orders
   has_many :questionnaire_answers
   has_many :customer_group_relations
@@ -22,5 +23,13 @@ class Customer < ApplicationRecord
                    answer_datetime: questionnaire_answer.created_at.strftime("%Y年%m月%d日 %H時%M分")})
     end
     result
+  end
+
+  def line_display_name
+    line_user&.line_display_name
+  end
+
+  def line_picture_url
+    line_user&.line_picture_url
   end
 end
