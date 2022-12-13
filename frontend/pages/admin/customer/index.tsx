@@ -68,7 +68,7 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={2}></Col>
             <Col lg={8}>
-              {servicePlan === 'Free' && <Alert variant='warning'>フリープランでは登録顧客の最大表示数は50件となります</Alert>}
+              {/* {servicePlan === 'Free' && <Alert variant='warning'>フリープランでは登録顧客の最大表示数は50件となります</Alert>} */}
               <Card className='mb20'>
                 <Card.Header>絞り込み</Card.Header>
                 <Card.Body>
