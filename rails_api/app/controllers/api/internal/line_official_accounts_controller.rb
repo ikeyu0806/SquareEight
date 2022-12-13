@@ -43,9 +43,28 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
     line_account = LineOfficialAccount.find_by(public_id: params[:public_id])
     client = line_messaging_client(line_account.channel_id, line_account.channel_secret, line_account.channel_token)
     line_user = LineUser.find_by(public_id: line_official_account_params[:line_user_public_id])
+    last_name = ''
+    first_name = ''
+    price = ''
+    payment_request_url = ''
+
+    if line_user.customer.present?
+      customer = line_user.customer
+    else
+      customer = current_merchant_user.account.customers.create!
+      line_user.update!(customer_id: customer.id)
+    end
+
+    if line_official_account_params[:is_send_payment_request]
+      price = line_official_account_params[:price]
+      stripe_payment_request = current_merchant_user.account.stripe_payment_requests.create!(name: line_official_account_params[:payment_request_name], price: price, customer: customer)
+      payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.public_id
+    end
+
+    message = MessageTemplate.convert_content(line_official_account_params[:message], last_name, first_name, price, payment_request_url)
     line_response = client.push_message(line_user.line_user_id, {
       type: 'text',
-      text: MessageTemplate.convert_content(line_official_account_params[:message])
+      text: message
     })
     raise "送信失敗しました" if line_response.code != "200"
     render json: { status: 'success' }, status: 200

@@ -18,15 +18,21 @@ const PushIndividualLineMessageModal = (): JSX.Element => {
   const router = useRouter()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const showPushMessageModal = useSelector((state: RootState) => state.lineOfficialAccount.showPushMessageModal)
+  const isSendPaymentRequest = useSelector((state: RootState) => state.lineOfficialAccount.isSendPaymentRequest)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
   const lineUserPublicId = useSelector((state: RootState) => state.lineUser.lineUserPublicId)
+  const price = useSelector((state: RootState) => state.paymentRequest.price)
+  const paymentRequestName = useSelector((state: RootState) => state.paymentRequest.name)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${router.query.public_id}/push_message`,
     {
       line_official_account: {
         line_user_public_id: lineUserPublicId,
-        message: content
+        message: content,
+        is_send_payment_request: isSendPaymentRequest,
+        price: price,
+        payment_request_name: paymentRequestName
       }
     },
     {
