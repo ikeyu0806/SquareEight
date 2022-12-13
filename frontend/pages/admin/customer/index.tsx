@@ -19,6 +19,7 @@ import CreateCustomerModal from 'components/templates/CreateCustomerModal'
 import EditCustomerModal from 'components/templates/EditCustomerModal'
 import CustomerMailSendModal from 'components/templates/CustomerMailSendModal'
 import Unauthorized from 'components/templates/Unauthorized'
+import { showCustomerMailSendModalChanged } from 'redux/customerSlice'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -30,6 +31,7 @@ const Index: NextPage = () => {
   const allowCreateCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowCreateCustomer)
   const allowUpdateCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateCustomer)
   const allowReadQuestionnaireAnswer = useSelector((state: RootState) => state.merchantUserPermission.allowReadQuestionnaireAnswer)
+  const showCustomerMailSendModal =  useSelector((state: RootState) => state.customer.showCustomerMailSendModal)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/account/customers`,
@@ -106,6 +108,7 @@ const Index: NextPage = () => {
                         <Col>
                           <Row>
                             <Col>
+                              {customer.email && <Button className='mb20' onClick={() => dispatch(showCustomerMailSendModalChanged(true))}>メール送信</Button>}
                               {allowUpdateCustomer === 'Allow' && <a onClick={() => showEditModal(customer)}
                                 className='btn btn-primary mb20'>
                                 編集
@@ -126,7 +129,6 @@ const Index: NextPage = () => {
                                 className='btn btn-primary'>
                                 お支払い履歴
                               </a>
-
                             </Col>
                           </Row>
                         </Col>

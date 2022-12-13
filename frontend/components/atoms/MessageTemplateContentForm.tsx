@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { contentChanged } from 'redux/messageTemplateSlice'
 import { RootState } from 'redux/store'
 
-const LineMessageForm = (): JSX.Element => {
+const MessageTemplateContentForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const content = useSelector((state: RootState) => state.messageTemplate.content)
 
@@ -16,4 +16,4 @@ const LineMessageForm = (): JSX.Element => {
   )
 }
 
-export default LineMessageForm
+export default MessageTemplateContentForm

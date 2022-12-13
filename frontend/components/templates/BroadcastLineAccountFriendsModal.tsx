@@ -7,7 +7,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
-import LineMessageForm from 'components/atoms/LineMessageForm'
+import MessageTemplateContentForm from 'components/atoms/MessageTemplateContentForm'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
 import PaymentRequestSendForm from 'components/molecules/PaymentRequestSendForm'
 import SelectMessageTemplateForm from 'components/molecules/SelectMessageTemplateForm'
@@ -57,7 +57,7 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
         <Row>
           <Col md={5}>
             メッセージ本文
-            <LineMessageForm />
+            <MessageTemplateContentForm />
           </Col>
           <Col md={3}>
             <PaymentRequestSendForm />
