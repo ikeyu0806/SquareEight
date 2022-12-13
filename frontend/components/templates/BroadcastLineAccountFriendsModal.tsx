@@ -11,6 +11,7 @@ import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import LineMessageForm from 'components/atoms/LineMessageForm'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
 import { nameChanged, priceChanged } from 'redux/paymentRequestSlice'
+import PaymentRequestSendForm from 'components/molecules/PaymentRequestSendForm'
 
 const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -62,22 +63,7 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
             <LineMessageForm />
           </Col>
           <Col md={3}>
-            <Form.Check
-              onChange={() => dispatch(isSendPaymentRequestChanged(!isSendPaymentRequest))}
-              defaultChecked={isSendPaymentRequest}
-              label='決済リクエストを送る'
-              id='isSendPaymentRequest' />
-            {isSendPaymentRequest &&
-              <div className='ml10 mt10'>
-                <div>請求対象の商品名、イベント名など。請求画面に表示されます</div>
-                <Form.Control
-                  onChange={(e) => dispatch(nameChanged(e.target.value))}
-                  value={paymentRequestName}  />  
-                <div>決済金額</div>
-                <Form.Control
-                  onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
-                  value={price}  />  
-              </div>}
+            <PaymentRequestSendForm />
             <hr />
             <Form.Check
               type='radio'
