@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React from 'react'
 import { Modal, Button, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'

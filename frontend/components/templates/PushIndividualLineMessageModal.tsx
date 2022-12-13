@@ -1,5 +1,5 @@
 import React from 'react'
-import { Modal, Button } from 'react-bootstrap'
+import { Modal, Button, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
@@ -9,6 +9,9 @@ import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import LineMessageForm from 'components/atoms/LineMessageForm'
+import PaymentRequestSendForm from 'components/molecules/PaymentRequestSendForm'
+import SelectMessageTemplateForm from 'components/molecules/SelectMessageTemplateForm'
+import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
 
 const PushIndividualLineMessageModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -45,10 +48,23 @@ const PushIndividualLineMessageModal = (): JSX.Element => {
   }
 
   return (
-    <Modal show={showPushMessageModal}>
+    <Modal show={showPushMessageModal} fullscreen={true}>
       <Modal.Header>LINEメッセージを送信します</Modal.Header>
       <Modal.Body>
-        <LineMessageForm />
+        <Row>
+          <Col md={5}>
+            メッセージ本文
+            <LineMessageForm />
+          </Col>
+          <Col md={3}>
+            <PaymentRequestSendForm />
+            <hr />
+            <SelectMessageTemplateForm />
+          </Col>
+          <Col>
+            <MessageTemplateVariables />
+          </Col>
+        </Row>
       </Modal.Body>
       <Modal.Footer>
         <LineBrandColorButton onClick={onSubmit} text='送信する'></LineBrandColorButton>
