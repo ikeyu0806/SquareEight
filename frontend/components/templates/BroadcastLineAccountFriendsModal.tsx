@@ -1,27 +1,24 @@
 import React, { useState } from 'react'
-import { Modal, Button, Row, Col, Form } from 'react-bootstrap'
+import { Modal, Button, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { showPushMessageModalChanged, isSendPaymentRequestChanged } from 'redux/lineOfficialAccountSlice'
-import { contentChanged } from 'redux/messageTemplateSlice'
+import { showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import LineMessageForm from 'components/atoms/LineMessageForm'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
-import { nameChanged, priceChanged } from 'redux/paymentRequestSlice'
 import PaymentRequestSendForm from 'components/molecules/PaymentRequestSendForm'
+import SelectMessageTemplateForm from 'components/molecules/SelectMessageTemplateForm'
 
 const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
-  const [isUseMessageTemplate, setIsUseMessageTemplate] = useState(false)
   const showPushMessageModal = useSelector((state: RootState) => state.lineOfficialAccount.showPushMessageModal)
   const isSendPaymentRequest = useSelector((state: RootState) => state.lineOfficialAccount.isSendPaymentRequest)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
   const publicId = useSelector((state: RootState) => state.lineOfficialAccount.publicId)
-  const messageTemplates = useSelector((state: RootState) => state.lineOfficialAccount.messageTemplates)
   const price = useSelector((state: RootState) => state.paymentRequest.price)
   const paymentRequestName = useSelector((state: RootState) => state.paymentRequest.name)
 
@@ -65,34 +62,7 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
           <Col md={3}>
             <PaymentRequestSendForm />
             <hr />
-            <Form.Check
-              type='radio'
-              name='isUseMessageTemplate'
-              id='notUseMessageTemplate'
-              label='メッセージテンプレートを使用しない'
-              onChange={() => setIsUseMessageTemplate(false)}
-              checked={!isUseMessageTemplate} />
-            <Form.Check
-              type='radio'
-              name='isUseMessageTemplate'
-              id='useMessageTemplate'
-              label='メッセージテンプレートから本文を入力'
-              onChange={() => setIsUseMessageTemplate(true)}
-              checked={isUseMessageTemplate} />
-            {isUseMessageTemplate && <div className='ml10'>
-              {messageTemplates.map((template, i) => {
-                return (
-                  <Form.Check
-                    key={i}
-                    type='radio'
-                    label={template.name}
-                    name='MessageTemplate'
-                    id={'messageTemplate' + i}
-                    onChange={() => dispatch(contentChanged(template.content))}
-                  />
-                )
-              })}
-            </div>}
+            <SelectMessageTemplateForm />
           </Col>
           <Col>
             <MessageTemplateVariables />
