@@ -7,7 +7,7 @@ import { contentChanged } from 'redux/messageTemplateSlice'
 const SelectMessageTemplateForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const [isUseMessageTemplate, setIsUseMessageTemplate] = useState(false)
-  const messageTemplates = useSelector((state: RootState) => state.lineOfficialAccount.messageTemplates)
+  const messageTemplates = useSelector((state: RootState) => state.account.messageTemplates)
 
   return (
     <>

@@ -1,5 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 import webpageReducer from './webpageSlice'
+import accountReducer from './accountSlice'
 import alertReducer from './alertSlice'
 import ticketMasterReducer from './ticketMasterSlice'
 import productReducer from './productSlice'
@@ -32,6 +33,7 @@ import lineUserReducer from './lineUserSlice'
 export const store = configureStore({
   reducer: {
     webpage: webpageReducer,
+    account: accountReducer,
     alert: alertReducer,
     ticketMaster: ticketMasterReducer,
     product: productReducer,
