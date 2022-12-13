@@ -3,7 +3,7 @@ class Customer < ApplicationRecord
 
   has_one :customer_group_relation, foreign_key: :id, primary_key: :customer_id
   has_one :end_user, foreign_key: :id, primary_key: :end_user_id
-  has_one :line_user, foreign_key: :id, primary_key: :line_user_id
+  has_one :line_user, foreign_key: :customer_id, primary_key: :id
   has_many :orders
   has_many :questionnaire_answers
   has_many :customer_group_relations
