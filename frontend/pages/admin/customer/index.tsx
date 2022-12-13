@@ -20,6 +20,7 @@ import EditCustomerModal from 'components/templates/EditCustomerModal'
 import CustomerMailSendModal from 'components/templates/CustomerMailSendModal'
 import Unauthorized from 'components/templates/Unauthorized'
 import { showCustomerMailSendModalChanged } from 'redux/customerSlice'
+import { messageTemplatesChanged } from 'redux/accountSlice'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -42,6 +43,7 @@ const Index: NextPage = () => {
     }).then((response) => {
       console.log(response.data)
       setCustomers(response.data.customers)
+      dispatch(messageTemplatesChanged(response.data.message_templates))
     }).catch((error) => {
       console.log(error)
     })

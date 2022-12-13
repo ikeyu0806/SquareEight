@@ -3,7 +3,8 @@ class Api::Internal::Account::CustomersController < ApplicationController
 
   def index
     customers = current_merchant_user.account.customers_with_limit.order(:id)
-    render json: { status: 'success', customers: customers }, status: 200
+    message_templates = current_merchant_user.account.message_templates
+    render json: { status: 'success', customers: customers, message_templates: message_templates }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
