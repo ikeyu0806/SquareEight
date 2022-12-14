@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { LineUserParam } from 'interfaces/LineUserParam'
 
 export const customerSlice = createSlice({
-  name: 'alert',
+  name: 'customer',
   initialState: {
     customerId: 0,
     customerPublicId: '',
@@ -17,7 +17,8 @@ export const customerSlice = createSlice({
     showCreateCustomerModal: false,
     showEditCustomerModal: false,
     showCustomerMailSendModal: false,
-    showConnectLineUserModal: false
+    showConnectLineUserModal: false,
+    showNotesModal: false
   },
   reducers: {
     customerIdChanged: (state, action: PayloadAction<number>) => {
@@ -62,6 +63,9 @@ export const customerSlice = createSlice({
     showConnectLineUserModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showConnectLineUserModal = action.payload
     },
+    showNotesModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showNotesModal = action.payload
+    },
   },
 })
 
@@ -79,5 +83,6 @@ export const { showCreateCustomerModalChanged } = customerSlice.actions
 export const { showEditCustomerModalChanged } = customerSlice.actions
 export const { showCustomerMailSendModalChanged } = customerSlice.actions
 export const { showConnectLineUserModalChanged } = customerSlice.actions
+export const { showNotesModalChanged } = customerSlice.actions
 
 export default customerSlice.reducer

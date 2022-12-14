@@ -16,7 +16,8 @@ import { showConnectLineUserModalChanged,
          notesChanged,
          phoneNumberChanged,
          customerPublicIdChanged,
-         lineUsersChanged } from 'redux/customerSlice'
+         lineUsersChanged,
+         showNotesModalChanged } from 'redux/customerSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import CreateCustomerModal from 'components/templates/CreateCustomerModal'
 import EditCustomerModal from 'components/templates/EditCustomerModal'
@@ -26,6 +27,7 @@ import { showCustomerMailSendModalChanged } from 'redux/customerSlice'
 import { messageTemplatesChanged } from 'redux/accountSlice'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import ConnectLineUserModal from 'components/templates/ConnectLineUserModal'
+import CustomerNotesModal from 'components/templates/CustomerNotesModal'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -37,7 +39,7 @@ const Index: NextPage = () => {
   const allowCreateCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowCreateCustomer)
   const allowUpdateCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateCustomer)
   const allowReadQuestionnaireAnswer = useSelector((state: RootState) => state.merchantUserPermission.allowReadQuestionnaireAnswer)
-  const showCustomerMailSendModal =  useSelector((state: RootState) => state.customer.showCustomerMailSendModal)
+  const showCustomerMailSendModal = useSelector((state: RootState) => state.customer.showCustomerMailSendModal)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/account/customers`,
@@ -173,7 +175,13 @@ const Index: NextPage = () => {
                     </a>}
                   </td>
                   <td>
-                    {customer.notes && <Button size='sm'>表示</Button>}
+                    {customer.notes &&
+                      <Button
+                        onClick={() => {
+                          dispatch(showNotesModalChanged(true));
+                          dispatch(notesChanged(customer.notes));
+                        }}
+                        size='sm'>表示</Button>}
                   </td>
                 </tr>
               )
@@ -186,6 +194,7 @@ const Index: NextPage = () => {
         <EditCustomerModal></EditCustomerModal>
         <CustomerMailSendModal></CustomerMailSendModal>
         <ConnectLineUserModal></ConnectLineUserModal>
+        <CustomerNotesModal></CustomerNotesModal>
         {allowReadCustomer === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
