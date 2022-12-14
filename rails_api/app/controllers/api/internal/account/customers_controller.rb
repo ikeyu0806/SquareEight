@@ -3,9 +3,10 @@ class Api::Internal::Account::CustomersController < ApplicationController
 
   def index
     customers = current_merchant_user.account.customers_with_limit.order(:id)
+    line_users = current_merchant_user.account.line_users
     message_templates = current_merchant_user.account.message_templates
     customers = JSON.parse(customers.to_json(methods: [:line_display_name, :line_picture_url]))
-    render json: { status: 'success', customers: customers, message_templates: message_templates }, status: 200
+    render json: { status: 'success', customers: customers, line_users: line_users, message_templates: message_templates }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

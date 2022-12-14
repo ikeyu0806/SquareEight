@@ -15,7 +15,8 @@ import { showConnectLineUserModalChanged,
          emailChanged,
          notesChanged,
          phoneNumberChanged,
-         customerPublicIdChanged } from 'redux/customerSlice'
+         customerPublicIdChanged,
+         lineUsersChanged } from 'redux/customerSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import CreateCustomerModal from 'components/templates/CreateCustomerModal'
 import EditCustomerModal from 'components/templates/EditCustomerModal'
@@ -46,8 +47,10 @@ const Index: NextPage = () => {
       }
     }).then((response) => {
       console.log(response.data)
+      console.log(response.data.line_users)
       setCustomers(response.data.customers)
       dispatch(messageTemplatesChanged(response.data.message_templates))
+      dispatch(lineUsersChanged(response.data.line_users))
     }).catch((error) => {
       console.log(error)
     })

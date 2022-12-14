@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { PagenationState } from 'interfaces/PagenationState'
+import { LineUserParam } from 'interfaces/LineUserParam'
 
 export const customerSlice = createSlice({
   name: 'alert',
@@ -13,6 +13,7 @@ export const customerSlice = createSlice({
     email: '',
     phoneNumber: '',
     notes: '',
+    lineUsers: [] as LineUserParam[],
     showCreateCustomerModal: false,
     showEditCustomerModal: false,
     showCustomerMailSendModal: false,
@@ -46,6 +47,9 @@ export const customerSlice = createSlice({
     notesChanged: (state, action: PayloadAction<string>) => {
       state.notes = action.payload
     },
+    lineUsersChanged: (state, action: PayloadAction<LineUserParam[]>) => {
+      state.lineUsers = action.payload
+    },
     showCreateCustomerModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showCreateCustomerModal = action.payload
     },
@@ -70,6 +74,7 @@ export const { lastNameKanaChanged } = customerSlice.actions
 export const { emailChanged } = customerSlice.actions
 export const { phoneNumberChanged } = customerSlice.actions
 export const { notesChanged } = customerSlice.actions
+export const { lineUsersChanged } = customerSlice.actions
 export const { showCreateCustomerModalChanged } = customerSlice.actions
 export const { showEditCustomerModalChanged } = customerSlice.actions
 export const { showCustomerMailSendModalChanged } = customerSlice.actions
