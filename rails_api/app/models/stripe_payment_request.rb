@@ -2,8 +2,11 @@ class StripePaymentRequest < ApplicationRecord
   include PublicIdModule
 
   enum status: { Pending: 0, Paid: 1 }
+  enum send_method: { Email: 0, Line: 2 }
+
   belongs_to :account
-  belongs_to :customer
+  has_one :customer, foreign_key: :id, primary_key: :customer_id
+  has_one :line_user, foreign_key: :id, primary_key: :line_user_id
 
   def display_status
     case status
