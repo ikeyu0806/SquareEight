@@ -7,7 +7,7 @@ import { CustomerParam } from 'interfaces/CustomerParam'
 import axios from 'axios'
 import { RootState } from 'redux/store'
 import lineUserStyles from 'styles/lineUser.module.css'
-import { showCreateCustomerModalChanged,
+import { showConnectLineUserModalChanged,
          showEditCustomerModalChanged,
          customerIdChanged,
          firstNameChanged,
@@ -23,6 +23,8 @@ import CustomerMailSendModal from 'components/templates/CustomerMailSendModal'
 import Unauthorized from 'components/templates/Unauthorized'
 import { showCustomerMailSendModalChanged } from 'redux/customerSlice'
 import { messageTemplatesChanged } from 'redux/accountSlice'
+import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
+import ConnectLineUserModal from 'components/templates/connectLineUserModal'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -123,7 +125,15 @@ const Index: NextPage = () => {
                       className={lineUserStyles.line_picture_url}
                       src={customer.line_picture_url}
                       alt='line_picture_url' />}
-                    {customer.line_display_name && <>{customer.line_display_name}</>}
+                    {customer.line_display_name &&
+                      <span className='ml10'>
+                        {customer.line_display_name}
+                      </span>}
+                    {!customer.line_display_name &&
+                      <LineBrandColorButton
+                        text='LINEユーザと紐付け'
+                        onClick={() => dispatch(showConnectLineUserModalChanged(true))}
+                        size={'sm'} />}
                   </td>
                   <td>
                     {allowReadQuestionnaireAnswer === 'Allow' &&
@@ -159,6 +169,7 @@ const Index: NextPage = () => {
         <CreateCustomerModal></CreateCustomerModal>
         <EditCustomerModal></EditCustomerModal>
         <CustomerMailSendModal></CustomerMailSendModal>
+        <ConnectLineUserModal></ConnectLineUserModal>
         {allowReadCustomer === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>

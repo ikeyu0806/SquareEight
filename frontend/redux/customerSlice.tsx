@@ -16,6 +16,7 @@ export const customerSlice = createSlice({
     showCreateCustomerModal: false,
     showEditCustomerModal: false,
     showCustomerMailSendModal: false,
+    showConnectLineUserModal: false
   },
   reducers: {
     customerIdChanged: (state, action: PayloadAction<number>) => {
@@ -54,6 +55,9 @@ export const customerSlice = createSlice({
     showCustomerMailSendModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showCustomerMailSendModal = action.payload
     },
+    showConnectLineUserModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showConnectLineUserModal = action.payload
+    },
   },
 })
 
@@ -69,5 +73,6 @@ export const { notesChanged } = customerSlice.actions
 export const { showCreateCustomerModalChanged } = customerSlice.actions
 export const { showEditCustomerModalChanged } = customerSlice.actions
 export const { showCustomerMailSendModalChanged } = customerSlice.actions
+export const { showConnectLineUserModalChanged } = customerSlice.actions
 
 export default customerSlice.reducer
