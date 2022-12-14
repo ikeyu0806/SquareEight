@@ -7,9 +7,9 @@ import { CustomerParam } from 'interfaces/CustomerParam'
 import axios from 'axios'
 import { RootState } from 'redux/store'
 import lineUserStyles from 'styles/lineUser.module.css'
+import { customersChanged } from 'redux/accountSlice'
 import { showConnectLineUserModalChanged,
          showEditCustomerModalChanged,
-         customerIdChanged,
          firstNameChanged,
          lastNameChanged,
          emailChanged,
@@ -29,9 +29,9 @@ import ConnectLineUserModal from 'components/templates/ConnectLineUserModal'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
-  const [customers, setCustomers] = useState<CustomerParam[]>([])
   const dispatch = useDispatch()
   const [searchWord, setSearchWord] = useState('')
+  const customers =  useSelector((state: RootState) => state.account.customers)
   const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
   const allowReadCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowReadCustomer)
   const allowCreateCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowCreateCustomer)
@@ -46,7 +46,7 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
-      setCustomers(response.data.customers)
+      dispatch(customersChanged(response.data.customers))
       dispatch(messageTemplatesChanged(response.data.message_templates))
       dispatch(lineUsersChanged(response.data.line_users))
     }).catch((error) => {
@@ -71,7 +71,7 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
-      setCustomers(response.data.customers)
+      dispatch(customersChanged(response.data.customers))
     }).catch((error) => {
       console.log(error)
     })
