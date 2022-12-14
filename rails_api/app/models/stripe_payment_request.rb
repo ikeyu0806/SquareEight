@@ -2,7 +2,7 @@ class StripePaymentRequest < ApplicationRecord
   include PublicIdModule
 
   enum status: { Pending: 0, Paid: 1 }
-  enum send_method: { Email: 0, Line: 2 }
+  enum send_method: { Email: 0, LINE: 2 }
 
   belongs_to :account
   has_one :customer, foreign_key: :id, primary_key: :customer_id
