@@ -7,7 +7,7 @@ import { CustomerParam } from 'interfaces/CustomerParam'
 import axios from 'axios'
 import { RootState } from 'redux/store'
 import lineUserStyles from 'styles/lineUser.module.css'
-import { customersChanged } from 'redux/accountSlice'
+import { customersChanged, showLineOfficialAccountModalChanged } from 'redux/accountSlice'
 import { showConnectLineUserModalChanged,
          showEditCustomerModalChanged,
          firstNameChanged,
@@ -28,6 +28,7 @@ import { messageTemplatesChanged } from 'redux/accountSlice'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import ConnectLineUserModal from 'components/templates/ConnectLineUserModal'
 import CustomerNotesModal from 'components/templates/CustomerNotesModal'
+import LineOfficialAccountModal from 'components/templates/LineOfficialAccountModal'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -132,14 +133,28 @@ const Index: NextPage = () => {
                     </>}</td>
                   <td>{customer.phone_number}</td>
                   <td>
-                    {customer.line_picture_url && <img
-                      className={lineUserStyles.line_picture_url}
-                      src={customer.line_picture_url}
-                      alt='line_picture_url' />}
-                    {customer.line_display_name &&
-                      <span className='ml10'>
-                        {customer.line_display_name}
-                      </span>}
+                    <div>
+                      {customer.line_picture_url && <img
+                        className={lineUserStyles.line_picture_url}
+                        src={customer.line_picture_url}
+                        alt='line_picture_url' />}
+                      {customer.line_display_name &&
+                        <span className='ml10'>
+                          {customer.line_display_name}
+                        </span>}
+                      <div>
+                      {customer.line_display_name &&
+                        <div className='mt10'>
+                          <LineBrandColorButton
+                            text='メッセージ送信'
+                            onClick={() => {
+                              dispatch(showLineOfficialAccountModalChanged(true));
+                              dispatch(customerPublicIdChanged(customer.public_id));
+                            }}
+                            size={'sm'} />
+                        </div>}
+                      </div>
+                    </div>
                     {!customer.line_display_name &&
                       <LineBrandColorButton
                         text='LINEユーザと紐付け'
@@ -195,6 +210,7 @@ const Index: NextPage = () => {
         <CustomerMailSendModal></CustomerMailSendModal>
         <ConnectLineUserModal></ConnectLineUserModal>
         <CustomerNotesModal></CustomerNotesModal>
+        <LineOfficialAccountModal></LineOfficialAccountModal>
         {allowReadCustomer === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
