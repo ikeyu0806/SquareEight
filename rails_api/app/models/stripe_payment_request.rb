@@ -21,7 +21,9 @@ class StripePaymentRequest < ApplicationRecord
   end
 
   def billing_customer_name
-    customer.last_name + customer.first_name
+    last_name = customer.last_name || ''
+    first_name = customer.first_name || ''
+    last_name + first_name
   end
 
   def billing_customer_email
