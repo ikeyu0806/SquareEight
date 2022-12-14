@@ -5,9 +5,14 @@ class Api::Internal::Account::CustomersController < ApplicationController
     customers = current_merchant_user.account.customers_with_limit.order(:id)
     customers = customers.search(params[:search_word]) if params[:search_word].present?
     line_users = current_merchant_user.account.line_users
+    line_official_accounts = current_merchant_user.account.line_official_accounts
     message_templates = current_merchant_user.account.message_templates
     customers = JSON.parse(customers.to_json(methods: [:line_display_name, :line_picture_url]))
-    render json: { status: 'success', customers: customers, line_users: line_users, message_templates: message_templates }, status: 200
+    render json: { status: 'success',
+                   customers: customers,
+                   line_users: line_users,
+                   line_official_accounts: line_official_accounts,
+                   message_templates: message_templates }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

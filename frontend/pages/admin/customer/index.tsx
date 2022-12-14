@@ -7,7 +7,9 @@ import { CustomerParam } from 'interfaces/CustomerParam'
 import axios from 'axios'
 import { RootState } from 'redux/store'
 import lineUserStyles from 'styles/lineUser.module.css'
-import { customersChanged, showLineOfficialAccountModalChanged } from 'redux/accountSlice'
+import { customersChanged,
+         lineOfficialAccountsChanged,
+         showLineOfficialAccountModalChanged } from 'redux/accountSlice'
 import { showConnectLineUserModalChanged,
          showEditCustomerModalChanged,
          firstNameChanged,
@@ -52,6 +54,7 @@ const Index: NextPage = () => {
       dispatch(customersChanged(response.data.customers))
       dispatch(messageTemplatesChanged(response.data.message_templates))
       dispatch(lineUsersChanged(response.data.line_users))
+      dispatch(lineOfficialAccountsChanged(response.data.line_official_accounts))
     }).catch((error) => {
       console.log(error)
     })
