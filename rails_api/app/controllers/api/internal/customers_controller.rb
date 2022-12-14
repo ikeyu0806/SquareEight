@@ -39,6 +39,16 @@ class Api::Internal::CustomersController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def connect_line_user
+    customer = Customer.find_by(public_id: params[:public_id])
+    line_user = LineUser.find_by(public_id: customer_params[:line_user_public_id])
+    line_user.update!(customer_id: customer.id)
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   private
 
   def customer_params
@@ -59,6 +69,7 @@ class Api::Internal::CustomersController < ApplicationController
                   :price,
                   :mail_title,
                   :message,
+                  :line_user_public_id,
                   :message_template_public_id)
   end
 end

@@ -4,11 +4,34 @@ import { RootState } from 'redux/store'
 import { showConnectLineUserModalChanged } from 'redux/customerSlice'
 import lineUserStyles from 'styles/lineUser.module.css'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
+import axios from 'axios'
+import { useCookies } from 'react-cookie'
 
 const ConnectLineUserModal = (): JSX.Element => {
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
   const showConnectLineUserModal =  useSelector((state: RootState) => state.customer.showConnectLineUserModal)
   const lineUsers =  useSelector((state: RootState) => state.customer.lineUsers)
+  const customerPublicId =  useSelector((state: RootState) => state.customer.customerPublicId)
+
+  const connectLineUser = (lineUserPublicId: string) => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/customers/${customerPublicId}/connect_line_user`,
+    {
+      customers: {
+        line_user_public_id: lineUserPublicId
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    }).then(response => {
+      console.log(response)
+      location.reload()
+    }).catch(error => {
+      console.log(error)
+    })
+  }
 
   return (
     <Modal show={showConnectLineUserModal}>
@@ -30,7 +53,7 @@ const ConnectLineUserModal = (): JSX.Element => {
                   <Col>
                     <LineBrandColorButton
                       text='紐付け'
-                      onClick={() => console.log('')}
+                      onClick={() => connectLineUser(line_user.public_id)}
                     />
                   </Col>
                 </Row>

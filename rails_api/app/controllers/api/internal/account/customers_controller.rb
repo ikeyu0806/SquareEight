@@ -62,6 +62,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
                   :last_name_kana,
                   :email,
                   :notes,
-                  :phone_number)
+                  :phone_number,
+                  line_user_public_id)
   end
 end

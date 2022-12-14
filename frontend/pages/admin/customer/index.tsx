@@ -25,7 +25,7 @@ import Unauthorized from 'components/templates/Unauthorized'
 import { showCustomerMailSendModalChanged } from 'redux/customerSlice'
 import { messageTemplatesChanged } from 'redux/accountSlice'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
-import ConnectLineUserModal from 'components/templates/connectLineUserModal'
+import ConnectLineUserModal from 'components/templates/ConnectLineUserModal'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -46,8 +46,6 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
-      console.log(response.data)
-      console.log(response.data.line_users)
       setCustomers(response.data.customers)
       dispatch(messageTemplatesChanged(response.data.message_templates))
       dispatch(lineUsersChanged(response.data.line_users))
@@ -135,7 +133,10 @@ const Index: NextPage = () => {
                     {!customer.line_display_name &&
                       <LineBrandColorButton
                         text='LINEユーザと紐付け'
-                        onClick={() => dispatch(showConnectLineUserModalChanged(true))}
+                        onClick={() => {
+                          dispatch(showConnectLineUserModalChanged(true));
+                          dispatch(customerPublicIdChanged(customer.public_id));
+                        }}
                         size={'sm'} />}
                   </td>
                   <td>
