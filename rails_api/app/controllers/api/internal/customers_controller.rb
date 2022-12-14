@@ -19,7 +19,12 @@ class Api::Internal::CustomersController < ApplicationController
 
     if customer_params[:is_send_payment_request]
       price = customer_params[:price]
-      stripe_payment_request = current_merchant_user.account.stripe_payment_requests.create!(name: customer_params[:payment_request_name], price: price, customer: customer)
+      stripe_payment_request = current_merchant_user.account
+                               .stripe_payment_requests
+                               .create!(name: customer_params[:payment_request_name],
+                                        price: price,
+                                        customer_id: customer.id,
+                                        send_method: 'Email')
       payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.public_id
     end
     content = MessageTemplate.convert_content(customer_params[:message], customer.last_name, customer.first_name, price, payment_request_url)
