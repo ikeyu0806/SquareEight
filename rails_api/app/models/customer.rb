@@ -9,6 +9,17 @@ class Customer < ApplicationRecord
   has_many :customer_group_relations
   has_many :customer_groups, through: :customer_group_relations
 
+  scope :search, -> (search_word) {
+    if search_word.present?
+      where("first_name LIKE ?", "%#{search_word}%").
+        or(where("last_name LIKE ?", "%#{search_word}%")).
+        or(where("first_name_kana LIKE ?", "%#{search_word}%")).
+        or(where("last_name_kana LIKE ?", "%#{search_word}%")).
+        or(where("email LIKE ?", "%#{search_word}%")).
+        or(where("phone_number LIKE ?", "%#{search_word}%"))
+    end
+  }
+
   def full_name
     full_name = ((self.last_name || '') + (self.first_name || ''))
     # 一応名前がない場合の分岐

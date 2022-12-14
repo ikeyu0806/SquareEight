@@ -65,9 +65,16 @@ const Index: NextPage = () => {
   }
 
   const execSearch = () => {
-    let updateCustomers: CustomerParam[] = []
-    updateCustomers = customers?.filter(customer => customer.last_name.match(searchWord)|| customer.first_name?.match(searchWord) || customer.email?.match(searchWord) || customer.phone_number?.match(searchWord)) || []
-    setCustomers(updateCustomers)
+    axios.get(`${process.env.BACKEND_URL}/api/internal/account/customers?search_word=${searchWord}`,
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    }).then((response) => {
+      setCustomers(response.data.customers)
+    }).catch((error) => {
+      console.log(error)
+    })
   }
 
   return (

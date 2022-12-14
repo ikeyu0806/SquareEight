@@ -3,6 +3,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
 
   def index
     customers = current_merchant_user.account.customers_with_limit.order(:id)
+    customers = customers.search(params[:search_word]) if params[:search_word].present?
     line_users = current_merchant_user.account.line_users
     message_templates = current_merchant_user.account.message_templates
     customers = JSON.parse(customers.to_json(methods: [:line_display_name, :line_picture_url]))
