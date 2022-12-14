@@ -12,7 +12,7 @@ import { showEditCustomerModalChanged } from 'redux/customerSlice'
 const EditCustomerModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
-  const customerId = useSelector((state: RootState) => state.customer.customerId)
+  const customerPublicId = useSelector((state: RootState) => state.customer.customerPublicId)
   const showEditCustomerModal = useSelector((state: RootState) => state.customer.showEditCustomerModal)
   const firstName = useSelector((state: RootState) => state.customer.firstName)
   const lastName = useSelector((state: RootState) => state.customer.lastName)
@@ -23,7 +23,7 @@ const EditCustomerModal = (): JSX.Element => {
   const phoneNumber = useSelector((state: RootState) => state.customer.phoneNumber)
 
   const createCustomer = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/account/customers/${customerId}/update`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/account/customers/${customerPublicId}/update`,
     {
       customer: {
         first_name: firstName,

@@ -56,7 +56,7 @@ const Index: NextPage = () => {
 
   const showEditModal = (customer: CustomerParam) => {
     dispatch(showEditCustomerModalChanged(true))
-    dispatch(customerIdChanged(customer.id))
+    dispatch(customerPublicIdChanged(customer.public_id))
     dispatch(lastNameChanged(customer.last_name))
     dispatch(firstNameChanged(customer.first_name))
     dispatch(emailChanged(customer.email || ''))
@@ -108,6 +108,7 @@ const Index: NextPage = () => {
                 <th>アンケート</th>
                 <th>注文/お支払い</th>
                 <th>編集</th>
+                <th>メモ</th>
               </tr>
             </thead>
             <tbody>
@@ -165,10 +166,14 @@ const Index: NextPage = () => {
                     </a>
                   </td>
                   <td>
-                    {allowUpdateCustomer === 'Allow' && <a onClick={() => showEditModal(customer)}
+                    {allowUpdateCustomer === 'Allow' &&
+                      <a onClick={() => showEditModal(customer)}
                       className='btn btn-primary btn-sm mb20'>
                       編集
                     </a>}
+                  </td>
+                  <td>
+                    {customer.notes && <Button size='sm'>表示</Button>}
                   </td>
                 </tr>
               )
