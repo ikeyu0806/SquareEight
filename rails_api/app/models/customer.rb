@@ -43,4 +43,8 @@ class Customer < ApplicationRecord
   def line_picture_url
     line_user&.line_picture_url
   end
+
+  def line_user_public_id
+    line_user&.public_id
+  end
 end

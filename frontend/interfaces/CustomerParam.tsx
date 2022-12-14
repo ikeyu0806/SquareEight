@@ -11,4 +11,5 @@ export interface CustomerParam {
   full_name: string
   line_display_name: string
   line_picture_url: string
+  line_user_public_id: string
 }

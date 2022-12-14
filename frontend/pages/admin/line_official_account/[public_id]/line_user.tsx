@@ -8,7 +8,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { LineUserParam } from 'interfaces/LineUserParam'
 import lineUserStyles from 'styles/lineUser.module.css'
-import {  showPushMessageModalChanged } from 'redux/lineOfficialAccountSlice'
+import { showPushMessageModalChanged, publicIdChanged } from 'redux/lineOfficialAccountSlice'
 import { messageTemplatesChanged } from 'redux/accountSlice'
 import { lineUserPublicIdChanged } from 'redux/lineUserSlice'
 import { useDispatch } from 'react-redux'
@@ -29,6 +29,7 @@ const LineUser: NextPage = () => {
     }).then((response) => {
       console.log(response.data)
       setLineUsers(response.data.line_users)
+      dispatch(publicIdChanged(String(router.query.public_id)))
       dispatch(messageTemplatesChanged(response.data.message_templates))
     }).catch((error) => {
       console.log(error)

@@ -21,11 +21,12 @@ const PushIndividualLineMessageModal = (): JSX.Element => {
   const isSendPaymentRequest = useSelector((state: RootState) => state.lineOfficialAccount.isSendPaymentRequest)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
   const lineUserPublicId = useSelector((state: RootState) => state.lineUser.lineUserPublicId)
+  const lineofficialAccountPublicId = useSelector((state: RootState) => state.lineOfficialAccount.publicId)
   const price = useSelector((state: RootState) => state.paymentRequest.price)
   const paymentRequestName = useSelector((state: RootState) => state.paymentRequest.name)
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${router.query.public_id}/push_message`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${lineofficialAccountPublicId}/push_message`,
     {
       line_official_account: {
         line_user_public_id: lineUserPublicId,

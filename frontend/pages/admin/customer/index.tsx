@@ -27,6 +27,7 @@ import CustomerMailSendModal from 'components/templates/CustomerMailSendModal'
 import Unauthorized from 'components/templates/Unauthorized'
 import { showCustomerMailSendModalChanged } from 'redux/customerSlice'
 import { messageTemplatesChanged } from 'redux/accountSlice'
+import { lineUserPublicIdChanged } from 'redux/lineUserSlice'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import ConnectLineUserModal from 'components/templates/ConnectLineUserModal'
 import CustomerNotesModal from 'components/templates/CustomerNotesModal'
@@ -153,6 +154,7 @@ const Index: NextPage = () => {
                             onClick={() => {
                               dispatch(showLineOfficialAccountModalChanged(true));
                               dispatch(customerPublicIdChanged(customer.public_id));
+                              dispatch(lineUserPublicIdChanged(customer.line_user_public_id));
                             }}
                             size={'sm'} />
                         </div>}
