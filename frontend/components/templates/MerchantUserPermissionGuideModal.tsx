@@ -155,6 +155,36 @@ const MerchantUserPermissionGuideModal = (): JSX.Element => {
                     <td className='text-center'>○</td>
                   </tr>
                   <tr>
+                    <td className='text-center'>LINE公式アカウントの閲覧</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>○</td>
+                  </tr>
+                  <tr>
+                    <td className='text-center'>LINE公式アカウントの登録・登録削除</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>×</td>
+                  </tr>
+                  <tr>
+                    <td className='text-center'>顧客へのメール送信</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>○</td>
+                  </tr>
+                  <tr>
+                    <td className='text-center'>顧客へのLINEメッセージ送信</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>○</td>
+                  </tr>
+                  <tr>
+                    <td className='text-center'>LINEユーザと顧客の紐付け</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>○</td>
+                  </tr>
+                  <tr>
                     <td className='text-center'>メッセージテンプレートの閲覧</td>
                     <td className='text-center'>○</td>
                     <td className='text-center'>○</td>
