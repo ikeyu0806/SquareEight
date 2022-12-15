@@ -60,6 +60,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/customer_group/new'>顧客グループ作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/line_official_account'>LINE公式アカウント</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/message_template'>メッセージテンプレート</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/html_mail_template'>HTMLメールテンプレート</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/payment_request'>決済リクエスト一覧</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='Webページ' id='webpage-nav-dropdown'>
