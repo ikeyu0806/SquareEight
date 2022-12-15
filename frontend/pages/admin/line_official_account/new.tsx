@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from 'react'
-import { NextPage } from 'next'
-import { Container, Row, Col, ListGroup, Card, Button, Form, Alert } from 'react-bootstrap'
+import React, { useState } from 'react'
+import { Container, Row, Col, Button, Form } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
