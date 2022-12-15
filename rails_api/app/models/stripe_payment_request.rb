@@ -32,4 +32,12 @@ class StripePaymentRequest < ApplicationRecord
   def billing_customer_email
     customer.email
   end
+
+  def line_display_name
+    line_user&.line_display_name
+  end
+
+  def line_picture_url
+    line_user&.line_picture_url
+  end
 end
