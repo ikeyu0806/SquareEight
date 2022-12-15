@@ -74,6 +74,11 @@ class MerchantUser < ApplicationRecord
   enum allow_read_system_plan_subscription_payments: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_shared_component: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_system_plan: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_line_official_account: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_line_official_account: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_connect_line_user: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_send_mail: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_send_line_message: { Forbid: 0, Allow: 1 }, _prefix: true
 
   validates :authority_category, presence: true
   validates :password, password: true
@@ -164,6 +169,11 @@ class MerchantUser < ApplicationRecord
     self.allow_read_system_plan_subscription_payments  = 'Allow'
     self.allow_update_shared_component  = 'Allow'
     self.allow_update_system_plan  = 'Forbid'
+    self.allow_read_line_official_account  = 'Allow'
+    self.allow_update_line_official_account  = 'Allow'
+    self.allow_connect_line_user  = 'Allow'
+    self.allow_send_mail  = 'Allow'
+    self.allow_send_line_message  = 'Allow'
   end
 
   def set_common_user_default_permission
@@ -229,5 +239,10 @@ class MerchantUser < ApplicationRecord
     self.allow_read_system_plan_subscription_payments  = 'Forbid'
     self.allow_update_shared_component  = 'Forbid'
     self.allow_update_system_plan  = 'Forbid'
+    self.allow_read_line_official_account  = 'Allow'
+    self.allow_update_line_official_account  = 'Forbid'
+    self.allow_connect_line_user  = 'Allow'
+    self.allow_send_mail  = 'Allow'
+    self.allow_send_line_message  = 'Allow'
   end
 end

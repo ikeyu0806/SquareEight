@@ -64,6 +64,11 @@ export const merchantUserPermissionSlice = createSlice({
     allowReadSystemPlanSubscriptionPayments: 'Unconfirmed',
     allowUpdateSharedComponent: 'Unconfirmed',
     allowUpdateSystemPlan: 'Unconfirmed',
+    allowReadLineOfficialAccount: 'Unconfirmed',
+    allowUpdateLineOfficialAccount: 'Unconfirmed',
+    allowConnectLineUser: 'Unconfirmed',
+    allowSendMail: 'Unconfirmed',
+    allowSendLineMessage: 'Unconfirmed',
   },
   reducers: {
     showPermissionGuideModalChanged: (state, action: PayloadAction<boolean>) => {
@@ -249,6 +254,21 @@ export const merchantUserPermissionSlice = createSlice({
     allowUpdateSystemPlanChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateStripeBusinessInfo = action.payload
     },
+    allowReadLineOfficialAccountChanged: (state, action: PayloadAction<string>) => {
+      state.allowReadLineOfficialAccount = action.payload
+    },
+    allowUpdateLineOfficialAccountChanged: (state, action: PayloadAction<string>) => {
+      state.allowUpdateLineOfficialAccount = action.payload
+    },
+    allowConnectLineUserChanged: (state, action: PayloadAction<string>) => {
+      state.allowConnectLineUser = action.payload
+    },
+    allowSendMailChanged: (state, action: PayloadAction<string>) => {
+      state.allowSendMail = action.payload
+    },
+    allowSendLineMessageChanged: (state, action: PayloadAction<string>) => {
+      state.allowSendLineMessage = action.payload
+    },
   },
 })
 
@@ -313,5 +333,10 @@ export const { allowUpdateStripeBusinessInfoChanged } = merchantUserPermissionSl
 export const { allowReadSystemPlanSubscriptionPaymentsChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateSharedComponentChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateSystemPlanChanged } = merchantUserPermissionSlice.actions
+export const { allowReadLineOfficialAccountChanged } = merchantUserPermissionSlice.actions
+export const { allowUpdateLineOfficialAccountChanged } = merchantUserPermissionSlice.actions
+export const { allowConnectLineUserChanged } = merchantUserPermissionSlice.actions
+export const { allowSendMailChanged } = merchantUserPermissionSlice.actions
+export const { allowSendLineMessageChanged } = merchantUserPermissionSlice.actions
 
 export default merchantUserPermissionSlice.reducer
