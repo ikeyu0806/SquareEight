@@ -84,7 +84,13 @@ MerchantUser.first_or_create!(
   allow_update_stripe_business_info: "Allow",
   allow_read_system_plan_subscription_payments: "Allow",
   allow_update_shared_component: "Allow",
-  allow_update_system_plan: "Allow"
+  allow_update_system_plan: "Allow",
+  allow_read_line_official_account: "Allow",
+  allow_update_line_official_account: "Allow",
+  allow_read_line_user: "Allow",
+  allow_connect_line_user: "Allow",
+  allow_send_mail: "Allow",
+  allow_send_line_message: "Allow"
 )
 
 EndUser.first_or_create!(
