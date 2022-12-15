@@ -6,7 +6,9 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { alertChanged } from 'redux/alertSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const New = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -17,6 +19,7 @@ const New = () => {
   const [channelId, setChannelId] = useState('')
   const [channelSecret, setChannelSecret] = useState('')
   const [channelToken, setChannelToken] = useState('')
+  const allowUpdateLineOfficialAccount = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateLineOfficialAccount)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/register_message_api_channel`,
@@ -42,9 +45,9 @@ const New = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowUpdateLineOfficialAccount === 'Allow' && <Container>
         <Row>
-        <Col lg={3}></Col>
+          <Col lg={3}></Col>
           <Col lg={6}>
             <div className='mt20'>公式アカウント名</div>
             <Form.Control onChange={(e) => setName(e.target.value)}></Form.Control>
@@ -58,7 +61,8 @@ const New = () => {
             <Button className='mt20' onClick={onSubmit}>登録する</Button>
           </Col>
         </Row>
-      </Container>
+      </Container>}
+      {allowUpdateLineOfficialAccount === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

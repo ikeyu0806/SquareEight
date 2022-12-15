@@ -11,7 +11,8 @@ import lineUserStyles from 'styles/lineUser.module.css'
 import { showPushMessageModalChanged, publicIdChanged } from 'redux/lineOfficialAccountSlice'
 import { messageTemplatesChanged } from 'redux/accountSlice'
 import { lineUserPublicIdChanged } from 'redux/lineUserSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 
 const LineUser: NextPage = () => {
@@ -19,6 +20,8 @@ const LineUser: NextPage = () => {
   const router = useRouter()
   const dispatch = useDispatch()
   const [lineUsers, setLineUsers] = useState<LineUserParam[]>([])
+  const allowConnectLineUser = useSelector((state: RootState) => state.merchantUserPermission.allowConnectLineUser)
+  const allowSendLineMessage = useSelector((state: RootState) => state.merchantUserPermission.allowSendLineMessage)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${router.query.public_id}/line_users`,
@@ -53,19 +56,20 @@ const LineUser: NextPage = () => {
                 return (
                   <ListGroup.Item key={i}>
                     <Row>
-                      <Col>
+                      {allowConnectLineUser === 'Allow' && <Col>
                         <img
                           className={lineUserStyles.line_picture_url}
                           src={line_user.line_picture_url}
                           alt='line_picture_url' />
                         <span className='ml10'>{line_user.line_display_name}</span>
-                      </Col>
+                      </Col>}
+                      {allowSendLineMessage === 'Allow' &&
                       <Col>
                         <LineBrandColorButton
                           text='メッセージを送る'
                           onClick={() => clickSendMessageButton(line_user.public_id)}
                         ></LineBrandColorButton>
-                      </Col>
+                      </Col>}
                     </Row>
                   </ListGroup.Item>
                 )
