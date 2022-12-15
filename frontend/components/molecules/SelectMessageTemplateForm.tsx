@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { contentChanged, publicIdChanged } from 'redux/messageTemplateSlice'
+import { titleChanged, contentChanged, publicIdChanged } from 'redux/messageTemplateSlice'
 
 const SelectMessageTemplateForm = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -22,7 +22,7 @@ const SelectMessageTemplateForm = (): JSX.Element => {
         type='radio'
         name='isUseMessageTemplate'
         id='useMessageTemplate'
-        label='メッセージテンプレートから本文を入力'
+        label='メッセージテンプレートから入力'
         onChange={() => setIsUseMessageTemplate(true)}
         checked={isUseMessageTemplate} />
       {isUseMessageTemplate && <div className='ml10'>
@@ -35,8 +35,9 @@ const SelectMessageTemplateForm = (): JSX.Element => {
               name='MessageTemplate'
               id={'messageTemplate' + i}
               onChange={() => {
+                dispatch(titleChanged(template.title))
                 dispatch(contentChanged(template.content));
-                dispatch(publicIdChanged(template.public_id))
+                dispatch(publicIdChanged(template.public_id));
               }}
             />
           )

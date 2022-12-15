@@ -26,7 +26,7 @@ const CreateMessageTemplateForm = (): JSX.Element => {
       <FormControl
         onChange={(e) => dispatch(nameChanged(e.target.value))}
         value={name} />
-      <Form.Label>タイトル<RequireBadge /></Form.Label>
+      <Form.Label>メールタイトル<RequireBadge /></Form.Label>
       <FormControl
         onChange={(e) => dispatch(titleChanged(e.target.value))}
         value={title} />

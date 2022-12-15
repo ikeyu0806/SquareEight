@@ -62,6 +62,7 @@ const CustomerMailSendModal = (): JSX.Element => {
           <Col md={5}>
             <div>メールタイトル</div>
             <Form.Control
+              value={title}
               onChange={(e) => dispatch(titleChanged(e.target.value))}
             ></Form.Control>
             <div>メッセージ本文</div>
