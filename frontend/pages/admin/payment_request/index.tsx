@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import GuideStripeAccountRegister from 'components/templates/GuideStripeAccountRegister'
 import React, { useEffect, useState } from 'react'
-import { Container, ListGroup, Row, Col, Table } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
@@ -11,6 +11,7 @@ import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import Unauthorized from 'components/templates/Unauthorized'
 import lineUserStyles from 'styles/lineUser.module.css'
+import { messageSendMethodText } from 'functions/messageSendMethodText'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -51,6 +52,8 @@ const Index: NextPage = () => {
         <Table bordered>
         <thead>
           <tr>
+            <th>金額</th>
+            <th>送信方法</th>
             <th>請求先顧客</th>
             <th>請求先LINEユーザ</th>
             <th>メールアドレス</th>
@@ -62,6 +65,8 @@ const Index: NextPage = () => {
           {paymentRequests.map((request, i) => {
             return (
               <tr key={i}>
+                <td>￥{request.price}</td>
+                <td>{messageSendMethodText(request.send_method)}</td>
                 <td>{request.billing_customer_name}</td>
                 <td>
                   <img
