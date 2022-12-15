@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import GuideStripeAccountRegister from 'components/templates/GuideStripeAccountRegister'
 import React, { useEffect, useState } from 'react'
-import { Container, ListGroup, Row, Col } from 'react-bootstrap'
+import { Container, ListGroup, Row, Col, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
@@ -42,44 +42,46 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        {allowReadPaymentRequest === 'Allow' && <Container>
-        <Row>
-          <Col lg={3}></Col>
-          <Col lg={6}>
-            {stripeAccountEnable === 'Enable' && <>
-            <a className='btn btn-primary mt10 mb20'
-              href='/admin/payment_request/new'>決済リクエスト登録</a>
-              <h3>決済リクエスト一覧</h3>
-              <ListGroup>
-                {paymentRequests.map((request, i) => {
-                  return(
-                    <ListGroup.Item key={i}>
-                    <Row>
-                      <Col>
-                        {request.status === 'Pending' && <span  className='badge bg-danger'>未払い</span>}
-                        {request.status === 'Paid' && <span  className='badge bg-info'>支払い済み</span>}
-                        <div>請求先顧客</div>
-                        <div>{request.billing_customer_name} {request.billing_customer_email}</div>
-                      </Col>
-                      <Col>
-                        <a
-                          href={request.request_url}
-                          target='_blank'
-                          rel='noreferrer'
-                          className='btn btn-primary'>決済URL</a>
-                        
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                  )
-                })}
-                </ListGroup>
-              </>}
-              {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
-            </Col>
-          </Row>
-        </Container>}
-        {allowReadPaymentRequest === 'Forbid' && <Unauthorized />}
+      {allowReadPaymentRequest === 'Allow' &&
+      <Container>
+        <a className='btn btn-primary mt10 mb20'
+            href='/admin/payment_request/new'>決済リクエスト登録</a>
+        <h3>決済リクエスト一覧</h3>
+        <Table bordered>
+        <thead>
+          <tr>
+            <th>請求先顧客</th>
+            <th>請求先LINEユーザ</th>
+            <th>メールアドレス</th>
+            <th>決済ステータス</th>
+            <th>決済URL</th>
+          </tr>
+        </thead>
+        <tbody>
+          {paymentRequests.map((request, i) => {
+            return (
+              <tr key={i}>
+                <td>{request.billing_customer_name}</td>
+                <td>{request.line_display_name}</td>
+                <td>{request.billing_customer_email}</td>
+                <td>
+                  {request.status === 'Pending' && <span  className='badge bg-danger'>未払い</span>}
+                  {request.status === 'Paid' && <span  className='badge bg-info'>支払い済み</span>}
+                </td>
+                <td>
+                  <a
+                    href={request.request_url}
+                    target='_blank'
+                    rel='noreferrer'
+                    className='btn btn-primary'>決済URL</a>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+        </Table>
+      </Container>}
+      {allowReadPaymentRequest === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
     </>
   )
