@@ -339,6 +339,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_015934) do
     t.integer "allow_delete_message_template", default: 0
     t.integer "allow_read_line_official_account", default: 0
     t.integer "allow_update_line_official_account", default: 0
+    t.integer "allow_read_line_user", default: 0
     t.integer "allow_connect_line_user", default: 0
     t.integer "allow_send_mail", default: 0
     t.integer "allow_send_line_message", default: 0

@@ -22,6 +22,7 @@ const LineUser: NextPage = () => {
   const [lineUsers, setLineUsers] = useState<LineUserParam[]>([])
   const allowConnectLineUser = useSelector((state: RootState) => state.merchantUserPermission.allowConnectLineUser)
   const allowSendLineMessage = useSelector((state: RootState) => state.merchantUserPermission.allowSendLineMessage)
+  const allowReadLineUser = useSelector((state: RootState) => state.merchantUserPermission.allowReadLineUser)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${router.query.public_id}/line_users`,
@@ -46,6 +47,7 @@ const LineUser: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      {allowReadLineUser === 'Allow' &&
       <Container>
         <Row>
           <Col lg={3}></Col>
@@ -77,7 +79,7 @@ const LineUser: NextPage = () => {
             </ListGroup>
           </Col>
         </Row>
-      </Container>
+      </Container>}
       <PushIndividualLineMessageModal></PushIndividualLineMessageModal>
     </MerchantUserAdminLayout>
   )

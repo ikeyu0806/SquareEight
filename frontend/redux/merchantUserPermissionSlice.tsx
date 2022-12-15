@@ -67,6 +67,7 @@ export const merchantUserPermissionSlice = createSlice({
     allowReadLineOfficialAccount: 'Unconfirmed',
     allowUpdateLineOfficialAccount: 'Unconfirmed',
     allowConnectLineUser: 'Unconfirmed',
+    allowReadLineUser: 'Unconfirmed',
     allowSendMail: 'Unconfirmed',
     allowSendLineMessage: 'Unconfirmed',
   },
@@ -263,6 +264,9 @@ export const merchantUserPermissionSlice = createSlice({
     allowConnectLineUserChanged: (state, action: PayloadAction<string>) => {
       state.allowConnectLineUser = action.payload
     },
+    allowReadLineUserChanged: (state, action: PayloadAction<string>) => {
+      state.allowReadLineUser = action.payload
+    },
     allowSendMailChanged: (state, action: PayloadAction<string>) => {
       state.allowSendMail = action.payload
     },
@@ -336,6 +340,7 @@ export const { allowUpdateSystemPlanChanged } = merchantUserPermissionSlice.acti
 export const { allowReadLineOfficialAccountChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateLineOfficialAccountChanged } = merchantUserPermissionSlice.actions
 export const { allowConnectLineUserChanged } = merchantUserPermissionSlice.actions
+export const { allowReadLineUserChanged } = merchantUserPermissionSlice.actions
 export const { allowSendMailChanged } = merchantUserPermissionSlice.actions
 export const { allowSendLineMessageChanged } = merchantUserPermissionSlice.actions
 

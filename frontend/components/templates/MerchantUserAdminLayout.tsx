@@ -74,6 +74,7 @@ import {  allowReadMerchantUserChanged,
           allowReadLineOfficialAccountChanged,
           allowUpdateLineOfficialAccountChanged,
           allowConnectLineUserChanged,
+          allowReadUserChanged,
           allowSendMailChanged,
           allowSendLineMessageChanged} from 'redux/merchantUserPermissionSlice'
 
@@ -163,6 +164,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowReadLineOfficialAccountChanged(response.data.user.allow_read_line_official_account))
       dispatch(allowUpdateLineOfficialAccountChanged(response.data.user.allow_update_line_official_account))
       dispatch(allowConnectLineUserChanged(response.data.user.allow_connect_line_user))
+      dispatch(allowReadUserChanged(response.data.user.allow_read_user))
       dispatch(allowSendMailChanged(response.data.user.allow_send_mail))
       dispatch(allowSendLineMessageChanged(response.data.user.allow_send_line_message))
     }).catch((e) => {
