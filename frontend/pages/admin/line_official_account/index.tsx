@@ -10,14 +10,17 @@ import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import { useRouter } from 'next/router'
 import { showPushMessageModalChanged, publicIdChanged } from 'redux/lineOfficialAccountSlice'
 import { messageTemplatesChanged } from 'redux/accountSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import BroadcastLineAccountFriendsModal from 'components/templates/BroadcastLineAccountFriendsModal'
+import { RootState } from 'redux/store'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const dispatch = useDispatch()
   const [lineOfficialAccounts, setLineOfficialAccounts] = useState<LineOfficialAccountParam[]>([])
+  const allowReadLineOfficialAccount = useSelector((state: RootState) => state.merchantUserPermission.allowReadLineOfficialAccount)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/line_official_accounts`,
@@ -50,7 +53,7 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowReadLineOfficialAccount === 'Allow' && <Container>
         <Row>
           <Col lg={2}></Col>
           <Col lg={8}>
@@ -88,7 +91,8 @@ const Index: NextPage = () => {
             </ListGroup>
           </Col>
         </Row>
-      </Container>
+      </Container>}
+      {allowReadLineOfficialAccount === 'Forbid' && <Unauthorized />}
       <BroadcastLineAccountFriendsModal />
     </MerchantUserAdminLayout>
   )

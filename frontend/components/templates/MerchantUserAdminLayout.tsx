@@ -70,7 +70,12 @@ import {  allowReadMerchantUserChanged,
           allowUpdateCreditCardChanged,
           allowReadStripeBusinessInfoChanged,
           allowReadSystemPlanSubscriptionPaymentsChanged,
-          allowUpdateStripeBusinessInfoChanged, } from 'redux/merchantUserPermissionSlice'
+          allowUpdateStripeBusinessInfoChanged,
+          allowReadLineOfficialAccountChanged,
+          allowUpdateLineOfficialAccountChanged,
+          allowConnectLineUserChanged,
+          allowSendMailChanged,
+          allowSendLineMessageChanged} from 'redux/merchantUserPermissionSlice'
 
 interface Props {
   children: ReactNode
@@ -155,6 +160,11 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowReadStripeBusinessInfoChanged(response.data.user.allow_read_stripe_business_info))
       dispatch(allowUpdateStripeBusinessInfoChanged(response.data.user.allow_read_merchan))
       dispatch(allowReadSystemPlanSubscriptionPaymentsChanged(response.data.user.allow_read_system_plan_subscription_payments))
+      dispatch(allowReadLineOfficialAccountChanged(response.data.user.allow_read_line_official_account))
+      dispatch(allowUpdateLineOfficialAccountChanged(response.data.user.allow_update_line_official_account))
+      dispatch(allowConnectLineUserChanged(response.data.user.allow_connect_line_user))
+      dispatch(allowSendMailChanged(response.data.user.allow_send_mail))
+      dispatch(allowSendLineMessageChanged(response.data.user.allow_send_line_message))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
