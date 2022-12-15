@@ -1,6 +1,7 @@
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import CheckIcon from 'components/atoms/CheckIcon'
 
 const New: NextPage = () => {
   return (
@@ -13,8 +14,11 @@ const New: NextPage = () => {
             <div className='mt20 mb20'>テンプレートタイプを選択してください</div>
             <Row>
               <Col>
-                <Card>
-                  <Card.Header>トップ画像+テキスト</Card.Header>
+                <Card style={{ borderWidth: '3px', borderColor: '#00ff00' }}>
+                  <Card.Header className='d-flex justify-content-between align-items-center'>
+                    <span>トップ画像+テキスト</span>
+                    <CheckIcon width={20} height={20} fill={'#00ff00'}></CheckIcon>
+                  </Card.Header>
                   <Card.Body>                  
                     <Card.Img variant='top' src='/images/t-shirt.jpg' />
                     <div>
