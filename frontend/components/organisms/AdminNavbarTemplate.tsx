@@ -60,6 +60,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/customer_group/new'>顧客グループ作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/line_official_account'>LINE公式アカウント</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/message_template'>メッセージテンプレート</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/payment_request'>決済リクエスト一覧</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='Webページ' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/webpage'>Webページ一覧</NavDropdown.Item>
@@ -70,15 +71,12 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/questionnaire/master/'>アンケート一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/questionnaire/answer/'>アンケート回答一覧</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='決済' id='webpage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/charges'>売上一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/payment_request'>決済リクエスト一覧</NavDropdown.Item>
-              </NavDropdown>
               <NavDropdown title='アカウント' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/account/create_pages'>ページ一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/shared_component/edit'>ページ全体編集</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/account/'>アカウント情報</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/user/'>ユーザ一覧・追加</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/charges'>売上一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/payment_method'>お支払いクレジットカード登録・変更</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/sales_transfer'>事業情報・売上振込先口座</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/plan/choice'>プラン変更</NavDropdown.Item>

@@ -46,8 +46,6 @@ const Index: NextPage = () => {
       <MerchantUserAdminLayout>
       {allowReadPaymentRequest === 'Allow' &&
       <Container>
-        <a className='btn btn-primary mt10 mb20'
-            href='/admin/payment_request/new'>決済リクエスト登録</a>
         <h3>決済リクエスト一覧</h3>
         <Table bordered>
         <thead>
