@@ -44,6 +44,9 @@ const Index: NextPage = () => {
   const allowUpdateCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateCustomer)
   const allowReadQuestionnaireAnswer = useSelector((state: RootState) => state.merchantUserPermission.allowReadQuestionnaireAnswer)
   const showCustomerMailSendModal = useSelector((state: RootState) => state.customer.showCustomerMailSendModal)
+  const allowConnectLineUser = useSelector((state: RootState) => state.merchantUserPermission.allowConnectLineUser)
+  const allowReadLineUser = useSelector((state: RootState) => state.merchantUserPermission.allowReadLineUser)
+  const allowSendLineMessage = useSelector((state: RootState) => state.merchantUserPermission.allowSendLineMessage)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/account/customers`,
@@ -138,16 +141,19 @@ const Index: NextPage = () => {
                   <td>{customer.phone_number}</td>
                   <td>
                     <div>
-                      {customer.line_picture_url && <img
-                        className={lineUserStyles.line_picture_url}
-                        src={customer.line_picture_url}
-                        alt='line_picture_url' />}
-                      {customer.line_display_name &&
-                        <span className='ml10'>
-                          {customer.line_display_name}
-                        </span>}
+                      {allowReadLineUser === 'Allow' && <>
+                        {customer.line_picture_url && <img
+                          className={lineUserStyles.line_picture_url}
+                          src={customer.line_picture_url}
+                          alt='line_picture_url' />}
+                        {customer.line_display_name &&
+                          <span className='ml10'>
+                            {customer.line_display_name}
+                          </span>}
+                      </>}
                       <div>
                       {customer.line_display_name &&
+                        allowSendLineMessage === 'Allow' &&
                         <div className='mt10'>
                           <LineBrandColorButton
                             text='メッセージ送信'
@@ -161,6 +167,7 @@ const Index: NextPage = () => {
                       </div>
                     </div>
                     {!customer.line_display_name &&
+                      allowConnectLineUser === 'Allow' &&
                       <LineBrandColorButton
                         text='LINEユーザと紐付け'
                         onClick={() => {
