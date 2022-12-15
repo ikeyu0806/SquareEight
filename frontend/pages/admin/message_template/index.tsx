@@ -8,12 +8,10 @@ import { RootState } from 'redux/store'
 import { MessageTemplateParam } from 'interfaces/MessageTemplateParam'
 import CreateMessageTemplateModal from 'components/templates/CreateMessageTemplateModal'
 import EditMessageTemplateModal from 'components/templates/EditMessageTemplateModal'
-import SendMessageTemplateModal from 'components/templates/SendMessageTemplateModal'
 import axios from 'axios'
 import Unauthorized from 'components/templates/Unauthorized'
 import { showEditMessageTemplateModalChanged,
          showCreateMessageTemplateModalChanged,
-         showSendMessageTemplateModalChanged,
          publicIdChanged,
          nameChanged,
          titleChanged,
@@ -56,14 +54,6 @@ const Index: NextPage = () => {
     dispatch(contentChanged(content))
   }
 
-  const showSendModal = (publicId: string, name: string, title: string, content: string) => {
-    dispatch(showSendMessageTemplateModalChanged(true))
-    dispatch(publicIdChanged(publicId))
-    dispatch(nameChanged(name))
-    dispatch(titleChanged(title))
-    dispatch(contentChanged(content))
-  }
-
   return (
     <MerchantUserAdminLayout>
       {allowReadMessageTemplate === 'Allow' && <Container>
@@ -100,13 +90,6 @@ const Index: NextPage = () => {
                             </Button>
                           </div>
                         </Col>}
-                        <Col>
-                          <div className='text-center'>
-                            <Button onClick={() => showSendModal(message.public_id, message.name, message.title,message.content)}>
-                              メール送信
-                            </Button>
-                          </div>
-                        </Col>
                       </Row>
                     </ListGroup.Item>
                   )
@@ -119,7 +102,6 @@ const Index: NextPage = () => {
       {allowReadMessageTemplate === 'Forbid' && <Unauthorized />}
       <CreateMessageTemplateModal></CreateMessageTemplateModal>
       <EditMessageTemplateModal></EditMessageTemplateModal>
-      <SendMessageTemplateModal></SendMessageTemplateModal>
     </MerchantUserAdminLayout>
   )
 }
