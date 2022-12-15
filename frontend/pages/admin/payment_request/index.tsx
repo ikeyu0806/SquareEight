@@ -10,6 +10,7 @@ import { PaymentRequestParam } from 'interfaces/PaymentRequestParam'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import Unauthorized from 'components/templates/Unauthorized'
+import lineUserStyles from 'styles/lineUser.module.css'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -62,7 +63,13 @@ const Index: NextPage = () => {
             return (
               <tr key={i}>
                 <td>{request.billing_customer_name}</td>
-                <td>{request.line_display_name}</td>
+                <td>
+                  <img
+                    className={lineUserStyles.line_picture_url}
+                    src={request.line_picture_url}
+                    alt='line_picture_url' />
+                  <span className='ml10'>{request.line_display_name}</span>
+                </td>
                 <td>{request.billing_customer_email}</td>
                 <td>
                   {request.status === 'Pending' && <span  className='badge bg-danger'>未払い</span>}

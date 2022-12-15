@@ -58,7 +58,7 @@ const LineUser: NextPage = () => {
                           className={lineUserStyles.line_picture_url}
                           src={line_user.line_picture_url}
                           alt='line_picture_url' />
-                        <span className='ml20'>{line_user.line_display_name}</span>
+                        <span className='ml10'>{line_user.line_display_name}</span>
                       </Col>
                       <Col>
                         <LineBrandColorButton
