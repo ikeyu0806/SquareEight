@@ -61,7 +61,19 @@ const New: NextPage = () => {
                 <Button>登録を完了する</Button>
               </Col>
             </Row>
-            <div className='mt20 mb10'>本文が登録されていません</div>
+            {!htmlMailTemplate.content && <div className='mt20 mb10'>本文が登録されていません</div>}
+            {htmlMailTemplate.templateType === 'ImageWithText' && htmlMailTemplate.content.map((c, i) => {
+              return (
+                <div key={i}>
+                  <img
+                    className='d-block w-100 mt30'
+                    src={c.base64Image}
+                    alt='image'
+                  />
+                  <div>{c.text}</div>
+                </div>
+              )
+            })}
             <hr />
             <Form.Group controlId='formFile' className='mb5 mt10'>
               <Form.Label>画像をアップロード</Form.Label>
