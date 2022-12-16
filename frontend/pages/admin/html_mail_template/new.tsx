@@ -7,7 +7,8 @@ import { getBase64 } from 'functions/getBase64'
 import { ImageWithTextTemplateContent, HtmlMailTemplate } from 'interfaces/HtmlMailTemplate'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
-import { htmlMailTemplateChanged } from 'redux/htmlMailTemplateSlice'
+import { htmlMailTemplateChanged, currentMaxSortOrderChanged } from 'redux/htmlMailTemplateSlice'
+import UpdateHtmlMailBlockStateIcons from 'components/organisms/UpdateHtmlMailBlockStateIcons'
 
 const New: NextPage = () => {
   const router = useRouter()
@@ -20,6 +21,7 @@ const New: NextPage = () => {
 
   const [htmlMailTemplateDraft, setHtmlMailTemplateDraft] = useState<HtmlMailTemplate>()
   const htmlMailTemplate = useSelector((state: RootState) => state.htmlMailTemplate.htmlMailTemplate)
+  const currentMaxSortOrder = useSelector((state: RootState) => state.htmlMailTemplate.currentMaxSortOrder)
 
   useEffect(() => {
     switch(router.query.template_type) {
@@ -40,10 +42,12 @@ const New: NextPage = () => {
   }
 
   const addTemplateContent = () => {
+    let blockID = new Date().getTime().toString(16)
     let updateHtmlMailTemplate: ImageWithTextTemplateContent[]
+    dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
     updateHtmlMailTemplate = htmlMailTemplate.content
     let additionalHtmlMailTemplate: ImageWithTextTemplateContent
-    additionalHtmlMailTemplate = { text: draftText, image: image, base64Image: base64Image }
+    additionalHtmlMailTemplate = { text: draftText, image: image, base64Image: base64Image, blockID: blockID, sortOrder: currentMaxSortOrder }
     updateHtmlMailTemplate = [...updateHtmlMailTemplate, additionalHtmlMailTemplate]
     dispatch(htmlMailTemplateChanged({content: updateHtmlMailTemplate, templateType: 'ImageWithText'}))
   }
@@ -63,7 +67,7 @@ const New: NextPage = () => {
             </Row>
             {!htmlMailTemplate.content && <div className='mt20 mb10'>本文が登録されていません</div>}
             {htmlMailTemplate.templateType === 'ImageWithText' && htmlMailTemplate.content.map((c, i) => {
-              return (
+              return [
                 <div key={i}>
                   <img
                     className='d-block w-100 mt30'
@@ -71,8 +75,12 @@ const New: NextPage = () => {
                     alt='image'
                   />
                   <div>{c.text}</div>
-                </div>
-              )
+                </div>,
+                <UpdateHtmlMailBlockStateIcons
+                  key={i + 1}
+                  blockID={c.blockID}
+                  sortOrder={c.sortOrder}></UpdateHtmlMailBlockStateIcons>
+              ]
             })}
             <hr />
             <Form.Group controlId='formFile' className='mb5 mt10'>
