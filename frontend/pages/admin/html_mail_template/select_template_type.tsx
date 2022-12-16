@@ -18,7 +18,9 @@ const New: NextPage = () => {
                 <div className='mt20 mb20'>テンプレートタイプを選択してください</div>
               </Col>
               <Col>
-                <a href='/admin/html_mail_template/new' className='btn btn-primary'>選択を終えて次へ</a>
+                <a
+                  href={`/admin/html_mail_template/new?template_type=${selectedType}`}
+                  className='btn btn-primary'>選択を終えて次へ</a>
               </Col>
             </Row>
             <Row>
