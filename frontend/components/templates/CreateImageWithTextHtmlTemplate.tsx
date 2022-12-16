@@ -1,26 +1,19 @@
 import React, { useState, useEffect } from 'react'
-import type { NextPage } from 'next'
-import { Container, Button, Form, Row, Col } from 'react-bootstrap'
-import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import { Button, Form } from 'react-bootstrap'
 import { useRouter } from 'next/router'
 import { getBase64 } from 'functions/getBase64'
-import { ImageWithTextTemplateContent, HtmlMailTemplate } from 'interfaces/HtmlMailTemplate'
+import { ImageWithTextTemplateContent } from 'interfaces/HtmlMailTemplate'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { htmlMailTemplateChanged, currentMaxSortOrderChanged } from 'redux/htmlMailTemplateSlice'
 import UpdateHtmlMailBlockStateIcons from 'components/organisms/UpdateHtmlMailBlockStateIcons'
-import CreateImageWithTextHtmlTemplate from 'components/templates/CreateImageWithTextHtmlTemplate'
 
-const New: NextPage = () => {
+const CreateImageWithTextHtmlTemplate = (): JSX.Element => {
   const router = useRouter()
   const dispatch = useDispatch()
-  const [imageLink, setImageLink] = useState('')
   const [image, setImage] = useState('/images/noimage.jpeg')
   const [base64Image, setBase64Image] = useState<any>('')
   const [draftText, setDraftText] = useState('')
-  const [ImageWithTextTemplateContent, setImageWithTextTemplateContent] = useState<ImageWithTextTemplateContent>()
-
-  const [htmlMailTemplateDraft, setHtmlMailTemplateDraft] = useState<HtmlMailTemplate>()
   const htmlMailTemplate = useSelector((state: RootState) => state.htmlMailTemplate.htmlMailTemplate)
   const currentMaxSortOrder = useSelector((state: RootState) => state.htmlMailTemplate.currentMaxSortOrder)
 
@@ -52,28 +45,40 @@ const New: NextPage = () => {
     updateHtmlMailTemplate = [...updateHtmlMailTemplate, additionalHtmlMailTemplate]
     dispatch(htmlMailTemplateChanged({content: updateHtmlMailTemplate, templateType: 'ImageWithText'}))
   }
-
   return (
-    <MerchantUserAdminLayout>
-      <Container>
-        <Row>
-          <Col lg={2}></Col>
-          <Col lg={8}>
-            <h3 className='mt10'>HTMLメールテンプレート作成</h3>
-            <Row>
-              <Col lg={8}></Col>
-              <Col>
-                <Button>登録を完了する</Button>
-              </Col>
-            </Row>
-            {htmlMailTemplate.content.length === 0 && <div className='mt20 mb10'>本文が登録されていません</div>}
-            {htmlMailTemplate.templateType === 'ImageWithText'
-              && <CreateImageWithTextHtmlTemplate />}
-          </Col>
-        </Row>
-      </Container>
-    </MerchantUserAdminLayout>
+    <>
+      {htmlMailTemplate.content.map((c, i) => {
+          return [
+            <div key={i}>
+              <img
+                className='d-block w-100 mt30'
+                src={c.base64Image}
+                alt='image'
+              />
+              <div>{c.text}</div>
+            </div>,
+            <UpdateHtmlMailBlockStateIcons
+              key={i + 1}
+              blockID={c.blockID}
+              sortOrder={c.sortOrder}></UpdateHtmlMailBlockStateIcons>
+          ]
+        })}
+        <hr />
+        <Form.Group controlId='formFile' className='mb5 mt10'>
+          <Form.Label>画像をアップロード</Form.Label>
+          <Form.Control type='file' onChange={handleChangeFile} />
+        </Form.Group>
+        <div className='mt10'>テキスト</div>
+        <Form.Control
+          value={draftText}
+          onChange={(e) => setDraftText(e.target.value)}
+          as='textarea'
+          rows={20} />
+        <Button
+          onClick={addTemplateContent}
+          className='mt20'>本文に画像とテキストを追加</Button>
+    </>
   )
 }
 
-export default New
+export default CreateImageWithTextHtmlTemplate
