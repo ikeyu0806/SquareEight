@@ -2,7 +2,6 @@ import React from 'react'
 import CaretUpSquare from 'components/atoms/CaretUpSquare'
 import CaretDownSquare from 'components/atoms/CaretDownSquare'
 import TrashIcon from 'components/atoms/TrashIcon'
-import PlusCircleIcon from 'components/atoms/PlusCircleIcon'
 import { UpdateBlockStateIconsProps } from 'types/UpdateBlockStateIconsProps'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -51,6 +50,37 @@ const UpdateHtmlMailBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateI
   }
 
   const moveDownBlock = () => {
+    let htmlMailTemplateContent: ImageWithTextTemplateContent[] | ImageWithTextListTypeTemplateContent[]
+    htmlMailTemplateContent = htmlMailTemplate.content
+    let updateHtmlMailTemplateContent: ImageWithTextTemplateContent[] | ImageWithTextListTypeTemplateContent[]
+    const incrementSortOrder = sortOrder + 1
+    if (incrementSortOrder < 1) { return true }
+    let moveDownHtmlMailTemplateContent: ImageWithTextTemplateContent | ImageWithTextListTypeTemplateContent | undefined
+    updateHtmlMailTemplateContent = htmlMailTemplateContent
+    moveDownHtmlMailTemplateContent = htmlMailTemplateContent.find(c => c.sortOrder === sortOrder)
+    let moveUpHtmlMailTemplateContent = htmlMailTemplate.content.find(c => c.sortOrder === incrementSortOrder)
+    updateHtmlMailTemplateContent = updateHtmlMailTemplateContent.filter(content => content.sortOrder !== sortOrder)
+    updateHtmlMailTemplateContent = updateHtmlMailTemplateContent.filter(content => content.sortOrder !== incrementSortOrder)
+    if (moveDownHtmlMailTemplateContent !== undefined) {
+      moveDownHtmlMailTemplateContent = {
+        text: moveDownHtmlMailTemplateContent.text,
+        image: moveDownHtmlMailTemplateContent.image,
+        sortOrder: incrementSortOrder,
+        blockID: moveDownHtmlMailTemplateContent.blockID
+      }
+      updateHtmlMailTemplateContent = [...updateHtmlMailTemplateContent, moveDownHtmlMailTemplateContent]
+    }
+    if (moveUpHtmlMailTemplateContent !== undefined) {
+      moveUpHtmlMailTemplateContent = {
+        text: moveUpHtmlMailTemplateContent.text,
+        image: moveUpHtmlMailTemplateContent.image,
+        sortOrder: sortOrder,
+        blockID: moveUpHtmlMailTemplateContent.blockID
+      }
+      updateHtmlMailTemplateContent = [...updateHtmlMailTemplateContent, moveUpHtmlMailTemplateContent]
+    }
+    updateHtmlMailTemplateContent = updateHtmlMailTemplateContent.sort(function(a, b) { return a.sortOrder < b.sortOrder ? -1 : 1 })
+    dispatch(htmlMailTemplateChanged({content: updateHtmlMailTemplateContent, templateType: htmlMailTemplate.templateType}))
   }
 
   const deleteBlock = () => {
