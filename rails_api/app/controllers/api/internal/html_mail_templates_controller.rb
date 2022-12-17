@@ -3,6 +3,14 @@ include Base64Image
 class Api::Internal::HtmlMailTemplatesController < ApplicationController
   before_action :merchant_login_only!
 
+  def index
+    html_mail_templates = current_merchant_user.account.html_mail_templates
+    render json: { status: 'success', html_mail_templates: html_mail_templates }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   def create
     html_mail_template = current_merchant_user.account.html_mail_templates.new(html_mail_template_params.except([:content]))
     content_param = JSON.parse(html_mail_template_params[:content].to_json)
