@@ -44,7 +44,7 @@ const Index: NextPage = () => {
                   <td>{template.name}</td>
                   <td>{template.mail_title}</td>
                   <td>
-                    <a className='btn btn-primary' href={`/admin/html_mail_template/${template.public_id}/edit`}>編集</a>
+                    <a className='btn btn-primary' href={`/admin/html_mail_template/${template.public_id}/edit?template_type=${template.template_type}`}>編集</a>
                   </td>
                   <td>
                     <a className='btn btn-primary' href={`/admin/html_mail_template/${template.public_id}/edit`}>送信予約</a>
