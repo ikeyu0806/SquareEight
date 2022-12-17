@@ -4,14 +4,15 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
   before_action :merchant_login_only!
 
   def create
-    html_mail_template = current_merchant_user.account.html_mail_templates.create!(html_mail_template_params.except([:content]))
-    content = JSON.parse(html_mail_template_params[:content].to_json)
-    content = content.each do |c|
+    html_mail_template = current_merchant_user.account.html_mail_templates.new(html_mail_template_params.except([:content]))
+    content_param = JSON.parse(html_mail_template_params[:content].to_json)
+    content_array = []
+    content_param.each do |c|
       s3_public_url = put_s3_http_request_data(c["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "html_template_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
-      c["base64Image"] = ""
-      c["image"] = s3_public_url
+      content_array.push({text: c["text"], image: s3_public_url})
     end
-    html_mail_template.content = content.to_s
+    html_mail_template.content = content_array.to_s
+    html_mail_template.save!
     render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
