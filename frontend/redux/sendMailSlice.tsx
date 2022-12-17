@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { HtmlMailTemplateParam } from 'interfaces/HtmlMailTemplateParam'
 
 export const sendMailSlice = createSlice({
   name: 'sendMail',

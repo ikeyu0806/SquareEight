@@ -45,6 +45,7 @@ const CreateImageWithTextHtmlTemplate = (): JSX.Element => {
     updateHtmlMailTemplate = [...updateHtmlMailTemplate, additionalHtmlMailTemplate]
     dispatch(htmlMailTemplateChanged({content: updateHtmlMailTemplate, templateType: 'ImageWithText'}))
   }
+
   return (
     <>
       {htmlMailTemplate.content.map((c, i) => {
@@ -62,21 +63,22 @@ const CreateImageWithTextHtmlTemplate = (): JSX.Element => {
               blockID={c.blockID}
               sortOrder={c.sortOrder}></UpdateHtmlMailBlockStateIcons>
           ]
-        })}
-        <hr />
-        <Form.Group controlId='formFile' className='mb5 mt10'>
-          <Form.Label>画像をアップロード</Form.Label>
-          <Form.Control type='file' onChange={handleChangeFile} />
-        </Form.Group>
-        <div className='mt10'>テキスト</div>
-        <Form.Control
-          value={draftText}
-          onChange={(e) => setDraftText(e.target.value)}
-          as='textarea'
-          rows={20} />
-        <Button
-          onClick={addTemplateContent}
-          className='mt20'>本文に追加</Button>
+        })
+      }
+      <hr />
+      <Form.Group controlId='formFile' className='mb5 mt10'>
+        <Form.Label>画像をアップロード</Form.Label>
+        <Form.Control type='file' onChange={handleChangeFile} />
+      </Form.Group>
+      <div className='mt10'>テキスト</div>
+      <Form.Control
+        value={draftText}
+        onChange={(e) => setDraftText(e.target.value)}
+        as='textarea'
+        rows={20} />
+      <Button
+        onClick={addTemplateContent}
+        className='mt20'>本文に追加</Button>
     </>
   )
 }

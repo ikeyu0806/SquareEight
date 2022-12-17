@@ -9,6 +9,7 @@ import { RootState } from 'redux/store'
 import lineUserStyles from 'styles/lineUser.module.css'
 import { customersChanged,
          lineOfficialAccountsChanged,
+         htmlMailTemplateChanged,
          showLineOfficialAccountModalChanged } from 'redux/accountSlice'
 import { showConnectLineUserModalChanged,
          showEditCustomerModalChanged,
@@ -32,6 +33,7 @@ import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import ConnectLineUserModal from 'components/templates/ConnectLineUserModal'
 import CustomerNotesModal from 'components/templates/CustomerNotesModal'
 import LineOfficialAccountModal from 'components/templates/LineOfficialAccountModal'
+import { nameChanged, mailTitleChanged, htmlMailTemplateChanged as htmlMailTemplateStateContentChanged } from 'redux/htmlMailTemplateSlice'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -55,10 +57,11 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
+      console.log(response.data)
       dispatch(customersChanged(response.data.customers))
       dispatch(messageTemplatesChanged(response.data.message_templates))
       dispatch(lineUsersChanged(response.data.line_users))
-      dispatch(lineOfficialAccountsChanged(response.data.line_official_accounts))
+      dispatch(htmlMailTemplateStateContentChanged({templateType: response.data.selected_html_template_type, content: response.data.selected_html_template_content}))
     }).catch((error) => {
       console.log(error)
     })

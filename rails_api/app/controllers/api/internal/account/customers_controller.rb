@@ -7,12 +7,17 @@ class Api::Internal::Account::CustomersController < ApplicationController
     line_users = current_merchant_user.account.line_users
     line_official_accounts = current_merchant_user.account.line_official_accounts
     message_templates = current_merchant_user.account.message_templates
+    html_mail_templates = current_merchant_user.account.html_mail_templates
     customers = JSON.parse(customers.to_json(methods: [:line_display_name, :line_picture_url, :line_user_public_id]))
+    html_template_type = html_mail_templates.first&.template_type || ''
+    html_template_content = JSON.parse(html_mail_templates.first&.content) || []
     render json: { status: 'success',
                    customers: customers,
                    line_users: line_users,
                    line_official_accounts: line_official_accounts,
-                   message_templates: message_templates }, status: 200
+                   message_templates: message_templates,
+                   selected_html_template_type: html_template_type,
+                   selected_html_template_content: html_template_content }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

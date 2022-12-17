@@ -25,6 +25,7 @@ const CustomerMailSendModal = (): JSX.Element => {
   const paymentRequestName = useSelector((state: RootState) => state.paymentRequest.name)
   const isSendPaymentRequest = useSelector((state: RootState) => state.lineOfficialAccount.isSendPaymentRequest)
   const messageTemplateType = useSelector((state: RootState) => state.sendMail.messageTemplateType)
+  const htmlMailTemplateStateContent = useSelector((state: RootState) => state.htmlMailTemplate.htmlMailTemplate)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/customers/${customerPublicId}/send_mail`,
@@ -71,6 +72,23 @@ const CustomerMailSendModal = (): JSX.Element => {
               <div>メッセージ本文</div>
               <MessageTemplateContentForm />
             </>}
+            {messageTemplateType === 'htmlMailTemplate' &&
+              <>
+                {htmlMailTemplateStateContent.content && htmlMailTemplateStateContent.content.map((c, i) => {
+                    return (
+                      <div key={i}>
+                        <img
+                          className='d-block w-100 mt30'
+                          src={c.image}
+                          alt='image'
+                        />
+                        <div>{c.text}</div>
+                      </div>
+                    )
+                  })
+                }
+              </>
+            }
           </Col>
           <Col md={3}>
             {messageTemplateType !== 'htmlMailTemplate' && <><PaymentRequestSendForm /><hr /></>}
