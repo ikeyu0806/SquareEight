@@ -64,7 +64,8 @@ const Edit: NextPage = () => {
         <Row>
           <Col lg={2}></Col>
           <Col lg={8}>
-            <h3 className='mt10'>HTMLメールテンプレート作成</h3>
+            <a href='/admin/html_mail_template' className='btn btn-primary'>テンプレート一覧に戻る</a>
+            <h3 className='mt20'>HTMLメールテンプレート作成</h3>
             <Row>
               <Col lg={8}></Col>
               <Col>
