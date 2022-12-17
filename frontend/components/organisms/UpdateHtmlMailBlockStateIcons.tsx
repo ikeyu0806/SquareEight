@@ -31,6 +31,7 @@ const UpdateHtmlMailBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateI
       moveDownHtmlMailTemplateContent = {
         text: moveDownHtmlMailTemplateContent.text,
         image: moveDownHtmlMailTemplateContent.image,
+        base64Image: moveDownHtmlMailTemplateContent.base64Image,
         sortOrder: decrementSortOrder,
         blockID: moveDownHtmlMailTemplateContent.blockID
       }
@@ -40,6 +41,7 @@ const UpdateHtmlMailBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateI
       moveUpHtmlMailTemplateContent = {
         text: moveUpHtmlMailTemplateContent.text,
         image: moveUpHtmlMailTemplateContent.image,
+        base64Image: moveUpHtmlMailTemplateContent.base64Image,
         sortOrder: sortOrder,
         blockID: moveUpHtmlMailTemplateContent.blockID
       }
@@ -65,6 +67,7 @@ const UpdateHtmlMailBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateI
       moveDownHtmlMailTemplateContent = {
         text: moveDownHtmlMailTemplateContent.text,
         image: moveDownHtmlMailTemplateContent.image,
+        base64Image: moveDownHtmlMailTemplateContent.base64Image,
         sortOrder: incrementSortOrder,
         blockID: moveDownHtmlMailTemplateContent.blockID
       }
@@ -74,6 +77,7 @@ const UpdateHtmlMailBlockStateIcons = ({ blockID, sortOrder }: UpdateBlockStateI
       moveUpHtmlMailTemplateContent = {
         text: moveUpHtmlMailTemplateContent.text,
         image: moveUpHtmlMailTemplateContent.image,
+        base64Image: moveUpHtmlMailTemplateContent.base64Image,
         sortOrder: sortOrder,
         blockID: moveUpHtmlMailTemplateContent.blockID
       }
