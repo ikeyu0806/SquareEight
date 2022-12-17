@@ -22,16 +22,7 @@ const New: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   useEffect(() => {
-    switch(router.query.template_type) {
-      case 'ImageWithText':
-        dispatch(htmlMailTemplateChanged({templateType: 'ImageWithText', content: [], }))
-        break
-      case 'ImageWithTextList':
-        dispatch(htmlMailTemplateChanged({templateType: 'ImageWithTextList', content: [], }))
-        break
-      default:
-        dispatch(htmlMailTemplateChanged({templateType: 'ImageWithText', content: [], }))
-    }
+    dispatch(htmlMailTemplateChanged({templateType: String(router.query.template_type), content: [], }))
   }, [router.query.template_type, dispatch])
 
   const onSubmit = () => {

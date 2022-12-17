@@ -22,19 +22,6 @@ const Edit: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   useEffect(() => {
-    switch(router.query.template_type) {
-      case 'ImageWithText':
-        dispatch(htmlMailTemplateChanged({templateType: 'ImageWithText', content: [], }))
-        break
-      case 'ImageWithTextList':
-        dispatch(htmlMailTemplateChanged({templateType: 'ImageWithTextList', content: [], }))
-        break
-      default:
-        dispatch(htmlMailTemplateChanged({templateType: 'ImageWithText', content: [], }))
-    }
-  }, [router.query.template_type, dispatch])
-
-  useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/html_mail_templates/${router.query.public_id}`,
     {
       headers: {
@@ -42,6 +29,8 @@ const Edit: NextPage = () => {
       }
     }).then((response) => {
       console.log(response.data)
+      dispatch(nameChanged(response.data.html_mail_template.name))
+      dispatch(mailTitleChanged(response.data.html_mail_template.mail_title))
       dispatch(htmlMailTemplateChanged({templateType: String(router.query.template_type), content: response.data.content}))
     }).catch((error) => {
       console.log(error)
