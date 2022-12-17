@@ -1,0 +1,2 @@
+class HtmlMailTemplate < ApplicationRecord
+end

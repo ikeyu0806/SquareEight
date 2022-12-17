@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_15_015934) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_17_015629) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -207,6 +207,17 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_15_015934) do
     t.string "wait_for_update_email"
     t.string "email_reset_key"
     t.index ["email"], name: "index_end_users_on_email", unique: true
+  end
+
+  create_table "html_mail_templates", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "name", null: false
+    t.string "mail_title", null: false
+    t.text "content", null: false
+    t.integer "template_type", default: 0, null: false
+    t.string "public_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "line_official_account_user_relations", force: :cascade do |t|
