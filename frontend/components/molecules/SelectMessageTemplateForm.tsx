@@ -9,6 +9,7 @@ const SelectMessageTemplateForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const messageTemplateType = useSelector((state: RootState) => state.sendMail.messageTemplateType)
   const messageTemplates = useSelector((state: RootState) => state.account.messageTemplates)
+  const htmlMailTemplate = useSelector((state: RootState) => state.account.htmlMailTemplate)
 
   return (
     <>
@@ -51,6 +52,20 @@ const SelectMessageTemplateForm = (): JSX.Element => {
           )
         })}
       </div>}
+      {messageTemplateType === 'htmlMailTemplate' && <div className='ml10'>
+        {htmlMailTemplate.map((template, i) => {
+          return (
+            <Form.Check
+              key={i}
+              type='radio'
+              label={template.name}
+              name='HtmlMailTemplate'
+              id={'htmlMailTemplate' + i}
+            />
+          )
+        })}
+      </div>
+      }
     </>
   )
 }
