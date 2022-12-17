@@ -41,7 +41,7 @@ const CreateImageWithTextHtmlTemplate = (): JSX.Element => {
     dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
     updateHtmlMailTemplate = htmlMailTemplate.content
     let additionalHtmlMailTemplate: ImageWithTextTemplateContent
-    additionalHtmlMailTemplate = { text: draftText, image: image, base64Image: base64Image, blockID: blockID, sortOrder: currentMaxSortOrder }
+    additionalHtmlMailTemplate = { text: draftText, image: image, base64Image: base64Image, blockID: blockID, sortOrder: currentMaxSortOrder + 1 }
     updateHtmlMailTemplate = [...updateHtmlMailTemplate, additionalHtmlMailTemplate]
     dispatch(htmlMailTemplateChanged({content: updateHtmlMailTemplate, templateType: 'ImageWithText'}))
   }
@@ -76,7 +76,7 @@ const CreateImageWithTextHtmlTemplate = (): JSX.Element => {
           rows={20} />
         <Button
           onClick={addTemplateContent}
-          className='mt20'>本文に画像とテキストを追加</Button>
+          className='mt20'>本文に追加</Button>
     </>
   )
 }
