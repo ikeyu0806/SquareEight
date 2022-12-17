@@ -8,6 +8,7 @@ import { messageTemplateTypeChanged } from 'redux/sendMailSlice'
 const SelectMessageTemplateForm = (): JSX.Element => {
   const dispatch = useDispatch()
   const messageTemplateType = useSelector((state: RootState) => state.sendMail.messageTemplateType)
+  const selectedHtmlMailTemplate = useSelector((state: RootState) => state.sendMail.selectedHtmlMailTemplate)
   const messageTemplates = useSelector((state: RootState) => state.account.messageTemplates)
   const htmlMailTemplate = useSelector((state: RootState) => state.account.htmlMailTemplate)
 
@@ -59,6 +60,8 @@ const SelectMessageTemplateForm = (): JSX.Element => {
               key={i}
               type='radio'
               label={template.name}
+              checked={template.public_id === selectedHtmlMailTemplate.public_id}
+              onChange={() => console.log('')}
               name='HtmlMailTemplate'
               id={'htmlMailTemplate' + i}
             />

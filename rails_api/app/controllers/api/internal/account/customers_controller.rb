@@ -17,7 +17,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
                    line_official_accounts: line_official_accounts,
                    message_templates: message_templates,
                    html_mail_templates: html_mail_templates,
-                   default_html_template: html_mail_templates.first,
+                   selected_html_mail_template: html_mail_templates.first || {},
                    selected_html_template_content: html_template_content }, status: 200
   rescue => error
     Rails.logger.error error

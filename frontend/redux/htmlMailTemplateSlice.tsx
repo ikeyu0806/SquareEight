@@ -1,6 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { HtmlMailTemplate } from 'interfaces/HtmlMailTemplate'
-import internal from 'stream'
 
 export const htmlMailTemplateSlice = createSlice({
   name: 'htmlMailTemplate',
