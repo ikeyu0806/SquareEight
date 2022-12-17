@@ -25,7 +25,7 @@ import CreateCustomerModal from 'components/templates/CreateCustomerModal'
 import EditCustomerModal from 'components/templates/EditCustomerModal'
 import CustomerMailSendModal from 'components/templates/CustomerMailSendModal'
 import Unauthorized from 'components/templates/Unauthorized'
-import { showCustomerMailSendModalChanged } from 'redux/customerSlice'
+import { showCustomerMailSendModalChanged, showCreateCustomerModalChanged } from 'redux/customerSlice'
 import { messageTemplatesChanged } from 'redux/accountSlice'
 import { lineUserPublicIdChanged } from 'redux/lineUserSlice'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
@@ -108,6 +108,9 @@ const Index: NextPage = () => {
             </Row>
             </Card.Body>
           </Card>
+          {allowCreateCustomer === 'Allow' && <Button
+            className='mb20'
+            onClick={() => dispatch(showCreateCustomerModalChanged(true))}>顧客新規登録</Button>}
           <Table bordered>
             <thead>
               <tr>
