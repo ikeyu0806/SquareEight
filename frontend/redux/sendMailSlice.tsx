@@ -3,6 +3,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 export const sendMailSlice = createSlice({
   name: 'sendMail',
   initialState: {
+    // notUse, messageTemplate, htmlMailTemplate
     messageTemplateType: 'notUse'
   },
   reducers: {
