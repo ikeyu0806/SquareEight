@@ -40,6 +40,7 @@ const New: NextPage = () => {
       html_mail_templates: {
         name: name,
         mail_title: mailTitle,
+        template_type: htmlMailTemplate.templateType,
         content: htmlMailTemplate.content
       }
     },

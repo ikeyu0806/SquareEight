@@ -21,6 +21,7 @@ class Account < ApplicationRecord
   has_many :questionnaire_masters
   has_many :questionnaire_answers, through: :customers
   has_many :message_templates
+  has_many :html_mail_templates
   has_many :account_notifications
   has_many :stripe_payment_intents
   has_many :delivery_datetime_settings
