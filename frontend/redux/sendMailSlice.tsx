@@ -1,0 +1,17 @@
+import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+
+export const sendMailSlice = createSlice({
+  name: 'sendMail',
+  initialState: {
+    messageTemplateType: 'notUse'
+  },
+  reducers: {
+    messageTemplateTypeChanged: (state, action: PayloadAction<string>) => {
+      state.messageTemplateType = action.payload
+    },
+  },
+})
+
+export const { messageTemplateTypeChanged } = sendMailSlice.actions
+
+export default sendMailSlice.reducer

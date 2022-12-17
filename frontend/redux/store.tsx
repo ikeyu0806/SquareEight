@@ -30,6 +30,7 @@ import settingFormMerchantUserPermissionReducer from './settingFormMerchantUserP
 import lineOfficialAccountReducer from './lineOfficialAccountSlice'
 import lineUserReducer from './lineUserSlice'
 import htmlMailTemplateReducer from './htmlMailTemplateSlice'
+import sendMailReducer from './sendMailSlice'
 
 export const store = configureStore({
   reducer: {
@@ -63,7 +64,8 @@ export const store = configureStore({
     settingFormMerchantUserPermission: settingFormMerchantUserPermissionReducer,
     lineOfficialAccount: lineOfficialAccountReducer,
     lineUser: lineUserReducer,
-    htmlMailTemplate: htmlMailTemplateReducer
+    htmlMailTemplate: htmlMailTemplateReducer,
+    sendMail: sendMailReducer
   },
 })
 
