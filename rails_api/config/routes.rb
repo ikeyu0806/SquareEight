@@ -162,6 +162,7 @@ Rails.application.routes.draw do
       post 'message_templates/send_mail', to: 'message_templates#send_mail'
       post 'message_templates/:public_id', to: 'message_templates#update'
       post 'message_templates', to: 'message_templates#create'
+      post 'html_mail_templates', to: 'html_mail_templates#create'
       delete 'message_templates/:public_id', to: 'message_templates#destroy'
       get 'shared_components', to: 'shared_components#show'
       post 'shared_components/register', to: 'shared_components#register'
