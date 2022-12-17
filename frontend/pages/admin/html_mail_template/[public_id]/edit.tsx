@@ -41,6 +41,7 @@ const Edit: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
+      console.log(response.data)
       dispatch(htmlMailTemplateChanged({templateType: String(router.query.template_type), content: response.data.content}))
     }).catch((error) => {
       console.log(error)

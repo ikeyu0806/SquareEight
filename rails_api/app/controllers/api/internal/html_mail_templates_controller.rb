@@ -14,7 +14,7 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
   def show
     html_mail_template = HtmlMailTemplate.find_by(public_id: params[:public_id])
     content = JSON.parse(html_mail_template.content)
-    render json: { status: 'success', html_mail_template: html_mail_template }, status: 200
+    render json: { status: 'success', html_mail_template: html_mail_template, content: content }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
