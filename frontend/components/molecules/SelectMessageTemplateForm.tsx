@@ -3,7 +3,8 @@ import { Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { titleChanged, contentChanged, publicIdChanged } from 'redux/messageTemplateSlice'
-import { messageTemplateTypeChanged } from 'redux/sendMailSlice'
+import { messageTemplateTypeChanged, selectedHtmlMailTemplateChanged } from 'redux/sendMailSlice'
+import { htmlMailTemplateChanged } from 'redux/htmlMailTemplateSlice'
 
 const SelectMessageTemplateForm = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -61,7 +62,7 @@ const SelectMessageTemplateForm = (): JSX.Element => {
               type='radio'
               label={template.name}
               checked={template.public_id === selectedHtmlMailTemplate.public_id}
-              onChange={() => console.log('')}
+              onChange={() => dispatch(selectedHtmlMailTemplateChanged((template)))}
               name='HtmlMailTemplate'
               id={'htmlMailTemplate' + i}
             />

@@ -4,4 +4,5 @@ export interface HtmlMailTemplateParam {
   name: string
   mail_title: string
   template_type: string
+  content: string
 }

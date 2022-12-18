@@ -12,6 +12,8 @@ import SelectMessageTemplateForm from 'components/molecules/SelectMessageTemplat
 import MessageTemplateContentForm from 'components/atoms/MessageTemplateContentForm'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { titleChanged } from 'redux/messageTemplateSlice'
+import { HtmlMailTemplateParam } from 'interfaces/HtmlMailTemplateParam'
+import { ImageWithTextListTypeTemplateContent, ImageWithTextTemplateContent } from 'interfaces/HtmlMailTemplate'
 
 const CustomerMailSendModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -24,6 +26,7 @@ const CustomerMailSendModal = (): JSX.Element => {
   const price = useSelector((state: RootState) => state.paymentRequest.price)
   const paymentRequestName = useSelector((state: RootState) => state.paymentRequest.name)
   const isSendPaymentRequest = useSelector((state: RootState) => state.lineOfficialAccount.isSendPaymentRequest)
+  const selectedHtmlMailTemplate = useSelector((state: RootState) => state.sendMail.selectedHtmlMailTemplate)
   const messageTemplateType = useSelector((state: RootState) => state.sendMail.messageTemplateType)
   const htmlMailTemplateStateContent = useSelector((state: RootState) => state.htmlMailTemplate.htmlMailTemplate)
 
@@ -74,7 +77,7 @@ const CustomerMailSendModal = (): JSX.Element => {
             </>}
             {messageTemplateType === 'htmlMailTemplate' &&
               <>
-                {htmlMailTemplateStateContent.content && htmlMailTemplateStateContent.content.map((c, i) => {
+                {selectedHtmlMailTemplate.content && (JSON.parse(selectedHtmlMailTemplate.content) as ImageWithTextTemplateContent[] | ImageWithTextListTypeTemplateContent[]).map((c, i) => {
                     return (
                       <div key={i}>
                         <img
