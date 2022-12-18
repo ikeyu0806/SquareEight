@@ -7,7 +7,6 @@ export interface HtmlMailTemplate {
 export interface ImageWithTextTemplateContent {
   text?: string
   image?: any
-  base64Image?: any
   blockID: string
   sortOrder: number
 }
@@ -15,7 +14,6 @@ export interface ImageWithTextTemplateContent {
 export interface ImageWithTextListTypeTemplateContent {
   text?: string
   image?: any
-  base64Image?: any
   blockID: string
   sortOrder: number
 }

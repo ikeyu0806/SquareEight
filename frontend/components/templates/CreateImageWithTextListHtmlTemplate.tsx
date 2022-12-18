@@ -42,7 +42,7 @@ const CreateImageWithTextListHtmlTemplate = (): JSX.Element => {
     dispatch(currentMaxSortOrderChanged(currentMaxSortOrder + 1))
     updateHtmlMailTemplate = htmlMailTemplate.content
     let additionalHtmlMailTemplate: ImageWithTextTemplateContent
-    additionalHtmlMailTemplate = { text: draftText, image: image, base64Image: base64Image, blockID: blockID, sortOrder: currentMaxSortOrder + 1 }
+    additionalHtmlMailTemplate = { text: draftText, image: base64Image, blockID: blockID, sortOrder: currentMaxSortOrder + 1 }
     updateHtmlMailTemplate = [...updateHtmlMailTemplate, additionalHtmlMailTemplate]
     dispatch(htmlMailTemplateChanged({content: updateHtmlMailTemplate, templateType: 'ImageWithText'}))
   }
@@ -54,7 +54,7 @@ const CreateImageWithTextListHtmlTemplate = (): JSX.Element => {
               <Col>
                 <img
                   className={htmlMailTemplateStyles.list_picture_url}
-                  src={c.base64Image}
+                  src={c.image}
                   alt='image'
                 />
               </Col>

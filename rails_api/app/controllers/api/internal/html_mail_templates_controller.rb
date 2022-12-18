@@ -25,8 +25,8 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
     content_param = JSON.parse(html_mail_template_params[:content].to_json)
     content_array = []
     content_param.each do |c|
-      if c["base64Image"].present?
-        s3_public_url = put_s3_http_request_data(c["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "html_template_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
+      if c["image"].present?
+        s3_public_url = put_s3_http_request_data(c["image"], ENV["WEBPAGE_IMAGE_BUCKET"], "html_template_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
         content_array.push({text: c["text"], image: s3_public_url})
       else
         content_array.push({text: c["text"]})
