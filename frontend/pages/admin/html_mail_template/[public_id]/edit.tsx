@@ -81,9 +81,9 @@ const Edit: NextPage = () => {
               value={mailTitle}
               onChange={(e) => dispatch(mailTitleChanged(e.target.value))}></Form.Control>
             {htmlMailTemplate.content?.length !== 0 && <hr />}
-            {router.query.template_type === 'ImageWithText'
+            {htmlMailTemplate.templateType === 'ImageWithText'
               && <CreateImageWithTextHtmlTemplate />}
-            {router.query.template_type === 'ImageWithTextList'
+            {htmlMailTemplate.templateType === 'ImageWithTextList'
               && <CreateImageWithTextListHtmlTemplate />}
           </Col>
         </Row>
