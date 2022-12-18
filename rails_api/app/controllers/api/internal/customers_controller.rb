@@ -13,22 +13,29 @@ class Api::Internal::CustomersController < ApplicationController
 
   def send_mail
     customer = Customer.find_by(public_id: params[:public_id])
-    title = customer_params[:mail_title]
-    price = ''
-    payment_request_url = ''
-
-    if customer_params[:is_send_payment_request]
-      price = customer_params[:price]
-      stripe_payment_request = current_merchant_user.account
-                               .stripe_payment_requests
-                               .create!(name: customer_params[:payment_request_name],
-                                        price: price,
-                                        customer_id: customer.id,
-                                        send_method: 'Email')
-      payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.public_id
+    
+    case customer_params[:message_template_type]
+    when 'htmlMailTemplate'
+      
+    else
+      title = customer_params[:mail_title]
+      price = ''
+      payment_request_url = ''
+  
+      if customer_params[:is_send_payment_request]
+        price = customer_params[:price]
+        stripe_payment_request = current_merchant_user.account
+                                 .stripe_payment_requests
+                                 .create!(name: customer_params[:payment_request_name],
+                                          price: price,
+                                          customer_id: customer.id,
+                                          send_method: 'Email')
+        payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.public_id
+      end
+      content = MessageTemplate.convert_content(customer_params[:message], customer.last_name, customer.first_name, price, payment_request_url)
+      MessageTemplateMailer.send_mail(customer.email, title, content).deliver_now
     end
-    content = MessageTemplate.convert_content(customer_params[:message], customer.last_name, customer.first_name, price, payment_request_url)
-    MessageTemplateMailer.send_mail(customer.email, title, content).deliver_now
+
     render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
@@ -75,6 +82,14 @@ class Api::Internal::CustomersController < ApplicationController
                   :mail_title,
                   :message,
                   :line_user_public_id,
-                  :message_template_public_id)
+                  :message_template_public_id,
+                  :message_template_type,
+                  selected_html_mail_template: [
+                    :public_id,
+                    :name,
+                    :mail_title,
+                    :template_type,
+                    content: [:image, :base64Image, :text]
+                  ])
   end
 end

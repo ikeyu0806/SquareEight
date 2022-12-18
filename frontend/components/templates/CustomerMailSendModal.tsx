@@ -39,7 +39,9 @@ const CustomerMailSendModal = (): JSX.Element => {
         is_send_payment_request: isSendPaymentRequest,
         price: price,
         payment_request_name: paymentRequestName,
-        message_template_public_id: messageTemplatePublicId
+        message_template_public_id: messageTemplatePublicId,
+        selected_html_mail_template: selectedHtmlMailTemplate,
+        message_template_type: messageTemplateType
       }
     },
     {
