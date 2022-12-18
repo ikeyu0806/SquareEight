@@ -34,7 +34,7 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
     end
     html_mail_template.content = content_array.to_json
     html_mail_template.save!
-    render json: { status: 'success' }, status: 200
+    render json: { status: 'success', html_mail_template: html_mail_template }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

@@ -31,7 +31,7 @@ const New: NextPage = () => {
       html_mail_templates: {
         name: name,
         mail_title: mailTitle,
-        template_type: htmlMailTemplate.templateType,
+        template_type: router.query.template_type,
         content: htmlMailTemplate.content
       }
     },
@@ -41,6 +41,7 @@ const New: NextPage = () => {
       }
     }).then(response => {
       dispatch(alertChanged({message: '保存しました', show: true}))
+      router.push(`/admin/html_mail_template/${response.data.html_mail_template.public_id}/edit`)
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })

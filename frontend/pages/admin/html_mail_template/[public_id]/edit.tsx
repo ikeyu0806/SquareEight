@@ -31,7 +31,7 @@ const Edit: NextPage = () => {
       console.log(response.data)
       dispatch(nameChanged(response.data.html_mail_template.name))
       dispatch(mailTitleChanged(response.data.html_mail_template.mail_title))
-      dispatch(htmlMailTemplateChanged({templateType: String(router.query.template_type), content: response.data.content}))
+      dispatch(htmlMailTemplateChanged({templateType: response.data.html_mail_template.template_type, content: response.data.content}))
     }).catch((error) => {
       console.log(error)
     })
