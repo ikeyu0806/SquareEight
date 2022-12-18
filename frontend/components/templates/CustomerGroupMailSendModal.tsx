@@ -18,7 +18,7 @@ const CustomerGroupMailSendModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
   const showCustomerGroupMailSendModal = useSelector((state: RootState) => state.customerGroup.showCustomerGroupMailSendModal)
-  const customerPublicId =  useSelector((state: RootState) => state.customer.customerPublicId)
+  const publicId =  useSelector((state: RootState) => state.customerGroup.publicId)
   const messageTemplatePublicId =  useSelector((state: RootState) => state.messageTemplate.publicId)
   const title = useSelector((state: RootState) => state.messageTemplate.title)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
@@ -29,9 +29,9 @@ const CustomerGroupMailSendModal = (): JSX.Element => {
   const messageTemplateType = useSelector((state: RootState) => state.sendMail.messageTemplateType)
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/customer_groups/${customerPublicId}/send_mail`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/customer_groups/${publicId}/send_mail`,
     {
-      customers: {
+      customer_groups: {
         mail_title: title,
         message: content,
         is_send_payment_request: isSendPaymentRequest,

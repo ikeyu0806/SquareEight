@@ -8,7 +8,7 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { CustomerGroupParam } from 'interfaces/CustomerGroupParam'
 import Unauthorized from 'components/templates/Unauthorized'
 import axios from 'axios'
-import { showCustomerGroupMailSendModalChanged } from 'redux/customerGroupSlice'
+import { publicIdChanged, showCustomerGroupMailSendModalChanged } from 'redux/customerGroupSlice'
 import CustomerGroupMailSendModal from 'components/templates/CustomerGroupMailSendModal'
 import { htmlMailTemplateChanged } from 'redux/accountSlice'
 import { selectedHtmlMailTemplateChanged } from 'redux/sendMailSlice'
@@ -63,6 +63,7 @@ const Index: NextPage = () => {
                         <Button
                           variant='primary'
                           onClick={() => {
+                            dispatch(publicIdChanged(group.public_id))
                             dispatch(showCustomerGroupMailSendModalChanged(true))
                           }}>メール送信</Button>
                       </>
