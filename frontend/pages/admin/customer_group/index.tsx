@@ -1,15 +1,18 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch} from 'react-redux'
 import { RootState } from 'redux/store'
-import { Container, Row, Col, ListGroup } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { CustomerGroupParam } from 'interfaces/CustomerGroupParam'
 import Unauthorized from 'components/templates/Unauthorized'
 import axios from 'axios'
+import { showCustomerGroupMailSendModalChanged } from 'redux/customerGroupSlice'
+import CustomerGroupMailSendModal from 'components/templates/CustomerGroupMailSendModal'
 
 const Index: NextPage = () => {
+  const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [customerGroups, setCustomerGroups] = useState<CustomerGroupParam[]>([])
   const allowReadCustomerGroup = useSelector((state: RootState) => state.merchantUserPermission.allowReadCustomerGroup)
@@ -52,6 +55,13 @@ const Index: NextPage = () => {
                       {group.name}
                     </Col>
                     <Col>
+                      <>
+                        <Button
+                          variant='primary'
+                          onClick={() => {
+                            dispatch(showCustomerGroupMailSendModalChanged(true))
+                          }}>メール送信</Button>
+                      </>
                     </Col>
                     <Col></Col>
                     {allowUpdateCustomerGroup === 'Allow' && <Col>
@@ -66,6 +76,7 @@ const Index: NextPage = () => {
         </Row>
       </Container>}
       {allowReadCustomerGroup === 'Forbid' && <Unauthorized />}
+      <CustomerGroupMailSendModal></CustomerGroupMailSendModal>
     </MerchantUserAdminLayout>
   )
 }

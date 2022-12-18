@@ -8,7 +8,7 @@
       <%= @parsed_content.each do |content| %>
         <div><%= content["text"] %></div>
         <img
-          className='d-block w-100 mt30'
+          className='w-100 mt30'
           src="<%= content["image"] %>"
           alt='image'
         />
@@ -19,5 +19,8 @@
 <style>
   .mt30 {
     margin-top: 30px;
+  }
+  .w-100 {
+    width: 100px;
   }
 </style>

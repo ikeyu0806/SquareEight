@@ -14,10 +14,10 @@ import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { titleChanged } from 'redux/messageTemplateSlice'
 import { ImageWithTextListTypeTemplateContent, ImageWithTextTemplateContent } from 'interfaces/HtmlMailTemplate'
 
-const CustomerMailSendModal = (): JSX.Element => {
+const CustomerGroupMailSendModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
-  const showCustomerMailSendModal = useSelector((state: RootState) => state.customer.showCustomerMailSendModal)
+  const showCustomerGroupMailSendModal = useSelector((state: RootState) => state.customerGroup.showCustomerGroupMailSendModal)
   const customerPublicId =  useSelector((state: RootState) => state.customer.customerPublicId)
   const messageTemplatePublicId =  useSelector((state: RootState) => state.messageTemplate.publicId)
   const title = useSelector((state: RootState) => state.messageTemplate.title)
@@ -29,7 +29,7 @@ const CustomerMailSendModal = (): JSX.Element => {
   const messageTemplateType = useSelector((state: RootState) => state.sendMail.messageTemplateType)
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/customers/${customerPublicId}/send_mail`,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/customer_groups/${customerPublicId}/send_mail`,
     {
       customers: {
         mail_title: title,
@@ -60,7 +60,7 @@ const CustomerMailSendModal = (): JSX.Element => {
     })
   }
   return (
-    <Modal show={showCustomerMailSendModal} fullscreen={true}>
+    <Modal show={showCustomerGroupMailSendModal} fullscreen={true}>
       <Modal.Header>メール送信</Modal.Header>
       <Modal.Body>
         <Row>
@@ -113,4 +113,4 @@ const CustomerMailSendModal = (): JSX.Element => {
   )
 }
 
-export default CustomerMailSendModal
+export default CustomerGroupMailSendModal
