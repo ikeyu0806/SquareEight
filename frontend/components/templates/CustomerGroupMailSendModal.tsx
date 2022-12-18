@@ -5,7 +5,7 @@ import { RootState } from 'redux/store'
 import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
-import { showCustomerMailSendModalChanged } from 'redux/customerSlice'
+import { showCustomerGroupMailSendModalChanged } from 'redux/customerGroupSlice'
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
 import PaymentRequestSendForm from 'components/molecules/PaymentRequestSendForm'
 import SelectMessageTemplateForm from 'components/molecules/SelectMessageTemplateForm'
@@ -105,7 +105,7 @@ const CustomerGroupMailSendModal = (): JSX.Element => {
         <Button onClick={onSubmit}>
           送信する
         </Button>
-        <Button variant='secondary' onClick={() => dispatch(showCustomerMailSendModalChanged(false))}>
+        <Button variant='secondary' onClick={() => dispatch(showCustomerGroupMailSendModalChanged(false))}>
           閉じる
         </Button>
       </Modal.Footer>

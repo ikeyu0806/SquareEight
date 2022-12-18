@@ -3,7 +3,13 @@ class Api::Internal::Account::CustomerGroupsController < ApplicationController
 
   def index
     customer_groups = current_merchant_user.account.customer_groups
-    render json: { status: 'success', customer_groups: customer_groups }, status: 200
+    html_mail_templates = current_merchant_user.account.html_mail_templates
+    html_template_content = JSON.parse(html_mail_templates.first&.content) || []
+    render json: {  status: 'success',
+                    customer_groups: customer_groups,
+                    html_mail_templates: html_mail_templates,
+                    selected_html_mail_template: html_mail_templates.first || {},
+                    selected_html_template_content: html_template_content  }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

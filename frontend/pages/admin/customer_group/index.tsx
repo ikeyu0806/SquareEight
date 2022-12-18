@@ -10,6 +10,8 @@ import Unauthorized from 'components/templates/Unauthorized'
 import axios from 'axios'
 import { showCustomerGroupMailSendModalChanged } from 'redux/customerGroupSlice'
 import CustomerGroupMailSendModal from 'components/templates/CustomerGroupMailSendModal'
+import { htmlMailTemplateChanged } from 'redux/accountSlice'
+import { selectedHtmlMailTemplateChanged } from 'redux/sendMailSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -29,6 +31,8 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
+        dispatch(htmlMailTemplateChanged(response.data.html_mail_templates))
+        dispatch(selectedHtmlMailTemplateChanged(response.data.selected_html_mail_template))
         setCustomerGroups(response.data.customer_groups)
       })
       .catch(error => {
@@ -36,7 +40,7 @@ const Index: NextPage = () => {
       })
     }
     fetchCustomerGroups()
-  }, [cookies._square_eight_merchant_session])
+  }, [cookies._square_eight_merchant_session, dispatch])
   
   return (
     <MerchantUserAdminLayout>
