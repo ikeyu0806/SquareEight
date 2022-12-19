@@ -7,8 +7,8 @@ import { useCookies } from 'react-cookie'
 import { HtmlMailTemplateParam } from 'interfaces/HtmlMailTemplateParam'
 import SendHtmlMessageModal from 'components/templates/SendHtmlMessageModal'
 import { showSendHtmlMessageModalChanged,
-         selectedCustomersChanged,
-         selectedCustomerGroupsChanged } from 'redux/sendMailSlice'
+         customersChanged,
+         customerGroupsChanged } from 'redux/sendMailSlice'
 import { useDispatch } from 'react-redux'
 
 const Index: NextPage = () => {
@@ -24,8 +24,8 @@ const Index: NextPage = () => {
       }
     }).then((response) => {
       setHtmlTemplates(response.data.html_mail_templates)
-      dispatch(selectedCustomersChanged(response.data.customers))
-      dispatch(selectedCustomerGroupsChanged(response.data.customer_groups))
+      dispatch(customersChanged(response.data.customers))
+      dispatch(customerGroupsChanged(response.data.customer_groups))
     }).catch((error) => {
       console.log(error)
     })

@@ -14,6 +14,8 @@ export const sendMailSlice = createSlice({
     selectedHtmlMailTemplate: {}  as HtmlMailTemplateParam,
     customers: [] as CustomerParam[],
     customerGroups: [] as CustomerGroupParam[],
+    selectedCustomer: {} as CustomerParam,
+    selectedCustomerGroup: {} as CustomerGroupParam,
   },
   reducers: {
     showSendHtmlMessageModalChanged: (state, action: PayloadAction<boolean>) => {
@@ -28,11 +30,17 @@ export const sendMailSlice = createSlice({
     selectedHtmlMailTemplateChanged: (state, action: PayloadAction<HtmlMailTemplateParam>) => {
       state.selectedHtmlMailTemplate = action.payload
     },
-    selectedCustomersChanged: (state, action: PayloadAction<CustomerParam[]>) => {
+    customersChanged: (state, action: PayloadAction<CustomerParam[]>) => {
       state.customers = action.payload
     },
-    selectedCustomerGroupsChanged: (state, action: PayloadAction<CustomerGroupParam[]>) => {
+    customerGroupsChanged: (state, action: PayloadAction<CustomerGroupParam[]>) => {
       state.customerGroups = action.payload
+    },
+    selectedCustomerChanged: (state, action: PayloadAction<CustomerParam>) => {
+      state.selectedCustomer = action.payload
+    },
+    selectedCustomerGroupChanged: (state, action: PayloadAction<CustomerGroupParam>) => {
+      state.selectedCustomerGroup = action.payload
     },
   },
 })
@@ -41,7 +49,9 @@ export const { showSendHtmlMessageModalChanged } = sendMailSlice.actions
 export const { sendTargetTypeChanged } = sendMailSlice.actions
 export const { messageTemplateTypeChanged } = sendMailSlice.actions
 export const { selectedHtmlMailTemplateChanged } = sendMailSlice.actions
-export const { selectedCustomersChanged } = sendMailSlice.actions
-export const { selectedCustomerGroupsChanged } = sendMailSlice.actions
+export const { customersChanged } = sendMailSlice.actions
+export const { customerGroupsChanged } = sendMailSlice.actions
+export const { selectedCustomerChanged } = sendMailSlice.actions
+export const { selectedCustomerGroupChanged } = sendMailSlice.actions
 
 export default sendMailSlice.reducer
