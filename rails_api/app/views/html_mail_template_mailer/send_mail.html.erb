@@ -4,18 +4,30 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-    <div>
-      <% if @template_type == 'ImageWithText' %>
-        <% @parsed_content.each do |content| %>
-          <img
-            style='margin-top: 30px;width: 500px;'
-            src="<%= content["image"] %>"
-            alt='image'
-          />
-          <div><%= content["text"] %></div>
-        <% end %>
-      <% elsif @template_type == 'ImageWithTextList' %>
+    <% if @template_type == 'ImageWithText' %>
+      <% @parsed_content.each do |content| %>
+        <img
+          style='margin-top: 30px;width: 500px;'
+          src="<%= content["image"] %>"
+          alt='image'
+        />
+        <div><%= content["text"] %></div>
       <% end %>
-    </div>
+    <% elsif @template_type == 'ImageWithTextList' %>
+      <div style="display: inline-grid; grid-template-rows: 50px 50px; grid-template-columns: 200px 200px;">
+        <% @parsed_content.each do |content| %>
+          <div style="margin-bottom: 10px;">
+            <img
+              style='width: 250px;'
+              src="<%= content["image"] %>"
+              alt='image'
+            />
+          </div>
+          <div>
+            <%= content["text"] %>
+          </div>
+        <% end %>
+      </div>
+    <% end %>
   </body>
 </html>
