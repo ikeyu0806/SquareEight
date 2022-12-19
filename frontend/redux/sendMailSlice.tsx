@@ -1,5 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { HtmlMailTemplateParam } from 'interfaces/HtmlMailTemplateParam'
+import { CustomerParam } from 'interfaces/CustomerParam'
+import { CustomerGroupParam } from 'interfaces/CustomerGroupParam'
 
 export const sendMailSlice = createSlice({
   name: 'sendMail',
@@ -9,7 +11,9 @@ export const sendMailSlice = createSlice({
     sendTargetType: 'customer',
     // notUse, messageTemplate, htmlMailTemplate
     messageTemplateType: 'notUse',
-    selectedHtmlMailTemplate: {}  as HtmlMailTemplateParam
+    selectedHtmlMailTemplate: {}  as HtmlMailTemplateParam,
+    customers: [] as CustomerParam[],
+    customerGroups: [] as CustomerGroupParam[],
   },
   reducers: {
     showSelectSendHtmlMessageModalChanged: (state, action: PayloadAction<boolean>) => {
@@ -24,6 +28,12 @@ export const sendMailSlice = createSlice({
     selectedHtmlMailTemplateChanged: (state, action: PayloadAction<HtmlMailTemplateParam>) => {
       state.selectedHtmlMailTemplate = action.payload
     },
+    selectedCustomersChanged: (state, action: PayloadAction<CustomerParam[]>) => {
+      state.customers = action.payload
+    },
+    selectedCustomerGroupsChanged: (state, action: PayloadAction<CustomerGroupParam[]>) => {
+      state.customerGroups = action.payload
+    },
   },
 })
 
@@ -31,5 +41,7 @@ export const { showSelectSendHtmlMessageModalChanged } = sendMailSlice.actions
 export const { sendTargetTypeChanged } = sendMailSlice.actions
 export const { messageTemplateTypeChanged } = sendMailSlice.actions
 export const { selectedHtmlMailTemplateChanged } = sendMailSlice.actions
+export const { selectedCustomersChanged } = sendMailSlice.actions
+export const { selectedCustomerGroupsChanged } = sendMailSlice.actions
 
 export default sendMailSlice.reducer

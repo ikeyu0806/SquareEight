@@ -4,8 +4,14 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
   before_action :merchant_login_only!
 
   def index
-    html_mail_templates = current_merchant_user.account.html_mail_templates
-    render json: { status: 'success', html_mail_templates: html_mail_templates }, status: 200
+    account = current_merchant_user.account
+    html_mail_templates = account.html_mail_templates
+    customers = account.customers.order(:id)
+    customer_groups = account.customer_groups
+    render json: {  status: 'success',
+                    html_mail_templates: html_mail_templates,
+                    customers: customers,
+                    customer_groups: customer_groups }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

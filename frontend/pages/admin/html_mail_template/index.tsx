@@ -6,7 +6,9 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { HtmlMailTemplateParam } from 'interfaces/HtmlMailTemplateParam'
 import SelectSendHtmlMessageModal from 'components/templates/SelectSendHtmlMessageModal'
-import { showSelectSendHtmlMessageModalChanged } from 'redux/sendMailSlice'
+import { showSelectSendHtmlMessageModalChanged,
+         selectedCustomersChanged,
+         selectedCustomerGroupsChanged } from 'redux/sendMailSlice'
 import { useDispatch } from 'react-redux'
 
 const Index: NextPage = () => {
@@ -22,10 +24,12 @@ const Index: NextPage = () => {
       }
     }).then((response) => {
       setHtmlTemplates(response.data.html_mail_templates)
+      dispatch(selectedCustomersChanged(response.data.customers))
+      dispatch(selectedCustomerGroupsChanged(response.data.customer_groups))
     }).catch((error) => {
       console.log(error)
     })
-  }, [cookies._square_eight_merchant_session])
+  }, [cookies._square_eight_merchant_session, dispatch])
 
   return (
     <MerchantUserAdminLayout>
