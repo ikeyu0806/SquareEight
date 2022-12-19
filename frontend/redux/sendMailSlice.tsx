@@ -6,7 +6,7 @@ import { CustomerGroupParam } from 'interfaces/CustomerGroupParam'
 export const sendMailSlice = createSlice({
   name: 'sendMail',
   initialState: {
-    showSelectSendHtmlMessageModal: false,
+    showSendHtmlMessageModal: false,
     // Customer, CustomerGroup
     sendTargetType: 'customer',
     // notUse, messageTemplate, htmlMailTemplate
@@ -16,8 +16,8 @@ export const sendMailSlice = createSlice({
     customerGroups: [] as CustomerGroupParam[],
   },
   reducers: {
-    showSelectSendHtmlMessageModalChanged: (state, action: PayloadAction<boolean>) => {
-      state.showSelectSendHtmlMessageModal = action.payload
+    showSendHtmlMessageModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showSendHtmlMessageModal = action.payload
     },
     sendTargetTypeChanged: (state, action: PayloadAction<string>) => {
       state.sendTargetType = action.payload
@@ -37,7 +37,7 @@ export const sendMailSlice = createSlice({
   },
 })
 
-export const { showSelectSendHtmlMessageModalChanged } = sendMailSlice.actions
+export const { showSendHtmlMessageModalChanged } = sendMailSlice.actions
 export const { sendTargetTypeChanged } = sendMailSlice.actions
 export const { messageTemplateTypeChanged } = sendMailSlice.actions
 export const { selectedHtmlMailTemplateChanged } = sendMailSlice.actions

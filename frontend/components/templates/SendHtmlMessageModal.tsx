@@ -1,15 +1,15 @@
 import { Modal, Form, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { sendTargetTypeChanged, showSelectSendHtmlMessageModalChanged } from 'redux/sendMailSlice'
+import { sendTargetTypeChanged, showSendHtmlMessageModalChanged } from 'redux/sendMailSlice'
 
-const SelectSendHtmlMessageModal = () => {
+const SendHtmlMessageModal = () => {
   const dispatch = useDispatch()
-  const showSelectSendHtmlMessageModal = useSelector((state: RootState) => state.sendMail.showSelectSendHtmlMessageModal)
+  const showSendHtmlMessageModal = useSelector((state: RootState) => state.sendMail.showSendHtmlMessageModal)
   const sendTargetType = useSelector((state: RootState) => state.sendMail.sendTargetType)
 
   return (
-    <Modal show={showSelectSendHtmlMessageModal}>
+    <Modal show={showSendHtmlMessageModal}>
      <Modal.Header>送信先を選択してください</Modal.Header> 
      <Modal.Body>
         <Form.Check
@@ -28,10 +28,10 @@ const SelectSendHtmlMessageModal = () => {
      <Modal.Footer>
       <Button
         variant='secondary'
-        onClick={() => dispatch(showSelectSendHtmlMessageModalChanged(false))}>閉じる</Button>
+        onClick={() => dispatch(showSendHtmlMessageModalChanged(false))}>閉じる</Button>
      </Modal.Footer>
     </Modal>
   )
 }
 
-export default SelectSendHtmlMessageModal
+export default SendHtmlMessageModal

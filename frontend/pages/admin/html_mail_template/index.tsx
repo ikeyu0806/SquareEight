@@ -5,8 +5,8 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { HtmlMailTemplateParam } from 'interfaces/HtmlMailTemplateParam'
-import SelectSendHtmlMessageModal from 'components/templates/SelectSendHtmlMessageModal'
-import { showSelectSendHtmlMessageModalChanged,
+import SendHtmlMessageModal from 'components/templates/SendHtmlMessageModal'
+import { showSendHtmlMessageModalChanged,
          selectedCustomersChanged,
          selectedCustomerGroupsChanged } from 'redux/sendMailSlice'
 import { useDispatch } from 'react-redux'
@@ -55,7 +55,7 @@ const Index: NextPage = () => {
                     <a className='btn btn-primary' href={`/admin/html_mail_template/${template.public_id}/edit?template_type=${template.template_type}`}>編集</a>
                   </td>
                   <td>
-                    <Button onClick={() => dispatch(showSelectSendHtmlMessageModalChanged(true))}>送信</Button>
+                    <Button onClick={() => dispatch(showSendHtmlMessageModalChanged(true))}>送信</Button>
                   </td>
                 </tr>
               )
@@ -63,7 +63,7 @@ const Index: NextPage = () => {
           </tbody>
         </Table>
       </Container>
-      <SelectSendHtmlMessageModal></SelectSendHtmlMessageModal>
+      <SendHtmlMessageModal></SendHtmlMessageModal>
     </MerchantUserAdminLayout>
   )
 }
