@@ -3,13 +3,21 @@ class Api::Internal::CustomerGroupsController < ApplicationController
 
   def send_mail
     customer_group = CustomerGroup.find_by(public_id: params[:public_id])
-    
+    account = current_merchant_user.account
     case customer_params[:message_template_type]
     when 'htmlMailTemplate'
       customer_group.customers.each do |customer|
         html_mail_template = HtmlMailTemplate.find_by(public_id: customer_params[:selected_html_mail_template][:public_id])
         parsed_content = JSON.parse(html_mail_template.content)
         HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title, html_mail_template.template_type).deliver_now
+        account.send_mail_histories.create!(
+          customer_id: customer.id,
+          message_type: 'HtmlMailTemplate',
+          email: customer.email,
+          mail_title: html_mail_template.mail_title,
+          message_body: html_mail_template.content,
+          merchant_user_id: current_merchant_user.id,
+        )
       end
     else
       customer_group.customers.each do |customer|
@@ -29,6 +37,15 @@ class Api::Internal::CustomerGroupsController < ApplicationController
         end
         content = MessageTemplate.convert_content(customer_params[:message], customer.last_name, customer.first_name, price, payment_request_url)
         MessageTemplateMailer.send_mail(customer.email, title, content).deliver_now
+        account.send_mail_histories.create!(
+          customer_id: customer.id,
+          message_type: 'MessageTemplate',
+          email: customer.email,
+          mail_title: title,
+          message_body: content,
+          merchant_user_id: current_merchant_user.id,
+          stripe_payment_request_id: stripe_payment_request&.id
+        )
       end
     end
 
