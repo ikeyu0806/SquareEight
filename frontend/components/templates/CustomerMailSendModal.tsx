@@ -1,8 +1,7 @@
 import React from 'react'
 import { Modal, Button, Row, Col, Form } from 'react-bootstrap'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { showCustomerMailSendModalChanged } from 'redux/customerSlice'
@@ -12,7 +11,7 @@ import SelectMessageTemplateForm from 'components/molecules/SelectMessageTemplat
 import MessageTemplateContentForm from 'components/atoms/MessageTemplateContentForm'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { titleChanged } from 'redux/messageTemplateSlice'
-import { ImageWithTextListTypeTemplateContent, ImageWithTextTemplateContent } from 'interfaces/HtmlMailTemplate'
+import HtmlMailTemplatePreview from 'components/organisms/HtmlMailTemplatePreview'
 
 const CustomerMailSendModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -75,22 +74,7 @@ const CustomerMailSendModal = (): JSX.Element => {
               <div>メッセージ本文</div>
               <MessageTemplateContentForm />
             </>}
-            {messageTemplateType === 'htmlMailTemplate' &&
-              <>
-                {selectedHtmlMailTemplate.content && (JSON.parse(selectedHtmlMailTemplate.content) as ImageWithTextTemplateContent[] | ImageWithTextListTypeTemplateContent[]).map((c, i) => {
-                  return (
-                    <div key={i}>
-                      <img
-                        className='d-block w-100 mt30'
-                        src={c.image}
-                        alt='image'
-                      />
-                      <div>{c.text}</div>
-                    </div>
-                  )})
-                }
-              </>
-            }
+            {messageTemplateType === 'htmlMailTemplate' && <HtmlMailTemplatePreview></HtmlMailTemplatePreview>}
           </Col>
           <Col md={3}>
             {messageTemplateType !== 'htmlMailTemplate' && <><PaymentRequestSendForm /><hr /></>}
