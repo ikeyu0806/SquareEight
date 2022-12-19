@@ -25,7 +25,7 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
     content_param = JSON.parse(html_mail_template_params[:content].to_json)
     content_array = []
     content_param.each do |c|
-      if c["image"].present?
+      if c["image"].present? && !c["image"].match(/^https/)
         s3_public_url = put_s3_http_request_data(c["image"], ENV["WEBPAGE_IMAGE_BUCKET"], "html_template_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
         content_array.push({text: c["text"], image: s3_public_url})
       else
@@ -42,13 +42,26 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
 
   def update
     html_mail_template = HtmlMailTemplate.find_by(public_id: params[:public_id])
+    html_mail_template.name = html_mail_template_params[:name]
+    html_mail_template.mail_title = html_mail_template_params[:mail_title]
     content_param = JSON.parse(html_mail_template_params[:content].to_json)
     content_array = []
     content_param.each do |c|
-      s3_public_url = put_s3_http_request_data(c["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "html_template_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
-      content_array.push({text: c["text"], image: s3_public_url})
+      image = c["image"]
+      if c["image"].present?
+        if !c["image"].match(/^https/)
+          image = put_s3_http_request_data(c["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "html_template_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
+        else
+          image = c["image"]
+        end
+        content = {text: c["text"], image: image}
+      else
+        content = {text: c["text"]}
+      end
+      content_array.push(content)
     end
-    html_mail_template.content = content_array.to_s
+    html_mail_template.content = content_array.to_json
+    html_mail_template.save!
     render json: { status: 'success', html_mail_template: html_mail_template }, status: 200
   rescue => error
     Rails.logger.error error
