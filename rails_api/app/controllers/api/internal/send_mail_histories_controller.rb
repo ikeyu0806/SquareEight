@@ -3,6 +3,7 @@ class Api::Internal::SendMailHistoriesController < ApplicationController
 
   def index
     send_mail_histories = current_merchant_user.account.send_mail_histories
+    send_mail_histories = JSON.parse(send_mail_histories.to_json(methods: [:send_at, :customer_full_name]))
     render json: { status: 'success', send_mail_histories: send_mail_histories }, status: 200
   rescue => error
     Rails.logger.error error

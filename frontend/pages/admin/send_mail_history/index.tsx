@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
 import { useCookies } from 'react-cookie'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { Table, Container } from 'react-bootstrap'
+import { Table, Container, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { SendMailHistoryParam } from 'interfaces/SendMailHistoryParam'
 
@@ -39,8 +39,6 @@ const Index: NextPage = () => {
               <th>メールタイトル</th>
               <th>送信メールアドレス</th>
               <th>送信メッセージ</th>
-              <th>送信元種別</th>
-              <th>テンプレート</th>
               <th>送信日時</th>
             </tr>
           </thead>
@@ -48,13 +46,11 @@ const Index: NextPage = () => {
           {sendMailHistories.map((history, i) => {
             return(
               <tr key={i}>
-                <td></td>
+                <td>{history.customer_full_name}</td>
                 <td>{history.mail_title}</td>
                 <td>{history.email}</td>
-                <td></td>
-                <td>{history.message_type}</td>
-                <td></td>
-                <td></td>
+                <td className='text-center'><Button>表示する</Button></td>
+                <td>{history.send_at}</td>
               </tr>
             )
           })}
