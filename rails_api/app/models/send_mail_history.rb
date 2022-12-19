@@ -3,7 +3,7 @@ class SendMailHistory < ApplicationRecord
 
   enum message_type: { MessageTemplate: 0, HtmlMailTemplate: 1 }
 
-  belongs_to: account
+  belongs_to :account
 
   validates :message_type, presence: true
   validates :email, presence: true

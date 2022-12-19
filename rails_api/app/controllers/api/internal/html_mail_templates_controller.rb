@@ -75,16 +75,33 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
   end
 
   def send_mail
+    account = current_merchant_user.account
     html_mail_template = HtmlMailTemplate.find_by(public_id: params[:public_id])
     if html_mail_template_params[:send_target_type] == 'customer'
       customer = Customer.find_by(public_id: html_mail_template_params[:selected_customer][:public_id])
       parsed_content = JSON.parse(html_mail_template.content)
       HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title, html_mail_template.template_type).deliver_now
+      account.send_mail_histories.create!(
+        customer_id: customer.id,
+        message_type: 'HtmlMailTemplate',
+        email: customer.email,
+        mail_title: html_mail_template.mail_title,
+        message_body: html_mail_template.content,
+        merchant_user_id: current_merchant_user.id,
+      )
     elsif html_mail_template_params[:send_target_type] == 'customerGroup'
       customer_group = CustomerGroup.find_by(public_id: html_mail_template_params[:selected_customer_group][:public_id])
       customer_group.customers.each do |customer|
         parsed_content = JSON.parse(html_mail_template.content)
         HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title, html_mail_template.template_type).deliver_now
+        account.send_mail_histories.create!(
+          customer_id: customer.id,
+          message_type: 'HtmlMailTemplate',
+          email: customer.email,
+          mail_title: html_mail_template.mail_title,
+          message_body: html_mail_template.content,
+          merchant_user_id: current_merchant_user.id,
+        )
       end
     end
     render json: { status: 'success' }, status: 200

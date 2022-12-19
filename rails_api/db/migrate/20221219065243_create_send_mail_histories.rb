@@ -7,7 +7,6 @@ class CreateSendMailHistories < ActiveRecord::Migration[7.0]
       t.string :email, null: false
       t.string :mail_title, null: false
       t.text :message_body, null: false
-      t.datetime :send_at
       t.integer :merchant_user_id
       t.integer :stripe_payment_request_id
       t.string :public_id, null: false
