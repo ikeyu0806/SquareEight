@@ -5,8 +5,12 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { HtmlMailTemplateParam } from 'interfaces/HtmlMailTemplateParam'
+import SelectSendMessageTargetModal from 'components/templates/SelectSendMessageTargetModal'
+import { showSelectSendMessageTargetModalChanged } from 'redux/sendMailSlice'
+import { useDispatch } from 'react-redux'
 
 const Index: NextPage = () => {
+  const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [htmlTemplates, setHtmlTemplates] = useState<HtmlMailTemplateParam[]>([])
 
@@ -34,7 +38,7 @@ const Index: NextPage = () => {
               <th>テンプレート名</th>
               <th>メールのタイトル</th>
               <th>編集</th>
-              <th>送信予約</th>
+              <th>メール送信</th>
             </tr>
           </thead>
           <tbody>
@@ -47,7 +51,7 @@ const Index: NextPage = () => {
                     <a className='btn btn-primary' href={`/admin/html_mail_template/${template.public_id}/edit?template_type=${template.template_type}`}>編集</a>
                   </td>
                   <td>
-                    <a className='btn btn-primary' href={`/admin/html_mail_template/${template.public_id}/edit`}>送信予約</a>
+                    <Button onClick={() => dispatch(showSelectSendMessageTargetModalChanged(true))}>送信</Button>
                   </td>
                 </tr>
               )
@@ -55,6 +59,7 @@ const Index: NextPage = () => {
           </tbody>
         </Table>
       </Container>
+      <SelectSendMessageTargetModal></SelectSendMessageTargetModal>
     </MerchantUserAdminLayout>
   )
 }
