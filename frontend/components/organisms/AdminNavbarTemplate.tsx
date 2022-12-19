@@ -62,6 +62,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/message_template'>メッセージテンプレート</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/html_mail_template'>HTMLメールテンプレート</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/payment_request'>決済リクエスト一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/send_mail_history'>メール送信履歴</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='Webページ' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/webpage'>Webページ一覧</NavDropdown.Item>
