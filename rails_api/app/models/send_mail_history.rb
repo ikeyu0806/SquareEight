@@ -1,0 +1,2 @@
+class SendMailHistory < ApplicationRecord
+end
