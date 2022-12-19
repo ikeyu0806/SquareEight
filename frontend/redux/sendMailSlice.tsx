@@ -4,7 +4,7 @@ import { HtmlMailTemplateParam } from 'interfaces/HtmlMailTemplateParam'
 export const sendMailSlice = createSlice({
   name: 'sendMail',
   initialState: {
-    showSelectSendMessageTargetModal: false,
+    showSelectSendHtmlMessageModal: false,
     // Customer, CustomerGroup
     sendTargetType: 'customer',
     // notUse, messageTemplate, htmlMailTemplate
@@ -12,8 +12,8 @@ export const sendMailSlice = createSlice({
     selectedHtmlMailTemplate: {}  as HtmlMailTemplateParam
   },
   reducers: {
-    showSelectSendMessageTargetModalChanged: (state, action: PayloadAction<boolean>) => {
-      state.showSelectSendMessageTargetModal = action.payload
+    showSelectSendHtmlMessageModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showSelectSendHtmlMessageModal = action.payload
     },
     sendTargetTypeChanged: (state, action: PayloadAction<string>) => {
       state.sendTargetType = action.payload
@@ -27,7 +27,7 @@ export const sendMailSlice = createSlice({
   },
 })
 
-export const { showSelectSendMessageTargetModalChanged } = sendMailSlice.actions
+export const { showSelectSendHtmlMessageModalChanged } = sendMailSlice.actions
 export const { sendTargetTypeChanged } = sendMailSlice.actions
 export const { messageTemplateTypeChanged } = sendMailSlice.actions
 export const { selectedHtmlMailTemplateChanged } = sendMailSlice.actions
