@@ -87,6 +87,10 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
         HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title, html_mail_template.template_type).deliver_now
       end
     end
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
   end
 
   private
