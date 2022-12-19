@@ -9,7 +9,7 @@ class Api::Internal::CustomerGroupsController < ApplicationController
       customer_group.customers.each do |customer|
         html_mail_template = HtmlMailTemplate.find_by(public_id: customer_params[:selected_html_mail_template][:public_id])
         parsed_content = JSON.parse(html_mail_template.content)
-        HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title).deliver_now
+        HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title, html_mail_template.template_type).deliver_now
       end
     else
       customer_group.customers.each do |customer|

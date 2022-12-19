@@ -5,13 +5,16 @@
   </head>
   <body>
     <div>
-      <% @parsed_content.each do |content| %>
-        <img
-          style='margin-top: 30px;width: 500px;'
-          src="<%= content["image"] %>"
-          alt='image'
-        />
-        <div><%= content["text"] %></div>
+      <% if @template_type == 'ImageWithText' %>
+        <% @parsed_content.each do |content| %>
+          <img
+            style='margin-top: 30px;width: 500px;'
+            src="<%= content["image"] %>"
+            alt='image'
+          />
+          <div><%= content["text"] %></div>
+        <% end %>
+      <% elsif @template_type == 'ImageWithTextList' %>
       <% end %>
     </div>
   </body>
