@@ -62,6 +62,8 @@ const SendHtmlMessageModal = () => {
             return(
               <Form.Check
                 className='ml10'
+                type='radio'
+                name='selectCustomer'
                 id={String(customer.id + i)}
                 label={<>{customer.last_name}{customer.full_name}</>}
                 key={i}
@@ -75,6 +77,8 @@ const SendHtmlMessageModal = () => {
             return(
               <Form.Check
                 className='ml10'
+                type='radio'
+                name='selectCustomerGroup'
                 id={String(group.id + i)}
                 label={group.name}
                 key={i}
