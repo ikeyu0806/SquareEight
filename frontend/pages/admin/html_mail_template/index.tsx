@@ -8,7 +8,8 @@ import { HtmlMailTemplateParam } from 'interfaces/HtmlMailTemplateParam'
 import SendHtmlMessageModal from 'components/templates/SendHtmlMessageModal'
 import { showSendHtmlMessageModalChanged,
          customersChanged,
-         customerGroupsChanged } from 'redux/sendMailSlice'
+         customerGroupsChanged,
+         selectedHtmlMailTemplatePublicIdChanged } from 'redux/sendMailSlice'
 import { useDispatch } from 'react-redux'
 
 const Index: NextPage = () => {
@@ -55,7 +56,10 @@ const Index: NextPage = () => {
                     <a className='btn btn-primary' href={`/admin/html_mail_template/${template.public_id}/edit?template_type=${template.template_type}`}>編集</a>
                   </td>
                   <td>
-                    <Button onClick={() => dispatch(showSendHtmlMessageModalChanged(true))}>送信</Button>
+                    <Button onClick={() => {
+                      dispatch(showSendHtmlMessageModalChanged(true))
+                      dispatch(selectedHtmlMailTemplatePublicIdChanged(template.public_id))
+                    }}>送信</Button>
                   </td>
                 </tr>
               )

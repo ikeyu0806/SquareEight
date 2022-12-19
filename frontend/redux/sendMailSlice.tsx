@@ -16,6 +16,7 @@ export const sendMailSlice = createSlice({
     customerGroups: [] as CustomerGroupParam[],
     selectedCustomer: {} as CustomerParam,
     selectedCustomerGroup: {} as CustomerGroupParam,
+    selectedHtmlMailTemplatePublicId: ''
   },
   reducers: {
     showSendHtmlMessageModalChanged: (state, action: PayloadAction<boolean>) => {
@@ -42,6 +43,9 @@ export const sendMailSlice = createSlice({
     selectedCustomerGroupChanged: (state, action: PayloadAction<CustomerGroupParam>) => {
       state.selectedCustomerGroup = action.payload
     },
+    selectedHtmlMailTemplatePublicIdChanged: (state, action: PayloadAction<string>) => {
+      state.selectedHtmlMailTemplatePublicId = action.payload
+    },
   },
 })
 
@@ -53,5 +57,6 @@ export const { customersChanged } = sendMailSlice.actions
 export const { customerGroupsChanged } = sendMailSlice.actions
 export const { selectedCustomerChanged } = sendMailSlice.actions
 export const { selectedCustomerGroupChanged } = sendMailSlice.actions
+export const { selectedHtmlMailTemplatePublicIdChanged } = sendMailSlice.actions
 
 export default sendMailSlice.reducer

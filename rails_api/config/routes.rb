@@ -166,6 +166,7 @@ Rails.application.routes.draw do
       get 'html_mail_templates/:public_id', to: 'html_mail_templates#show'
       get 'html_mail_templates', to: 'html_mail_templates#index'
       post 'html_mail_templates/:public_id/update', to: 'html_mail_templates#update'
+      post 'html_mail_templates/:public_id/send_mail', to: 'html_mail_templates#send_mail'
       post 'html_mail_templates', to: 'html_mail_templates#create'
       delete 'message_templates/:public_id', to: 'message_templates#destroy'
       get 'shared_components', to: 'shared_components#show'

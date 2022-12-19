@@ -1,17 +1,45 @@
 import { Modal, Form, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
+import axios from 'axios'
+import { alertChanged } from 'redux/alertSlice'
+import { useCookies } from 'react-cookie'
 import { sendTargetTypeChanged,
          showSendHtmlMessageModalChanged,
          selectedCustomerChanged,
          selectedCustomerGroupChanged } from 'redux/sendMailSlice'
 
 const SendHtmlMessageModal = () => {
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
   const showSendHtmlMessageModal = useSelector((state: RootState) => state.sendMail.showSendHtmlMessageModal)
   const sendTargetType = useSelector((state: RootState) => state.sendMail.sendTargetType)
   const customers =  useSelector((state: RootState) => state.sendMail.customers)
   const customerGroups =  useSelector((state: RootState) => state.sendMail.customerGroups)
+  const selectedCustomer =  useSelector((state: RootState) => state.sendMail.selectedCustomer)
+  const selectedCustomerGroup =  useSelector((state: RootState) => state.sendMail.selectedCustomerGroup)
+  const selectedHtmlMailTemplatePublicId =  useSelector((state: RootState) => state.sendMail.selectedHtmlMailTemplatePublicId)
+
+  const onSubmit = () => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/html_mail_templates/${selectedHtmlMailTemplatePublicId}/send_mail`,
+    {
+      html_mail_templates: {
+        send_target_type: sendTargetType,
+        selected_customer: selectedCustomer,
+        selected_customer_group: selectedCustomerGroup
+      }
+    },
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    }).then(response => {
+      dispatch(alertChanged({message: '送信しました', show: true}))
+      location.reload()
+    }).catch(error => {
+      dispatch(alertChanged({message: '送信失敗しました', show: true, type: 'danger'}))
+    })
+  }
 
   return (
     <Modal show={showSendHtmlMessageModal}>
@@ -57,6 +85,7 @@ const SendHtmlMessageModal = () => {
         }
      </Modal.Body>
      <Modal.Footer>
+      <Button onClick={onSubmit}>送信する</Button>
       <Button
         variant='secondary'
         onClick={() => dispatch(showSendHtmlMessageModalChanged(false))}>閉じる</Button>

@@ -74,6 +74,21 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def send_mail
+    html_mail_template = HtmlMailTemplate.find_by(public_id: params[:public_id])
+    if html_mail_template_params[:send_target_type] == 'customer'
+      customer = Customer.find_by(public_id: html_mail_template_params[:selected_customer][:public_id])
+      parsed_content = JSON.parse(html_mail_template.content)
+      HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title, html_mail_template.template_type).deliver_now
+    elsif html_mail_template_params[:send_target_type] == 'customerGroup'
+      customer_group = CustomerGroup.find_by(public_id: html_mail_template_params[:selected_customer_group][:public_id])
+      customer_group.customers.each do |customer|
+        parsed_content = JSON.parse(html_mail_template.content)
+        HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title, html_mail_template.template_type).deliver_now
+      end
+    end
+  end
+
   private
 
   def html_mail_template_params
@@ -83,6 +98,9 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
                   :name,
                   :mail_title,
                   :template_type,
-                  content: [:text, :image, :base64Image])
+                  :send_target_type,
+                  content: [:text, :image, :base64Image],
+                  selected_customer: [:public_id, :email],
+                  selected_customer_group: [:public_id])
   end
 end
