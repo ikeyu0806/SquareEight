@@ -6,4 +6,5 @@ export interface SendMailHistoryParam {
   message_type: string
   send_at: string
   customer_full_name: string
+  html_template_type: string
 }

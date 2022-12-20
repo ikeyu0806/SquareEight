@@ -2,6 +2,7 @@ class SendMailHistory < ApplicationRecord
   include PublicIdModule
 
   enum message_type: { MessageTemplate: 0, HtmlMailTemplate: 1 }
+  enum html_template_type: { ImageWithText: 0, ImageWithTextList: 1 }
 
   belongs_to :account
   has_one :customer, primary_key: :customer_id ,foreign_key: :id

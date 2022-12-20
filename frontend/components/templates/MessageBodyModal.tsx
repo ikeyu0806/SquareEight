@@ -13,14 +13,15 @@ const MessageBodyModal = () => {
     <Modal show={showMessageBodyModal} size='lg'>
       <Modal.Body>
         {selectedMessageType === 'MessageTemplate' && selectedMessageBody}
+        {selectedMessageType === 'HtmlMailTemplate' && <></>}
       </Modal.Body>
       <Modal.Footer>
-          <Button
-            variant='secondary'
-            onClick={() => dispatch(showMessageBodyModalChanged(false))}>
-            閉じる
-          </Button>
-        </Modal.Footer>
+        <Button
+          variant='secondary'
+          onClick={() => dispatch(showMessageBodyModalChanged(false))}>
+          閉じる
+        </Button>
+      </Modal.Footer>
     </Modal>
   )
 }

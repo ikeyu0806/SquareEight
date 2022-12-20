@@ -667,6 +667,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_19_065243) do
     t.integer "account_id", null: false
     t.integer "customer_id"
     t.integer "message_type", default: 0, null: false
+    t.integer "html_template_type", default: 0
     t.string "email", null: false
     t.string "mail_title", null: false
     t.text "message_body", null: false

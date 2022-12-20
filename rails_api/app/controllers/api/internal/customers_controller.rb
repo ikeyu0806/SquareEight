@@ -26,6 +26,7 @@ class Api::Internal::CustomersController < ApplicationController
         mail_title: html_mail_template.mail_title,
         message_body: html_mail_template.content,
         merchant_user_id: current_merchant_user.id,
+        html_template_type: html_mail_template.template_type
       )
     else
       title = customer_params[:mail_title]

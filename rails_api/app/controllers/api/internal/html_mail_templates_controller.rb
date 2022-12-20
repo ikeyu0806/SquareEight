@@ -88,6 +88,7 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
         mail_title: html_mail_template.mail_title,
         message_body: html_mail_template.content,
         merchant_user_id: current_merchant_user.id,
+        html_template_type: html_mail_template.template_type
       )
     elsif html_mail_template_params[:send_target_type] == 'customerGroup'
       customer_group = CustomerGroup.find_by(public_id: html_mail_template_params[:selected_customer_group][:public_id])
@@ -101,6 +102,7 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
           mail_title: html_mail_template.mail_title,
           message_body: html_mail_template.content,
           merchant_user_id: current_merchant_user.id,
+          html_template_type: html_mail_template.template_type
         )
       end
     end
