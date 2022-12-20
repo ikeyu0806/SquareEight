@@ -186,6 +186,7 @@ Rails.application.routes.draw do
       post 'line_official_accounts/:public_id/broadcast', to: 'line_official_accounts#broadcast'
       post 'line_official_accounts/:public_id/update', to: 'line_official_accounts#update'
       post 'line_official_accounts/register_message_api_channel', to: 'line_official_accounts#register_message_api_channel'
+      delete 'line_official_accounts/:public_id', to: 'line_official_accounts#destroy'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'

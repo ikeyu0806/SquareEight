@@ -13,6 +13,7 @@ import { nameChanged,
          channelTokenChanged } from 'redux/lineOfficialAccountSlice'
 import Unauthorized from 'components/templates/Unauthorized'
 import RegisterLineOfficialAccountForm from 'components/templates/RegisterLineOfficialAccountForm'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const Edit = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -64,6 +65,37 @@ const Edit = () => {
     })
   }
 
+  const deleteLineOfficialAccount = () => {
+    swalWithBootstrapButtons.fire({
+      title: '連携を解除します',
+      html: `SquareEightとの連携を解除します。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: '解除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/line_official_accounts/${router.query.public_id}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '解除しました',
+            icon: 'info'
+          })
+          location.reload()
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '解除失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
+
   return (
     <MerchantUserAdminLayout>
       {allowUpdateLineOfficialAccount === 'Allow' &&
@@ -71,6 +103,13 @@ const Edit = () => {
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
+            <Row>
+              <Col sm={9}></Col>
+              <Col>
+                <Button
+                  variant='danger' onClick={deleteLineOfficialAccount}>連携解除</Button>
+              </Col>
+            </Row>
             <RegisterLineOfficialAccountForm></RegisterLineOfficialAccountForm>
             <Button className='mt20' onClick={onSubmit}>登録する</Button>
           </Col>

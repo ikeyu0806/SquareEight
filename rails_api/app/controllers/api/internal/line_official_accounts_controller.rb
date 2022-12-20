@@ -61,6 +61,15 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def destroy
+    line_official_account = LineOfficialAccount.find_by(public_id: params[:public_id])
+    line_official_account.destroy
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   def push_message
     line_account = LineOfficialAccount.find_by(public_id: params[:public_id])
     client = line_messaging_client(line_account.channel_id, line_account.channel_secret, line_account.channel_token)
