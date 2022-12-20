@@ -8,7 +8,9 @@ import { SendMailHistoryParam } from 'interfaces/SendMailHistoryParam'
 import MessageBodyModal from 'components/templates/MessageBodyModal'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
-import { showMessageBodyModalChanged } from 'redux/sendMailHistorySlice'
+import { showMessageBodyModalChanged,
+         selectedMessageBodyChanged,
+         selectedMessageTypeChanged } from 'redux/sendMailHistorySlice'
 import { useDispatch } from 'react-redux'
 
 const Index: NextPage = () => {
@@ -57,7 +59,11 @@ const Index: NextPage = () => {
                 <td>{history.mail_title}</td>
                 <td>{history.email}</td>
                 <td className='text-center'>
-                  <Button onClick={() => dispatch(showMessageBodyModalChanged(true))}>表示する</Button>
+                  <Button onClick={() => {
+                    dispatch(showMessageBodyModalChanged(true))
+                    dispatch(selectedMessageBodyChanged(history.message_body))
+                    dispatch(selectedMessageTypeChanged(history.message_type))
+                  }}>表示する</Button>
                 </td>
                 <td>{history.send_at}</td>
               </tr>

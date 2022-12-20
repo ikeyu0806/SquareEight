@@ -5,19 +5,22 @@ import { showMessageBodyModalChanged } from 'redux/sendMailHistorySlice'
 
 const MessageBodyModal = () => {
   const dispatch = useDispatch()
+  const selectedMessageBody = useSelector((state: RootState) => state.sendMailHistory.selectedMessageBody)
+  const selectedMessageType = useSelector((state: RootState) => state.sendMailHistory.selectedMessageType)
   const showMessageBodyModal = useSelector((state: RootState) => state.sendMailHistory.showMessageBodyModal)
 
   return (
-    <Modal show={showMessageBodyModal}>
+    <Modal show={showMessageBodyModal} size='lg'>
       <Modal.Body>
-        <Modal.Footer>
+        {selectedMessageType === 'MessageTemplate' && selectedMessageBody}
+      </Modal.Body>
+      <Modal.Footer>
           <Button
             variant='secondary'
             onClick={() => dispatch(showMessageBodyModalChanged(false))}>
             閉じる
           </Button>
         </Modal.Footer>
-      </Modal.Body>
     </Modal>
   )
 }
