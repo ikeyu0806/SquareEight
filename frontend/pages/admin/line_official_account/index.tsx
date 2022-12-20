@@ -59,6 +59,7 @@ const Index: NextPage = () => {
           <Col lg={8}>
             <LineBrandColorButton text='LINE公式アカウントを登録する' onClick={() => router.push('/admin/line_official_account/new')}></LineBrandColorButton>
             <div className='mt20'>公式アカウント一覧</div>
+            <div className='mt10 mb10'>※友だち一覧にはSquareEightと連携後に友だち追加かメッセージのやり取りがあったユーザのみ表示されます。</div>
             <ListGroup>
               {lineOfficialAccounts.map((account, i) => {
                 return (
