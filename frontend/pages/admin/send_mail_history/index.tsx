@@ -10,14 +10,15 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { showMessageBodyModalChanged,
          selectedMessageBodyChanged,
-         selectedMessageTypeChanged } from 'redux/sendMailHistorySlice'
+         selectedMessageTypeChanged,
+         selectedHtmlTemplateTypeChanged,
+         selectedParsedMessageBodyChanged } from 'redux/sendMailHistorySlice'
 import { useDispatch } from 'react-redux'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [sendMailHistories, setSendMailHistories] = useState<SendMailHistoryParam[]>([])
-  const showMessageBodyModal = useSelector((state: RootState) => state.sendMailHistory.showMessageBodyModal)
 
   useEffect(() => {
     const fetchResources = () => {
@@ -63,6 +64,8 @@ const Index: NextPage = () => {
                     dispatch(showMessageBodyModalChanged(true))
                     dispatch(selectedMessageBodyChanged(history.message_body))
                     dispatch(selectedMessageTypeChanged(history.message_type))
+                    dispatch(selectedHtmlTemplateTypeChanged(history.html_template_type))
+                    dispatch(selectedParsedMessageBodyChanged(history.parsed_message_body))
                   }}>表示する</Button>
                 </td>
                 <td>{history.send_at}</td>

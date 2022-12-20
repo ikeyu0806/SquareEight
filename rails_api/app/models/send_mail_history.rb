@@ -19,4 +19,8 @@ class SendMailHistory < ApplicationRecord
   def customer_full_name
     customer&.full_name || ''
   end
+
+  def parsed_message_body
+    JSON.parse(message_body)
+  end
 end

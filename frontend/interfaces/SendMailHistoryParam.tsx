@@ -1,3 +1,4 @@
+import { ImageWithTextListTypeTemplateContent, ImageWithTextTemplateContent } from 'interfaces/HtmlMailTemplate'
 export interface SendMailHistoryParam {
   customer_name: string
   email: string
@@ -7,4 +8,5 @@ export interface SendMailHistoryParam {
   send_at: string
   customer_full_name: string
   html_template_type: string
+  parsed_message_body: ImageWithTextListTypeTemplateContent[] | ImageWithTextTemplateContent[]
 }
