@@ -14,7 +14,7 @@
         <div><%= content["text"] %></div>
       <% end %>
     <% elsif @template_type == 'ImageWithTextList' %>
-      <div style="display: inline-grid; grid-template-rows: 50px 50px; grid-template-columns: 300px 300px;">
+      <div style="display: inline-grid; grid-template-columns: 300px 300px;">
         <% @parsed_content.each do |content| %>
           <div style="margin-bottom: 10px;">
             <img
