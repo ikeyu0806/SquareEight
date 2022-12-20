@@ -31,6 +31,7 @@ import lineOfficialAccountReducer from './lineOfficialAccountSlice'
 import lineUserReducer from './lineUserSlice'
 import htmlMailTemplateReducer from './htmlMailTemplateSlice'
 import sendMailReducer from './sendMailSlice'
+import sendMailHistoryReducer from './sendMailHistorySlice'
 
 export const store = configureStore({
   reducer: {
@@ -65,7 +66,8 @@ export const store = configureStore({
     lineOfficialAccount: lineOfficialAccountReducer,
     lineUser: lineUserReducer,
     htmlMailTemplate: htmlMailTemplateReducer,
-    sendMail: sendMailReducer
+    sendMail: sendMailReducer,
+    sendMailHistory: sendMailHistoryReducer,
   },
 })
 

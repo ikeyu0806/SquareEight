@@ -5,10 +5,17 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { Table, Container, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { SendMailHistoryParam } from 'interfaces/SendMailHistoryParam'
+import MessageBodyModal from 'components/templates/MessageBodyModal'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
+import { showMessageBodyModalChanged } from 'redux/sendMailHistorySlice'
+import { useDispatch } from 'react-redux'
 
 const Index: NextPage = () => {
+  const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [sendMailHistories, setSendMailHistories] = useState<SendMailHistoryParam[]>([])
+  const showMessageBodyModal = useSelector((state: RootState) => state.sendMailHistory.showMessageBodyModal)
 
   useEffect(() => {
     const fetchResources = () => {
@@ -49,7 +56,9 @@ const Index: NextPage = () => {
                 <td>{history.customer_full_name}</td>
                 <td>{history.mail_title}</td>
                 <td>{history.email}</td>
-                <td className='text-center'><Button>表示する</Button></td>
+                <td className='text-center'>
+                  <Button onClick={() => dispatch(showMessageBodyModalChanged(true))}>表示する</Button>
+                </td>
                 <td>{history.send_at}</td>
               </tr>
             )
@@ -57,6 +66,7 @@ const Index: NextPage = () => {
           </tbody>
         </Table>
       </Container>
+      <MessageBodyModal></MessageBodyModal>
     </MerchantUserAdminLayout>
   )
 }
