@@ -22,7 +22,7 @@ const MessageBodyModal = () => {
           <>
             {selectedParsedMessageBody.map((message, i) => {
               return (
-                <div key={i}>
+                <div key={i} className='mb10'>
                   <img
                     className='d-block w-100 mt30'
                     src={message.image}
@@ -38,7 +38,7 @@ const MessageBodyModal = () => {
             {selectedParsedMessageBody.map((message, i) => {
               return (
                 <Row key={i}>
-                  <Col>
+                  <Col className='mb10'>
                     <img
                       className={htmlMailTemplateStyles.list_picture_url}
                       src={message.image}
