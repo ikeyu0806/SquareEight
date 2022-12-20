@@ -67,6 +67,8 @@ const Index: NextPage = () => {
                     <Row>
                       <Col>
                         <div>アカウント名: {account.name}</div>
+                        <a href={`/admin/line_official_account/${account.public_id}/edit`} 
+                           className='btn btn-primary mt10'>編集</a>
                       </Col>
                       <Col>
                         <LineBrandColorButton text='友だち一覧' onClick={() => router.push(`/admin/line_official_account/${account.public_id}/line_user`)} />

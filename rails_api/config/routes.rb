@@ -180,9 +180,11 @@ Rails.application.routes.draw do
       post 'payment_requests/send_payment_request_mail', to: 'payment_requests#send_payment_request_mail'
       post 'payment_requests/exec_payment', to: 'payment_requests#exec_payment'
       get 'line_official_accounts/:public_id/line_users', to: 'line_official_accounts#line_users'
+      get 'line_official_accounts/:public_id', to: 'line_official_accounts#show'
       get 'line_official_accounts', to: 'line_official_accounts#index'
       post 'line_official_accounts/:public_id/push_message', to: 'line_official_accounts#push_message'
       post 'line_official_accounts/:public_id/broadcast', to: 'line_official_accounts#broadcast'
+      post 'line_official_accounts/:public_id/update', to: 'line_official_accounts#update'
       post 'line_official_accounts/register_message_api_channel', to: 'line_official_accounts#register_message_api_channel'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
