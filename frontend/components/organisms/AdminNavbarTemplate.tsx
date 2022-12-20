@@ -7,6 +7,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import PlanLabel from 'components/atoms/PlanLabel'
+import BellIcon from 'components/atoms/BellIcon'
 
 const AdminNavbarTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -89,6 +90,9 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/login_user_info'>ログインユーザ情報</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
               </NavDropdown>
+              {/* <NavDropdown title={<><BellIcon width={20} height={20} fill={'white'} /></>}>
+
+              </NavDropdown> */}
             </Nav>
             <Nav className='mr-auto font-size-15'>
               <Row>
