@@ -24,34 +24,34 @@ class Api::V1::Line::MessagingWebhookController < ApplicationController
   
     events = client.parse_events_from(body)
     events.each do |event|
-      case event
-      when Line::Bot::Event::Message
-        case event.type
-        when Line::Bot::Event::MessageType::Follow
-          line_user = line_account.line_users.find_or_initialize_by(line_user_id: event["source"]["userId"])
-          line_user.account = account
-          line_user.line_display_name = line_user_response["displayName"]
-          line_user.line_picture_url = line_user_response["pictureUrl"]
-          line_user.save!
-        when Line::Bot::Event::MessageType::Text
-          message = {
-            type: 'text',
-            text: event.message['text']
-          }
-          client.reply_message(event['replyToken'], message)
-          line_user_response = client.get_profile(event["source"]["userId"])
-          line_user_response = JSON.parse(line_user_response.body)
-          line_user = line_account.line_users.find_or_initialize_by(line_user_id: event["source"]["userId"])
-          line_user.account = account
-          line_user.line_display_name = line_user_response["displayName"]
-          line_user.line_picture_url = line_user_response["pictureUrl"]
-          line_user.save!
-        # when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
-        #   response = client.get_message_content(event.message['id'])
-        #   tf = Tempfile.open("content")
-        #   tf.write(response.body)
-        end
-      end
+      line_user_response = client.get_profile(event["source"]["userId"])
+      line_user_response = JSON.parse(line_user_response.body)
+      line_user = line_account.line_users.find_or_initialize_by(line_user_id: event["source"]["userId"])
+      line_user.account = account
+      line_user.line_display_name = line_user_response["displayName"]
+      line_user.line_picture_url = line_user_response["pictureUrl"]
+      line_user.save!
+      # case event
+      # when Line::Bot::Event::Message
+      #   case event.type
+      #   when Line::Bot::Event::MessageType::Follow
+      #     line_user = line_account.line_users.find_or_initialize_by(line_user_id: event["source"]["userId"])
+      #     line_user.account = account
+      #     line_user.line_display_name = line_user_response["displayName"]
+      #     line_user.line_picture_url = line_user_response["pictureUrl"]
+      #     line_user.save!
+      #   when Line::Bot::Event::MessageType::Text
+      #     message = {
+      #       type: 'text',
+      #       text: event.message['text']
+      #     }
+      #     client.reply_message(event['replyToken'], message)
+      #   # when Line::Bot::Event::MessageType::Image, Line::Bot::Event::MessageType::Video
+      #   #   response = client.get_message_content(event.message['id'])
+      #   #   tf = Tempfile.open("content")
+      #   #   tf.write(response.body)
+      #   end
+      # end
     end
     render json: { status: 'success' }, status: 200
   rescue => error
