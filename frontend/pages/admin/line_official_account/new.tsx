@@ -1,5 +1,5 @@
-import React, { useState } from 'react'
-import { Container, Row, Col, Button, Form } from 'react-bootstrap'
+import React from 'react'
+import { Container, Row, Col, Button } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
@@ -8,16 +8,18 @@ import { alertChanged } from 'redux/alertSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import Unauthorized from 'components/templates/Unauthorized'
+import RegisterLineOfficialAccountForm from 'components/templates/RegisterLineOfficialAccountForm'
 
 const New = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const dispatch = useDispatch()
 
-  const [name, setName] = useState('')
-  const [channelId, setChannelId] = useState('')
-  const [channelSecret, setChannelSecret] = useState('')
-  const [channelToken, setChannelToken] = useState('')
+  const name = useSelector((state: RootState) => state.lineOfficialAccount.name)
+  const channelId = useSelector((state: RootState) => state.lineOfficialAccount.channelId)
+  const channelSecret = useSelector((state: RootState) => state.lineOfficialAccount.channelSecret)
+  const channelToken = useSelector((state: RootState) => state.lineOfficialAccount.channelToken)
+
   const allowUpdateLineOfficialAccount = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateLineOfficialAccount)
 
   const onSubmit = () => {
@@ -44,19 +46,12 @@ const New = () => {
 
   return (
     <MerchantUserAdminLayout>
-      {allowUpdateLineOfficialAccount === 'Allow' && <Container>
+      {allowUpdateLineOfficialAccount === 'Allow' &&
+      <Container>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
-            <div className='mt20'>公式アカウント名</div>
-            <Form.Control onChange={(e) => setName(e.target.value)}></Form.Control>
-            <div className='mt20'>LINE公式アカウントのChannel情報を登録してください</div>
-            <div className='mt5'>Channel ID</div>
-            <Form.Control onChange={(e) => setChannelId(e.target.value)}></Form.Control>
-            <div className='mt5'>Channel secret</div>
-            <Form.Control onChange={(e) => setChannelSecret(e.target.value)}></Form.Control>
-            <div className='mt5'>Channel token</div>
-            <Form.Control as='textarea' rows={4} onChange={(e) => setChannelToken(e.target.value)}></Form.Control>
+            <RegisterLineOfficialAccountForm></RegisterLineOfficialAccountForm>
             <Button className='mt20' onClick={onSubmit}>登録する</Button>
           </Col>
         </Row>
