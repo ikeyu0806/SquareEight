@@ -15,12 +15,29 @@ const MailSendReservationModal = (): JSX.Element => {
   const scheduledDate = useSelector((state: RootState) => state.sendMailReservation.scheduledDate)
   const scheduledTime = useSelector((state: RootState) => state.sendMailReservation.scheduledTime)
 
+  const messageTemplatePublicId =  useSelector((state: RootState) => state.messageTemplate.publicId)
+  const title = useSelector((state: RootState) => state.messageTemplate.title)
+  const content = useSelector((state: RootState) => state.messageTemplate.content)
+  const price = useSelector((state: RootState) => state.paymentRequest.price)
+  const paymentRequestName = useSelector((state: RootState) => state.paymentRequest.name)
+  const isSendPaymentRequest = useSelector((state: RootState) => state.lineOfficialAccount.isSendPaymentRequest)
+  const selectedHtmlMailTemplate = useSelector((state: RootState) => state.sendMail.selectedHtmlMailTemplate)
+  const messageTemplateType = useSelector((state: RootState) => state.sendMail.messageTemplateType)
+
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/send_mail_schedules`,
     {
       send_mail_schedules: {
         scheduled_date: scheduledDate,
-        scheduled_time: scheduledTime
+        scheduled_time: scheduledTime,
+        mail_title: title,
+        message: content,
+        is_send_payment_request: isSendPaymentRequest,
+        price: price,
+        payment_request_name: paymentRequestName,
+        message_template_public_id: messageTemplatePublicId,
+        selected_html_mail_template: selectedHtmlMailTemplate,
+        message_template_type: messageTemplateType
       }
     },
     {
