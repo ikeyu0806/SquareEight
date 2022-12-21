@@ -85,12 +85,16 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/plan/choice'>プラン変更</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/system_plan_subscription_payments'>お支払い履歴</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='その他' id='webpage-nav-dropdown'>
+              <NavDropdown title='その他'>
                 <NavDropdown.Item href='/admin/inquiry'>お問い合わせ</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/login_user_info'>ログインユーザ情報</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title={<><BellIcon width={20} height={20} fill={'white'} /></>}>
+              <NavDropdown title={
+              <>
+                <div style={{fontSize: 10, color: 'white'}}>お知らせ</div>
+                <BellIcon width={20} height={20} fill={'white'} />
+              </>}>
 
               </NavDropdown>
             </Nav>
