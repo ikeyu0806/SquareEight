@@ -170,6 +170,8 @@ Rails.application.routes.draw do
       post 'html_mail_templates/:public_id/send_mail', to: 'html_mail_templates#send_mail'
       post 'html_mail_templates', to: 'html_mail_templates#create'
       get 'send_mail_histories', to: 'send_mail_histories#index'
+      get 'send_mail_schedules', to: 'send_mail_schedules#index'
+      post 'send_mail_schedules', to: 'send_mail_schedules#create'
       get 'shared_components', to: 'shared_components#show'
       post 'shared_components/register', to: 'shared_components#register'
       get 'delivery_datetime_settings', to: 'delivery_datetime_settings#index'
