@@ -5,7 +5,8 @@ import axios from 'axios'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useCookies } from 'react-cookie'
 import { scheduledDateChanged,
-         scheduledTimeChanged } from 'redux/sendMailReservationSlice'
+         scheduledTimeChanged,
+         showSendMailScheduleModalChanged } from 'redux/sendMailReservationSlice'
 
 const SendMailScheduleModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -22,12 +23,13 @@ const SendMailScheduleModal = (): JSX.Element => {
   const isSendPaymentRequest = useSelector((state: RootState) => state.lineOfficialAccount.isSendPaymentRequest)
   const selectedHtmlMailTemplate = useSelector((state: RootState) => state.sendMail.selectedHtmlMailTemplate)
   const messageTemplateType = useSelector((state: RootState) => state.sendMail.messageTemplateType)
+  const sendTargetType = useSelector((state: RootState) => state.sendMail.sendTargetType)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/send_mail_schedules`,
     {
       send_mail_schedules: {
-        customer_public_id: messageTemplatePublicId,
+        customer_public_id: customerPublicId,
         scheduled_date: scheduledDate,
         scheduled_time: scheduledTime,
         mail_title: title,
@@ -37,7 +39,8 @@ const SendMailScheduleModal = (): JSX.Element => {
         payment_request_name: paymentRequestName,
         message_template_public_id: messageTemplatePublicId,
         selected_html_mail_template: selectedHtmlMailTemplate,
-        message_template_type: messageTemplateType
+        message_template_type: messageTemplateType,
+        send_target_type: sendTargetType
       }
     },
     {
@@ -62,8 +65,8 @@ const SendMailScheduleModal = (): JSX.Element => {
   return (
     <>
       <Modal show={showSendMailScheduleModal}>
+        <Modal.Header>送信日時を入力してください</Modal.Header>
         <Modal.Body>
-          <div>送信日時を入力してください</div>
           <Form.Control
             onChange={(e) => dispatch(scheduledDateChanged(e.target.value))}
             type='date'
@@ -97,9 +100,12 @@ const SendMailScheduleModal = (): JSX.Element => {
             <option value='00:00'>00:00</option>
           </Form.Select>
         </Modal.Body>
-        <Modal.Header>
+        <Modal.Footer>
           <Button onClick={onSubmit}>登録する</Button>
-        </Modal.Header>
+          <Button
+            onClick={() => dispatch(showSendMailScheduleModalChanged(false))}
+            variant='secondary'>閉じる</Button>
+        </Modal.Footer>
       </Modal>
     </>
   )

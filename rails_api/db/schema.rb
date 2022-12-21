@@ -685,7 +685,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_21_025704) do
     t.string "email", null: false
     t.string "mail_title", null: false
     t.text "message_body", null: false
-    t.integer "message_type", default: 0, null: false
+    t.integer "message_template_type", default: 0, null: false
     t.integer "html_template_type", default: 0
     t.datetime "scheduled_datetime", null: false
     t.string "public_id", null: false

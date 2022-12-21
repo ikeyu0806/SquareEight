@@ -7,7 +7,7 @@ class CreateSendMailSchedules < ActiveRecord::Migration[7.0]
       t.string :email, null: false
       t.string :mail_title, null: false
       t.text :message_body, null: false
-      t.integer :message_type, null: false, default: 0
+      t.integer :message_template_type, null: false, default: 0
       t.integer :html_template_type, default: 0
       t.datetime :scheduled_datetime, null: false
       t.string :public_id, null: false
