@@ -18,7 +18,7 @@ export const customerSlice = createSlice({
     showEditCustomerModal: false,
     showCustomerMailSendModal: false,
     showConnectLineUserModal: false,
-    showNotesModal: false
+    showNotesModal: false,
   },
   reducers: {
     customerIdChanged: (state, action: PayloadAction<number>) => {
