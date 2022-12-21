@@ -10,6 +10,9 @@ const MailSendReservationModal = (): JSX.Element => {
   return (
     <Modal show={showSendMailReservationModal}>
       <Modal.Body>
+        <div>送信日時を入力してください</div>
+        <Form.Control type='date' className='mt10'></Form.Control>
+        <Form.Control type='time' className='mt10'></Form.Control>
       </Modal.Body>
       <Modal.Footer>
         <Button onClick={() => dispatch(showSendMailReservationModalChanged(false))}>
