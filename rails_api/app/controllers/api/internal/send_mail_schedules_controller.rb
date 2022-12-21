@@ -12,6 +12,9 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
     scheduled_datetime = Time.zone.parse("#{send_mail_schedules_params[:scheduled_date]} #{send_mail_schedules_params[:scheduled_time]}")
 
     case send_mail_schedules_params[:message_template_type]
+    when 'notUse'
+      mail_title = send_mail_schedules_params[:mail_title]
+      message_body = send_mail_schedules_params[:message_body]
     when 'htmlMailTemplate'
       html_mail_template = HtmlMailTemplate.find_by(public_id: send_mail_schedules_params[:selected_html_mail_template][:public_id])
       mail_title = html_mail_template.mail_title
