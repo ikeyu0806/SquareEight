@@ -57,13 +57,13 @@ const AdminNavbarTemplate = (): JSX.Element => {
               </NavDropdown>
               <NavDropdown title='顧客管理' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/customer'>顧客</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/customer_group'>顧客グループ一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/customer_group/new'>顧客グループ作成</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/customer_group'>顧客グループ</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/line_official_account'>LINE公式アカウント</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/message_template'>メッセージテンプレート</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/html_mail_template'>HTMLメールテンプレート</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/payment_request'>決済リクエスト一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/send_mail_history'>メール送信履歴</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/send_mail_schedule'>メール送信予約一覧</NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='Webページ' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/webpage'>Webページ一覧</NavDropdown.Item>
@@ -90,9 +90,9 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/login_user_info'>ログインユーザ情報</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
               </NavDropdown>
-              {/* <NavDropdown title={<><BellIcon width={20} height={20} fill={'white'} /></>}>
+              <NavDropdown title={<><BellIcon width={20} height={20} fill={'white'} /></>}>
 
-              </NavDropdown> */}
+              </NavDropdown>
             </Nav>
             <Nav className='mr-auto font-size-15'>
               <Row>
