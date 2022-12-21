@@ -34,7 +34,7 @@ import ConnectLineUserModal from 'components/templates/ConnectLineUserModal'
 import CustomerNotesModal from 'components/templates/CustomerNotesModal'
 import LineOfficialAccountModal from 'components/templates/LineOfficialAccountModal'
 import { nameChanged, mailTitleChanged, htmlMailTemplateChanged as htmlMailTemplateStateContentChanged } from 'redux/htmlMailTemplateSlice'
-import { selectedHtmlMailTemplateChanged } from 'redux/sendMailSlice'
+import { selectedHtmlMailTemplateChanged, sendTargetTypeChanged } from 'redux/sendMailSlice'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -65,6 +65,7 @@ const Index: NextPage = () => {
       dispatch(htmlMailTemplateStateContentChanged({templateType: response.data.selected_html_mail_template.template_type, content: response.data.selected_html_template_content}))
       dispatch(htmlMailTemplateChanged(response.data.html_mail_templates))
       dispatch(selectedHtmlMailTemplateChanged(response.data.selected_html_mail_template))
+      dispatch(sendTargetTypeChanged('customer'))
     }).catch((error) => {
       console.log(error)
     })

@@ -11,7 +11,7 @@ import axios from 'axios'
 import { publicIdChanged, showCustomerGroupMailSendModalChanged } from 'redux/customerGroupSlice'
 import CustomerGroupMailSendModal from 'components/templates/CustomerGroupMailSendModal'
 import { htmlMailTemplateChanged } from 'redux/accountSlice'
-import { selectedHtmlMailTemplateChanged } from 'redux/sendMailSlice'
+import { selectedHtmlMailTemplateChanged, sendTargetTypeChanged } from 'redux/sendMailSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -34,6 +34,7 @@ const Index: NextPage = () => {
         dispatch(htmlMailTemplateChanged(response.data.html_mail_templates))
         dispatch(selectedHtmlMailTemplateChanged(response.data.selected_html_mail_template))
         setCustomerGroups(response.data.customer_groups)
+        dispatch(sendTargetTypeChanged('customer'))
       })
       .catch(error => {
         console.log(error)
