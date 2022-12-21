@@ -16,6 +16,7 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
       html_mail_template = HtmlMailTemplate.find_by(public_id: send_mail_schedules_params[:selected_html_mail_template][:public_id])
       mail_title = html_mail_template.mail_title
       message_body = html_mail_template.content
+      html_template_type =  send_mail_schedules_params[:selected_html_mail_template][:template_type]
     else
     end
 
@@ -30,7 +31,7 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
         mail_title: mail_title,
         message_body: message_body,
         message_template_type: send_mail_schedules_params[:message_template_type],
-        html_template_type: send_mail_schedules_params[:html_template_type],
+        html_template_type: html_template_type,
       )
     else
     end
