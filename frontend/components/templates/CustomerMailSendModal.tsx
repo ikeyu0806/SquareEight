@@ -12,8 +12,8 @@ import MessageTemplateContentForm from 'components/atoms/MessageTemplateContentF
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { titleChanged } from 'redux/messageTemplateSlice'
 import HtmlMailTemplatePreview from 'components/organisms/HtmlMailTemplatePreview'
-import { showSendMailReservationModalChanged } from 'redux/sendMailReservationSlice'
-import MailSendReservationModal from 'components/organisms/mailSendReservationModal'
+import SendMailScheduleForm from 'components/organisms/SendMailScheduleModal'
+import { showSendMailScheduleModalChanged } from 'redux/sendMailReservationSlice'
 
 const CustomerMailSendModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -89,7 +89,7 @@ const CustomerMailSendModal = (): JSX.Element => {
           </Row>
         </Modal.Body>
         <Modal.Footer>
-          <Button onClick={() => dispatch(showSendMailReservationModalChanged(true))}>
+          <Button onClick={() => dispatch(showSendMailScheduleModalChanged(true))}>
             送信予約する
           </Button>
           <Button onClick={onSubmit}>
@@ -100,7 +100,7 @@ const CustomerMailSendModal = (): JSX.Element => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <MailSendReservationModal />
+      <SendMailScheduleForm />
     </>
   )
 }

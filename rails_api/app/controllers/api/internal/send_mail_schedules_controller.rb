@@ -9,6 +9,7 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
   end
 
   def create
+    binding.pry
     customer = Customer.find_by(public_id: send_mail_schedules_params[:customer_public_id])
     scheduled_datetime = Time.zone.parse("#{send_mail_schedules_params[:scheduled_date]} #{send_mail_schedules_params[:scheduled_time]}")
     current_merchant_user.account.send_mail_schedules.create!(
