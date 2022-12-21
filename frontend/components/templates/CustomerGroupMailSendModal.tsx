@@ -13,7 +13,7 @@ import MessageTemplateContentForm from 'components/atoms/MessageTemplateContentF
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { titleChanged } from 'redux/messageTemplateSlice'
 import HtmlMailTemplatePreview from 'components/organisms/HtmlMailTemplatePreview'
-import SendMailScheduleForm from 'components/organisms/SendMailScheduleModal'
+import SendMailScheduleModal from 'components/organisms/SendMailScheduleModal'
 import { showSendMailScheduleModalChanged } from 'redux/sendMailReservationSlice'
 
 const CustomerGroupMailSendModal = (): JSX.Element => {
@@ -101,7 +101,7 @@ const CustomerGroupMailSendModal = (): JSX.Element => {
           </Button>
         </Modal.Footer>
       </Modal>
-      <SendMailScheduleForm />
+      <SendMailScheduleModal />
     </>
   )
 }
