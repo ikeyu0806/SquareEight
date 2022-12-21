@@ -13,6 +13,8 @@ import MessageTemplateContentForm from 'components/atoms/MessageTemplateContentF
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { titleChanged } from 'redux/messageTemplateSlice'
 import HtmlMailTemplatePreview from 'components/organisms/HtmlMailTemplatePreview'
+import SendMailScheduleForm from 'components/organisms/SendMailScheduleModal'
+import { showSendMailScheduleModalChanged } from 'redux/sendMailReservationSlice'
 
 const CustomerGroupMailSendModal = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -60,41 +62,47 @@ const CustomerGroupMailSendModal = (): JSX.Element => {
     })
   }
   return (
-    <Modal show={showCustomerGroupMailSendModal} fullscreen={true}>
-      <Modal.Header>メール送信</Modal.Header>
-      <Modal.Body>
-        <Row>
-          <Col md={5}>
-            {messageTemplateType !== 'htmlMailTemplate' &&
-            <>
-              <div>メールタイトル</div>
-              <Form.Control
-                value={title}
-                onChange={(e) => dispatch(titleChanged(e.target.value))}
-              ></Form.Control>
-              <div>メッセージ本文</div>
-              <MessageTemplateContentForm />
-            </>}
-            {messageTemplateType === 'htmlMailTemplate' && <HtmlMailTemplatePreview></HtmlMailTemplatePreview>}
-          </Col>
-          <Col md={3}>
-            {messageTemplateType !== 'htmlMailTemplate' && <><PaymentRequestSendForm /><hr /></>}
-            <SelectMessageTemplateForm />
-          </Col>
-          <Col>
-            {messageTemplateType !== 'htmlMailTemplate' &&<MessageTemplateVariables />}
-          </Col>
-        </Row>
-      </Modal.Body>
-      <Modal.Footer>
-        <Button onClick={onSubmit}>
-          送信する
-        </Button>
-        <Button variant='secondary' onClick={() => dispatch(showCustomerGroupMailSendModalChanged(false))}>
-          閉じる
-        </Button>
-      </Modal.Footer>
-    </Modal>
+    <>
+      <Modal show={showCustomerGroupMailSendModal} fullscreen={true}>
+        <Modal.Header>メール送信</Modal.Header>
+        <Modal.Body>
+          <Row>
+            <Col md={5}>
+              {messageTemplateType !== 'htmlMailTemplate' &&
+              <>
+                <div>メールタイトル</div>
+                <Form.Control
+                  value={title}
+                  onChange={(e) => dispatch(titleChanged(e.target.value))}
+                ></Form.Control>
+                <div>メッセージ本文</div>
+                <MessageTemplateContentForm />
+              </>}
+              {messageTemplateType === 'htmlMailTemplate' && <HtmlMailTemplatePreview></HtmlMailTemplatePreview>}
+            </Col>
+            <Col md={3}>
+              {messageTemplateType !== 'htmlMailTemplate' && <><PaymentRequestSendForm /><hr /></>}
+              <SelectMessageTemplateForm />
+            </Col>
+            <Col>
+              {messageTemplateType !== 'htmlMailTemplate' &&<MessageTemplateVariables />}
+            </Col>
+          </Row>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => dispatch(showSendMailScheduleModalChanged(true))}>
+            送信予約する
+          </Button>
+          <Button onClick={onSubmit}>
+            送信する
+          </Button>
+          <Button variant='secondary' onClick={() => dispatch(showCustomerGroupMailSendModalChanged(false))}>
+            閉じる
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <SendMailScheduleForm />
+    </>
   )
 }
 

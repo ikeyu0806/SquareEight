@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, ListGroup, Card, Button, Form, Table  } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button, Form, Table  } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useCookies } from 'react-cookie'
 import { CustomerParam } from 'interfaces/CustomerParam'
@@ -8,7 +8,6 @@ import axios from 'axios'
 import { RootState } from 'redux/store'
 import lineUserStyles from 'styles/lineUser.module.css'
 import { customersChanged,
-         lineOfficialAccountsChanged,
          htmlMailTemplateChanged,
          showLineOfficialAccountModalChanged } from 'redux/accountSlice'
 import { showConnectLineUserModalChanged,
@@ -33,7 +32,7 @@ import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import ConnectLineUserModal from 'components/templates/ConnectLineUserModal'
 import CustomerNotesModal from 'components/templates/CustomerNotesModal'
 import LineOfficialAccountModal from 'components/templates/LineOfficialAccountModal'
-import { nameChanged, mailTitleChanged, htmlMailTemplateChanged as htmlMailTemplateStateContentChanged } from 'redux/htmlMailTemplateSlice'
+import { htmlMailTemplateChanged as htmlMailTemplateStateContentChanged } from 'redux/htmlMailTemplateSlice'
 import { selectedHtmlMailTemplateChanged, sendTargetTypeChanged } from 'redux/sendMailSlice'
 
 const Index: NextPage = () => {
