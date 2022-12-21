@@ -15,6 +15,7 @@ const SendMailScheduleModal = (): JSX.Element => {
   const scheduledDate = useSelector((state: RootState) => state.sendMailReservation.scheduledDate)
   const scheduledTime = useSelector((state: RootState) => state.sendMailReservation.scheduledTime)
   const customerPublicId =  useSelector((state: RootState) => state.customer.customerPublicId)
+  const customerGroupPublicId =  useSelector((state: RootState) => state.customerGroup.publicId)
   const messageTemplatePublicId =  useSelector((state: RootState) => state.messageTemplate.publicId)
   const title = useSelector((state: RootState) => state.messageTemplate.title)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
@@ -30,6 +31,7 @@ const SendMailScheduleModal = (): JSX.Element => {
     {
       send_mail_schedules: {
         customer_public_id: customerPublicId,
+        customer_group_public_id: customerGroupPublicId,
         scheduled_date: scheduledDate,
         scheduled_time: scheduledTime,
         mail_title: title,

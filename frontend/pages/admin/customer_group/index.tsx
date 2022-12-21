@@ -34,7 +34,7 @@ const Index: NextPage = () => {
         dispatch(htmlMailTemplateChanged(response.data.html_mail_templates))
         dispatch(selectedHtmlMailTemplateChanged(response.data.selected_html_mail_template))
         setCustomerGroups(response.data.customer_groups)
-        dispatch(sendTargetTypeChanged('customer'))
+        dispatch(sendTargetTypeChanged('customerGroup'))
       })
       .catch(error => {
         console.log(error)

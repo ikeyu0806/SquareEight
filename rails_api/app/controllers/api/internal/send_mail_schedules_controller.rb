@@ -21,6 +21,7 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
       message_body = html_mail_template.content
       html_template_type =  send_mail_schedules_params[:selected_html_mail_template][:template_type]
     else
+      raise 'message_template_type is invalid'
     end
 
     case send_mail_schedules_params[:send_target_type]
@@ -36,7 +37,22 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
         message_template_type: send_mail_schedules_params[:message_template_type],
         html_template_type: html_template_type,
       )
+    when 'customerGroup'
+      customer_group = CustomerGroup.find_by(public_id: send_mail_schedules_params[:customer_group_public_id])
+      customer_group.customers.each do |customer|
+        current_merchant_user.account.send_mail_schedules.create!(
+        merchant_user_id: current_merchant_user.id,
+        customer_id: customer.id,
+        scheduled_datetime: scheduled_datetime,
+        email: customer.email,
+        mail_title: mail_title,
+        message_body: message_body,
+        message_template_type: send_mail_schedules_params[:message_template_type],
+        html_template_type: html_template_type,
+      )
+      end
     else
+      raise 'send_target_type is invalid'
     end
     render json: { status: 'success' }, status: 200
   rescue => error
@@ -48,6 +64,7 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
     params.require(:send_mail_schedules)
           .permit(:id,
                   :customer_public_id,
+                  :customer_group_public_id,
                   :scheduled_date,
                   :scheduled_time,
                   :mail_title,
