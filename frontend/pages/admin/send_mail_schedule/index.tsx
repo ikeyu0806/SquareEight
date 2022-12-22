@@ -46,7 +46,7 @@ const Index: NextPage = () => {
           <tbody>
             {sendMailSchedules.map((schedule, i) => {
               return (
-                <tr key={i} style={schedule.past_flg ? {backgroundColor: "gray"} : {}}>
+                <tr key={i} style={schedule.past_flg ? {backgroundColor: 'lightgray'} : {}}>
                   <td>{schedule.mail_title}</td>
                   <td>{schedule.email}</td>
                   <td>{schedule.customer_fullname}</td>
