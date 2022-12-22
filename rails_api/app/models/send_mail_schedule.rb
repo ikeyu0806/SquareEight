@@ -18,4 +18,8 @@ class SendMailSchedule < ApplicationRecord
   def past_flg
     scheduled_datetime < Time.zone.now
   end
+
+  def parsed_message_body
+    htmlMailTemplate? ? JSON.parse(message_body) : message_body
+  end
 end

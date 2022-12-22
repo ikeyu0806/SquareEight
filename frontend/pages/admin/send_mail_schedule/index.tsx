@@ -1,12 +1,20 @@
 import React, { useState, useEffect } from 'react'
 import { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { Container, Table } from 'react-bootstrap'
+import { Container, Table, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { SendMailScheduleParam } from 'interfaces/SendMailScheduleParam'
+import MessageBodyModal from 'components/templates/MessageBodyModal'
+import { useDispatch } from 'react-redux'
+import { showMessageBodyModalChanged,
+  selectedMessageBodyChanged,
+  selectedMessageTypeChanged,
+  selectedHtmlTemplateTypeChanged,
+  selectedParsedMessageBodyChanged } from 'redux/sendMailHistorySlice'
 
 const Index: NextPage = () => {
+  const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [sendMailSchedules, setSendMailSchedules] = useState<SendMailScheduleParam[]>([])
 
@@ -50,7 +58,15 @@ const Index: NextPage = () => {
                   <td>{schedule.mail_title}</td>
                   <td>{schedule.email}</td>
                   <td>{schedule.customer_fullname}</td>
-                  <td></td>
+                  <td className='text-center'>
+                  <Button onClick={() => {
+                    dispatch(showMessageBodyModalChanged(true))
+                    dispatch(selectedMessageBodyChanged(schedule.message_body))
+                    dispatch(selectedMessageTypeChanged(schedule.message_template_type))
+                    dispatch(selectedHtmlTemplateTypeChanged(schedule.html_template_type))
+                    dispatch(selectedParsedMessageBodyChanged(schedule.parsed_message_body))
+                  }}>表示する</Button>
+                </td>
                   <td>{schedule.display_scheduled_datetime}</td>
                 </tr>
               )
@@ -58,6 +74,7 @@ const Index: NextPage = () => {
           </tbody>
         </Table>
       </Container>
+      <MessageBodyModal></MessageBodyModal>
     </MerchantUserAdminLayout>
   )
 }

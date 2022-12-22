@@ -1,3 +1,4 @@
+import { ImageWithTextListTypeTemplateContent, ImageWithTextTemplateContent } from 'interfaces/HtmlMailTemplate'
 export interface SendMailScheduleParam {
   public_id: string
   email: string
@@ -9,4 +10,5 @@ export interface SendMailScheduleParam {
   display_scheduled_datetime: string
   customer_fullname: string
   past_flg: boolean
+  parsed_message_body: ImageWithTextListTypeTemplateContent[] | ImageWithTextTemplateContent[]
 }

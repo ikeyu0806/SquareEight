@@ -6,8 +6,6 @@ import { Table, Container, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { SendMailHistoryParam } from 'interfaces/SendMailHistoryParam'
 import MessageBodyModal from 'components/templates/MessageBodyModal'
-import { useSelector } from 'react-redux'
-import { RootState } from 'redux/store'
 import { showMessageBodyModalChanged,
          selectedMessageBodyChanged,
          selectedMessageTypeChanged,
