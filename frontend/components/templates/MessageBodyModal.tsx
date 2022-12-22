@@ -15,8 +15,8 @@ const MessageBodyModal = () => {
   return (
     <Modal show={showMessageBodyModal} size='lg'>
       <Modal.Body>
-        {selectedMessageType === 'MessageTemplate' && selectedMessageBody}
-        {selectedMessageType === 'HtmlMailTemplate' &&
+        {selectedMessageType === 'messageTemplate' && selectedMessageBody}
+        {selectedMessageType === 'htmlMailTemplate' &&
         <>
           {selectedHtmlTemplateType === 'ImageWithText' &&
           <>

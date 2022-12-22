@@ -1,7 +1,7 @@
 class SendMailHistory < ApplicationRecord
   include PublicIdModule
 
-  enum message_type: { MessageTemplate: 0, HtmlMailTemplate: 1 }
+  enum message_type: { messageTemplate: 0, htmlMailTemplate: 1 }
   enum html_template_type: { ImageWithText: 0, ImageWithTextList: 1 }
 
   belongs_to :account
@@ -21,6 +21,6 @@ class SendMailHistory < ApplicationRecord
   end
 
   def parsed_message_body
-    HtmlMailTemplate? ? JSON.parse(message_body) : message_body
+    htmlMailTemplate? ? JSON.parse(message_body) : message_body
   end
 end

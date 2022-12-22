@@ -83,7 +83,7 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
       HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title, html_mail_template.template_type).deliver_now
       account.send_mail_histories.create!(
         customer_id: customer.id,
-        message_type: 'HtmlMailTemplate',
+        message_type: 'htmlMailTemplate',
         email: customer.email,
         mail_title: html_mail_template.mail_title,
         message_body: html_mail_template.content,
@@ -97,7 +97,7 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
         HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title, html_mail_template.template_type).deliver_now
         account.send_mail_histories.create!(
           customer_id: customer.id,
-          message_type: 'HtmlMailTemplate',
+          message_type: 'htmlMailTemplate',
           email: customer.email,
           mail_title: html_mail_template.mail_title,
           message_body: html_mail_template.content,
