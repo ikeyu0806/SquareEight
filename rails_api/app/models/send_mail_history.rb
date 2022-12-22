@@ -21,6 +21,6 @@ class SendMailHistory < ApplicationRecord
   end
 
   def parsed_message_body
-    JSON.parse(message_body)
+    HtmlMailTemplate? ? JSON.parse(message_body) : message_body
   end
 end
