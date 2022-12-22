@@ -10,27 +10,17 @@ class Api::Batch::SendMailSchedulesController < ApplicationController
       when 'htmlMailTemplate'
         parsed_content = JSON.parse(schedule.message_body)
         HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, schedule.mail_title, schedule.html_template_type).deliver_now
-        account.send_mail_histories.create!(
-          customer_id: customer.id,
-          message_type: 'htmlMailTemplate',
-          email: customer.email,
-          mail_title: schedule.mail_title,
-          message_body: schedule.message_body,
-          html_template_type: schedule.html_template_type
-        )
       else
-        payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.public_id
+        stripe_payment_request = schedule.stripe_payment_request
+        payment_request_url = if stripe_payment_request.present?
+          ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.public_id
+        else
+          ''
+        end
         content = MessageTemplate.convert_content(schedule.message_body, customer.last_name, customer.first_name, price, payment_request_url)
         MessageTemplateMailer.send_mail(customer.email, title, content).deliver_now
-        account.send_mail_histories.create!(
-          customer_id: customer.id,
-          message_type: 'messageTemplate',
-          email: customer.email,
-          mail_title: schedule.mail_title,
-          message_body: schedule.message_body,
-          stripe_payment_request_id: stripe_payment_request&.id
-        )
       end
+      schedule.update!(send_status: 'Complete')
     end
     render json: { status: 'success', account: account }, status: 200
   rescue => error
