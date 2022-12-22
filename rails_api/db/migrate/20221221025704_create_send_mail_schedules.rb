@@ -11,6 +11,7 @@ class CreateSendMailSchedules < ActiveRecord::Migration[7.0]
       t.integer :html_template_type, default: 0
       t.datetime :scheduled_datetime, null: false
       t.string :public_id, null: false
+      t.integer :send_status, default: 0
 
       t.timestamps
     end
