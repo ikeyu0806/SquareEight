@@ -14,4 +14,8 @@ class SendMailSchedule < ApplicationRecord
   def customer_fullname
     customer&.full_name || ''
   end
+
+  def past_flg
+    scheduled_datetime < Time.zone.now
+  end
 end

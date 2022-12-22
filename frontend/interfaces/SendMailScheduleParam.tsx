@@ -8,4 +8,5 @@ export interface SendMailScheduleParam {
   scheduled_datetime: string
   display_scheduled_datetime: string
   customer_fullname: string
+  past_flg: boolean
 }
