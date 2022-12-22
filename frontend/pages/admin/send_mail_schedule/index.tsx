@@ -20,6 +20,7 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
+        console.log(response.data)
         setSendMailSchedules(response.data.send_mail_schedules)
       })
       .catch(error => {
