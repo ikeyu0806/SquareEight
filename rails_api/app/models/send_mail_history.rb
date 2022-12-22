@@ -16,7 +16,7 @@ class SendMailHistory < ApplicationRecord
     created_at.strftime("%Y/%m/%d %H:%M")
   end
 
-  def customer_full_name
+  def customer_fullname
     customer&.full_name || ''
   end
 

@@ -2,7 +2,9 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
   before_action :merchant_login_only!
 
   def index
-    render json: { status: 'success' }, status: 200
+    send_mail_schedules = current_merchant_user.account.send_mail_schedules
+    JSON.parse(send_mail_schedules.to_json(methods: [:display_scheduled_datetime]))
+    render json: { status: 'success', send_mail_schedules: send_mail_schedules }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

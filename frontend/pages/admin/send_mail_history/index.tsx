@@ -56,7 +56,7 @@ const Index: NextPage = () => {
           {sendMailHistories.map((history, i) => {
             return(
               <tr key={i}>
-                <td>{history.customer_full_name}</td>
+                <td>{history.customer_fullname}</td>
                 <td>{history.mail_title}</td>
                 <td>{history.email}</td>
                 <td className='text-center'>

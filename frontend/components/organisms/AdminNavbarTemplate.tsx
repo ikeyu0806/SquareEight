@@ -90,13 +90,12 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/login_user_info'>ログインユーザ情報</NavDropdown.Item>
                 <NavDropdown.Item onClick={logout}>ログアウト</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title={
+              {/* <NavDropdown title={
               <>
                 <div style={{fontSize: 10, color: 'white'}}>お知らせ</div>
                 <BellIcon width={20} height={20} fill={'white'} />
               </>}>
-
-              </NavDropdown>
+              </NavDropdown> */}
             </Nav>
             <Nav className='mr-auto font-size-15'>
               <Row>
