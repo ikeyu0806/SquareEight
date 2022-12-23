@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_21_025704) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_23_041449) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -354,6 +354,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_21_025704) do
     t.integer "allow_connect_line_user", default: 0
     t.integer "allow_send_mail", default: 0
     t.integer "allow_send_line_message", default: 0
+    t.integer "allow_read_html_mail_template", default: 0
+    t.integer "allow_create_html_mail_template", default: 0
+    t.integer "allow_update_html_mail_template", default: 0
+    t.integer "allow_delete_html_mail_template", default: 0
     t.index ["email"], name: "index_merchant_users_on_email", unique: true
   end
 

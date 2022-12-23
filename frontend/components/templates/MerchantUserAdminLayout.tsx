@@ -54,6 +54,10 @@ import {  allowReadMerchantUserChanged,
           allowCreateMessageTemplateChanged,
           allowUpdateMessageTemplateChanged,
           allowDeleteMessageTemplateChanged,
+          allowReadHtmlMailTemplateChanged,
+          allowCreateHtmlMailTemplateChanged,
+          allowUpdateHtmlMailTemplateChanged,
+          allowDeleteHtmlMailTemplateChanged,
           allowReadWebpageChanged,
           allowCreateWebpageChanged,
           allowUpdateWebpageChanged,
@@ -144,6 +148,10 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowCreateMessageTemplateChanged(response.data.user.allow_create_message_template))
       dispatch(allowUpdateMessageTemplateChanged(response.data.user.allow_update_message_template))
       dispatch(allowDeleteMessageTemplateChanged(response.data.user.allow_delete_message_template))
+      dispatch(allowReadHtmlMailTemplateChanged(response.data.user.allow_read_html_mail_template))
+      dispatch(allowCreateHtmlMailTemplateChanged(response.data.user.allow_create_html_mail_template))
+      dispatch(allowUpdateHtmlMailTemplateChanged(response.data.user.allow_update_html_mail_template))
+      dispatch(allowDeleteHtmlMailTemplateChanged(response.data.user.allow_delete_html_mail_template))
       dispatch(allowReadWebpageChanged(response.data.user.allow_read_webpage))
       dispatch(allowCreateWebpageChanged(response.data.user.allow_create_webpage))
       dispatch(allowUpdateWebpageChanged(response.data.user.allow_update_webpage))
