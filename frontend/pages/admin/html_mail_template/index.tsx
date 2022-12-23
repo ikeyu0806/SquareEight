@@ -9,8 +9,12 @@ import SendHtmlMessageModal from 'components/templates/SendHtmlMessageModal'
 import { showSendHtmlMessageModalChanged,
          customersChanged,
          customerGroupsChanged,
+         messageTemplateTypeChanged,
+         selectedHtmlMailTemplateChanged,
          selectedHtmlMailTemplatePublicIdChanged } from 'redux/sendMailSlice'
 import { useDispatch } from 'react-redux'
+import { customerPublicIdChanged } from 'redux/customerSlice'
+import { publicIdChanged } from 'redux/customerGroupSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -25,8 +29,11 @@ const Index: NextPage = () => {
       }
     }).then((response) => {
       setHtmlTemplates(response.data.html_mail_templates)
+      dispatch(messageTemplateTypeChanged('htmlMailTemplate'))
       dispatch(customersChanged(response.data.customers))
       dispatch(customerGroupsChanged(response.data.customer_groups))
+      dispatch(customerPublicIdChanged(response.data.customer[0].public_id))
+      dispatch(publicIdChanged(response.data.customer_groups[0].public_id))
     }).catch((error) => {
       console.log(error)
     })
@@ -58,6 +65,7 @@ const Index: NextPage = () => {
                   <td className='text-center'>
                     <Button onClick={() => {
                       dispatch(showSendHtmlMessageModalChanged(true))
+                      dispatch(selectedHtmlMailTemplateChanged(template))
                       dispatch(selectedHtmlMailTemplatePublicIdChanged(template.public_id))
                     }}>送信</Button>
                   </td>

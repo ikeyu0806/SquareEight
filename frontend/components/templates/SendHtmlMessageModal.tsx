@@ -10,6 +10,8 @@ import { sendTargetTypeChanged,
          selectedCustomerGroupChanged } from 'redux/sendMailSlice'
 import { showSendMailScheduleModalChanged } from 'redux/sendMailReservationSlice'
 import SendMailScheduleModal from 'components/organisms/SendMailScheduleModal'
+import { customerPublicIdChanged } from 'redux/customerSlice'
+import { publicIdChanged } from 'redux/customerGroupSlice'
 
 const SendHtmlMessageModal = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -70,7 +72,10 @@ const SendHtmlMessageModal = () => {
                     id={String(customer.id + i)}
                     label={<>{customer.last_name}{customer.full_name}</>}
                     key={i}
-                    onClick={() => dispatch(selectedCustomerChanged(customer))}
+                    onClick={() => {
+                      dispatch(customerPublicIdChanged(customer.public_id))
+                      dispatch(selectedCustomerChanged(customer))
+                    }}
                   />
                 )
               })
@@ -85,7 +90,10 @@ const SendHtmlMessageModal = () => {
                     id={String(group.id + i)}
                     label={group.name}
                     key={i}
-                    onClick={() => dispatch(selectedCustomerGroupChanged(group))}
+                    onClick={() => {
+                      dispatch(publicIdChanged(group.public_id))
+                      dispatch(selectedCustomerGroupChanged(group))
+                    }}
                   />
                 )
               })
