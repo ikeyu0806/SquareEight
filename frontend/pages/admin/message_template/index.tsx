@@ -100,6 +100,8 @@ const Index: NextPage = () => {
                     <Button onClick={() => {
                       dispatch(selectedMessageTemplateChanged(message))
                       dispatch(showSendMessageTemplateModalChanged(true))
+                      dispatch(titleChanged(message.title))
+                      dispatch(contentChanged(message.content))
                     }}>送信</Button>
                   </td>
                 </tr>
