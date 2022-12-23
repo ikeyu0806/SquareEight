@@ -52,10 +52,10 @@ const Index: NextPage = () => {
                 <tr key={i}>
                   <td>{template.name}</td>
                   <td>{template.mail_title}</td>
-                  <td>
+                  <td className='text-center'>
                     <a className='btn btn-primary' href={`/admin/html_mail_template/${template.public_id}/edit?template_type=${template.template_type}`}>編集</a>
                   </td>
-                  <td>
+                  <td className='text-center'>
                     <Button onClick={() => {
                       dispatch(showSendHtmlMessageModalChanged(true))
                       dispatch(selectedHtmlMailTemplatePublicIdChanged(template.public_id))
