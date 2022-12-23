@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, ListGroup, Card, Button, Alert } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup, Table, Button } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useCookies } from 'react-cookie'
 import { useDispatch, useSelector } from 'react-redux'
@@ -56,48 +56,44 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      {allowReadMessageTemplate === 'Allow' && <Container>
-        <Row>
-          <Col lg={2}></Col>
-          <Col lg={8}>
-            <h3 className='mb20'>メッセージテンプレート</h3>
-            {allowCreateMessageTemplate === 'Allow' && <Button
-              className='mb20'
-              onClick={() => dispatch(showCreateMessageTemplateModalChanged(true))}>
-              メッセージテンプレート作成
-            </Button>}
-            <Card>
-              <Card.Header>テンプレート一覧</Card.Header>
-                <ListGroup variant='flush'>
-                {messageTemplates && messageTemplates.map((message, i) => {
-                  return (
-                    <ListGroup.Item key={i}>
-                      <Row>
-                        <Col>
-                          <div className='text-center'>
-                            {message.name}
-                          </div>
-                        </Col>
-                        <Col>
-                          <div className='text-center'>
-                            メールのタイトル: {message.title}
-                          </div>
-                        </Col>
-                        {allowUpdateMessageTemplate === 'Allow' && <Col>
-                          <div className='text-center'>
-                            <Button onClick={() => showEditModal(message.public_id, message.name, message.title, message.content)}>
-                                編集
-                            </Button>
-                          </div>
-                        </Col>}
-                      </Row>
-                    </ListGroup.Item>
-                  )
-                })}
-              </ListGroup>
-            </Card>
-          </Col>
-        </Row>
+      {allowReadMessageTemplate === 'Allow' &&
+      <Container>
+        <h3 className='mb20'>メッセージテンプレート</h3>
+        {allowCreateMessageTemplate === 'Allow' && <Button
+          className='mb20'
+          onClick={() => dispatch(showCreateMessageTemplateModalChanged(true))}>
+          メッセージテンプレート作成
+        </Button>}
+        <Table bordered>
+          <thead>
+            <tr>
+              <th>テンプレート名</th>
+              <th>メールタイトル</th>
+              <th>編集</th>
+              <th>メール送信</th>
+            </tr>
+          </thead>
+          <tbody>
+            {messageTemplates && messageTemplates.map((message, i) => {
+              return (
+                <tr key={i}>
+                  <td>{message.name}</td>
+                  <td>{message.title}</td>
+                  <td>
+                    {allowUpdateMessageTemplate === 'Allow' && <Col>
+                      <div className='text-center'>
+                        <Button onClick={() => showEditModal(message.public_id, message.name, message.title, message.content)}>
+                            編集
+                        </Button>
+                      </div>
+                    </Col>}
+                  </td>
+                  <td>1</td>
+                </tr>
+                )
+              })}
+          </tbody>
+        </Table>
       </Container>}
       {allowReadMessageTemplate === 'Forbid' && <Unauthorized />}
       <CreateMessageTemplateModal></CreateMessageTemplateModal>
