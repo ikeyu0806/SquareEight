@@ -12,6 +12,7 @@ import CreateImageWithTextListHtmlTemplate from 'components/templates/CreateImag
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Edit: NextPage = () => {
   const router = useRouter()
@@ -20,6 +21,7 @@ const Edit: NextPage = () => {
   const mailTitle = useSelector((state: RootState) => state.htmlMailTemplate.mailTitle)
   const htmlMailTemplate = useSelector((state: RootState) => state.htmlMailTemplate.htmlMailTemplate)
   const [cookies] = useCookies(['_square_eight_merchant_session'])
+  const allowUpdateHtmlMailTemplate = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateHtmlMailTemplate)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/html_mail_templates/${router.query.public_id}`,
@@ -60,7 +62,7 @@ const Edit: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowUpdateHtmlMailTemplate === 'Allow' && <Container>
         <Row>
           <Col lg={2}></Col>
           <Col lg={8}>
@@ -87,7 +89,8 @@ const Edit: NextPage = () => {
               && <CreateImageWithTextListHtmlTemplate />}
           </Col>
         </Row>
-      </Container>
+      </Container>}
+      {allowUpdateHtmlMailTemplate === 'Forbid' && <Unauthorized></Unauthorized>}
     </MerchantUserAdminLayout>
   )
 }

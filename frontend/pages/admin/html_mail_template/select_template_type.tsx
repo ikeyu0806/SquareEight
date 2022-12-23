@@ -3,12 +3,17 @@ import type { NextPage } from 'next'
 import { Container, Card, Row, Col } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import CheckIcon from 'components/atoms/CheckIcon'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const New: NextPage = () => {
   const [selectedType, setSelectedType] = useState('ImageWithText')
+  const allowReadHtmlMailTemplate = useSelector((state: RootState) => state.merchantUserPermission.allowReadHtmlMailTemplate)
+
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowReadHtmlMailTemplate === 'Allow' && <Container>
         <Row>
           <Col lg={2}></Col>
           <Col lg={8}>
@@ -76,7 +81,8 @@ const New: NextPage = () => {
             </Row>
           </Col>
         </Row>
-      </Container>
+      </Container>}
+      {allowReadHtmlMailTemplate === 'Forbid' && <Unauthorized></Unauthorized>}
     </MerchantUserAdminLayout>
   )
 }

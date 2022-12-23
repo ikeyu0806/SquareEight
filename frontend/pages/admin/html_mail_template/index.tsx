@@ -12,14 +12,18 @@ import { showSendHtmlMessageModalChanged,
          messageTemplateTypeChanged,
          selectedHtmlMailTemplateChanged,
          selectedHtmlMailTemplatePublicIdChanged } from 'redux/sendMailSlice'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 import { customerPublicIdChanged } from 'redux/customerSlice'
 import { publicIdChanged } from 'redux/customerGroupSlice'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [htmlTemplates, setHtmlTemplates] = useState<HtmlMailTemplateParam[]>([])
+  const allowReadHtmlMailTemplate = useSelector((state: RootState) => state.merchantUserPermission.allowReadHtmlMailTemplate)
+  const allowUpdateHtmlMailTemplate = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateHtmlMailTemplate)
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/html_mail_templates`,
@@ -41,7 +45,7 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowReadHtmlMailTemplate === 'Allow' && <Container>
         <a href='/admin/html_mail_template/select_template_type' className='btn btn-primary'>新規作成</a>
         <h3 className='mt10'>HTMLメールテンプレート一覧</h3>
         <Table bordered>
@@ -49,7 +53,7 @@ const Index: NextPage = () => {
             <tr>
               <th>テンプレート名</th>
               <th>メールのタイトル</th>
-              <th>編集</th>
+              {allowUpdateHtmlMailTemplate === 'Allow' && <th>編集</th>}
               <th>メール送信</th>
             </tr>
           </thead>
@@ -59,9 +63,9 @@ const Index: NextPage = () => {
                 <tr key={i}>
                   <td>{template.name}</td>
                   <td>{template.mail_title}</td>
-                  <td className='text-center'>
+                  {allowUpdateHtmlMailTemplate === 'Allow' && <td className='text-center'>
                     <a className='btn btn-primary' href={`/admin/html_mail_template/${template.public_id}/edit?template_type=${template.template_type}`}>編集</a>
-                  </td>
+                  </td>}
                   <td className='text-center'>
                     <Button onClick={() => {
                       dispatch(showSendHtmlMessageModalChanged(true))
@@ -74,7 +78,8 @@ const Index: NextPage = () => {
             })}
           </tbody>
         </Table>
-      </Container>
+      </Container>}
+      {allowReadHtmlMailTemplate === 'Forbid' && <Unauthorized></Unauthorized>}
       <SendHtmlMessageModal></SendHtmlMessageModal>
     </MerchantUserAdminLayout>
   )
