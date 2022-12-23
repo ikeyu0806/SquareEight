@@ -11,16 +11,18 @@ import EditMessageTemplateModal from 'components/templates/EditMessageTemplateMo
 import axios from 'axios'
 import Unauthorized from 'components/templates/Unauthorized'
 import SendMessageTemplateModal from 'components/templates/SendMessageTemplateModal'
-import { selectedMessageTemplateChanged, showSendMessageTemplateModalChanged } from 'redux/sendMailSlice'
+import { customerPublicIdChanged } from 'redux/customerSlice'
+import { selectedMessageTemplateChanged,
+         showSendMessageTemplateModalChanged,
+         messageTemplateTypeChanged } from 'redux/sendMailSlice'
 import { showEditMessageTemplateModalChanged,
          showCreateMessageTemplateModalChanged,
          publicIdChanged,
          nameChanged,
          titleChanged,
          contentChanged,
-         customersChanged,
-         customerGroupsChanged,
          pageLinksChanged } from 'redux/messageTemplateSlice'
+import { customersChanged, customerGroupsChanged } from 'redux/sendMailSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -37,11 +39,15 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
+      console.log(response.data)
+      dispatch(messageTemplateTypeChanged('messageTemplate'))
       setMessageTemplates(response.data.message_templates)
       // 顧客情報更新
       dispatch(customersChanged(response.data.customers))
       // 顧客グループ情報更新
       dispatch(customerGroupsChanged(response.data.customer_groups))
+      dispatch(customerPublicIdChanged(response.data.customers[0].public_id))
+      dispatch(publicIdChanged(response.data.customer_groups[0].public_id))
       dispatch(pageLinksChanged(response.data.page_links))
     }).catch((error) => {
       console.log(error)
