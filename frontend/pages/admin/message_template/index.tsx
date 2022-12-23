@@ -10,6 +10,8 @@ import CreateMessageTemplateModal from 'components/templates/CreateMessageTempla
 import EditMessageTemplateModal from 'components/templates/EditMessageTemplateModal'
 import axios from 'axios'
 import Unauthorized from 'components/templates/Unauthorized'
+import SendMessageTemplateModal from 'components/templates/SendMessageTemplateModal'
+import { selectedMessageTemplateChanged, showSendMessageTemplateModalChanged } from 'redux/sendMailSlice'
 import { showEditMessageTemplateModalChanged,
          showCreateMessageTemplateModalChanged,
          publicIdChanged,
@@ -88,7 +90,12 @@ const Index: NextPage = () => {
                       </div>
                     </Col>}
                   </td>
-                  <td>1</td>
+                  <td className='text-center'>
+                    <Button onClick={() => {
+                      dispatch(selectedMessageTemplateChanged(message))
+                      dispatch(showSendMessageTemplateModalChanged(true))
+                    }}>送信</Button>
+                  </td>
                 </tr>
                 )
               })}
@@ -98,6 +105,7 @@ const Index: NextPage = () => {
       {allowReadMessageTemplate === 'Forbid' && <Unauthorized />}
       <CreateMessageTemplateModal></CreateMessageTemplateModal>
       <EditMessageTemplateModal></EditMessageTemplateModal>
+      <SendMessageTemplateModal></SendMessageTemplateModal>
     </MerchantUserAdminLayout>
   )
 }

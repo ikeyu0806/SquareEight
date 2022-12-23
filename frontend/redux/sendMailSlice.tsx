@@ -2,11 +2,13 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { HtmlMailTemplateParam } from 'interfaces/HtmlMailTemplateParam'
 import { CustomerParam } from 'interfaces/CustomerParam'
 import { CustomerGroupParam } from 'interfaces/CustomerGroupParam'
+import { MessageTemplateParam } from 'interfaces/MessageTemplateParam'
 
 export const sendMailSlice = createSlice({
   name: 'sendMail',
   initialState: {
     showSendHtmlMessageModal: false,
+    showSendMessageTemplateModal: false,
     // Customer, CustomerGroup
     sendTargetType: 'customer',
     // notUse, messageTemplate, htmlMailTemplate
@@ -16,11 +18,15 @@ export const sendMailSlice = createSlice({
     customerGroups: [] as CustomerGroupParam[],
     selectedCustomer: {} as CustomerParam,
     selectedCustomerGroup: {} as CustomerGroupParam,
-    selectedHtmlMailTemplatePublicId: ''
+    selectedHtmlMailTemplatePublicId: '',
+    selectedMessageTemplate: {} as MessageTemplateParam,
   },
   reducers: {
     showSendHtmlMessageModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showSendHtmlMessageModal = action.payload
+    },
+    showSendMessageTemplateModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showSendMessageTemplateModal = action.payload
     },
     sendTargetTypeChanged: (state, action: PayloadAction<string>) => {
       state.sendTargetType = action.payload
@@ -46,10 +52,14 @@ export const sendMailSlice = createSlice({
     selectedHtmlMailTemplatePublicIdChanged: (state, action: PayloadAction<string>) => {
       state.selectedHtmlMailTemplatePublicId = action.payload
     },
+    selectedMessageTemplateChanged: (state, action: PayloadAction<MessageTemplateParam>) => {
+      state.selectedMessageTemplate = action.payload
+    },
   },
 })
 
 export const { showSendHtmlMessageModalChanged } = sendMailSlice.actions
+export const { showSendMessageTemplateModalChanged } = sendMailSlice.actions
 export const { sendTargetTypeChanged } = sendMailSlice.actions
 export const { messageTemplateTypeChanged } = sendMailSlice.actions
 export const { selectedHtmlMailTemplateChanged } = sendMailSlice.actions
@@ -58,5 +68,6 @@ export const { customerGroupsChanged } = sendMailSlice.actions
 export const { selectedCustomerChanged } = sendMailSlice.actions
 export const { selectedCustomerGroupChanged } = sendMailSlice.actions
 export const { selectedHtmlMailTemplatePublicIdChanged } = sendMailSlice.actions
+export const { selectedMessageTemplateChanged } = sendMailSlice.actions
 
 export default sendMailSlice.reducer
