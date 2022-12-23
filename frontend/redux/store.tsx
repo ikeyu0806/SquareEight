@@ -33,6 +33,7 @@ import htmlMailTemplateReducer from './htmlMailTemplateSlice'
 import sendMailReducer from './sendMailSlice'
 import sendMailHistoryReducer from './sendMailHistorySlice'
 import sendMailReservationReducer from './sendMailReservationSlice'
+import sendLineScheduleReducer from './sendLineScheduleSlice'
 
 export const store = configureStore({
   reducer: {
@@ -69,7 +70,8 @@ export const store = configureStore({
     htmlMailTemplate: htmlMailTemplateReducer,
     sendMail: sendMailReducer,
     sendMailHistory: sendMailHistoryReducer,
-    sendMailReservation: sendMailReservationReducer
+    sendMailReservation: sendMailReservationReducer,
+    sendLineSchedule: sendLineScheduleReducer
   },
 })
 
