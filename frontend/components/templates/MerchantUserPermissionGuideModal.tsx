@@ -197,6 +197,18 @@ const MerchantUserPermissionGuideModal = (): JSX.Element => {
                     <td className='text-center'>×</td>
                   </tr>
                   <tr>
+                    <td className='text-center'>HTMLメールテンプレートの閲覧</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>○</td>
+                  </tr>
+                  <tr>
+                    <td className='text-center'>HTMLメールテンプレートの登録・更新・削除</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>○</td>
+                    <td className='text-center'>×</td>
+                  </tr>
+                  <tr>
                     <td className='text-center'>Webページの閲覧</td>
                     <td className='text-center'>○</td>
                     <td className='text-center'>○</td>

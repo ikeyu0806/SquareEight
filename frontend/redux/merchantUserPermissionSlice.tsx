@@ -46,6 +46,10 @@ export const merchantUserPermissionSlice = createSlice({
     allowCreateMessageTemplate: 'Unconfirmed',
     allowUpdateMessageTemplate: 'Unconfirmed',
     allowDeleteMessageTemplate: 'Unconfirmed',
+    allowReadHtmlMailTemplate: 'Unconfirmed',
+    allowCreateHtmlMailTemplate: 'Unconfirmed',
+    allowUpdateHtmlMailTemplate: 'Unconfirmed',
+    allowDeleteHtmlMailTemplate: 'Unconfirmed',
     allowReadWebpage: 'Unconfirmed',
     allowCreateWebpage: 'Unconfirmed',
     allowUpdateWebpage: 'Unconfirmed',
@@ -201,6 +205,18 @@ export const merchantUserPermissionSlice = createSlice({
     allowDeleteMessageTemplateChanged: (state, action: PayloadAction<string>) => {
       state.allowDeleteMessageTemplate = action.payload
     },
+    allowReadHtmlMailTemplateChanged: (state, action: PayloadAction<string>) => {
+      state.allowReadHtmlMailTemplate = action.payload
+    },
+    allowCreateHtmlMailTemplateChanged: (state, action: PayloadAction<string>) => {
+      state.allowCreateHtmlMailTemplate = action.payload
+    },
+    allowUpdateHtmlMailTemplateChanged: (state, action: PayloadAction<string>) => {
+      state.allowUpdateHtmlMailTemplate = action.payload
+    },
+    allowDeleteHtmlMailTemplateChanged: (state, action: PayloadAction<string>) => {
+      state.allowDeleteHtmlMailTemplate = action.payload
+    },
     allowReadWebpageChanged: (state, action: PayloadAction<string>) => {
       state.allowReadWebpage = action.payload
     },
@@ -319,6 +335,10 @@ export const { allowReadMessageTemplateChanged } = merchantUserPermissionSlice.a
 export const { allowCreateMessageTemplateChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateMessageTemplateChanged } = merchantUserPermissionSlice.actions
 export const { allowDeleteMessageTemplateChanged } = merchantUserPermissionSlice.actions
+export const { allowReadHtmlMailTemplateChanged } = merchantUserPermissionSlice.actions
+export const { allowCreateHtmlMailTemplateChanged } = merchantUserPermissionSlice.actions
+export const { allowUpdateHtmlMailTemplateChanged } = merchantUserPermissionSlice.actions
+export const { allowDeleteHtmlMailTemplateChanged } = merchantUserPermissionSlice.actions
 export const { allowReadWebpageChanged } = merchantUserPermissionSlice.actions
 export const { allowCreateWebpageChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateWebpageChanged } = merchantUserPermissionSlice.actions
