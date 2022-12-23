@@ -11,6 +11,7 @@ const LineOfficialAccountModal = (): JSX.Element => {
   const showLineOfficialAccountModal = useSelector((state: RootState) => state.account.showLineOfficialAccountModal)
   const lineOfficialAccounts =  useSelector((state: RootState) => state.account.lineOfficialAccounts)
   const lineUserPublicId = useSelector((state: RootState) => state.lineUser.lineUserPublicId)
+
   return (
     <>
       <Modal show={showLineOfficialAccountModal}>
