@@ -8,6 +8,8 @@ import { sendTargetTypeChanged,
          showSendHtmlMessageModalChanged,
          selectedCustomerChanged,
          selectedCustomerGroupChanged } from 'redux/sendMailSlice'
+import { showSendMailScheduleModalChanged } from 'redux/sendMailReservationSlice'
+import SendMailScheduleModal from 'components/organisms/SendMailScheduleModal'
 
 const SendHtmlMessageModal = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -42,59 +44,65 @@ const SendHtmlMessageModal = () => {
   }
 
   return (
-    <Modal show={showSendHtmlMessageModal}>
-     <Modal.Header>送信先を選択してください</Modal.Header> 
-     <Modal.Body>
-        <Form.Check
-          checked={sendTargetType === 'customer'}
-          onChange={() => dispatch(sendTargetTypeChanged('customer'))}
-          id='selectCustomer'
-          label='顧客'
-          type='radio'/>
-        <Form.Check
-          checked={sendTargetType === 'customerGroup'}
-          onChange={() => dispatch(sendTargetTypeChanged('customerGroup'))}
-          id='selectCustomerGroup'
-          label='顧客グループ'
-          type='radio'/>
-        {sendTargetType === 'customer' && 
-          customers.map((customer, i) => {
-            return(
-              <Form.Check
-                className='ml10'
-                type='radio'
-                name='selectCustomer'
-                id={String(customer.id + i)}
-                label={<>{customer.last_name}{customer.full_name}</>}
-                key={i}
-                onClick={() => dispatch(selectedCustomerChanged(customer))}
-              />
-            )
-          })
-        }
-        {sendTargetType === 'customerGroup' && 
-          customerGroups.map((group, i) => {
-            return(
-              <Form.Check
-                className='ml10'
-                type='radio'
-                name='selectCustomerGroup'
-                id={String(group.id + i)}
-                label={group.name}
-                key={i}
-                onClick={() => dispatch(selectedCustomerGroupChanged(group))}
-              />
-            )
-          })
-        }
-     </Modal.Body>
-     <Modal.Footer>
-      <Button onClick={onSubmit}>送信する</Button>
-      <Button
-        variant='secondary'
-        onClick={() => dispatch(showSendHtmlMessageModalChanged(false))}>閉じる</Button>
-     </Modal.Footer>
-    </Modal>
+    <>
+      <Modal show={showSendHtmlMessageModal}>
+        <Modal.Header>送信先を選択してください</Modal.Header> 
+        <Modal.Body>
+            <Form.Check
+              checked={sendTargetType === 'customer'}
+              onChange={() => dispatch(sendTargetTypeChanged('customer'))}
+              id='selectCustomer'
+              label='顧客'
+              type='radio'/>
+            <Form.Check
+              checked={sendTargetType === 'customerGroup'}
+              onChange={() => dispatch(sendTargetTypeChanged('customerGroup'))}
+              id='selectCustomerGroup'
+              label='顧客グループ'
+              type='radio'/>
+            {sendTargetType === 'customer' && 
+              customers.map((customer, i) => {
+                return(
+                  <Form.Check
+                    className='ml10'
+                    type='radio'
+                    name='selectCustomer'
+                    id={String(customer.id + i)}
+                    label={<>{customer.last_name}{customer.full_name}</>}
+                    key={i}
+                    onClick={() => dispatch(selectedCustomerChanged(customer))}
+                  />
+                )
+              })
+            }
+            {sendTargetType === 'customerGroup' && 
+              customerGroups.map((group, i) => {
+                return(
+                  <Form.Check
+                    className='ml10'
+                    type='radio'
+                    name='selectCustomerGroup'
+                    id={String(group.id + i)}
+                    label={group.name}
+                    key={i}
+                    onClick={() => dispatch(selectedCustomerGroupChanged(group))}
+                  />
+                )
+              })
+            }
+        </Modal.Body>
+        <Modal.Footer>
+          <Button onClick={() => dispatch(showSendMailScheduleModalChanged(true))}>
+            送信予約する
+          </Button>
+          <Button onClick={onSubmit}>送信する</Button>
+          <Button
+            variant='secondary'
+            onClick={() => dispatch(showSendHtmlMessageModalChanged(false))}>閉じる</Button>
+        </Modal.Footer>
+        </Modal>
+      <SendMailScheduleModal></SendMailScheduleModal>
+    </>
   )
 }
 
