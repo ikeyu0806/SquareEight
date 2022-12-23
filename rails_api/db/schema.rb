@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_23_041449) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_23_083737) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -663,6 +663,19 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_23_041449) do
     t.string "name", null: false
     t.integer "quantity", null: false
     t.string "public_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "send_line_schedules", force: :cascade do |t|
+    t.string "public_id", null: false
+    t.integer "account_id", null: false
+    t.integer "merchant_user_id"
+    t.integer "line_user_id", null: false
+    t.integer "line_official_account_id", null: false
+    t.string "message", null: false
+    t.datetime "scheduled_datetime", null: false
+    t.integer "send_status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
