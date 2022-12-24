@@ -104,6 +104,12 @@ class Api::Internal::LineOfficialAccountsController < ApplicationController
       text: message
     })
     raise "送信失敗しました" if line_response.code != "200"
+    current_merchant_user.account.send_line_histories.create!(
+      line_official_account_id: line_account.id,
+      line_user_id: line_user.id,
+      message: message,
+      merchant_user_id: current_merchant_user.id
+    )
     render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
