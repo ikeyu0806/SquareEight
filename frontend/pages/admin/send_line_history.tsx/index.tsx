@@ -16,14 +16,15 @@ const Index: NextPage = () => {
   useEffect(() => {
     const fetchResources = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/send_mail_histories`, {
+        `${process.env.BACKEND_URL}/api/internal/send_line_histories`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
       .then(function (response) {
-        setSendLineHistories(response.data.send_mail_histories)
+        console.log(response.data)
+        setSendLineHistories(response.data.send_line_histories)
       })
       .catch(error => {
         console.log(error)
