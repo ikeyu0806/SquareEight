@@ -674,6 +674,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_24_063353) do
     t.integer "line_official_account_id", null: false
     t.string "message", null: false
     t.string "merchant_user_id"
+    t.integer "send_status", default: 0, null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
