@@ -1,5 +1,5 @@
-import { Card, Row, Col } from 'react-bootstrap';
-import TextWithCheckIcon from './TextWithCheckIcon';
+import { Card, Row, Col } from 'react-bootstrap'
+import TextWithCheckIcon from './TextWithCheckIcon'
 import cardStyles from 'styles/Home.module.css'
 
 const FreePlanCard = (): JSX.Element => {

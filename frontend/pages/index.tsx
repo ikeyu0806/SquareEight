@@ -7,6 +7,8 @@ import LightPlanCard from 'components/molecules/LightPlanCard'
 import StandardPlanCard from 'components/molecules/StarndardPlanCard'
 import PremiumPlanCard from 'components/molecules/PremiumPlanCard'
 import CampaignAlert from 'components/atoms/CampaignAlert'
+import cardStyles from 'styles/Home.module.css'
+import TextWithCheckIcon from 'components/molecules/TextWithCheckIcon'
 // import SquareEightLogo from 'components/atoms/SquareEightLogo'
 import { Container,
          Navbar,
@@ -237,6 +239,7 @@ const Home: NextPage = () => {
         <div className='text-center mt50 mb50' id='pricing'>
           <h2>料金プラン</h2>
             <div className='mt30 mb30'>
+              <h4>基本プラン</h4>
               <h4>初期費用無料</h4>
             </div>
             <Row>
@@ -254,6 +257,40 @@ const Home: NextPage = () => {
               </Col>
             </Row>
             &thinsp;
+            <hr />
+            <div>
+              <Row>
+                <div className='text-center mb20'>
+                  <h4>エンタープライズ向けプラン</h4>
+                  <h5 className='mt20'>SquareEightの機能をベースにオーダーメイドでエンタープライズ向けシステムを開発します！</h5>
+                  <h5>初期費用・月額料金は無料でお見積もりします！</h5>
+                  <h5 className='mt10'>お問い合わせはこちら</h5>
+                </div>
+                <Col sm={3}></Col>
+                <Col>
+                  <Card>
+                    <Card.Header>
+                      例えばこのようなご要望にお応えします!
+                    </Card.Header>
+                    <Card.Body>
+                    <Col></Col>
+                      <Col xs={11}>
+                        <Card.Text className={cardStyles.plan_description}>
+                          <TextWithCheckIcon text='業種に合わせた販売管理機能の実装' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='自社のブランディングに合わせたホームページや予約ページのデザイン' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='映画館の座席予約ページのようなビジネスに合わせた独自の予約機能' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='他システムとの連携機能' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='動画配信機能の追加' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='LINE公式アカウントでメッセージを受け付けた時のアクション実装' fill={'darkblue'}></TextWithCheckIcon><br/>
+                        </Card.Text>
+                      </Col>
+                      <Col></Col>
+                    </Card.Body>
+                  </Card>
+                </Col>
+                <Col sm={3}></Col>
+              </Row>
+            </div>
         </div>
       </Container>
       <RegularFooter></RegularFooter>
