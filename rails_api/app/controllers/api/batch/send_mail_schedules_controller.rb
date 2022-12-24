@@ -3,7 +3,7 @@ class Api::Batch::SendMailSchedulesController < ApplicationController
 
   def send_same_hour_schedule
     current_datetime = Time.zone.now.strftime("%Y%m%d%H")
-    send_mail_schedules = SendMailSchedule.select{|t| t.scheduled_datetime&.strftime("%Y%m%d%H") == current_datetime}
+    send_mail_schedules = SendMailSchedule.where(send_status: 'Incomplete').select{|t| t.scheduled_datetime&.strftime("%Y%m%d%H") == current_datetime}
     send_mail_schedules.each do |schedule|
       customer = schedule.customer
       case schedule.message_template_type
