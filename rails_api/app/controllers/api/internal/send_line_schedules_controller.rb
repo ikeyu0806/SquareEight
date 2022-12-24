@@ -49,8 +49,7 @@ class Api::Internal::SendLineSchedulesController < ApplicationController
         line_official_account_id: line_official_account.id
       )
     when 'lineOfficialAccountAllUser'
-      customer_group = CustomerGroup.find_by(public_id: send_line_schedules_params[:customer_group_public_id])
-      customer_group.customers.each do |customer|
+      line_official_account.line_users.each do |line_user|
         if send_line_schedules_params[:is_send_payment_request]
           price = send_line_schedules_params[:price]
           stripe_payment_request = current_merchant_user.account
@@ -62,16 +61,16 @@ class Api::Internal::SendLineSchedulesController < ApplicationController
         end
 
         content = MessageTemplate.convert_content(send_line_schedules_params[:message_body], customer.last_name, customer.first_name, price, payment_request_url)
-        current_merchant_user.account.send_mail_schedules.create!(
-        merchant_user_id: current_merchant_user.id,
-        customer_id: customer.id,
-        scheduled_datetime: scheduled_datetime,
-        email: customer.email,
-        mail_title: mail_title,
-        message_body: message_body,
-        message_template_type: send_line_schedules_params[:message_template_type],
-        html_template_type: html_template_type,
-      )
+
+        customer = line_user.customer
+
+        current_merchant_user.account.send_line_schedules.create!(
+          merchant_user_id: current_merchant_user.id,
+          scheduled_datetime: scheduled_datetime,
+          message: content,
+          line_user_id: line_user.id,
+          line_official_account_id: line_official_account.id
+        )
       end
     else
       raise 'send_target_type is invalid'
