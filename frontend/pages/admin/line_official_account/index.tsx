@@ -15,6 +15,7 @@ import BroadcastLineAccountFriendsModal from 'components/templates/BroadcastLine
 import { RootState } from 'redux/store'
 import Unauthorized from 'components/templates/Unauthorized'
 import { sendTargetTypeChanged } from 'redux/sendLineScheduleSlice'
+import { selectedLineOfficialAccountPublicIdChanged } from 'redux/sendLineScheduleSlice'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -80,6 +81,7 @@ const Index: NextPage = () => {
                             onClick={() => {
                               dispatch(showPushMessageModalChanged(true));
                               dispatch(publicIdChanged(account.public_id))
+                              dispatch(selectedLineOfficialAccountPublicIdChanged(account.public_id))
                             }}/>
                         </div>
                       </Col>

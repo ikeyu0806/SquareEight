@@ -11,6 +11,8 @@ import MessageTemplateContentForm from 'components/atoms/MessageTemplateContentF
 import MessageTemplateVariables from 'components/molecules/MessageTemplateVariables'
 import PaymentRequestSendForm from 'components/molecules/PaymentRequestSendForm'
 import SelectMessageTemplateForm from 'components/molecules/SelectMessageTemplateForm'
+import SendLineScheduleModal from 'components/organisms/SendLineScheduleModal'
+import { showSendLineScheduleModalChanged } from 'redux/sendLineScheduleSlice'
 
 const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -51,31 +53,37 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
   }
 
   return (
-    <Modal show={showPushMessageModal} fullscreen={true}>
-      <Modal.Header>LINEメッセージを送信します</Modal.Header>
-      <Modal.Body>
-        <Row>
-          <Col md={5}>
-            メッセージ本文
-            <MessageTemplateContentForm />
-          </Col>
-          <Col md={3}>
-            <PaymentRequestSendForm />
-            <hr />
-            <SelectMessageTemplateForm />
-          </Col>
-          <Col>
-            <MessageTemplateVariables />
-          </Col>
-        </Row>
-      </Modal.Body>
-      <Modal.Footer>
-        <LineBrandColorButton onClick={onSubmit} text='送信する'></LineBrandColorButton>
-        <Button variant='secondary' onClick={() => dispatch(showPushMessageModalChanged(false))}>
-          閉じる
-        </Button>
-      </Modal.Footer>
-    </Modal>
+    <>
+      <Modal show={showPushMessageModal} fullscreen={true}>
+        <Modal.Header>LINEメッセージを送信します</Modal.Header>
+        <Modal.Body>
+          <Row>
+            <Col md={5}>
+              メッセージ本文
+              <MessageTemplateContentForm />
+            </Col>
+            <Col md={3}>
+              <PaymentRequestSendForm />
+              <hr />
+              <SelectMessageTemplateForm />
+            </Col>
+            <Col>
+              <MessageTemplateVariables />
+            </Col>
+          </Row>
+        </Modal.Body>
+        <Modal.Footer>
+          <LineBrandColorButton onClick={() => {
+              dispatch(showSendLineScheduleModalChanged(true))
+            }} text='送信予約する'></LineBrandColorButton>
+          <LineBrandColorButton onClick={onSubmit} text='送信する'></LineBrandColorButton>
+          <Button variant='secondary' onClick={() => dispatch(showPushMessageModalChanged(false))}>
+            閉じる
+          </Button>
+        </Modal.Footer>
+      </Modal>
+      <SendLineScheduleModal></SendLineScheduleModal>
+    </>
   )
 }
 

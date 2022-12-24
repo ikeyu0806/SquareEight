@@ -60,9 +60,15 @@ class Api::Internal::SendLineSchedulesController < ApplicationController
           payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.public_id
         end
 
-        content = MessageTemplate.convert_content(send_line_schedules_params[:message_body], customer.last_name, customer.first_name, price, payment_request_url)
-
         customer = line_user.customer
+
+        if customer.blank?
+          customer = line_user.customer.create!(
+            account_id: current_merchant_user.account.id
+          )
+        end
+
+        content = MessageTemplate.convert_content(send_line_schedules_params[:message_body], customer.last_name, customer.first_name, price, payment_request_url)
 
         current_merchant_user.account.send_line_schedules.create!(
           merchant_user_id: current_merchant_user.id,
