@@ -4,9 +4,12 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { titleChanged, contentChanged, publicIdChanged } from 'redux/messageTemplateSlice'
 import { messageTemplateTypeChanged, selectedHtmlMailTemplateChanged } from 'redux/sendMailSlice'
-import { htmlMailTemplateChanged } from 'redux/htmlMailTemplateSlice'
 
-const SelectMessageTemplateForm = (): JSX.Element => {
+interface Props {
+  hideHtmlMailTemplate?: boolean
+}
+
+const SelectMessageTemplateForm = ({hideHtmlMailTemplate}: Props): JSX.Element => {
   const dispatch = useDispatch()
   const messageTemplateType = useSelector((state: RootState) => state.sendMail.messageTemplateType)
   const selectedHtmlMailTemplate = useSelector((state: RootState) => state.sendMail.selectedHtmlMailTemplate)
@@ -29,13 +32,13 @@ const SelectMessageTemplateForm = (): JSX.Element => {
         label='メッセージテンプレートから入力'
         onChange={() => dispatch(messageTemplateTypeChanged('messageTemplate'))}
         checked={messageTemplateType === 'messageTemplate'} />
-      <Form.Check
+      {!hideHtmlMailTemplate && <Form.Check
         type='radio'
         name='isUseHtmlMailTemplate'
         id='useHtmlMailTemplate'
         label='HTMLメールテンプレートから送信'
         onChange={() => dispatch(messageTemplateTypeChanged('htmlMailTemplate'))}
-        checked={messageTemplateType === 'htmlMailTemplate'} />
+        checked={messageTemplateType === 'htmlMailTemplate'} />}
       {messageTemplateType === 'messageTemplate' && <div className='ml10'>
         {messageTemplates.map((template, i) => {
           return (

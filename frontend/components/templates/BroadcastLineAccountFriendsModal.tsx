@@ -65,7 +65,7 @@ const BroadcastLineAccountFriendsModal = (): JSX.Element => {
             <Col md={3}>
               <PaymentRequestSendForm />
               <hr />
-              <SelectMessageTemplateForm />
+              <SelectMessageTemplateForm hideHtmlMailTemplate={true} />
             </Col>
             <Col>
               <MessageTemplateVariables />
