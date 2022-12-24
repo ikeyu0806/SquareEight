@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
-export const sendLineHistorySlice = createSlice({
-  name: 'sendLineHistory',
+export const sendLineSlice = createSlice({
+  name: 'sendLine',
   initialState: {
     selectedMessage: '',
     showLineMessageModal: false
@@ -16,7 +16,7 @@ export const sendLineHistorySlice = createSlice({
   },
 })
 
-export const { selectedMessageChanged } = sendLineHistorySlice.actions
-export const { showLineMessageModalChanged } = sendLineHistorySlice.actions
+export const { selectedMessageChanged } = sendLineSlice.actions
+export const { showLineMessageModalChanged } = sendLineSlice.actions
 
-export default sendLineHistorySlice.reducer
+export default sendLineSlice.reducer

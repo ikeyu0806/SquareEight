@@ -1,12 +1,12 @@
 import { Modal, Button, Container, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { showLineMessageModalChanged } from 'redux/sendLineHistorySlice'
+import { showLineMessageModalChanged } from 'redux/sendLineSlice'
 
 const LineMessageBodyModal = () => {
   const dispatch = useDispatch()
-  const selectedMessage = useSelector((state: RootState) => state.sendLineHistory.selectedMessage)
-  const showLineMessageModal = useSelector((state: RootState) => state.sendLineHistory.showLineMessageModal)
+  const selectedMessage = useSelector((state: RootState) => state.sendLine.selectedMessage)
+  const showLineMessageModal = useSelector((state: RootState) => state.sendLine.showLineMessageModal)
 
   return (
     <Modal show={showLineMessageModal} size='lg'>

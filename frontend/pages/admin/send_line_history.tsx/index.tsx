@@ -5,8 +5,9 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { Table, Container, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { SendLineHistoryParam } from 'interfaces/SendLineHistoryParam'
-import MessageBodyModal from 'components/templates/MessageBodyModal'
 import { useDispatch } from 'react-redux'
+import { showLineMessageModalChanged, selectedMessageChanged } from 'redux/sendLineSlice'
+import LineMessageBodyModal from 'components/templates/LineMessageBodyModal'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -53,8 +54,8 @@ const Index: NextPage = () => {
                   <td>{history.line_user_display_name}</td>
                   <td className='text-center'>
                     <Button onClick={() => {
-                      // dispatch(showLineMessageModalChanged(true))
-                      // dispatch(selectedMessageChanged(history.message))
+                      dispatch(showLineMessageModalChanged(true))
+                      dispatch(selectedMessageChanged(history.message))
                     }}>表示する</Button>
                   </td>
                 </tr>
@@ -63,7 +64,7 @@ const Index: NextPage = () => {
           </tbody>
         </Table>
       </Container>
-      <MessageBodyModal></MessageBodyModal>
+      <LineMessageBodyModal></LineMessageBodyModal>
     </MerchantUserAdminLayout>
   )
 }

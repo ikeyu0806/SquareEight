@@ -7,7 +7,7 @@ import { useCookies } from 'react-cookie'
 import { SendLineScheduleParam } from 'interfaces/SendLineScheduleParam'
 import LineMessageBodyModal from 'components/templates/LineMessageBodyModal'
 import { useDispatch } from 'react-redux'
-import { showLineMessageModalChanged, selectedMessageChanged } from 'redux/sendLineHistorySlice'
+import { showLineMessageModalChanged, selectedMessageChanged } from 'redux/sendLineSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
