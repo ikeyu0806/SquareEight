@@ -264,7 +264,7 @@ const Home: NextPage = () => {
                   <h4>エンタープライズ向けプラン</h4>
                   <h5 className='mt20'>SquareEightの機能をベースにオーダーメイドでエンタープライズ向けシステムを開発します！</h5>
                   <h5>初期費用・月額料金は無料でお見積もりします！</h5>
-                  <h5 className='mt10'>お問い合わせはこちら</h5>
+                  <h5 className='mt10'>お問い合わせは<a href='/enterprise_inquiry'>こちら</a></h5>
                 </div>
                 <Col sm={3}></Col>
                 <Col>

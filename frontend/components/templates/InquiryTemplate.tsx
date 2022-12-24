@@ -52,7 +52,7 @@ const InquiryTemplate = (): JSX.Element => {
                   rows={20} />
               </Form.Group>
             </Form>
-            <div className='text-center'>
+            <div className='text-center mt10'>
               <Button size='lg' onClick={onSubmit} disabled={!email || !content}>送信</Button>
             </div>
           </Col>

@@ -6,7 +6,9 @@
   </head>
   <body>
       <p>以下の内容でお問い合わせを受け付けました</p>
+      <div>お名前: <%= @name %></div>
       <div>メールアドレス: <%= @email %></div>
+      <div>企業名・屋号名・団体名: <%= @business_name %></div>
       <br />
       <div style="white-space:pre-wrap; word-wrap:break-word;"><%= @content %></div>
     <br/>

@@ -113,6 +113,7 @@ Rails.application.routes.draw do
       post 'resources', to: 'resources#create'
       post 'resources/:public_id/update', to: 'resources#update'
       post 'inquiry', to: 'inquiry#send_mail_to_admin'
+      post 'enterprise_inquiry', to: 'enterprise_inquiry#send_mail_to_admin'
       get 'reserve_frames/settable_relation_data', to: 'reserve_frames#settable_relation_data'
       get 'reserve_frames/:public_id', to: 'reserve_frames#show'
       get 'reserve_frames', to: 'reserve_frames#index'
