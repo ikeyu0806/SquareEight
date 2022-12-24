@@ -26,7 +26,7 @@ const Index: NextPage = () => {
       )
       .then(function (response) {
         console.log(response.data)
-        setSendLineSchedules(response.data.send_mail_schedules)
+        setSendLineSchedules(response.data.send_line_schedules)
       })
       .catch(error => {
         console.log(error)
@@ -42,7 +42,7 @@ const Index: NextPage = () => {
           <thead>
             <tr>
               <th>送信元LINE公式アカウント</th>
-              <th>対象メールアドレス</th>
+              <th>対象LINEユーザ名</th>
               <th>顧客名</th>
               <th>本文</th>
               <th>送信予定日時</th>
@@ -53,7 +53,7 @@ const Index: NextPage = () => {
               return (
                 <tr key={i} style={schedule.past_flg ? {backgroundColor: 'lightgray'} : {}}>
                   <td>{schedule.line_official_account_name}</td>
-                  <td>{schedule.email}</td>
+                  <td>{schedule.line_user_display_name}</td>
                   <td>{schedule.customer_fullname}</td>
                   <td className='text-center'>
                   <Button onClick={() => {

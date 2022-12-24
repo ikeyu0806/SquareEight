@@ -4,6 +4,7 @@ class SendLineSchedule < ApplicationRecord
 
   belongs_to :account
   belongs_to :line_official_account
+  belongs_to :line_user
   has_one :customer, primary_key: :customer_id ,foreign_key: :id
   has_one :stripe_payment_request, primary_key: :stripe_payment_request_id ,foreign_key: :id
 
@@ -19,11 +20,11 @@ class SendLineSchedule < ApplicationRecord
     scheduled_datetime < Time.zone.now
   end
 
-  def parsed_message_body
-    htmlMailTemplate? ? JSON.parse(message_body) : message_body
-  end
-
   def line_official_account_name
     line_official_account.name
+  end
+
+  def line_user_display_name
+    line_user.line_display_name
   end
 end

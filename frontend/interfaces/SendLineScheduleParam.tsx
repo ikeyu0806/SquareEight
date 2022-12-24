@@ -7,5 +7,6 @@ export interface SendLineScheduleParam {
   display_scheduled_datetime: string
   customer_fullname: string
   past_flg: boolean
+  line_user_display_name: string
   line_official_account_name: string
 }
