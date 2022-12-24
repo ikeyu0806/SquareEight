@@ -12,20 +12,28 @@ class Api::Internal::SendLineSchedulesController < ApplicationController
 
   def create
     scheduled_datetime = Time.zone.parse("#{send_line_schedules_params[:scheduled_date]} #{send_line_schedules_params[:scheduled_time]}")
-  
-    title = customer_params[:mail_title]
+    line_official_account = LineOfficialAccount.find_by(public_id: send_line_schedules_params[:selected_line_official_account_public_id])
+
     price = ''
     payment_request_url = ''
   
     case send_line_schedules_params[:send_target_type]
-    when 'customer'
-      customer = Customer.find_by(public_id: send_line_schedules_params[:customer_public_id])
+    when 'lineUser'
+      line_user = LineUser.find_by(public_id: send_line_schedules_params[:selected_line_user][:public_id])
 
-      if customer_params[:is_send_payment_request]
-        price = customer_params[:price]
+      customer = line_user.customer
+
+      if customer.blank?
+        customer = line_user.customer.create!(
+          account_id: current_merchant_user.account.id
+        )
+      end
+
+      if send_line_schedules_params[:is_send_payment_request]
+        price = send_line_schedules_params[:price]
         stripe_payment_request = current_merchant_user.account
                                  .stripe_payment_requests
-                                 .create!(name: customer_params[:payment_request_name],
+                                 .create!(name: send_line_schedules_params[:payment_request_name],
                                           price: price,
                                           customer_id: customer.id,
                                           send_method: 'Email')
@@ -33,26 +41,22 @@ class Api::Internal::SendLineSchedulesController < ApplicationController
       end
 
       content = MessageTemplate.convert_content(send_line_schedules_params[:message_body], customer.last_name, customer.first_name, price, payment_request_url)
-      current_merchant_user.account.send_mail_schedules.create!(
+      current_merchant_user.account.send_line_schedules.create!(
         merchant_user_id: current_merchant_user.id,
-        customer_id: customer.id,
         scheduled_datetime: scheduled_datetime,
-        email: customer.email,
-        mail_title: mail_title,
-        message_body: message_body,
-        message_template_type: send_line_schedules_params[:message_template_type],
-        html_template_type: html_template_type,
+        message: content,
+        line_user_id: line_user.id,
+        line_official_account_id: line_official_account.id
       )
-    when 'customerGroup'
+    when 'lineOfficialAccountAllUser'
       customer_group = CustomerGroup.find_by(public_id: send_line_schedules_params[:customer_group_public_id])
       customer_group.customers.each do |customer|
-        if customer_params[:is_send_payment_request]
-          price = customer_params[:price]
+        if send_line_schedules_params[:is_send_payment_request]
+          price = send_line_schedules_params[:price]
           stripe_payment_request = current_merchant_user.account
                                    .stripe_payment_requests
-                                   .create!(name: customer_params[:payment_request_name],
+                                   .create!(name: send_line_schedules_params[:payment_request_name],
                                             price: price,
-                                            customer_id: customer.id,
                                             send_method: 'Email')
           payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.public_id
         end
@@ -88,6 +92,9 @@ class Api::Internal::SendLineSchedulesController < ApplicationController
                   :message_body,
                   :is_send_payment_request,
                   :price,
-                  :payment_request_name)
+                  :payment_request_name,
+                  :send_target_type,
+                  :selected_line_official_account_public_id,
+                  selected_line_user: [:public_id, :line_user_id, :line_display_name, :line_picture_url])
   end
 end

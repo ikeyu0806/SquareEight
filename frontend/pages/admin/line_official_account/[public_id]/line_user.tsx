@@ -14,6 +14,8 @@ import { lineUserPublicIdChanged } from 'redux/lineUserSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
+import { sendTargetTypeChanged } from 'redux/sendLineScheduleSlice'
+import { selectedLineUserChanged, selectedLineOfficialAccountPublicIdChanged } from 'redux/sendLineScheduleSlice'
 
 const LineUser: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -32,6 +34,8 @@ const LineUser: NextPage = () => {
       }
     }).then((response) => {
       console.log(response.data)
+      dispatch(sendTargetTypeChanged('lineUser'))
+      dispatch(selectedLineOfficialAccountPublicIdChanged(String(router.query.public_id)))
       setLineUsers(response.data.line_users)
       dispatch(publicIdChanged(String(router.query.public_id)))
       dispatch(messageTemplatesChanged(response.data.message_templates))
@@ -40,9 +44,10 @@ const LineUser: NextPage = () => {
     })
   }, [cookies._square_eight_merchant_session, router.query.public_id, dispatch])
 
-  const clickSendMessageButton = (lineUserPublicId: string) => {
+  const clickSendMessageButton = (lineUser: LineUserParam) => {
     dispatch(showPushMessageModalChanged(true))
-    dispatch(lineUserPublicIdChanged(lineUserPublicId))
+    dispatch(lineUserPublicIdChanged(lineUser.public_id))
+    dispatch(selectedLineUserChanged(lineUser))
   }
 
   return (
@@ -69,7 +74,7 @@ const LineUser: NextPage = () => {
                       <Col>
                         <LineBrandColorButton
                           text='メッセージを送る'
-                          onClick={() => clickSendMessageButton(line_user.public_id)}
+                          onClick={() => clickSendMessageButton(line_user)}
                         ></LineBrandColorButton>
                       </Col>}
                     </Row>

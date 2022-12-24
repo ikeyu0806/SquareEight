@@ -14,6 +14,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import BroadcastLineAccountFriendsModal from 'components/templates/BroadcastLineAccountFriendsModal'
 import { RootState } from 'redux/store'
 import Unauthorized from 'components/templates/Unauthorized'
+import { sendTargetTypeChanged } from 'redux/sendLineScheduleSlice'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -29,6 +30,7 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
+      dispatch(sendTargetTypeChanged('lineOfficialAccountAllUser'))
       setLineOfficialAccounts(response.data.line_official_accounts)
       dispatch(messageTemplatesChanged(response.data.message_templates))
     }).catch((error) => {

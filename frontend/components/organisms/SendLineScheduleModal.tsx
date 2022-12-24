@@ -14,8 +14,6 @@ const SendLineScheduleModal = (): JSX.Element => {
   const showSendLineScheduleModal = useSelector((state: RootState) => state.sendLineSchedule.showSendLineScheduleModal)
   const scheduledDate = useSelector((state: RootState) => state.sendMailReservation.scheduledDate)
   const scheduledTime = useSelector((state: RootState) => state.sendMailReservation.scheduledTime)
-  const customerPublicId =  useSelector((state: RootState) => state.customer.customerPublicId)
-  const customerGroupPublicId =  useSelector((state: RootState) => state.customerGroup.publicId)
   const messageTemplatePublicId =  useSelector((state: RootState) => state.messageTemplate.publicId)
   const title = useSelector((state: RootState) => state.messageTemplate.title)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
@@ -24,14 +22,14 @@ const SendLineScheduleModal = (): JSX.Element => {
   const isSendPaymentRequest = useSelector((state: RootState) => state.lineOfficialAccount.isSendPaymentRequest)
   const selectedHtmlMailTemplate = useSelector((state: RootState) => state.sendMail.selectedHtmlMailTemplate)
   const messageTemplateType = useSelector((state: RootState) => state.sendMail.messageTemplateType)
-  const sendTargetType = useSelector((state: RootState) => state.sendMail.sendTargetType)
+  const sendTargetType = useSelector((state: RootState) => state.sendLineSchedule.sendTargetType)
+  const selectedLineUser = useSelector((state: RootState) => state.sendLineSchedule.selectedLineUser)
+  const selectedLineOfficialAccountPublicId = useSelector((state: RootState) => state.sendLineSchedule.selectedLineOfficialAccountPublicId)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/send_line_schedules`,
     {
       send_line_schedules: {
-        customer_public_id: customerPublicId,
-        customer_group_public_id: customerGroupPublicId,
         scheduled_date: scheduledDate,
         scheduled_time: scheduledTime,
         mail_title: title,
@@ -42,7 +40,9 @@ const SendLineScheduleModal = (): JSX.Element => {
         message_template_public_id: messageTemplatePublicId,
         selected_html_mail_template: selectedHtmlMailTemplate,
         message_template_type: messageTemplateType,
-        send_target_type: sendTargetType
+        send_target_type: sendTargetType,
+        selected_line_user: selectedLineUser,
+        selected_line_official_account_public_id: selectedLineOfficialAccountPublicId
       }
     },
     {
