@@ -5,10 +5,9 @@ import { Container, Table, Button } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { SendLineScheduleParam } from 'interfaces/SendLineScheduleParam'
-import MessageBodyModal from 'components/templates/MessageBodyModal'
+import LineMessageBodyModal from 'components/templates/LineMessageBodyModal'
 import { useDispatch } from 'react-redux'
-import {  showMessageBodyModalChanged,
-          selectedMessageBodyChanged } from 'redux/sendMailHistorySlice'
+import { showLineMessageModalChanged, selectedMessageChanged } from 'redux/sendLineHistorySlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -57,8 +56,8 @@ const Index: NextPage = () => {
                   <td>{schedule.customer_fullname}</td>
                   <td className='text-center'>
                   <Button onClick={() => {
-                    dispatch(showMessageBodyModalChanged(true))
-                    dispatch(selectedMessageBodyChanged(schedule.message))
+                    dispatch(showLineMessageModalChanged(true))
+                    dispatch(selectedMessageChanged(schedule.message))
                   }}>表示する</Button>
                 </td>
                   <td>{schedule.display_scheduled_datetime}</td>
@@ -68,7 +67,7 @@ const Index: NextPage = () => {
           </tbody>
         </Table>
       </Container>
-      <MessageBodyModal></MessageBodyModal>
+      <LineMessageBodyModal></LineMessageBodyModal>
     </MerchantUserAdminLayout>
   )
 }
