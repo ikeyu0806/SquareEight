@@ -279,7 +279,10 @@ const Home: NextPage = () => {
                           <TextWithCheckIcon text='自社のブランディングに合わせたホームページや予約ページのデザイン' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='映画館の座席予約ページのようなビジネスに合わせた独自の予約機能' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='個別の業務フローに合わせた予約機能や販売管理機能' fill={'darkblue'}></TextWithCheckIcon><br/>                        
-                          <TextWithCheckIcon text='他システムとの連携機能' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='専用サーバ上での運用' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='独自ドメイン' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='他サービスとの連携機能' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='社内システムとの連携' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='LINE公式アカウント上で動作する機能開発' fill={'darkblue'}></TextWithCheckIcon><br/>
                         </Card.Text>
                       </Col>
