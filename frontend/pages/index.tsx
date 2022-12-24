@@ -264,7 +264,7 @@ const Home: NextPage = () => {
                   <h4>エンタープライズ向けプラン</h4>
                   <h5 className='mt20'>SquareEightの機能をベースにオーダーメイドでエンタープライズ向けシステムを開発します！</h5>
                   <h5>初期費用・月額料金は無料でお見積もりします！</h5>
-                  <h5 className='mt10'>お問い合わせは<a href='/enterprise_inquiry'>こちら</a></h5>
+                  <h5 className='mt10'>ご相談・お問い合わせは<a href='/enterprise_inquiry'>こちら</a></h5>
                 </div>
                 <Col sm={3}></Col>
                 <Col>
@@ -276,12 +276,11 @@ const Home: NextPage = () => {
                     <Col></Col>
                       <Col xs={11}>
                         <Card.Text className={cardStyles.plan_description}>
-                          <TextWithCheckIcon text='業種に合わせた販売管理機能の実装' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='自社のブランディングに合わせたホームページや予約ページのデザイン' fill={'darkblue'}></TextWithCheckIcon><br/>
                           <TextWithCheckIcon text='映画館の座席予約ページのようなビジネスに合わせた独自の予約機能' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='個別の業務フローに合わせた予約機能や販売管理機能' fill={'darkblue'}></TextWithCheckIcon><br/>                        
                           <TextWithCheckIcon text='他システムとの連携機能' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='動画配信機能の追加' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='LINE公式アカウントでメッセージを受け付けた時のアクション実装' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <TextWithCheckIcon text='LINE公式アカウント上で動作する機能開発' fill={'darkblue'}></TextWithCheckIcon><br/>
                         </Card.Text>
                       </Col>
                       <Col></Col>
