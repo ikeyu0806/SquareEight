@@ -8,11 +8,11 @@ import { SendMailScheduleParam } from 'interfaces/SendMailScheduleParam'
 import MessageBodyModal from 'components/templates/MessageBodyModal'
 import { useDispatch } from 'react-redux'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
-import { showMessageBodyModalChanged,
-  selectedMessageBodyChanged,
-  selectedMessageTypeChanged,
-  selectedHtmlTemplateTypeChanged,
-  selectedParsedMessageBodyChanged } from 'redux/sendMailHistorySlice'
+import {  showMessageBodyModalChanged,
+          selectedMessageBodyChanged,
+          selectedMessageTypeChanged,
+          selectedHtmlTemplateTypeChanged,
+          selectedParsedMessageBodyChanged } from 'redux/sendMailHistorySlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
