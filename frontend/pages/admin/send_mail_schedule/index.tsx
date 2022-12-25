@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie'
 import { SendMailScheduleParam } from 'interfaces/SendMailScheduleParam'
 import MessageBodyModal from 'components/templates/MessageBodyModal'
 import { useDispatch } from 'react-redux'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { showMessageBodyModalChanged,
   selectedMessageBodyChanged,
   selectedMessageTypeChanged,
@@ -38,6 +39,37 @@ const Index: NextPage = () => {
     fetchSendMailSchedules()
   }, [cookies._square_eight_merchant_session])
 
+  const cancelSchedule = (publicId: string) => {
+    swalWithBootstrapButtons.fire({
+      title: '送信予約をキャンセルします',
+      html: `キャンセルします。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: 'キャンセルする',
+      cancelButtonText: 'キャンセルしない',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      axios.post(`${process.env.BACKEND_URL}/api/internal/send_mail_schedules/${publicId}/cancel`,
+      {},
+      {
+        headers: {
+          'Session-Id': cookies._square_eight_merchant_session
+        }
+      }).then(response => {
+        swalWithBootstrapButtons.fire({
+          title: 'キャンセルしました',
+          icon: 'info'
+        })
+        location.reload()
+      }).catch(error => {
+        swalWithBootstrapButtons.fire({
+          title: '失敗しました',
+          icon: 'error'
+        })
+      })
+    })
+  }
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -49,6 +81,7 @@ const Index: NextPage = () => {
               <th>顧客名</th>
               <th>本文</th>
               <th>送信予定日時</th>
+              <th>キャンセル</th>
             </tr>
           </thead>
           <tbody>
@@ -59,15 +92,20 @@ const Index: NextPage = () => {
                   <td>{schedule.email}</td>
                   <td>{schedule.customer_fullname}</td>
                   <td className='text-center'>
-                  <Button onClick={() => {
-                    dispatch(showMessageBodyModalChanged(true))
-                    dispatch(selectedMessageBodyChanged(schedule.message_body))
-                    dispatch(selectedMessageTypeChanged(schedule.message_template_type))
-                    dispatch(selectedHtmlTemplateTypeChanged(schedule.html_template_type))
-                    dispatch(selectedParsedMessageBodyChanged(schedule.parsed_message_body))
-                  }}>表示する</Button>
-                </td>
+                    <Button onClick={() => {
+                      dispatch(showMessageBodyModalChanged(true))
+                      dispatch(selectedMessageBodyChanged(schedule.message_body))
+                      dispatch(selectedMessageTypeChanged(schedule.message_template_type))
+                      dispatch(selectedHtmlTemplateTypeChanged(schedule.html_template_type))
+                      dispatch(selectedParsedMessageBodyChanged(schedule.parsed_message_body))
+                    }}>表示する</Button>
+                  </td>
                   <td>{schedule.display_scheduled_datetime}</td>
+                  <td>
+                    <Button
+                      onClick={() => cancelSchedule(schedule.public_id)}
+                      variant='danger'>キャンセル</Button>
+                  </td>
                 </tr>
               )
             })}
