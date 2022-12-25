@@ -81,7 +81,7 @@ const Index: NextPage = () => {
               <th>顧客名</th>
               <th>本文</th>
               <th>送信予定日時</th>
-              <th>キャンセル</th>
+              <th>ステータス</th>
             </tr>
           </thead>
           <tbody>
@@ -103,10 +103,16 @@ const Index: NextPage = () => {
                   <td>{schedule.display_scheduled_datetime}</td>
                   <td>
                     {schedule.send_status === 'Incomplete' &&
-                    <Button
-                      onClick={() => cancelSchedule(schedule.public_id)}
-                      variant='danger'>キャンセル</Button>}
+                    <div>
+                      <div>未送信</div>
+                      <Button
+                        size='sm'
+                        className='mt5'
+                        onClick={() => cancelSchedule(schedule.public_id)}
+                        variant='danger'>キャンセル</Button>
+                    </div>}
                     {schedule.send_status === 'Cancel' && <>キャンセル済み</>}
+                    {schedule.send_status === 'Complete' && <>送信済み</>}
                   </td>
                 </tr>
               )
