@@ -1,6 +1,6 @@
 class SendLineSchedule < ApplicationRecord
   include PublicIdModule
-  enum send_status: { Incomplete: 0, Complete: 1 }
+  enum send_status: { Incomplete: 0, Complete: 1, Cancel: 2 }
 
   belongs_to :account
   belongs_to :line_official_account

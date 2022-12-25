@@ -87,6 +87,15 @@ class Api::Internal::SendLineSchedulesController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def cancel
+    send_line_schedule = SendLineSchedule.find_by(public_id: params[:public_id])
+    send_line_schedule.update!(send_status: 'Cancel')
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   def send_line_schedules_params
     params.require(:send_line_schedules)
           .permit(:id,
