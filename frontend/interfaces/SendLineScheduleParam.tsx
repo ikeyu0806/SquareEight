@@ -9,4 +9,5 @@ export interface SendLineScheduleParam {
   past_flg: boolean
   line_user_display_name: string
   line_official_account_name: string
+  send_status: string
 }

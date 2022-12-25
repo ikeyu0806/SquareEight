@@ -11,4 +11,5 @@ export interface SendMailScheduleParam {
   customer_fullname: string
   past_flg: boolean
   parsed_message_body: ImageWithTextListTypeTemplateContent[] | ImageWithTextTemplateContent[]
+  send_status: string
 }

@@ -102,9 +102,11 @@ const Index: NextPage = () => {
                   </td>
                   <td>{schedule.display_scheduled_datetime}</td>
                   <td>
+                    {schedule.send_status === 'Incomplete' &&
                     <Button
                       onClick={() => cancelSchedule(schedule.public_id)}
-                      variant='danger'>キャンセル</Button>
+                      variant='danger'>キャンセル</Button>}
+                    {schedule.send_status === 'Cancel' && <>キャンセル済み</>}
                   </td>
                 </tr>
               )
