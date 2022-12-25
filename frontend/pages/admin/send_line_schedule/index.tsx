@@ -8,6 +8,7 @@ import { SendLineScheduleParam } from 'interfaces/SendLineScheduleParam'
 import LineMessageBodyModal from 'components/templates/LineMessageBodyModal'
 import { useDispatch } from 'react-redux'
 import { showLineMessageModalChanged, selectedMessageChanged } from 'redux/sendLineSlice'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -34,6 +35,38 @@ const Index: NextPage = () => {
     fetchSendMailSchedules()
   }, [cookies._square_eight_merchant_session])
 
+  const cancelSchedule = (publicId: string) => {
+    swalWithBootstrapButtons.fire({
+      title: '送信予約をキャンセルします',
+      html: `キャンセルします。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: 'キャンセルする',
+      cancelButtonText: 'キャンセルしない',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      axios.post(`${process.env.BACKEND_URL}/api/internal/send_line_schedules/${publicId}/cancel`,
+      {},
+      {
+        headers: {
+          'Session-Id': cookies._square_eight_merchant_session
+        }
+      }).then(response => {
+        swalWithBootstrapButtons.fire({
+          title: 'キャンセルしました',
+          icon: 'info'
+        })
+        location.reload()
+      }).catch(error => {
+        swalWithBootstrapButtons.fire({
+          title: '失敗しました',
+          icon: 'error'
+        })
+      })
+    })
+  }
+
+
   return (
     <MerchantUserAdminLayout>
       <Container>
@@ -45,6 +78,7 @@ const Index: NextPage = () => {
               <th>顧客名</th>
               <th>本文</th>
               <th>送信予定日時</th>
+              <th>ステータス</th>
             </tr>
           </thead>
           <tbody>
@@ -55,12 +89,25 @@ const Index: NextPage = () => {
                   <td>{schedule.line_user_display_name}</td>
                   <td>{schedule.customer_fullname}</td>
                   <td className='text-center'>
-                  <Button onClick={() => {
-                    dispatch(showLineMessageModalChanged(true))
-                    dispatch(selectedMessageChanged(schedule.message))
-                  }}>表示する</Button>
-                </td>
+                    <Button onClick={() => {
+                      dispatch(showLineMessageModalChanged(true))
+                      dispatch(selectedMessageChanged(schedule.message))
+                    }}>表示する</Button>
+                  </td>
                   <td>{schedule.display_scheduled_datetime}</td>
+                  <td>
+                    {schedule.send_status === 'Incomplete' &&
+                    <div>
+                      <div>未送信</div>
+                      <Button
+                        size='sm'
+                        className='mt5'
+                        onClick={() => cancelSchedule(schedule.public_id)}
+                        variant='danger'>キャンセル</Button>
+                    </div>}
+                    {schedule.send_status === 'Cancel' && <>キャンセル済み</>}
+                    {schedule.send_status === 'Complete' && <>送信済み</>}
+                  </td>
                 </tr>
               )
             })}
