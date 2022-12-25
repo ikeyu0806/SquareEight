@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Card, ListGroup } from 'react-bootstrap'
+import { Container, Row, Col, Card, ListGroup, Table } from 'react-bootstrap'
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { ProductParam } from 'interfaces/ProductParam'
@@ -43,53 +43,55 @@ const Index: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
         {allowReadProduct === 'Allow' && <Container>
-          <Row>
-            <Col lg={3}></Col>
-            <Col lg={6}>
-              {allowCreateProduct === 'Allow' && <a className='btn btn-primary mt10 mb10'
-                 href='/admin/product/new'>物販商品登録</a>}
-              <Card>
-                <Card.Header>物販商品一覧</Card.Header>
-                <ListGroup variant='flush'>
-                  {products && products.map((p, i) => {
-                    return (
-                      <ListGroup.Item key={i}>
-                        <Row>
-                          <Col>
-                            <span>{p.name}
-                            <PublishStatusBadge publishStatus={p.publish_status} />
-                            <br/>￥{p.price} 税率{p.tax_rate}% </span>
-                            {!p.show_product_type_form && <span><br/>在庫数: {p.inventory}</span>}
-                            {p.show_product_type_form &&
-                            <><br/>
-                              {p.product_types.map((type, i) => {
-                                return (
-                                  <span key={i}>{type.name} 在庫数: {type.inventory}<br/></span>
-                                )
-                              })}  
-                            </>}
-
-                          </Col>
-                          <Col>
-                            <div className='mt30'>
-                            {allowUpdateProduct === 'Allow' && <a className='btn btn-sm btn-primary' href={`/admin/product/${p.public_id}/edit`}>
-                                編集
-                              </a>}
-                              <a className='btn btn-sm btn-primary ml10'
-                                 href={`/product/${p.public_id}/purchase`}
-                                 target='_blank' rel='noreferrer'>
-                                購入ページプレビュー
-                              </a>
-                            </div>
-                          </Col>
-                        </Row>
-                      </ListGroup.Item>
-                    )
-                  })}
-                </ListGroup>
-              </Card>
-            </Col>
-          </Row>
+          <Table bordered>
+            <thead>
+              <tr>
+                <th>商品名</th>
+                <th>値段</th>
+                <th>税率</th>
+                <th>種別と在庫</th>
+                <th>公開ステータス</th>
+                <th>編集</th>
+                <th>購入ページ</th>
+              </tr>
+            </thead>
+            <tbody>
+              {products && products.map((p, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{p.name}</td>
+                    <td>￥{p.price}</td>
+                    <td>{p.tax_rate}%</td>
+                    <td>
+                      {!p.show_product_type_form && <span>在庫数: {p.inventory}</span>}
+                      {p.show_product_type_form &&
+                      <>
+                        {p.product_types.map((type, i) => {
+                          return (
+                            <span key={i}>{type.name} 在庫数: {type.inventory}<br/></span>
+                          )
+                        })}  
+                      </>}
+                    </td>
+                    <td>
+                      <PublishStatusBadge publishStatus={p.publish_status} />
+                    </td>
+                    <td>
+                      {allowUpdateProduct === 'Allow' &&
+                        <a className='btn btn-sm btn-primary' href={`/admin/product/${p.public_id}/edit`}>
+                          編集
+                        </a>}
+                    </td>
+                    <td>
+                      <a className='btn btn-sm btn-primary ml10'
+                         href={`/product/${p.public_id}/purchase`}
+                         target='_blank' rel='noreferrer'>購入ページプレビュー</a>
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </Table>
         </Container>}
         {allowReadProduct === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
