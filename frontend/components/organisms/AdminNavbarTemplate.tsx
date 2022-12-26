@@ -47,7 +47,10 @@ const AdminNavbarTemplate = (): JSX.Element => {
                        </>}
                 id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/reservation'>予約管理</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/reservation'>
+                  予約管理
+                  {readReservationsStatus === 'UnreadExist' && <div className='badge bg-danger ml10'>未読予約あり</div>}
+                </NavDropdown.Item>
                 <NavDropdown.Item href='/admin/monthly_payment/'>月額課金プラン一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/monthly_payment/new'>月額課金プラン作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/ticket'>回数券一覧</NavDropdown.Item>

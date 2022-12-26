@@ -203,6 +203,10 @@ Rails.application.routes.draw do
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'
         post 'sessions', to: 'sessions#create'
         delete 'sessions', to: 'sessions#destroy'
+        post 'read_notification_status/read_dashboard', to: 'read_notification_status#read_dashboard'
+        post 'read_notification_status/read_reservations', to: 'read_notification_status#read_reservations'
+        post 'read_notification_status/read_questionnaire_answers', to: 'read_notification_status#read_questionnaire_answers'
+        post 'read_notification_status/read_orders', to: 'read_notification_status#read_orders'
       end
       namespace :end_user do
         get 'sessions', to: 'sessions#login_status'
