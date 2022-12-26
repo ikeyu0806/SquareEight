@@ -20,6 +20,7 @@ import {  nameChanged,
           s3ObjectPublicUrlChanged,
           deliveryChargeTypeChanged,
           flatRateDeliveryChargeChange,
+          publishStatusChanged,
           prefectureDeliveryChargesChange,
           deliveryChargeWithOrderNumberChanged,
           deliveryDatetimeTargetFlgChanged,
@@ -67,6 +68,7 @@ const Edit: NextPage = () => {
         dispatch(showProductTypeFormChanged(response.data.product.show_product_type_form))
         dispatch(deliveryChargeTypeChanged(response.data.product.delivery_charge_type))
         dispatch(prefectureDeliveryChargesChange(response.data.product.shipping_fee_per_regions))
+        dispatch(publishStatusChanged(response.data.product.publish_status))
         dispatch(flatRateDeliveryChargeChange(response.data.product.flat_rate_delivery_charge))
         dispatch(deliveryChargeWithOrderNumberChanged(response.data.product.delivery_charge_with_order_number))
         dispatch(deliveryDatetimeTargetFlgChanged(response.data.product.delivery_datetime_target_flg))
