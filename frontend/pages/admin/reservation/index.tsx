@@ -53,7 +53,6 @@ const Index: NextPage = () => {
       }
     })
   }, [cookies._square_eight_merchant_session])
-    
 
   const updateReservationStatus = (reservationPublicId: string, reservationStatus: string) => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/${reservationPublicId}/update_status`,
