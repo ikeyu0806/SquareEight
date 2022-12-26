@@ -91,6 +91,7 @@ Rails.application.routes.draw do
       post 'products', to: 'products#create'
       post 'products/insert_cart', to: 'products#insert_cart'
       post 'products/:public_id/update', to: 'products#update'
+      post 'products/:public_id/decrement_inventory_allocation', to: 'products#decrement_inventory_allocation'
       delete 'products/:public_id', to: 'products#logical_delete'
       get 'ticket_masters/:public_id/purchase_info', to: 'ticket_masters#purchase_info'
       get 'ticket_masters/:public_id', to: 'ticket_masters#show'

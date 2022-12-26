@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_12_24_063353) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_25_084247) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -456,6 +456,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_24_063353) do
     t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "inventory_allocation", default: 0
   end
 
   create_table "products", force: :cascade do |t|
@@ -474,6 +475,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_24_063353) do
     t.integer "flat_rate_delivery_charge"
     t.integer "delivery_charge_with_order_number", default: 0
     t.boolean "delivery_datetime_target_flg", default: true
+    t.integer "inventory_allocation", default: 0
   end
 
   create_table "purchased_tickets", force: :cascade do |t|

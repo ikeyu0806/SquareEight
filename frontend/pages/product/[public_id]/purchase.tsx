@@ -81,6 +81,7 @@ const Purchase: NextPage = () => {
         }
       )
       .then(function (response) {
+        console.log(response.data)
         dispatch(nameChanged(response.data.product.name))
         dispatch(priceChanged(response.data.product.price))
         dispatch(taxRateChanged(response.data.product.tax_rate))
@@ -91,7 +92,6 @@ const Purchase: NextPage = () => {
         dispatch(deliveryChargeTypeChanged(response.data.product.delivery_charge_type))
         dispatch(prefectureDeliveryChargesChange(response.data.product.shipping_fee_per_regions))
         dispatch(flatRateDeliveryChargeChange(response.data.product.flat_rate_delivery_charge))
-
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
@@ -99,6 +99,7 @@ const Purchase: NextPage = () => {
         setDeliveryTargets(response.data.delivery_targets)
         dispatch(productTypesChanged(response.data.product.product_types))
         dispatch(showProductTypeFormChanged(response.data.product.show_product_type_form))
+
         if (response.data.product.product_types[0]) {
           setSelectedProductTypeId(response.data.product.product_types[0].id)
         }
@@ -227,7 +228,7 @@ const Purchase: NextPage = () => {
     <MerchantCustomLayout>
       &thinsp;
       <Container>
-      {publishStatus === 'Unpublish' &&
+        {publishStatus === 'Unpublish' &&
         <div className='text-center'>非公開です</div>}
         {publishStatus === 'Publish' && 
         <Row>
@@ -298,7 +299,7 @@ const Purchase: NextPage = () => {
                   <hr className='mt40' />
                   <h4 className='mt20'>お支払い方法</h4>
                   {<ListGroup>
-                    {paymentMethods?.map((pay, i) => {
+                    {paymentMethods.map((pay, i) => {
                       return (
                         <ListGroup.Item key={i}>
                           {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}

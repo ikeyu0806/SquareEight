@@ -2,8 +2,8 @@ class Product < ApplicationRecord
   include PublicIdModule
 
   belongs_to :account
-  has_many :product_types
-  has_many :cart_products
+  has_many :product_types, -> { order(:id) }
+  has_many :cart_products, -> { order(:id) }
   has_many :shipping_fee_per_regions, dependent: :delete_all
   has_many :product_image_relations
   has_many :account_s3_images, through: :product_image_relations
@@ -133,5 +133,9 @@ class Product < ApplicationRecord
 
   def main_image_public_url
     product_image_relations.find_by(relation_status: "Main")&.account_s3_image&.s3_object_public_url
+  end
+
+  def product_types_order_id
+    product_type.order(:id)
   end
 end
