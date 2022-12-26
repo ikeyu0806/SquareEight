@@ -40,20 +40,23 @@ const Index: NextPage = () => {
     fetchProducts()
   }, [router.query.public_id, cookies._square_eight_merchant_session])
 
-  const resetInventoryAllocation = (publicId: string, targetType: string) => {
+  const decrementInventoryAllocation = (publicId: string, targetType: string) => {
     swalWithBootstrapButtons.fire({
-      title: '更新します',
-      text: 'よろしいですか？',
+      title: '在庫引当から減らす数を入力して下さい',
+      text: '入力した数が在庫引当と有効在庫数から引かれます',
       icon: 'question',
-      confirmButtonText: '更新する',
+      confirmButtonText: '登録する',
       cancelButtonText: 'キャンセル',
+      input: 'number',
       showCancelButton: true,
       showCloseButton: true
     }).then((result) => {
-      axios.post(`${process.env.BACKEND_URL}/api/internal/products/${publicId}/reset_inventory_allocation`,
+      console.log(result, "!")
+      axios.post(`${process.env.BACKEND_URL}/api/internal/products/${publicId}/decrement_inventory_allocation`,
       {
         products: {
-          target_type: targetType
+          target_type: targetType,
+          shipped_count: Number(result.value)
         }
       },
       {
@@ -107,10 +110,10 @@ const Index: NextPage = () => {
                       {!p.show_product_type_form &&
                       <>
                         <div>在庫数: {p.inventory}</div>
-                        <div>在庫引き当て数: {p.inventory_allocation}</div>
+                        <div>在庫引当数: {p.inventory_allocation}</div>
                         <Button
-                          onClick={() => resetInventoryAllocation(p.public_id, 'Product')}
-                          size='sm'>在庫引当をリセットして有効在庫を減らす</Button>
+                          onClick={() => decrementInventoryAllocation(p.public_id, 'Product')}
+                          size='sm'>在庫引当を発注済みにする</Button>
                       </>}
                       {p.show_product_type_form &&
                       <>
@@ -119,10 +122,10 @@ const Index: NextPage = () => {
                             <>
                               <div>{type.name}</div>
                               <div>有効在庫数: {type.inventory}</div>
-                              <div>在庫引き当て数: {type.inventory_allocation}</div>
+                              <div>在庫引当数: {type.inventory_allocation}</div>
                               <Button
-                                onClick={() => resetInventoryAllocation(type.public_id, 'ProductType')}
-                                size='sm'>在庫引当をリセットして有効在庫を減らす</Button>
+                                onClick={() => decrementInventoryAllocation(type.public_id, 'ProductType')}
+                                size='sm'>在庫引当を発注済みにする</Button>
                               <hr />
                             </>
                           )
