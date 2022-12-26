@@ -90,7 +90,9 @@ const Index: NextPage = () => {
                     {item.delivery_date_text}
                   </td>
                   <td>
-                    <div>〒{item.postal_code}</div>
+                    <div>
+                      {item.item_type === 'Product' && <>〒{item.postal_code}</>}
+                    </div>
                     <div>{item.address}</div>
                   </td>
                   <td>
