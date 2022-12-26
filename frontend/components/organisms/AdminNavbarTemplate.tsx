@@ -42,8 +42,9 @@ const AdminNavbarTemplate = (): JSX.Element => {
               <Nav.Link href='/admin/dashboard'>ホーム</Nav.Link>
               <NavDropdown
                 title={<>
-                        予約
-                        {readReservationsStatus === 'UnreadExist' && <div className='badge bg-danger'>未読予約あり</div>}
+                        <div>予約</div>
+                        {readReservationsStatus === 'UnreadExist' &&
+                          <div className='badge bg-danger'>未読予約あり</div>}
                        </>}
                 id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー</NavDropdown.Item>
