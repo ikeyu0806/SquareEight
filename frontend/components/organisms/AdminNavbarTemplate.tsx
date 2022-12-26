@@ -15,6 +15,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
   const router = useRouter()
   const email = useSelector((state: RootState) => state.currentMerchantUser.email)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+  const readReservationsStatus = useSelector((state: RootState) => state.currentMerchantUser.readReservationsStatus)
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
   const logout = () => {
@@ -39,7 +40,12 @@ const AdminNavbarTemplate = (): JSX.Element => {
             <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='me-auto font-size-15'>
               <Nav.Link href='/admin/dashboard'>ホーム</Nav.Link>
-              <NavDropdown title='予約' id='webpage-nav-dropdown'>
+              <NavDropdown
+                title={<>
+                        <div>予約</div>
+                        {readReservationsStatus === 'UnreadExist' && <div className='badge bg-danger'>未読予約あり</div>}
+                       </>}
+                id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/reservation'>予約管理</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/monthly_payment/'>月額課金プラン一覧</NavDropdown.Item>

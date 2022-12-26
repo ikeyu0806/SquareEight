@@ -11,7 +11,11 @@ import { loginStatusChanged,
          emailChanged,
          isRootUserChanged,
          stripeAccountEnableChanged,
-         stripeCustomerEnableChanged } from 'redux/currentMerchantUserSlice'
+         stripeCustomerEnableChanged,
+         readQuestionnaireAnswersStatusChanged,
+         readReservationsStatusChanged,
+         readOrdersStatusChanged,
+         readSalesStatusChanged } from 'redux/currentMerchantUserSlice'
 import {  allowReadMerchantUserChanged,
           allowCreateMerchantUserChanged,
           allowUpdateMerchantUserChanged,
@@ -175,6 +179,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowReadLineUserChanged(response.data.user.allow_read_line_user))
       dispatch(allowSendMailChanged(response.data.user.allow_send_mail))
       dispatch(allowSendLineMessageChanged(response.data.user.allow_send_line_message))
+      dispatch(readReservationsStatusChanged(response.data.user.read_reservations_status))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
