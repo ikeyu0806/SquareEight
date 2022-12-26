@@ -43,10 +43,7 @@ class Api::Internal::ReservationsController < ApplicationController
                     price: price_attr[:price] * price_attr[:reserve_number_of_people])
         end
       end
-      # 未読予約有りステータスに更新
-      reservation.account.merchant_users.each do |user|
-        user.read_reservations_status_UnreadExist!
-      end
+
       render json: { status: 'success', reservation: reservation }, status: 200
     end
   rescue => error
