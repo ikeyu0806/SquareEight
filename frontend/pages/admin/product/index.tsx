@@ -112,6 +112,7 @@ const Index: NextPage = () => {
                         <div>在庫数: {p.inventory}</div>
                         <div>在庫引当数: {p.inventory_allocation}</div>
                         <Button
+                          disabled={p.inventory_allocation < 1}
                           onClick={() => decrementInventoryAllocation(p.public_id, 'Product')}
                           size='sm'>在庫引当を発注済みにする</Button>
                       </>}
@@ -124,6 +125,7 @@ const Index: NextPage = () => {
                               <div>有効在庫数: {type.inventory}</div>
                               <div>在庫引当数: {type.inventory_allocation}</div>
                               <Button
+                                disabled={type.inventory_allocation < 1}
                                 onClick={() => decrementInventoryAllocation(type.public_id, 'ProductType')}
                                 size='sm'>在庫引当を発注済みにする</Button>
                               <hr />
