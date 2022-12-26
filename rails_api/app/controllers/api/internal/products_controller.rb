@@ -154,14 +154,14 @@ class Api::Internal::ProductsController < ApplicationController
       raise '発注量が在庫引当数を超えています' if product_params[:shipped_count] > product_type.inventory_allocation
       product_type.update!(
         inventory: product_type.inventory - product_params[:shipped_count],
-        inventory: product_type.inventory_allocation - product_params[:shipped_count]
+        inventory_allocation: product_type.inventory_allocation - product_params[:shipped_count]
       )
     else
       product = Product.find_by(public_id: params[:public_id])
       raise '発注量が在庫引当数を超えています' if product_params[:shipped_count] > product.inventory_allocation
       product.update!(
-        inventory: product_type.inventory - product_params[:shipped_count],
-        inventory: product_type.inventory_allocation - product_params[:shipped_count]
+        inventory: product.inventory - product_params[:shipped_count],
+        inventory_allocation: product.inventory_allocation - product_params[:shipped_count]
       )
     end
     render json: { status: 'success' }, status: 200

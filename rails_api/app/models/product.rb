@@ -134,4 +134,8 @@ class Product < ApplicationRecord
   def main_image_public_url
     product_image_relations.find_by(relation_status: "Main")&.account_s3_image&.s3_object_public_url
   end
+
+  def product_types_order_id
+    product_type.order(:id)
+  end
 end
