@@ -109,7 +109,8 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
-              <ReservationLimitAlerts />
+              {/* TODO: キャンペーンが終わったらコメントアウト外す */}
+              {/* <ReservationLimitAlerts /> */}
               <Row>
                 <Col sm={9}>
                   <h4 className='mb20'>予約一覧</h4>
