@@ -44,7 +44,6 @@ const Index: NextPage = () => {
     swalWithBootstrapButtons.fire({
       title: '在庫引当から減らす数を入力して下さい',
       text: '入力した数が在庫引当と有効在庫数から引かれます',
-      icon: 'question',
       confirmButtonText: '登録する',
       cancelButtonText: 'キャンセル',
       input: 'number',
