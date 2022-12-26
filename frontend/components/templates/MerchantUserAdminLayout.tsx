@@ -180,6 +180,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowSendMailChanged(response.data.user.allow_send_mail))
       dispatch(allowSendLineMessageChanged(response.data.user.allow_send_line_message))
       dispatch(readReservationsStatusChanged(response.data.user.read_reservations_status))
+      dispatch(readQuestionnaireAnswersStatusChanged(response.data.user.read_questionnaire_answers_status))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })

@@ -16,6 +16,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
   const email = useSelector((state: RootState) => state.currentMerchantUser.email)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const readReservationsStatus = useSelector((state: RootState) => state.currentMerchantUser.readReservationsStatus)
+  const readQuestionnaireAnswersStatus = useSelector((state: RootState) => state.currentMerchantUser.readQuestionnaireAnswersStatus)
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
   const logout = () => {
@@ -81,10 +82,18 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/webpage'>Webページ一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/webpage/new'>Webページ新規作成</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='アンケート' id='webpage-nav-dropdown'>
+              <NavDropdown
+                title={
+                  <>
+                    <div>アンケート</div>
+                    {readQuestionnaireAnswersStatus == 'UnreadExist' && <div className='badge bg-danger'>未読回答あり</div>}
+                  </>} id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/questionnaire/master/new'>アンケート作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/questionnaire/master/'>アンケート一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/questionnaire/answer/'>アンケート回答一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/questionnaire/answer/'>
+                  アンケート回答一覧{readQuestionnaireAnswersStatus == 'UnreadExist' &&
+                  <div className='badge bg-danger ml10'>未読回答あり</div>}
+                </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='アカウント' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/account/create_pages'>ページ一覧</NavDropdown.Item>
