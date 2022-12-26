@@ -49,15 +49,16 @@ const New: NextPage = () => {
           <Row>
             <Col lg={3} md={3}></Col>
             <Col lg={6} md={6}>
-              <ResourceLimitAlert />
-              {['Standard', 'Premium'].includes(servicePlan) &&
+              {/* TODO:お試し期間終わったら外す */}
+              {/* <ResourceLimitAlert /> */}
+              {/* {['Standard', 'Premium'].includes(servicePlan) && */}
                 <>
                   <CreateResource></CreateResource>
                   <div className='text-center'>
                     <Button onClick={onSubmit} className='mt10'>登録する</Button>
                   </div>
                 </>
-              }
+              {/* } */}
             </Col>
           </Row>
         </Container>}

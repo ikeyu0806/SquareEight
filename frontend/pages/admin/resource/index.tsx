@@ -30,8 +30,8 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
-        const resourceResponse: ResourceParam[] = response.data.resources
-        setResources(resourceResponse)
+        console.log(response.data)
+        setResources(response.data.resources)
       })
       .catch(error => {
         console.log(error)
@@ -43,13 +43,13 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <br />
         {allowReadResource === 'Allow' && <Container>
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>
-              <ResourceLimitAlert />
-              {['Standard', 'Premium'].includes(servicePlan) &&
+              {/* TODO:お試し期間が終わったら外す */}
+              {/* <ResourceLimitAlert /> */}
+              {/* {['Standard', 'Premium'].includes(servicePlan) && */}
                 <>
                   {allowCreateResource === 'Allow' && <a  href='/admin/resource/new'
                     className='btn btn-primary mb20'>
@@ -72,7 +72,7 @@ const Index: NextPage = () => {
                     })}
                   </ListGroup>
                 </>
-              }
+              {/* } */}
             </Col>
           </Row>
         </Container>}

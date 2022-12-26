@@ -13,7 +13,6 @@ const CreateResource = (): JSX.Element => {
 
   return (
     <>
-      <ResourceLimitAlert />
       <div className='text-center mt50 mb50'>
         <h3 className='mb15'>リソース登録</h3>
         <span>スタッフや設備・備品を登録して予約者数を制限することができます。</span>
