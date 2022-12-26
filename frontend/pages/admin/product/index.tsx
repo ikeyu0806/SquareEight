@@ -42,7 +42,12 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        {allowReadProduct === 'Allow' && <Container>
+        <Container>
+        {allowCreateProduct === 'Allow' &&
+          <a
+            href='/admin/product/new'
+            className='btn btn-primary mb10'>新規作成</a>}
+        {allowReadProduct === 'Allow' &&
           <Table bordered>
             <thead>
               <tr>
@@ -101,8 +106,9 @@ const Index: NextPage = () => {
               })}
             </tbody>
           </Table>
-        </Container>}
+        }
         {allowReadProduct === 'Forbid' && <Unauthorized />}
+        </Container>
       </MerchantUserAdminLayout>
     </>
   )
