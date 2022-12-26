@@ -3,4 +3,5 @@ export interface ProductType {
   id?: number
   name: string
   inventory: number
+  inventory_allocation: number
 }

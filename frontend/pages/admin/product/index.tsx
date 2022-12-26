@@ -63,12 +63,21 @@ const Index: NextPage = () => {
                     <td>￥{p.price}</td>
                     <td>{p.tax_rate}%</td>
                     <td>
-                      {!p.show_product_type_form && <span>在庫数: {p.inventory}</span>}
+                      {!p.show_product_type_form &&
+                      <>
+                        <div>在庫数: {p.inventory}</div>
+                        <div>在庫引き当て数: {p.inventory_allocation}</div>
+                      </>}
                       {p.show_product_type_form &&
                       <>
                         {p.product_types.map((type, i) => {
                           return (
-                            <span key={i}>{type.name} 在庫数: {type.inventory}<br/></span>
+                            <>
+                              <div>{type.name}</div>
+                              <div>在庫数: {type.inventory}</div>
+                              <div>在庫引き当て数: {type.inventory_allocation}</div>
+                              <hr />
+                            </>
                           )
                         })}  
                       </>}
