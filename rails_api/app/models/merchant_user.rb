@@ -85,6 +85,12 @@ class MerchantUser < ApplicationRecord
   enum allow_send_mail: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_send_line_message: { Forbid: 0, Allow: 1 }, _prefix: true
 
+  enum read_dashboard: { AlreadyRead: 0, UnreadExist: 1 }, _prefix: true
+  enum read_questionnaire_answers_status: { AlreadyRead: 0, UnreadExist: 1 }, _prefix: true
+  enum read_reservations_status: { AlreadyRead: 0, UnreadExist: 1 }, _prefix: true
+  enum read_orders_status: { AlreadyRead: 0, UnreadExist: 1 }, _prefix: true
+  enum read_sales: { AlreadyRead: 0, UnreadExist: 1 }, _prefix: true
+
   validates :authority_category, presence: true
   validates :password, password: true
 
