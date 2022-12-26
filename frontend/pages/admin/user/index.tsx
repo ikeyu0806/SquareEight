@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import { useCookies } from 'react-cookie'
-import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup, Button, Table } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { MerchantUserParam } from 'interfaces/MerchantUserParam'
 import axios from 'axios'
@@ -16,6 +16,7 @@ const Index: NextPage = () => {
   const router = useRouter()
   const [merchantUsers, setMerchantUsers] = useState<MerchantUserParam[]>([])
   const allowReadMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowReadMerchantUser)
+  const allowCreateMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowCreateMerchantUser)
   const allowUpdateMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateMerchantUser)
   const allowDeleteMerchantUser = useSelector((state: RootState) => state.merchantUserPermission.allowDeleteMerchantUser)
 
@@ -72,45 +73,52 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      {allowReadMerchantUser === 'Allow' && <Container>
-        <Row>
-          <Col md={3}></Col>
-          <Col md={6}>
-            <a className='btn btn-primary mb20' href='/admin/user/invitation'>ユーザを招待する</a>
-            <ListGroup>
-              {merchantUsers.map((user, i) => {
-                return (
-                  <ListGroup.Item key={i}>
-                    <Row>
-                      <Col sm={6}>
-                        <div>メールアドレス: {user.email}</div>
-                        <div>
-                          <>{user.last_name}{user.first_name}</>
-                        </div>
-                        <div>
-                          <>{user.last_name_kana}{user.first_name_kana}</>
-                        </div>
-                      </Col>
-                      <Col sm={3}>
-                        {user.authority_category === 'RootUser' && <div className='badge bg-info text-white mr10'>ルートユーザ</div>}
-                        {user.email_authentication_status === 'Enabled' && <div className='badge bg-info'>本人確認済み</div>}
-                        {user.email_authentication_status === 'Disabled' && <div className='badge bg-danger'>本人未認証</div>}
-                        {user.authority_category !== 'RootUser' && <div className='mt10'><a  href={`/admin/user/${user.public_id}/permission`} className='btn btn-primary btn-sm'>権限設定</a></div>}
-                      </Col>
-                      <Col sm={3}>
-                        {allowUpdateMerchantUser === 'Allow'
-                          && user.authority_category !== 'RootUser'
-                          && <div><a className='btn btn-primary btn-sm mb10' href={`/admin/user/${user.public_id}/edit`}>編集</a></div>}
-                        {allowDeleteMerchantUser === 'Allow'
-                          && user.authority_category !== 'RootUser' && <Button variant='danger' size='sm' onClick={() => deleteMerchantUser(user.public_id)}>削除</Button>}
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                )
-              })}
-            </ListGroup>
-          </Col>
-        </Row>
+      {allowReadMerchantUser === 'Allow' &&
+      <Container>
+        {allowCreateMerchantUser === 'Allow' &&
+          <a className='btn btn-primary mb20' href='/admin/user/invitation'>ユーザを招待する</a>}
+        <Table bordered>
+          <thead>
+            <tr>
+              <th>メールアドレス</th>
+              <th>お名前</th>
+              <th>お名前(カナ)</th>
+              <th>認証ステータス</th>
+              <th>権限設定</th>
+              {allowUpdateMerchantUser === 'Allow' && <th>編集</th>}
+              {allowDeleteMerchantUser === 'Allow' && <th>削除</th>}
+            </tr>
+          </thead>
+          <tbody>
+          {merchantUsers.map((user, i) => {
+            return (
+              <tr key={i}>
+                <td>{user.email}</td>
+                <td>{user.last_name}{user.first_name}</td>
+                <td>{user.last_name_kana}{user.first_name_kana}</td>
+                <td>
+                  {user.authority_category === 'RootUser' && <div className='badge bg-info text-white mr10'>ルートユーザ</div>}
+                  {user.email_authentication_status === 'Enabled' && <div className='badge bg-info'>本人確認済み</div>}
+                  {user.email_authentication_status === 'Disabled' && <div className='badge bg-danger'>本人未認証</div>}
+                </td>
+                <td>
+                  {user.authority_category !== 'RootUser' && <a  href={`/admin/user/${user.public_id}/permission`} className='btn btn-primary btn-sm'>権限設定</a>}
+                </td>
+                {allowUpdateMerchantUser === 'Allow'
+                  &&
+                  <td>
+                    {user.authority_category !== 'RootUser'
+                    && <div><a className='btn btn-primary btn-sm' href={`/admin/user/${user.public_id}/edit`}>編集</a></div>}
+                </td>}
+                {allowDeleteMerchantUser === 'Allow' &&
+                <td>
+                  {user.authority_category !== 'RootUser' && <Button variant='danger' size='sm' onClick={() => deleteMerchantUser(user.public_id)}>削除</Button>}
+                </td>}
+              </tr>
+              )
+          })}
+          </tbody>
+        </Table>
       </Container>}
       {allowReadMerchantUser === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
