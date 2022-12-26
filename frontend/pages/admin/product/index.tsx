@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Card, ListGroup, Table } from 'react-bootstrap'
+import { Container, Table, Button } from 'react-bootstrap'
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { ProductParam } from 'interfaces/ProductParam'
@@ -10,6 +10,7 @@ import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import axios from 'axios'
 import Unauthorized from 'components/templates/Unauthorized'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -38,6 +39,41 @@ const Index: NextPage = () => {
     }
     fetchProducts()
   }, [router.query.public_id, cookies._square_eight_merchant_session])
+
+  const resetInventoryAllocation = (publicId: string, targetType: string) => {
+    swalWithBootstrapButtons.fire({
+      title: '更新します',
+      text: 'よろしいですか？',
+      icon: 'question',
+      confirmButtonText: '更新する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      axios.post(`${process.env.BACKEND_URL}/api/internal/products/${publicId}/reset_inventory_allocation`,
+      {
+        products: {
+          target_type: targetType
+        }
+      },
+      {
+        headers: {
+          'Session-Id': cookies._square_eight_merchant_session
+        }
+      }).then(response => {
+        swalWithBootstrapButtons.fire({
+          title: '更新しました',
+          icon: 'info'
+        })
+        location.reload()
+      }).catch(error => {
+        swalWithBootstrapButtons.fire({
+          title: '更新失敗しました',
+          icon: 'error'
+        })
+      })
+    })
+  }
 
   return (
     <>
@@ -72,6 +108,9 @@ const Index: NextPage = () => {
                       <>
                         <div>在庫数: {p.inventory}</div>
                         <div>在庫引き当て数: {p.inventory_allocation}</div>
+                        <Button
+                          onClick={() => resetInventoryAllocation(p.public_id, 'Product')}
+                          size='sm'>在庫引当をリセットして有効在庫を減らす</Button>
                       </>}
                       {p.show_product_type_form &&
                       <>
@@ -79,8 +118,11 @@ const Index: NextPage = () => {
                           return (
                             <>
                               <div>{type.name}</div>
-                              <div>在庫数: {type.inventory}</div>
+                              <div>有効在庫数: {type.inventory}</div>
                               <div>在庫引き当て数: {type.inventory_allocation}</div>
+                              <Button
+                                onClick={() => resetInventoryAllocation(type.public_id, 'ProductType')}
+                                size='sm'>在庫引当をリセットして有効在庫を減らす</Button>
                               <hr />
                             </>
                           )

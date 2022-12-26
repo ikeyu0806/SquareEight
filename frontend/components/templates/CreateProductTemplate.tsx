@@ -68,7 +68,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
     productTypes.map((p, i) => {
       updateProductTypes.push(p)
     })
-    updateProductTypes.push({public_id: '', name: '', inventory: 0})
+    updateProductTypes.push({public_id: '', name: '', inventory: 0, inventory_allocation: 0})
     dispatch(productTypesChanged(updateProductTypes))
   }
 
@@ -76,7 +76,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
     let updateProductType: ProductType
     let updateProductTypes: ProductType[]
     updateProductTypes = []
-    updateProductType = {public_id: '', name: '', inventory: 0}
+    updateProductType = {public_id: '', name: '', inventory: 0, inventory_allocation: 0}
     updateProductType.name = event.target.value
     updateProductType.inventory = productTypes[productTypeNameRef].inventory
     productTypes.map((p, i) => {
@@ -93,7 +93,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
     let updateProductType: ProductType
     let updateProductTypes: ProductType[]
     updateProductTypes = []
-    updateProductType = {public_id: '', name: '', inventory: 0}
+    updateProductType = {public_id: '', name: '', inventory: 0, inventory_allocation: 0}
     updateProductType.inventory = Number(event.target.value)
     updateProductType.name = productTypes[inventoryRef].name
     productTypes.map((p, i) => {
@@ -261,7 +261,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                 {!showProductTypeForm &&
                   <Row>
                     <Col>
-                      <Form.Label>在庫数</Form.Label>
+                      <Form.Label>有効在庫数</Form.Label>
                       <Form.Control placeholder='在庫'
                                     min={0}
                                     type='number'
@@ -288,7 +288,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                               </Form.Control>
                             </Col>
                             <Col sm={3}>
-                              <Form.Label>在庫数</Form.Label>
+                              <Form.Label>有効在庫数</Form.Label>
                               <Row>
                                 <Col sm={10}>
                                   <Form.Control placeholder='在庫'
