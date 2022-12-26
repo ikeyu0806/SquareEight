@@ -147,6 +147,29 @@ class Api::Internal::ProductsController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def decrement_inventory_allocation
+    case product_params[:target_type]
+    when 'ProductType'
+      product_type = ProductType.find_by(public_id: params[:public_id])
+      raise '発注量が在庫引当数を超えています' if product_params[:shipped_count] > product_type.inventory_allocation
+      product_type.update!(
+        inventory: product_type.inventory - product_params[:shipped_count],
+        inventory: product_type.inventory_allocation - product_params[:shipped_count]
+      )
+    else
+      product = Product.find_by(public_id: params[:public_id])
+      raise '発注量が在庫引当数を超えています' if product_params[:shipped_count] > product.inventory_allocation
+      product.update!(
+        inventory: product_type.inventory - product_params[:shipped_count],
+        inventory: product_type.inventory_allocation - product_params[:shipped_count]
+      )
+    end
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   private
 
   def product_params
@@ -178,6 +201,8 @@ class Api::Internal::ProductsController < ApplicationController
                   :flat_rate_delivery_charge,
                   :delivery_charge_with_order_number,
                   :delivery_datetime_target_flg,
+                  :target_type,
+                  :shipped_count,
                   prefecture_delivery_charges: [:region, :shipping_fee],
                   product_types: [:name, :inventory])
   end

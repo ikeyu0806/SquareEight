@@ -54,7 +54,7 @@ const Index: NextPage = () => {
       console.log(result, "!")
       axios.post(`${process.env.BACKEND_URL}/api/internal/products/${publicId}/decrement_inventory_allocation`,
       {
-        products: {
+        product: {
           target_type: targetType,
           shipped_count: Number(result.value)
         }
@@ -65,13 +65,13 @@ const Index: NextPage = () => {
         }
       }).then(response => {
         swalWithBootstrapButtons.fire({
-          title: '更新しました',
+          title: '登録しました',
           icon: 'info'
         })
         location.reload()
       }).catch(error => {
         swalWithBootstrapButtons.fire({
-          title: '更新失敗しました',
+          title: '登録失敗しました',
           icon: 'error'
         })
       })
