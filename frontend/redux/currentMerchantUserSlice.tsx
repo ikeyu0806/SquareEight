@@ -15,7 +15,12 @@ export const currentMerchantUserSlice = createSlice({
     paymentMethods: [] as StripePaymentMethodsParam[],
     stripeAccountEnable: 'Unconfirmed' as StripeEnableStatus,
     stripeCustomerEnable: 'Unconfirmed' as StripeEnableStatus,
-    loginStatus: 'Unconfirmed' as LoginStatus
+    loginStatus: 'Unconfirmed' as LoginStatus,
+    readQuestionnaireAnswersStatus: 'Unconfirmed',
+    readReservationsStatus: 'Unconfirmed',
+    readOrdersStatus: 'Unconfirmed',
+    readAccountNotificationStatus: 'Unconfirmed',
+    readBusinessNotificationStatus: 'Unconfirmed',
   },
   reducers: {
     idChanged: (state, action: PayloadAction<string>) => {
@@ -48,6 +53,21 @@ export const currentMerchantUserSlice = createSlice({
     loginStatusChanged: (state, action: PayloadAction<LoginStatus>) => {
       state.loginStatus = action.payload
     },
+    readQuestionnaireAnswersStatusChanged: (state, action: PayloadAction<LoginStatus>) => {
+      state.readQuestionnaireAnswersStatus = action.payload
+    },
+    readReservationsStatusChanged: (state, action: PayloadAction<LoginStatus>) => {
+      state.readReservationsStatus = action.payload
+    },
+    readOrdersStatusChanged: (state, action: PayloadAction<LoginStatus>) => {
+      state.readOrdersStatus = action.payload
+    },
+    readAccountNotificationStatusChanged: (state, action: PayloadAction<LoginStatus>) => {
+      state.readAccountNotificationStatus = action.payload
+    },
+    readBusinessNotificationStatusChanged: (state, action: PayloadAction<LoginStatus>) => {
+      state.readBusinessNotificationStatus = action.payload
+    },
   },
 })
 
@@ -61,5 +81,10 @@ export const { paymentMethodsChanged } = currentMerchantUserSlice.actions
 export const { stripeAccountEnableChanged } = currentMerchantUserSlice.actions
 export const { stripeCustomerEnableChanged } = currentMerchantUserSlice.actions
 export const { loginStatusChanged } = currentMerchantUserSlice.actions
+export const { readQuestionnaireAnswersStatusChanged } = currentMerchantUserSlice.actions
+export const { readReservationsStatusChanged } = currentMerchantUserSlice.actions
+export const { readOrdersStatusChanged } = currentMerchantUserSlice.actions
+export const { readAccountNotificationStatusChanged } = currentMerchantUserSlice.actions
+export const { readBusinessNotificationStatusChanged } = currentMerchantUserSlice.actions
 
 export default currentMerchantUserSlice.reducer

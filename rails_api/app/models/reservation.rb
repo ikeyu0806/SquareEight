@@ -3,6 +3,9 @@ require 'securerandom'
 class Reservation < ApplicationRecord
   include PublicIdModule
 
+  # 未読予約有りステータスに更新
+  before_create :update_read_reservations_status_unread
+
   belongs_to :reserve_frame
   has_one :account, through: :reserve_frame
   has_one :customer, foreign_key: :id, primary_key: :customer_id
@@ -12,6 +15,12 @@ class Reservation < ApplicationRecord
 
   enum payment_method: { localPayment: 0, creditCardPayment: 1, ticket: 2, monthlyPaymentPlan: 3 }
   enum status: { pendingVerifivation: 0, confirm: 1, inputTimeWithPaymentMethod: 2, cancel: 3 }
+
+  def update_read_reservations_status_unread
+    self.account.merchant_users.each do |user|
+      user.read_reservations_status_UnreadExist!
+    end
+  end
 
   def reserve_frame_title
     reserve_frame.title

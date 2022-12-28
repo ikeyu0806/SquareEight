@@ -34,6 +34,16 @@ const Index: NextPage = () => {
     fetchOrderItems()
   }, [router.query.public_id, cookies._square_eight_merchant_session])
 
+  useEffect(() => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/merchant/read_notification_status/read_orders`,
+    {},
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    })
+  }, [cookies._square_eight_merchant_session])
+
   const updateShippedStatus = (itemId: string) => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/order_items/${itemId}/update_shipped`,
     {

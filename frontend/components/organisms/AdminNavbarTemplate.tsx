@@ -7,7 +7,6 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import PlanLabel from 'components/atoms/PlanLabel'
-import BellIcon from 'components/atoms/BellIcon'
 
 const AdminNavbarTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -15,6 +14,11 @@ const AdminNavbarTemplate = (): JSX.Element => {
   const router = useRouter()
   const email = useSelector((state: RootState) => state.currentMerchantUser.email)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+  const readReservationsStatus = useSelector((state: RootState) => state.currentMerchantUser.readReservationsStatus)
+  const readQuestionnaireAnswersStatus = useSelector((state: RootState) => state.currentMerchantUser.readQuestionnaireAnswersStatus)
+  const readOrdersStatus = useSelector((state: RootState) => state.currentMerchantUser.readOrdersStatus)
+  const readAccountNotificationStatus = useSelector((state: RootState) => state.currentMerchantUser.readAccountNotificationStatus)
+  const readBusinessNotificationStatus = useSelector((state: RootState) => state.currentMerchantUser.readBusinessNotificationStatus)
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
   const logout = () => {
@@ -31,29 +35,43 @@ const AdminNavbarTemplate = (): JSX.Element => {
     <>
       <Navbar bg='dark' variant='dark' expand='lg'>
         <Container>
-          <Navbar.Brand href='/'>
+          <Navbar.Brand href='/admin/dashboard'>
             <span className='font-weight-bold'>
               SquareEight
             </span></Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='me-auto font-size-15'>
-              <Nav.Link href='/admin/dashboard'>ホーム</Nav.Link>
-              <NavDropdown title='予約' id='webpage-nav-dropdown'>
+              <NavDropdown
+                title={<>
+                        <div>予約</div>
+                        {readReservationsStatus === 'UnreadExist' &&
+                          <div className='badge bg-danger'>未読予約あり</div>}
+                       </>}
+                id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/reservation'>予約管理</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/monthly_payment/'>月額サブスクリプション一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/monthly_payment/new'>月額サブスクリプション作成</NavDropdown.Item>
+                <NavDropdown.Item>
+                  予約管理
+                  {readReservationsStatus === 'UnreadExist' && <div className='badge bg-danger ml10'>未読予約あり</div>}
+                </NavDropdown.Item>
+                <NavDropdown.Item href='/admin/monthly_payment/'>月額課金プラン一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/monthly_payment/new'>月額課金プラン作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/ticket'>回数券一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/ticket/new'>回数券作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/resource'>リソース一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/resource/new'>リソース作成</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='商品' id='webpage-nav-dropdown'>
+              <NavDropdown title={<>
+                                    <div>商品</div>
+                                    {readOrdersStatus === 'UnreadExist' && <div className='badge bg-danger'>未読注文あり</div>}
+                                  </>}
+                            id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/product/'>商品一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/product/new'>商品作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/delivery_datetime'>配送日時設定</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/order_item'>注文管理</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/order_item'>
+                  注文管理{readOrdersStatus === 'UnreadExist' && <div className='badge bg-danger ml10'>未読注文あり</div>}
+                </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='顧客管理' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/customer'>顧客</NavDropdown.Item>
@@ -71,10 +89,35 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/webpage'>Webページ一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/webpage/new'>Webページ新規作成</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='アンケート' id='webpage-nav-dropdown'>
+              <NavDropdown
+                title={
+                  <>
+                    <div>アンケート</div>
+                    {readQuestionnaireAnswersStatus == 'UnreadExist' && <div className='badge bg-danger'>未読回答あり</div>}
+                  </>} id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/questionnaire/master/new'>アンケート作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/questionnaire/master/'>アンケート一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/questionnaire/answer/'>アンケート回答一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/questionnaire/answer/'>
+                  アンケート回答一覧{readQuestionnaireAnswersStatus == 'UnreadExist' &&
+                  <div className='badge bg-danger ml10'>未読回答あり</div>}
+                </NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title={<>
+                                    <div>通知</div>
+                                      {(readAccountNotificationStatus === 'UnreadExist' || readBusinessNotificationStatus === 'UnreadExist')
+                                      && <div className='badge bg-danger'>未読あり</div>}
+                                  </>}
+                              id='webpage-nav-dropdown'>
+                <NavDropdown.Item href='/admin/notification/account/list'>
+                  通知一覧
+                  {readAccountNotificationStatus === 'UnreadExist' &&
+                    <div className='badge bg-danger ml10'>未読あり</div>}
+                </NavDropdown.Item>
+                <NavDropdown.Item href='/admin/notification/system/list'>
+                  運営からのお知らせ
+                  {readBusinessNotificationStatus === 'UnreadExist' &&
+                    <div className='badge bg-danger ml10'>未読あり</div>}
+                </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='アカウント' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/account/create_pages'>ページ一覧</NavDropdown.Item>

@@ -1,6 +1,9 @@
 class OrderItem < ApplicationRecord
   include PublicIdModule
 
+  # 未読注文有りステータスに更新
+  before_create :update_read_orders_status_unread
+
   enum item_type: { TicketMaster: 0, MonthlyPaymentPlan: 1, Product: 2, Reservation: 3, PaymentRequest: 4 }
 
   belongs_to :order
@@ -21,5 +24,11 @@ class OrderItem < ApplicationRecord
 
   def order_name
     order.name
+  end
+
+  def update_read_orders_status_unread
+    self.account.merchant_users.each do |user|
+      user.read_orders_status_UnreadExist!
+    end
   end
 end
