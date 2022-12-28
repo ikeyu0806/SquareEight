@@ -39,7 +39,8 @@ const Signup: NextPage = () => {
     })
   }, [dispatch, cookies._square_eight_merchant_session, merchantUserLoginStatus, router])
 
-  const onSubmit = () => {
+  const onSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault()
     if (email && email.match(emailRegex) === null) {
       dispatch(alertChanged({message: 'メールアドレスの形式に誤りがあります', show: true, type: 'danger'}))
       return
@@ -71,10 +72,6 @@ const Signup: NextPage = () => {
     })
   }
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
-  }
-
   return (
     <>
       <WithoutSessionLayout>
@@ -85,7 +82,7 @@ const Signup: NextPage = () => {
               <Card>
                 <Card.Header>ユーザ登録</Card.Header>
                 <Card.Body>
-                  <Form onSubmit={handleSubmit}>
+                  <Form onSubmit={onSubmit}>
                     <Form.Group className='mb-3' controlId='formEmail'>
                         <Form.Label>ビジネス名称</Form.Label>
                         <Form.Control type='text'
@@ -119,16 +116,17 @@ const Signup: NextPage = () => {
                     </Form.Group>
                     <div className='text-center'>
                       <Button variant='primary'
+                              type='submit'
                               disabled={!businessName || !email || !password || (password !== confirmPassword)}
                               onClick={onSubmit}>
                         登録する
                       </Button>
                     </div>
-                    <hr />
-                    <GoogleAuthButton
-                      buttonText='Googleでサインアップ'
-                      buttonHref={MERCHANT_GOOGLE_AUTH_URL}></GoogleAuthButton>
                   </Form>
+                  <hr />
+                  <GoogleAuthButton
+                    buttonText='Googleでサインアップ'
+                    buttonHref={MERCHANT_GOOGLE_AUTH_URL}></GoogleAuthButton>
                 </Card.Body>
               </Card>
               <div className='text-center mt20'>
