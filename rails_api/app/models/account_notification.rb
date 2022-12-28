@@ -3,11 +3,11 @@ class AccountNotification < ApplicationRecord
 
   belongs_to :account
 
-  before_create :update_read_dashboard_status_unread
+  before_create :update_read_account_notifications_status_unread
 
-  def update_read_dashboard_status_unread
+  def update_read_account_notifications_status_unread
     self.account.merchant_users.each do |user|
-      user.read_reservations_status_UnreadExist!
+      user.read_account_notifications_status_UnreadExist!
     end
   end
 end
