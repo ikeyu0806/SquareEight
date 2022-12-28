@@ -105,7 +105,6 @@ class Account < ApplicationRecord
   end
 
   def page_links
-    # 作成したWebページ、予約ページ、回数券購入ページ、月額課金プラン加入ページのリンクを返却
     result = []
     self.webpages.each do |w|
       result.push({ text: w.tag, value: '/webpages/' + w.public_id, label: 'Webページ', publish_status: w.publish_status })

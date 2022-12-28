@@ -147,7 +147,7 @@ const Purchase: NextPage = () => {
                     ? 
                       <>
                         <div></div>
-                        <a href='/customer/login'>カスタマーアカウントでログインしてください</a><br/>
+                        <a href='/customer/login'>SquareEightIDでログインしてください</a><br/>
                         <div className='mt20'>購入にはアカウント登録とクレジットカード登録が必要になります</div>
                         <div className='mt40'></div>
                       </>

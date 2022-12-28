@@ -56,7 +56,7 @@ const New: NextPage = () => {
       }
     }).then(response => {
       router.push('/admin/monthly_payment')
-      dispatch(alertChanged({message: '月額課金プランを登録しました', show: true}))
+      dispatch(alertChanged({message: '月額サブスクリプションを登録しました', show: true}))
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })

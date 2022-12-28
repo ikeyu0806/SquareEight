@@ -50,7 +50,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                        </>}
                 id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/reservation'>
+                <NavDropdown.Item>
                   予約管理
                   {readReservationsStatus === 'UnreadExist' && <div className='badge bg-danger ml10'>未読予約あり</div>}
                 </NavDropdown.Item>

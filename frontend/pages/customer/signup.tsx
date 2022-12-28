@@ -83,7 +83,7 @@ const Signup: NextPage = () => {
             <Col lg={4} md={3}></Col>
             <Col>
               <Card>
-                <Card.Header>カスタマーアカウント登録</Card.Header>
+                <Card.Header>SquareEightID登録</Card.Header>
                 <Card.Body>
                   <Form onSubmit={handleSubmit}>
                     <Form.Group className='mb-3'>

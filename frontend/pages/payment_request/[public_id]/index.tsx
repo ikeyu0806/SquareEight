@@ -130,7 +130,7 @@ const Index: NextPage = () => {
                 {currentEndUserLogintStatus === 'Logout'
                 ?
                   <>
-                    <a href='/customer/login' target='_blank' rel='noreferrer'>カスタマーアカウントでログインしてください</a><br/>
+                    <a href='/customer/login' target='_blank' rel='noreferrer'>SquareEightIDでログインしてください</a><br/>
                     <div className='mt20'>お支払いにはアカウント登録とクレジットカード登録が必要になります。</div>
                     <div className='mt40'></div>
                   </>
