@@ -18,7 +18,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
   const readQuestionnaireAnswersStatus = useSelector((state: RootState) => state.currentMerchantUser.readQuestionnaireAnswersStatus)
   const readOrdersStatus = useSelector((state: RootState) => state.currentMerchantUser.readOrdersStatus)
   const readAccountNotificationStatus = useSelector((state: RootState) => state.currentMerchantUser.readAccountNotificationStatus)
-  const readSystemNotificationStatus = useSelector((state: RootState) => state.currentMerchantUser.readSystemNotificationStatus)
+  const readBusinessNotificationStatus = useSelector((state: RootState) => state.currentMerchantUser.readBusinessNotificationStatus)
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
   const logout = () => {
@@ -44,19 +44,19 @@ const AdminNavbarTemplate = (): JSX.Element => {
             <Nav className='me-auto font-size-15'>
               <NavDropdown title={<>
                                     <div>通知</div>
-                                      {readAccountNotificationStatus === 'UnreadExist' || readSystemNotificationStatus === 'UnreadExist'
+                                      {(readAccountNotificationStatus === 'UnreadExist' || readBusinessNotificationStatus === 'UnreadExist')
                                       && <div className='badge bg-danger'>未読あり</div>}
                                   </>}
                               id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/notification/account/list'>
                   通知一覧
                   {readAccountNotificationStatus === 'UnreadExist' &&
-                    <div className='badge bg-danger'>未読あり</div>}
+                    <div className='badge bg-danger ml10'>未読あり</div>}
                 </NavDropdown.Item>
                 <NavDropdown.Item href='/admin/notification/system/list'>
                   運営からのお知らせ
-                  {readSystemNotificationStatus === 'UnreadExist' &&
-                    <div className='badge bg-danger'>未読あり</div>}
+                  {readBusinessNotificationStatus === 'UnreadExist' &&
+                    <div className='badge bg-danger ml10'>未読あり</div>}
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown

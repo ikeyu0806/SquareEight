@@ -16,7 +16,7 @@ import { loginStatusChanged,
          readReservationsStatusChanged,
          readOrdersStatusChanged,
          readAccountNotificationStatusChanged,
-         readSystemNotificationStatusChanged } from 'redux/currentMerchantUserSlice'
+         readBusinessNotificationStatusChanged } from 'redux/currentMerchantUserSlice'
 import {  allowReadMerchantUserChanged,
           allowCreateMerchantUserChanged,
           allowUpdateMerchantUserChanged,
@@ -185,7 +185,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(readQuestionnaireAnswersStatusChanged(response.data.user.read_questionnaire_answers_status))
       dispatch(readOrdersStatusChanged(response.data.user.read_orders_status))
       dispatch(readAccountNotificationStatusChanged(response.data.user.read_account_notifications_status))
-      dispatch(readSystemNotificationStatusChanged(response.data.user.read_business_notifications_status))
+      dispatch(readBusinessNotificationStatusChanged(response.data.user.read_business_notifications_status))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
