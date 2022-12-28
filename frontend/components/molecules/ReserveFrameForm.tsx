@@ -902,6 +902,13 @@ const ReserveFrameForm = () => {
         {selectedQuestionnaireMasters.length
         ?
           <>
+            <Form.Check
+              checked={questionnaireMasterId === ''}
+              label='アンケートを受け付けない'
+              name='reserveFrameQuestionnaireMaster'
+              id='notUseQuesionnaire'
+              type='radio'
+            ></Form.Check>
             {selectedQuestionnaireMasters.map((questionnaire, i) => {
             return (
                 <span key={i}>

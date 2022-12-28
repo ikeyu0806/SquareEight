@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { publicIdChanged,
+         questionnaireMasterIdChanged,
          showCreateReserveFrameModalChanged,
          showEditReserveFrameModalChanged } from 'redux/reserveFrameSlice'
 import CreateReserveFrameModal from 'components/organisms/CreateReserveFrameModal'
@@ -64,7 +65,10 @@ const Index = (): JSX.Element => {
           {/* <ReservationLimitAlerts /> */}
           {allowCreateReserveFrame === 'Allow' && <Button
             className='mb30'
-            onClick={() => dispatch(showCreateReserveFrameModalChanged(true))}>新規登録</Button>}
+            onClick={() => {
+              dispatch(questionnaireMasterIdChanged(''))
+              dispatch(showCreateReserveFrameModalChanged(true))
+            }}>新規登録</Button>}
             {reserveFrames.map((reserveFrame, i) => {
               return (
                 <div key={i} className='mb30 border-solid padding-20'>
