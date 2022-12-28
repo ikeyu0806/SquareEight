@@ -7,7 +7,6 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import PlanLabel from 'components/atoms/PlanLabel'
-import BellIcon from 'components/atoms/BellIcon'
 
 const AdminNavbarTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -36,7 +35,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
     <>
       <Navbar bg='dark' variant='dark' expand='lg'>
         <Container>
-          <Navbar.Brand href='/'>
+          <Navbar.Brand href='/admin/dashboard'>
             <span className='font-weight-bold'>
               SquareEight
             </span></Navbar.Brand>
@@ -45,12 +44,20 @@ const AdminNavbarTemplate = (): JSX.Element => {
             <Nav className='me-auto font-size-15'>
               <NavDropdown title={<>
                                     <div>通知</div>
-                                    {readOrdersStatus === 'UnreadExist' && <div className='badge bg-danger'>未読注文あり</div>}
+                                      {readAccountNotificationStatus === 'UnreadExist' || readSystemNotificationStatus === 'UnreadExist'
+                                      && <div className='badge bg-danger'>未読あり</div>}
                                   </>}
                               id='webpage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/dashboard'>ダッシュボード</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/notification/account/list'>通知一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/notification/system/list'>運営からのお知らせ</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/notification/account/list'>
+                  通知一覧
+                  {readAccountNotificationStatus === 'UnreadExist' &&
+                    <div className='badge bg-danger'>未読あり</div>}
+                </NavDropdown.Item>
+                <NavDropdown.Item href='/admin/notification/system/list'>
+                  運営からのお知らせ
+                  {readSystemNotificationStatus === 'UnreadExist' &&
+                    <div className='badge bg-danger'>未読あり</div>}
+                </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown
                 title={<>
