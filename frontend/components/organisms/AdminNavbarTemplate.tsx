@@ -42,8 +42,8 @@ const AdminNavbarTemplate = (): JSX.Element => {
               <NavDropdown title='予約' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/reservation'>予約管理</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/monthly_payment/'>月額課金プラン一覧</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/monthly_payment/new'>月額課金プラン作成</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/monthly_payment/'>月額サブスクリプション一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/monthly_payment/new'>月額サブスクリプション作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/ticket'>回数券一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/ticket/new'>回数券作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/resource'>リソース一覧</NavDropdown.Item>

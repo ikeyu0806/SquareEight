@@ -87,7 +87,7 @@ const Edit: NextPage = () => {
       }
     }).then(response => {
       router.push('/admin/monthly_payment')
-      dispatch(alertChanged({message: '月額課金プランを更新しました', show: true}))
+      dispatch(alertChanged({message: '月額サブスクリプションを更新しました', show: true}))
     }).catch(error => {
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })

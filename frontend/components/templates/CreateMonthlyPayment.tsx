@@ -85,10 +85,10 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
           {showDeleteButton &&
             <Row>
               <Col sm={8}>
-                <h2 className='mt30'>月額課金プラン作成</h2>
+                <h2 className='mt30'>月額サブスクリプション作成</h2>
               </Col>
               <Col>
-                <Button variant='danger' size='sm' onClick={() => execDelete()}>月額課金プランを削除</Button>
+                <Button variant='danger' size='sm' onClick={() => execDelete()}>月額サブスクリプションを削除</Button>
               </Col>
             </Row>}
           <Form.Label>プラン名</Form.Label>

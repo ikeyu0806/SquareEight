@@ -374,19 +374,19 @@ const Permission: NextPage = () => {
                 onChange={() => dispatch(allowDeleteTicketMasterChanged(allowDeleteTicketMaster === 'Allow' ? 'Forbid' : 'Allow' ))}
                 checked={allowDeleteTicketMaster === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'月額課金プラン閲覧'}
+                text={'月額サブスクリプション閲覧'}
                 onChange={() => dispatch(allowReadMonthlyPaymentPlanChanged(allowReadMonthlyPaymentPlan === 'Allow' ? 'Forbid' : 'Allow' ))}
                 checked={allowReadMonthlyPaymentPlan === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'月額課金プラン登録'}
+                text={'月額サブスクリプション登録'}
                 onChange={() => dispatch(allowCreateMonthlyPaymentPlanChanged(allowCreateMonthlyPaymentPlan === 'Allow' ? 'Forbid' : 'Allow' ))}
                 checked={allowCreateMonthlyPaymentPlan === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'月額課金プラン更新'}
+                text={'月額サブスクリプション更新'}
                 onChange={() => dispatch(allowUpdateMonthlyPaymentPlanChanged(allowUpdateMonthlyPaymentPlan === 'Allow' ? 'Forbid' : 'Allow' ))}
                 checked={allowUpdateMonthlyPaymentPlan === 'Allow'} />
               <UserPermissionListGroupItem
-                text={'月額課金プラン削除'}
+                text={'月額サブスクリプション削除'}
                 onChange={() => dispatch(allowDeleteMonthlyPaymentPlanChanged(allowDeleteMonthlyPaymentPlan === 'Allow' ? 'Forbid' : 'Allow' ))}
                 checked={allowDeleteMonthlyPaymentPlan === 'Allow'} />
               <UserPermissionListGroupItem

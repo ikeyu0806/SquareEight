@@ -50,8 +50,8 @@ const Index: NextPage = () => {
               {stripeAccountEnable === 'Enable' && 
               <>
               <a className='btn btn-primary mt10 mb20'
-              href='/admin/monthly_payment/new'>月額課金プラン登録</a>
-              <h3>月額課金プラン一覧</h3>
+              href='/admin/monthly_payment/new'>月額サブスクリプション登録</a>
+              <h3>月額サブスクリプション一覧</h3>
               <ListGroup>
               {monthlyPaymentPlans.map((plan, i) => {
                 return (

@@ -21,7 +21,7 @@ const PurchaseMonthlyPayment = (): JSX.Element => {
           <Col lg={3} md={3}></Col>
           <Col lg={6} md={6}>
           <Card>
-            <Card.Header>月額課金プラン加入</Card.Header>
+            <Card.Header>月額サブスクリプション加入</Card.Header>
             <Card.Body>
               <div>{name}</div>
               <div>{description}</div>

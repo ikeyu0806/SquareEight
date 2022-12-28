@@ -83,13 +83,13 @@ const MerchantUserPermissionGuideModal = (): JSX.Element => {
                     <td className='text-center'>×</td>
                   </tr>
                   <tr>
-                    <td className='text-center'>月額課金プランの閲覧</td>
+                    <td className='text-center'>月額サブスクリプションの閲覧</td>
                     <td className='text-center'>○</td>
                     <td className='text-center'>○</td>
                     <td className='text-center'>○</td>
                   </tr>
                   <tr>
-                    <td className='text-center'>月額課金プランの登録・更新・削除</td>
+                    <td className='text-center'>月額サブスクリプションの登録・更新・削除</td>
                     <td className='text-center'>○</td>
                     <td className='text-center'>○</td>
                     <td className='text-center'>×</td>

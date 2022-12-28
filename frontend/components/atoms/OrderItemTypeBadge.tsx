@@ -7,7 +7,7 @@ const OrderItemTypeBadge = ({itemType}: Props): JSX.Element => {
     <span className='badge bg-info ml10'>
       {itemType === 'Product' && '物販商品'}
       {itemType === 'TicketMaster' && '回数券'}
-      {itemType === 'MonthlyPaymentPlan' && '月額課金プラン'}
+      {itemType === 'MonthlyPaymentPlan' && '月額サブスクリプション'}
     </span>
   )
 }

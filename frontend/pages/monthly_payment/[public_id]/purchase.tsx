@@ -145,13 +145,13 @@ const Purchase: NextPage = () => {
             <Col lg={3} md={1}></Col>
             <Col lg={6} md={10}>
             <Card>
-              <Card.Header>月額課金プラン加入</Card.Header>
+              <Card.Header>月額サブスクリプション加入</Card.Header>
               <Card.Body>
               {currentEndUserLogintStatus === 'Logout'
                 ?
                   <>
                     <div></div>
-                    <a href='/customer/login' target='_blank' rel='noreferrer'>カスタマーアカウントでログインしてください</a><br/>
+                    <a href='/customer/login' target='_blank' rel='noreferrer'>SquareEightIDでログインしてください</a><br/>
                     <div className='mt20'>購入にはアカウント登録とクレジットカード登録が必要になります</div>
                     <div className='mt40'></div>
                   </>
