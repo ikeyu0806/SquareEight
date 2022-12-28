@@ -7,6 +7,7 @@
       <div><%= @end_user.full_name %>様</div>
       <div>この度は、SquareEightにご登録いただき、誠にありがとうございます。</div>
       <div>本メールをもちまして登録手続きが完了しましたことをお知らせいたします。</div>
+    <br/>
     <div>マイページログインURL<div>
     <div><%= ENV["FRONTEND_URL"] + "/customer/login" %></div>
     <%= simple_format(h("
@@ -16,4 +17,3 @@
       ※ご返信いただいてもお応えいたしかねますのでご了承ください。
     ")) %>
   </body>
-</html>
