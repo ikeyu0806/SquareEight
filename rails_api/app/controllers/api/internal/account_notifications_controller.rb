@@ -2,7 +2,7 @@ class Api::Internal::AccountNotificationsController < ApplicationController
   before_action :merchant_login_only!
 
   def index
-    account_notifications = current_merchant_user.account.account_notifications
+    account_notifications = current_merchant_user.account.account_notifications.order(id: :desc)
     render json: { status: 'success', account_notifications: account_notifications }, status: 200
   rescue => error
     Rails.logger.error error

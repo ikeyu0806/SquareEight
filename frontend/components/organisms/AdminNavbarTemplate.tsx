@@ -50,7 +50,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                        </>}
                 id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー</NavDropdown.Item>
-                <NavDropdown.Item>
+                <NavDropdown.Item href='/admin/reservation'>
                   予約管理
                   {readReservationsStatus === 'UnreadExist' && <div className='badge bg-danger ml10'>未読予約あり</div>}
                 </NavDropdown.Item>
@@ -61,11 +61,12 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/resource'>リソース一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/resource/new'>リソース作成</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title={<>
-                                    <div>商品</div>
-                                    {readOrdersStatus === 'UnreadExist' && <div className='badge bg-danger'>未読注文あり</div>}
-                                  </>}
-                            id='webpage-nav-dropdown'>
+              <NavDropdown title={
+                <>
+                  <div>商品</div>
+                  {readOrdersStatus === 'UnreadExist' && <div className='badge bg-danger'>未読注文あり</div>}
+                </>}
+              id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/product/'>商品一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/product/new'>商品作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/delivery_datetime'>配送日時設定</NavDropdown.Item>
