@@ -43,6 +43,7 @@ class Api::Internal::ReservationsController < ApplicationController
                     price: price_attr[:price] * price_attr[:reserve_number_of_people])
         end
       end
+
       render json: { status: 'success', reservation: reservation }, status: 200
     end
   rescue => error

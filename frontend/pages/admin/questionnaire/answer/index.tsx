@@ -28,6 +28,16 @@ const Answer = (): JSX.Element => {
     })
   }, [cookies._square_eight_merchant_session, router])
 
+  useEffect(() => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/merchant/read_notification_status/read_questionnaire_answers`,
+    {},
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    })
+  }, [cookies._square_eight_merchant_session])
+
   return (
     <MerchantUserAdminLayout>
       {allowReadQuestionnaireAnswer === 'Allow' && <Container>

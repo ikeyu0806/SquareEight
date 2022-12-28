@@ -20,7 +20,7 @@ class QuestionnaireMaster < ApplicationRecord
 
   def answer_contents
     result = []
-    questionnaire_answers.order(:id).each do |questionnaire_answer|
+    questionnaire_answers.order(created_at: :desc).each do |questionnaire_answer|
       result.push({answer: questionnaire_answer.parse_answer_json,
                    customer_name: questionnaire_answer.customer.full_name,
                    answer_datetime: questionnaire_answer.created_at.strftime("%Y年%m月%d日 %H時%M分")})

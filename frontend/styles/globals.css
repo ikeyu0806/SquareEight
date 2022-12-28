@@ -224,3 +224,7 @@ a {
 .padding-20 {
   padding: 20px;
 }
+
+.dropdown-toggle::after {
+  display: none !important;
+ }

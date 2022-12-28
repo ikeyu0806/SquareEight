@@ -44,6 +44,16 @@ const Index: NextPage = () => {
     })
   }, [cookies._square_eight_merchant_session, targetStartDate, targetEndDate])
 
+  useEffect(() => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/merchant/read_notification_status/read_reservations`,
+    {},
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    })
+  }, [cookies._square_eight_merchant_session])
+
   const updateReservationStatus = (reservationPublicId: string, reservationStatus: string) => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reservations/${reservationPublicId}/update_status`,
     {
