@@ -32,6 +32,16 @@ const Index: NextPage = () => {
     fetchDashboardContent()
   }, [cookies._square_eight_merchant_session])
 
+  useEffect(() => {
+    axios.post(`${process.env.BACKEND_URL}/api/internal/merchant/read_notification_status/read_account_notifications_status`,
+    {},
+    {
+      headers: {
+        'Session-Id': cookies._square_eight_merchant_session
+      }
+    })
+  }, [cookies._square_eight_merchant_session])
+
   return (
     <MerchantUserAdminLayout>
       <Container>
