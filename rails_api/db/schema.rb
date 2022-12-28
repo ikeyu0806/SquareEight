@@ -362,7 +362,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_26_054034) do
     t.integer "read_questionnaire_answers_status", default: 0
     t.integer "read_reservations_status", default: 0
     t.integer "read_orders_status", default: 0
-    t.integer "read_sales", default: 0
+    t.integer "read_account_notifications_status", default: 0
+    t.integer "read_business_notifications_status", default: 0
     t.index ["email"], name: "index_merchant_users_on_email", unique: true
   end
 
