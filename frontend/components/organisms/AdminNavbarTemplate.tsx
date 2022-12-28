@@ -42,23 +42,6 @@ const AdminNavbarTemplate = (): JSX.Element => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='me-auto font-size-15'>
-              <NavDropdown title={<>
-                                    <div>通知</div>
-                                      {(readAccountNotificationStatus === 'UnreadExist' || readBusinessNotificationStatus === 'UnreadExist')
-                                      && <div className='badge bg-danger'>未読あり</div>}
-                                  </>}
-                              id='webpage-nav-dropdown'>
-                <NavDropdown.Item href='/admin/notification/account/list'>
-                  通知一覧
-                  {readAccountNotificationStatus === 'UnreadExist' &&
-                    <div className='badge bg-danger ml10'>未読あり</div>}
-                </NavDropdown.Item>
-                <NavDropdown.Item href='/admin/notification/system/list'>
-                  運営からのお知らせ
-                  {readBusinessNotificationStatus === 'UnreadExist' &&
-                    <div className='badge bg-danger ml10'>未読あり</div>}
-                </NavDropdown.Item>
-              </NavDropdown>
               <NavDropdown
                 title={<>
                         <div>予約</div>
@@ -117,6 +100,23 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/questionnaire/answer/'>
                   アンケート回答一覧{readQuestionnaireAnswersStatus == 'UnreadExist' &&
                   <div className='badge bg-danger ml10'>未読回答あり</div>}
+                </NavDropdown.Item>
+              </NavDropdown>
+              <NavDropdown title={<>
+                                    <div>通知</div>
+                                      {(readAccountNotificationStatus === 'UnreadExist' || readBusinessNotificationStatus === 'UnreadExist')
+                                      && <div className='badge bg-danger'>未読あり</div>}
+                                  </>}
+                              id='webpage-nav-dropdown'>
+                <NavDropdown.Item href='/admin/notification/account/list'>
+                  通知一覧
+                  {readAccountNotificationStatus === 'UnreadExist' &&
+                    <div className='badge bg-danger ml10'>未読あり</div>}
+                </NavDropdown.Item>
+                <NavDropdown.Item href='/admin/notification/system/list'>
+                  運営からのお知らせ
+                  {readBusinessNotificationStatus === 'UnreadExist' &&
+                    <div className='badge bg-danger ml10'>未読あり</div>}
                 </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='アカウント' id='webpage-nav-dropdown'>
