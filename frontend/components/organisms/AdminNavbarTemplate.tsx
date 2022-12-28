@@ -17,6 +17,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const readReservationsStatus = useSelector((state: RootState) => state.currentMerchantUser.readReservationsStatus)
   const readQuestionnaireAnswersStatus = useSelector((state: RootState) => state.currentMerchantUser.readQuestionnaireAnswersStatus)
+  const readOrdersStatus = useSelector((state: RootState) => state.currentMerchantUser.readOrdersStatus)
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
   const logout = () => {
@@ -60,11 +61,17 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <NavDropdown.Item href='/admin/resource'>リソース一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/resource/new'>リソース作成</NavDropdown.Item>
               </NavDropdown>
-              <NavDropdown title='商品' id='webpage-nav-dropdown'>
+              <NavDropdown title={<>
+                                    <div>商品</div>
+                                    {readOrdersStatus === 'UnreadExist' && <div className='badge bg-danger'>未読注文あり</div>}
+                                  </>}
+                            id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/product/'>商品一覧</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/product/new'>商品作成</NavDropdown.Item>
                 <NavDropdown.Item href='/admin/delivery_datetime'>配送日時設定</NavDropdown.Item>
-                <NavDropdown.Item href='/admin/order_item'>注文管理</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/order_item'>
+                  注文管理{readOrdersStatus === 'UnreadExist' && <div className='badge bg-danger ml10'>未読注文あり</div>}
+                </NavDropdown.Item>
               </NavDropdown>
               <NavDropdown title='顧客管理' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/customer'>顧客</NavDropdown.Item>

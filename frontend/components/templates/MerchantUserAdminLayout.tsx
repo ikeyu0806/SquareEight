@@ -102,6 +102,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
+      console.log(response.data)
       dispatch(loginStatusChanged('Login'))
       dispatch(stripeAccountEnableChanged(response.data.user.stripe_account_enable ? 'Enable' : 'Disable'))
       dispatch(stripeCustomerEnableChanged(response.data.user.stripe_customer_enable ? 'Enable' : 'Disable'))
@@ -181,6 +182,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowSendLineMessageChanged(response.data.user.allow_send_line_message))
       dispatch(readReservationsStatusChanged(response.data.user.read_reservations_status))
       dispatch(readQuestionnaireAnswersStatusChanged(response.data.user.read_questionnaire_answers_status))
+      dispatch(readOrdersStatusChanged(response.data.user.read_orders_status))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
