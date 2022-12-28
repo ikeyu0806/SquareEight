@@ -3,7 +3,7 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import axios from 'axios'
 import { QuestionnaireMasterParam } from 'interfaces/QuestionnaireMasterParam'
 import { useCookies } from 'react-cookie'
-import { Container, Row, Col, Card, ListGroup, Button } from 'react-bootstrap'
+import { Container, Row, Col, Card, ListGroup, Table } from 'react-bootstrap'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -30,44 +30,47 @@ const Index = (): JSX.Element => {
 
   return (
     <MerchantUserAdminLayout>
-      {allowReadQuestionnaireMaster === 'Allow' && <Container>
-        <Row>
-          <Col lg={2}></Col>
-          <Col lg={8}>
-            <a className='btn btn-primary mb20' href='/admin/questionnaire/master/new'>アンケート作成</a>
-            <Card>
-              <Card.Header>アンケート一覧</Card.Header>
-              <ListGroup variant='flush'>
-                {questionnaireMasters && questionnaireMasters.map((questionare, i) => {
-                  return (
-                    <ListGroup.Item key={i}>
-                      <Row>
-                        <Col sm={4}>
-                          {questionare.title}
-                          <PublishStatusBadge publishStatus={questionare.publish_status} />
-                        </Col>
-                        <Col sm={3}>
-                        <a className='btn btn-primary'
-                             target='_blank'
-                             rel='noreferrer'
-                             href={`/questionnaire/${questionare.public_id}`}>プレビュー</a>
-                        </Col>
-                        {allowUpdateQuestionnaireMaster === 'Allow' && <Col sm={2}>
-                        <a className='btn btn-primary ml30'
-                             href={`/admin/questionnaire/master/${questionare.public_id}/edit`}>編集</a>
-                        </Col>}
-                        <Col sm={3}>    
-                          <a className='btn btn-primary ml30'
-                             href={`/admin/questionnaire/master/${questionare.public_id}/answer`}>回答一覧</a>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  )
-                })}
-              </ListGroup>
-            </Card>
-          </Col>
-        </Row>
+      {allowReadQuestionnaireMaster === 'Allow' &&
+      <Container>
+        <h4 className='mb20'>アンケートマスタ</h4>
+        <Table bordered>
+          <thead>
+            <tr>
+              <th>アンケートマスタ名</th>
+              <th>公開ステータス</th>
+              <th>プレビュー</th>
+              <th>編集</th>
+              <th>回答一覧</th>
+            </tr>
+          </thead>
+          <tbody>
+          {questionnaireMasters && questionnaireMasters.map((questionare, i) => {
+          return (
+            <tr key={i}>
+              <td>{questionare.title}</td>
+              <td>
+                <PublishStatusBadge publishStatus={questionare.publish_status} />
+              </td>
+              <td className='text-center'>
+                <a className='btn btn-primary'
+                   target='_blank'
+                   rel='noreferrer'
+                   href={`/questionnaire/${questionare.public_id}`}>プレビュー</a>
+              </td>
+              <td className='text-center'>
+                {allowUpdateQuestionnaireMaster === 'Allow' &&
+                  <a className='btn btn-primary ml30'
+                     href={`/admin/questionnaire/master/${questionare.public_id}/edit`}>編集</a>}
+              </td>
+              <td className='text-center'>
+                <a  className='btn btn-primary ml30'
+                    href={`/admin/questionnaire/master/${questionare.public_id}/answer`}>回答一覧</a>
+              </td>
+            </tr>
+            )
+          })}
+          </tbody>
+        </Table>
       </Container>}
       {allowReadQuestionnaireMaster === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
