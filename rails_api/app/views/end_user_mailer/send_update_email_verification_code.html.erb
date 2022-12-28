@@ -4,16 +4,13 @@
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
   <body>
-      <p>メールアドレスを変更します。</p>
-      <br />
-      <p><%= @verification_code %></p>
-      <br />
-      <p>以下のページから上記の検証コードを入力してメールアドレス変更を完了してください。</p>
-    <p>
+      <div>メールアドレスを変更します。</div>
+      <div><%= @verification_code %></div>
+      <div>以下のページから上記の検証コードを入力してメールアドレス変更を完了してください。</div>
+    <div>
       <%= link_to @url, @url %>
-    </p>
-    <br/>
-    <p>※1日以上経過した場合は下記URLから再度メールアドレスをご登録ください<p>
+    </div>
+    <div>※1日以上経過した場合は下記URLから再度メールアドレスをご登録ください<div>
     <%= simple_format(h("
       ---
       ■  SquareEight
