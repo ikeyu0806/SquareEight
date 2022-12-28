@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import React, { useState, useEffect } from 'react'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { Container, ListGroup, Row, Col } from 'react-bootstrap'
+import { Container, ListGroup, Row, Col, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { PageLinksParam } from 'interfaces/PageLinksParam'
 import { useCookies } from 'react-cookie'
@@ -47,35 +47,38 @@ const CreatePages: NextPage = () => {
   return (
     <MerchantUserAdminLayout>
       <Container>
-        <Row>
-          <Col md={3}></Col>
-          <Col md={6}>
-              <h3>ページ一覧</h3>
-              <ListGroup>
-                {pageLinks.map((link, i) => {
-                  return (
-                    <ListGroup.Item key={i}>
-                      <Row>
-                        <Col>
-                          {link.text}&emsp;<span>【{link.label}】</span>
-                          <br/>
-                          <span><PublishStatusBadge publishStatus={link.publish_status} /></span>
-                        </Col>
-                        <Col>
-                          <a className='btn btn-primary btn-sm'
-                            target='_blank'
-                            rel='noreferrer'
-                            href={link.value}>プレビュー</a>
-                            <a className='btn btn-primary ml10 btn-sm'
-                              onClick={() => copyLinkToClipboard(link.value)}>URLをコピー</a>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  )
-                })}
-              </ListGroup>
-          </Col>
-        </Row>
+        <Table bordered>
+          <thead>
+            <tr>
+              <th>ページ名</th>
+              <th>ページ種別</th>
+              <th>公開ステータス</th>
+              <th>プレビュー</th>
+              <th>コピー</th>
+            </tr>
+          </thead>
+          <tbody>
+            {pageLinks.map((link, i) => {
+              return (
+                <tr key={i}>
+                  <td>{link.text}</td>
+                  <td>{link.label}</td>
+                  <td><PublishStatusBadge publishStatus={link.publish_status} /></td>
+                  <td>
+                    <a className='btn btn-primary btn-sm'
+                       target='_blank'
+                       rel='noreferrer'
+                       href={link.value}>プレビュー</a>
+                  </td>
+                  <td>
+                  <a className='btn btn-primary ml10 btn-sm'
+                     onClick={() => copyLinkToClipboard(link.value)}>URLをコピー</a>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </Table>
       </Container>
     </MerchantUserAdminLayout>
   )
