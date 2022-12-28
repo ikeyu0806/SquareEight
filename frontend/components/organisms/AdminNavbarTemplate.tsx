@@ -18,6 +18,8 @@ const AdminNavbarTemplate = (): JSX.Element => {
   const readReservationsStatus = useSelector((state: RootState) => state.currentMerchantUser.readReservationsStatus)
   const readQuestionnaireAnswersStatus = useSelector((state: RootState) => state.currentMerchantUser.readQuestionnaireAnswersStatus)
   const readOrdersStatus = useSelector((state: RootState) => state.currentMerchantUser.readOrdersStatus)
+  const readAccountNotificationStatus = useSelector((state: RootState) => state.currentMerchantUser.readAccountNotificationStatus)
+  const readSystemNotificationStatus = useSelector((state: RootState) => state.currentMerchantUser.readSystemNotificationStatus)
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
   const logout = () => {
