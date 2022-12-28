@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
-import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
+import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
@@ -34,7 +34,8 @@ const Login: NextPage = () => {
     })
   }, [dispatch, cookies._square_eight_merchant_session, merchantUserLoginStatus, router])
 
-  const onSubmit = () => {
+  const onSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault()
     axios.post(`${process.env.BACKEND_URL}/api/internal/merchant/sessions`,
     {
       merchant_user: {
@@ -50,6 +51,7 @@ const Login: NextPage = () => {
     })
   }
 
+
   return (
     <>
       <WithoutSessionLayout>
@@ -60,7 +62,7 @@ const Login: NextPage = () => {
                 <Card>
                   <Card.Header>ログイン</Card.Header>
                   <Card.Body>
-                    <Form>
+                    <Form onSubmit={onSubmit}>
                       <Form.Group className='mb-3' controlId='formEmail'>
                         <Form.Label>メールアドレス</Form.Label>
                         <Form.Control type='email' placeholder='メールアドレス' onChange={(e) => setEmail(e.target.value)} />
@@ -71,15 +73,18 @@ const Login: NextPage = () => {
                         <Form.Control type='password' placeholder='パスワード' onChange={(e) => setPassword(e.target.value)} />
                       </Form.Group>
                       <div className='text-center'>
-                        <Button variant='primary' onClick={onSubmit}>
+                        <Button
+                          onClick={onSubmit}
+                          type='submit'
+                          variant='primary'>
                           ログインする
                         </Button>
                       </div>
-                      <hr />
+                    </Form>
+                    <hr />
                       <GoogleAuthButton
                         buttonText='Googleでログイン'
                         buttonHref={MERCHANT_GOOGLE_AUTH_URL}></GoogleAuthButton>
-                    </Form>
                   </Card.Body>
                 </Card>
                 <div className='text-center mt20'>
