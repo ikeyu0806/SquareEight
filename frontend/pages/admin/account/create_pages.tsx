@@ -64,15 +64,15 @@ const CreatePages: NextPage = () => {
                   <td>{link.text}</td>
                   <td>{link.label}</td>
                   <td><PublishStatusBadge publishStatus={link.publish_status} /></td>
-                  <td>
+                  <td className='text-center'>
                     <a className='btn btn-primary btn-sm'
                        target='_blank'
                        rel='noreferrer'
                        href={link.value}>プレビュー</a>
                   </td>
-                  <td>
-                  <a className='btn btn-primary ml10 btn-sm'
-                     onClick={() => copyLinkToClipboard(link.value)}>URLをコピー</a>
+                  <td className='text-center'>
+                    <a className='btn btn-primary ml10 btn-sm'
+                      onClick={() => copyLinkToClipboard(link.value)}>URLをコピー</a>
                   </td>
                 </tr>
               )

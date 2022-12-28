@@ -725,6 +725,7 @@ const ReserveFrameForm = () => {
                 onChange={(e) => dispatch(receptionTypeChanged(e.target.value))} >
                 <option value='Immediate'>即時予約</option>
                 <option value='Temporary'>仮予約</option>
+                <option value='Lottery'>抽選予約</option>
                 <option value='PhoneOnly'>電話のみ予約</option>
               </Form.Select>
             </Form.Group>
@@ -907,6 +908,7 @@ const ReserveFrameForm = () => {
               label='アンケートを受け付けない'
               name='reserveFrameQuestionnaireMaster'
               id='notUseQuesionnaire'
+              onChange={() => dispatch(questionnaireMasterIdChanged(''))}
               type='radio'
             ></Form.Check>
             {selectedQuestionnaireMasters.map((questionnaire, i) => {
