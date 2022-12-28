@@ -37,7 +37,8 @@ const Login: NextPage = () => {
     })
   }, [dispatch, cookies._square_eight_end_user_session, currentEndUserLogintStatus])
 
-  const onSubmit = () => {
+  const onSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault()
     axios.post(`${process.env.BACKEND_URL}/api/internal/end_user/sessions`,
     {
       end_user: {
@@ -63,7 +64,7 @@ const Login: NextPage = () => {
                 <Card>
                   <Card.Header>SquareEightIDログイン</Card.Header>
                   <Card.Body>
-                    <Form>
+                    <Form onSubmit={onSubmit}>
                       <Form.Group className='mb-3' controlId='formEmail'>
                         <Form.Label>メールアドレス</Form.Label>
                         <Form.Control type='email' placeholder='メールアドレス' onChange={(e) => setEmail(e.target.value)} />
@@ -74,21 +75,24 @@ const Login: NextPage = () => {
                         <Form.Control type='password' placeholder='パスワード' onChange={(e) => setPassword(e.target.value)} />
                       </Form.Group>
                       <div className='text-center'>
-                        <Button variant='primary' onClick={onSubmit}>
+                        <Button
+                          type='submit'
+                          variant='primary'
+                          onClick={onSubmit}>
                           ログインする
                         </Button>
                       </div>
-                      <hr />
-                      <GoogleAuthButton
-                        buttonText='Googleでログイン'
-                        buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
-                      <div className='text-center mt30'>
-                        <a href='/customer/signup'>新規登録はこちら</a>
-                      </div>
-                      <div className='text-center mt20'>
-                        <a href='/customer/password_reset_mail'>ログインできない方はこちら</a>
-                      </div>
                     </Form>
+                    <hr />
+                    <GoogleAuthButton
+                      buttonText='Googleでログイン'
+                      buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
+                    <div className='text-center mt30'>
+                      <a href='/customer/signup'>新規登録はこちら</a>
+                    </div>
+                    <div className='text-center mt20'>
+                      <a href='/customer/password_reset_mail'>ログインできない方はこちら</a>
+                    </div>
                   </Card.Body>
                 </Card>
               </Col>
