@@ -14,7 +14,8 @@ const VerificationCode: NextPage = () => {
   const [verificationCode, setVerificationCode] = useState('')
   const [cookies, setCookie] = useCookies(['_square_eight_end_user_session'])
 
-  const onSubmit = () => {
+  const onSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault()
     axios.post(
       `${process.env.BACKEND_URL}/api/internal/end_users/confirm_verification_code`,
       {
@@ -44,14 +45,17 @@ const VerificationCode: NextPage = () => {
                 <Card>
                   <Card.Header>検証コードを入力してください</Card.Header>
                   <Card.Body>
-                    <Form>
+                    <Form onSubmit={onSubmit}>
                       <Form.Group className='mb-3' controlId='formEmail'>
                         <Form.Label>検証コード</Form.Label>
                         <Form.Control onChange={(e) => setVerificationCode(e.target.value)} />
                         <Form.Text className='text-muted'></Form.Text>
                       </Form.Group>
                       <div className='text-center'>
-                        <Button variant='primary' onClick={onSubmit}>
+                        <Button
+                          variant='primary'
+                          type='submit'
+                          onClick={onSubmit}>
                           送信
                         </Button>
                       </div>

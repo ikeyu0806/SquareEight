@@ -39,7 +39,8 @@ const Signup: NextPage = () => {
     })
   }, [dispatch, cookies._square_eight_end_user_session, currentEndUserLogintStatus])
 
-  const onSubmit = () => {
+  const onSubmit = (e: React.SyntheticEvent) => {
+    e.preventDefault()
     if (email && email.match(emailRegex) === null) {
       dispatch(alertChanged({message: 'メールアドレスの形式に誤りがあります', show: true, type: 'danger'}))
       return
@@ -71,10 +72,6 @@ const Signup: NextPage = () => {
     })
   }
 
-  const handleSubmit = (e: any) => {
-    e.preventDefault()
-  }
-
   return (
     <>
       <WithoutSessionLayout>
@@ -85,7 +82,7 @@ const Signup: NextPage = () => {
               <Card>
                 <Card.Header>SquareEightID登録</Card.Header>
                 <Card.Body>
-                  <Form onSubmit={handleSubmit}>
+                  <Form onSubmit={onSubmit}>
                     <Form.Group className='mb-3'>
                       <Form.Label>お名前（姓）</Form.Label>
                       <Form.Control type='text'
@@ -124,6 +121,7 @@ const Signup: NextPage = () => {
                     </Form.Group>
                     <div className='text-center'>
                       <Button variant='primary'
+                              type='submit'
                               disabled={!lastName || !firstName || !email || !password || (password !== confirmPassword)}
                               onClick={onSubmit}>
                         登録する
