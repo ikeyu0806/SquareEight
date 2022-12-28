@@ -41,7 +41,15 @@ const AdminNavbarTemplate = (): JSX.Element => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='me-auto font-size-15'>
-              <Nav.Link href='/admin/dashboard'>ホーム</Nav.Link>
+              <NavDropdown title={<>
+                                    <div>通知</div>
+                                    {readOrdersStatus === 'UnreadExist' && <div className='badge bg-danger'>未読注文あり</div>}
+                                  </>}
+                              id='webpage-nav-dropdown'>
+                <NavDropdown.Item href='/admin/dashboard'>ダッシュボード</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/notification/account/list'>通知一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/notification/system/list'>運営からのお知らせ</NavDropdown.Item>
+              </NavDropdown>
               <NavDropdown
                 title={<>
                         <div>予約</div>
