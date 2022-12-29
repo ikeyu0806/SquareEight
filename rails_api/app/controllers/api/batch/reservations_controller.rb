@@ -27,6 +27,9 @@ class Api::Batch::ReservationsController < ApplicationController
       shuffle_candidate_reservations.first(reserve_frame.capacity).each do |r|
         r.confirm!
       end
+      shuffle_candidate_reservations.last(shuffle_candidate_reservations.length - reserve_frame.capacity).each do |r|
+        r.lostLottery!
+      end
     end
     render json: { status: 'success' }, status: 200
   rescue => error

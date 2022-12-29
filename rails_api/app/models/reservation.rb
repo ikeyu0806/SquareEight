@@ -14,7 +14,12 @@ class Reservation < ApplicationRecord
   has_many :reservation_credit_card_payment_prices
 
   enum payment_method: { localPayment: 0, creditCardPayment: 1, ticket: 2, monthlyPaymentPlan: 3 }
-  enum status: { pendingVerifivation: 0, confirm: 1, inputTimeWithPaymentMethod: 2, cancel: 3, waitingForLotteryConfirm: 4 }
+  enum status: { pendingVerifivation: 0,
+                 confirm: 1,
+                 inputTimeWithPaymentMethod: 2,
+                 cancel: 3,
+                 waitingForLotteryConfirm: 4,
+                 lostLottery: 5 }
 
   def update_read_reservations_status_unread
     self.account.merchant_users.each do |user|
