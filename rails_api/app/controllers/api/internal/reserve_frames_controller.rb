@@ -249,6 +249,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :is_accept_cancel_on_the_day,
                   :cancel_reception_day_before,
                   :cancel_reception_hour_before,
+                  :lottery_confirmed_day_before,
                   multi_local_payment_prices: [:name, :price],
                   multi_credit_card_payment_prices: [:name, :price],
                   repeat_wdays: [],

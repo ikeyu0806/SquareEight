@@ -46,7 +46,8 @@ import {  startDateChanged,
           isAcceptCancelChanged,
           isAcceptCancelOnTheDayChanged,
           cancelReceptionDayBeforeChanged,
-          cancelReceptionHourBeforeChanged } from 'redux/reserveFrameSlice'
+          cancelReceptionHourBeforeChanged,
+          lotteryConfirmedDayBeforeChanged } from 'redux/reserveFrameSlice'
 
 const ReserveFrameForm = () => {
   const router = useRouter()
@@ -89,6 +90,7 @@ const ReserveFrameForm = () => {
   const isAcceptCancelOnTheDay = useSelector((state: RootState) => state.reserveFrame.isAcceptCancelOnTheDay)
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
+  const lotteryConfirmedDayBefore = useSelector((state: RootState) => state.reserveFrame.lotteryConfirmedDayBefore)
 
   const [reserveFrameReceptionStartTime, setReserveFrameReceptionStartTime] = useState('')
   const [reserveFrameReceptionEndTime, setReserveFrameReceptionEndTime] = useState('')
@@ -735,6 +737,8 @@ const ReserveFrameForm = () => {
                 <Col>当日の</Col>
                 <Col sm={5}>
                   <Form.Control
+                    onChange={(e) => dispatch(lotteryConfirmedDayBeforeChanged(Number(e.target.value)))}
+                    value={lotteryConfirmedDayBefore}
                     type='number'
                   ></Form.Control>
                 </Col>
