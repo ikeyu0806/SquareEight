@@ -147,8 +147,10 @@ class ReserveFrame < ApplicationRecord
       "仮予約"
     when "PhoneOnly"
       "電話のみ"
+    when "Lottery"
+      "抽選予約"
     else
-      raise
+      raise "不正な予約受付タイプです"
     end
   end
 
