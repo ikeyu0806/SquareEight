@@ -161,6 +161,7 @@ class Api::Internal::ReservationsController < ApplicationController
     reservation = JSON.parse(reservation.to_json(methods: [:reserve_frame_title, 
                                                            :display_payment_method,
                                                            :display_status,
+                                                           :lottery_confirmed_day_before,
                                                            :display_reservation_datetime,
                                                            :reservation_local_payment_prices,
                                                            :reservation_credit_card_payment_prices]))
