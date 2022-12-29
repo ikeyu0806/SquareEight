@@ -18,17 +18,20 @@ class Api::Batch::ReservationsController < ApplicationController
     current_datetime = Time.zone.now.strftime("%Y%m%d%H")
     ReserveFrame.Lottery.each do |reserve_frame|
       candidate_reservations = []
-      reserve_frame.reservations.select do |r|
-        if r.lottery_confirmed_day_before.strftime("%Y%m%d%H") == current_datetime
+      reserve_frame.reservations.waitingForLotteryConfirm.each do |r|
+        if r.lottery_confirmed_day_before_datetime.strftime("%Y%m%d%H") == current_datetime
           candidate_reservations.push(r)
         end
       end
-      shuffle_candidate_reservations = candidate_reservations.shuffle(random: rng)
-      shuffle_candidate_reservations.first(reserve_frame.capacity).each do |r|
-        r.confirm!
-      end
-      shuffle_candidate_reservations.last(shuffle_candidate_reservations.length - reserve_frame.capacity).each do |r|
-        r.lostLottery!
+      if candidate_reservations.present?
+        shuffle_candidate_reservations = candidate_reservations.shuffle(random: rng)
+        shuffle_candidate_reservations.first(reserve_frame.capacity).each do |r|
+          r.confirm!
+          shuffle_candidate_reservations.delete_at(0)
+        end
+        shuffle_candidate_reservations.each do |r|
+          r.lostLottery!
+        end
       end
     end
     render json: { status: 'success' }, status: 200
