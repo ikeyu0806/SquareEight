@@ -12,6 +12,7 @@ import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useCookies } from 'react-cookie'
 import { MultiPaymentMethod } from 'interfaces/MultiPaymentMethod'
+import { loginStatusChanged } from 'redux/currentEndUserSlice'
 import { multiLocalPaymentPricesChanged, multiCreditCardPaymentPricesChanged } from 'redux/reserveFrameSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
@@ -61,6 +62,7 @@ const Index: NextPage = () => {
         dispatch(multiLocalPaymentPricesChanged(response.data.reserve_frame.local_payment_prices_with_number_of_people))
         dispatch(multiCreditCardPaymentPricesChanged(response.data.reserve_frame.credit_card_payment_prices_with_number_of_people))
         setMainImagePublicUrl(response.data.main_image_public_url)
+        dispatch(loginStatusChanged(response.data.login_status))
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
@@ -165,7 +167,7 @@ const Index: NextPage = () => {
             <Card className='mt30'>
               <Card.Body>
                 <h3>{reserveFrame?.title}</h3>
-                {reserveFrame?.reception_type === 'Lottery'
+                {reserveFrame?.reception_type === 'Lottery' && endUserLoginStatus === 'Logout'
                   && <>
                       <div className='mt20 mb20'>
                         <div className='mb10'>
@@ -182,7 +184,7 @@ const Index: NextPage = () => {
                       </div>
                     </>
                 }
-                {(reserveFrame?.reception_type === 'Lottery' && endUserLoginStatus === 'Login') || (reserveFrame?.reception_type !== 'Lottery')
+                {((reserveFrame?.reception_type === 'Lottery' && endUserLoginStatus === 'Login') || (reserveFrame?.reception_type !== 'Lottery'))
                 &&
                 <>
                   {reserveFrame?.reception_type === 'Temporary'
