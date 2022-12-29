@@ -664,7 +664,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_12_29_042758) do
     t.boolean "is_accept_cancel_on_the_day", default: false
     t.integer "cancel_reception_day_before"
     t.integer "cancel_reception_hour_before"
-    t.integer "lottery_confirmed_day", default: 1
+    t.integer "lottery_confirmed_day_before", default: 1
   end
 
   create_table "resources", force: :cascade do |t|
