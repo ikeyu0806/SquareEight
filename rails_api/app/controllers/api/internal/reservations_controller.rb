@@ -101,6 +101,7 @@ class Api::Internal::ReservationsController < ApplicationController
                                     title: questionnaire_master.title,
                                     answers_json: reservation_params[:answer].to_json)
       end
+
       # 確定
       status = if reserve_frame.Lottery?
         'waitingForLotteryConfirm'
@@ -116,7 +117,7 @@ class Api::Internal::ReservationsController < ApplicationController
                 representative_first_name: reservation_params[:first_name],
                 representative_last_name: reservation_params[:last_name],
                 end_user_id: current_end_user.present? ? current_end_user.id : nil)
-
+binding.pry
       # 通知作成
       # カスタマー向け
       if current_end_user.present?
