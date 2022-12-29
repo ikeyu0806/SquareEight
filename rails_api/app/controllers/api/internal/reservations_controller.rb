@@ -11,6 +11,7 @@ class Api::Internal::ReservationsController < ApplicationController
       end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i, 0, "+09:00")
 
       reserve_frame = ReserveFrame.find_by(public_id: reservation_params[:reserve_frame_public_id])
+
       reservation = reserve_frame
       .reservations
       .create!( number_of_people: reservation_params[:reserve_count],
@@ -101,9 +102,17 @@ class Api::Internal::ReservationsController < ApplicationController
                                     answers_json: reservation_params[:answer].to_json)
       end
       # 確定
+      status = if reserve_frame.Lottery?
+        'waitingForLotteryConfirm'
+      elsif reserve_frame.Immediate?
+        'confirm'
+      else
+        'pendingVerifivation'
+      end
+
       reservation
       .update!( customer_id: customer.id,
-                status: reserve_frame.reception_type == 'Immediate' ? 'confirm' : 'pendingVerifivation',
+                status: status,
                 representative_first_name: reservation_params[:first_name],
                 representative_last_name: reservation_params[:last_name],
                 end_user_id: current_end_user.present? ? current_end_user.id : nil)
