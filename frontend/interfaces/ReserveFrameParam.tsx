@@ -37,6 +37,7 @@ export interface ReserveFrameParam {
   is_accept_cancel_on_the_day: boolean
   cancel_reception_day_before: number
   cancel_reception_hour_before: number
+  lottery_confirmed_day_before: number
   reception_deadline_text: string
   cancel_reception_text: string
   reserve_frame_reception_times_values: ReserveFrameReceptionTimeParam[]

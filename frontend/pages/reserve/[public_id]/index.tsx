@@ -171,6 +171,14 @@ const Index: NextPage = () => {
                       <div>予約後に運営者が承認するまで確定されません</div>
                     </div>
                    </>}
+                {reserveFrame?.reception_type === 'Lottery'
+                && <>
+                    <div className='mt20 mb20'>
+                      <div className='mb10'>
+                        こちらは抽選予約です。<br />当日の{reserveFrame?.lottery_confirmed_day_before}日前に抽選結果をお知らせします。
+                      </div>
+                    </div>
+                   </>}
                 {reserveFrame?.reception_type === 'PhoneOnly'
                  && <>
                       <div className='mt20 mb20'>
