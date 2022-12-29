@@ -30,6 +30,10 @@ class Reservation < ApplicationRecord
     reserve_frame.lottery_confirmed_day_before
   end
 
+  def lottery_confirmed_day_before_text
+    (self.start_at - reserve_frame.lottery_confirmed_day_before.days).strftime("%Y年%m月%d日")
+  end
+
   def display_reservation_datetime
     start_at.strftime("%Y年%m月%d日 %H時%M分~") + end_at.strftime("%H時%M分")
   end

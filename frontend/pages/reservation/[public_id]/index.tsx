@@ -18,7 +18,7 @@ export const Index = () => {
   const [paymentMethodText, setPaymentMethodText] = useState('')
   const [price, setPrice] = useState(0)
   const [receptionType, setReceptionType] = useState('')
-  const [lotteryConfirmedDayBefore, setLotteryConfirmedDayBefore] = useState(0)
+  const [lotteryConfirmedDayBeforeText, setLotteryConfirmedDayBeforeText] = useState(0)
   const [multiLocalPaymentPrices, setMultiLocalPaymentPrices] = useState<MultiPaymentMethod[]>([])
   const [multiCreditCardPaymentPrices, setMultiCreditCardPaymentPrices] = useState<MultiPaymentMethod[]>([])
 
@@ -37,7 +37,7 @@ export const Index = () => {
         setReceptionType(response.data.reservation.status)
         setMultiLocalPaymentPrices(response.data.reservation.reservation_local_payment_prices)
         setMultiCreditCardPaymentPrices(response.data.reservation.reservation_credit_card_payment_prices)
-        setLotteryConfirmedDayBefore(response.data.reservation.lottery_confirmed_day_before)
+        setLotteryConfirmedDayBeforeText(response.data.reservation.lottery_confirmed_day_before_text)
       })
       .catch(error => {
         console.log(error)
@@ -63,7 +63,7 @@ export const Index = () => {
                   <hr/>
                   {receptionType === 'waitingForLotteryConfirm' &&
                   <>
-                    <div>抽選結果確定日: 予約日の{lotteryConfirmedDayBefore}日前</div>
+                    <div>抽選結果確定日: {lotteryConfirmedDayBeforeText}</div>
                     <hr />
                   </>}
                   {/* 複数料金払いなしの場合 */}
