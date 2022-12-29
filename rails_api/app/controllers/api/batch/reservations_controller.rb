@@ -9,6 +9,28 @@ class Api::Batch::ReservationsController < ApplicationController
     end
     render json: { status: 'success' }, status: 200
   rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
+  def confirm_lottery_reservation
+    rng = Random.new
+    current_datetime = Time.zone.now.strftime("%Y%m%d%H")
+    ReserveFrame.Lottery.each do |reserve_frame|
+      candidate_reservations = []
+      reserve_frame.reservations.select do |r|
+        if r.lottery_confirmed_day_before.strftime("%Y%m%d%H") == current_datetime
+          candidate_reservations.push(r)
+        end
+      end
+      shuffle_candidate_reservations = candidate_reservations.shuffle(random: rng)
+      shuffle_candidate_reservations.first(reserve_frame.capacity).each do |r|
+        r.confirm!
+      end
+    end
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
 
