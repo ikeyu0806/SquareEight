@@ -134,75 +134,7 @@ class Api::Internal::ReservationsController < ApplicationController
       .create!(title: account_notification_title, url: account_notification_url)
   
       # 支払い実行
-      # StripeへのリクエストはActiveRecordのTransactionで取り消せないので最後に実行
-      if reserve_frame.reception_type  == "Immediate" && reserve_frame.is_set_price?
-        case reservation.payment_method
-        when 'creditCardPayment'
-          raise 'ログインしてください' if current_end_user.blank?
-          # 決済
-          Stripe.api_key = Rails.configuration.stripe[:secret_key]
-          Stripe.api_version = '2022-08-01'
-          stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
-          default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
-          if reservation.reservation_credit_card_payment_prices.present?
-            amount = reservation.reservation_credit_card_payment_prices.pluck(:price).inject {|result, item| result + item }
-          else
-            amount = reservation.price
-          end
-          commission = (reservation.price * 0.04).to_i
-          payment_intent = Stripe::PaymentIntent.create({
-            amount: amount,
-            currency: 'jpy',
-            payment_method_types: ['card'],
-            payment_method: default_payment_method_id,
-            customer: current_end_user.stripe_customer_id,
-            application_fee_amount: commission,
-            metadata: {
-              'order_date': current_date_text,
-              'account_business_name': reserve_frame.account.business_name,
-              'purchase_product_name': reserve_frame.title,
-              'price': reservation.price,
-              'type': 'reservation',
-              'reserve_frame_id': reserve_frame.id
-            },
-            transfer_data: {
-              destination: reserve_frame.account.stripe_account_id
-            }
-          })
-          Stripe::PaymentIntent.confirm(
-            payment_intent.id
-          )
-          reservation.update!(stripe_payment_intent_id: payment_intent.id)
-          # 注文データ作成
-          order = current_end_user.orders.new
-          order.order_items.new(item_type: 'Reservation',
-                                account_id: reserve_frame.account.id,
-                                reservation_id: reservation.id,
-                                product_name: reserve_frame.title,
-                                price: reservation.price,
-                                commission: commission)
-          order.save!
-        when 'ticket'
-          raise 'ログインしてください' if current_end_user.blank?
-          ticket_master = TicketMaster.find(reservation_params[:ticket_id])
-          purchased_tickets = current_end_user
-                              .purchased_tickets
-                              .where(ticket_master_id: ticket_master.id)
-                              .expired
-                              .order(:expired_at)
-        
-          total_remain_number = purchased_tickets.sum(:remain_number)
-          raise 'チケットが足りません' if total_remain_number < reserve_frame.consume_number
-          reserve_frame.consume_number.times do |count|
-            purchased_ticket = purchased_tickets.where("remain_number > ?", 0).first
-            purchased_ticket.update!(remain_number: purchased_ticket.remain_number - 1)
-          end
-        when 'monthlyPaymentPlan'
-          is_subscribe_plan = current_end_user.search_stripe_subscriptions.pluck("metadata")&.pluck("monthly_payment_plan_id")
-          raise 'プランに加入していません' unless is_subscribe_plan
-        else
-        end
-      end
+      reservation.exec_payment(current_end_user)
       # 通知メール
       display_payment_method = reservation.display_payment_method
       display_reservation_datetime = reservation.display_reservation_datetime
