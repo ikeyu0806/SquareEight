@@ -729,6 +729,18 @@ const ReserveFrameForm = () => {
                 <option value='PhoneOnly'>電話のみ予約</option>
               </Form.Select>
             </Form.Group>
+            {receptionType === 'Lottery' && <div className='mt10 mb20'>
+              <Form.Label>抽選確定日時</Form.Label>
+              <Row>
+                <Col>当日の</Col>
+                <Col sm={5}>
+                  <Form.Control
+                    type='number'
+                  ></Form.Control>
+                </Col>
+                <Col>日前</Col>
+              </Row>
+            </div>}
             {receptionType === 'PhoneOnly' && <div className='mt10 mb20'>
               <Form.Label>受付電話番号</Form.Label>
               <Form.Control
