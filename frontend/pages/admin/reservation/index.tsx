@@ -204,6 +204,8 @@ const Index: NextPage = () => {
                               </>
                           }
                           {reservation.status === 'cancel' && <span className='text-danger'>キャンセル</span>}
+                          {reservation.status === 'waitingForLotteryConfirm' && <span>抽選結果待ち</span>}
+                          {reservation.status === 'lostLottery' && <span>抽選落選</span>}
                         </Col>
                         <Col>
                           <div className='mb10'>顧客情報</div>

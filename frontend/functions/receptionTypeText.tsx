@@ -6,6 +6,8 @@ export const receptionTypeText = (receptionType: string) => {
       return '仮予約'
     case 'PhoneOnly':
       return '電話のみ予約'
+    case 'Lottery':
+      return '抽選予約'
     default:
       return ''
   }
