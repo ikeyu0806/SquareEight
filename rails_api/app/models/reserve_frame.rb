@@ -23,7 +23,7 @@ class ReserveFrame < ApplicationRecord
   # WDayは週ごと
   enum repeat_interval_type: { Day: 0, Week: 1, Month: 2, WDay: 3 }
   enum publish_status: { Unpublish: 0, Publish: 1 }
-  enum reception_type: { Immediate: 0, Temporary: 1, PhoneOnly: 2 }
+  enum reception_type: { Immediate: 0, Temporary: 1, PhoneOnly: 2, Lottery: 3 }
   enum reception_deadline: { OnlyOnTheDay: 0, PossibleBeforeTheDay: 1 }
 
   scope :enabled, -> { where(deleted_at: nil) }
@@ -147,8 +147,10 @@ class ReserveFrame < ApplicationRecord
       "仮予約"
     when "PhoneOnly"
       "電話のみ"
+    when "Lottery"
+      "抽選予約"
     else
-      raise
+      raise "不正な予約受付タイプです"
     end
   end
 

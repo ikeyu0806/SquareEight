@@ -57,6 +57,7 @@ const CreateReserveFrameModal = (): JSX.Element => {
   const isAcceptCancelOnTheDay = useSelector((state: RootState) => state.reserveFrame.isAcceptCancelOnTheDay)
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
+  const lotteryConfirmedDayBefore = useSelector((state: RootState) => state.reserveFrame.lotteryConfirmedDayBefore)
 
   const createReserveFrame = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames`,
@@ -106,7 +107,8 @@ const CreateReserveFrameModal = (): JSX.Element => {
         is_accept_cancel: isAcceptCancel,
         is_accept_cancel_on_the_day: isAcceptCancelOnTheDay,
         cancel_reception_hour_before: cancelReceptionHourBefore,
-        cancel_reception_day_before: cancelReceptionDayBefore
+        cancel_reception_day_before: cancelReceptionDayBefore,
+        lottery_confirmed_day_before: lotteryConfirmedDayBefore
       },
     },
     {

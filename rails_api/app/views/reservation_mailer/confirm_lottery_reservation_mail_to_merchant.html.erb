@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div><%= @reservation.reserve_frame.title + 'の抽選が完了しました。' %> </div>
+    <div class='mt10'><%= '開始時刻: ' + @reservation.start_at.strftime("%Y/%m/%d %H:%M") %></div>
+    <div class='mt10'>予約状況は管理画面からご確認いただけます。</div>
+    <div class='mt10'><%= ENV['FRONTEND_URL'] + '/admin/reservation' %></div>
+    <hr/>
+    <div>Copyright SquareEight</div>
+  </body>
+</html>
+<style>
+  .mt10 {
+    margin-top: 10px;
+  }
+</style>

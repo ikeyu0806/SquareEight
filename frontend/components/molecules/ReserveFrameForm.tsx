@@ -46,7 +46,8 @@ import {  startDateChanged,
           isAcceptCancelChanged,
           isAcceptCancelOnTheDayChanged,
           cancelReceptionDayBeforeChanged,
-          cancelReceptionHourBeforeChanged } from 'redux/reserveFrameSlice'
+          cancelReceptionHourBeforeChanged,
+          lotteryConfirmedDayBeforeChanged } from 'redux/reserveFrameSlice'
 
 const ReserveFrameForm = () => {
   const router = useRouter()
@@ -89,6 +90,7 @@ const ReserveFrameForm = () => {
   const isAcceptCancelOnTheDay = useSelector((state: RootState) => state.reserveFrame.isAcceptCancelOnTheDay)
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
+  const lotteryConfirmedDayBefore = useSelector((state: RootState) => state.reserveFrame.lotteryConfirmedDayBefore)
 
   const [reserveFrameReceptionStartTime, setReserveFrameReceptionStartTime] = useState('')
   const [reserveFrameReceptionEndTime, setReserveFrameReceptionEndTime] = useState('')
@@ -725,9 +727,24 @@ const ReserveFrameForm = () => {
                 onChange={(e) => dispatch(receptionTypeChanged(e.target.value))} >
                 <option value='Immediate'>即時予約</option>
                 <option value='Temporary'>仮予約</option>
+                <option value='Lottery'>抽選予約</option>
                 <option value='PhoneOnly'>電話のみ予約</option>
               </Form.Select>
             </Form.Group>
+            {receptionType === 'Lottery' && <div className='mt10 mb20'>
+              <Form.Label>抽選確定日時</Form.Label>
+              <Row>
+                <Col>当日の</Col>
+                <Col sm={5}>
+                  <Form.Control
+                    onChange={(e) => dispatch(lotteryConfirmedDayBeforeChanged(Number(e.target.value)))}
+                    value={lotteryConfirmedDayBefore}
+                    type='number'
+                  ></Form.Control>
+                </Col>
+                <Col>日前</Col>
+              </Row>
+            </div>}
             {receptionType === 'PhoneOnly' && <div className='mt10 mb20'>
               <Form.Label>受付電話番号</Form.Label>
               <Form.Control
@@ -907,6 +924,7 @@ const ReserveFrameForm = () => {
               label='アンケートを受け付けない'
               name='reserveFrameQuestionnaireMaster'
               id='notUseQuesionnaire'
+              onChange={() => dispatch(questionnaireMasterIdChanged(''))}
               type='radio'
             ></Form.Check>
             {selectedQuestionnaireMasters.map((questionnaire, i) => {

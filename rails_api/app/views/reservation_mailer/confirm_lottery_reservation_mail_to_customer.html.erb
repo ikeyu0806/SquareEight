@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <% if @reservation.confirm? %>
+      <div><%= @reservation.reserve_frame.title + 'の抽選につきまして、厳正なる抽選の結果、お客様がご当選されました'%></div>
+    <% else %>
+      <div><%= @reservation.reserve_frame.title + 'の抽選につきまして、厳正なる抽選の結果、誠に残念ながら落選となりました。' %></div>
+    <% end %>
+    <div><% '開始時刻: ' + @reservation.start_at.strftime("%Y/%m/%d %H:%M")  %></div>
+     <% if @reservation.confirm? %>
+      <div class='mt10'>予約状況はSquareEightIDの管理画面からご確認いただけます。
+      <div class='mt10'><%= ENV['FRONTEND_URL'] + '/customer_page/reservation' %></div>
+    <% end %>
+    <div class='mt10'>なにとぞよろしくお願い申し上げます。</div>
+    <hr />
+    <div>Copyright SquareEight</div>
+  </body>
+</html>
+<style>
+  .mt10 {
+    margin-top: 10px;
+  }
+</style>

@@ -29,6 +29,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
     reserve_frame = ReserveFrame.enabled.find_by(public_id: params[:public_id])
     main_image_public_url = reserve_frame.main_image_public_url
     shared_component = reserve_frame.account.shared_component
+    login_status = current_end_user.present? ? 'Logout' : 'Login'
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,
                                                                     :resource_ids,
                                                                     :start_date_input_value,
@@ -46,6 +47,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
     render json: {  status: 'success',
                     reserve_frame: reserve_frame_json,
                     main_image_public_url: main_image_public_url,
+                    login_status: login_status,
                     shared_component: shared_component }, status: 200
   rescue => error
     Rails.logger.error error
@@ -249,6 +251,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   :is_accept_cancel_on_the_day,
                   :cancel_reception_day_before,
                   :cancel_reception_hour_before,
+                  :lottery_confirmed_day_before,
                   multi_local_payment_prices: [:name, :price],
                   multi_credit_card_payment_prices: [:name, :price],
                   repeat_wdays: [],

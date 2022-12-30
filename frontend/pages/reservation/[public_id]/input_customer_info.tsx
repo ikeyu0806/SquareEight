@@ -106,7 +106,7 @@ const Index: NextPage = () => {
       dispatch((navbarBrandBackgroundColorChanged(response.data.shared_component.navbar_brand_background_color)))
       dispatch((navbarBrandVariantColorChanged(response.data.shared_component.navbar_brand_variant_color)))
       dispatch((footerCopyRightTextChanged(response.data.shared_component.footer_copyright_text)))
-      
+
     }).catch((e) => {
       console.log(e)
       dispatch(loginStatusChanged('Logout'))
@@ -222,7 +222,8 @@ const Index: NextPage = () => {
                     {isSetPrice &&
                       <div>
                         お支払い方法: {paymentMethodText(String(paymentMethod), price, consumeNumber, numberOfPeople)}
-                        {isSubscribePlan && <span className='badge bg-info ml10'>加入済み</span>}
+                        {(isSubscribePlan && String(paymentMethod) === 'monthlyPaymentPlan')
+                        && <span className='badge bg-info ml10'>加入済み</span>}
                       </div>}
                       {!isSubscribePlan
                       && (String(paymentMethod) === 'monthlyPaymentPlan')

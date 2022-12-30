@@ -12,6 +12,7 @@ import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useCookies } from 'react-cookie'
 import { MultiPaymentMethod } from 'interfaces/MultiPaymentMethod'
+import { loginStatusChanged } from 'redux/currentEndUserSlice'
 import { multiLocalPaymentPricesChanged, multiCreditCardPaymentPricesChanged } from 'redux/reserveFrameSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
@@ -38,6 +39,7 @@ const Index: NextPage = () => {
   const [selectedMonthlyPaymentPlanId, setSelectedMonthlyPaymentPlanId] = useState(0)
   const [reserveFrame, setReserveFrame] = useState<ReserveFrameParam>()
   const [reserveFramePaymentMethod, setReserveFramePaymentMethod] = useState<ReserveFramePaymentMethodParam>()
+  const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
 
   const multiLocalPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiLocalPaymentPrices)
   const multiCreditCardPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiCreditCardPaymentPrices)
@@ -60,6 +62,7 @@ const Index: NextPage = () => {
         dispatch(multiLocalPaymentPricesChanged(response.data.reserve_frame.local_payment_prices_with_number_of_people))
         dispatch(multiCreditCardPaymentPricesChanged(response.data.reserve_frame.credit_card_payment_prices_with_number_of_people))
         setMainImagePublicUrl(response.data.main_image_public_url)
+        dispatch(loginStatusChanged(response.data.login_status))
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
@@ -164,188 +167,217 @@ const Index: NextPage = () => {
             <Card className='mt30'>
               <Card.Body>
                 <h3>{reserveFrame?.title}</h3>
-                {reserveFrame?.reception_type === 'Temporary'
-                && <>
-                    <div className='mt20 mb20'>
-                      <div className='mb10'>こちらは仮予約です</div>
-                      <div>予約後に運営者が承認するまで確定されません</div>
-                    </div>
-                   </>}
-                {reserveFrame?.reception_type === 'PhoneOnly'
-                 && <>
+                {reserveFrame?.reception_type === 'Lottery' && endUserLoginStatus === 'Logout'
+                  && <>
                       <div className='mt20 mb20'>
-                        <div className='mb10'>電話でのみ予約受付しています</div>
-                        <div>受付電話番号: {reserveFrame.reception_phone_number}</div>
+                        <div className='mb10'>
+                          こちらは抽選予約です。<br />
+                          予約にはSquareEightIDのログインが必要になります<br />
+                          <a className='link-text' href='/customer/login' target='_blank' rel='noreferrer'>ログインはこちら</a>
+                        </div>
+                        <div className='new-line mt20'>{reserveFrame?.description}</div>
+                        {mainImagePublicUrl
+                        && <img
+                            className='d-block w-100 mt30 mb30'
+                            src={mainImagePublicUrl}
+                            alt='image' />}
+                      </div>
+                    </>
+                }
+                {((reserveFrame?.reception_type === 'Lottery' && endUserLoginStatus === 'Login') || (reserveFrame?.reception_type !== 'Lottery'))
+                &&
+                <>
+                  {reserveFrame?.reception_type === 'Temporary'
+                  && <>
+                      <div className='mt20 mb20'>
+                        <div className='mb10'>こちらは仮予約です</div>
+                        <div>予約後に運営者が承認するまで確定されません</div>
                       </div>
                     </>}
-                <div className='new-line mt20'>{reserveFrame?.description}</div>
-                {mainImagePublicUrl
-                && <img
-                    className='d-block w-100 mt30 mb30'
-                    src={mainImagePublicUrl}
-                    alt='image' />}
-                <hr />
-                <div className='mb20'>
+                  {reserveFrame?.reception_type === 'Lottery'
+                  && <>
+                      <div className='mt20 mb20'>
+                        <div className='mb10'>
+                          こちらは抽選予約です。<br />当日の{reserveFrame?.lottery_confirmed_day_before}日前に抽選結果をお知らせします。
+                        </div>
+                      </div>
+                    </>}
                   {reserveFrame?.reception_type === 'PhoneOnly'
-                   ? <>予約可能時間</>
-                   : <>予約時間を選択してください</>}
-                </div>
-                <div className='mb20'>{selectedDate[0]}年{selectedDate[1]}月{selectedDate[2]}日</div>
-                <Row>
-                  <Col>
-                    <Form.Select onChange={(e) => setSelectedTime(e.target.value)}>
-                    {reserveFrame?.reserve_frame_reception_times_values?.map((time, i) => {
-                      return (
-                        <option key={i}
-                                value={time.reception_start_time + '-' + time.reception_end_time}>{time.reception_start_time}-{time.reception_end_time}</option>
-                      )
-                    })}
-                  </Form.Select>
-                  </Col>
-                  <Col></Col>
-                </Row>
-                {reserveFrame?.is_set_price &&
-                <>
-                  {reserveFrame?.reception_type !== 'PhoneOnly' &&
-                  <><hr /><div className='mb20'>お支払い方法を選択してください</div>
-                  {reserveFramePaymentMethod?.local_payment_price !== undefined
+                  && <>
+                        <div className='mt20 mb20'>
+                          <div className='mb10'>電話でのみ予約受付しています</div>
+                          <div>受付電話番号: {reserveFrame.reception_phone_number}</div>
+                        </div>
+                      </>}
+                  <div className='new-line mt20'>{reserveFrame?.description}</div>
+                  {mainImagePublicUrl
+                  && <img
+                      className='d-block w-100 mt30 mb30'
+                      src={mainImagePublicUrl}
+                      alt='image' />}
+                  <hr />
+                  <div className='mb20'>
+                    {reserveFrame?.reception_type === 'PhoneOnly'
+                    ? <>予約可能時間</>
+                    : <>予約時間を選択してください</>}
+                  </div>
+                  <div className='mb20'>{selectedDate[0]}年{selectedDate[1]}月{selectedDate[2]}日</div>
+                  <Row>
+                    <Col>
+                      <Form.Select onChange={(e) => setSelectedTime(e.target.value)}>
+                      {reserveFrame?.reserve_frame_reception_times_values?.map((time, i) => {
+                        return (
+                          <option key={i}
+                                  value={time.reception_start_time + '-' + time.reception_end_time}>{time.reception_start_time}-{time.reception_end_time}</option>
+                        )
+                      })}
+                    </Form.Select>
+                    </Col>
+                    <Col></Col>
+                  </Row>
+                  {reserveFrame?.is_set_price &&
+                  <>
+                    {reserveFrame?.reception_type !== 'PhoneOnly' &&
+                    <><hr /><div className='mb20'>お支払い方法を選択してください</div>
+                    {reserveFramePaymentMethod?.local_payment_price !== undefined
+                      &&
+                      <>
+                        <Form.Check
+                            type='radio'
+                            id='local_payment_check'
+                            checked={selectedPaymentMethodType === 'localPayment'}
+                            onChange={() => {
+                              setSelectedPaymentMethodType('localPayment')
+                              setSelectedPrice(Number(reserveFramePaymentMethod?.local_payment_price))
+                            }}
+                            label={`現地払い: ${reserveFramePaymentMethod?.local_payment_price}円`}></Form.Check>
+                        {((selectedPaymentMethodType === 'localPayment') && (reserveFrame?.reserve_frame_local_payment_prices.length !== 0)) &&
+                        <>
+                          &emsp;
+                          <div className='ml30 mb30'>予約人数を入力してください</div>
+                          {multiLocalPaymentPrices.map((p, i) => {
+                            return (
+                              <div key={i} className='ml30'>
+                                <Row>
+                                  <Col sm={3}><div>{p.name + ': ¥' + p.price}</div></Col>
+                                </Row>
+                                <Row>
+                                  <Col sm={4}>
+                                    <Form.Label className='mt10'>人数</Form.Label>
+                                    <Form.Control
+                                      onChange={(e: any) => updateMultiLocalPaymentNumberOfPeople(e, i)}
+                                      value={p.reserve_number_of_people}
+                                      type='number'></Form.Control>
+                                  </Col>
+                                  <Col sm={3}></Col>
+                                </Row>
+                                <hr/>
+                              </div>
+                            )
+                          })}
+                        </>}
+                      </>
+                    }
+                    {reserveFramePaymentMethod?.credit_card_payment_price !== undefined
                     &&
                     <>
                       <Form.Check
-                          type='radio'
-                          id='local_payment_check'
-                          checked={selectedPaymentMethodType === 'localPayment'}
-                          onChange={() => {
-                            setSelectedPaymentMethodType('localPayment')
-                            setSelectedPrice(Number(reserveFramePaymentMethod?.local_payment_price))
-                          }}
-                          label={`現地払い: ${reserveFramePaymentMethod?.local_payment_price}円`}></Form.Check>
-                      {((selectedPaymentMethodType === 'localPayment') && (reserveFrame?.reserve_frame_local_payment_prices.length !== 0)) &&
-                      <>
-                        &emsp;
-                        <div className='ml30 mb30'>予約人数を入力してください</div>
-                        {multiLocalPaymentPrices.map((p, i) => {
-                          return (
-                            <div key={i} className='ml30'>
-                              <Row>
-                                <Col sm={3}><div>{p.name + ': ¥' + p.price}</div></Col>
-                              </Row>
-                              <Row>
-                                <Col sm={4}>
-                                  <Form.Label className='mt10'>人数</Form.Label>
-                                  <Form.Control
-                                    onChange={(e: any) => updateMultiLocalPaymentNumberOfPeople(e, i)}
-                                    value={p.reserve_number_of_people}
-                                    type='number'></Form.Control>
-                                </Col>
-                                <Col sm={3}></Col>
-                              </Row>
-                              <hr/>
-                            </div>
-                          )
-                        })}
-                      </>}
-                    </>
-                  }
-                  {reserveFramePaymentMethod?.credit_card_payment_price !== undefined
-                  &&
-                  <>
-                    <Form.Check
-                      type='radio'
-                      id='credit_card_payment_check'
-                      checked={selectedPaymentMethodType === 'creditCardPayment'}
-                      onChange={() => {
-                        setSelectedPaymentMethodType('creditCardPayment')
-                        setSelectedPrice(Number(reserveFramePaymentMethod?.credit_card_payment_price))
-                      }}
-                      label={`クレジットカード払い: ${reserveFramePaymentMethod?.credit_card_payment_price}円`}></Form.Check>
-                    {((selectedPaymentMethodType === 'creditCardPayment') && (reserveFrame?.reserve_frame_credit_card_payment_prices.length !== 0)) &&
-                      <>
-                        &emsp;
-                        <div className='ml30 mb30'>予約人数を入力してください</div>
-                        {multiCreditCardPaymentPrices.map((p, i) => {
-                          return (
-                            <div key={i} className='ml30'>
-                              <Row>
-                                <Col sm={3}><div>{p.name + ': ¥' + p.price}</div></Col>
-                              </Row>
-                              <Row>
-                                <Col sm={4}>
-                                  <Form.Label className='mt10'>人数</Form.Label>
-                                  <Form.Control
-                                    onChange={(e: any) => updateMultiCreditCardPaymentNumberOfPeople(e, i)}
-                                    type='number'></Form.Control>
-                                </Col>
-                                <Col sm={3}></Col>
-                              </Row>
-                              <hr/>
-                            </div>
-                          )
-                        })}
-                      </>}
+                        type='radio'
+                        id='credit_card_payment_check'
+                        checked={selectedPaymentMethodType === 'creditCardPayment'}
+                        onChange={() => {
+                          setSelectedPaymentMethodType('creditCardPayment')
+                          setSelectedPrice(Number(reserveFramePaymentMethod?.credit_card_payment_price))
+                        }}
+                        label={`クレジットカード払い: ${reserveFramePaymentMethod?.credit_card_payment_price}円`}></Form.Check>
+                      {((selectedPaymentMethodType === 'creditCardPayment') && (reserveFrame?.reserve_frame_credit_card_payment_prices.length !== 0)) &&
+                        <>
+                          &emsp;
+                          <div className='ml30 mb30'>予約人数を入力してください</div>
+                          {multiCreditCardPaymentPrices.map((p, i) => {
+                            return (
+                              <div key={i} className='ml30'>
+                                <Row>
+                                  <Col sm={3}><div>{p.name + ': ¥' + p.price}</div></Col>
+                                </Row>
+                                <Row>
+                                  <Col sm={4}>
+                                    <Form.Label className='mt10'>人数</Form.Label>
+                                    <Form.Control
+                                      onChange={(e: any) => updateMultiCreditCardPaymentNumberOfPeople(e, i)}
+                                      type='number'></Form.Control>
+                                  </Col>
+                                  <Col sm={3}></Col>
+                                </Row>
+                                <hr/>
+                              </div>
+                            )
+                          })}
+                        </>}
+                    </>}
+                    {reserveFramePaymentMethod?.enable_monthly_payment_plans
+                      && reserveFramePaymentMethod?.enable_monthly_payment_plans.map((plan, i) => {
+                      return (
+                        <>
+                          <Form.Check
+                            type='radio'
+                            checked={selectedPaymentMethodType === 'monthlyPaymentPlan' && selectedMonthlyPaymentPlanId === plan.id}
+                            onChange={() => {
+                              setSelectedMonthlyPaymentPlanId(plan.id)
+                              setSelectedPaymentMethodType('monthlyPaymentPlan')
+                            }}
+                            id={`monthly_plan_payment_${i}`}
+                            label={`月額課金: ${plan.monthly_payment_plan_name}`}></Form.Check>
+                        </>
+                      )
+                    })}
+                    {reserveFramePaymentMethod?.enable_tickets
+                      && reserveFramePaymentMethod?.enable_tickets.map((ticket, i) => {
+                      return (
+                        <>
+                          <Form.Check
+                            type='radio'
+                            checked={(selectedPaymentMethodType === 'ticket') && (selectedTicketId === ticket.id)}
+                            onChange={() => {
+                              setSelectedTicketId(ticket.id)
+                              setSelectedConsumeNumber(ticket.consume_number)
+                              setSelectedPaymentMethodType('ticket')
+                            }}
+                            id={`ticket_payment_${i}`}
+                            label={`${ticket.ticket_name} 消費枚数: ${ticket.consume_number}枚`}></Form.Check>
+                        </>
+                      )
+                    })}
                   </>}
-                  {reserveFramePaymentMethod?.enable_monthly_payment_plans
-                    && reserveFramePaymentMethod?.enable_monthly_payment_plans.map((plan, i) => {
-                    return (
-                      <>
-                        <Form.Check
-                          type='radio'
-                          checked={selectedPaymentMethodType === 'monthlyPaymentPlan' && selectedMonthlyPaymentPlanId === plan.id}
-                          onChange={() => {
-                            setSelectedMonthlyPaymentPlanId(plan.id)
-                            setSelectedPaymentMethodType('monthlyPaymentPlan')
-                          }}
-                          id={`monthly_plan_payment_${i}`}
-                          label={`月額課金: ${plan.monthly_payment_plan_name}`}></Form.Check>
-                      </>
-                    )
-                  })}
-                  {reserveFramePaymentMethod?.enable_tickets
-                    && reserveFramePaymentMethod?.enable_tickets.map((ticket, i) => {
-                    return (
-                      <>
-                        <Form.Check
-                          type='radio'
-                          checked={(selectedPaymentMethodType === 'ticket') && (selectedTicketId === ticket.id)}
-                          onChange={() => {
-                            setSelectedTicketId(ticket.id)
-                            setSelectedConsumeNumber(ticket.consume_number)
-                            setSelectedPaymentMethodType('ticket')
-                          }}
-                          id={`ticket_payment_${i}`}
-                          label={`${ticket.ticket_name} 消費枚数: ${ticket.consume_number}枚`}></Form.Check>
-                      </>
-                    )
-                  })}
+                  { (String(selectedPaymentMethodType) === 'localPayment' &&
+                    !reserveFrame?.reserve_frame_local_payment_prices.length) ||
+                    (String(selectedPaymentMethodType) === 'creditCardPayment' &&
+                    !reserveFrame?.reserve_frame_credit_card_payment_prices.length)
+                    &&
+                    <>
+                      <hr />
+                      <div className='mb20'>人数を入力してください</div>
+                      <Row>
+                        <Col sm={3}>
+                          <Form.Control
+                            onChange={(e) => setReserveCount(Number(e.target.value))}
+                            value={reserveCount}
+                            type='number'></Form.Control>
+                        </Col>
+                        <Col></Col>
+                      </Row>
+                    </>
+                  }</>}
+                  {reserveFrame?.reception_type !== 'PhoneOnly'
+                  && <div className='text-center'>
+                    <Button
+                      className='mt20'
+                      disabled={validateOnSubmit()}
+                      onClick={() => onSubmit()}>
+                      予約を進める
+                    </Button>
+                  </div>}
                 </>}
-                { (String(selectedPaymentMethodType) === 'localPayment' &&
-                  !reserveFrame?.reserve_frame_local_payment_prices.length) ||
-                  (String(selectedPaymentMethodType) === 'creditCardPayment' &&
-                  !reserveFrame?.reserve_frame_credit_card_payment_prices.length)
-                  &&
-                  <>
-                    <hr />
-                    <div className='mb20'>人数を入力してください</div>
-                    <Row>
-                      <Col sm={3}>
-                        <Form.Control
-                          onChange={(e) => setReserveCount(Number(e.target.value))}
-                          value={reserveCount}
-                          type='number'></Form.Control>
-                      </Col>
-                      <Col></Col>
-                    </Row>
-                  </>
-                }</>}
-                {reserveFrame?.reception_type !== 'PhoneOnly'
-                 && <div className='text-center'>
-                  <Button
-                    className='mt20'
-                    disabled={validateOnSubmit()}
-                    onClick={() => onSubmit()}>
-                    予約を進める
-                  </Button>
-                </div>}
               </Card.Body>
             </Card>
           </Col>
