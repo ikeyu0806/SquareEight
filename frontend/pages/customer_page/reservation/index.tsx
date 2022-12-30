@@ -75,7 +75,7 @@ const Index: NextPage = () => {
                     <span>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</span>
                     <hr />
                     <span>
-                      {reservation.status !== 'cancel' && <>キャンセル: {reservation.cancel_reception_text}</>}
+                      {reservation.status === 'cofirm' && <>キャンセル: {reservation.cancel_reception_text}</>}
                       {reservation.status === 'cancel' && <span className='badge bg-danger'>キャンセル済み</span>}
                       {reservation.is_cancelable
                       &&
@@ -86,6 +86,8 @@ const Index: NextPage = () => {
                             variant='danger'
                             className='ml10'>キャンセルする</Button>
                         </>}
+                      {reservation.status === 'waitingForLotteryConfirm' && <span>抽選結果待ち</span>}
+                      {reservation.status === 'lostLottery' && <span>抽選落選</span>}
                     </span>
                   </div>
                 )
