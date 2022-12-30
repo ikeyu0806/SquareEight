@@ -17,6 +17,7 @@ class Api::Batch::ReservationsController < ApplicationController
     rng = Random.new
     current_datetime = Time.zone.now.strftime("%Y%m%d%H")
     ReserveFrame.Lottery.each do |reserve_frame|
+      account = reserve_frame.account
       candidate_reservations = []
       reserve_frame.reservations.waitingForLotteryConfirm.each do |r|
         if r.lottery_confirmed_day_before_datetime.strftime("%Y%m%d%H") == current_datetime
@@ -27,10 +28,15 @@ class Api::Batch::ReservationsController < ApplicationController
         shuffle_candidate_reservations = candidate_reservations.shuffle(random: rng)
         shuffle_candidate_reservations.first(reserve_frame.capacity).each do |r|
           r.confirm!
+          account.merchant_users.allow_read_reservation_Allow.each do |merchant_user|
+            ReservationMailer.confirm_lottery_reservation_mail_to_merchant(r.id, merchant_user.id).deliver_now
+          end
+          ReservationMailer.confirm_lottery_reservation_mail_to_customer(r.id).deliver_now
           shuffle_candidate_reservations.delete_at(0)
         end
         shuffle_candidate_reservations.each do |r|
           r.lostLottery!
+          ReservationMailer.confirm_lottery_reservation_mail_to_customer(r.id).deliver_now
         end
       end
     end

@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <div><%= @reservation.reserve_frame.title + ' 開始時刻: ' + @reservation.start_at.strftime("%Y/%m/%d %H:%M~")  %>: の抽選が完了しました。</div>
+    <div class='mt10'><%= ENV['FRONTEND_URL'] + '/admin/reservation' %></div>
+    <hr/>
+    <div>Copyright SquareEight</div>
+  </body>
+</html>
