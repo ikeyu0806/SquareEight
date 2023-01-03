@@ -62,14 +62,14 @@ MerchantUser.first_or_create!(
   allow_create_customer_group: "Allow",
   allow_update_customer_group: "Allow",
   allow_delete_customer_group: "Allow",
-  allow_read_message_template: 'Allow',
-  allow_create_message_template: 'Allow',
-  allow_update_message_template: 'Allow',
-  allow_delete_message_template: 'Allow',
-  allow_read_html_mail_template: 'Allow',
-  allow_create_html_mail_template: 'Allow',
-  allow_update_html_mail_template: 'Allow',
-  allow_delete_html_mail_template: 'Allow',
+  allow_read_message_template: "Allow",
+  allow_create_message_template: "Allow",
+  allow_update_message_template: "Allow",
+  allow_delete_message_template: "Allow",
+  allow_read_html_mail_template: "Allow",
+  allow_create_html_mail_template: "Allow",
+  allow_update_html_mail_template: "Allow",
+  allow_delete_html_mail_template: "Allow",
   allow_read_webpage: "Allow",
   allow_create_webpage: "Allow",
   allow_update_webpage: "Allow",
@@ -112,4 +112,71 @@ SystemAdminUser.first_or_create!(
   phone_number: "12312341234",
   password: "Pass1234",
   authentication_status: "Enabled"
+)
+
+Resource.first_or_create!(
+  [
+    {
+      name: "スタジオ",
+      quantity: 3,
+    },
+    {
+      name: "ヨガマット",
+      quantity: 3,
+    },
+    {
+      name: "〇〇先生",
+      quantity: 1,
+    }
+  ]
+)
+
+ReserveFrame.first_or_create!(
+  [
+    {
+      account_id: account.id,
+      title: "予約メニュ-デモ。曜日繰り返し",
+      start_at: Time.zone.now,
+      description: "デモ用予約メニュ-01\n\nこれはデモ用の予約メニューです。",
+      is_repeat: true,
+      repeat_interval_type: "WDay",
+      repeat_interval_number_day: 1,
+      repeat_interval_number_week: 1,
+      repeat_interval_number_month: 1,
+      repeat_interval_month_date: 1,
+      repeat_end_date: Time.zone.now + 10.years,
+      capacity: 10,
+      local_payment_price: 3000,
+      publish_status: "Publish",
+      reception_type: "Immediate",
+      reception_start_day_before: 180,
+      reception_deadline: "OnlyOnTheDay",
+      reception_deadline_hour_before: 1,
+      reception_deadline_day_before: 1,
+      is_local_payment_enable: true,
+      is_ticket_payment_enable: false,
+      is_monthly_plan_payment_enable: false,
+      credit_card_payment_price: 2800,
+      is_credit_card_payment_enable: false,
+      is_every_day_repeat: true,
+      is_every_week_repeat: true,
+      is_every_month_repeat: true,
+      reception_phone_number: "",
+      is_set_price: true,
+      is_repeat_sun: false,
+      is_repeat_mon: true,
+      is_repeat_tue: false,
+      is_repeat_wed: true,
+      is_repeat_thu: false,
+      is_repeat_fri: true,
+      is_repeat_sat: false,
+      deleted_at: nil,
+      questionnaire_master_id: nil,
+      is_accept_cancel: true,
+      is_accept_cancel_on_the_day: false,
+      cancel_reception_day_before: 1,
+      cancel_reception_hour_before: 1,
+      lottery_confirmed_day_before: 1
+    }
+  ]
 )
