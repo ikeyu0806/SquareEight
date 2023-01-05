@@ -114,7 +114,7 @@ SystemAdminUser.first_or_create!(
   authentication_status: "Enabled"
 )
 
-Resource.first_or_create!(
+resources = Resource.first_or_create!(
   [
     {
       name: "スタジオ",
@@ -131,7 +131,7 @@ Resource.first_or_create!(
   ]
 )
 
-ReserveFrame.first_or_create!(
+reserve_frames = ReserveFrame.first_or_create!(
   [
     {
       account_id: account.id,
@@ -177,6 +177,23 @@ ReserveFrame.first_or_create!(
       cancel_reception_day_before: 1,
       cancel_reception_hour_before: 1,
       lottery_confirmed_day_before: 1
+    }
+  ]
+)
+
+ReserveFrameResource.create!(
+  [
+    {
+      reserve_frame_id: reserve_frames[0].id,
+      resource_id: resources[0].id
+    },
+    {
+      reserve_frame_id: reserve_frames[1].id,
+      resource_id: resources[1].id
+    },
+    {
+      reserve_frame_id: reserve_frames[2].id,
+      resource_id: resources[2].id
     }
   ]
 )
