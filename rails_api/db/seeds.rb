@@ -288,5 +288,29 @@ product = Product.create!(
   name: "商品デモ",
   price: 1000,
   tax_rate: 10,
-  inventory: 100
+  inventory: 100,
+  publish_status: "Publish",
+)
+
+questionnaire_master = QuestionnaireMaster.create!(
+  account_id: account.id,
+  title: "アンケートデモ",
+  question_form_json: "[{\"question\"=>\"商品へのご要望\", \"formType\"=>\"text\", \"textFormRowCount\"=>5, \"sortOrder\"=>1, \"questionId\"=>\"18581acf0bb\", \"selectFormAnswers\"=>[], \"radioButtonAnswers\"=>[], \"checkboxAnswers\"=>[]}, {\"question\"=>\"年齢は？\", \"formType\"=>\"select\", \"textFormRowCount\"=>1, \"sortOrder\"=>2, \"questionId\"=>\"18581ad6be4\", \"selectFormAnswers\"=>[\"10代\", \"20代\", \"30代\", \"40代\", \"50代\", \"60代以上\"], \"radioButtonAnswers\"=>[], \"checkboxAnswers\"=>[]}]",
+  publish_status: "Publish"
+)
+
+DeliveryDatetimeSetting.create!(
+  account_id: account.id,
+  shortest_delivery_day: 2,
+  longest_delivery_day: 4,
+  deadline_time: DateTime.new(2000, 01, 01, 19, 0, 0, "+09:00"),
+  is_set_per_area_delivery_date: true,
+  is_holiday_sun: true,
+  is_holiday_mon: false,
+  is_holiday_tue: false,
+  is_holiday_wed: false,
+  is_holiday_thu: false,
+  is_holiday_fri: false,
+  is_holiday_sat: true,
+  delivery_time_type: "yamato",
 )
