@@ -117,14 +117,17 @@ SystemAdminUser.first_or_create!(
 resources = Resource.first_or_create!(
   [
     {
+      account_id: account.id,
       name: "スタジオ",
       quantity: 3,
     },
     {
+      account_id: account.id,
       name: "ヨガマット",
       quantity: 3,
     },
     {
+      account_id: account.id,
       name: "〇〇先生",
       quantity: 1,
     }
@@ -154,10 +157,55 @@ reserve_frames = ReserveFrame.first_or_create!(
       reception_deadline_hour_before: 1,
       reception_deadline_day_before: 1,
       is_local_payment_enable: true,
-      is_ticket_payment_enable: false,
-      is_monthly_plan_payment_enable: false,
-      credit_card_payment_price: 2800,
-      is_credit_card_payment_enable: false,
+      is_ticket_payment_enable: true,
+      is_monthly_plan_payment_enable: true,
+      credit_card_payment_price: 3000,
+      is_credit_card_payment_enable: true,
+      is_every_day_repeat: true,
+      is_every_week_repeat: true,
+      is_every_month_repeat: true,
+      reception_phone_number: "",
+      is_set_price: true,
+      is_repeat_sun: false,
+      is_repeat_mon: true,
+      is_repeat_tue: false,
+      is_repeat_wed: true,
+      is_repeat_thu: false,
+      is_repeat_fri: true,
+      is_repeat_sat: false,
+      deleted_at: nil,
+      questionnaire_master_id: nil,
+      is_accept_cancel: true,
+      is_accept_cancel_on_the_day: false,
+      cancel_reception_day_before: 1,
+      cancel_reception_hour_before: 1,
+      lottery_confirmed_day_before: 1
+    },
+    {
+      account_id: account.id,
+      title: "予約メニュ-デモ。毎日繰り返し",
+      start_at: Time.zone.now,
+      description: "デモ用予約メニュ-01\n\nこれはデモ用の予約メニューです。",
+      is_repeat: true,
+      repeat_interval_type: "Day",
+      repeat_interval_number_day: 1,
+      repeat_interval_number_week: 1,
+      repeat_interval_number_month: 1,
+      repeat_interval_month_date: 1,
+      repeat_end_date: Time.zone.now + 10.years,
+      capacity: 10,
+      local_payment_price: 3000,
+      publish_status: "Publish",
+      reception_type: "Immediate",
+      reception_start_day_before: 180,
+      reception_deadline: "OnlyOnTheDay",
+      reception_deadline_hour_before: 1,
+      reception_deadline_day_before: 1,
+      is_local_payment_enable: true,
+      is_ticket_payment_enable: true,
+      is_monthly_plan_payment_enable: true,
+      credit_card_payment_price: 3000,
+      is_credit_card_payment_enable: true,
       is_every_day_repeat: true,
       is_every_week_repeat: true,
       is_every_month_repeat: true,
@@ -188,12 +236,57 @@ ReserveFrameResource.create!(
       resource_id: resources[0].id
     },
     {
-      reserve_frame_id: reserve_frames[1].id,
+      reserve_frame_id: reserve_frames[0].id,
       resource_id: resources[1].id
     },
     {
-      reserve_frame_id: reserve_frames[2].id,
-      resource_id: resources[2].id
+      reserve_frame_id: reserve_frames[0].id,
+      resource_id: resources[0].id
     }
   ]
+)
+
+ticket_master = TicketMaster.first_or_create!(
+  account_id: account.id,
+  name: "受講券デモ",
+  issue_number: 1000,
+  price: 5000,
+  publish_status: "Publish"
+)
+
+monthly_payment_plan = MonthlyPaymentPlan.create!(
+    account_id: account.id,
+    name: "受講券デモ",
+    price: 5000,
+    reserve_interval_number: 1,
+    reserve_interval_unit: "Week",
+    enable_reserve_count: 3,
+    publish_status: "Publish",
+    stripe_plan_id: "plan_N70Y45NasdEyfE"
+)
+
+ReserveFrameMonthlyPaymentPlan.first_or_create!(
+  [
+    {
+      reserve_frame_id: reserve_frames[0].id,
+      monthly_payment_plan_id: monthly_payment_plan.id,
+    }
+  ]
+)
+
+ReserveFrameTicketMaster.first_or_create!(
+  [
+    {
+      reserve_frame_id: reserve_frames[0].id,
+      ticket_master_id: ticket_master.id,
+    }
+  ]
+)
+
+product = Product.create!(
+  account_id: account.id,
+  name: "商品デモ",
+  price: 1000,
+  tax_rate: 10,
+  inventory: 100
 )
