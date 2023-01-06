@@ -9,7 +9,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
     message_templates = current_merchant_user.account.message_templates
     html_mail_templates = current_merchant_user.account.html_mail_templates
     customers = JSON.parse(customers.to_json(methods: [:line_display_name, :line_picture_url, :line_user_public_id]))
-    html_template_content = JSON.parse(html_mail_templates.first&.content) || []
+    html_template_content = html_mail_templates.present? ? JSON.parse(html_mail_templates.first.content) : ''
     render json: { status: 'success',
                    customers: customers,
                    line_users: line_users,
