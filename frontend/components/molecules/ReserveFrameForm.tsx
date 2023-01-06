@@ -573,7 +573,7 @@ const ReserveFrameForm = () => {
             </Row>}
             {receptionType !== 'PhoneOnly' &&
               <Form.Check
-                label='月額課金'
+                label='月額サブスクリプション'
                 id='monthlyPlanPayment'
                 checked={isMonthlyPlanPaymentEnable}
                 onChange={() => dispatch(isMonthlyPlanPaymentEnableChanged(!isMonthlyPlanPaymentEnable))}></Form.Check>}

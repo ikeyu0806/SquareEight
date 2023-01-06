@@ -204,7 +204,7 @@ const Index: NextPage = () => {
                 <Card.Header>お客様情報の入力</Card.Header>
                 <Card.Body>
                   {loginValidate() &&<>
-                  <label className='mb40'>クレジットカード支払い、回数券、月額課金を使用する場合、ログインする必要があります</label>
+                  <label className='mb40'>クレジットカード支払い、回数券、月額サブスクリプションを使用する場合、ログインする必要があります</label>
                     <br />
                     <label className='mt10'>SquareEightIDをお持ちですか？ <a className='link-text' href='/customer/login' target='_blank' rel='noreferrer'>ログインする</a></label>
                     <br/>

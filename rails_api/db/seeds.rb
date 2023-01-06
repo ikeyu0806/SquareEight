@@ -229,6 +229,91 @@ reserve_frames = ReserveFrame.first_or_create!(
   ]
 )
 
+ReserveFrameReceptionTime.create!(
+  [
+    {
+      reserve_frame_id: reserve_frames[0].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 10, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 11, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[0].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 11, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 12, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[0].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 13, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 14, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[0].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 14, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 15, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[0].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 15, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 16, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[0].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 16, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 17, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[0].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 17, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 18, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[0].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 18, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 19, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[1].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 10, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 11, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[1].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 11, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 12, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[1].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 13, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 14, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[1].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 14, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 15, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[1].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 15, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 16, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[1].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 16, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 17, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[1].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 17, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 18, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[1].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 18, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 19, 0, 0, "+09:00"),
+    },
+  ]
+)
+
 ReserveFrameResource.create!(
   [
     {

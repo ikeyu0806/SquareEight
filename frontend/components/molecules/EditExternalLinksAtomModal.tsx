@@ -25,7 +25,7 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
   const [pageLinks, setPageLinks] = useState<PageLinksParam[]>([])
   const [inputLinkText, setInputLinkText] = useState('')
   const [inputLink, setInputLink] = useState('')
-  // 予約ページ/回数券購入ページ/月額課金加入ページ: Registered
+  // 予約ページ/回数券購入ページ/月額サブスクリプション加入ページ: Registered
   // 手動入力: Manual とする
   const [inputLinkType, setInputLinkType] = useState('Registered')
   const [blockContent, setBlockContent] = useState<ExternalLinkTextWithUrl[]>([])
@@ -135,7 +135,7 @@ const EditExternalLinksAtomModal = (): JSX.Element => {
       <Modal.Body>
       <Form.Check
         type='radio'
-        label='SquareEightで作成したWebページ/予約ページ/回数券購入ページ/月額課金加入ページを追加'
+        label='SquareEightで作成したWebページ/予約ページ/回数券購入ページ/月額サブスクリプション加入ページを追加'
         onChange={() => setInputLinkType('Registered')}
         checked={inputLinkType === 'Registered'}></Form.Check>
       <Form.Check

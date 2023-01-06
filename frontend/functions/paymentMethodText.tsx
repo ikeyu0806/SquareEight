@@ -7,7 +7,7 @@ export const paymentMethodText = (paymentMethod: string, price: number, consumeN
     case 'ticket':
       return 'チケット払い ' + `消費枚数: ${consumeNumber}`
     case 'monthlyPaymentPlan':
-      return '月額課金'
+      return '月額サブスクリプション'
     default:
       return ''
   }

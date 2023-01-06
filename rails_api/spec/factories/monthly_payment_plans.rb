@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :monthly_payment_plan, class: MonthlyPaymentPlan do
-    name { '月額課金' }
+    name { '月額サブスクリプション' }
     price { 1000 }
     publish_status { 'Publish' }
     reserve_is_unlimited { false }

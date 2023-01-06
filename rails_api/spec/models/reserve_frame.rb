@@ -46,7 +46,7 @@ RSpec.describe ReserveFrame, type: :model do
       payment_methods_text = reserve_frame.payment_methods_text
       expect(payment_methods_text).to include "現地払い: ¥1000"
       expect(payment_methods_text).to include "クレジットカード払い: ¥1000"
-      expect(payment_methods_text).to include "月額課金 1週辺り1回予約可能"
+      expect(payment_methods_text).to include "月額サブスクリプション 1週辺り1回予約可能"
       expect(payment_methods_text).to include "100枚発行 消費枚数: 1枚"
     end
   end

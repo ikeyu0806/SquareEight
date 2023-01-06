@@ -57,7 +57,7 @@ class Reservation < ApplicationRecord
     when 'ticket'
       return '回数券支払い'
     when 'monthlyPaymentPlan'
-      return '月額課金'
+      return '月額サブスクリプション'
     else
       return ''
     end

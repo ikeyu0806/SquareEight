@@ -536,7 +536,7 @@ class ReserveFrame < ApplicationRecord
       resource_remaining_capacity_count = resource.remaining_capacity_count_within_range(reservation.start_at, reservation.end_at)
       raise '予約できません。使用する設備備品やスタッフなどのリソースが足りていません' if resource_remaining_capacity_count <= 0
     end
-    # 月額課金の予約制限チェック
+    # 月額サブスクリプションの予約制限チェック
     if reservation.payment_method == 'monthlyPaymentPlan'
       monthly_payment_plan = reservation.monthly_payment_plan
       unless monthly_payment_plan.reserve_is_unlimited?

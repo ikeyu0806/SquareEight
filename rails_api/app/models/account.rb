@@ -119,7 +119,7 @@ class Account < ApplicationRecord
       result.push({ text: t.name, value: '/ticket/' + t.public_id + '/purchase/', label: 'チケット購入ページ', publish_status: t.publish_status })
     end
     self.monthly_payment_plans.enabled.each do |m|
-      result.push({ text: m.name, value: '/monthly_payment/' + m.public_id + '/purchase/', label: '月額課金加入ページ', publish_status: m.publish_status })
+      result.push({ text: m.name, value: '/monthly_payment/' + m.public_id + '/purchase/', label: '月額サブスクリプション加入ページ', publish_status: m.publish_status })
     end
     self.questionnaire_masters.enabled.each do |q|
       result.push({ text: q.title, value: '/questionnaire/' + q.public_id, label: 'アンケート', publish_status: q.publish_status })

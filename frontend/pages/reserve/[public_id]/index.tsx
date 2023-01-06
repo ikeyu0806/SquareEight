@@ -327,7 +327,7 @@ const Index: NextPage = () => {
                               setSelectedPaymentMethodType('monthlyPaymentPlan')
                             }}
                             id={`monthly_plan_payment_${i}`}
-                            label={`月額課金: ${plan.monthly_payment_plan_name}`}></Form.Check>
+                            label={`月額サブスクリプション: ${plan.monthly_payment_plan_name}`}></Form.Check>
                         </>
                       )
                     })}
