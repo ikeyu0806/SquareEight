@@ -42,18 +42,17 @@ services:
       - "54321:5432"
     networks:
       - square_eight_network
-  # ElastiCache高いから一旦やめ
-  # square_eight_redis:
-  #   container_name: square_eight_redis
-  #   build:
-  #     context: ./rails_api
-  #     dockerfile: docker/redis/Dockerfile
-  #   volumes:
-  #     - ./rails_api/cache/redis/data:/data
-  #   ports:
-  #     - "26379:6379"
-  #   networks:
-  #     - square_eight_network
+  square_eight_redis:
+    container_name: square_eight_redis
+    build:
+      context: ./rails_api
+      dockerfile: docker/redis/Dockerfile
+    volumes:
+      - ./rails_api/cache/redis/data:/data
+    ports:
+      - "26379:6379"
+    networks:
+      - square_eight_network
 
 networks:
   square_eight_network:
