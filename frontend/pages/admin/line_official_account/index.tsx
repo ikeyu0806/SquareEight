@@ -61,6 +61,11 @@ const Index: NextPage = () => {
           <Col lg={2}></Col>
           <Col lg={8}>
             <LineBrandColorButton text='LINE公式アカウントを登録する' onClick={() => router.push('/admin/line_official_account/new')}></LineBrandColorButton>
+            <a target='_blank' rel='noreferrer'
+              className='ml10'
+              href='https://square-eight-method.net/2023/01/07/%e3%80%90squareeight%e3%80%91line%e5%85%ac%e5%bc%8f%e3%82%a2%e3%82%ab%e3%82%a6%e3%83%b3%e3%83%88%e3%81%a8%e3%81%ae%e9%80%a3%e6%90%ba%e6%89%8b%e9%a0%86/'>
+                登録手順はこちら
+            </a>
             <div className='mt20'>公式アカウント一覧</div>
             <div className='mt10 mb10'>※友だち一覧にはSquareEightと連携後に友だち追加かメッセージのやり取りがあったユーザのみ表示されます。</div>
             <ListGroup>
