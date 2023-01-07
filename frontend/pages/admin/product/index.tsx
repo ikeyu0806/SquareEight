@@ -7,12 +7,15 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import { RootState } from 'redux/store'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import Unauthorized from 'components/templates/Unauthorized'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { showInventoryDescriptionModalChanged } from 'redux/productSlice'
+import InventoryDescriptionModal from 'components/templates/InventoryDescriptionModal'
 
 const Index: NextPage = () => {
+  const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [products, setProducts] = useState<ProductParam[]>([])
@@ -92,7 +95,12 @@ const Index: NextPage = () => {
                 <th>商品名</th>
                 <th>値段</th>
                 <th>税率</th>
-                <th>種別と在庫</th>
+                <th>
+                  種別と在庫<br />
+                  <Button
+                    onClick={() => dispatch(showInventoryDescriptionModalChanged(true))}
+                    size='sm'>在庫管理について</Button>
+                </th>
                 <th>公開ステータス</th>
                 <th>編集</th>
                 <th>購入ページ</th>
@@ -155,6 +163,7 @@ const Index: NextPage = () => {
         }
         {allowReadProduct === 'Forbid' && <Unauthorized />}
         </Container>
+        <InventoryDescriptionModal></InventoryDescriptionModal>
       </MerchantUserAdminLayout>
     </>
   )
