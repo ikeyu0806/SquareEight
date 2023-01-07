@@ -179,11 +179,11 @@ const Home: NextPage = () => {
               </Col>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
-                  <Card.Img variant='top' src='/images/sales_icatch.png' />
+                  <Card.Img variant='top' src='/images/html_mail_template_icatch.png' />
                   <Card.Body>
-                    <div className={homeStyles.features_header_text}>売上管理</div>
-                    <div className={homeStyles.features_description_text}>オンライン決済の売り上げが記録されます。ダッシュボードでグラフ表示することができます。</div>
-                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/11/21/squareeight%e3%81%a7%e3%81%ae%e3%82%aa%e3%83%b3%e3%83%a9%e3%82%a4%e3%83%b3%e5%a3%b2%e3%82%8a%e4%b8%8a%e3%81%92%e7%ae%a1%e7%90%86%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
+                    <div className={homeStyles.features_header_text}>HTMLメールテンプレート</div>
+                    <div className={homeStyles.features_description_text}>画像付きのHTMLメールテンプレートを作成することができます。</div>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2023/01/07/%e3%80%90squareeight%e3%80%91html%e3%83%a1%e3%83%bc%e3%83%ab%e3%83%86%e3%83%b3%e3%83%97%e3%83%ac%e3%83%bc%e3%83%88%e6%a9%9f%e8%83%bd%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
                       もっと見る
                     </a>
                   </Card.Body>
@@ -212,6 +212,33 @@ const Home: NextPage = () => {
                     <div className={homeStyles.features_header_text}>管理ユーザの権限設定</div>
                     <div className={homeStyles.features_description_text}>ユーザごとに管理画面の操作権限を設定できます。</div>
                     <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/12/07/%e3%80%90squareeight%e3%80%91%e3%83%a6%e3%83%bc%e3%82%b6%e6%a8%a9%e9%99%90%e8%a8%ad%e5%ae%9a%e6%a9%9f%e8%83%bd%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
+                      もっと見る
+                    </a>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col lg={4} sm={12}>
+                <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/line_connect_icatch.png' />
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>LINE公式アカウント連携</div>
+                    <div className={homeStyles.features_description_text}>LINE公式アカウントと連携してLINEの友だちを管理、メッセージ送信できます。</div>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/12/07/%e3%80%90squareeight%e3%80%91%e6%b1%ba%e6%b8%88%e3%83%aa%e3%82%af%e3%82%a8%e3%82%b9%e3%83%88%e6%a9%9f%e8%83%bd%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
+                      もっと見る
+                    </a>
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+            &thinsp;
+            <Row>
+              <Col lg={4} sm={12}>
+                <Card className={homeStyles.featureCard}>
+                  <Card.Img variant='top' src='/images/sales_icatch.png' />
+                  <Card.Body>
+                    <div className={homeStyles.features_header_text}>売上管理</div>
+                    <div className={homeStyles.features_description_text}>オンライン決済の売り上げが記録されます。ダッシュボードでグラフ表示することができます。</div>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/11/21/squareeight%e3%81%a7%e3%81%ae%e3%82%aa%e3%83%b3%e3%83%a9%e3%82%a4%e3%83%b3%e5%a3%b2%e3%82%8a%e4%b8%8a%e3%81%92%e7%ae%a1%e7%90%86%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
                       もっと見る
                     </a>
                   </Card.Body>
