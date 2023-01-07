@@ -70,7 +70,7 @@ const SendHtmlMessageModal = () => {
                     type='radio'
                     name='selectCustomer'
                     id={String(customer.id + i)}
-                    label={<>{customer.last_name}{customer.full_name}</>}
+                    label={<>{customer.last_name}{customer.first_name}</>}
                     key={i}
                     onClick={() => {
                       dispatch(customerPublicIdChanged(customer.public_id))
