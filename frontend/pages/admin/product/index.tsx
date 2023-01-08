@@ -131,10 +131,8 @@ const Index: NextPage = () => {
                           }}
                           className='mr10'
                           size='sm'>在庫を補充する</Button>
-                        <Button
-                          disabled={p.inventory_allocation < 1}
-                          onClick={() => decrementInventoryAllocation(p.public_id, 'Product')}
-                          size='sm'>在庫引当を発注済みにする</Button>
+                          <br />
+                          <a href='/admin/order_item'>在庫引当は注文管理画面から発注済みに更新できます</a>
                       </>}
                       {p.show_product_type_form &&
                       <>
@@ -144,10 +142,8 @@ const Index: NextPage = () => {
                               <div>{type.name}</div>
                               <div>有効在庫数: {type.inventory}</div>
                               <div>在庫引当数: {type.inventory_allocation}</div>
-                              <Button
-                                disabled={type.inventory_allocation < 1}
-                                onClick={() => decrementInventoryAllocation(type.public_id, 'ProductType')}
-                                size='sm'>在庫引当を発注済みにする</Button>
+                              <br />
+                              <a href='/admin/order_item'>在庫引当は注文管理画面から発注済みに更新できます</a>
                               <hr />
                             </>
                           )
