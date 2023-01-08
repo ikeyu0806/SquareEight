@@ -9,6 +9,7 @@ class OrderItem < ApplicationRecord
   belongs_to :order
   belongs_to :account
   has_one :product_type, foreign_key: :id, primary_key: :product_type_id
+  has_one :product, foreign_key: :id, primary_key: :product_id
 
   def business_name
     account.business_name
@@ -24,6 +25,16 @@ class OrderItem < ApplicationRecord
 
   def order_name
     order.name
+  end
+
+  def product_inventory
+    return nil if product.blank?
+    product.inventory
+  end
+
+  def product_inventory_allocation
+    return nil if product.blank?
+    product.inventory_allocation
   end
 
   def update_read_orders_status_unread
