@@ -47,43 +47,6 @@ const Index: NextPage = () => {
     fetchProducts()
   }, [router.query.public_id, cookies._square_eight_merchant_session])
 
-  const decrementInventoryAllocation = (publicId: string, targetType: string) => {
-    swalWithBootstrapButtons.fire({
-      title: '在庫引当から減らす数を入力して下さい',
-      text: '入力した数が在庫引当と有効在庫数から引かれます',
-      confirmButtonText: '登録する',
-      cancelButtonText: 'キャンセル',
-      input: 'number',
-      showCancelButton: true,
-      showCloseButton: true
-    }).then((result) => {
-      console.log(result, "!")
-      axios.post(`${process.env.BACKEND_URL}/api/internal/products/${publicId}/decrement_inventory_allocation`,
-      {
-        product: {
-          target_type: targetType,
-          shipped_count: Number(result.value)
-        }
-      },
-      {
-        headers: {
-          'Session-Id': cookies._square_eight_merchant_session
-        }
-      }).then(response => {
-        swalWithBootstrapButtons.fire({
-          title: '登録しました',
-          icon: 'info'
-        })
-        location.reload()
-      }).catch(error => {
-        swalWithBootstrapButtons.fire({
-          title: '登録失敗しました',
-          icon: 'error'
-        })
-      })
-    })
-  }
-
   return (
     <>
       <MerchantUserAdminLayout>

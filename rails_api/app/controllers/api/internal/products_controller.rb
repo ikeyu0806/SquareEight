@@ -147,29 +147,6 @@ class Api::Internal::ProductsController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
-  def decrement_inventory_allocation
-    case product_params[:target_type]
-    when 'ProductType'
-      product_type = ProductType.find_by(public_id: params[:public_id])
-      raise '発注量が在庫引当数を超えています' if product_params[:shipped_count] > product_type.inventory_allocation
-      product_type.update!(
-        inventory: product_type.inventory - product_params[:shipped_count],
-        inventory_allocation: product_type.inventory_allocation - product_params[:shipped_count]
-      )
-    else
-      product = Product.find_by(public_id: params[:public_id])
-      raise '発注量が在庫引当数を超えています' if product_params[:shipped_count] > product.inventory_allocation
-      product.update!(
-        inventory: product.inventory - product_params[:shipped_count],
-        inventory_allocation: product.inventory_allocation - product_params[:shipped_count]
-      )
-    end
-    render json: { status: 'success' }, status: 200
-  rescue => error
-    Rails.logger.error error
-    render json: { status: 'fail', error: error }, status: 500
-  end
-
   def inventory_replenishment
     if product_params[:target_type] == 'Product'
       product = Product.find_by(public_id: params[:public_id])
