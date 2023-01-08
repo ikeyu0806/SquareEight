@@ -11,7 +11,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import Unauthorized from 'components/templates/Unauthorized'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
-import { showInventoryDescriptionModalChanged, showInventoryReplenishmentModalChanged } from 'redux/productSlice'
+import { inventoryChanged, publicIdChanged,
+         showInventoryDescriptionModalChanged,
+         showInventoryReplenishmentModalChanged } from 'redux/productSlice'
 import InventoryDescriptionModal from 'components/templates/InventoryDescriptionModal'
 import InventoryReplenishmentModal from 'components/templates/InventoryReplenishmentModal'
 
@@ -122,7 +124,11 @@ const Index: NextPage = () => {
                         <div>在庫数: {p.inventory}</div>
                         <div>在庫引当数: {p.inventory_allocation}</div>
                         <Button
-                          onClick={() => dispatch(showInventoryReplenishmentModalChanged(true))}
+                          onClick={() => {
+                            dispatch(showInventoryReplenishmentModalChanged(true))
+                            dispatch(publicIdChanged(p.public_id))
+                            dispatch(inventoryChanged(p.inventory))
+                          }}
                           className='mr10'
                           size='sm'>在庫を補充する</Button>
                         <Button

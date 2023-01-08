@@ -170,6 +170,15 @@ class Api::Internal::ProductsController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def inventory_replenishment
+    product = Product.find_by(public_id: params[:public_id])
+    product.update!(inventory: product_params[:inventory])
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   private
 
   def product_params

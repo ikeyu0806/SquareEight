@@ -6,6 +6,7 @@ import { prefecturesDeliveryTargetInitValue } from 'constants/prefecturesDeliver
 export const productSlice = createSlice({
   name: 'alert',
   initialState: {
+    publicId: '',
     name: '',
     price: 1000,
     taxRate: 10,
@@ -27,6 +28,9 @@ export const productSlice = createSlice({
     showInventoryReplenishmentModal: false
   },
   reducers: {
+    publicIdChanged: (state, action: PayloadAction<string>) => {
+      state.publicId = action.payload
+    },
     nameChanged: (state, action: PayloadAction<string>) => {
       state.name = action.payload
     },
@@ -87,6 +91,7 @@ export const productSlice = createSlice({
   },
 })
 
+export const { publicIdChanged } = productSlice.actions
 export const { nameChanged } = productSlice.actions
 export const { descriptionChanged } = productSlice.actions
 export const { base64ImageChanged } = productSlice.actions
