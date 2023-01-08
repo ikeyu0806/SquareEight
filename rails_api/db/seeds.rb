@@ -114,6 +114,54 @@ SystemAdminUser.first_or_create!(
   authentication_status: "Enabled"
 )
 
+customers = Customer.first_or_create!(
+  [
+    {
+      account_id: account.id,
+      first_name: "一郎",
+      last_name: "デモ",
+      email: "demo1@example.com",
+      phone_number: "",
+    },
+    {
+      account_id: account.id,
+      first_name: "二郎",
+      last_name: "デモ",
+      email: "demo2@example.com",
+      phone_number: "",
+    },
+    {
+      account_id: account.id,
+      first_name: "三郎",
+      last_name: "デモ",
+      email: "demo3@example.com",
+      phone_number: "",
+    }
+  ]
+)
+
+customer_group = CustomerGroup.first_or_create!(
+  account_id: account.id,
+  name: "デモグループ",
+)
+
+CustomerGroupRelation.first_or_create!(
+  [
+    {
+      customer_id: customers[0].id,
+      customer_group_id: customer_group.id,
+    },
+    {
+      customer_id: customers[1].id,
+      customer_group_id: customer_group.id,
+    },
+    {
+      customer_id: customers[2].id,
+      customer_group_id: customer_group.id,
+    },
+  ]
+)
+
 resources = Resource.first_or_create!(
   [
     {
@@ -229,7 +277,7 @@ reserve_frames = ReserveFrame.first_or_create!(
   ]
 )
 
-ReserveFrameReceptionTime.create!(
+ReserveFrameReceptionTime.first_or_create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
@@ -314,7 +362,7 @@ ReserveFrameReceptionTime.create!(
   ]
 )
 
-ReserveFrameResource.create!(
+ReserveFrameResource.first_or_create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
@@ -339,7 +387,7 @@ ticket_master = TicketMaster.first_or_create!(
   publish_status: "Publish"
 )
 
-monthly_payment_plan = MonthlyPaymentPlan.create!(
+monthly_payment_plan = MonthlyPaymentPlan.first_or_create!(
     account_id: account.id,
     name: "受講券デモ",
     price: 5000,
@@ -368,23 +416,50 @@ ReserveFrameTicketMaster.first_or_create!(
   ]
 )
 
-product = Product.create!(
-  account_id: account.id,
-  name: "商品デモ",
-  price: 1000,
-  tax_rate: 10,
-  inventory: 100,
-  publish_status: "Publish",
+product = Product.first_or_create!(
+  [
+    {
+      account_id: account.id,
+      name: "商品デモ",
+      price: 1000,
+      tax_rate: 10,
+      inventory: 100,
+      publish_status: "Publish",
+    },
+    {
+      account_id: account.id,
+      name: "商品種別ありデモ",
+      price: 1000,
+      tax_rate: 10,
+      inventory: 100,
+      publish_status: "Publish",
+    },
+  ]
 )
 
-questionnaire_master = QuestionnaireMaster.create!(
+ProductType.first_or_create!(
+  [
+    {
+      product_id: product[1].id,
+      name: "Sサイズ",
+      inventory: 100,
+    },
+    {
+      product_id: product[1].id,
+      name: "Mサイズ",
+      inventory: 100,
+    }
+  ]
+)
+
+questionnaire_master = QuestionnaireMaster.first_or_create!(
   account_id: account.id,
   title: "アンケートデモ",
   question_form_json: "[{\"question\"=>\"商品へのご要望\", \"formType\"=>\"text\", \"textFormRowCount\"=>5, \"sortOrder\"=>1, \"questionId\"=>\"18581acf0bb\", \"selectFormAnswers\"=>[], \"radioButtonAnswers\"=>[], \"checkboxAnswers\"=>[]}, {\"question\"=>\"年齢は？\", \"formType\"=>\"select\", \"textFormRowCount\"=>1, \"sortOrder\"=>2, \"questionId\"=>\"18581ad6be4\", \"selectFormAnswers\"=>[\"10代\", \"20代\", \"30代\", \"40代\", \"50代\", \"60代以上\"], \"radioButtonAnswers\"=>[], \"checkboxAnswers\"=>[]}]",
   publish_status: "Publish"
 )
 
-DeliveryDatetimeSetting.create!(
+DeliveryDatetimeSetting.first_or_create!(
   account_id: account.id,
   shortest_delivery_day: 2,
   longest_delivery_day: 4,
