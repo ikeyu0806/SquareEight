@@ -464,7 +464,7 @@ DeliveryDatetimeSetting.first_or_create!(
   shortest_delivery_day: 2,
   longest_delivery_day: 4,
   deadline_time: DateTime.new(2000, 01, 01, 19, 0, 0, "+09:00"),
-  is_set_per_area_delivery_date: true,
+  is_set_per_area_delivery_date: false,
   is_holiday_sun: true,
   is_holiday_mon: false,
   is_holiday_tue: false,
