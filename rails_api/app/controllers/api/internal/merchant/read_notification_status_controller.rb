@@ -40,4 +40,12 @@ class Api::Internal::Merchant::ReadNotificationStatusController < ApplicationCon
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
+
+  def read_orders
+    current_merchant_user.read_orders_status_AlreadyRead!
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
 end
