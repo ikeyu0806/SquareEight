@@ -96,9 +96,11 @@ const Index: NextPage = () => {
                 <th>値段</th>
                 <th>税率</th>
                 <th>
-                  種別と在庫<br />
+                  種別と在庫
                   <Button
                     onClick={() => dispatch(showInventoryDescriptionModalChanged(true))}
+                    variant='info'
+                    className='text-white ml10'
                     size='sm'>在庫管理について</Button>
                 </th>
                 <th>公開ステータス</th>
