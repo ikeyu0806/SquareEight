@@ -13,12 +13,14 @@ const InventoryReplenishmentModal = (): JSX.Element => {
   const publicId = useSelector((state: RootState) => state.product.publicId)
   const inventory = useSelector((state: RootState) => state.product.inventory)
   const showInventoryReplenishmentModal = useSelector((state: RootState) => state.product.showInventoryReplenishmentModal)
+  const inventoryReplenishmentModalTarget = useSelector((state: RootState) => state.product.inventoryReplenishmentModalTarget)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/products/${publicId}/inventory_replenishment`,
     {
       product: {
-        inventory: inventory
+        inventory: inventory,
+        target_type: inventoryReplenishmentModalTarget
       }
     },
     {

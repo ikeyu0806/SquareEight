@@ -25,7 +25,8 @@ export const productSlice = createSlice({
     deliveryChargeWithOrderNumber: 'nationwideUniform',
     deliveryDatetimeTargetFlg: true,
     showInventoryDescriptionModal: false,
-    showInventoryReplenishmentModal: false
+    showInventoryReplenishmentModal: false,
+    inventoryReplenishmentModalTarget: 'Product'
   },
   reducers: {
     publicIdChanged: (state, action: PayloadAction<string>) => {
@@ -88,6 +89,9 @@ export const productSlice = createSlice({
     showInventoryReplenishmentModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showInventoryReplenishmentModal = action.payload
     },
+    inventoryReplenishmentModalTargetChanged: (state, action: PayloadAction<string>) => {
+      state.inventoryReplenishmentModalTarget = action.payload
+    },
   },
 })
 
@@ -111,5 +115,6 @@ export const { deliveryChargeWithOrderNumberChanged } = productSlice.actions
 export const { deliveryDatetimeTargetFlgChanged } = productSlice.actions
 export const { showInventoryDescriptionModalChanged } = productSlice.actions
 export const { showInventoryReplenishmentModalChanged } = productSlice.actions
+export const { inventoryReplenishmentModalTargetChanged } = productSlice.actions
 
 export default productSlice.reducer

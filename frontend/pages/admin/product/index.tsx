@@ -13,7 +13,8 @@ import Unauthorized from 'components/templates/Unauthorized'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { inventoryChanged, publicIdChanged,
          showInventoryDescriptionModalChanged,
-         showInventoryReplenishmentModalChanged } from 'redux/productSlice'
+         showInventoryReplenishmentModalChanged,
+         inventoryReplenishmentModalTargetChanged } from 'redux/productSlice'
 import InventoryDescriptionModal from 'components/templates/InventoryDescriptionModal'
 import InventoryReplenishmentModal from 'components/templates/InventoryReplenishmentModal'
 
@@ -128,6 +129,7 @@ const Index: NextPage = () => {
                             dispatch(showInventoryReplenishmentModalChanged(true))
                             dispatch(publicIdChanged(p.public_id))
                             dispatch(inventoryChanged(p.inventory))
+                            dispatch(inventoryReplenishmentModalTargetChanged('Product'))
                           }}
                           className='mr10'
                           size='sm'>在庫数を変更する</Button>
@@ -142,6 +144,15 @@ const Index: NextPage = () => {
                               <div>{type.name}</div>
                               <div>有効在庫数: {type.inventory}</div>
                               <div>在庫引当数: {type.inventory_allocation}</div>
+                              <Button
+                                onClick={() => {
+                                  dispatch(showInventoryReplenishmentModalChanged(true))
+                                  dispatch(publicIdChanged(type.public_id))
+                                  dispatch(inventoryChanged(type.inventory))
+                                  dispatch(inventoryReplenishmentModalTargetChanged('ProductType'))
+                                }}
+                                className='mr10'
+                                size='sm'>在庫数を変更する</Button>
                               <br />
                               <a href='/admin/order_item'>在庫引当は注文管理画面から発注済みに更新できます</a>
                               <hr />

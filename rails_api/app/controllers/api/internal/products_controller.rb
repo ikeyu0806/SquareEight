@@ -171,8 +171,13 @@ class Api::Internal::ProductsController < ApplicationController
   end
 
   def inventory_replenishment
-    product = Product.find_by(public_id: params[:public_id])
-    product.update!(inventory: product_params[:inventory])
+    if product_params[:target_type] == 'Product'
+      product = Product.find_by(public_id: params[:public_id])
+      product.update!(inventory: product_params[:inventory])
+    else
+      product_type = ProductType.find_by(public_id: params[:public_id])
+      product_type.update!(inventory: product_params[:inventory])
+    end
     render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
