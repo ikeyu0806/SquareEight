@@ -11,8 +11,9 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import Unauthorized from 'components/templates/Unauthorized'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
-import { showInventoryDescriptionModalChanged } from 'redux/productSlice'
+import { showInventoryDescriptionModalChanged, showInventoryReplenishmentModalChanged } from 'redux/productSlice'
 import InventoryDescriptionModal from 'components/templates/InventoryDescriptionModal'
+import InventoryReplenishmentModal from 'components/templates/InventoryReplenishmentModal'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -121,6 +122,10 @@ const Index: NextPage = () => {
                         <div>在庫数: {p.inventory}</div>
                         <div>在庫引当数: {p.inventory_allocation}</div>
                         <Button
+                          onClick={() => dispatch(showInventoryReplenishmentModalChanged(true))}
+                          className='mr10'
+                          size='sm'>在庫を補充する</Button>
+                        <Button
                           disabled={p.inventory_allocation < 1}
                           onClick={() => decrementInventoryAllocation(p.public_id, 'Product')}
                           size='sm'>在庫引当を発注済みにする</Button>
@@ -166,6 +171,7 @@ const Index: NextPage = () => {
         {allowReadProduct === 'Forbid' && <Unauthorized />}
         </Container>
         <InventoryDescriptionModal></InventoryDescriptionModal>
+        <InventoryReplenishmentModal></InventoryReplenishmentModal>
       </MerchantUserAdminLayout>
     </>
   )
