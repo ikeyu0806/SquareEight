@@ -16,4 +16,7 @@ export interface OrderItemParam {
   delivery_date_text: string
   product_inventory?: number
   product_inventory_allocation?: number
+  product_type_inventory?: number
+  product_type_inventory_allocation?: number
+  is_product_type_exists: boolean
 }

@@ -37,9 +37,23 @@ class OrderItem < ApplicationRecord
     product.inventory_allocation
   end
 
+  def product_type_inventory
+    return nil if product_type.blank?
+    product_type.inventory
+  end
+
+  def product_type_inventory_allocation
+    return nil if product_type.blank?
+    product_type.inventory_allocation
+  end
+
   def update_read_orders_status_unread
     self.account.merchant_users.each do |user|
       user.read_orders_status_UnreadExist!
     end
+  end
+
+  def is_product_type_exists
+    product_type.present?
   end
 end

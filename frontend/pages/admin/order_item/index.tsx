@@ -92,14 +92,24 @@ const Index: NextPage = () => {
                   </td>
                   <td>
                     {item.product_name} <OrderItemTypeBadge itemType={item.item_type}/>
-                    {item.product_inventory &&
+                    {item.item_type === 'Product' && !item.is_product_type_exists &&
                       <div>
                         在庫数: {item.product_inventory}
                       </div>
                     }
-                    {item.product_inventory_allocation &&
+                    {item.item_type === 'Product' && !item.is_product_type_exists &&
                       <div>
                         在庫引当数: {item.product_inventory_allocation}
+                      </div>
+                    }
+                    {item.item_type === 'Product' && item.is_product_type_exists &&
+                      <div>
+                        在庫数: {item.product_type_inventory}
+                      </div>
+                    }
+                    {item.item_type === 'Product' && item.is_product_type_exists &&
+                      <div>
+                        在庫引当数: {item.product_type_inventory_allocation}
                       </div>
                     }
                   </td>
