@@ -12,7 +12,7 @@ const InventoryDescriptionModal = (): JSX.Element => {
       <Modal.Header>在庫管理について</Modal.Header>
       <Modal.Body>
         <div>顧客が商品を購入すると在庫引当数が注文数分加算されます。</div>
-        <div className='mt20'>「在庫引当を発注済みにする」ボタンを押すと在庫引当が0になり在庫数から在庫引当数が差し引かれます。</div>
+        <div className='mt20'>注文管理画面の「発送済みに更新する」ボタンを押すと在庫引当が0になり在庫数から在庫引当数が差し引かれます。</div>
         <div className='mt20'>在庫引当数が在庫数以上になると注文を受け付けられなくなります。</div>
         <hr />
         <div className='mt20'>
@@ -21,7 +21,8 @@ const InventoryDescriptionModal = (): JSX.Element => {
         <div className='mt20'>
           <div>①ある顧客がTシャツを10枚注文しました。</div>
           <div className='mt10'>②10枚注文が入ったので在庫引当数が10になります。この時点でTシャツは追加注文を受け付けられなくなります。</div>
-          <div className='mt10'>③商品を発注したら「在庫引当を発注済みにする」ボタンを押してください。在庫引当が0になり在庫が0になります。</div>
+          <div className='mt10'>③商品を発注したら注文管理画面の「発送済みに更新する」ボタンを押してください。在庫引当が0になり在庫が0になります。</div>
+          <div className='mt10'>④在庫が入り再度注文を受け付けられるようにするには商品一覧から「在庫を補充する」ボタンを押して在庫数を増やしてください。</div>
           <div className='mt10'></div>
         </div>
       </Modal.Body>
