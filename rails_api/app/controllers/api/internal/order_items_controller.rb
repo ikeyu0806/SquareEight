@@ -11,11 +11,24 @@ class Api::Internal::OrderItemsController < ApplicationController
   end
 
   def update_shipped
-    order_item = OrderItem.find_by(public_id: params[:public_id])
-    order_item.update!(shipped: true)
-    if order_item.product.present?
+    ActiveRecord::Base.transaction do
+      order_item = OrderItem.find_by(public_id: params[:public_id])
+      order_item.update!(shipped: true)
+      if order_item.is_product_type_exists
+        product_type = order_item.product_type
+        product_type.update!(
+          inventory: product_type.inventory - product_type.inventory_allocation,
+          inventory_allocation: 0
+        )
+      else
+        product = order_item.product
+        product.update!(
+          inventory: product.inventory - product.inventory_allocation,
+          inventory_allocation: 0
+        )
+      end
+      render json: { status: 'success' }, status: 200
     end
-    render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

@@ -44,27 +44,33 @@ const Index: NextPage = () => {
     })
   }, [cookies._square_eight_merchant_session])
 
-  const updateShippedStatus = (itemId: string) => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/order_items/${itemId}/update_shipped`,
-    {
-      order_item: {
-        item_id: itemId,
-      }
-    },
-    {
-      headers: {
-        'Session-Id': cookies._square_eight_merchant_session
-      }
-    }).then(response => {
-      swalWithBootstrapButtons.fire({
-        title: '更新しました',
-        icon: 'info'
-      })
-      location.reload()
-    }).catch(error => {
-      swalWithBootstrapButtons.fire({
-        title: '更新失敗しました',
-        icon: 'error'
+  const updateToShipped = (itemPublicId: string) => {
+    swalWithBootstrapButtons.fire({
+      title: '発送済みに更新します',
+      html: `更新すると在庫引当数が0になり在庫数から差し引かれます。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      axios.post(`${process.env.BACKEND_URL}/api/internal/order_items/${itemPublicId}/update_shipped`,
+      {},
+      {
+        headers: {
+          'Session-Id': cookies._square_eight_merchant_session
+        }
+      }).then(response => {
+        swalWithBootstrapButtons.fire({
+          title: '更新しました',
+          icon: 'info'
+        })
+        location.reload()
+      }).catch(error => {
+        swalWithBootstrapButtons.fire({
+          title: '更新失敗しました',
+          icon: 'error'
+        })
       })
     })
   }
@@ -128,13 +134,15 @@ const Index: NextPage = () => {
                   <td>
                     {!item.shipped &&
                     <>
-                      <span className='badge bg-danger'>
+                      <div className='badge bg-danger'>
                         未発送
-                      </span>
-                      <a className='badge bg-primary ml10'
-                        onClick={() => updateShippedStatus(item.public_id)}>
-                        発送済みに更新する
-                      </a>
+                      </div>
+                      <div>
+                        <a className='btn btn-primary mt10'
+                          onClick={() => updateToShipped(item.public_id)}>
+                          発送済みに更新する
+                        </a>
+                      </div>
                     </>}
                     {item.shipped &&
                     <span className='badge bg-info'>
