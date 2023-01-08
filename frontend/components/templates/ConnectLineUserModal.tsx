@@ -37,6 +37,7 @@ const ConnectLineUserModal = (): JSX.Element => {
     <Modal show={showConnectLineUserModal}>
       <Modal.Header>LINEユーザと紐付け</Modal.Header>
       <Modal.Body>
+        {lineUsers.length === 0 && <>LINEユーザが登録されていません</>}
         <ListGroup>
           {lineUsers.map((line_user, i) => {
             return (
