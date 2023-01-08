@@ -23,6 +23,8 @@ class Product < ApplicationRecord
   end
 
   def prefecture_delivery_charge(state)
+    return 0 if shipping_fee_per_regions.blank?
+    return 0 if shipping_fee_per_regions.find_by(region: state).blank?
     shipping_fee_per_regions.find_by(region: state).shipping_fee
   end
 
