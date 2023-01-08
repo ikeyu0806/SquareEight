@@ -130,7 +130,7 @@ const Index: NextPage = () => {
                             dispatch(inventoryChanged(p.inventory))
                           }}
                           className='mr10'
-                          size='sm'>在庫を補充する</Button>
+                          size='sm'>在庫数を変更する</Button>
                           <br />
                           <a href='/admin/order_item'>在庫引当は注文管理画面から発注済みに更新できます</a>
                       </>}
