@@ -127,7 +127,8 @@ class Api::Internal::ProductsController < ApplicationController
                                 town: product_params[:town],
                                 line1: product_params[:line1],
                                 line2: product_params[:line2],
-                                phone_number: product_params[:phone_number])
+                                phone_number: product_params[:phone_number],
+                                email: product_params[:email])
         delivery_target.is_default = true
         delivery_target.save!
       end
@@ -187,6 +188,7 @@ class Api::Internal::ProductsController < ApplicationController
                   :line1,
                   :line2,
                   :phone_number,
+                  :email,
                   :publish_status,
                   :delivery_charge_type,
                   :flat_rate_delivery_charge,

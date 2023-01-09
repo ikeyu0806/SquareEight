@@ -72,6 +72,7 @@ const Purchase: NextPage = () => {
   const line1 = useSelector((state: RootState) => state.deliveryTarget.line1)
   const line2 = useSelector((state: RootState) => state.deliveryTarget.line2)
   const phoneNumber = useSelector((state: RootState) => state.deliveryTarget.phoneNumber)
+  const email = useSelector((state: RootState) => state.deliveryTarget.email)
 
   useEffect(() => {
     const fetchProduct = () => {

@@ -12,6 +12,7 @@ import {  lastNameChanged,
           line1Changed,
           line2Changed,
           phoneNumberChanged,
+          emailChanged,
           isDefaultChanged } from 'redux/deliveryTargetSlice'
 
 interface Props {
@@ -29,6 +30,7 @@ const CreateDeliveryTarget = ({showIsDefaultSetting}: Props): JSX.Element => {
   const line1 = useSelector((state: RootState) => state.deliveryTarget.line1)
   const line2 = useSelector((state: RootState) => state.deliveryTarget.line2)
   const phoneNumber = useSelector((state: RootState) => state.deliveryTarget.phoneNumber)
+  const email = useSelector((state: RootState) => state.deliveryTarget.email)
   const isDefault = useSelector((state: RootState) => state.deliveryTarget.isDefault)
 
   return (
@@ -37,14 +39,18 @@ const CreateDeliveryTarget = ({showIsDefaultSetting}: Props): JSX.Element => {
       <Form.Control
         onChange={(e) => dispatch(lastNameChanged(e.target.value))}
         value={lastName}></Form.Control>
-      <Form.Label>名前（名）<RequireBadge /></Form.Label>
+      <Form.Label className='mt10'>名前（名）<RequireBadge /></Form.Label>
       <Form.Control
         onChange={(e) => dispatch(firstNameChanged(e.target.value))}
         value={firstName}></Form.Control>
-      <Form.Label>携帯電話番号<RequireBadge /></Form.Label>
+      <Form.Label className='mt10'>携帯電話番号<RequireBadge /></Form.Label>
       <Form.Control
         onChange={(e) => dispatch(phoneNumberChanged(e.target.value))}
         value={phoneNumber}></Form.Control>
+      <Form.Label className='mt10'>Eメール<RequireBadge /></Form.Label>
+      <Form.Control
+        onChange={(e) => dispatch(emailChanged(e.target.value))}
+        value={email}></Form.Control>
       <Form.Label className='mt10'>郵便番号<RequireBadge /></Form.Label>
       <Form.Control
         onChange={(e) => dispatch(postalCodeChanged(e.target.value))}
