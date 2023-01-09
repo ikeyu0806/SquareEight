@@ -384,7 +384,8 @@ ticket_master = TicketMaster.first_or_create!(
   name: "受講券デモ",
   issue_number: 1000,
   price: 5000,
-  publish_status: "Publish"
+  publish_status: "Publish",
+  effective_month: 12
 )
 
 monthly_payment_plan = MonthlyPaymentPlan.first_or_create!(
