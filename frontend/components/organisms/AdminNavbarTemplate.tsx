@@ -50,7 +50,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                           <div className='badge bg-danger'>未読予約あり</div>}
                         {readReservationsStatus === 'UnreadExist' && todayReservationsCount > 0 && <br />}
                         {todayReservationsCount > 0 &&
-                          <div className='badge bg-info'>今日の予約10件</div>}
+                          <div className='badge bg-info'>今日の予約{todayReservationsCount}件</div>}
                        </>}
                 id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー</NavDropdown.Item>
