@@ -56,4 +56,8 @@ class OrderItem < ApplicationRecord
   def is_product_type_exists
     product_type.present?
   end
+
+  def end_user_name
+    order.end_user.full_name
+  end
 end

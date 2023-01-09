@@ -3,7 +3,17 @@ class Api::Internal::OrderItemsController < ApplicationController
 
   def index
     order_items = current_merchant_user.account.order_items.order(:id)
-    order_items = JSON.parse(order_items.to_json(methods: [:address, :postal_code, :order_name, :product_inventory, :product_inventory_allocation, :product_type_inventory, :product_type_inventory_allocation, :is_product_type_exists]))
+    order_items = order_items.to_json(
+      methods: [:address,
+                :postal_code,
+                :order_name,
+                :product_inventory,
+                :product_inventory_allocation,
+                :product_type_inventory,
+                :product_type_inventory_allocation,
+                :is_product_type_exists,
+                :end_user_name])
+    order_items = JSON.parse(order_items)
     render json: { status: 'success', order_items: order_items }, status: 200
   rescue => error
     Rails.logger.error error

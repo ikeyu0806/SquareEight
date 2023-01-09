@@ -19,4 +19,5 @@ export interface OrderItemParam {
   product_type_inventory?: number
   product_type_inventory_allocation?: number
   is_product_type_exists: boolean
+  end_user_name: string
 }

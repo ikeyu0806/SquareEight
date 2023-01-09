@@ -1,7 +1,7 @@
 class Order < ApplicationRecord
   include PublicIdModule
 
-  has_one :end_user
+  has_one :end_user, foreign_key: :id, primary_key: :end_user_id
   has_many :order_items
 
   def total_price

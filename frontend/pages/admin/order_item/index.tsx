@@ -95,7 +95,7 @@ const Index: NextPage = () => {
               return (
                 <tr key={i}>
                   <td>
-                    {item.order_name}
+                    {item.end_user_name}
                   </td>
                   <td>
                     {item.product_name} <OrderItemTypeBadge itemType={item.item_type}/>
