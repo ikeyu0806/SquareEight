@@ -250,7 +250,7 @@ const Home: NextPage = () => {
                   <Card.Body>
                     <div className={homeStyles.features_header_text}>決済リクエスト機能</div>
                     <div className={homeStyles.features_description_text}>クレジットカード決済のリクエストページを作成できます。</div>
-                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2022/12/07/%e3%80%90squareeight%e3%80%91%e6%b1%ba%e6%b8%88%e3%83%aa%e3%82%af%e3%82%a8%e3%82%b9%e3%83%88%e6%a9%9f%e8%83%bd%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b/'>
+                    <a className='btn btn-primary mt20' href='https://square-eight-method.net/2023/01/09/%e3%80%90squareeight%e3%80%91%e6%b1%ba%e6%b8%88%e3%83%aa%e3%82%af%e3%82%a8%e3%82%b9%e3%83%88%e6%a9%9f%e8%83%bd%e3%81%ae%e3%81%94%e7%b4%b9%e4%bb%8b-2/'>
                       もっと見る
                     </a>
                   </Card.Body>
