@@ -11,6 +11,7 @@ import { alertChanged } from 'redux/alertSlice'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { loginStatusChanged, paymentMethodsChanged, defaultPaymentMethodIdChanged } from 'redux/currentEndUserSlice'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { redirectEndUserLoginPath } from 'functions/redirectEndUserLoginPath'
 import { priceChanged,
          nameChanged,
          reserveIsUnlimitedChanged,
@@ -151,7 +152,9 @@ const Purchase: NextPage = () => {
                 ?
                   <>
                     <div></div>
-                    <a href='/customer/login' target='_blank' rel='noreferrer'>SquareEightIDでログインしてください</a><br/>
+                    <a
+                      className='link-text'
+                      onClick={() => redirectEndUserLoginPath(router.asPath)}>SquareEightIDでログインしてください</a><br/>
                     <div className='mt20'>購入にはアカウント登録とクレジットカード登録が必要になります</div>
                     <div className='mt40'></div>
                   </>
