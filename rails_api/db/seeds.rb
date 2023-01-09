@@ -461,7 +461,7 @@ questionnaire_master = QuestionnaireMaster.first_or_create!(
   publish_status: "Publish"
 )
 
-DeliveryDatetimeSetting.first_or_create!(
+delivery_datetime_setting = DeliveryDatetimeSetting.first_or_create!(
   account_id: account.id,
   shortest_delivery_day: 2,
   longest_delivery_day: 4,
@@ -475,4 +475,244 @@ DeliveryDatetimeSetting.first_or_create!(
   is_holiday_fri: false,
   is_holiday_sat: true,
   delivery_time_type: "yamato",
+)
+
+AdditionalDeliveryDaysPerRegion.first_or_create(
+  [
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "北海道",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "青森県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "岩手県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "宮城県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "秋田県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "山形県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "福島県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "茨城県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "栃木県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "群馬県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "埼玉県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "千葉県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "東京都",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "神奈川県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "新潟県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "富山県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "石川県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "福井県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "山梨県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "長野県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "岐阜県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "静岡県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "愛知県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "三重県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "滋賀県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "京都府",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "大阪府",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "兵庫県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "奈良県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "和歌山県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "鳥取県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "島根県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "岡山県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "広島県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "山口県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "徳島県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "香川県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "愛媛県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "高知県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "福岡県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "佐賀県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "長崎県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "熊本県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "大分県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "宮崎県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "鹿児島県",
+      additional_delivery_days: 1
+    },
+    {
+      delivery_datetime_setting_id: delivery_datetime_setting.id,
+      region: "沖縄県",
+      additional_delivery_days: 1
+    }
+  ]
 )
