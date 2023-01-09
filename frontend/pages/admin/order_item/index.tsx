@@ -78,6 +78,7 @@ const Index: NextPage = () => {
   return (
     <MerchantUserAdminLayout>
       <Container>
+        <h3>注文管理</h3>
         <Table bordered>
           <thead>
             <tr>
@@ -132,7 +133,7 @@ const Index: NextPage = () => {
                     <div>{item.address}</div>
                   </td>
                   <td>
-                    {!item.shipped &&
+                  {item.item_type === 'Product' && !item.shipped &&
                     <>
                       <div className='badge bg-danger'>
                         未発送
