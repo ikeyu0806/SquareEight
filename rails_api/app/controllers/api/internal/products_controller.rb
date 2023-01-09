@@ -100,7 +100,7 @@ class Api::Internal::ProductsController < ApplicationController
                    payment_methods: payment_methods,
                    delivery_targets: delivery_targets,
                    default_payment_method_id: default_payment_method_id,
-                   current_end_user_id: current_end_user.present? ? current_end_user.id : nil,
+                   current_end_user: current_end_user.present? ? current_end_user : {},
                    login_status: login_status }, status: 200
   rescue => error
     Rails.logger.error error

@@ -15,6 +15,7 @@ import { alertChanged } from 'redux/alertSlice'
 import { loginStatusChanged, paymentMethodsChanged, defaultPaymentMethodIdChanged } from 'redux/currentEndUserSlice'
 import { DeliveryTargetParam } from 'interfaces/DeliveryTargetParam'
 import { redirectEndUserLoginPath } from 'functions/redirectEndUserLoginPath'
+import {  lastNameChanged, firstNameChanged } from 'redux/deliveryTargetSlice'
 import {  nameChanged,
           priceChanged,
           taxRateChanged,
@@ -96,10 +97,12 @@ const Purchase: NextPage = () => {
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
-        setCurrentEndUserId(response.data.current_end_user_id)
+        setCurrentEndUserId(response.data.current_end_user.id)
         setDeliveryTargets(response.data.delivery_targets)
         dispatch(productTypesChanged(response.data.product.product_types))
         dispatch(showProductTypeFormChanged(response.data.product.show_product_type_form))
+        dispatch(lastNameChanged(response.data.current_end_user.last_name))
+        dispatch(firstNameChanged(response.data.current_end_user.first_name))
 
         if (response.data.product.product_types[0]) {
           setSelectedProductTypeId(response.data.product.product_types[0].id)
