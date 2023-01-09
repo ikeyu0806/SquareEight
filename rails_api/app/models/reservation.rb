@@ -4,7 +4,7 @@ class Reservation < ApplicationRecord
   include PublicIdModule
 
   # 未読予約有りステータスに更新
-  before_create :update_read_reservations_status_unread
+  before_save :update_read_reservations_status_unread
 
   belongs_to :reserve_frame
   has_one :account, through: :reserve_frame
@@ -23,8 +23,10 @@ class Reservation < ApplicationRecord
                  lostLottery: 5 }
 
   def update_read_reservations_status_unread
-    self.account.merchant_users.each do |user|
-      user.read_reservations_status_UnreadExist!
+    if self.confirm? && self.status_changed?
+      self.account.merchant_users.each do |user|
+        user.read_reservations_status_UnreadExist!
+      end
     end
   end
 
@@ -172,7 +174,7 @@ class Reservation < ApplicationRecord
     # StripeへのリクエストはActiveRecordのTransactionで取り消せないので最後に実行
     reserve_frame = self.reserve_frame
     if reserve_frame.reception_type  == "Immediate" && reserve_frame.is_set_price?
-      case reservation.payment_method
+      case self.payment_method
       when 'creditCardPayment'
         raise 'ログインしてください' if current_end_user.blank?
         # 決済
@@ -180,12 +182,12 @@ class Reservation < ApplicationRecord
         Stripe.api_version = '2022-08-01'
         stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
         default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
-        if reservation.reservation_credit_card_payment_prices.present?
-          amount = reservation.reservation_credit_card_payment_prices.pluck(:price).inject {|result, item| result + item }
+        if self.reservation_credit_card_payment_prices.present?
+          amount = self.reservation_credit_card_payment_prices.pluck(:price).inject {|result, item| result + item }
         else
-          amount = reservation.price
+          amount = self.price
         end
-        commission = (reservation.price * 0.04).to_i
+        commission = (self.price * 0.04).to_i
         payment_intent = Stripe::PaymentIntent.create({
           amount: amount,
           currency: 'jpy',
@@ -197,7 +199,7 @@ class Reservation < ApplicationRecord
             'order_date': current_date_text,
             'account_business_name': reserve_frame.account.business_name,
             'purchase_product_name': reserve_frame.title,
-            'price': reservation.price,
+            'price': self.price,
             'type': 'reservation',
             'reserve_frame_id': reserve_frame.id
           },
@@ -208,14 +210,14 @@ class Reservation < ApplicationRecord
         Stripe::PaymentIntent.confirm(
           payment_intent.id
         )
-        reservation.update!(stripe_payment_intent_id: payment_intent.id)
+        self.update!(stripe_payment_intent_id: payment_intent.id)
         # 注文データ作成
         order = current_end_user.orders.new
         order.order_items.new(item_type: 'Reservation',
                               account_id: reserve_frame.account.id,
-                              reservation_id: reservation.id,
+                              reservation_id: self.id,
                               product_name: reserve_frame.title,
-                              price: reservation.price,
+                              price: self.price,
                               commission: commission)
         order.save!
       when 'ticket'
