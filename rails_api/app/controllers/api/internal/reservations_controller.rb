@@ -11,7 +11,7 @@ class Api::Internal::ReservationsController < ApplicationController
       end_datetime = DateTime.new(date[0].to_i, date[1].to_i, date[2].to_i, end_at[0].to_i, end_at[1].to_i, 0, "+09:00")
 
       reserve_frame = ReserveFrame.find_by(public_id: reservation_params[:reserve_frame_public_id])
-
+      ticket_master = TicketMaster.find_by(id: reservation_params[:ticket_master_id])
       reservation = reserve_frame
       .reservations
       .create!( number_of_people: reservation_params[:reserve_count],
@@ -20,7 +20,7 @@ class Api::Internal::ReservationsController < ApplicationController
                 end_at: end_datetime,
                 status: 'inputTimeWithPaymentMethod',
                 payment_method: reservation_params[:payment_method],
-                ticket_master_id: reservation_params[:ticket_id],
+                ticket_master_id: ticket_master.id,
                 monthly_payment_plan_id: reservation_params[:monthly_payment_plan_id],
                 ticket_consume_number: reservation_params[:consume_number].to_i,
                 end_user_id: current_end_user.present? ? current_end_user.id : nil)
@@ -132,7 +132,7 @@ class Api::Internal::ReservationsController < ApplicationController
       account_notification_url = '/admin/reservation'
       reserve_frame.account.account_notifications
       .create!(title: account_notification_title, url: account_notification_url)
-  
+
       # 支払い実行
       reservation.exec_payment(current_end_user)
       # 通知メール
@@ -266,7 +266,7 @@ class Api::Internal::ReservationsController < ApplicationController
 
     payment_method = reservation.payment_method
     # ActiveRecordのインスタンスではなくなるので最後にJSONにする
-    reservation = JSON.parse(reservation.to_json(methods: [:reservation_local_payment_prices, :reservation_credit_card_payment_prices]))
+    reservation = JSON.parse(reservation.to_json(methods: [:reservation_local_payment_prices, :reservation_credit_card_payment_prices, :ticket_master_public_id]))
     reserve_frame = JSON.parse(reserve_frame.to_json(methods: [:parse_question_form_json]))
     render json: { status: 'success',
                    end_user: end_user,
@@ -333,6 +333,7 @@ class Api::Internal::ReservationsController < ApplicationController
                   :consume_number,
                   :ticket_id,
                   :ticket_master_id,
+                  :ticket_master_public_id,
                   :monthly_payment_plan_id,
                   :price,
                   :status,

@@ -9,6 +9,7 @@ class Reservation < ApplicationRecord
   belongs_to :reserve_frame
   has_one :account, through: :reserve_frame
   has_one :end_user, foreign_key: :id, primary_key: :end_user_id
+  has_one :ticket_master, foreign_key: :id, primary_key: :ticket_master_id
   has_one :customer, foreign_key: :id, primary_key: :customer_id
   has_one :monthly_payment_plan, foreign_key: :id, primary_key: :monthly_payment_plan_id
   has_many :reservation_local_payment_prices
@@ -222,16 +223,16 @@ class Reservation < ApplicationRecord
         order.save!
       when 'ticket'
         raise 'ログインしてください' if current_end_user.blank?
-        ticket_master = TicketMaster.find(reservation_params[:ticket_id])
         purchased_tickets = current_end_user
                             .purchased_tickets
                             .where(ticket_master_id: ticket_master.id)
                             .expired
                             .order(:expired_at)
-      
+
+        consume_number = reserve_frame.reserve_frame_ticket_masters.find_by(ticket_master_id: self.ticket_master_id).consume_number
         total_remain_number = purchased_tickets.sum(:remain_number)
-        raise 'チケットが足りません' if total_remain_number < reserve_frame.consume_number
-        reserve_frame.consume_number.times do |count|
+        raise 'チケットが足りません' if total_remain_number < consume_number
+        consume_number.times do |count|
           purchased_ticket = purchased_tickets.where("remain_number > ?", 0).first
           purchased_ticket.update!(remain_number: purchased_ticket.remain_number - 1)
         end
@@ -241,5 +242,9 @@ class Reservation < ApplicationRecord
       else
       end
     end
+  end
+
+  def ticket_master_public_id
+    ticket_master&.public_id
   end
 end

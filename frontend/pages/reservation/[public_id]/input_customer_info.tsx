@@ -41,7 +41,7 @@ const Index: NextPage = () => {
   const [title, setTitle] = useState('')
   const [price, setPrice] = useState(0)
   const [numberOfPeople, setNumberOfPeople] = useState(0)
-  const [ticketMasterId, setTicketMasterId] = useState()
+  const [ticketMasterPublicId, setTicketMasterPublicId] = useState()
   const [monthlyPaymentPlanId, setMonthlyPaymentPlanId] = useState()
   const [isSetPrice, setIsSetPrice] = useState(false)
   const [isCompleteReservation, setIsCompleteReservation] = useState(false)
@@ -62,7 +62,6 @@ const Index: NextPage = () => {
   const [subscribePlanIds, setSubscribePlanIds] = useState<number[]>()
   const [isSubscribePlan, setIsSubscribePlan] = useState(false)
   const [isPurchaseTicket, setIsPurchaseTicket] = useState(false)
-  const [questionnaireMasterItems, setQuestionnaireMasterItems] = useState<QuestionnaireMasterItem[]>([])
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/reservations/input_customer_info?reservation_public_id=${router.query.public_id}`,
@@ -86,7 +85,7 @@ const Index: NextPage = () => {
       setNumberOfPeople(response.data.reservation.number_of_people)
       setPrice(response.data.reservation.price)
       setNumberOfPeople(response.data.reservation.number_of_people)
-      setTicketMasterId(response.data.reserve_frame.ticket_master_id)
+      setTicketMasterPublicId(response.data.reservation.ticket_master_public_id)
       setMonthlyPaymentPlanId(response.data.reserve_frame.monthly_payment_plan_id)
       setTitle(response.data.reserve_frame.title)
       setIsSetPrice(response.data.reserve_frame.is_set_price)
@@ -236,7 +235,7 @@ const Index: NextPage = () => {
                       {!isPurchaseTicket
                       && (String(paymentMethod) === 'ticket')
                       && <div className='mt20 mb20'>チケットを購入していません
-                            <a href={`/ticket/${ticketMasterId}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
+                            <a href={`/ticket/${ticketMasterPublicId}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
                             から購入してください</div>}
                       <div className='mt10 mb10'>
                         {['localPayment', 'creditCardPayment'].includes(String(paymentMethod))
