@@ -381,7 +381,7 @@ ReserveFrameResource.first_or_create!(
 
 ticket_master = TicketMaster.first_or_create!(
   account_id: account.id,
-  name: "受講券デモ",
+  name: "回数券デモ",
   issue_number: 1000,
   price: 5000,
   publish_status: "Publish",
@@ -390,7 +390,7 @@ ticket_master = TicketMaster.first_or_create!(
 
 monthly_payment_plan = MonthlyPaymentPlan.first_or_create!(
     account_id: account.id,
-    name: "受講券デモ",
+    name: "月額サブスクリプションデモ",
     price: 5000,
     reserve_interval_number: 1,
     reserve_interval_unit: "Week",
@@ -413,6 +413,7 @@ ReserveFrameTicketMaster.first_or_create!(
     {
       reserve_frame_id: reserve_frames[0].id,
       ticket_master_id: ticket_master.id,
+      consume_number: 3
     }
   ]
 )
