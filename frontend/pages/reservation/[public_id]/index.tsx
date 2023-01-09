@@ -18,6 +18,7 @@ export const Index = () => {
   const [paymentMethodText, setPaymentMethodText] = useState('')
   const [price, setPrice] = useState(0)
   const [receptionType, setReceptionType] = useState('')
+  const [ticketConsumeNumber, setTicketConsumeNumber] = useState(0)
   const [lotteryConfirmedDayBeforeText, setLotteryConfirmedDayBeforeText] = useState(0)
   const [multiLocalPaymentPrices, setMultiLocalPaymentPrices] = useState<MultiPaymentMethod[]>([])
   const [multiCreditCardPaymentPrices, setMultiCreditCardPaymentPrices] = useState<MultiPaymentMethod[]>([])
@@ -28,12 +29,14 @@ export const Index = () => {
         `${process.env.BACKEND_URL}/api/internal/reservations/${router.query.public_id}`
       )
       .then(function (response) {
+        console.log(response.data)
         setReserveFrameTitle(response.data.reservation.reserve_frame_title)
         setDisplayReservationDatetime(response.data.reservation.display_reservation_datetime)
         setNumberOfPeople(response.data.reservation.number_of_people)
         setPaymentMethod(response.data.reservation.payment_method)
         setPaymentMethodText(response.data.reservation.display_payment_method)
         setPrice(response.data.reservation.price)
+        setTicketConsumeNumber(response.data.reservation.ticket_consume_number)
         setReceptionType(response.data.reservation.status)
         setMultiLocalPaymentPrices(response.data.reservation.reservation_local_payment_prices)
         setMultiCreditCardPaymentPrices(response.data.reservation.reservation_credit_card_payment_prices)
@@ -74,7 +77,9 @@ export const Index = () => {
                       <hr/>
                       {['localPayment', 'creditCardPayment'].includes(paymentMethod) &&
                       <><div>料金: ￥{price}</div><hr/></>}
-                      <div>お支払い方法: {paymentMethodText}</div>
+                      <div>
+                        お支払い方法: {paymentMethodText} {paymentMethod === 'ticket' && <>消費枚数: {ticketConsumeNumber}枚</>}
+                      </div>
                    </>
                    }
                   {paymentMethod === 'localPayment'
