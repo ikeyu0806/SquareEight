@@ -15,6 +15,7 @@ import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import QuestionnaireItemAnswerForm from 'components/templates/QuestionnaireItemAnswerForm'
 import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
 import { QuestionnaireMasterItem } from 'interfaces/QuestionnaireMasterItem'
+import { redirectEndUserLoginPath } from 'functions/redirectEndUserLoginPath'
 import {  questionnaireMasterItemsChanged,
           answerChangeDetectStateChanged } from 'redux/questionnaireMasterSlice'
 import {  navbarBrandTextChanged,
@@ -206,7 +207,9 @@ const Index: NextPage = () => {
                   {loginValidate() &&<>
                   <label className='mb40'>クレジットカード支払い、回数券、月額サブスクリプションを使用する場合、ログインする必要があります</label>
                     <br />
-                    <label className='mt10'>SquareEightIDをお持ちですか？ <a className='link-text' href='/customer/login' target='_blank' rel='noreferrer'>ログインする</a></label>
+                    <a
+                      className='link-text'
+                      onClick={() => redirectEndUserLoginPath(router.asPath)}>SquareEightIDでログインしてください</a><br/>
                     <br/>
                     <label className='mt10 mb10'>新規作成は<a className='link-text' href='/customer/signup'  target='_blank' rel='noreferrer'>こちら</a></label>
                     <br/>
