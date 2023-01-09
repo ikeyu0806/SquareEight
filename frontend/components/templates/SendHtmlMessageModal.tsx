@@ -7,7 +7,8 @@ import { useCookies } from 'react-cookie'
 import { sendTargetTypeChanged,
          showSendHtmlMessageModalChanged,
          selectedCustomerChanged,
-         selectedCustomerGroupChanged } from 'redux/sendMailSlice'
+         selectedCustomerGroupChanged,
+        isSendMessageAllCustomersChanged } from 'redux/sendMailSlice'
 import { showSendMailScheduleModalChanged } from 'redux/sendMailReservationSlice'
 import SendMailScheduleModal from 'components/organisms/SendMailScheduleModal'
 import { customerPublicIdChanged } from 'redux/customerSlice'
@@ -23,6 +24,7 @@ const SendHtmlMessageModal = () => {
   const selectedCustomer =  useSelector((state: RootState) => state.sendMail.selectedCustomer)
   const selectedCustomerGroup =  useSelector((state: RootState) => state.sendMail.selectedCustomerGroup)
   const selectedHtmlMailTemplatePublicId =  useSelector((state: RootState) => state.sendMail.selectedHtmlMailTemplatePublicId)
+  const isSendMessageAllCustomers =  useSelector((state: RootState) => state.sendMail.isSendMessageAllCustomers)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/html_mail_templates/${selectedHtmlMailTemplatePublicId}/send_mail`,
@@ -63,6 +65,12 @@ const SendHtmlMessageModal = () => {
               label='顧客グループ'
               type='radio'/>
             {sendTargetType === 'customer' && 
+              <Form.Check
+                onChange={() => dispatch(isSendMessageAllCustomersChanged(!isSendMessageAllCustomers))}
+                checked={isSendMessageAllCustomers}
+                id='sendMessageAllCustomers'
+                label='全ての顧客に送信する'></Form.Check>}
+            {sendTargetType === 'customer' && !isSendMessageAllCustomers &&
               customers.map((customer, i) => {
                 return(
                   <Form.Check

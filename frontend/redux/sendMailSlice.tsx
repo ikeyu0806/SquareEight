@@ -13,6 +13,7 @@ export const sendMailSlice = createSlice({
     sendTargetType: 'customer',
     // notUse, messageTemplate, htmlMailTemplate
     messageTemplateType: 'notUse',
+    isSendMessageAllCustomers: false,
     selectedHtmlMailTemplate: {}  as HtmlMailTemplateParam,
     customers: [] as CustomerParam[],
     customerGroups: [] as CustomerGroupParam[],
@@ -33,6 +34,9 @@ export const sendMailSlice = createSlice({
     },
     messageTemplateTypeChanged: (state, action: PayloadAction<string>) => {
       state.messageTemplateType = action.payload
+    },
+    isSendMessageAllCustomersChanged: (state, action: PayloadAction<boolean>) => {
+      state.isSendMessageAllCustomers = action.payload
     },
     selectedHtmlMailTemplateChanged: (state, action: PayloadAction<HtmlMailTemplateParam>) => {
       state.selectedHtmlMailTemplate = action.payload
@@ -62,6 +66,7 @@ export const { showSendHtmlMessageModalChanged } = sendMailSlice.actions
 export const { showSendMessageTemplateModalChanged } = sendMailSlice.actions
 export const { sendTargetTypeChanged } = sendMailSlice.actions
 export const { messageTemplateTypeChanged } = sendMailSlice.actions
+export const { isSendMessageAllCustomersChanged } = sendMailSlice.actions
 export const { selectedHtmlMailTemplateChanged } = sendMailSlice.actions
 export const { customersChanged } = sendMailSlice.actions
 export const { customerGroupsChanged } = sendMailSlice.actions
