@@ -2,7 +2,6 @@ import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
 import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
-import RegularFooter from 'components/organisms/RegularFooter'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useDispatch, useSelector } from 'react-redux'
@@ -13,6 +12,7 @@ import { loginStatusChanged } from 'redux/currentEndUserSlice'
 import Router from 'next/router'
 import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
 import { END_USER_GOOGLE_AUTH_URL } from 'constants/socialLogin'
+import { endUserLoginRedirect } from 'functions/endUserLoginRedirect'
 
 const Login: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
@@ -48,7 +48,7 @@ const Login: NextPage = () => {
     }).then(response => {
       setCookie('_square_eight_end_user_session', response.data.session_id.public_id, { path: '/'})
       dispatch(alertChanged({message: '', show: false}))
-      router.push('/customer_page/')
+      endUserLoginRedirect()
     }).catch(error => {
       dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
     })
