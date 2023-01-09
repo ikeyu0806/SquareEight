@@ -78,18 +78,34 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
     account = current_merchant_user.account
     html_mail_template = HtmlMailTemplate.find_by(public_id: params[:public_id])
     if html_mail_template_params[:send_target_type] == 'customer'
-      customer = Customer.find_by(public_id: html_mail_template_params[:selected_customer][:public_id])
-      parsed_content = JSON.parse(html_mail_template.content)
-      HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title, html_mail_template.template_type).deliver_now
-      account.send_mail_histories.create!(
-        customer_id: customer.id,
-        message_type: 'htmlMailTemplate',
-        email: customer.email,
-        mail_title: html_mail_template.mail_title,
-        message_body: html_mail_template.content,
-        merchant_user_id: current_merchant_user.id,
-        html_template_type: html_mail_template.template_type
-      )
+      if html_mail_template_params[:is_send_message_all_customers]
+        account.customers.each do |customer|
+          parsed_content = JSON.parse(html_mail_template.content)
+          HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title, html_mail_template.template_type).deliver_now
+          account.send_mail_histories.create!(
+            customer_id: customer.id,
+            message_type: 'htmlMailTemplate',
+            email: customer.email,
+            mail_title: html_mail_template.mail_title,
+            message_body: html_mail_template.content,
+            merchant_user_id: current_merchant_user.id,
+            html_template_type: html_mail_template.template_type
+          )
+        end
+      else
+        customer = Customer.find_by(public_id: html_mail_template_params[:selected_customer][:public_id])
+        parsed_content = JSON.parse(html_mail_template.content)
+        HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title, html_mail_template.template_type).deliver_now
+        account.send_mail_histories.create!(
+          customer_id: customer.id,
+          message_type: 'htmlMailTemplate',
+          email: customer.email,
+          mail_title: html_mail_template.mail_title,
+          message_body: html_mail_template.content,
+          merchant_user_id: current_merchant_user.id,
+          html_template_type: html_mail_template.template_type
+        )
+      end
     elsif html_mail_template_params[:send_target_type] == 'customerGroup'
       customer_group = CustomerGroup.find_by(public_id: html_mail_template_params[:selected_customer_group][:public_id])
       customer_group.customers.each do |customer|
@@ -122,6 +138,7 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
                   :mail_title,
                   :template_type,
                   :send_target_type,
+                  :is_send_message_all_customers,
                   content: [:text, :image, :base64Image],
                   selected_customer: [:public_id, :email],
                   selected_customer_group: [:public_id])
