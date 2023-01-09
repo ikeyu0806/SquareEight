@@ -19,6 +19,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
   const readOrdersStatus = useSelector((state: RootState) => state.currentMerchantUser.readOrdersStatus)
   const readAccountNotificationStatus = useSelector((state: RootState) => state.currentMerchantUser.readAccountNotificationStatus)
   const readBusinessNotificationStatus = useSelector((state: RootState) => state.currentMerchantUser.readBusinessNotificationStatus)
+  const todayReservationsCount = useSelector((state: RootState) => state.currentMerchantUser.todayReservationsCount)
   const alertState =  useSelector((state: RootState) => state.alert.alert)
 
   const logout = () => {
@@ -47,6 +48,9 @@ const AdminNavbarTemplate = (): JSX.Element => {
                         <div>予約</div>
                         {readReservationsStatus === 'UnreadExist' &&
                           <div className='badge bg-danger'>未読予約あり</div>}
+                        {readReservationsStatus === 'UnreadExist' && todayReservationsCount > 0 && <br />}
+                        {todayReservationsCount > 0 &&
+                          <div className='badge bg-info'>今日の予約10件</div>}
                        </>}
                 id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/admin/reserve_frame'>予約メニュー</NavDropdown.Item>

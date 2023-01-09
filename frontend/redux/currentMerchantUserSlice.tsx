@@ -21,6 +21,7 @@ export const currentMerchantUserSlice = createSlice({
     readOrdersStatus: 'Unconfirmed',
     readAccountNotificationStatus: 'Unconfirmed',
     readBusinessNotificationStatus: 'Unconfirmed',
+    todayReservationsCount: 0
   },
   reducers: {
     idChanged: (state, action: PayloadAction<string>) => {
@@ -68,6 +69,9 @@ export const currentMerchantUserSlice = createSlice({
     readBusinessNotificationStatusChanged: (state, action: PayloadAction<LoginStatus>) => {
       state.readBusinessNotificationStatus = action.payload
     },
+    todayReservationsCountChanged: (state, action: PayloadAction<number>) => {
+      state.todayReservationsCount = action.payload
+    },
   },
 })
 
@@ -86,5 +90,6 @@ export const { readReservationsStatusChanged } = currentMerchantUserSlice.action
 export const { readOrdersStatusChanged } = currentMerchantUserSlice.actions
 export const { readAccountNotificationStatusChanged } = currentMerchantUserSlice.actions
 export const { readBusinessNotificationStatusChanged } = currentMerchantUserSlice.actions
+export const { todayReservationsCountChanged } = currentMerchantUserSlice.actions
 
 export default currentMerchantUserSlice.reducer

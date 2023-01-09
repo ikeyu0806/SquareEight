@@ -267,4 +267,8 @@ class MerchantUser < ApplicationRecord
     self.allow_send_mail  = 'Allow'
     self.allow_send_line_message  = 'Allow'
   end
+
+  def today_reservations_count
+    reservations.where(start_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).count
+  end
 end

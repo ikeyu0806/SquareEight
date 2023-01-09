@@ -1,7 +1,7 @@
 class Api::Internal::Merchant::SessionsController < ApplicationController
   def login_status
     raise if current_merchant_user.blank?
-    user = JSON.parse(current_merchant_user.to_json(methods: [:stripe_account_enable, :stripe_customer_enable])) 
+    user = JSON.parse(current_merchant_user.to_json(methods: [:stripe_account_enable, :stripe_customer_enable, :today_reservations_count])) 
     render json: { status: 'success',
                    user: user,
                    service_plan: current_merchant_user.account.service_plan }
