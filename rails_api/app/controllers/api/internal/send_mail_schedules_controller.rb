@@ -28,17 +28,32 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
 
     case send_mail_schedules_params[:send_target_type]
     when 'customer'
-      customer = Customer.find_by(public_id: send_mail_schedules_params[:customer_public_id])
-      current_merchant_user.account.send_mail_schedules.create!(
-        merchant_user_id: current_merchant_user.id,
-        customer_id: customer.id,
-        scheduled_datetime: scheduled_datetime,
-        email: customer.email,
-        mail_title: mail_title,
-        message_body: message_body,
-        message_template_type: send_mail_schedules_params[:message_template_type],
-        html_template_type: html_template_type,
-      )
+      if send_mail_schedules_params[:is_send_message_all_customers]
+        current_merchant_user.account.customers.each do |customer|
+          current_merchant_user.account.send_mail_schedules.create!(
+            merchant_user_id: current_merchant_user.id,
+            customer_id: customer.id,
+            scheduled_datetime: scheduled_datetime,
+            email: customer.email,
+            mail_title: mail_title,
+            message_body: message_body,
+            message_template_type: send_mail_schedules_params[:message_template_type],
+            html_template_type: html_template_type,
+          )
+        end
+      else
+        customer = Customer.find_by(public_id: send_mail_schedules_params[:customer_public_id])
+        current_merchant_user.account.send_mail_schedules.create!(
+          merchant_user_id: current_merchant_user.id,
+          customer_id: customer.id,
+          scheduled_datetime: scheduled_datetime,
+          email: customer.email,
+          mail_title: mail_title,
+          message_body: message_body,
+          message_template_type: send_mail_schedules_params[:message_template_type],
+          html_template_type: html_template_type,
+        )
+      end
     when 'customerGroup'
       customer_group = CustomerGroup.find_by(public_id: send_mail_schedules_params[:customer_group_public_id])
       customer_group.customers.each do |customer|
@@ -86,6 +101,7 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
                   :message_template_public_id,
                   :message_template_type,
                   :send_target_type,
+                  :is_send_message_all_customers,
                   selected_html_mail_template: [
                     :public_id,
                     :name,

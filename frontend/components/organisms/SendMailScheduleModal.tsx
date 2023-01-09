@@ -25,6 +25,7 @@ const SendMailScheduleModal = (): JSX.Element => {
   const selectedHtmlMailTemplate = useSelector((state: RootState) => state.sendMail.selectedHtmlMailTemplate)
   const messageTemplateType = useSelector((state: RootState) => state.sendMail.messageTemplateType)
   const sendTargetType = useSelector((state: RootState) => state.sendMail.sendTargetType)
+  const isSendMessageAllCustomers =  useSelector((state: RootState) => state.sendMail.isSendMessageAllCustomers)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/send_mail_schedules`,
@@ -42,7 +43,8 @@ const SendMailScheduleModal = (): JSX.Element => {
         message_template_public_id: messageTemplatePublicId,
         selected_html_mail_template: selectedHtmlMailTemplate,
         message_template_type: messageTemplateType,
-        send_target_type: sendTargetType
+        send_target_type: sendTargetType,
+        is_send_message_all_customers: isSendMessageAllCustomers
       }
     },
     {
@@ -62,7 +64,6 @@ const SendMailScheduleModal = (): JSX.Element => {
       })
     })
   }
-
 
   return (
     <>
