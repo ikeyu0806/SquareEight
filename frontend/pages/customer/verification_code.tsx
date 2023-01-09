@@ -1,12 +1,13 @@
 import type { NextPage } from 'next'
 import React, { useState } from 'react'
 import axios from 'axios'
-import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
+import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { alertChanged } from 'redux/alertSlice'
+import { endUserLoginRedirect } from 'functions/endUserLoginRedirect'
 
 const VerificationCode: NextPage = () => {
   const dispatch = useDispatch()
@@ -28,7 +29,7 @@ const VerificationCode: NextPage = () => {
     .then(response => {
       console.log(response.data)
       setCookie('_square_eight_end_user_session', response.data.session_id.public_id, { path: '/'})
-      router.push('/customer_page')
+      endUserLoginRedirect()
     })
     .catch(error => {
       dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
