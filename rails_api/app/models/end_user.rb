@@ -180,4 +180,8 @@ class EndUser < ApplicationRecord
     # 一応名前がない場合の分岐
     full_name.blank? ? '名前が登録されていません' : full_name
   end
+
+  def today_reservations_count
+    reservations.where(start_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).count
+  end
 end

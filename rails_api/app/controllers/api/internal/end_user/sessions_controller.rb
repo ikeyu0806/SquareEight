@@ -1,7 +1,8 @@
 class Api::Internal::EndUser::SessionsController < ApplicationController
   def login_status
     raise if current_end_user.blank?
-    render json: { status: 'success', user: current_end_user}
+    user = JSON.parse(current_end_user.to_json(methods: [:today_reservations_count]))
+    render json: { status: 'success', user: user}
   rescue => error
     render json: { status: 'fail', error: error }, status: 401
   end

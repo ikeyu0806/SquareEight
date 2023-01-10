@@ -12,6 +12,7 @@ const CustomerPageNavbar = (): JSX.Element => {
   const [cookies, setCookie, removeCookies] = useCookies(['_square_eight_end_user_session'])
   const router = useRouter()
   const alertState =  useSelector((state: RootState) => state.alert.alert)
+  const todayReservationsCount = useSelector((state: RootState) => state.currentEndUser.todayReservationsCount)
 
   const logout = () => {
     axios.delete(`${process.env.BACKEND_URL}/api/internal/end_user/sessions`, {
@@ -34,7 +35,13 @@ const CustomerPageNavbar = (): JSX.Element => {
             <Navbar.Collapse>
             <Nav className='me-auto'>
               <Nav.Link href='/customer_page/'>お知らせ</Nav.Link>
-              <Nav.Link href='/customer_page/reservation'>予約</Nav.Link>
+              <Nav.Link href='/customer_page/reservation'>
+                {<>
+                  <div>予約</div>
+                  {todayReservationsCount > 0 &&
+                   <div className='badge bg-info'>今日の予約{todayReservationsCount}件</div>}
+                </>}
+              </Nav.Link>
               <Nav.Link href='/customer_page/purchased_ticket'>回数券管理</Nav.Link>
               <Nav.Link href='/customer_page/subscriptions'>加入済み月額サブスクリプション</Nav.Link>
               <Nav.Link href='/cart'>カート</Nav.Link>

@@ -5,7 +5,8 @@ import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
-import { loginStatusChanged } from 'redux/currentEndUserSlice'
+import {  loginStatusChanged,
+          todayReservationsCountChanged } from 'redux/currentEndUserSlice'
 import CommonNavbar from 'components/organisms/CommonNavbar'
 interface Props {
   children: ReactNode
@@ -22,8 +23,10 @@ const EndUserLoginLayout = ({children}: Props): JSX.Element => {
       headers: {
         'Session-Id': cookies._square_eight_end_user_session
       }
-    }).then((res) => {
+    }).then((response) => {
+      console.log(response.data)
       dispatch(loginStatusChanged('Login'))
+      dispatch(todayReservationsCountChanged(response.data.user.today_reservations_count))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
       console.log(e)
