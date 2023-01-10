@@ -49,29 +49,31 @@ const Index: NextPage = () => {
       title: '発送済みに更新します',
       html: `更新すると在庫引当数が0になり在庫数から差し引かれます。<br />よろしいですか？`,
       icon: 'question',
-      confirmButtonText: '削除する',
+      confirmButtonText: '更新する',
       cancelButtonText: 'キャンセル',
       showCancelButton: true,
       showCloseButton: true
     }).then((result) => {
-      axios.post(`${process.env.BACKEND_URL}/api/internal/order_items/${itemPublicId}/update_shipped`,
-      {},
-      {
-        headers: {
-          'Session-Id': cookies._square_eight_merchant_session
-        }
-      }).then(response => {
-        swalWithBootstrapButtons.fire({
-          title: '更新しました',
-          icon: 'info'
+      if (result.isConfirmed) {
+        axios.post(`${process.env.BACKEND_URL}/api/internal/order_items/${itemPublicId}/update_shipped`,
+        {},
+        {
+          headers: {
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '更新しました',
+            icon: 'info'
+          })
+          location.reload()
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '更新失敗しました',
+            icon: 'error'
+          })
         })
-        location.reload()
-      }).catch(error => {
-        swalWithBootstrapButtons.fire({
-          title: '更新失敗しました',
-          icon: 'error'
-        })
-      })
+      }
     })
   }
 
