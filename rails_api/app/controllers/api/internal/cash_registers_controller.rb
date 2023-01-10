@@ -163,7 +163,7 @@ class Api::Internal::CashRegistersController < ApplicationController
                                 ticket_master_id: ticket_master.id,
                                 product_name: ticket_master.name,
                                 price: cart[:price],
-                                quantity: cart[:issue_number],
+                                quantity: cart[:quantity],
                                 account_id: ticket_master.account_id,
                                 commission: commission)
           purchased_ticket = current_end_user
