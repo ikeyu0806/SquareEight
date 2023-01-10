@@ -3,6 +3,7 @@ export interface CartItemParam {
   id: string
   quantity: number
   product_name: string
+  product_type_name: string
   price: number
   tax_rate: number
   effective_month: number

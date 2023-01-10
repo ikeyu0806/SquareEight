@@ -236,7 +236,7 @@ const Index: NextPage = () => {
                                     alt='image'/></Col>}
                                 <Col>
                                   {item.business_name}<br/>
-                                  {item.product_name}
+                                  {item.product_name} {item.product_type_name}
                                   {item.remaining_inventory <= 0
                                   && <>&nbsp;<div className='badge bg-danger mb10'>品切れ</div></> }<br />
                                   {item.show_type && <>{item.selected_type_name}<br/></>}

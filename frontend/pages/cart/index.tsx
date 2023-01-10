@@ -25,6 +25,7 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
+        console.log(response.data)
         setCartItems(response.data.cart_items)
         setTotalPrice(response.data.total_price)
       })
@@ -74,7 +75,7 @@ const Index: NextPage = () => {
                                     alt='image'/></Col>}
                                 <Col>
                                   {item.business_name}<br/>
-                                  {item.product_name}<br />
+                                  {item.product_name} {item.product_type_name}<br />
                                   {item.show_type && <>{item.selected_type_name}<br/></>}
                                   数量: {item.quantity}<br />
                                   ￥{item.price} 税率{item.tax_rate}%
