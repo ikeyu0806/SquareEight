@@ -123,7 +123,7 @@ const Index: NextPage = () => {
               {/* <ReservationLimitAlerts /> */}
               <Row>
                 <Col sm={9}>
-                  <h4 className='mb20'>予約一覧</h4>
+                  <h4 className='mb20'>予約台帳</h4>
                 </Col>
                 <Col>
                   {allowCreateReservation === 'Allow' && <Button onClick={() => dispatch(showRegisterReservationModalChanged(true))}>
