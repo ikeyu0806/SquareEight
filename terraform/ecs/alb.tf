@@ -3,9 +3,9 @@ resource "aws_lb" "square-eight-alb" {
   load_balancer_type = "application"
   name               = "square-eight-ecs-${terraform.workspace}"
 
-  security_groups = [aws_security_group.square-eight-alb.id, aws_subnet.square-eight-public-1c.id]
+  security_groups = [aws_security_group.square-eight-alb.id]
   # subnets         = [aws_subnet.square-eight-public-1a.id, aws_subnet.square-eight-public-1c.id, aws_subnet.square-eight-public-1d.id]
-  subnets         = [aws_subnet.square-eight-public-1a.id]
+  subnets         = [aws_subnet.square-eight-public-1a.id, aws_subnet.square-eight-public-1c.id]
 }
 
 resource "aws_lb_listener_rule" "square-eight" {
