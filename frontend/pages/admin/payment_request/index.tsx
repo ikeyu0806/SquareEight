@@ -10,7 +10,7 @@ import { PaymentRequestParam } from 'interfaces/PaymentRequestParam'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import Unauthorized from 'components/templates/Unauthorized'
-import lineUserStyles from 'styles/lineUser.module.css'
+import lineUserStyles from 'styles/LineUser.module.css'
 import { messageSendMethodText } from 'functions/messageSendMethodText'
 
 const Index: NextPage = () => {

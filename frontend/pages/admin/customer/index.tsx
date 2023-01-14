@@ -6,7 +6,7 @@ import { useCookies } from 'react-cookie'
 import { CustomerParam } from 'interfaces/CustomerParam'
 import axios from 'axios'
 import { RootState } from 'redux/store'
-import lineUserStyles from 'styles/lineUser.module.css'
+import lineUserStyles from 'styles/LineUser.module.css'
 import { customersChanged,
          htmlMailTemplateChanged,
          showLineOfficialAccountModalChanged } from 'redux/accountSlice'
