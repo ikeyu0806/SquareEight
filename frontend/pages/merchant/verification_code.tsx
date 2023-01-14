@@ -28,11 +28,12 @@ const VerificationCode: NextPage = () => {
     )
     .then(response => {
       console.log(response.data.messsages)
-      setCookie('_square_eight_merchant_session', response.data.session_id.public_id, { path: '/'})
+      setCookie('_square_eight_merchant_session', response.data.session_id, { path: '/'})
       router.push('/admin/dashboard')
     })
     .catch(error => {
-      dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
+      console.log(error)
+      dispatch(alertChanged({message: '検証失敗しました', show: true, type: 'danger'}))
     })
   }
 
