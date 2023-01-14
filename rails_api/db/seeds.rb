@@ -186,9 +186,9 @@ reserve_frames = ReserveFrame.first_or_create!(
   [
     {
       account_id: account.id,
-      title: "予約メニュ-デモ。曜日繰り返し",
+      title: "予約メニューデモ。曜日繰り返し",
       start_at: Time.zone.now,
-      description: "デモ用予約メニュ-01\n\nこれはデモ用の予約メニューです。",
+      description: "デモ用予約メニュー01\n\nこれはデモ用の予約メニューです。",
       is_repeat: true,
       repeat_interval_type: "WDay",
       repeat_interval_number_day: 1,
@@ -231,9 +231,9 @@ reserve_frames = ReserveFrame.first_or_create!(
     },
     {
       account_id: account.id,
-      title: "予約メニュ-デモ。毎日繰り返し",
+      title: "予約メニューデモ。毎日繰り返し",
       start_at: Time.zone.now,
-      description: "デモ用予約メニュ-01\n\nこれはデモ用の予約メニューです。",
+      description: "デモ用予約メニュー01\n\nこれはデモ用の予約メニューです。",
       is_repeat: true,
       repeat_interval_type: "Day",
       repeat_interval_number_day: 1,
