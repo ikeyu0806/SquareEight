@@ -45,6 +45,8 @@ module RailsApi
     config.time_zone = 'Asia/Tokyo'
 
     config.action_controller.forgery_protection_origin_check = false
+    config.middleware.use ActionDispatch::Flash
+  
     Rails.application.config.hosts << "api.square-eight.net"
     Rails.application.config.hosts << "healthcheck.localhost"
   end
