@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
-  skip_before_action :verify_authenticity_token
-
   include ActionController::Cookies
+
+  protect_from_forgery with: :exception
+  skip_before_action :verify_authenticity_token
 
   def current_merchant_user
     session_hash = Rails.cache.fetch('_session_id:2::' + Digest::SHA256.hexdigest(request.headers["Session-Id"]))
