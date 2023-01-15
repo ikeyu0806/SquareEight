@@ -338,8 +338,7 @@ const ReserveFrameForm = () => {
               <Form.Label>メニュー名<RequireBadge /></Form.Label>
               <Form.Control
                 value={title}
-                onChange={(e) => dispatch(titleChanged(e.target.value))}
-                placeholder='例 フィットネス60分レッスン' />
+                onChange={(e) => dispatch(titleChanged(e.target.value))} />
             </Form.Group>
           </Col>
           <Col>
