@@ -9,6 +9,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :batch do
       post 'reservations/remind_date_notifications', to: 'reservations#remind_date_notifications'
+      post 'reservations/confirm_lottery_reservation', to: 'reservations#confirm_lottery_reservation'
       post 'send_mail_schedules/send_same_hour_schedule', to: 'send_mail_schedules#send_same_hour_schedule'
       post 'send_line_schedules/send_same_hour_schedule', to: 'send_line_schedules#send_same_hour_schedule'
     end
