@@ -145,7 +145,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
     merchant_user.update!(email_authentication_status: 'Enabled')
     session['merchant_user_id'] = merchant_user.id
     MerchantUserMailer.registration_complete(merchant_user.email).deliver_now
-    render json: { status: 'success', session_id: session.id, }, status: 200
+    render json: { status: 'success', session_id: session.id }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
