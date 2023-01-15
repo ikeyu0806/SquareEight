@@ -5,9 +5,9 @@ exports.handler = (event, context, callback) => {
     let hostname = '';
 
     if (event.enviroment == 'main') {
-        hostname = process.env.VIDEOCALL_MAIN_HOSTNAME
+        hostname = process.env.SQUARE_EIGHT_MAIN_HOSTNAME
     }  else if (event.enviroment == 'staging') {
-        hostname = process.env.VIDEOCALL_STAGING_HOSTNAME
+        hostname = process.env.SQUARE_EIGHT_STAGING_HOSTNAME
     }
     
     let path = '';
