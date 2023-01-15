@@ -174,7 +174,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowReadSalesChanged(response.data.user.allow_read_sales))
       dispatch(allowUpdateCreditCardChanged(response.data.user.allow_update_credit_card))
       dispatch(allowReadStripeBusinessInfoChanged(response.data.user.allow_read_stripe_business_info))
-      dispatch(allowUpdateStripeBusinessInfoChanged(response.data.user.allow_read_merchan))
+      dispatch(allowUpdateStripeBusinessInfoChanged(response.data.user.allow_update_stripe_business_info))
       dispatch(allowReadSystemPlanSubscriptionPaymentsChanged(response.data.user.allow_read_system_plan_subscription_payments))
       dispatch(allowReadLineOfficialAccountChanged(response.data.user.allow_read_line_official_account))
       dispatch(allowUpdateLineOfficialAccountChanged(response.data.user.allow_update_line_official_account))
