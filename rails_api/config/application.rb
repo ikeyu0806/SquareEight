@@ -46,6 +46,8 @@ module RailsApi
 
     config.action_controller.forgery_protection_origin_check = false
     config.middleware.use ActionDispatch::Flash
+
+    config.cache_store = :redis_cache_store, { expires_in: 1.day, host: ENV["REDIS_HOST"], port: 6379 }
   
     Rails.application.config.hosts << "api.square-eight.net"
     Rails.application.config.hosts << "healthcheck.localhost"
