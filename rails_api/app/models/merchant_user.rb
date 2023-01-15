@@ -96,7 +96,11 @@ class MerchantUser < ApplicationRecord
   validates :password, password: true
 
   def stripe_account_enable
-    account.stripe_account_id.present?
+    return false if account.stripe_account_id.blank?
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
+    stripe_account = Stripe::Account.retrieve(account.stripe_account_id)
+    return JSON.parse(stripe_account.to_json)["requirements"]["currently_due"].blank?
   end
 
   def set_email_reset_key
