@@ -12,8 +12,8 @@ exports.handler = (event, context, callback) => {
     
     let path = '';
     
-    if (event.batch_type == 'remind_date_notifications') {
-        path = process.env.REMIND_DATE_NOTIFICATIONS_PATH
+    if (event.batch_type == 'remind_tommorow_notifications') {
+        path = process.env.REMIND_TOMMOROW_NOTIFICATIONS_PATH
     } else if (event.batch_type == 'confirm_lottery_reservation') {
       path = process.env.CONFIRM_LOTTERY_RESERVATION_PATH
     } else if (event.batch_type == 'send_same_hour_schedule_mail') {

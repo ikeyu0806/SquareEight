@@ -1,9 +1,9 @@
 class Api::Batch::ReservationsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  def remind_date_notifications
-    day = Time.new(reservation_params[:year], reservation_params[:month], reservation_params[:day])
-    reservations = Reservation.where(start_at: day.beginning_of_day..day.end_of_day)
+  def remind_tommorow_notifications
+    tomorrow_day = Date.tomorrow
+    reservations = Reservation.where(start_at: tomorrow_day.beginning_of_day..tomorrow_day.end_of_day)
     reservations.each do |reservation|
       ReservationMailer.remind_mail_to_customer(reservation.id).deliver_now
     end
