@@ -127,6 +127,11 @@ class Api::Internal::MerchantUsersController < ApplicationController
           merchant_user.authority_category = 'RootUser'
           account = Account.new
           merchant_user.account = account
+          # root_userはallowで始まるカラムを全部trueにする
+          permission_columns = MerchantUser.column_names.select{|column| column.match(/^allow/)}
+          permission_columns.each do |column|
+            merchant_user.send(column + "=", 'Allow')
+          end
           merchant_user.save!
         end
       end
