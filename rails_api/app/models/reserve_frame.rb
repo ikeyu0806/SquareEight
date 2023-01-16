@@ -223,18 +223,29 @@ class ReserveFrame < ApplicationRecord
     else
       self.reserve_frame_reception_times.each do |time|
         reserve_enable_flg = true
-        self.reservations.where(start_at: date.beginning_of_day..date.end_of_day).each do |reservation|
-          start_datetime = DateTime.new(date.year, date.month, date.day, time.reception_start_time.hour, time.reception_start_time.min, time.reception_start_time.sec, "+09:00")
-          end_datetime = DateTime.new(date.year, date.month, date.day, time.reception_end_time.hour, time.reception_end_time.min, time.reception_end_time.sec, "+09:00")
-          remaining_capacity_count = remaining_capacity_count_within_range(start_datetime, end_datetime)
-          reserve_enable_flg = false if remaining_capacity_count <= 0
-          reserve_enable_flg_array.push(reserve_enable_flg)
+        # 当日のみ時間が受付時刻を過ぎていないか判定
+        if date.today? && OnlyOnTheDay? && ((Time.zone.now - reception_deadline_hour_before.hours).strftime("%H").to_i >= time.reception_start_time.strftime("%H").to_i)
+          reserve_enable_flg_array.push(false)
+        else
+          range_reservations = self.reservations.where(start_at: date.beginning_of_day..date.end_of_day)
+          if range_reservations.present?
+            range_reservations.each do |reservation|
+              start_datetime = DateTime.new(date.year, date.month, date.day, time.reception_start_time.hour, time.reception_start_time.min, time.reception_start_time.sec, "+09:00")
+              end_datetime = DateTime.new(date.year, date.month, date.day, time.reception_end_time.hour, time.reception_end_time.min, time.reception_end_time.sec, "+09:00")
+              remaining_capacity_count = remaining_capacity_count_within_range(start_datetime, end_datetime)
+              reserve_enable_flg = false if remaining_capacity_count <= 0
+              reserve_enable_flg_array.push!(reserve_enable_flg)
+              reserve_enable_flg_array
+            end
+          else
+            reserve_enable_flg_array.push(true)
+          end
         end
       end
-      if !reserve_enable_flg_array.uniq.include?(false)
-        return { status: 'enable', text: '予約可能', reservable: true }
-      else
+      if !reserve_enable_flg_array.include?(true)
         return { status: 'disable', text: '予約不可', reservable: false }
+      else
+        return { status: 'enable', text: '予約可能', reservable: true }
       end
     end
   end
