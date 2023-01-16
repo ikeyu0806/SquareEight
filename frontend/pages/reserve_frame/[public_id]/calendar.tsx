@@ -1,14 +1,14 @@
 import React from 'react'
 import type { NextPage } from 'next'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
-import Calendar from 'components/templates/Calendar'
+import MonthCalendar from 'components/organisms/MonthCalendar'
 
 const SetReserveCalendar: NextPage = () => {
   return (
     <>
       <MerchantCustomLayout>
         &nbsp;
-        <Calendar></Calendar>
+        <MonthCalendar></MonthCalendar>
       </MerchantCustomLayout>
     </>
   )
