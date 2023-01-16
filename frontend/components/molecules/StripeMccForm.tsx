@@ -126,9 +126,13 @@ const StripeMccForm = (): JSX.Element => {
             value={mcc}
             className='mt10 mb10'
             onChange={(e) => dispatch(mccChanged(e.target.value))}>
-            <option value='5734'>ソフトウェア</option>
-            <option value='5699'>衣料、アクセサリー</option>
-            <option value='7392'>コンサルティングサービス</option>
+            <option value='7298'>リラクサロン・エステサロン</option>
+            <option value='7298'>ネイル・まつげサロン</option>
+            <option value='7230'>美容室</option>
+            <option value='5977'>美容商品</option>
+            <option value='7941'>スポーツクラブ・スポーツスクール</option>
+            <option value='5941'>スポーツ商品</option>
+            <option value='7941'>フィットネスクラブ・フィットネススクール</option>
           </Form.Select>}
         {mccType === 'retail' &&
           <Form.Select
