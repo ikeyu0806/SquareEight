@@ -14,7 +14,7 @@ exports.handler = (event, context, callback) => {
     
     if (event.batch_type == 'remind_tommorow_notifications') {
         path = process.env.REMIND_TOMMOROW_NOTIFICATIONS_PATH
-    } else if (event.batch_type == 'confirm_lottery_reservation') {
+    } else if (event.batch_type == 'confirm_lottery_reservations') {
       path = process.env.CONFIRM_LOTTERY_RESERVATION_PATH
     } else if (event.batch_type == 'send_same_hour_schedule_mail') {
         path = process.env.SEND_SAME_HOUR_SCHEDULE_MAIL_PATH
