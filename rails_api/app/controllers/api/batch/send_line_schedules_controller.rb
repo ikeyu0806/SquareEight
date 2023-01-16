@@ -3,7 +3,7 @@ include LineClientModule
 class Api::Batch::SendLineSchedulesController < ApplicationController
   skip_before_action :verify_authenticity_token
 
-  def send_same_hour_schedule
+  def send_same_hour_schedules
     current_datetime = Time.zone.now.strftime("%Y%m%d%H")
     send_line_schedules = SendLineSchedule.where(send_status: 'Incomplete').select{|t| t.scheduled_datetime&.strftime("%Y%m%d%H") == current_datetime}
     send_line_schedules.each do |schedule|

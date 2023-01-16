@@ -13,7 +13,7 @@ class Api::Batch::ReservationsController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
-  def confirm_lottery_reservation
+  def confirm_lottery_reservations
     ActiveRecord::Base.transaction do
       rng = Random.new
       current_datetime = Time.zone.now.strftime("%Y%m%d%H")
