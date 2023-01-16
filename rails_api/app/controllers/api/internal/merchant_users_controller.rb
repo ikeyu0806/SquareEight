@@ -124,7 +124,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
           merchant_user = MerchantUser.new
           merchant_user.google_auth_email = merchant_user_params[:google_auth_email]
           merchant_user.google_auth_id = merchant_user_params[:google_auth_id]
-          merchant_user.authority_category = 'MerchantAdmin'
+          merchant_user.authority_category = 'RootUser'
           account = Account.new
           merchant_user.account = account
           merchant_user.save!

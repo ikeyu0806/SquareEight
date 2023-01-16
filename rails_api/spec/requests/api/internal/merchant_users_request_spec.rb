@@ -13,7 +13,7 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
          email: "create@test.com",
          name: "登録テスト",
          password: "Pass1234",
-         authority_category: "MerchantAdmin",
+         authority_category: "RootUser",
          is_create_account: true
        }
       }
@@ -30,7 +30,7 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
           merchant_user: {
            name: "登録エラーテスト",
            password: "Pass1234",
-           authority_category: "MerchantAdmin",
+           authority_category: "RootUser",
            is_create_account: true
          }
         }
@@ -48,7 +48,7 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
         merchant_user: {
          name: "登録エラーテスト",
          password: "Pass1234",
-         authority_category: "MerchantAdmin",
+         authority_category: "RootUser",
          is_create_account: true
         }
       }
