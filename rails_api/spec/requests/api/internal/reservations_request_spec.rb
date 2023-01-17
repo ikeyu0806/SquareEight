@@ -7,6 +7,7 @@ RSpec.describe 'Api::Internal::ReservationsController', type: :request do
   }
   let(:customer) { create(:customer, account_id: account.id) }
   let(:reserve_frame) { create(:reserve_frame, account: account) }
+  let!(:reserve_frame_reception_time) { create(:reserve_frame_reception_time, reserve_frame_id: reserve_frame.id) }
   let(:local_payment_reservation) { create(:local_payment_reservation, reserve_frame: reserve_frame, customer_id: customer.id) }
 
   describe 'POST /api/internal/reservations/insert_time_payment_method' do
