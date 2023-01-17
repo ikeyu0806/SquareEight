@@ -6,7 +6,7 @@ RSpec.describe 'Api::Internal::PaymentRequestsController', type: :request do
     create(:merchant_user, account: account)
   }
   let(:end_user) { create(:end_user) }
-  let(:customer) { create(:customer, account_id: account.id) }
+  let(:customer) { create(:customer, account_id: account.id, end_user_id: end_user.id) }
   let(:customer_group) { create(:customer_group, account_id: account.id) }
   let!(:customer_group_relation) { create(:customer_group_relation, customer_id: customer.id, customer_group_id: customer_group.id) }
   let!(:stripe_payment_request) { create(:stripe_payment_request,
