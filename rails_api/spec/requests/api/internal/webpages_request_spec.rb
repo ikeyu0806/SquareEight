@@ -7,6 +7,7 @@ RSpec.describe 'Api::Internal::webpagesRequestController', type: :request do
   }
 
   let(:webpage) { create(:webpage, account: account) }
+  let!(:title_block) { create(:title_block, webpage_id: webpage.id) }
 
   describe 'GET /api/internal/webpages' do
     context 'login as merchant_user' do
