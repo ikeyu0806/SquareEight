@@ -20,7 +20,7 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
     }
 
     it 'should return 200' do
-      post "/api/internal/merchant_users", params: params
+      post "/api/internal/merchant_users/invite_root_user", params: params
       expect(response.status).to eq 200
     end
 
@@ -36,7 +36,7 @@ RSpec.describe 'Api::Internal::MerchantUserController', type: :request do
         }
       }
       it 'should return 500' do
-        post "/api/internal/merchant_users", params: params
+        post "/api/internal/merchant_users/invite_root_user", params: params
         expect(response.status).to eq 500
       end
     end
