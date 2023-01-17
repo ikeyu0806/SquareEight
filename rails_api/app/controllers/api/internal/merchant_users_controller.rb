@@ -1,7 +1,7 @@
 require 'securerandom'
 
 class Api::Internal::MerchantUsersController < ApplicationController
-  before_action :merchant_login_only!, only: [:index, :update, :destroy, :current_merchant_user_info, :disconnect_google_auth, :invite_additional_user]
+  before_action :merchant_login_only!, only: [:index, :update, :destroy, :logged_in_merchant_user_detail, :disconnect_google_auth, :invite_additional_user]
 
   VERIFICATION_CODE_LENGTH = 6
 
@@ -183,13 +183,9 @@ class Api::Internal::MerchantUsersController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
-  def current_merchant_user_info
-    # なぜかApplicationControllerのcurrent_merchant_userがnilになるので一旦こうする
-    session_hash = Rails.cache.fetch('_session_id:2::' + Digest::SHA256.hexdigest(request.headers["Session-Id"]))
-    raise "session not exists" if session_hash.blank?
-    user = MerchantUser.find(session_hash["merchant_user_id"])
-    current_merchant_user = JSON.parse(user.to_json(methods: [:is_enabled_email_login]))
-    render json: { status: 'success', merchant_user: current_merchant_user }, status: 200
+  def logged_in_merchant_user_detail
+    user = JSON.parse(current_merchant_user.to_json(methods: [:is_enabled_email_login]))
+    render json: { status: 'success', merchant_user: user }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

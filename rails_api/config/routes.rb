@@ -39,7 +39,7 @@ Rails.application.routes.draw do
       post 'accounts/:public_id/update_payment_method', to: 'accounts#update_payment_method'
       delete 'accounts/:public_id/detach_stripe_payment_method', to: 'accounts#detach_stripe_payment_method'
       delete 'accounts/delete_bank_account/:external_account_id', to: 'accounts#delete_bank_account'
-      get 'merchant_users/current_merchant_user_info', to: 'merchant_users#current_merchant_user_info'
+      get 'merchant_users/logged_in_merchant_user_detail', to: 'merchant_users#logged_in_merchant_user_detail'
       get 'merchant_users/:public_id', to: 'merchant_users#show'
       get 'merchant_users', to: 'merchant_users#index'
       delete 'merchant_users/:public_id', to: 'merchant_users#destroy'

@@ -17,7 +17,7 @@ const EditConnectedAccount: NextPage = () => {
   const [merchantUser, setMerchantUser] = useState<MerchantUserParam>()
 
   useEffect(() => {
-    axios.get(`${process.env.BACKEND_URL}/api/internal/merchant_users/current_merchant_user_info`,
+    axios.get(`${process.env.BACKEND_URL}/api/internal/merchant_users/logged_in_merchant_user_detail`,
     {
       headers: {
         'Session-Id': cookies._square_eight_merchant_session
