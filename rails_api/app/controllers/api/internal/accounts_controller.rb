@@ -598,7 +598,7 @@ class Api::Internal::AccountsController < ApplicationController
       if account.stripe_subscription_id.present?
         Stripe.api_key = Rails.configuration.stripe[:secret_key]
         Stripe.api_version = '2022-08-01'
-        Stripe::Subscription.delete(
+        Stripe::Subscription.cancel(
           account.stripe_subscription_id,
         )
       end

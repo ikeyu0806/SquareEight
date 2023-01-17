@@ -464,7 +464,7 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
     context 'login as merchant_user' do
       it 'should return 200' do
         allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
-        allow_any_instance_of(Stripe::Subscription).to receive(:delete).and_return(merchant_user)
+        allow_any_instance_of(Stripe::Subscription).to receive(:cancel).and_return(merchant_user)
         post '/api/internal/accounts/withdrawal', params: params
         expect(response.status).to eq 200
       end
