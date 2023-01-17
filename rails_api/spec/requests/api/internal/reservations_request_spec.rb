@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Api::Internal::ReservationsController', type: :request do
   let(:account) { create(:business_account) }
-  let(:merchant_user) {
+  let!(:merchant_user) {
     create(:merchant_user, account: account)
   }
   let(:customer) { create(:customer, account_id: account.id) }

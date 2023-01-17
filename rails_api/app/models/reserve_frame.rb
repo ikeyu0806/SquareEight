@@ -234,7 +234,7 @@ class ReserveFrame < ApplicationRecord
               end_datetime = DateTime.new(date.year, date.month, date.day, time.reception_end_time.hour, time.reception_end_time.min, time.reception_end_time.sec, "+09:00")
               remaining_capacity_count = remaining_capacity_count_within_range(start_datetime, end_datetime)
               reserve_enable_flg = false if remaining_capacity_count <= 0
-              reserve_enable_flg_array.push!(reserve_enable_flg)
+              reserve_enable_flg_array.push(reserve_enable_flg)
               reserve_enable_flg_array
             end
           else
