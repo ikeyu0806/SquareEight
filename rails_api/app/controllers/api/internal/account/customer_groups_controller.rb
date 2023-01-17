@@ -4,7 +4,7 @@ class Api::Internal::Account::CustomerGroupsController < ApplicationController
   def index
     customer_groups = current_merchant_user.account.customer_groups
     html_mail_templates = current_merchant_user.account.html_mail_templates
-    html_template_content = JSON.parse(html_mail_templates.first&.content) || []
+    html_template_content = html_mail_templates.present? ? JSON.parse(html_mail_templates.first.content) : []
     render json: {  status: 'success',
                     customer_groups: customer_groups,
                     html_mail_templates: html_mail_templates,
