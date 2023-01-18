@@ -16,7 +16,8 @@ const CreateShop = (): JSX.Element => {
     <>
         <h3 className='mb15'>店舗情報登録</h3>
         <div>登録した情報を元に店舗紹介ページが自動生成されます。</div>
-        <div className='mt5'>店舗紹介ページには登録した商品。予約メニュー、回数券、月額課金の紹介とWebページのリンクも挿入されます。</div>
+        <div className='mt10'>未設定の項目はページに表示されません。</div>
+        <div className='mt10'>店舗紹介ページには登録した商品。予約メニュー、回数券、月額課金の紹介とWebページのリンクも挿入されます。</div>
         <Row>
           <Col>
             <Button className='mt10 mb10 text-white' variant='info'>店舗紹介ページのデモを表示</Button>
@@ -28,7 +29,9 @@ const CreateShop = (): JSX.Element => {
         <hr />
       <Form.Label>店舗名<RequireBadge /></Form.Label>
       <FormControl />
-      <Form.Label className='mt10'>店舗説明</Form.Label>
+      <Form.Label className='mt10'>店舗説明1</Form.Label>
+      <FormControl />
+      <Form.Label className='mt10'>店舗説明2</Form.Label>
       <FormControl />
       <Form.Label className='mt10'>店舗備考</Form.Label>
       <FormControl />
