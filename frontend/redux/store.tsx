@@ -35,6 +35,7 @@ import sendLineReducer from './sendLineSlice'
 import sendMailHistoryReducer from './sendMailHistorySlice'
 import sendMailReservationReducer from './sendMailReservationSlice'
 import sendLineScheduleReducer from './sendLineScheduleSlice'
+import shopReducer from './shopSlice'
 
 export const store = configureStore({
   reducer: {
@@ -73,7 +74,8 @@ export const store = configureStore({
     sendLine: sendLineReducer,
     sendMailHistory: sendMailHistoryReducer,
     sendMailReservation: sendMailReservationReducer,
-    sendLineSchedule: sendLineScheduleReducer
+    sendLineSchedule: sendLineScheduleReducer,
+    shop: shopReducer
   },
 })
 
