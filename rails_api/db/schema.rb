@@ -809,7 +809,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
     t.string "line1"
     t.string "line2"
     t.string "access_info"
-    t.boolean "is_parking_lot_present", default: false
+    t.integer "parking_lot_display_status", default: 0
     t.string "remarks"
     t.integer "page_cover_slide1_account_s3_image_id"
     t.integer "page_cover_slide2_account_s3_image_id"
