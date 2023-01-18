@@ -44,6 +44,8 @@ const CreateShop = (): JSX.Element => {
       <FormControl />
       <Form.Label className='mt10'>建物・部屋番号・その他</Form.Label>
       <FormControl />
+      <Form.Label className='mt10'>アクセス情報</Form.Label>
+      <FormControl placeholder='〇〇駅〇〇口から徒歩5分など' />
       <hr />
       <Form.Label className='mt10'>カバー画像1</Form.Label>
       <Form.Control type='file' />
