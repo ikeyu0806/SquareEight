@@ -1,0 +1,2 @@
+class ShopTicketMaster < ApplicationRecord
+end

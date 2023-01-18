@@ -1,0 +1,2 @@
+class ShopMonthlyPamentPlan < ApplicationRecord
+end

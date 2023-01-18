@@ -1,0 +1,2 @@
+class ShopReserveFrame < ApplicationRecord
+end
