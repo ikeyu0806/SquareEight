@@ -3,14 +3,49 @@ import { FormControl, Form, Button, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import RequireBadge from 'components/atoms/RequireBadge'
-import { nameChanged, quantityChanged } from 'redux/resourceSlice'
-import ResourceLimitAlert from 'components/molecules/ResourceLimitAlert'
+import { nameChanged,
+         description1Changed,
+         description2Changed,
+         postalCodeChanged,
+         stateChanged,
+         cityChanged,
+         townChanged,
+         line1Changed,
+         line2Changed,
+         accessInfoChanged,
+         parkingLotDisplayStatusChanged,
+         remarksChanged,
+         pageCoverSlide1s3ObjectPublicUrlChanged,
+         pageCoverSlide2s3ObjectPublicUrlChanged,
+         pageCoverSlide3s3ObjectPublicUrlChanged,
+         brandImage3s3ObjectPublicUrlChanged,
+         shopImage13s3ObjectPublicUrlChanged,
+         shopImage23s3ObjectPublicUrlChanged,
+         shopImage33s3ObjectPublicUrlChanged,
+         businessTypeChanged } from 'redux/shopSlice'
 
 const CreateShop = (): JSX.Element => {
   const dispatch = useDispatch()
-  const name = useSelector((state: RootState) => state.resource.name)
-  const quantity = useSelector((state: RootState) => state.resource.quantity)
-  const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
+  const name = useSelector((state: RootState) => state.shop.name)
+  const description1 = useSelector((state: RootState) => state.shop.description1)
+  const description2 =  useSelector((state: RootState) => state.shop.description2)
+  const postalCode =  useSelector((state: RootState) => state.shop.postalCode)
+  const state =  useSelector((state: RootState) => state.shop.state)
+  const city =  useSelector((state: RootState) => state.shop.city)
+  const town =  useSelector((state: RootState) => state.shop.town)
+  const line1 =  useSelector((state: RootState) => state.shop.line1)
+  const line2 =  useSelector((state: RootState) => state.shop.line2)
+  const accessInfo =  useSelector((state: RootState) => state.shop.accessInfo)
+  const parkingLotDisplayStatus =  useSelector((state: RootState) => state.shop.parkingLotDisplayStatus)
+  const remarks =  useSelector((state: RootState) => state.shop.remarks)
+  const pageCoverSlide1s3ObjectPublicUrl =  useSelector((state: RootState) => state.shop.pageCoverSlide1s3ObjectPublicUrl)
+  const pageCoverSlide2s3ObjectPublicUrl =  useSelector((state: RootState) => state.shop.pageCoverSlide2s3ObjectPublicUrl)
+  const pageCoverSlide3s3ObjectPublicUrl =  useSelector((state: RootState) => state.shop.pageCoverSlide3s3ObjectPublicUrl)
+  const brandImage3s3ObjectPublicUrl =  useSelector((state: RootState) => state.shop.brandImage3s3ObjectPublicUrl)
+  const shopImage13s3ObjectPublicUrl =  useSelector((state: RootState) => state.shop.shopImage13s3ObjectPublicUrl)
+  const shopImage23s3ObjectPublicUrl =  useSelector((state: RootState) => state.shop.shopImage23s3ObjectPublicUrl)
+  const shopImage33s3ObjectPublicUrl =  useSelector((state: RootState) => state.shop.shopImage33s3ObjectPublicUrl)
+  const businessType =  useSelector((state: RootState) => state.shop.businessType)
 
   return (
     <>
