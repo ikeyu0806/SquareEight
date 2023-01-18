@@ -43,6 +43,10 @@ const AdminNavbarTemplate = (): JSX.Element => {
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
             <Nav className='me-auto font-size-15'>
+              <NavDropdown title='店舗'>
+                <NavDropdown.Item href='/admin/shop'>店舗一覧</NavDropdown.Item>
+                <NavDropdown.Item href='/admin/shop/new'>店舗登録</NavDropdown.Item>
+              </NavDropdown>
               <NavDropdown
                 title={<>
                         <div>予約</div>
