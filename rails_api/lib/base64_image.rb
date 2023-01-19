@@ -1,4 +1,17 @@
 module Base64Image
+  def put_s3_http_request_form_data(image_data, bucket_name, file_name)
+    resource = Aws::S3::Resource.new(
+      access_key_id: ENV['AWS_ACCESS_KEY'],
+      secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
+      region: "ap-northeast-1"
+    )
+    binding.pry
+    bucket = resource.bucket(bucket_name)
+    obj = bucket.object(image_data.original_filename)
+    obj.put(acl: "public-read", body: image_data.tempfile, content_type: image_data.content_type)
+    return obj.public_url
+  end
+
   # フロントエンドからhttp postされたBase64画像をs3に保存してpublic_urlを返却する
   def put_s3_http_request_base64_data(base64_image_data, bucket_name, file_name)
     resource = Aws::S3::Resource.new(
