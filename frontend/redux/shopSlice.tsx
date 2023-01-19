@@ -15,6 +15,9 @@ export const shopSlice = createSlice({
     accessInfo: '',
     parkingLotDisplayStatus: '',
     remarks: '',
+    pageCoverSlide1File: null as File | unknown,
+    pageCoverSlide2File:  null as File | unknown,
+    pageCoverSlide3File:  null as File | unknown,
     pageCoverSlide1s3ObjectPublicUrl: '',
     pageCoverSlide2s3ObjectPublicUrl: '',
     pageCoverSlide3s3ObjectPublicUrl: '',
@@ -61,6 +64,15 @@ export const shopSlice = createSlice({
     remarksChanged: (state, action: PayloadAction<string>) => {
       state.remarks = action.payload
     },
+    pageCoverSlide1FileChanged: (state, action: PayloadAction<File>) => {
+      state.pageCoverSlide1File = action.payload
+    },
+    pageCoverSlide2FileChanged: (state, action: PayloadAction<File>) => {
+      state.pageCoverSlide2File = action.payload
+    },
+    pageCoverSlide3FileChanged: (state, action: PayloadAction<File>) => {
+      state.pageCoverSlide3File = action.payload
+    },
     pageCoverSlide1s3ObjectPublicUrlChanged: (state, action: PayloadAction<string>) => {
       state.pageCoverSlide1s3ObjectPublicUrl = action.payload
     },
@@ -100,6 +112,9 @@ export const { line2Changed } = shopSlice.actions
 export const { accessInfoChanged } = shopSlice.actions
 export const { parkingLotDisplayStatusChanged } = shopSlice.actions
 export const { remarksChanged } = shopSlice.actions
+export const { pageCoverSlide1FileChanged } = shopSlice.actions
+export const { pageCoverSlide2FileChanged } = shopSlice.actions
+export const { pageCoverSlide3FileChanged } = shopSlice.actions
 export const { pageCoverSlide1s3ObjectPublicUrlChanged } = shopSlice.actions
 export const { pageCoverSlide2s3ObjectPublicUrlChanged } = shopSlice.actions
 export const { pageCoverSlide3s3ObjectPublicUrlChanged } = shopSlice.actions

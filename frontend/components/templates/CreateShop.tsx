@@ -15,6 +15,9 @@ import { nameChanged,
          accessInfoChanged,
          parkingLotDisplayStatusChanged,
          remarksChanged,
+         pageCoverSlide1FileChanged,
+         pageCoverSlide2FileChanged,
+         pageCoverSlide3FileChanged,
          pageCoverSlide1s3ObjectPublicUrlChanged,
          pageCoverSlide2s3ObjectPublicUrlChanged,
          pageCoverSlide3s3ObjectPublicUrlChanged,
@@ -47,6 +50,13 @@ const CreateShop = (): JSX.Element => {
   const shopImage33s3ObjectPublicUrl =  useSelector((state: RootState) => state.shop.shopImage33s3ObjectPublicUrl)
   const businessType =  useSelector((state: RootState) => state.shop.businessType)
 
+  const onChangePageCoverSlide1File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(pageCoverSlide1FileChanged(files[0]))
+    }
+  }
+
   return (
     <>
         <h3 className='mb15'>店舗情報登録</h3>
@@ -63,30 +73,55 @@ const CreateShop = (): JSX.Element => {
         </Row>
         <hr />
       <Form.Label>店舗名<RequireBadge /></Form.Label>
-      <FormControl />
-      <Form.Label className='mt10'>店舗説明1</Form.Label>
-      <FormControl />
+      <FormControl
+        value={name}
+        onChange={(e) => dispatch(nameChanged(e.target.value))} />
+      <Form.Label
+        className='mt10'>店舗説明1</Form.Label>
+      <FormControl
+        value={description1}
+        onChange={(e) => dispatch(description1Changed(e.target.value))} />
       <Form.Label className='mt10'>店舗説明2</Form.Label>
-      <FormControl />
+      <FormControl
+        value={description2}
+        onChange={(e) => dispatch(description2Changed(e.target.value))} />
       <Form.Label className='mt10'>店舗備考</Form.Label>
-      <FormControl />
+      <FormControl
+        value={remarks}
+        onChange={(e) => dispatch(remarksChanged(e.target.value))} />
       <hr />
       <div>住所</div>
+      <Form.Label className='mt10'>郵便番号</Form.Label>
+      <FormControl
+        value={postalCode}
+        onChange={(e) => dispatch(postalCodeChanged(e.target.value))} />
       <Form.Label className='mt10'>都道府県</Form.Label>
-      <FormControl />
+      <FormControl
+        value={state}
+        onChange={(e) => dispatch(stateChanged(e.target.value))} />
       <Form.Label className='mt10'>区市町村</Form.Label>
-      <FormControl />
+      <FormControl
+        value={city}
+        onChange={(e) => dispatch(cityChanged(e.target.value))} />
       <Form.Label className='mt10'>町名（丁目まで）</Form.Label>
-      <FormControl />
+      <FormControl
+        value={town}
+        onChange={(e) => dispatch(townChanged(e.target.value))} />
       <Form.Label className='mt10'>番地、号</Form.Label>
-      <FormControl />
+      <FormControl
+        value={line1}
+        onChange={(e) => dispatch(line1Changed(e.target.value))} />
       <Form.Label className='mt10'>建物・部屋番号・その他</Form.Label>
-      <FormControl />
+      <FormControl
+        value={line2}
+        onChange={(e) => dispatch(line2Changed(e.target.value))} />
       <Form.Label className='mt10'>アクセス情報</Form.Label>
       <FormControl placeholder='〇〇駅〇〇口から徒歩5分など' />
       <hr />
       <Form.Label className='mt10'>カバー画像1</Form.Label>
-      <Form.Control type='file' />
+      <Form.Control
+        onChange={onChangePageCoverSlide1File}
+        type='file' />
       <Form.Label className='mt10'>カバー画像2</Form.Label>
       <Form.Control type='file' />
       <Form.Label className='mt10'>カバー画像3</Form.Label>
