@@ -50,7 +50,7 @@ class Api::Internal::TicketMastersController < ApplicationController
         file_name = "ticket_master_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         account_image = ticket_master.account_s3_images.new
         account_image.account = current_merchant_user.account
-        account_image.s3_object_public_url = put_s3_http_request_data(ticket_master_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+        account_image.s3_object_public_url = put_s3_http_request_base64_data(ticket_master_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
       end
       ticket_master.save!
@@ -70,7 +70,7 @@ class Api::Internal::TicketMastersController < ApplicationController
         file_name = "ticket_master_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         account_image = ticket_master.account_s3_images.new
         account_image.account = current_merchant_user.account
-        account_image.s3_object_public_url = put_s3_http_request_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+        account_image.s3_object_public_url = put_s3_http_request_base64_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
       end
       ticket_master.save!

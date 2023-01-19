@@ -51,7 +51,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
         file_name = "monthly_paymeny_plan_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         account_image = monthly_payment_plan.account_s3_images.new
         account_image.account = current_merchant_user.account
-        account_image.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+        account_image.s3_object_public_url = put_s3_http_request_base64_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
       end
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
@@ -83,7 +83,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       file_name = "monthly_paymeny_plan_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
       account_image = monthly_payment_plan.account_s3_images.new
       account_image.account = current_merchant_user.account
-      account_image.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+      account_image.s3_object_public_url = put_s3_http_request_base64_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
       account_image.s3_object_name = file_name
     end
     monthly_payment_plan.save!

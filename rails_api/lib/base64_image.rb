@@ -1,6 +1,6 @@
 module Base64Image
   # フロントエンドからhttp postされたBase64画像をs3に保存してpublic_urlを返却する
-  def put_s3_http_request_data(base64_image_data, bucket_name, file_name)
+  def put_s3_http_request_base64_data(base64_image_data, bucket_name, file_name)
     resource = Aws::S3::Resource.new(
       access_key_id: ENV['AWS_ACCESS_KEY'],
       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],

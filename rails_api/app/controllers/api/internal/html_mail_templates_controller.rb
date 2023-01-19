@@ -32,7 +32,7 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
     content_array = []
     content_param.each do |c|
       if c["image"].present? && !c["image"].match(/^https/)
-        s3_public_url = put_s3_http_request_data(c["image"], ENV["WEBPAGE_IMAGE_BUCKET"], "html_template_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
+        s3_public_url = put_s3_http_request_base64_data(c["image"], ENV["WEBPAGE_IMAGE_BUCKET"], "html_template_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
         content_array.push({text: c["text"], image: s3_public_url})
       else
         content_array.push({text: c["text"]})
@@ -56,7 +56,7 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
       image = c["image"]
       if c["image"].present?
         if !c["image"].match(/^https/)
-          image = put_s3_http_request_data(c["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "html_template_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
+          image = put_s3_http_request_base64_data(c["base64Image"], ENV["WEBPAGE_IMAGE_BUCKET"], "html_template_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N'))
         else
           image = c["image"]
         end
