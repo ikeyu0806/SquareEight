@@ -17,7 +17,6 @@ const New: NextPage = () => {
   const pageCoverSlide1File = useSelector((state: RootState) => state.shop.pageCoverSlide1File)
 
   const createShop = () => {
-    console.log(pageCoverSlide1File, "!!!")
     const params = new FormData()
     params.append('name', name)
     params.append('page_cover_slide1_file', pageCoverSlide1File as Blob)
