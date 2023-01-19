@@ -5,11 +5,12 @@ class Api::Internal::ShopsController < ApplicationController
     ActiveRecord::Base.transaction do
       shop = current_merchant_user.account.shops.new
       shop.name = params[:name]
+      shop.description1 = params[:description1]
+      shop.save!
       if params[:page_cover_slide1_file].present?
         shop.register_s3_image(params[:page_cover_slide1_file], "page_cover_slide1_account_s3_image_id")
       end
-      show.name = params[:name]
-      show.save!
+      shop.save!
     end
     render json: { status: 'success' }, status: 200
   rescue => error
@@ -23,6 +24,8 @@ class Api::Internal::ShopsController < ApplicationController
     params.require(:shops)
           .permit(:id,
                   :name,
+                  :description1,
+                  :description2,
                   page_cover_slide1_file: {})
   end  
 end

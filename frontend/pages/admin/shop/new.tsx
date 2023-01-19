@@ -14,11 +14,13 @@ const New: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
 
   const name = useSelector((state: RootState) => state.shop.name)
+  const description1 = useSelector((state: RootState) => state.shop.description1)
   const pageCoverSlide1File = useSelector((state: RootState) => state.shop.pageCoverSlide1File)
 
   const createShop = () => {
     const params = new FormData()
     params.append('name', name)
+    params.append('description1', description1)
     params.append('page_cover_slide1_file', pageCoverSlide1File as Blob)
     axios.post(`${process.env.BACKEND_URL}/api/internal/shops`, params, {
       headers: {

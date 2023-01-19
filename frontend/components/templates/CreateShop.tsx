@@ -77,7 +77,7 @@ const CreateShop = (): JSX.Element => {
         value={name}
         onChange={(e) => dispatch(nameChanged(e.target.value))} />
       <Form.Label
-        className='mt10'>店舗説明1</Form.Label>
+        className='mt10'>店舗説明1<RequireBadge /></Form.Label>
       <FormControl
         value={description1}
         onChange={(e) => dispatch(description1Changed(e.target.value))} />

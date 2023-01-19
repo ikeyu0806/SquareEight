@@ -5,7 +5,6 @@ module Base64Image
       secret_access_key: ENV['AWS_SECRET_ACCESS_KEY'],
       region: "ap-northeast-1"
     )
-    binding.pry
     bucket = resource.bucket(bucket_name)
     obj = bucket.object(image_data.original_filename)
     obj.put(acl: "public-read", body: image_data.tempfile, content_type: image_data.content_type)
