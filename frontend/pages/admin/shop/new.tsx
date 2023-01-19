@@ -17,20 +17,20 @@ const New: NextPage = () => {
   const pageCoverSlide1File = useSelector((state: RootState) => state.shop.pageCoverSlide1File)
 
   const createShop = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/shops`,
-    {
-      shops: {
-        name: name,
-        page_cover_slide1_file: pageCoverSlide1File
-      }
-    },
-    {
+    console.log(pageCoverSlide1File, "!!!")
+    const params = new FormData()
+    params.append('name', name)
+    params.append('page_cover_slide1_file', pageCoverSlide1File as Blob)
+    axios.post(`${process.env.BACKEND_URL}/api/internal/shops`, params, {
       headers: {
+        'Content-Type': 'multipart/form-data',
         'Session-Id': cookies._square_eight_merchant_session
-      }
+      },
     }).then(response => {
+      console.log(response)
       dispatch(alertChanged({message: '保存しました', show: true}))
     }).catch(error => {
+      console.log(error)
     })
   }
 
