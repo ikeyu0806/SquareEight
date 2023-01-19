@@ -18,6 +18,10 @@ export const shopSlice = createSlice({
     pageCoverSlide1File: null as File | unknown,
     pageCoverSlide2File:  null as File | unknown,
     pageCoverSlide3File:  null as File | unknown,
+    brandImageFile: null as File | unknown,
+    shopImage1File: null as File | unknown,
+    shopImage2File:  null as File | unknown,
+    shopImage3File:  null as File | unknown,
     pageCoverSlide1s3ObjectPublicUrl: '',
     pageCoverSlide2s3ObjectPublicUrl: '',
     pageCoverSlide3s3ObjectPublicUrl: '',
@@ -73,6 +77,18 @@ export const shopSlice = createSlice({
     pageCoverSlide3FileChanged: (state, action: PayloadAction<File>) => {
       state.pageCoverSlide3File = action.payload
     },
+    brandImageFileChanged: (state, action: PayloadAction<File>) => {
+      state.brandImageFile = action.payload
+    },
+    shopImage1FileChanged: (state, action: PayloadAction<File>) => {
+      state.shopImage1File = action.payload
+    },
+    shopImage2FileChanged: (state, action: PayloadAction<File>) => {
+      state.shopImage2File = action.payload
+    },
+    shopImage3FileChanged: (state, action: PayloadAction<File>) => {
+      state.shopImage3File = action.payload
+    },
     pageCoverSlide1s3ObjectPublicUrlChanged: (state, action: PayloadAction<string>) => {
       state.pageCoverSlide1s3ObjectPublicUrl = action.payload
     },
@@ -115,6 +131,10 @@ export const { remarksChanged } = shopSlice.actions
 export const { pageCoverSlide1FileChanged } = shopSlice.actions
 export const { pageCoverSlide2FileChanged } = shopSlice.actions
 export const { pageCoverSlide3FileChanged } = shopSlice.actions
+export const { brandImageFileChanged } = shopSlice.actions
+export const { shopImage1FileChanged } = shopSlice.actions
+export const { shopImage2FileChanged } = shopSlice.actions
+export const { shopImage3FileChanged } = shopSlice.actions
 export const { pageCoverSlide1s3ObjectPublicUrlChanged } = shopSlice.actions
 export const { pageCoverSlide2s3ObjectPublicUrlChanged } = shopSlice.actions
 export const { pageCoverSlide3s3ObjectPublicUrlChanged } = shopSlice.actions
