@@ -79,14 +79,17 @@ const CreateShop = (): JSX.Element => {
       <Form.Label
         className='mt10'>店舗説明1<RequireBadge /></Form.Label>
       <FormControl
+        as='textarea' rows={3}
         value={description1}
         onChange={(e) => dispatch(description1Changed(e.target.value))} />
       <Form.Label className='mt10'>店舗説明2</Form.Label>
       <FormControl
+        as='textarea' rows={3}
         value={description2}
         onChange={(e) => dispatch(description2Changed(e.target.value))} />
       <Form.Label className='mt10'>店舗備考</Form.Label>
       <FormControl
+        as='textarea' rows={3}
         value={remarks}
         onChange={(e) => dispatch(remarksChanged(e.target.value))} />
       <hr />
