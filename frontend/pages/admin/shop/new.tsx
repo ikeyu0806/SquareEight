@@ -46,6 +46,10 @@ const New: NextPage = () => {
     params.append('page_cover_slide1_file', pageCoverSlide1File as Blob)
     params.append('page_cover_slide2_file', pageCoverSlide2File as Blob)
     params.append('page_cover_slide3_file', pageCoverSlide3File as Blob)
+    params.append('brand_image_file', brandImageFile as Blob)
+    params.append('shop_image1_file', shopImage1File as Blob)
+    params.append('shop_image2_file', shopImage2File as Blob)
+    params.append('shop_image3_file', shopImage3File as Blob)
     axios.post(`${process.env.BACKEND_URL}/api/internal/shops`, params, {
       headers: {
         'Content-Type': 'multipart/form-data',

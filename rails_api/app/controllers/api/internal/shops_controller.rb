@@ -24,6 +24,18 @@ class Api::Internal::ShopsController < ApplicationController
       if params[:page_cover_slide3_file].present?
         shop.register_s3_image(params[:page_cover_slide3_file], "page_cover_slide3_account_s3_image_id")
       end
+      if params[:brand_image_file].present?
+        shop.register_s3_image(params[:brand_image_file], "brand_image_account_s3_image_id")
+      end
+      if params[:shop_image1_file].present?
+        shop.register_s3_image(params[:shop_image1_file], "shop_image1_account_s3_image_id")
+      end
+      if params[:shop_image2_file].present?
+        shop.register_s3_image(params[:shop_image2_file], "shop_image2_account_s3_image_id")
+      end
+      if params[:shop_image3_file].present?
+        shop.register_s3_image(params[:shop_image3_file], "shop_image3_account_s3_image_id")
+      end
       shop.save!
     end
     render json: { status: 'success' }, status: 200

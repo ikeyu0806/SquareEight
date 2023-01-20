@@ -18,14 +18,10 @@ import { nameChanged,
          pageCoverSlide1FileChanged,
          pageCoverSlide2FileChanged,
          pageCoverSlide3FileChanged,
-         pageCoverSlide1s3ObjectPublicUrlChanged,
-         pageCoverSlide2s3ObjectPublicUrlChanged,
-         pageCoverSlide3s3ObjectPublicUrlChanged,
-         brandImage3s3ObjectPublicUrlChanged,
-         shopImage13s3ObjectPublicUrlChanged,
-         shopImage23s3ObjectPublicUrlChanged,
-         shopImage33s3ObjectPublicUrlChanged,
-         businessTypeChanged } from 'redux/shopSlice'
+         brandImageFileChanged,
+         shopImage1FileChanged,
+         shopImage2FileChanged,
+         shopImage3FileChanged } from 'redux/shopSlice'
 
 const CreateShop = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -54,6 +50,48 @@ const CreateShop = (): JSX.Element => {
     const files = e.target.files
     if (files && files[0]) {
       dispatch(pageCoverSlide1FileChanged(files[0]))
+    }
+  }
+
+  const onChangePageCoverSlide2File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(pageCoverSlide2FileChanged(files[0]))
+    }
+  }
+
+  const onChangePageCoverSlide3File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(pageCoverSlide3FileChanged(files[0]))
+    }
+  }
+
+  const onChangeBrandImageFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(brandImageFileChanged(files[0]))
+    }
+  }
+
+  const onChangeShopImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(shopImage1FileChanged(files[0]))
+    }
+  }
+
+  const onChangeShopImage2File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(shopImage2FileChanged(files[0]))
+    }
+  }
+
+  const onChangeShopImage3File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(shopImage3FileChanged(files[0]))
     }
   }
 
@@ -126,16 +164,31 @@ const CreateShop = (): JSX.Element => {
         onChange={onChangePageCoverSlide1File}
         type='file' />
       <Form.Label className='mt10'>カバー画像2</Form.Label>
-      <Form.Control type='file' />
+      <Form.Control
+        onChange={onChangePageCoverSlide2File}
+        type='file' />
       <Form.Label className='mt10'>カバー画像3</Form.Label>
-      <Form.Control type='file' />
+      <Form.Control
+        onChange={onChangePageCoverSlide3File}
+        type='file' />
+      <hr />
+      <Form.Label className='mt10'>店舗ロゴ画像</Form.Label>
+      <Form.Control
+        onChange={onChangeBrandImageFile}
+        type='file' />
       <hr />
       <Form.Label className='mt10'>店舗イメージ画像1</Form.Label>
-      <Form.Control type='file' />
+      <Form.Control
+        onChange={onChangeShopImage1File}
+        type='file' />
       <Form.Label className='mt10'>店舗イメージ画像2</Form.Label>
-      <Form.Control type='file' />
+      <Form.Control
+        onChange={onChangeShopImage2File}
+        type='file' />
       <Form.Label className='mt10'>店舗イメージ画像3</Form.Label>
-      <Form.Control type='file' />
+      <Form.Control
+        onChange={onChangeShopImage3File}
+        type='file' />
     </>
   )
 }
