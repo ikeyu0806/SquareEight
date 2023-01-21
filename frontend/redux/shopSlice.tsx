@@ -93,10 +93,10 @@ export const shopSlice = createSlice({
       state.pageCoverSlide1ImagePublicUrl = action.payload
     },
     pageCoverSlide2ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.pageCoverSlide1ImagePublicUrl = action.payload
+      state.pageCoverSlide2ImagePublicUrl = action.payload
     },
     pageCoverSlide3ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.pageCoverSlide1ImagePublicUrl = action.payload
+      state.pageCoverSlide3ImagePublicUrl = action.payload
     },
     brandImageImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
       state.brandImagePublicUrl = action.payload
