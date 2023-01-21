@@ -32,6 +32,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
     login_status = current_end_user.present? ? 'Logout' : 'Login'
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,
                                                                     :resource_ids,
+                                                                    :shop_ids,
                                                                     :start_date_input_value,
                                                                     :repeat_end_date_input_value,
                                                                     :monthly_payment_plan_ids,
@@ -189,11 +190,13 @@ class Api::Internal::ReserveFramesController < ApplicationController
     resources = account.resources
     ticket_masters = account.ticket_masters.enabled
     monthly_payment_plans = account.monthly_payment_plans.enabled
+    shops = account.shops
     render json: { status: 'success',
                    resources: resources,
                    questionnaire_masters: questionnaire_masters,
                    ticket_masters: ticket_masters,
-                   monthly_payment_plans: monthly_payment_plans }, status: 200
+                   monthly_payment_plans: monthly_payment_plans,
+                   shops: shops }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
