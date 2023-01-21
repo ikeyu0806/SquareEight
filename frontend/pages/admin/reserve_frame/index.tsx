@@ -157,6 +157,21 @@ const Index = (): JSX.Element => {
                         )
                       })}</div>
                       <hr />
+                      <div>店舗一覧</div>
+                      <div>{reserveFrame.shops_name_with_public_id &&
+                        reserveFrame.shops_name_with_public_id.map((r, i) => {
+                          return (
+                            <div key={i}>
+                              <a href={`/admin/shop/${r.public_id}/edit`}
+                                 target='_blank'
+                                 rel='noreferrer'>{r.name}</a>
+                            </div>
+                          )
+                        })}
+                        {reserveFrame.shops_name_with_public_id.length === 0
+                        && <div>店舗は設定されていません</div>}
+                      </div>
+                      <hr />
                       <div>リソース一覧</div>
                       <div>{reserveFrame.resources_name_with_public_id &&
                         reserveFrame.resources_name_with_public_id.map((r, i) => {

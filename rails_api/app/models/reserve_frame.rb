@@ -447,7 +447,7 @@ class ReserveFrame < ApplicationRecord
   end
 
   def shops_name_with_public_id
-    shops.map{|r| {name: r.name, public_id: r.public_id}}
+    shops.map{|s| {name: s.name, public_id: s.public_id}}
   end
 
   def questionnaire_master_title_with_public_id

@@ -4,6 +4,12 @@ class Shop < ApplicationRecord
 
   belongs_to :account
 
+  has_many :shop_monthly_pament_plans
+  has_many :shop_products
+  has_many :shop_reserve_frames
+  has_many :shop_ticket_masters
+  has_many :shop_webpages
+
   # S3にputするファイルとs3_object_public_url_column
   def register_s3_image(image_file, s3_object_public_url_column)
     file_name = "shop_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')

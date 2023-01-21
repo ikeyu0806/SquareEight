@@ -11,6 +11,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                         :reception_type_text,
                                         :display_start_at,
                                         :display_end_at,
+                                        :shops_name_with_public_id,
                                         :resources_name_with_public_id,
                                         :questionnaire_master_title_with_public_id,
                                         :reserve_frame_reception_times_values,
