@@ -74,6 +74,12 @@ class Api::Internal::ReserveFramesController < ApplicationController
           reserve_frame.reserve_frame_resources.new(resource_id: resource_id)
         end
       end
+      if reserve_frame_params[:shop_ids].present?
+        reserve_frame.shop_reserve_frames.delete_all
+        reserve_frame_params[:shop_ids].each do |shop_id|
+          reserve_frame.shop_reserve_frames.new(shop_id: shop_id)
+        end
+      end
       if reserve_frame.is_monthly_plan_payment_enable?
         reserve_frame_params[:monthly_payment_plan_ids].each do |plan_id|
           reserve_frame.reserve_frame_monthly_payment_plans.new(monthly_payment_plan_id: plan_id)
@@ -145,6 +151,12 @@ class Api::Internal::ReserveFramesController < ApplicationController
         reserve_frame.reserve_frame_resources.delete_all
         reserve_frame_params[:resource_ids].each do |resource_id|
           reserve_frame.reserve_frame_resources.new(resource_id: resource_id)
+        end
+      end
+      if reserve_frame_params[:shop_ids].present?
+        reserve_frame.shop_reserve_frames.delete_all
+        reserve_frame_params[:shop_ids].each do |shop_id|
+          reserve_frame.shop_reserve_frames.new(shop_id: shop_id)
         end
       end
       if reserve_frame.is_monthly_plan_payment_enable?
@@ -258,6 +270,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   multi_local_payment_prices: [:name, :price],
                   multi_credit_card_payment_prices: [:name, :price],
                   repeat_wdays: [],
+                  shop_ids: [],
                   resource_ids: [],
                   monthly_payment_plan_ids: [],
                   reserve_frame_reception_times: [:reception_start_time, :reception_end_time],
@@ -271,6 +284,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                 :out_of_range_frames,
                                 :reserve_frame_reception_times,
                                 :repeat_interval_number_month_date,
+                                :shop_ids,
                                 :resource_ids,
                                 :monthly_payment_plan_ids,
                                 :reservable_frame_ticket_master,
