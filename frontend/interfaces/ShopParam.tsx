@@ -1,4 +1,5 @@
 export interface ShopParam {
+  public_id: string
   name: string
   description1: string
   description2: string

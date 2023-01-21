@@ -1,6 +1,14 @@
 class Api::Internal::ShopsController < ApplicationController
   before_action :merchant_login_only!
 
+  def index
+    shops = current_merchant_user.account.shops
+    render json: { status: 'success', shops: shops }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   def create
     ActiveRecord::Base.transaction do
       shop = current_merchant_user.account.shops.new
