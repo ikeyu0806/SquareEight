@@ -6,6 +6,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import WithoutSessionLayout from './WithoutSessionLayout'
+import { shopsChanged } from 'redux/accountSlice'
 import { loginStatusChanged,
          servicePlanChanged,
          emailChanged,
@@ -188,6 +189,9 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(readAccountNotificationStatusChanged(response.data.user.read_account_notifications_status))
       dispatch(readBusinessNotificationStatusChanged(response.data.user.read_business_notifications_status))
       dispatch(todayReservationsCountChanged(response.data.user.today_reservations_count))
+
+      // 店舗
+      dispatch(shopsChanged(response.data.shops))
     }).catch((e) => {
       dispatch(loginStatusChanged('Logout'))
     })
