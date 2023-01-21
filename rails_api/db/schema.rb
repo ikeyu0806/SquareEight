@@ -763,6 +763,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
   end
 
   create_table "shop_monthly_pament_plans", force: :cascade do |t|
+    t.string "public_id", null: false
     t.integer "shop_id", null: false
     t.integer "monthly_payment_plan_id", null: false
     t.datetime "created_at", null: false
@@ -770,6 +771,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
   end
 
   create_table "shop_products", force: :cascade do |t|
+    t.string "public_id", null: false
     t.integer "shop_id", null: false
     t.integer "product_id", null: false
     t.datetime "created_at", null: false
@@ -777,6 +779,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
   end
 
   create_table "shop_reserve_frames", force: :cascade do |t|
+    t.string "public_id", null: false
     t.integer "shop_id", null: false
     t.integer "reserve_frame_id", null: false
     t.datetime "created_at", null: false
@@ -784,6 +787,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
   end
 
   create_table "shop_ticket_masters", force: :cascade do |t|
+    t.string "public_id", null: false
     t.integer "shop_id", null: false
     t.integer "ticket_master_id", null: false
     t.datetime "created_at", null: false
@@ -791,6 +795,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
   end
 
   create_table "shop_webpages", force: :cascade do |t|
+    t.string "public_id", null: false
     t.integer "shop_id", null: false
     t.integer "webpage_id", null: false
     t.datetime "created_at", null: false
@@ -798,6 +803,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
   end
 
   create_table "shops", force: :cascade do |t|
+    t.string "public_id", null: false
     t.integer "account_id", null: false
     t.string "name", null: false
     t.string "description1", null: false

@@ -1,4 +1,5 @@
 class Shop < ApplicationRecord
+  include PublicIdModule
   include Base64Image
 
   belongs_to :account
