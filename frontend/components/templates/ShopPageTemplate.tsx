@@ -12,34 +12,47 @@ const ShopPageTemplate = () => {
   return (
     <>
       <Container>
-        <Row>
-          <Col sm={4}>
-            {description1}
-          </Col>
-          <Col sm={8}>
-            <img
+        <div className='text-center' style={{marginTop: '100px', marginBottom: '100px'}}>
+          <h1 className='mb50'>お店のキャッチコピー</h1>
+          <img
               width={'100%'}
               height={'100%'}
               src={String(pageCoverSlide1ImagePublicUrl)}
               alt='First slide'
             />
-          </Col>
-        </Row>
-
-        <Row>
-          <Col sm={4}>
-            {description1}
-          </Col>
-          <Col sm={8}>
-            <img
-              width={'100%'}
-              height={'100%'}
-              src={String(pageCoverSlide1ImagePublicUrl)}
-              alt='First slide'
-            />
-          </Col>
-        </Row>
+        </div>
       </Container>
+      <div style={{backgroundColor: '#E5E5E5', padding: '30px'}}>
+        <Container>
+          <Row>
+            <Col sm={6}>
+              {description1}
+              ゴールドジムは世界30カ国・700カ所以上・300万人のメンバーを誇る世界最大級ネットワークのフィットネスクラブです。
+            </Col>
+            <Col sm={6}>
+              <img
+                width={'100%'}
+                height={'100%'}
+                src={String(pageCoverSlide1ImagePublicUrl)}
+                alt='First slide'
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col sm={6}>
+              {description1}
+            </Col>
+            <Col sm={6}>
+              <img
+                width={'100%'}
+                height={'100%'}
+                src={String(pageCoverSlide1ImagePublicUrl)}
+                alt='First slide'
+              />
+            </Col>
+          </Row>
+        </Container>
+      </div>
     </>
   )
 }
