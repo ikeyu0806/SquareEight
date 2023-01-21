@@ -10,6 +10,7 @@ import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { ProductType } from 'interfaces/ProductType'
 import { DeliveryCharge } from 'interfaces/DeliveryCharge'
+import { ShopParam } from 'interfaces/ShopParam'
 import { nameChanged,
          descriptionChanged,
          base64ImageChanged,
@@ -24,7 +25,8 @@ import { nameChanged,
          prefectureDeliveryChargesChange,
          showProductTypeFormChanged,
          deliveryDatetimeTargetFlgChanged,
-         deliveryChargeWithOrderNumberChanged } from 'redux/productSlice'
+         deliveryChargeWithOrderNumberChanged,
+         shopsChanged } from 'redux/productSlice'
 
 interface Props {
   showDeleteButton?: boolean
@@ -54,6 +56,9 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const deliveryDatetimeTargetFlg = useSelector((state: RootState) => state.product.deliveryDatetimeTargetFlg)
   const publishStatus = useSelector((state: RootState) => state.product.publishStatus)
   const shops = useSelector((state: RootState) => state.account.shops)
+
+  const shopRefs = useRef<any>([])
+  shopRefs.current = shops.map((_, i) => shopRefs.current[i] ?? createRef())
 
   const handleChangeFile = (e: any) => {
     const { files } = e.target
@@ -168,6 +173,22 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
       :
         chargeObj)
     dispatch(prefectureDeliveryChargesChange(updateDeliveryCharge))
+  }
+
+  const updateShop = (shopRef: number) => {
+    let updateShop: ShopParam
+    let updateShops: ShopParam[]
+    updateShops = []
+
+    updateShop = Object.assign(shops[shopRef])
+    shops.map((p, i) => {
+      if (i == shopRef) {
+        updateShops.push(updateShop)
+      } else {
+        updateShops.push(p)
+      }
+    })
+    dispatch(shopsChanged(updateShops))
   }
 
   return (
@@ -416,6 +437,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                     label={shop.name}
                     id={'shop_' + shop.public_id}
                     name={'shop_check'}
+                    onChange={() => updateShop(i)}
                     key={i} />
                 )
               })}

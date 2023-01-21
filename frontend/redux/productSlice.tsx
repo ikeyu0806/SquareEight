@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ProductType } from 'interfaces/ProductType'
 import { DeliveryCharge } from 'interfaces/DeliveryCharge'
 import { prefecturesDeliveryTargetInitValue } from 'constants/prefecturesDeliveryTargetInitValue'
+import { ShopParam } from 'interfaces/ShopParam'
 
 export const productSlice = createSlice({
   name: 'alert',
@@ -26,7 +27,8 @@ export const productSlice = createSlice({
     deliveryDatetimeTargetFlg: true,
     showInventoryDescriptionModal: false,
     showInventoryReplenishmentModal: false,
-    inventoryReplenishmentModalTarget: 'Product'
+    inventoryReplenishmentModalTarget: 'Product',
+    shops: [] as ShopParam[]
   },
   reducers: {
     publicIdChanged: (state, action: PayloadAction<string>) => {
@@ -92,6 +94,9 @@ export const productSlice = createSlice({
     inventoryReplenishmentModalTargetChanged: (state, action: PayloadAction<string>) => {
       state.inventoryReplenishmentModalTarget = action.payload
     },
+    shopsChanged: (state, action: PayloadAction<ShopParam[]>) => {
+      state.shops = action.payload
+    },
   },
 })
 
@@ -116,5 +121,6 @@ export const { deliveryDatetimeTargetFlgChanged } = productSlice.actions
 export const { showInventoryDescriptionModalChanged } = productSlice.actions
 export const { showInventoryReplenishmentModalChanged } = productSlice.actions
 export const { inventoryReplenishmentModalTargetChanged } = productSlice.actions
+export const { shopsChanged } = productSlice.actions
 
 export default productSlice.reducer
