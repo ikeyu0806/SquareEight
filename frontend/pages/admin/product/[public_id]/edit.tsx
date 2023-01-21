@@ -47,6 +47,7 @@ const Edit: NextPage = () => {
   const deliveryDatetimeTargetFlg = useSelector((state: RootState) => state.product.deliveryDatetimeTargetFlg)
   const allowUpdateProduct = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateProduct)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+  const shops = useSelector((state: RootState) => state.account.shops)
 
   useEffect(() => {
     const fetchProduct = () => {
@@ -109,7 +110,8 @@ const Edit: NextPage = () => {
         delivery_charge_type: deliveryChargeType,
         flat_rate_delivery_charge: flatRateDeliveryCharge,
         delivery_charge_with_order_number: deliveryChargeWithOrderNumber,
-        delivery_datetime_target_flg: deliveryDatetimeTargetFlg
+        delivery_datetime_target_flg: deliveryDatetimeTargetFlg,
+        shops: shops
       }
     },
     {

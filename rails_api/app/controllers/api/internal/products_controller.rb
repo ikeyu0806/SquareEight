@@ -24,7 +24,7 @@ class Api::Internal::ProductsController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      product = current_merchant_user.account.products.new(product_params.except(:base64_image, :product_types, :prefecture_delivery_charges))
+      product = current_merchant_user.account.products.new(product_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
       if product_params[:base64_image].present?
         file_name = "product_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         account_image = product.account_s3_images.new
@@ -53,7 +53,7 @@ class Api::Internal::ProductsController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       product = Product.find_by(public_id: params[:public_id])
-      product.attributes = (product_params.except(:base64_image, :product_types, :prefecture_delivery_charges))
+      product.attributes = (product_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
       if product_params[:base64_image].present?
         product.product_image_relations.update_all(relation_status: "Sub")
         file_name = "product_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
@@ -69,6 +69,11 @@ class Api::Internal::ProductsController < ApplicationController
       product.shipping_fee_per_regions.delete_all
       product_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
         product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
+      end
+      product.shop_products.delete_all
+      product_params[:shops].each do |s|
+        shop = Shop.find_by(public_id: s[:public_id])
+        product.shop_products.create!(shop_id: shop.id)
       end
       product.save!
       render json: { status: 'success' }, status: 200
@@ -197,6 +202,7 @@ class Api::Internal::ProductsController < ApplicationController
                   :target_type,
                   :shipped_count,
                   prefecture_delivery_charges: [:region, :shipping_fee],
-                  product_types: [:name, :inventory])
+                  product_types: [:name, :inventory],
+                  shops: [:name, :public_id])
   end
 end

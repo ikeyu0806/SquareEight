@@ -34,6 +34,7 @@ const New: NextPage = () => {
   const deliveryChargeWithOrderNumber = useSelector((state: RootState) => state.product.deliveryChargeWithOrderNumber)
   const allowCreateProduct = useSelector((state: RootState) => state.merchantUserPermission.allowCreateProduct)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+  const shops = useSelector((state: RootState) => state.account.shops)
 
   useEffect(() => {
     dispatch(publishStatusChanged('Unpublish'))
@@ -67,7 +68,8 @@ const New: NextPage = () => {
         prefecture_delivery_charges: prefectureDeliveryCharges,
         delivery_charge_type: deliveryChargeType,
         flat_rate_delivery_charge: flatRateDeliveryCharge,
-        delivery_charge_with_order_number: deliveryChargeWithOrderNumber
+        delivery_charge_with_order_number: deliveryChargeWithOrderNumber,
+        shops: shops
       }
     },
     {
