@@ -22,13 +22,13 @@ export const shopSlice = createSlice({
     shopImage1File: null as File | unknown,
     shopImage2File:  null as File | unknown,
     shopImage3File:  null as File | unknown,
-    pageCoverSlide1s3ObjectPublicUrl: '',
-    pageCoverSlide2s3ObjectPublicUrl: '',
-    pageCoverSlide3s3ObjectPublicUrl: '',
-    brandImage3s3ObjectPublicUrl: '',
-    shopImage13s3ObjectPublicUrl: '',
-    shopImage23s3ObjectPublicUrl: '',
-    shopImage33s3ObjectPublicUrl: '',
+    pageCoverSlide1ImagePublicUrl: '',
+    pageCoverSlide2ImagePublicUrl: '',
+    pageCoverSlide3ImagePublicUrl: '',
+    brandImagePublicUrl: '',
+    shopImage1ImagePublicUrl: '',
+    shopImage2ImagePublicUrl: '',
+    shopImage3ImagePublicUrl: '',
     businessType: ''
   },
   reducers: {
@@ -89,26 +89,26 @@ export const shopSlice = createSlice({
     shopImage3FileChanged: (state, action: PayloadAction<File>) => {
       state.shopImage3File = action.payload
     },
-    pageCoverSlide1s3ObjectPublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.pageCoverSlide1s3ObjectPublicUrl = action.payload
+    pageCoverSlide1ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.pageCoverSlide1ImagePublicUrl = action.payload
     },
-    pageCoverSlide2s3ObjectPublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.pageCoverSlide1s3ObjectPublicUrl = action.payload
+    pageCoverSlide2ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.pageCoverSlide1ImagePublicUrl = action.payload
     },
-    pageCoverSlide3s3ObjectPublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.pageCoverSlide1s3ObjectPublicUrl = action.payload
+    pageCoverSlide3ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.pageCoverSlide1ImagePublicUrl = action.payload
     },
-    brandImage3s3ObjectPublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.brandImage3s3ObjectPublicUrl = action.payload
+    brandImageImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.brandImagePublicUrl = action.payload
     },
-    shopImage13s3ObjectPublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.shopImage13s3ObjectPublicUrl = action.payload
+    shopImage1ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.shopImage1ImagePublicUrl = action.payload
     },
-    shopImage23s3ObjectPublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.shopImage23s3ObjectPublicUrl = action.payload
+    shopImage2ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.shopImage2ImagePublicUrl = action.payload
     },
-    shopImage33s3ObjectPublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.shopImage33s3ObjectPublicUrl = action.payload
+    shopImage3ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.shopImage3ImagePublicUrl = action.payload
     },
     businessTypeChanged: (state, action: PayloadAction<string>) => {
       state.businessType = action.payload
@@ -135,13 +135,13 @@ export const { brandImageFileChanged } = shopSlice.actions
 export const { shopImage1FileChanged } = shopSlice.actions
 export const { shopImage2FileChanged } = shopSlice.actions
 export const { shopImage3FileChanged } = shopSlice.actions
-export const { pageCoverSlide1s3ObjectPublicUrlChanged } = shopSlice.actions
-export const { pageCoverSlide2s3ObjectPublicUrlChanged } = shopSlice.actions
-export const { pageCoverSlide3s3ObjectPublicUrlChanged } = shopSlice.actions
-export const { brandImage3s3ObjectPublicUrlChanged } = shopSlice.actions
-export const { shopImage13s3ObjectPublicUrlChanged } = shopSlice.actions
-export const { shopImage23s3ObjectPublicUrlChanged } = shopSlice.actions
-export const { shopImage33s3ObjectPublicUrlChanged } = shopSlice.actions
+export const { pageCoverSlide1ImagePublicUrlChanged } = shopSlice.actions
+export const { pageCoverSlide2ImagePublicUrlChanged } = shopSlice.actions
+export const { pageCoverSlide3ImagePublicUrlChanged } = shopSlice.actions
+export const { brandImageImagePublicUrlChanged } = shopSlice.actions
+export const { shopImage1ImagePublicUrlChanged } = shopSlice.actions
+export const { shopImage2ImagePublicUrlChanged } = shopSlice.actions
+export const { shopImage3ImagePublicUrlChanged } = shopSlice.actions
 export const { businessTypeChanged } = shopSlice.actions
 
 export default shopSlice.reducer

@@ -2,17 +2,26 @@ class Api::Internal::ShopsController < ApplicationController
   before_action :merchant_login_only!
 
   def index
-    shops = current_merchant_user
-            .account
-            .shops
-            .to_json(methods: [ :page_cover_slide1_image_public_url,
+    shops = current_merchant_user.account.shops
+    render json: { status: 'success', shops: shops }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
+  def show
+    shop = current_merchant_user
+           .account
+           .shops
+           .find(params[:public_id])
+           .to_json(methods: [  :page_cover_slide1_image_public_url,
                                 :page_cover_slide2_image_public_url,
                                 :page_cover_slide3_image_public_url,
                                 :brand_image_public_url,
                                 :shop_image1_public_url,
                                 :shop_image2_public_url,
                                 :shop_image3_public_url])
-    render json: { status: 'success', shops: shops }, status: 200
+    render json: { status: 'success', shop: shop }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
