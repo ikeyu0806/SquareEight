@@ -28,7 +28,8 @@ export const productSlice = createSlice({
     showInventoryDescriptionModal: false,
     showInventoryReplenishmentModal: false,
     inventoryReplenishmentModalTarget: 'Product',
-    shops: [] as ShopParam[]
+    shops: [] as ShopParam[],
+    selectedShopIds: [] as number[]
   },
   reducers: {
     publicIdChanged: (state, action: PayloadAction<string>) => {
@@ -97,6 +98,9 @@ export const productSlice = createSlice({
     shopsChanged: (state, action: PayloadAction<ShopParam[]>) => {
       state.shops = action.payload
     },
+    selectedShopIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.selectedShopIds = action.payload
+    },
   },
 })
 
@@ -122,5 +126,6 @@ export const { showInventoryDescriptionModalChanged } = productSlice.actions
 export const { showInventoryReplenishmentModalChanged } = productSlice.actions
 export const { inventoryReplenishmentModalTargetChanged } = productSlice.actions
 export const { shopsChanged } = productSlice.actions
+export const { selectedShopIdsChanged } = productSlice.actions
 
 export default productSlice.reducer

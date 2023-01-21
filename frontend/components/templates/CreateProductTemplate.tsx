@@ -55,6 +55,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const deliveryChargeWithOrderNumber = useSelector((state: RootState) => state.product.deliveryChargeWithOrderNumber)
   const deliveryDatetimeTargetFlg = useSelector((state: RootState) => state.product.deliveryDatetimeTargetFlg)
   const publishStatus = useSelector((state: RootState) => state.product.publishStatus)
+  const selectedShopIds = useSelector((state: RootState) => state.product.selectedShopIds)
   const shops = useSelector((state: RootState) => state.account.shops)
 
   const shopRefs = useRef<any>([])
@@ -438,6 +439,7 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                     id={'shop_' + shop.public_id}
                     name={'shop_check'}
                     onChange={() => updateShop(i)}
+                    defaultChecked={selectedShopIds.includes(shop.id)}
                     key={i} />
                 )
               })}

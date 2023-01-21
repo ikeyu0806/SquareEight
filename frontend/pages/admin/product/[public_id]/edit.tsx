@@ -24,7 +24,8 @@ import {  nameChanged,
           prefectureDeliveryChargesChange,
           deliveryChargeWithOrderNumberChanged,
           deliveryDatetimeTargetFlgChanged,
-          showProductTypeFormChanged } from 'redux/productSlice'
+          showProductTypeFormChanged,
+          selectedShopIdsChanged } from 'redux/productSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -73,6 +74,7 @@ const Edit: NextPage = () => {
         dispatch(flatRateDeliveryChargeChange(response.data.product.flat_rate_delivery_charge))
         dispatch(deliveryChargeWithOrderNumberChanged(response.data.product.delivery_charge_with_order_number))
         dispatch(deliveryDatetimeTargetFlgChanged(response.data.product.delivery_datetime_target_flg))
+        dispatch(selectedShopIdsChanged(response.data.product.selected_shop_ids))
       })
       .catch(error => {
         console.log(error)

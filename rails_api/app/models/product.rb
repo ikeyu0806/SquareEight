@@ -141,4 +141,8 @@ class Product < ApplicationRecord
   def product_types_order_id
     product_type.order(:id)
   end
+
+  def selected_shop_ids
+    shop_products.pluck(:shop_id)
+  end
 end
