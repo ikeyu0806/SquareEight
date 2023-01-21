@@ -1,8 +1,31 @@
 import { NextPage } from 'next'
-import { Container, Table, Button } from 'react-bootstrap'
+import { useEffect } from 'react'
+import { Container, Table } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import { useCookies } from 'react-cookie'
+import axios from 'axios'
 
 const Index: NextPage = () => {
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
+
+  useEffect(() => {
+    const fetchResources = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/shops`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          },
+        }
+      )
+      .then(function (response) {
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchResources()
+  }, [cookies._square_eight_merchant_session])
+
   return (
     <MerchantUserAdminLayout>
       <Container>
