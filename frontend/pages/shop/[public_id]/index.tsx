@@ -1,11 +1,11 @@
 import { NextPage } from 'next'
 import { useEffect } from 'react'
-import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import ShopPageTemplate from 'components/templates/ShopPageTemplate'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { nameChanged,
          description1Changed,
          description2Changed,
@@ -25,6 +25,14 @@ import { nameChanged,
          shopImage1ImagePublicUrlChanged,
          shopImage2ImagePublicUrlChanged,
          shopImage3ImagePublicUrlChanged } from 'redux/shopSlice'
+import {  navbarBrandTextChanged,
+          navbarBrandTypeChanged,
+          navbarBrandImageChanged,
+          navbarBrandImageWidthChanged,
+          navbarBrandImageHeightChanged,
+          navbarBrandBackgroundColorChanged,
+          navbarBrandVariantColorChanged,
+          footerCopyRightTextChanged } from 'redux/sharedComponentSlice'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -60,6 +68,15 @@ const Index: NextPage = () => {
         dispatch(shopImage1ImagePublicUrlChanged(response.data.shop.shop_image1_public_url))
         dispatch(shopImage2ImagePublicUrlChanged(response.data.shop.shop_image2_public_url))
         dispatch(shopImage3ImagePublicUrlChanged(response.data.shop.shop_image3_public_url))
+        // ヘッダ、フッタ
+        dispatch(navbarBrandTextChanged(response.data.shared_component.navbar_brand_text))
+        dispatch(navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type))
+        dispatch(navbarBrandImageChanged(response.data.shared_component.navbar_brand_image_s3_object_public_url))
+        dispatch(navbarBrandImageWidthChanged(response.data.shared_component.nabvar_brand_image_width))
+        dispatch(navbarBrandImageHeightChanged(response.data.shared_component.nabvar_brand_image_height))
+        dispatch(navbarBrandBackgroundColorChanged(response.data.shared_component.navbar_brand_background_color))
+        dispatch(navbarBrandVariantColorChanged(response.data.shared_component.navbar_brand_variant_color))
+        dispatch(footerCopyRightTextChanged(response.data.shared_component.footer_copyright_text))
       })
       .catch(error => {
         console.log(error)
@@ -69,9 +86,9 @@ const Index: NextPage = () => {
   }, [dispatch, router.query.public_id, cookies._square_eight_merchant_session])
 
   return (
-    <MerchantUserAdminLayout>
+    <MerchantCustomLayout>
       <ShopPageTemplate></ShopPageTemplate>
-    </MerchantUserAdminLayout>
+    </MerchantCustomLayout>
   )
 }
 
