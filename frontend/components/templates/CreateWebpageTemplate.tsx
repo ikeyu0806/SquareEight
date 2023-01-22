@@ -3,13 +3,14 @@ import { Row, Col, Container, Form, Button } from 'react-bootstrap'
 import CreateBlockModal from 'components/organisms/CreateBlockModal'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { showBlockModalChanged, publishStatusChanged, webpageTagChanged } from 'redux/webpageSlice'
+import { showBlockModalChanged, publishStatusChanged, webpageTagChanged, shopsChanged } from 'redux/webpageSlice'
 import PlusCircleIcon from 'components/atoms/PlusCircleIcon'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import RenderWebpage from 'components/organisms/RenderWebpage'
+import { ShopParam } from 'interfaces/ShopParam'
 
 interface Props {
   showDeleteButton?: boolean
@@ -22,6 +23,8 @@ const CreateWebpageTemplate = ({showDeleteButton}: Props): JSX.Element => {
 
   const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
   const publishStatus = useSelector((state: RootState) => state.webpage.publishStatus)
+  const selectedShopIds = useSelector((state: RootState) => state.webpage.selectedShopIds)
+  const shops = useSelector((state: RootState) => state.account.shops)
 
   const deletePage = () => {
     swalWithBootstrapButtons.fire({
@@ -52,6 +55,22 @@ const CreateWebpageTemplate = ({showDeleteButton}: Props): JSX.Element => {
         })
       }
     })
+  }
+
+  const updateShop = (shopRef: number) => {
+    let updateShop: ShopParam
+    let updateShops: ShopParam[]
+    updateShops = []
+
+    updateShop = Object.assign(shops[shopRef])
+    shops.map((p, i) => {
+      if (i == shopRef) {
+        updateShops.push(updateShop)
+      } else {
+        updateShops.push(p)
+      }
+    })
+    dispatch(shopsChanged(updateShops))
   }
 
   return(
@@ -89,6 +108,21 @@ const CreateWebpageTemplate = ({showDeleteButton}: Props): JSX.Element => {
             </Col>
           </Row>
         </div>
+        <Form.Group className='mt10'>
+        <div>店舗設定</div>
+        <div className='mt5 mb5'>設定した店舗のページに商品ページへのリンクが表示されます。</div>
+          {shops.map((shop, i) => {
+            return (
+              <Form.Check
+                label={shop.name}
+                id={'shop_' + shop.public_id}
+                name={'shop_check'}
+                onChange={() => updateShop(i)}
+                defaultChecked={selectedShopIds.includes(shop.id)}
+                key={i} />
+            )
+          })}
+        </Form.Group>
         <hr />
         <RenderWebpage editPage={true}></RenderWebpage>
         <div className='text-center mt30 mb30'>
