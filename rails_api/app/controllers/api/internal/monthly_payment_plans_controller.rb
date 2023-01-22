@@ -14,6 +14,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def show
     monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.enabled.find_by(public_id: params[:public_id])
+    monthly_payment_plan = JSON.parse(monthly_payment_plan.to_json(methods: [:selected_shop_ids]))
     render json: { status: 'success', monthly_payment_plan: monthly_payment_plan }, status: 200
   rescue => error
     Rails.logger.error error

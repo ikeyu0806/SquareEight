@@ -6,6 +6,7 @@ class MonthlyPaymentPlan < ApplicationRecord
   has_many :cart_monthly_payment_plans
   has_many :monthly_payment_plan_image_relations
   has_many :account_s3_images, through: :monthly_payment_plan_image_relations
+  has_many :shop_monthly_payment_plans
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
 
@@ -47,5 +48,9 @@ class MonthlyPaymentPlan < ApplicationRecord
 
   def main_image_public_url
     monthly_payment_plan_image_relations.find_by(relation_status: "Main")&.account_s3_image&.s3_object_public_url
+  end
+
+  def selected_shop_ids
+    shop_monthly_payment_plans.pluck(:shop_id)
   end
 end

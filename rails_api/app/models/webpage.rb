@@ -3,6 +3,7 @@ class Webpage < ApplicationRecord
 
   belongs_to :account
   has_many :webpage_blocks, dependent: :delete_all
+  has_many :shop_webpages
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
 
@@ -78,5 +79,9 @@ class Webpage < ApplicationRecord
 
   def footer_json
     website.default_header_content.present? ? JSON.parse(website.default_footer_content) : []
+  end
+
+  def selected_shop_ids
+    shop_webpages.pluck(:shop_id)
   end
 end
