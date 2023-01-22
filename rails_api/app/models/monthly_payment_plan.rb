@@ -1,11 +1,10 @@
 class MonthlyPaymentPlan < ApplicationRecord
   include PublicIdModule
+  include AccountImage1Module
 
   enum reserve_interval_unit: { Day: 0, Week: 1 }
   belongs_to :account
   has_many :cart_monthly_payment_plans
-  has_many :monthly_payment_plan_image_relations
-  has_many :account_s3_images, through: :monthly_payment_plan_image_relations
   has_many :shop_monthly_payment_plans, class_name: 'ShopMonthlyPaymentPlan'
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
@@ -44,10 +43,6 @@ class MonthlyPaymentPlan < ApplicationRecord
 
   def logical_delete
     update!(deleted_at: Time.zone.now)
-  end
-
-  def main_image_public_url
-    monthly_payment_plan_image_relations.find_by(relation_status: "Main")&.account_s3_image&.s3_object_public_url
   end
 
   def selected_shop_ids

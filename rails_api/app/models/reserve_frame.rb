@@ -2,6 +2,7 @@ include CalendarContent
 
 class ReserveFrame < ApplicationRecord
   include PublicIdModule
+  include AccountImage1Module
 
   belongs_to :account
   has_one  :questionnaire_master, foreign_key: :id, primary_key: :questionnaire_master_id
@@ -9,7 +10,7 @@ class ReserveFrame < ApplicationRecord
   has_many :out_of_range_frames
   has_many :reserve_frame_resources
   has_many :resources, through: :reserve_frame_resources
-  has_many :shop_reserve_frames
+  has_many :shop_reserve_frames, dependent: :destroy
   has_many :shops, through: :shop_reserve_frames
   has_many :reserve_frame_monthly_payment_plans
   has_many :monthly_payment_plans, through: :reserve_frame_monthly_payment_plans
@@ -19,8 +20,6 @@ class ReserveFrame < ApplicationRecord
   has_many :reservations
   has_many :reserve_frame_local_payment_prices
   has_many :reserve_frame_credit_card_payment_prices
-  has_many :reserve_frame_image_relations
-  has_many :account_s3_images, through: :reserve_frame_image_relations
 
   # WDayは週ごと
   enum repeat_interval_type: { Day: 0, Week: 1, Month: 2, WDay: 3 }
@@ -592,10 +591,6 @@ class ReserveFrame < ApplicationRecord
   def parse_question_form_json
     return [] if questionnaire_master.blank?
     return questionnaire_master.parse_question_form_json
-  end
-
-  def main_image_public_url
-    reserve_frame_image_relations.find_by(relation_status: "Main")&.account_s3_image&.s3_object_public_url
   end
 
   def reception_deadline_text

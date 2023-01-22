@@ -277,7 +277,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         dispatch(questionnaireMasterIdChanged(response.data.reserve_frame.questionnaire_master_id))
         dispatch(monthlyPaymentPlanIdsChanged(response.data.reserve_frame.monthly_payment_plan_ids))
         dispatch(reservableFrameTicketMasterChanged(response.data.reserve_frame.reservable_frame_ticket_master))
-        dispatch(s3ObjectPublicUrlChanged(response.data.reserve_frame.s3_object_public_url))
+        dispatch(s3ObjectPublicUrlChanged(response.data.reserve_frame.image1_account_s3_image_public_url))
         dispatch(outOfRangeFramesChanged(response.data.reserve_frame.out_of_range_frames_to_webform))
         dispatch(unreservableFramesChanged(response.data.reserve_frame.unreservable_frames_to_webform))
         dispatch(isRepeatChanged(response.data.reserve_frame.is_repeat))

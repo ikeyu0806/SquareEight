@@ -14,7 +14,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def show
     monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.enabled.find_by(public_id: params[:public_id])
-    monthly_payment_plan = JSON.parse(monthly_payment_plan.to_json(methods: [:selected_shop_ids]))
+    monthly_payment_plan = JSON.parse(monthly_payment_plan.to_json(methods: [:selected_shop_ids, :image1_account_s3_image_public_url]))
     render json: { status: 'success', monthly_payment_plan: monthly_payment_plan }, status: 200
   rescue => error
     Rails.logger.error error
@@ -23,7 +23,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def purchase_info
     monthly_payment_plan = MonthlyPaymentPlan.enabled.find_by(public_id: params[:public_id])
-    main_image_public_url = monthly_payment_plan.main_image_public_url
+    image1_account_s3_image_public_url = monthly_payment_plan.image1_account_s3_image_public_url
     shared_component = monthly_payment_plan.account.shared_component
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
@@ -35,7 +35,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     end
     render json: { status: 'success',
                    shared_component: shared_component,
-                   main_image_public_url: main_image_public_url,
+                   image1_account_s3_image_public_url: image1_account_s3_image_public_url,
                    monthly_payment_plan: monthly_payment_plan,
                    payment_methods: payment_methods,
                    default_payment_method_id: default_payment_method_id,
@@ -49,11 +49,13 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     ActiveRecord::Base.transaction do
       monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.new(monthly_payment_plan_params.except(:base64_image, :shops))
       if monthly_payment_plan_params[:base64_image].present?
-        file_name = "monthly_paymeny_plan_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = monthly_payment_plan.account_s3_images.new
+        file_name = "ticket_master_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        account_image = AccountS3Image.new
         account_image.account = current_merchant_user.account
         account_image.s3_object_public_url = put_s3_http_request_base64_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
+        account_image.save!
+        monthly_payment_plan.image1_account_s3_image_id = account_image.id
       end
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
       Stripe.api_version = '2022-08-01'
@@ -85,12 +87,13 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find_by(public_id: params[:public_id])
     monthly_payment_plan.attributes = monthly_payment_plan_params.except(:base64_image, :shops)
     if (monthly_payment_plan_params[:base64_image].present?)
-      ticket_master.ticket_master_image_relations.update_all(relation_status: "Sub")
-      file_name = "monthly_paymeny_plan_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-      account_image = monthly_payment_plan.account_s3_images.new
+      file_name = "ticket_master_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+      account_image = AccountS3Image.new
       account_image.account = current_merchant_user.account
       account_image.s3_object_public_url = put_s3_http_request_base64_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
       account_image.s3_object_name = file_name
+      account_image.save!
+      monthly_payment_plan.image1_account_s3_image_id = account_image.id
     end
     monthly_payment_plan.save!
     monthly_payment_plan.shop_monthly_payment_plans.delete_all

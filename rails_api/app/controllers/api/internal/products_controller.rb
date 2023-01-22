@@ -15,7 +15,12 @@ class Api::Internal::ProductsController < ApplicationController
 
   def show
     product = Product.enabled.find_by(public_id: params[:public_id])
-    product = JSON.parse(product.to_json(methods: [:product_types, :show_product_type_form, :shipping_fee_per_regions, :delivery_charge_type, :selected_shop_ids]))
+    product = JSON.parse(product.to_json(methods: [:product_types,
+      :show_product_type_form,
+      :shipping_fee_per_regions,
+      :delivery_charge_type,
+      :selected_shop_ids,
+      :image1_account_s3_image_public_url]))
     render json: { status: 'success', product: product }, status: 200
   rescue => error
     Rails.logger.error error
@@ -27,10 +32,12 @@ class Api::Internal::ProductsController < ApplicationController
       product = current_merchant_user.account.products.new(product_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
       if product_params[:base64_image].present?
         file_name = "product_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = product.account_s3_images.new
+        account_image = AccountS3Image.new
         account_image.account = current_merchant_user.account
         account_image.s3_object_public_url = put_s3_http_request_base64_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
+        account_image.save!
+        product.image1_account_s3_image_id = account_image.id
       end
       if product_params[:product_types].present?
         product_params[:product_types].each do |product_type|
@@ -42,9 +49,12 @@ class Api::Internal::ProductsController < ApplicationController
           product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
         end
       end
-      product_params[:shops].each do |s|
-        shop = Shop.find_by(public_id: s[:public_id])
-        product.shop_products.create!(shop_id: shop.id)
+      product.save!
+      if product_params[:shops].present?
+        product_params[:shops].each do |s|
+          shop = Shop.find_by(public_id: s[:public_id])
+          product.shop_products.create!(shop_id: shop.id)
+        end
       end
       product.save!
       render json: { status: 'success' }, status: 200
@@ -59,12 +69,13 @@ class Api::Internal::ProductsController < ApplicationController
       product = Product.find_by(public_id: params[:public_id])
       product.attributes = (product_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
       if product_params[:base64_image].present?
-        product.product_image_relations.update_all(relation_status: "Sub")
         file_name = "product_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = product.account_s3_images.new
+        account_image = AccountS3Image.new
         account_image.account = current_merchant_user.account
         account_image.s3_object_public_url = put_s3_http_request_base64_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
+        account_image.save!
+        product.image1_account_s3_image_id = account_image.id
       end
       product.product_types.delete_all
       product_params[:product_types].each do |product_type|
@@ -74,7 +85,8 @@ class Api::Internal::ProductsController < ApplicationController
       product_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
         product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
       end
-      product.shop_products.delete_all
+      product.save!
+      product.shop_products.destroy_all
       product_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])
         product.shop_products.create!(shop_id: shop.id)
@@ -89,7 +101,7 @@ class Api::Internal::ProductsController < ApplicationController
 
   def purchase_info
     product = Product.find_by(public_id: params[:public_id])
-    main_image_public_url = product.main_image_public_url
+    image1_account_s3_image_public_url = product.image1_account_s3_image_public_url
     shared_component = product.account.shared_component
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
@@ -104,7 +116,7 @@ class Api::Internal::ProductsController < ApplicationController
     product = JSON.parse(product.to_json(methods: [:product_types, :show_product_type_form, :shipping_fee_per_regions, :delivery_charge_type]))
     render json: { status: 'success',
                    product: product,
-                   main_image_public_url: main_image_public_url,
+                   image1_account_s3_image_public_url: image1_account_s3_image_public_url,
                    shared_component: shared_component,
                    payment_methods: payment_methods,
                    delivery_targets: delivery_targets,
@@ -184,7 +196,7 @@ class Api::Internal::ProductsController < ApplicationController
                   :product_type_id,
                   :inventory,
                   :description,
-                  :s3_object_public_url,
+                  :image1_account_s3_image_public_url,
                   :s3_object_name,
                   :purchase_quantity,
                   :is_registered_address,

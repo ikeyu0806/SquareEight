@@ -91,7 +91,7 @@ const Purchase: NextPage = () => {
         dispatch(inventoryChanged(response.data.product.inventory))
         dispatch(descriptionChanged(response.data.product.description))
         dispatch(publishStatusChanged(response.data.product.publish_status))
-        dispatch(s3ObjectPublicUrlChanged(response.data.product.s3_object_public_url))
+        dispatch(s3ObjectPublicUrlChanged(response.data.image1_account_s3_image_public_url))
         dispatch(deliveryChargeTypeChanged(response.data.product.delivery_charge_type))
         dispatch(prefectureDeliveryChargesChange(response.data.product.shipping_fee_per_regions))
         dispatch(flatRateDeliveryChargeChange(response.data.product.flat_rate_delivery_charge))
@@ -108,7 +108,7 @@ const Purchase: NextPage = () => {
         if (response.data.product.product_types[0]) {
           setSelectedProductTypeId(response.data.product.product_types[0].id)
         }
-        setMainImagePublicUrl(response.data.main_image_public_url)
+        setMainImagePublicUrl(response.data.image1_account_s3_image_public_url)
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))

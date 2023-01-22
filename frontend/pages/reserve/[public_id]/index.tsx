@@ -61,7 +61,7 @@ const Index: NextPage = () => {
         setSelectedTime(times_values?.reception_start_time + '-' + times_values?.reception_end_time)
         dispatch(multiLocalPaymentPricesChanged(response.data.reserve_frame.local_payment_prices_with_number_of_people))
         dispatch(multiCreditCardPaymentPricesChanged(response.data.reserve_frame.credit_card_payment_prices_with_number_of_people))
-        setMainImagePublicUrl(response.data.main_image_public_url)
+        setMainImagePublicUrl(response.data.reserve_frame.image1_account_s3_image_public_url)
         dispatch(loginStatusChanged(response.data.login_status))
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))

@@ -33,7 +33,7 @@ export interface ReserveFrameParam {
   reception_start_day_before: number
   repeat_interval_type: string
   payment_methods_text: string[]
-  s3_object_public_url: string
+  image1_account_s3_image_public_url: string
   is_accept_cancel: boolean
   is_accept_cancel_on_the_day: boolean
   cancel_reception_day_before: number

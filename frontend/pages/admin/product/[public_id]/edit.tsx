@@ -65,7 +65,7 @@ const Edit: NextPage = () => {
         dispatch(taxRateChanged(response.data.product.tax_rate))
         dispatch(inventoryChanged(response.data.product.inventory))
         dispatch(descriptionChanged(response.data.product.description))
-        dispatch(s3ObjectPublicUrlChanged(response.data.product.s3_object_public_url))
+        dispatch(s3ObjectPublicUrlChanged(response.data.product.image1_account_s3_image_public_url))
         dispatch(productTypesChanged(response.data.product.product_types))
         dispatch(showProductTypeFormChanged(response.data.product.show_product_type_form))
         dispatch(deliveryChargeTypeChanged(response.data.product.delivery_charge_type))

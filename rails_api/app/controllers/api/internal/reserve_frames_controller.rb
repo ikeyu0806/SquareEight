@@ -28,7 +28,6 @@ class Api::Internal::ReserveFramesController < ApplicationController
 
   def show
     reserve_frame = ReserveFrame.enabled.find_by(public_id: params[:public_id])
-    main_image_public_url = reserve_frame.main_image_public_url
     shared_component = reserve_frame.account.shared_component
     login_status = current_end_user.present? ? 'Logout' : 'Login'
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,
@@ -45,10 +44,10 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                                     :reserve_frame_local_payment_prices,
                                                                     :reserve_frame_credit_card_payment_prices,
                                                                     :local_payment_prices_with_number_of_people,
-                                                                    :credit_card_payment_prices_with_number_of_people]))
+                                                                    :credit_card_payment_prices_with_number_of_people,
+                                                                    :image1_account_s3_image_public_url]))
     render json: {  status: 'success',
                     reserve_frame: reserve_frame_json,
-                    main_image_public_url: main_image_public_url,
                     login_status: login_status,
                     shared_component: shared_component }, status: 200
   rescue => error
@@ -77,7 +76,6 @@ class Api::Internal::ReserveFramesController < ApplicationController
       end
       reserve_frame.save!
       if reserve_frame_params[:shop_ids].present?
-        reserve_frame.shop_reserve_frames.delete_all
         reserve_frame_params[:shop_ids].each do |shop_id|
           reserve_frame.shop_reserve_frames.new(shop_id: shop_id)
         end
@@ -94,10 +92,12 @@ class Api::Internal::ReserveFramesController < ApplicationController
       end
       if reserve_frame_params[:base64_image].present?
         file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = reserve_frame.account_s3_images.new
+        account_image = AccountS3Image.new
         account_image.account = current_merchant_user.account
         account_image.s3_object_public_url = put_s3_http_request_base64_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
+        account_image.save!
+        reserve_frame.image1_account_s3_image_id = account_image.id
       end
       if reserve_frame_params[:repeat_wdays].present?
         reserve_frame.is_repeat_sun = true if reserve_frame_params[:repeat_wdays].include?("Sun")
@@ -157,7 +157,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
       end
       reserve_frame.save!
       if reserve_frame_params[:shop_ids].present?
-        reserve_frame.shop_reserve_frames.delete_all
+        reserve_frame.shop_reserve_frames.destroy_all
         reserve_frame_params[:shop_ids].each do |shop_id|
           reserve_frame.shop_reserve_frames.new(shop_id: shop_id)
         end
@@ -175,12 +175,13 @@ class Api::Internal::ReserveFramesController < ApplicationController
         end
       end
       if reserve_frame_params[:base64_image].present?
-        reserve_frame.reserve_frame_image_relations.update_all(relation_status: "Sub")
         file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = reserve_frame.account_s3_images.new
+        account_image = AccountS3Image.new
         account_image.account = current_merchant_user.account
         account_image.s3_object_public_url = put_s3_http_request_base64_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
+        account_image.save!
+        reserve_frame.image1_account_s3_image_id = account_image.id
       end
       if reserve_frame_params[:repeat_wdays].present?
         reserve_frame.is_repeat_sun = true if reserve_frame_params[:repeat_wdays].include?("Sun")

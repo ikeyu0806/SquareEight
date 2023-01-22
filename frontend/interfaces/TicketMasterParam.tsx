@@ -7,5 +7,5 @@ export interface TicketMasterParam {
   effective_month: number
   description: string
   publish_status: string
-  s3_object_public_url?: string
+  image1_account_s3_image_public_url: string
 }
