@@ -74,19 +74,20 @@ const Edit: NextPage = () => {
 
   return (
     <>
-      {allowUpdateWebpage === 'Allow' && <>
-        <MerchantUserAdminLayout>
-        <div className='mt30'></div>
-        <CreateWebpageTemplate showDeleteButton={true}></CreateWebpageTemplate>
-        <br/>
-        <br/>
-        <br/>
-        <div className='text-center'>
-          <Button onClick={updateWebpage}>更新する</Button>
-        </div>
-        </MerchantUserAdminLayout>
-      </>}
-      {allowUpdateWebpage === 'Forbid' && <Unauthorized />}
+      <MerchantUserAdminLayout>
+      {allowUpdateWebpage === 'Allow' &&
+        <>
+          <div className='mt30'></div>
+          <CreateWebpageTemplate showDeleteButton={true}></CreateWebpageTemplate>
+          <br/>
+          <br/>
+          <br/>
+          <div className='text-center'>
+            <Button onClick={updateWebpage}>更新する</Button>
+          </div>
+        </>}
+        {allowUpdateWebpage === 'Forbid' && <Unauthorized />}
+      </MerchantUserAdminLayout>
     </>
   )
 }
