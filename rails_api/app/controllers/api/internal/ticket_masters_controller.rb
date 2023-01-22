@@ -49,10 +49,12 @@ class Api::Internal::TicketMastersController < ApplicationController
       ticket_master = current_merchant_user.account.ticket_masters.new(ticket_master_params.except(:base64_image, :shops))
       if ticket_master_params[:base64_image].present?
         file_name = "ticket_master_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = ticket_master.account_s3_images.new
+        account_image = AccountS3Image.new
         account_image.account = current_merchant_user.account
         account_image.s3_object_public_url = put_s3_http_request_base64_data(ticket_master_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
+        account_image.save!
+        ticket_master.image1_account_s3_image_id = account_image.id
       end
       ticket_master.save!
       ticket_master_params[:shops].each do |s|
@@ -72,12 +74,13 @@ class Api::Internal::TicketMastersController < ApplicationController
       ticket_master = TicketMaster.find_by(public_id: params[:public_id])
       ticket_master.attributes = (ticket_master_params.except(:base64_image, :shops))
       if (ticket_master_params[:base64_image].present?)
-        ticket_master.ticket_master_image_relations.update_all(relation_status: "Sub")
         file_name = "ticket_master_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = ticket_master.account_s3_images.new
+        account_image = AccountS3Image.new
         account_image.account = current_merchant_user.account
-        account_image.s3_object_public_url = put_s3_http_request_base64_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+        account_image.s3_object_public_url = put_s3_http_request_base64_data(ticket_master_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
+        account_image.save!
+        ticket_master.image1_account_s3_image_id = account_image.id
       end
       ticket_master.save!
       ticket_master.shop_ticket_masters.delete_all

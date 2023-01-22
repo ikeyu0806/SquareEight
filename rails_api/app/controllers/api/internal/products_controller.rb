@@ -32,10 +32,12 @@ class Api::Internal::ProductsController < ApplicationController
       product = current_merchant_user.account.products.new(product_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
       if product_params[:base64_image].present?
         file_name = "product_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = product.account_s3_images.new
+        account_image = AccountS3Image.new
         account_image.account = current_merchant_user.account
         account_image.s3_object_public_url = put_s3_http_request_base64_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
+        account_image.save!
+        product.image1_account_s3_image_id = account_image.id
       end
       if product_params[:product_types].present?
         product_params[:product_types].each do |product_type|
@@ -64,12 +66,13 @@ class Api::Internal::ProductsController < ApplicationController
       product = Product.find_by(public_id: params[:public_id])
       product.attributes = (product_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
       if product_params[:base64_image].present?
-        product.product_image_relations.update_all(relation_status: "Sub")
         file_name = "product_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = product.account_s3_images.new
+        account_image = AccountS3Image.new
         account_image.account = current_merchant_user.account
         account_image.s3_object_public_url = put_s3_http_request_base64_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
+        account_image.save!
+        product.image1_account_s3_image_id = account_image.id
       end
       product.product_types.delete_all
       product_params[:product_types].each do |product_type|
