@@ -5,10 +5,15 @@ class Shop < ApplicationRecord
   belongs_to :account
 
   has_many :shop_monthly_pament_plans
+  has_many :monthly_pament_plans, through: :shop_monthly_pament_plans
   has_many :shop_products
+  has_many :products, through: :shop_products
   has_many :shop_reserve_frames
+  has_many :reserve_frames, through: :shop_reserve_frames
   has_many :shop_ticket_masters
+  has_many :ticket_masters, through: :shop_ticket_masters
   has_many :shop_webpages
+  has_many :webpages, through: :shop_webpages
 
   # S3にputするファイルとs3_object_public_url_column
   def register_s3_image(image_file, s3_object_public_url_column)
