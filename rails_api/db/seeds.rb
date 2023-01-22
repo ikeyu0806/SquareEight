@@ -6,17 +6,73 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-account = Account.first_or_create!(
+account = Account.create!(
   business_name: "管理ユーザ",
   stripe_customer_id: "cus_LwJxeaXaTnVjba",
   stripe_account_id: "acct_1LFYYj2eLQ63YTOo"
 )
 
-SharedComponent.first_or_create!(
+account_s3_images = AccountS3Image.create!(
+  [
+    {
+      account_id: account.id,
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image1.jpeg",
+      s3_object_name: "fitness_image1.jpeg",
+    },
+    {
+      account_id: account.id,
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image2.jpeg",
+      s3_object_name: "fitness_image2.jpeg",
+    },
+    {
+      account_id: account.id,
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image3.jpeg",
+      s3_object_name: "fitness_image3.jpeg",
+    },
+    {
+      account_id: account.id,
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image4.jpeg",
+      s3_object_name: "fitness_image4.jpeg",
+    },
+    {
+      account_id: account.id,
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image5.jpeg",
+      s3_object_name: "fitness_image5.jpeg",
+    },
+    {
+      account_id: account.id,
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image6.jpeg",
+      s3_object_name: "fitness_image6.jpeg",
+    },
+  ]
+)
+
+shop = Shop.create!(
+  account_id: account.id,
+  name: "デモ店舗",
+  description1: "初心者からアスリートまで、全ての人々が結果を出せるようあらゆることについて考え抜かれたフィットネスクラブです。"
+  description2: "生活スタイルに合った会員プランで、無理なく無駄なく続けられます。"
+  postal_code: "150-0043",
+  state: "東京都",
+  city: "渋谷区",
+  town: "道玄坂1丁目",
+  line1: "10番8号",
+  line2: "渋谷道玄坂東急ビル2F-C",
+  access_info: "",
+  remarks: "電話受付可能時間は10時~18時までとなります",
+  shop_image1_account_s3_image_id: account_s3_images[0].id,
+  shop_image2_account_s3_image_id: account_s3_images[1].id,
+  shop_image3_account_s3_image_id: account_s3_images[2].id,
+  shop_image4_account_s3_image_id: account_s3_images[3].id,
+  shop_image5_account_s3_image_id: account_s3_images[4].id,
+  shop_image6_account_s3_image_id: account_s3_images[5].id,
+)
+
+SharedComponent.create!(
   account_id: account.id,
 )
 
-MerchantUser.first_or_create!(
+MerchantUser.create!(
   account_id: account.id,
   email: "merchant_user@develop.com",
   password: "Pass1234",
@@ -97,7 +153,7 @@ MerchantUser.first_or_create!(
   allow_send_line_message: "Allow"
 )
 
-EndUser.first_or_create!(
+EndUser.create!(
   first_name: "デモ",
   last_name: "ユーザ",
   email: "end_user@develop.com",
@@ -106,7 +162,7 @@ EndUser.first_or_create!(
   email_authentication_status: "Enabled"
 )
 
-SystemAdminUser.first_or_create!(
+SystemAdminUser.create!(
   name: "admin_user",
   email: "system_admin@develop.com",
   phone_number: "12312341234",
@@ -114,7 +170,7 @@ SystemAdminUser.first_or_create!(
   authentication_status: "Enabled"
 )
 
-customers = Customer.first_or_create!(
+customers = Customer.create!(
   [
     {
       account_id: account.id,
@@ -140,12 +196,12 @@ customers = Customer.first_or_create!(
   ]
 )
 
-customer_group = CustomerGroup.first_or_create!(
+customer_group = CustomerGroup.create!(
   account_id: account.id,
   name: "デモグループ",
 )
 
-CustomerGroupRelation.first_or_create!(
+CustomerGroupRelation.create!(
   [
     {
       customer_id: customers[0].id,
@@ -162,7 +218,7 @@ CustomerGroupRelation.first_or_create!(
   ]
 )
 
-resources = Resource.first_or_create!(
+resources = Resource.create!(
   [
     {
       account_id: account.id,
@@ -182,7 +238,7 @@ resources = Resource.first_or_create!(
   ]
 )
 
-reserve_frames = ReserveFrame.first_or_create!(
+reserve_frames = ReserveFrame.create!(
   [
     {
       account_id: account.id,
@@ -277,7 +333,7 @@ reserve_frames = ReserveFrame.first_or_create!(
   ]
 )
 
-ReserveFrameReceptionTime.first_or_create!(
+ReserveFrameReceptionTime.create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
@@ -362,7 +418,7 @@ ReserveFrameReceptionTime.first_or_create!(
   ]
 )
 
-ReserveFrameResource.first_or_create!(
+ReserveFrameResource.create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
@@ -379,7 +435,7 @@ ReserveFrameResource.first_or_create!(
   ]
 )
 
-ticket_master = TicketMaster.first_or_create!(
+ticket_master = TicketMaster.create!(
   account_id: account.id,
   name: "回数券デモ",
   issue_number: 1000,
@@ -388,7 +444,7 @@ ticket_master = TicketMaster.first_or_create!(
   effective_month: 12
 )
 
-monthly_payment_plan = MonthlyPaymentPlan.first_or_create!(
+monthly_payment_plan = MonthlyPaymentPlan.create!(
     account_id: account.id,
     name: "月額サブスクリプションデモ",
     price: 5000,
@@ -399,7 +455,7 @@ monthly_payment_plan = MonthlyPaymentPlan.first_or_create!(
     stripe_plan_id: "plan_N70Y45NasdEyfE"
 )
 
-ReserveFrameMonthlyPaymentPlan.first_or_create!(
+ReserveFrameMonthlyPaymentPlan.create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
@@ -408,7 +464,7 @@ ReserveFrameMonthlyPaymentPlan.first_or_create!(
   ]
 )
 
-ReserveFrameTicketMaster.first_or_create!(
+ReserveFrameTicketMaster.create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
@@ -418,7 +474,7 @@ ReserveFrameTicketMaster.first_or_create!(
   ]
 )
 
-product = Product.first_or_create!(
+product = Product.create!(
   [
     {
       account_id: account.id,
@@ -439,7 +495,7 @@ product = Product.first_or_create!(
   ]
 )
 
-ProductType.first_or_create!(
+ProductType.create!(
   [
     {
       product_id: product[1].id,
@@ -454,14 +510,14 @@ ProductType.first_or_create!(
   ]
 )
 
-questionnaire_master = QuestionnaireMaster.first_or_create!(
+questionnaire_master = QuestionnaireMaster.create!(
   account_id: account.id,
   title: "アンケートデモ",
   question_form_json: "[{\"question\"=>\"商品へのご要望\", \"formType\"=>\"text\", \"textFormRowCount\"=>5, \"sortOrder\"=>1, \"questionId\"=>\"18581acf0bb\", \"selectFormAnswers\"=>[], \"radioButtonAnswers\"=>[], \"checkboxAnswers\"=>[]}, {\"question\"=>\"年齢は？\", \"formType\"=>\"select\", \"textFormRowCount\"=>1, \"sortOrder\"=>2, \"questionId\"=>\"18581ad6be4\", \"selectFormAnswers\"=>[\"10代\", \"20代\", \"30代\", \"40代\", \"50代\", \"60代以上\"], \"radioButtonAnswers\"=>[], \"checkboxAnswers\"=>[]}]",
   publish_status: "Publish"
 )
 
-delivery_datetime_setting = DeliveryDatetimeSetting.first_or_create!(
+delivery_datetime_setting = DeliveryDatetimeSetting.create!(
   account_id: account.id,
   shortest_delivery_day: 2,
   longest_delivery_day: 4,
@@ -477,7 +533,7 @@ delivery_datetime_setting = DeliveryDatetimeSetting.first_or_create!(
   delivery_time_type: "yamato",
 )
 
-AdditionalDeliveryDaysPerRegion.first_or_create(
+AdditionalDeliveryDaysPerRegion.create(
   [
     {
       delivery_datetime_setting_id: delivery_datetime_setting.id,
