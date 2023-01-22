@@ -21,7 +21,7 @@ class Shop < ApplicationRecord
     image1_account_s3_image_public_url = put_s3_http_request_form_data(image_file, ENV["PRODUCT_IMAGE_BUCKET"], file_name)
     account_image = AccountS3Image.new
     account_image.account = self.account
-    account_image.image1_account_s3_image_public_url = image1_account_s3_image_public_url
+    account_image.s3_object_public_url = image1_account_s3_image_public_url
     account_image.s3_object_name = file_name
     account_image.save!
     self.send(image1_account_s3_image_public_url_column + "=", account_image.id)

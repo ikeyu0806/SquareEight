@@ -34,7 +34,7 @@ class Api::Internal::ProductsController < ApplicationController
         file_name = "product_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         account_image = AccountS3Image.new
         account_image.account = current_merchant_user.account
-        account_image.image1_account_s3_image_public_url = put_s3_http_request_base64_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+        account_image.s3_object_public_url = put_s3_http_request_base64_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
         account_image.save!
         product.image1_account_s3_image_id = account_image.id
