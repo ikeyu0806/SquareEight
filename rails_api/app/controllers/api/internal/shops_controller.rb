@@ -15,12 +15,12 @@ class Api::Internal::ShopsController < ApplicationController
            .shops
            .find_by(public_id: params[:public_id])
     shared_component = shop.account.shared_component
-    shop = shop.to_json(methods: [  :page_cover_slide1_image_public_url,
-                                    :page_cover_slide2_image_public_url,
-                                    :page_cover_slide3_image_public_url,
-                                    :page_cover_slide4_image_public_url,
-                                    :page_cover_slide5_image_public_url,
-                                    :page_cover_slide6_image_public_url])
+    shop = shop.to_json(methods: [  :shop_image1_public_url,
+                                    :shop_image2_public_url,
+                                    :shop_image3_public_url,
+                                    :shop_image4_public_url,
+                                    :shop_image5_public_url,
+                                    :shop_image6_public_url])
     shop = JSON.parse(shop)
     render json: { status: 'success', shop: shop, shared_component: shared_component }, status: 200
   rescue => error

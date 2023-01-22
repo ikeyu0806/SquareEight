@@ -5,9 +5,12 @@ import { RootState } from 'redux/store'
 const ShopPageTemplate = () => {
   const name = useSelector((state: RootState) => state.shop.name)
   const description1 = useSelector((state: RootState) => state.shop.description1)
-  const pageCoverSlide1ImagePublicUrl = useSelector((state: RootState) => state.shop.pageCoverSlide1ImagePublicUrl)
-  const pageCoverSlide2ImagePublicUrl = useSelector((state: RootState) => state.shop.pageCoverSlide2ImagePublicUrl)
-  const pageCoverSlide3ImagePublicUrl = useSelector((state: RootState) => state.shop.pageCoverSlide3ImagePublicUrl)
+  const shopImage1ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage1ImagePublicUrl)
+  const shopImage2ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage2ImagePublicUrl)
+  const shopImage3ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage3ImagePublicUrl)
+  const shopImage4ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage4ImagePublicUrl)
+  const shopImage5ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage5ImagePublicUrl)
+  const shopImage6ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage6ImagePublicUrl)
 
   return (
     <>
@@ -17,7 +20,7 @@ const ShopPageTemplate = () => {
           <img
               width={'100%'}
               height={'100%'}
-              src={String(pageCoverSlide1ImagePublicUrl)}
+              src={String(shopImage1ImagePublicUrl)}
               alt='First slide'
             />
         </div>
@@ -33,7 +36,7 @@ const ShopPageTemplate = () => {
               <img
                 width={'100%'}
                 height={'100%'}
-                src={String(pageCoverSlide1ImagePublicUrl)}
+                src={String(shopImage2ImagePublicUrl)}
                 alt='First slide'
               />
             </Col>
@@ -46,7 +49,7 @@ const ShopPageTemplate = () => {
               <img
                 width={'100%'}
                 height={'100%'}
-                src={String(pageCoverSlide1ImagePublicUrl)}
+                src={String(shopImage3ImagePublicUrl)}
                 alt='First slide'
               />
             </Col>
