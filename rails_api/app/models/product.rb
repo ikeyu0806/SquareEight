@@ -6,7 +6,7 @@ class Product < ApplicationRecord
   has_many :product_types, -> { order(:id) }
   has_many :cart_products, -> { order(:id) }
   has_many :shipping_fee_per_regions, dependent: :delete_all
-  has_many :shop_products
+  has_many :shop_products, dependent: :destroy
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
   enum delivery_charge_type: { noSetting: 0, flatRate: 1, perPrefectures: 2 }
