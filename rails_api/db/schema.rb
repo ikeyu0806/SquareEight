@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_22_065623) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -378,15 +378,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "monthly_payment_plan_image_relations", force: :cascade do |t|
-    t.integer "account_s3_image_id"
-    t.integer "monthly_payment_plan_id"
-    t.integer "relation_status", default: 0
-    t.string "public_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "monthly_payment_plans", force: :cascade do |t|
     t.string "name"
     t.integer "price", null: false
@@ -402,6 +393,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
     t.string "stripe_plan_id"
     t.integer "publish_status", default: 0
     t.datetime "deleted_at"
+    t.integer "image1_account_s3_image_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -447,15 +439,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "product_image_relations", force: :cascade do |t|
-    t.integer "account_s3_image_id"
-    t.integer "product_id"
-    t.integer "relation_status", default: 0
-    t.string "public_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "product_types", force: :cascade do |t|
     t.integer "product_id"
     t.string "name"
@@ -483,6 +466,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
     t.integer "delivery_charge_with_order_number", default: 0
     t.boolean "delivery_datetime_target_flg", default: true
     t.integer "inventory_allocation", default: 0
+    t.integer "image1_account_s3_image_id"
   end
 
   create_table "purchased_tickets", force: :cascade do |t|
@@ -562,15 +546,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
     t.integer "reserve_frame_id", null: false
     t.string "name", null: false
     t.integer "price", null: false
-    t.string "public_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
-  create_table "reserve_frame_image_relations", force: :cascade do |t|
-    t.integer "account_s3_image_id"
-    t.integer "reserve_frame_id"
-    t.integer "relation_status", default: 0
     t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -666,6 +641,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
     t.integer "cancel_reception_day_before"
     t.integer "cancel_reception_hour_before"
     t.integer "lottery_confirmed_day_before", default: 1
+    t.integer "image1_account_s3_image_id"
   end
 
   create_table "resources", force: :cascade do |t|
@@ -676,7 +652,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "resouce_type", default: 99
-    t.integer "account_s3_image_id"
+    t.integer "image1_account_s3_image_id"
     t.integer "is_show_frontend", default: 0
     t.string "description"
   end
@@ -920,15 +896,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "ticket_master_image_relations", force: :cascade do |t|
-    t.integer "account_s3_image_id"
-    t.integer "ticket_master_id"
-    t.integer "relation_status", default: 0
-    t.string "public_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "ticket_masters", force: :cascade do |t|
     t.string "name"
     t.integer "account_id"
@@ -942,6 +909,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
     t.integer "effective_month"
     t.integer "publish_status", default: 0
     t.datetime "deleted_at"
+    t.integer "image1_account_s3_image_id"
   end
 
   create_table "unreservable_frames", force: :cascade do |t|
