@@ -13,7 +13,7 @@ class Api::Internal::TicketMastersController < ApplicationController
 
   def show
     ticket_master = TicketMaster.find_by(public_id: params[:public_id])
-    ticket_master = JSON.parse(ticket_master.to_json(methods: [:selected_shop_ids]))
+    ticket_master = JSON.parse(ticket_master.to_json(methods: [:selected_shop_ids, :image1_account_s3_image_public_url]))
     render json: { status: 'success', ticket_master: ticket_master }, status: 200
   rescue => error
     Rails.logger.error error

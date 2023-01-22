@@ -15,7 +15,12 @@ class Api::Internal::ProductsController < ApplicationController
 
   def show
     product = Product.enabled.find_by(public_id: params[:public_id])
-    product = JSON.parse(product.to_json(methods: [:product_types, :show_product_type_form, :shipping_fee_per_regions, :delivery_charge_type, :selected_shop_ids]))
+    product = JSON.parse(product.to_json(methods: [:product_types,
+      :show_product_type_form,
+      :shipping_fee_per_regions,
+      :delivery_charge_type,
+      :selected_shop_ids,
+      :image1_account_s3_image_public_url]))
     render json: { status: 'success', product: product }, status: 200
   rescue => error
     Rails.logger.error error

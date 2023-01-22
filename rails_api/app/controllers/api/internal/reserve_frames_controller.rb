@@ -18,7 +18,8 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                         :out_of_range_frames_dates,
                                         :unreservable_frames_dates,
                                         :reception_deadline_text,
-                                        :cancel_reception_text])
+                                        :cancel_reception_text,
+                                        :image1_account_s3_image_public_url])
     reserve_frames = JSON.parse(reserve_frames)
     render json: { status: 'success', reserve_frames: reserve_frames }, status: 200
   rescue => error
@@ -45,7 +46,8 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                                     :reserve_frame_local_payment_prices,
                                                                     :reserve_frame_credit_card_payment_prices,
                                                                     :local_payment_prices_with_number_of_people,
-                                                                    :credit_card_payment_prices_with_number_of_people]))
+                                                                    :credit_card_payment_prices_with_number_of_people,
+                                                                    :image1_account_s3_image_public_url]))
     render json: {  status: 'success',
                     reserve_frame: reserve_frame_json,
                     main_image_public_url: main_image_public_url,
