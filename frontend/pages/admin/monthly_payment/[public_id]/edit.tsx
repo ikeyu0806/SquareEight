@@ -60,6 +60,7 @@ const Edit: NextPage = () => {
         dispatch(enableReserveCountChanged(monthlyPaymentPlanResponse.enable_reserve_count))
         dispatch(descriptionChanged(monthlyPaymentPlanResponse.description))
         dispatch(s3ObjectPublicUrlChanged(monthlyPaymentPlanResponse.s3_object_public_url))
+        dispatch(selectedShopIdsChanged(response.data.monthly_payment_plan.selected_shop_ids))
       })
       .catch(error => {
         console.log(error)

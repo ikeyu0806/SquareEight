@@ -41,7 +41,7 @@ const Edit: NextPage = () => {
         dispatch(webpageTagChanged(response.data.webpage.tag))
         dispatch(pageContentChanged({blockContent: response.data.webpage.block_contents}))
         dispatch(currentMaxSortOrderChanged(response.data.webpage.max_sort_order))
-        dispatch(selectedShopIdsChanged(response.data.product.selected_shop_ids))
+        dispatch(selectedShopIdsChanged(response.data.webpage.selected_shop_ids))
       })
       .catch(error => {
         dispatch(alertChanged({message: error, show: true, type: 'danger'}))

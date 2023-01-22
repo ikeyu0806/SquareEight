@@ -201,7 +201,7 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
             <Form.Label className='mt10'>イメージ画像</Form.Label>
             <Form.Control type="file" onChange={handleChangeFile} />
           </Form.Group>
-          <Form.Group className='mb-3'>
+          <Form.Group className='mt10'>
             <div>店舗設定</div>
             <div className='mt5 mb5'>設定した店舗のページに商品ページへのリンクが表示されます。</div>
             {shops.map((shop, i) => {

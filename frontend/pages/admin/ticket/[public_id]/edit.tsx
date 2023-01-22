@@ -48,7 +48,7 @@ const Edit: NextPage = () => {
         dispatch(issueNumberChanged(ticketMasterResponse.issue_number))
         dispatch(descriptionChanged(ticketMasterResponse.description))
         dispatch(s3ObjectPublicUrlChanged(ticketMasterResponse.s3_object_public_url))
-        dispatch(selectedShopIdsChanged(response.data.product.selected_shop_ids))
+        dispatch(selectedShopIdsChanged(response.data.ticket_master.selected_shop_ids))
       })
       .catch(error => {
         console.log(error)
@@ -84,7 +84,7 @@ const Edit: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        {stripeAccountEnable === 'Enable' && allowUpdateTicketMaster === 'ALlow' &&
+        {stripeAccountEnable === 'Enable' && allowUpdateTicketMaster === 'Allow' &&
         <>
           <CreateTicketTemplate showDeleteButton={true}></CreateTicketTemplate>
           <div className='text-center'>
