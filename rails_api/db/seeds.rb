@@ -44,6 +44,26 @@ account_s3_images = AccountS3Image.create!(
       s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image6.jpeg",
       s3_object_name: "fitness_image6.jpeg",
     },
+    {
+      account_id: account.id,
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/product_image1.jpeg",
+      s3_object_name: "product_image1.jpeg",
+    },
+    {
+      account_id: account.id,
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/golf_image1.jpeg",
+      s3_object_name: "golf_image1.jpeg",
+    },
+    {
+      account_id: account.id,
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/yoga_image1.jpeg",
+      s3_object_name: "yoga_image1.jpeg",
+    },
+    {
+      account_id: account.id,
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/bouldering_image1.jpeg",
+      s3_object_name: "bouldering_image1.jpeg",
+    },
   ]
 )
 
