@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ShopParam } from 'interfaces/ShopParam'
 
 export const ticketMasterSlice = createSlice({
   name: 'alert',
@@ -10,7 +11,9 @@ export const ticketMasterSlice = createSlice({
     description: '',
     publishStatus: '',
     base64Image: null,
-    s3ObjectPublicUrl: ''
+    s3ObjectPublicUrl: '',
+    shops: [] as ShopParam[],
+    selectedShopIds: [] as number[]
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -37,6 +40,12 @@ export const ticketMasterSlice = createSlice({
     s3ObjectPublicUrlChanged: (state, action: PayloadAction<any>) => {
       state.s3ObjectPublicUrl = action.payload
     },
+    shopsChanged: (state, action: PayloadAction<ShopParam[]>) => {
+      state.shops = action.payload
+    },
+    selectedShopIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.selectedShopIds = action.payload
+    },
   },
 })
 
@@ -48,5 +57,7 @@ export const { descriptionChanged } = ticketMasterSlice.actions
 export const { publishStatusChanged } = ticketMasterSlice.actions
 export const { base64ImageChanged } = ticketMasterSlice.actions
 export const { s3ObjectPublicUrlChanged } = ticketMasterSlice.actions
+export const { shopsChanged } = ticketMasterSlice.actions
+export const { selectedShopIdsChanged } = ticketMasterSlice.actions
 
 export default ticketMasterSlice.reducer
