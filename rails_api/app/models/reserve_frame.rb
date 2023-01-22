@@ -19,8 +19,6 @@ class ReserveFrame < ApplicationRecord
   has_many :reservations
   has_many :reserve_frame_local_payment_prices
   has_many :reserve_frame_credit_card_payment_prices
-  has_many :reserve_frame_image_relations
-  has_many :account_s3_images, through: :reserve_frame_image_relations
 
   # WDayは週ごと
   enum repeat_interval_type: { Day: 0, Week: 1, Month: 2, WDay: 3 }
@@ -592,10 +590,6 @@ class ReserveFrame < ApplicationRecord
   def parse_question_form_json
     return [] if questionnaire_master.blank?
     return questionnaire_master.parse_question_form_json
-  end
-
-  def main_image_public_url
-    reserve_frame_image_relations.find_by(relation_status: "Main")&.account_s3_image&.s3_object_public_url
   end
 
   def reception_deadline_text
