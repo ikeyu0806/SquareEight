@@ -47,25 +47,29 @@ account_s3_images = AccountS3Image.create!(
   ]
 )
 
-shop = Shop.create!(
-  account_id: account.id,
-  name: "デモ店舗",
-  description1: "初心者からアスリートまで、全ての人々が結果を出せるようあらゆることについて考え抜かれたフィットネスクラブです。"
-  description2: "生活スタイルに合った会員プランで、無理なく無駄なく続けられます。"
-  postal_code: "150-0043",
-  state: "東京都",
-  city: "渋谷区",
-  town: "道玄坂1丁目",
-  line1: "10番8号",
-  line2: "渋谷道玄坂東急ビル2F-C",
-  access_info: "",
-  remarks: "電話受付可能時間は10時~18時までとなります",
-  shop_image1_account_s3_image_id: account_s3_images[0].id,
-  shop_image2_account_s3_image_id: account_s3_images[1].id,
-  shop_image3_account_s3_image_id: account_s3_images[2].id,
-  shop_image4_account_s3_image_id: account_s3_images[3].id,
-  shop_image5_account_s3_image_id: account_s3_images[4].id,
-  shop_image6_account_s3_image_id: account_s3_images[5].id,
+shops = Shop.create!(
+  [
+    {
+      account_id: account.id,
+      name: "デモ店舗",
+      description1: "初心者からアスリートまで、全ての人々が結果を出せるようあらゆることについて考え抜かれたフィットネスクラブです。",
+      description2: "生活スタイルに合った会員プランで、無理なく無駄なく続けられます。",
+      postal_code: "150-0043",
+      state: "東京都",
+      city: "渋谷区",
+      town: "道玄坂1丁目",
+      line1: "10番8号",
+      line2: "渋谷道玄坂東急ビル2F-C",
+      access_info: "",
+      remarks: "電話受付可能時間は10時~18時までとなります",
+      shop_image1_account_s3_image_id: account_s3_images[0].id,
+      shop_image2_account_s3_image_id: account_s3_images[1].id,
+      shop_image3_account_s3_image_id: account_s3_images[2].id,
+      shop_image4_account_s3_image_id: account_s3_images[3].id,
+      shop_image5_account_s3_image_id: account_s3_images[4].id,
+      shop_image6_account_s3_image_id: account_s3_images[5].id,
+    },
+  ]
 )
 
 SharedComponent.create!(
@@ -435,31 +439,70 @@ ReserveFrameResource.create!(
   ]
 )
 
-ticket_master = TicketMaster.create!(
-  account_id: account.id,
-  name: "回数券デモ",
-  issue_number: 1000,
-  price: 5000,
-  publish_status: "Publish",
-  effective_month: 12
+ShopReserveFrame.create!(
+  [
+    {
+      shop_id: shops[0].id,
+      reserve_frame_id: reserve_frames[0].id
+    },
+    {
+      shop_id: shops[0].id,
+      reserve_frame_id: reserve_frames[1].id
+    },
+  ]
 )
 
-monthly_payment_plan = MonthlyPaymentPlan.create!(
-    account_id: account.id,
-    name: "月額サブスクリプションデモ",
-    price: 5000,
-    reserve_interval_number: 1,
-    reserve_interval_unit: "Week",
-    enable_reserve_count: 3,
-    publish_status: "Publish",
-    stripe_plan_id: "plan_N70Y45NasdEyfE"
+ticket_masters = TicketMaster.create!(
+  [
+    {
+      account_id: account.id,
+      name: "回数券デモ",
+      issue_number: 1000,
+      price: 5000,
+      publish_status: "Publish",
+      effective_month: 12
+    },
+  ]
+)
+
+ShopTicketMaster.create!(
+  [
+    {
+      shop_id: shops[0].id,
+      ticket_master_id: ticket_masters[0].id
+    }
+  ]
+)
+
+monthly_payment_plans = MonthlyPaymentPlan.create!(
+  [
+    {
+      account_id: account.id,
+      name: "月額サブスクリプションデモ",
+      price: 5000,
+      reserve_interval_number: 1,
+      reserve_interval_unit: "Week",
+      enable_reserve_count: 3,
+      publish_status: "Publish",
+      stripe_plan_id: "plan_N70Y45NasdEyfE"
+    },
+  ]
+)
+
+ShopMonthlyPaymentPlan.create!(
+  [
+    {
+      shop_id: shops[0].id,
+      monthly_payment_plan_id: monthly_payment_plans[0].id
+    }
+  ]
 )
 
 ReserveFrameMonthlyPaymentPlan.create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
-      monthly_payment_plan_id: monthly_payment_plan.id,
+      monthly_payment_plan_id: monthly_payment_plans[0].id,
     }
   ]
 )
@@ -468,13 +511,13 @@ ReserveFrameTicketMaster.create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
-      ticket_master_id: ticket_master.id,
+      ticket_master_id: ticket_masters[0].id,
       consume_number: 3
     }
   ]
 )
 
-product = Product.create!(
+products = Product.create!(
   [
     {
       account_id: account.id,
@@ -498,14 +541,27 @@ product = Product.create!(
 ProductType.create!(
   [
     {
-      product_id: product[1].id,
+      product_id: products[1].id,
       name: "Sサイズ",
       inventory: 100,
     },
     {
-      product_id: product[1].id,
+      product_id: products[1].id,
       name: "Mサイズ",
       inventory: 100,
+    }
+  ]
+)
+
+ShopProduct.create!(
+  [
+    {
+      shop_id: shops[0].id,
+      product_id: products[0].id
+    },
+    {
+      shop_id: shops[0].id,
+      product_id: products[1].id
     }
   ]
 )
