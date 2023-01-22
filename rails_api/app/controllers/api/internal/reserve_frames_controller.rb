@@ -18,8 +18,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                         :out_of_range_frames_dates,
                                         :unreservable_frames_dates,
                                         :reception_deadline_text,
-                                        :cancel_reception_text,
-                                        :image1_account_s3_image_public_url])
+                                        :cancel_reception_text])
     reserve_frames = JSON.parse(reserve_frames)
     render json: { status: 'success', reserve_frames: reserve_frames }, status: 200
   rescue => error
@@ -29,7 +28,6 @@ class Api::Internal::ReserveFramesController < ApplicationController
 
   def show
     reserve_frame = ReserveFrame.enabled.find_by(public_id: params[:public_id])
-    main_image_public_url = reserve_frame.main_image_public_url
     shared_component = reserve_frame.account.shared_component
     login_status = current_end_user.present? ? 'Logout' : 'Login'
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,
@@ -50,7 +48,6 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                                     :image1_account_s3_image_public_url]))
     render json: {  status: 'success',
                     reserve_frame: reserve_frame_json,
-                    main_image_public_url: main_image_public_url,
                     login_status: login_status,
                     shared_component: shared_component }, status: 200
   rescue => error

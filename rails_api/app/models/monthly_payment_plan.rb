@@ -1,5 +1,6 @@
 class MonthlyPaymentPlan < ApplicationRecord
   include PublicIdModule
+  include AccountImage1Module
 
   enum reserve_interval_unit: { Day: 0, Week: 1 }
   belongs_to :account
@@ -46,9 +47,5 @@ class MonthlyPaymentPlan < ApplicationRecord
 
   def selected_shop_ids
     shop_monthly_payment_plans.pluck(:shop_id)
-  end
-
-  def image1_account_s3_image_public_url
-    AccountS3Image.find(self.image1_account_s3_image_id).s3_object_public_url
   end
 end

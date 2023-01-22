@@ -2,6 +2,7 @@ include CalendarContent
 
 class ReserveFrame < ApplicationRecord
   include PublicIdModule
+  include AccountImage1Module
 
   belongs_to :account
   has_one  :questionnaire_master, foreign_key: :id, primary_key: :questionnaire_master_id
@@ -610,10 +611,6 @@ class ReserveFrame < ApplicationRecord
     else
       "キャンセル不可"
     end
-  end
-
-  def image1_account_s3_image_public_url
-    AccountS3Image.find(self.image1_account_s3_image_id).s3_object_public_url
   end
 
   def logical_delete
