@@ -817,13 +817,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
     t.string "access_info"
     t.integer "parking_lot_display_status", default: 0
     t.string "remarks"
-    t.integer "page_cover_slide1_account_s3_image_id"
-    t.integer "page_cover_slide2_account_s3_image_id"
-    t.integer "page_cover_slide3_account_s3_image_id"
-    t.integer "brand_image_account_s3_image_id"
     t.integer "shop_image1_account_s3_image_id"
     t.integer "shop_image2_account_s3_image_id"
     t.integer "shop_image3_account_s3_image_id"
+    t.integer "shop_image4_account_s3_image_id"
+    t.integer "shop_image5_account_s3_image_id"
+    t.integer "shop_image6_account_s3_image_id"
     t.boolean "is_review_reception", default: false
     t.integer "business_type", default: 99
     t.datetime "created_at", null: false
