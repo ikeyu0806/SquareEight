@@ -46,6 +46,16 @@ account_s3_images = AccountS3Image.create!(
     },
     {
       account_id: account.id,
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image7.jpeg",
+      s3_object_name: "fitness_image7.jpeg",
+    },
+    {
+      account_id: account.id,
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/yoga_image1.jpeg",
+      s3_object_name: "yoga_image1.jpeg",
+    },
+    {
+      account_id: account.id,
       s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/product_image1.jpeg",
       s3_object_name: "product_image1.jpeg",
     },
@@ -56,13 +66,13 @@ account_s3_images = AccountS3Image.create!(
     },
     {
       account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/yoga_image1.jpeg",
-      s3_object_name: "yoga_image1.jpeg",
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/bouldering_image1.jpeg",
+      s3_object_name: "bouldering_image1.jpeg",
     },
     {
       account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/bouldering_image1.jpeg",
-      s3_object_name: "bouldering_image1.jpeg",
+      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/seitai_image1.jpeg",
+      s3_object_name: "seitai_image1.jpeg",
     },
   ]
 )
@@ -307,7 +317,8 @@ reserve_frames = ReserveFrame.create!(
       is_accept_cancel_on_the_day: false,
       cancel_reception_day_before: 1,
       cancel_reception_hour_before: 1,
-      lottery_confirmed_day_before: 1
+      lottery_confirmed_day_before: 1,
+      image1_account_s3_image_id: account_s3_images[6].id
     },
     {
       account_id: account.id,
@@ -352,7 +363,8 @@ reserve_frames = ReserveFrame.create!(
       is_accept_cancel_on_the_day: false,
       cancel_reception_day_before: 1,
       cancel_reception_hour_before: 1,
-      lottery_confirmed_day_before: 1
+      lottery_confirmed_day_before: 1,
+      image1_account_s3_image_id: account_s3_images[7].id
     }
   ]
 )
@@ -480,7 +492,8 @@ ticket_masters = TicketMaster.create!(
       issue_number: 1000,
       price: 5000,
       publish_status: "Publish",
-      effective_month: 12
+      effective_month: 12,
+      image1_account_s3_image_id: account_s3_images[8].id
     },
   ]
 )
@@ -504,7 +517,8 @@ monthly_payment_plans = MonthlyPaymentPlan.create!(
       reserve_interval_unit: "Week",
       enable_reserve_count: 3,
       publish_status: "Publish",
-      stripe_plan_id: "plan_N70Y45NasdEyfE"
+      stripe_plan_id: "plan_N70Y45NasdEyfE",
+      image1_account_s3_image_id: account_s3_images[9].id
     },
   ]
 )
@@ -546,6 +560,7 @@ products = Product.create!(
       tax_rate: 10,
       inventory: 100,
       publish_status: "Publish",
+      image1_account_s3_image_id: account_s3_images[8].id
     },
     {
       account_id: account.id,
@@ -554,6 +569,7 @@ products = Product.create!(
       tax_rate: 10,
       inventory: 100,
       publish_status: "Publish",
+      image1_account_s3_image_id: account_s3_images[9].id
     },
   ]
 )
