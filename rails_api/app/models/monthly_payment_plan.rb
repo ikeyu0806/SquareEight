@@ -47,4 +47,8 @@ class MonthlyPaymentPlan < ApplicationRecord
   def selected_shop_ids
     shop_monthly_payment_plans.pluck(:shop_id)
   end
+
+  def image1_account_s3_image_public_url
+    AccountS3Image.find(self.image1_account_s3_image_id).s3_object_public_url
+  end
 end
