@@ -7,13 +7,15 @@ import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
+import { ShopParam } from 'interfaces/ShopParam'
 import { nameChanged,
          issueNumberChanged,
          priceChanged,
          effectiveMonthChanged,
          descriptionChanged,
          publishStatusChanged,
-         base64ImageChanged } from 'redux/ticketMasterSlice'
+         base64ImageChanged,
+         shopsChanged } from 'redux/ticketMasterSlice'
 
 interface Props {
   showDeleteButton?: boolean
@@ -32,6 +34,8 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const description = useSelector((state: RootState) => state.ticketMaster.description)
   const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
   const publishStatus = useSelector((state: RootState) => state.monthlyPaymentPlan.publishStatus)
+  const selectedShopIds = useSelector((state: RootState) => state.product.selectedShopIds)
+  const shops = useSelector((state: RootState) => state.account.shops)
 
   const execDelete = () => {
     swalWithBootstrapButtons.fire({
@@ -70,6 +74,22 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
     getBase64(files[0]).then(
       data => dispatch(base64ImageChanged(data))
     )
+  }
+
+  const updateShop = (shopRef: number) => {
+    let updateShop: ShopParam
+    let updateShops: ShopParam[]
+    updateShops = []
+
+    updateShop = Object.assign(shops[shopRef])
+    shops.map((p, i) => {
+      if (i == shopRef) {
+        updateShops.push(updateShop)
+      } else {
+        updateShops.push(p)
+      }
+    })
+    dispatch(shopsChanged(updateShops))
   }
 
   return (
@@ -155,6 +175,21 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
                 <Form.Label className='mt10'>イメージ画像</Form.Label>
                 <Form.Control type='file' onChange={handleChangeFile} />
               </Form.Group>
+              <Form.Group className='mt10'>
+                <div>店舗設定</div>
+                <div className='mt5 mb5'>設定した店舗のページに商品ページへのリンクが表示されます。</div>
+                  {shops.map((shop, i) => {
+                    return (
+                      <Form.Check
+                        label={shop.name}
+                        id={'shop_' + shop.public_id}
+                        name={'shop_check'}
+                        onChange={() => updateShop(i)}
+                        defaultChecked={selectedShopIds.includes(shop.id)}
+                        key={i} />
+                    )
+                  })}
+                </Form.Group>
             </div>
           </Col>
           <Col>

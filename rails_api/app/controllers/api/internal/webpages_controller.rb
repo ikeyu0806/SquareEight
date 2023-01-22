@@ -11,7 +11,7 @@ class Api::Internal::WebpagesController < ApplicationController
 
   def show
     webpage = Webpage.find_by(public_id: params[:public_id])
-    webpage_json = JSON.parse(webpage.to_json(methods: [:block_contents, :max_sort_order]))
+    webpage_json = JSON.parse(webpage.to_json(methods: [:block_contents, :max_sort_order, :selected_shop_ids]))
     shared_component = webpage.account.shared_component
     render json: { status: 'success',
                    webpage: webpage_json, shared_component: shared_component }, status: 200
@@ -25,6 +25,11 @@ class Api::Internal::WebpagesController < ApplicationController
       webpage = current_merchant_user.account.webpages.create!(tag: webpage_params[:tag])
       webpage.publish_status = webpage_params[:publish_status]
       webpage.create_webblocks(webpage_params[:page_content])
+      webpage.save!
+      webpage_params[:shops].each do |s|
+        shop = Shop.find_by(public_id: s[:public_id])
+        webpage.shop_webpages.create!(shop_id: shop.id)
+      end
       webpage.save!
       render json: { status: 'success' }, status: 200
     end
@@ -52,6 +57,12 @@ class Api::Internal::WebpagesController < ApplicationController
       webpage.delete_block_images
       webpage.webpage_blocks.delete_all
       webpage.create_webblocks(webpage_params[:page_content])
+      webpage.save!
+      webpage.shop_webpages.delete_all
+      webpage_params[:shops].each do |s|
+        shop = Shop.find_by(public_id: s[:public_id])
+        webpage.shop_webpages.create!(shop_id: shop.id)
+      end
       webpage.save!
     end
     render json: { status: 'success' }, status: 200
@@ -81,6 +92,7 @@ class Api::Internal::WebpagesController < ApplicationController
             :public_id,
             :tag,
             :publish_status,
+            shops: [:name, :public_id],
             page_content: [blockContent: [:blockID,
                                           :sortOrder,
                                           atoms: [

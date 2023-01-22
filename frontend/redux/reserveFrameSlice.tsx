@@ -56,6 +56,7 @@ export const reserveFrameSlice = createSlice({
     outOfRangeFrames: [] as string[],
     unreservableFrames: [] as string[],
     resourceIds: [] as number[],
+    shopIds: [] as number[],
     reserveEvents: [],
     monthlyPaymentPlanIds: [] as number[],
     reservableFrameTicketMaster: [] as ReservableFrameTicketMasterParam[]
@@ -205,6 +206,9 @@ export const reserveFrameSlice = createSlice({
     resourceIdsChanged: (state, action: PayloadAction<number[]>) => {
       state.resourceIds = action.payload
     },
+    shopIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.shopIds = action.payload
+    },
     questionnaireMasterIdChanged: (state, action: PayloadAction<string>) => {
       state.questionnaireMasterId = action.payload
     },
@@ -268,6 +272,7 @@ export const { reserveFrameReceptionTimesChanged } = reserveFrameSlice.actions
 export const { outOfRangeFramesChanged } = reserveFrameSlice.actions
 export const { unreservableFramesChanged } = reserveFrameSlice.actions
 export const { resourceIdsChanged } = reserveFrameSlice.actions
+export const { shopIdsChanged } = reserveFrameSlice.actions
 export const { questionnaireMasterIdChanged } = reserveFrameSlice.actions
 export const { reserveEventsChanged } = reserveFrameSlice.actions
 export const { monthlyPaymentPlanIdsChanged } = reserveFrameSlice.actions

@@ -3,6 +3,7 @@ import { MessageTemplateParam } from 'interfaces/MessageTemplateParam'
 import { CustomerParam } from 'interfaces/CustomerParam'
 import { LineOfficialAccountParam } from 'interfaces/LineOfficialAccountParam'
 import { HtmlMailTemplateParam } from 'interfaces/HtmlMailTemplateParam'
+import { ShopParam } from 'interfaces/ShopParam'
 
 export const accountSlice = createSlice({
   name: 'account',
@@ -11,7 +12,8 @@ export const accountSlice = createSlice({
     lineOfficialAccounts: [] as LineOfficialAccountParam[],
     customers: [] as CustomerParam[],
     messageTemplates: [] as MessageTemplateParam[],
-    htmlMailTemplate: [] as HtmlMailTemplateParam[]
+    htmlMailTemplate: [] as HtmlMailTemplateParam[],
+    shops: [] as ShopParam[]
   },
   reducers: {
     showLineOfficialAccountModalChanged: (state, action: PayloadAction<boolean>) => {
@@ -29,6 +31,9 @@ export const accountSlice = createSlice({
     htmlMailTemplateChanged: (state, action: PayloadAction<HtmlMailTemplateParam[]>) => {
       state.htmlMailTemplate = action.payload
     },
+    shopsChanged: (state, action: PayloadAction<ShopParam[]>) => {
+      state.shops = action.payload
+    },
   },
 })
 
@@ -37,5 +42,6 @@ export const { lineOfficialAccountsChanged } = accountSlice.actions
 export const { customersChanged } = accountSlice.actions
 export const { messageTemplatesChanged } = accountSlice.actions
 export const { htmlMailTemplateChanged } = accountSlice.actions
+export const { shopsChanged } = accountSlice.actions
 
 export default accountSlice.reducer

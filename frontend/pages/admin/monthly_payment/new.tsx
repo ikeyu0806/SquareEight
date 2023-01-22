@@ -30,6 +30,7 @@ const New: NextPage = () => {
   const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const allowCreateMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowCreateMonthlyPaymentPlan)
+  const shops = useSelector((state: RootState) => state.account.shops)
 
   useEffect(() => {
     dispatch(publishStatusChanged('Unpublish'))
@@ -47,7 +48,8 @@ const New: NextPage = () => {
         enable_reserve_count: enableReserveCount,
         description: description,
         publish_status: publishStatus,
-        base64_image: base64Image
+        base64_image: base64Image,
+        shops: shops
       }
     },
     {

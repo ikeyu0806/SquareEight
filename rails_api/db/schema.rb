@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_09_233626) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -675,6 +675,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_233626) do
     t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "resouce_type", default: 99
+    t.integer "account_s3_image_id"
+    t.integer "is_show_frontend", default: 0
+    t.string "description"
   end
 
   create_table "send_line_histories", force: :cascade do |t|
@@ -754,6 +758,73 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_09_233626) do
     t.integer "shipping_fee", null: false
     t.string "region", null: false
     t.string "public_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shop_monthly_payment_plans", force: :cascade do |t|
+    t.string "public_id", null: false
+    t.integer "shop_id", null: false
+    t.integer "monthly_payment_plan_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shop_products", force: :cascade do |t|
+    t.string "public_id", null: false
+    t.integer "shop_id", null: false
+    t.integer "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shop_reserve_frames", force: :cascade do |t|
+    t.string "public_id", null: false
+    t.integer "shop_id", null: false
+    t.integer "reserve_frame_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shop_ticket_masters", force: :cascade do |t|
+    t.string "public_id", null: false
+    t.integer "shop_id", null: false
+    t.integer "ticket_master_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shop_webpages", force: :cascade do |t|
+    t.string "public_id", null: false
+    t.integer "shop_id", null: false
+    t.integer "webpage_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shops", force: :cascade do |t|
+    t.string "public_id", null: false
+    t.integer "account_id", null: false
+    t.string "name", null: false
+    t.string "description1", null: false
+    t.string "description2"
+    t.string "postal_code"
+    t.string "state"
+    t.string "city"
+    t.string "town"
+    t.string "line1"
+    t.string "line2"
+    t.string "access_info"
+    t.integer "parking_lot_display_status", default: 0
+    t.string "remarks"
+    t.integer "shop_image1_account_s3_image_id"
+    t.integer "shop_image2_account_s3_image_id"
+    t.integer "shop_image3_account_s3_image_id"
+    t.integer "shop_image4_account_s3_image_id"
+    t.integer "shop_image5_account_s3_image_id"
+    t.integer "shop_image6_account_s3_image_id"
+    t.boolean "is_review_reception", default: false
+    t.integer "business_type", default: 99
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

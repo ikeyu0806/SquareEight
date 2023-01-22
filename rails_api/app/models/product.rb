@@ -7,6 +7,7 @@ class Product < ApplicationRecord
   has_many :shipping_fee_per_regions, dependent: :delete_all
   has_many :product_image_relations
   has_many :account_s3_images, through: :product_image_relations
+  has_many :shop_products
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
   enum delivery_charge_type: { noSetting: 0, flatRate: 1, perPrefectures: 2 }
@@ -139,5 +140,9 @@ class Product < ApplicationRecord
 
   def product_types_order_id
     product_type.order(:id)
+  end
+
+  def selected_shop_ids
+    shop_products.pluck(:shop_id)
   end
 end

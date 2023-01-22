@@ -38,6 +38,7 @@ import {
   isEveryMonthRepeatChanged,
   reserveFrameReceptionTimesChanged,
   resourceIdsChanged,
+  shopIdsChanged,
   questionnaireMasterIdChanged,
   monthlyPaymentPlanIdsChanged,
   reservableFrameTicketMasterChanged,
@@ -87,6 +88,7 @@ const EditReserveFrameModal = (): JSX.Element => {
   const isCreditCardPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isCreditCardPaymentEnable)
   const isTicketPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isTicketPaymentEnable)
   const isMonthlyPlanPaymentEnable = useSelector((state: RootState) => state.reserveFrame.isMonthlyPlanPaymentEnable)
+  const shopIds = useSelector((state: RootState) => state.reserveFrame.shopIds)
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
   const questionnaireMasterId = useSelector((state: RootState) => state.reserveFrame.questionnaireMasterId)
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
@@ -160,6 +162,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         reserve_frame_reception_times: reserveFrameReceptionTimes,
         unreservable_frames: unreservableFrames,
         out_of_range_frames: outOfRangeFrames,
+        shop_ids: shopIds,
         resource_ids: resourceIds,
         questionnaire_master_id: questionnaireMasterId,
         is_local_payment_enable: isLocalPaymentEnable,
@@ -270,6 +273,7 @@ const EditReserveFrameModal = (): JSX.Element => {
         dispatch(repeatWDaysChanged(response.data.reserve_frame.repeat_wdays))
         dispatch(repeatEndDateChanged(response.data.reserve_frame.repeat_end_date_input_value))
         dispatch(resourceIdsChanged(response.data.reserve_frame.resource_ids))
+        dispatch(shopIdsChanged(response.data.reserve_frame.shop_ids))
         dispatch(questionnaireMasterIdChanged(response.data.reserve_frame.questionnaire_master_id))
         dispatch(monthlyPaymentPlanIdsChanged(response.data.reserve_frame.monthly_payment_plan_ids))
         dispatch(reservableFrameTicketMasterChanged(response.data.reserve_frame.reservable_frame_ticket_master))

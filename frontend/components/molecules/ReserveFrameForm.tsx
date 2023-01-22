@@ -6,6 +6,7 @@ import { useCookies } from 'react-cookie'
 import { RootState } from 'redux/store'
 import axios from 'axios'
 import { ResourceParam } from 'interfaces/ResourceParam'
+import { ShopParam } from 'interfaces/ShopParam'
 import { QuestionnaireMasterParam } from 'interfaces/QuestionnaireMasterParam'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
@@ -38,6 +39,7 @@ import {  startDateChanged,
           isMonthlyPlanPaymentEnableChanged,
           reserveFrameReceptionTimesChanged,
           resourceIdsChanged,
+          shopIdsChanged,
           questionnaireMasterIdChanged,
           monthlyPaymentPlanIdsChanged,
           reservableFrameTicketMasterChanged,
@@ -80,6 +82,7 @@ const ReserveFrameForm = () => {
   const multiCreditCardPaymentPriceRefs = useRef<any>([])
   multiCreditCardPaymentPriceRefs.current = multiCreditCardPaymentPrices.map((_, i) => multiCreditCardPaymentPriceRefs.current[i] ?? createRef())
   const resourceIds = useSelector((state: RootState) => state.reserveFrame.resourceIds)
+  const shopIds = useSelector((state: RootState) => state.reserveFrame.shopIds)
   const questionnaireMasterId = useSelector((state: RootState) => state.reserveFrame.questionnaireMasterId)
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
@@ -94,6 +97,7 @@ const ReserveFrameForm = () => {
 
   const [reserveFrameReceptionStartTime, setReserveFrameReceptionStartTime] = useState('')
   const [reserveFrameReceptionEndTime, setReserveFrameReceptionEndTime] = useState('')
+  const [selectableShops, setSelectableShops] = useState<ShopParam[]>([])
   const [selectableResources, setSelectableResources] = useState<ResourceParam[]>([])
   const [selectedQuestionnaireMasters, setSelectedQuestionnaireMasters] = useState<QuestionnaireMasterParam[]>([])
   const [selectableTicketMasters, setSelectableTicketMasters] = useState<TicketMasterParam[]>([])
@@ -112,6 +116,7 @@ const ReserveFrameForm = () => {
       )
       .then(function (response) {
         setSelectedQuestionnaireMasters(response.data.questionnaire_masters)
+        setSelectableShops(response.data.shops)
         setSelectableResources(response.data.resources)
         setSelectableMonthlyPaymentPlans(response.data.monthly_payment_plans)
         const ticketMasterResponse: TicketMasterParam[] = response.data.ticket_masters
@@ -189,6 +194,16 @@ const ReserveFrameForm = () => {
       filterResourceIds = [...resourceIds, resourceId]
     }
     dispatch(resourceIdsChanged(filterResourceIds))
+  }
+
+  const updateShopIds = (shopId: number) => {
+    let filterShopIds: number[]
+    if (shopIds.includes(shopId)) {
+      filterShopIds = shopIds.filter((id) => id !== shopId)
+    } else {
+      filterShopIds = [...shopIds, shopId]
+    }
+    dispatch(shopIdsChanged(filterShopIds))
   }
 
   const validateAddReserveFrameReceptionTimes = () => {
@@ -978,6 +993,37 @@ const ReserveFrameForm = () => {
             リソースが登録されていません
             <br/>
             <a href='/admin/resource/new'
+               target='_blank'
+               rel='noreferrer'>
+              リソース登録
+            </a></>}
+      </Form.Group>
+
+      <Form.Group className='mb-3'>
+        <Form.Label>店舗設定</Form.Label>
+        <br />
+        
+        {selectableShops.length
+        ?
+          <>
+            {selectableShops.map((shop, i) => {
+            return (
+                <span key={i}>
+                  <Form.Check
+                    checked={shopIds.includes(shop.id)}
+                    label={shop.name}
+                    id={'shop' + String(i)}
+                    onChange={() => updateShopIds(shop.id)}
+                    type='checkbox'></Form.Check>
+                </span>
+              )
+            })}
+          </>
+        :
+          <>
+            店舗が登録されていません
+            <br/>
+            <a href='/admin/shop/new'
                target='_blank'
                rel='noreferrer'>
               リソース登録

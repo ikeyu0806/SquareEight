@@ -1,6 +1,7 @@
 import { ReserveFrameReceptionTimeParam } from './ReserveFrameReceptionTimeParam'
 import { MultiPaymentMethod } from './MultiPaymentMethod'
 import { ResourceParam } from './ResourceParam'
+import { ShopParam } from './ShopParam'
 import { QuestionnaireMasterParam } from './QuestionnaireMasterParam'
 import { UnreservableFrameParam } from './UnreservableFrameParam'
 
@@ -43,6 +44,7 @@ export interface ReserveFrameParam {
   reserve_frame_reception_times_values: ReserveFrameReceptionTimeParam[]
   reserve_frame_local_payment_prices: MultiPaymentMethod[]
   reserve_frame_credit_card_payment_prices: MultiPaymentMethod[]
+  shops_name_with_public_id: ShopParam[]
   resources_name_with_public_id: ResourceParam[]
   questionnaire_master_title_with_public_id: QuestionnaireMasterParam
   unreservable_frames_dates: UnreservableFrameParam[]

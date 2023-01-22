@@ -2,6 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { PageContentState } from '../interfaces/PageContentState'
 import { WebsiteHeaderType } from '../interfaces/WebsiteHeaderType'
 import { WebsiteFooterType } from '../interfaces/WebsiteFooterType'
+import { ShopParam } from 'interfaces/ShopParam'
 
 export const webpageSlice = createSlice({
   name: 'webpage',
@@ -25,6 +26,8 @@ export const webpageSlice = createSlice({
     showEditFooterModal: false,
     websiteHeader: {} as WebsiteHeaderType,
     websiteFooter: {} as WebsiteFooterType,
+    shops: [] as ShopParam[],
+    selectedShopIds: [] as number[]
   },
   reducers: {
     pageContentChanged: (state, action: PayloadAction<PageContentState>) => {
@@ -78,6 +81,12 @@ export const webpageSlice = createSlice({
     websiteFooterChanged: (state, action: PayloadAction<WebsiteFooterType>) => {
       state.websiteFooter = action.payload
     },
+    shopsChanged: (state, action: PayloadAction<ShopParam[]>) => {
+      state.shops = action.payload
+    },
+    selectedShopIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.selectedShopIds = action.payload
+    },
   },
 })
 
@@ -98,5 +107,7 @@ export const { showEditFooterModalChanged } = webpageSlice.actions
 export const { websiteHeaderChanged } = webpageSlice.actions
 export const { websiteFooterChanged } = webpageSlice.actions
 export const { publishStatusChanged } = webpageSlice.actions
+export const { shopsChanged } = webpageSlice.actions
+export const { selectedShopIdsChanged } = webpageSlice.actions
 
 export default webpageSlice.reducer

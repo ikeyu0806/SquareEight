@@ -14,6 +14,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def show
     monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.enabled.find_by(public_id: params[:public_id])
+    monthly_payment_plan = JSON.parse(monthly_payment_plan.to_json(methods: [:selected_shop_ids]))
     render json: { status: 'success', monthly_payment_plan: monthly_payment_plan }, status: 200
   rescue => error
     Rails.logger.error error
@@ -46,12 +47,12 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.new(monthly_payment_plan_params.except(:base64_image))
+      monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.new(monthly_payment_plan_params.except(:base64_image, :shops))
       if monthly_payment_plan_params[:base64_image].present?
         file_name = "monthly_paymeny_plan_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         account_image = monthly_payment_plan.account_s3_images.new
         account_image.account = current_merchant_user.account
-        account_image.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+        account_image.s3_object_public_url = put_s3_http_request_base64_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
       end
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
@@ -68,6 +69,11 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       })
       monthly_payment_plan.stripe_plan_id = stripe_plan.id
       monthly_payment_plan.save!
+      monthly_payment_plan_params[:shops].each do |s|
+        shop = Shop.find_by(public_id: s[:public_id])
+        monthly_payment_plan.shop_monthly_payment_plans.create!(shop_id: shop.id)
+      end
+      monthly_payment_plan.save!
       render json: { status: 'success' }, status: 200
     end
   rescue => error
@@ -77,14 +83,20 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def update
     monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find_by(public_id: params[:public_id])
-    monthly_payment_plan.attributes = monthly_payment_plan_params.except(:base64_image)
+    monthly_payment_plan.attributes = monthly_payment_plan_params.except(:base64_image, :shops)
     if (monthly_payment_plan_params[:base64_image].present?)
       ticket_master.ticket_master_image_relations.update_all(relation_status: "Sub")
       file_name = "monthly_paymeny_plan_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
       account_image = monthly_payment_plan.account_s3_images.new
       account_image.account = current_merchant_user.account
-      account_image.s3_object_public_url = put_s3_http_request_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+      account_image.s3_object_public_url = put_s3_http_request_base64_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
       account_image.s3_object_name = file_name
+    end
+    monthly_payment_plan.save!
+    monthly_payment_plan.shop_monthly_payment_plans.delete_all
+    monthly_payment_plan_params[:shops].each do |s|
+      shop = Shop.find_by(public_id: s[:public_id])
+      monthly_payment_plan.shop_monthly_payment_plans.create!(shop_id: shop.id)
     end
     monthly_payment_plan.save!
     render json: { status: 'success' }, status: 200
@@ -132,6 +144,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
                                                   :enable_reserve_count,
                                                   :publish_status,
                                                   :base64_image,
-                                                  :purchase_quantity)
+                                                  :purchase_quantity,
+                                                  shops: [:name, :public_id])
   end
 end

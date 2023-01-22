@@ -18,6 +18,7 @@ const New: NextPage = () => {
   const webpageTag = useSelector((state: RootState) => state.webpage.webpageTag)
   const publishStatus = useSelector((state: RootState) => state.webpage.publishStatus)
   const allowCreateWebpage = useSelector((state: RootState) => state.merchantUserPermission.allowCreateWebpage)
+  const shops = useSelector((state: RootState) => state.account.shops)
 
   const createWebpage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/webpages`,
@@ -25,7 +26,8 @@ const New: NextPage = () => {
       webpage: {
         page_content: pageContent,
         tag: webpageTag,
-        publish_status: publishStatus
+        publish_status: publishStatus,
+        shops: shops
       }
     },
     {

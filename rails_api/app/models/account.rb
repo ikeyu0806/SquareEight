@@ -34,6 +34,7 @@ class Account < ApplicationRecord
   has_many :send_mail_schedules
   has_many :send_line_histories
   has_many :send_line_schedules
+  has_many :shops
 
   # プランごとの設定
   PLAN_NAME =  { "Free" => "フリープラン", "Light" => "ライトプラン", "Standard" => "スタンダードプラン", "Premium" => "プレミアムプラン" }

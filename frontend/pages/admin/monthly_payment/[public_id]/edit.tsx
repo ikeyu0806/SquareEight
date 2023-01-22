@@ -20,7 +20,8 @@ import { priceChanged,
          reserveIntervalUnitChanged,
          enableReserveCountChanged,
          descriptionChanged,
-         s3ObjectPublicUrlChanged } from 'redux/monthlyPaymentPlanSlice'
+         s3ObjectPublicUrlChanged,
+         selectedShopIdsChanged } from 'redux/monthlyPaymentPlanSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -38,6 +39,7 @@ const Edit: NextPage = () => {
   const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const allowUpdateMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateMonthlyPaymentPlan)
+  const shops = useSelector((state: RootState) => state.account.shops)
 
   useEffect(() => {
     const fetchMonthlyPaymentPlan = () => {
@@ -58,6 +60,7 @@ const Edit: NextPage = () => {
         dispatch(enableReserveCountChanged(monthlyPaymentPlanResponse.enable_reserve_count))
         dispatch(descriptionChanged(monthlyPaymentPlanResponse.description))
         dispatch(s3ObjectPublicUrlChanged(monthlyPaymentPlanResponse.s3_object_public_url))
+        dispatch(selectedShopIdsChanged(response.data.monthly_payment_plan.selected_shop_ids))
       })
       .catch(error => {
         console.log(error)
@@ -78,7 +81,8 @@ const Edit: NextPage = () => {
         enable_reserve_count: enableReserveCount,
         description: description,
         publish_status: publishStatus,
-        base64_image: base64Image
+        base64_image: base64Image,
+        shops: shops
       }
     },
     {

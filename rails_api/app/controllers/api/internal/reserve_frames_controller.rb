@@ -11,6 +11,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                         :reception_type_text,
                                         :display_start_at,
                                         :display_end_at,
+                                        :shops_name_with_public_id,
                                         :resources_name_with_public_id,
                                         :questionnaire_master_title_with_public_id,
                                         :reserve_frame_reception_times_values,
@@ -32,6 +33,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
     login_status = current_end_user.present? ? 'Logout' : 'Login'
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,
                                                                     :resource_ids,
+                                                                    :shop_ids,
                                                                     :start_date_input_value,
                                                                     :repeat_end_date_input_value,
                                                                     :monthly_payment_plan_ids,
@@ -73,6 +75,13 @@ class Api::Internal::ReserveFramesController < ApplicationController
           reserve_frame.reserve_frame_resources.new(resource_id: resource_id)
         end
       end
+      reserve_frame.save!
+      if reserve_frame_params[:shop_ids].present?
+        reserve_frame.shop_reserve_frames.delete_all
+        reserve_frame_params[:shop_ids].each do |shop_id|
+          reserve_frame.shop_reserve_frames.new(shop_id: shop_id)
+        end
+      end
       if reserve_frame.is_monthly_plan_payment_enable?
         reserve_frame_params[:monthly_payment_plan_ids].each do |plan_id|
           reserve_frame.reserve_frame_monthly_payment_plans.new(monthly_payment_plan_id: plan_id)
@@ -87,7 +96,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
         file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         account_image = reserve_frame.account_s3_images.new
         account_image.account = current_merchant_user.account
-        account_image.s3_object_public_url = put_s3_http_request_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+        account_image.s3_object_public_url = put_s3_http_request_base64_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
       end
       if reserve_frame_params[:repeat_wdays].present?
@@ -146,6 +155,13 @@ class Api::Internal::ReserveFramesController < ApplicationController
           reserve_frame.reserve_frame_resources.new(resource_id: resource_id)
         end
       end
+      reserve_frame.save!
+      if reserve_frame_params[:shop_ids].present?
+        reserve_frame.shop_reserve_frames.delete_all
+        reserve_frame_params[:shop_ids].each do |shop_id|
+          reserve_frame.shop_reserve_frames.new(shop_id: shop_id)
+        end
+      end
       if reserve_frame.is_monthly_plan_payment_enable?
         reserve_frame.monthly_payment_plans.delete_all
         reserve_frame_params[:monthly_payment_plan_ids].uniq.each do |plan_id|
@@ -163,7 +179,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
         file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         account_image = reserve_frame.account_s3_images.new
         account_image.account = current_merchant_user.account
-        account_image.s3_object_public_url = put_s3_http_request_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+        account_image.s3_object_public_url = put_s3_http_request_base64_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
       end
       if reserve_frame_params[:repeat_wdays].present?
@@ -189,11 +205,13 @@ class Api::Internal::ReserveFramesController < ApplicationController
     resources = account.resources
     ticket_masters = account.ticket_masters.enabled
     monthly_payment_plans = account.monthly_payment_plans.enabled
+    shops = account.shops
     render json: { status: 'success',
                    resources: resources,
                    questionnaire_masters: questionnaire_masters,
                    ticket_masters: ticket_masters,
-                   monthly_payment_plans: monthly_payment_plans }, status: 200
+                   monthly_payment_plans: monthly_payment_plans,
+                   shops: shops }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
@@ -255,6 +273,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                   multi_local_payment_prices: [:name, :price],
                   multi_credit_card_payment_prices: [:name, :price],
                   repeat_wdays: [],
+                  shop_ids: [],
                   resource_ids: [],
                   monthly_payment_plan_ids: [],
                   reserve_frame_reception_times: [:reception_start_time, :reception_end_time],
@@ -268,6 +287,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                 :out_of_range_frames,
                                 :reserve_frame_reception_times,
                                 :repeat_interval_number_month_date,
+                                :shop_ids,
                                 :resource_ids,
                                 :monthly_payment_plan_ids,
                                 :reservable_frame_ticket_master,
