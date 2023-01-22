@@ -58,7 +58,8 @@ const Edit: NextPage = () => {
         id: router.query.public_id,
         page_content: pageContent,
         tag: webpageTag,
-        publish_status: publishStatus
+        publish_status: publishStatus,
+        shops: shops
       }
     },
     {

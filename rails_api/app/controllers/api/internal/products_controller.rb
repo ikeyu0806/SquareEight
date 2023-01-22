@@ -42,6 +42,10 @@ class Api::Internal::ProductsController < ApplicationController
           product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
         end
       end
+      product_params[:shops].each do |s|
+        shop = Shop.find_by(public_id: s[:public_id])
+        product.shop_products.create!(shop_id: shop.id)
+      end
       product.save!
       render json: { status: 'success' }, status: 200
     end

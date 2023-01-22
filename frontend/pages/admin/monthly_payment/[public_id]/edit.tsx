@@ -80,7 +80,8 @@ const Edit: NextPage = () => {
         enable_reserve_count: enableReserveCount,
         description: description,
         publish_status: publishStatus,
-        base64_image: base64Image
+        base64_image: base64Image,
+        shops: shops
       }
     },
     {
