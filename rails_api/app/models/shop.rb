@@ -28,22 +28,6 @@ class Shop < ApplicationRecord
     self.save!
   end
 
-  def page_cover_slide1_image_public_url
-    AccountS3Image.find(self.page_cover_slide1_account_s3_image_id).s3_object_public_url
-  end
-
-  def page_cover_slide2_image_public_url
-    AccountS3Image.find(self.page_cover_slide2_account_s3_image_id).s3_object_public_url
-  end
-
-  def page_cover_slide3_image_public_url
-    AccountS3Image.find(self.page_cover_slide3_account_s3_image_id).s3_object_public_url
-  end
-
-  def brand_image_public_url
-    AccountS3Image.find(self.brand_image_account_s3_image_id).s3_object_public_url
-  end
-
   def shop_image1_public_url
     AccountS3Image.find(self.shop_image1_account_s3_image_id).s3_object_public_url
   end
@@ -54,5 +38,17 @@ class Shop < ApplicationRecord
 
   def shop_image3_public_url
     AccountS3Image.find(self.shop_image3_account_s3_image_id).s3_object_public_url
+  end
+
+  def shop_image4_public_url
+    AccountS3Image.find(self.shop_image4_account_s3_image_id).s3_object_public_url
+  end
+
+  def shop_image5_public_url
+    AccountS3Image.find(self.shop_image5_account_s3_image_id).s3_object_public_url
+  end
+
+  def shop_image6_public_url
+    AccountS3Image.find(self.shop_image6_account_s3_image_id).s3_object_public_url
   end
 end

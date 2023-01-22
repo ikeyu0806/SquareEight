@@ -15,20 +15,19 @@ export const shopSlice = createSlice({
     accessInfo: '',
     parkingLotDisplayStatus: '',
     remarks: '',
-    pageCoverSlide1File: null as File | unknown,
-    pageCoverSlide2File:  null as File | unknown,
-    pageCoverSlide3File:  null as File | unknown,
     brandImageFile: null as File | unknown,
     shopImage1File: null as File | unknown,
     shopImage2File:  null as File | unknown,
     shopImage3File:  null as File | unknown,
-    pageCoverSlide1ImagePublicUrl: '',
-    pageCoverSlide2ImagePublicUrl: '',
-    pageCoverSlide3ImagePublicUrl: '',
-    brandImagePublicUrl: '',
+    shopImage4File:  null as File | unknown,
+    shopImage5File:  null as File | unknown,
+    shopImage6File:  null as File | unknown,
     shopImage1ImagePublicUrl: '',
     shopImage2ImagePublicUrl: '',
     shopImage3ImagePublicUrl: '',
+    shopImage4ImagePublicUrl: '',
+    shopImage5ImagePublicUrl: '',
+    shopImage6ImagePublicUrl: '',
     businessType: ''
   },
   reducers: {
@@ -68,15 +67,6 @@ export const shopSlice = createSlice({
     remarksChanged: (state, action: PayloadAction<string>) => {
       state.remarks = action.payload
     },
-    pageCoverSlide1FileChanged: (state, action: PayloadAction<File>) => {
-      state.pageCoverSlide1File = action.payload
-    },
-    pageCoverSlide2FileChanged: (state, action: PayloadAction<File>) => {
-      state.pageCoverSlide2File = action.payload
-    },
-    pageCoverSlide3FileChanged: (state, action: PayloadAction<File>) => {
-      state.pageCoverSlide3File = action.payload
-    },
     brandImageFileChanged: (state, action: PayloadAction<File>) => {
       state.brandImageFile = action.payload
     },
@@ -89,17 +79,14 @@ export const shopSlice = createSlice({
     shopImage3FileChanged: (state, action: PayloadAction<File>) => {
       state.shopImage3File = action.payload
     },
-    pageCoverSlide1ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.pageCoverSlide1ImagePublicUrl = action.payload
+    shopImage4FileChanged: (state, action: PayloadAction<File>) => {
+      state.shopImage4File = action.payload
     },
-    pageCoverSlide2ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.pageCoverSlide2ImagePublicUrl = action.payload
+    shopImage5FileChanged: (state, action: PayloadAction<File>) => {
+      state.shopImage5File = action.payload
     },
-    pageCoverSlide3ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.pageCoverSlide3ImagePublicUrl = action.payload
-    },
-    brandImageImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.brandImagePublicUrl = action.payload
+    shopImage6FileChanged: (state, action: PayloadAction<File>) => {
+      state.shopImage6File = action.payload
     },
     shopImage1ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
       state.shopImage1ImagePublicUrl = action.payload
@@ -109,6 +96,15 @@ export const shopSlice = createSlice({
     },
     shopImage3ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
       state.shopImage3ImagePublicUrl = action.payload
+    },
+    shopImage4ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.shopImage4ImagePublicUrl = action.payload
+    },
+    shopImage5ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.shopImage5ImagePublicUrl = action.payload
+    },
+    shopImage6ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.shopImage6ImagePublicUrl = action.payload
     },
     businessTypeChanged: (state, action: PayloadAction<string>) => {
       state.businessType = action.payload
@@ -128,20 +124,19 @@ export const { line2Changed } = shopSlice.actions
 export const { accessInfoChanged } = shopSlice.actions
 export const { parkingLotDisplayStatusChanged } = shopSlice.actions
 export const { remarksChanged } = shopSlice.actions
-export const { pageCoverSlide1FileChanged } = shopSlice.actions
-export const { pageCoverSlide2FileChanged } = shopSlice.actions
-export const { pageCoverSlide3FileChanged } = shopSlice.actions
 export const { brandImageFileChanged } = shopSlice.actions
 export const { shopImage1FileChanged } = shopSlice.actions
 export const { shopImage2FileChanged } = shopSlice.actions
 export const { shopImage3FileChanged } = shopSlice.actions
-export const { pageCoverSlide1ImagePublicUrlChanged } = shopSlice.actions
-export const { pageCoverSlide2ImagePublicUrlChanged } = shopSlice.actions
-export const { pageCoverSlide3ImagePublicUrlChanged } = shopSlice.actions
-export const { brandImageImagePublicUrlChanged } = shopSlice.actions
+export const { shopImage4FileChanged } = shopSlice.actions
+export const { shopImage5FileChanged } = shopSlice.actions
+export const { shopImage6FileChanged } = shopSlice.actions
 export const { shopImage1ImagePublicUrlChanged } = shopSlice.actions
 export const { shopImage2ImagePublicUrlChanged } = shopSlice.actions
 export const { shopImage3ImagePublicUrlChanged } = shopSlice.actions
+export const { shopImage4ImagePublicUrlChanged } = shopSlice.actions
+export const { shopImage5ImagePublicUrlChanged } = shopSlice.actions
+export const { shopImage6ImagePublicUrlChanged } = shopSlice.actions
 export const { businessTypeChanged } = shopSlice.actions
 
 export default shopSlice.reducer

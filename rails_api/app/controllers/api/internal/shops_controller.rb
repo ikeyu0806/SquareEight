@@ -18,10 +18,9 @@ class Api::Internal::ShopsController < ApplicationController
     shop = shop.to_json(methods: [  :page_cover_slide1_image_public_url,
                                     :page_cover_slide2_image_public_url,
                                     :page_cover_slide3_image_public_url,
-                                    :brand_image_public_url,
-                                    :shop_image1_public_url,
-                                    :shop_image2_public_url,
-                                    :shop_image3_public_url])
+                                    :page_cover_slide4_image_public_url,
+                                    :page_cover_slide5_image_public_url,
+                                    :page_cover_slide6_image_public_url])
     shop = JSON.parse(shop)
     render json: { status: 'success', shop: shop, shared_component: shared_component }, status: 200
   rescue => error
@@ -43,18 +42,6 @@ class Api::Internal::ShopsController < ApplicationController
       shop.line2 = params[:line2]
       shop.remarks = params[:remarks]
       shop.save!
-      if params[:page_cover_slide1_file].present?
-        shop.register_s3_image(params[:page_cover_slide1_file], "page_cover_slide1_account_s3_image_id")
-      end
-      if params[:page_cover_slide2_file].present?
-        shop.register_s3_image(params[:page_cover_slide2_file], "page_cover_slide2_account_s3_image_id")
-      end
-      if params[:page_cover_slide3_file].present?
-        shop.register_s3_image(params[:page_cover_slide3_file], "page_cover_slide3_account_s3_image_id")
-      end
-      if params[:brand_image_file].present?
-        shop.register_s3_image(params[:brand_image_file], "brand_image_account_s3_image_id")
-      end
       if params[:shop_image1_file].present?
         shop.register_s3_image(params[:shop_image1_file], "shop_image1_account_s3_image_id")
       end
@@ -63,6 +50,15 @@ class Api::Internal::ShopsController < ApplicationController
       end
       if params[:shop_image3_file].present?
         shop.register_s3_image(params[:shop_image3_file], "shop_image3_account_s3_image_id")
+      end
+      if params[:shop_image4_file].present?
+        shop.register_s3_image(params[:shop_image4_file], "shop_image4_account_s3_image_id")
+      end
+      if params[:shop_image5_file].present?
+        shop.register_s3_image(params[:shop_image5_file], "shop_image5_account_s3_image_id")
+      end
+      if params[:shop_image6_file].present?
+        shop.register_s3_image(params[:shop_image6_file], "shop_image6_account_s3_image_id")
       end
       shop.save!
     end

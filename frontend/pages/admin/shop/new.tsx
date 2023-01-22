@@ -23,13 +23,12 @@ const New: NextPage = () => {
   const town = useSelector((state: RootState) => state.shop.town)
   const line1 = useSelector((state: RootState) => state.shop.line1)
   const line2 = useSelector((state: RootState) => state.shop.line2)
-  const pageCoverSlide1File = useSelector((state: RootState) => state.shop.pageCoverSlide1File)
-  const pageCoverSlide2File = useSelector((state: RootState) => state.shop.pageCoverSlide2File)
-  const pageCoverSlide3File = useSelector((state: RootState) => state.shop.pageCoverSlide3File)
-  const brandImageFile = useSelector((state: RootState) => state.shop.brandImageFile)
   const shopImage1File = useSelector((state: RootState) => state.shop.shopImage1File)
   const shopImage2File = useSelector((state: RootState) => state.shop.shopImage2File)
   const shopImage3File = useSelector((state: RootState) => state.shop.shopImage3File)
+  const shopImage4File = useSelector((state: RootState) => state.shop.shopImage4File)
+  const shopImage5File = useSelector((state: RootState) => state.shop.shopImage5File)
+  const shopImage6File = useSelector((state: RootState) => state.shop.shopImage6File)
 
   const createShop = () => {
     const params = new FormData()
@@ -43,13 +42,12 @@ const New: NextPage = () => {
     params.append('line1', line1)
     params.append('line2', line2)
     params.append('remarks', remarks)
-    params.append('page_cover_slide1_file', pageCoverSlide1File as Blob)
-    params.append('page_cover_slide2_file', pageCoverSlide2File as Blob)
-    params.append('page_cover_slide3_file', pageCoverSlide3File as Blob)
-    params.append('brand_image_file', brandImageFile as Blob)
     params.append('shop_image1_file', shopImage1File as Blob)
     params.append('shop_image2_file', shopImage2File as Blob)
     params.append('shop_image3_file', shopImage3File as Blob)
+    params.append('shop_image4_file', shopImage3File as Blob)
+    params.append('shop_image5_file', shopImage3File as Blob)
+    params.append('shop_image6_file', shopImage3File as Blob)
     axios.post(`${process.env.BACKEND_URL}/api/internal/shops`, params, {
       headers: {
         'Content-Type': 'multipart/form-data',
