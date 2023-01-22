@@ -4,8 +4,8 @@ class Shop < ApplicationRecord
 
   belongs_to :account
 
-  has_many :shop_monthly_pament_plans
-  has_many :monthly_pament_plans, through: :shop_monthly_pament_plans
+  has_many :shop_monthly_payment_plans
+  has_many :monthly_pament_plans, through: :shop_monthly_payment_plans
   has_many :shop_products
   has_many :products, through: :shop_products
   has_many :shop_reserve_frames

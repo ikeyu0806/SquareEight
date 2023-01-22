@@ -762,7 +762,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_18_081944) do
     t.datetime "updated_at", null: false
   end
 
-  create_table "shop_monthly_pament_plans", force: :cascade do |t|
+  create_table "shop_monthly_payment_plans", force: :cascade do |t|
     t.string "public_id", null: false
     t.integer "shop_id", null: false
     t.integer "monthly_payment_plan_id", null: false

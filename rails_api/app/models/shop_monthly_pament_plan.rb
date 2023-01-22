@@ -1,4 +1,4 @@
-class ShopMonthlyPamentPlan < ApplicationRecord
+class ShopMonthlyPaymentPlan < ApplicationRecord
   include PublicIdModule
 
   belongs_to :shop

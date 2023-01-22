@@ -6,7 +6,7 @@ class MonthlyPaymentPlan < ApplicationRecord
   has_many :cart_monthly_payment_plans
   has_many :monthly_payment_plan_image_relations
   has_many :account_s3_images, through: :monthly_payment_plan_image_relations
-  has_many :shop_monthly_payment_plans, class_name: 'ShopMonthlyPamentPlan'
+  has_many :shop_monthly_payment_plans, class_name: 'ShopMonthlyPaymentPlan'
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
 
