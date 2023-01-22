@@ -91,7 +91,7 @@ const Purchase: NextPage = () => {
         dispatch(inventoryChanged(response.data.product.inventory))
         dispatch(descriptionChanged(response.data.product.description))
         dispatch(publishStatusChanged(response.data.product.publish_status))
-        dispatch(s3ObjectPublicUrlChanged(response.data.product.s3_object_public_url))
+        dispatch(s3ObjectPublicUrlChanged(response.data.product.image1_account_s3_image_public_url))
         dispatch(deliveryChargeTypeChanged(response.data.product.delivery_charge_type))
         dispatch(prefectureDeliveryChargesChange(response.data.product.shipping_fee_per_regions))
         dispatch(flatRateDeliveryChargeChange(response.data.product.flat_rate_delivery_charge))

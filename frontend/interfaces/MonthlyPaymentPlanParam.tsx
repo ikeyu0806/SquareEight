@@ -9,5 +9,5 @@ export interface MonthlyPaymentPlanParam {
   enable_reserve_count: number
   description: string
   publish_status: string
-  s3_object_public_url?: string
+  image1_account_s3_image_public_url: string
 }

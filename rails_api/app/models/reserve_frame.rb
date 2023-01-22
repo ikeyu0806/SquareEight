@@ -10,7 +10,7 @@ class ReserveFrame < ApplicationRecord
   has_many :out_of_range_frames
   has_many :reserve_frame_resources
   has_many :resources, through: :reserve_frame_resources
-  has_many :shop_reserve_frames
+  has_many :shop_reserve_frames, dependent: :destroy
   has_many :shops, through: :shop_reserve_frames
   has_many :reserve_frame_monthly_payment_plans
   has_many :monthly_payment_plans, through: :reserve_frame_monthly_payment_plans

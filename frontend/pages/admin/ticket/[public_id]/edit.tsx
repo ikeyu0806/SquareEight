@@ -47,7 +47,7 @@ const Edit: NextPage = () => {
         dispatch(priceChanged(ticketMasterResponse.price))
         dispatch(issueNumberChanged(ticketMasterResponse.issue_number))
         dispatch(descriptionChanged(ticketMasterResponse.description))
-        dispatch(s3ObjectPublicUrlChanged(ticketMasterResponse.s3_object_public_url))
+        dispatch(s3ObjectPublicUrlChanged(ticketMasterResponse.image1_account_s3_image_public_url))
         dispatch(selectedShopIdsChanged(response.data.ticket_master.selected_shop_ids))
       })
       .catch(error => {

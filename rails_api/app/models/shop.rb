@@ -15,40 +15,40 @@ class Shop < ApplicationRecord
   has_many :shop_webpages
   has_many :webpages, through: :shop_webpages
 
-  # S3にputするファイルとs3_object_public_url_column
-  def register_s3_image(image_file, s3_object_public_url_column)
+  # S3にputするファイルとimage1_account_s3_image_public_url_column
+  def register_s3_image(image_file, image1_account_s3_image_public_url_column)
     file_name = "shop_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-    s3_object_public_url = put_s3_http_request_form_data(image_file, ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+    image1_account_s3_image_public_url = put_s3_http_request_form_data(image_file, ENV["PRODUCT_IMAGE_BUCKET"], file_name)
     account_image = AccountS3Image.new
     account_image.account = self.account
-    account_image.s3_object_public_url = s3_object_public_url
+    account_image.image1_account_s3_image_public_url = image1_account_s3_image_public_url
     account_image.s3_object_name = file_name
     account_image.save!
-    self.send(s3_object_public_url_column + "=", account_image.id)
+    self.send(image1_account_s3_image_public_url_column + "=", account_image.id)
     self.save!
   end
 
   def shop_image1_public_url
-    AccountS3Image.find(self.shop_image1_account_s3_image_id).s3_object_public_url
+    AccountS3Image.find(self.shop_image1_account_s3_image_id).image1_account_s3_image_public_url
   end
 
   def shop_image2_public_url
-    AccountS3Image.find(self.shop_image2_account_s3_image_id).s3_object_public_url
+    AccountS3Image.find(self.shop_image2_account_s3_image_id).image1_account_s3_image_public_url
   end
 
   def shop_image3_public_url
-    AccountS3Image.find(self.shop_image3_account_s3_image_id).s3_object_public_url
+    AccountS3Image.find(self.shop_image3_account_s3_image_id).image1_account_s3_image_public_url
   end
 
   def shop_image4_public_url
-    AccountS3Image.find(self.shop_image4_account_s3_image_id).s3_object_public_url
+    AccountS3Image.find(self.shop_image4_account_s3_image_id).image1_account_s3_image_public_url
   end
 
   def shop_image5_public_url
-    AccountS3Image.find(self.shop_image5_account_s3_image_id).s3_object_public_url
+    AccountS3Image.find(self.shop_image5_account_s3_image_id).image1_account_s3_image_public_url
   end
 
   def shop_image6_public_url
-    AccountS3Image.find(self.shop_image6_account_s3_image_id).s3_object_public_url
+    AccountS3Image.find(self.shop_image6_account_s3_image_id).image1_account_s3_image_public_url
   end
 end

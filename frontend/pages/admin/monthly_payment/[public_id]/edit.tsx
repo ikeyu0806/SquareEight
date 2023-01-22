@@ -59,7 +59,7 @@ const Edit: NextPage = () => {
         dispatch(reserveIntervalUnitChanged(monthlyPaymentPlanResponse.reserve_interval_unit))
         dispatch(enableReserveCountChanged(monthlyPaymentPlanResponse.enable_reserve_count))
         dispatch(descriptionChanged(monthlyPaymentPlanResponse.description))
-        dispatch(s3ObjectPublicUrlChanged(monthlyPaymentPlanResponse.s3_object_public_url))
+        dispatch(s3ObjectPublicUrlChanged(monthlyPaymentPlanResponse.image1_account_s3_image_public_url))
         dispatch(selectedShopIdsChanged(response.data.monthly_payment_plan.selected_shop_ids))
       })
       .catch(error => {
