@@ -25,6 +25,7 @@ class Api::Internal::WebpagesController < ApplicationController
       webpage = current_merchant_user.account.webpages.create!(tag: webpage_params[:tag])
       webpage.publish_status = webpage_params[:publish_status]
       webpage.create_webblocks(webpage_params[:page_content])
+      webpage.save!
       webpage_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])
         webpage.shop_webpages.create!(shop_id: shop.id)
@@ -56,6 +57,7 @@ class Api::Internal::WebpagesController < ApplicationController
       webpage.delete_block_images
       webpage.webpage_blocks.delete_all
       webpage.create_webblocks(webpage_params[:page_content])
+      webpage.save!
       webpage.shop_webpages.delete_all
       webpage_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])

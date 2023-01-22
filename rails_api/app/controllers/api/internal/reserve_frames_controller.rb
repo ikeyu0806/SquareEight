@@ -75,6 +75,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
           reserve_frame.reserve_frame_resources.new(resource_id: resource_id)
         end
       end
+      reserve_frame.save!
       if reserve_frame_params[:shop_ids].present?
         reserve_frame.shop_reserve_frames.delete_all
         reserve_frame_params[:shop_ids].each do |shop_id|
@@ -154,6 +155,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
           reserve_frame.reserve_frame_resources.new(resource_id: resource_id)
         end
       end
+      reserve_frame.save!
       if reserve_frame_params[:shop_ids].present?
         reserve_frame.shop_reserve_frames.delete_all
         reserve_frame_params[:shop_ids].each do |shop_id|

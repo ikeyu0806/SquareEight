@@ -54,6 +54,7 @@ class Api::Internal::TicketMastersController < ApplicationController
         account_image.s3_object_public_url = put_s3_http_request_base64_data(ticket_master_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
       end
+      ticket_master.save!
       ticket_master_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])
         ticket_master.shop_ticket_masters.create!(shop_id: shop.id)
@@ -78,6 +79,7 @@ class Api::Internal::TicketMastersController < ApplicationController
         account_image.s3_object_public_url = put_s3_http_request_base64_data(product_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
       end
+      ticket_master.save!
       ticket_master.shop_ticket_masters.delete_all
       ticket_master_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])
