@@ -23,7 +23,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def purchase_info
     monthly_payment_plan = MonthlyPaymentPlan.enabled.find_by(public_id: params[:public_id])
-    main_image_public_url = monthly_payment_plan.main_image_public_url
+    image1_account_s3_image_public_url = monthly_payment_plan.image1_account_s3_image_public_url
     shared_component = monthly_payment_plan.account.shared_component
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
@@ -35,7 +35,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     end
     render json: { status: 'success',
                    shared_component: shared_component,
-                   main_image_public_url: main_image_public_url,
+                   image1_account_s3_image_public_url: image1_account_s3_image_public_url,
                    monthly_payment_plan: monthly_payment_plan,
                    payment_methods: payment_methods,
                    default_payment_method_id: default_payment_method_id,

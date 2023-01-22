@@ -65,7 +65,7 @@ const Purchase: NextPage = () => {
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
-        setMainImagePublicUrl(response.data.main_image_public_url)
+        setMainImagePublicUrl(response.data.image1_account_s3_image_public_url)
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
