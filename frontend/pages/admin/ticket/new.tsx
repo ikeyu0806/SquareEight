@@ -26,6 +26,7 @@ const New: NextPage = () => {
   const base64Image = useSelector((state: RootState) => state.ticketMaster.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const allowCreateTicketMaster = useSelector((state: RootState) => state.merchantUserPermission.allowCreateTicketMaster)
+  const shops = useSelector((state: RootState) => state.account.shops)
 
   useEffect(() => {
     dispatch(publishStatusChanged('Unpublish'))
@@ -41,7 +42,8 @@ const New: NextPage = () => {
         effective_month: effectiveMonth,
         description: description,
         publish_status: publishStatus,
-        base64_image: base64Image
+        base64_image: base64Image,
+        shops: shops
       }
     },
     {

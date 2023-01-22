@@ -15,7 +15,8 @@ import Unauthorized from 'components/templates/Unauthorized'
 import { nameChanged, priceChanged,
          issueNumberChanged,
          descriptionChanged,
-         s3ObjectPublicUrlChanged } from 'redux/ticketMasterSlice'
+         s3ObjectPublicUrlChanged,
+         selectedShopIdsChanged } from 'redux/ticketMasterSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -29,6 +30,7 @@ const Edit: NextPage = () => {
   const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const allowUpdateTicketMaster = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateTicketMaster)
+  const shops = useSelector((state: RootState) => state.account.shops)
 
   useEffect(() => {
     const fetchTicketMasters = () => {
@@ -46,6 +48,7 @@ const Edit: NextPage = () => {
         dispatch(issueNumberChanged(ticketMasterResponse.issue_number))
         dispatch(descriptionChanged(ticketMasterResponse.description))
         dispatch(s3ObjectPublicUrlChanged(ticketMasterResponse.s3_object_public_url))
+        dispatch(selectedShopIdsChanged(response.data.product.selected_shop_ids))
       })
       .catch(error => {
         console.log(error)
@@ -63,7 +66,8 @@ const Edit: NextPage = () => {
         price: price,
         description: description,
         publish_status: publishStatus,
-        base64_image: base64Image
+        base64_image: base64Image,
+        shops: shops
       }
     },
     {
