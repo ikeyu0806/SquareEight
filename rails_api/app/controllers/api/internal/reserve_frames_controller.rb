@@ -94,10 +94,12 @@ class Api::Internal::ReserveFramesController < ApplicationController
       end
       if reserve_frame_params[:base64_image].present?
         file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = reserve_frame.account_s3_images.new
+        account_image = AccountS3Image.new
         account_image.account = current_merchant_user.account
         account_image.s3_object_public_url = put_s3_http_request_base64_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
+        account_image.save!
+        reserve_frame.image1_account_s3_image_id = account_image.id
       end
       if reserve_frame_params[:repeat_wdays].present?
         reserve_frame.is_repeat_sun = true if reserve_frame_params[:repeat_wdays].include?("Sun")
@@ -175,12 +177,13 @@ class Api::Internal::ReserveFramesController < ApplicationController
         end
       end
       if reserve_frame_params[:base64_image].present?
-        reserve_frame.reserve_frame_image_relations.update_all(relation_status: "Sub")
         file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = reserve_frame.account_s3_images.new
+        account_image = AccountS3Image.new
         account_image.account = current_merchant_user.account
         account_image.s3_object_public_url = put_s3_http_request_base64_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
         account_image.s3_object_name = file_name
+        account_image.save!
+        reserve_frame.image1_account_s3_image_id = account_image.id
       end
       if reserve_frame_params[:repeat_wdays].present?
         reserve_frame.is_repeat_sun = true if reserve_frame_params[:repeat_wdays].include?("Sun")
