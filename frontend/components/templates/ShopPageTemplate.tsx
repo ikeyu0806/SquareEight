@@ -1,6 +1,7 @@
 import { Container, Carousel, Row, Col, Image } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
+import shopStyles from 'styles/Shop.module.css'
 
 const ShopPageTemplate = () => {
   const name = useSelector((state: RootState) => state.shop.name)
@@ -34,7 +35,7 @@ const ShopPageTemplate = () => {
         <Container>
           <Row>
             <Col sm={6}>
-              {description1}
+              <div className={shopStyles.description_text}>{description1}</div>
             </Col>
             <Col sm={6}>
               <img
@@ -48,7 +49,7 @@ const ShopPageTemplate = () => {
           &nbsp;
           <Row>
             <Col sm={6}>
-              {description2}
+              <div className={shopStyles.description_text}>{description2}</div>
             </Col>
             <Col sm={6}>
               <img
@@ -78,7 +79,7 @@ const ShopPageTemplate = () => {
                   />
                 </Col>
                 <Col>
-                  <div>{r.description}</div>
+                  <div className={shopStyles.description_text}>{r.description}</div>
                   <a
                     href={r.url}
                     className='btn btn-primary mt30'>
@@ -108,8 +109,8 @@ const ShopPageTemplate = () => {
                   />
                 </Col>
                 <Col>
-                  <div>{m.description}</div>
-                  {m.price && <div>料金: ¥{m.price}</div>}
+                <div className={shopStyles.description_text}>{m.description}</div>
+                  {m.price && <div className={shopStyles.description_text}>料金: ¥{m.price}</div>}
                   <a
                     href={m.url}
                     className='btn btn-primary mt30'>
@@ -139,8 +140,8 @@ const ShopPageTemplate = () => {
                   />
                 </Col>
                 <Col>
-                  <div>{t.description}</div>
-                  {t.price && <div>料金: ¥{t.price}</div>}
+                  <div className={shopStyles.description_text}>{t.description}</div>
+                  {t.price && <div className={shopStyles.description_text}>料金: ¥{t.price}</div>}
                   <a
                     href={t.url}
                     className='btn btn-primary mt30'>
@@ -170,8 +171,8 @@ const ShopPageTemplate = () => {
                   />
                 </Col>
                 <Col>
-                  <div>{p.description}</div>
-                  {p.price && <div>料金: ¥{p.price}</div>}
+                  <div className={shopStyles.description_text}>{p.description}</div>
+                  {p.price && <div className={shopStyles.description_text}>料金: ¥{p.price}</div>}
                   <a
                     href={p.url}
                     className='btn btn-primary mt30'>
