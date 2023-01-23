@@ -82,6 +82,7 @@ shops = Shop.create!(
     {
       account_id: account.id,
       name: "デモ店舗",
+      phone_number: "09011112222"
       description1: "初心者からアスリートまで、全ての人々が結果を出せるようあらゆることについて考え抜かれたフィットネスクラブです。",
       description2: "生活スタイルに合った会員プランで、無理なく無駄なく続けられます。",
       postal_code: "150-0043",
@@ -90,8 +91,10 @@ shops = Shop.create!(
       town: "道玄坂1丁目",
       line1: "10番8号",
       line2: "渋谷道玄坂東急ビル2F-C",
-      access_info: "",
-      remarks: "電話受付可能時間は10時~18時までとなります",
+      access_info: "渋谷駅ハチ公前から徒歩5分",
+      business_hours_text: "10:00～22:00。不定休",
+      parking_lot_guidance: "有料の駐車場がございます。¥1200〜/日。",
+      remarks: "シューズ貸出あり",
       shop_image1_account_s3_image_id: account_s3_images[0].id,
       shop_image2_account_s3_image_id: account_s3_images[1].id,
       shop_image3_account_s3_image_id: account_s3_images[2].id,
