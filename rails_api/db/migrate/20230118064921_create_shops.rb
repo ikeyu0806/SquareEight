@@ -13,7 +13,6 @@ class CreateShops < ActiveRecord::Migration[7.0]
       t.string :line1
       t.string :line2
       t.string :access_info
-      t.integer :parking_lot_display_status, default: false
       t.string :remarks
       t.integer :shop_image1_account_s3_image_id
       t.integer :shop_image2_account_s3_image_id
