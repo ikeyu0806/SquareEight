@@ -51,4 +51,16 @@ class Shop < ApplicationRecord
   def shop_image6_public_url
     AccountS3Image.find(self.shop_image6_account_s3_image_id).s3_object_public_url
   end
+
+  def reserve_frames_info
+    result = []
+    reserve_frames.Publish.each do |r|
+      content = {}
+      content[:title] = r.title
+      content[:description] = r.description
+      content[:image1_public_url] = AccountS3Image.find(r.image1_account_s3_image_id).s3_object_public_url
+      result.push(content)
+    end
+    result
+  end
 end
