@@ -14,6 +14,7 @@ class Api::Internal::ShopsController < ApplicationController
            .account
            .shops
            .find_by(public_id: params[:public_id])
+
     shared_component = shop.account.shared_component
     shop = shop.to_json(methods: [  :shop_image1_public_url,
                                     :shop_image2_public_url,
