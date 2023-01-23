@@ -10,6 +10,10 @@ export const shopSlice = createSlice({
     name: '',
     description1: '',
     description2: '',
+    description3: '',
+    description4: '',
+    description5: '',
+    description6: '',
     postalCode: '',
     state: '',
     city: '',
@@ -17,7 +21,8 @@ export const shopSlice = createSlice({
     line1: '',
     line2: '',
     accessInfo: '',
-    parkingLotDisplayStatus: '',
+    parkingLotGuidance: '',
+    businessHoursText: '',
     remarks: '',
     brandImageFile: null as File | unknown,
     shopImage1File: null as File | unknown,
@@ -48,6 +53,18 @@ export const shopSlice = createSlice({
     description2Changed: (state, action: PayloadAction<string>) => {
       state.description2 = action.payload
     },
+    description3Changed: (state, action: PayloadAction<string>) => {
+      state.description3 = action.payload
+    },
+    description4Changed: (state, action: PayloadAction<string>) => {
+      state.description4 = action.payload
+    },
+    description5Changed: (state, action: PayloadAction<string>) => {
+      state.description5 = action.payload
+    },
+    description6Changed: (state, action: PayloadAction<string>) => {
+      state.description6 = action.payload
+    },
     postalCodeChanged: (state, action: PayloadAction<string>) => {
       state.postalCode = action.payload
     },
@@ -69,8 +86,11 @@ export const shopSlice = createSlice({
     accessInfoChanged: (state, action: PayloadAction<string>) => {
       state.accessInfo = action.payload
     },
-    parkingLotDisplayStatusChanged: (state, action: PayloadAction<string>) => {
-      state.parkingLotDisplayStatus = action.payload
+    parkingLotGuidanceChanged: (state, action: PayloadAction<string>) => {
+      state.parkingLotGuidance = action.payload
+    },
+    businessHoursTextChanged: (state, action: PayloadAction<string>) => {
+      state.businessHoursText = action.payload
     },
     remarksChanged: (state, action: PayloadAction<string>) => {
       state.remarks = action.payload
@@ -135,6 +155,10 @@ export const shopSlice = createSlice({
 export const { nameChanged } = shopSlice.actions
 export const { description1Changed } = shopSlice.actions
 export const { description2Changed } = shopSlice.actions
+export const { description3Changed } = shopSlice.actions
+export const { description4Changed } = shopSlice.actions
+export const { description5Changed } = shopSlice.actions
+export const { description6Changed } = shopSlice.actions
 export const { postalCodeChanged } = shopSlice.actions
 export const { stateChanged } = shopSlice.actions
 export const { cityChanged } = shopSlice.actions
@@ -142,7 +166,8 @@ export const { townChanged } = shopSlice.actions
 export const { line1Changed } = shopSlice.actions
 export const { line2Changed } = shopSlice.actions
 export const { accessInfoChanged } = shopSlice.actions
-export const { parkingLotDisplayStatusChanged } = shopSlice.actions
+export const { parkingLotGuidanceChanged } = shopSlice.actions
+export const { businessHoursTextChanged } = shopSlice.actions
 export const { remarksChanged } = shopSlice.actions
 export const { brandImageFileChanged } = shopSlice.actions
 export const { shopImage1FileChanged } = shopSlice.actions
