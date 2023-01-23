@@ -5,6 +5,7 @@ import shopStyles from 'styles/Shop.module.css'
 
 const ShopPageTemplate = () => {
   const name = useSelector((state: RootState) => state.shop.name)
+  const phoneNumber = useSelector((state: RootState) => state.shop.phoneNumber)
   const description1 = useSelector((state: RootState) => state.shop.description1)
   const description2 = useSelector((state: RootState) => state.shop.description2)
   const shopImage1ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage1ImagePublicUrl)

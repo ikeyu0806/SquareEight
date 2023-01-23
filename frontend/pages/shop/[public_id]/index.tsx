@@ -7,6 +7,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { nameChanged,
+         phoneNumberChanged,
          description1Changed,
          description2Changed,
          postalCodeChanged,
@@ -16,7 +17,8 @@ import { nameChanged,
          line1Changed,
          line2Changed,
          accessInfoChanged,
-         parkingLotDisplayStatusChanged,
+         parkingLotGuidanceChanged,
+         businessHoursTextChanged,
          remarksChanged,
          shopImage1ImagePublicUrlChanged,
          shopImage2ImagePublicUrlChanged,
@@ -53,6 +55,7 @@ const Index: NextPage = () => {
       )
       .then(function (response) {
         dispatch(nameChanged(response.data.shop.name))
+        dispatch(phoneNumberChanged(response.data.shop.phone_number))
         dispatch(description1Changed(response.data.shop.description1))
         dispatch(description2Changed(response.data.shop.description2))
         dispatch(postalCodeChanged(response.data.shop.postal_code))

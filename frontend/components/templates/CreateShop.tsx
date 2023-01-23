@@ -4,6 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import RequireBadge from 'components/atoms/RequireBadge'
 import { nameChanged,
+         phoneNumberChanged,
          description1Changed,
          description2Changed,
          postalCodeChanged,
@@ -13,7 +14,7 @@ import { nameChanged,
          line1Changed,
          line2Changed,
          accessInfoChanged,
-         parkingLotDisplayStatusChanged,
+         parkingLotGuidanceChanged,
          remarksChanged,
          brandImageFileChanged,
          shopImage1FileChanged,
@@ -35,7 +36,8 @@ const CreateShop = (): JSX.Element => {
   const line1 =  useSelector((state: RootState) => state.shop.line1)
   const line2 =  useSelector((state: RootState) => state.shop.line2)
   const accessInfo =  useSelector((state: RootState) => state.shop.accessInfo)
-  const parkingLotDisplayStatus =  useSelector((state: RootState) => state.shop.parkingLotDisplayStatus)
+  const parkingLotGuidance =  useSelector((state: RootState) => state.shop.parkingLotGuidance)
+  const businessHoursText =  useSelector((state: RootState) => state.shop.businessHoursText)
   const remarks =  useSelector((state: RootState) => state.shop.remarks)
   const businessType =  useSelector((state: RootState) => state.shop.businessType)
 
@@ -150,7 +152,15 @@ const CreateShop = (): JSX.Element => {
         value={line2}
         onChange={(e) => dispatch(line2Changed(e.target.value))} />
       <Form.Label className='mt10'>アクセス情報</Form.Label>
-      <FormControl placeholder='〇〇駅〇〇口から徒歩5分など' />
+      <FormControl
+        value={accessInfo}
+        placeholder='〇〇駅〇〇口から徒歩5分など'
+        onChange={(e) => dispatch(accessInfoChanged(e.target.value))} />
+      <Form.Label className='mt10'>アクセス情報</Form.Label>
+      <FormControl
+        value={parkingLotGuidance}
+        placeholder='有料の駐車場がございます。¥1200〜/日。'
+        onChange={(e) => dispatch(parkingLotGuidanceChanged(e.target.value))} />
       <hr />
       <Form.Label className='mt10'>店舗イメージ画像1</Form.Label>
       <Form.Control

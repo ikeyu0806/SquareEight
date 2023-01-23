@@ -8,6 +8,7 @@ export const shopSlice = createSlice({
   name: 'shop',
   initialState: {
     name: '',
+    phoneNumber: '',
     description1: '',
     description2: '',
     description3: '',
@@ -46,6 +47,9 @@ export const shopSlice = createSlice({
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
       state.name = action.payload
+    },
+    phoneNumberChanged: (state, action: PayloadAction<string>) => {
+      state.phoneNumber = action.payload
     },
     description1Changed: (state, action: PayloadAction<string>) => {
       state.description1 = action.payload
@@ -153,6 +157,7 @@ export const shopSlice = createSlice({
 })
 
 export const { nameChanged } = shopSlice.actions
+export const { phoneNumberChanged } = shopSlice.actions
 export const { description1Changed } = shopSlice.actions
 export const { description2Changed } = shopSlice.actions
 export const { description3Changed } = shopSlice.actions
