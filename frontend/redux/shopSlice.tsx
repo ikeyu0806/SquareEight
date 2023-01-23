@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { ReserveFrameInfo } from 'interfaces/ShopParam'
 
 export const shopSlice = createSlice({
   name: 'shop',
@@ -28,7 +29,8 @@ export const shopSlice = createSlice({
     shopImage4ImagePublicUrl: '',
     shopImage5ImagePublicUrl: '',
     shopImage6ImagePublicUrl: '',
-    businessType: ''
+    businessType: '',
+    reserveFrameInfo: [] as ReserveFrameInfo[]
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -109,6 +111,9 @@ export const shopSlice = createSlice({
     businessTypeChanged: (state, action: PayloadAction<string>) => {
       state.businessType = action.payload
     },
+    reserveFrameInfoChanged: (state, action: PayloadAction<ReserveFrameInfo[]>) => {
+      state.reserveFrameInfo = action.payload
+    },
   },
 })
 
@@ -138,5 +143,6 @@ export const { shopImage4ImagePublicUrlChanged } = shopSlice.actions
 export const { shopImage5ImagePublicUrlChanged } = shopSlice.actions
 export const { shopImage6ImagePublicUrlChanged } = shopSlice.actions
 export const { businessTypeChanged } = shopSlice.actions
+export const { reserveFrameInfoChanged } = shopSlice.actions
 
 export default shopSlice.reducer

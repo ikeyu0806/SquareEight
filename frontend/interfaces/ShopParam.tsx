@@ -20,3 +20,9 @@ export interface ShopParam {
   shop_image2_public_url: string
   shop_image3_public_url: string
 }
+
+export interface ReserveFrameInfo {
+  title: string
+  description: string
+  image1_public_url: string
+}
