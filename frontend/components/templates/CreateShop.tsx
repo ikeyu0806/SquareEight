@@ -7,6 +7,10 @@ import { nameChanged,
          phoneNumberChanged,
          description1Changed,
          description2Changed,
+         description3Changed,
+         description4Changed,
+         description5Changed,
+         description6Changed,
          postalCodeChanged,
          stateChanged,
          cityChanged,
@@ -16,7 +20,6 @@ import { nameChanged,
          accessInfoChanged,
          parkingLotGuidanceChanged,
          remarksChanged,
-         brandImageFileChanged,
          shopImage1FileChanged,
          shopImage2FileChanged,
          shopImage3FileChanged,
@@ -27,8 +30,13 @@ import { nameChanged,
 const CreateShop = (): JSX.Element => {
   const dispatch = useDispatch()
   const name = useSelector((state: RootState) => state.shop.name)
+  const phoneNumber = useSelector((state: RootState) => state.shop.phoneNumber)
   const description1 = useSelector((state: RootState) => state.shop.description1)
   const description2 =  useSelector((state: RootState) => state.shop.description2)
+  const description3 =  useSelector((state: RootState) => state.shop.description3)
+  const description4 =  useSelector((state: RootState) => state.shop.description4)
+  const description5 =  useSelector((state: RootState) => state.shop.description5)
+  const description6 =  useSelector((state: RootState) => state.shop.description6)
   const postalCode =  useSelector((state: RootState) => state.shop.postalCode)
   const state =  useSelector((state: RootState) => state.shop.state)
   const city =  useSelector((state: RootState) => state.shop.city)
@@ -39,14 +47,6 @@ const CreateShop = (): JSX.Element => {
   const parkingLotGuidance =  useSelector((state: RootState) => state.shop.parkingLotGuidance)
   const businessHoursText =  useSelector((state: RootState) => state.shop.businessHoursText)
   const remarks =  useSelector((state: RootState) => state.shop.remarks)
-  const businessType =  useSelector((state: RootState) => state.shop.businessType)
-
-  const onChangeBrandImageFile = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files
-    if (files && files[0]) {
-      dispatch(brandImageFileChanged(files[0]))
-    }
-  }
 
   const onChangeShopImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
@@ -94,7 +94,7 @@ const CreateShop = (): JSX.Element => {
     <>
         <h3 className='mb15'>店舗情報登録</h3>
         <div>登録した情報を元に店舗紹介ページが自動生成されます。</div>
-        <div className='mt10'>未設定の項目はページに表示されません。</div>
+        <div className='mt10'>未入力の項目はページに表示されません。</div>
         <div className='mt10'>店舗紹介ページには登録した商品。予約メニュー、回数券、月額課金の紹介とWebページのリンクも挿入されます。</div>
         <Row>
           <Col>
@@ -110,7 +110,7 @@ const CreateShop = (): JSX.Element => {
         value={name}
         onChange={(e) => dispatch(nameChanged(e.target.value))} />
       <Form.Label
-        className='mt10'>店舗説明1<RequireBadge /></Form.Label>
+        className='mt10'>店舗説明1</Form.Label>
       <FormControl
         as='textarea' rows={3}
         value={description1}
@@ -119,15 +119,36 @@ const CreateShop = (): JSX.Element => {
       <FormControl
         as='textarea' rows={3}
         value={description2}
-        onChange={(e) => dispatch(description2Changed(e.target.value))} />
-      <Form.Label className='mt10'>店舗備考</Form.Label>
+        onChange={(e) => dispatch(description3Changed(e.target.value))} />
+      <Form.Label className='mt10'>店舗説明3</Form.Label>
       <FormControl
         as='textarea' rows={3}
-        value={remarks}
-        onChange={(e) => dispatch(remarksChanged(e.target.value))} />
+        value={description2}
+        onChange={(e) => dispatch(description4Changed(e.target.value))} />
+      <Form.Label className='mt10'>店舗説明4</Form.Label>
+      <FormControl
+        as='textarea' rows={3}
+        value={description2}
+        onChange={(e) => dispatch(description5Changed(e.target.value))} />
+      <Form.Label className='mt10'>店舗説明5</Form.Label>
+      <FormControl
+        as='textarea' rows={3}
+        value={description2}
+        onChange={(e) => dispatch(description6Changed(e.target.value))} />
+      <Form.Label className='mt10'>店舗説明6</Form.Label>
+      <FormControl
+        as='textarea' rows={3}
+        value={description2}
+        onChange={(e) => dispatch(description2Changed(e.target.value))} />
       <hr />
-      <div>住所</div>
-      <Form.Label className='mt10'>郵便番号</Form.Label>
+      <div className='mb10'>連絡先</div>
+      <Form.Label>電話番号</Form.Label>
+      <FormControl
+        value={phoneNumber}
+        onChange={(e) => dispatch(phoneNumberChanged(e.target.value))} />
+      <hr />
+      <div className='mb10'>住所</div>
+      <Form.Label>郵便番号</Form.Label>
       <FormControl
         value={postalCode}
         onChange={(e) => dispatch(postalCodeChanged(e.target.value))} />
@@ -156,7 +177,7 @@ const CreateShop = (): JSX.Element => {
         value={accessInfo}
         placeholder='〇〇駅〇〇口から徒歩5分など'
         onChange={(e) => dispatch(accessInfoChanged(e.target.value))} />
-      <Form.Label className='mt10'>アクセス情報</Form.Label>
+      <Form.Label className='mt10'>駐車場情報</Form.Label>
       <FormControl
         value={parkingLotGuidance}
         placeholder='有料の駐車場がございます。¥1200〜/日。'
@@ -186,6 +207,12 @@ const CreateShop = (): JSX.Element => {
       <Form.Control
         onChange={onChangeShopImage6File}
         type='file' />
+      <hr />
+      <Form.Label className='mt10'>店舗備考</Form.Label>
+      <FormControl
+        as='textarea' rows={3}
+        value={remarks}
+        onChange={(e) => dispatch(remarksChanged(e.target.value))} />
     </>
   )
 }

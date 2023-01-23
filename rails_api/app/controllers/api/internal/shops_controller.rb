@@ -37,15 +37,22 @@ class Api::Internal::ShopsController < ApplicationController
     ActiveRecord::Base.transaction do
       shop = current_merchant_user.account.shops.new
       shop.name = params[:name]
+      shop.phone_number = params[:phone_number]
       shop.description1 = params[:description1]
       shop.description2 = params[:description2]
+      shop.description2 = params[:description3]
+      shop.description2 = params[:description4]
+      shop.description2 = params[:description5]
+      shop.description2 = params[:description6]
       shop.postal_code = params[:postal_code]
       shop.state = params[:state]
       shop.city = params[:city]
       shop.town = params[:town]
       shop.line1 = params[:line1]
       shop.line2 = params[:line2]
-      shop.remarks = params[:remarks]
+      shop.access_info = params[:access_info]
+      shop.business_hours_text = params[:business_hours_text]
+      shop.parking_lot_guidance = params[:parking_lot_guidance]
       shop.save!
       if params[:shop_image1_file].present?
         shop.register_s3_image(params[:shop_image1_file], "shop_image1_account_s3_image_id")
@@ -72,15 +79,4 @@ class Api::Internal::ShopsController < ApplicationController
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
-
-  private
-
-  def shops_params
-    params.require(:shops)
-          .permit(:id,
-                  :name,
-                  :description1,
-                  :description2,
-                  page_cover_slide1_file: {})
-  end  
 end
