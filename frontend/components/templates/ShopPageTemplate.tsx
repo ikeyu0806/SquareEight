@@ -89,7 +89,7 @@ const ShopPageTemplate = () => {
           )
         })}
       </div>}
-      {monthlyPatmentPlanInfo && <div style={{backgroundColor: 'white', padding: '30px'}}>
+      {monthlyPatmentPlanInfo && <div style={{backgroundColor: '#E5E5E5', padding: '30px'}}>
         <div className='text-center mt20 mb50'>
           <h2>月額サブスクリプション</h2>
         </div>
@@ -107,10 +107,11 @@ const ShopPageTemplate = () => {
                 </Col>
                 <Col>
                   <div>{m.description}</div>
+                  <div>料金: ¥{m.price}</div>
                   <a
                     href={m.url}
                     className='btn btn-primary mt30'>
-                    予約に進む
+                    もっと見る
                   </a>
                 </Col>
               </Row>
