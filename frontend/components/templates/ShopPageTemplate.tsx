@@ -79,6 +79,7 @@ const ShopPageTemplate = () => {
                   />
                 </Col>
                 <Col>
+                  <div className={shopStyles.title_text}>{r.title}</div>
                   <div className={shopStyles.description_text}>{r.description}</div>
                   <a
                     href={r.url}
@@ -109,6 +110,7 @@ const ShopPageTemplate = () => {
                   />
                 </Col>
                 <Col>
+                <div className={shopStyles.title_text}>{m.name}</div>
                 <div className={shopStyles.description_text}>{m.description}</div>
                   {m.price && <div className={shopStyles.description_text}>料金: ¥{m.price}</div>}
                   <a
@@ -140,6 +142,7 @@ const ShopPageTemplate = () => {
                   />
                 </Col>
                 <Col>
+                  <div className={shopStyles.title_text}>{t.name}</div>
                   <div className={shopStyles.description_text}>{t.description}</div>
                   {t.price && <div className={shopStyles.description_text}>料金: ¥{t.price}</div>}
                   <a
@@ -171,6 +174,7 @@ const ShopPageTemplate = () => {
                   />
                 </Col>
                 <Col>
+                  <div className={shopStyles.title_text}>{p.name}</div>
                   <div className={shopStyles.description_text}>{p.description}</div>
                   {p.price && <div className={shopStyles.description_text}>料金: ¥{p.price}</div>}
                   <a
