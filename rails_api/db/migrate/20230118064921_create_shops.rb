@@ -4,8 +4,15 @@ class CreateShops < ActiveRecord::Migration[7.0]
       t.string :public_id, null: false
       t.integer :account_id, null: false
       t.string :name, null: false
-      t.string :description1, null: false
+      t.string :phone_number
+      t.string :business_hours_text
+      t.string :parking_lot_guidance
+      t.string :description1
       t.string :description2
+      t.string :description3
+      t.string :description4
+      t.string :description5
+      t.string :description6
       t.string :postal_code
       t.string :state
       t.string :city

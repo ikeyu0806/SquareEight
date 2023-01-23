@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_23_070836) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_22_065623) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -782,8 +782,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_070836) do
     t.string "public_id", null: false
     t.integer "account_id", null: false
     t.string "name", null: false
-    t.string "description1", null: false
+    t.string "phone_number"
+    t.string "business_hours_text"
+    t.string "parking_lot_guidance"
+    t.string "description1"
     t.string "description2"
+    t.string "description3"
+    t.string "description4"
+    t.string "description5"
+    t.string "description6"
     t.string "postal_code"
     t.string "state"
     t.string "city"
@@ -791,7 +798,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_070836) do
     t.string "line1"
     t.string "line2"
     t.string "access_info"
-    t.integer "parking_lot_display_status", default: 0
     t.string "remarks"
     t.integer "shop_image1_account_s3_image_id"
     t.integer "shop_image2_account_s3_image_id"
@@ -803,9 +809,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_23_070836) do
     t.integer "business_type", default: 99
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "phone_number"
-    t.string "business_hours_text"
-    t.string "parking_lot_guidance"
   end
 
   create_table "stripe_payment_intents", force: :cascade do |t|
