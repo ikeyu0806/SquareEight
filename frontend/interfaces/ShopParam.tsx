@@ -12,13 +12,12 @@ export interface ShopParam {
   line2: string
   access_info: string
   remarks: string
-  page_cover_slide1_image_public_url: string
-  page_cover_slide2_image_public_url: string
-  page_cover_slide3_image_public_url: string
-  brand_image_public_url: string
   shop_image1_public_url: string
   shop_image2_public_url: string
   shop_image3_public_url: string
+  shop_image4_public_url: string
+  shop_image5_public_url: string
+  shop_image6_public_url: string
 }
 
 export interface ReserveFrameInfo {
