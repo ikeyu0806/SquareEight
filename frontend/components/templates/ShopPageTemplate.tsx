@@ -15,6 +15,7 @@ const ShopPageTemplate = () => {
   const reserveFrameInfo = useSelector((state: RootState) => state.shop.reserveFrameInfo)
   const monthlyPatmentPlanInfo = useSelector((state: RootState) => state.shop.monthlyPatmentPlanInfo)
   const ticketMasterInfo = useSelector((state: RootState) => state.shop.ticketMasterInfo)
+  const productInfo = useSelector((state: RootState) => state.shop.productInfo)
 
   return (
     <>
@@ -142,6 +143,37 @@ const ShopPageTemplate = () => {
                   {t.price && <div>料金: ¥{t.price}</div>}
                   <a
                     href={t.url}
+                    className='btn btn-primary mt30'>
+                    もっと見る
+                  </a>
+                </Col>
+              </Row>
+              &nbsp;
+            </div>
+          )
+        })}
+      </div>}
+      {productInfo && <div style={{backgroundColor: '#E5E5E5', padding: '30px'}}>
+        <div className='text-center mt20 mb50'>
+          <h2>物販商品</h2>
+        </div>
+        {productInfo.map((p, i) => {
+          return (
+            <div key={i}>
+              <Row>
+                <Col>
+                  <img
+                    width={'100%'}
+                    height={'100%'}
+                    src={String(p.image1_public_url)}
+                    alt='Product slide'
+                  />
+                </Col>
+                <Col>
+                  <div>{p.description}</div>
+                  {p.price && <div>料金: ¥{p.price}</div>}
+                  <a
+                    href={p.url}
                     className='btn btn-primary mt30'>
                     もっと見る
                   </a>

@@ -99,4 +99,19 @@ class Shop < ApplicationRecord
     end
     result
   end
+
+  def products_info
+    result = []
+    products.Publish.each do |p|
+      content = {}
+      content[:name] = p.name
+      content[:description] = p.description
+      content[:price] = p.price
+      content[:tax_rate] = p.tax_rate
+      content[:url] = '/product/' + p.public_id + '/purchase/'
+      content[:image1_public_url] = p.image1_account_s3_image_id.present? ? AccountS3Image.find(p.image1_account_s3_image_id).s3_object_public_url: ''
+      result.push(content)
+    end
+    result
+  end
 end

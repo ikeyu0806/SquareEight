@@ -26,7 +26,8 @@ import { nameChanged,
          shopImage6ImagePublicUrlChanged,
          reserveFrameInfoChanged,
          monthlyPatmentPlanInfoChanged,
-         ticketMasterInfoChanged } from 'redux/shopSlice'
+         ticketMasterInfoChanged,
+         productInfoChanged } from 'redux/shopSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -71,6 +72,7 @@ const Index: NextPage = () => {
         dispatch(reserveFrameInfoChanged(response.data.shop.reserve_frames_info))
         dispatch(monthlyPatmentPlanInfoChanged(response.data.shop.monthly_payment_plans_info))
         dispatch(ticketMasterInfoChanged(response.data.shop.ticket_masters_info))
+        dispatch(productInfoChanged(response.data.shop.products_info))
         // ヘッダ、フッタ
         dispatch(navbarBrandTextChanged(response.data.shared_component.navbar_brand_text))
         dispatch(navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type))

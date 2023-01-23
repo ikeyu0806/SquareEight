@@ -48,3 +48,12 @@ export interface TicketMasterInfo {
   effective_month: number
   url: string
 }
+
+export interface ProductInfo {
+  name: string
+  description: string
+  image1_public_url: string
+  price: number
+  tax_rate: number
+  url: string
+}
