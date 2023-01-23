@@ -24,7 +24,8 @@ import { nameChanged,
          shopImage4ImagePublicUrlChanged,
          shopImage5ImagePublicUrlChanged,
          shopImage6ImagePublicUrlChanged,
-         reserveFrameInfoChanged } from 'redux/shopSlice'
+         reserveFrameInfoChanged,
+         monthlyPatmentPlanInfoChanged } from 'redux/shopSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -67,6 +68,7 @@ const Index: NextPage = () => {
         dispatch(shopImage5ImagePublicUrlChanged(response.data.shop.shop_image5_public_url))
         dispatch(shopImage6ImagePublicUrlChanged(response.data.shop.shop_image6_public_url))
         dispatch(reserveFrameInfoChanged(response.data.shop.reserve_frames_info))
+        dispatch(monthlyPatmentPlanInfoChanged(response.data.shop.monthly_payment_plans_info))
         // ヘッダ、フッタ
         dispatch(navbarBrandTextChanged(response.data.shared_component.navbar_brand_text))
         dispatch(navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type))

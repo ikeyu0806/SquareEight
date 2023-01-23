@@ -12,6 +12,8 @@ class Shop < ApplicationRecord
   has_many :reserve_frames, through: :shop_reserve_frames
   has_many :shop_ticket_masters
   has_many :ticket_masters, through: :shop_ticket_masters
+  has_many :shop_monthly_payment_plans
+  has_many :monthly_payment_plans, through: :shop_monthly_payment_plans
   has_many :shop_webpages
   has_many :webpages, through: :shop_webpages
 
@@ -58,8 +60,25 @@ class Shop < ApplicationRecord
       content = {}
       content[:title] = r.title
       content[:description] = r.description
-      content[:image1_public_url] = AccountS3Image.find(r.image1_account_s3_image_id).s3_object_public_url
+      content[:image1_public_url] = r.image1_account_s3_image_id.present? ? AccountS3Image.find(r.image1_account_s3_image_id).s3_object_public_url : ''
       content[:url] = '/reserve_frame/' + r.public_id + '/calendar'
+      result.push(content)
+    end
+    result
+  end
+
+  def monthly_payment_plans_info
+    result = []
+    monthly_payment_plans.Publish.each do |m|
+      content = {}
+      content[:name] = m.name
+      content[:description] = m.description
+      content[:price] = m.price
+      content[:reserve_is_unlimited] = m.reserve_is_unlimited
+      content[:reserve_interval_number] = m.reserve_interval_unit
+      content[:enable_reserve_count] = m.enable_reserve_count
+      content[:image1_public_url] = m.image1_account_s3_image_id.present? ? AccountS3Image.find(m.image1_account_s3_image_id).s3_object_public_url: ''
+      content[:url] = '/monthly_payment/' + m.public_id + '/purchase/'
       result.push(content)
     end
     result

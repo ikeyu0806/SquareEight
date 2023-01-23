@@ -13,6 +13,7 @@ const ShopPageTemplate = () => {
   const shopImage5ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage5ImagePublicUrl)
   const shopImage6ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage6ImagePublicUrl)
   const reserveFrameInfo = useSelector((state: RootState) => state.shop.reserveFrameInfo)
+  const monthlyPatmentPlanInfo = useSelector((state: RootState) => state.shop.monthlyPatmentPlanInfo)
 
   return (
     <>
@@ -58,11 +59,11 @@ const ShopPageTemplate = () => {
           </Row>
         </Container>
       </div>
-      <div style={{backgroundColor: 'white', padding: '30px'}}>
+      {reserveFrameInfo && <div style={{backgroundColor: 'white', padding: '30px'}}>
         <div className='text-center mt20 mb50'>
           <h2>予約メニュー</h2>
         </div>
-        {reserveFrameInfo && reserveFrameInfo.map((r, i) => {
+        {reserveFrameInfo.map((r, i) => {
           return (
             <div key={i}>
               <Row>
@@ -87,7 +88,37 @@ const ShopPageTemplate = () => {
             </div>
           )
         })}
-      </div>
+      </div>}
+      {monthlyPatmentPlanInfo && <div style={{backgroundColor: 'white', padding: '30px'}}>
+        <div className='text-center mt20 mb50'>
+          <h2>月額サブスクリプション</h2>
+        </div>
+        {monthlyPatmentPlanInfo.map((m, i) => {
+          return (
+            <div key={i}>
+              <Row>
+                <Col>
+                  <img
+                    width={'100%'}
+                    height={'100%'}
+                    src={String(m.image1_public_url)}
+                    alt='ReserveFrame slide'
+                  />
+                </Col>
+                <Col>
+                  <div>{m.description}</div>
+                  <a
+                    href={m.url}
+                    className='btn btn-primary mt30'>
+                    予約に進む
+                  </a>
+                </Col>
+              </Row>
+              &nbsp;
+            </div>
+          )
+        })}
+      </div>}
     </>
   )
 }

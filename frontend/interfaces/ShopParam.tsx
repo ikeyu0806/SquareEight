@@ -27,3 +27,14 @@ export interface ReserveFrameInfo {
   image1_public_url: string
   url: string
 }
+
+export interface MonthlyPatmentPlanInfo {
+  name: string
+  description: string
+  image1_public_url: string
+  price: number
+  reserve_is_unlimited: boolean
+  reserve_interval_number: number
+  enable_reserve_count: number
+  url: string
+}
