@@ -83,4 +83,20 @@ class Shop < ApplicationRecord
     end
     result
   end
+
+  def ticket_masters_info
+    result = []
+    ticket_masters.Publish.each do |t|
+      content = {}
+      content[:name] = t.name
+      content[:description] = t.description
+      content[:price] = t.price
+      content[:issue_number] = t.issue_number
+      content[:effective_month] = t.effective_month
+      content[:url] = '/ticket/' + t.public_id + '/purchase/'
+      content[:image1_public_url] = t.image1_account_s3_image_id.present? ? AccountS3Image.find(t.image1_account_s3_image_id).s3_object_public_url: ''
+      result.push(content)
+    end
+    result
+  end
 end

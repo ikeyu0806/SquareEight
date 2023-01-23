@@ -14,6 +14,7 @@ const ShopPageTemplate = () => {
   const shopImage6ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage6ImagePublicUrl)
   const reserveFrameInfo = useSelector((state: RootState) => state.shop.reserveFrameInfo)
   const monthlyPatmentPlanInfo = useSelector((state: RootState) => state.shop.monthlyPatmentPlanInfo)
+  const ticketMasterInfo = useSelector((state: RootState) => state.shop.ticketMasterInfo)
 
   return (
     <>
@@ -107,9 +108,40 @@ const ShopPageTemplate = () => {
                 </Col>
                 <Col>
                   <div>{m.description}</div>
-                  <div>料金: ¥{m.price}</div>
+                  {m.price && <div>料金: ¥{m.price}</div>}
                   <a
                     href={m.url}
+                    className='btn btn-primary mt30'>
+                    もっと見る
+                  </a>
+                </Col>
+              </Row>
+              &nbsp;
+            </div>
+          )
+        })}
+      </div>}
+      {ticketMasterInfo && <div style={{backgroundColor: 'white', padding: '30px'}}>
+        <div className='text-center mt20 mb50'>
+          <h2>回数券</h2>
+        </div>
+        {ticketMasterInfo.map((t, i) => {
+          return (
+            <div key={i}>
+              <Row>
+                <Col>
+                  <img
+                    width={'100%'}
+                    height={'100%'}
+                    src={String(t.image1_public_url)}
+                    alt='ReserveFrame slide'
+                  />
+                </Col>
+                <Col>
+                  <div>{t.description}</div>
+                  {t.price && <div>料金: ¥{t.price}</div>}
+                  <a
+                    href={t.url}
                     className='btn btn-primary mt30'>
                     もっと見る
                   </a>

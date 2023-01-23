@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ReserveFrameInfo } from 'interfaces/ShopParam'
 import { MonthlyPatmentPlanInfo } from 'interfaces/ShopParam'
+import { TicketMasterInfo } from 'interfaces/ShopParam'
 
 export const shopSlice = createSlice({
   name: 'shop',
@@ -32,7 +33,8 @@ export const shopSlice = createSlice({
     shopImage6ImagePublicUrl: '',
     businessType: '',
     reserveFrameInfo: [] as ReserveFrameInfo[],
-    monthlyPatmentPlanInfo: [] as MonthlyPatmentPlanInfo[]
+    monthlyPatmentPlanInfo: [] as MonthlyPatmentPlanInfo[],
+    ticketMasterInfo: [] as TicketMasterInfo[],
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -119,6 +121,9 @@ export const shopSlice = createSlice({
     monthlyPatmentPlanInfoChanged: (state, action: PayloadAction<MonthlyPatmentPlanInfo[]>) => {
       state.monthlyPatmentPlanInfo = action.payload
     },
+    ticketMasterInfoChanged: (state, action: PayloadAction<TicketMasterInfo[]>) => {
+      state.ticketMasterInfo = action.payload
+    },
   },
 })
 
@@ -150,5 +155,6 @@ export const { shopImage6ImagePublicUrlChanged } = shopSlice.actions
 export const { businessTypeChanged } = shopSlice.actions
 export const { reserveFrameInfoChanged } = shopSlice.actions
 export const { monthlyPatmentPlanInfoChanged } = shopSlice.actions
+export const { ticketMasterInfoChanged } = shopSlice.actions
 
 export default shopSlice.reducer

@@ -38,3 +38,13 @@ export interface MonthlyPatmentPlanInfo {
   enable_reserve_count: number
   url: string
 }
+
+export interface TicketMasterInfo {
+  name: string
+  description: string
+  image1_public_url: string
+  price: number
+  issue_number: number
+  effective_month: number
+  url: string
+}

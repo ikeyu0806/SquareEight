@@ -23,7 +23,8 @@ class Api::Internal::ShopsController < ApplicationController
                                     :shop_image5_public_url,
                                     :shop_image6_public_url,
                                     :reserve_frames_info,
-                                    :monthly_payment_plans_info])
+                                    :monthly_payment_plans_info,
+                                    :ticket_masters_info])
     shop = JSON.parse(shop)
     render json: { status: 'success', shop: shop, shared_component: shared_component }, status: 200
   rescue => error
