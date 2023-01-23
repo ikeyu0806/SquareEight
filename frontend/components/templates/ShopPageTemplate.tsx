@@ -59,6 +59,9 @@ const ShopPageTemplate = () => {
         </Container>
       </div>
       <div style={{backgroundColor: 'white', padding: '30px'}}>
+        <div className='text-center mt20 mb50'>
+          <h2>予約メニュー</h2>
+        </div>
         {reserveFrameInfo && reserveFrameInfo.map((r, i) => {
           return (
             <div key={i}>
@@ -73,7 +76,11 @@ const ShopPageTemplate = () => {
                 </Col>
                 <Col>
                   <div>{r.description}</div>
-                  <a className='btn btn-primary mt30'>予約に進む</a>
+                  <a
+                    href={r.url}
+                    className='btn btn-primary mt30'>
+                    予約に進む
+                  </a>
                 </Col>
               </Row>
               &nbsp;

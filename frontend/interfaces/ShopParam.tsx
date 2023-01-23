@@ -25,4 +25,5 @@ export interface ReserveFrameInfo {
   title: string
   description: string
   image1_public_url: string
+  url: string
 }

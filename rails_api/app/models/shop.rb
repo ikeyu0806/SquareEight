@@ -59,6 +59,7 @@ class Shop < ApplicationRecord
       content[:title] = r.title
       content[:description] = r.description
       content[:image1_public_url] = AccountS3Image.find(r.image1_account_s3_image_id).s3_object_public_url
+      content[:url] = '/reserve_frame/' + r.public_id + '/calendar'
       result.push(content)
     end
     result
