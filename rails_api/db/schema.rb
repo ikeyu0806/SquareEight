@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_22_065623) do
+ActiveRecord::Schema[7.0].define(version: 2023_01_23_070836) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -803,6 +803,9 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_22_065623) do
     t.integer "business_type", default: 99
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "phone_number"
+    t.string "business_hours_text"
+    t.string "parking_lot_guidance"
   end
 
   create_table "stripe_payment_intents", force: :cascade do |t|
