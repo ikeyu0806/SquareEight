@@ -74,25 +74,22 @@ const ShopPageTemplate = () => {
         <Row className='flex-nowrap'>
           {reserveFrameInfo.map((r, i) => {
             return (
-              <div key={i}>
-                <Col md={4}>
-                  <Card>
-                    <Card.Img
-                      variant="top"
-                      src={r.image1_public_url} />
-                    <Card.Body>
-                      <div className={shopStyles.title_text}>{r.title}</div>
-                      <div className={shopStyles.description_text}>{r.description}</div>
-                      <a
-                        href={r.url}
-                        className='btn btn-primary mt30'>
-                        予約に進む
-                      </a>
-                    </Card.Body>
-                  </Card>
-                </Col>
-                &nbsp;
-              </div>
+              <Col md={4} key={i}>
+                <Card>
+                  <Card.Img
+                    variant="top"
+                    src={r.image1_public_url} />
+                  <Card.Body>
+                    <div className={shopStyles.title_text}>{r.title}</div>
+                    <div className={shopStyles.description_text}>{r.description}</div>
+                    <a
+                      href={r.url}
+                      className='btn btn-primary mt30'>
+                      予約に進む
+                    </a>
+                  </Card.Body>
+                </Card>
+              </Col>
             )
           })}
         </Row>
