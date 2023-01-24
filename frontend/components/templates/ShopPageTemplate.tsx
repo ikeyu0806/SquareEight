@@ -95,101 +95,90 @@ const ShopPageTemplate = () => {
         </Row>
       </div>}
   
-      {monthlyPatmentPlanInfo && <div style={{backgroundColor: '#E5E5E5', padding: '30px'}}>
+      {monthlyPatmentPlanInfo && <div style={{padding: '30px'}}>
         <div className='text-center mt20 mb50'>
           <h2>月額サブスクリプション</h2>
         </div>
-        {monthlyPatmentPlanInfo.map((m, i) => {
-          return (
-            <div key={i}>
-              <Row>
-                <Col>
-                  <img
-                    width={'100%'}
-                    height={'100%'}
-                    src={String(m.image1_public_url)}
-                    alt='ReserveFrame slide'
-                  />
-                </Col>
-                <Col>
-                <div className={shopStyles.title_text}>{m.name}</div>
-                <div className={shopStyles.description_text}>{m.description}</div>
-                  {m.price && <div className={shopStyles.description_text}>料金: ¥{m.price}</div>}
-                  <a
-                    href={m.url}
-                    className='btn btn-primary mt30'>
-                    もっと見る
-                  </a>
-                </Col>
-              </Row>
-              &nbsp;
-            </div>
-          )
-        })}
+        <Row className='flex-nowrap'>
+          {monthlyPatmentPlanInfo.map((m, i) => {
+            return (
+              <Col md={4} key={i}>
+                <Card>
+                  <Card.Img
+                    variant="top"
+                    src={m.image1_public_url} />
+                  <Card.Body>
+                    <div className={shopStyles.title_text}>{m.name}</div>
+                    <div className={shopStyles.description_text}>{m.description}</div>
+                    <a
+                      href={m.url}
+                      className='btn btn-primary mt30'>
+                      もっと見る
+                    </a>
+                  </Card.Body>
+                </Card>
+              </Col>
+            )
+          })}
+        </Row>
       </div>}
       {ticketMasterInfo && <div style={{backgroundColor: 'white', padding: '30px'}}>
         <div className='text-center mt20 mb50'>
           <h2>回数券</h2>
         </div>
-        {ticketMasterInfo.map((t, i) => {
-          return (
-            <div key={i}>
-              <Row>
-                <Col>
-                  <img
-                    width={'100%'}
-                    height={'100%'}
-                    src={String(t.image1_public_url)}
-                    alt='ReserveFrame slide'
-                  />
+
+        {ticketMasterInfo && <div style={{padding: '30px'}}>
+          <Row className='flex-nowrap'>
+            {ticketMasterInfo.map((t, i) => {
+              return (
+                <Col md={4} key={i}>
+                  <Card>
+                    <Card.Img
+                      variant="top"
+                      src={t.image1_public_url} />
+                    <Card.Body>
+                      <div className={shopStyles.title_text}>{t.name}</div>
+                      <div className={shopStyles.description_text}>{t.description}</div>
+                      <a
+                        href={t.url}
+                        className='btn btn-primary mt30'>
+                        もっと見る
+                      </a>
+                    </Card.Body>
+                  </Card>
                 </Col>
-                <Col>
-                  <div className={shopStyles.title_text}>{t.name}</div>
-                  <div className={shopStyles.description_text}>{t.description}</div>
-                  {t.price && <div className={shopStyles.description_text}>料金: ¥{t.price}</div>}
-                  <a
-                    href={t.url}
-                    className='btn btn-primary mt30'>
-                    もっと見る
-                  </a>
-                </Col>
-              </Row>
-              &nbsp;
-            </div>
-          )
-        })}
+              )
+            })}
+          </Row>
+        </div>}
       </div>}
       {productInfo && <div style={{backgroundColor: '#E5E5E5', padding: '30px'}}>
         <div className='text-center mt20 mb50'>
           <h2>物販商品</h2>
         </div>
-        {productInfo.map((p, i) => {
-          return (
-            <div key={i}>
-              <Row>
-                <Col>
-                  <img
-                    width={'100%'}
-                    height={'100%'}
-                    src={String(p.image1_public_url)}
-                    alt='Product slide'
-                  />
-                </Col>
-                <Col>
-                  <div className={shopStyles.title_text}>{p.name}</div>
-                  <div className={shopStyles.description_text}>{p.description}</div>
-                  {p.price && <div className={shopStyles.description_text}>料金: ¥{p.price}</div>}
-                  <a
-                    href={p.url}
-                    className='btn btn-primary mt30'>
-                    もっと見る
-                  </a>
-                </Col>
-              </Row>
-              &nbsp;
-            </div>
-          )
-        })}
+            
+        <Row className='flex-nowrap'>
+          {productInfo.map((p, i) => {
+            return (
+              <Col md={4} key={i}>
+                <Card>
+                  <Card.Img
+                    variant="top"
+                    src={p.image1_public_url} />
+                  <Card.Body>
+                    <div className={shopStyles.title_text}>{p.name}</div>
+                    <div className={shopStyles.description_text}>{p.description}</div>
+                    <a
+                      href={p.url}
+                      className='btn btn-primary mt30'>
+                      もっと見る
+                    </a>
+                  </Card.Body>
+                </Card>
+              </Col>
+            )
+          })}
+        </Row>
       </div>}
     </>
   )
