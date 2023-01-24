@@ -51,7 +51,8 @@ const Index: NextPage = () => {
                   <td>
                     <a
                       href={`/shop/${shop.public_id}`}
-                      className='btn btn-primary'>店舗紹介ページ</a>
+                      className='btn btn-primary'
+                      target='_blank' rel='noreferrer'>店舗紹介ページ</a>
                   </td>
                 </tr>
               )
