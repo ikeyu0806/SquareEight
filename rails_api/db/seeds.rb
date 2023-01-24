@@ -6,13 +6,13 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-account = Account.create!(
+account = Account.first_or_create!(
   business_name: "管理ユーザ",
   stripe_customer_id: "cus_LwJxeaXaTnVjba",
   stripe_account_id: "acct_1LFYYj2eLQ63YTOo"
 )
 
-account_s3_images = AccountS3Image.create!(
+account_s3_images = AccountS3Image.first_or_create!(
   [
     {
       account_id: account.id,
@@ -77,7 +77,7 @@ account_s3_images = AccountS3Image.create!(
   ]
 )
 
-shops = Shop.create!(
+shops = Shop.first_or_create!(
   [
     {
       account_id: account.id,
@@ -109,11 +109,11 @@ shops = Shop.create!(
   ]
 )
 
-SharedComponent.create!(
+SharedComponent.first_or_create!(
   account_id: account.id,
 )
 
-MerchantUser.create!(
+MerchantUser.first_or_create!(
   account_id: account.id,
   email: "merchant_user@develop.com",
   password: "Pass1234",
@@ -194,7 +194,7 @@ MerchantUser.create!(
   allow_send_line_message: "Allow"
 )
 
-EndUser.create!(
+EndUser.first_or_create!(
   first_name: "デモ",
   last_name: "ユーザ",
   email: "end_user@develop.com",
@@ -203,7 +203,7 @@ EndUser.create!(
   email_authentication_status: "Enabled"
 )
 
-SystemAdminUser.create!(
+SystemAdminUser.first_or_create!(
   name: "admin_user",
   email: "system_admin@develop.com",
   phone_number: "12312341234",
@@ -211,7 +211,7 @@ SystemAdminUser.create!(
   authentication_status: "Enabled"
 )
 
-customers = Customer.create!(
+customers = Customer.first_or_create!(
   [
     {
       account_id: account.id,
@@ -237,12 +237,12 @@ customers = Customer.create!(
   ]
 )
 
-customer_group = CustomerGroup.create!(
+customer_group = CustomerGroup.first_or_create!(
   account_id: account.id,
   name: "デモグループ",
 )
 
-CustomerGroupRelation.create!(
+CustomerGroupRelation.first_or_create!(
   [
     {
       customer_id: customers[0].id,
@@ -259,7 +259,7 @@ CustomerGroupRelation.create!(
   ]
 )
 
-resources = Resource.create!(
+resources = Resource.first_or_create!(
   [
     {
       account_id: account.id,
@@ -279,7 +279,7 @@ resources = Resource.create!(
   ]
 )
 
-reserve_frames = ReserveFrame.create!(
+reserve_frames = ReserveFrame.first_or_create!(
   [
     {
       account_id: account.id,
@@ -376,7 +376,7 @@ reserve_frames = ReserveFrame.create!(
   ]
 )
 
-ReserveFrameReceptionTime.create!(
+ReserveFrameReceptionTime.first_or_create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
@@ -461,7 +461,7 @@ ReserveFrameReceptionTime.create!(
   ]
 )
 
-ReserveFrameResource.create!(
+ReserveFrameResource.first_or_create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
@@ -478,7 +478,7 @@ ReserveFrameResource.create!(
   ]
 )
 
-ShopReserveFrame.create!(
+ShopReserveFrame.first_or_create!(
   [
     {
       shop_id: shops[0].id,
@@ -491,7 +491,7 @@ ShopReserveFrame.create!(
   ]
 )
 
-ticket_masters = TicketMaster.create!(
+ticket_masters = TicketMaster.first_or_create!(
   [
     {
       account_id: account.id,
@@ -505,7 +505,7 @@ ticket_masters = TicketMaster.create!(
   ]
 )
 
-ShopTicketMaster.create!(
+ShopTicketMaster.first_or_create!(
   [
     {
       shop_id: shops[0].id,
@@ -514,7 +514,7 @@ ShopTicketMaster.create!(
   ]
 )
 
-monthly_payment_plans = MonthlyPaymentPlan.create!(
+monthly_payment_plans = MonthlyPaymentPlan.first_or_create!(
   [
     {
       account_id: account.id,
@@ -530,7 +530,7 @@ monthly_payment_plans = MonthlyPaymentPlan.create!(
   ]
 )
 
-ShopMonthlyPaymentPlan.create!(
+ShopMonthlyPaymentPlan.first_or_create!(
   [
     {
       shop_id: shops[0].id,
@@ -539,7 +539,7 @@ ShopMonthlyPaymentPlan.create!(
   ]
 )
 
-ReserveFrameMonthlyPaymentPlan.create!(
+ReserveFrameMonthlyPaymentPlan.first_or_create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
@@ -548,7 +548,7 @@ ReserveFrameMonthlyPaymentPlan.create!(
   ]
 )
 
-ReserveFrameTicketMaster.create!(
+ReserveFrameTicketMaster.first_or_create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
@@ -558,7 +558,7 @@ ReserveFrameTicketMaster.create!(
   ]
 )
 
-products = Product.create!(
+products = Product.first_or_create!(
   [
     {
       account_id: account.id,
@@ -581,7 +581,7 @@ products = Product.create!(
   ]
 )
 
-ProductType.create!(
+ProductType.first_or_create!(
   [
     {
       product_id: products[1].id,
@@ -596,7 +596,7 @@ ProductType.create!(
   ]
 )
 
-ShopProduct.create!(
+ShopProduct.first_or_create!(
   [
     {
       shop_id: shops[0].id,
@@ -609,14 +609,14 @@ ShopProduct.create!(
   ]
 )
 
-questionnaire_master = QuestionnaireMaster.create!(
+questionnaire_master = QuestionnaireMaster.first_or_create!(
   account_id: account.id,
   title: "アンケートデモ",
   question_form_json: "[{\"question\"=>\"商品へのご要望\", \"formType\"=>\"text\", \"textFormRowCount\"=>5, \"sortOrder\"=>1, \"questionId\"=>\"18581acf0bb\", \"selectFormAnswers\"=>[], \"radioButtonAnswers\"=>[], \"checkboxAnswers\"=>[]}, {\"question\"=>\"年齢は？\", \"formType\"=>\"select\", \"textFormRowCount\"=>1, \"sortOrder\"=>2, \"questionId\"=>\"18581ad6be4\", \"selectFormAnswers\"=>[\"10代\", \"20代\", \"30代\", \"40代\", \"50代\", \"60代以上\"], \"radioButtonAnswers\"=>[], \"checkboxAnswers\"=>[]}]",
   publish_status: "Publish"
 )
 
-delivery_datetime_setting = DeliveryDatetimeSetting.create!(
+delivery_datetime_setting = DeliveryDatetimeSetting.first_or_create!(
   account_id: account.id,
   shortest_delivery_day: 2,
   longest_delivery_day: 4,
