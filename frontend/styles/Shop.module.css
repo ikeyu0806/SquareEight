@@ -14,8 +14,14 @@
 .img_parent .headline {
   position: absolute;
   color: #ffffff;
-  top: 40%;
-  left: 50%;
+  transform: translate(-50%,-50%);
+  margin: 0;
+  padding: 0;
+}
+
+.img_parent .description {
+  position: absolute;
+  color: #ffffff;
   transform: translate(-50%,-50%);
   margin: 0;
   padding: 0;
@@ -24,20 +30,44 @@
 /* ワイドスクリーン */
 @media only screen and (min-width: 1500px) {
 	.img_parent .headline {
-		font-size: 100px;
+    top: 40%;
+    left: 50%;
+		font-size: 80px;
 	}
+
+  .img_parent .description {
+    top: 60%;
+    left: 50%;
+    font-size: 60px;
+  }
 }
 
 /* タブレット */
 @media only screen and (min-width : 768px) and (max-width : 1200px) {
 	.img_parent .headline {
-		font-size: 60px;
+    top: 40%;
+    left: 50%;
+		font-size: 50px;
 	}
+
+  .img_parent .description {
+    top: 60%;
+    left: 50%;
+    font-size: 30px;
+  }
 }
 
 /* スマホ */
 @media only screen and (max-width: 479px) {
 	.img_parent .headline {
-		font-size: 30px;
+    top: 30%;
+    left: 50%;
+		font-size: 20px;
 	}
+
+  .img_parent .description {
+    top: 60%;
+    left: 50%;
+    font-size: 10px;
+  }
 }

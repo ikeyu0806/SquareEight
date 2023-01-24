@@ -31,6 +31,7 @@ const ShopPageTemplate = () => {
               alt='First slide'
             />
             <p className={shopStyles.headline}>{name}</p>
+            <p className={shopStyles.description}>初心者からアスリートまで、全ての人々が結果を出せるようあらゆることについて考え抜かれたフィットネスクラブです。</p>
           </div>
         </div>
       </Container>
