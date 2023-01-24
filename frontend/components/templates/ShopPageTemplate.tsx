@@ -22,7 +22,7 @@ const ShopPageTemplate = () => {
   return (
     <>
       <Container>
-        <div className='text-center' style={{marginTop: '100px', marginBottom: '100px'}}>
+        <div className='text-center' style={{marginTop: '50px', marginBottom: '100px'}}>
           <div className={shopStyles.img_parent}>
             <img
               width={'100%'}
@@ -67,80 +67,52 @@ const ShopPageTemplate = () => {
         </Container>
       </div>
   
-      {reserveFrameInfo && <div style={{backgroundColor: 'white', padding: '30px'}}>
-        <div className='text-center mt20 mb50'>
-          <h2>予約メニュー</h2>
-        </div>
-        <Row className='flex-nowrap'>
-          {reserveFrameInfo.map((r, i) => {
-            return (
-              <Col md={4} key={i}>
-                <Card>
-                  <Card.Img
-                    variant="top"
-                    src={r.image1_public_url} />
-                  <Card.Body>
-                    <div className={shopStyles.title_text}>{r.title}</div>
-                    <div className={shopStyles.description_text}>{r.description}</div>
-                    <a
-                      href={r.url}
-                      className='btn btn-primary mt30'>
-                      予約に進む
-                    </a>
-                  </Card.Body>
-                </Card>
-              </Col>
-            )
-          })}
-        </Row>
-      </div>}
-  
-      {monthlyPatmentPlanInfo && <div style={{padding: '30px'}}>
-        <div className='text-center mt20 mb50'>
-          <h2>月額サブスクリプション</h2>
-        </div>
-        <Row className='flex-nowrap'>
-          {monthlyPatmentPlanInfo.map((m, i) => {
-            return (
-              <Col md={4} key={i}>
-                <Card>
-                  <Card.Img
-                    variant="top"
-                    src={m.image1_public_url} />
-                  <Card.Body>
-                    <div className={shopStyles.title_text}>{m.name}</div>
-                    <div className={shopStyles.description_text}>{m.description}</div>
-                    <a
-                      href={m.url}
-                      className='btn btn-primary mt30'>
-                      もっと見る
-                    </a>
-                  </Card.Body>
-                </Card>
-              </Col>
-            )
-          })}
-        </Row>
-      </div>}
-      {ticketMasterInfo && <div style={{backgroundColor: 'white', padding: '30px'}}>
-        <div className='text-center mt20 mb50'>
-          <h2>回数券</h2>
-        </div>
-
-        {ticketMasterInfo && <div style={{padding: '30px'}}>
-          <Row className='flex-nowrap'>
-            {ticketMasterInfo.map((t, i) => {
+      <Container>
+        {reserveFrameInfo && <div style={{padding: '30px'}}>
+          <div className='text-center mt20 mb50'>
+            <h2>予約メニュー</h2>
+          </div>
+          <Row className=''>
+            {reserveFrameInfo.map((r, i) => {
+              return (
+                <Col lg={3} md={6} sm={6} key={i}>
+                  <Card>
+                    <Card.Img
+                      variant="top"
+                      src={r.image1_public_url} />
+                    <Card.Body>
+                      <div className={shopStyles.title_text}>{r.title}</div>
+                      <div className={shopStyles.description_text}>{r.description}</div>
+                      <a
+                        href={r.url}
+                        className='btn btn-primary mt30'>
+                        予約に進む
+                      </a>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              )
+            })}
+          </Row>
+        </div>}
+    
+        {monthlyPatmentPlanInfo && <div style={{padding: '30px'}}>
+          <div className='text-center mt20 mb50'>
+            <h2>月額サブスクリプション</h2>
+          </div>
+          <Row>
+            {monthlyPatmentPlanInfo.map((m, i) => {
               return (
                 <Col md={4} key={i}>
                   <Card>
                     <Card.Img
                       variant="top"
-                      src={t.image1_public_url} />
+                      src={m.image1_public_url} />
                     <Card.Body>
-                      <div className={shopStyles.title_text}>{t.name}</div>
-                      <div className={shopStyles.description_text}>{t.description}</div>
+                      <div className={shopStyles.title_text}>{m.name}</div>
+                      <div className={shopStyles.description_text}>{m.description}</div>
                       <a
-                        href={t.url}
+                        href={m.url}
                         className='btn btn-primary mt30'>
                         もっと見る
                       </a>
@@ -151,35 +123,65 @@ const ShopPageTemplate = () => {
             })}
           </Row>
         </div>}
-      </div>}
-      {productInfo && <div style={{backgroundColor: '#E5E5E5', padding: '30px'}}>
-        <div className='text-center mt20 mb50'>
-          <h2>物販商品</h2>
-        </div>
-            
-        <Row className='flex-nowrap'>
-          {productInfo.map((p, i) => {
-            return (
-              <Col md={4} key={i}>
-                <Card>
-                  <Card.Img
-                    variant="top"
-                    src={p.image1_public_url} />
-                  <Card.Body>
-                    <div className={shopStyles.title_text}>{p.name}</div>
-                    <div className={shopStyles.description_text}>{p.description}</div>
-                    <a
-                      href={p.url}
-                      className='btn btn-primary mt30'>
-                      もっと見る
-                    </a>
-                  </Card.Body>
-                </Card>
-              </Col>
-            )
-          })}
-        </Row>
-      </div>}
+        {ticketMasterInfo && <div style={{padding: '30px'}}>
+          <div className='text-center mt20 mb50'>
+            <h2>回数券</h2>
+          </div>
+
+          {ticketMasterInfo && <div style={{padding: '30px'}}>
+            <Row>
+              {ticketMasterInfo.map((t, i) => {
+                return (
+                  <Col md={4} key={i}>
+                    <Card>
+                      <Card.Img
+                        variant="top"
+                        src={t.image1_public_url} />
+                      <Card.Body>
+                        <div className={shopStyles.title_text}>{t.name}</div>
+                        <div className={shopStyles.description_text}>{t.description}</div>
+                        <a
+                          href={t.url}
+                          className='btn btn-primary mt30'>
+                          もっと見る
+                        </a>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                )
+              })}
+            </Row>
+          </div>}
+        </div>}
+        {productInfo && <div style={{padding: '30px'}}>
+          <div className='text-center mt20 mb50'>
+            <h2>商品一覧</h2>
+          </div>
+              
+          <Row>
+            {productInfo.map((p, i) => {
+              return (
+                <Col md={4} sm={6} key={i}>
+                  <Card>
+                    <Card.Img
+                      variant="top"
+                      src={p.image1_public_url} />
+                    <Card.Body>
+                      <div className={shopStyles.title_text}>{p.name}</div>
+                      <div className={shopStyles.description_text}>{p.description}</div>
+                      <a
+                        href={p.url}
+                        className='btn btn-primary mt30'>
+                        もっと見る
+                      </a>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              )
+            })}
+          </Row>
+        </div>}
+      </Container>
     </>
   )
 }
