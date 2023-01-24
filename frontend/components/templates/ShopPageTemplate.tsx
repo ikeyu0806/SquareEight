@@ -1,4 +1,4 @@
-import { Container, Carousel, Row, Col, Image } from 'react-bootstrap'
+import { Container, Carousel, Row, Col, Image, Card } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import shopStyles from 'styles/Shop.module.css'
@@ -66,37 +66,38 @@ const ShopPageTemplate = () => {
           </Row>
         </Container>
       </div>
+  
       {reserveFrameInfo && <div style={{backgroundColor: 'white', padding: '30px'}}>
         <div className='text-center mt20 mb50'>
           <h2>予約メニュー</h2>
         </div>
-        {reserveFrameInfo.map((r, i) => {
-          return (
-            <div key={i}>
-              <Row>
-                <Col>
-                  <img
-                    width={'100%'}
-                    height={'100%'}
-                    src={String(r.image1_public_url)}
-                    alt='ReserveFrame slide'
-                  />
+        <Row className='flex-nowrap'>
+          {reserveFrameInfo.map((r, i) => {
+            return (
+              <div key={i}>
+                <Col md={4}>
+                  <Card>
+                    <Card.Img
+                      variant="top"
+                      src={r.image1_public_url} />
+                    <Card.Body>
+                      <div className={shopStyles.title_text}>{r.title}</div>
+                      <div className={shopStyles.description_text}>{r.description}</div>
+                      <a
+                        href={r.url}
+                        className='btn btn-primary mt30'>
+                        予約に進む
+                      </a>
+                    </Card.Body>
+                  </Card>
                 </Col>
-                <Col>
-                  <div className={shopStyles.title_text}>{r.title}</div>
-                  <div className={shopStyles.description_text}>{r.description}</div>
-                  <a
-                    href={r.url}
-                    className='btn btn-primary mt30'>
-                    予約に進む
-                  </a>
-                </Col>
-              </Row>
-              &nbsp;
-            </div>
-          )
-        })}
+                &nbsp;
+              </div>
+            )
+          })}
+        </Row>
       </div>}
+  
       {monthlyPatmentPlanInfo && <div style={{backgroundColor: '#E5E5E5', padding: '30px'}}>
         <div className='text-center mt20 mb50'>
           <h2>月額サブスクリプション</h2>
