@@ -23,13 +23,15 @@ const ShopPageTemplate = () => {
     <>
       <Container>
         <div className='text-center' style={{marginTop: '100px', marginBottom: '100px'}}>
-          <h1 className='mb50'>{name}</h1>
-          <img
+          <div className={shopStyles.img_parent}>
+            <img
               width={'100%'}
               height={'100%'}
               src={String(shopImage1ImagePublicUrl)}
               alt='First slide'
             />
+            <p>{name}</p>
+          </div>
         </div>
       </Container>
       <div style={{backgroundColor: '#E5E5E5', padding: '30px'}}>
