@@ -1,5 +1,5 @@
 class Api::Internal::ShopsController < ApplicationController
-  before_action :merchant_login_only!
+  before_action :merchant_login_only!, except: [:show]
 
   def index
     shops = current_merchant_user.account.shops
@@ -10,9 +10,7 @@ class Api::Internal::ShopsController < ApplicationController
   end
 
   def show
-    shop = current_merchant_user
-           .account
-           .shops
+    shop = Shop
            .find_by(public_id: params[:public_id])
 
     shared_component = shop.account.shared_component
