@@ -11,7 +11,7 @@
   position: relative;
 }
 
-.img_parent p {
+.img_parent .headline {
   position: absolute;
   color: #ffffff;
   top: 40%;
@@ -23,21 +23,21 @@
 
 /* ワイドスクリーン */
 @media only screen and (min-width: 1500px) {
-	.img_parent p {
+	.img_parent .headline {
 		font-size: 100px;
 	}
 }
 
 /* タブレット */
 @media only screen and (min-width : 768px) and (max-width : 1200px) {
-	.img_parent p {
+	.img_parent .headline {
 		font-size: 60px;
 	}
 }
 
 /* スマホ */
 @media only screen and (max-width: 479px) {
-	.img_parent p {
+	.img_parent .headline {
 		font-size: 30px;
 	}
 }

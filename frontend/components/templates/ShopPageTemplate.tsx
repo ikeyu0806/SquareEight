@@ -30,7 +30,7 @@ const ShopPageTemplate = () => {
               src={String(shopImage1ImagePublicUrl)}
               alt='First slide'
             />
-            <p>{name}</p>
+            <p className={shopStyles.headline}>{name}</p>
           </div>
         </div>
       </Container>
