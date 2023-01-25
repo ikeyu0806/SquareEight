@@ -1,4 +1,4 @@
-import { Container, Carousel, Row, Col, Image, Card } from 'react-bootstrap'
+import { Container, Carousel, Row, Col, Image, Card, Table } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import shopStyles from 'styles/Shop.module.css'
@@ -198,6 +198,25 @@ const ShopPageTemplate = () => {
             })}
           </Row>
         </div>}
+        <Container>
+          <Row>
+            <hr />
+            <Table bordered>
+              <tr>
+                <td className='bg-gray'>電話番号</td>
+                <td>09011112222</td>
+                <td className='bg-gray'>住所</td>
+                <td>〒152-0001 東京都渋谷区渋谷なんとかビル2A</td>
+              </tr>
+              <tr>
+                <td></td>
+                <td></td>
+                <td className='bg-gray'>住所</td>
+                <td>〒152-0001 東京都渋谷区渋谷なんとかビル2A</td>
+              </tr>
+            </Table>
+          </Row>
+        </Container>
       </Container>
     </>
   )

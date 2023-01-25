@@ -40,6 +40,10 @@
   background: linear-gradient(transparent 70%, #5BA5BD 50%);
 }
 
+.bg-gray {
+  background-color: #F2F2F2;
+}
+
 /* タブレット */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
 	.img_parent .headline {
