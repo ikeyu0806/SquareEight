@@ -33,6 +33,11 @@
   font-size: 20px;
 }
 
+.section_headline {
+  font-size: 25px;
+  background: linear-gradient(transparent 70%, #5BA5BD 50%);
+}
+
 /* タブレット */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
 	.img_parent .headline {

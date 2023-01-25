@@ -74,8 +74,8 @@ const ShopPageTemplate = () => {
   
       <Container>
         {reserveFrameInfo && <div style={{padding: '30px'}}>
-          <div className='text-center mt20 mb50'>
-            <h2>予約メニュー</h2>
+          <div>
+            <p><span className={shopStyles.section_headline}>予約メニュー</span></p>
           </div>
           <Row className=''>
             {reserveFrameInfo.map((r, i) => {
@@ -102,8 +102,8 @@ const ShopPageTemplate = () => {
         </div>}
     
         {monthlyPatmentPlanInfo && <div style={{padding: '30px'}}>
-          <div className='text-center mt20 mb50'>
-            <h2>月額サブスクリプション</h2>
+          <div>
+            <p><span className={shopStyles.section_headline}>月額サブスクリプション</span></p>
           </div>
           <Row>
             {monthlyPatmentPlanInfo.map((m, i) => {
@@ -129,11 +129,9 @@ const ShopPageTemplate = () => {
           </Row>
         </div>}
         {ticketMasterInfo && <div style={{padding: '30px'}}>
-          <div className='text-center mt20 mb50'>
-            <h2>回数券</h2>
+          <div>
+            <p><span className={shopStyles.section_headline}>回数券</span></p>
           </div>
-
-          {ticketMasterInfo && <div style={{padding: '30px'}}>
             <Row>
               {ticketMasterInfo.map((t, i) => {
                 return (
@@ -157,10 +155,9 @@ const ShopPageTemplate = () => {
               })}
             </Row>
           </div>}
-        </div>}
         {productInfo && <div style={{padding: '30px'}}>
-          <div className='text-center mt20 mb50'>
-            <h2>商品一覧</h2>
+          <div>
+            <p><span className={shopStyles.section_headline}>商品一覧</span></p>
           </div>
               
           <Row>
