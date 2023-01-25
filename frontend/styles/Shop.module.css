@@ -5,6 +5,8 @@
 
 .description_text {
   font-size: 15px;
+  border-left: 4px solid #B2384E;
+  padding: 4px 12px;
 }
 
 .img_parent {
