@@ -63,6 +63,11 @@
   background: linear-gradient(transparent 70%, #B2384E 50%);
 }
 
+.section_description {
+  font-size: 25px;
+  background: linear-gradient(transparent 70%, #5BA5BD 50%);
+}
+
 .function_content {
   border-radius: 5px;
   border: 1px solid;
