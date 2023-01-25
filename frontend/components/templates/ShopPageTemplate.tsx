@@ -22,18 +22,23 @@ const ShopPageTemplate = () => {
   return (
     <>
       <Container>
-        <div className='text-center' style={{marginTop: '50px', marginBottom: '100px'}}>
-          <div className={shopStyles.img_parent}>
-            <img
-              width={'100%'}
-              height={'100%'}
-              src={String(shopImage1ImagePublicUrl)}
-              alt='First slide'
-            />
-            <p className={shopStyles.headline}>{name}</p>
-            <p className={shopStyles.description}>初心者からアスリートまで、全ての人々が結果を出せるようあらゆることについて考え抜かれたフィットネスクラブです。</p>
-          </div>
-        </div>
+        <Row>
+          <Col>
+            <div className='text-center' style={{marginTop: '50px', marginBottom: '100px'}}>
+              <div className={shopStyles.img_parent}>
+                <img
+                  width={'100%'}
+                  height={'100%'}
+                  src={String(shopImage1ImagePublicUrl)}
+                  alt='First slide'
+                />
+                <p className={shopStyles.headline}>{name}</p>
+                <p className={shopStyles.description}>初心者からアスリートまで、全ての人々が結果を出せるようあらゆることについて考え抜かれたフィットネスクラブです。</p>
+              </div>
+            </div>
+          </Col>
+          <Col></Col>
+        </Row>
       </Container>
       <div style={{backgroundColor: '#E5E5E5', padding: '30px'}}>
         <Container>

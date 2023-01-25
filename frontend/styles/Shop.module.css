@@ -1,10 +1,10 @@
 .title_text {
-  font-size: 30px;
+  font-size: 20px;
   margin-bottom: 10px;
 }
 
 .description_text {
-  font-size: 25px;
+  font-size: 15px;
 }
 
 .img_parent {
@@ -19,7 +19,7 @@
   padding: 0;
   top: 30%;
   left: 50%;
-  font-size: 60px;
+  font-size: 30px;
 }
 
 .img_parent .description {
@@ -30,7 +30,7 @@
   padding: 0;
   top: 60%;
   left: 50%;
-  font-size: 40px;
+  font-size: 20px;
 }
 
 /* タブレット */
