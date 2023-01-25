@@ -58,6 +58,20 @@
   text-align: left;
 }
 
+.section_headline {
+  font-size: 35px;
+  background: linear-gradient(transparent 70%, #B2384E 50%);
+}
+
+.function_content {
+  border-radius: 5px;
+  border: 1px solid;
+  border-top: 12px solid #5BA5BD;
+  padding: 20px 12px;
+  font-size: 20px;
+}
+
+
 /* タブレット用 */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
   .cover_img_parent .headline {

@@ -73,11 +73,60 @@ const Home: NextPage = () => {
         &thinsp;
       </Container>
 
-      <div className='bg-silver'>
+      <div>
       &thinsp;
         <div className='text-center' id='features'>
-          <h2 className='mt50 mb50'>機能一覧</h2>
+        <p><span className={homeStyles.section_headline}>機能一覧</span></p>
           <Container>
+            <Row>
+              <Col lg={4}>
+                <div className={homeStyles.function_content}>店舗ホームページ作成</div>
+              </Col>
+              <Col lg={4}>
+                <div className={homeStyles.function_content}>予約メニュー</div>
+              </Col>
+              <Col lg={4}>
+                <div className={homeStyles.function_content}>ECページ</div>
+              </Col>
+            </Row>
+            &thinsp;
+            <Row>
+              <Col lg={4}>
+                <div className={homeStyles.function_content}>回数券</div>
+              </Col>
+              <Col lg={4}>
+                <div className={homeStyles.function_content}>月額サブスクリプション</div>
+              </Col>
+              <Col lg={4}>
+                <div className={homeStyles.function_content}>Webページ作成</div>
+              </Col>
+            </Row>
+            &thinsp;
+            <Row>
+              <Col lg={4}>
+                <div className={homeStyles.function_content}>オンラインアンケート</div>
+              </Col>
+              <Col lg={4}>
+                <div className={homeStyles.function_content}>顧客管理</div>
+              </Col>
+              <Col lg={4}>
+                <div className={homeStyles.function_content}>メルマガ配信</div>
+              </Col>
+            </Row>
+            &thinsp;
+            <Row>
+              <Col lg={4}>
+                <div className={homeStyles.function_content}>複数管理ユーザ登録</div>
+              </Col>
+              <Col lg={4}>
+                <div className={homeStyles.function_content}>ユーザの権限設定</div>
+              </Col>
+              <Col lg={4}>
+                <div className={homeStyles.function_content}>LINE公式アカウント連携</div>
+              </Col>
+            </Row>
+          </Container>
+          {/* <Container>
             <Row>
               <Col lg={4} sm={12}>
                 <Card className={homeStyles.featureCard}>
@@ -265,9 +314,11 @@ const Home: NextPage = () => {
               </Col>
             </Row>
             &thinsp;
-          </Container>
+          </Container> */}
         </div>
       </div>
+
+      <hr />
 
       <Container>
         <div className='text-center mt50 mb50' id='pricing'>
