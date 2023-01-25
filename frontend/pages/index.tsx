@@ -21,7 +21,6 @@ import { Container,
 const Home: NextPage = () => {
   return (
     <>
-      
       <Navbar collapseOnSelect expand='lg' bg='light'>
         <Container>
           <Navbar.Brand href='/' className='font-weight-bold'>
@@ -51,7 +50,8 @@ const Home: NextPage = () => {
           </Navbar.Collapse>
         </Container>
       </Navbar>
-      <CampaignAlert></CampaignAlert>
+      {/* <CampaignAlert></CampaignAlert> */}
+      <img src='/images/top_cover.png' alt='Top Cover' />
       <Container className='mt20 mb30' id='about'>
         <Row>
           <Col>
