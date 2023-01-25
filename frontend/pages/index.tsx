@@ -10,6 +10,7 @@ import CampaignAlert from 'components/atoms/CampaignAlert'
 import cardStyles from 'styles/Home.module.css'
 import TextWithCheckIcon from 'components/molecules/TextWithCheckIcon'
 // import SquareEightLogo from 'components/atoms/SquareEightLogo'
+import { brandRedRgb, brandGreenRgb } from 'constants/brandColors'
 import { Container,
          Navbar,
          Nav,
@@ -44,7 +45,10 @@ const Home: NextPage = () => {
                 <span className='link-text'>ビジネスアカウントログイン</span>
               </Nav.Link>
               <Nav.Link href='/merchant/signup'>
-                <Button>無料でお試し</Button>
+                <Button
+                  style={{backgroundColor: brandRedRgb, borderColor: brandRedRgb}}>
+                  無料でお試し
+                </Button>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
