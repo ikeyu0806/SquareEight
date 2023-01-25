@@ -24,7 +24,7 @@ const ShopPageTemplate = () => {
       <Container>
         <Row>
           <Col>
-            <div className='text-center' style={{marginTop: '50px', marginBottom: '100px'}}>
+            <div className='text-center' style={{marginTop: '10px', marginBottom: '100px'}}>
               <div className={shopStyles.img_parent}>
                 <img
                   width={'100%'}
@@ -37,43 +37,43 @@ const ShopPageTemplate = () => {
               </div>
             </div>
           </Col>
-          <Col></Col>
+          <Col>
+            <div className='mt10'>
+              <Row>
+                <Col>
+                  <div className={shopStyles.description_text}>{description1}</div>
+                </Col>
+                <Col>
+                  <img
+                    width={'100%'}
+                    height={'100%'}
+                    src={String(shopImage2ImagePublicUrl)}
+                    alt='Second slide'
+                  />
+                </Col>
+              </Row>
+            </div>
+            <div className='mt10'>
+              <Row>
+                <Col>
+                  <div className={shopStyles.description_text}>{description2}</div>
+                </Col>
+                <Col>
+                  <img
+                    width={'100%'}
+                    height={'100%'}
+                    src={String(shopImage2ImagePublicUrl)}
+                    alt='Second slide'
+                  />
+                </Col>
+              </Row>
+            </div>
+          </Col>
         </Row>
       </Container>
-      <div style={{backgroundColor: '#E5E5E5', padding: '30px'}}>
-        <Container>
-          <Row>
-            <Col sm={6}>
-              <div className={shopStyles.description_text}>{description1}</div>
-            </Col>
-            <Col sm={6}>
-              <img
-                width={'100%'}
-                height={'100%'}
-                src={String(shopImage2ImagePublicUrl)}
-                alt='Second slide'
-              />
-            </Col>
-          </Row>
-          &nbsp;
-          <Row>
-            <Col sm={6}>
-              <div className={shopStyles.description_text}>{description2}</div>
-            </Col>
-            <Col sm={6}>
-              <img
-                width={'100%'}
-                height={'100%'}
-                src={String(shopImage3ImagePublicUrl)}
-                alt='Third slide'
-              />
-            </Col>
-          </Row>
-        </Container>
-      </div>
-  
       <Container>
         {reserveFrameInfo && <div style={{padding: '30px'}}>
+          <hr />
           <div>
             <p><span className={shopStyles.section_headline}>予約メニュー</span></p>
           </div>
@@ -105,6 +105,7 @@ const ShopPageTemplate = () => {
         </div>}
     
         {monthlyPatmentPlanInfo && <div style={{padding: '30px'}}>
+          <hr />
           <div>
             <p><span className={shopStyles.section_headline}>月額サブスクリプション</span></p>
           </div>
@@ -135,6 +136,7 @@ const ShopPageTemplate = () => {
           </Row>
         </div>}
         {ticketMasterInfo && <div style={{padding: '30px'}}>
+          <hr />
           <div>
             <p><span className={shopStyles.section_headline}>回数券</span></p>
           </div>
@@ -165,6 +167,7 @@ const ShopPageTemplate = () => {
             </Row>
           </div>}
         {productInfo && <div style={{padding: '30px'}}>
+          <hr />
           <div>
             <p><span className={shopStyles.section_headline}>商品一覧</span></p>
           </div>
