@@ -36,20 +36,29 @@
 .headline {
   font-size: 100px;
 }
+
 .features_header_text {
   font-size: 150%;
 }
-.featureCard {
-  height: 480px;
+
+.plan_table_text {
+  font-size: 20px;
 }
+
+.price_text {
+  font-size: 30px;
+}
+
 .planCard {
   height: 350px;
 }
+
 .features_description_text {
   font-size: 100%;
   margin-top: 20px;
   text-align: left;
 }
+
 .plan_price {
   font-size: 150%;
 }
@@ -76,6 +85,48 @@
   font-size: 20px;
 }
 
+.price_table table {
+  border-collapse: collapse;
+  border-spacing: 0;
+  table-layout: fixed;
+  width: 490px;
+}
+
+.price_table table tr:last-child {
+  border-bottom:solid 1px #ddd;
+}
+
+.price_table table th {
+  text-align: center;
+  padding: 10px 0;
+  border-right:solid 1px #ddd;
+  border-left:solid 1px #ddd;
+  width: 155px;
+}
+
+.price_table table th:nth-child(1) {
+  background-color:#dddddd;
+}
+
+.price_table table th:nth-child(3) {
+  background-color:#f5b932;
+  color: white;
+}
+
+.price_table table tr:nth-child(2) td {
+  font-size: 30px;
+}
+
+.plan_table {
+	width:100%;
+	border-collapse: separate;
+	border-radius: 10px;
+  border: 1px solid;
+}
+
+.plan_table th {
+  background-color: #5BA5BD;
+}
 
 /* タブレット用 */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
