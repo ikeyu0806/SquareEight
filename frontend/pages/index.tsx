@@ -40,14 +40,20 @@ const Home: NextPage = () => {
             </Nav>
             <Nav>
               <Nav.Link href='/customer/login'>
-                <span className='link-text'>SquareEightIDログイン</span>
+                <a
+                  className='btn btn-primary'
+                  href='/customer/login'
+                  style={{backgroundColor: brandGrayRgb, borderColor: brandGrayRgb}}>SquareEightIDログイン</a>
               </Nav.Link>
               <Nav.Link href='/merchant/login'>
-                <span className='link-text'>ビジネスアカウントログイン</span>
+                <a
+                  className='btn btn-primary'
+                  href='/merchant/login'
+                  style={{backgroundColor: brandGrayRgb, borderColor: brandGrayRgb}}>ビジネスアカウントログイン</a>
               </Nav.Link>
               <Nav.Link href='/merchant/signup'>
                 <Button
-                  style={{backgroundColor: brandGrayRgb, borderColor: brandGrayRgb}}>
+                  style={{backgroundColor: brandRedRgb, borderColor: brandRedRgb}}>
                   無料でお試し
                 </Button>
               </Nav.Link>
