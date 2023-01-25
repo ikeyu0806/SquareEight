@@ -4,8 +4,114 @@
   margin-bottom: 50px;
 }
 
-@media screen and (max-width: 480px) {
+.cover_img {
+  filter: hue-rotate(180deg);
+  filter: invert(30%);
+}
+
+.cover_img_parent {
+  position: relative;
+}
+
+.cover_img_parent .headline {
+  position: absolute;
+  color: #ffffff;
+  transform: translate(-50%,-50%);
+  margin: 0;
+  padding: 0;
+  top: 40%;
+  left: 50%;
+}
+
+.cover_img_parent .serviceDescription {
+  position: absolute;
+  color: #ffffff;
+  transform: translate(-50%,-50%);
+  margin: 0;
+  padding: 0;
+  top: 60%;
+  left: 50%;
+}
+
+.headline {
+  font-size: 100px;
+}
+.features_header_text {
+  font-size: 150%;
+}
+.featureCard {
+  height: 480px;
+}
+.planCard {
+  height: 350px;
+}
+.features_description_text {
+  font-size: 100%;
+  margin-top: 20px;
+  text-align: left;
+}
+.plan_price {
+  font-size: 150%;
+}
+.plan_description {
+  font-size: 100%;
+  text-align: left;
+}
+
+/* タブレット用 */
+@media screen and (min-width : 719px) and (max-width : 1200px) {
+  .cover_img_parent .headline {
+    top: 20%;
+    left: 50%;
+		font-size: 75px;
+	}
+
+  .cover_img_parent .description {
+    top: 60%;
+    left: 50%;
+    font-size: 30px;
+  }
+  .headline {
+    font-size: 500%;
+  }
+  .featureCard {
+    height: 800px;
+    margin-bottom: 20px;
+  }
+  .features_header_text {
+    font-size: 25px;
+  }
+  .planCard {
+    height: 350px;
+    margin-bottom: 20px;
+  }
+  .features_description_text {
+    margin-top: 20px;
+    font-size: 20px;
+    text-align: left;
+  }
+  .plan_price {
+    font-size: 150%;
+  }
+  .plan_description {
+    font-size: 150%;
+    text-align: left;
+  }
+}
+
+@media screen and (max-width: 479px) {
 	/* スマホ用 */
+  .cover_img_parent .headline {
+    top: 30%;
+    left: 50%;
+		font-size: 20px;
+	}
+
+  .cover_img_parent .description {
+    top: 60%;
+    left: 50%;
+    font-size: 10px;
+  }
   .headline {
     font-size: 300%;
   }
@@ -28,62 +134,3 @@
     text-align: left;
   }
 }
-
-/* タブレット用 */
-@media screen and (min-width: 481px) {
-  .headline {
-    font-size: 500%;
-  }
-  .featureCard {
-    height: 800px;
-    margin-bottom: 20px;
-  }
-  .features_header_text {
-    font-size: 300%;
-  }
-  .planCard {
-    height: 350px;
-    margin-bottom: 20px;
-  }
-  .features_description_text {
-    margin-top: 20px;
-    font-size: 150%;
-    text-align: left;
-  }
-  .plan_price {
-    font-size: 150%;
-  }
-  .plan_description {
-    font-size: 150%;
-    text-align: left;
-  }
-}
-
-@media screen and (min-width: 960px) {
-	/* （PC用） */
-  .headline {
-    font-size: 500%;
-  }
-  .features_header_text {
-    font-size: 150%;
-  }
-  .featureCard {
-    height: 480px;
-  }
-  .planCard {
-    height: 350px;
-  }
-  .features_description_text {
-    font-size: 100%;
-    margin-top: 20px;
-    text-align: left;
-  }
-  .plan_price {
-    font-size: 150%;
-  }
-  .plan_description {
-    font-size: 100%;
-    text-align: left;
-  }
-}
-

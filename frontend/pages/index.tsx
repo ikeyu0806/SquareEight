@@ -51,16 +51,19 @@ const Home: NextPage = () => {
         </Container>
       </Navbar>
       {/* <CampaignAlert></CampaignAlert> */}
-      <img src='/images/top_cover.png' alt='Top Cover' />
+      <div className={homeStyles.cover_img_parent}>
+        <img
+          className={homeStyles.cover_img}
+          src='/images/top_cover.png'
+          alt='Top Cover' />
+        <p className={homeStyles.headline}>SquareEight</p>
+        <p className={homeStyles.serviceDescription}>
+          無料から使えるオンラインビジネス運営サービス
+        </p>
+      </div>
       <Container className='mt20 mb30' id='about'>
         <Row>
           <Col>
-            <div className='text-center'>
-              <div className={homeStyles.headline}>SquareEight</div>
-              <div className={homeStyles.serviceDescription}>
-                無料から使えるオンラインビジネス運営サービス
-              </div>
-            </div>
           </Col>
         </Row>
         &thinsp;
