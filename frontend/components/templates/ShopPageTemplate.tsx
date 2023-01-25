@@ -88,11 +88,14 @@ const ShopPageTemplate = () => {
                     <Card.Body>
                       <div className={shopStyles.title_text}>{r.title}</div>
                       <div className={shopStyles.description_text}>{r.description}</div>
-                      <a
-                        href={r.url}
-                        className='btn btn-primary mt30'>
-                        予約に進む
-                      </a>
+                      <div className='text-center'>
+                        <a
+                          href={r.url}
+                          style={{backgroundColor: '#B2384E', borderColor: '#B2384E'}}
+                          className='btn btn-primary mt30'>
+                          予約に進む
+                        </a>
+                      </div>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -116,11 +119,14 @@ const ShopPageTemplate = () => {
                     <Card.Body>
                       <div className={shopStyles.title_text}>{m.name}</div>
                       <div className={shopStyles.description_text}>{m.description}</div>
-                      <a
-                        href={m.url}
-                        className='btn btn-primary mt30'>
-                        もっと見る
-                      </a>
+                      <div className='text-center'>
+                        <a
+                          href={m.url}
+                          style={{backgroundColor: '#B2384E', borderColor: '#B2384E'}}
+                          className='btn btn-primary mt30'>
+                          もっと見る
+                        </a>
+                      </div>
                     </Card.Body>
                   </Card>
                 </Col>
@@ -143,11 +149,14 @@ const ShopPageTemplate = () => {
                       <Card.Body>
                         <div className={shopStyles.title_text}>{t.name}</div>
                         <div className={shopStyles.description_text}>{t.description}</div>
-                        <a
-                          href={t.url}
-                          className='btn btn-primary mt30'>
-                          もっと見る
-                        </a>
+                        <div className='text-center'>
+                          <a
+                            href={t.url}
+                            style={{backgroundColor: '#B2384E', borderColor: '#B2384E'}}
+                            className='btn btn-primary mt30'>
+                            もっと見る
+                          </a>
+                        </div>
                       </Card.Body>
                     </Card>
                   </Col>
@@ -171,11 +180,14 @@ const ShopPageTemplate = () => {
                     <Card.Body>
                       <div className={shopStyles.title_text}>{p.name}</div>
                       <div className={shopStyles.description_text}>{p.description}</div>
-                      <a
-                        href={p.url}
-                        className='btn btn-primary mt30'>
-                        もっと見る
-                      </a>
+                      <div className='text-center'>
+                        <a
+                          href={p.url}
+                          style={{backgroundColor: '#B2384E', borderColor: '#B2384E'}}
+                          className='btn btn-primary mt30'>
+                          もっと見る
+                        </a>
+                      </div>
                     </Card.Body>
                   </Card>
                 </Col>
