@@ -91,7 +91,6 @@ const Home: NextPage = () => {
                 <div className={homeStyles.function_content}>EC機能</div>
               </Col>
             </Row>
-            &thinsp;
             <Row>
               <Col lg={4}>
                 <div className={homeStyles.function_content}>回数券</div>
@@ -103,7 +102,6 @@ const Home: NextPage = () => {
                 <div className={homeStyles.function_content}>ノーコードでWebページ作成</div>
               </Col>
             </Row>
-            &thinsp;
             <Row>
               <Col lg={4}>
                 <div className={homeStyles.function_content}>オンラインアンケート</div>
@@ -115,7 +113,6 @@ const Home: NextPage = () => {
                 <div className={homeStyles.function_content}>メルマガ配信</div>
               </Col>
             </Row>
-            &thinsp;
             <Row>
               <Col lg={4}>
                 <div className={homeStyles.function_content}>複数管理ユーザ登録</div>
@@ -202,18 +199,18 @@ const Home: NextPage = () => {
                     <td>無制限</td>
                   </tr>
                   <tr className={homeStyles.plan_table_text}>
-                    <td>オンラインアンケート作成</td>
-                    <td>10件</td>
-                    <td>無制限</td>
-                    <td>無制限</td>
-                    <td>無制限</td>
-                  </tr>
-                  <tr className={homeStyles.plan_table_text}>
                     <td>ノーコードWebページ作成機能</td>
                     <td>○</td>
                     <td>○</td>
                     <td>○</td>
                     <td>○</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>オンラインアンケート作成</td>
+                    <td>10件</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
                   </tr>
                   <tr className={homeStyles.plan_table_text}>
                     <td>オンラインアンケート回答閲覧可能数</td>
