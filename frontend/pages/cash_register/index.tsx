@@ -230,9 +230,9 @@ const Index: NextPage = () => {
                           return(
                             <ListGroup.Item key={i}>
                               <Row>
-                                {item.image1_account_s3_image_public_url && <Col><img
+                                {item.s3_object_public_url && <Col><img
                                     className='d-block w-100 mt30'
-                                    src={item.image1_account_s3_image_public_url}
+                                    src={item.s3_object_public_url}
                                     alt='image'/></Col>}
                                 <Col>
                                   {item.business_name}<br/>
@@ -326,9 +326,9 @@ const Index: NextPage = () => {
                           return (
                             <ListGroup.Item key={i}>
                               <Row>
-                                {item.image1_account_s3_image_public_url && <Col><img
+                                {item.s3_object_public_url && <Col><img
                                     className='d-block w-100'
-                                    src={item.image1_account_s3_image_public_url}
+                                    src={item.s3_object_public_url}
                                     alt='image'/></Col>}
                                 <Col>
                                   {item.business_name}<br/>
@@ -353,9 +353,9 @@ const Index: NextPage = () => {
                             return (
                               <ListGroup.Item key={i}>
                                 <Row>
-                                  {item.image1_account_s3_image_public_url && <Col><img
+                                  {item.s3_object_public_url && <Col><img
                                       className='d-block w-100'
-                                      src={item.image1_account_s3_image_public_url}
+                                      src={item.s3_object_public_url}
                                       alt='image'/></Col>}
                                   <Col>
                                     {item.business_name}<br/>
