@@ -138,6 +138,10 @@
   font-size: 18px;
 }
 
+.table_scroll {
+  overflow: scroll;
+}
+
 table .plan_table_parent {
   width: 100%;
   table-layout: fixed;

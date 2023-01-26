@@ -140,145 +140,146 @@ const Home: NextPage = () => {
             <p><span className={homeStyles.section_description}>基本プラン</span></p>
             <p><span className={homeStyles.section_description}>初期費用無料</span></p>
             </div>
-
-            <Table bordered className={homeStyles.plan_table_parent}>
-              <thead style={{backgroundColor: '#5BA5BD'}}>
-                <tr className='text-white'>
-                  <th></th>
-                  <th>フリープラン</th>
-                  <th>ライトプラン</th>
-                  <th>スタンダードプラン</th>
-                  <th>プレミアムプラン</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td className={homeStyles.plan_table_text}>月額料金</td>
-                  <td className={homeStyles.price_text}>￥0</td>
-                  <td className={homeStyles.price_text}>￥1,480</td>
-                  <td className={homeStyles.price_text}>￥2,980</td>
-                  <td className={homeStyles.price_text}>￥6,980</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>店舗登録数</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>オンライン予約受付</td>
-                  <td>月間10件</td>
-                  <td>月間500件</td>
-                  <td>月間2000件</td>
-                  <td>無制限</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>EC商品登録数</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>回数券登録数</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>月額サブスクリプション登録数</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>顧客表示数</td>
-                  <td>10件</td>
-                  <td>500件</td>
-                  <td>2000件</td>
-                  <td>無制限</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>オンラインアンケート作成</td>
-                  <td>10件</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>ノーコードWebページ作成機能</td>
-                  <td>○</td>
-                  <td>○</td>
-                  <td>○</td>
-                  <td>○</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>オンラインアンケート回答閲覧可能数</td>
-                  <td>○</td>
-                  <td>○</td>
-                  <td>○</td>
-                  <td>○</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>スタッフや設備備品などのリソース登録</td>
-                  <td>3件</td>
-                  <td>10件</td>
-                  <td>無制限</td>
-                  <td>無制限</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>メール配信可能数</td>
-                  <td>10件</td>
-                  <td>1000件</td>
-                  <td>3000件</td>
-                  <td>無制限</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>メッセージテンプレート登録</td>
-                  <td>○</td>
-                  <td>○</td>
-                  <td>○</td>
-                  <td>○</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>LINEメッセージ送信</td>
-                  <td>○</td>
-                  <td>○</td>
-                  <td>○</td>
-                  <td>○</td>
-                </tr>   
-                <tr className={homeStyles.plan_table_text}>
-                  <td>メール、LINEの予約配信</td>
-                  <td>○</td>
-                  <td>○</td>
-                  <td>○</td>
-                  <td>○</td>
-                </tr>                <tr className={homeStyles.plan_table_text}>
-                  <td>複数管理ユーザ登録</td>
-                  <td>×</td>
-                  <td>×</td>
-                  <td>○</td>
-                  <td>○</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>管理ユーザへの権限設定</td>
-                  <td>×</td>
-                  <td>×</td>
-                  <td>×</td>
-                  <td>○</td>
-                </tr>
-                <tr className={homeStyles.plan_table_text}>
-                  <td>決済手数料</td>
-                  <td>8%</td>
-                  <td>5%</td>
-                  <td>5%</td>
-                  <td>4%</td>
-                </tr>
-              </tbody>
-            </Table>
+            <div className={homeStyles.table_scroll}>
+              <Table bordered className={homeStyles.plan_table_parent}>
+                <thead style={{backgroundColor: '#5BA5BD'}}>
+                  <tr className='text-white'>
+                    <th></th>
+                    <th>フリープラン</th>
+                    <th>ライトプラン</th>
+                    <th>スタンダードプラン</th>
+                    <th>プレミアムプラン</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td className={homeStyles.plan_table_text}>月額料金</td>
+                    <td className={homeStyles.price_text}>￥0</td>
+                    <td className={homeStyles.price_text}>￥1,480</td>
+                    <td className={homeStyles.price_text}>￥2,980</td>
+                    <td className={homeStyles.price_text}>￥6,980</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>店舗登録数</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>オンライン予約受付</td>
+                    <td>月間10件</td>
+                    <td>月間500件</td>
+                    <td>月間2000件</td>
+                    <td>無制限</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>EC商品登録数</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>回数券登録数</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>月額サブスクリプション登録数</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>顧客表示数</td>
+                    <td>10件</td>
+                    <td>500件</td>
+                    <td>2000件</td>
+                    <td>無制限</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>オンラインアンケート作成</td>
+                    <td>10件</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>ノーコードWebページ作成機能</td>
+                    <td>○</td>
+                    <td>○</td>
+                    <td>○</td>
+                    <td>○</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>オンラインアンケート回答閲覧可能数</td>
+                    <td>○</td>
+                    <td>○</td>
+                    <td>○</td>
+                    <td>○</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>スタッフや設備備品などのリソース登録</td>
+                    <td>3件</td>
+                    <td>10件</td>
+                    <td>無制限</td>
+                    <td>無制限</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>メール配信可能数</td>
+                    <td>10件</td>
+                    <td>1000件</td>
+                    <td>3000件</td>
+                    <td>無制限</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>メッセージテンプレート登録</td>
+                    <td>○</td>
+                    <td>○</td>
+                    <td>○</td>
+                    <td>○</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>LINEメッセージ送信</td>
+                    <td>○</td>
+                    <td>○</td>
+                    <td>○</td>
+                    <td>○</td>
+                  </tr>   
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>メール、LINEの予約配信</td>
+                    <td>○</td>
+                    <td>○</td>
+                    <td>○</td>
+                    <td>○</td>
+                  </tr>                <tr className={homeStyles.plan_table_text}>
+                    <td>複数管理ユーザ登録</td>
+                    <td>×</td>
+                    <td>×</td>
+                    <td>○</td>
+                    <td>○</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>管理ユーザへの権限設定</td>
+                    <td>×</td>
+                    <td>×</td>
+                    <td>×</td>
+                    <td>○</td>
+                  </tr>
+                  <tr className={homeStyles.plan_table_text}>
+                    <td>決済手数料</td>
+                    <td>8%</td>
+                    <td>5%</td>
+                    <td>5%</td>
+                    <td>4%</td>
+                  </tr>
+                </tbody>
+              </Table>
+            </div>
             &thinsp;
             <div>
               <hr />
