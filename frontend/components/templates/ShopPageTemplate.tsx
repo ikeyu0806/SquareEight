@@ -73,7 +73,37 @@ const ShopPageTemplate = () => {
         &nbsp;
         <Row>
           <Col lg={6}>
-            <Table bordered>
+            <div className='mt10'>
+              <Row>
+                <Col>
+                  <div className={shopStyles.description_text}>{description1}</div>
+                </Col>
+                <Col>
+                  <img
+                    width={'100%'}
+                    height={'100%'}
+                    src={String(shopImage2ImagePublicUrl)}
+                    alt='Second slide'
+                  />
+                </Col>
+              </Row>
+            </div>
+            <div className='mt5'>
+              <Row>
+                <Col>
+                  <div className={shopStyles.description_text}>{description2}</div>
+                </Col>
+                <Col>
+                  <img
+                    width={'100%'}
+                    height={'100%'}
+                    src={String(shopImage2ImagePublicUrl)}
+                    alt='Second slide'
+                  />
+                </Col>
+              </Row>
+            </div>
+            <Table bordered className='mt10'>
               <tbody>
                 <tr>
                   <td style={{backgroundColor: 'lightgray'}}>営業時間</td>
@@ -173,7 +203,7 @@ const ShopPageTemplate = () => {
           <Row>
             {monthlyPatmentPlanInfo.map((m, i) => {
               return (
-                <Col md={4} key={i}>
+                <Col  lg={3} md={6} sm={6} key={i}>
                   <Card>
                     <Card.Img
                       variant="top"
@@ -204,7 +234,7 @@ const ShopPageTemplate = () => {
             <Row>
               {ticketMasterInfo.map((t, i) => {
                 return (
-                  <Col md={4} key={i}>
+                  <Col lg={3} md={6} sm={6} key={i}>
                     <Card>
                       <Card.Img
                         variant="top"
@@ -232,11 +262,10 @@ const ShopPageTemplate = () => {
           <div>
             <p><span className={shopStyles.section_headline}>商品一覧</span></p>
           </div>
-              
           <Row>
             {productInfo.map((p, i) => {
               return (
-                <Col md={4} sm={6} key={i}>
+                <Col lg={3} md={6} sm={6} key={i}>
                   <Card>
                     <Card.Img
                       variant="top"
