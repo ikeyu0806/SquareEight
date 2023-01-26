@@ -23,8 +23,8 @@ const ShopPageTemplate = () => {
     <>
       <Container>
         <Row>
-          <Col>
-            <div className='text-center' style={{marginTop: '10px', marginBottom: '100px'}}>
+          <Col lg={6}>
+            <div className='text-center' style={{marginTop: '10px', marginBottom: '10px'}}>
               <div className={shopStyles.img_parent}>
                 <img
                   width={'100%'}
@@ -37,7 +37,7 @@ const ShopPageTemplate = () => {
               </div>
             </div>
           </Col>
-          <Col>
+          <Col lg={6}>
             <div className='mt10'>
               <Row>
                 <Col>
@@ -53,7 +53,7 @@ const ShopPageTemplate = () => {
                 </Col>
               </Row>
             </div>
-            <div className='mt10'>
+            <div className='mt5'>
               <Row>
                 <Col>
                   <div className={shopStyles.description_text}>{description2}</div>
@@ -70,8 +70,9 @@ const ShopPageTemplate = () => {
             </div>
           </Col>
         </Row>
+        &nbsp;
         <Row>
-          <Col>
+          <Col lg={6}>
             <Table bordered>
               <tbody>
                 <tr>
@@ -97,7 +98,7 @@ const ShopPageTemplate = () => {
               </tbody>
             </Table>
           </Col>
-          <Col>
+          <Col lg={6}>
             <div className='mt10'>
               <Row>
                 <Col>
