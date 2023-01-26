@@ -280,8 +280,8 @@ const Home: NextPage = () => {
                   <span>初期費用・月額料金は無料でお見積もりします！</span><br />
                   <span className={homeStyles.enterprise_description}>ご相談・お問い合わせは<a href='/enterprise_inquiry'>こちら</a></span>
                 </div>
-                <Col sm={3}></Col>
-                <Col>
+                <Col md={1} sm={3}></Col>
+                <Col md={10}>
                   <Card>
                     <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
                       例えばこのようなご要望にお応えします!
@@ -289,7 +289,7 @@ const Home: NextPage = () => {
                     <Card.Body>
                     <Col></Col>
                       <Col xs={11}>
-                        <Card.Text>
+                        <Card.Text style={{textAlign: 'left'}}>
                           {/* ul/liにするとNextのHydration failed error */}
                           <span className={homeStyles.enter_prise_card_content}>・自社のブランディングに合わせたホームページや予約ページのデザイン</span><br/>
                           <span className={homeStyles.enter_prise_card_content}>・映画館の座席予約ページのようなビジネスに合わせた独自の予約機能</span><br/>
