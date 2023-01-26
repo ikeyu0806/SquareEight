@@ -63,7 +63,7 @@ const Home: NextPage = () => {
           src='/images/top_cover.png'
           alt='Top Cover' />
         <p className={homeStyles.headline}>SquareEight</p>
-        <p className={homeStyles.serviceDescription}>
+        <p className={homeStyles.service_description}>
           無料から使えるオンラインビジネス運営サービス
         </p>
       </div>
@@ -145,10 +145,10 @@ const Home: NextPage = () => {
                 <thead style={{backgroundColor: '#5BA5BD'}}>
                   <tr className='text-white'>
                     <th></th>
-                    <th>フリープラン</th>
-                    <th>ライトプラン</th>
-                    <th>スタンダードプラン</th>
-                    <th>プレミアムプラン</th>
+                    <th className={homeStyles.plan_table_th}>フリープラン</th>
+                    <th className={homeStyles.plan_table_th}>ライトプラン</th>
+                    <th className={homeStyles.plan_table_th}>スタンダードプラン</th>
+                    <th className={homeStyles.plan_table_th}>プレミアムプラン</th>
                   </tr>
                 </thead>
                 <tbody>

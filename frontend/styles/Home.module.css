@@ -1,4 +1,4 @@
-.serviceDescription {
+.service_description {
   font-size: 200%;
   margin-top: 50px;
   margin-bottom: 50px;
@@ -24,7 +24,7 @@
   left: 50%;
 }
 
-.cover_img_parent .serviceDescription {
+.cover_img_parent .service_description {
   position: absolute;
   color: #ffffff;
   transform: translate(-50%,-50%);
@@ -147,6 +147,10 @@ table .plan_table_parent {
   table-layout: fixed;
 }
 
+.plan_table_th {
+  font-size: 15px;
+}
+
 /* タブレット用 */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
   .cover_img_parent .headline {
@@ -192,28 +196,41 @@ table .plan_table_parent {
 		font-size: 20px;
 	}
 
-  .cover_img_parent .description {
-    top: 60%;
+  .cover_img_parent .service_description {
+    top: 70%;
     left: 50%;
-    font-size: 10px;
+    font-size: 15px;
   }
-  .headline {
-    font-size: 300%;
+
+  .section_headline {
+    font-size: 20px;
   }
-  .featureCard {
-    height: 45  0px;
-    margin-bottom: 20px;
+
+  .function_content {
+    font-size: 15px;
   }
+
+  .plan_table_text {
+    font-size: 15px;
+  }
+
+  .price_text {
+    font-size: 20px;
+  }
+
   .features_header_text {
     font-size: 150%;
   }
+
   .planCard {
     height: 480px;
     margin-bottom: 20px;
   }
+
   .plan_price {
     font-size: 180%;
   }
+
   .plan_description {
     font-size: 150%;
     text-align: left;
