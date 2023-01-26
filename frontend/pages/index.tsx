@@ -285,9 +285,9 @@ const Home: NextPage = () => {
               <hr />
               <Row>
                 <div className='text-center mb20'>
-                <p><span className={homeStyles.section_description}>エンタープライズプラン</span></p>
-                  <span className={homeStyles.enterprise_description}>SquareEightの機能をベースにオーダーメイドでエンタープライズ向けシステムを開発します！</span>
-                  <span>初期費用・月額料金は無料でお見積もりします！</span>
+                <p><span className={homeStyles.section_description}>エンタープライズプラン</span></p><br />
+                  <span className={homeStyles.enterprise_description}>SquareEightの機能をベースにオーダーメイドでエンタープライズ向けシステムを開発します！</span><br />
+                  <span>初期費用・月額料金は無料でお見積もりします！</span><br />
                   <span className={homeStyles.enterprise_description}>ご相談・お問い合わせは<a href='/enterprise_inquiry'>こちら</a></span>
                 </div>
                 <Col sm={3}></Col>

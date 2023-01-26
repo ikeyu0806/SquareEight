@@ -206,9 +206,14 @@ table .plan_table_parent {
     font-size: 20px;
   }
 
+  .section_description {
+    font-size: 17px;
+  }
+
   .function_content {
     font-size: 15px;
   }
+
 
   .plan_table_text {
     font-size: 15px;
@@ -234,5 +239,9 @@ table .plan_table_parent {
   .plan_description {
     font-size: 150%;
     text-align: left;
+  }
+
+  .enterprise_description {
+    font-size: 15px;
   }
 }
