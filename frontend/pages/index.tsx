@@ -67,13 +67,6 @@ const Home: NextPage = () => {
           無料から使えるオンラインビジネス運営サービス
         </p>
       </div>
-      <Container className='mt20 mb30' id='about'>
-        <Row>
-          <Col>
-          </Col>
-        </Row>
-        &thinsp;
-      </Container>
 
       <div>
       &thinsp;
@@ -81,46 +74,46 @@ const Home: NextPage = () => {
         <p><span className={homeStyles.section_headline}>機能一覧</span></p>
           <Container>
             <Row>
-              <Col lg={4}>
+              <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>店舗ホームページ作成</div>
               </Col>
-              <Col lg={4}>
+              <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>予約メニュー作成</div>
               </Col>
-              <Col lg={4}>
+              <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>EC機能</div>
               </Col>
             </Row>
             <Row>
-              <Col lg={4}>
+              <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>回数券</div>
               </Col>
-              <Col lg={4}>
+              <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>月額サブスクリプション</div>
               </Col>
-              <Col lg={4}>
-                <div className={homeStyles.function_content}>ノーコードでWebページ作成</div>
+              <Col lg={4} md={4}>
+                <div className={homeStyles.function_content}>Webページ作成</div>
               </Col>
             </Row>
             <Row>
-              <Col lg={4}>
+              <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>オンラインアンケート</div>
               </Col>
-              <Col lg={4}>
+              <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>顧客管理</div>
               </Col>
-              <Col lg={4}>
+              <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>メルマガ配信</div>
               </Col>
             </Row>
             <Row>
-              <Col lg={4}>
+              <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>複数管理ユーザ登録</div>
               </Col>
-              <Col lg={4}>
+              <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>ユーザの権限設定</div>
               </Col>
-              <Col lg={4}>
+              <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>LINE公式アカウント連携</div>
               </Col>
             </Row>

@@ -165,27 +165,33 @@ table .plan_table_parent {
     left: 50%;
     font-size: 30px;
   }
+
   .headline {
     font-size: 500%;
   }
+
   .featureCard {
     height: 800px;
     margin-bottom: 20px;
   }
+
   .features_header_text {
     font-size: 25px;
   }
+
   .planCard {
     height: 350px;
     margin-bottom: 20px;
   }
+
   .features_description_text {
     margin-top: 20px;
     font-size: 20px;
     text-align: left;
   }
-  .plan_price {
-    font-size: 150%;
+
+  .function_content {
+    font-size: 15px;
   }
 }
 
