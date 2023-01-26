@@ -14,6 +14,12 @@ const ShopPageTemplate = () => {
   const shopImage4ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage4ImagePublicUrl)
   const shopImage5ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage5ImagePublicUrl)
   const shopImage6ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage6ImagePublicUrl)
+  const postalCode = useSelector((state: RootState) => state.shop.postalCode)
+  const state = useSelector((state: RootState) => state.shop.state)
+  const city = useSelector((state: RootState) => state.shop.city)
+  const town = useSelector((state: RootState) => state.shop.town)
+  const line1 = useSelector((state: RootState) => state.shop.line1)
+  const line2 = useSelector((state: RootState) => state.shop.line2)
   const accessInfo = useSelector((state: RootState) => state.shop.accessInfo)
   const parkingLotGuidance = useSelector((state: RootState) => state.shop.parkingLotGuidance)
   const businessHoursText = useSelector((state: RootState) => state.shop.businessHoursText)
@@ -118,8 +124,12 @@ const ShopPageTemplate = () => {
                   <td>{phoneNumber}</td>
                 </tr>}
                 <tr>
+                  <td style={{backgroundColor: 'lightgray'}}>郵便番号</td>
+                  <td>〒{postalCode}</td>
+                </tr>
+                <tr>
                   <td style={{backgroundColor: 'lightgray'}}>住所</td>
-                  <td>〒152-0001 東京都渋谷区渋谷なんとかビル2A</td>
+                  <td>{state}{city}{town}{line1}{line2}</td>
                 </tr>
                 {accessInfo && <tr>
                   <td style={{backgroundColor: 'lightgray'}}>交通案内</td>
