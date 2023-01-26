@@ -8,6 +8,10 @@ const ShopPageTemplate = () => {
   const phoneNumber = useSelector((state: RootState) => state.shop.phoneNumber)
   const description1 = useSelector((state: RootState) => state.shop.description1)
   const description2 = useSelector((state: RootState) => state.shop.description2)
+  const description3 = useSelector((state: RootState) => state.shop.description3)
+  const description4 = useSelector((state: RootState) => state.shop.description4)
+  const description5 = useSelector((state: RootState) => state.shop.description5)
+  const description6 = useSelector((state: RootState) => state.shop.description6)
   const shopImage1ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage1ImagePublicUrl)
   const shopImage2ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage2ImagePublicUrl)
   const shopImage3ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage3ImagePublicUrl)
@@ -36,46 +40,46 @@ const ShopPageTemplate = () => {
           <Col lg={6}>
             <div className='text-center' style={{marginTop: '10px', marginBottom: '10px'}}>
               <div className={shopStyles.img_parent}>
-                <img
+                {shopImage1ImagePublicUrl && <img
                   width={'100%'}
                   height={'100%'}
                   src={String(shopImage1ImagePublicUrl)}
                   alt='First slide'
-                />
-                <p className={shopStyles.headline}>{name}</p>
-                <p className={shopStyles.description}>初心者からアスリートまで、全ての人々が結果を出せるようあらゆることについて考え抜かれたフィットネスクラブです。</p>
+                />}
+                {name && <p className={shopStyles.headline}>{name}</p>}
+                {description1 && <p className={shopStyles.description}>{description1}</p>}
               </div>
             </div>
           </Col>
           <Col lg={6}>
             <div className='mt10'>
               <Row>
-                <Col>
-                  <div className={shopStyles.description_text}>{description1}</div>
-                </Col>
-                <Col>
+                {description2 && <Col>
+                  <div className={shopStyles.description_text}>{description2}</div>
+                </Col>}
+                {shopImage2ImagePublicUrl && <Col>
                   <img
                     width={'100%'}
                     height={'100%'}
                     src={String(shopImage2ImagePublicUrl)}
                     alt='Second slide'
                   />
-                </Col>
+                </Col>}
               </Row>
             </div>
-            <div className='mt5'>
+            <div className='mt10'>
               <Row>
-                <Col>
-                  <div className={shopStyles.description_text}>{description2}</div>
-                </Col>
-                <Col>
+                {description3 && <Col>
+                  <div className={shopStyles.description_text}>{description3}</div>
+                </Col>}
+                {shopImage3ImagePublicUrl && <Col>
                   <img
                     width={'100%'}
                     height={'100%'}
-                    src={String(shopImage2ImagePublicUrl)}
+                    src={String(shopImage3ImagePublicUrl)}
                     alt='Second slide'
                   />
-                </Col>
+                </Col>}
               </Row>
             </div>
           </Col>
@@ -85,32 +89,32 @@ const ShopPageTemplate = () => {
           <Col lg={6}>
             <div className='mt10'>
               <Row>
-                <Col>
-                  <div className={shopStyles.description_text}>{description1}</div>
-                </Col>
-                <Col>
+                {description4 && <Col>
+                  <div className={shopStyles.description_text}>{description4}</div>
+                </Col>}
+                {shopImage4ImagePublicUrl && <Col>
                   <img
                     width={'100%'}
                     height={'100%'}
-                    src={String(shopImage2ImagePublicUrl)}
+                    src={String(shopImage4ImagePublicUrl)}
                     alt='Second slide'
                   />
-                </Col>
+                </Col>}
               </Row>
             </div>
             <div className='mt5'>
               <Row>
-                <Col>
-                  <div className={shopStyles.description_text}>{description2}</div>
-                </Col>
-                <Col>
+                {description5 && <Col>
+                  <div className={shopStyles.description_text}>{description5}</div>
+                </Col>}
+                {shopImage5ImagePublicUrl && <Col>
                   <img
                     width={'100%'}
                     height={'100%'}
-                    src={String(shopImage2ImagePublicUrl)}
+                    src={String(shopImage5ImagePublicUrl)}
                     alt='Second slide'
                   />
-                </Col>
+                </Col>}
               </Row>
             </div>
             <Table bordered className='mt10'>
@@ -123,14 +127,14 @@ const ShopPageTemplate = () => {
                   <td style={{backgroundColor: 'lightgray'}}>電話番号</td>
                   <td>{phoneNumber}</td>
                 </tr>}
-                <tr>
+                {postalCode && <tr>
                   <td style={{backgroundColor: 'lightgray'}}>郵便番号</td>
                   <td>〒{postalCode}</td>
-                </tr>
-                <tr>
+                </tr>}
+                {(state || city || town || line1 || line2) && <tr>
                   <td style={{backgroundColor: 'lightgray'}}>住所</td>
                   <td>{state}{city}{town}{line1}{line2}</td>
-                </tr>
+                </tr>}
                 {accessInfo && <tr>
                   <td style={{backgroundColor: 'lightgray'}}>交通案内</td>
                   <td>{accessInfo}</td>
@@ -187,12 +191,15 @@ const ShopPageTemplate = () => {
               return (
                 <Col lg={3} md={6} sm={6} key={i}>
                   <Card>
-                    <Card.Img
+                    {r.image1_public_url && <Card.Img
                       variant="top"
-                      src={r.image1_public_url} />
+                      src={r.image1_public_url} />}
                     <Card.Body>
-                      <div className={shopStyles.title_text}>{r.title}</div>
-                      <div className={shopStyles.description_text}>{r.description}</div>
+                      {r.title &&
+                        <div className={shopStyles.title_text}>{r.title}</div>}
+                      {r.description &&
+                        <div className={shopStyles.description_text}>{r.description}</div>}
+                      {r.url &&
                       <div className='text-center'>
                         <a
                           href={r.url}
@@ -200,7 +207,7 @@ const ShopPageTemplate = () => {
                           className='btn btn-primary mt30'>
                           予約に進む
                         </a>
-                      </div>
+                      </div>}
                     </Card.Body>
                   </Card>
                 </Col>
@@ -219,20 +226,20 @@ const ShopPageTemplate = () => {
               return (
                 <Col  lg={3} md={6} sm={6} key={i}>
                   <Card>
-                    <Card.Img
+                    {m.image1_public_url && <Card.Img
                       variant="top"
-                      src={m.image1_public_url} />
+                      src={m.image1_public_url} />}
                     <Card.Body>
-                      <div className={shopStyles.title_text}>{m.name}</div>
-                      <div className={shopStyles.description_text}>{m.description}</div>
-                      <div className='text-center'>
+                      {m.name && <div className={shopStyles.title_text}>{m.name}</div>}
+                      {m.description && <div className={shopStyles.description_text}>{m.description}</div>}
+                      {m.url && <div className='text-center'>
                         <a
                           href={m.url}
                           style={{backgroundColor: '#B2384E', borderColor: '#B2384E'}}
                           className='btn btn-primary mt30'>
                           もっと見る
                         </a>
-                      </div>
+                      </div>}
                     </Card.Body>
                   </Card>
                 </Col>
@@ -250,20 +257,20 @@ const ShopPageTemplate = () => {
                 return (
                   <Col lg={3} md={6} sm={6} key={i}>
                     <Card>
-                      <Card.Img
+                      {t.image1_public_url && <Card.Img
                         variant="top"
-                        src={t.image1_public_url} />
+                        src={t.image1_public_url} />}
                       <Card.Body>
-                        <div className={shopStyles.title_text}>{t.name}</div>
-                        <div className={shopStyles.description_text}>{t.description}</div>
-                        <div className='text-center'>
+                        {t.name && <div className={shopStyles.title_text}>{t.name}</div>}
+                        {t.description && <div className={shopStyles.description_text}>{t.description}</div>}
+                        {t.url && <div className='text-center'>
                           <a
                             href={t.url}
                             style={{backgroundColor: '#B2384E', borderColor: '#B2384E'}}
                             className='btn btn-primary mt30'>
                             もっと見る
                           </a>
-                        </div>
+                        </div>}
                       </Card.Body>
                     </Card>
                   </Col>
@@ -281,12 +288,13 @@ const ShopPageTemplate = () => {
               return (
                 <Col lg={3} md={6} sm={6} key={i}>
                   <Card>
-                    <Card.Img
+                    {p.image1_public_url && <Card.Img
                       variant="top"
-                      src={p.image1_public_url} />
+                      src={p.image1_public_url} />}
                     <Card.Body>
-                      <div className={shopStyles.title_text}>{p.name}</div>
-                      <div className={shopStyles.description_text}>{p.description}</div>
+                      {p.name && <div className={shopStyles.title_text}>{p.name}</div>}
+                      {p.description && <div className={shopStyles.description_text}>{p.description}</div>}
+                      {p.url &&
                       <div className='text-center'>
                         <a
                           href={p.url}
@@ -294,7 +302,7 @@ const ShopPageTemplate = () => {
                           className='btn btn-primary mt30'>
                           もっと見る
                         </a>
-                      </div>
+                      </div>}
                     </Card.Body>
                   </Card>
                 </Col>

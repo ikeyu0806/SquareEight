@@ -10,6 +10,10 @@ import { nameChanged,
          phoneNumberChanged,
          description1Changed,
          description2Changed,
+         description3Changed,
+         description4Changed,
+         description5Changed,
+         description6Changed,
          postalCodeChanged,
          stateChanged,
          cityChanged,
@@ -58,6 +62,10 @@ const Index: NextPage = () => {
         dispatch(phoneNumberChanged(response.data.shop.phone_number))
         dispatch(description1Changed(response.data.shop.description1))
         dispatch(description2Changed(response.data.shop.description2))
+        dispatch(description3Changed(response.data.shop.description3))
+        dispatch(description4Changed(response.data.shop.description4))
+        dispatch(description5Changed(response.data.shop.description5))
+        dispatch(description6Changed(response.data.shop.description6))
         dispatch(postalCodeChanged(response.data.shop.postal_code))
         dispatch(stateChanged(response.data.shop.state))
         dispatch(cityChanged(response.data.shop.city))
