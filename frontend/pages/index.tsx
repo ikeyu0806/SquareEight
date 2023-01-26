@@ -280,8 +280,8 @@ const Home: NextPage = () => {
                   <span>初期費用・月額料金は無料でお見積もりします！</span><br />
                   <span className={homeStyles.enterprise_description}>ご相談・お問い合わせは<a href='/enterprise_inquiry'>こちら</a></span>
                 </div>
-                <Col md={1} sm={3}></Col>
-                <Col md={10}>
+                <Col lg={3} md={1} sm={3}></Col>
+                <Col lg={6} md={10}>
                   <Card>
                     <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
                       例えばこのようなご要望にお応えします!
