@@ -285,114 +285,7 @@ const Home: NextPage = () => {
               </tbody>
             </Table>
             &thinsp;
-            <hr />
             <div>
-
-              {/* <table className={homeStyles.plan_table}>
-                <thead>
-                  <tr>
-                    <th></th>
-                    <th>フリープラン</th>
-                    <th>ライトプラン</th>
-                    <th>スタンダードプラン</th>
-                    <th>プレミアムプラン</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>店舗登録</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>店舗ホームページ作成</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>予約メニュー作成</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>EC機能</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>回数券</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>月額サブスクリプション</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>ノーコードでWebページ作成</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>オンラインアンケート</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>顧客管理</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>メルマガ配信</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>複数管理ユーザ登録</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>ユーザの権限設定</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                  <tr>
-                    <td>LINE公式アカウント連携</td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                  </tr>
-                </tbody>
-              </table> */}
-
               <hr />
               <Row>
                 <div className='text-center mb20'>
@@ -404,21 +297,23 @@ const Home: NextPage = () => {
                 <Col sm={3}></Col>
                 <Col>
                   <Card>
-                    <Card.Header>
+                    <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
                       例えばこのようなご要望にお応えします!
                     </Card.Header>
                     <Card.Body>
                     <Col></Col>
                       <Col xs={11}>
                         <Card.Text className={cardStyles.plan_description}>
-                          <TextWithCheckIcon text='自社のブランディングに合わせたホームページや予約ページのデザイン' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='映画館の座席予約ページのようなビジネスに合わせた独自の予約機能' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='個別の業務フローに合わせた予約機能や販売管理機能' fill={'darkblue'}></TextWithCheckIcon><br/>                        
-                          <TextWithCheckIcon text='専用サーバ上での運用' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='独自ドメイン' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='他サービスとの連携機能' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='社内システムとの連携' fill={'darkblue'}></TextWithCheckIcon><br/>
-                          <TextWithCheckIcon text='LINE公式アカウント上で動作する機能開発' fill={'darkblue'}></TextWithCheckIcon><br/>
+                          <ul>
+                            <li>自社のブランディングに合わせたホームページや予約ページのデザイン</li>
+                            <li>映画館の座席予約ページのようなビジネスに合わせた独自の予約機能</li>
+                            <li>個別の業務フローに合わせた予約機能や販売管理機能</li>
+                            <li>専用サーバ上での運用</li>
+                            <li>独自ドメイン</li>
+                            <li>他サービスとの連携機能</li>
+                            <li>社内システムとの連携</li>
+                            <li>LINE公式アカウント上で動作する機能開発</li>
+                          </ul>
                         </Card.Text>
                       </Col>
                       <Col></Col>
