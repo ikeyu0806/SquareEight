@@ -65,6 +65,8 @@ const Index: NextPage = () => {
         dispatch(line1Changed(response.data.shop.line1))
         dispatch(line2Changed(response.data.shop.line2))
         dispatch(accessInfoChanged(response.data.shop.access_info))
+        dispatch(parkingLotGuidanceChanged(response.data.shop.parking_lot_guidance))
+        dispatch(businessHoursTextChanged(response.data.shop.business_hours_text))
         dispatch(remarksChanged(response.data.shop.remarks))
         dispatch(shopImage1ImagePublicUrlChanged(response.data.shop.shop_image1_public_url))
         dispatch(shopImage2ImagePublicUrlChanged(response.data.shop.shop_image2_public_url))

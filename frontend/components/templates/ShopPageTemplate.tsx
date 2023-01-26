@@ -14,6 +14,10 @@ const ShopPageTemplate = () => {
   const shopImage4ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage4ImagePublicUrl)
   const shopImage5ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage5ImagePublicUrl)
   const shopImage6ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage6ImagePublicUrl)
+  const accessInfo = useSelector((state: RootState) => state.shop.accessInfo)
+  const parkingLotGuidance = useSelector((state: RootState) => state.shop.parkingLotGuidance)
+  const businessHoursText = useSelector((state: RootState) => state.shop.businessHoursText)
+  const remarks = useSelector((state: RootState) => state.shop.remarks)
   const reserveFrameInfo = useSelector((state: RootState) => state.shop.reserveFrameInfo)
   const monthlyPatmentPlanInfo = useSelector((state: RootState) => state.shop.monthlyPatmentPlanInfo)
   const ticketMasterInfo = useSelector((state: RootState) => state.shop.ticketMasterInfo)
@@ -105,26 +109,26 @@ const ShopPageTemplate = () => {
             </div>
             <Table bordered className='mt10'>
               <tbody>
-                <tr>
+                {businessHoursText && <tr>
                   <td style={{backgroundColor: 'lightgray'}}>営業時間</td>
-                  <td>07:00～22:00。不定休</td>
-                </tr>
-                <tr>
+                  <td>{businessHoursText}</td>
+                </tr>}
+                {phoneNumber && <tr>
                   <td style={{backgroundColor: 'lightgray'}}>電話番号</td>
-                  <td>09011112222</td>
-                </tr>
+                  <td>{phoneNumber}</td>
+                </tr>}
                 <tr>
                   <td style={{backgroundColor: 'lightgray'}}>住所</td>
                   <td>〒152-0001 東京都渋谷区渋谷なんとかビル2A</td>
                 </tr>
-                <tr>
+                {accessInfo && <tr>
                   <td style={{backgroundColor: 'lightgray'}}>交通案内</td>
-                  <td>渋谷駅ハチ公前から徒歩5分</td>
-                </tr>
-                <tr>
+                  <td>{accessInfo}</td>
+                </tr>}
+                {parkingLotGuidance && <tr>
                   <td style={{backgroundColor: 'lightgray'}}>駐車場</td>
-                  <td>有料の駐車場がございます。¥1200〜/日。</td>
-                </tr>
+                  <td>{parkingLotGuidance}</td>
+                </tr>}
               </tbody>
             </Table>
           </Col>
@@ -194,7 +198,7 @@ const ShopPageTemplate = () => {
             })}
           </Row>
         </div>}
-    
+
         {monthlyPatmentPlanInfo && <div style={{padding: '30px'}}>
           <hr />
           <div>
