@@ -134,6 +134,15 @@
   margin-top: 20px;
 }
 
+.enter_prise_card_content {
+  font-size: 18px;
+}
+
+table .plan_table_parent {
+  width: 100%;
+  table-layout: fixed;
+}
+
 /* タブレット用 */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
   .cover_img_parent .headline {
@@ -168,10 +177,6 @@
   }
   .plan_price {
     font-size: 150%;
-  }
-  .plan_description {
-    font-size: 150%;
-    text-align: left;
   }
 }
 

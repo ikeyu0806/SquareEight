@@ -7,7 +7,6 @@ import LightPlanCard from 'components/molecules/LightPlanCard'
 import StandardPlanCard from 'components/molecules/StarndardPlanCard'
 import PremiumPlanCard from 'components/molecules/PremiumPlanCard'
 import CampaignAlert from 'components/atoms/CampaignAlert'
-import cardStyles from 'styles/Home.module.css'
 import TextWithCheckIcon from 'components/molecules/TextWithCheckIcon'
 // import SquareEightLogo from 'components/atoms/SquareEightLogo'
 import { brandGrayRgb, brandRedRgb, brandGreenRgb } from 'constants/brandColors'
@@ -142,7 +141,7 @@ const Home: NextPage = () => {
             <p><span className={homeStyles.section_description}>初期費用無料</span></p>
             </div>
 
-            <Table bordered>
+            <Table bordered className={homeStyles.plan_table_parent}>
               <thead style={{backgroundColor: '#5BA5BD'}}>
                 <tr className='text-white'>
                   <th></th>
@@ -299,14 +298,14 @@ const Home: NextPage = () => {
                     <Card.Body>
                     <Col></Col>
                       <Col xs={11}>
-                        <Card.Text className={cardStyles.plan_description}>
+                        <Card.Text>
                           {/* ul/liにするとNextのHydration failed error */}
-                          <span>・自社のブランディングに合わせたホームページや予約ページのデザイン</span><br/>
-                          <span>・映画館の座席予約ページのようなビジネスに合わせた独自の予約機能</span><br/>
-                          <span>・個別の業務フローに合わせた予約機能や販売管理機能</span><br/>
-                          <span>・専用サーバ上での運用</span><br/>
-                          <span>・他サービスとの連携機能</span><br/>
-                          <span>・社内システムとの連携</span>
+                          <span className={homeStyles.enter_prise_card_content}>・自社のブランディングに合わせたホームページや予約ページのデザイン</span><br/>
+                          <span className={homeStyles.enter_prise_card_content}>・映画館の座席予約ページのようなビジネスに合わせた独自の予約機能</span><br/>
+                          <span className={homeStyles.enter_prise_card_content}>・個別の業務フローに合わせた予約機能や販売管理機能</span><br/>
+                          <span className={homeStyles.enter_prise_card_content}>・専用サーバ上での運用</span><br/>
+                          <span className={homeStyles.enter_prise_card_content}>・他サービスとの連携機能</span><br/>
+                          <span className={homeStyles.enter_prise_card_content}>・社内システムとの連携</span>
                         </Card.Text>
                       </Col>
                       <Col></Col>
