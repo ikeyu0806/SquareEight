@@ -40,16 +40,12 @@ const Home: NextPage = () => {
             </Nav>
             <Nav>
               <Nav.Link href='/customer/login'>
-                <a
-                  className='btn btn-primary'
-                  href='/customer/login'
-                  style={{backgroundColor: brandGrayRgb, borderColor: brandGrayRgb}}>SquareEightIDログイン</a>
+                <Button
+                  style={{backgroundColor: brandGrayRgb, borderColor: brandGrayRgb}}>SquareEightIDログイン</Button>
               </Nav.Link>
               <Nav.Link href='/merchant/login'>
-                <a
-                  className='btn btn-primary'
-                  href='/merchant/login'
-                  style={{backgroundColor: brandGrayRgb, borderColor: brandGrayRgb}}>ビジネスアカウントログイン</a>
+                <Button
+                  style={{backgroundColor: brandGrayRgb, borderColor: brandGrayRgb}}>ビジネスアカウントログイン</Button>
               </Nav.Link>
               <Nav.Link href='/merchant/signup'>
                 <Button
@@ -290,9 +286,9 @@ const Home: NextPage = () => {
               <Row>
                 <div className='text-center mb20'>
                 <p><span className={homeStyles.section_description}>エンタープライズプラン</span></p>
-                  <h5 className='mt20'>SquareEightの機能をベースにオーダーメイドでエンタープライズ向けシステムを開発します！</h5>
-                  <h5>初期費用・月額料金は無料でお見積もりします！</h5>
-                  <h5 className='mt10'>ご相談・お問い合わせは<a href='/enterprise_inquiry'>こちら</a></h5>
+                  <span className={homeStyles.enterprise_description}>SquareEightの機能をベースにオーダーメイドでエンタープライズ向けシステムを開発します！</span>
+                  <span>初期費用・月額料金は無料でお見積もりします！</span>
+                  <span className={homeStyles.enterprise_description}>ご相談・お問い合わせは<a href='/enterprise_inquiry'>こちら</a></span>
                 </div>
                 <Col sm={3}></Col>
                 <Col>
@@ -304,16 +300,13 @@ const Home: NextPage = () => {
                     <Col></Col>
                       <Col xs={11}>
                         <Card.Text className={cardStyles.plan_description}>
-                          <ul>
-                            <li>自社のブランディングに合わせたホームページや予約ページのデザイン</li>
-                            <li>映画館の座席予約ページのようなビジネスに合わせた独自の予約機能</li>
-                            <li>個別の業務フローに合わせた予約機能や販売管理機能</li>
-                            <li>専用サーバ上での運用</li>
-                            <li>独自ドメイン</li>
-                            <li>他サービスとの連携機能</li>
-                            <li>社内システムとの連携</li>
-                            <li>LINE公式アカウント上で動作する機能開発</li>
-                          </ul>
+                          {/* ul/liにするとNextのHydration failed error */}
+                          <span>・自社のブランディングに合わせたホームページや予約ページのデザイン</span><br/>
+                          <span>・映画館の座席予約ページのようなビジネスに合わせた独自の予約機能</span><br/>
+                          <span>・個別の業務フローに合わせた予約機能や販売管理機能</span><br/>
+                          <span>・専用サーバ上での運用</span><br/>
+                          <span>・他サービスとの連携機能</span><br/>
+                          <span>・社内システムとの連携</span>
                         </Card.Text>
                       </Col>
                       <Col></Col>

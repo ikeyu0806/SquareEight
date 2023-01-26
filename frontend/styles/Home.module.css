@@ -5,6 +5,7 @@
 }
 
 .cover_img {
+  max-width: 100%;
   filter: hue-rotate(180deg);
   filter: invert(30%);
 }
@@ -126,6 +127,11 @@
 
 .plan_table th {
   background-color: #5BA5BD;
+}
+
+.enterprise_description {
+  font-size: 20px;
+  margin-top: 20px;
 }
 
 /* タブレット用 */
