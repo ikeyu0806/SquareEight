@@ -70,7 +70,17 @@ const Home: NextPage = () => {
 
       <div className='mt10'>
         <div className='text-center'>
-        <BackArrowIcon width={100} height={100} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
+          <p><span className={homeStyles.section_headline}>プログラミング知識不要でお店のWebページを作成！</span></p>
+          <Row>
+            <Col></Col>
+            <Col>
+            <img
+              className={homeStyles.pc_woman}
+              src='/images/pc_woman.png'
+              alt='Pc Woman' />
+            </Col>
+          </Row>
+          <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
         </div>
       </div>
 
