@@ -113,6 +113,10 @@ const ShopPageTemplate = () => {
                   <td style={{backgroundColor: 'lightgray'}}>駐車場</td>
                   <td>{parkingLotGuidance}</td>
                 </tr>}
+                {remarks && <tr>
+                  <td style={{backgroundColor: 'lightgray'}}>備考</td>
+                  <td>{remarks}</td>
+                </tr>}
               </tbody>
             </Table>
           </Col>
@@ -156,11 +160,11 @@ const ShopPageTemplate = () => {
           <div>
             <p><span className={shopStyles.section_headline}>予約メニュー</span></p>
           </div>
-          <Row className=''>
+          <Row>
             {reserveFrameInfo.map((r, i) => {
               return (
                 <Col lg={3} md={6} sm={6} key={i}>
-                  <Card>
+                  <Card className='mb20'>
                     {r.image1_public_url && <Card.Img
                       variant="top"
                       src={r.image1_public_url} />}
@@ -195,7 +199,7 @@ const ShopPageTemplate = () => {
             {monthlyPatmentPlanInfo.map((m, i) => {
               return (
                 <Col  lg={3} md={6} sm={6} key={i}>
-                  <Card>
+                  <Card className='mb20'>
                     {m.image1_public_url && <Card.Img
                       variant="top"
                       src={m.image1_public_url} />}
@@ -226,7 +230,7 @@ const ShopPageTemplate = () => {
               {ticketMasterInfo.map((t, i) => {
                 return (
                   <Col lg={3} md={6} sm={6} key={i}>
-                    <Card>
+                    <Card className='mb20'>
                       {t.image1_public_url && <Card.Img
                         variant="top"
                         src={t.image1_public_url} />}
@@ -257,7 +261,7 @@ const ShopPageTemplate = () => {
             {productInfo.map((p, i) => {
               return (
                 <Col lg={3} md={6} sm={6} key={i}>
-                  <Card>
+                  <Card className='mb20'>
                     {p.image1_public_url && <Card.Img
                       variant="top"
                       src={p.image1_public_url} />}
