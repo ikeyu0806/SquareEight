@@ -9,6 +9,7 @@ import PremiumPlanCard from 'components/molecules/PremiumPlanCard'
 import CampaignAlert from 'components/atoms/CampaignAlert'
 import TextWithCheckIcon from 'components/molecules/TextWithCheckIcon'
 // import SquareEightLogo from 'components/atoms/SquareEightLogo'
+import BackArrowIcon from 'components/atoms/BackArrowIcon'
 import { brandGrayRgb, brandRedRgb, brandGreenRgb } from 'constants/brandColors'
 import { Container,
          Navbar,
@@ -32,7 +33,6 @@ const Home: NextPage = () => {
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
           <Navbar.Collapse id='responsive-navbar-nav'>
             <Nav className='me-auto'>
-              <Nav.Link href='#about'>概要</Nav.Link>
               <Nav.Link href='#features'>機能</Nav.Link>
               <Nav.Link href='#pricing'>料金</Nav.Link>
               <Nav.Link href='/inquiry'>お問い合わせ</Nav.Link>
@@ -66,6 +66,12 @@ const Home: NextPage = () => {
         <p className={homeStyles.service_description}>
           無料から使えるオンラインビジネス運営サービス
         </p>
+      </div>
+
+      <div className='mt10'>
+        <div className='text-center'>
+        <BackArrowIcon width={100} height={100} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
+        </div>
       </div>
 
       <div>

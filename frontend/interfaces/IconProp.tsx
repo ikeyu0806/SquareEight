@@ -3,4 +3,5 @@ export type IconProp = {
   width: number
   height: number
   className?: string
+  rotateText?: string
 }
