@@ -10,7 +10,7 @@ import { nameChanged,
          description3Changed,
          description4Changed,
          description5Changed,
-         description6Changed,
+        //  description6Changed,
          postalCodeChanged,
          stateChanged,
          cityChanged,
@@ -36,7 +36,7 @@ const CreateShop = (): JSX.Element => {
   const description3 =  useSelector((state: RootState) => state.shop.description3)
   const description4 =  useSelector((state: RootState) => state.shop.description4)
   const description5 =  useSelector((state: RootState) => state.shop.description5)
-  const description6 =  useSelector((state: RootState) => state.shop.description6)
+  // const description6 =  useSelector((state: RootState) => state.shop.description6)
   const postalCode =  useSelector((state: RootState) => state.shop.postalCode)
   const state =  useSelector((state: RootState) => state.shop.state)
   const city =  useSelector((state: RootState) => state.shop.city)
@@ -119,27 +119,22 @@ const CreateShop = (): JSX.Element => {
       <FormControl
         as='textarea' rows={3}
         value={description2}
-        onChange={(e) => dispatch(description3Changed(e.target.value))} />
+        onChange={(e) => dispatch(description2Changed(e.target.value))} />
       <Form.Label className='mt10'>店舗説明3</Form.Label>
       <FormControl
         as='textarea' rows={3}
-        value={description2}
-        onChange={(e) => dispatch(description4Changed(e.target.value))} />
+        value={description3}
+        onChange={(e) => dispatch(description3Changed(e.target.value))} />
       <Form.Label className='mt10'>店舗説明4</Form.Label>
       <FormControl
         as='textarea' rows={3}
-        value={description2}
-        onChange={(e) => dispatch(description5Changed(e.target.value))} />
+        value={description4}
+        onChange={(e) => dispatch(description4Changed(e.target.value))} />
       <Form.Label className='mt10'>店舗説明5</Form.Label>
       <FormControl
         as='textarea' rows={3}
-        value={description2}
-        onChange={(e) => dispatch(description6Changed(e.target.value))} />
-      <Form.Label className='mt10'>店舗説明6</Form.Label>
-      <FormControl
-        as='textarea' rows={3}
-        value={description2}
-        onChange={(e) => dispatch(description2Changed(e.target.value))} />
+        value={description5}
+        onChange={(e) => dispatch(description5Changed(e.target.value))} />
       <hr />
       <div className='mb10'>連絡先</div>
       <Form.Label>電話番号</Form.Label>
