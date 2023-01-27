@@ -87,36 +87,6 @@ const ShopPageTemplate = () => {
         &nbsp;
         <Row>
           <Col lg={6}>
-            <div className='mt10'>
-              <Row>
-                {description4 && <Col>
-                  <div className={shopStyles.description_text}>{description4}</div>
-                </Col>}
-                {shopImage4ImagePublicUrl && <Col>
-                  <img
-                    width={'100%'}
-                    height={'100%'}
-                    src={String(shopImage4ImagePublicUrl)}
-                    alt='Second slide'
-                  />
-                </Col>}
-              </Row>
-            </div>
-            <div className='mt5'>
-              <Row>
-                {description5 && <Col>
-                  <div className={shopStyles.description_text}>{description5}</div>
-                </Col>}
-                {shopImage5ImagePublicUrl && <Col>
-                  <img
-                    width={'100%'}
-                    height={'100%'}
-                    src={String(shopImage5ImagePublicUrl)}
-                    alt='Second slide'
-                  />
-                </Col>}
-              </Row>
-            </div>
             <Table bordered className='mt10'>
               <tbody>
                 {businessHoursText && <tr>
@@ -149,32 +119,32 @@ const ShopPageTemplate = () => {
           <Col lg={6}>
             <div className='mt10'>
               <Row>
-                <Col>
-                  <div className={shopStyles.description_text}>{description1}</div>
-                </Col>
-                <Col>
+                {description4 && <Col>
+                  <div className={shopStyles.description_text}>{description4}</div>
+                </Col>}
+                {shopImage4ImagePublicUrl && <Col>
                   <img
                     width={'100%'}
                     height={'100%'}
-                    src={String(shopImage2ImagePublicUrl)}
+                    src={String(shopImage4ImagePublicUrl)}
                     alt='Second slide'
                   />
-                </Col>
+                </Col>}
               </Row>
             </div>
-            <div className='mt10'>
+            <div className='mt5'>
               <Row>
-                <Col>
-                  <div className={shopStyles.description_text}>{description2}</div>
-                </Col>
-                <Col>
+                {description5 && <Col>
+                  <div className={shopStyles.description_text}>{description5}</div>
+                </Col>}
+                {shopImage5ImagePublicUrl && <Col>
                   <img
                     width={'100%'}
                     height={'100%'}
-                    src={String(shopImage2ImagePublicUrl)}
+                    src={String(shopImage5ImagePublicUrl)}
                     alt='Second slide'
                   />
-                </Col>
+                </Col>}
               </Row>
             </div>
           </Col>
