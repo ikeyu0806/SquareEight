@@ -167,7 +167,7 @@ const Index: NextPage = () => {
             <Col lg={6} md={6}>
               <Card className='mt30 mb30'>
                 <Card.Body>
-                  <h3 className='orange_highlighter'>{reserveFrame?.title}</h3>
+                  <p><span className='orange_highlighter font-size-25'>{reserveFrame?.title}</span></p>
                   {reserveFrame?.reception_type === 'Lottery' && endUserLoginStatus === 'Logout'
                     && <>
                         <div className='mt20 mb20'>
@@ -372,7 +372,8 @@ const Index: NextPage = () => {
                     {reserveFrame?.reception_type !== 'PhoneOnly'
                     && <div className='text-center'>
                       <Button
-                        className='mt20'
+                        variant='info'
+                        className='mt20 text-white'
                         disabled={validateOnSubmit()}
                         onClick={() => onSubmit()}>
                         予約を進める
