@@ -157,6 +157,15 @@ table .plan_table_parent {
   font-size: 15px;
 }
 
+img.usecase_img {
+  width: 300px;
+}
+
+.usecase_text {
+  text-align: center;
+  font-size: 15px;
+}
+
 img.tablet_shop_page_img {
   border: 1px #000000 solid;
   width: 300px;

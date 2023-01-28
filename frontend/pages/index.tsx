@@ -63,114 +63,177 @@ const Home: NextPage = () => {
       </div>
 
       <div className='mt10'>
-        <div className='text-center'>
-          <p><span className={homeStyles.section_headline}>作成したWebページから顧客データがたまる！</span></p>
-          <Row>
-            <div className='text-center'>
-              <p><span className={homeStyles.section_description}>01.管理画面から必要な情報を入力</span></p>
+        <Container>
+          <div className='text-center'>
+            <p><span className={homeStyles.section_headline}>作成したWebページから顧客データがたまる！</span></p>
+            <Row>
+              <div className='text-center'>
+                <p><span className={homeStyles.section_description}>01.管理画面から必要な情報を入力</span></p>
+              </div>
+              <Col md={1}></Col>
+              <Col md={6}>
+                <Table bordered className={homeStyles.plan_table_parent}>
+                  <thead style={{backgroundColor: '#5BA5BD'}}>
+                    <tr className='text-white'>
+                      <th>作成するページ</th>
+                      <th>設定項目</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td
+                        className={homeStyles.plan_table_text}
+                        rowSpan={4}>予約メニュー</td>
+                      <td className={homeStyles.plan_table_text}>日、周、月ごと繰り返し設定</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>予約受付時間</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>お支払い設定</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>キャンセル受付</td>
+                    </tr>
+                    <tr>
+                      <td
+                        className={homeStyles.plan_table_text}
+                        rowSpan={4}>商品</td>
+                      <td className={homeStyles.plan_table_text}>値段</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>在庫設定</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>配送料</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>配送日時</td>
+                    </tr>
+                    <tr>
+                      <td
+                        className={homeStyles.plan_table_text}
+                        rowSpan={3}>月額サブスクリプション</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>値段</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>月ごと予約可能数</td>
+                    </tr>
+                    <tr>
+                      <td
+                        className={homeStyles.plan_table_text}
+                        rowSpan={3}>回数券</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>値段</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>発行枚数</td>
+                    </tr>
+                  </tbody>
+                </Table>
+              </Col>
+              <Col>
+                <img
+                  className={homeStyles.pc_woman}
+                  src='/images/pc_woman.png'
+                  alt='Pc Woman' />
+              </Col>
+              <Col md={2}></Col>
+            </Row>
+            <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
+            <div className='text-center mt20'>
+              <p><span className={homeStyles.section_description}>02.入力した情報を元にWebページを自動生成！</span></p>
             </div>
-            <Col md={1}></Col>
-            <Col md={6}>
-              <Table bordered className={homeStyles.plan_table_parent}>
-                <thead style={{backgroundColor: '#5BA5BD'}}>
-                  <tr className='text-white'>
-                    <th>作成するページ</th>
-                    <th>設定項目</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td
-                      className={homeStyles.plan_table_text}
-                      rowSpan={4}>予約メニュー</td>
-                    <td className={homeStyles.plan_table_text}>日、周、月ごと繰り返し設定</td>
-                  </tr>
-                  <tr>
-                    <td className={homeStyles.plan_table_text}>予約受付時間</td>
-                  </tr>
-                  <tr>
-                    <td className={homeStyles.plan_table_text}>お支払い設定</td>
-                  </tr>
-                  <tr>
-                    <td className={homeStyles.plan_table_text}>キャンセル受付</td>
-                  </tr>
-                  <tr>
-                    <td
-                      className={homeStyles.plan_table_text}
-                      rowSpan={4}>商品</td>
-                    <td className={homeStyles.plan_table_text}>値段</td>
-                  </tr>
-                  <tr>
-                    <td className={homeStyles.plan_table_text}>在庫設定</td>
-                  </tr>
-                  <tr>
-                    <td className={homeStyles.plan_table_text}>配送料</td>
-                  </tr>
-                  <tr>
-                    <td className={homeStyles.plan_table_text}>配送日時</td>
-                  </tr>
-                  <tr>
-                    <td
-                      className={homeStyles.plan_table_text}
-                      rowSpan={3}>月額サブスクリプション</td>
-                  </tr>
-                  <tr>
-                    <td className={homeStyles.plan_table_text}>値段</td>
-                  </tr>
-                  <tr>
-                    <td className={homeStyles.plan_table_text}>月ごと予約可能数</td>
-                  </tr>
-                  <tr>
-                    <td
-                      className={homeStyles.plan_table_text}
-                      rowSpan={3}>回数券</td>
-                  </tr>
-                  <tr>
-                    <td className={homeStyles.plan_table_text}>値段</td>
-                  </tr>
-                  <tr>
-                    <td className={homeStyles.plan_table_text}>発行枚数</td>
-                  </tr>
-                </tbody>
-              </Table>
-            </Col>
-            <Col>
-              <img
-                className={homeStyles.pc_woman}
-                src='/images/pc_woman.png'
-                alt='Pc Woman' />
-            </Col>
-            <Col md={2}></Col>
-          </Row>
-          <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
-          <div className='text-center mt20'>
-            <p><span className={homeStyles.section_description}>02.入力した情報を元にWebページを自動生成！</span></p>
+            <Row>
+              <Col lg={3}>
+                <img
+                  className={homeStyles.tablet_shop_page_img}
+                  src='/images/tablet_shop_page.png'
+                  alt='Tablet Shop Page' />
+              </Col>
+              <Col lg={3}>
+                <img
+                  className={homeStyles.tablet_shop_page_img}
+                  src='/images/reserve_calendar_page.png'
+                  alt='Tablet Calendar Page' />
+              </Col>
+              <Col lg={3}>
+                <img
+                  className={homeStyles.tablet_shop_page_img}
+                  src='/images/reserve_calendar_page.png'
+                  alt='Tablet Calendar Page' />
+              </Col>
+              <Col lg={3}>
+                <img
+                  className={homeStyles.tablet_shop_page_img}
+                  src='/images/reserve_calendar_page.png'
+                  alt='Tablet Calendar Page' />
+              </Col>
+            </Row>
+            <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
+            <div className='text-center mt20'>
+              <p><span className={homeStyles.section_description}>03.顧客にメールやLINEでアフターフォロー!</span></p>
+            </div>
           </div>
+        </Container>
+      </div>
+
+      <hr />
+
+      <div>
+      &thinsp;
+        <div className='text-center' id='usecase'>
+        <p><span className={homeStyles.section_headline}>こんな場面でお使いになれます!</span></p>
+        <div className='text-center mt20'>
+          <p><span className={homeStyles.section_description}>全業種対応。特にウェルネスビジネスにおすすめ</span></p>
+        </div>
+        <Container>
           <Row>
-            <Col lg={4}>
+            <Col lg={3}>
+              <div className={homeStyles.usecase_text}>
+                ヨガ、ピラティススタジオ運営
+              </div>
               <img
-                className={homeStyles.tablet_shop_page_img}
-                src='/images/tablet_shop_page.png'
-                alt='Tablet Shop Page' />
+                className={homeStyles.usecase_img}
+                src='/images/yoga_image.jpeg'
+                alt='Girl Kayak' />
             </Col>
-            <Col lg={4}>
+            <Col lg={3}>
+              <div className={homeStyles.usecase_text}>
+                美容室運営
+              </div>
               <img
-                className={homeStyles.tablet_shop_page_img}
-                src='/images/reserve_calendar_page.png'
-                alt='Tablet Calendar Page' />
+                className={homeStyles.usecase_img}
+                src='/images/beauty_salon.jpeg'
+                alt='Beauty Kayak' />
             </Col>
-            <Col lg={4}>
-              {/* <img
-                src='/images/tablet_shop_page.png'
-                alt='Tablet Shop Page' /> */}
+            <Col lg={3}>
+              <div className={homeStyles.usecase_text}>
+                ネイルサロン運営
+              </div>
+              <img
+                className={homeStyles.usecase_img}
+                src='/images/nail_saron.jpeg'
+                alt='Nail saron' />
+            </Col>
+            <Col lg={3}>
+              <div className={homeStyles.usecase_text}>
+                アクティビティ・レジャービジネス
+              </div>
+              <img
+                className={homeStyles.usecase_img}
+                src='/images/girl_kayak.jpeg'
+                alt='Girl Kayak' />
             </Col>
           </Row>
-          <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
-          <div className='text-center mt20'>
-            <p><span className={homeStyles.section_description}>03.顧客をグループ化してメールやLINEでアフターフォロー!</span></p>
-          </div>
+        </Container>
         </div>
       </div>
+
+      <hr />
 
       <div>
       &thinsp;
