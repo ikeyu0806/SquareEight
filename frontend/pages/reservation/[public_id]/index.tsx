@@ -53,67 +53,69 @@ export const Index = () => {
   return (
     <>
       <MerchantCustomLayout>
-        <Container className='mt30'>
-          <Row>
-            <Col lg={3} md={3}></Col>
-            <Col lg={6} md={6}>
-              <Card>
-                <Card.Body>
-                  <p><span className='orange_highlighter font-size-25'>以下の内容で予約しました</span></p>
-                  <div className='font-size-25'>{reserveFrameTitle}</div>
-                  <hr/>
-                  <div>予約時間: {displayReservationDatetime}</div>
-                  <hr/>
-                  {receptionType === 'waitingForLotteryConfirm' &&
-                  <>
-                    <div>抽選結果確定日: {lotteryConfirmedDayBeforeText}</div>
-                    <hr />
-                  </>}
-                  {/* 複数料金払いなしの場合 */}
-                  {multiLocalPaymentPrices.length === 0 &&
-                   multiCreditCardPaymentPrices.length === 0 &&
-                   <>
-                      <div>予約人数: {numberOfPeople}人</div>
-                      <hr/>
-                      {['localPayment', 'creditCardPayment'].includes(paymentMethod) &&
-                      <><div>料金: ￥{price}</div><hr/></>}
-                      <div>
-                        お支払い方法: {paymentMethodText} {paymentMethod === 'ticket' && <>消費枚数: {ticketConsumeNumber}枚</>}
-                      </div>
-                   </>
-                   }
-                  {paymentMethod === 'localPayment'
-                    && multiLocalPaymentPrices.length !== 0
-                    &&
-                      <>
-                        {multiLocalPaymentPrices.map((paymentPrice, i) => {
-                          return (
-                            <div key={i}>{paymentPrice.name} {paymentPrice.reserve_number_of_people}人 ￥{paymentPrice.price}</div>
-                          )
-                        })}
+        <div className='bg-lightgray'>
+          <Container>
+            <Row>
+              <Col lg={3} md={3}></Col>
+              <Col lg={6} md={6}>
+                <Card className='mt30 mb30 '>
+                  <Card.Body>
+                    <p><span className='orange_highlighter font-size-25'>以下の内容で予約しました</span></p>
+                    <div className='font-size-25'>{reserveFrameTitle}</div>
+                    <hr/>
+                    <div>予約時間: {displayReservationDatetime}</div>
+                    <hr/>
+                    {receptionType === 'waitingForLotteryConfirm' &&
+                    <>
+                      <div>抽選結果確定日: {lotteryConfirmedDayBeforeText}</div>
+                      <hr />
+                    </>}
+                    {/* 複数料金払いなしの場合 */}
+                    {multiLocalPaymentPrices.length === 0 &&
+                    multiCreditCardPaymentPrices.length === 0 &&
+                    <>
+                        <div>予約人数: {numberOfPeople}人</div>
+                        <hr/>
+                        {['localPayment', 'creditCardPayment'].includes(paymentMethod) &&
+                        <><div>料金: ￥{price}</div><hr/></>}
                         <div>
-                            合計: {multiLocalPaymentPrices.reduce(function(sum, element){ return sum + element.price}, 0)}</div>
-                      </>
-                  }
-                  {/* クレジットカード払い */}
-                  {paymentMethod === 'creditCardPayment'
-                    && multiCreditCardPaymentPrices.length !== 0
-                    &&
-                      <>
-                        {multiCreditCardPaymentPrices.map((paymentPrice, i) => {
-                          return (
-                            <div key={i}>{paymentPrice.name} {paymentPrice.reserve_number_of_people}人 ￥{paymentPrice.price}</div>
-                          )
-                        })}
-                        <div>
-                            合計: {multiCreditCardPaymentPrices.reduce(function(sum, element){ return sum + element.price}, 0)}</div>
-                      </>
-                   }
-                </Card.Body>
-              </Card>
-            </Col>
-          </Row>
-        </Container>
+                          お支払い方法: {paymentMethodText} {paymentMethod === 'ticket' && <>消費枚数: {ticketConsumeNumber}枚</>}
+                        </div>
+                    </>
+                    }
+                    {paymentMethod === 'localPayment'
+                      && multiLocalPaymentPrices.length !== 0
+                      &&
+                        <>
+                          {multiLocalPaymentPrices.map((paymentPrice, i) => {
+                            return (
+                              <div key={i}>{paymentPrice.name} {paymentPrice.reserve_number_of_people}人 ￥{paymentPrice.price}</div>
+                            )
+                          })}
+                          <div>
+                              合計: {multiLocalPaymentPrices.reduce(function(sum, element){ return sum + element.price}, 0)}</div>
+                        </>
+                    }
+                    {/* クレジットカード払い */}
+                    {paymentMethod === 'creditCardPayment'
+                      && multiCreditCardPaymentPrices.length !== 0
+                      &&
+                        <>
+                          {multiCreditCardPaymentPrices.map((paymentPrice, i) => {
+                            return (
+                              <div key={i}>{paymentPrice.name} {paymentPrice.reserve_number_of_people}人 ￥{paymentPrice.price}</div>
+                            )
+                          })}
+                          <div>
+                              合計: {multiCreditCardPaymentPrices.reduce(function(sum, element){ return sum + element.price}, 0)}</div>
+                        </>
+                    }
+                  </Card.Body>
+                </Card>
+              </Col>
+            </Row>
+          </Container>
+        </div>
       </MerchantCustomLayout>
     </>
   )

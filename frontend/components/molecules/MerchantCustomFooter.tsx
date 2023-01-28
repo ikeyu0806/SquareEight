@@ -16,7 +16,7 @@ const MerchantCustomFooter = () => {
   const hideShareButton =  useSelector((state: RootState) => state.sharedComponent.hideShareButton)
 
   return (
-    <footer className='content text-center mt20'>
+    <footer className='content text-center'>
       {hideShareButton !== true &&
       <>
         <LineShareButton
@@ -43,8 +43,7 @@ const MerchantCustomFooter = () => {
             round={true} />
         </FacebookShareButton>
       </>}
-      <hr />
-      <p className='footer-margin'>Copyright {footerCopyRightText} {new Date().getFullYear()}</p>
+      <p className='footer-margin mt20'>Copyright {footerCopyRightText} {new Date().getFullYear()}</p>
     </footer>
   )
 }
