@@ -68,7 +68,7 @@ const Home: NextPage = () => {
             <p><span className={homeStyles.section_headline}>自動生成したWebページから顧客データがたまる！</span></p>
             <Row>
               <div className='text-center'>
-                <p><span className={homeStyles.section_description}>01.管理画面から必要な情報を入力</span></p>
+                <p><span className={homeStyles.section_description}>01.ビジネスアカウントご登録後に管理画面から必要な情報を入力</span></p>
               </div>
               <Col md={1}></Col>
               <Col md={6}>
@@ -80,6 +80,18 @@ const Home: NextPage = () => {
                     </tr>
                   </thead>
                   <tbody>
+                    <tr>
+                      <td
+                        className={homeStyles.plan_table_text}
+                        rowSpan={3}>店舗設定</td>
+                      <td className={homeStyles.plan_table_text}>店舗説明文、画像</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>住所、駐車場案内</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>電話番号</td>
+                    </tr>
                     <tr>
                       <td
                         className={homeStyles.plan_table_text}
@@ -175,7 +187,11 @@ const Home: NextPage = () => {
             </Row>
             <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
             <div className='text-center mt20'>
-              <p><span className={homeStyles.section_description}>03.顧客にメールやLINEでアフターフォロー!</span></p>
+              <p><span className={homeStyles.section_description}>03.お客様はSquareEightIDに登録したクレジットカードで予約や商品購入ができます</span></p>
+            </div>
+            <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
+            <div className='text-center mt20'>
+              <p><span className={homeStyles.section_description}>04.お客様にメールやLINEでアフターフォロー!</span></p>
             </div>
           </div>
         </Container>
