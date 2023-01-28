@@ -341,7 +341,8 @@ const Index: NextPage = () => {
                     <div className='text-center'>
                       <Button
                         disabled={reserveValidate()}
-                        className='mt30'
+                        className='mt30 text-white'
+                        variant='info'
                         onClick={onSubmit}>
                         {isLoading && <span className='spinner-border spinner-border-sm' role='status' aria-hidden='true'></span>}
                         予約を確定する
