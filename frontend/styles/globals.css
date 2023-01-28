@@ -228,3 +228,7 @@ a {
 .dropdown-toggle::after {
   display: none !important;
  }
+
+.bg-lightgray {
+  background-color: lightgray;
+}
