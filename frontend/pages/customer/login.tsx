@@ -13,6 +13,8 @@ import Router from 'next/router'
 import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
 import { END_USER_GOOGLE_AUTH_URL } from 'constants/socialLogin'
 import { endUserLoginRedirect } from 'functions/endUserLoginRedirect'
+import { brandGreenRgb } from 'constants/brandColors'
+import BrandColorButton from 'components/atoms/BrandColorButton'
 
 const Login: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
@@ -62,7 +64,9 @@ const Login: NextPage = () => {
             <Col lg={4} md={3}></Col>
               <Col>
                 <Card>
-                  <Card.Header>SquareEightIDログイン</Card.Header>
+                  <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
+                    SquareEightIDログイン
+                  </Card.Header>
                   <Card.Body>
                     <Form onSubmit={onSubmit}>
                       <Form.Group className='mb-3' controlId='formEmail'>
@@ -75,12 +79,9 @@ const Login: NextPage = () => {
                         <Form.Control type='password' placeholder='パスワード' onChange={(e) => setPassword(e.target.value)} />
                       </Form.Group>
                       <div className='text-center'>
-                        <Button
-                          type='submit'
-                          variant='primary'
-                          onClick={onSubmit}>
-                          ログインする
-                        </Button>
+                        <BrandColorButton
+                          buttonText='ログインする'
+                          onClick={onSubmit} />
                       </div>
                     </Form>
                     <hr />

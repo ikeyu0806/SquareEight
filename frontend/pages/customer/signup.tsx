@@ -13,6 +13,8 @@ import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
 import { END_USER_GOOGLE_AUTH_URL } from 'constants/socialLogin'
 import { emailRegex } from 'constants/emailRegex'
 import { passwordRegex } from 'constants/passwordRegex'
+import BrandColorButton from 'components/atoms/BrandColorButton'
+import { brandGreenRgb } from 'constants/brandColors'
 
 const Signup: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
@@ -80,7 +82,9 @@ const Signup: NextPage = () => {
             <Col lg={4} md={3}></Col>
             <Col>
               <Card>
-                <Card.Header>SquareEightID登録</Card.Header>
+                <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
+                  SquareEightID登録
+                </Card.Header>
                 <Card.Body>
                   <Form onSubmit={onSubmit}>
                     <Form.Group className='mb-3'>
@@ -120,12 +124,10 @@ const Signup: NextPage = () => {
                       <a target='_blank' rel='noreferrer' href='/privacy_policy'>プライバシーポリシー</a>に同意するものとします
                     </Form.Group>
                     <div className='text-center'>
-                      <Button variant='primary'
-                              type='submit'
-                              disabled={!lastName || !firstName || !email || !password || (password !== confirmPassword)}
-                              onClick={onSubmit}>
-                        登録する
-                      </Button>
+                      <BrandColorButton
+                        buttonText='登録する'
+                        disabled={!lastName || !firstName || !email || !password || (password !== confirmPassword)}
+                        onClick={onSubmit}/>
                     </div>
                     <hr />
                     <GoogleAuthButton

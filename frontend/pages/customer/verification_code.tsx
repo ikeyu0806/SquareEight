@@ -8,6 +8,8 @@ import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { alertChanged } from 'redux/alertSlice'
 import { endUserLoginRedirect } from 'functions/endUserLoginRedirect'
+import BrandColorButton from 'components/atoms/BrandColorButton'
+import { brandGreenRgb } from 'constants/brandColors'
 
 const VerificationCode: NextPage = () => {
   const dispatch = useDispatch()
@@ -44,7 +46,9 @@ const VerificationCode: NextPage = () => {
             <Col lg={4} md={3}></Col>
               <Col>
                 <Card>
-                  <Card.Header>検証コードを入力してください</Card.Header>
+                  <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
+                    検証コードを入力してください
+                  </Card.Header>
                   <Card.Body>
                     <Form onSubmit={onSubmit}>
                       <Form.Group className='mb-3' controlId='formEmail'>
@@ -53,12 +57,10 @@ const VerificationCode: NextPage = () => {
                         <Form.Text className='text-muted'></Form.Text>
                       </Form.Group>
                       <div className='text-center'>
-                        <Button
-                          variant='primary'
-                          type='submit'
-                          onClick={onSubmit}>
-                          送信
-                        </Button>
+                        <BrandColorButton
+                          buttonText='送信'
+                          buttonType='submit'
+                          onClick={onSubmit}/>
                       </div>
                     </Form>
                   </Card.Body>
