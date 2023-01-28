@@ -67,7 +67,7 @@ const Home: NextPage = () => {
           <p><span className={homeStyles.section_headline}>作成したWebページから顧客データがたまる！</span></p>
           <Row>
             <div className='text-center'>
-              <p><span className={homeStyles.section_description}>管理画面から必要な情報を入力</span></p>
+              <p><span className={homeStyles.section_description}>01.管理画面から必要な情報を入力</span></p>
             </div>
             <Col md={1}></Col>
             <Col md={6}>
@@ -143,6 +143,32 @@ const Home: NextPage = () => {
             <Col md={2}></Col>
           </Row>
           <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
+          <div className='text-center mt20'>
+            <p><span className={homeStyles.section_description}>02.入力した情報を元にWebページを自動生成！</span></p>
+          </div>
+          <Row>
+            <Col lg={4}>
+              <img
+                className={homeStyles.tablet_shop_page_img}
+                src='/images/tablet_shop_page.png'
+                alt='Tablet Shop Page' />
+            </Col>
+            <Col lg={4}>
+              <img
+                className={homeStyles.tablet_shop_page_img}
+                src='/images/reserve_calendar_page.png'
+                alt='Tablet Calendar Page' />
+            </Col>
+            <Col lg={4}>
+              {/* <img
+                src='/images/tablet_shop_page.png'
+                alt='Tablet Shop Page' /> */}
+            </Col>
+          </Row>
+          <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
+          <div className='text-center mt20'>
+            <p><span className={homeStyles.section_description}>03.顧客をグループ化してメールやLINEでアフターフォロー!</span></p>
+          </div>
         </div>
       </div>
 
