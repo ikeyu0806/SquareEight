@@ -7,7 +7,7 @@
 .cover_img {
   max-width: 100%;
   filter: hue-rotate(180deg);
-  filter: invert(30%);
+  filter: invert(10%);
 }
 
 .cover_img_parent {
@@ -22,7 +22,7 @@
   padding: 0;
   top: 40%;
   left: 50%;
-  background: linear-gradient(45deg, #5BA5BD, #5BA5BD 20%, #B2384E 90%);
+  background: linear-gradient(45deg, #54d0ff, #9f92ff 20%, #ff7689 90%);
   background-clip: text;
   -webkit-text-fill-color: transparent;
 }
@@ -35,6 +35,9 @@
   padding: 0;
   top: 60%;
   left: 50%;
+  background: linear-gradient(45deg, #54d0ff, #9f92ff 20%, #ff7689 90%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .pc_woman {
