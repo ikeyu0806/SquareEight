@@ -72,6 +72,12 @@ const Home: NextPage = () => {
             <Col md={1}></Col>
             <Col md={6}>
               <Table bordered className={homeStyles.plan_table_parent}>
+                <thead style={{backgroundColor: '#5BA5BD'}}>
+                  <tr className='text-white'>
+                    <th>作成するページ</th>
+                    <th>設定項目</th>
+                  </tr>
+                </thead>
                 <tbody>
                   <tr>
                     <td
