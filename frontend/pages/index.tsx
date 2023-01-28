@@ -4,6 +4,7 @@ import RegularFooter from 'components/organisms/RegularFooter'
 import homeStyles from 'styles/Home.module.css'
 // import SquareEightLogo from 'components/atoms/SquareEightLogo'
 import BackArrowIcon from 'components/atoms/BackArrowIcon'
+import BrandColorButton from 'components/atoms/BrandColorButton'
 import { brandGrayRgb, brandRedRgb, brandGreenRgb } from 'constants/brandColors'
 import { Container,
          Navbar,
@@ -13,6 +14,7 @@ import { Container,
          Row,
          Col,
          Table } from 'react-bootstrap'
+import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 
 const Home: NextPage = () => {
   return (
@@ -33,18 +35,17 @@ const Home: NextPage = () => {
             </Nav>
             <Nav>
               <Nav.Link href='/customer/login'>
-                <Button
-                  style={{backgroundColor: brandGrayRgb, borderColor: brandGrayRgb}}>SquareEightIDログイン</Button>
+                <BrandColorButton
+                  buttonText='SquareEightIDログイン'></BrandColorButton>
               </Nav.Link>
               <Nav.Link href='/merchant/login'>
-                <Button
-                  style={{backgroundColor: brandGrayRgb, borderColor: brandGrayRgb}}>ビジネスアカウントログイン</Button>
+                <BrandColorButton
+                  buttonText='ビジネスアカウントログイン'></BrandColorButton>
               </Nav.Link>
               <Nav.Link href='/merchant/signup'>
-                <Button
-                  style={{backgroundColor: brandRedRgb, borderColor: brandRedRgb}}>
-                  無料でお試し
-                </Button>
+                <BrandColorButton
+                  brandColor='red'
+                  buttonText='無料でお試し'></BrandColorButton>
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
