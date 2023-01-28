@@ -101,9 +101,9 @@ const PaymentMethod: NextPage = () => {
             <Col lg={3} md={3}></Col>
             <Col lg={6} md={6}>
               <Card>
-                <Card.Header>予約内容の確認</Card.Header>
                 <Card.Body>
-                <h3 className='mb30'>{router.query.title}</h3>
+                  <p><span className='orange_highlighter font-size-25'>お客様情報の入力</span></p>
+                  <h3 className='mb30'>{router.query.title}</h3>
                   <div>お名前: {router.query.last_name} {router.query.first_name}</div>
                   <hr />
                   <div>メールアドレス: {router.query.email}</div>

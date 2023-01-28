@@ -58,9 +58,9 @@ export const Index = () => {
             <Col lg={3} md={3}></Col>
             <Col lg={6} md={6}>
               <Card>
-                <Card.Header>以下の内容で予約しました</Card.Header>
                 <Card.Body>
-                  <h4>{reserveFrameTitle}</h4>
+                  <p><span className='orange_highlighter font-size-25'>以下の内容で予約しました</span></p>
+                  <div className='font-size-25'>{reserveFrameTitle}</div>
                   <hr/>
                   <div>予約時間: {displayReservationDatetime}</div>
                   <hr/>

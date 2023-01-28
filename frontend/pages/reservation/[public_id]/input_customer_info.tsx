@@ -204,7 +204,7 @@ const Index: NextPage = () => {
               <Col lg={6} md={6}>
                 <Card className='mt30 mb30'>
                   <Card.Body>
-                  <p><span className='orange_highlighter font-size-25'>お客様情報の入力</span></p>
+                    <p><span className='orange_highlighter font-size-25'>お客様情報の入力</span></p>
                     {loginValidate() &&<>
                     <label className='mb40'>クレジットカード支払い、回数券、月額サブスクリプションを使用する場合、ログインする必要があります</label>
                       <br />
