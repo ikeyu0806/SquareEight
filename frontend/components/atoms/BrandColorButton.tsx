@@ -6,9 +6,10 @@ interface Props {
   buttonType?: 'submit' | 'button'
   onClick?: any
   brandColor?: string
+  disabled? :boolean
 }
 
-const BrandColorButton = ({buttonText, buttonType, onClick, brandColor}: Props): JSX.Element => {
+const BrandColorButton = ({buttonText, buttonType, onClick, brandColor, disabled}: Props): JSX.Element => {
   return (
     <Button
       style={
@@ -17,6 +18,7 @@ const BrandColorButton = ({buttonText, buttonType, onClick, brandColor}: Props):
       }
       type={buttonType ? buttonType : 'button'}
       onClick={onClick}
+      disabled={disabled}
       variant='primary'>
       {buttonText}
     </Button>

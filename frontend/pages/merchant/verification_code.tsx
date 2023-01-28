@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { useDispatch } from 'react-redux'
 import { alertChanged } from 'redux/alertSlice'
+import BrandColorButton from 'components/atoms/BrandColorButton'
 
 const VerificationCode: NextPage = () => {
   const dispatch = useDispatch()
@@ -53,6 +54,12 @@ const VerificationCode: NextPage = () => {
                         <Form.Text className='text-muted'></Form.Text>
                       </Form.Group>
                       <div className='text-center'>
+                        <BrandColorButton
+                          buttonText='送信'
+                          disabled={!verificationCode}
+                          buttonType='submit'
+                          onClick={onSubmit}
+                        />
                         <Button 
                           type='submit'
                           onClick={onSubmit}>

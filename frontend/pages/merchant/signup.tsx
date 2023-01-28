@@ -14,6 +14,8 @@ import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
 import { MERCHANT_GOOGLE_AUTH_URL } from 'constants/socialLogin'
 import { emailRegex } from 'constants/emailRegex'
 import { passwordRegex } from 'constants/passwordRegex'
+import { brandGreenRgb } from 'constants/brandColors'
+import BrandColorButton from 'components/atoms/BrandColorButton'
 
 const Signup: NextPage = () => {
   const merchantUserLoginStatus = useSelector((state: RootState) => state.currentMerchantUser.loginStatus)
@@ -80,7 +82,9 @@ const Signup: NextPage = () => {
             <Col lg={4} md={3}></Col>
             <Col>
               <Card>
-                <Card.Header>ユーザ登録</Card.Header>
+                <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
+                  ユーザ登録
+                </Card.Header>
                 <Card.Body>
                   <Form onSubmit={onSubmit}>
                     <Form.Group className='mb-3' controlId='formEmail'>
@@ -115,12 +119,12 @@ const Signup: NextPage = () => {
                       <a target='_blank' rel='noreferrer' href='/privacy_policy'>プライバシーポリシー</a>に同意するものとします
                     </Form.Group>
                     <div className='text-center'>
-                      <Button variant='primary'
-                              type='submit'
-                              disabled={!businessName || !email || !password || (password !== confirmPassword)}
-                              onClick={onSubmit}>
-                        登録する
-                      </Button>
+                      <BrandColorButton
+                        buttonText='登録する'
+                        disabled={!businessName || !email || !password || (password !== confirmPassword)}
+                        buttonType='submit'
+                        onClick={onSubmit}
+                      />
                     </div>
                   </Form>
                   <hr />
