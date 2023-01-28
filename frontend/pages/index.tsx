@@ -2,12 +2,6 @@ import type { NextPage } from 'next'
 import React from 'react'
 import RegularFooter from 'components/organisms/RegularFooter'
 import homeStyles from 'styles/Home.module.css'
-import FreePlanCard from 'components/molecules/FreePlanCard'
-import LightPlanCard from 'components/molecules/LightPlanCard'
-import StandardPlanCard from 'components/molecules/StarndardPlanCard'
-import PremiumPlanCard from 'components/molecules/PremiumPlanCard'
-import CampaignAlert from 'components/atoms/CampaignAlert'
-import TextWithCheckIcon from 'components/molecules/TextWithCheckIcon'
 // import SquareEightLogo from 'components/atoms/SquareEightLogo'
 import BackArrowIcon from 'components/atoms/BackArrowIcon'
 import { brandGrayRgb, brandRedRgb, brandGreenRgb } from 'constants/brandColors'
@@ -70,15 +64,77 @@ const Home: NextPage = () => {
 
       <div className='mt10'>
         <div className='text-center'>
-          <p><span className={homeStyles.section_headline}>プログラミング知識不要でお店のWebページを作成！</span></p>
+          <p><span className={homeStyles.section_headline}>作成したWebページから顧客データがたまる！</span></p>
           <Row>
-            <Col></Col>
-            <Col>
-            <img
-              className={homeStyles.pc_woman}
-              src='/images/pc_woman.png'
-              alt='Pc Woman' />
+            <div className='text-center'>
+              <p><span className={homeStyles.section_description}>管理画面から必要な情報を入力</span></p>
+            </div>
+            <Col md={1}></Col>
+            <Col md={6}>
+              <Table bordered className={homeStyles.plan_table_parent}>
+                <tbody>
+                  <tr>
+                    <td
+                      className={homeStyles.plan_table_text}
+                      rowSpan={4}>予約メニュー</td>
+                    <td className={homeStyles.plan_table_text}>日、周、月ごと繰り返し設定</td>
+                  </tr>
+                  <tr>
+                    <td className={homeStyles.plan_table_text}>予約受付時間</td>
+                  </tr>
+                  <tr>
+                    <td className={homeStyles.plan_table_text}>お支払い設定</td>
+                  </tr>
+                  <tr>
+                    <td className={homeStyles.plan_table_text}>キャンセル受付</td>
+                  </tr>
+                  <tr>
+                    <td
+                      className={homeStyles.plan_table_text}
+                      rowSpan={4}>商品</td>
+                    <td className={homeStyles.plan_table_text}>値段</td>
+                  </tr>
+                  <tr>
+                    <td className={homeStyles.plan_table_text}>在庫設定</td>
+                  </tr>
+                  <tr>
+                    <td className={homeStyles.plan_table_text}>配送料</td>
+                  </tr>
+                  <tr>
+                    <td className={homeStyles.plan_table_text}>配送日時</td>
+                  </tr>
+                  <tr>
+                    <td
+                      className={homeStyles.plan_table_text}
+                      rowSpan={3}>月額サブスクリプション</td>
+                  </tr>
+                  <tr>
+                    <td className={homeStyles.plan_table_text}>値段</td>
+                  </tr>
+                  <tr>
+                    <td className={homeStyles.plan_table_text}>月ごと予約可能数</td>
+                  </tr>
+                  <tr>
+                    <td
+                      className={homeStyles.plan_table_text}
+                      rowSpan={3}>回数券</td>
+                  </tr>
+                  <tr>
+                    <td className={homeStyles.plan_table_text}>値段</td>
+                  </tr>
+                  <tr>
+                    <td className={homeStyles.plan_table_text}>発行枚数</td>
+                  </tr>
+                </tbody>
+              </Table>
             </Col>
+            <Col>
+              <img
+                className={homeStyles.pc_woman}
+                src='/images/pc_woman.png'
+                alt='Pc Woman' />
+            </Col>
+            <Col md={2}></Col>
           </Row>
           <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
         </div>
