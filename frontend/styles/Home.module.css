@@ -22,6 +22,9 @@
   padding: 0;
   top: 40%;
   left: 50%;
+  background: linear-gradient(45deg, #5BA5BD, #5BA5BD 20%, #B2384E 90%);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 .cover_img_parent .service_description {
