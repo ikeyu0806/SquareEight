@@ -167,7 +167,7 @@ const Index: NextPage = () => {
             <Col lg={6} md={6}>
               <Card className='mt30 mb30'>
                 <Card.Body>
-                  <h3>{reserveFrame?.title}</h3>
+                  <h3 className='orange_highlighter'>{reserveFrame?.title}</h3>
                   {reserveFrame?.reception_type === 'Lottery' && endUserLoginStatus === 'Logout'
                     && <>
                         <div className='mt20 mb20'>

@@ -232,3 +232,7 @@ a {
 .bg-lightgray {
   background-color: lightgray;
 }
+
+.orange_highlighter {
+  background: linear-gradient(transparent 70%, #ff7689 50%);
+}
