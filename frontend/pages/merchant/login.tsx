@@ -11,6 +11,8 @@ import { RootState } from 'redux/store'
 import { loginStatusChanged } from 'redux/currentMerchantUserSlice'
 import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
 import { MERCHANT_GOOGLE_AUTH_URL } from 'constants/socialLogin'
+import BrandColorButton from 'components/atoms/BrandColorButton'
+import { brandGreenRgb } from 'constants/brandColors'
 
 const Login: NextPage = () => {
   const merchantUserLoginStatus = useSelector((state: RootState) => state.currentMerchantUser.loginStatus)
@@ -60,7 +62,9 @@ const Login: NextPage = () => {
             <Col lg={4} md={3}></Col>
               <Col>
                 <Card>
-                  <Card.Header>ログイン</Card.Header>
+                  <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
+                    ログイン
+                  </Card.Header>
                   <Card.Body>
                     <Form onSubmit={onSubmit}>
                       <Form.Group className='mb-3' controlId='formEmail'>
@@ -73,12 +77,10 @@ const Login: NextPage = () => {
                         <Form.Control type='password' placeholder='パスワード' onChange={(e) => setPassword(e.target.value)} />
                       </Form.Group>
                       <div className='text-center'>
-                        <Button
-                          onClick={onSubmit}
-                          type='submit'
-                          variant='primary'>
-                          ログインする
-                        </Button>
+                        <BrandColorButton
+                          buttonText='ログインする'
+                          buttonType='submit'
+                          onClick={onSubmit} />
                       </div>
                     </Form>
                     <hr />

@@ -3,19 +3,20 @@ import { brandGrayRgb, brandRedRgb } from 'constants/brandColors'
 
 interface Props {
   buttonText: string
-  buttonType?: string
-  onSubmit?: any
+  buttonType?: 'submit' | 'button'
+  onClick?: any
   brandColor?: string
 }
 
-const BrandColorButton = ({buttonText, buttonType, onSubmit, brandColor}: Props): JSX.Element => {
+const BrandColorButton = ({buttonText, buttonType, onClick, brandColor}: Props): JSX.Element => {
   return (
     <Button
       style={
         {backgroundColor: brandColor === 'red' ? brandRedRgb : brandGrayRgb,
          borderColor: brandColor === 'red' ? brandRedRgb : brandGrayRgb}
       }
-      onClick={onSubmit}
+      type={buttonType ? buttonType : 'button'}
+      onClick={onClick}
       variant='primary'>
       {buttonText}
     </Button>
