@@ -65,7 +65,7 @@ const Home: NextPage = () => {
       <div className='mt10'>
         <Container>
           <div className='text-center'>
-            <p><span className={homeStyles.section_headline}>作成したWebページから顧客データがたまる！</span></p>
+            <p><span className={homeStyles.section_headline}>自動生成したWebページから顧客データがたまる！</span></p>
             <Row>
               <div className='text-center'>
                 <p><span className={homeStyles.section_description}>01.管理画面から必要な情報を入力</span></p>
@@ -191,6 +191,44 @@ const Home: NextPage = () => {
           <p><span className={homeStyles.section_description}>全業種対応。特にウェルネスビジネスにおすすめ</span></p>
         </div>
         <Container>
+        <Row>
+            <Col lg={3}>
+              <div className={homeStyles.usecase_text}>
+                フィットネスジム運営
+              </div>
+              <img
+                className={homeStyles.usecase_img}
+                src='/images/fitness_image.jpeg'
+                alt='Fitness' />
+            </Col>
+            <Col lg={3}>
+              <div className={homeStyles.usecase_text}>
+                パーソナルトレーニング
+              </div>
+              <img
+                className={homeStyles.usecase_img}
+                src='/images/personal_training.jpeg'
+                alt='Personal Training' />
+            </Col>
+            <Col lg={3}>
+              <div className={homeStyles.usecase_text}>
+                スポーツスクール運営
+              </div>
+              <img
+                className={homeStyles.usecase_img}
+                src='/images/golf_image.jpeg'
+                alt='Golf' />
+            </Col>
+            <Col lg={3}>
+              <div className={homeStyles.usecase_text}>
+                説明会・イベントページ作成
+              </div>
+              <img
+                className={homeStyles.usecase_img}
+                src='/images/istockphoto.jpeg'
+                alt='Istockphoto' />
+            </Col>
+          </Row>
           <Row>
             <Col lg={3}>
               <div className={homeStyles.usecase_text}>

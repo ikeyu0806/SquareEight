@@ -159,6 +159,7 @@ table .plan_table_parent {
 
 img.usecase_img {
   width: 300px;
+  margin-bottom: 20px;
 }
 
 .usecase_text {
