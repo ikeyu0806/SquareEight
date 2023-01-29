@@ -30,7 +30,7 @@ const Index: NextPage = () => {
   return (
     <>
       <EndUserLoginLayout>
-        <Container>
+        <Container className='mt20'>
           <Row>
             <Col lg={3}></Col>
             <Col lg={6}>

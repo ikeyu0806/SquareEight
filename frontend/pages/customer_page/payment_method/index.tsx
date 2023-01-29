@@ -41,7 +41,7 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={3} md={3}></Col>
             <Col lg={6} md={8}>
-              <Card>
+              <Card className='mt20'>
                 <Card.Header>クレジットカード一覧</Card.Header>
                 <Card.Body>
                   <Card.Text>
