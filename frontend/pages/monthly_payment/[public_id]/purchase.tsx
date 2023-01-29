@@ -137,74 +137,76 @@ const Purchase: NextPage = () => {
   return (
     <>
       <MerchantCustomLayout>
-        <Container className='mt30'>
-        {publishStatus === 'Unpublish' &&
-          <div className='text-center'>非公開です</div>}
-          {publishStatus === 'Publish' && 
-          <Row>
-            <Col lg={3} md={1}></Col>
-            <Col lg={6} md={10}>
-            <Card>
-              <Card.Header>月額サブスクリプション加入</Card.Header>
-              <Card.Body>
-              {currentEndUserLogintStatus === 'Logout'
-                ?
-                  <>
-                    <div></div>
-                    <a
-                      className='link-text'
-                      onClick={() => redirectEndUserLoginPath(router.asPath)}>SquareEightIDでログインしてください</a><br/>
-                    <div className='mt20'>購入にはアカウント登録とクレジットカード登録が必要になります</div>
-                    <div className='mt40'></div>
-                  </>
-                :
-                  <></>
-              }
-                <div>{name}</div>
-                <div className='new-line mt20'>{description}</div>
-                {mainImagePublicUrl
-                  && <img
-                      className='d-block w-100 mt30 mb30'
-                      src={mainImagePublicUrl}
-                      alt='image' />}
-                <hr />
-                <div>￥{price}</div>
-                <hr />
-                <div>{reserveIntervalNumber}日に{enableReserveCount}回予約可能</div>
-                  {currentEndUserLogintStatus === 'Logout'
+        <div className='bg-lightgray'>
+          <Container>
+          {publishStatus === 'Unpublish' &&
+            <div className='text-center'>非公開です</div>}
+            {publishStatus === 'Publish' && 
+            <Row>
+              <Col lg={3} md={1}></Col>
+              <Col lg={6} md={10}>
+              <Card className='mt30 mb30'>
+                <Card.Body>
+                {currentEndUserLogintStatus === 'Logout'
                   ?
-                    <></>
-                  :
                     <>
-                    <hr />
-                    <h5>お支払い方法</h5>
-                    {<ListGroup>
-                        {paymentMethods?.map((pay, i) => {
-                          return (
-                            <ListGroup.Item key={i}>
-                              {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
-                              {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
-                              {defaultPaymentMethodId !== pay.id
-                                &&
-                                  <>
-                                    <br/>
-                                    <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
-                                  </>}
-                            </ListGroup.Item>
-                          )
-                        })}
-                      </ListGroup>
-                      }
-                    <Button className='mt30'
-                            onClick={() => insertCart()}
-                            disabled={!currentEndUserLogintStatus}>カートに入れる</Button>
+                      <div></div>
+                      <a
+                        className='link-text'
+                        onClick={() => redirectEndUserLoginPath(router.asPath)}>SquareEightIDでログインしてください</a><br/>
+                      <div className='mt20'>購入にはアカウント登録とクレジットカード登録が必要になります</div>
+                      <div className='mt40'></div>
                     </>
-                  }
-              </Card.Body>
-            </Card>
-            </Col>
-          </Row>}
-        </Container>
+                  :
+                    <></>
+                }
+                  <p><span className='orange_highlighter font-size-25'>{name}</span></p>
+                  <div className='new-line mt20'>{description}</div>
+                  {mainImagePublicUrl
+                    && <img
+                        className='d-block w-100 mt30 mb30'
+                        src={mainImagePublicUrl}
+                        alt='image' />}
+                  <hr />
+                  <div>￥{price}</div>
+                  <hr />
+                  <div>{reserveIntervalNumber}日に{enableReserveCount}回予約可能</div>
+                    {currentEndUserLogintStatus === 'Logout'
+                    ?
+                      <></>
+                    :
+                      <>
+                      <hr />
+                      <h5>お支払い方法</h5>
+                      {<ListGroup>
+                          {paymentMethods?.map((pay, i) => {
+                            return (
+                              <ListGroup.Item key={i}>
+                                {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
+                                {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
+                                {defaultPaymentMethodId !== pay.id
+                                  &&
+                                    <>
+                                      <br/>
+                                      <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
+                                    </>}
+                              </ListGroup.Item>
+                            )
+                          })}
+                        </ListGroup>
+                        }
+                      <Button className='mt30 mb30 text-white'
+                              variant='info'
+                              onClick={() => insertCart()}
+                              disabled={!currentEndUserLogintStatus}>カートに入れる</Button>
+                      </>
+                    }
+                </Card.Body>
+              </Card>
+              </Col>
+            </Row>}
+          </Container>
+        </div>
       </MerchantCustomLayout>
     </>
   )
