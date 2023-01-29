@@ -13,6 +13,7 @@ import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
 import { MERCHANT_GOOGLE_AUTH_URL } from 'constants/socialLogin'
 import BrandColorButton from 'components/atoms/BrandColorButton'
 import { brandGreenRgb } from 'constants/brandColors'
+import AuthStyles from 'styles/Auth.module.css'
 
 const Login: NextPage = () => {
   const merchantUserLoginStatus = useSelector((state: RootState) => state.currentMerchantUser.loginStatus)
@@ -62,10 +63,11 @@ const Login: NextPage = () => {
             <Row>
               <Col lg={4} md={3}></Col>
                 <Col>
+                  <div className='text-center'>
+                      <div className={AuthStyles.service_name}>SquareEight</div>
+                      <div className={AuthStyles.auth_screen_header_text}>ビジネスアカウントログイン</div>
+                    </div>
                   <Card className='mt30 mb30'>
-                    <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
-                      ログイン
-                    </Card.Header>
                     <Card.Body>
                       <Form onSubmit={onSubmit}>
                         <Form.Group className='mb-3' controlId='formEmail'>

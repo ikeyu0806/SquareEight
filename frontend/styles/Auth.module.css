@@ -1,0 +1,25 @@
+.service_name {
+  margin-top: 20px;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.auth_screen_header_text {
+  margin-top: 20px;
+  font-size: 25px;
+}
+
+/* タブレット */
+@media screen and (min-width : 719px) and (max-width : 1200px) {
+  .auth_screen_header_text {
+    font-size: 20px;
+  }
+}
+
+/* スマホ */
+@media screen and (max-width: 479px) {
+  .auth_screen_header_text {
+    font-size: 20px;
+  }
+  
+}
