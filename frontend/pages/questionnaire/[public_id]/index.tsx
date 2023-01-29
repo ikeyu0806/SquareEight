@@ -142,59 +142,62 @@ const Index: NextPage = () => {
 
   return (
     <MerchantCustomLayout>
-      <Container>
-      &nbsp;
-      {publishStatus === 'Unpublish' &&
-        <div className='text-center'>非公開です</div>}
-        {publishStatus === 'Publish' && 
-        <Row>
-          <Col lg={3}></Col>
-          <Col lg={6}>
-            <Card>
-              <Card.Header>{title}</Card.Header>
-              <Card.Body>
-                <div className='mt20'>{description}</div>
-                <Form.Label className='mt20'>お名前（姓）</Form.Label>
-                <Form.Control
-                  value={lastName}
-                  onChange={(e) => {
-                    setLastName(e.target.value)
-                    dispatch(answerChangeDetectStateChanged(answerChangeDetectState + 1))
-                  }}></Form.Control>
-                <Form.Label className='mt20'>お名前（名）</Form.Label>
-                <Form.Control
-                  value={firstName}
-                  onChange={(e) => { 
-                    setFirstName(e.target.value)
-                    dispatch(answerChangeDetectStateChanged(answerChangeDetectState + 1))
-                  }}></Form.Control>
-                <Form.Label className='mt20'>電話番号</Form.Label>
-                <Form.Control
-                  value={phoneNumber}
-                  onChange={(e) => {
-                    setPhoneNumber(e.target.value)
-                    dispatch(answerChangeDetectStateChanged(answerChangeDetectState + 1))
-                  }}></Form.Control>
-                <Form.Label className='mt20'>メールアドレス</Form.Label>
-                <Form.Control
-                  value={email}
-                  onChange={(e) => {
-                    setEmail(e.target.value)
-                    dispatch(answerChangeDetectStateChanged(answerChangeDetectState + 1))
-                  }}></Form.Control>
-                <QuestionnaireItemAnswerForm></QuestionnaireItemAnswerForm>
-                <div className='mt30 text-center'>
-                  <Button
-                    disabled={disableSubmitAnswer}
-                    onClick={() => onSubmit()}>
-                      送信する
-                  </Button>
-                </div>
-              </Card.Body>
-            </Card>
-          </Col>
-          </Row>}
-      </Container>
+      <div className='bg-lightgray'>
+        <Container>
+        {publishStatus === 'Unpublish' &&
+          <div className='text-center'>非公開です</div>}
+          {publishStatus === 'Publish' && 
+          <Row>
+            <Col lg={3}></Col>
+            <Col lg={6}>
+              <Card className='mt30 mb30'>
+                <Card.Body >
+                  <p><span className='orange_highlighter font-size-25'>{title}</span></p>
+                  <div className='mt20'>{description}</div>
+                  <Form.Label className='mt20'>お名前（姓）</Form.Label>
+                  <Form.Control
+                    value={lastName}
+                    onChange={(e) => {
+                      setLastName(e.target.value)
+                      dispatch(answerChangeDetectStateChanged(answerChangeDetectState + 1))
+                    }}></Form.Control>
+                  <Form.Label className='mt20'>お名前（名）</Form.Label>
+                  <Form.Control
+                    value={firstName}
+                    onChange={(e) => { 
+                      setFirstName(e.target.value)
+                      dispatch(answerChangeDetectStateChanged(answerChangeDetectState + 1))
+                    }}></Form.Control>
+                  <Form.Label className='mt20'>電話番号</Form.Label>
+                  <Form.Control
+                    value={phoneNumber}
+                    onChange={(e) => {
+                      setPhoneNumber(e.target.value)
+                      dispatch(answerChangeDetectStateChanged(answerChangeDetectState + 1))
+                    }}></Form.Control>
+                  <Form.Label className='mt20'>メールアドレス</Form.Label>
+                  <Form.Control
+                    value={email}
+                    onChange={(e) => {
+                      setEmail(e.target.value)
+                      dispatch(answerChangeDetectStateChanged(answerChangeDetectState + 1))
+                    }}></Form.Control>
+                  <QuestionnaireItemAnswerForm></QuestionnaireItemAnswerForm>
+                  <div className='mt30 text-center'>
+                    <Button
+                      className='text-white'
+                      variant='info'
+                      disabled={disableSubmitAnswer}
+                      onClick={() => onSubmit()}>
+                        送信する
+                    </Button>
+                  </div>
+                </Card.Body>
+              </Card>
+            </Col>
+            </Row>}
+        </Container>
+      </div>
     </MerchantCustomLayout>
   )
 }
