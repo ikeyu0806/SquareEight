@@ -81,7 +81,7 @@ shops = Shop.first_or_create!(
   [
     {
       account_id: account.id,
-      name: "デモ店舗",
+      name: "SquareEightデモ店舗",
       phone_number: "09011112222",
       description1: "初心者からアスリートまで、全ての人々が結果を出せるようあらゆることについて考え抜かれたフィットネスクラブです。",
       description2: "生活スタイルに合った会員プランで、無理なく無駄なく続けられます。",
@@ -283,9 +283,9 @@ reserve_frames = ReserveFrame.first_or_create!(
   [
     {
       account_id: account.id,
-      title: "予約メニューデモ。曜日繰り返し",
+      title: "〇〇先生パーソナルトレーニング60分コース",
       start_at: Time.zone.now,
-      description: "デモ用予約メニュー01\n\nこれはデモ用の予約メニューです。",
+      description: "【これはデモ用の予約メニューです】\n\n〇〇先生のパーソナルトレーニング60分コース\n\nトレーナーが1つ1つを確認しながら行うので効率よくトレーニングを進めることができます。\n\nトレーニングウェアと室内シューズをお持ちください。",
       is_repeat: true,
       repeat_interval_type: "WDay",
       repeat_interval_number_day: 1,
@@ -329,9 +329,9 @@ reserve_frames = ReserveFrame.first_or_create!(
     },
     {
       account_id: account.id,
-      title: "予約メニューデモ。毎日繰り返し",
+      title: "アロマリンパ60分コース",
       start_at: Time.zone.now,
-      description: "デモ用予約メニュー01\n\nこれはデモ用の予約メニューです。",
+      description: "【これはデモ用の予約メニューです】\n\n当店人気No1のアロマリンパコースになります。\n\m肩こり.腰痛の改善、小顔効果が期待できます。\n\nお客様の体調に合わせて丁寧にご案内・施術いたします。",
       is_repeat: true,
       repeat_interval_type: "Day",
       repeat_interval_number_day: 1,
@@ -495,9 +495,9 @@ ticket_masters = TicketMaster.first_or_create!(
   [
     {
       account_id: account.id,
-      name: "回数券デモ",
+      name: "ヨガレッスン受講回数券　10回分",
       issue_number: 1000,
-      price: 5000,
+      price: 9000,
       publish_status: "Publish",
       effective_month: 12,
       image1_account_s3_image_id: account_s3_images[8].id
@@ -518,8 +518,8 @@ monthly_payment_plans = MonthlyPaymentPlan.first_or_create!(
   [
     {
       account_id: account.id,
-      name: "月額サブスクリプションデモ",
-      price: 5000,
+      name: "週３回受講可能ゴルフスクール会員",
+      price: 50000,
       reserve_interval_number: 1,
       reserve_interval_unit: "Week",
       enable_reserve_count: 3,
@@ -562,8 +562,8 @@ products = Product.first_or_create!(
   [
     {
       account_id: account.id,
-      name: "商品デモ",
-      price: 1000,
+      name: "疲労回復サプリメント",
+      price: 10000,
       tax_rate: 10,
       inventory: 100,
       publish_status: "Publish",
@@ -571,7 +571,7 @@ products = Product.first_or_create!(
     },
     {
       account_id: account.id,
-      name: "商品種別ありデモ",
+      name: "オリジナルTシャツ",
       price: 1000,
       tax_rate: 10,
       inventory: 100,
@@ -611,7 +611,7 @@ ShopProduct.first_or_create!(
 
 questionnaire_master = QuestionnaireMaster.first_or_create!(
   account_id: account.id,
-  title: "アンケートデモ",
+  title: "商品をご購入いただいた方へのアンケート",
   question_form_json: "[{\"question\"=>\"商品へのご要望\", \"formType\"=>\"text\", \"textFormRowCount\"=>5, \"sortOrder\"=>1, \"questionId\"=>\"18581acf0bb\", \"selectFormAnswers\"=>[], \"radioButtonAnswers\"=>[], \"checkboxAnswers\"=>[]}, {\"question\"=>\"年齢は？\", \"formType\"=>\"select\", \"textFormRowCount\"=>1, \"sortOrder\"=>2, \"questionId\"=>\"18581ad6be4\", \"selectFormAnswers\"=>[\"10代\", \"20代\", \"30代\", \"40代\", \"50代\", \"60代以上\"], \"radioButtonAnswers\"=>[], \"checkboxAnswers\"=>[]}]",
   publish_status: "Publish"
 )
