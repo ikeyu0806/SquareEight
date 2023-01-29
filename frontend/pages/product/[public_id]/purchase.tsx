@@ -255,7 +255,7 @@ const Purchase: NextPage = () => {
                   }
                   {inventory <= 0 && <div className='badge bg-danger mb10'>品切れ</div> }
                   
-              <p><span className='orange_highlighter font-size-25'>{name}</span></p>
+                  <p><span className='orange_highlighter font-size-25'>{name}</span></p>
                   <div className='mt10'>{price}円（税込）</div>
                   <div className='mt10'>税率{taxRate}%</div>
                   {deliveryChargeType === 'noSetting'
