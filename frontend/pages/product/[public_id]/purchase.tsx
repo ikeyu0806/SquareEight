@@ -231,149 +231,151 @@ const Purchase: NextPage = () => {
 
   return (
     <MerchantCustomLayout>
-      &thinsp;
-      <Container>
-        {publishStatus === 'Unpublish' &&
-        <div className='text-center'>非公開です</div>}
-        {publishStatus === 'Publish' && 
-        <Row>
-          <Col lg={3} md={1}></Col>
-          <Col lg={6} md={10}>
-            <Card>
-              <Card.Header>商品購入</Card.Header>
-              <Card.Body>
-                {currentEndUserLogintStatus === 'Logout'
-                  ? 
-                    <>
-                      <a
-                        className='link-text'
-                        onClick={() => redirectEndUserLoginPath(router.asPath)}>SquareEightIDでログインしてください</a>
-                      <br/>
-                      <div className='mt20'>購入にはアカウント登録とクレジットカード登録が必要になります</div>
-                      <div className='mt40'></div>
-                    </>
-                  : <></>
-                }
-                {inventory <= 0 && <div className='badge bg-danger mb10'>品切れ</div> }
-                <h3>{name}</h3>
-                <div className='mt10'>{price}円（税込）</div>
-                <div className='mt10'>税率{taxRate}%</div>
-                {deliveryChargeType === 'noSetting'
-                && <div className='mt10'>配送料無料</div>}
-                {deliveryChargeType === 'flatRate'
-                && <div className='mt10'>配送料: ￥{flatRateDeliveryCharge}</div>}
-                {deliveryChargeType === 'perPrefectures'
-                && <div className='mt10'>配送料: <a href='#' onClick={() => dispatch(showPerPrefecturesChargeModalChanged(true))}>都道府県ごとに異なります</a></div>}
-                <hr/>
-                <div className='new-line mt20'>{description}</div>
-                {showProductTypeForm &&
-                <>
-                  {productTypes.map((type, i) => {
-                    return (
-                      <Form.Check
-                        key={i}
-                        type='radio'
-                        label={type.name}
-                        name='productType'
-                        id={'ProductType' + String(i)}
-                        checked={type.id === selectedProductTypeId}
-                        onChange={() => setSelectedProductTypeId((type.id))}
-                      />
-                    )
-                  })}
-                  <hr />
-                </>}
-                <Row>
-                  <Col sm={2}>
-                    <Form.Label>購入数量</Form.Label>
-                    <Form.Control type='number'
-                                  value={purchaseQuantitity}
-                                  min={1}
-                                  onChange={(e) => setPurchaseQuantitity(Number(e.target.value))}></Form.Control>
-                  </Col>
-                  <Col></Col>
-                </Row>
-                {mainImagePublicUrl
-                && <img
-                    className='d-block w-100 mt30 mb30'
-                    src={mainImagePublicUrl}
-                    alt='image' />}
-                {currentEndUserLogintStatus === 'Logout'
-                ?
-                  <></>
-                :
+      <div className='bg-lightgray mb20'>
+        <Container>
+          {publishStatus === 'Unpublish' &&
+          <div className='text-center'>非公開です</div>}
+          {publishStatus === 'Publish' && 
+          <Row>
+            <Col lg={3}></Col>
+            <Col lg={6}>
+              <Card className='mt30 mb30'>
+                <Card.Body>
+                  {currentEndUserLogintStatus === 'Logout'
+                    ? 
+                      <>
+                        <a
+                          className='link-text'
+                          onClick={() => redirectEndUserLoginPath(router.asPath)}>SquareEightIDでログインしてください</a>
+                        <br/>
+                        <div className='mt20'>購入にはアカウント登録とクレジットカード登録が必要になります</div>
+                        <div className='mt40'></div>
+                      </>
+                    : <></>
+                  }
+                  {inventory <= 0 && <div className='badge bg-danger mb10'>品切れ</div> }
+                  
+              <p><span className='orange_highlighter font-size-25'>{name}</span></p>
+                  <div className='mt10'>{price}円（税込）</div>
+                  <div className='mt10'>税率{taxRate}%</div>
+                  {deliveryChargeType === 'noSetting'
+                  && <div className='mt10'>配送料無料</div>}
+                  {deliveryChargeType === 'flatRate'
+                  && <div className='mt10'>配送料: ￥{flatRateDeliveryCharge}</div>}
+                  {deliveryChargeType === 'perPrefectures'
+                  && <div className='mt10'>配送料: <a href='#' onClick={() => dispatch(showPerPrefecturesChargeModalChanged(true))}>都道府県ごとに異なります</a></div>}
+                  <hr/>
+                  <div className='new-line mt20'>{description}</div>
+                  {showProductTypeForm &&
                   <>
-                  <hr className='mt40' />
-                  <h4 className='mt20'>お支払い方法</h4>
-                  {<ListGroup>
-                    {paymentMethods.map((pay, i) => {
+                    {productTypes.map((type, i) => {
                       return (
-                        <ListGroup.Item key={i}>
-                          {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
-                          {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
-                          {defaultPaymentMethodId !== pay.id
-                            &&
-                              <>
-                                <br/>
-                                <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
-                              </>}
-                        </ListGroup.Item>
+                        <Form.Check
+                          key={i}
+                          type='radio'
+                          label={type.name}
+                          name='productType'
+                          id={'ProductType' + String(i)}
+                          checked={type.id === selectedProductTypeId}
+                          onChange={() => setSelectedProductTypeId((type.id))}
+                        />
                       )
                     })}
-                   </ListGroup>}
-                   <hr className='mt40' />
-                  <h4 className='mt20'>お届け先</h4>
-                  <Form.Check type='radio'
-                              id='registeredAddress'
-                              name='targetAddress'
-                              defaultChecked={isRegisteredAddress}
-                              onClick={() => setIsRegisteredAddress(true)}
-                              label='登録住所にお届け'></Form.Check >
-                  <Form.Check type='radio'
-                              id='registerAddress'
-                              name='targetAddress'
-                              defaultChecked={!isRegisteredAddress}
-                              onClick={() => setIsRegisteredAddress(false)}
-                              label='新規に入力する'></Form.Check >
-                  {isRegisteredAddress && currentEndUserLogintStatus === 'Login'
-                   &&
-                   deliveryTargets
-                    &&
-                    <ListGroup className='mt20'>
-                      {deliveryTargets?.map((target, i) => {
+                    <hr />
+                  </>}
+                  <Row>
+                    <Col sm={2}>
+                      <Form.Label>購入数量</Form.Label>
+                      <Form.Control type='number'
+                                    value={purchaseQuantitity}
+                                    min={1}
+                                    onChange={(e) => setPurchaseQuantitity(Number(e.target.value))}></Form.Control>
+                    </Col>
+                    <Col></Col>
+                  </Row>
+                  {mainImagePublicUrl
+                  && <img
+                      className='d-block w-100 mt30 mb30'
+                      src={mainImagePublicUrl}
+                      alt='image' />}
+                  {currentEndUserLogintStatus === 'Logout'
+                  ?
+                    <></>
+                  :
+                    <>
+                    <hr className='mt40' />
+                    <h4 className='mt20'>お支払い方法</h4>
+                    {<ListGroup>
+                      {paymentMethods.map((pay, i) => {
                         return (
                           <ListGroup.Item key={i}>
-                            〒{target.postal_code} {target.last_name}{target.first_name}<br />
-                            {target.state}{target.city}{target.town}{target.line1}{target.line2}
-                            {target.is_default 
-                            ? <><span className='badge bg-info ml10'>お届け先に設定されています </span></>
-                            : <>
-                                <Button size='sm'
-                                        className='ml10'
-                                        onClick={() => updateDefaultDeliveryTarget(target.id)}>お届け先に設定する</Button>
-                              </>}
+                            {pay.card.brand}（************{pay.card.last4} / 有効期限 {pay.card.exp_month} / {pay.card.exp_year}
+                            {defaultPaymentMethodId === pay.id && <><br/><span className='badge bg-info'>お支払いカードに設定されています</span></>}
+                            {defaultPaymentMethodId !== pay.id
+                              &&
+                                <>
+                                  <br/>
+                                  <Button size='sm' onClick={() => updateDefaultCard(pay.id)}>お支払いカードに設定する</Button>
+                                </>}
                           </ListGroup.Item>
                         )
                       })}
-                    </ListGroup>
-                    }
-                  {isRegisteredAddress && deliveryTargets.length === 0 && currentEndUserLogintStatus === 'Login'
-                    && <div className='mb10 mt10'>お届け先が登録されていません
-                      </div>}
-                  {!isRegisteredAddress && currentEndUserLogintStatus === 'Login'
+                    </ListGroup>}
+                    <hr className='mt40' />
+                    <h4 className='mt20'>お届け先</h4>
+                    <Form.Check type='radio'
+                                id='registeredAddress'
+                                name='targetAddress'
+                                defaultChecked={isRegisteredAddress}
+                                onClick={() => setIsRegisteredAddress(true)}
+                                label='登録住所にお届け'></Form.Check >
+                    <Form.Check type='radio'
+                                id='registerAddress'
+                                name='targetAddress'
+                                defaultChecked={!isRegisteredAddress}
+                                onClick={() => setIsRegisteredAddress(false)}
+                                label='新規に入力する'></Form.Check >
+                    {isRegisteredAddress && currentEndUserLogintStatus === 'Login'
                     &&
-                    <>
-                      <div className='mt20 mb20'></div><CreateDeliveryTarget></CreateDeliveryTarget></>}
-                      <Button className='mt30'
-                              disabled={validateSubmit()}
-                              onClick={() => insertCart()}>カートに入れる</Button>
-                    </>
-                }
-              </Card.Body>
-            </Card>
-          </Col>
-        </Row>}
-      </Container>
+                    deliveryTargets
+                      &&
+                      <ListGroup className='mt20'>
+                        {deliveryTargets?.map((target, i) => {
+                          return (
+                            <ListGroup.Item key={i}>
+                              〒{target.postal_code} {target.last_name}{target.first_name}<br />
+                              {target.state}{target.city}{target.town}{target.line1}{target.line2}
+                              {target.is_default 
+                              ? <><span className='badge bg-info ml10'>お届け先に設定されています </span></>
+                              : <>
+                                  <Button size='sm'
+                                          className='ml10'
+                                          onClick={() => updateDefaultDeliveryTarget(target.id)}>お届け先に設定する</Button>
+                                </>}
+                            </ListGroup.Item>
+                          )
+                        })}
+                      </ListGroup>
+                      }
+                    {isRegisteredAddress && deliveryTargets.length === 0 && currentEndUserLogintStatus === 'Login'
+                      && <div className='mb10 mt10'>お届け先が登録されていません
+                        </div>}
+                    {!isRegisteredAddress && currentEndUserLogintStatus === 'Login'
+                      &&
+                      <>
+                        <div className='mt20 mb20'></div><CreateDeliveryTarget></CreateDeliveryTarget></>}
+                        <Button className='mt30 text-white'
+                                variant='info'
+                                disabled={validateSubmit()}
+                                onClick={() => insertCart()}>カートに入れる</Button>
+                      </>
+                  }
+                </Card.Body>
+              </Card>
+            </Col>
+          </Row>}
+        </Container>
+      </div>
       <PrefecturesChargeModal></PrefecturesChargeModal>
     </MerchantCustomLayout>
   )
