@@ -10,6 +10,7 @@ import { alertChanged } from 'redux/alertSlice'
 import { endUserLoginRedirect } from 'functions/endUserLoginRedirect'
 import BrandColorButton from 'components/atoms/BrandColorButton'
 import { brandGreenRgb } from 'constants/brandColors'
+import AuthStyles from 'styles/Auth.module.css'
 
 const VerificationCode: NextPage = () => {
   const dispatch = useDispatch()
@@ -41,37 +42,40 @@ const VerificationCode: NextPage = () => {
   return (
     <>
       <WithoutSessionLayout>
-        <Container>
-          <Row>
-            <Col lg={4} md={3}></Col>
-              <Col>
-                <Card>
-                  <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
-                    検証コードを入力してください
-                  </Card.Header>
-                  <Card.Body>
-                    <Form onSubmit={onSubmit}>
-                      <Form.Group className='mb-3' controlId='formEmail'>
-                        <Form.Label>検証コード</Form.Label>
-                        <Form.Control onChange={(e) => setVerificationCode(e.target.value)} />
-                        <Form.Text className='text-muted'></Form.Text>
-                      </Form.Group>
-                      <div className='text-center'>
-                        <BrandColorButton
-                          buttonText='送信'
-                          buttonType='submit'
-                          onClick={onSubmit}/>
+        <div className='bg-lightgray'>
+          <Container>
+            <Row>
+              <Col lg={4} md={3}></Col>
+                <Col>
+                  <div className='text-center'>
+                    <div className={AuthStyles.service_name}>SquareEight</div>
+                    <div className={AuthStyles.auth_screen_header_text}>検証コードを入力してください</div>
+                  </div>
+                  <Card className='mt30 mb30'>
+                    <Card.Body>
+                      <Form onSubmit={onSubmit}>
+                        <Form.Group className='mb-3' controlId='formEmail'>
+                          <Form.Label>検証コード</Form.Label>
+                          <Form.Control onChange={(e) => setVerificationCode(e.target.value)} />
+                          <Form.Text className='text-muted'></Form.Text>
+                        </Form.Group>
+                        <div className='text-center'>
+                          <BrandColorButton
+                            buttonText='送信'
+                            buttonType='submit'
+                            onClick={onSubmit}/>
+                        </div>
+                      </Form>
+                      <div className='text-center mt20'>
+                        <a href='/customer/resend_verification_code'>検証コードの再送</a>
                       </div>
-                    </Form>
-                  </Card.Body>
-                </Card>
-                <div className='text-center mt20'>
-                  <a href='/customer/resend_verification_code'>検証コードの再送</a>
-                </div>
-              </Col>
-            <Col lg={4} md={3}></Col>
-          </Row>
-        </Container>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              <Col lg={4} md={3}></Col>
+            </Row>
+          </Container>
+        </div>
       </WithoutSessionLayout>
     </>
   )
