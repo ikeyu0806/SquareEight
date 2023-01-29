@@ -59,8 +59,8 @@ const Index: NextPage = () => {
           <Col lg={2} md={1}></Col>
           <Col lg={5} md={6}>
             <Card>
-              <Card.Header>カート</Card.Header>
               <Card.Body>
+                <p><span className='orange_highlighter font-size-25'>カート</span></p>
                 <ListGroup variant='flush'>
                   {cartItems && cartItems?.map((item, i) => {
                     {
@@ -161,7 +161,7 @@ const Index: NextPage = () => {
                 <h5>¥{totalPrice}</h5>
                 <br /></>}
                 {cartItems?.length !== 0 && <a href='/cash_register'
-                   className='btn btn-primary'>レジに進む</a>}
+                   className='btn btn-info text-white'>レジに進む</a>}
               </Card.Body>
             </Card>
           </Col>
