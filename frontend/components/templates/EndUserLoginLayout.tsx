@@ -36,7 +36,7 @@ const EndUserLoginLayout = ({children}: Props): JSX.Element => {
   return (
     <>
       {currentEndUserLogintStatus === 'Login'
-        ? <><CustomerPageNavbar></CustomerPageNavbar><br/>{children}</>
+        ? <><CustomerPageNavbar></CustomerPageNavbar>{children}</>
         :
         currentEndUserLogintStatus === 'Logout'
           ? <><CommonNavbar></CommonNavbar><div className='text-center mt50 mb50'>ログインしてください</div></>

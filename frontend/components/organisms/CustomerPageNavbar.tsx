@@ -28,9 +28,9 @@ const CustomerPageNavbar = (): JSX.Element => {
 
   return (
     <>
-      <Navbar variant='light' expand='lg' bg='light'>
+      <Navbar variant='dark' expand='lg' bg='dark'>
         <Container>
-          <Navbar.Brand href='/' className='font-weight-bold'>SquareEight</Navbar.Brand>
+          <Navbar.Brand href='/' className='font-weight-bold'>SquareEightID</Navbar.Brand>
           <Navbar.Toggle />
             <Navbar.Collapse>
             <Nav className='me-auto'>
@@ -42,8 +42,8 @@ const CustomerPageNavbar = (): JSX.Element => {
                    <div className='badge bg-info'>今日の予約{todayReservationsCount}件</div>}
                 </>}
               </Nav.Link>
-              <Nav.Link href='/customer_page/purchased_ticket'>回数券管理</Nav.Link>
-              <Nav.Link href='/customer_page/subscriptions'>加入済み月額サブスクリプション</Nav.Link>
+              <Nav.Link href='/customer_page/purchased_ticket'>回数券</Nav.Link>
+              <Nav.Link href='/customer_page/subscriptions'>月額サブスクリプション</Nav.Link>
               <Nav.Link href='/cart'>カート</Nav.Link>
               <NavDropdown title='お支払い' id='webpage-nav-dropdown'>
                 <NavDropdown.Item href='/customer_page/order/'>注文履歴</NavDropdown.Item>
