@@ -57,48 +57,50 @@ const Login: NextPage = () => {
   return (
     <>
       <WithoutSessionLayout>
-        <Container>
-          <Row>
-            <Col lg={4} md={3}></Col>
-              <Col>
-                <Card>
-                  <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
-                    ログイン
-                  </Card.Header>
-                  <Card.Body>
-                    <Form onSubmit={onSubmit}>
-                      <Form.Group className='mb-3' controlId='formEmail'>
-                        <Form.Label>メールアドレス</Form.Label>
-                        <Form.Control type='email' placeholder='メールアドレス' onChange={(e) => setEmail(e.target.value)} />
-                        <Form.Text className='text-muted'></Form.Text>
-                      </Form.Group>
-                      <Form.Group className='mb-3' controlId='formPassword'>
-                        <Form.Label>パスワード</Form.Label>
-                        <Form.Control type='password' placeholder='パスワード' onChange={(e) => setPassword(e.target.value)} />
-                      </Form.Group>
-                      <div className='text-center'>
-                        <BrandColorButton
-                          buttonText='ログインする'
-                          buttonType='submit'
-                          onClick={onSubmit} />
+        <div className='bg-lightgray'>
+          <Container>
+            <Row>
+              <Col lg={4} md={3}></Col>
+                <Col>
+                  <Card className='mt30 mb30'>
+                    <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
+                      ログイン
+                    </Card.Header>
+                    <Card.Body>
+                      <Form onSubmit={onSubmit}>
+                        <Form.Group className='mb-3' controlId='formEmail'>
+                          <Form.Label>メールアドレス</Form.Label>
+                          <Form.Control type='email' placeholder='メールアドレス' onChange={(e) => setEmail(e.target.value)} />
+                          <Form.Text className='text-muted'></Form.Text>
+                        </Form.Group>
+                        <Form.Group className='mb-3' controlId='formPassword'>
+                          <Form.Label>パスワード</Form.Label>
+                          <Form.Control type='password' placeholder='パスワード' onChange={(e) => setPassword(e.target.value)} />
+                        </Form.Group>
+                        <div className='text-center'>
+                          <BrandColorButton
+                            buttonText='ログインする'
+                            buttonType='submit'
+                            onClick={onSubmit} />
+                        </div>
+                      </Form>
+                      <hr />
+                        <GoogleAuthButton
+                          buttonText='Googleでログイン'
+                          buttonHref={MERCHANT_GOOGLE_AUTH_URL}></GoogleAuthButton>
+                      <div className='text-center mt20'>
+                        <a href='/merchant/signup'>新規登録はこちら</a>
                       </div>
-                    </Form>
-                    <hr />
-                      <GoogleAuthButton
-                        buttonText='Googleでログイン'
-                        buttonHref={MERCHANT_GOOGLE_AUTH_URL}></GoogleAuthButton>
-                  </Card.Body>
-                </Card>
-                <div className='text-center mt20'>
-                  <a href='/merchant/signup'>新規登録はこちら</a>
-                </div>
-                <div className='text-center mt20'>
-                  <a href='/merchant/password_reset_mail'>ログインできない方はこちら</a>
-                </div>
-              </Col>
-            <Col lg={4} md={3}></Col>
-          </Row>
-        </Container>
+                      <div className='text-center mt20'>
+                        <a href='/merchant/password_reset_mail'>ログインできない方はこちら</a>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              <Col lg={4} md={3}></Col>
+            </Row>
+          </Container>
+        </div>
       </WithoutSessionLayout>
     </>
   )
