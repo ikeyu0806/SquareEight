@@ -16,6 +16,7 @@ import { emailRegex } from 'constants/emailRegex'
 import { passwordRegex } from 'constants/passwordRegex'
 import { brandGreenRgb } from 'constants/brandColors'
 import BrandColorButton from 'components/atoms/BrandColorButton'
+import AuthStyles from 'styles/Auth.module.css'
 
 const Signup: NextPage = () => {
   const merchantUserLoginStatus = useSelector((state: RootState) => state.currentMerchantUser.loginStatus)
@@ -77,69 +78,72 @@ const Signup: NextPage = () => {
   return (
     <>
       <WithoutSessionLayout>
-        <Container>
-          <Row>
-            <Col lg={4} md={3}></Col>
-            <Col>
-              <Card>
-                <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
-                  ユーザ登録
-                </Card.Header>
-                <Card.Body>
-                  <Form onSubmit={onSubmit}>
-                    <Form.Group className='mb-3' controlId='formEmail'>
-                        <Form.Label>ビジネス名称</Form.Label>
-                        <Form.Control type='text'
-                                      placeholder='必須。企業名、店舗名、教室名など' 
-                                      onChange={(e) => setBusinessName(e.target.value)}/>
+        <div className='bg-lightgray'>
+          <Container>
+            <Row>
+              <Col lg={4} md={3}></Col>
+              <Col>
+                <div className='text-center'>
+                  <div className={AuthStyles.service_name}>SquareEight</div>
+                  <div className={AuthStyles.auth_screen_header_text}>ビジネスアカウント新規登録</div>
+                </div>
+                <Card className='mt30 mb30'>
+                  <Card.Body>
+                    <Form onSubmit={onSubmit}>
+                      <Form.Group className='mb-3' controlId='formEmail'>
+                          <Form.Label>ビジネス名称</Form.Label>
+                          <Form.Control type='text'
+                                        placeholder='必須。企業名、店舗名、教室名など' 
+                                        onChange={(e) => setBusinessName(e.target.value)}/>
+                          <Form.Text className='text-muted'></Form.Text>
+                        </Form.Group>
+                      <Form.Group className='mb-3' controlId='formEmail'>
+                        <Form.Label>メールアドレス</Form.Label>
+                        <Form.Control type='email'
+                                      placeholder='必須'
+                                      onChange={(e) => setEmail(e.target.value)}/>
                         <Form.Text className='text-muted'></Form.Text>
                       </Form.Group>
-                    <Form.Group className='mb-3' controlId='formEmail'>
-                      <Form.Label>メールアドレス</Form.Label>
-                      <Form.Control type='email'
-                                    placeholder='必須'
-                                    onChange={(e) => setEmail(e.target.value)}/>
-                      <Form.Text className='text-muted'></Form.Text>
-                    </Form.Group>
-                    <Form.Group className='mb-3' controlId='formPassword'>
-                      <Form.Label>パスワード</Form.Label>
-                      <div>半角英小文字大文字数字を1種類以上含めて8文字以上で設定してください</div>
-                      <Form.Control type='password'
-                                    placeholder='必須'
-                                    onChange={(e) => setPassword(e.target.value)}/>
-                    </Form.Group>
-                    <Form.Group className='mb-3' controlId='formPassword'>
-                      <Form.Label>パスワード(確認)</Form.Label>
-                      <Form.Control type='password'
-                                    onChange={(e) => setConfirmPassword(e.target.value)}/>
-                    </Form.Group>
-                    <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-                      登録することで
-                      <a target='_blank' rel='noreferrer' href='/terms'>利用規約</a>と
-                      <a target='_blank' rel='noreferrer' href='/privacy_policy'>プライバシーポリシー</a>に同意するものとします
-                    </Form.Group>
-                    <div className='text-center'>
-                      <BrandColorButton
-                        buttonText='登録する'
-                        disabled={!businessName || !email || !password || (password !== confirmPassword)}
-                        buttonType='submit'
-                        onClick={onSubmit}
-                      />
+                      <Form.Group className='mb-3' controlId='formPassword'>
+                        <Form.Label>パスワード</Form.Label>
+                        <div>半角英小文字大文字数字を1種類以上含めて8文字以上で設定してください</div>
+                        <Form.Control type='password'
+                                      placeholder='必須'
+                                      onChange={(e) => setPassword(e.target.value)}/>
+                      </Form.Group>
+                      <Form.Group className='mb-3' controlId='formPassword'>
+                        <Form.Label>パスワード(確認)</Form.Label>
+                        <Form.Control type='password'
+                                      onChange={(e) => setConfirmPassword(e.target.value)}/>
+                      </Form.Group>
+                      <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+                        登録することで
+                        <a target='_blank' rel='noreferrer' href='/terms'>利用規約</a>と
+                        <a target='_blank' rel='noreferrer' href='/privacy_policy'>プライバシーポリシー</a>に同意するものとします
+                      </Form.Group>
+                      <div className='text-center'>
+                        <BrandColorButton
+                          buttonText='登録する'
+                          disabled={!businessName || !email || !password || (password !== confirmPassword)}
+                          buttonType='submit'
+                          onClick={onSubmit}
+                        />
+                      </div>
+                    </Form>
+                    <hr />
+                    <GoogleAuthButton
+                      buttonText='Googleでサインアップ'
+                      buttonHref={MERCHANT_GOOGLE_AUTH_URL}></GoogleAuthButton>
+                    <div className='text-center mt20'>
+                      <a href='/merchant/login'>ログインはこちら</a>
                     </div>
-                  </Form>
-                  <hr />
-                  <GoogleAuthButton
-                    buttonText='Googleでサインアップ'
-                    buttonHref={MERCHANT_GOOGLE_AUTH_URL}></GoogleAuthButton>
-                </Card.Body>
-              </Card>
-              <div className='text-center mt20'>
-                <a href='/merchant/login'>ログインはこちら</a>
-              </div>
-            </Col>
-            <Col lg={4} md={3}></Col>
-          </Row>
-        </Container>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col lg={4} md={3}></Col>
+            </Row>
+          </Container>
+        </div>
       </WithoutSessionLayout>
     </>
   )
