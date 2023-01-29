@@ -20,6 +20,7 @@ import AuthStyles from 'styles/Auth.module.css'
 const Signup: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const dispatch = useDispatch()
+  const [alertText, setAlertText] = useState('')
   const [email, setEmail] = useState('')
   const [lastName, setLastName] = useState('')
   const [firstName, setFirstName] = useState('')
@@ -45,12 +46,12 @@ const Signup: NextPage = () => {
   const onSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault()
     if (email && email.match(emailRegex) === null) {
-      dispatch(alertChanged({message: 'メールアドレスの形式に誤りがあります', show: true, type: 'danger'}))
+      setAlertText(`${email}に検証コードを送信しました。確認して登録を完了してください`)
       return
     }
 
     if (password && password.match(passwordRegex) === null) {
-      dispatch(alertChanged({message: 'パスワードの形式に誤りがあります', show: true, type: 'danger'}))
+      setAlertText(`登録失敗しました。既に登録済みのメールアドレスは使用できません。`)
       return
     }
   
@@ -67,10 +68,10 @@ const Signup: NextPage = () => {
       }
     )
     .then(response => {
-      dispatch(alertChanged({message: `${email}に検証コードを送信しました。確認して登録を完了してください`, show: true}))
+      setAlertText(`${email}に検証コードを送信しました。確認して登録を完了してください`)
     })
     .catch(error => {
-      dispatch(alertChanged({message: '登録失敗しました', show: true, type: 'danger'}))
+      setAlertText(`登録失敗しました。既に登録済みのメールアドレスは使用できません。`)
       console.log({error})
     })
   }
@@ -132,11 +133,12 @@ const Signup: NextPage = () => {
                           disabled={!lastName || !firstName || !email || !password || (password !== confirmPassword)}
                           onClick={onSubmit}/>
                       </div>
-                      <hr />
-                      <GoogleAuthButton
-                        buttonText='Googleでサインアップ'
-                        buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
+                      {alertText && <div className='mt10'>{alertText}</div>}
                     </Form>
+                    <hr />
+                    <GoogleAuthButton
+                      buttonText='Googleでサインアップ'
+                      buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
                   </Card.Body>
                 </Card>
               </Col>
