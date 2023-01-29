@@ -15,6 +15,7 @@ import { emailRegex } from 'constants/emailRegex'
 import { passwordRegex } from 'constants/passwordRegex'
 import BrandColorButton from 'components/atoms/BrandColorButton'
 import { brandGreenRgb } from 'constants/brandColors'
+import AuthStyles from 'styles/Auth.module.css'
 
 const Signup: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
@@ -77,69 +78,72 @@ const Signup: NextPage = () => {
   return (
     <>
       <WithoutSessionLayout>
-        <Container>
-          <Row>
-            <Col lg={4} md={3}></Col>
-            <Col>
-              <Card>
-                <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
-                  SquareEightID登録
-                </Card.Header>
-                <Card.Body>
-                  <Form onSubmit={onSubmit}>
-                    <Form.Group className='mb-3'>
-                      <Form.Label>お名前（姓）</Form.Label>
-                      <Form.Control type='text'
-                                    placeholder='必須'
-                                    onChange={(e) => setLastName(e.target.value)}/>
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                      <Form.Label>お名前（名）</Form.Label>
-                      <Form.Control type='text'
-                                    placeholder='必須'
-                                    onChange={(e) => setFirstName(e.target.value)}/>
-                    </Form.Group>
-                    <Form.Group className='mb-3'>
-                      <Form.Label>メールアドレス</Form.Label>
-                      <Form.Control type='email'
-                                    placeholder='必須'
-                                    onChange={(e) => setEmail(e.target.value)}/>
-                      <Form.Text className='text-muted'></Form.Text>
-                    </Form.Group>
-                    <Form.Group className='mb-3' controlId='formPassword'>
-                      <Form.Label>パスワード</Form.Label>
-                      <div>半角英小文字大文字数字を1種類以上含めて8文字以上で設定してください</div>
-                      <Form.Control type='password'
-                                    placeholder='必須'
-                                    onChange={(e) => setPassword(e.target.value)}/>
-                    </Form.Group>
-                    <Form.Group className='mb-3' controlId='formPassword'>
-                      <Form.Label>パスワード(確認)</Form.Label>
-                      <Form.Control type='password'
-                                    onChange={(e) => setConfirmPassword(e.target.value)}/>
-                    </Form.Group>
-                    <Form.Group className='mb-3' controlId='formBasicCheckbox'>
-                    登録することで
-                      <a target='_blank' rel='noreferrer' href='/terms'>利用規約</a>と
-                      <a target='_blank' rel='noreferrer' href='/privacy_policy'>プライバシーポリシー</a>に同意するものとします
-                    </Form.Group>
-                    <div className='text-center'>
-                      <BrandColorButton
-                        buttonText='登録する'
-                        disabled={!lastName || !firstName || !email || !password || (password !== confirmPassword)}
-                        onClick={onSubmit}/>
-                    </div>
-                    <hr />
-                    <GoogleAuthButton
-                      buttonText='Googleでサインアップ'
-                      buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
-                  </Form>
-                </Card.Body>
-              </Card>
-            </Col>
-            <Col lg={4} md={3}></Col>
-          </Row>
-        </Container>
+        <div className='bg-lightgray'>
+          <Container>
+            <Row>
+              <Col lg={4} md={3}></Col>
+              <Col>
+                <div className='text-center'>
+                  <div className={AuthStyles.service_name}>SquareEight</div>
+                  <div className={AuthStyles.auth_screen_header_text}>SquareEightID新規登録</div>
+                </div>
+                <Card className='mt30 mb30'>
+                  <Card.Body>
+                    <Form onSubmit={onSubmit}>
+                      <Form.Group className='mb-3'>
+                        <Form.Label>お名前（姓）</Form.Label>
+                        <Form.Control type='text'
+                                      placeholder='必須'
+                                      onChange={(e) => setLastName(e.target.value)}/>
+                      </Form.Group>
+                      <Form.Group className='mb-3'>
+                        <Form.Label>お名前（名）</Form.Label>
+                        <Form.Control type='text'
+                                      placeholder='必須'
+                                      onChange={(e) => setFirstName(e.target.value)}/>
+                      </Form.Group>
+                      <Form.Group className='mb-3'>
+                        <Form.Label>メールアドレス</Form.Label>
+                        <Form.Control type='email'
+                                      placeholder='必須'
+                                      onChange={(e) => setEmail(e.target.value)}/>
+                        <Form.Text className='text-muted'></Form.Text>
+                      </Form.Group>
+                      <Form.Group className='mb-3' controlId='formPassword'>
+                        <Form.Label>パスワード</Form.Label>
+                        <div>半角英小文字大文字数字を1種類以上含めて8文字以上で設定してください</div>
+                        <Form.Control type='password'
+                                      placeholder='必須'
+                                      onChange={(e) => setPassword(e.target.value)}/>
+                      </Form.Group>
+                      <Form.Group className='mb-3' controlId='formPassword'>
+                        <Form.Label>パスワード(確認)</Form.Label>
+                        <Form.Control type='password'
+                                      onChange={(e) => setConfirmPassword(e.target.value)}/>
+                      </Form.Group>
+                      <Form.Group className='mb-3' controlId='formBasicCheckbox'>
+                      登録することで
+                        <a target='_blank' rel='noreferrer' href='/terms'>利用規約</a>と
+                        <a target='_blank' rel='noreferrer' href='/privacy_policy'>プライバシーポリシー</a>に同意するものとします
+                      </Form.Group>
+                      <div className='text-center'>
+                        <BrandColorButton
+                          buttonText='登録する'
+                          disabled={!lastName || !firstName || !email || !password || (password !== confirmPassword)}
+                          onClick={onSubmit}/>
+                      </div>
+                      <hr />
+                      <GoogleAuthButton
+                        buttonText='Googleでサインアップ'
+                        buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
+                    </Form>
+                  </Card.Body>
+                </Card>
+              </Col>
+              <Col lg={4} md={3}></Col>
+            </Row>
+          </Container>
+        </div>
       </WithoutSessionLayout>
     </>
   )
