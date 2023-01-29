@@ -15,6 +15,7 @@ import { END_USER_GOOGLE_AUTH_URL } from 'constants/socialLogin'
 import { endUserLoginRedirect } from 'functions/endUserLoginRedirect'
 import { brandGreenRgb } from 'constants/brandColors'
 import BrandColorButton from 'components/atoms/BrandColorButton'
+import AuthStyles from 'styles/Auth.module.css'
 
 const Login: NextPage = () => {
   const currentEndUserLogintStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
@@ -59,47 +60,50 @@ const Login: NextPage = () => {
   return (
     <>
       <WithoutSessionLayout>
-        <Container>
-          <Row>
-            <Col lg={4} md={3}></Col>
-              <Col>
-                <Card>
-                  <Card.Header style={{backgroundColor: brandGreenRgb}} className='text-white'>
-                    SquareEightIDログイン
-                  </Card.Header>
-                  <Card.Body>
-                    <Form onSubmit={onSubmit}>
-                      <Form.Group className='mb-3' controlId='formEmail'>
-                        <Form.Label>メールアドレス</Form.Label>
-                        <Form.Control type='email' placeholder='メールアドレス' onChange={(e) => setEmail(e.target.value)} />
-                        <Form.Text className='text-muted'></Form.Text>
-                      </Form.Group>
-                      <Form.Group className='mb-3' controlId='formPassword'>
-                        <Form.Label>パスワード</Form.Label>
-                        <Form.Control type='password' placeholder='パスワード' onChange={(e) => setPassword(e.target.value)} />
-                      </Form.Group>
-                      <div className='text-center'>
-                        <BrandColorButton
-                          buttonText='ログインする'
-                          onClick={onSubmit} />
+        <div className='bg-lightgray'>
+          <Container>
+            <Row>
+              <Col lg={4} md={3}></Col>
+                <Col>
+                  <div className='text-center'>
+                    <div className={AuthStyles.service_name}>SquareEight</div>
+                    <div className={AuthStyles.auth_screen_header_text}>SquareEightIDログイン</div>
+                  </div>
+                  <Card className='mt30 mb30'>
+                    <Card.Body>
+                      <Form onSubmit={onSubmit}>
+                        <Form.Group className='mb-3' controlId='formEmail'>
+                          <Form.Label>メールアドレス</Form.Label>
+                          <Form.Control type='email' placeholder='メールアドレス' onChange={(e) => setEmail(e.target.value)} />
+                          <Form.Text className='text-muted'></Form.Text>
+                        </Form.Group>
+                        <Form.Group className='mb-3' controlId='formPassword'>
+                          <Form.Label>パスワード</Form.Label>
+                          <Form.Control type='password' placeholder='パスワード' onChange={(e) => setPassword(e.target.value)} />
+                        </Form.Group>
+                        <div className='text-center'>
+                          <BrandColorButton
+                            buttonText='ログインする'
+                            onClick={onSubmit} />
+                        </div>
+                      </Form>
+                      <hr />
+                      <GoogleAuthButton
+                        buttonText='Googleでログイン'
+                        buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
+                      <div className='text-center mt30'>
+                        <a href='/customer/signup'>新規登録はこちら</a>
                       </div>
-                    </Form>
-                    <hr />
-                    <GoogleAuthButton
-                      buttonText='Googleでログイン'
-                      buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
-                    <div className='text-center mt30'>
-                      <a href='/customer/signup'>新規登録はこちら</a>
-                    </div>
-                    <div className='text-center mt20'>
-                      <a href='/customer/password_reset_mail'>ログインできない方はこちら</a>
-                    </div>
-                  </Card.Body>
-                </Card>
-              </Col>
-            <Col lg={4} md={3}></Col>
-          </Row>
-        </Container>
+                      <div className='text-center mt20'>
+                        <a href='/customer/password_reset_mail'>ログインできない方はこちら</a>
+                      </div>
+                    </Card.Body>
+                  </Card>
+                </Col>
+              <Col lg={4} md={3}></Col>
+            </Row>
+          </Container>
+        </div>
       </WithoutSessionLayout>
     </>
   )
