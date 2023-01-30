@@ -236,6 +236,18 @@ sauna_image1 = AccountS3Image.create!(
   s3_object_name: "candle_image1.jpeg",
 )
 
+girl_outdoor_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/girl_outdoor_image1.jpeg",
+  s3_object_name: "girl_outdoor_image1.jpeg",
+)
+
+bouldering_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/bouldering_image1.jpeg",
+  s3_object_name: "bouldering_image1.jpeg",
+)
+
 shops = Shop.create!(
   [
     {
@@ -355,7 +367,7 @@ reserve_frames = ReserveFrame.create!(
       repeat_interval_month_date: 1,
       repeat_end_date: Time.zone.now + 10.years,
       capacity: 10,
-      local_payment_price: 2980,
+      local_payment_price: 4980,
       publish_status: "Publish",
       reception_type: "Immediate",
       reception_start_day_before: 180,
@@ -433,7 +445,99 @@ reserve_frames = ReserveFrame.create!(
       cancel_reception_hour_before: 1,
       lottery_confirmed_day_before: 1,
       image1_account_s3_image_id: spa_image1.id
-    }
+    },
+    {
+      account_id: account.id,
+      title: "カヤック体験60分コース",
+      start_at: Time.zone.now,
+      description: "【デモ用の予約メニューです】\n\n必要な用具は全てお貸します。\n\n未経験でも知識豊富なガイドが丁寧にレクチャーします。",
+      is_repeat: true,
+      repeat_interval_type: "Day",
+      repeat_interval_number_day: 1,
+      repeat_interval_number_week: 1,
+      repeat_interval_number_month: 1,
+      repeat_interval_month_date: 1,
+      repeat_end_date: Time.zone.now + 10.years,
+      capacity: 10,
+      local_payment_price: 2980,
+      publish_status: "Publish",
+      reception_type: "Immediate",
+      reception_start_day_before: 180,
+      reception_deadline: "OnlyOnTheDay",
+      reception_deadline_hour_before: 1,
+      reception_deadline_day_before: 1,
+      is_local_payment_enable: true,
+      is_ticket_payment_enable: true,
+      is_monthly_plan_payment_enable: true,
+      credit_card_payment_price: 2980,
+      is_credit_card_payment_enable: true,
+      is_every_day_repeat: true,
+      is_every_week_repeat: true,
+      is_every_month_repeat: true,
+      reception_phone_number: "",
+      is_set_price: true,
+      is_repeat_sun: true,
+      is_repeat_mon: true,
+      is_repeat_tue: true,
+      is_repeat_wed: true,
+      is_repeat_thu: true,
+      is_repeat_fri: true,
+      is_repeat_sat: true,
+      deleted_at: nil,
+      questionnaire_master_id: nil,
+      is_accept_cancel: true,
+      is_accept_cancel_on_the_day: false,
+      cancel_reception_day_before: 1,
+      cancel_reception_hour_before: 1,
+      lottery_confirmed_day_before: 1,
+      image1_account_s3_image_id: girl_outdoor_image1.id
+    },
+    {
+      account_id: account.id,
+      title: "ボルダリング体験60分コース",
+      start_at: Time.zone.now,
+      description: "【デモ用の予約メニューです】\n\n動きやすい服装でお越しください。シューズ・チョークはお貸します。\n\n登り方の基本は詳しくレクチャーします。",
+      is_repeat: true,
+      repeat_interval_type: "Day",
+      repeat_interval_number_day: 1,
+      repeat_interval_number_week: 1,
+      repeat_interval_number_month: 1,
+      repeat_interval_month_date: 1,
+      repeat_end_date: Time.zone.now + 10.years,
+      capacity: 10,
+      local_payment_price: 2980,
+      publish_status: "Publish",
+      reception_type: "Immediate",
+      reception_start_day_before: 180,
+      reception_deadline: "OnlyOnTheDay",
+      reception_deadline_hour_before: 1,
+      reception_deadline_day_before: 1,
+      is_local_payment_enable: true,
+      is_ticket_payment_enable: true,
+      is_monthly_plan_payment_enable: true,
+      credit_card_payment_price: 2980,
+      is_credit_card_payment_enable: true,
+      is_every_day_repeat: true,
+      is_every_week_repeat: true,
+      is_every_month_repeat: true,
+      reception_phone_number: "",
+      is_set_price: true,
+      is_repeat_sun: true,
+      is_repeat_mon: true,
+      is_repeat_tue: true,
+      is_repeat_wed: true,
+      is_repeat_thu: true,
+      is_repeat_fri: true,
+      is_repeat_sat: true,
+      deleted_at: nil,
+      questionnaire_master_id: nil,
+      is_accept_cancel: true,
+      is_accept_cancel_on_the_day: false,
+      cancel_reception_day_before: 1,
+      cancel_reception_hour_before: 1,
+      lottery_confirmed_day_before: 1,
+      image1_account_s3_image_id: bouldering_image1.id
+    },
   ]
 )
 
@@ -519,6 +623,86 @@ ReserveFrameReceptionTime.create!(
       reception_start_time: DateTime.new(2000, 01, 01, 18, 0, 0, "+09:00"),
       reception_end_time: DateTime.new(2000, 01, 01, 19, 0, 0, "+09:00"),
     },
+    {
+      reserve_frame_id: reserve_frames[2].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 10, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 11, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[2].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 11, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 12, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[2].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 13, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 14, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[2].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 14, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 15, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[2].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 15, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 16, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[2].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 16, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 17, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[2].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 17, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 18, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[2].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 18, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 19, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[3].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 10, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 11, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[3].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 11, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 12, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[3].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 13, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 14, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[3].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 14, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 15, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[3].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 15, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 16, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[3].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 16, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 17, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[3].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 17, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 18, 0, 0, "+09:00"),
+    },
+    {
+      reserve_frame_id: reserve_frames[3].id,
+      reception_start_time: DateTime.new(2000, 01, 01, 18, 0, 0, "+09:00"),
+      reception_end_time: DateTime.new(2000, 01, 01, 19, 0, 0, "+09:00"),
+    },
   ]
 )
 
@@ -548,6 +732,14 @@ ShopReserveFrame.create!(
     {
       shop_id: shops[0].id,
       reserve_frame_id: reserve_frames[1].id
+    },
+    {
+      shop_id: shops[0].id,
+      reserve_frame_id: reserve_frames[2].id
+    },
+    {
+      shop_id: shops[0].id,
+      reserve_frame_id: reserve_frames[3].id
     },
   ]
 )
