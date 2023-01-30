@@ -161,40 +161,36 @@ const Home: NextPage = () => {
               <p><span className={homeStyles.section_description}>02.入力した情報を元にWebページを自動生成！</span></p>
             </div>
             <Row>
-              <Col lg={3}>
+              <Col lg={3} md={6} className='mb20'>
                 <img
                   className={homeStyles.tablet_shop_page_img}
                   src='/images/tablet_shop_page.png'
                   alt='Tablet Shop Page' />
               </Col>
-              <Col lg={3}>
+              <Col lg={3} md={6} className='mb20'>
                 <img
                   className={homeStyles.tablet_shop_page_img}
                   src='/images/reserve_calendar_page.png'
                   alt='Tablet Calendar Page' />
               </Col>
-              <Col lg={3}>
+              <Col lg={3} md={6} className='mb20'>
                 <img
                   className={homeStyles.tablet_shop_page_img}
                   src='/images/top_page_yoga_ticket.png'
                   alt='Yoga Ticket Page' />
               </Col>
-              <Col lg={3}>
+              <Col lg={3} md={6} className='mb20'>
                 <img
                   className={homeStyles.tablet_shop_page_img}
                   src='/images/top_page_shoes.png'
                   alt='Tablet Shoes Page' />
               </Col>
             </Row>
-            <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
-            <div className='text-center mt20'>
-              <p><span className={homeStyles.section_description}>03.お客様はSquareEightIDに登録したクレジットカードで予約や商品購入ができます</span></p>
-            </div>
             <div className='mt30'>
               <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
             </div>
             <div className='text-center mt20'>
-              <p><span className={homeStyles.section_description}>04.お客様にメールやLINEでアフターフォロー!</span></p>
+              <p><span className={homeStyles.section_description}>03.お客様にメールやLINEでアフターフォロー!</span></p>
             </div>
           </div>
         </Container>
@@ -211,7 +207,7 @@ const Home: NextPage = () => {
         </div>
         <Container>
         <Row>
-            <Col lg={3}>
+            <Col lg={3} md={6}>
               <div className={homeStyles.usecase_text}>
                 フィットネスジム運営
               </div>
@@ -220,7 +216,7 @@ const Home: NextPage = () => {
                 src='/images/fitness_image.jpeg'
                 alt='Fitness' />
             </Col>
-            <Col lg={3}>
+            <Col lg={3} md={6}>
               <div className={homeStyles.usecase_text}>
                 パーソナルトレーニング
               </div>
@@ -229,7 +225,7 @@ const Home: NextPage = () => {
                 src='/images/personal_training.jpeg'
                 alt='Personal Training' />
             </Col>
-            <Col lg={3}>
+            <Col lg={3} md={6}>
               <div className={homeStyles.usecase_text}>
                 スポーツスクール運営
               </div>
@@ -238,7 +234,7 @@ const Home: NextPage = () => {
                 src='/images/golf_image.jpeg'
                 alt='Golf' />
             </Col>
-            <Col lg={3}>
+            <Col lg={3} md={6}>
               <div className={homeStyles.usecase_text}>
                 説明会・イベントページ作成
               </div>
@@ -249,7 +245,7 @@ const Home: NextPage = () => {
             </Col>
           </Row>
           <Row>
-            <Col lg={3}>
+            <Col lg={3} md={6}>
               <div className={homeStyles.usecase_text}>
                 ヨガ、ピラティススタジオ運営
               </div>
@@ -258,7 +254,7 @@ const Home: NextPage = () => {
                 src='/images/yoga_image.jpeg'
                 alt='Girl Kayak' />
             </Col>
-            <Col lg={3}>
+            <Col lg={3} md={6}>
               <div className={homeStyles.usecase_text}>
                 美容室運営
               </div>
@@ -267,7 +263,7 @@ const Home: NextPage = () => {
                 src='/images/beauty_salon.jpeg'
                 alt='Beauty Kayak' />
             </Col>
-            <Col lg={3}>
+            <Col lg={3} md={6}>
               <div className={homeStyles.usecase_text}>
                 ネイルサロン運営
               </div>
@@ -276,7 +272,7 @@ const Home: NextPage = () => {
                 src='/images/nail_saron.jpeg'
                 alt='Nail saron' />
             </Col>
-            <Col lg={3}>
+            <Col lg={3} md={6}>
               <div className={homeStyles.usecase_text}>
                 アクティビティ・レジャービジネス
               </div>
