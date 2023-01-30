@@ -518,13 +518,50 @@ monthly_payment_plans = MonthlyPaymentPlan.first_or_create!(
   [
     {
       account_id: account.id,
+      name: "フィットネスジム週1回ご利用プラン",
+      description: "気軽にジム通いを始めたい方向けのライトプラン!\n\nまずはここから!",
+      price: 5000,
+      reserve_interval_number: 1,
+      reserve_interval_unit: "Week",
+      enable_reserve_count: 1,
+      publish_status: "Publish",
+      stripe_plan_id: "plan_NGHKsOaX2xdpn2",
+      image1_account_s3_image_id: account_s3_images[9].id
+    },
+    {
+      account_id: account.id,
+      name: "フィットネス施設使い放題プラン",
+      description: "トレーニングマシンを利用時間や回数制限なく利用できるおトクなプラン。\n\n平日も土日祝も終日使い放題。",
+      price: 50000,
+      reserve_interval_number: 1,
+      reserve_interval_unit: "Week",
+      enable_reserve_count: 3,
+      publish_status: "Publish",
+      stripe_plan_id: "plan_NGHQ2VISmebLWc",
+      image1_account_s3_image_id: account_s3_images[9].id
+    },
+    {
+      account_id: account.id,
       name: "週３回受講可能ゴルフスクール会員",
+      description: "プロ選手による少人数レッスン受講プラン。\n\n最新機器により効率よく上達できます。",
       price: 50000,
       reserve_interval_number: 1,
       reserve_interval_unit: "Week",
       enable_reserve_count: 3,
       publish_status: "Publish",
       stripe_plan_id: "plan_N70Y45NasdEyfE",
+      image1_account_s3_image_id: account_s3_images[9].id
+    },
+    {
+      account_id: account.id,
+      name: "2週に1回通えるスパ定期券",
+      description: "2週間に1回ご利用になれる定額制サービスになります。\n\n60分のアロマオイルマッサージかヘッドスパをご予約できます。"
+      price: 100000,
+      reserve_interval_number: 2,
+      reserve_interval_unit: "Week",
+      enable_reserve_count: 1,
+      publish_status: "Publish",
+      stripe_plan_id: "plan_NGHiD5NscrVH7Z",
       image1_account_s3_image_id: account_s3_images[9].id
     },
   ]
