@@ -71,8 +71,8 @@ const Home: NextPage = () => {
               <div className='text-center'>
                 <p><span className={homeStyles.section_description}>01.ビジネスアカウントご登録後に管理画面から必要な情報を入力</span></p>
               </div>
-              <Col md={1}></Col>
-              <Col md={6}>
+              <Col lg={1}></Col>
+              <Col lg={6} md={8}>
                 <Table bordered className={homeStyles.plan_table_parent}>
                   <thead style={{backgroundColor: '#5BA5BD'}}>
                     <tr className='text-white'>
@@ -148,13 +148,13 @@ const Home: NextPage = () => {
                   </tbody>
                 </Table>
               </Col>
-              <Col>
+              <Col  md={4}>
                 <img
                   className={homeStyles.pc_woman}
                   src='/images/pc_woman.png'
                   alt='Pc Woman' />
               </Col>
-              <Col md={2}></Col>
+              <Col lg={2}></Col>
             </Row>
             <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
             <div className='text-center mt20'>
