@@ -143,8 +143,8 @@ const Purchase: NextPage = () => {
             <div className='text-center'>非公開です</div>}
             {publishStatus === 'Publish' && 
             <Row>
-              <Col lg={3} md={1}></Col>
-              <Col lg={6} md={10}>
+              <Col lg={3}></Col>
+              <Col lg={6}>
               <Card className='mt30 mb30'>
                 <Card.Body>
                 {currentEndUserLogintStatus === 'Logout'

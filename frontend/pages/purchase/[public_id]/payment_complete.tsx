@@ -45,8 +45,8 @@ const PaymentComplete: NextPage = () => {
         <div className='bg-lightgray'>
           <Container>
             <Row>
-              <Col lg={3} md={3}></Col>
-              <Col lg={6} md={6}>
+              <Col lg={3} md={2}></Col>
+              <Col lg={6} md={8}>
                 <Card className='mt30 mb30'>
                   <p><span className='orange_highlighter font-size-25 ml20 mt20'>購入完了しました</span></p>
                   <Card.Body>
