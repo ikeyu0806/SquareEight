@@ -556,7 +556,7 @@ ticket_masters = TicketMaster.create!(
   [
     {
       account_id: account.id,
-      name: "テニススクール受講回数券　5回分",
+      name: "【デモ用の回数券です】テニススクール受講回数券　5回分",
       description: "自分のレベルに合ったクラスが選べる受講回数券です。\n\n有効期限は1年。好きな時に気軽に通えます。",
       issue_number: 5,
       price: 19800,
@@ -566,7 +566,7 @@ ticket_masters = TicketMaster.create!(
     },
     {
       account_id: account.id,
-      name: "ハンドネイル回数券　5回分",
+      name: "【デモ用の回数券です】ハンドネイル回数券　5回分",
       description: "ケア、マニキュア、ジェルのご予約に使える受講回数券です。\n\nお客様のご要望に合わせたサービスを提供します。",
       issue_number: 5,
       price: 4980,
@@ -576,7 +576,7 @@ ticket_masters = TicketMaster.create!(
     },
     {
       account_id: account.id,
-      name: "リンパマッサージ回数券 10回分。",
+      name: "【デモ用の回数券です】リンパマッサージ回数券 10回分。",
       description: "リンパマッサージを10回分ご利用になれる回数券です。\n\その日の症状に合わせたリンパマッサージ。",
       issue_number: 10,
       price: 29800,
@@ -586,7 +586,7 @@ ticket_masters = TicketMaster.create!(
     },
     {
       account_id: account.id,
-      name: "ヨガレッスン受講回数券　10回分",
+      name: "【デモ用の回数券です】ヨガレッスン受講回数券　10回分",
       description: "肩こりや腰痛の解消、ダイエットにおすすめのヨガレッスン受講券です。\n\n有効期限は1年。好きな時に気軽に通えます。",
       issue_number: 10,
       price: 19800,
@@ -622,7 +622,7 @@ monthly_payment_plans = MonthlyPaymentPlan.create!(
   [
     {
       account_id: account.id,
-      name: "フィットネスジム週1回ご利用プラン",
+      name: "【デモ用のサブスクリプションです】フィットネスジム週1回ご利用プラン",
       description: "気軽にジム通いを始めたい方向けのライトプラン!\n\nまずはここから!",
       price: 4980,
       reserve_interval_number: 1,
@@ -634,7 +634,7 @@ monthly_payment_plans = MonthlyPaymentPlan.create!(
     },
     {
       account_id: account.id,
-      name: "フィットネス施設使い放題プラン",
+      name: "【デモ用のサブスクリプションです】フィットネス施設使い放題プラン",
       description: "トレーニングマシンを利用時間や回数制限なく利用できるおトクなプラン。\n\n平日も土日祝も終日使い放題。",
       price: 49800,
       reserve_interval_number: 1,
@@ -646,7 +646,7 @@ monthly_payment_plans = MonthlyPaymentPlan.create!(
     },
     {
       account_id: account.id,
-      name: "週３回受講可能ゴルフスクール会員",
+      name: "【デモ用のサブスクリプションです】週３回受講可能ゴルフスクール会員",
       description: "プロ選手による少人数レッスン受講プラン。\n\n最新機器により効率よく上達できます。",
       price: 49800,
       reserve_interval_number: 1,
@@ -658,7 +658,7 @@ monthly_payment_plans = MonthlyPaymentPlan.create!(
     },
     {
       account_id: account.id,
-      name: "2週に1回通えるスパ定期券",
+      name: "【デモ用のサブスクリプションです】2週に1回通えるスパ定期券",
       description: "2週間に1回ご利用になれる定額制サービスになります。\n\n60分のアロマオイルマッサージかヘッドスパをご予約できます。",
       price: 98000,
       reserve_interval_number: 2,
@@ -715,7 +715,7 @@ products = Product.create!(
   [
     {
       account_id: account.id,
-      name: "プロテインセット",
+      name: "【デモ用の商品です】プロテインセット",
       description: "たんぱく質を効率的に摂取できるサプリメントになります。",
       price: 3980,
       tax_rate: 10,
@@ -725,7 +725,7 @@ products = Product.create!(
     },
     {
       account_id: account.id,
-      name: "ゴルフクラブセット",
+      name: "【デモ用の商品です】ゴルフクラブセット",
       description: "必要なクラブ全てが揃う14本セットです。",
       price: 69800,
       tax_rate: 10,
@@ -735,7 +735,7 @@ products = Product.create!(
     },
     {
       account_id: account.id,
-      name: "アロマキャンドルセット",
+      name: "【デモ用の商品です】アロマキャンドルセット",
       description: "【デモ用の商品です】香りと炎のゆらめきを楽しめる柑橘系アロマキャンドルです。",
       price: 2980,
       tax_rate: 10,
@@ -745,7 +745,7 @@ products = Product.create!(
     },
     {
       account_id: account.id,
-      name: "ランニングシューズ",
+      name: "【デモ用の商品です】ランニングシューズ",
       description: "【デモ用の予約メニューです】Sサイズ、Mサイズ、Lサイズから選択して購入できます。",
       price: 1980,
       tax_rate: 10,
