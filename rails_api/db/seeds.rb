@@ -6,78 +6,133 @@
 #   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
 #   Character.create(name: "Luke", movie: movies.first)
 
-account = Account.first_or_create!(
+account = Account.create!(
   business_name: "管理ユーザ",
   stripe_customer_id: "cus_LwJxeaXaTnVjba",
   stripe_account_id: "acct_1LFYYj2eLQ63YTOo"
 )
 
-account_s3_images = AccountS3Image.first_or_create!(
-  [
-    {
-      account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image1.jpeg",
-      s3_object_name: "fitness_image1.jpeg",
-    },
-    {
-      account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image2.jpeg",
-      s3_object_name: "fitness_image2.jpeg",
-    },
-    {
-      account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image3.jpeg",
-      s3_object_name: "fitness_image3.jpeg",
-    },
-    {
-      account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image4.jpeg",
-      s3_object_name: "fitness_image4.jpeg",
-    },
-    {
-      account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image5.jpeg",
-      s3_object_name: "fitness_image5.jpeg",
-    },
-    {
-      account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image6.jpeg",
-      s3_object_name: "fitness_image6.jpeg",
-    },
-    {
-      account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image7.jpeg",
-      s3_object_name: "fitness_image7.jpeg",
-    },
-    {
-      account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/yoga_image1.jpeg",
-      s3_object_name: "yoga_image1.jpeg",
-    },
-    {
-      account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/product_image1.jpeg",
-      s3_object_name: "product_image1.jpeg",
-    },
-    {
-      account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/golf_image1.jpeg",
-      s3_object_name: "golf_image1.jpeg",
-    },
-    {
-      account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/bouldering_image1.jpeg",
-      s3_object_name: "bouldering_image1.jpeg",
-    },
-    {
-      account_id: account.id,
-      s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/seitai_image1.jpeg",
-      s3_object_name: "seitai_image1.jpeg",
-    },
-  ]
+fitness_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image1.jpeg",
+  s3_object_name: "fitness_image1.jpeg",
 )
 
-shops = Shop.first_or_create!(
+fitness_image2 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image2.jpeg",
+  s3_object_name: "fitness_image2.jpeg",
+)
+
+fitness_image3 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image3.jpeg",
+  s3_object_name: "fitness_image3.jpeg",
+)
+
+fitness_image4 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image4.jpeg",
+  s3_object_name: "fitness_image4.jpeg",
+)
+
+fitness_image5 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image5.jpeg",
+  s3_object_name: "fitness_image5.jpeg",
+)
+
+fitness_image6 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image6.jpeg",
+  s3_object_name: "fitness_image6.jpeg",
+)
+
+fitness_image7 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image7.jpeg",
+  s3_object_name: "fitness_image7.jpeg",
+)
+
+yoga_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/yoga_image1.jpeg",
+  s3_object_name: "yoga_image1.jpeg",
+)
+
+product_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/product_image1.jpeg",
+  s3_object_name: "product_image1.jpeg",
+)
+
+golf_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/golf_image1.jpeg",
+  s3_object_name: "golf_image1.jpeg",
+)
+
+bouldering_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/bouldering_image1.jpeg",
+  s3_object_name: "bouldering_image1.jpeg",
+)
+
+seitai_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/seitai_image1.jpeg",
+  s3_object_name: "seitai_image1.jpeg",
+)
+
+tennis_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/tennis_image1.jpeg",
+  s3_object_name: "tennis_image1.jpeg",
+)
+
+spa_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/spa_image1.jpeg",
+  s3_object_name: "spa_image1.jpeg",
+)
+
+nail_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/nail_image1.jpeg",
+  s3_object_name: "nail_image1.jpeg",
+)
+
+candle_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/candle_image1.jpeg",
+  s3_object_name: "candle_image1.jpeg",
+)
+
+protain_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/protain_image1.jpeg",
+  s3_object_name: "protain_image1.jpeg",
+)
+
+candle_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/candle_image1.jpeg",
+  s3_object_name: "candle_image1.jpeg",
+)
+
+sports_shoes_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/sports_shoes_image1.jpeg",
+  s3_object_name: "sports_shoes_image1.jpeg",
+)
+
+golf_goods_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/golf_goods_image1.jpeg",
+  s3_object_name: "golf_goods_image1.jpeg",
+)
+
+shops = Shop.create!(
   [
     {
       account_id: account.id,
@@ -85,9 +140,9 @@ shops = Shop.first_or_create!(
       phone_number: "09011112222",
       description1: "初心者からアスリートまで、全ての人々が結果を出せるようあらゆることについて考え抜かれたフィットネスクラブです。",
       description2: "生活スタイルに合った会員プランで、無理なく無駄なく続けられます。",
-      description3: "身体も気持ちも100パーセント満足できます",
+      description3: "インドアアウトドアテニスコート3面、アウトドアテニスコート5面を備えております。",
       description4: "サウナ、岩盤浴があり、フィットネス前に身体を温めたり、フィットネス後のリラックスにもおススメです。",
-      description5: "専門のスタッフによるストレッチ・アイシング・テーピングを受けることができます。",
+      description5: "経験豊富なパーソナルトレーナーが、お客様のご希望に沿った最適なトレーニングプログラムをご提案します。",
       description6: "幅広い時間帯で営業しているため、出勤前や出勤後にトレーニングをすることができます。",
       postal_code: "150-0043",
       state: "東京都",
@@ -99,21 +154,21 @@ shops = Shop.first_or_create!(
       business_hours_text: "07:00～22:00。不定休",
       parking_lot_guidance: "有料の駐車場がございます。¥1200〜/日。",
       remarks: "シューズ貸出あり",
-      shop_image1_account_s3_image_id: account_s3_images[0].id,
-      shop_image2_account_s3_image_id: account_s3_images[1].id,
-      shop_image3_account_s3_image_id: account_s3_images[2].id,
-      shop_image4_account_s3_image_id: account_s3_images[3].id,
-      shop_image5_account_s3_image_id: account_s3_images[4].id,
-      shop_image6_account_s3_image_id: account_s3_images[5].id,
+      shop_image1_account_s3_image_id: fitness_image1.id,
+      shop_image2_account_s3_image_id: fitness_image2.id,
+      shop_image3_account_s3_image_id: tennis_image1.id,
+      shop_image4_account_s3_image_id: sauna_image1.id,
+      shop_image5_account_s3_image_id: fitness_image3.id,
+      shop_image6_account_s3_image_id: fitness_image6.id,
     },
   ]
 )
 
-SharedComponent.first_or_create!(
+SharedComponent.create!(
   account_id: account.id,
 )
 
-MerchantUser.first_or_create!(
+MerchantUser.create!(
   account_id: account.id,
   email: "merchant_user@develop.com",
   password: "Pass1234",
@@ -194,7 +249,7 @@ MerchantUser.first_or_create!(
   allow_send_line_message: "Allow"
 )
 
-EndUser.first_or_create!(
+EndUser.create!(
   first_name: "デモ",
   last_name: "ユーザ",
   email: "end_user@develop.com",
@@ -203,7 +258,7 @@ EndUser.first_or_create!(
   email_authentication_status: "Enabled"
 )
 
-SystemAdminUser.first_or_create!(
+SystemAdminUser.create!(
   name: "admin_user",
   email: "system_admin@develop.com",
   phone_number: "12312341234",
@@ -211,7 +266,7 @@ SystemAdminUser.first_or_create!(
   authentication_status: "Enabled"
 )
 
-customers = Customer.first_or_create!(
+customers = Customer.create!(
   [
     {
       account_id: account.id,
@@ -237,12 +292,12 @@ customers = Customer.first_or_create!(
   ]
 )
 
-customer_group = CustomerGroup.first_or_create!(
+customer_group = CustomerGroup.create!(
   account_id: account.id,
   name: "デモグループ",
 )
 
-CustomerGroupRelation.first_or_create!(
+CustomerGroupRelation.create!(
   [
     {
       customer_id: customers[0].id,
@@ -259,7 +314,7 @@ CustomerGroupRelation.first_or_create!(
   ]
 )
 
-resources = Resource.first_or_create!(
+resources = Resource.create!(
   [
     {
       account_id: account.id,
@@ -279,7 +334,7 @@ resources = Resource.first_or_create!(
   ]
 )
 
-reserve_frames = ReserveFrame.first_or_create!(
+reserve_frames = ReserveFrame.create!(
   [
     {
       account_id: account.id,
@@ -325,7 +380,7 @@ reserve_frames = ReserveFrame.first_or_create!(
       cancel_reception_day_before: 1,
       cancel_reception_hour_before: 1,
       lottery_confirmed_day_before: 1,
-      image1_account_s3_image_id: account_s3_images[6].id
+      image1_account_s3_image_id: fitness_image1.id
     },
     {
       account_id: account.id,
@@ -371,12 +426,12 @@ reserve_frames = ReserveFrame.first_or_create!(
       cancel_reception_day_before: 1,
       cancel_reception_hour_before: 1,
       lottery_confirmed_day_before: 1,
-      image1_account_s3_image_id: account_s3_images[7].id
+      image1_account_s3_image_id: spa_image1.id
     }
   ]
 )
 
-ReserveFrameReceptionTime.first_or_create!(
+ReserveFrameReceptionTime.create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
@@ -461,7 +516,7 @@ ReserveFrameReceptionTime.first_or_create!(
   ]
 )
 
-ReserveFrameResource.first_or_create!(
+ReserveFrameResource.create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
@@ -478,7 +533,7 @@ ReserveFrameResource.first_or_create!(
   ]
 )
 
-ShopReserveFrame.first_or_create!(
+ShopReserveFrame.create!(
   [
     {
       shop_id: shops[0].id,
@@ -491,7 +546,7 @@ ShopReserveFrame.first_or_create!(
   ]
 )
 
-ticket_masters = TicketMaster.first_or_create!(
+ticket_masters = TicketMaster.create!(
   [
     {
       account_id: account.id,
@@ -501,7 +556,7 @@ ticket_masters = TicketMaster.first_or_create!(
       price: 19800,
       publish_status: "Publish",
       effective_month: 12,
-      image1_account_s3_image_id: account_s3_images[8].id
+      image1_account_s3_image_id: tennis_image1.id
     },
     {
       account_id: account.id,
@@ -511,7 +566,7 @@ ticket_masters = TicketMaster.first_or_create!(
       price: 4980,
       publish_status: "Publish",
       effective_month: 12,
-      image1_account_s3_image_id: account_s3_images[8].id
+      image1_account_s3_image_id: nail_image1.id
     },
     {
       account_id: account.id,
@@ -521,7 +576,7 @@ ticket_masters = TicketMaster.first_or_create!(
       price: 29800,
       publish_status: "Publish",
       effective_month: 12,
-      image1_account_s3_image_id: account_s3_images[8].id
+      image1_account_s3_image_id: spa_image1.id
     },
     {
       account_id: account.id,
@@ -531,21 +586,33 @@ ticket_masters = TicketMaster.first_or_create!(
       price: 19800,
       publish_status: "Publish",
       effective_month: 12,
-      image1_account_s3_image_id: account_s3_images[8].id
+      image1_account_s3_image_id: yoga_image1.id
     },
   ]
 )
 
-ShopTicketMaster.first_or_create!(
+ShopTicketMaster.create!(
   [
     {
       shop_id: shops[0].id,
+      ticket_master_id: ticket_masters[0].id
+    },
+    {
+      shop_id: shops[1].id,
+      ticket_master_id: ticket_masters[0].id
+    },
+    {
+      shop_id: shops[2].id,
+      ticket_master_id: ticket_masters[0].id
+    },
+    {
+      shop_id: shops[3].id,
       ticket_master_id: ticket_masters[0].id
     }
   ]
 )
 
-monthly_payment_plans = MonthlyPaymentPlan.first_or_create!(
+monthly_payment_plans = MonthlyPaymentPlan.create!(
   [
     {
       account_id: account.id,
@@ -557,7 +624,7 @@ monthly_payment_plans = MonthlyPaymentPlan.first_or_create!(
       enable_reserve_count: 1,
       publish_status: "Publish",
       stripe_plan_id: "plan_NGHKsOaX2xdpn2",
-      image1_account_s3_image_id: account_s3_images[9].id
+      image1_account_s3_image_id: fitness_image2.id
     },
     {
       account_id: account.id,
@@ -569,7 +636,7 @@ monthly_payment_plans = MonthlyPaymentPlan.first_or_create!(
       enable_reserve_count: 3,
       publish_status: "Publish",
       stripe_plan_id: "plan_NGHQ2VISmebLWc",
-      image1_account_s3_image_id: account_s3_images[9].id
+      image1_account_s3_image_id: fitness_image3.id
     },
     {
       account_id: account.id,
@@ -581,7 +648,7 @@ monthly_payment_plans = MonthlyPaymentPlan.first_or_create!(
       enable_reserve_count: 3,
       publish_status: "Publish",
       stripe_plan_id: "plan_N70Y45NasdEyfE",
-      image1_account_s3_image_id: account_s3_images[9].id
+      image1_account_s3_image_id: golf_image1.id
     },
     {
       account_id: account.id,
@@ -593,30 +660,42 @@ monthly_payment_plans = MonthlyPaymentPlan.first_or_create!(
       enable_reserve_count: 1,
       publish_status: "Publish",
       stripe_plan_id: "plan_NGHiD5NscrVH7Z",
-      image1_account_s3_image_id: account_s3_images[9].id
+      image1_account_s3_image_id: spa_image1.id
     },
   ]
 )
 
-ShopMonthlyPaymentPlan.first_or_create!(
+ShopMonthlyPaymentPlan.create!(
   [
     {
       shop_id: shops[0].id,
       monthly_payment_plan_id: monthly_payment_plans[0].id
+    },
+    {
+      shop_id: shops[0].id,
+      monthly_payment_plan_id: monthly_payment_plans[1].id
+    },
+    {
+      shop_id: shops[0].id,
+      monthly_payment_plan_id: monthly_payment_plans[2].id
+    },
+    {
+      shop_id: shops[0].id,
+      monthly_payment_plan_id: monthly_payment_plans[3].id
     }
   ]
 )
 
-ReserveFrameMonthlyPaymentPlan.first_or_create!(
+ReserveFrameMonthlyPaymentPlan.create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
       monthly_payment_plan_id: monthly_payment_plans[0].id,
-    }
+    },
   ]
 )
 
-ReserveFrameTicketMaster.first_or_create!(
+ReserveFrameTicketMaster.create!(
   [
     {
       reserve_frame_id: reserve_frames[0].id,
@@ -626,11 +705,11 @@ ReserveFrameTicketMaster.first_or_create!(
   ]
 )
 
-products = Product.first_or_create!(
+products = Product.create!(
   [
     {
       account_id: account.id,
-      name: "疲労回復サプリメント",
+      name: "プロテインセット",
       price: 3980,
       tax_rate: 10,
       inventory: 100,
@@ -639,36 +718,36 @@ products = Product.first_or_create!(
     },
     {
       account_id: account.id,
-      name: "ゴルフ入門セット",
-      price: 29800,
+      name: "ゴルフクラブセット",
+      price: 49800,
       tax_rate: 10,
       inventory: 30,
       publish_status: "Publish",
-      image1_account_s3_image_id: account_s3_images[8].id
+      image1_account_s3_image_id: golf_goods1_image.id
     },
     {
       account_id: account.id,
-      name: "アロマセット",
+      name: "アロマキャンドルセット",
       price: 2980,
       tax_rate: 10,
       inventory: 30,
       publish_status: "Publish",
-      image1_account_s3_image_id: account_s3_images[8].id
+      image1_account_s3_image_id: candle_image1.id
     },
     {
       account_id: account.id,
-      name: "オリジナルTシャツ",
+      name: "ランニングシューズ",
       description: "Sサイズ、Mサイズ、Lサイズから選択して購入できます。",
       price: 1980,
       tax_rate: 10,
       inventory: 100,
       publish_status: "Publish",
-      image1_account_s3_image_id: account_s3_images[9].id
+      image1_account_s3_image_id: sports_shoes_image1.id
     },
   ]
 )
 
-ProductType.first_or_create!(
+ProductType.create!(
   [
     {
       product_id: products[1].id,
@@ -688,7 +767,7 @@ ProductType.first_or_create!(
   ]
 )
 
-ShopProduct.first_or_create!(
+ShopProduct.create!(
   [
     {
       shop_id: shops[0].id,
@@ -697,18 +776,26 @@ ShopProduct.first_or_create!(
     {
       shop_id: shops[0].id,
       product_id: products[1].id
+    },
+    {
+      shop_id: shops[0].id,
+      product_id: products[2].id
+    },
+    {
+      shop_id: shops[0].id,
+      product_id: products[3].id
     }
   ]
 )
 
-questionnaire_master = QuestionnaireMaster.first_or_create!(
+questionnaire_master = QuestionnaireMaster.create!(
   account_id: account.id,
   title: "商品をご購入いただいた方へのアンケート",
   question_form_json: "[{\"question\"=>\"商品へのご要望\", \"formType\"=>\"text\", \"textFormRowCount\"=>5, \"sortOrder\"=>1, \"questionId\"=>\"18581acf0bb\", \"selectFormAnswers\"=>[], \"radioButtonAnswers\"=>[], \"checkboxAnswers\"=>[]}, {\"question\"=>\"年齢は？\", \"formType\"=>\"select\", \"textFormRowCount\"=>1, \"sortOrder\"=>2, \"questionId\"=>\"18581ad6be4\", \"selectFormAnswers\"=>[\"10代\", \"20代\", \"30代\", \"40代\", \"50代\", \"60代以上\"], \"radioButtonAnswers\"=>[], \"checkboxAnswers\"=>[]}]",
   publish_status: "Publish"
 )
 
-delivery_datetime_setting = DeliveryDatetimeSetting.first_or_create!(
+delivery_datetime_setting = DeliveryDatetimeSetting.create!(
   account_id: account.id,
   shortest_delivery_day: 2,
   longest_delivery_day: 4,
