@@ -176,21 +176,23 @@ const Home: NextPage = () => {
               <Col lg={3}>
                 <img
                   className={homeStyles.tablet_shop_page_img}
-                  src='/images/reserve_calendar_page.png'
-                  alt='Tablet Calendar Page' />
+                  src='/images/top_page_yoga_ticket.png'
+                  alt='Yoga Ticket Page' />
               </Col>
               <Col lg={3}>
                 <img
                   className={homeStyles.tablet_shop_page_img}
-                  src='/images/reserve_calendar_page.png'
-                  alt='Tablet Calendar Page' />
+                  src='/images/top_page_shoes.png'
+                  alt='Tablet Shoes Page' />
               </Col>
             </Row>
             <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
             <div className='text-center mt20'>
               <p><span className={homeStyles.section_description}>03.お客様はSquareEightIDに登録したクレジットカードで予約や商品購入ができます</span></p>
             </div>
-            <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
+            <div className='mt30'>
+              <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
+            </div>
             <div className='text-center mt20'>
               <p><span className={homeStyles.section_description}>04.お客様にメールやLINEでアフターフォロー!</span></p>
             </div>
