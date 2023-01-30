@@ -605,15 +605,15 @@ ShopTicketMaster.create!(
     },
     {
       shop_id: shops[0].id,
-      ticket_master_id: ticket_masters[0].id
+      ticket_master_id: ticket_masters[1].id
     },
     {
       shop_id: shops[0].id,
-      ticket_master_id: ticket_masters[0].id
+      ticket_master_id: ticket_masters[2].id
     },
     {
       shop_id: shops[0].id,
-      ticket_master_id: ticket_masters[0].id
+      ticket_master_id: ticket_masters[3].id
     }
   ]
 )
