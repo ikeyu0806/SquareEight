@@ -346,7 +346,7 @@ reserve_frames = ReserveFrame.create!(
       account_id: account.id,
       title: "〇〇先生パーソナルトレーニング60分コース",
       start_at: Time.zone.now,
-      description: "【これはデモ用の予約メニューです】\n\n〇〇先生のパーソナルトレーニング60分コース\n\nトレーナーが1つ1つを確認しながら行うので効率よくトレーニングを進めることができます。\n\nトレーニングウェアと室内シューズをお持ちください。",
+      description: "【デモ用の予約メニューです】\n\n〇〇先生のパーソナルトレーニング60分コース\n\nトレーナーが1つ1つを確認しながら行うので効率よくトレーニングを進めることができます。\n\nトレーニングウェアと室内シューズをお持ちください。",
       is_repeat: true,
       repeat_interval_type: "WDay",
       repeat_interval_number_day: 1,
@@ -392,7 +392,7 @@ reserve_frames = ReserveFrame.create!(
       account_id: account.id,
       title: "アロマリンパ60分コース",
       start_at: Time.zone.now,
-      description: "【これはデモ用の予約メニューです】\n\n当店人気No1のアロマリンパコースになります。\n\m肩こり.腰痛の改善、小顔効果が期待できます。\n\nお客様の体調に合わせて丁寧にご案内・施術いたします。",
+      description: "【デモ用の予約メニューです】\n\n当店人気No1のアロマリンパコースになります。\n\m肩こり.腰痛の改善、小顔効果が期待できます。\n\nお客様の体調に合わせて丁寧にご案内・施術いたします。",
       is_repeat: true,
       repeat_interval_type: "Day",
       repeat_interval_number_day: 1,
@@ -716,6 +716,7 @@ products = Product.create!(
     {
       account_id: account.id,
       name: "プロテインセット",
+      description: "たんぱく質を効率的に摂取できるサプリメントになります。",
       price: 3980,
       tax_rate: 10,
       inventory: 100,
@@ -725,7 +726,8 @@ products = Product.create!(
     {
       account_id: account.id,
       name: "ゴルフクラブセット",
-      price: 49800,
+      description: "必要なクラブ全てが揃う14本セットです。",
+      price: 69800,
       tax_rate: 10,
       inventory: 30,
       publish_status: "Publish",
@@ -734,6 +736,7 @@ products = Product.create!(
     {
       account_id: account.id,
       name: "アロマキャンドルセット",
+      description: "【デモ用の商品です】香りと炎のゆらめきを楽しめる柑橘系アロマキャンドルです。",
       price: 2980,
       tax_rate: 10,
       inventory: 30,
@@ -743,7 +746,7 @@ products = Product.create!(
     {
       account_id: account.id,
       name: "ランニングシューズ",
-      description: "Sサイズ、Mサイズ、Lサイズから選択して購入できます。",
+      description: "【デモ用の予約メニューです】Sサイズ、Mサイズ、Lサイズから選択して購入できます。",
       price: 1980,
       tax_rate: 10,
       inventory: 100,
