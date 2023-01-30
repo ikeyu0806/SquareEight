@@ -183,6 +183,11 @@ img.tablet_shop_page_img {
   width: 300px;
 }
 
+img.mail_template_img {
+  border: 1px #000000 solid;
+  width: 600px;
+}
+
 /* タブレット用 */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
   .cover_img_parent .headline {
@@ -223,6 +228,11 @@ img.tablet_shop_page_img {
 
   .function_content {
     font-size: 15px;
+  }
+
+  img.mail_template_img {
+    border: 1px #000000 solid;
+    width: 400px;
   }
 }
 
@@ -281,5 +291,10 @@ img.tablet_shop_page_img {
 
   .enterprise_description {
     font-size: 15px;
+  }
+
+  img.mail_template_img {
+    border: 1px #000000 solid;
+    width: 300px;
   }
 }

@@ -194,8 +194,13 @@ const Home: NextPage = () => {
             </div>
 
             <Row>
-              <Col></Col>
-              <Col>
+              <Col lg={9} md={8}>
+                <img
+                  className={homeStyles.mail_template_img}
+                  src='/images/select_mail_template_screen.png'
+                  alt='Mail Template Screen' />
+              </Col>
+              <Col lg={3} md={4}>
                 <img
                   className={homeStyles.sp_woman}
                   src='/images/sp_woman.png'
