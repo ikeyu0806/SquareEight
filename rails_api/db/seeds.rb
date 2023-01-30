@@ -81,7 +81,7 @@ shops = Shop.first_or_create!(
   [
     {
       account_id: account.id,
-      name: "SquareEightデモ店舗",
+      name: "SquareEightデモページ",
       phone_number: "09011112222",
       description1: "初心者からアスリートまで、全ての人々が結果を出せるようあらゆることについて考え抜かれたフィットネスクラブです。",
       description2: "生活スタイルに合った会員プランで、無理なく無駄なく続けられます。",
@@ -495,9 +495,40 @@ ticket_masters = TicketMaster.first_or_create!(
   [
     {
       account_id: account.id,
+      name: "テニススクール受講回数券　5回分",
+      description: "自分のレベルに合ったクラスが選べる受講回数券です。\n\n有効期限は1年。好きな時に気軽に通えます。",
+      issue_number: 5,
+      price: 20000,
+      publish_status: "Publish",
+      effective_month: 12,
+      image1_account_s3_image_id: account_s3_images[8].id
+    },
+    {
+      account_id: account.id,
+      name: "ハンドネイル回数券　5回分",
+      description: "ケア、マニキュア、ジェルのご予約に使える受講回数券です。\n\nお客様のご要望に合わせたサービスを提供します。",
+      issue_number: 5,
+      price: 5000,
+      publish_status: "Publish",
+      effective_month: 12,
+      image1_account_s3_image_id: account_s3_images[8].id
+    },
+    {
+      account_id: account.id,
+      name: "リンパマッサージ回数券 10回分。",
+      description: "リンパマッサージを10回分ご利用になれる回数券です。\n\その日の症状に合わせたリンパマッサージ。",
+      issue_number: 10,
+      price: 30000,
+      publish_status: "Publish",
+      effective_month: 12,
+      image1_account_s3_image_id: account_s3_images[8].id
+    },
+    {
+      account_id: account.id,
       name: "ヨガレッスン受講回数券　10回分",
-      issue_number: 1000,
-      price: 9000,
+      description: "肩こりや腰痛の解消、ダイエットにおすすめのヨガレッスン受講券です。\n\n有効期限は1年。好きな時に気軽に通えます。"
+      issue_number: 10,
+      price: 20000,
       publish_status: "Publish",
       effective_month: 12,
       image1_account_s3_image_id: account_s3_images[8].id
@@ -609,6 +640,7 @@ products = Product.first_or_create!(
     {
       account_id: account.id,
       name: "オリジナルTシャツ",
+      description: "Sサイズ、Mサイズ、Lサイズから選択して購入できます。",
       price: 1000,
       tax_rate: 10,
       inventory: 100,
@@ -628,6 +660,11 @@ ProductType.first_or_create!(
     {
       product_id: products[1].id,
       name: "Mサイズ",
+      inventory: 100,
+    },
+    {
+      product_id: products[1].id,
+      name: "Lサイズ",
       inventory: 100,
     }
   ]
