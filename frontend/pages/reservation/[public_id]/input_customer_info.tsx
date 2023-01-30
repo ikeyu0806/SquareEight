@@ -200,8 +200,8 @@ const Index: NextPage = () => {
             {publishStatus === 'Unpublish' &&
               <div className='text-center mt20'>非公開です</div>}
             {publishStatus === 'Publish' && <Row>
-              <Col lg={3} md={3}></Col>
-              <Col lg={6} md={6}>
+              <Col lg={3}></Col>
+              <Col lg={6}>
                 <Card className='mt30 mb30'>
                   <Card.Body>
                     <p><span className='orange_highlighter font-size-25'>お客様情報の入力</span></p>

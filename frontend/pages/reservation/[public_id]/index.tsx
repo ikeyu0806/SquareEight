@@ -56,8 +56,8 @@ export const Index = () => {
         <div className='bg-lightgray'>
           <Container>
             <Row>
-              <Col lg={3} md={3}></Col>
-              <Col lg={6} md={6}>
+              <Col lg={3}></Col>
+              <Col lg={6}>
                 <Card className='mt30 mb30 '>
                   <Card.Body>
                     <p><span className='orange_highlighter font-size-25'>以下の内容で予約しました</span></p>

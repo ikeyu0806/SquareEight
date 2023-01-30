@@ -163,8 +163,8 @@ const Index: NextPage = () => {
             <div className='text-center mt20'>非公開です</div>}
           {reserveFrame?.publish_status === 'Publish' &&
           <Row className='mt20'>
-            <Col lg={3} md={3}></Col>
-            <Col lg={6} md={6}>
+            <Col lg={3}></Col>
+            <Col lg={6}>
               <Card className='mt30 mb30'>
                 <Card.Body>
                   <p><span className='orange_highlighter font-size-25'>{reserveFrame?.title}</span></p>
