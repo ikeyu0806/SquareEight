@@ -12,6 +12,104 @@ account = Account.create!(
   stripe_account_id: "acct_1LFYYj2eLQ63YTOo"
 )
 
+MerchantUser.create!(
+  account_id: account.id,
+  email: "merchant_user@develop.com",
+  password: "Pass1234",
+  authority_category: "RootUser",
+  email_authentication_status: "Enabled",
+  is_root_user: true,
+  allow_read_merchant_user: "Allow",
+  allow_create_merchant_user: "Allow",
+  allow_update_merchant_user: "Allow",
+  allow_delete_merchant_user: "Allow",
+  allow_update_merchant_user_permission: "Allow",
+  allow_read_reserve_frame: "Allow",
+  allow_create_reserve_frame: "Allow",
+  allow_update_reserve_frame: "Allow",
+  allow_delete_reserve_frame: "Allow",
+  allow_read_reservation: "Allow",
+  allow_create_reservation: "Allow",
+  allow_confirm_reservation: "Allow",
+  allow_cancel_reservation: "Allow",
+  allow_read_ticket_master: "Allow",
+  allow_create_ticket_master: "Allow",
+  allow_update_ticket_master: "Allow",
+  allow_delete_ticket_master: "Allow",
+  allow_read_monthly_payment_plan: "Allow",
+  allow_create_monthly_payment_plan: "Allow",
+  allow_update_monthly_payment_plan: "Allow",
+  allow_delete_monthly_payment_plan: "Allow",
+  allow_read_resource: "Allow",
+  allow_create_resource: "Allow",
+  allow_update_resource: "Allow",
+  allow_delete_resource: "Allow",
+  allow_read_product: "Allow",
+  allow_create_product: "Allow",
+  allow_update_product: "Allow",
+  allow_delete_product: "Allow",
+  allow_update_delivery_datetime: "Allow",
+  allow_update_product_shipping_status: "Allow",
+  allow_read_customer: "Allow",
+  allow_create_customer: "Allow",
+  allow_update_customer: "Allow",
+  allow_delete_customer: "Allow",
+  allow_read_customer_group: "Allow",
+  allow_create_customer_group: "Allow",
+  allow_update_customer_group: "Allow",
+  allow_delete_customer_group: "Allow",
+  allow_read_message_template: "Allow",
+  allow_create_message_template: "Allow",
+  allow_update_message_template: "Allow",
+  allow_delete_message_template: "Allow",
+  allow_read_html_mail_template: "Allow",
+  allow_create_html_mail_template: "Allow",
+  allow_update_html_mail_template: "Allow",
+  allow_delete_html_mail_template: "Allow",
+  allow_read_webpage: "Allow",
+  allow_create_webpage: "Allow",
+  allow_update_webpage: "Allow",
+  allow_delete_webpage: "Allow",
+  allow_read_questionnaire_master: "Allow",
+  allow_create_questionnaire_master: "Allow",
+  allow_update_questionnaire_master: "Allow",
+  allow_delete_questionnaire_master: "Allow",
+  allow_read_questionnaire_answer: "Allow",
+  allow_read_sales: "Allow",
+  allow_read_payment_request: "Allow",
+  allow_create_payment_request: "Allow",
+  allow_read_credit_card: "Allow",
+  allow_update_credit_card: "Allow",
+  allow_read_stripe_business_info: "Allow",
+  allow_update_stripe_business_info: "Allow",
+  allow_read_system_plan_subscription_payments: "Allow",
+  allow_update_shared_component: "Allow",
+  allow_update_system_plan: "Allow",
+  allow_read_line_official_account: "Allow",
+  allow_update_line_official_account: "Allow",
+  allow_read_line_user: "Allow",
+  allow_connect_line_user: "Allow",
+  allow_send_mail: "Allow",
+  allow_send_line_message: "Allow"
+)
+
+EndUser.create!(
+  first_name: "デモ",
+  last_name: "ユーザ",
+  email: "end_user@develop.com",
+  password: "Pass1234",
+  stripe_customer_id: "cus_M9qiqO8wOda3Xo",
+  email_authentication_status: "Enabled"
+)
+
+SystemAdminUser.create!(
+  name: "admin_user",
+  email: "system_admin@develop.com",
+  phone_number: "12312341234",
+  password: "Pass1234",
+  authentication_status: "Enabled"
+)
+
 fitness_image1 = AccountS3Image.create!(
   account_id: account.id,
   s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/fitness_image1.jpeg",
@@ -132,6 +230,12 @@ golf_goods_image1 = AccountS3Image.create!(
   s3_object_name: "golf_goods_image1.jpeg",
 )
 
+sauna_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/candle_image1.jpeg",
+  s3_object_name: "candle_image1.jpeg",
+)
+
 shops = Shop.create!(
   [
     {
@@ -166,104 +270,6 @@ shops = Shop.create!(
 
 SharedComponent.create!(
   account_id: account.id,
-)
-
-MerchantUser.create!(
-  account_id: account.id,
-  email: "merchant_user@develop.com",
-  password: "Pass1234",
-  authority_category: "RootUser",
-  email_authentication_status: "Enabled",
-  is_root_user: true,
-  allow_read_merchant_user: "Allow",
-  allow_create_merchant_user: "Allow",
-  allow_update_merchant_user: "Allow",
-  allow_delete_merchant_user: "Allow",
-  allow_update_merchant_user_permission: "Allow",
-  allow_read_reserve_frame: "Allow",
-  allow_create_reserve_frame: "Allow",
-  allow_update_reserve_frame: "Allow",
-  allow_delete_reserve_frame: "Allow",
-  allow_read_reservation: "Allow",
-  allow_create_reservation: "Allow",
-  allow_confirm_reservation: "Allow",
-  allow_cancel_reservation: "Allow",
-  allow_read_ticket_master: "Allow",
-  allow_create_ticket_master: "Allow",
-  allow_update_ticket_master: "Allow",
-  allow_delete_ticket_master: "Allow",
-  allow_read_monthly_payment_plan: "Allow",
-  allow_create_monthly_payment_plan: "Allow",
-  allow_update_monthly_payment_plan: "Allow",
-  allow_delete_monthly_payment_plan: "Allow",
-  allow_read_resource: "Allow",
-  allow_create_resource: "Allow",
-  allow_update_resource: "Allow",
-  allow_delete_resource: "Allow",
-  allow_read_product: "Allow",
-  allow_create_product: "Allow",
-  allow_update_product: "Allow",
-  allow_delete_product: "Allow",
-  allow_update_delivery_datetime: "Allow",
-  allow_update_product_shipping_status: "Allow",
-  allow_read_customer: "Allow",
-  allow_create_customer: "Allow",
-  allow_update_customer: "Allow",
-  allow_delete_customer: "Allow",
-  allow_read_customer_group: "Allow",
-  allow_create_customer_group: "Allow",
-  allow_update_customer_group: "Allow",
-  allow_delete_customer_group: "Allow",
-  allow_read_message_template: "Allow",
-  allow_create_message_template: "Allow",
-  allow_update_message_template: "Allow",
-  allow_delete_message_template: "Allow",
-  allow_read_html_mail_template: "Allow",
-  allow_create_html_mail_template: "Allow",
-  allow_update_html_mail_template: "Allow",
-  allow_delete_html_mail_template: "Allow",
-  allow_read_webpage: "Allow",
-  allow_create_webpage: "Allow",
-  allow_update_webpage: "Allow",
-  allow_delete_webpage: "Allow",
-  allow_read_questionnaire_master: "Allow",
-  allow_create_questionnaire_master: "Allow",
-  allow_update_questionnaire_master: "Allow",
-  allow_delete_questionnaire_master: "Allow",
-  allow_read_questionnaire_answer: "Allow",
-  allow_read_sales: "Allow",
-  allow_read_payment_request: "Allow",
-  allow_create_payment_request: "Allow",
-  allow_read_credit_card: "Allow",
-  allow_update_credit_card: "Allow",
-  allow_read_stripe_business_info: "Allow",
-  allow_update_stripe_business_info: "Allow",
-  allow_read_system_plan_subscription_payments: "Allow",
-  allow_update_shared_component: "Allow",
-  allow_update_system_plan: "Allow",
-  allow_read_line_official_account: "Allow",
-  allow_update_line_official_account: "Allow",
-  allow_read_line_user: "Allow",
-  allow_connect_line_user: "Allow",
-  allow_send_mail: "Allow",
-  allow_send_line_message: "Allow"
-)
-
-EndUser.create!(
-  first_name: "デモ",
-  last_name: "ユーザ",
-  email: "end_user@develop.com",
-  password: "Pass1234",
-  stripe_customer_id: "cus_M9qiqO8wOda3Xo",
-  email_authentication_status: "Enabled"
-)
-
-SystemAdminUser.create!(
-  name: "admin_user",
-  email: "system_admin@develop.com",
-  phone_number: "12312341234",
-  password: "Pass1234",
-  authentication_status: "Enabled"
 )
 
 customers = Customer.create!(
@@ -581,7 +587,7 @@ ticket_masters = TicketMaster.create!(
     {
       account_id: account.id,
       name: "ヨガレッスン受講回数券　10回分",
-      description: "肩こりや腰痛の解消、ダイエットにおすすめのヨガレッスン受講券です。\n\n有効期限は1年。好きな時に気軽に通えます。"
+      description: "肩こりや腰痛の解消、ダイエットにおすすめのヨガレッスン受講券です。\n\n有効期限は1年。好きな時に気軽に通えます。",
       issue_number: 10,
       price: 19800,
       publish_status: "Publish",
@@ -598,15 +604,15 @@ ShopTicketMaster.create!(
       ticket_master_id: ticket_masters[0].id
     },
     {
-      shop_id: shops[1].id,
+      shop_id: shops[0].id,
       ticket_master_id: ticket_masters[0].id
     },
     {
-      shop_id: shops[2].id,
+      shop_id: shops[0].id,
       ticket_master_id: ticket_masters[0].id
     },
     {
-      shop_id: shops[3].id,
+      shop_id: shops[0].id,
       ticket_master_id: ticket_masters[0].id
     }
   ]
@@ -653,7 +659,7 @@ monthly_payment_plans = MonthlyPaymentPlan.create!(
     {
       account_id: account.id,
       name: "2週に1回通えるスパ定期券",
-      description: "2週間に1回ご利用になれる定額制サービスになります。\n\n60分のアロマオイルマッサージかヘッドスパをご予約できます。"
+      description: "2週間に1回ご利用になれる定額制サービスになります。\n\n60分のアロマオイルマッサージかヘッドスパをご予約できます。",
       price: 98000,
       reserve_interval_number: 2,
       reserve_interval_unit: "Week",
@@ -714,7 +720,7 @@ products = Product.create!(
       tax_rate: 10,
       inventory: 100,
       publish_status: "Publish",
-      image1_account_s3_image_id: account_s3_images[8].id
+      image1_account_s3_image_id: protain_image1.id
     },
     {
       account_id: account.id,
@@ -723,7 +729,7 @@ products = Product.create!(
       tax_rate: 10,
       inventory: 30,
       publish_status: "Publish",
-      image1_account_s3_image_id: golf_goods1_image.id
+      image1_account_s3_image_id: golf_goods_image1.id
     },
     {
       account_id: account.id,
