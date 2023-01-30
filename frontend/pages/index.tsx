@@ -192,6 +192,16 @@ const Home: NextPage = () => {
             <div className='text-center mt20'>
               <p><span className={homeStyles.section_description}>03.お客様にメールやLINEでアフターフォロー!</span></p>
             </div>
+
+            <Row>
+              <Col></Col>
+              <Col>
+                <img
+                  className={homeStyles.sp_woman}
+                  src='/images/sp_woman.png'
+                  alt='Sp Woman' />
+              </Col>
+            </Row>
           </div>
         </Container>
       </div>

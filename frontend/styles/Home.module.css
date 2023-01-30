@@ -45,6 +45,11 @@
   width: 300px;
 }
 
+.sp_woman {
+  max-width: 100%;
+  width: 300px;
+}
+
 .headline {
   font-size: 100px;
 }
