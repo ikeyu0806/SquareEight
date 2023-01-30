@@ -8,6 +8,8 @@
   max-width: 100%;
   filter: hue-rotate(180deg);
   filter: invert(10%);
+  /* filter: sepia(70%); */
+  filter: brightness(30%);
 }
 
 .cover_img_parent {
