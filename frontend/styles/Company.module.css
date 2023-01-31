@@ -20,3 +20,22 @@
   font-size: 20px;
   margin-bottom: 20px;
 }
+
+.mission_text {
+  font-size: 25px;
+  margin-bottom: 20px;
+}
+
+@media screen and (max-width: 479px) {
+	/* スマホ用 */
+  .company_overview_text {
+    font-size: 25px;
+    font-weight: bold;
+    margin-bottom: 20px;
+  }
+
+  .mission_text {
+    font-size: 20px;
+    margin-bottom: 20px;
+  }
+}

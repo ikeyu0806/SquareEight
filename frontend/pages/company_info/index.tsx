@@ -74,7 +74,7 @@ const Index: NextPage = () => {
               <div className={companyStyles.company_overview_text}>企業ミッション</div>
             </Col>
             <Col md={6}>
-              <div className='mb20 font-size-25'>
+              <div className={companyStyles.mission_text}>
                 多機能で使いやすい高品質、高価格なクラウドサービスを提供します。
               </div>
             </Col>
