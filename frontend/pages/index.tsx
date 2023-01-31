@@ -171,8 +171,8 @@ const Home: NextPage = () => {
               <Col lg={3} md={6} className='mb20'>
                 <img
                   className={homeStyles.tablet_shop_page_img}
-                  src='/images/reserve_calendar_page.png'
-                  alt='Tablet Calendar Page' />
+                  src='/images/tablet_reserve_page_image.png'
+                  alt='Tablet Reserve Page' />
               </Col>
               <Col lg={3} md={6} className='mb20'>
                 <img
