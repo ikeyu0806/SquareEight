@@ -180,9 +180,12 @@ img.usecase_img {
   font-size: 15px;
 }
 
-img.tablet_shop_page_img {
+img.demo_page_img {
   border: 1px #000000 solid;
   width: 300px;
+  height: 500px;
+  object-fit: cover;
+  object-position: 0 0;
 }
 
 img.mail_template_img {
@@ -306,5 +309,9 @@ img.mail_template_img {
 
   .sp_woman {
     display:none;
+  }
+
+  img.demo_page_img {
+    height: 400px;
   }
 }

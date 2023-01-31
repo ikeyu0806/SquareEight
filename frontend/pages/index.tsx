@@ -164,25 +164,25 @@ const Home: NextPage = () => {
             <Row>
               <Col lg={3} md={6} className='mb20'>
                 <img
-                  className={homeStyles.tablet_shop_page_img}
+                  className={homeStyles.demo_page_img}
                   src='/images/tablet_shop_page.png'
                   alt='Tablet Shop Page' />
               </Col>
               <Col lg={3} md={6} className='mb20'>
                 <img
-                  className={homeStyles.tablet_shop_page_img}
+                  className={homeStyles.demo_page_img}
                   src='/images/tablet_reserve_page_image.png'
                   alt='Tablet Reserve Page' />
               </Col>
               <Col lg={3} md={6} className='mb20'>
                 <img
-                  className={homeStyles.tablet_shop_page_img}
+                  className={homeStyles.demo_page_img}
                   src='/images/top_page_yoga_ticket.png'
                   alt='Yoga Ticket Page' />
               </Col>
               <Col lg={3} md={6} className='mb20'>
                 <img
-                  className={homeStyles.tablet_shop_page_img}
+                  className={homeStyles.demo_page_img}
                   src='/images/top_page_shoes.png'
                   alt='Tablet Shoes Page' />
               </Col>
