@@ -2,10 +2,9 @@ import type { NextPage } from 'next'
 import React from 'react'
 import RegularFooter from 'components/organisms/RegularFooter'
 import homeStyles from 'styles/Home.module.css'
-// import SquareEightLogo from 'components/atoms/SquareEightLogo'
-import BackArrowIcon from 'components/atoms/BackArrowIcon'
 import BrandColorButton from 'components/atoms/BrandColorButton'
-import { brandGrayRgb, brandRedRgb, brandGreenRgb } from 'constants/brandColors'
+import { brandGrayRgb, brandGreenRgb } from 'constants/brandColors'
+import DownArrawIcon from 'components/atoms/DownArrawIcon'
 import { Container,
          Navbar,
          Nav,
@@ -157,7 +156,7 @@ const Home: NextPage = () => {
               </Col>
               <Col lg={2}></Col>
             </Row>
-            <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
+            <DownArrawIcon width={100} height={100} fill={brandGrayRgb} />
             <div className='text-center mt20'>
               <p><span className={homeStyles.section_description}>02.入力した情報を元にWebページを自動生成！</span></p>
             </div>
@@ -188,7 +187,7 @@ const Home: NextPage = () => {
               </Col>
             </Row>
             <div className='mt30'>
-              <BackArrowIcon width={50} height={50} fill={brandGrayRgb} rotateText='rotate(270 0 0)'></BackArrowIcon>
+            <DownArrawIcon width={100} height={100} fill={brandGrayRgb} />
             </div>
             <div className='text-center mt20'>
               <p><span className={homeStyles.section_description}>03.お客様にメールやLINEでアフターフォロー!</span></p>
