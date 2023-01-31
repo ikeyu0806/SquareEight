@@ -299,4 +299,12 @@ img.mail_template_img {
     border: 1px #000000 solid;
     width: 300px;
   }
+
+  .pc_woman {
+    display:none;
+  }
+
+  .sp_woman {
+    display:none;
+  }
 }
