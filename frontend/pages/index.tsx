@@ -8,12 +8,10 @@ import DownArrawIcon from 'components/atoms/DownArrawIcon'
 import { Container,
          Navbar,
          Nav,
-         Button,
          Card,
          Row,
          Col,
          Table } from 'react-bootstrap'
-import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 
 const Home: NextPage = () => {
   return (
@@ -57,7 +55,9 @@ const Home: NextPage = () => {
           className={homeStyles.cover_img}
           src='/images/top_cover.png'
           alt='Top Cover' />
-        <p className={homeStyles.headline}>SquareEight</p>
+        <p className={homeStyles.headline_service_name}>
+          SquareEight
+        </p>
         <p className={homeStyles.service_description}>
           無料から使えるオンラインビジネス運営サービス
         </p>

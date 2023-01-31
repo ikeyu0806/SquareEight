@@ -1,3 +1,7 @@
+.headline_service_name {
+  font-size: 80px;
+}
+
 .service_description {
   font-size: 200%;
   margin-top: 50px;
@@ -16,7 +20,7 @@
   position: relative;
 }
 
-.cover_img_parent .headline {
+.cover_img_parent .headline_service_name {
   position: absolute;
   color: #ffffff;
   transform: translate(-50%,-50%);
@@ -50,10 +54,6 @@
 .sp_woman {
   max-width: 100%;
   width: 300px;
-}
-
-.headline {
-  font-size: 100px;
 }
 
 .features_header_text {
@@ -195,7 +195,7 @@ img.mail_template_img {
 
 /* タブレット用 */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
-  .cover_img_parent .headline {
+  .cover_img_parent .headline_service_name {
     top: 20%;
     left: 50%;
 		font-size: 75px;
@@ -207,7 +207,7 @@ img.mail_template_img {
     font-size: 30px;
   }
 
-  .headline {
+  .headline_service_name {
     font-size: 500%;
   }
 
@@ -243,7 +243,7 @@ img.mail_template_img {
 
 @media screen and (max-width: 479px) {
 	/* スマホ用 */
-  .cover_img_parent .headline {
+  .cover_img_parent .headline_service_name {
     top: 30%;
     left: 50%;
 		font-size: 30px;
