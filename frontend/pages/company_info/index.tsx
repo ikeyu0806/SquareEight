@@ -19,10 +19,10 @@ const Index: NextPage = () => {
       <Container>
         <div className='mt20'>
           <Row>
-            <Col>
+            <Col md={6}>
               <div className={companyStyles.company_overview_text}>会社概要</div>
             </Col>
-            <Col>
+            <Col md={6}>
               <Row>
                 <Col lg={3}>
                   <div className={companyStyles.strong_text}>会社名</div>
@@ -70,10 +70,10 @@ const Index: NextPage = () => {
         <hr />
         <div className='mt20'>
           <Row>
-            <Col>
+            <Col md={6}>
               <div className={companyStyles.company_overview_text}>サービス</div>
             </Col>
-            <Col>
+            <Col md={6}>
               <img
                 className={companyStyles.service_top_image}
                 src='/images/service_top_image.png'
