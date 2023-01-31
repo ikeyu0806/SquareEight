@@ -11,3 +11,12 @@
 .content_text {
   font-size: 20px;
 }
+
+.service_top_image {
+  max-width: 100%;
+}
+
+.service_description {
+  font-size: 20px;
+  margin-bottom: 20px;
+}

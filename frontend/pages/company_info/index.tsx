@@ -2,6 +2,7 @@ import type { NextPage } from 'next'
 import React from 'react'
 import { Container, Navbar, Row, Col } from 'react-bootstrap'
 import companyStyles from 'styles/Company.module.css'
+import RegularFooter from 'components/organisms/RegularFooter'
 
 const Index: NextPage = () => {
   return (
@@ -66,7 +67,32 @@ const Index: NextPage = () => {
             </Col>
           </Row>
         </div>
+        <hr />
+        <div className='mt20'>
+          <Row>
+            <Col>
+              <div className={companyStyles.company_overview_text}>サービス</div>
+            </Col>
+            <Col>
+              <img
+                className={companyStyles.service_top_image}
+                src='/images/service_top_image.png'
+                alt='Saas Top Image' />
+              <div className={companyStyles.service_description}>
+                高機能な予約受付や顧客管理を高価格で提供するクラウドサービス。
+              </div>
+              <div className={companyStyles.service_description}>
+                管理画面から入力した情報を元にWebページ、予約ページ、商品販売ページ、アンケートページを作成。
+              </div>
+              <div className={companyStyles.service_description}>
+                メールやLINEでアフターフォローできます。
+              </div>
+            </Col>
+          </Row>
+        </div>
       </Container>
+      <hr />
+      <RegularFooter></RegularFooter>
     </>
   )
 }
