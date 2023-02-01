@@ -56,6 +56,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
       shared_component.save! if shared_component.present?
       encode_email = Base64.urlsafe_encode64(merchant_user.email)
       MerchantUserMailer.send_verification_code(merchant_user.email, encode_email, merchant_user.verification_code).deliver_now
+      AccountMailer.send_mail_to_admin(account.business_name, account.merchant_users.first.email).deliver_now
     end
     render json: { status: 'success' }, status: 200
   rescue => error
@@ -133,6 +134,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
             merchant_user.send(column + "=", 'Allow')
           end
           merchant_user.save!
+          AccountMailer.send_mail_to_admin(account.business_name, merchant_user_params[:google_auth_email]).deliver_now
         end
       end
       render json: { status: 'success' }, status: 200
