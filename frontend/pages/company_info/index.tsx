@@ -37,7 +37,7 @@ const Index: NextPage = () => {
                   <div className={companyStyles.strong_text}>事業内容</div>
                 </Col>
                 <Col lg={9}>
-                  <div className={companyStyles.content_text}>クラウドサービスの開発・運営</div>
+                  <div className={companyStyles.content_text}>クラウドサービス「SquareEight」の運営</div>
                 </Col>
               </Row>
               <hr />
@@ -74,15 +74,17 @@ const Index: NextPage = () => {
               <div className={companyStyles.company_overview_text}>企業理念</div>
             </Col>
             <Col md={6}>
-              <div className={companyStyles.mission_text}>
+              <p className={companyStyles.mission_text}>
                 ・ユーザの利益を最大化するコスト最適化したサービスを提供します。
-              </div>
-              <div className={companyStyles.mission_text}>
+              </p>
+              <br />
+              <p className={companyStyles.mission_text}>
                 ・ユーザにストレス無くお使いいただけるUI最適化されたサービスを提供します。
-              </div>
-              <div className={companyStyles.mission_text}>
+              </p>
+              <br />
+              <p className={companyStyles.mission_text}>
                 ・安心してお使いいただけるよう万全にセキュリティ対策されたサービスを提供します。
-              </div>
+              </p>
             </Col>
           </Row>
         </div>
