@@ -273,6 +273,8 @@ class MerchantUser < ApplicationRecord
   end
 
   def today_reservations_count
-    reservations.where(start_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).count
+    reservations
+    .where.not(status: ['inputTimeWithPaymentMethod'])
+    .where(start_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).count
   end
 end
