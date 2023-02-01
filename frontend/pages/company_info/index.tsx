@@ -71,11 +71,17 @@ const Index: NextPage = () => {
         <div className='mt20'>
           <Row>
             <Col md={6}>
-              <div className={companyStyles.company_overview_text}>企業ミッション</div>
+              <div className={companyStyles.company_overview_text}>企業理念</div>
             </Col>
             <Col md={6}>
               <div className={companyStyles.mission_text}>
-                多機能で使いやすい高品質、高価格なクラウドサービスを提供します。
+                ・ユーザの利益を最大化するコスト最適化したサービスを提供します。
+              </div>
+              <div className={companyStyles.mission_text}>
+                ・ユーザにストレス無くお使いいただけるUI最適化されたサービスを提供します。
+              </div>
+              <div className={companyStyles.mission_text}>
+                ・安心してお使いいただけるよう万全にセキュリティ対策されたサービスを提供します。
               </div>
             </Col>
           </Row>
@@ -92,7 +98,7 @@ const Index: NextPage = () => {
                 src='/images/service_top_image.png'
                 alt='Saas Top Image' />
               <div className={companyStyles.service_description}>
-                ビジネス業務を効率化、運営コストを削減できるオンラインビジネス運営クラウドサービス。
+                Webページの作成から顧客フォローまでをサポートするオンラインビジネス運営クラウドサービス。
               </div>
             </Col>
           </Row>
