@@ -126,7 +126,7 @@ const Home: NextPage = () => {
                     <tr>
                       <td
                         className={homeStyles.plan_table_text}
-                        rowSpan={3}>月額サブスクリプション</td>
+                        rowSpan={3}>月額サブスクリプション作成</td>
                     </tr>
                     <tr>
                       <td className={homeStyles.plan_table_text}>値段</td>
@@ -137,7 +137,7 @@ const Home: NextPage = () => {
                     <tr>
                       <td
                         className={homeStyles.plan_table_text}
-                        rowSpan={3}>回数券</td>
+                        rowSpan={3}>回数券作成</td>
                     </tr>
                     <tr>
                       <td className={homeStyles.plan_table_text}>値段</td>
