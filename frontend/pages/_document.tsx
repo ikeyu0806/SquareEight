@@ -21,7 +21,7 @@ const MyDocument = () => {
         <meta property='og:image' content={`${url}/ogp.png`} />
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='format-detection' content='telephone=no' />
-        <link rel='icon' href='/favicons/s-alphabet-icon.svg' />
+        <link rel='icon' href='/favicons/service_logo_v2.svg' />
         <script src='https://js.stripe.com/v3/'></script>
         <script src='https://apis.google.com/js/platform.js' async defer></script>
         {parse('<script async src="https://www.googletagmanager.com/gtag/js?id=G-HNQ6QMTVJ7"></script><script>window.dataLayer = window.dataLayer || [];function gtag(){dataLayer.push(arguments);}gtag("js", new Date());gtag("config", "G-HNQ6QMTVJ7");</script>')}
