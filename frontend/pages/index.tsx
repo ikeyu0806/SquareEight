@@ -20,9 +20,7 @@ const Home: NextPage = () => {
       <Navbar collapseOnSelect expand='lg' bg='light'>
         <Container>
           <Navbar.Brand href='/' className='font-weight-bold'>
-            {/* <SquareEightLogo width={96} height={35} />
-             */}
-            <ServiceLogoV2 width={25} height={25} />
+            {/* <ServiceLogoV2 width={22} height={22} /> */}
             SquareEight
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
