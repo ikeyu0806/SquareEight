@@ -5,6 +5,7 @@ import homeStyles from 'styles/Home.module.css'
 import BrandColorButton from 'components/atoms/BrandColorButton'
 import { brandGrayRgb, brandGreenRgb } from 'constants/brandColors'
 import DownArrawIcon from 'components/atoms/DownArrawIcon'
+import ServiceLogoV2 from 'components/atoms/ServiceLogoV2'
 import { Container,
          Navbar,
          Nav,
@@ -21,6 +22,7 @@ const Home: NextPage = () => {
           <Navbar.Brand href='/' className='font-weight-bold'>
             {/* <SquareEightLogo width={96} height={35} />
              */}
+            <ServiceLogoV2 width={30} height={30} />
             SquareEight
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
