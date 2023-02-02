@@ -39,7 +39,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
         <Container>
           <Navbar.Brand href='/admin/dashboard'>
             <span className='font-weight-bold'>
-              <ServiceLogoV2 width={35} height={35} />
+              <ServiceLogoV2 width={25} height={25} />
               SquareEight
             </span></Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />

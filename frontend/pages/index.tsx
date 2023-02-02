@@ -22,7 +22,7 @@ const Home: NextPage = () => {
           <Navbar.Brand href='/' className='font-weight-bold'>
             {/* <SquareEightLogo width={96} height={35} />
              */}
-            <ServiceLogoV2 width={30} height={30} />
+            <ServiceLogoV2 width={25} height={25} />
             SquareEight
           </Navbar.Brand>
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
