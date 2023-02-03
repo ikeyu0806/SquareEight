@@ -196,8 +196,8 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
     <>
       <Container>
         <Row>
-          <Col lg={3} md={3}></Col>
-          <Col lg={6} md={6}>
+          <Col lg={3}></Col>
+          <Col lg={6}>
             <div className='mt20 mb20'>
             {showDeleteButton &&
             <Row>
