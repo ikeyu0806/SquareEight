@@ -198,10 +198,10 @@ const CreateShop = (): JSX.Element => {
       <Form.Control
         onChange={onChangeShopImage5File}
         type='file' />
-      <Form.Label className='mt10'>店舗イメージ画像6</Form.Label>
+      {/* <Form.Label className='mt10'>店舗イメージ画像6</Form.Label>
       <Form.Control
         onChange={onChangeShopImage6File}
-        type='file' />
+        type='file' /> */}
       <hr />
       <Form.Label className='mt10'>店舗備考</Form.Label>
       <FormControl
