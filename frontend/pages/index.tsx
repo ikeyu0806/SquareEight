@@ -203,17 +203,17 @@ const Home: NextPage = () => {
             </div>
 
             <Row>
-              <Col lg={9} md={8}>
+              <Col lg={6} md={6}>
                 <img
                   className={homeStyles.mail_template_img}
                   src='/images/select_mail_template_screen.png'
                   alt='Mail Template Screen' />
               </Col>
-              <Col lg={3} md={4}>
+              <Col lg={6} md={6}>
                 <img
-                  className={homeStyles.sp_woman}
-                  src='/images/sp_woman.png'
-                  alt='Sp Woman' />
+                  className={homeStyles.mail_template_img}
+                  src='/images/edit_message_template_screen.png'
+                  alt='Edit Message Template' />
               </Col>
             </Row>
           </div>
