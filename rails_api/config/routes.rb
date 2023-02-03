@@ -201,6 +201,7 @@ Rails.application.routes.draw do
       delete 'line_official_accounts/:public_id', to: 'line_official_accounts#destroy'
       get 'shops/:public_id', to: 'shops#show'
       get 'shops', to: 'shops#index'
+      post 'shops/:public_id/update', to: 'shops#update'
       post 'shops', to: 'shops#create'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
