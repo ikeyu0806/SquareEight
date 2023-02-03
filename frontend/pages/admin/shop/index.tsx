@@ -47,7 +47,11 @@ const Index: NextPage = () => {
                 <tr key={i}>
                   <td>{shop.name}</td>
                   <td>{shop.postal_code}</td>
-                  <td className='text-center'><a className='btn btn-primary'>編集</a></td>
+                  <td className='text-center'>
+                    <a
+                      href={`/admin/shop/${shop.public_id}/edit`}
+                      className='btn btn-primary'>編集</a>
+                  </td>
                   <td className='text-center'>
                     <a
                       href={`/shop/${shop.public_id}`}
