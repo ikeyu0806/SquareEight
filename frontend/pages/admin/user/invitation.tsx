@@ -60,8 +60,8 @@ const Invitation: NextPage = () => {
     <MerchantUserAdminLayout>
       {allowCreateMerchantUser === 'Allow' && <Container>
         <Row>
-          <Col md={3}></Col>
-          <Col md={6}>
+          <Col lg={3}></Col>
+          <Col lg={6}>
             <Form.Label>名前(姓)</Form.Label>
             <Form.Control onChange={(e) => setLastName(e.target.value)}></Form.Control>
             <Form.Label className='mt10'>名前(名)</Form.Label>
