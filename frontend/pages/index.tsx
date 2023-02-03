@@ -5,7 +5,6 @@ import homeStyles from 'styles/Home.module.css'
 import BrandColorButton from 'components/atoms/BrandColorButton'
 import { brandGrayRgb, brandGreenRgb } from 'constants/brandColors'
 import DownArrawIcon from 'components/atoms/DownArrawIcon'
-import ServiceLogoV2 from 'components/atoms/ServiceLogoV2'
 import { Container,
          Navbar,
          Nav,

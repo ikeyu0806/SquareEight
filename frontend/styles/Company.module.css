@@ -1,3 +1,47 @@
+.headline_service_name {
+  font-size: 80px;
+}
+
+.service_description {
+  font-size: 200%;
+  margin-top: 50px;
+  margin-bottom: 50px;
+}
+
+.cover_img {
+  max-width: 100%;
+  filter: hue-rotate(180deg);
+  filter: invert(10%);
+  /* filter: sepia(70%); */
+  filter: brightness(30%);
+}
+
+.cover_img_parent {
+  position: relative;
+}
+
+.cover_img_parent .headline_service_name {
+  position: absolute;
+  color: #ffffff;
+  transform: translate(-50%,-50%);
+  margin: 0;
+  padding: 0;
+  top: 40%;
+  left: 50%;
+  background-clip: text;
+}
+
+.cover_img_parent .service_description {
+  position: absolute;
+  color: #ffffff;
+  transform: translate(-50%,-50%);
+  margin: 0;
+  padding: 0;
+  top: 60%;
+  left: 50%;
+  background-clip: text;
+}
+
 .company_overview_text {
   font-size: 40px;
   font-weight: bold;
@@ -26,8 +70,35 @@
   margin-bottom: 20px;
 }
 
-@media screen and (max-width: 479px) {
+/* タブレット用 */
+@media screen and (min-width : 719px) and (max-width : 1200px) {
+  .cover_img_parent .headline_service_name {
+    top: 20%;
+    left: 50%;
+		font-size: 75px;
+	}
+
+  .cover_img_parent .description {
+    top: 60%;
+    left: 50%;
+    font-size: 30px;
+  }
+}
+
+@media screen and (min-width : 320px) and (max-width: 479px) {
 	/* スマホ用 */
+  .cover_img_parent .headline_service_name {
+    top: 30%;
+    left: 50%;
+		font-size: 28px;
+	}
+
+  .cover_img_parent .service_description {
+    top: 70%;
+    left: 50%;
+    font-size: 15px;
+  }
+
   .company_overview_text {
     font-size: 25px;
     font-weight: bold;

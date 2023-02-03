@@ -16,6 +16,20 @@ const Index: NextPage = () => {
           </Navbar.Brand>
         </Container>
       </Navbar>
+
+      <div className={companyStyles.cover_img_parent}>
+        <img
+          className={companyStyles.cover_img}
+          src='/images/top_cover.png'
+          alt='Top Cover' />
+        <p className={companyStyles.headline_service_name}>
+          SquareEight.Inc
+        </p>
+        {/* <p className={companyStyles.service_description}>
+          企業情報
+        </p> */}
+      </div>
+
       <Container>
         <div className='mt20'>
           <Row>
