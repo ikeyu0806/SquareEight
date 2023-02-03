@@ -71,88 +71,97 @@ const Home: NextPage = () => {
               <div className='text-center'>
                 <p><span className={homeStyles.section_description}>01.ビジネスアカウントご登録後に管理画面から必要な情報を入力</span></p>
               </div>
-              <Col lg={1}></Col>
-              <Col lg={6} md={8}>
+              <Col lg={2}></Col>
+              <Col lg={8}>
                 <Table bordered className={homeStyles.plan_table_parent}>
                   <thead style={{backgroundColor: '#5BA5BD'}}>
                     <tr className='text-white'>
                       <th>作成するページ</th>
-                      <th>設定項目</th>
+                      <th colSpan={2}>設定項目</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr>
                       <td
                         className={homeStyles.plan_table_text}
-                        rowSpan={3}>店舗設定</td>
-                      <td className={homeStyles.plan_table_text}>店舗説明文、画像</td>
+                        rowSpan={3}>店舗紹介</td>
+                      <td className={homeStyles.plan_table_text}>説明文</td>
+                      <td className={homeStyles.plan_table_text}>イメージ画像</td>
                     </tr>
                     <tr>
-                      <td className={homeStyles.plan_table_text}>住所、駐車場案内</td>
-                    </tr>
-                    <tr>
+                      <td className={homeStyles.plan_table_text}>営業時間</td>
                       <td className={homeStyles.plan_table_text}>電話番号</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>住所</td>
+                      <td className={homeStyles.plan_table_text}>アクセス案内</td>
                     </tr>
                     <tr>
                       <td
                         className={homeStyles.plan_table_text}
-                        rowSpan={4}>予約メニュー</td>
-                      <td className={homeStyles.plan_table_text}>日、周、月ごと繰り返し設定</td>
+                        rowSpan={5}>予約ページ</td>
+                      <td className={homeStyles.plan_table_text}>説明文</td>
+                      <td className={homeStyles.plan_table_text}>イメージ画像</td>
                     </tr>
                     <tr>
+                      <td className={homeStyles.plan_table_text}>日、周、月ごと繰り返し設定</td>
                       <td className={homeStyles.plan_table_text}>予約受付時間</td>
                     </tr>
                     <tr>
                       <td className={homeStyles.plan_table_text}>お支払い設定</td>
+                      <td className={homeStyles.plan_table_text}>キャンセル受付設定</td>
                     </tr>
                     <tr>
-                      <td className={homeStyles.plan_table_text}>キャンセル受付</td>
+                      <td className={homeStyles.plan_table_text}>繰り返し範囲外予約受付日時</td>
+                      <td className={homeStyles.plan_table_text}>予約受付不可日時設定</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>スタッフ、設備備品設定</td>
+                      <td className={homeStyles.plan_table_text}>アンケート設定</td>
                     </tr>
                     <tr>
                       <td
                         className={homeStyles.plan_table_text}
                         rowSpan={4}>商品</td>
+                      <td className={homeStyles.plan_table_text}>説明文</td>
+                      <td className={homeStyles.plan_table_text}>イメージ画像</td>
+                    </tr>
+                    <tr>
                       <td className={homeStyles.plan_table_text}>値段</td>
+                      <td className={homeStyles.plan_table_text}>税率</td>
                     </tr>
                     <tr>
                       <td className={homeStyles.plan_table_text}>在庫設定</td>
+                      <td className={homeStyles.plan_table_text}>Sサイズ、Mサイズなどの種別</td>
                     </tr>
                     <tr>
                       <td className={homeStyles.plan_table_text}>配送料</td>
-                    </tr>
-                    <tr>
                       <td className={homeStyles.plan_table_text}>配送日時</td>
                     </tr>
                     <tr>
                       <td
                         className={homeStyles.plan_table_text}
-                        rowSpan={3}>月額サブスクリプション作成</td>
+                        rowSpan={2}>月額サブスクリプション</td>
+                      <td className={homeStyles.plan_table_text}>説明文</td>
+                      <td className={homeStyles.plan_table_text}>イメージ画像</td>
                     </tr>
                     <tr>
                       <td className={homeStyles.plan_table_text}>値段</td>
-                    </tr>
-                    <tr>
                       <td className={homeStyles.plan_table_text}>月ごと予約可能数</td>
                     </tr>
                     <tr>
                       <td
                         className={homeStyles.plan_table_text}
-                        rowSpan={3}>回数券作成</td>
+                        rowSpan={2}>回数券作成</td>
+                      <td className={homeStyles.plan_table_text}>説明文</td>
+                      <td className={homeStyles.plan_table_text}>イメージ画像</td>
                     </tr>
                     <tr>
                       <td className={homeStyles.plan_table_text}>値段</td>
-                    </tr>
-                    <tr>
                       <td className={homeStyles.plan_table_text}>発行枚数</td>
                     </tr>
                   </tbody>
                 </Table>
-              </Col>
-              <Col  md={4}>
-                <img
-                  className={homeStyles.pc_woman}
-                  src='/images/pc_woman.png'
-                  alt='Pc Woman' />
               </Col>
               <Col lg={2}></Col>
             </Row>
