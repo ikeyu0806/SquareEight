@@ -236,7 +236,8 @@ img.customer_support_img {
 
   img.customer_support_img {
     border: 1px #000000 solid;
-    width: 400px;
+    width: 600px;
+    margin-bottom: 20px;
   }
 }
 
