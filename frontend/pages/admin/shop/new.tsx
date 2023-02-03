@@ -60,9 +60,9 @@ const New: NextPage = () => {
     params.append('shop_image1_file', shopImage1File as Blob)
     params.append('shop_image2_file', shopImage2File as Blob)
     params.append('shop_image3_file', shopImage3File as Blob)
-    params.append('shop_image4_file', shopImage3File as Blob)
-    params.append('shop_image5_file', shopImage3File as Blob)
-    params.append('shop_image6_file', shopImage3File as Blob)
+    params.append('shop_image4_file', shopImage4File as Blob)
+    params.append('shop_image5_file', shopImage5File as Blob)
+    params.append('shop_image6_file', shopImage6File as Blob)
     axios.post(`${process.env.BACKEND_URL}/api/internal/shops`, params, {
       headers: {
         'Content-Type': 'multipart/form-data',
