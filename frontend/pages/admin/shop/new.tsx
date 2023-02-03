@@ -80,8 +80,8 @@ const New: NextPage = () => {
     <MerchantUserAdminLayout>
       <Container>
         <Row>
-            <Col lg={3} md={3}></Col>
-            <Col lg={6} md={6}>
+            <Col lg={3}></Col>
+            <Col lg={6}>
               <CreateShop />
               <Button
                 onClick={createShop}
