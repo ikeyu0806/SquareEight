@@ -20,7 +20,7 @@ const Index: NextPage = () => {
       <div className={companyStyles.cover_img_parent}>
         <img
           className={companyStyles.cover_img}
-          src='/images/top_cover.png'
+          src='/images/company_info_cover.png'
           alt='Top Cover' />
         <p className={companyStyles.headline_service_name}>
           SquareEight.Inc
