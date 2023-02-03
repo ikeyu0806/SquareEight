@@ -47,6 +47,11 @@ const CreateShop = (): JSX.Element => {
   const parkingLotGuidance =  useSelector((state: RootState) => state.shop.parkingLotGuidance)
   const businessHoursText =  useSelector((state: RootState) => state.shop.businessHoursText)
   const remarks =  useSelector((state: RootState) => state.shop.remarks)
+  const shopImage1ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage1ImagePublicUrl)
+  const shopImage2ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage2ImagePublicUrl)
+  const shopImage3ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage3ImagePublicUrl)
+  const shopImage4ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage4ImagePublicUrl)
+  const shopImage5ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage5ImagePublicUrl)
 
   const onChangeShopImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
@@ -182,22 +187,47 @@ const CreateShop = (): JSX.Element => {
       <Form.Control
         onChange={onChangeShopImage1File}
         type='file' />
+      {shopImage1ImagePublicUrl && <img
+        className='d-block w-100 mt30'
+        src={shopImage1ImagePublicUrl}
+        alt='shopImage1File Image'
+      />}
       <Form.Label className='mt10'>店舗イメージ画像2</Form.Label>
       <Form.Control
         onChange={onChangeShopImage2File}
         type='file' />
+      {shopImage2ImagePublicUrl && <img
+        className='d-block w-100 mt30'
+        src={shopImage2ImagePublicUrl}
+        alt='shopImage2File Image'
+      />}
       <Form.Label className='mt10'>店舗イメージ画像3</Form.Label>
       <Form.Control
         onChange={onChangeShopImage3File}
         type='file' />
+      {shopImage3ImagePublicUrl && <img
+        className='d-block w-100 mt30'
+        src={shopImage3ImagePublicUrl}
+        alt='shopImage3File Image'
+      />}
       <Form.Label className='mt10'>店舗イメージ画像4</Form.Label>
       <Form.Control
         onChange={onChangeShopImage4File}
         type='file' />
+      {shopImage4ImagePublicUrl && <img
+        className='d-block w-100 mt30'
+        src={shopImage4ImagePublicUrl}
+        alt='shopImage4File Image'
+      />}
       <Form.Label className='mt10'>店舗イメージ画像5</Form.Label>
       <Form.Control
         onChange={onChangeShopImage5File}
         type='file' />
+      {shopImage5ImagePublicUrl && <img
+        className='d-block w-100 mt30'
+        src={shopImage5ImagePublicUrl}
+        alt='shopImage5File Image'
+      />}
       {/* <Form.Label className='mt10'>店舗イメージ画像6</Form.Label>
       <Form.Control
         onChange={onChangeShopImage6File}
