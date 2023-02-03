@@ -188,9 +188,12 @@ img.demo_page_img {
   object-position: 0 0;
 }
 
-img.mail_template_img {
+img.customer_support_img {
   border: 1px #000000 solid;
   width: 600px;
+  height: 400px;
+  object-fit: cover;
+  object-position: 0 0;
 }
 
 /* タブレット用 */
@@ -231,7 +234,7 @@ img.mail_template_img {
     font-size: 15px;
   }
 
-  img.mail_template_img {
+  img.customer_support_img {
     border: 1px #000000 solid;
     width: 400px;
   }
@@ -294,9 +297,10 @@ img.mail_template_img {
     font-size: 15px;
   }
 
-  img.mail_template_img {
+  img.customer_support_img {
     border: 1px #000000 solid;
     width: 300px;
+    margin-bottom: 20px;
   }
 
   .pc_woman {
