@@ -44,6 +44,17 @@
   background: #f2f2f2b4;
 }
 
+.shop_name_text_parent {
+  font-weight: bold;
+  font-size: 20px;
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+
+.shop_name_text {
+  background: linear-gradient(transparent 70%, #5BA5BD 50%);
+}
+
 /* タブレット */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
 	.img_parent .headline {

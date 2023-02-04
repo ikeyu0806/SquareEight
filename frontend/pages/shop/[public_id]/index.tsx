@@ -58,6 +58,7 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
+        console.log(response.data)
         dispatch(nameChanged(response.data.shop.name))
         dispatch(phoneNumberChanged(response.data.shop.phone_number))
         dispatch(description1Changed(response.data.shop.description1))

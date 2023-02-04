@@ -37,6 +37,9 @@ const ShopPageTemplate = () => {
     <>
       <Container>
         <Row>
+          <div className={shopStyles.shop_name_text_parent}>
+            <span className={shopStyles.shop_name_text}>{name}</span>
+          </div>
           <Col lg={6}>
             <div className='text-center' style={{marginTop: '10px', marginBottom: '10px'}}>
               <div className={shopStyles.img_parent}>
@@ -46,9 +49,8 @@ const ShopPageTemplate = () => {
                   src={String(shopImage1ImagePublicUrl)}
                   alt='First slide'
                 />}
-                {name && <p className={shopStyles.headline}>{name}</p>}
-                {description1 && <p className={shopStyles.description}>{description1}</p>}
               </div>
+              {description1 && <p className={shopStyles.description}>{description1}</p>}
             </div>
           </Col>
           <Col lg={6}>
