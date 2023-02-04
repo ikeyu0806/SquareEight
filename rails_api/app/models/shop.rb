@@ -31,26 +31,32 @@ class Shop < ApplicationRecord
   end
 
   def shop_image1_public_url
-    AccountS3Image.find(self.shop_image1_account_s3_image_id).s3_object_public_url
+    return nil if shop_image1_account_s3_image_id.blank?
+    AccountS3Image.find(self.shop_image1_account_s3_image_id)&.s3_object_public_url
   end
 
   def shop_image2_public_url
-    AccountS3Image.find(self.shop_image2_account_s3_image_id).s3_object_public_url
+    return nil if shop_image2_account_s3_image_id.blank?
+    AccountS3Image.find(self.shop_image2_account_s3_image_id)&.s3_object_public_url
   end
 
   def shop_image3_public_url
-    AccountS3Image.find(self.shop_image3_account_s3_image_id).s3_object_public_url
+    return nil if shop_image3_account_s3_image_id.blank?
+    AccountS3Image.find(self.shop_image3_account_s3_image_id)&.s3_object_public_url
   end
 
   def shop_image4_public_url
-    AccountS3Image.find(self.shop_image4_account_s3_image_id).s3_object_public_url
+    return nil if shop_image4_account_s3_image_id.blank?
+    AccountS3Image.find(self.shop_image4_account_s3_image_id)&.s3_object_public_url
   end
 
   def shop_image5_public_url
-    AccountS3Image.find(self.shop_image5_account_s3_image_id).s3_object_public_url
+    return nil if shop_image5_account_s3_image_id.blank?
+    AccountS3Image.find(self.shop_image5_account_s3_image_id)&.s3_object_public_url
   end
 
   def shop_image6_public_url
+    return nil if shop_image6_account_s3_image_id.blank?
     AccountS3Image.find(self.shop_image6_account_s3_image_id).s3_object_public_url
   end
 
