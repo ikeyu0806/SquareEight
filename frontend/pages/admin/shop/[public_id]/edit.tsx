@@ -37,7 +37,17 @@ import { nameChanged,
   reserveFrameInfoChanged,
   monthlyPatmentPlanInfoChanged,
   ticketMasterInfoChanged,
-  productInfoChanged } from 'redux/shopSlice'
+  productInfoChanged,
+  selectedProductIdsChanged,
+  selectedReserveFrameIdsChanged,
+  selectedMonthlyPaymentPlanIdsChanged,
+  selectedTicketMasterIdsChanged,
+  selectedWebpageIdsChanged,
+  reserveFramesChanged,
+  productsChanged,
+  ticketMastersChanged,
+  monthlyPamentPlansChanged,
+  webpagesChanged } from 'redux/shopSlice'
 import {  navbarBrandTextChanged,
    navbarBrandTypeChanged,
    navbarBrandImageChanged,
@@ -115,6 +125,16 @@ const Edit: NextPage = () => {
         dispatch(monthlyPatmentPlanInfoChanged(response.data.shop.monthly_payment_plans_info))
         dispatch(ticketMasterInfoChanged(response.data.shop.ticket_masters_info))
         dispatch(productInfoChanged(response.data.shop.products_info))
+        dispatch(selectedProductIdsChanged(response.data.shop.selected_product_ids))
+        dispatch(selectedReserveFrameIdsChanged(response.data.shop.selected_reserve_frame_ids))
+        dispatch(selectedMonthlyPaymentPlanIdsChanged(response.data.shop.selected_monthly_payment_plan_ids))
+        dispatch(selectedTicketMasterIdsChanged(response.data.shop.selected_ticket_master_ids))
+        dispatch(selectedWebpageIdsChanged(response.data.shop.selected_webpage_ids))
+        dispatch(reserveFramesChanged(response.data.reserve_frames))
+        dispatch(productsChanged(response.data.products))
+        dispatch(ticketMastersChanged(response.data.ticket_masters))
+        dispatch(monthlyPamentPlansChanged(response.data.monthly_payment_plans))
+        dispatch(webpagesChanged(response.data.webpages))
         // ヘッダ、フッタ
         dispatch(navbarBrandTextChanged(response.data.shared_component.navbar_brand_text))
         dispatch(navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type))

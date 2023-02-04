@@ -1,10 +1,11 @@
-import React from 'react'
+import React, { useRef, createRef } from 'react'
 import { FormControl, Form, Button, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import RequireBadge from 'components/atoms/RequireBadge'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import axios from 'axios'
+import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { nameChanged,
@@ -29,7 +30,8 @@ import { nameChanged,
          shopImage3FileChanged,
          shopImage4FileChanged,
          shopImage5FileChanged,
-         shopImage6FileChanged } from 'redux/shopSlice'
+         shopImage6FileChanged,
+         reserveFramesChanged } from 'redux/shopSlice'
 
 interface Props {
   showDeleteButton?: boolean
@@ -63,6 +65,11 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
   const shopImage3ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage3ImagePublicUrl)
   const shopImage4ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage4ImagePublicUrl)
   const shopImage5ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage5ImagePublicUrl)
+
+  const selectedReserveFrameIds =  useSelector((state: RootState) => state.shop.selectedReserveFrameIds)
+  const reserveFrames =  useSelector((state: RootState) => state.shop.reserveFrames)
+  const reserveFrameRefs = useRef<any>([])
+  reserveFrameRefs.current = reserveFrames.map((_, i) => reserveFrameRefs.current[i] ?? createRef())
 
   const onChangeShopImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
@@ -135,6 +142,22 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
         })
       }
     })
+  }
+
+  const updateReserveFrame = (reserveFrameRef: number) => {
+    let updateReserveFrame: ReserveFrameParam
+    let updateReserveFrames: ReserveFrameParam[]
+    updateReserveFrames = []
+
+    updateReserveFrame = Object.assign(reserveFrames[reserveFrameRef])
+    reserveFrames.map((r, i) => {
+      if (i == reserveFrameRef) {
+        updateReserveFrames.push(r)
+      } else {
+        updateReserveFrames.push(r)
+      }
+    })
+    dispatch(reserveFramesChanged(updateReserveFrames))
   }
 
   return (
@@ -280,6 +303,20 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
         as='textarea' rows={3}
         value={remarks}
         onChange={(e) => dispatch(remarksChanged(e.target.value))} />
+      <hr />
+      <div>店舗設定</div>
+      <div className='mt5 mb5'>設定した予約メニューのリンクが店舗ページに表示されます。</div>
+      {reserveFrames.map((reserveFrame, i) => {
+        return (
+          <Form.Check
+            label={reserveFrame.title}
+            id={'reserve_frame_' + reserveFrame.public_id}
+            name={'reserve_frame_check'}
+            onChange={() => updateReserveFrame(i)}
+            defaultChecked={selectedReserveFrameIds.includes(Number(reserveFrame.id))}
+            key={i} />
+        )
+      })}
     </>
   )
 }
