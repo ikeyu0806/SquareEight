@@ -80,13 +80,13 @@ const New: NextPage = () => {
     <MerchantUserAdminLayout>
       <Container>
         <Row>
-            <Col lg={3}></Col>
-            <Col lg={6}>
-              <CreateShop />
-              <Button
-                onClick={createShop}
-                className='mt20'>保存する</Button>
-            </Col>
+          <Col lg={3}></Col>
+          <Col lg={6}>
+            <CreateShop />
+            <Button
+              onClick={createShop}
+              className='mt20'>保存する</Button>
+          </Col>
         </Row>
       </Container>
     </MerchantUserAdminLayout>
