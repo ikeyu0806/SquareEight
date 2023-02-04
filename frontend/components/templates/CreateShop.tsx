@@ -6,6 +6,10 @@ import RequireBadge from 'components/atoms/RequireBadge'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import axios from 'axios'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
+import { TicketMasterParam } from 'interfaces/TicketMasterParam'
+import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
+import { ProductParam } from 'interfaces/ProductParam'
+import { WebpageParam } from 'interfaces/WebpageParam'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { nameChanged,
@@ -31,7 +35,11 @@ import { nameChanged,
          shopImage4FileChanged,
          shopImage5FileChanged,
          shopImage6FileChanged,
-         reserveFramesChanged } from 'redux/shopSlice'
+         reserveFramesChanged,
+         ticketMastersChanged,
+         monthlyPamentPlansChanged,
+         webpagesChanged,
+         productsChanged } from 'redux/shopSlice'
 
 interface Props {
   showDeleteButton?: boolean
@@ -70,6 +78,11 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
   const reserveFrames =  useSelector((state: RootState) => state.shop.reserveFrames)
   const reserveFrameRefs = useRef<any>([])
   reserveFrameRefs.current = reserveFrames.map((_, i) => reserveFrameRefs.current[i] ?? createRef())
+
+  const selectedTicketMasterIds =  useSelector((state: RootState) => state.shop.selectedTicketMasterIds)
+  const ticketMasters =  useSelector((state: RootState) => state.shop.ticketMasters)
+  const ticketMasterRefs = useRef<any>([])
+  ticketMasterRefs.current = ticketMasters.map((_, i) => ticketMasterRefs.current[i] ?? createRef())
 
   const onChangeShopImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
@@ -158,6 +171,22 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
       }
     })
     dispatch(reserveFramesChanged(updateReserveFrames))
+  }
+
+  const updateTicketMaster = (ticketMasterRef: number) => {
+    let updateTicketMaster: TicketMasterParam
+    let updateTicketMasters: TicketMasterParam[]
+    updateTicketMasters = []
+
+    updateTicketMaster = Object.assign(ticketMasters[ticketMasterRef])
+    ticketMasters.map((t, i) => {
+      if (i == ticketMasterRef) {
+        updateTicketMasters.push(t)
+      } else {
+        updateTicketMasters.push(t)
+      }
+    })
+    dispatch(ticketMastersChanged(updateTicketMasters))
   }
 
   return (
@@ -304,7 +333,7 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
         value={remarks}
         onChange={(e) => dispatch(remarksChanged(e.target.value))} />
       <hr />
-      <div>店舗設定</div>
+      <div>予約メニュー設定</div>
       <div className='mt5 mb5'>設定した予約メニューのリンクが店舗ページに表示されます。</div>
       {reserveFrames.map((reserveFrame, i) => {
         return (
@@ -314,6 +343,20 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
             name={'reserve_frame_check'}
             onChange={() => updateReserveFrame(i)}
             defaultChecked={selectedReserveFrameIds.includes(Number(reserveFrame.id))}
+            key={i} />
+        )
+      })}
+      <hr />
+      <div>回数券設定</div>
+      <div className='mt5 mb5'>設定した回数券のリンクが店舗ページに表示されます。</div>
+      {ticketMasters.map((ticketMaster, i) => {
+        return (
+          <Form.Check
+            label={ticketMaster.name}
+            id={'ticket_master_' + ticketMaster.public_id}
+            name={'ticket_master_check'}
+            onChange={() => updateTicketMaster(i)}
+            defaultChecked={selectedTicketMasterIds.includes(ticketMaster.id)}
             key={i} />
         )
       })}
