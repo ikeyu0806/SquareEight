@@ -42,7 +42,11 @@ export const shopSlice = createSlice({
     reserveFrameInfo: [] as ReserveFrameInfo[],
     monthlyPatmentPlanInfo: [] as MonthlyPatmentPlanInfo[],
     ticketMasterInfo: [] as TicketMasterInfo[],
-    productInfo: [] as ProductInfo[]
+    productInfo: [] as ProductInfo[],
+    selectedProductIds: [] as number[],
+    selectedMonthlyPaymentPlanIds: [] as number[],
+    selectedTicketMasterIds: [] as number[],
+    selectedWebpageIds: [] as number[]
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -153,6 +157,18 @@ export const shopSlice = createSlice({
     productInfoChanged: (state, action: PayloadAction<ProductInfo[]>) => {
       state.productInfo = action.payload
     },
+    selectedProductIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.selectedProductIds = action.payload
+    },
+    selectedMonthlyPaymentPlanIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.selectedMonthlyPaymentPlanIds = action.payload
+    },
+    selectedTicketMasterIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.selectedTicketMasterIds = action.payload
+    },
+    selectedWebpageIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.selectedWebpageIds = action.payload
+    },
   },
 })
 
@@ -192,5 +208,9 @@ export const { reserveFrameInfoChanged } = shopSlice.actions
 export const { monthlyPatmentPlanInfoChanged } = shopSlice.actions
 export const { ticketMasterInfoChanged } = shopSlice.actions
 export const { productInfoChanged } = shopSlice.actions
+export const { selectedProductIdsChanged } = shopSlice.actions
+export const { selectedMonthlyPaymentPlanIdsChanged } = shopSlice.actions
+export const { selectedTicketMasterIdsChanged } = shopSlice.actions
+export const { selectedWebpageIdsChanged } = shopSlice.actions
 
 export default shopSlice.reducer

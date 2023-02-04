@@ -119,12 +119,12 @@ class Shop < ApplicationRecord
     result
   end
 
-  def selected_monthly_pament_plan_ids
-    shop_monthly_payment_plans.pluck(:monthly_payment_plan_id)
-  end
-
   def selected_product_ids
     shop_products.pluck(:product_id)
+  end
+
+  def selected_monthly_pament_plan_ids
+    shop_monthly_payment_plans.pluck(:monthly_payment_plan_id)
   end
 
   def selected_ticket_master_ids
