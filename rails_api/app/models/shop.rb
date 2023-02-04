@@ -4,8 +4,6 @@ class Shop < ApplicationRecord
 
   belongs_to :account
 
-  has_many :shop_monthly_payment_plans
-  has_many :monthly_pament_plans, through: :shop_monthly_payment_plans
   has_many :shop_products
   has_many :products, through: :shop_products
   has_many :shop_reserve_frames
@@ -119,5 +117,21 @@ class Shop < ApplicationRecord
       result.push(content)
     end
     result
+  end
+
+  def selected_monthly_pament_plan_ids
+    shop_monthly_payment_plans.pluck(:monthly_payment_plan_id)
+  end
+
+  def selected_product_ids
+    shop_products.pluck(:product_id)
+  end
+
+  def selected_ticket_master_ids
+    shop_ticket_masters.pluck(:ticket_master_id)
+  end
+
+  def selected_webpage_ids
+    shop_webpages.pluck(:webpage_id)
   end
 end
