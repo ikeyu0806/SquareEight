@@ -52,22 +52,22 @@ class Api::Internal::ShopsController < ApplicationController
       shop.business_hours_text = params[:business_hours_text]
       shop.parking_lot_guidance = params[:parking_lot_guidance]
       shop.save!
-      if params[:shop_image1_file].present?
+      if params[:shop_image1_file].present? && !params[:shop_image1_file].eql?("null")
         shop.register_s3_image(params[:shop_image1_file], "shop_image1_account_s3_image_id")
       end
-      if params[:shop_image2_file].present?
+      if params[:shop_image2_file].present? && !params[:shop_image2_file].eql?("null")
         shop.register_s3_image(params[:shop_image2_file], "shop_image2_account_s3_image_id")
       end
-      if params[:shop_image3_file].present?
+      if params[:shop_image3_file].present? && !params[:shop_image3_file].eql?("null")
         shop.register_s3_image(params[:shop_image3_file], "shop_image3_account_s3_image_id")
       end
-      if params[:shop_image4_file].present?
+      if params[:shop_image4_file].present? && !params[:shop_image4_file].eql?("null")
         shop.register_s3_image(params[:shop_image4_file], "shop_image4_account_s3_image_id")
       end
-      if params[:shop_image5_file].present?
+      if params[:shop_image5_file].present? && !params[:shop_image5_file].eql?("null")
         shop.register_s3_image(params[:shop_image5_file], "shop_image5_account_s3_image_id")
       end
-      if params[:shop_image6_file].present?
+      if params[:shop_image6_file].present? && !params[:shop_image6_file].eql?("null")
         shop.register_s3_image(params[:shop_image6_file], "shop_image6_account_s3_image_id")
       end
       shop.save!
@@ -99,22 +99,22 @@ class Api::Internal::ShopsController < ApplicationController
       shop.business_hours_text = params[:business_hours_text]
       shop.parking_lot_guidance = params[:parking_lot_guidance]
       shop.save!
-      if params[:shop_image1_file].present?
+      if params[:shop_image1_file].present? && !params[:shop_image1_file].eql?("null")
         shop.register_s3_image(params[:shop_image1_file], "shop_image1_account_s3_image_id")
       end
-      if params[:shop_image2_file].present?
+      if params[:shop_image2_file].present? && !params[:shop_image2_file].eql?("null")
         shop.register_s3_image(params[:shop_image2_file], "shop_image2_account_s3_image_id")
       end
-      if params[:shop_image3_file].present?
+      if params[:shop_image3_file].present? && !params[:shop_image3_file].eql?("null")
         shop.register_s3_image(params[:shop_image3_file], "shop_image3_account_s3_image_id")
       end
-      if params[:shop_image4_file].present?
+      if params[:shop_image4_file].present? && !params[:shop_image4_file].eql?("null")
         shop.register_s3_image(params[:shop_image4_file], "shop_image4_account_s3_image_id")
       end
-      if params[:shop_image5_file].present?
+      if params[:shop_image5_file].present? && !params[:shop_image5_file].eql?("null")
         shop.register_s3_image(params[:shop_image5_file], "shop_image5_account_s3_image_id")
       end
-      if params[:shop_image6_file].present?
+      if params[:shop_image6_file].present? && !params[:shop_image6_file].eql?("null")
         shop.register_s3_image(params[:shop_image6_file], "shop_image6_account_s3_image_id")
       end
       shop.save!
