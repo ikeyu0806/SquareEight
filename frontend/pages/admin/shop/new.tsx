@@ -8,10 +8,12 @@ import { useDispatch, useSelector } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
+  const router = useRouter()
 
   const name = useSelector((state: RootState) => state.shop.name)
   const phoneNumber = useSelector((state: RootState) => state.shop.phoneNumber)
@@ -70,8 +72,16 @@ const New: NextPage = () => {
       },
     }).then(response => {
       console.log(response)
-      dispatch(alertChanged({message: '保存しました', show: true}))
+      swalWithBootstrapButtons.fire({
+        title: '登録しました',
+        icon: 'info'
+      })
+      router.push('/admin/shop')
     }).catch(error => {
+      swalWithBootstrapButtons.fire({
+        title: '登録失敗しました',
+        icon: 'error'
+      })
       console.log(error)
     })
   }

@@ -9,6 +9,7 @@ import { alertChanged } from 'redux/alertSlice'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { nameChanged,
   phoneNumberChanged,
   description1Changed,
@@ -163,9 +164,17 @@ const Edit: NextPage = () => {
       },
     }).then(response => {
       console.log(response)
-      dispatch(alertChanged({message: '保存しました', show: true}))
+      swalWithBootstrapButtons.fire({
+        title: '登録しました',
+        icon: 'info'
+      })
+      router.push('/admin/shop')
     }).catch(error => {
       console.log(error)
+      swalWithBootstrapButtons.fire({
+        title: '登録失敗しました',
+        icon: 'error'
+      })
     })
   }
 
