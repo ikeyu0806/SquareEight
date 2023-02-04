@@ -3,6 +3,10 @@ import { FormControl, Form, Button, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import RequireBadge from 'components/atoms/RequireBadge'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import axios from 'axios'
+import { useRouter } from 'next/router'
+import { useCookies } from 'react-cookie'
 import { nameChanged,
          phoneNumberChanged,
          description1Changed,
@@ -27,8 +31,15 @@ import { nameChanged,
          shopImage5FileChanged,
          shopImage6FileChanged } from 'redux/shopSlice'
 
-const CreateShop = (): JSX.Element => {
+interface Props {
+  showDeleteButton?: boolean
+}
+
+const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
   const dispatch = useDispatch()
+  const router = useRouter()
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
+
   const name = useSelector((state: RootState) => state.shop.name)
   const phoneNumber = useSelector((state: RootState) => state.shop.phoneNumber)
   const description1 = useSelector((state: RootState) => state.shop.description1)
@@ -95,8 +106,47 @@ const CreateShop = (): JSX.Element => {
     }
   }
 
+  const execDelete = () => {
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      html: `${name}を削除します。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/shops/${router.query.public_id}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '削除しました',
+            icon: 'info'
+          })
+          router.push('/admin/shop')
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '削除失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
+
   return (
     <>
+      {showDeleteButton &&
+      <Row>
+        <Col sm={8}>
+        </Col>
+        <Col>
+          <Button variant='danger' size='sm' onClick={() => execDelete()}>店舗を削除</Button>
+        </Col>
+      </Row>}
       <h3 className='mb15'>店舗情報登録</h3>
       <div>登録した情報を元に店舗紹介ページが自動生成されます。</div>
       <div className='mt10'>未入力の項目はページに表示されません。</div>

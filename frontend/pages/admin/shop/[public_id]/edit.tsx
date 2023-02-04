@@ -175,7 +175,8 @@ const Edit: NextPage = () => {
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
-            <CreateShop />
+            <CreateShop
+              showDeleteButton={true} />
             <Button
               onClick={updateShop}
               className='mt20'>保存する</Button>

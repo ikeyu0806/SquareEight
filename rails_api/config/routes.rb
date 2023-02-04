@@ -203,6 +203,7 @@ Rails.application.routes.draw do
       get 'shops', to: 'shops#index'
       post 'shops/:public_id/update', to: 'shops#update'
       post 'shops', to: 'shops#create'
+      delete 'shops/:public_id', to: 'shops#logical_delete'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'
