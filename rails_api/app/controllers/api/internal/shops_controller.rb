@@ -10,6 +10,12 @@ class Api::Internal::ShopsController < ApplicationController
   end
 
   def show
+    account = current_merchant_user.account
+    products = account.products.enabled
+    ticket_masters = account.ticket_masters.enabled
+    monthly_payment_plans = account.monthly_payment_plans.enabled
+    reserve_frames = account.reserve_frames.enabled
+    webpages = account.webpages
     shop = Shop
            .find_by(public_id: params[:public_id])
 
@@ -29,7 +35,14 @@ class Api::Internal::ShopsController < ApplicationController
                                     :selected_ticket_master_ids,
                                     :selected_webpage_ids])
     shop = JSON.parse(shop)
-    render json: { status: 'success', shop: shop, shared_component: shared_component }, status: 200
+    render json: { status: 'success',
+                   shop: shop,
+                   products: products,
+                   ticket_masters: ticket_masters,
+                   monthly_payment_plans: monthly_payment_plans,
+                   reserve_frames: reserve_frames,
+                   webpages: webpages,
+                   shared_component: shared_component }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
