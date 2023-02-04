@@ -220,7 +220,7 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
     let updateProducts: ProductParam[]
     updateProducts = []
 
-    updateProduct = Object.assign(updateProducts[productRef])
+    updateProduct = Object.assign(products[productRef])
     products.map((p, i) => {
       if (i == productRef) {
         updateProducts.push(p)
