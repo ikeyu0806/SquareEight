@@ -157,7 +157,7 @@ const ShopPageTemplate = () => {
         </Row>
       </Container>
       <Container>
-        {reserveFrameInfo && <div style={{padding: '30px'}}>
+        {reserveFrameInfo.length !== 0 && <div style={{padding: '30px'}}>
           <hr />
           <div>
             <p><span className={shopStyles.section_headline}>予約メニュー</span></p>
@@ -192,7 +192,7 @@ const ShopPageTemplate = () => {
           </Row>
         </div>}
 
-        {monthlyPatmentPlanInfo && <div style={{padding: '30px'}}>
+        {monthlyPatmentPlanInfo.length !== 0 && <div style={{padding: '30px'}}>
           <hr />
           <div>
             <p><span className={shopStyles.section_headline}>月額サブスクリプション</span></p>
@@ -223,7 +223,7 @@ const ShopPageTemplate = () => {
             })}
           </Row>
         </div>}
-        {ticketMasterInfo && <div style={{padding: '30px'}}>
+        {ticketMasterInfo.length !== 0 && <div style={{padding: '30px'}}>
           <hr />
           <div>
             <p><span className={shopStyles.section_headline}>回数券</span></p>
@@ -254,7 +254,7 @@ const ShopPageTemplate = () => {
               })}
             </Row>
           </div>}
-        {productInfo && <div style={{padding: '30px'}}>
+        {productInfo.length !== 0 && <div style={{padding: '30px'}}>
           <hr />
           <div>
             <p><span className={shopStyles.section_headline}>商品一覧</span></p>
