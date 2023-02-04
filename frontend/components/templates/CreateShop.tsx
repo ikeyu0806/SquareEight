@@ -85,9 +85,14 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
   ticketMasterRefs.current = ticketMasters.map((_, i) => ticketMasterRefs.current[i] ?? createRef())
 
   const selectedMonthlyPaymentPlanIds = useSelector((state: RootState) => state.shop.selectedMonthlyPaymentPlanIds)
-  const monthlyPamentPlans = useSelector((state: RootState) => state.shop.monthlyPaymentPlans)
+  const monthlyPaymentPlans = useSelector((state: RootState) => state.shop.monthlyPaymentPlans)
   const monthlyPaymentPlanRefs = useRef<any>([])
-  monthlyPaymentPlanRefs.current = monthlyPamentPlans.map((_, i) => monthlyPaymentPlanRefs.current[i] ?? createRef())
+  monthlyPaymentPlanRefs.current = monthlyPaymentPlans.map((_, i) => monthlyPaymentPlanRefs.current[i] ?? createRef())
+
+  const selectedProductIds = useSelector((state: RootState) => state.shop.selectedProductIds)
+  const products = useSelector((state: RootState) => state.shop.products)
+  const productRefs = useRef<any>([])
+  productRefs.current = products.map((_, i) => productRefs.current[i] ?? createRef())
 
   const onChangeShopImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
@@ -199,15 +204,31 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
     let updateMonthlyPaymentPlans: MonthlyPaymentPlanParam[]
     updateMonthlyPaymentPlans = []
 
-    updateMonthlyPaymentPlan = Object.assign(updateMonthlyPaymentPlans[monthlyPaymentPlanRef])
-    updateMonthlyPaymentPlans.map((t, i) => {
+    updateMonthlyPaymentPlan = Object.assign(monthlyPaymentPlans[monthlyPaymentPlanRef])
+    monthlyPaymentPlans.map((m, i) => {
       if (i == monthlyPaymentPlanRef) {
-        updateMonthlyPaymentPlans.push(t)
+        updateMonthlyPaymentPlans.push(m)
       } else {
-        updateMonthlyPaymentPlans.push(t)
+        updateMonthlyPaymentPlans.push(m)
       }
     })
     dispatch(monthlyPaymentPlansChanged(updateMonthlyPaymentPlans))
+  }
+
+  const updateProduct = (productRef: number) => {
+    let updateProduct: ProductParam
+    let updateProducts: ProductParam[]
+    updateProducts = []
+
+    updateProduct = Object.assign(updateProducts[productRef])
+    products.map((p, i) => {
+      if (i == productRef) {
+        updateProducts.push(p)
+      } else {
+        updateProducts.push(p)
+      }
+    })
+    dispatch(productsChanged(updateProducts))
   }
 
   return (
@@ -387,19 +408,36 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
           )
         })}
       </>}
-      {monthlyPamentPlans.length !== 0 &&
+      {monthlyPaymentPlans.length !== 0 &&
       <>
         <hr />
         <div>月額サブスクリプション設定</div>
         <div className='mt5 mb5'>設定した月額サブスクリプションのリンクが店舗ページに表示されます。</div>
-        {monthlyPamentPlans.map((monthlyPamentPlan, i) => {
+        {monthlyPaymentPlans.map((monthlyPaymentPlan, i) => {
           return (
             <Form.Check
-              label={monthlyPamentPlan.name}
-              id={'monthly_payment_plan_' + monthlyPamentPlan.public_id}
+              label={monthlyPaymentPlan.name}
+              id={'monthly_payment_plan_' + monthlyPaymentPlan.public_id}
               name={'monthly_payment_plan_check'}
               onChange={() => updateMonthlyPaymentPlan(i)}
-              defaultChecked={selectedMonthlyPaymentPlanIds.includes(monthlyPamentPlan.id)}
+              defaultChecked={selectedMonthlyPaymentPlanIds.includes(monthlyPaymentPlan.id)}
+              key={i} />
+          )
+        })}
+      </>}
+      {products.length !== 0 &&
+      <>
+        <hr />
+        <div>商品</div>
+        <div className='mt5 mb5'>設定した商品のリンクが店舗ページに表示されます。</div>
+        {products.map((product, i) => {
+          return (
+            <Form.Check
+              label={product.name}
+              id={'product_' + product.public_id}
+              name={'product_check'}
+              onChange={() => updateProduct(i)}
+              defaultChecked={selectedProductIds.includes(Number(product.id))}
               key={i} />
           )
         })}
