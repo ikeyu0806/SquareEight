@@ -28,9 +28,7 @@
   padding: 0;
   top: 40%;
   left: 50%;
-  background: linear-gradient(45deg, #54d0ff, #9f92ff 20%, #ff7689 90%);
   background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .cover_img_parent .service_description {
@@ -41,9 +39,7 @@
   padding: 0;
   top: 60%;
   left: 50%;
-  background: linear-gradient(45deg, #54d0ff, #9f92ff 20%, #ff7689 90%);
   background-clip: text;
-  -webkit-text-fill-color: transparent;
 }
 
 .pc_woman {
