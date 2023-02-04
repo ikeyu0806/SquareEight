@@ -332,34 +332,40 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
         as='textarea' rows={3}
         value={remarks}
         onChange={(e) => dispatch(remarksChanged(e.target.value))} />
-      <hr />
-      <div>予約メニュー設定</div>
-      <div className='mt5 mb5'>設定した予約メニューのリンクが店舗ページに表示されます。</div>
-      {reserveFrames.map((reserveFrame, i) => {
-        return (
-          <Form.Check
-            label={reserveFrame.title}
-            id={'reserve_frame_' + reserveFrame.public_id}
-            name={'reserve_frame_check'}
-            onChange={() => updateReserveFrame(i)}
-            defaultChecked={selectedReserveFrameIds.includes(Number(reserveFrame.id))}
-            key={i} />
-        )
-      })}
-      <hr />
-      <div>回数券設定</div>
-      <div className='mt5 mb5'>設定した回数券のリンクが店舗ページに表示されます。</div>
-      {ticketMasters.map((ticketMaster, i) => {
-        return (
-          <Form.Check
-            label={ticketMaster.name}
-            id={'ticket_master_' + ticketMaster.public_id}
-            name={'ticket_master_check'}
-            onChange={() => updateTicketMaster(i)}
-            defaultChecked={selectedTicketMasterIds.includes(ticketMaster.id)}
-            key={i} />
-        )
-      })}
+      {reserveFrames.length !== 0 &&
+      <>
+        <hr />
+        <div>予約メニュー設定</div>
+        <div className='mt5 mb5'>設定した予約メニューのリンクが店舗ページに表示されます。</div>
+        {reserveFrames.map((reserveFrame, i) => {
+          return (
+            <Form.Check
+              label={reserveFrame.title}
+              id={'reserve_frame_' + reserveFrame.public_id}
+              name={'reserve_frame_check'}
+              onChange={() => updateReserveFrame(i)}
+              defaultChecked={selectedReserveFrameIds.includes(Number(reserveFrame.id))}
+              key={i} />
+          )
+        })}
+      </>}
+      {ticketMasters.length !== 0 &&
+      <>
+        <hr />
+        <div>回数券設定</div>
+        <div className='mt5 mb5'>設定した回数券のリンクが店舗ページに表示されます。</div>
+        {ticketMasters.map((ticketMaster, i) => {
+          return (
+            <Form.Check
+              label={ticketMaster.name}
+              id={'ticket_master_' + ticketMaster.public_id}
+              name={'ticket_master_check'}
+              onChange={() => updateTicketMaster(i)}
+              defaultChecked={selectedTicketMasterIds.includes(ticketMaster.id)}
+              key={i} />
+          )
+        })}
+      </>}
     </>
   )
 }
