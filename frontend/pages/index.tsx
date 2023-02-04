@@ -57,9 +57,9 @@ const Home: NextPage = () => {
         <p className={homeStyles.headline_service_name}>
           SquareEight
         </p>
-        <p className={homeStyles.service_description}>
+        {/* <p className={homeStyles.service_description}>
           無料から使えるオンラインビジネス運営サービス
-        </p>
+        </p> */}
       </div>
 
       <div className='mt10'>

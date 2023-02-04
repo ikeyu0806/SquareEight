@@ -26,7 +26,7 @@
   transform: translate(-50%,-50%);
   margin: 0;
   padding: 0;
-  top: 40%;
+  top: 50%;
   left: 50%;
   background-clip: text;
 }
@@ -195,7 +195,7 @@ img.customer_support_img {
 /* タブレット用 */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
   .cover_img_parent .headline_service_name {
-    top: 20%;
+    top: 50%;
     left: 50%;
 		font-size: 75px;
 	}
@@ -240,7 +240,7 @@ img.customer_support_img {
 @media screen and (min-width : 320px) and (max-width: 479px) {
 	/* スマホ用 */
   .cover_img_parent .headline_service_name {
-    top: 30%;
+    top: 50%;
     left: 50%;
 		font-size: 28px;
 	}
