@@ -125,9 +125,9 @@ class Api::Internal::ShopsController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
-  def logical_delete
+  def destroy
     shop = Shop.find_by(public_id: params[:public_id])
-    shop.logical_delete
+    shop.destroy
     render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
