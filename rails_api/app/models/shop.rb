@@ -119,6 +119,10 @@ class Shop < ApplicationRecord
     result
   end
 
+  def selected_reserve_frame_ids
+    shop_reserve_frames.pluck(:reserve_frame_id)
+  end
+
   def selected_product_ids
     shop_products.pluck(:product_id)
   end

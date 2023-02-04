@@ -33,7 +33,8 @@ class Api::Internal::ShopsController < ApplicationController
                                     :selected_product_ids,
                                     :selected_monthly_pament_plan_ids,
                                     :selected_ticket_master_ids,
-                                    :selected_webpage_ids])
+                                    :selected_webpage_ids,
+                                    :selected_reserve_frame_ids])
     shop = JSON.parse(shop)
     render json: { status: 'success',
                    shop: shop,
