@@ -37,7 +37,7 @@ import { nameChanged,
          shopImage6FileChanged,
          reserveFramesChanged,
          ticketMastersChanged,
-         monthlyPamentPlansChanged,
+         monthlyPaymentPlansChanged,
          webpagesChanged,
          productsChanged } from 'redux/shopSlice'
 
@@ -74,15 +74,20 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
   const shopImage4ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage4ImagePublicUrl)
   const shopImage5ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage5ImagePublicUrl)
 
-  const selectedReserveFrameIds =  useSelector((state: RootState) => state.shop.selectedReserveFrameIds)
-  const reserveFrames =  useSelector((state: RootState) => state.shop.reserveFrames)
+  const selectedReserveFrameIds = useSelector((state: RootState) => state.shop.selectedReserveFrameIds)
+  const reserveFrames = useSelector((state: RootState) => state.shop.reserveFrames)
   const reserveFrameRefs = useRef<any>([])
   reserveFrameRefs.current = reserveFrames.map((_, i) => reserveFrameRefs.current[i] ?? createRef())
 
-  const selectedTicketMasterIds =  useSelector((state: RootState) => state.shop.selectedTicketMasterIds)
-  const ticketMasters =  useSelector((state: RootState) => state.shop.ticketMasters)
+  const selectedTicketMasterIds = useSelector((state: RootState) => state.shop.selectedTicketMasterIds)
+  const ticketMasters = useSelector((state: RootState) => state.shop.ticketMasters)
   const ticketMasterRefs = useRef<any>([])
   ticketMasterRefs.current = ticketMasters.map((_, i) => ticketMasterRefs.current[i] ?? createRef())
+
+  const selectedMonthlyPaymentPlanIds = useSelector((state: RootState) => state.shop.selectedMonthlyPaymentPlanIds)
+  const monthlyPamentPlans = useSelector((state: RootState) => state.shop.monthlyPaymentPlans)
+  const monthlyPaymentPlanRefs = useRef<any>([])
+  monthlyPaymentPlanRefs.current = monthlyPamentPlans.map((_, i) => monthlyPaymentPlanRefs.current[i] ?? createRef())
 
   const onChangeShopImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
@@ -187,6 +192,22 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
       }
     })
     dispatch(ticketMastersChanged(updateTicketMasters))
+  }
+
+  const updateMonthlyPaymentPlan = (monthlyPaymentPlanRef: number) => {
+    let updateMonthlyPaymentPlan: MonthlyPaymentPlanParam
+    let updateMonthlyPaymentPlans: MonthlyPaymentPlanParam[]
+    updateMonthlyPaymentPlans = []
+
+    updateMonthlyPaymentPlan = Object.assign(updateMonthlyPaymentPlans[monthlyPaymentPlanRef])
+    updateMonthlyPaymentPlans.map((t, i) => {
+      if (i == monthlyPaymentPlanRef) {
+        updateMonthlyPaymentPlans.push(t)
+      } else {
+        updateMonthlyPaymentPlans.push(t)
+      }
+    })
+    dispatch(monthlyPaymentPlansChanged(updateMonthlyPaymentPlans))
   }
 
   return (
@@ -362,6 +383,23 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
               name={'ticket_master_check'}
               onChange={() => updateTicketMaster(i)}
               defaultChecked={selectedTicketMasterIds.includes(ticketMaster.id)}
+              key={i} />
+          )
+        })}
+      </>}
+      {monthlyPamentPlans.length !== 0 &&
+      <>
+        <hr />
+        <div>月額サブスクリプション設定</div>
+        <div className='mt5 mb5'>設定した月額サブスクリプションのリンクが店舗ページに表示されます。</div>
+        {monthlyPamentPlans.map((monthlyPamentPlan, i) => {
+          return (
+            <Form.Check
+              label={monthlyPamentPlan.name}
+              id={'monthly_payment_plan_' + monthlyPamentPlan.public_id}
+              name={'monthly_payment_plan_check'}
+              onChange={() => updateMonthlyPaymentPlan(i)}
+              defaultChecked={selectedMonthlyPaymentPlanIds.includes(monthlyPamentPlan.id)}
               key={i} />
           )
         })}

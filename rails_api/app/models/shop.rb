@@ -127,7 +127,7 @@ class Shop < ApplicationRecord
     shop_products.pluck(:product_id)
   end
 
-  def selected_monthly_pament_plan_ids
+  def selected_monthly_payment_plan_ids
     shop_monthly_payment_plans.pluck(:monthly_payment_plan_id)
   end
 

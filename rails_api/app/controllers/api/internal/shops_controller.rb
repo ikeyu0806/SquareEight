@@ -31,7 +31,7 @@ class Api::Internal::ShopsController < ApplicationController
                                     :ticket_masters_info,
                                     :products_info,
                                     :selected_product_ids,
-                                    :selected_monthly_pament_plan_ids,
+                                    :selected_monthly_payment_plan_ids,
                                     :selected_ticket_master_ids,
                                     :selected_webpage_ids,
                                     :selected_reserve_frame_ids])

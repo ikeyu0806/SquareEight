@@ -46,7 +46,7 @@ import { nameChanged,
   reserveFramesChanged,
   productsChanged,
   ticketMastersChanged,
-  monthlyPamentPlansChanged,
+  monthlyPaymentPlansChanged,
   webpagesChanged } from 'redux/shopSlice'
 import {  navbarBrandTextChanged,
    navbarBrandTypeChanged,
@@ -133,7 +133,7 @@ const Edit: NextPage = () => {
         dispatch(reserveFramesChanged(response.data.reserve_frames))
         dispatch(productsChanged(response.data.products))
         dispatch(ticketMastersChanged(response.data.ticket_masters))
-        dispatch(monthlyPamentPlansChanged(response.data.monthly_payment_plans))
+        dispatch(monthlyPaymentPlansChanged(response.data.monthly_payment_plans))
         dispatch(webpagesChanged(response.data.webpages))
         // ヘッダ、フッタ
         dispatch(navbarBrandTextChanged(response.data.shared_component.navbar_brand_text))
