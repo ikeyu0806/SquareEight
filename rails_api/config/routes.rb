@@ -199,6 +199,7 @@ Rails.application.routes.draw do
       post 'line_official_accounts/:public_id/update', to: 'line_official_accounts#update'
       post 'line_official_accounts/register_message_api_channel', to: 'line_official_accounts#register_message_api_channel'
       delete 'line_official_accounts/:public_id', to: 'line_official_accounts#destroy'
+      get 'shops/related_data', to: 'shops#related_data'
       get 'shops/:public_id', to: 'shops#show'
       get 'shops', to: 'shops#index'
       post 'shops/:public_id/update', to: 'shops#update'

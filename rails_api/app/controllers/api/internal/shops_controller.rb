@@ -10,15 +10,16 @@ class Api::Internal::ShopsController < ApplicationController
   end
 
   def show
-    account = current_merchant_user.account
+    shop = Shop
+           .find_by(public_id: params[:public_id])
+
+    account = shop.account
     products = account.products.enabled
     ticket_masters = account.ticket_masters.enabled
     monthly_payment_plans = account.monthly_payment_plans.enabled
     reserve_frames = account.reserve_frames.enabled
     webpages = account.webpages
-    shop = Shop
-           .find_by(public_id: params[:public_id])
-
+  
     shared_component = shop.account.shared_component
     shop = shop.to_json(methods: [  :shop_image1_public_url,
                                     :shop_image2_public_url,
@@ -44,6 +45,24 @@ class Api::Internal::ShopsController < ApplicationController
                    reserve_frames: reserve_frames,
                    webpages: webpages,
                    shared_component: shared_component }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
+  def related_data
+    account = current_merchant_user.account
+    products = account.products.enabled
+    ticket_masters = account.ticket_masters.enabled
+    monthly_payment_plans = account.monthly_payment_plans.enabled
+    reserve_frames = account.reserve_frames.enabled
+    webpages = account.webpages
+    render json: { status: 'success',
+                   products: products,
+                   ticket_masters: ticket_masters,
+                   monthly_payment_plans: monthly_payment_plans,
+                   reserve_frames: reserve_frames,
+                   webpages: webpages, }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
