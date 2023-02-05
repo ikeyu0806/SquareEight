@@ -86,12 +86,11 @@ const Edit: NextPage = () => {
   const shopImage4File = useSelector((state: RootState) => state.shop.shopImage4File)
   const shopImage5File = useSelector((state: RootState) => state.shop.shopImage5File)
   const shopImage6File = useSelector((state: RootState) => state.shop.shopImage6File)
-  const reserveFrames = useSelector((state: RootState) => state.shop.reserveFrames)
-  const ticketMasters = useSelector((state: RootState) => state.shop.ticketMasters)
-  const monthlyPaymentPlans = useSelector((state: RootState) => state.shop.monthlyPaymentPlans)
-  const products = useSelector((state: RootState) => state.shop.products)
-  const webpages = useSelector((state: RootState) => state.shop.webpages)
   const selectedReserveFrameIds = useSelector((state: RootState) => state.shop.selectedReserveFrameIds)
+  const selectedTicketMasterIds = useSelector((state: RootState) => state.shop.selectedTicketMasterIds)
+  const selectedMonthlyPaymentPlanIds = useSelector((state: RootState) => state.shop.selectedMonthlyPaymentPlanIds)
+  const selectedProductIds = useSelector((state: RootState) => state.shop.selectedProductIds)
+  const selectedWebpageIds = useSelector((state: RootState) => state.shop.selectedWebpageIds)
 
   useEffect(() => {
     const fetchShop = () => {
@@ -187,17 +186,17 @@ const Edit: NextPage = () => {
     selectedReserveFrameIds.forEach((id, i) => {
       params.append('reserve_frame_ids' + '[]', String(id))
     })
-    ticketMasters.forEach((t, i) => {
-      params.append('ticket_master_ids' + '[]', String(t.id))
+    selectedTicketMasterIds.forEach((id, i) => {
+      params.append('ticket_master_ids' + '[]', String(id))
     })
-    monthlyPaymentPlans.forEach((m, i) => {
-      params.append('monthly_payment_plan_ids' + '[]', String(m.id))
+    selectedMonthlyPaymentPlanIds.forEach((id, i) => {
+      params.append('monthly_payment_plan_ids' + '[]', String(id))
     })
-    products.forEach((p, i) => {
-      params.append('product_ids' + '[]', String(p.id))
+    selectedProductIds.forEach((id, i) => {
+      params.append('product_ids' + '[]', String(id))
     })
-    webpages.forEach((p, i) => {
-      params.append('webpage_ids' + '[]', String(p.id))
+    selectedWebpageIds.forEach((id, i) => {
+      params.append('webpage_ids' + '[]', String(id))
     })
     axios.post(`${process.env.BACKEND_URL}/api/internal/shops/${router.query.public_id}/update`, params, {
       headers: {

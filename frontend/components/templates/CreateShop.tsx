@@ -5,11 +5,6 @@ import { RootState } from 'redux/store'
 import RequireBadge from 'components/atoms/RequireBadge'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import axios from 'axios'
-import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
-import { TicketMasterParam } from 'interfaces/TicketMasterParam'
-import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
-import { ProductParam } from 'interfaces/ProductParam'
-import { WebpageParam } from 'interfaces/WebpageParam'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { nameChanged,
@@ -35,16 +30,11 @@ import { nameChanged,
          shopImage4FileChanged,
          shopImage5FileChanged,
          shopImage6FileChanged,
-         reserveFramesChanged,
-         ticketMastersChanged,
-         monthlyPaymentPlansChanged,
-         webpagesChanged,
-         productsChanged,
-         selectedProductIdsChanged,
          selectedReserveFrameIdsChanged,
          selectedMonthlyPaymentPlanIdsChanged,
          selectedTicketMasterIdsChanged,
-         selectedWebpageIdsChanged } from 'redux/shopSlice'
+         selectedWebpageIdsChanged,
+         selectedProductIdsChanged } from 'redux/shopSlice'
 
 interface Props {
   showDeleteButton?: boolean
@@ -182,68 +172,34 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
     dispatch(selectedReserveFrameIdsChanged(filterReserveFrameIdIds))
   }
 
-  const updateReserveFrame = (reserveFrameRef: number) => {
-    let updateReserveFrame: ReserveFrameParam
-    let updateReserveFrames: ReserveFrameParam[]
-    updateReserveFrames = []
-
-    updateReserveFrame = Object.assign(reserveFrames[reserveFrameRef])
-    reserveFrames.map((r, i) => {
-      if (i == reserveFrameRef) {
-        updateReserveFrames.push(updateReserveFrame)
-      } else {
-        updateReserveFrames.push(r)
-      }
-    })
-    dispatch(reserveFramesChanged(updateReserveFrames))
+  const updateTicketMasterIds = (ticketMasterId: number) => {
+    let filterTicketMasterIds: number[]
+    if (selectedTicketMasterIds.includes(ticketMasterId)) {
+      filterTicketMasterIds = selectedTicketMasterIds.filter((id) => id !== ticketMasterId)
+    } else {
+      filterTicketMasterIds = [...selectedTicketMasterIds, ticketMasterId]
+    }
+    dispatch(selectedTicketMasterIdsChanged(filterTicketMasterIds))
   }
 
-  const updateTicketMaster = (ticketMasterRef: number) => {
-    let updateTicketMaster: TicketMasterParam
-    let updateTicketMasters: TicketMasterParam[]
-    updateTicketMasters = []
-
-    updateTicketMaster = Object.assign(ticketMasters[ticketMasterRef])
-    ticketMasters.map((t, i) => {
-      if (i == ticketMasterRef) {
-        updateTicketMasters.push(updateTicketMaster)
-      } else {
-        updateTicketMasters.push(t)
-      }
-    })
-    dispatch(ticketMastersChanged(updateTicketMasters))
+  const updateMonthlyPaymentPlanIds = (monthlyPaymentPlanId: number) => {
+    let filterMonthlyPaymentPlanIds: number[]
+    if (selectedMonthlyPaymentPlanIds.includes(monthlyPaymentPlanId)) {
+      filterMonthlyPaymentPlanIds = selectedMonthlyPaymentPlanIds.filter((id) => id !== monthlyPaymentPlanId)
+    } else {
+      filterMonthlyPaymentPlanIds = [...selectedMonthlyPaymentPlanIds, monthlyPaymentPlanId]
+    }
+    dispatch(selectedMonthlyPaymentPlanIdsChanged(filterMonthlyPaymentPlanIds))
   }
 
-  const updateMonthlyPaymentPlan = (monthlyPaymentPlanRef: number) => {
-    let updateMonthlyPaymentPlan: MonthlyPaymentPlanParam
-    let updateMonthlyPaymentPlans: MonthlyPaymentPlanParam[]
-    updateMonthlyPaymentPlans = []
-
-    updateMonthlyPaymentPlan = Object.assign(monthlyPaymentPlans[monthlyPaymentPlanRef])
-    monthlyPaymentPlans.map((m, i) => {
-      if (i == monthlyPaymentPlanRef) {
-        updateMonthlyPaymentPlans.push(updateMonthlyPaymentPlan)
-      } else {
-        updateMonthlyPaymentPlans.push(m)
-      }
-    })
-    dispatch(monthlyPaymentPlansChanged(updateMonthlyPaymentPlans))
-  }
-
-  const updateProduct = (productRef: number) => {
-    let updateProduct: ProductParam
-    let updateProducts: ProductParam[]
-    updateProducts = []
-
-    updateProduct = Object.assign(products[productRef])
-    products.map((p, i) => {
-      if (i == productRef) {
-        updateProducts.push(updateProduct)
-      } else {
-        updateProducts.push(p)
-      }
-    })
-    dispatch(productsChanged(updateProducts))
+  const updateProductIds = (productId: number) => {
+    let filterProductIds: number[]
+    if (selectedProductIds.includes(productId)) {
+      filterProductIds = selectedProductIds.filter((id) => id !== productId)
+    } else {
+      filterProductIds = [...selectedProductIds, productId]
+    }
+    dispatch(selectedProductIdsChanged(filterProductIds))
   }
 
   return (
@@ -417,7 +373,7 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
               label={ticketMaster.name}
               id={'ticket_master_' + ticketMaster.public_id}
               name={'ticket_master_check'}
-              onChange={() => updateTicketMaster(i)}
+              onChange={() => updateTicketMasterIds(ticketMaster.id)}
               defaultChecked={selectedTicketMasterIds.includes(ticketMaster.id)}
               key={i} />
           )
@@ -434,7 +390,7 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
               label={monthlyPaymentPlan.name}
               id={'monthly_payment_plan_' + monthlyPaymentPlan.public_id}
               name={'monthly_payment_plan_check'}
-              onChange={() => updateMonthlyPaymentPlan(i)}
+              onChange={() => updateMonthlyPaymentPlanIds(monthlyPaymentPlan.id)}
               defaultChecked={selectedMonthlyPaymentPlanIds.includes(monthlyPaymentPlan.id)}
               key={i} />
           )
@@ -451,7 +407,7 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
               label={product.name}
               id={'product_' + product.public_id}
               name={'product_check'}
-              onChange={() => updateProduct(i)}
+              onChange={() => updateProductIds(Number(product.id))}
               defaultChecked={selectedProductIds.includes(Number(product.id))}
               key={i} />
           )
