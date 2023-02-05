@@ -175,7 +175,7 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
     updateReserveFrame = Object.assign(reserveFrames[reserveFrameRef])
     reserveFrames.map((r, i) => {
       if (i == reserveFrameRef) {
-        updateReserveFrames.push(r)
+        updateReserveFrames.push(updateReserveFrame)
       } else {
         updateReserveFrames.push(r)
       }
@@ -191,7 +191,7 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
     updateTicketMaster = Object.assign(ticketMasters[ticketMasterRef])
     ticketMasters.map((t, i) => {
       if (i == ticketMasterRef) {
-        updateTicketMasters.push(t)
+        updateTicketMasters.push(updateTicketMaster)
       } else {
         updateTicketMasters.push(t)
       }
@@ -207,7 +207,7 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
     updateMonthlyPaymentPlan = Object.assign(monthlyPaymentPlans[monthlyPaymentPlanRef])
     monthlyPaymentPlans.map((m, i) => {
       if (i == monthlyPaymentPlanRef) {
-        updateMonthlyPaymentPlans.push(m)
+        updateMonthlyPaymentPlans.push(updateMonthlyPaymentPlan)
       } else {
         updateMonthlyPaymentPlans.push(m)
       }
@@ -223,7 +223,7 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
     updateProduct = Object.assign(products[productRef])
     products.map((p, i) => {
       if (i == productRef) {
-        updateProducts.push(p)
+        updateProducts.push(updateProduct)
       } else {
         updateProducts.push(p)
       }

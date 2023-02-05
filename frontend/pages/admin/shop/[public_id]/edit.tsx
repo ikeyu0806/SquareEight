@@ -174,6 +174,7 @@ const Edit: NextPage = () => {
     params.append('line1', line1)
     params.append('line2', line2)
     params.append('access_info', accessInfo)
+    params.append('remarks', remarks)
     params.append('business_hours_text', businessHoursText)
     params.append('parking_lot_guidance', parkingLotGuidance)
     params.append('shop_image1_file', shopImage1File as Blob)

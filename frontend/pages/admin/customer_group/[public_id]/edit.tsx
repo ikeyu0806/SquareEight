@@ -10,7 +10,6 @@ import CreateCustomerGroup from 'components/templates/CreateCustomerGroup'
 import {  nameChanged,
           selectedCustomersChanged,
           unselectedCustomersChanged } from 'redux/customerGroupSlice'
-
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { useRouter } from 'next/router'
 import Unauthorized from 'components/templates/Unauthorized'
