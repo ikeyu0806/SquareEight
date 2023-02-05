@@ -91,6 +91,7 @@ const Edit: NextPage = () => {
   const monthlyPaymentPlans = useSelector((state: RootState) => state.shop.monthlyPaymentPlans)
   const products = useSelector((state: RootState) => state.shop.products)
   const webpages = useSelector((state: RootState) => state.shop.webpages)
+  const selectedReserveFrameIds = useSelector((state: RootState) => state.shop.selectedReserveFrameIds)
 
   useEffect(() => {
     const fetchShop = () => {
@@ -183,8 +184,8 @@ const Edit: NextPage = () => {
     params.append('shop_image4_file', shopImage4File as Blob)
     params.append('shop_image5_file', shopImage5File as Blob)
     params.append('shop_image6_file', shopImage6File as Blob)
-    reserveFrames.forEach((r, i) => {
-      params.append('reserve_frame_ids' + '[]', r.id)
+    selectedReserveFrameIds.forEach((id, i) => {
+      params.append('reserve_frame_ids' + '[]', String(id))
     })
     ticketMasters.forEach((t, i) => {
       params.append('ticket_master_ids' + '[]', String(t.id))

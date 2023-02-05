@@ -39,7 +39,12 @@ import { nameChanged,
          ticketMastersChanged,
          monthlyPaymentPlansChanged,
          webpagesChanged,
-         productsChanged } from 'redux/shopSlice'
+         productsChanged,
+         selectedProductIdsChanged,
+         selectedReserveFrameIdsChanged,
+         selectedMonthlyPaymentPlanIdsChanged,
+         selectedTicketMasterIdsChanged,
+         selectedWebpageIdsChanged } from 'redux/shopSlice'
 
 interface Props {
   showDeleteButton?: boolean
@@ -165,6 +170,16 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
         })
       }
     })
+  }
+
+  const updateReserveFrameIds = (reserveFrameId: number) => {
+    let filterReserveFrameIdIds: number[]
+    if (selectedReserveFrameIds.includes(reserveFrameId)) {
+      filterReserveFrameIdIds = selectedReserveFrameIds.filter((id) => id !== reserveFrameId)
+    } else {
+      filterReserveFrameIdIds = [...selectedReserveFrameIds, reserveFrameId]
+    }
+    dispatch(selectedReserveFrameIdsChanged(filterReserveFrameIdIds))
   }
 
   const updateReserveFrame = (reserveFrameRef: number) => {
@@ -385,7 +400,7 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
               label={reserveFrame.title}
               id={'reserve_frame_' + reserveFrame.public_id}
               name={'reserve_frame_check'}
-              onChange={() => updateReserveFrame(i)}
+              onChange={() => updateReserveFrameIds(Number(reserveFrame.id))}
               defaultChecked={selectedReserveFrameIds.includes(Number(reserveFrame.id))}
               key={i} />
           )
