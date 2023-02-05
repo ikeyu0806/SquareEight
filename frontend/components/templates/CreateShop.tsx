@@ -1,4 +1,4 @@
-import React, { useRef, createRef } from 'react'
+import React, { useRef, createRef, version } from 'react'
 import { FormControl, Form, Button, Row, Col } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -88,6 +88,11 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
   const products = useSelector((state: RootState) => state.shop.products)
   const productRefs = useRef<any>([])
   productRefs.current = products.map((_, i) => productRefs.current[i] ?? createRef())
+
+  const selectedWebpageIds = useSelector((state: RootState) => state.shop.selectedWebpageIds)
+  const webpages = useSelector((state: RootState) => state.shop.webpages)
+  const webpageRefs = useRef<any>([])
+  webpageRefs.current = webpages.map((_, i) => webpageRefs.current[i] ?? createRef())
 
   const onChangeShopImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
@@ -200,6 +205,16 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
       filterProductIds = [...selectedProductIds, productId]
     }
     dispatch(selectedProductIdsChanged(filterProductIds))
+  }
+
+  const updateWebpageIds = (webpageId: number) => {
+    let filterWebpageIds: number[]
+    if (selectedProductIds.includes(webpageId)) {
+      filterWebpageIds = selectedProductIds.filter((id) => id !== webpageId)
+    } else {
+      filterWebpageIds = [...selectedProductIds, webpageId]
+    }version
+    dispatch(selectedProductIdsChanged(filterWebpageIds))
   }
 
   return (
@@ -409,6 +424,23 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
               name={'product_check'}
               onChange={() => updateProductIds(Number(product.id))}
               defaultChecked={selectedProductIds.includes(Number(product.id))}
+              key={i} />
+          )
+        })}
+      </>}
+      {webpages.length !== 0 &&
+      <>
+        <hr />
+        <div>Webページ</div>
+        <div className='mt5 mb5'>設定したWebページのリンクが店舗ページに表示されます。</div>
+        {webpages.map((webpage, i) => {
+          return (
+            <Form.Check
+              label={webpage.tag}
+              id={'webpage' + webpage.public_id}
+              name={'webpage_check'}
+              onChange={() => updateWebpageIds(Number(webpage.id))}
+              defaultChecked={selectedWebpageIds.includes(Number(webpage.id))}
               key={i} />
           )
         })}
