@@ -84,7 +84,7 @@ const CreateWebpageTemplate = ({showDeleteButton}: Props): JSX.Element => {
         </Row>}
         <div className='mb20'>
           <Form.Group className='mb-3'>
-            <Form.Label>管理用のページ名称を入力してください。</Form.Label>
+            <Form.Label>ページタイトルを入力してください。</Form.Label>
             <Form.Control onChange={(e) => dispatch(webpageTagChanged(e.target.value))}
                           value={webpageTag} />
           </Form.Group>
