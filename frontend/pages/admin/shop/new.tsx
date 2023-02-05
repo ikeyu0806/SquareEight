@@ -46,6 +46,11 @@ const New: NextPage = () => {
   const shopImage4File = useSelector((state: RootState) => state.shop.shopImage4File)
   const shopImage5File = useSelector((state: RootState) => state.shop.shopImage5File)
   const shopImage6File = useSelector((state: RootState) => state.shop.shopImage6File)
+  const selectedReserveFrameIds = useSelector((state: RootState) => state.shop.selectedReserveFrameIds)
+  const selectedTicketMasterIds = useSelector((state: RootState) => state.shop.selectedTicketMasterIds)
+  const selectedMonthlyPaymentPlanIds = useSelector((state: RootState) => state.shop.selectedMonthlyPaymentPlanIds)
+  const selectedProductIds = useSelector((state: RootState) => state.shop.selectedProductIds)
+  const selectedWebpageIds = useSelector((state: RootState) => state.shop.selectedWebpageIds)
 
   useEffect(() => {
     const fetchShop = () => {
@@ -89,12 +94,28 @@ const New: NextPage = () => {
     params.append('access_info', accessInfo)
     params.append('business_hours_text', businessHoursText)
     params.append('parking_lot_guidance', parkingLotGuidance)
+    params.append('remarks', remarks)
     params.append('shop_image1_file', shopImage1File as Blob)
     params.append('shop_image2_file', shopImage2File as Blob)
     params.append('shop_image3_file', shopImage3File as Blob)
     params.append('shop_image4_file', shopImage4File as Blob)
     params.append('shop_image5_file', shopImage5File as Blob)
     params.append('shop_image6_file', shopImage6File as Blob)
+    selectedReserveFrameIds.forEach((id, i) => {
+      params.append('reserve_frame_ids' + '[]', String(id))
+    })
+    selectedTicketMasterIds.forEach((id, i) => {
+      params.append('ticket_master_ids' + '[]', String(id))
+    })
+    selectedMonthlyPaymentPlanIds.forEach((id, i) => {
+      params.append('monthly_payment_plan_ids' + '[]', String(id))
+    })
+    selectedProductIds.forEach((id, i) => {
+      params.append('product_ids' + '[]', String(id))
+    })
+    selectedWebpageIds.forEach((id, i) => {
+      params.append('webpage_ids' + '[]', String(id))
+    })
     axios.post(`${process.env.BACKEND_URL}/api/internal/shops`, params, {
       headers: {
         'Content-Type': 'multipart/form-data',
