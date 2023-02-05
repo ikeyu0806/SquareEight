@@ -1,3 +1,4 @@
+import { useEffect } from 'react'
 import { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Container, Row, Col, Button } from 'react-bootstrap'
@@ -9,6 +10,12 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { 
+  reserveFramesChanged,
+  productsChanged,
+  ticketMastersChanged,
+  monthlyPaymentPlansChanged,
+  webpagesChanged } from 'redux/shopSlice'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -39,6 +46,29 @@ const New: NextPage = () => {
   const shopImage4File = useSelector((state: RootState) => state.shop.shopImage4File)
   const shopImage5File = useSelector((state: RootState) => state.shop.shopImage5File)
   const shopImage6File = useSelector((state: RootState) => state.shop.shopImage6File)
+
+  useEffect(() => {
+    const fetchShop = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/shops/related_data`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          },
+        }
+      )
+      .then(function (response) {
+        dispatch(reserveFramesChanged(response.data.reserve_frames))
+        dispatch(productsChanged(response.data.products))
+        dispatch(ticketMastersChanged(response.data.ticket_masters))
+        dispatch(monthlyPaymentPlansChanged(response.data.monthly_payment_plans))
+        dispatch(webpagesChanged(response.data.webpages))
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchShop()
+  }, [dispatch, router.query.public_id, cookies._square_eight_merchant_session])
 
   const createShop = () => {
     const params = new FormData()
