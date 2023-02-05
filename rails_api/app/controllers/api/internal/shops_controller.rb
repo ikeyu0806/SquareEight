@@ -135,6 +135,36 @@ class Api::Internal::ShopsController < ApplicationController
       if params[:shop_image6_file].present? && !params[:shop_image6_file].eql?("null")
         shop.register_s3_image(params[:shop_image6_file], "shop_image6_account_s3_image_id")
       end
+      shop.shop_reserve_frames.destroy_all
+      if params["reserve_frame_ids"].present?
+        params["reserve_frame_ids"].each do |reserve_frame_id|
+          shop.shop_reserve_frames.create!(reserve_frame_id: reserve_frame_id)
+        end
+      end
+      shop.shop_ticket_masters.destroy_all
+      if params["ticket_master_ids"].present?
+        params["ticket_master_ids"].each do |ticket_master_id|
+          shop.shop_ticket_masters.create!(ticket_master_id: ticket_master_id)
+        end
+      end
+      shop.shop_monthly_payment_plans.destroy_all
+      if params["monthly_payment_plan_ids"].present?
+        params["monthly_payment_plan_ids"].each do |monthly_payment_plan_id|
+          shop.shop_monthly_payment_plans.create!(monthly_payment_plan_id: monthly_payment_plan_id)
+        end
+      end
+      shop.shop_products.destroy_all
+      if params["product_ids"].present?
+        params["product_ids"].each do |product_id|
+          shop.shop_products.create!(product_id: product_id)
+        end
+      end
+      shop.shop_webpages.destroy_all
+      if params["webpage_ids"].present?
+        params["webpage_ids"].each do |webpage_id|
+          shop.shop_webpages.create!(webpage_id: webpage_id)
+        end
+      end
       shop.save!
     end
     render json: { status: 'success' }, status: 200

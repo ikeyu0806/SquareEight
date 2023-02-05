@@ -86,6 +86,11 @@ const Edit: NextPage = () => {
   const shopImage4File = useSelector((state: RootState) => state.shop.shopImage4File)
   const shopImage5File = useSelector((state: RootState) => state.shop.shopImage5File)
   const shopImage6File = useSelector((state: RootState) => state.shop.shopImage6File)
+  const reserveFrames = useSelector((state: RootState) => state.shop.reserveFrames)
+  const ticketMasters = useSelector((state: RootState) => state.shop.ticketMasters)
+  const monthlyPaymentPlans = useSelector((state: RootState) => state.shop.monthlyPaymentPlans)
+  const products = useSelector((state: RootState) => state.shop.products)
+  const webpages = useSelector((state: RootState) => state.shop.webpages)
 
   useEffect(() => {
     const fetchShop = () => {
@@ -177,6 +182,21 @@ const Edit: NextPage = () => {
     params.append('shop_image4_file', shopImage4File as Blob)
     params.append('shop_image5_file', shopImage5File as Blob)
     params.append('shop_image6_file', shopImage6File as Blob)
+    reserveFrames.forEach((r, i) => {
+      params.append('reserve_frame_ids' + '[]', r.id)
+    })
+    ticketMasters.forEach((t, i) => {
+      params.append('ticket_master_ids' + '[]', String(t.id))
+    })
+    monthlyPaymentPlans.forEach((m, i) => {
+      params.append('monthly_payment_plan_ids' + '[]', String(m.id))
+    })
+    products.forEach((p, i) => {
+      params.append('product_ids' + '[]', String(p.id))
+    })
+    webpages.forEach((p, i) => {
+      params.append('webpage_ids' + '[]', String(p.id))
+    })
     axios.post(`${process.env.BACKEND_URL}/api/internal/shops/${router.query.public_id}/update`, params, {
       headers: {
         'Content-Type': 'multipart/form-data',

@@ -4,15 +4,15 @@ class Shop < ApplicationRecord
 
   belongs_to :account
 
-  has_many :shop_products
+  has_many :shop_products, dependent: :destroy
   has_many :products, through: :shop_products
-  has_many :shop_reserve_frames
+  has_many :shop_reserve_frames, dependent: :destroy
   has_many :reserve_frames, through: :shop_reserve_frames
-  has_many :shop_ticket_masters
+  has_many :shop_ticket_masters, dependent: :destroy
   has_many :ticket_masters, through: :shop_ticket_masters
-  has_many :shop_monthly_payment_plans
+  has_many :shop_monthly_payment_plans, dependent: :destroy
   has_many :monthly_payment_plans, through: :shop_monthly_payment_plans
-  has_many :shop_webpages
+  has_many :shop_webpages, dependent: :destroy
   has_many :webpages, through: :shop_webpages
 
   # S3にputするファイルとimage1_account_s3_image_public_url_column
