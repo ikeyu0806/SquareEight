@@ -1,4 +1,4 @@
-import { Container, Row, Col, Card, Table } from 'react-bootstrap'
+import { Container, Row, Col, Card, Table, ListGroup } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import shopStyles from 'styles/Shop.module.css'
@@ -32,6 +32,7 @@ const ShopPageTemplate = () => {
   const monthlyPatmentPlanInfo = useSelector((state: RootState) => state.shop.monthlyPatmentPlanInfo)
   const ticketMasterInfo = useSelector((state: RootState) => state.shop.ticketMasterInfo)
   const productInfo = useSelector((state: RootState) => state.shop.productInfo)
+  const webpages = useSelector((state: RootState) => state.shop.webpages)
 
   return (
     <>
@@ -284,6 +285,27 @@ const ShopPageTemplate = () => {
                 </Col>
               )
             })}
+          </Row>
+        </div>}
+        {webpages.length !== 0 && <div style={{padding: '30px'}}>
+          <hr />
+          <div>
+            <p><span className={shopStyles.section_headline}>関連ページ</span></p>
+          </div>
+          <Row>
+            <Col md={6}>
+              <ListGroup>
+                {webpages.map((w, i) => {
+                  return (
+                    <ListGroup.Item
+                      key={i}
+                      action
+                      href={`/webpages/${w.public_id}`}>{w.tag}</ListGroup.Item>
+                  )
+                })}
+              </ListGroup>
+            </Col>
+            <Col md={6}></Col>
           </Row>
         </div>}
       </Container>
