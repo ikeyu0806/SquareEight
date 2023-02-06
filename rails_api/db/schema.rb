@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_01_22_065623) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_06_121020) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -365,6 +365,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_22_065623) do
     t.integer "read_orders_status", default: 0
     t.integer "read_account_notifications_status", default: 0
     t.integer "read_business_notifications_status", default: 0
+    t.integer "allow_read_shop", default: 0
+    t.integer "allow_create_shop", default: 0
+    t.integer "allow_update_shop", default: 0
+    t.integer "allow_delete_shop", default: 0
     t.index ["email"], name: "index_merchant_users_on_email", unique: true
   end
 
@@ -809,6 +813,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_01_22_065623) do
     t.integer "business_type", default: 99
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "deleted_at"
   end
 
   create_table "stripe_payment_intents", force: :cascade do |t|
