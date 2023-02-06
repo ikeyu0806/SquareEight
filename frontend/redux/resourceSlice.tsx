@@ -5,6 +5,7 @@ export const resourceSlice = createSlice({
   name: 'alert',
   initialState: {
     name: '',
+    description: '',
     resourceImage1File: null as File | unknown,
     resourceImage1PublicUrl: '',
     quantity: 1,
@@ -16,6 +17,9 @@ export const resourceSlice = createSlice({
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
       state.name = action.payload
+    },
+    descriptionChanged: (state, action: PayloadAction<string>) => {
+      state.description = action.payload
     },
     resourceImage1FileChanged: (state, action: PayloadAction<File>) => {
       state.resourceImage1File = action.payload
@@ -42,6 +46,7 @@ export const resourceSlice = createSlice({
 })
 
 export const { nameChanged } = resourceSlice.actions
+export const { descriptionChanged } = resourceSlice.actions
 export const { resourceImage1FileChanged } = resourceSlice.actions
 export const { resourceImage1PublicUrlChanged } = resourceSlice.actions
 export const { quantityChanged } = resourceSlice.actions

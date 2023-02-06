@@ -3,6 +3,7 @@ import { FormControl, Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
 import { nameChanged,
+         descriptionChanged,
          quantityChanged,
          shopsChanged,
          resourceImage1FileChanged,
@@ -13,6 +14,7 @@ import { ShopParam } from 'interfaces/ShopParam'
 const CreateResource = (): JSX.Element => {
   const dispatch = useDispatch()
   const name = useSelector((state: RootState) => state.resource.name)
+  const description = useSelector((state: RootState) => state.resource.description)
   const resourceImage1File = useSelector((state: RootState) => state.resource.resourceImage1File)
   const resourceImage1PublicUrl = useSelector((state: RootState) => state.resource.resourceImage1PublicUrl)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
@@ -56,6 +58,11 @@ const CreateResource = (): JSX.Element => {
         onChange={(e) => dispatch(nameChanged(e.target.value))}
         placeholder=''
         aria-label='リソース名' />
+      <Form.Label className='mt10'>説明</Form.Label>
+      <Form.Control
+        as='textarea'
+        rows={10}
+        onChange={(e) => dispatch(descriptionChanged(e.target.value))}></Form.Control>
       <Form.Label className='mt10'>イメージ画像</Form.Label>
       {resourceImage1PublicUrl && <img
         className='d-block w-100 mt30'
