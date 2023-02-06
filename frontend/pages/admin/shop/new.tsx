@@ -10,6 +10,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { RootState } from 'redux/store'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import Unauthorized from 'components/templates/Unauthorized'
 import { 
   reserveFramesChanged,
   productsChanged,
@@ -51,6 +52,7 @@ const New: NextPage = () => {
   const selectedMonthlyPaymentPlanIds = useSelector((state: RootState) => state.shop.selectedMonthlyPaymentPlanIds)
   const selectedProductIds = useSelector((state: RootState) => state.shop.selectedProductIds)
   const selectedWebpageIds = useSelector((state: RootState) => state.shop.selectedWebpageIds)
+  const allowCreateShop = useSelector((state: RootState) => state.merchantUserPermission.allowCreateShop)
 
   useEffect(() => {
     const fetchShop = () => {
@@ -139,7 +141,7 @@ const New: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowCreateShop === 'Allow' && <Container>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
@@ -149,7 +151,8 @@ const New: NextPage = () => {
               className='mt20'>保存する</Button>
           </Col>
         </Row>
-      </Container>
+      </Container>}
+      {allowCreateShop === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

@@ -9,6 +9,7 @@ import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import Unauthorized from 'components/templates/Unauthorized'
 import { nameChanged,
   phoneNumberChanged,
   description1Changed,
@@ -90,6 +91,7 @@ const Edit: NextPage = () => {
   const selectedMonthlyPaymentPlanIds = useSelector((state: RootState) => state.shop.selectedMonthlyPaymentPlanIds)
   const selectedProductIds = useSelector((state: RootState) => state.shop.selectedProductIds)
   const selectedWebpageIds = useSelector((state: RootState) => state.shop.selectedWebpageIds)
+  const allowUpdateShop = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateShop)
 
   useEffect(() => {
     const fetchShop = () => {
@@ -220,6 +222,7 @@ const Edit: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      {allowUpdateShop === 'Allow' &&
       <Container>
         <Row>
           <Col lg={3}></Col>
@@ -231,7 +234,8 @@ const Edit: NextPage = () => {
               className='mt20'>保存する</Button>
           </Col>
         </Row>
-      </Container>
+      </Container>}
+      {allowUpdateShop === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }

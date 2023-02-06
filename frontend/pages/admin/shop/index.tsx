@@ -5,10 +5,15 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { ShopParam } from 'interfaces/ShopParam'
+import { useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
+import Unauthorized from 'components/templates/Unauthorized'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [shops, setShops] = useState<ShopParam[]>([])
+  const allowReadShop = useSelector((state: RootState) => state.merchantUserPermission.allowReadShop)
+  const allowUpdateShop = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateShop)
 
   useEffect(() => {
     const fetchResources = () => {
@@ -31,13 +36,13 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
-      <Container>
+      {allowReadShop === 'Allow' && <Container>
         <Table bordered>
           <thead>
             <tr>
               <th>店舗名</th>
               <th>住所</th>
-              <th>編集</th>
+              {allowUpdateShop === 'Allow' && <th>編集</th>}
               <th>店舗紹介ページ</th>
             </tr>
           </thead>
@@ -47,11 +52,12 @@ const Index: NextPage = () => {
                 <tr key={i}>
                   <td>{shop.name}</td>
                   <td>{shop.postal_code}</td>
+                  {allowUpdateShop === 'Allow' &&
                   <td className='text-center'>
                     <a
                       href={`/admin/shop/${shop.public_id}/edit`}
                       className='btn btn-primary'>編集</a>
-                  </td>
+                  </td>}
                   <td className='text-center'>
                     <a
                       href={`/shop/${shop.public_id}`}
@@ -63,7 +69,8 @@ const Index: NextPage = () => {
             })}
           </tbody>
         </Table>
-      </Container>
+      </Container>}
+      {allowReadShop === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )
 }
