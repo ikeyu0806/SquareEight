@@ -17,6 +17,10 @@ class MerchantUser < ApplicationRecord
   enum allow_update_merchant_user: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_delete_merchant_user: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_merchant_user_permission: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_read_shop: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_create_shop: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_update_shop: { Forbid: 0, Allow: 1 }, _prefix: true
+  enum allow_delete_shop: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_read_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_create_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
   enum allow_update_reserve_frame: { Forbid: 0, Allow: 1 }, _prefix: true
@@ -128,6 +132,10 @@ class MerchantUser < ApplicationRecord
     self.allow_update_merchant_user = 'Forbid'
     self.allow_delete_merchant_user = 'Forbid'
     self.allow_update_merchant_user_permission = 'Forbid'
+    self.allow_read_shop = 'Allow'
+    self.allow_create_shop = 'Allow'
+    self.allow_update_shop = 'Allow'
+    self.allow_delete_shop = 'Allow'
     self.allow_read_reserve_frame = 'Allow'
     self.allow_create_reserve_frame = 'Allow'
     self.allow_update_reserve_frame = 'Allow'
@@ -203,6 +211,10 @@ class MerchantUser < ApplicationRecord
     self.allow_update_merchant_user = 'Forbid'
     self.allow_delete_merchant_user = 'Forbid'
     self.allow_update_merchant_user_permission = 'Forbid'
+    self.allow_read_shop = 'Allow'
+    self.allow_create_shop = 'Forbid'
+    self.allow_update_shop = 'Forbid'
+    self.allow_delete_shop = 'Forbid'
     self.allow_read_reserve_frame = 'Allow'
     self.allow_create_reserve_frame = 'Forbid'
     self.allow_update_reserve_frame = 'Forbid'
