@@ -2,20 +2,41 @@ import React from 'react'
 import { FormControl, Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { nameChanged, quantityChanged } from 'redux/resourceSlice'
-import ResourceLimitAlert from 'components/molecules/ResourceLimitAlert'
+import { nameChanged, quantityChanged, shopsChanged } from 'redux/resourceSlice'
+import { ShopParam } from 'interfaces/ShopParam'
 
 const CreateResource = (): JSX.Element => {
   const dispatch = useDispatch()
   const name = useSelector((state: RootState) => state.resource.name)
+  const resourceImage1File = useSelector((state: RootState) => state.resource.resourceImage1File)
+  const resourceImage1PublicUrl = useSelector((state: RootState) => state.resource.resourceImage1PublicUrl)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
-  const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
+  const resourceType =  useSelector((state: RootState) => state.resource.resourceType)
+  const selectedShopIds =  useSelector((state: RootState) => state.resource.selectedShopIds)
+  const shops =  useSelector((state: RootState) => state.resource.shops)
+  const isShowReservePage =  useSelector((state: RootState) => state.resource.isShowReservePage)
 
   const onChangeImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (files && files[0]) {
       // dispatch(shopImage1FileChanged(files[0]))
     }
+  }
+
+  const updateShop = (shopRef: number) => {
+    let updateShop: ShopParam
+    let updateShops: ShopParam[]
+    updateShops = []
+
+    updateShop = Object.assign(shops[shopRef])
+    shops.map((p, i) => {
+      if (i == shopRef) {
+        updateShops.push(updateShop)
+      } else {
+        updateShops.push(p)
+      }
+    })
+    dispatch(shopsChanged(updateShops))
   }
 
   return (
@@ -50,7 +71,7 @@ const CreateResource = (): JSX.Element => {
       <Form.Group className='mt10'>
         <div>店舗設定</div>
         <div className='mt5 mb5'>設定した店舗のページにリソース情報が表示されます。</div>
-        {/* {shops.map((shop, i) => {
+        {shops.map((shop, i) => {
           return (
             <Form.Check
               label={shop.name}
@@ -60,7 +81,7 @@ const CreateResource = (): JSX.Element => {
               defaultChecked={selectedShopIds.includes(shop.id)}
               key={i} />
           )
-        })} */}
+        })}
       </Form.Group>
       <hr />
       <div>予約メニュー表示設定</div>

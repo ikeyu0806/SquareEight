@@ -6,9 +6,11 @@ export const resourceSlice = createSlice({
   initialState: {
     name: '',
     resourceImage1File: null as File | unknown,
+    resourceImage1PublicUrl: '',
     quantity: 1,
     resourceType: '',
     shops: [] as ShopParam[],
+    selectedShopIds: [] as number[],
     isShowReservePage: false
   },
   reducers: {
@@ -17,6 +19,9 @@ export const resourceSlice = createSlice({
     },
     resourceImage1FileChanged: (state, action: PayloadAction<File>) => {
       state.resourceImage1File = action.payload
+    },
+    resourceImage1PublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.resourceImage1PublicUrl = action.payload
     },
     quantityChanged: (state, action: PayloadAction<number>) => {
       state.quantity = action.payload
@@ -27,6 +32,9 @@ export const resourceSlice = createSlice({
     shopsChanged: (state, action: PayloadAction<ShopParam[]>) => {
       state.shops = action.payload
     },
+    selectedShopIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.selectedShopIds = action.payload
+    },
     isShowReservePageChanged: (state, action: PayloadAction<boolean>) => {
       state.isShowReservePage = action.payload
     },
@@ -35,8 +43,11 @@ export const resourceSlice = createSlice({
 
 export const { nameChanged } = resourceSlice.actions
 export const { resourceImage1FileChanged } = resourceSlice.actions
+export const { resourceImage1PublicUrlChanged } = resourceSlice.actions
 export const { quantityChanged } = resourceSlice.actions
 export const { resourceTypeChanged } = resourceSlice.actions
+export const { shopsChanged } = resourceSlice.actions
+export const { selectedShopIdsChanged } = resourceSlice.actions
 export const { isShowReservePageChanged } = resourceSlice.actions
 
 export default resourceSlice.reducer
