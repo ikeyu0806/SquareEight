@@ -813,7 +813,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_06_121020) do
     t.integer "business_type", default: 99
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "deleted_at"
   end
 
   create_table "stripe_payment_intents", force: :cascade do |t|
