@@ -1,5 +1,5 @@
 .headline_service_name {
-  font-size: 80px;
+  font-size: 120px;
 }
 
 .service_description {
@@ -242,7 +242,7 @@ img.customer_support_img {
   .cover_img_parent .headline_service_name {
     top: 50%;
     left: 50%;
-		font-size: 28px;
+		font-size: 32px;
 	}
 
   .cover_img_parent .service_description {
@@ -324,6 +324,6 @@ img.customer_support_img {
   .cover_img_parent .service_description {
     top: 70%;
     left: 50%;
-    font-size: 12px;
+    font-size: 20px;
   }
 }
