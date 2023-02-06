@@ -9,6 +9,10 @@ export const merchantUserPermissionSlice = createSlice({
     allowUpdateMerchantUser: 'Unconfirmed',
     allowDeleteMerchantUser: 'Unconfirmed',
     allowUpdateMerchantUserPermission: 'Unconfirmed',
+    allowReadShop: 'Unconfirmed',
+    allowCreateShop: 'Unconfirmed',
+    allowUpdateShop: 'Unconfirmed',
+    allowDeleteShop: 'Unconfirmed',
     allowReadReserveFrame: 'Unconfirmed',
     allowCreateReserveFrame: 'Unconfirmed',
     allowUpdateReserveFrame: 'Unconfirmed',
@@ -93,6 +97,18 @@ export const merchantUserPermissionSlice = createSlice({
     },
     allowUpdateMerchantUserPermissionChanged: (state, action: PayloadAction<string>) => {
       state.allowUpdateMerchantUserPermission = action.payload
+    },
+    allowReadShopChanged: (state, action: PayloadAction<string>) => {
+      state.allowReadShop = action.payload
+    },
+    allowCreateShopChanged: (state, action: PayloadAction<string>) => {
+      state.allowCreateShop = action.payload
+    },
+    allowUpdateShopChanged: (state, action: PayloadAction<string>) => {
+      state.allowUpdateShop = action.payload
+    },
+    allowDeleteShopChanged: (state, action: PayloadAction<string>) => {
+      state.allowDeleteShop = action.payload
     },
     allowReadReserveFrameChanged: (state, action: PayloadAction<string>) => {
       state.allowReadReserveFrame = action.payload
@@ -298,6 +314,10 @@ export const { allowCreateMerchantUserChanged } = merchantUserPermissionSlice.ac
 export const { allowUpdateMerchantUserChanged } = merchantUserPermissionSlice.actions
 export const { allowDeleteMerchantUserChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateMerchantUserPermissionChanged } = merchantUserPermissionSlice.actions
+export const { allowReadShopChanged } = merchantUserPermissionSlice.actions
+export const { allowCreateShopChanged } = merchantUserPermissionSlice.actions
+export const { allowUpdateShopChanged } = merchantUserPermissionSlice.actions
+export const { allowDeleteShopChanged } = merchantUserPermissionSlice.actions
 export const { allowReadReserveFrameChanged } = merchantUserPermissionSlice.actions
 export const { allowCreateReserveFrameChanged } = merchantUserPermissionSlice.actions
 export const { allowUpdateReserveFrameChanged } = merchantUserPermissionSlice.actions

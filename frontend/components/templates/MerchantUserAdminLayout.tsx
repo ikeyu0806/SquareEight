@@ -24,6 +24,10 @@ import {  allowReadMerchantUserChanged,
           allowUpdateMerchantUserChanged,
           allowDeleteMerchantUserChanged,
           allowUpdateMerchantUserPermissionChanged,
+          allowReadShopChanged,
+          allowCreateShopChanged,
+          allowUpdateShopChanged,
+          allowDeleteShopChanged,
           allowReadReserveFrameChanged,
           allowCreateReserveFrameChanged,
           allowUpdateReserveFrameChanged,
@@ -118,6 +122,10 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(allowUpdateMerchantUserChanged(response.data.user.allow_update_merchant_user))
       dispatch(allowDeleteMerchantUserChanged(response.data.user.allow_delete_merchant_user))
       dispatch(allowUpdateMerchantUserPermissionChanged(response.data.user.allow_update_merchant_user_permission))
+      dispatch(allowReadShopChanged(response.data.user.allow_read_shop))
+      dispatch(allowCreateShopChanged(response.data.user.allow_create_shop))
+      dispatch(allowUpdateShopChanged(response.data.user.allow_update_shop))
+      dispatch(allowDeleteShopChanged(response.data.user.allow_delete_shop))
       dispatch(allowReadReserveFrameChanged(response.data.user.allow_read_reserve_frame))
       dispatch(allowCreateReserveFrameChanged(response.data.user.allow_create_reserve_frame))
       dispatch(allowUpdateReserveFrameChanged(response.data.user.allow_update_reserve_frame))
