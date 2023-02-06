@@ -2,7 +2,12 @@ import React from 'react'
 import { FormControl, Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
-import { nameChanged, quantityChanged, shopsChanged } from 'redux/resourceSlice'
+import { nameChanged,
+         quantityChanged,
+         shopsChanged,
+         resourceImage1FileChanged,
+         isShowReservePageChanged,
+         resourceTypeChanged } from 'redux/resourceSlice'
 import { ShopParam } from 'interfaces/ShopParam'
 
 const CreateResource = (): JSX.Element => {
@@ -19,7 +24,7 @@ const CreateResource = (): JSX.Element => {
   const onChangeImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
     if (files && files[0]) {
-      // dispatch(shopImage1FileChanged(files[0]))
+      dispatch(resourceImage1FileChanged(files[0]))
     }
   }
 
@@ -52,6 +57,11 @@ const CreateResource = (): JSX.Element => {
         placeholder=''
         aria-label='リソース名' />
       <Form.Label className='mt10'>イメージ画像</Form.Label>
+      {resourceImage1PublicUrl && <img
+        className='d-block w-100 mt30'
+        src={resourceImage1PublicUrl}
+        alt='resourceImage1File Image'
+      />}
       <Form.Control type='file' onChange={onChangeImage1File} />
       <Form.Label className='mt10'>予約受付数</Form.Label>
       <FormControl
@@ -63,7 +73,9 @@ const CreateResource = (): JSX.Element => {
       <hr />
       <div className='mt10'>種別設定</div>
       <div className='mt5 mb10'>店舗ページ、予約ページの表示に使用されます。</div>
-      <Form.Select>
+      <Form.Select
+        value={resourceType}
+        onChange={(e) => dispatch(resourceTypeChanged(e.target.value))}>
         <option value='staff'>スタッフ</option>
         <option value='equipment'>設備・備品</option>
       </Form.Select>
@@ -90,6 +102,8 @@ const CreateResource = (): JSX.Element => {
         type='checkbox'
         id='showReserveFramePage'
         label='予約メニューに表示する'
+        checked={isShowReservePage}
+        onChange={() => dispatch(isShowReservePageChanged(!isShowReservePage))}
       />
     </>
   )
