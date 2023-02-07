@@ -11,9 +11,12 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
 import { ResourceParam } from 'interfaces/ResourceParam'
-import { nameChanged, quantityChanged } from 'redux/resourceSlice'
-import ResourceLimitAlert from 'components/molecules/ResourceLimitAlert'
 import Unauthorized from 'components/templates/Unauthorized'
+import { nameChanged,
+         quantityChanged,
+         descriptionChanged,
+         resourceImage1PublicUrlChanged,
+         resourceTypeChanged } from 'redux/resourceSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -31,7 +34,7 @@ const Edit: NextPage = () => {
   const allowUpdateResource = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateResource)
 
   useEffect(() => {
-    const fetchMonthlyPaymentPlan = () => {
+    const fetchResource = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/resources/${router.query.public_id}/edit`, {
           headers: { 
@@ -40,15 +43,17 @@ const Edit: NextPage = () => {
         }
       )
       .then(function (response) {
-        const resourceResponse: ResourceParam = response.data.resource
-        dispatch(nameChanged(resourceResponse.name))
-        dispatch(quantityChanged(resourceResponse.quantity))
+        dispatch(nameChanged(response.data.resource.name))
+        dispatch(descriptionChanged(response.data.resource.description))
+        dispatch(quantityChanged(response.data.resource.quantity))
+        dispatch(resourceImage1PublicUrlChanged(response.data.resource.resource_image1_public_url))
+        dispatch(resourceTypeChanged(response.data.resource_type))
       })
       .catch(error => {
         console.log(error)
       })
     }
-    fetchMonthlyPaymentPlan()
+    fetchResource()
   }, [router.query.public_id, cookies._square_eight_merchant_session, dispatch])
 
   const onSubmit = () => {
