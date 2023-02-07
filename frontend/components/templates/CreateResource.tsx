@@ -6,6 +6,7 @@ import { nameChanged,
          descriptionChanged,
          quantityChanged,
          shopsChanged,
+         selectedShopIdsChanged,
          resourceImage1FileChanged,
          isShowReservePageChanged,
          resourceTypeChanged } from 'redux/resourceSlice'
@@ -30,20 +31,14 @@ const CreateResource = (): JSX.Element => {
     }
   }
 
-  const updateShop = (shopRef: number) => {
-    let updateShop: ShopParam
-    let updateShops: ShopParam[]
-    updateShops = []
-
-    updateShop = Object.assign(shops[shopRef])
-    shops.map((p, i) => {
-      if (i == shopRef) {
-        updateShops.push(updateShop)
-      } else {
-        updateShops.push(p)
-      }
-    })
-    dispatch(shopsChanged(updateShops))
+  const updateShopIds = (shopId: number) => {
+    let filterShopIdIds: number[]
+    if (selectedShopIds.includes(shopId)) {
+      filterShopIdIds = selectedShopIds.filter((id) => id !== shopId)
+    } else {
+      filterShopIdIds = [...selectedShopIds, shopId]
+    }
+    dispatch(selectedShopIdsChanged(filterShopIdIds))
   }
 
   return (
@@ -97,7 +92,7 @@ const CreateResource = (): JSX.Element => {
               label={shop.name}
               id={'shop_' + shop.public_id}
               name={'shop_check'}
-              onChange={() => updateShop(i)}
+              onChange={() => updateShopIds(shop.id)}
               defaultChecked={selectedShopIds.includes(shop.id)}
               key={i} />
           )
