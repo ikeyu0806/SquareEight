@@ -46,6 +46,7 @@ const New: NextPage = () => {
       router.push('/admin/resource')
       dispatch(alertChanged({message: 'リソースを登録しました', show: true}))
     }).catch(error => {
+      console.log(error)
       dispatch(alertChanged({message: error, show: true, type: 'danger'}))
     })
   }
