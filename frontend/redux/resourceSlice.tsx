@@ -9,7 +9,7 @@ export const resourceSlice = createSlice({
     resourceImage1File: null as File | unknown,
     resourceImage1PublicUrl: '',
     quantity: 1,
-    resourceType: '',
+    resourceType: 'Staff',
     shops: [] as ShopParam[],
     selectedShopIds: [] as number[],
     isShowReservePage: false

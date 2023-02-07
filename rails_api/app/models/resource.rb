@@ -2,7 +2,7 @@ class Resource < ApplicationRecord
   include PublicIdModule
   include Base64Image
 
-  enum resource_type: { Staff: 0, Equipment: 1 }
+  enum resource_type: { Staff: 0, Equipment: 1, Others: 99 }
   enum reception_time_setting: { NotSet: 0, AccountBusinessHour: 1, ResourceBusinessHour: 2 }
 
   belongs_to :account

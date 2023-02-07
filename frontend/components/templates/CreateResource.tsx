@@ -83,8 +83,9 @@ const CreateResource = (): JSX.Element => {
       <Form.Select
         value={resourceType}
         onChange={(e) => dispatch(resourceTypeChanged(e.target.value))}>
-        <option value='staff'>スタッフ</option>
-        <option value='equipment'>設備・備品</option>
+        <option value='Staff'>スタッフ</option>
+        <option value='Equipment'>設備・備品</option>
+        <option value='Others'>その他</option>
       </Form.Select>
       <hr />
       <Form.Group className='mt10'>
