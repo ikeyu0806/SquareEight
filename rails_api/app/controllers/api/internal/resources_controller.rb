@@ -23,6 +23,16 @@ class Api::Internal::ResourcesController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def related_data
+    account = current_merchant_user.account
+    selectable_reserve_frames = account.reserve_frames.enabled
+    render json: { status: 'success',
+                   selectable_reserve_frames: selectable_reserve_frames }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   def create
     ActiveRecord::Base.transaction do
       resource = current_merchant_user.account.resources.new

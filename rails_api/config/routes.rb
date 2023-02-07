@@ -111,6 +111,7 @@ Rails.application.routes.draw do
       post 'monthly_payment_plans', to: 'monthly_payment_plans#create'
       delete 'monthly_payment_plans/:public_id', to: 'monthly_payment_plans#logical_delete'
       get 'resources/:public_id/edit', to: 'resources#edit'
+      get 'resources/related_data', to: 'resources#related_data'
       get 'resources', to: 'resources#index'
       post 'resources', to: 'resources#create'
       post 'resources/:public_id/update', to: 'resources#update'

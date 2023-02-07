@@ -1,3 +1,4 @@
+import React, { useEffect } from 'react'
 import { NextPage } from 'next'
 import CreateResource from 'components/templates/CreateResource'
 import { Container, Row, Col } from 'react-bootstrap'
@@ -10,6 +11,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
 import Unauthorized from 'components/templates/Unauthorized'
+import { selectableReserveFramesChanged } from 'redux/resourceSlice'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -25,6 +27,27 @@ const New: NextPage = () => {
   const selectedShopIds = useSelector((state: RootState) => state.resource.selectedShopIds)
 
   const allowCreateResource = useSelector((state: RootState) => state.merchantUserPermission.allowCreateResource)
+
+  useEffect(() => {
+    const fetchResource = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/resources/related_data`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response.data)
+        dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchResource()
+  }, [router.query.public_id, cookies._square_eight_merchant_session, dispatch])
+
 
   const onSubmit = () => {
     const params = new FormData()
