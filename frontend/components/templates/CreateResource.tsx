@@ -20,7 +20,7 @@ const CreateResource = (): JSX.Element => {
   const quantity = useSelector((state: RootState) => state.resource.quantity)
   const resourceType =  useSelector((state: RootState) => state.resource.resourceType)
   const selectedShopIds =  useSelector((state: RootState) => state.resource.selectedShopIds)
-  const shops =  useSelector((state: RootState) => state.resource.shops)
+  const shops =  useSelector((state: RootState) => state.account.shops)
   const isShowReservePage =  useSelector((state: RootState) => state.resource.isShowReservePage)
 
   const onChangeImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
