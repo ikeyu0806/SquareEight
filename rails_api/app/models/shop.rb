@@ -14,6 +14,8 @@ class Shop < ApplicationRecord
   has_many :monthly_payment_plans, through: :shop_monthly_payment_plans
   has_many :shop_webpages, dependent: :destroy
   has_many :webpages, through: :shop_webpages
+  has_many :shop_resources, dependent: :destroy
+  has_many :resources, through: :shop_resources
 
   # S3にputするファイルとimage1_account_s3_image_public_url_column
   def register_s3_image(image_file, image1_account_s3_image_public_url_column)
