@@ -34,7 +34,8 @@ import { nameChanged,
          selectedMonthlyPaymentPlanIdsChanged,
          selectedTicketMasterIdsChanged,
          selectedWebpageIdsChanged,
-         selectedProductIdsChanged } from 'redux/shopSlice'
+         selectedProductIdsChanged,
+         selectedResourceIdsChanged } from 'redux/shopSlice'
 
 interface Props {
   showDeleteButton?: boolean
@@ -93,6 +94,11 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
   const webpages = useSelector((state: RootState) => state.shop.webpages)
   const webpageRefs = useRef<any>([])
   webpageRefs.current = webpages.map((_, i) => webpageRefs.current[i] ?? createRef())
+
+  const selectedResourceIds = useSelector((state: RootState) => state.shop.selectedResourceIds)
+  const resources = useSelector((state: RootState) => state.shop.resources)
+  const resourceRefs = useRef<any>([])
+  resourceRefs.current = resources.map((_, i) => resourceRefs.current[i] ?? createRef())
 
   const onChangeShopImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
@@ -207,13 +213,23 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
     dispatch(selectedProductIdsChanged(filterProductIds))
   }
 
+  const updateResourceIds = (resourceId: number) => {
+    let filterResourceIds: number[]
+    if (selectedResourceIds.includes(resourceId)) {
+      filterResourceIds = selectedResourceIds.filter((id) => id !== resourceId)
+    } else {
+      filterResourceIds = [...selectedResourceIds, resourceId]
+    }
+    dispatch(selectedResourceIdsChanged(filterResourceIds))
+  }
+
   const updateWebpageIds = (webpageId: number) => {
     let filterWebpageIds: number[]
     if (selectedProductIds.includes(webpageId)) {
       filterWebpageIds = selectedProductIds.filter((id) => id !== webpageId)
     } else {
       filterWebpageIds = [...selectedProductIds, webpageId]
-    }version
+    }
     dispatch(selectedProductIdsChanged(filterWebpageIds))
   }
 
@@ -424,6 +440,23 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
               name={'product_check'}
               onChange={() => updateProductIds(Number(product.id))}
               defaultChecked={selectedProductIds.includes(Number(product.id))}
+              key={i} />
+          )
+        })}
+      </>}
+      {resources.length !== 0 &&
+      <>
+        <hr />
+        <div>リソース</div>
+        <div className='mt5 mb5'>設定したWebページのリンクが店舗ページに表示されます。</div>
+        {resources.map((resource, i) => {
+          return (
+            <Form.Check
+              label={resource.name}
+              id={'resource' + resource.public_id}
+              name={'resource_check'}
+              onChange={() => updateResourceIds(resource.id)}
+              defaultChecked={selectedResourceIds.includes(resource.id)}
               key={i} />
           )
         })}
