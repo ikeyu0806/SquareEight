@@ -1,7 +1,7 @@
 class Resource < ApplicationRecord
   include PublicIdModule
 
-  enum resouce_type: { Staff: 0, Equipment: 1 }
+  enum resource_type: { Staff: 0, Equipment: 1 }
   enum reception_time_setting: { NotSet: 0, AccountBusinessHour: 1, ResourceBusinessHour: 2 }
 
   has_many :reserve_frame_resources
@@ -27,8 +27,8 @@ class Resource < ApplicationRecord
     self.save!
   end
 
-  def shop_image1_public_url
-    return nil if shop_image1_account_s3_image_id.blank?
-    AccountS3Image.find(self.shop_image1_account_s3_image_id)&.s3_object_public_url
+  def resource_image1_public_url
+    return nil if resource_image1_account_s3_image_id.blank?
+    AccountS3Image.find(self.resource_image1_account_s3_image_id)&.s3_object_public_url
   end
 end
