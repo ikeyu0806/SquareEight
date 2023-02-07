@@ -8,6 +8,7 @@ import { ProductParam } from 'interfaces/ProductParam'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { WebpageParam } from 'interfaces/WebpageParam'
+import { ResourceParam } from 'interfaces/ResourceParam'
 
 export const shopSlice = createSlice({
   name: 'shop',
@@ -53,11 +54,13 @@ export const shopSlice = createSlice({
     selectedMonthlyPaymentPlanIds: [] as number[],
     selectedTicketMasterIds: [] as number[],
     selectedWebpageIds: [] as number[],
+    selectedResourceIds: [] as number[],
     reserveFrames: [] as ReserveFrameParam[],
     products: [] as ProductParam[],
     ticketMasters: [] as TicketMasterParam[],
     monthlyPaymentPlans: [] as MonthlyPaymentPlanParam[],
-    webpages: [] as WebpageParam[]
+    webpages: [] as WebpageParam[],
+    resources: [] as ResourceParam[]
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -183,6 +186,9 @@ export const shopSlice = createSlice({
     selectedWebpageIdsChanged: (state, action: PayloadAction<number[]>) => {
       state.selectedWebpageIds = action.payload
     },
+    selectedResourceIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.selectedResourceIds = action.payload
+    },
     reserveFramesChanged: (state, action: PayloadAction<ReserveFrameParam[]>) => {
       state.reserveFrames = action.payload
     },
@@ -197,6 +203,9 @@ export const shopSlice = createSlice({
     },
     webpagesChanged: (state, action: PayloadAction<WebpageParam[]>) => {
       state.webpages = action.payload
+    },
+    resourcesChanged: (state, action: PayloadAction<ResourceParam[]>) => {
+      state.resources = action.payload
     },
   },
 })
@@ -242,10 +251,12 @@ export const { selectedReserveFrameIdsChanged } = shopSlice.actions
 export const { selectedMonthlyPaymentPlanIdsChanged } = shopSlice.actions
 export const { selectedTicketMasterIdsChanged } = shopSlice.actions
 export const { selectedWebpageIdsChanged } = shopSlice.actions
+export const { selectedResourceIdsChanged } = shopSlice.actions
 export const { reserveFramesChanged } = shopSlice.actions
 export const { productsChanged } = shopSlice.actions
 export const { ticketMastersChanged } = shopSlice.actions
 export const { monthlyPaymentPlansChanged } = shopSlice.actions
 export const { webpagesChanged } = shopSlice.actions
+export const { resourcesChanged } = shopSlice.actions
 
 export default shopSlice.reducer
