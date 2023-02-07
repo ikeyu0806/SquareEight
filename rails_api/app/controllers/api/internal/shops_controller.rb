@@ -138,6 +138,11 @@ class Api::Internal::ShopsController < ApplicationController
           shop.shop_webpages.create!(webpage_id: webpage_id)
         end
       end
+      if params["resource_ids"].present?
+        params["resource_ids"].each do |resource_id|
+          shop.shop_resources.create!(resource_id: resource_id)
+        end
+      end
       shop.save!
     end
     render json: { status: 'success' }, status: 200
@@ -216,6 +221,12 @@ class Api::Internal::ShopsController < ApplicationController
           shop.shop_webpages.create!(webpage_id: webpage_id)
         end
       end
+      shop.shop_resources.destroy_all
+      if params["resource_ids"].present?
+        params["resource_ids"].each do |resource_id|
+          shop.shop_resources.create!(resource_id: resource_id)
+        end
+      end
       shop.save!
     end
     render json: { status: 'success' }, status: 200
@@ -231,6 +242,7 @@ class Api::Internal::ShopsController < ApplicationController
     shop.shop_monthly_payment_plans.destroy_all
     shop.shop_products.destroy_all
     shop.shop_webpages.destroy_all
+    shop.shop_resources.destroy_all
     shop.destroy
     render json: { status: 'success' }, status: 200
   rescue => error
