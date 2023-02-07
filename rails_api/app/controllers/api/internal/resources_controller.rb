@@ -10,10 +10,14 @@ class Api::Internal::ResourcesController < ApplicationController
   end
 
   def edit
-    resource = current_merchant_user.account.resources.find_by(public_id: params[:public_id])
+    account = current_merchant_user.account
+    resource = account.resources.find_by(public_id: params[:public_id])
     resource = resource.to_json(methods: [:resource_image1_public_url, :selected_shop_ids, :selected_reserve_frame_ids])
     resource = JSON.parse(resource)
-    render json: { status: 'success', resource: resource }, status: 200
+    selectable_reserve_frames = account.reserve_frames.enabled
+    render json: { status: 'success',
+                   resource: resource,
+                   selectable_reserve_frames: selectable_reserve_frames }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
@@ -26,13 +30,18 @@ class Api::Internal::ResourcesController < ApplicationController
       resource.description = params[:description]
       resource.quantity = params[:quantity].to_i
       resource.resource_type = params[:resource_type]
+      resource.is_show_reserve_page = params[:is_show_reserve_page].eql?('true') ? true : false
       if params[:resource_image1_file].present? && !params[:resource_image1_file].eql?("null")
         resource.register_s3_image(params[:resource_image1_file], "resource_image1_account_s3_image_id")
       end
-      resource.is_show_reserve_page = params[:is_show_reserve_page].eql?('true') ? true : false
       if params["shop_ids"].present?
         params["shop_ids"].each do |shop_id|
           resource.shop_resources.create!(shop_id: shop_id)
+        end
+      end
+      if params["reserve_frame_ids"].present?
+        params["reserve_frame_ids"].each do |reserve_frame_id|
+          resource.reserve_frame_resources.create!(reserve_frame_id: reserve_frame_id)
         end
       end
       resource.save!
@@ -50,14 +59,20 @@ class Api::Internal::ResourcesController < ApplicationController
       resource.description = params[:description]
       resource.quantity = params[:quantity].to_i
       resource.resource_type = params[:resource_type]
+      resource.is_show_reserve_page = params[:is_show_reserve_page].eql?('true') ? true : false
       if params[:resource_image1_file].present? && !params[:resource_image1_file].eql?("null")
         resource.register_s3_image(params[:resource_image1_file], "resource_image1_account_s3_image_id")
       end
-      resource.is_show_reserve_page = params[:is_show_reserve_page].eql?('true') ? true : false
       resource.shop_resources.destroy_all
       if params["shop_ids"].present?
         params["shop_ids"].each do |shop_id|
           resource.shop_resources.create!(shop_id: shop_id)
+        end
+      end
+      resource.reserve_frame_resources.destroy_all
+      if params["reserve_frame_ids"].present?
+        params["reserve_frame_ids"].each do |reserve_frame_id|
+          resource.reserve_frame_resources.create!(reserve_frame_id: reserve_frame_id)
         end
       end
       resource.save!

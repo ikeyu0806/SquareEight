@@ -22,6 +22,8 @@ const CreateResource = (): JSX.Element => {
   const resourceType =  useSelector((state: RootState) => state.resource.resourceType)
   const selectedShopIds =  useSelector((state: RootState) => state.resource.selectedShopIds)
   const shops =  useSelector((state: RootState) => state.account.shops)
+  const selectableReserveFrames =  useSelector((state: RootState) => state.resource.selectableReserveFrames)
+  const selectedReserveFrameIds =  useSelector((state: RootState) => state.resource.selectedReserveFrameIds)
   const isShowReservePage =  useSelector((state: RootState) => state.resource.isShowReservePage)
 
   const onChangeImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -39,6 +41,16 @@ const CreateResource = (): JSX.Element => {
       filterShopIdIds = [...selectedShopIds, shopId]
     }
     dispatch(selectedShopIdsChanged(filterShopIdIds))
+  }
+
+  const updateReserveFrameIds = (reserveFrameId: number) => {
+    let filterReserveFrameIds: number[]
+    if (selectedReserveFrameIds.includes(reserveFrameId)) {
+      filterReserveFrameIds = selectedReserveFrameIds.filter((id) => id !== reserveFrameId)
+    } else {
+      filterReserveFrameIds = [...selectedReserveFrameIds, reserveFrameId]
+    }
+    dispatch(selectedShopIdsChanged(filterReserveFrameIds))
   }
 
   return (
@@ -82,22 +94,24 @@ const CreateResource = (): JSX.Element => {
         <option value='Equipment'>設備・備品</option>
         <option value='Others'>その他</option>
       </Form.Select>
-      <hr />
-      <Form.Group className='mt10'>
-        <div>店舗設定</div>
-        <div className='mt5 mb5'>設定した店舗のページにリソース情報が表示されます。</div>
-        {shops.map((shop, i) => {
-          return (
-            <Form.Check
-              label={shop.name}
-              id={'shop_' + shop.public_id}
-              name={'shop_check'}
-              onChange={() => updateShopIds(shop.id)}
-              defaultChecked={selectedShopIds.includes(shop.id)}
-              key={i} />
-          )
-        })}
-      </Form.Group>
+      {shops.length !== 0 && <>
+        <hr />
+        <Form.Group className='mt10'>
+          <div>店舗設定</div>
+          <div className='mt5 mb5'>設定した店舗のページにリソース情報が表示されます。</div>
+          {shops.map((shop, i) => {
+            return (
+              <Form.Check
+                label={shop.name}
+                id={'shop_' + shop.public_id}
+                name={'shop_check'}
+                onChange={() => updateShopIds(shop.id)}
+                defaultChecked={selectedShopIds.includes(shop.id)}
+                key={i} />
+            )
+          })}
+        </Form.Group>
+      </>}
       <hr />
       <div>予約メニュー表示設定</div>
       <div className='mt10 mb10'>表示設定すると予約ページにリソース情報が表示されます。</div>
@@ -108,6 +122,24 @@ const CreateResource = (): JSX.Element => {
         checked={isShowReservePage}
         onChange={() => dispatch(isShowReservePageChanged(!isShowReservePage))}
       />
+      {selectableReserveFrames.length !== 0 && <>
+        <hr />
+        <Form.Group className='mt10'>
+          <div>予約メニュー設定</div>
+          <div className='mt5 mb5'>選択した予約メニューに対してリソースの予約受付数制限が反映されます。</div>
+          {selectableReserveFrames.map((reserveFrame, i) => {
+            return (
+              <Form.Check
+                label={reserveFrame.title}
+                id={'reserve_frame_' + reserveFrame.public_id}
+                name={'reserve?frame_check'}
+                onChange={() => updateReserveFrameIds(Number(reserveFrame.id))}
+                defaultChecked={selectedReserveFrameIds.includes(Number(reserveFrame.id))}
+                key={i} />
+            )
+          })}
+        </Form.Group>
+      </>}
     </>
   )
 }

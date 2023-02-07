@@ -18,6 +18,7 @@ import { nameChanged,
          resourceImage1PublicUrlChanged,
          resourceTypeChanged,
          selectedShopIdsChanged,
+         selectableReserveFramesChanged,
          selectedReserveFrameIdsChanged } from 'redux/resourceSlice'
 
 const Edit: NextPage = () => {
@@ -45,12 +46,14 @@ const Edit: NextPage = () => {
         }
       )
       .then(function (response) {
+        console.log(response.data)
         dispatch(nameChanged(response.data.resource.name))
         dispatch(descriptionChanged(response.data.resource.description))
         dispatch(quantityChanged(response.data.resource.quantity))
         dispatch(resourceImage1PublicUrlChanged(response.data.resource.resource_image1_public_url))
         dispatch(resourceTypeChanged(response.data.resource.resource_type))
         dispatch(selectedShopIdsChanged(response.data.resource.selected_shop_ids))
+        dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
         dispatch(selectedReserveFrameIdsChanged(response.data.resource.selected_reserve_frame_ids))
       })
       .catch(error => {
