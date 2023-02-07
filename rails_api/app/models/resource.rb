@@ -37,4 +37,8 @@ class Resource < ApplicationRecord
   def selected_shop_ids
     shop_resources.pluck(:shop_id)
   end
+
+  def selected_reserve_frame_ids
+    reserve_frame_resources.pluck(:reserve_frame_id)
+  end
 end

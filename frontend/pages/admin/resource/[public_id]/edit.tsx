@@ -17,7 +17,8 @@ import { nameChanged,
          descriptionChanged,
          resourceImage1PublicUrlChanged,
          resourceTypeChanged,
-         selectedShopIdsChanged } from 'redux/resourceSlice'
+         selectedShopIdsChanged,
+         selectedReserveFrameIdsChanged } from 'redux/resourceSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -50,6 +51,7 @@ const Edit: NextPage = () => {
         dispatch(resourceImage1PublicUrlChanged(response.data.resource.resource_image1_public_url))
         dispatch(resourceTypeChanged(response.data.resource.resource_type))
         dispatch(selectedShopIdsChanged(response.data.resource.selected_shop_ids))
+        dispatch(selectedReserveFrameIdsChanged(response.data.resource.selected_reserve_frame_ids))
       })
       .catch(error => {
         console.log(error)

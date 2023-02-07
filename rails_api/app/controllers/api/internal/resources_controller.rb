@@ -11,7 +11,7 @@ class Api::Internal::ResourcesController < ApplicationController
 
   def edit
     resource = current_merchant_user.account.resources.find_by(public_id: params[:public_id])
-    resource = resource.to_json(methods: [:resource_image1_public_url, :selected_shop_ids])
+    resource = resource.to_json(methods: [:resource_image1_public_url, :selected_shop_ids, :selected_reserve_frame_ids])
     resource = JSON.parse(resource)
     render json: { status: 'success', resource: resource }, status: 200
   rescue => error

@@ -12,6 +12,7 @@ export const resourceSlice = createSlice({
     resourceType: 'Staff',
     shops: [] as ShopParam[],
     selectedShopIds: [] as number[],
+    selectedReserveFrameIds: [] as number[],
     isShowReservePage: false
   },
   reducers: {
@@ -39,6 +40,9 @@ export const resourceSlice = createSlice({
     selectedShopIdsChanged: (state, action: PayloadAction<number[]>) => {
       state.selectedShopIds = action.payload
     },
+    selectedReserveFrameIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.selectedReserveFrameIds = action.payload
+    },
     isShowReservePageChanged: (state, action: PayloadAction<boolean>) => {
       state.isShowReservePage = action.payload
     },
@@ -52,6 +56,7 @@ export const { resourceImage1PublicUrlChanged } = resourceSlice.actions
 export const { quantityChanged } = resourceSlice.actions
 export const { resourceTypeChanged } = resourceSlice.actions
 export const { shopsChanged } = resourceSlice.actions
+export const { selectedReserveFrameIdsChanged } = resourceSlice.actions
 export const { selectedShopIdsChanged } = resourceSlice.actions
 export const { isShowReservePageChanged } = resourceSlice.actions
 
