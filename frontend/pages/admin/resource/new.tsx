@@ -21,6 +21,8 @@ const New: NextPage = () => {
   const isShowReservePage = useSelector((state: RootState) => state.resource.isShowReservePage)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
   const resourceImage1File =  useSelector((state: RootState) => state.resource.resourceImage1File)
+  const selectedShopIds = useSelector((state: RootState) => state.resource.selectedShopIds)
+
   const allowCreateResource = useSelector((state: RootState) => state.merchantUserPermission.allowCreateResource)
 
   const onSubmit = () => {
@@ -30,7 +32,9 @@ const New: NextPage = () => {
     params.append('quantity', String(quantity))
     params.append('resource_image1_file', resourceImage1File as Blob)
     params.append('is_show_reserve_page', String(isShowReservePage))
-  
+    selectedShopIds.forEach((id, i) => {
+      params.append('shop_ids' + '[]', String(id))
+    })
     axios.post(`${process.env.BACKEND_URL}/api/internal/resources`, params, {
       headers: {
         'Content-Type': 'multipart/form-data',

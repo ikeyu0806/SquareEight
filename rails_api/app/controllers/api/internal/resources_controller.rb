@@ -18,7 +18,19 @@ class Api::Internal::ResourcesController < ApplicationController
   end
 
   def create
-    current_merchant_user.account.resources.create!(resource_params)
+    ActiveRecord::Base.transaction do
+      resource = current_merchant_user.account.resources.new
+      resource.name = params[:name]
+      resource.description = params[:description]
+      resource.quantity = params[:quantity].to_i
+      resource.is_show_reserve_page = params[:is_show_reserve_page].eql?('true') ? true : false
+      # if params["reserve_frame_ids"].present?
+      #   params["reserve_frame_ids"].each do |reserve_frame_id|
+      #     shop.shop_reserve_frames.create!(reserve_frame_id: reserve_frame_id)
+      #   end
+      # end
+      resource.save!
+    end
     render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
