@@ -140,4 +140,8 @@ class Shop < ApplicationRecord
   def selected_webpage_ids
     shop_webpages.pluck(:webpage_id)
   end
+
+  def selected_resource_ids
+    shop_resources.pluck(:resource_id)
+  end
 end

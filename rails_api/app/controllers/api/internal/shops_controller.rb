@@ -19,6 +19,7 @@ class Api::Internal::ShopsController < ApplicationController
     monthly_payment_plans = account.monthly_payment_plans.enabled
     reserve_frames = account.reserve_frames.enabled
     webpages = account.webpages
+    resources = account.resources
   
     shared_component = shop.account.shared_component
     shop = shop.to_json(methods: [  :shop_image1_public_url,
@@ -35,7 +36,8 @@ class Api::Internal::ShopsController < ApplicationController
                                     :selected_monthly_payment_plan_ids,
                                     :selected_ticket_master_ids,
                                     :selected_webpage_ids,
-                                    :selected_reserve_frame_ids])
+                                    :selected_reserve_frame_ids,
+                                    :selected_resource_ids])
     shop = JSON.parse(shop)
     render json: { status: 'success',
                    shop: shop,
@@ -44,6 +46,7 @@ class Api::Internal::ShopsController < ApplicationController
                    monthly_payment_plans: monthly_payment_plans,
                    reserve_frames: reserve_frames,
                    webpages: webpages,
+                   resources: resources,
                    shared_component: shared_component }, status: 200
   rescue => error
     Rails.logger.error error
@@ -57,12 +60,14 @@ class Api::Internal::ShopsController < ApplicationController
     monthly_payment_plans = account.monthly_payment_plans.enabled
     reserve_frames = account.reserve_frames.enabled
     webpages = account.webpages
+    resources = account.resources
     render json: { status: 'success',
                    products: products,
                    ticket_masters: ticket_masters,
                    monthly_payment_plans: monthly_payment_plans,
                    reserve_frames: reserve_frames,
-                   webpages: webpages, }, status: 200
+                   webpages: webpages,
+                   resources: resources }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
