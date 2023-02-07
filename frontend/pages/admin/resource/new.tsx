@@ -18,6 +18,7 @@ const New: NextPage = () => {
 
   const name = useSelector((state: RootState) => state.resource.name)
   const description = useSelector((state: RootState) => state.resource.description)
+  const resourceType = useSelector((state: RootState) => state.resource.resourceType)
   const isShowReservePage = useSelector((state: RootState) => state.resource.isShowReservePage)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
   const resourceImage1File =  useSelector((state: RootState) => state.resource.resourceImage1File)
@@ -29,6 +30,7 @@ const New: NextPage = () => {
     const params = new FormData()
     params.append('name', name)
     params.append('description', description)
+    params.append('resource_type', resourceType)
     params.append('quantity', String(quantity))
     params.append('resource_image1_file', resourceImage1File as Blob)
     params.append('is_show_reserve_page', String(isShowReservePage))

@@ -23,6 +23,10 @@ class Api::Internal::ResourcesController < ApplicationController
       resource.name = params[:name]
       resource.description = params[:description]
       resource.quantity = params[:quantity].to_i
+      resource.resource_type = params[:resource_type]
+      if params[:resource_image1_file].present? && !params[:resource_image1_file].eql?("null")
+        resource.register_s3_image(params[:resource_image1_file], "resource_image1_account_s3_image_id")
+      end
       resource.is_show_reserve_page = params[:is_show_reserve_page].eql?('true') ? true : false
       # if params["reserve_frame_ids"].present?
       #   params["reserve_frame_ids"].each do |reserve_frame_id|
