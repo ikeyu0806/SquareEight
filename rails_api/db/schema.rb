@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_06_233908) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_07_011942) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -655,9 +655,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_06_233908) do
     t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.integer "resouce_type", default: 99
-    t.integer "image1_account_s3_image_id"
-    t.integer "is_show_frontend", default: 0
     t.string "description"
     t.integer "resource_image1_account_s3_image_id"
     t.integer "resource_type", default: 0
@@ -765,6 +762,14 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_06_233908) do
     t.string "public_id", null: false
     t.integer "shop_id", null: false
     t.integer "reserve_frame_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "shop_resources", force: :cascade do |t|
+    t.string "public_id", null: false
+    t.integer "shop_id", null: false
+    t.integer "resource_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
