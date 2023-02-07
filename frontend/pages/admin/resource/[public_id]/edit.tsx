@@ -47,7 +47,7 @@ const Edit: NextPage = () => {
         dispatch(descriptionChanged(response.data.resource.description))
         dispatch(quantityChanged(response.data.resource.quantity))
         dispatch(resourceImage1PublicUrlChanged(response.data.resource.resource_image1_public_url))
-        dispatch(resourceTypeChanged(response.data.resource_type))
+        dispatch(resourceTypeChanged(response.data.resource.resource_type))
       })
       .catch(error => {
         console.log(error)
@@ -92,6 +92,7 @@ const Edit: NextPage = () => {
               {/* {['Standard', 'Premium'].includes(servicePlan) && */}
                 <>
                   <CreateResource></CreateResource>
+
                   <div className='text-center'>
                     <Button onClick={onSubmit} className='mt10'>登録する</Button>
                   </div>
