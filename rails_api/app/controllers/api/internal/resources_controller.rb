@@ -28,14 +28,14 @@ class Api::Internal::ResourcesController < ApplicationController
         resource.register_s3_image(params[:resource_image1_file], "resource_image1_account_s3_image_id")
       end
       resource.is_show_reserve_page = params[:is_show_reserve_page].eql?('true') ? true : false
-      # if params["reserve_frame_ids"].present?
-      #   params["reserve_frame_ids"].each do |reserve_frame_id|
-      #     shop.shop_reserve_frames.create!(reserve_frame_id: reserve_frame_id)
-      #   end
-      # end
+      if params["shop_ids"].present?
+        params["shop_ids"].each do |shop_id|
+          resource.shop_resources.create!(shop_id: shop_id)
+        end
+      end
       resource.save!
+      render json: { status: 'success' }, status: 200
     end
-    render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
