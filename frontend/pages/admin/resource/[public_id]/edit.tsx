@@ -16,7 +16,8 @@ import { nameChanged,
          quantityChanged,
          descriptionChanged,
          resourceImage1PublicUrlChanged,
-         resourceTypeChanged } from 'redux/resourceSlice'
+         resourceTypeChanged,
+         selectedShopIdsChanged } from 'redux/resourceSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -48,6 +49,7 @@ const Edit: NextPage = () => {
         dispatch(quantityChanged(response.data.resource.quantity))
         dispatch(resourceImage1PublicUrlChanged(response.data.resource.resource_image1_public_url))
         dispatch(resourceTypeChanged(response.data.resource.resource_type))
+        dispatch(selectedShopIdsChanged(response.data.resource.selected_shop_ids))
       })
       .catch(error => {
         console.log(error)

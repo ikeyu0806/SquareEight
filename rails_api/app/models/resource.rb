@@ -33,4 +33,8 @@ class Resource < ApplicationRecord
     return nil if resource_image1_account_s3_image_id.blank?
     AccountS3Image.find(self.resource_image1_account_s3_image_id)&.s3_object_public_url
   end
+
+  def selected_shop_ids
+    shop_resources.pluck(:shop_id)
+  end
 end
