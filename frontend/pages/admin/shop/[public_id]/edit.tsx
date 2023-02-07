@@ -43,6 +43,7 @@ import { nameChanged,
   selectedMonthlyPaymentPlanIdsChanged,
   selectedTicketMasterIdsChanged,
   selectedWebpageIdsChanged,
+  selectedResourceIdsChanged,
   reserveFramesChanged,
   productsChanged,
   ticketMastersChanged,
@@ -138,6 +139,7 @@ const Edit: NextPage = () => {
         dispatch(selectedMonthlyPaymentPlanIdsChanged(response.data.shop.selected_monthly_payment_plan_ids))
         dispatch(selectedTicketMasterIdsChanged(response.data.shop.selected_ticket_master_ids))
         dispatch(selectedWebpageIdsChanged(response.data.shop.selected_webpage_ids))
+        dispatch(selectedResourceIdsChanged(response.data.shop.selected_resource_ids))
         dispatch(reserveFramesChanged(response.data.reserve_frames))
         dispatch(productsChanged(response.data.products))
         dispatch(ticketMastersChanged(response.data.ticket_masters))
