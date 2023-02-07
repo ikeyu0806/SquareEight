@@ -17,20 +17,23 @@ const New: NextPage = () => {
   const router = useRouter()
 
   const name = useSelector((state: RootState) => state.resource.name)
+  const description = useSelector((state: RootState) => state.resource.description)
+  const isShowReservePage = useSelector((state: RootState) => state.resource.isShowReservePage)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
-  const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
+  const resourceImage1File =  useSelector((state: RootState) => state.resource.resourceImage1File)
   const allowCreateResource = useSelector((state: RootState) => state.merchantUserPermission.allowCreateResource)
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/resources`,
-    {
-      resources: {
-        name: name,
-        quantity: quantity
-      }
-    },
-    {
+    const params = new FormData()
+    params.append('name', name)
+    params.append('description', description)
+    params.append('quantity', String(quantity))
+    params.append('resource_image1_file', resourceImage1File as Blob)
+    params.append('is_show_reserve_page', String(isShowReservePage))
+  
+    axios.post(`${process.env.BACKEND_URL}/api/internal/resources`, params, {
       headers: {
+        'Content-Type': 'multipart/form-data',
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {

@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ShopParam } from 'interfaces/ShopParam'
 
 export const resourceSlice = createSlice({
-  name: 'alert',
+  name: 'resource',
   initialState: {
     name: '',
     description: '',

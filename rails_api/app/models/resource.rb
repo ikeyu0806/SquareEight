@@ -1,6 +1,8 @@
 class Resource < ApplicationRecord
   include PublicIdModule
 
+  enum resouce_type: { Staff: 0, Equipment: 1 }
+
   has_many :reserve_frame_resources
   has_many :reserve_frames, through: :reserve_frame_resources
   has_many :reservations, through: :reserve_frames
