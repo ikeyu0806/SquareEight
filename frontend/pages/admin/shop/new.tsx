@@ -16,7 +16,8 @@ import {
   productsChanged,
   ticketMastersChanged,
   monthlyPaymentPlansChanged,
-  webpagesChanged } from 'redux/shopSlice'
+  webpagesChanged,
+  resourcesChanged } from 'redux/shopSlice'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -52,6 +53,7 @@ const New: NextPage = () => {
   const selectedMonthlyPaymentPlanIds = useSelector((state: RootState) => state.shop.selectedMonthlyPaymentPlanIds)
   const selectedProductIds = useSelector((state: RootState) => state.shop.selectedProductIds)
   const selectedWebpageIds = useSelector((state: RootState) => state.shop.selectedWebpageIds)
+  const selectedResourceIds = useSelector((state: RootState) => state.shop.selectedResourceIds)
   const allowCreateShop = useSelector((state: RootState) => state.merchantUserPermission.allowCreateShop)
 
   useEffect(() => {
@@ -69,6 +71,7 @@ const New: NextPage = () => {
         dispatch(ticketMastersChanged(response.data.ticket_masters))
         dispatch(monthlyPaymentPlansChanged(response.data.monthly_payment_plans))
         dispatch(webpagesChanged(response.data.webpages))
+        dispatch(resourcesChanged(response.data.resources))
       })
       .catch(error => {
         console.log(error)
@@ -117,6 +120,9 @@ const New: NextPage = () => {
     })
     selectedWebpageIds.forEach((id, i) => {
       params.append('webpage_ids' + '[]', String(id))
+    })
+    selectedResourceIds.forEach((id, i) => {
+      params.append('resource_ids' + '[]', String(id))
     })
     axios.post(`${process.env.BACKEND_URL}/api/internal/shops`, params, {
       headers: {

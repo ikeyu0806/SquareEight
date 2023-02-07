@@ -47,7 +47,8 @@ import { nameChanged,
   productsChanged,
   ticketMastersChanged,
   monthlyPaymentPlansChanged,
-  webpagesChanged } from 'redux/shopSlice'
+  webpagesChanged,
+  resourcesChanged } from 'redux/shopSlice'
 import {  navbarBrandTextChanged,
    navbarBrandTypeChanged,
    navbarBrandImageChanged,
@@ -91,6 +92,7 @@ const Edit: NextPage = () => {
   const selectedMonthlyPaymentPlanIds = useSelector((state: RootState) => state.shop.selectedMonthlyPaymentPlanIds)
   const selectedProductIds = useSelector((state: RootState) => state.shop.selectedProductIds)
   const selectedWebpageIds = useSelector((state: RootState) => state.shop.selectedWebpageIds)
+  const selectedResourceIds = useSelector((state: RootState) => state.shop.selectedResourceIds)
   const allowUpdateShop = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateShop)
 
   useEffect(() => {
@@ -141,6 +143,7 @@ const Edit: NextPage = () => {
         dispatch(ticketMastersChanged(response.data.ticket_masters))
         dispatch(monthlyPaymentPlansChanged(response.data.monthly_payment_plans))
         dispatch(webpagesChanged(response.data.webpages))
+        dispatch(resourcesChanged(response.data.resources))
         // ヘッダ、フッタ
         dispatch(navbarBrandTextChanged(response.data.shared_component.navbar_brand_text))
         dispatch(navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type))
@@ -198,6 +201,9 @@ const Edit: NextPage = () => {
     })
     selectedWebpageIds.forEach((id, i) => {
       params.append('webpage_ids' + '[]', String(id))
+    })
+    selectedResourceIds.forEach((id, i) => {
+      params.append('resource_ids' + '[]', String(id))
     })
     axios.post(`${process.env.BACKEND_URL}/api/internal/shops/${router.query.public_id}/update`, params, {
       headers: {
