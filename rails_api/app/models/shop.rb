@@ -83,7 +83,7 @@ class Shop < ApplicationRecord
       content[:reserve_is_unlimited] = m.reserve_is_unlimited
       content[:reserve_interval_number] = m.reserve_interval_unit
       content[:enable_reserve_count] = m.enable_reserve_count
-      content[:image1_public_url] = m.image1_account_s3_image_id.present? ? AccountS3Image.find(m.image1_account_s3_image_id).s3_object_public_url: ''
+      content[:image1_public_url] = m.image1_account_s3_image_id.present? ? AccountS3Image.find(m.image1_account_s3_image_id).s3_object_public_url : ''
       content[:url] = '/monthly_payment/' + m.public_id + '/purchase/'
       result.push(content)
     end
@@ -100,7 +100,7 @@ class Shop < ApplicationRecord
       content[:issue_number] = t.issue_number
       content[:effective_month] = t.effective_month
       content[:url] = '/ticket/' + t.public_id + '/purchase/'
-      content[:image1_public_url] = t.image1_account_s3_image_id.present? ? AccountS3Image.find(t.image1_account_s3_image_id).s3_object_public_url: ''
+      content[:image1_public_url] = t.image1_account_s3_image_id.present? ? AccountS3Image.find(t.image1_account_s3_image_id).s3_object_public_url : ''
       result.push(content)
     end
     result
@@ -115,10 +115,30 @@ class Shop < ApplicationRecord
       content[:price] = p.price
       content[:tax_rate] = p.tax_rate
       content[:url] = '/product/' + p.public_id + '/purchase/'
-      content[:image1_public_url] = p.image1_account_s3_image_id.present? ? AccountS3Image.find(p.image1_account_s3_image_id).s3_object_public_url: ''
+      content[:image1_public_url] = p.image1_account_s3_image_id.present? ? AccountS3Image.find(p.image1_account_s3_image_id).s3_object_public_url : ''
       result.push(content)
     end
     result
+  end
+
+  def staff_resources_info
+    result = []
+    resources.Staff.each do |r|
+      content = {}
+      content[:name] = p.name
+      content[:description] = p.description
+      content[:image1_public_url] = p.resource_image1_account_s3_image_id.present? ? AccountS3Image.find(p.resource_image1_account_s3_image_id).s3_object_public_url : ''
+    end
+  end
+
+  def equipment_resources_info
+    result = []
+    resources.Equopment.each do |r|
+      content = {}
+      content[:name] = p.name
+      content[:description] = p.description
+      content[:image1_public_url] = p.resource_image1_account_s3_image_id.present? ? AccountS3Image.find(p.resource_image1_account_s3_image_id).s3_object_public_url : ''
+    end
   end
 
   def selected_reserve_frame_ids

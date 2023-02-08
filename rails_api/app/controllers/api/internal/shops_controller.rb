@@ -32,6 +32,8 @@ class Api::Internal::ShopsController < ApplicationController
                                     :monthly_payment_plans_info,
                                     :ticket_masters_info,
                                     :products_info,
+                                    :staff_resources_info,
+                                    :equipment_resources_info,
                                     :selected_product_ids,
                                     :selected_monthly_payment_plan_ids,
                                     :selected_ticket_master_ids,
