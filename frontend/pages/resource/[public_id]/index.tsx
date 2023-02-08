@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import { useEffect } from 'react'
 import CreateResource from 'components/templates/CreateResource'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Card } from 'react-bootstrap'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import { Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
@@ -43,7 +43,7 @@ const Index: NextPage = () => {
   const quantity = useSelector((state: RootState) => state.resource.quantity)
   const resourceImage1File =  useSelector((state: RootState) => state.resource.resourceImage1File)
   const selectedShopIds = useSelector((state: RootState) => state.resource.selectedShopIds)
-
+  const reserveFrameInfo = useSelector((state: RootState) => state.resource.reserveFrameInfo)
   const allowUpdateResource = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateResource)
 
   useEffect(() => {
@@ -110,6 +110,34 @@ const Index: NextPage = () => {
               </Col>
             </Row>
             <hr />
+            <Row>
+              {reserveFrameInfo.map((r, i) => {
+                return (
+                  <Col lg={6} md={6} sm={6} key={i}>
+                    <Card className='mb20'>
+                      {r.image1_public_url && <Card.Img
+                        variant="top"
+                        src={r.image1_public_url} />}
+                      <Card.Body>
+                        {r.title &&
+                          <div className={resourceStyles.title_text}>{r.title}</div>}
+                        {r.description &&
+                          <div className={resourceStyles.description_text}>{r.description}</div>}
+                        {r.url &&
+                        <div className='text-center'>
+                          <a
+                            href={r.url}
+                            style={{backgroundColor: '#B2384E', borderColor: '#B2384E'}}
+                            className='btn btn-primary mt30'>
+                            予約に進む
+                          </a>
+                        </div>}
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                )
+              })}
+            </Row>
           </Col>
         </Row>
       </Container>

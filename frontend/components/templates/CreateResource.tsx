@@ -7,6 +7,7 @@ import { nameChanged,
          quantityChanged,
          shopsChanged,
          selectedShopIdsChanged,
+         selectedReserveFrameIdsChanged,
          resourceImage1FileChanged,
          isShowReservePageChanged,
          resourceTypeChanged } from 'redux/resourceSlice'
@@ -50,7 +51,7 @@ const CreateResource = (): JSX.Element => {
     } else {
       filterReserveFrameIds = [...selectedReserveFrameIds, reserveFrameId]
     }
-    dispatch(selectedShopIdsChanged(filterReserveFrameIds))
+    dispatch(selectedReserveFrameIdsChanged(filterReserveFrameIds))
   }
 
   return (
@@ -58,7 +59,7 @@ const CreateResource = (): JSX.Element => {
       <div className='text-center mt20 mb20'>
         <h3 className='mb15'>リソース登録</h3>
         <span>スタッフや設備・備品を登録して予約者数を制限することができます。</span>
-      </div>  
+      </div>
       <Form.Label>リソース名</Form.Label>
       <FormControl
         value={name}
