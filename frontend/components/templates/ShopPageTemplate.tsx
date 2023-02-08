@@ -313,7 +313,7 @@ const ShopPageTemplate = () => {
                           href={`/resource/${r.public_id}`}
                           style={{backgroundColor: '#B2384E', borderColor: '#B2384E'}}
                           className='btn btn-primary mt30'>
-                          予約メニューを見る
+                          もっと見る
                         </a>
                       </div>}
                     </Card.Body>
