@@ -41,4 +41,9 @@ class Resource < ApplicationRecord
   def selected_reserve_frame_ids
     reserve_frame_resources.pluck(:reserve_frame_id)
   end
+
+  def resource_type_text
+    return '設備・備品' if self.Equipment?
+    return 'スタッフ' if self.Staff?
+  end
 end

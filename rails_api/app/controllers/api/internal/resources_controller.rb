@@ -3,6 +3,7 @@ class Api::Internal::ResourcesController < ApplicationController
 
   def index
     resources = current_merchant_user.account.resources
+    resources = JSON.parse(resources.to_json(methods: [:resource_type_text]))
     render json: { status: 'success', resources: resources }, status: 200
   rescue => error
     Rails.logger.error error

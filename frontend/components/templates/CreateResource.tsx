@@ -92,7 +92,7 @@ const CreateResource = (): JSX.Element => {
         onChange={(e) => dispatch(resourceTypeChanged(e.target.value))}>
         <option value='Staff'>スタッフ</option>
         <option value='Equipment'>設備・備品</option>
-        <option value='Others'>その他</option>
+        {/* <option value='Others'>その他</option> */}
       </Form.Select>
       {shops.length !== 0 && <>
         <hr />
@@ -132,7 +132,7 @@ const CreateResource = (): JSX.Element => {
               <Form.Check
                 label={reserveFrame.title}
                 id={'reserve_frame_' + reserveFrame.public_id}
-                name={'reserve?frame_check'}
+                name={'reserve_frame_check'}
                 onChange={() => updateReserveFrameIds(Number(reserveFrame.id))}
                 defaultChecked={selectedReserveFrameIds.includes(Number(reserveFrame.id))}
                 key={i} />

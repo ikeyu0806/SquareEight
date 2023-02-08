@@ -5,4 +5,5 @@ export interface ResourceParam {
   quantity: number
   description: string
   resource_image1_public_url: string
+  resource_type_text: string
 }

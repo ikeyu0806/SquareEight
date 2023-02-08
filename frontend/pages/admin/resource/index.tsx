@@ -3,10 +3,9 @@ import React, { useState, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { Container, ListGroup, Row, Col } from 'react-bootstrap'
+import { Container, ListGroup, Table, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import { ResourceParam } from 'interfaces/ResourceParam'
-import ResourceLimitAlert from 'components/molecules/ResourceLimitAlert'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import Unauthorized from 'components/templates/Unauthorized'
@@ -43,38 +42,35 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        {allowReadResource === 'Allow' && <Container>
-          <Row>
-            <Col lg={3}></Col>
-            <Col lg={6}>
-              {/* TODO:お試し期間が終わったら外す */}
-              {/* <ResourceLimitAlert /> */}
-              {/* {['Standard', 'Premium'].includes(servicePlan) && */}
-                <>
-                  {allowCreateResource === 'Allow' && <a  href='/admin/resource/new'
-                    className='btn btn-primary mb20'>
-                  新規登録
-                  </a>}
-                  <ListGroup>
-                    {resources.map((resource, i) => {
-                      return (
-                        <ListGroup.Item key={i}>
-                          <Row>
-                            <Col>{resource.name}</Col>
-                            <Col>数量: {resource.quantity}</Col>
-                            {allowUpdateResource === 'Allow' && <Col>
-                              <a className='btn btn-primary'
-                                href={`/admin/resource/${resource.public_id}/edit`}>編集</a>
-                            </Col>}
-                          </Row>
-                        </ListGroup.Item>
-                      )
-                    })}
-                  </ListGroup>
-                </>
-              {/* } */}
-            </Col>
-          </Row>
+        {allowReadResource === 'Allow' &&
+        <Container>
+          <Table bordered>
+            <thead>
+              <tr>
+                <th>リソース名</th>
+                <th>同時予約受付数</th>
+                <th>リソース種別</th>
+                <th>編集</th>
+              </tr>
+            </thead>
+            <tbody>
+            {resources.map((r, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{r.name}</td>
+                    <td>{r.quantity}</td>
+                    <td>{r.resource_type_text}</td>
+                    <td className='text-center'>
+                      {allowUpdateResource === 'Allow' && <td>
+                        <a className='btn btn-primary'
+                          href={`/admin/resource/${r.public_id}/edit`}>編集</a>
+                      </td>}
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </Table>
         </Container>}
         {allowCreateResource === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
