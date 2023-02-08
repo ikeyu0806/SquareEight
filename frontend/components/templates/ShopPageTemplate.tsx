@@ -34,6 +34,8 @@ const ShopPageTemplate = () => {
   const productInfo = useSelector((state: RootState) => state.shop.productInfo)
   const webpages = useSelector((state: RootState) => state.shop.webpages)
   const resources = useSelector((state: RootState) => state.shop.resources)
+  const staffResources = useSelector((state: RootState) => state.shop.staffResources)
+  const equipmentResources = useSelector((state: RootState) => state.shop.equipmentResources)
 
   return (
     <>
@@ -288,19 +290,42 @@ const ShopPageTemplate = () => {
             })}
           </Row>
         </div>}
-        {resources.length !== 0 && <div style={{padding: '30px'}}>
+        {staffResources.length !== 0 && <div style={{padding: '30px'}}>
           <hr />
           <div>
-            <p><span className={shopStyles.section_headline}>リソース一覧</span></p>
+            <p><span className={shopStyles.section_headline}>スタッフ</span></p>
           </div>
           <Row>
-            {resources.map((r, i) => {
+            {staffResources.map((r, i) => {
               return (
                 <Col lg={3} md={6} sm={6} key={i}>
                   <Card className='mb20'>
-                    {r.resource_image1_public_url && <Card.Img
+                    {r.image1_public_url && <Card.Img
                       variant="top"
-                      src={r.resource_image1_public_url} />}
+                      src={r.image1_public_url} />}
+                    <Card.Body>
+                      {r.name && <div className={shopStyles.title_text}>{r.name}</div>}
+                      {r.description && <div className={shopStyles.description_text}>{r.description}</div>}
+                    </Card.Body>
+                  </Card>
+                </Col>
+              )
+            })}
+          </Row>
+        </div>}
+        {equipmentResources.length !== 0 && <div style={{padding: '30px'}}>
+          <hr />
+          <div>
+            <p><span className={shopStyles.section_headline}>設備・備品</span></p>
+          </div>
+          <Row>
+            {equipmentResources.map((r, i) => {
+              return (
+                <Col lg={3} md={6} sm={6} key={i}>
+                  <Card className='mb20'>
+                    {r.image1_public_url && <Card.Img
+                      variant="top"
+                      src={r.image1_public_url} />}
                     <Card.Body>
                       {r.name && <div className={shopStyles.title_text}>{r.name}</div>}
                       {r.description && <div className={shopStyles.description_text}>{r.description}</div>}
