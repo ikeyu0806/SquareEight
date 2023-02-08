@@ -6,3 +6,7 @@
 .resource_image {
   width: 300px;
 }
+
+.description_text {
+  font-size: 15px;
+}

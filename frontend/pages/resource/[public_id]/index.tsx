@@ -96,11 +96,18 @@ const Index: NextPage = () => {
                   src={resourceImage1PublicUrl} />}
               </Col>
               <Col>
-                <div>
+                <div className='mb10'>
                   <span className={resourceStyles.headline_resource_name_text}>{name}</span>
+                </div>
+                <div>
+                {description &&
+                  <div className={resourceStyles.description_text}>
+                    {description}
+                  </div>}
                 </div>
               </Col>
             </Row>
+            <hr />
           </Col>
         </Row>
       </Container>
