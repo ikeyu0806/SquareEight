@@ -12,6 +12,7 @@ import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
 import { ResourceParam } from 'interfaces/ResourceParam'
 import Unauthorized from 'components/templates/Unauthorized'
+import resourceStyles from 'styles/Resource.module.css'
 import { nameChanged,
          quantityChanged,
          descriptionChanged,
@@ -36,7 +37,7 @@ const Index: NextPage = () => {
 
   const name = useSelector((state: RootState) => state.resource.name)
   const description = useSelector((state: RootState) => state.resource.description)
-  const resourceType = useSelector((state: RootState) => state.resource.resourceType)
+  const resourceImage1PublicUrl = useSelector((state: RootState) => state.resource.resourceImage1PublicUrl)
   const isShowReservePage = useSelector((state: RootState) => state.resource.isShowReservePage)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
   const resourceImage1File =  useSelector((state: RootState) => state.resource.resourceImage1File)
@@ -82,8 +83,26 @@ const Index: NextPage = () => {
 
   return (
     <MerchantCustomLayout>
-      <Container>
-        <div>{name}</div>
+      <Container className='mt20'>
+        <Row>
+          <Col lg={3}></Col>
+          <Col lg={6}>
+            <Row>
+              <Col>
+                {resourceImage1PublicUrl &&
+                <img
+                  className={resourceStyles.resource_image}
+                  alt='resourceImage1'
+                  src={resourceImage1PublicUrl} />}
+              </Col>
+              <Col>
+                <div>
+                  <span className={resourceStyles.headline_resource_name_text}>{name}</span>
+                </div>
+              </Col>
+            </Row>
+          </Col>
+        </Row>
       </Container>
     </MerchantCustomLayout>
   )
