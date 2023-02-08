@@ -82,7 +82,7 @@ const Index: NextPage = () => {
           </Row>
         </div>
         <hr />
-        <div className='mt20'>
+        {/* <div className='mt20'>
           <Row>
             <Col md={6}>
               <div className={companyStyles.company_overview_text}>企業理念</div>
@@ -102,7 +102,7 @@ const Index: NextPage = () => {
             </Col>
           </Row>
         </div>
-        <hr />
+        <hr /> */}
         <div className='mt20'>
           <Row>
             <Col md={6}>
