@@ -109,37 +109,41 @@ const Index: NextPage = () => {
                 </div>
               </Col>
             </Row>
-            <hr />
-            <Row>
-              {reserveFrameInfo.map((r, i) => {
-                return (
-                  <Col lg={6} md={6} sm={6} key={i}>
-                    <Card className='mb20'>
-                      {r.image1_public_url && <Card.Img
-                        variant="top"
-                        src={r.image1_public_url} />}
-                      <Card.Body>
-                        {r.title &&
-                          <div className={resourceStyles.title_text}>{r.title}</div>}
-                        {r.description &&
-                          <div className={resourceStyles.description_text}>{r.description}</div>}
-                        {r.url &&
-                        <div className='text-center'>
-                          <a
-                            href={r.url}
-                            style={{backgroundColor: '#B2384E', borderColor: '#B2384E'}}
-                            className='btn btn-primary mt30'>
-                            予約に進む
-                          </a>
-                        </div>}
-                      </Card.Body>
-                    </Card>
-                  </Col>
-                )
-              })}
-            </Row>
-          </Col>
-        </Row>
+            {<>
+              <hr />
+              <Row>
+                <div className='font-size-20'>{name}の関連予約メニュー</div>
+                {reserveFrameInfo.map((r, i) => {
+                  return (
+                    <Col lg={6} md={6} sm={6} key={i}>
+                      <Card className='mb20'>
+                        {r.image1_public_url && <Card.Img
+                          variant="top"
+                          src={r.image1_public_url} />}
+                        <Card.Body>
+                          {r.title &&
+                            <div className={resourceStyles.title_text}>{r.title}</div>}
+                          {r.description &&
+                            <div className={resourceStyles.description_text}>{r.description}</div>}
+                          {r.url &&
+                          <div className='text-center'>
+                            <a
+                              href={r.url}
+                              style={{backgroundColor: '#B2384E', borderColor: '#B2384E'}}
+                              className='btn btn-primary mt30'>
+                              予約に進む
+                            </a>
+                          </div>}
+                        </Card.Body>
+                      </Card>
+                    </Col>
+                  )
+                })}
+              </Row>
+              </>}
+            </Col>
+          </Row>
+              
       </Container>
     </MerchantCustomLayout>
   )
