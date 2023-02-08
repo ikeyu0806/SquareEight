@@ -128,7 +128,9 @@ class Shop < ApplicationRecord
       content[:name] = r.name
       content[:description] = r.description
       content[:image1_public_url] = r.resource_image1_account_s3_image_id.present? ? AccountS3Image.find(r.resource_image1_account_s3_image_id).s3_object_public_url : ''
+      result.push(content)
     end
+    result
   end
 
   def equipment_resources_info
@@ -138,7 +140,9 @@ class Shop < ApplicationRecord
       content[:name] = r.name
       content[:description] = r.description
       content[:image1_public_url] = r.resource_image1_account_s3_image_id.present? ? AccountS3Image.find(r.resource_image1_account_s3_image_id).s3_object_public_url : ''
+      result.push(content)
     end
+    result
   end
 
   def selected_reserve_frame_ids
