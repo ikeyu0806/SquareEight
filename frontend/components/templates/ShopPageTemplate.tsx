@@ -51,11 +51,12 @@ const ShopPageTemplate = () => {
                   width={'100%'}
                   height={'100%'}
                   src={String(shopImage1ImagePublicUrl)}
-                  alt='First slide'
+                  alt='Shop Image'
                 />}
               </div>
-              {description1 && <p className={shopStyles.description}>{description1}</p>}
             </div>
+            {description1 &&
+              <p className={shopStyles.description1}>{description1}</p>}
           </Col>
           <Col lg={6}>
             <div className='mt10'>
@@ -68,7 +69,7 @@ const ShopPageTemplate = () => {
                     width={'100%'}
                     height={'100%'}
                     src={String(shopImage2ImagePublicUrl)}
-                    alt='Second slide'
+                    alt='Shop Image'
                   />
                 </Col>}
               </Row>
@@ -83,7 +84,7 @@ const ShopPageTemplate = () => {
                     width={'100%'}
                     height={'100%'}
                     src={String(shopImage3ImagePublicUrl)}
-                    alt='Second slide'
+                    alt='Shop Image'
                   />
                 </Col>}
               </Row>
@@ -137,7 +138,7 @@ const ShopPageTemplate = () => {
                     width={'100%'}
                     height={'100%'}
                     src={String(shopImage4ImagePublicUrl)}
-                    alt='Second slide'
+                    alt='Shop Image'
                   />
                 </Col>}
               </Row>
@@ -152,7 +153,7 @@ const ShopPageTemplate = () => {
                     width={'100%'}
                     height={'100%'}
                     src={String(shopImage5ImagePublicUrl)}
-                    alt='Second slide'
+                    alt='Shop Image'
                   />
                 </Col>}
               </Row>
