@@ -20,6 +20,14 @@ import { nameChanged,
          selectedShopIdsChanged,
          selectableReserveFramesChanged,
          selectedReserveFrameIdsChanged } from 'redux/resourceSlice'
+import {  navbarBrandTextChanged,
+          navbarBrandTypeChanged,
+          navbarBrandImageChanged,
+          navbarBrandImageWidthChanged,
+          navbarBrandImageHeightChanged,
+          navbarBrandBackgroundColorChanged,
+          navbarBrandVariantColorChanged,
+          footerCopyRightTextChanged } from 'redux/sharedComponentSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -55,6 +63,15 @@ const Index: NextPage = () => {
         dispatch(selectedShopIdsChanged(response.data.resource.selected_shop_ids))
         dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
         dispatch(selectedReserveFrameIdsChanged(response.data.resource.selected_reserve_frame_ids))
+        // ヘッダ、フッタ
+        dispatch(navbarBrandTextChanged(response.data.shared_component.navbar_brand_text))
+        dispatch(navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type))
+        dispatch(navbarBrandImageChanged(response.data.shared_component.navbar_brand_image_s3_object_public_url))
+        dispatch(navbarBrandImageWidthChanged(response.data.shared_component.nabvar_brand_image_width))
+        dispatch(navbarBrandImageHeightChanged(response.data.shared_component.nabvar_brand_image_height))
+        dispatch(navbarBrandBackgroundColorChanged(response.data.shared_component.navbar_brand_background_color))
+        dispatch(navbarBrandVariantColorChanged(response.data.shared_component.navbar_brand_variant_color))
+        dispatch(footerCopyRightTextChanged(response.data.shared_component.footer_copyright_text))
       })
       .catch(error => {
         console.log(error)

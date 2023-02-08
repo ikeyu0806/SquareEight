@@ -13,11 +13,13 @@ class Api::Internal::ResourcesController < ApplicationController
   def show
     account = current_merchant_user.account
     resource = account.resources.find_by(public_id: params[:public_id])
+    shared_component = resource.account.shared_component
     resource = resource.to_json(methods: [:resource_image1_public_url, :selected_shop_ids, :selected_reserve_frame_ids])
     resource = JSON.parse(resource)
     selectable_reserve_frames = account.reserve_frames.enabled
     render json: { status: 'success',
                    resource: resource,
+                   shared_component: shared_component,
                    selectable_reserve_frames: selectable_reserve_frames }, status: 200
   rescue => error
     Rails.logger.error error
