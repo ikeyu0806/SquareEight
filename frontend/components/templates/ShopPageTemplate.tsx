@@ -306,6 +306,15 @@ const ShopPageTemplate = () => {
                     <Card.Body>
                       {r.name && <div className={shopStyles.title_text}>{r.name}</div>}
                       {r.description && <div className={shopStyles.description_text}>{r.description}</div>}
+                      {r.is_present_reserve_frame &&
+                      <div className='text-center'>
+                        <a
+                          href={'/'}
+                          style={{backgroundColor: '#B2384E', borderColor: '#B2384E'}}
+                          className='btn btn-primary mt30'>
+                          予約メニューを見る
+                        </a>
+                      </div>}
                     </Card.Body>
                   </Card>
                 </Col>
@@ -329,6 +338,15 @@ const ShopPageTemplate = () => {
                     <Card.Body>
                       {r.name && <div className={shopStyles.title_text}>{r.name}</div>}
                       {r.description && <div className={shopStyles.description_text}>{r.description}</div>}
+                      {r.is_present_reserve_frame &&
+                      <div className='text-center'>
+                        <a
+                          href={'/'}
+                          style={{backgroundColor: '#B2384E', borderColor: '#B2384E'}}
+                          className='btn btn-primary mt30'>
+                          予約メニューを見る
+                        </a>
+                      </div>}
                     </Card.Body>
                   </Card>
                 </Col>

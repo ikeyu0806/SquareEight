@@ -61,10 +61,12 @@ export interface StaffResourceInfo {
   name: string
   description: string
   image1_public_url: string
+  is_present_reserve_frame: boolean
 }
 
 export interface EquipmentResourceInfo {
   name: string
   description: string
   image1_public_url: string
+  is_present_reserve_frame: boolean
 }
