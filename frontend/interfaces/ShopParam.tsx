@@ -58,6 +58,7 @@ export interface ProductInfo {
 }
 
 export interface StaffResourceInfo {
+  public_id: string
   name: string
   description: string
   image1_public_url: string
@@ -65,6 +66,7 @@ export interface StaffResourceInfo {
 }
 
 export interface EquipmentResourceInfo {
+  public_id: string
   name: string
   description: string
   image1_public_url: string
