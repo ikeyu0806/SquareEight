@@ -10,7 +10,7 @@ class Api::Internal::ResourcesController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
-  def edit
+  def show
     account = current_merchant_user.account
     resource = account.resources.find_by(public_id: params[:public_id])
     resource = resource.to_json(methods: [:resource_image1_public_url, :selected_shop_ids, :selected_reserve_frame_ids])
