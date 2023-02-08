@@ -20,7 +20,8 @@ import { nameChanged,
          resourceTypeChanged,
          selectedShopIdsChanged,
          selectableReserveFramesChanged,
-         selectedReserveFrameIdsChanged } from 'redux/resourceSlice'
+         selectedReserveFrameIdsChanged,
+         reserveFrameInfoChanged } from 'redux/resourceSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -64,6 +65,7 @@ const Index: NextPage = () => {
         dispatch(selectedShopIdsChanged(response.data.resource.selected_shop_ids))
         dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
         dispatch(selectedReserveFrameIdsChanged(response.data.resource.selected_reserve_frame_ids))
+        dispatch(reserveFrameInfoChanged(response.data.resource.reserve_frames_info))
         // ヘッダ、フッタ
         dispatch(navbarBrandTextChanged(response.data.shared_component.navbar_brand_text))
         dispatch(navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type))

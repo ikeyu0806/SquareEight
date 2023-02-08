@@ -46,4 +46,17 @@ class Resource < ApplicationRecord
     return '設備・備品' if self.Equipment?
     return 'スタッフ' if self.Staff?
   end
+
+  def reserve_frames_info
+    result = []
+    reserve_frames.Publish.each do |r|
+      content = {}
+      content[:title] = r.title
+      content[:description] = r.description
+      content[:image1_public_url] = r.image1_account_s3_image_id.present? ? AccountS3Image.find(r.image1_account_s3_image_id).s3_object_public_url : ''
+      content[:url] = '/reserve_frame/' + r.public_id + '/calendar'
+      result.push(content)
+    end
+    result
+  end
 end

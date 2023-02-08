@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ShopParam } from 'interfaces/ShopParam'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
+import { ReserveFrameInfo } from 'interfaces/ResourceParam'
 
 export const resourceSlice = createSlice({
   name: 'resource',
@@ -15,7 +16,8 @@ export const resourceSlice = createSlice({
     selectedShopIds: [] as number[],
     selectableReserveFrames: []  as ReserveFrameParam[],
     selectedReserveFrameIds: [] as number[],
-    isShowReservePage: false
+    isShowReservePage: false,
+    reserveFrameInfo: [] as ReserveFrameInfo[],
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -51,6 +53,9 @@ export const resourceSlice = createSlice({
     isShowReservePageChanged: (state, action: PayloadAction<boolean>) => {
       state.isShowReservePage = action.payload
     },
+    reserveFrameInfoChanged: (state, action: PayloadAction<ReserveFrameInfo[]>) => {
+      state.reserveFrameInfo = action.payload
+    },
   },
 })
 
@@ -65,5 +70,6 @@ export const { selectedReserveFrameIdsChanged } = resourceSlice.actions
 export const { selectableReserveFramesChanged } = resourceSlice.actions
 export const { selectedShopIdsChanged } = resourceSlice.actions
 export const { isShowReservePageChanged } = resourceSlice.actions
+export const { reserveFrameInfoChanged } = resourceSlice.actions
 
 export default resourceSlice.reducer
