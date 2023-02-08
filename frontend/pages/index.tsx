@@ -65,7 +65,30 @@ const Home: NextPage = () => {
       <div className='mt10'>
         <Container>
           <div className='text-center'>
-            <p><span className={homeStyles.section_headline}>自動生成したWebページから顧客データがたまる！</span></p>
+            <div>
+              <p><span className={homeStyles.section_headline}>お店のシステム運用費用を最大90%削減</span></p>
+            </div>
+            <p>
+              <span className={homeStyles.section_description}>
+              無料から使えて有料プランも￥1480~¥6980
+              </span>
+            </p>
+            <hr />
+            <p>
+              <span className={homeStyles.section_headline}>
+                こんなお悩みを解決します
+              </span>
+            </p>
+            <div className='font-size-25'>
+              <div>
+                ・美容院、ヘアサロンなど美容業界の予約システム運営費用削減
+              </div>
+              <div>
+                ・お店のホームページ作成費用
+              </div>
+            </div>
+            <hr />
+            <p><span className={homeStyles.section_headline}>サービス概要</span></p>
             <Row>
               <div className='text-center'>
                 <p><span className={homeStyles.section_description}>01.ビジネスアカウントご登録後に管理画面から必要な情報を入力</span></p>
@@ -222,96 +245,6 @@ const Home: NextPage = () => {
       <hr />
 
       <div>
-      &thinsp;
-        <div className='text-center' id='usecase'>
-        <p><span className={homeStyles.section_headline}>こんな場面でお使いになれます!</span></p>
-        <div className='text-center mt20'>
-          <p><span className={homeStyles.section_description}>全業種対応。特にウェルネスビジネスにおすすめ</span></p>
-        </div>
-        <Container>
-        <Row>
-            <Col lg={3} md={6}>
-              <div className={homeStyles.usecase_text}>
-                フィットネスジム運営
-              </div>
-              <img
-                className={homeStyles.usecase_img}
-                src='/images/fitness_image.jpeg'
-                alt='Fitness' />
-            </Col>
-            <Col lg={3} md={6}>
-              <div className={homeStyles.usecase_text}>
-                パーソナルトレーニング
-              </div>
-              <img
-                className={homeStyles.usecase_img}
-                src='/images/personal_training.jpeg'
-                alt='Personal Training' />
-            </Col>
-            <Col lg={3} md={6}>
-              <div className={homeStyles.usecase_text}>
-                スポーツスクール運営
-              </div>
-              <img
-                className={homeStyles.usecase_img}
-                src='/images/golf_image.jpeg'
-                alt='Golf' />
-            </Col>
-            <Col lg={3} md={6}>
-              <div className={homeStyles.usecase_text}>
-                説明会・イベントページ作成
-              </div>
-              <img
-                className={homeStyles.usecase_img}
-                src='/images/istockphoto.jpeg'
-                alt='Istockphoto' />
-            </Col>
-          </Row>
-          <Row>
-            <Col lg={3} md={6}>
-              <div className={homeStyles.usecase_text}>
-                ヨガ、ピラティススタジオ運営
-              </div>
-              <img
-                className={homeStyles.usecase_img}
-                src='/images/yoga_image.jpeg'
-                alt='Girl Kayak' />
-            </Col>
-            <Col lg={3} md={6}>
-              <div className={homeStyles.usecase_text}>
-                美容室運営
-              </div>
-              <img
-                className={homeStyles.usecase_img}
-                src='/images/beauty_salon.jpeg'
-                alt='Beauty Kayak' />
-            </Col>
-            <Col lg={3} md={6}>
-              <div className={homeStyles.usecase_text}>
-                ネイルサロン運営
-              </div>
-              <img
-                className={homeStyles.usecase_img}
-                src='/images/nail_saron.jpeg'
-                alt='Nail saron' />
-            </Col>
-            <Col lg={3} md={6}>
-              <div className={homeStyles.usecase_text}>
-                アクティビティ・レジャービジネス
-              </div>
-              <img
-                className={homeStyles.usecase_img}
-                src='/images/girl_kayak.jpeg'
-                alt='Girl Kayak' />
-            </Col>
-          </Row>
-        </Container>
-        </div>
-      </div>
-
-      <hr />
-
-      <div>
         &thinsp;
         <div className='text-center' id='features'>
         <p><span className={homeStyles.section_headline}>機能一覧</span></p>
@@ -329,10 +262,10 @@ const Home: NextPage = () => {
             </Row>
             <Row>
               <Col lg={4} md={4}>
-                <div className={homeStyles.function_content}>回数券</div>
+                <div className={homeStyles.function_content}>回数券作成</div>
               </Col>
               <Col lg={4} md={4}>
-                <div className={homeStyles.function_content}>月額サブスクリプション</div>
+                <div className={homeStyles.function_content}>月額サブスクリプション作成</div>
               </Col>
               <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>Webページ作成</div>
@@ -340,7 +273,7 @@ const Home: NextPage = () => {
             </Row>
             <Row>
               <Col lg={4} md={4}>
-                <div className={homeStyles.function_content}>オンラインアンケート</div>
+                <div className={homeStyles.function_content}>オンラインアンケート作成</div>
               </Col>
               <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>顧客管理</div>
@@ -550,7 +483,97 @@ const Home: NextPage = () => {
               </Row>
             </div>
         </div>
+
+        <hr />
+
+        <div>
+          <div className='text-center' id='usecase'>
+          <p><span className={homeStyles.section_headline}>こんな場面でお使いになれます!</span></p>
+          <div className='text-center mt20'>
+            <p><span className={homeStyles.section_description}>全業種対応。特にウェルネスビジネスにおすすめ</span></p>
+          </div>
+          <Container>
+          <Row>
+              <Col lg={3} md={6}>
+                <div className={homeStyles.usecase_text}>
+                  フィットネスジム運営
+                </div>
+                <img
+                  className={homeStyles.usecase_img}
+                  src='/images/fitness_image.jpeg'
+                  alt='Fitness' />
+              </Col>
+              <Col lg={3} md={6}>
+                <div className={homeStyles.usecase_text}>
+                  パーソナルトレーニング
+                </div>
+                <img
+                  className={homeStyles.usecase_img}
+                  src='/images/personal_training.jpeg'
+                  alt='Personal Training' />
+              </Col>
+              <Col lg={3} md={6}>
+                <div className={homeStyles.usecase_text}>
+                  スポーツスクール運営
+                </div>
+                <img
+                  className={homeStyles.usecase_img}
+                  src='/images/golf_image.jpeg'
+                  alt='Golf' />
+              </Col>
+              <Col lg={3} md={6}>
+                <div className={homeStyles.usecase_text}>
+                  説明会・イベントページ作成
+                </div>
+                <img
+                  className={homeStyles.usecase_img}
+                  src='/images/istockphoto.jpeg'
+                  alt='Istockphoto' />
+              </Col>
+            </Row>
+            <Row>
+              <Col lg={3} md={6}>
+                <div className={homeStyles.usecase_text}>
+                  ヨガ、ピラティススタジオ運営
+                </div>
+                <img
+                  className={homeStyles.usecase_img}
+                  src='/images/yoga_image.jpeg'
+                  alt='Girl Kayak' />
+              </Col>
+              <Col lg={3} md={6}>
+                <div className={homeStyles.usecase_text}>
+                  美容室運営
+                </div>
+                <img
+                  className={homeStyles.usecase_img}
+                  src='/images/beauty_salon.jpeg'
+                  alt='Beauty Kayak' />
+              </Col>
+              <Col lg={3} md={6}>
+                <div className={homeStyles.usecase_text}>
+                  ネイルサロン運営
+                </div>
+                <img
+                  className={homeStyles.usecase_img}
+                  src='/images/nail_saron.jpeg'
+                  alt='Nail saron' />
+              </Col>
+              <Col lg={3} md={6}>
+                <div className={homeStyles.usecase_text}>
+                  アクティビティ・レジャービジネス
+                </div>
+                <img
+                  className={homeStyles.usecase_img}
+                  src='/images/girl_kayak.jpeg'
+                  alt='Girl Kayak' />
+              </Col>
+            </Row>
+          </Container>
+          </div>
+        </div>
       </Container>
+      <hr />
       <RegularFooter></RegularFooter>
     </>
 
