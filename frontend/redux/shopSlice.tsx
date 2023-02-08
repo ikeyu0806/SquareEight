@@ -9,6 +9,8 @@ import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { WebpageParam } from 'interfaces/WebpageParam'
 import { ResourceParam } from 'interfaces/ResourceParam'
+import { StaffResourceInfo } from 'interfaces/ShopParam'
+import { EquipmentResourceInfo } from 'interfaces/ShopParam'
 
 export const shopSlice = createSlice({
   name: 'shop',
@@ -60,7 +62,9 @@ export const shopSlice = createSlice({
     ticketMasters: [] as TicketMasterParam[],
     monthlyPaymentPlans: [] as MonthlyPaymentPlanParam[],
     webpages: [] as WebpageParam[],
-    resources: [] as ResourceParam[]
+    resources: [] as ResourceParam[],
+    staffResources: [] as StaffResourceInfo[],
+    equipmentResources: [] as EquipmentResourceInfo[]
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -207,6 +211,12 @@ export const shopSlice = createSlice({
     resourcesChanged: (state, action: PayloadAction<ResourceParam[]>) => {
       state.resources = action.payload
     },
+    staffResourcesChanged: (state, action: PayloadAction<StaffResourceInfo[]>) => {
+      state.staffResources = action.payload
+    },
+    equipmentResourcesChanged: (state, action: PayloadAction<EquipmentResourceInfo[]>) => {
+      state.equipmentResources = action.payload
+    },
   },
 })
 
@@ -258,5 +268,7 @@ export const { ticketMastersChanged } = shopSlice.actions
 export const { monthlyPaymentPlansChanged } = shopSlice.actions
 export const { webpagesChanged } = shopSlice.actions
 export const { resourcesChanged } = shopSlice.actions
+export const { staffResourcesChanged } = shopSlice.actions
+export const { equipmentResourcesChanged } = shopSlice.actions
 
 export default shopSlice.reducer

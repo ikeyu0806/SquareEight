@@ -34,7 +34,9 @@ import { nameChanged,
          monthlyPatmentPlanInfoChanged,
          ticketMasterInfoChanged,
          productInfoChanged,
-         webpagesChanged } from 'redux/shopSlice'
+         webpagesChanged,
+         staffResourcesChanged,
+         equipmentResourcesChanged } from 'redux/shopSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -89,6 +91,8 @@ const Index: NextPage = () => {
         dispatch(ticketMasterInfoChanged(response.data.shop.ticket_masters_info))
         dispatch(productInfoChanged(response.data.shop.products_info))
         dispatch(webpagesChanged(response.data.webpages))
+        dispatch(staffResourcesChanged(response.data.shop.staff_resources_info))
+        dispatch(equipmentResourcesChanged(response.data.shop.equipment_resources_info))
         // ヘッダ、フッタ
         dispatch(navbarBrandTextChanged(response.data.shared_component.navbar_brand_text))
         dispatch(navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type))

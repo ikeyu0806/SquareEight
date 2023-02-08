@@ -56,3 +56,15 @@ export interface ProductInfo {
   tax_rate: number
   url: string
 }
+
+export interface StaffResourceInfo {
+  name: string
+  description: string
+  image1_public_url: string
+}
+
+export interface EquipmentResourceInfo {
+  name: string
+  description: string
+  image1_public_url: string
+}

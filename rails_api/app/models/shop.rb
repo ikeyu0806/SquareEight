@@ -125,19 +125,19 @@ class Shop < ApplicationRecord
     result = []
     resources.Staff.each do |r|
       content = {}
-      content[:name] = p.name
-      content[:description] = p.description
-      content[:image1_public_url] = p.resource_image1_account_s3_image_id.present? ? AccountS3Image.find(p.resource_image1_account_s3_image_id).s3_object_public_url : ''
+      content[:name] = r.name
+      content[:description] = r.description
+      content[:image1_public_url] = r.resource_image1_account_s3_image_id.present? ? AccountS3Image.find(r.resource_image1_account_s3_image_id).s3_object_public_url : ''
     end
   end
 
   def equipment_resources_info
     result = []
-    resources.Equopment.each do |r|
+    resources.Equipment.each do |r|
       content = {}
-      content[:name] = p.name
-      content[:description] = p.description
-      content[:image1_public_url] = p.resource_image1_account_s3_image_id.present? ? AccountS3Image.find(p.resource_image1_account_s3_image_id).s3_object_public_url : ''
+      content[:name] = r.name
+      content[:description] = r.description
+      content[:image1_public_url] = r.resource_image1_account_s3_image_id.present? ? AccountS3Image.find(r.resource_image1_account_s3_image_id).s3_object_public_url : ''
     end
   end
 
