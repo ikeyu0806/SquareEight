@@ -66,7 +66,9 @@ const Home: NextPage = () => {
         <Container>
           <div className='text-center'>
             <div>
-              <p><span className={homeStyles.section_headline}>お店のシステム運用費用を最大90%削減</span></p>
+              <p className={homeStyles.section_headline_parent}>
+                <span className={homeStyles.section_headline}>お店のシステム運用費用を最大90%削減</span>
+              </p>
             </div>
             <p>
               <span className={homeStyles.section_description}>
@@ -74,7 +76,7 @@ const Home: NextPage = () => {
               </span>
             </p>
             <hr />
-            <p>
+            <p className={homeStyles.section_headline_parent}>
               <span className={homeStyles.section_headline}>
                 こんなお悩みを解決します
               </span>
@@ -88,7 +90,9 @@ const Home: NextPage = () => {
               </div>
             </div>
             <hr />
-            <p><span className={homeStyles.section_headline}>サービス概要</span></p>
+            <p className={homeStyles.section_headline_parent}>
+              <span className={homeStyles.section_headline}>サービス概要</span>
+            </p>
             <Row>
               <div className='text-center'>
                 <p><span className={homeStyles.section_description}>01.ビジネスアカウントご登録後に管理画面から必要な情報を入力</span></p>
@@ -247,7 +251,9 @@ const Home: NextPage = () => {
       <div>
         &thinsp;
         <div className='text-center' id='features'>
-        <p><span className={homeStyles.section_headline}>機能一覧</span></p>
+        <p className={homeStyles.section_headline_parent}>
+          <span className={homeStyles.section_headline}>機能一覧</span>
+        </p>
           <Container>
             <Row>
               <Col lg={4} md={4}>
@@ -301,7 +307,9 @@ const Home: NextPage = () => {
 
       <Container>
         <div className='text-center mt50 mb50' id='pricing'>
-          <p><span className={homeStyles.section_headline}>料金プラン</span></p>
+          <p className={homeStyles.section_headline_parent}>
+            <span className={homeStyles.section_headline}>料金プラン</span>
+          </p>
             <div className='mt30 mb30'>
             <p><span className={homeStyles.section_description}>基本プラン</span></p>
             <p><span className={homeStyles.section_description}>初期費用無料</span></p>
@@ -488,7 +496,9 @@ const Home: NextPage = () => {
 
         <div>
           <div className='text-center' id='usecase'>
-          <p><span className={homeStyles.section_headline}>こんな場面でお使いになれます!</span></p>
+          <p className={homeStyles.section_headline_parent}>
+            <span className={homeStyles.section_headline}>こんな場面でお使いになれます!</span>
+          </p>
           <div className='text-center mt20'>
             <p><span className={homeStyles.section_description}>全業種対応。特にウェルネスビジネスにおすすめ</span></p>
           </div>
