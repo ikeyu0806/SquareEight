@@ -109,7 +109,7 @@ const Index: NextPage = () => {
                 </div>
               </Col>
             </Row>
-            {<>
+            {reserveFrameInfo.length > 0 && <>
               <hr />
               <Row>
                 <div className='font-size-20'>{name}の関連予約メニュー</div>
