@@ -56,6 +56,7 @@ const Index: NextPage = () => {
             href='/admin/product/new'
             className='btn btn-primary mb10'>新規作成</a>}
         {allowReadProduct === 'Allow' &&
+          products.length > 0 &&
           <Table bordered>
             <thead>
               <tr>
@@ -144,6 +145,10 @@ const Index: NextPage = () => {
             </tbody>
           </Table>
         }
+        {products.length === 0 &&
+          <div className='text-center font-size-20'>
+            商品が登録されていません
+          </div>}
         {allowReadProduct === 'Forbid' && <Unauthorized />}
         </Container>
         <InventoryDescriptionModal></InventoryDescriptionModal>

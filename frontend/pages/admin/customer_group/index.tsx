@@ -77,6 +77,10 @@ const Index: NextPage = () => {
                 </ListGroup.Item>
               )
             })}
+            {customerGroups.length === 0 &&
+              <div className='text-center font-size-20'>
+                顧客グループが登録されていません
+              </div>}
             </ListGroup>
           </Col>
         </Row>
