@@ -69,6 +69,10 @@ const Index: NextPage = () => {
             })}
           </tbody>
         </Table>
+        {shops.length === 0 &&
+         <div className='text-center font-size-20'>
+          店舗が登録されていません。
+         </div>}
       </Container>}
       {allowReadShop === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>

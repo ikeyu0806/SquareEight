@@ -213,6 +213,10 @@ const Index = (): JSX.Element => {
                 </div>
               )
             })}
+            {reserveFrames.length === 0 &&
+              <div className='text-center font-size-20'>
+                予約メニューが登録されていません。
+              </div>}
           <CreateReserveFrameModal></CreateReserveFrameModal>
           <EditReserveFrameModal></EditReserveFrameModal>
         </Container>}
