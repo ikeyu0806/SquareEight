@@ -44,7 +44,7 @@ const Index: NextPage = () => {
       <MerchantUserAdminLayout>
         {allowReadResource === 'Allow' &&
         <Container>
-          <Table bordered>
+          {resources.length > 0 && <Table bordered>
             <thead>
               <tr>
                 <th>リソース名</th>
@@ -70,7 +70,9 @@ const Index: NextPage = () => {
                 )
               })}
             </tbody>
-          </Table>
+          </Table>}
+          {resources.length === 0 &&
+          <div className='text-center font-size-20'>リソースが登録されていません</div>}
         </Container>}
         {allowCreateResource === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
