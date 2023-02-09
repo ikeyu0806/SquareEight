@@ -218,6 +218,63 @@ const Index: NextPage = () => {
                         src={mainImagePublicUrl}
                         alt='image' />}
                     <hr />
+
+                    {reserveFrame.display_staff.length !== 0 &&
+                    <>
+                      <div className='mb10'>
+                        スタッフ情報
+                      </div>
+                      {reserveFrame.display_staff.map((r, i) => {
+                        return (
+                          <span key={i}>
+                            <Row>
+                              {r.resource_image1_public_url &&
+                              <Col>
+                                <img
+                                  className={reserveFrameStyles.resource_img}
+                                  src={r.resource_image1_public_url}
+                                  alt='staffImage'
+                                  />
+                              </Col>}
+                              <Col>
+                                <div>{r.name}</div>
+                                <div className='new-line'>{r.description}</div>
+                              </Col>
+                            </Row>
+                          </span>
+                        )
+                      })}
+                      <hr />
+                    </>}
+
+                    {reserveFrame.display_staff.length !== 0 &&
+                    <>
+                      <div className='mb10'>
+                        設備・備品情報
+                      </div>
+                      {reserveFrame.display_equipment.map((r, i) => {
+                        return (
+                          <span key={i}>
+                            <Row>
+                              {r.resource_image1_public_url &&
+                              <Col>
+                                <img
+                                  className={reserveFrameStyles.resource_img}
+                                  src={r.resource_image1_public_url}
+                                  alt='equipmentImage'
+                                  />
+                              </Col>}
+                              <Col>
+                                <div>{r.name}</div>
+                                <div className='new-line'>{r.description}</div>
+                              </Col>
+                            </Row>
+                          </span>
+                        )
+                      })}
+                      <hr />
+                    </>}
+
                     <div className='mb20'>
                       {reserveFrame?.reception_type === 'PhoneOnly'
                       ? <>予約可能時間</>
@@ -237,6 +294,7 @@ const Index: NextPage = () => {
                       </Col>
                       <Col></Col>
                     </Row>
+                  
                     {reserveFrame?.is_set_price &&
                     <>
                       {reserveFrame?.reception_type !== 'PhoneOnly' &&
@@ -370,62 +428,6 @@ const Index: NextPage = () => {
                         </Row>
                       </>
                     }</>}
-
-                    {reserveFrame.display_staff.length !== 0 &&
-                    <>
-                      <hr />
-                      <div className='mb10'>
-                        スタッフ情報
-                      </div>
-                      {reserveFrame.display_staff.map((r, i) => {
-                        return (
-                          <span key={i}>
-                            <Row>
-                              {r.resource_image1_public_url &&
-                              <Col>
-                                <img
-                                  className={reserveFrameStyles.resource_img}
-                                  src={r.resource_image1_public_url}
-                                  alt='staffImage'
-                                  />
-                              </Col>}
-                              <Col>
-                                <div>{r.name}</div>
-                                <div className='new-line'>{r.description}</div>
-                              </Col>
-                            </Row>
-                          </span>
-                        )
-                      })}
-                    </>}
-
-                    {reserveFrame.display_staff.length !== 0 &&
-                    <>
-                      <hr />
-                      <div className='mb10'>
-                        設備・備品情報
-                      </div>
-                      {reserveFrame.display_equipment.map((r, i) => {
-                        return (
-                          <span key={i}>
-                            <Row>
-                              {r.resource_image1_public_url &&
-                              <Col>
-                                <img
-                                  className={reserveFrameStyles.resource_img}
-                                  src={r.resource_image1_public_url}
-                                  alt='equipmentImage'
-                                  />
-                              </Col>}
-                              <Col>
-                                <div>{r.name}</div>
-                                <div className='new-line'>{r.description}</div>
-                              </Col>
-                            </Row>
-                          </span>
-                        )
-                      })}
-                    </>}
 
                     {reserveFrame?.reception_type !== 'PhoneOnly'
                     && <div className='text-center'>
