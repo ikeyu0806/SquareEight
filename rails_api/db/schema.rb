@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_07_011942) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_09_102103) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -46,6 +46,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_07_011942) do
     t.datetime "deleted_at"
     t.integer "mcc"
     t.string "mcc_type"
+    t.datetime "trial_end_datetime"
   end
 
   create_table "additional_delivery_days_per_regions", force: :cascade do |t|
