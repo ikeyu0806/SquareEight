@@ -13,6 +13,7 @@ const Index = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [questionnaireMasters, setQuestionnaireMasters] = useState<QuestionnaireMasterParam[]>()
   const allowReadQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowReadQuestionnaireMaster)
+  const allowCreateQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowCreateQuestionnaireMaster)
   const allowUpdateQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateQuestionnaireMaster)
 
   useEffect(() => {
@@ -31,7 +32,10 @@ const Index = (): JSX.Element => {
   return (
     <MerchantUserAdminLayout>
       {allowReadQuestionnaireMaster === 'Allow' &&
+      questionnaireMasters && questionnaireMasters.length > 0 &&
       <Container>
+        {allowCreateQuestionnaireMaster &&
+        <a className='btn btn-primary' href='/admin/questionnaire/master/new'>新規登録</a>}
         <h4 className='mb20'>アンケートマスタ</h4>
         <Table bordered>
           <thead>
@@ -72,6 +76,13 @@ const Index = (): JSX.Element => {
           </tbody>
         </Table>
       </Container>}
+      {questionnaireMasters && questionnaireMasters.length === 0 &&
+        <Container>
+          {allowCreateQuestionnaireMaster &&
+            <a className='btn btn-primary' href='/admin/questionnaire/master/new'>新規登録</a>}
+          <div className='text-center font-size-20'>アンケートマスタが登録されていません。</div>
+        </Container>
+      }
       {allowReadQuestionnaireMaster === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
   )

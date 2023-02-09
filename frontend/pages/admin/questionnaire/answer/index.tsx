@@ -61,6 +61,8 @@ const Answer = (): JSX.Element => {
             </Card>
           )
         })}
+        {questionnaireAnswers && questionnaireAnswers.length === 0 &&
+        <div className='text-center font-size-20'>回答がありません</div>}
       </Container>}
       {allowReadQuestionnaireAnswer === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
