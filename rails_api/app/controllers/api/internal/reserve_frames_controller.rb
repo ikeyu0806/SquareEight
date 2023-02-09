@@ -45,7 +45,9 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                                     :reserve_frame_credit_card_payment_prices,
                                                                     :local_payment_prices_with_number_of_people,
                                                                     :credit_card_payment_prices_with_number_of_people,
-                                                                    :image1_account_s3_image_public_url]))
+                                                                    :image1_account_s3_image_public_url,
+                                                                    :display_staff,
+                                                                    :display_equipment]))
     render json: {  status: 'success',
                     reserve_frame: reserve_frame_json,
                     login_status: login_status,

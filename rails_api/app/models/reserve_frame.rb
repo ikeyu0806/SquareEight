@@ -616,4 +616,12 @@ class ReserveFrame < ApplicationRecord
   def logical_delete
     update!(deleted_at: Time.zone.now)
   end
+
+  def display_staff
+    resources.Staff.where(is_show_reserve_page: true)
+  end
+
+  def display_equipment
+    resources.Equipment.where(is_show_reserve_page: true)
+  end
 end
