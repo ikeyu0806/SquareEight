@@ -451,6 +451,43 @@ resources = Resource.create!(
   ]
 )
 
+ShopResource.create!(
+  [
+    {
+      shop_id: shops[0].id,
+      resource_id: resources[0].id
+    },
+    {
+      shop_id: shops[0].id,
+      resource_id: resources[1].id
+    },
+    {
+      shop_id: shops[0].id,
+      resource_id: resources[2].id
+    },
+    {
+      shop_id: shops[0].id,
+      resource_id: resources[3].id
+    },
+    {
+      shop_id: shops[0].id,
+      resource_id: resources[4].id
+    },
+    {
+      shop_id: shops[0].id,
+      resource_id: resources[5].id
+    },
+    {
+      shop_id: shops[0].id,
+      resource_id: resources[6].id
+    },
+    {
+      shop_id: shops[0].id,
+      resource_id: resources[7].id
+    },
+  ]
+)
+
 reserve_frames = ReserveFrame.create!(
   [
     {
