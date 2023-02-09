@@ -1,6 +1,8 @@
 class Account < ApplicationRecord
   include PublicIdModule
 
+  before_create { |a| a.trial_end_datetime = (Time.zone.now + 7.days).end_of_day }
+
   enum service_plan: { Free: 0, Light: 1, Standard: 2, Premium: 3 }
 
   has_one :delivery_datetime_setting
