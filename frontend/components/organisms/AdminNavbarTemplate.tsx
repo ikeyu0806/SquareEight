@@ -15,6 +15,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
   const router = useRouter()
   const email = useSelector((state: RootState) => state.currentMerchantUser.email)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
+  const isShopsExists = useSelector((state: RootState) => state.currentMerchantUser.isShopsExists)
   const readReservationsStatus = useSelector((state: RootState) => state.currentMerchantUser.readReservationsStatus)
   const readQuestionnaireAnswersStatus = useSelector((state: RootState) => state.currentMerchantUser.readQuestionnaireAnswersStatus)
   const readOrdersStatus = useSelector((state: RootState) => state.currentMerchantUser.readOrdersStatus)
@@ -168,8 +169,14 @@ const AdminNavbarTemplate = (): JSX.Element => {
       {alertState.show && <Alert variant={alertState.type} onClose={() => dispatch(alertChanged({message: '', show: false}))} dismissible>
         {alertState.message}
       </Alert>}
-      {stripeAccountEnable === 'Disable' && <Alert variant='warning'>
-        <div className='text-center'>ビジネスアカウントへのご登録ありがとうございます。<br />事業情報の登録が完了していないためクレジットカード決済機能が有効になっておりません。<a href='/admin/sales_transfer'>登録はこちら</a></div>
+      {((stripeAccountEnable === 'Disable') || (isShopsExists === 'Disable')) && <Alert variant='warning'>
+        <div className='text-center'>
+          <div>ビジネスアカウントへのご登録ありがとうございます。</div>
+          {stripeAccountEnable === 'Disable'
+          && <div>事業情報の登録が完了していないためクレジットカード決済機能が有効になっておりません。<a href='/admin/sales_transfer'>登録はこちら</a></div>}
+          {isShopsExists === 'Disable'
+          && <div>店舗情報が登録されていません。<a href='/admin/shop/new'>登録はこちら</a></div>}
+         </div>
       </Alert>}
     </>
   )
