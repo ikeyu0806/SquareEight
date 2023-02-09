@@ -78,6 +78,8 @@ const Index: NextPage = () => {
               </>}
               {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
             </Col>
+            {monthlyPaymentPlans.length === 0 &&
+            <div className='text-center font-size-20'>月額サブスクリプションが登録されていません。</div>}
           </Row>
         </Container>}
         {allowReadMonthlyPaymentPlan === 'Forbid' && <Unauthorized />}

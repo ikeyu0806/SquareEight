@@ -81,6 +81,8 @@ const Index: NextPage = () => {
                   })}
                 </ListGroup>
               </>}
+              {ticketMasters.length === 0 &&
+                <div className='text-center font-size-20'>回数券が登録されていません。</div>}
               {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
             </Col>
           </Row>
