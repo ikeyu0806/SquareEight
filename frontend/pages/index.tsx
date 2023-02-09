@@ -84,7 +84,7 @@ const Home: NextPage = () => {
               </span>
             </p>
             <Row>
-              <Col>
+              <Col lg={6} className='mb20'>
                 <div className={homeStyles.benefit_box}>
                   <div className='font-size-25'>
                     <div className={homeStyles.benefit_headline}>
@@ -97,7 +97,7 @@ const Home: NextPage = () => {
                   </div>
                 </div>
               </Col>
-              <Col>
+              <Col lg={6} className='mb20'>
                 <div className={homeStyles.benefit_box}>
                   <div className='font-size-25'>
                     <div className={homeStyles.benefit_headline}>
@@ -113,7 +113,7 @@ const Home: NextPage = () => {
             </Row>
             <div className='mt20'></div>
             <Row>
-              <Col>
+              <Col lg={6} className='mb20'>
                 <div className={homeStyles.benefit_box}>
                   <div className='font-size-25'>
                     <div className={homeStyles.benefit_headline}>
@@ -122,11 +122,11 @@ const Home: NextPage = () => {
                   </div>
                   <div className={homeStyles.benefit_text}>
                     <br />予約や物販をご利用いただいた顧客にアンケートやメルマガ、LINEメッセージでアフターフォローできます。
-                    <br /><br />当サービスは全プラン月額¥6980以下でご利用可能！
+                    <br /><br /><br />
                   </div>
                 </div>
               </Col>
-              <Col>
+              <Col lg={6} className='mb20'>
                 <div className={homeStyles.benefit_box}>
                   <div className='font-size-25'>
                     <div className={homeStyles.benefit_headline}>
@@ -134,7 +134,7 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className={homeStyles.benefit_text}>
-                    <br />オンラインショップ開設サービス、予約システム、アンケートシステムと別々に契約されるケースが多いと思います。
+                    <br />オンラインショップ開設サービス、予約システム、アンケートシステムと別々に契約されるケースが多いです。
                     <br />当サービスは1つでそれら全ての機能を提供することができ顧客情報も一元管理できます。
                   </div>
                 </div>
