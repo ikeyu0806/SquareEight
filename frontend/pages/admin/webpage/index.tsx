@@ -49,7 +49,7 @@ const Index: NextPage = () => {
                  href='/admin/webpage/new'>
                 新規Webページ作成
               </a>
-              <h3>Webページ一覧</h3>
+              {webpages.length > 0 && <><h3>Webページ一覧</h3>
               <ListGroup>
                 {webpages.map((webpage, i) => {
                   return (
@@ -67,9 +67,10 @@ const Index: NextPage = () => {
                     </ListGroup.Item>
                   )
                 })}
-              </ListGroup>
+              </ListGroup></>}
             </Col>
           </Row>
+          {webpages.length === 0 && <div className='text-center font-size-20'>Webページが登録されていません</div>}
         </Container>}
         {allowReadWebpage === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
