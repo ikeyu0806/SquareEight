@@ -25,6 +25,8 @@ const Home: NextPage = () => {
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
           <Navbar.Collapse id='responsive-navbar-nav'>
             <Nav className='me-auto'>
+              <Nav.Link href='#benefit'>導入効果</Nav.Link>
+              <Nav.Link href='#about'>サービス概要</Nav.Link>
               <Nav.Link href='#features'>機能</Nav.Link>
               <Nav.Link href='#pricing'>料金</Nav.Link>
               <Nav.Link href='/inquiry'>お問い合わせ</Nav.Link>
@@ -76,7 +78,7 @@ const Home: NextPage = () => {
               </span>
             </p>
             <hr />
-            <p className={homeStyles.section_headline_parent}>
+            <p className={homeStyles.section_headline_parent} id='benefit'>
               <span className={homeStyles.section_headline}>
                 導入効果
               </span>
@@ -139,7 +141,7 @@ const Home: NextPage = () => {
               </Col>
             </Row>
             <hr />
-            <p className={homeStyles.section_headline_parent}>
+            <p className={homeStyles.section_headline_parent} id='about'>
               <span className={homeStyles.section_headline}>サービス概要</span>
             </p>
             <Row>
