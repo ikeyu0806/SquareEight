@@ -90,7 +90,7 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className={homeStyles.benefit_text}>
-                    <br />他社クラウドサービスでは月額2万、予約1件につき￥3000など高額な運用費用がかかります。
+                    <br />他社クラウドサービスではスタンダードプランで月額2万、予約1件につき￥3000など高額な運用費用がかかります。
                     <br /><br />当サービスは全プラン月額¥6980以下でご利用可能！
                   </div>
                 </div>
@@ -99,12 +99,41 @@ const Home: NextPage = () => {
                 <div className={homeStyles.benefit_box}>
                   <div className='font-size-25'>
                     <div className={homeStyles.benefit_headline}>
-                      月額サブスクリプション・回数券支払い
+                    支払いの月額サブスクリプション・回数券対応
                     </div>
                   </div>
                   <div className={homeStyles.benefit_text}>
-                    <br />お支払いに月額サブスクリプション・回数券を導入することにより安定した収益を得ることができます。
+                    <br />お支払いに月額サブスクリプション・回数券を導入することにより売り上げを安定させることができます。
                     <br /><br />新規ユーザの獲得にも効果的です。
+                  </div>
+                </div>
+              </Col>
+            </Row>
+            <div className='mt20'></div>
+            <Row>
+              <Col>
+                <div className={homeStyles.benefit_box}>
+                  <div className='font-size-25'>
+                    <div className={homeStyles.benefit_headline}>
+                      アンケート、メッセージ機能による顧客フォロー
+                    </div>
+                  </div>
+                  <div className={homeStyles.benefit_text}>
+                    <br />予約や物販をご利用いただいた顧客にアンケートやメルマガ、LINEメッセージでアフターフォローできます。
+                    <br /><br />当サービスは全プラン月額¥6980以下でご利用可能！
+                  </div>
+                </div>
+              </Col>
+              <Col>
+                <div className={homeStyles.benefit_box}>
+                  <div className='font-size-25'>
+                    <div className={homeStyles.benefit_headline}>
+                      システムの一元化
+                    </div>
+                  </div>
+                  <div className={homeStyles.benefit_text}>
+                    <br />オンラインショップ開設サービス、予約システム、アンケートシステムと別々に契約されるケースが多いと思います。
+                    <br />当サービスは1つでそれら全ての機能を提供することができ顧客情報も一元管理できます。
                   </div>
                 </div>
               </Col>
