@@ -618,10 +618,14 @@ class ReserveFrame < ApplicationRecord
   end
 
   def display_staff
-    resources.Staff.where(is_show_reserve_page: true)
+    result = resources.Staff.where(is_show_reserve_page: true)
+    result = JSON.parse(result.to_json(methods: [:resource_image1_public_url]))
+    result
   end
 
   def display_equipment
-    resources.Equipment.where(is_show_reserve_page: true)
+    result = resources.Equipment.where(is_show_reserve_page: true)
+    result = JSON.parse(result.to_json(methods: [:resource_image1_public_url]))
+    result
   end
 end

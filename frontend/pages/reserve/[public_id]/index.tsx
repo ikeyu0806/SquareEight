@@ -14,6 +14,7 @@ import { useCookies } from 'react-cookie'
 import { MultiPaymentMethod } from 'interfaces/MultiPaymentMethod'
 import { loginStatusChanged } from 'redux/currentEndUserSlice'
 import { multiLocalPaymentPricesChanged, multiCreditCardPaymentPricesChanged } from 'redux/reserveFrameSlice'
+import reserveFrameStyles from 'styles/ReserveFrame.module.css'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -383,11 +384,15 @@ const Index: NextPage = () => {
                               {r.resource_image1_public_url &&
                               <Col>
                                 <img
+                                  className={reserveFrameStyles.resource_img}
                                   src={r.resource_image1_public_url}
                                   alt='staffImage'
                                   />
                               </Col>}
-                              <Col>{r.name}</Col>
+                              <Col>
+                                <div>{r.name}</div>
+                                <div className='new-line'>{r.description}</div>
+                              </Col>
                             </Row>
                           </span>
                         )
@@ -407,11 +412,15 @@ const Index: NextPage = () => {
                               {r.resource_image1_public_url &&
                               <Col>
                                 <img
+                                  className={reserveFrameStyles.resource_img}
                                   src={r.resource_image1_public_url}
                                   alt='equipmentImage'
                                   />
                               </Col>}
-                              <Col>{r.name}</Col>
+                              <Col>
+                                <div>{r.name}</div>
+                                <div className='new-line'>{r.description}</div>
+                              </Col>
                             </Row>
                           </span>
                         )
