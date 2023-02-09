@@ -100,7 +100,7 @@ const Index: NextPage = () => {
       <MerchantUserAdminLayout>
         {allowReadCustomer === 'Allow' &&
         <Container>
-        <>
+        {customers.length > 1 && <>
           <Card className='mb20'>
             <Card.Header>絞り込み</Card.Header>
             <Card.Body>
@@ -226,7 +226,15 @@ const Index: NextPage = () => {
             })}
             </tbody>
           </Table>
-        </>
+        </>}
+        {customers.length === 0 && <Container>
+          {allowCreateCustomer === 'Allow' && <Button
+            className='mb20'
+            onClick={() => dispatch(showCreateCustomerModalChanged(true))}>顧客新規登録</Button>}
+            <div className='text-center font-size-20'>
+              顧客が登録されていません
+            </div>
+        </Container>}
         </Container>}
         <CreateCustomerModal></CreateCustomerModal>
         <EditCustomerModal></EditCustomerModal>
