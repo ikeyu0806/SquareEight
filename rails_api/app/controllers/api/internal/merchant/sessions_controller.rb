@@ -3,7 +3,7 @@ class Api::Internal::Merchant::SessionsController < ApplicationController
     raise if current_merchant_user.blank?
     account = current_merchant_user.account
     shops = account.shops
-    user = JSON.parse(current_merchant_user.to_json(methods: [:stripe_account_enable, :stripe_customer_enable, :today_reservations_count])) 
+    user = JSON.parse(current_merchant_user.to_json(methods: [:stripe_account_enable, :stripe_customer_enable, :today_reservations_count, :is_shops_exist])) 
     render json: { status: 'success',
                    user: user,
                    shops: shops,

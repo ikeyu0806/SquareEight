@@ -18,7 +18,8 @@ import { loginStatusChanged,
          readOrdersStatusChanged,
          readAccountNotificationStatusChanged,
          readBusinessNotificationStatusChanged,
-         todayReservationsCountChanged } from 'redux/currentMerchantUserSlice'
+         todayReservationsCountChanged,
+         isShopsExistsChanged } from 'redux/currentMerchantUserSlice'
 import {  allowReadMerchantUserChanged,
           allowCreateMerchantUserChanged,
           allowUpdateMerchantUserChanged,
@@ -116,6 +117,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(servicePlanChanged(response.data.service_plan))
       dispatch(emailChanged(response.data.user.email))
       dispatch(isRootUserChanged(response.data.user.is_root_user))
+      dispatch(isShopsExistsChanged(response.data.user.is_shops_exist ? 'Enable' : 'Disable'))
       // 権限
       dispatch(allowReadMerchantUserChanged(response.data.user.allow_read_merchant_user))
       dispatch(allowCreateMerchantUserChanged(response.data.user.allow_create_merchant_user))
