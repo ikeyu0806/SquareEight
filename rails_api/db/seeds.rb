@@ -162,6 +162,12 @@ yoga_image1 = AccountS3Image.create!(
   s3_object_name: "yoga_image1.jpeg",
 )
 
+yoga_mat_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/yoga_mat_image1.jpeg",
+  s3_object_name: "yoga_mat_image1.jpeg",
+)
+
 product_image1 = AccountS3Image.create!(
   account_id: account.id,
   s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/product_image1.jpeg",
@@ -190,6 +196,12 @@ tennis_image1 = AccountS3Image.create!(
   account_id: account.id,
   s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/tennis_image1.jpeg",
   s3_object_name: "tennis_image1.jpeg",
+)
+
+outdoor_tennis_court_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/outdoor_tennis_court_image1.jpeg",
+  s3_object_name: "outdoor_tennis_court_image1.jpeg",
 )
 
 spa_image1 = AccountS3Image.create!(
@@ -234,10 +246,28 @@ golf_goods_image1 = AccountS3Image.create!(
   s3_object_name: "golf_goods_image1.jpeg",
 )
 
+gold_simulation_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/gold_simulation_image1.jpeg",
+  s3_object_name: "gold_simulation_image1.jpeg",
+)
+
 sauna_image1 = AccountS3Image.create!(
   account_id: account.id,
   s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/candle_image1.jpeg",
-  s3_object_name: "candle_image1.jpeg",
+  s3_object_name: "sauna_image1.jpeg",
+)
+
+personal_souna_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/personal_souna_image1.jpeg",
+  s3_object_name: "personal_souna_image1.jpeg",
+)
+
+personal_trainer_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/personal_trainer_image1.jpeg",
+  s3_object_name: "personal_trainer_image1.jpeg",
 )
 
 girl_outdoor_image1 = AccountS3Image.create!(
@@ -251,6 +281,13 @@ bouldering_image1 = AccountS3Image.create!(
   s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/bouldering_image1.jpeg",
   s3_object_name: "bouldering_image1.jpeg",
 )
+
+haircut_image1 = AccountS3Image.create!(
+  account_id: account.id,
+  s3_object_public_url: "https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/haircut_image1.jpeg",
+  s3_object_name: "haircut_image1.jpeg",
+)
+
 
 shops = Shop.create!(
   [
@@ -345,14 +382,16 @@ resources = Resource.create!(
       quantity: 20,
       resource_type: 'Equipment',
       is_show_reserve_page: true,
+      resource_image1_account_s3_image_id: yoga_mat_image1.id
     },
     {
       account_id: account.id,
-      name: "インドアテニスコート",
-      description: 'セミハードコート8面を備えたインドアテニスコートを備えております。',
-      quantity: 32,
+      name: "ゴルフシュミレーター",
+      description: '完全個室のプライベートゴルフ練習場を備えております。',
+      quantity: 4,
       resource_type: 'Equipment',
       is_show_reserve_page: true,
+      resource_image1_account_s3_image_id: gold_simulation_image1.id
     },
     {
       account_id: account.id,
@@ -361,6 +400,7 @@ resources = Resource.create!(
       quantity: 32,
       resource_type: 'Equipment',
       is_show_reserve_page: true,
+      resource_image1_account_s3_image_id: outdoor_tennis_court_image1.id
     },
     {
       account_id: account.id,
@@ -369,6 +409,7 @@ resources = Resource.create!(
       quantity: 1,
       resource_type: 'Equipment',
       is_show_reserve_page: true,
+      resource_image1_account_s3_image_id: personal_souna_image1.id
     },
     {
       account_id: account.id,
@@ -377,6 +418,7 @@ resources = Resource.create!(
       quantity: 1,
       resource_type: 'Staff',
       is_show_reserve_page: true,
+      resource_image1_account_s3_image_id: haircut_image1.id
     },
     {
       account_id: account.id,
@@ -385,6 +427,7 @@ resources = Resource.create!(
       quantity: 1,
       resource_type: 'Staff',
       is_show_reserve_page: true,
+      resource_image1_account_s3_image_id: haircut_image1.id
     },
     {
       account_id: account.id,
@@ -393,6 +436,7 @@ resources = Resource.create!(
       quantity: 1,
       resource_type: 'Staff',
       is_show_reserve_page: true,
+      resource_image1_account_s3_image_id: personal_trainer_image1.id
     },
     {
       account_id: account.id,
@@ -401,6 +445,7 @@ resources = Resource.create!(
       quantity: 1,
       resource_type: 'Staff',
       is_show_reserve_page: true,
+      resource_image1_account_s3_image_id: personal_trainer_image1.id
     },
 
   ]
