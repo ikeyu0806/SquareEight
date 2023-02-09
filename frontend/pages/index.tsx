@@ -237,6 +237,17 @@ const Home: NextPage = () => {
                       <td className={homeStyles.plan_table_text}>値段</td>
                       <td className={homeStyles.plan_table_text}>発行枚数</td>
                     </tr>
+                    <tr>
+                      <td
+                        className={homeStyles.plan_table_text}
+                        rowSpan={2}>Webページ作成</td>
+                      <td className={homeStyles.plan_table_text}>テキスト、画像</td>
+                      <td className={homeStyles.plan_table_text}>ページリンク</td>
+                    </tr>
+                    <tr>
+                      <td className={homeStyles.plan_table_text}>HTML埋め込み</td>
+                      <td className={homeStyles.plan_table_text}>iframe埋め込み</td>
+                    </tr>
                   </tbody>
                 </Table>
               </Col>
