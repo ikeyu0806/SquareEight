@@ -340,19 +340,69 @@ resources = Resource.create!(
   [
     {
       account_id: account.id,
-      name: "スタジオ",
-      quantity: 3,
-    },
-    {
-      account_id: account.id,
       name: "ヨガマット",
-      quantity: 3,
+      description: '無料でヨガマット貸し出しております。',
+      quantity: 20,
+      resource_type: 'Equipment',
+      is_show_reserve_page: true,
     },
     {
       account_id: account.id,
-      name: "〇〇先生",
+      name: "インドアテニスコート",
+      description: 'セミハードコート8面を備えたインドアテニスコートを備えております。',
+      quantity: 32,
+      resource_type: 'Equipment',
+      is_show_reserve_page: true,
+    },
+    {
+      account_id: account.id,
+      name: "アウトドアテニスコート",
+      description: 'セミハードコート8面を備えたアウトドアテニスコートを備えております。',
+      quantity: 32,
+      resource_type: 'Equipment',
+      is_show_reserve_page: true,
+    },
+    {
+      account_id: account.id,
+      name: "個室サウナ",
+      description: '貸切タイプの個室サウナ施設を備えております。',
       quantity: 1,
-    }
+      resource_type: 'Equipment',
+      is_show_reserve_page: true,
+    },
+    {
+      account_id: account.id,
+      name: "デモスタッフ",
+      description: "美容師歴15年。指名数、No.1。あなたにピッタリのヘアスタイルを提案します。",
+      quantity: 1,
+      resource_type: 'Staff',
+      is_show_reserve_page: true,
+    },
+    {
+      account_id: account.id,
+      name: "デモスタッフ",
+      description: "美容師歴5年。色系ヘアカラーお任せ下さい",
+      quantity: 1,
+      resource_type: 'Staff',
+      is_show_reserve_page: true,
+    },
+    {
+      account_id: account.id,
+      name: "デモスタッフ",
+      description: "パーソナルトレーニングで理想の体づくりのお手伝いをさせていただきます。",
+      quantity: 1,
+      resource_type: 'Staff',
+      is_show_reserve_page: true,
+    },
+    {
+      account_id: account.id,
+      name: "デモスタッフ",
+      description: "明るく楽しくレッスンいたします。大学在籍中に日本学生ゴルフ選手権優勝経験あり。",
+      quantity: 1,
+      resource_type: 'Staff',
+      is_show_reserve_page: true,
+    },
+
   ]
 )
 
