@@ -45,7 +45,11 @@ const Index: NextPage = () => {
           <Row>
             <Col md={3}></Col>
             <Col md={6}>
-              <h3>ページ一覧</h3>
+              <a className='btn btn-primary mb20'
+                 href='/admin/webpage/new'>
+                新規Webページ作成
+              </a>
+              <h3>Webページ一覧</h3>
               <ListGroup>
                 {webpages.map((webpage, i) => {
                   return (
