@@ -369,6 +369,55 @@ const Index: NextPage = () => {
                         </Row>
                       </>
                     }</>}
+
+                    {reserveFrame.display_staff.length !== 0 &&
+                    <>
+                      <hr />
+                      <div className='mb10'>
+                        スタッフ情報
+                      </div>
+                      {reserveFrame.display_staff.map((r, i) => {
+                        return (
+                          <span key={i}>
+                            <Row>
+                              {r.resource_image1_public_url &&
+                              <Col>
+                                <img
+                                  src={r.resource_image1_public_url}
+                                  alt='staffImage'
+                                  />
+                              </Col>}
+                              <Col>{r.name}</Col>
+                            </Row>
+                          </span>
+                        )
+                      })}
+                    </>}
+
+                    {reserveFrame.display_staff.length !== 0 &&
+                    <>
+                      <hr />
+                      <div className='mb10'>
+                        設備・備品情報
+                      </div>
+                      {reserveFrame.display_equipment.map((r, i) => {
+                        return (
+                          <span key={i}>
+                            <Row>
+                              {r.resource_image1_public_url &&
+                              <Col>
+                                <img
+                                  src={r.resource_image1_public_url}
+                                  alt='equipmentImage'
+                                  />
+                              </Col>}
+                              <Col>{r.name}</Col>
+                            </Row>
+                          </span>
+                        )
+                      })}
+                    </>}
+
                     {reserveFrame?.reception_type !== 'PhoneOnly'
                     && <div className='text-center'>
                       <Button

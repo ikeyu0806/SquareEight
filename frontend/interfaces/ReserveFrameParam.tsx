@@ -49,4 +49,6 @@ export interface ReserveFrameParam {
   questionnaire_master_title_with_public_id: QuestionnaireMasterParam
   unreservable_frames_dates: UnreservableFrameParam[]
   out_of_range_frames_dates: UnreservableFrameParam[]
+  display_staff: ResourceParam[]
+  display_equipment: ResourceParam[]
 }
