@@ -97,6 +97,23 @@
   background: linear-gradient(transparent 70%, #5BA5BD 50%);
 }
 
+.benefit_headline {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+.benefit_text {
+  text-align: center;
+  font-size: 20px;
+}
+
+.benefit_box {
+  border-radius: 5px;
+  border-top: 12px solid #5BA5BD;
+  border: 1px solid black;
+  padding: 20px 12px;
+}
+
 .function_content {
   border-radius: 5px;
   border: 1px solid;

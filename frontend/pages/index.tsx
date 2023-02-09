@@ -78,17 +78,37 @@ const Home: NextPage = () => {
             <hr />
             <p className={homeStyles.section_headline_parent}>
               <span className={homeStyles.section_headline}>
-                こんなお悩みを解決します
+                導入効果
               </span>
             </p>
-            <div className='font-size-25'>
-              <div>
-                ・美容院、ヘアサロンなど美容業界の予約システム運営費用削減
-              </div>
-              <div>
-                ・お店のホームページ作成費用
-              </div>
-            </div>
+            <Row>
+              <Col>
+                <div className={homeStyles.benefit_box}>
+                  <div className='font-size-25'>
+                    <div className={homeStyles.benefit_headline}>
+                      予約システム運営費用削減
+                    </div>
+                  </div>
+                  <div className={homeStyles.benefit_text}>
+                    <br />他社クラウドサービスでは月額2万、予約1件につき￥3000など高額な運用費用がかかります。
+                    <br /><br />当サービスは全プラン月額¥6980以下でご利用可能！
+                  </div>
+                </div>
+              </Col>
+              <Col>
+                <div className={homeStyles.benefit_box}>
+                  <div className='font-size-25'>
+                    <div className={homeStyles.benefit_headline}>
+                      月額サブスクリプション・回数券支払い
+                    </div>
+                  </div>
+                  <div className={homeStyles.benefit_text}>
+                    <br />お支払いに月額サブスクリプション・回数券を導入することにより安定した収益を得ることができます。
+                    <br /><br />新規ユーザの獲得にも効果的です。
+                  </div>
+                </div>
+              </Col>
+            </Row>
             <hr />
             <p className={homeStyles.section_headline_parent}>
               <span className={homeStyles.section_headline}>サービス概要</span>
