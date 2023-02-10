@@ -35,31 +35,24 @@ class Api::Internal::MessageTemplatesController < ApplicationController
   end
 
   def send_mail
-    if message_template_params[:target_type] == 'Customer'
-      message_template_params[:target_customers].each do |target_customer_param|
-        email = target_customer_param[:email]
-        title = message_template_params["title"]
-        content = MessageTemplate.convert_content(message_template_params["content"], target_customer_param['last_name'], target_customer_param['first_name'])
-        MessageTemplateMailer.send_mail(email, title, content).deliver_now
-      end
-    elsif message_template_params[:target_type] == 'Email'
-      message_template_params["target_emails"].split(',').each do |email|
-        email = email
-        content = message_template_params["content"].gsub(/\n/, "<br />")
-        title = message_template_params["title"]
-        MessageTemplateMailer.send_mail(email, title, content).deliver_now
-      end
-    elsif message_template_params[:target_type] == 'CustomerGroup'
-      content = message_template_params["content"].gsub(/\n/, "<br />")
-      title = message_template_params["title"]
-      target_emails = []
+    account = current_merchant_user.account
+    monthly_send_mail_count = account.send_mail_histories.where(created_at: Time.zone.now - 30.days...Time.zone.now).count
+    raise "メール送信可能数を超えています" if monthly_send_mail_count >= account.send_mail_limit
+    message_template = MessageTemplate.find_by(public_id: params["public_id"])
+    title = message_template.title
+    content = message_template.content
+    if message_template_params[:target_type] == 'customer'
+      email = message_template_params[:target_customers][:email]
+      content = MessageTemplate.convert_content(content, message_template_params[:target_customers][:last_name], message_template_params[:target_customers][:first_name])
+      MessageTemplateMailer.send_mail(email, title, content).deliver_now
+    elsif message_template_params[:target_type] == 'customerGroup'
       message_template_params["target_customer_groups"].each do |group|
-        customer_group = CustomerGroup.find(group["id"])
-        target_emails = target_emails + customer_group.customers.pluck(:email)
-      end
-      target_emails = target_emails.uniq
-      target_emails.each do |email|
-        MessageTemplateMailer.send_mail(email, title, content).deliver_now
+        email = group[:email]
+        content = MessageTemplate.convert_content(content, customer.last_name, customer.first_name)
+        message_template_params[:target_customers].each do |target_customer_param|
+          email = target_customer_param[:email]
+          MessageTemplateMailer.send_mail(email, title, content).deliver_now
+        end
       end
     else
       raise 'Invalid target_type'

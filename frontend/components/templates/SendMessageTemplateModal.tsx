@@ -27,10 +27,10 @@ const SendMessageTemplateModal = () => {
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/message_templates/${selectedMessageTemplate.public_id}/send_mail`,
     {
-      html_mail_templates: {
-        send_target_type: sendTargetType,
-        selected_customer: selectedCustomer,
-        selected_customer_group: selectedCustomerGroup
+      message_template: {
+        target_type: sendTargetType,
+        target_customers: selectedCustomer,
+        target_customer_groups: selectedCustomerGroup
       }
     },
     {

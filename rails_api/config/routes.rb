@@ -166,7 +166,7 @@ Rails.application.routes.draw do
       get 'questionnaire_answers/:public_id', to: 'questionnaire_answers#show'
       post 'questionnaire_answers/:questionnaire_master_public_id', to: 'questionnaire_answers#create'
       get 'message_templates', to: 'message_templates#index'
-      post 'message_templates/send_mail', to: 'message_templates#send_mail'
+      post 'message_templates/:public_id/send_mail', to: 'message_templates#send_mail'
       post 'message_templates/:public_id', to: 'message_templates#update'
       post 'message_templates', to: 'message_templates#create'
       delete 'message_templates/:public_id', to: 'message_templates#destroy'
