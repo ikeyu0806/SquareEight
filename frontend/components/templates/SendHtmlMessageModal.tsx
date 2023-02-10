@@ -33,7 +33,8 @@ const SendHtmlMessageModal = () => {
         send_target_type: sendTargetType,
         is_send_message_all_customers: isSendMessageAllCustomers,
         selected_customer: selectedCustomer,
-        selected_customer_group: selectedCustomerGroup
+        selected_customer_group: selectedCustomerGroup,
+        customer_public_id: selectedHtmlMailTemplatePublicId
       }
     },
     {
