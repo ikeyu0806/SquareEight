@@ -36,7 +36,7 @@ const CreateReservationModal = (): JSX.Element => {
   const price = useSelector((state: RootState) => state.reservation.price)
   const showRegisterReservationModal = useSelector((state: RootState) => state.reservation.showRegisterReservationModal)
   // Customer
-  const customerId = useSelector((state: RootState) => state.customer.customerId)
+  const customerPublicId = useSelector((state: RootState) => state.customer.customerPublicId)
   const firstName = useSelector((state: RootState) => state.customer.firstName)
   const lastName = useSelector((state: RootState) => state.customer.lastName)
   const firstNameKana = useSelector((state: RootState) => state.customer.firstNameKana)
@@ -83,7 +83,7 @@ const CreateReservationModal = (): JSX.Element => {
         end_time: endTime,
         price: price,
         number_of_people: numberOfPeople,
-        customer_public_id: customerId,
+        customer_public_id: customerPublicId,
         first_name: firstName,
         last_name: lastName,
         first_name_kana: firstNameKana,
@@ -123,7 +123,7 @@ const CreateReservationModal = (): JSX.Element => {
   const insertCustomerForm = (customerPublicId: string) => {
     let customer: CustomerParam
     customer = customers.find(c => c.public_id === customerPublicId) as CustomerParam
-    dispatch(customerPublicIdChanged(customer.public_id))
+    dispatch(customerPublicIdChanged(customerPublicId))
     dispatch(firstNameChanged(customer.first_name || ''))
     dispatch(firstNameKanaChanged(customer.first_name_kana || ''))
     dispatch(lastNameChanged(customer.last_name || ''))
@@ -138,6 +138,7 @@ const CreateReservationModal = (): JSX.Element => {
     let customer: CustomerParam
     customer = customers[0]
     dispatch(customerIdChanged(customer.id))
+    dispatch(customerPublicIdChanged(customer.public_id))
     dispatch(firstNameChanged(customer.first_name || ''))
     dispatch(firstNameKanaChanged(customer.first_name_kana || ''))
     dispatch(lastNameChanged(customer.last_name || ''))
@@ -183,7 +184,7 @@ const CreateReservationModal = (): JSX.Element => {
             {customers.map((customer, i) => {
               return (
                 <option
-                  value={customer.id}
+                  value={customer.public_id}
                   key={i}>{customer.full_name}</option>
               )
             })}

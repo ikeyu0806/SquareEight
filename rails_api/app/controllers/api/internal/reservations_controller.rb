@@ -213,6 +213,8 @@ class Api::Internal::ReservationsController < ApplicationController
 
       reserve_frame = ReserveFrame.find_by(public_id: reservation_params[:reserve_frame_public_id])
       # create reservation
+      monthly_reservation_count = current_merchant_user.account.reservations.where(start_at: Time.zone.now - 30.days...Time.zone.now).count
+      raise "予約受付可能数を超えています" if monthly_reservation_count >= current_merchant_user.account.reservation_limit
       Reservation.create!(reserve_frame_id: reserve_frame.id,
                           start_at: start_datetime,
                           status: 'confirm',
