@@ -6,11 +6,11 @@ const PlanLabel = (): JSX.Element => {
 
   return (
     <div className='badge bg-info ml10'>
-      プレミアムプランお試しキャンペーン中
-      {/* {servicePlan === 'Free' && 'フリープラン'}
+      {servicePlan === 'Free' && 'フリープラン'}
       {servicePlan === 'Light' && 'ライトプラン'}
       {servicePlan === 'Standard' && 'スタンダードプラン'}
-      {servicePlan === 'Premium' && 'プレミアムプラン'} */}
+      {servicePlan === 'Premium' && 'プレミアムプラン'}
+      {servicePlan === 'Trial' && 'プレミアムプラントライアル中'}
     </div>
   )
 }

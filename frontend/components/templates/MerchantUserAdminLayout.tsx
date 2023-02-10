@@ -114,7 +114,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(loginStatusChanged('Login'))
       dispatch(stripeAccountEnableChanged(response.data.user.stripe_account_enable ? 'Enable' : 'Disable'))
       dispatch(stripeCustomerEnableChanged(response.data.user.stripe_customer_enable ? 'Enable' : 'Disable'))
-      dispatch(servicePlanChanged(response.data.service_plan))
+      dispatch(servicePlanChanged(response.data.user.service_plan_status))
       dispatch(emailChanged(response.data.user.email))
       dispatch(isRootUserChanged(response.data.user.is_root_user))
       dispatch(isShopsExistsChanged(response.data.user.is_shops_exist ? 'Enable' : 'Disable'))

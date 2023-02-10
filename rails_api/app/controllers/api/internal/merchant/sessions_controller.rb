@@ -3,11 +3,16 @@ class Api::Internal::Merchant::SessionsController < ApplicationController
     raise if current_merchant_user.blank?
     account = current_merchant_user.account
     shops = account.shops
-    user = JSON.parse(current_merchant_user.to_json(methods: [:stripe_account_enable, :stripe_customer_enable, :today_reservations_count, :is_shops_exist])) 
+    user = JSON.parse(current_merchant_user
+                      .to_json(methods: [:stripe_account_enable,
+                                         :stripe_customer_enable,
+                                         :today_reservations_count,
+                                         :is_shops_exist,
+                                         :service_plan_status,
+                                         :trial_end_datetime_text])) 
     render json: { status: 'success',
                    user: user,
-                   shops: shops,
-                   service_plan: current_merchant_user.account.service_plan }
+                   shops: shops }
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 401
