@@ -46,13 +46,12 @@ class Api::Internal::MessageTemplatesController < ApplicationController
       content = MessageTemplate.convert_content(content, message_template_params[:target_customers][:last_name], message_template_params[:target_customers][:first_name])
       MessageTemplateMailer.send_mail(email, title, content).deliver_now
     elsif message_template_params[:target_type] == 'customerGroup'
-      message_template_params["target_customer_groups"].each do |group|
-        email = group[:email]
+      group = message_template_params["target_customer_groups"]
+      customer_group = CustomerGroup.find(group["id"])
+      customer_group.customers.each do |customer|
+        email = customer.email
         content = MessageTemplate.convert_content(content, customer.last_name, customer.first_name)
-        message_template_params[:target_customers].each do |target_customer_param|
-          email = target_customer_param[:email]
-          MessageTemplateMailer.send_mail(email, title, content).deliver_now
-        end
+        MessageTemplateMailer.send_mail(email, title, content).deliver_now
       end
     else
       raise 'Invalid target_type'
