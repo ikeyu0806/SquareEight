@@ -345,6 +345,14 @@ img.customer_support_img {
   img.demo_page_img {
     height: 400px;
   }
+
+  .benefit_headline {
+    font-size: 20px;
+  }
+
+  .benefit_text {
+    font-size: 15px;
+  }
 }
 
 @media screen and (max-width: 320px) {
