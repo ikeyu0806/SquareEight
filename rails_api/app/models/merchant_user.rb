@@ -291,12 +291,12 @@ class MerchantUser < ApplicationRecord
   end
 
   def is_shops_exist
-    account.shops.present?
+    self.account.shops.present?
   end
 
   def service_plan_status
     return 'Trial' if (Time.zone.now < self.account.trial_end_datetime)
-    return service_plan
+    return self.account.service_plan
   end
 
   def trial_end_datetime_text
