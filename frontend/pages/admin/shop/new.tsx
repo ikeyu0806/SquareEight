@@ -147,6 +147,7 @@ const New: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowCreateShop === 'Allow' && <Container>
         <Row>
           <Col lg={3}></Col>

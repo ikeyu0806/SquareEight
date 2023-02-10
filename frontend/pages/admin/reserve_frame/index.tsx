@@ -61,6 +61,7 @@ const Index = (): JSX.Element => {
   return (
     <>
       <MerchantUserAdminLayout>
+      <br />
         {allowReadReserveFrame === 'Allow' && <Container>
           {/* <ReservationLimitAlerts /> */}
           {allowCreateReserveFrame === 'Allow' && <Button

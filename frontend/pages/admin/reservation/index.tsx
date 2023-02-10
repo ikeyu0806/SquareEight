@@ -115,6 +115,7 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
+        <br />
         {allowReadReservation === 'Allow' && <Container>
           <Row>
             <Col lg={3}></Col>

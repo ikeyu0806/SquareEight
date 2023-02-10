@@ -99,15 +99,14 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
           <Col lg={3}></Col>
           <Col lg={6}>
             <div className='mt20 mb20'>
-            {showDeleteButton &&
             <Row>
               <Col sm={9}>
                 <h2 className='mt30'>回数券作成</h2>
               </Col>
-              <Col>
+              {showDeleteButton && <Col>
                 <Button variant='danger' size='sm' onClick={() => execDelete()}>回数券を削除</Button>
-              </Col>
-            </Row>}
+              </Col>}
+            </Row>
               <Form.Group className='mb-3'>
                 <Form.Label>表示名</Form.Label>
                 <Form.Control placeholder='レッスン10回受講券など'
