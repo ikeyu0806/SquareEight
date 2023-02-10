@@ -37,6 +37,7 @@ class Api::Internal::ResourcesController < ApplicationController
   end
 
   def create
+    raise "リソース登録可能数を超えています" if current_merchant_user.account.resources.count >= current_merchant_user.account.resource_limit
     ActiveRecord::Base.transaction do
       resource = current_merchant_user.account.resources.new
       resource.name = params[:name]
