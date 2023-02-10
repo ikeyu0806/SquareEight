@@ -50,7 +50,9 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
+        <br />
         <Container>
+        <h4>商品一覧</h4>
         {allowCreateProduct === 'Allow' &&
           <a
             href='/admin/product/new'

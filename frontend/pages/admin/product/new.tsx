@@ -93,6 +93,7 @@ const New: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
+        <br />
         {stripeAccountEnable === 'Enable' && allowCreateProduct == 'Allow' &&
         <>
           <CreateProductTemplate></CreateProductTemplate>

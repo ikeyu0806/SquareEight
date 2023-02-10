@@ -42,8 +42,10 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
+        <br />
         {allowReadResource === 'Allow' &&
         <Container>
+          <h4>リソース一覧</h4>
           {resources.length > 0 && <Table bordered>
             <thead>
               <tr>
