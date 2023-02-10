@@ -76,6 +76,8 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
 
   def send_mail
     account = current_merchant_user.account
+    monthly_send_mail_count = account.send_mail_histories.where(created_at: Time.zone.now - 30.days...Time.zone.now).count
+    raise "メール送信可能数を超えています" if monthly_send_mail_count >= account.send_mail_limit
     html_mail_template = HtmlMailTemplate.find_by(public_id: params[:public_id])
     if html_mail_template_params[:send_target_type] == 'customer'
       if html_mail_template_params[:is_send_message_all_customers]
