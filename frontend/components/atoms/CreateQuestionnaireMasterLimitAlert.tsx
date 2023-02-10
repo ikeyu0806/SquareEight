@@ -7,7 +7,7 @@ const CreateQuestionnaireMasterLimitAlert = () => {
 
   return (
     <>
-      {servicePlan === 'Free' && <Alert className='text-center'>フリープランではアンケートマスタは10件まで送信できます。</Alert>}
+      {servicePlan === 'Free' && <Alert className='text-center'>フリープランではアンケートマスタは3件まで送信できます。</Alert>}
     </>
   )
 }

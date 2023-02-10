@@ -449,7 +449,7 @@ const Home: NextPage = () => {
                   </tr>
                   <tr className={homeStyles.plan_table_text}>
                     <td>オンラインアンケート作成</td>
-                    <td>10件</td>
+                    <td>3件</td>
                     <td>無制限</td>
                     <td>無制限</td>
                     <td>無制限</td>
