@@ -12,6 +12,7 @@ import AddQuestionnaireFormModal from 'components/organisms/AddQuestionnaireForm
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { publishStatusChanged } from 'redux/questionnaireMasterSlice'
 import Unauthorized from 'components/templates/Unauthorized'
+import CreateQuestionnaireMasterLimitAlert from 'components/atoms/CreateQuestionnaireMasterLimitAlert'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -58,6 +59,7 @@ const New: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <CreateQuestionnaireMasterLimitAlert />
       <br />
       {allowCreateQuestionnaireMaster === 'Allow' && <>
         <Container>
