@@ -14,6 +14,7 @@ const Choice: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowUpdateSharedComponent === 'Allow' && <Container>
         <div className='text-center'>
           <h3 className='mb30'>プラン一覧</h3>

@@ -36,6 +36,7 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       <Container>
         <Table bordered>
           <thead>

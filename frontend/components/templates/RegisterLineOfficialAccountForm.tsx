@@ -16,6 +16,7 @@ const RegisterLineOfficialAccountForm = () => {
 
   return (
     <>
+      <h4>LINE公式アカウント登録</h4>
       <div className='mt20'>公式アカウント名</div>
       <Form.Control
         value={name}

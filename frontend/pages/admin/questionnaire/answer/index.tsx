@@ -40,6 +40,7 @@ const Answer = (): JSX.Element => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowReadQuestionnaireAnswer === 'Allow' && <Container>
         <h3 className='mb20'>回答一覧</h3>
         {questionnaireAnswers && questionnaireAnswers.map((answer, i) => {

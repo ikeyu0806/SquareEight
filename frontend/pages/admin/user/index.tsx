@@ -73,6 +73,7 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowReadMerchantUser === 'Allow' &&
       <Container>
         {allowCreateMerchantUser === 'Allow' &&

@@ -46,6 +46,7 @@ const CreatePages: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       <Container>
         <Table bordered>
           <thead>

@@ -97,6 +97,7 @@ const Edit: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowUpdateSharedComponent === 'Allow' && <Container className='mb30'>
         <h3 className='mb30'>ページ共通部分編集</h3>
         <div>ページ共通のヘッダ、フッタを設定します。</div>

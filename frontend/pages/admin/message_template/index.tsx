@@ -64,6 +64,7 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowReadMessageTemplate === 'Allow' &&
       <Container>
         <h3 className='mb20'>メッセージテンプレート</h3>

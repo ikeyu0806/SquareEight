@@ -58,6 +58,7 @@ const New: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowCreateQuestionnaireMaster === 'Allow' && <>
         <Container>
           <Row>

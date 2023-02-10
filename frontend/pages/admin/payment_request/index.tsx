@@ -44,6 +44,7 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
+      <br />
       {allowReadPaymentRequest === 'Allow' &&
       <Container>
         <h3>決済リクエスト一覧</h3>

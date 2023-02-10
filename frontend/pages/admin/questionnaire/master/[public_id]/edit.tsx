@@ -105,6 +105,7 @@ const Edit: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowUpdateQuestionnaireMaster === 'Allow' && <>
         <Container>
           <Row>

@@ -46,6 +46,7 @@ const New = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowUpdateLineOfficialAccount === 'Allow' &&
       <Container>
         <Row>

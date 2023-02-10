@@ -31,12 +31,13 @@ const Index = (): JSX.Element => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowReadQuestionnaireMaster === 'Allow' &&
       questionnaireMasters && questionnaireMasters.length > 0 &&
       <Container>
         {allowCreateQuestionnaireMaster &&
         <a className='btn btn-primary' href='/admin/questionnaire/master/new'>新規登録</a>}
-        <h4 className='mb20'>アンケートマスタ</h4>
+        <h4 className='mt20 mb20'>アンケートマスタ</h4>
         <Table bordered>
           <thead>
             <tr>
