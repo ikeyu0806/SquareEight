@@ -62,6 +62,7 @@ const Edit: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowUpdateHtmlMailTemplate === 'Allow' && <Container>
         <Row>
           <Col lg={2}></Col>

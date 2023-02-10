@@ -51,6 +51,7 @@ const New: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowCreateHtmlMailTemplate === 'Allow' && <Container>
         <Row>
           <Col lg={2}></Col>
