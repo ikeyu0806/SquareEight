@@ -10,6 +10,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
   end
 
   def create
+    raise "アンケートマスタ登録可能数を超えています" if current_merchant_user.account.questionnaire_masters.count >= current_merchant_user.account.questionnaire_master_limit
     questionnaire_master = current_merchant_user.account.questionnaire_masters.create!(questionnaire_master_params)
     render json: { status: 'success' }, status: 200
   rescue => error
