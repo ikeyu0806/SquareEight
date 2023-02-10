@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Card, Button, Form, Table  } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button, Form, Table, Alert  } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useCookies } from 'react-cookie'
 import { CustomerParam } from 'interfaces/CustomerParam'
@@ -98,6 +98,9 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
+        {servicePlan === 'Free' && <Alert className='text-center'>フリープランでは顧客数は10人まで表示されます</Alert>}
+        {servicePlan === 'Light' && <Alert className='text-center'>ライトプランでは顧客数は500人まで表示されます</Alert>}
+        {servicePlan === 'Standard' && <Alert className='text-center'>スタンダードプランでは顧客数は2000人まで表示されます</Alert>}
         {allowReadCustomer === 'Allow' &&
         <Container>
         {customers.length > 1 && <>
