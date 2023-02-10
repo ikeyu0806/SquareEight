@@ -8,6 +8,14 @@
   margin-bottom: 50px;
 }
 
+.business_account_signup_btn {
+  background-color: #B2384E;
+  border-color: #B2384E;
+  color: white;
+  border-radius: 20px;
+  padding: 10px;
+}
+
 .cover_img {
   max-width: 100%;
   filter: hue-rotate(180deg);
@@ -26,7 +34,7 @@
   transform: translate(-50%,-50%);
   margin: 0;
   padding: 0;
-  top: 50%;
+  top: 40%;
   left: 50%;
   background-clip: text;
 }
@@ -37,7 +45,7 @@
   transform: translate(-50%,-50%);
   margin: 0;
   padding: 0;
-  top: 60%;
+  top: 70%;
   left: 50%;
   background-clip: text;
 }

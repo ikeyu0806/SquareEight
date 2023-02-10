@@ -5,6 +5,7 @@ import homeStyles from 'styles/Home.module.css'
 import BrandColorButton from 'components/atoms/BrandColorButton'
 import { brandGrayRgb, brandGreenRgb } from 'constants/brandColors'
 import DownArrawIcon from 'components/atoms/DownArrawIcon'
+import { useRouter } from 'next/router'
 import { Container,
          Navbar,
          Nav,
@@ -15,6 +16,8 @@ import { Container,
          Table } from 'react-bootstrap'
 
 const Home: NextPage = () => {
+  const router = useRouter()
+
   return (
     <>
       <Navbar collapseOnSelect expand='lg' bg='light'>
@@ -43,9 +46,7 @@ const Home: NextPage = () => {
                   buttonText='ビジネスアカウントログイン'></BrandColorButton>
               </Nav.Link>
               <Nav.Link href='/merchant/signup'>
-                <BrandColorButton
-                  brandColor='red'
-                  buttonText='無料でお試し'></BrandColorButton>
+
               </Nav.Link>
             </Nav>
           </Navbar.Collapse>
@@ -60,9 +61,11 @@ const Home: NextPage = () => {
         <p className={homeStyles.headline_service_name}>
           SquareEight
         </p>
-        {/* <p className={homeStyles.service_description}>
-          無料から使えるオンラインビジネス運営サービス
-        </p> */}
+        <div className={homeStyles.service_description}>
+          <button
+            onClick={() => router.push('/merchant/signup')}
+            className={homeStyles.business_account_signup_btn}>無料でお試し</button>
+        </div>
       </div>
       <div className='mt10'>
         <Container>
