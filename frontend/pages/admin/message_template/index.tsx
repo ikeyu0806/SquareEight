@@ -12,6 +12,7 @@ import axios from 'axios'
 import Unauthorized from 'components/templates/Unauthorized'
 import SendMessageTemplateModal from 'components/templates/SendMessageTemplateModal'
 import { customerPublicIdChanged } from 'redux/customerSlice'
+import SendMailLimitAlert from 'components/atoms/SendMailLimitAlert'
 import { selectedMessageTemplateChanged,
          showSendMessageTemplateModalChanged,
          messageTemplateTypeChanged } from 'redux/sendMailSlice'
@@ -64,6 +65,7 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <SendMailLimitAlert />
       <br />
       {allowReadMessageTemplate === 'Allow' &&
       <Container>

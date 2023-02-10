@@ -6,6 +6,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { HtmlMailTemplateParam } from 'interfaces/HtmlMailTemplateParam'
 import SendHtmlMessageModal from 'components/templates/SendHtmlMessageModal'
+import SendMailLimitAlert from 'components/atoms/SendMailLimitAlert'
 import { showSendHtmlMessageModalChanged,
          customersChanged,
          customerGroupsChanged,
@@ -45,6 +46,7 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <SendMailLimitAlert />
       <br />
       {allowReadHtmlMailTemplate === 'Allow' && <Container>
         <a href='/admin/html_mail_template/select_template_type' className='btn btn-primary'>新規作成</a>
