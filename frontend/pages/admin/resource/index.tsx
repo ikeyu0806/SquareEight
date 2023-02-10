@@ -9,6 +9,7 @@ import { ResourceParam } from 'interfaces/ResourceParam'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import Unauthorized from 'components/templates/Unauthorized'
+import CreateResourceLimitAlert from 'components/atoms/CreateResourceLimitAlert'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -42,6 +43,7 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
+        <CreateResourceLimitAlert />
         <br />
         {allowReadResource === 'Allow' &&
         <Container>
