@@ -3,6 +3,7 @@ import { RootState } from '../../redux/store'
 
 const PlanLabel = (): JSX.Element => {
   const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
+  const trialEndDatetimeText =  useSelector((state: RootState) => state.currentMerchantUser.trialEndDatetimeText)
 
   return (
     <div className='badge bg-info ml10'>
@@ -10,7 +11,7 @@ const PlanLabel = (): JSX.Element => {
       {servicePlan === 'Light' && 'ライトプラン'}
       {servicePlan === 'Standard' && 'スタンダードプラン'}
       {servicePlan === 'Premium' && 'プレミアムプラン'}
-      {servicePlan === 'Trial' && 'プレミアムプラントライアル中'}
+      {servicePlan === 'Trial' && `${trialEndDatetimeText}までプレミアムプランお試し中`}
     </div>
   )
 }

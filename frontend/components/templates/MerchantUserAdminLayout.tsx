@@ -19,7 +19,8 @@ import { loginStatusChanged,
          readAccountNotificationStatusChanged,
          readBusinessNotificationStatusChanged,
          todayReservationsCountChanged,
-         isShopsExistsChanged } from 'redux/currentMerchantUserSlice'
+         isShopsExistsChanged,
+         trialEndDatetimeTextChanged } from 'redux/currentMerchantUserSlice'
 import {  allowReadMerchantUserChanged,
           allowCreateMerchantUserChanged,
           allowUpdateMerchantUserChanged,
@@ -115,6 +116,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(stripeAccountEnableChanged(response.data.user.stripe_account_enable ? 'Enable' : 'Disable'))
       dispatch(stripeCustomerEnableChanged(response.data.user.stripe_customer_enable ? 'Enable' : 'Disable'))
       dispatch(servicePlanChanged(response.data.user.service_plan_status))
+      dispatch(trialEndDatetimeTextChanged(response.data.user.trial_end_datetime_text))
       dispatch(emailChanged(response.data.user.email))
       dispatch(isRootUserChanged(response.data.user.is_root_user))
       dispatch(isShopsExistsChanged(response.data.user.is_shops_exist ? 'Enable' : 'Disable'))

@@ -22,7 +22,8 @@ export const currentMerchantUserSlice = createSlice({
     readAccountNotificationStatus: 'Unconfirmed',
     readBusinessNotificationStatus: 'Unconfirmed',
     todayReservationsCount: 0,
-    isShopsExists: 'Unconfirmed'
+    isShopsExists: 'Unconfirmed',
+    trialEndDatetimeText: ''
   },
   reducers: {
     idChanged: (state, action: PayloadAction<string>) => {
@@ -76,6 +77,9 @@ export const currentMerchantUserSlice = createSlice({
     isShopsExistsChanged: (state, action: PayloadAction<string>) => {
       state.isShopsExists = action.payload
     },
+    trialEndDatetimeTextChanged: (state, action: PayloadAction<string>) => {
+      state.trialEndDatetimeText = action.payload
+    },
   },
 })
 
@@ -96,5 +100,6 @@ export const { readAccountNotificationStatusChanged } = currentMerchantUserSlice
 export const { readBusinessNotificationStatusChanged } = currentMerchantUserSlice.actions
 export const { todayReservationsCountChanged } = currentMerchantUserSlice.actions
 export const { isShopsExistsChanged } = currentMerchantUserSlice.actions
+export const { trialEndDatetimeTextChanged } = currentMerchantUserSlice.actions
 
 export default currentMerchantUserSlice.reducer
