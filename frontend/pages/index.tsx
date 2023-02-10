@@ -437,7 +437,7 @@ const Home: NextPage = () => {
                     <td>顧客表示数</td>
                     <td>10人</td>
                     <td>500人</td>
-                    <td>2000人</td>
+                    <td>1000人</td>
                     <td>無制限</td>
                   </tr>
                   <tr className={homeStyles.plan_table_text}>

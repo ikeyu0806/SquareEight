@@ -103,7 +103,7 @@ const Index: NextPage = () => {
       <MerchantUserAdminLayout>
         {servicePlan === 'Free' && <Alert className='text-center'>フリープランでは顧客数は10人まで表示されます。現在の顧客数は{registeredCustomersCount}人です。</Alert>}
         {servicePlan === 'Light' && <Alert className='text-center'>ライトプランでは顧客数は500人まで表示されます。現在の顧客数は{registeredCustomersCount}人です。</Alert>}
-        {servicePlan === 'Standard' && <Alert className='text-center'>スタンダードプランでは顧客数は2000人まで表示されます。現在の顧客数は{registeredCustomersCount}人です。</Alert>}
+        {servicePlan === 'Standard' && <Alert className='text-center'>スタンダードプランでは顧客数は1000人まで表示されます。現在の顧客数は{registeredCustomersCount}人です。</Alert>}
         {allowReadCustomer === 'Allow' &&
         <Container>
         {customers.length > 1 && <>
