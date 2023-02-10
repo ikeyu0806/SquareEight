@@ -39,14 +39,15 @@ class Account < ApplicationRecord
   has_many :shops
 
   # プランごとの設定
-  PLAN_NAME =  { "Free" => "フリープラン", "Light" => "ライトプラン", "Standard" => "スタンダードプラン", "Premium" => "プレミアムプラン" }
-  RESERVATION_LIMIT = { "Free" => 10, "Light" => 500, "Standard" => 2000, "Premium" => 10000 }
-  # SEND_MAIL_LIMIT = { "Free" => 50, "Light" => 500, "Standard" => 1000, "Premium" => 10000 }
-  STRIPE_CHARGE_FEE = { "Free" => 80, "Light" => 70, "Standard" => 70, "Premium" => 50 }
-  CUSTOMER_DISPLAY_LIMIT = { "Free" => 10, "Light" => 200, "Standard" => 500, "Premium" => nil }
-  PLAN_PRICE = { "Free" => 0, "Light" => 1480, "Standard" => 2980, "Premium" => 6980 }
-  STRIPE_APPLICATION_FEE_AMOUNT = { "Free" => 0.08, "Light" => 0.05, "Standard" => 0.05, "Premium" => 0.04 }
-  STRIPE_APPLICATION_FEE_PERCENT = { "Free" => 8, "Light" => 5, "Standard" => 5, "Premium" => 4 }
+  PLAN_NAME =  { "Free" => "フリープラン", "Light" => "ライトプラン", "Standard" => "スタンダードプラン", "Premium" => "プレミアムプラン", "Trial" => "トライアル" }
+  RESERVATION_LIMIT = { "Free" => 10, "Light" => 500, "Standard" => 2000, "Premium" => 1000000000, "Trial" => "トライアル" }
+  RESOURCE_REGISTER_LIMIT = { "Free" => 3, "Light" => 10, "Standard" => 1000000000, "Premium" => 1000000000, "Trial" => "トライアル" }
+  SEND_MAIL_LIMIT = { "Free" => 10, "Light" => 1000, "Standard" => 3000, "Premium" => 1000000000 }
+  STRIPE_CHARGE_FEE = { "Free" => 80, "Light" => 70, "Standard" => 70, "Premium" => 50, "Trial" => 1000000000 }
+  CUSTOMER_DISPLAY_LIMIT = { "Free" => 10, "Light" => 200, "Standard" => 500, "Premium" => 1000000000, "Trial" => 1000000000 }
+  PLAN_PRICE = { "Free" => 0, "Light" => 1480, "Standard" => 2980, "Premium" => 6980, "Trial" => "トライアル" }
+  STRIPE_APPLICATION_FEE_AMOUNT = { "Free" => 0.08, "Light" => 0.05, "Standard" => 0.05, "Premium" => 0.04, "Trial" => 0.04 }
+  STRIPE_APPLICATION_FEE_PERCENT = { "Free" => 8, "Light" => 5, "Standard" => 5, "Premium" => 4, "Trial" => 4 }
 
   # キャンペーン
   # 無制限キャンペーン
@@ -56,33 +57,36 @@ class Account < ApplicationRecord
 
   def reservation_limit
     # return 1000000000 if Time.zone.now < Account::UNLIMITED_CAMPAIGN_END_AT.end_of_day
-    Account::RESERVATION_LIMIT[self.service_plan]
+    Account::RESERVATION_LIMIT[self.service_plan_status]
   end
 
-  # 現状メールは制限なし
-  # def send_mail_limit
-  #   Account::SEND_MAIL_LIMIT[self.service_plan]
-  # end
+  def resource_limit
+    Account::RESOURCE_REGISTER_LIMIT[self.service_plan_status]
+  end
+
+  def send_mail_limit
+    Account::SEND_MAIL_LIMIT[self.service_plan_status]
+  end
 
   def customers_with_limit
     # return 1000000000 if Time.zone.now < Account::UNLIMITED_CAMPAIGN_END_AT.end_of_day
-    customers.limit(Account::CUSTOMER_DISPLAY_LIMIT[self.service_plan])
+    customers.limit(Account::CUSTOMER_DISPLAY_LIMIT[self.service_plan_status])
   end
 
   def plan_price
-    Account::PLAN_PRICE[self.service_plan]
+    Account::PLAN_PRICE[self.service_plan_status]
   end
 
   def plan_name
-    Account::PLAN_NAME[self.service_plan]
+    Account::PLAN_NAME[self.service_plan_status]
   end
 
   def application_fee_amount
-    Account::STRIPE_APPLICATION_FEE_AMOUNT[self.service_plan]
+    Account::STRIPE_APPLICATION_FEE_AMOUNT[self.service_plan_status]
   end
 
   def application_fee_percent
-    Account::STRIPE_APPLICATION_FEE_PERCENT[self.service_plan]
+    Account::STRIPE_APPLICATION_FEE_PERCENT[self.service_plan_status]
   end
 
   def service_plan_stripe_id
@@ -177,5 +181,10 @@ class Account < ApplicationRecord
 
   def merchant_user_emails
     merchant_users.pluck(:email)
+  end
+
+  def service_plan_status
+    return 'Trial' if (Time.zone.now < self.trial_end_datetime)
+    return service_plan
   end
 end
