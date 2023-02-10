@@ -471,8 +471,8 @@ const Home: NextPage = () => {
                   <tr className={homeStyles.plan_table_text}>
                     <td>メール配信可能数</td>
                     <td>10件</td>
-                    <td>1000件</td>
-                    <td>3000件</td>
+                    <td>100件</td>
+                    <td>500件</td>
                     <td>無制限</td>
                   </tr>
                   <tr className={homeStyles.plan_table_text}>

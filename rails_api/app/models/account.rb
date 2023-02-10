@@ -42,7 +42,7 @@ class Account < ApplicationRecord
   PLAN_NAME =  { "Free" => "フリープラン", "Light" => "ライトプラン", "Standard" => "スタンダードプラン", "Premium" => "プレミアムプラン", "Trial" => "トライアル" }
   RESERVATION_LIMIT = { "Free" => 10, "Light" => 500, "Standard" => 2000, "Premium" => 1000000000, "Trial" => "トライアル" }
   RESOURCE_REGISTER_LIMIT = { "Free" => 3, "Light" => 10, "Standard" => 1000000000, "Premium" => 1000000000, "Trial" => "トライアル" }
-  SEND_MAIL_LIMIT = { "Free" => 10, "Light" => 1000, "Standard" => 3000, "Premium" => 1000000000 }
+  SEND_MAIL_LIMIT = { "Free" => 10, "Light" => 100, "Standard" => 500, "Premium" => 1000000000 }
   STRIPE_CHARGE_FEE = { "Free" => 80, "Light" => 70, "Standard" => 70, "Premium" => 50, "Trial" => 1000000000 }
   CUSTOMER_DISPLAY_LIMIT = { "Free" => 10, "Light" => 200, "Standard" => 500, "Premium" => 1000000000, "Trial" => 1000000000 }
   PLAN_PRICE = { "Free" => 0, "Light" => 1480, "Standard" => 2980, "Premium" => 6980, "Trial" => "トライアル" }

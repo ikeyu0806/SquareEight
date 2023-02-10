@@ -8,8 +8,8 @@ const SendMailLimitAlert = () => {
   return (
     <>
       {servicePlan === 'Free' && <Alert className='text-center'>フリープランではメールは10件まで送信できます。</Alert>}
-      {servicePlan === 'Light' && <Alert className='text-center'>ライトプランではメールは1000件まで送信できます。</Alert>}
-      {servicePlan === 'Standard' && <Alert className='text-center'>スタンダードプランではメールは3000件まで送信できます。</Alert>}
+      {servicePlan === 'Light' && <Alert className='text-center'>ライトプランではメールは100件まで送信できます。</Alert>}
+      {servicePlan === 'Standard' && <Alert className='text-center'>スタンダードプランではメールは500件まで送信できます。</Alert>}
     </>
   )
 }
