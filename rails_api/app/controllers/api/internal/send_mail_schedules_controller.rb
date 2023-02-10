@@ -11,6 +11,9 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
   end
 
   def create
+    account = current_merchant_user.account
+    monthly_send_mail_count = account.send_mail_histories.where(created_at: Time.zone.now - 30.days...Time.zone.now).count
+    raise "メール送信可能数を超えています" if monthly_send_mail_count >= account.send_mail_limit
     scheduled_datetime = Time.zone.parse("#{send_mail_schedules_params[:scheduled_date]} #{send_mail_schedules_params[:scheduled_time]}")
 
     case send_mail_schedules_params[:message_template_type]
