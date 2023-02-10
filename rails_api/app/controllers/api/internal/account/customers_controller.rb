@@ -10,12 +10,14 @@ class Api::Internal::Account::CustomersController < ApplicationController
     html_mail_templates = current_merchant_user.account.html_mail_templates
     customers = JSON.parse(customers.to_json(methods: [:line_display_name, :line_picture_url, :line_user_public_id]))
     html_template_content = html_mail_templates.present? ? JSON.parse(html_mail_templates.first.content) : ''
+    registered_customers_count = current_merchant_user.account.registered_customers_count
     render json: { status: 'success',
                    customers: customers,
                    line_users: line_users,
                    line_official_accounts: line_official_accounts,
                    message_templates: message_templates,
                    html_mail_templates: html_mail_templates,
+                   registered_customers_count: registered_customers_count,
                    selected_html_mail_template: html_mail_templates.first || {},
                    selected_html_template_content: html_template_content }, status: 200
   rescue => error

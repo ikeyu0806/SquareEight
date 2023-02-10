@@ -187,4 +187,8 @@ class Account < ApplicationRecord
     return 'Trial' if (Time.zone.now < self.trial_end_datetime)
     return service_plan
   end
+
+  def registered_customers_count
+    customers.count
+  end
 end

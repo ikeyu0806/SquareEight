@@ -34,13 +34,15 @@ import CustomerNotesModal from 'components/templates/CustomerNotesModal'
 import LineOfficialAccountModal from 'components/templates/LineOfficialAccountModal'
 import { htmlMailTemplateChanged as htmlMailTemplateStateContentChanged } from 'redux/htmlMailTemplateSlice'
 import { selectedHtmlMailTemplateChanged, sendTargetTypeChanged } from 'redux/sendMailSlice'
-import { lineOfficialAccountsChanged } from 'redux/accountSlice'
+import { lineOfficialAccountsChanged,
+         registeredCustomersCountChanged } from 'redux/accountSlice'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
   const [searchWord, setSearchWord] = useState('')
   const customers =  useSelector((state: RootState) => state.account.customers)
+  const registeredCustomersCount =  useSelector((state: RootState) => state.account.registeredCustomersCount)
   const servicePlan =  useSelector((state: RootState) => state.currentMerchantUser.servicePlan)
   const allowReadCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowReadCustomer)
   const allowCreateCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowCreateCustomer)
@@ -67,6 +69,7 @@ const Index: NextPage = () => {
       dispatch(selectedHtmlMailTemplateChanged(response.data.selected_html_mail_template))
       dispatch(lineOfficialAccountsChanged(response.data.line_official_accounts))
       dispatch(sendTargetTypeChanged('customer'))
+      dispatch(registeredCustomersCountChanged(response.data.registered_customers_count))
     }).catch((error) => {
       console.log(error)
     })
@@ -98,9 +101,9 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        {servicePlan === 'Free' && <Alert className='text-center'>フリープランでは顧客数は10人まで表示されます</Alert>}
-        {servicePlan === 'Light' && <Alert className='text-center'>ライトプランでは顧客数は500人まで表示されます</Alert>}
-        {servicePlan === 'Standard' && <Alert className='text-center'>スタンダードプランでは顧客数は2000人まで表示されます</Alert>}
+        {servicePlan === 'Free' && <Alert className='text-center'>フリープランでは顧客数は10人まで表示されます。現在の顧客数は{registeredCustomersCount}人です。</Alert>}
+        {servicePlan === 'Light' && <Alert className='text-center'>ライトプランでは顧客数は500人まで表示されます。現在の顧客数は{registeredCustomersCount}人です。</Alert>}
+        {servicePlan === 'Standard' && <Alert className='text-center'>スタンダードプランでは顧客数は2000人まで表示されます。現在の顧客数は{registeredCustomersCount}人です。</Alert>}
         {allowReadCustomer === 'Allow' &&
         <Container>
         {customers.length > 1 && <>
