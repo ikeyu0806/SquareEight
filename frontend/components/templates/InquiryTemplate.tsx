@@ -16,8 +16,11 @@ const InquiryTemplate = (): JSX.Element => {
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/inquiry`, {
       inquiry: {
+        organization: organization,
         email: email,
-        content: content
+        phone_number: phoneNumber,
+        content: content,
+        inquiry_type: inquiryType
       }
     }).then(response => {
       router.push('/inquiry/confirm')
@@ -27,6 +30,13 @@ const InquiryTemplate = (): JSX.Element => {
         icon: 'error'
       })
     })
+  }
+
+  const validateOnSubmit = () => {
+    if (!organization || !email || !phoneNumber || !content || !inquiryType) {
+      return true
+    }
+    return false
   }
 
   return (
@@ -71,7 +81,7 @@ const InquiryTemplate = (): JSX.Element => {
                   rows={20} />
               </Form>
               <div className='text-center mt10'>
-                <Button size='lg' onClick={onSubmit} disabled={!email || !content}>送信する</Button>
+                <Button size='lg' onClick={onSubmit} disabled={validateOnSubmit()}>送信する</Button>
               </div>
               <br />
             </Col>
