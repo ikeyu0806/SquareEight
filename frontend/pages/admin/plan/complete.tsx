@@ -8,6 +8,7 @@ const Choice: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       <Container>
         <Row>
           <Col md={3}></Col>

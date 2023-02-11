@@ -39,8 +39,9 @@ const LightPlanCard = ({showJoinButton}: Props): JSX.Element => {
             <Card.Text className={cardStyles.plan_description}>
               <TextWithCheckIcon text='フリープランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='月間予約件数500件' fill={'darkblue'}></TextWithCheckIcon><br/>
-              <TextWithCheckIcon text='広告非表示' fill={'darkblue'}></TextWithCheckIcon><br/>
-              <TextWithCheckIcon text='登録顧客を200件まで表示' fill={'darkblue'}></TextWithCheckIcon><br/>
+              <TextWithCheckIcon text='登録顧客を500件まで表示' fill={'darkblue'}></TextWithCheckIcon><br/>
+              <TextWithCheckIcon text='リソース登録10件まで登録可能' fill={'darkblue'}></TextWithCheckIcon><br/>
+              <TextWithCheckIcon text='メール配信可能数 月間100件' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='決済手数料5%' fill={'darkblue'}></TextWithCheckIcon><br/>
             </Card.Text>
           </Col>
