@@ -59,7 +59,7 @@ const CardList: NextPage = () => {
           }
         }).then(response => {
           dispatch(alertChanged({message: 'お支払いカードを変更しました', show: true}))
-          router.push('/customer_page/payment_method')
+          router.push('/admin/payment_method')
         }).catch(error => {
           dispatch(alertChanged({message: "登録失敗しました", show: true, type: 'danger'}))
         })
