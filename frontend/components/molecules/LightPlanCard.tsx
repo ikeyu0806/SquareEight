@@ -1,6 +1,6 @@
 import { Card, Row, Col } from 'react-bootstrap';
 import TextWithCheckIcon from './TextWithCheckIcon';
-import cardStyles from 'styles/Home.module.css'
+import cardStyles from 'styles/Card.module.css'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import CancelSystemPlanButton from 'components/atoms/CanelSystemPlanButton'
@@ -17,7 +17,7 @@ const LightPlanCard = ({showJoinButton}: Props): JSX.Element => {
       {showJoinButton
         ?
         <Card.Header className={'d-flex justify-content-between align-items-center card-header'}>
-          ライト
+          <span className={cardStyles.plan_name}>ライト</span>
             <>
               {currentServicePlan === 'Light'
               ?

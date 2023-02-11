@@ -1,11 +1,13 @@
 import { Card, Row, Col } from 'react-bootstrap'
 import TextWithCheckIcon from './TextWithCheckIcon'
-import cardStyles from 'styles/Home.module.css'
+import cardStyles from 'styles/Card.module.css'
 
 const FreePlanCard = (): JSX.Element => {
   return (
     <Card className={cardStyles.planCard}>
-      <Card.Header>フリー</Card.Header>
+      <Card.Header>
+        <span className={cardStyles.plan_name}>フリー</span>
+      </Card.Header>
       <Card.Body>
         <div className={cardStyles.plan_price}>月額 0円</div>
         <Row>
