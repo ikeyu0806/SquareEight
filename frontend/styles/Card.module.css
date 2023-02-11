@@ -1,3 +1,10 @@
+.free_plan_name {
+  font-size: 20px;
+  font-weight: bold;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
 .plan_name {
   font-size: 20px;
   font-weight: bold;

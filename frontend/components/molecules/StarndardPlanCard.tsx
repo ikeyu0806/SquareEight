@@ -17,7 +17,7 @@ const StandardPlanCard = ({showJoinButton}: Props): JSX.Element => {
       {showJoinButton
         ?
           <Card.Header className='d-flex justify-content-between align-items-center card-header'>
-            スタンダード{showJoinButton
+            <span className={cardStyles.plan_name}>スタンダード</span>{showJoinButton
               &&
               <>
                 {currentServicePlan === 'Standard'
@@ -29,7 +29,7 @@ const StandardPlanCard = ({showJoinButton}: Props): JSX.Element => {
           </Card.Header>
         :
           <Card.Header>
-            スタンダード
+            <span className={cardStyles.plan_name}>スタンダード</span>
           </Card.Header>
         }
       <Card.Body>

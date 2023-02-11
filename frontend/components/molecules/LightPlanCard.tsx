@@ -28,7 +28,7 @@ const LightPlanCard = ({showJoinButton}: Props): JSX.Element => {
         </Card.Header>
       :
         <Card.Header>
-          ライト
+          <span className={cardStyles.plan_name}>ライト</span>
         </Card.Header>
       }
       <Card.Body>

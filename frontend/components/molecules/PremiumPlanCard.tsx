@@ -32,7 +32,7 @@ const PremiumPlanCard = ({showJoinButton}: Props): JSX.Element => {
           </Card.Header>
         :
           <Card.Header>
-            プレミアム
+            <span className={cardStyles.plan_name}>プレミアム</span>
           </Card.Header>}
       <Card.Body>
         <h4 className={cardStyles.plan_price}>月額 6980円</h4>

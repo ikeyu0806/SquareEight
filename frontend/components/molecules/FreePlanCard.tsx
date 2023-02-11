@@ -6,7 +6,7 @@ const FreePlanCard = (): JSX.Element => {
   return (
     <Card className={cardStyles.planCard}>
       <Card.Header>
-        <span className={cardStyles.plan_name}>フリー</span>
+        <span className={cardStyles.free_plan_name}>フリー</span>
       </Card.Header>
       <Card.Body>
         <div className={cardStyles.plan_price}>月額 0円</div>
