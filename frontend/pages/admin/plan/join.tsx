@@ -43,6 +43,7 @@ const Join: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowUpdateSharedComponent === 'Allow' && <Container>
         <Row>
           <Col md={7}>
