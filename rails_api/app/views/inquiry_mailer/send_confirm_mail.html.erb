@@ -6,8 +6,14 @@
   </head>
   <body>
       <p>以下の内容でお問い合わせを受け付けました</p>
+      <div>所属会社・組織名: <%= @organization %></div>
+      <hr />
       <div>メールアドレス: <%= @email %></div>
-      <br />
+      <hr />
+      <div>電話番号: <%= @phone_number %></div>
+      <hr />
+      <div>お問い合わせ種別: <%= @inquiry_type %></div>
+      <hr />
       <div style="white-space:pre-wrap; word-wrap:break-word;"><%= @content %></div>
     <br/>
     <%= simple_format(h("
