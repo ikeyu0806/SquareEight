@@ -13,7 +13,7 @@
   border-color: #B2384E;
   color: white;
   border-radius: 20px;
-  padding: 10px;
+  padding: 20px;
 }
 
 .cover_img {
@@ -234,6 +234,10 @@ img.customer_support_img {
     top: 75%;
     left: 50%;
     font-size: 30px;
+  }
+
+  .business_account_signup_btn {
+    padding: 10px;
   }
 
   .featureCard {
