@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_12_005228) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_12_060519) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -399,6 +399,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_12_005228) do
     t.integer "publish_status", default: 0
     t.datetime "deleted_at"
     t.integer "image1_account_s3_image_id"
+    t.integer "image2_account_s3_image_id"
+    t.integer "image3_account_s3_image_id"
+    t.integer "image4_account_s3_image_id"
+    t.integer "image5_account_s3_image_id"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -472,6 +476,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_12_005228) do
     t.boolean "delivery_datetime_target_flg", default: true
     t.integer "inventory_allocation", default: 0
     t.integer "image1_account_s3_image_id"
+    t.integer "image2_account_s3_image_id"
+    t.integer "image3_account_s3_image_id"
+    t.integer "image4_account_s3_image_id"
+    t.integer "image5_account_s3_image_id"
   end
 
   create_table "purchased_tickets", force: :cascade do |t|
@@ -647,6 +655,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_12_005228) do
     t.integer "cancel_reception_hour_before"
     t.integer "lottery_confirmed_day_before", default: 1
     t.integer "image1_account_s3_image_id"
+    t.integer "image2_account_s3_image_id"
+    t.integer "image3_account_s3_image_id"
+    t.integer "image4_account_s3_image_id"
+    t.integer "image5_account_s3_image_id"
   end
 
   create_table "resources", force: :cascade do |t|
@@ -660,6 +672,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_12_005228) do
     t.integer "resource_image1_account_s3_image_id"
     t.integer "resource_type", default: 0
     t.boolean "is_show_reserve_page"
+    t.integer "resource_image2_account_s3_image_id"
+    t.integer "resource_image3_account_s3_image_id"
+    t.integer "resource_image4_account_s3_image_id"
+    t.integer "resource_image5_account_s3_image_id"
   end
 
   create_table "send_line_histories", force: :cascade do |t|
@@ -930,6 +946,10 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_12_005228) do
     t.integer "publish_status", default: 0
     t.datetime "deleted_at"
     t.integer "image1_account_s3_image_id"
+    t.integer "image2_account_s3_image_id"
+    t.integer "image3_account_s3_image_id"
+    t.integer "image4_account_s3_image_id"
+    t.integer "image5_account_s3_image_id"
   end
 
   create_table "unreservable_frames", force: :cascade do |t|
