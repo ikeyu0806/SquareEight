@@ -534,7 +534,11 @@ reserve_frames = ReserveFrame.create!(
       cancel_reception_day_before: 1,
       cancel_reception_hour_before: 1,
       lottery_confirmed_day_before: 1,
-      image1_account_s3_image_id: fitness_image1.id
+      image1_account_s3_image_id: fitness_image1.id,
+      image2_account_s3_image_id: fitness_image2.id,
+      image3_account_s3_image_id: fitness_image2.id,
+      image4_account_s3_image_id: fitness_image2.id,
+      image5_account_s3_image_id: fitness_image2.id,
     },
     {
       account_id: account.id,
@@ -580,7 +584,11 @@ reserve_frames = ReserveFrame.create!(
       cancel_reception_day_before: 1,
       cancel_reception_hour_before: 1,
       lottery_confirmed_day_before: 1,
-      image1_account_s3_image_id: spa_image1.id
+      image1_account_s3_image_id: spa_image1.id,
+      image2_account_s3_image_id: candle_image1.id,
+      image3_account_s3_image_id: candle_image1.id,
+      image4_account_s3_image_id: candle_image1.id,
+      image5_account_s3_image_id: candle_image1.id,
     },
     {
       account_id: account.id,
@@ -627,6 +635,10 @@ reserve_frames = ReserveFrame.create!(
       cancel_reception_hour_before: 1,
       lottery_confirmed_day_before: 1,
       image1_account_s3_image_id: girl_outdoor_image1.id
+      image2_account_s3_image_id: fitness_image4.id,
+      image3_account_s3_image_id: fitness_image4.id,
+      image4_account_s3_image_id: fitness_image4.id,
+      image5_account_s3_image_id: fitness_image4.id,
     },
     {
       account_id: account.id,
@@ -672,7 +684,11 @@ reserve_frames = ReserveFrame.create!(
       cancel_reception_day_before: 1,
       cancel_reception_hour_before: 1,
       lottery_confirmed_day_before: 1,
-      image1_account_s3_image_id: bouldering_image1.id
+      image1_account_s3_image_id: bouldering_image1.id,
+      image2_account_s3_image_id: fitness_image4.id,
+      image3_account_s3_image_id: fitness_image4.id,
+      image4_account_s3_image_id: fitness_image4.id,
+      image5_account_s3_image_id: fitness_image4.id,
     },
   ]
 )
