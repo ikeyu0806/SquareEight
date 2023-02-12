@@ -113,7 +113,7 @@ const CsvImport: NextPage = () => {
                 className='btn btn-primary mr10'
                 onClick={onSubmit}
                 >取り込み</button>
-              <a className='btn btn-primary' href='/csv_sample/pharmacy_import.csv'>CSVフォーマットダウンロード</a>
+              <a className='btn btn-primary' href='/csv_sample/customer_import.csv'>CSVフォーマットダウンロード</a>
             </div>
           </Col>
         </Row>
