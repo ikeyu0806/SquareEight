@@ -46,7 +46,7 @@ class Api::Internal::ResourcesController < ApplicationController
       resource.resource_type = params[:resource_type]
       resource.is_show_reserve_page = params[:is_show_reserve_page].eql?('true') ? true : false
       if params[:resource_image1_file].present? && !params[:resource_image1_file].eql?("null")
-        resource.register_s3_image(params[:resource_image1_file], "resource_image1_account_s3_image_id")
+        resource.register_s3_image(params[:resource_image1_file], "image1_account_s3_image_id")
       end
       if params["shop_ids"].present?
         params["shop_ids"].each do |shop_id|
@@ -75,7 +75,7 @@ class Api::Internal::ResourcesController < ApplicationController
       resource.resource_type = params[:resource_type]
       resource.is_show_reserve_page = params[:is_show_reserve_page].eql?('true') ? true : false
       if params[:resource_image1_file].present? && !params[:resource_image1_file].eql?("null")
-        resource.register_s3_image(params[:resource_image1_file], "resource_image1_account_s3_image_id")
+        resource.register_s3_image(params[:resource_image1_file], "image1_account_s3_image_id")
       end
       resource.shop_resources.destroy_all
       if params["shop_ids"].present?

@@ -30,8 +30,8 @@ class Resource < ApplicationRecord
   end
 
   def resource_image1_public_url
-    return nil if resource_image1_account_s3_image_id.blank?
-    AccountS3Image.find(self.resource_image1_account_s3_image_id)&.s3_object_public_url
+    return nil if image1_account_s3_image_id.blank?
+    AccountS3Image.find(self.image1_account_s3_image_id)&.s3_object_public_url
   end
 
   def selected_shop_ids
