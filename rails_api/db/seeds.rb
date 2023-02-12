@@ -311,6 +311,7 @@ shops = Shop.create!(
       business_hours_text: "07:00～22:00。不定休",
       parking_lot_guidance: "有料の駐車場がございます。¥1200〜/日。",
       remarks: "シューズ貸出あり",
+      publish_status: "Publish",
       shop_image1_account_s3_image_id: fitness_image1.id,
       shop_image2_account_s3_image_id: fitness_image2.id,
       shop_image3_account_s3_image_id: tennis_image1.id,
@@ -382,7 +383,11 @@ resources = Resource.create!(
       quantity: 20,
       resource_type: 'Equipment',
       is_show_reserve_page: true,
-      resource_image1_account_s3_image_id: yoga_mat_image1.id
+      resource_image1_account_s3_image_id: yoga_mat_image1.id,
+      resource_image2_account_s3_image_id: yoga_mat_image1.id,
+      resource_image3_account_s3_image_id: yoga_mat_image1.id,
+      resource_image4_account_s3_image_id: yoga_mat_image1.id,
+      resource_image5_account_s3_image_id: yoga_mat_image1.id,
     },
     {
       account_id: account.id,
@@ -391,7 +396,11 @@ resources = Resource.create!(
       quantity: 4,
       resource_type: 'Equipment',
       is_show_reserve_page: true,
-      resource_image1_account_s3_image_id: gold_simulation_image1.id
+      resource_image1_account_s3_image_id: gold_simulation_image1.id,
+      resource_image2_account_s3_image_id: gold_simulation_image1.id,
+      resource_image3_account_s3_image_id: gold_simulation_image1.id,
+      resource_image4_account_s3_image_id: gold_simulation_image1.id,
+      resource_image5_account_s3_image_id: gold_simulation_image1.id,
     },
     {
       account_id: account.id,
@@ -400,7 +409,11 @@ resources = Resource.create!(
       quantity: 32,
       resource_type: 'Equipment',
       is_show_reserve_page: true,
-      resource_image1_account_s3_image_id: outdoor_tennis_court_image1.id
+      resource_image1_account_s3_image_id: outdoor_tennis_court_image1.id,
+      resource_image2_account_s3_image_id: outdoor_tennis_court_image1.id,
+      resource_image3_account_s3_image_id: outdoor_tennis_court_image1.id,
+      resource_image4_account_s3_image_id: outdoor_tennis_court_image1.id,
+      resource_image5_account_s3_image_id: outdoor_tennis_court_image1.id,
     },
     {
       account_id: account.id,
@@ -409,7 +422,11 @@ resources = Resource.create!(
       quantity: 1,
       resource_type: 'Equipment',
       is_show_reserve_page: true,
-      resource_image1_account_s3_image_id: personal_souna_image1.id
+      resource_image1_account_s3_image_id: personal_souna_image1.id,
+      resource_image2_account_s3_image_id: personal_souna_image1.id,
+      resource_image3_account_s3_image_id: personal_souna_image1.id,
+      resource_image4_account_s3_image_id: personal_souna_image1.id,
+      resource_image5_account_s3_image_id: personal_souna_image1.id,
     },
     {
       account_id: account.id,
@@ -418,7 +435,11 @@ resources = Resource.create!(
       quantity: 1,
       resource_type: 'Staff',
       is_show_reserve_page: true,
-      resource_image1_account_s3_image_id: haircut_image1.id
+      resource_image1_account_s3_image_id: haircut_image1.id,
+      resource_image2_account_s3_image_id: haircut_image1.id,
+      resource_image3_account_s3_image_id: haircut_image1.id,
+      resource_image4_account_s3_image_id: haircut_image1.id,
+      resource_image5_account_s3_image_id: haircut_image1.id,
     },
     {
       account_id: account.id,
@@ -427,7 +448,11 @@ resources = Resource.create!(
       quantity: 1,
       resource_type: 'Staff',
       is_show_reserve_page: true,
-      resource_image1_account_s3_image_id: haircut_image1.id
+      resource_image1_account_s3_image_id: haircut_image1.id,
+      resource_image2_account_s3_image_id: haircut_image1.id,
+      resource_image3_account_s3_image_id: haircut_image1.id,
+      resource_image4_account_s3_image_id: haircut_image1.id,
+      resource_image5_account_s3_image_id: haircut_image1.id,
     },
     {
       account_id: account.id,
@@ -436,7 +461,11 @@ resources = Resource.create!(
       quantity: 1,
       resource_type: 'Staff',
       is_show_reserve_page: true,
-      resource_image1_account_s3_image_id: personal_trainer_image1.id
+      resource_image1_account_s3_image_id: personal_trainer_image1.id,
+      resource_image2_account_s3_image_id: personal_trainer_image1.id,
+      resource_image3_account_s3_image_id: personal_trainer_image1.id,
+      resource_image4_account_s3_image_id: personal_trainer_image1.id,
+      resource_image5_account_s3_image_id: personal_trainer_image1.id,
     },
     {
       account_id: account.id,
@@ -445,7 +474,11 @@ resources = Resource.create!(
       quantity: 1,
       resource_type: 'Staff',
       is_show_reserve_page: true,
-      resource_image1_account_s3_image_id: personal_trainer_image1.id
+      resource_image1_account_s3_image_id: personal_trainer_image1.id,
+      resource_image2_account_s3_image_id: personal_trainer_image1.id,
+      resource_image3_account_s3_image_id: personal_trainer_image1.id,
+      resource_image4_account_s3_image_id: personal_trainer_image1.id,
+      resource_image5_account_s3_image_id: personal_trainer_image1.id,
     },
 
   ]
@@ -634,7 +667,7 @@ reserve_frames = ReserveFrame.create!(
       cancel_reception_day_before: 1,
       cancel_reception_hour_before: 1,
       lottery_confirmed_day_before: 1,
-      image1_account_s3_image_id: girl_outdoor_image1.id
+      image1_account_s3_image_id: girl_outdoor_image1.id,
       image2_account_s3_image_id: fitness_image4.id,
       image3_account_s3_image_id: fitness_image4.id,
       image4_account_s3_image_id: fitness_image4.id,
@@ -974,7 +1007,11 @@ monthly_payment_plans = MonthlyPaymentPlan.create!(
       enable_reserve_count: 1,
       publish_status: "Publish",
       stripe_plan_id: "plan_NGHKsOaX2xdpn2",
-      image1_account_s3_image_id: fitness_image2.id
+      image1_account_s3_image_id: fitness_image2.id,
+      image2_account_s3_image_id: fitness_image4.id,
+      image3_account_s3_image_id: fitness_image4.id,
+      image4_account_s3_image_id: fitness_image4.id,
+      image5_account_s3_image_id: fitness_image4.id,
     },
     {
       account_id: account.id,
@@ -986,7 +1023,11 @@ monthly_payment_plans = MonthlyPaymentPlan.create!(
       enable_reserve_count: 3,
       publish_status: "Publish",
       stripe_plan_id: "plan_NGHQ2VISmebLWc",
-      image1_account_s3_image_id: fitness_image3.id
+      image1_account_s3_image_id: fitness_image3.id,
+      image2_account_s3_image_id: fitness_image4.id,
+      image3_account_s3_image_id: fitness_image4.id,
+      image4_account_s3_image_id: fitness_image4.id,
+      image5_account_s3_image_id: fitness_image4.id,
     },
     {
       account_id: account.id,
@@ -998,7 +1039,11 @@ monthly_payment_plans = MonthlyPaymentPlan.create!(
       enable_reserve_count: 3,
       publish_status: "Publish",
       stripe_plan_id: "plan_N70Y45NasdEyfE",
-      image1_account_s3_image_id: golf_image1.id
+      image1_account_s3_image_id: golf_image1.id,
+      image2_account_s3_image_id: fitness_image4.id,
+      image3_account_s3_image_id: fitness_image4.id,
+      image4_account_s3_image_id: fitness_image4.id,
+      image5_account_s3_image_id: fitness_image4.id,
     },
     {
       account_id: account.id,
@@ -1010,7 +1055,11 @@ monthly_payment_plans = MonthlyPaymentPlan.create!(
       enable_reserve_count: 1,
       publish_status: "Publish",
       stripe_plan_id: "plan_NGHiD5NscrVH7Z",
-      image1_account_s3_image_id: spa_image1.id
+      image1_account_s3_image_id: spa_image1.id,
+      image2_account_s3_image_id: fitness_image4.id,
+      image3_account_s3_image_id: fitness_image4.id,
+      image4_account_s3_image_id: fitness_image4.id,
+      image5_account_s3_image_id: fitness_image4.id,
     },
   ]
 )
@@ -1085,7 +1134,11 @@ products = Product.create!(
       tax_rate: 10,
       inventory: 30,
       publish_status: "Publish",
-      image1_account_s3_image_id: candle_image1.id
+      image1_account_s3_image_id: candle_image1.id,
+      image2_account_s3_image_id: candle_image1.id,
+      image3_account_s3_image_id: candle_image1.id,
+      image4_account_s3_image_id: candle_image1.id,
+      image5_account_s3_image_id: candle_image1.id,
     },
     {
       account_id: account.id,
@@ -1095,7 +1148,11 @@ products = Product.create!(
       tax_rate: 10,
       inventory: 100,
       publish_status: "Publish",
-      image1_account_s3_image_id: sports_shoes_image1.id
+      image1_account_s3_image_id: sports_shoes_image1.id,
+      image2_account_s3_image_id: sports_shoes_image1.id,
+      image3_account_s3_image_id: sports_shoes_image1.id,
+      image4_account_s3_image_id: sports_shoes_image1.id,
+      image5_account_s3_image_id: sports_shoes_image1.id,
     },
   ]
 )
