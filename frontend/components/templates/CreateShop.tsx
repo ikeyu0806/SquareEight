@@ -24,6 +24,7 @@ import { nameChanged,
          accessInfoChanged,
          parkingLotGuidanceChanged,
          remarksChanged,
+         publishStatusChanged,
          shopImage1FileChanged,
          shopImage2FileChanged,
          shopImage3FileChanged,
@@ -64,6 +65,7 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
   const parkingLotGuidance =  useSelector((state: RootState) => state.shop.parkingLotGuidance)
   const businessHoursText =  useSelector((state: RootState) => state.shop.businessHoursText)
   const remarks =  useSelector((state: RootState) => state.shop.remarks)
+  const publishStatus =  useSelector((state: RootState) => state.shop.publishStatus)
   const shopImage1ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage1ImagePublicUrl)
   const shopImage2ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage2ImagePublicUrl)
   const shopImage3ImagePublicUrl = useSelector((state: RootState) => state.shop.shopImage3ImagePublicUrl)
@@ -371,11 +373,21 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
         onChange={onChangeShopImage6File}
         type='file' /> */}
       <hr />
-      <Form.Label className='mt10'>店舗備考</Form.Label>
+      <Form.Label>店舗備考</Form.Label>
       <FormControl
         as='textarea' rows={3}
         value={remarks}
         onChange={(e) => dispatch(remarksChanged(e.target.value))} />
+
+      <hr />
+      <Form.Label>公開設定</Form.Label>
+      <Form.Select
+        value={publishStatus || 'Unpublish'}
+        onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
+        <option value='Unpublish'>非公開</option>
+        <option value='Publish'>公開</option>
+      </Form.Select>
+
       {reserveFrames.length !== 0 &&
       <>
         <hr />
