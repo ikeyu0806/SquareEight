@@ -14,7 +14,7 @@ class Api::Internal::ResourcesController < ApplicationController
     account = current_merchant_user.account
     resource = account.resources.find_by(public_id: params[:public_id])
     shared_component = resource.account.shared_component
-    resource = resource.to_json(methods: [:resource_image1_public_url, :selected_shop_ids, :selected_reserve_frame_ids, :reserve_frames_info])
+    resource = resource.to_json(methods: [:image1_account_s3_image_public_url, :selected_shop_ids, :selected_reserve_frame_ids, :reserve_frames_info])
     resource = JSON.parse(resource)
     selectable_reserve_frames = account.reserve_frames.enabled
     render json: { status: 'success',

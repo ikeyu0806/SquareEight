@@ -1,6 +1,7 @@
 class Resource < ApplicationRecord
   include PublicIdModule
   include Base64Image
+  include AccountImageModule
 
   enum resource_type: { Staff: 0, Equipment: 1, Others: 99 }
   enum reception_time_setting: { NotSet: 0, AccountBusinessHour: 1, ResourceBusinessHour: 2 }
@@ -27,11 +28,6 @@ class Resource < ApplicationRecord
     account_image.save!
     self.send(image1_account_s3_image_public_url_column + "=", account_image.id)
     self.save!
-  end
-
-  def resource_image1_public_url
-    return nil if image1_account_s3_image_id.blank?
-    AccountS3Image.find(self.image1_account_s3_image_id)&.s3_object_public_url
   end
 
   def selected_shop_ids
