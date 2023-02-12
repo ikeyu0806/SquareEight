@@ -33,6 +33,7 @@ export const shopSlice = createSlice({
     parkingLotGuidance: '',
     businessHoursText: '',
     remarks: '',
+    publishStatus: '',
     brandImageFile: null as File | unknown,
     shopImage1File: null as File | unknown,
     shopImage2File:  null as File | unknown,
@@ -120,6 +121,9 @@ export const shopSlice = createSlice({
     },
     remarksChanged: (state, action: PayloadAction<string>) => {
       state.remarks = action.payload
+    },
+    publishStatusChanged: (state, action: PayloadAction<string>) => {
+      state.publishStatus = action.payload
     },
     brandImageFileChanged: (state, action: PayloadAction<File>) => {
       state.brandImageFile = action.payload
@@ -238,6 +242,7 @@ export const { accessInfoChanged } = shopSlice.actions
 export const { parkingLotGuidanceChanged } = shopSlice.actions
 export const { businessHoursTextChanged } = shopSlice.actions
 export const { remarksChanged } = shopSlice.actions
+export const { publishStatusChanged } = shopSlice.actions
 export const { brandImageFileChanged } = shopSlice.actions
 export const { shopImage1FileChanged } = shopSlice.actions
 export const { shopImage2FileChanged } = shopSlice.actions
