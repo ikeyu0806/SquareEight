@@ -243,6 +243,13 @@ const Home: NextPage = () => {
                     <tr>
                       <td
                         className={homeStyles.plan_table_text}
+                        rowSpan={1}>オンラインアンケート</td>
+                      <td className={homeStyles.plan_table_text}>アンケート名</td>
+                      <td className={homeStyles.plan_table_text}>質問内容</td>
+                    </tr>
+                    <tr>
+                      <td
+                        className={homeStyles.plan_table_text}
                         rowSpan={2}>Webページ作成</td>
                       <td className={homeStyles.plan_table_text}>テキスト、画像</td>
                       <td className={homeStyles.plan_table_text}>ページリンク</td>
