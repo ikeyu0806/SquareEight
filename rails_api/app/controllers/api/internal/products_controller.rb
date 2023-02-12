@@ -101,7 +101,6 @@ class Api::Internal::ProductsController < ApplicationController
 
   def purchase_info
     product = Product.find_by(public_id: params[:public_id])
-    image1_account_s3_image_public_url = product.image1_account_s3_image_public_url
     shared_component = product.account.shared_component
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
@@ -113,10 +112,18 @@ class Api::Internal::ProductsController < ApplicationController
       delivery_targets = []
       login_status = 'Logout'
     end
-    product = JSON.parse(product.to_json(methods: [:product_types, :show_product_type_form, :shipping_fee_per_regions, :delivery_charge_type]))
+    product = JSON.parse(product.to_json(methods:
+      [:product_types,
+       :show_product_type_form,
+       :shipping_fee_per_regions,
+       :delivery_charge_type,
+       :image1_account_s3_image_public_url,
+       :image2_account_s3_image_public_url,
+       :image3_account_s3_image_public_url,
+       :image4_account_s3_image_public_url,
+       :image5_account_s3_image_public_url,]))
     render json: { status: 'success',
                    product: product,
-                   image1_account_s3_image_public_url: image1_account_s3_image_public_url,
                    shared_component: shared_component,
                    payment_methods: payment_methods,
                    delivery_targets: delivery_targets,
