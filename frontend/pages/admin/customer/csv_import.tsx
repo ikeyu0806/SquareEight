@@ -5,8 +5,10 @@ import { Container, Table, Row, Col } from 'react-bootstrap'
 import axios from 'axios'
 import { alertChanged } from 'redux/alertSlice'
 import { useDispatch } from 'react-redux'
+import { useCookies } from 'react-cookie'
 
 const CsvImport: NextPage = () => {
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
   const [file, setFile] = useState<File>()
 
@@ -19,10 +21,10 @@ const CsvImport: NextPage = () => {
   const onSubmit = () => {
     const params = new FormData()
     params.append('file', file || '')
-    axios.post(`${process.env.GOOCOID_BACKEND_URL}/api/internal/customers/csv_import`, params,
+    axios.post(`${process.env.BACKEND_URL}/api/internal/customers/csv_import`, params,
     {
       headers: {
-
+        'Session-Id': cookies._square_eight_merchant_session
       },
     })
     .then(function (response) {

@@ -1,4 +1,6 @@
 class Api::Internal::CustomersController < ApplicationController
+  require 'csv'
+
   before_action :merchant_login_only!
 
   def create

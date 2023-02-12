@@ -74,8 +74,7 @@ Rails.application.routes.draw do
       delete 'end_users/:payment_method_id/detach_stripe_payment_method', to: 'end_users#detach_stripe_payment_method'
       delete 'end_users/disconnect_google_auth', to: 'end_users#disconnect_google_auth'
       delete 'end_users/:public_id/cancel_subscription', to: 'end_users#cancel_subscription'
-      get 'customers/:customer_public_id/questionnaire_answers', to: 'customers#questionnaire_answers'
-      csv_import
+      get 'customers/:customer_public_id/questionnaire_answers', to: 'customers#questionnaire_answers'      
       post 'customers/csv_import', to: 'customers#csv_import'
       post 'customers/:public_id/send_mail', to: 'customers#send_mail'
       post 'customers/:public_id/connect_line_user', to: 'customers#connect_line_user'
