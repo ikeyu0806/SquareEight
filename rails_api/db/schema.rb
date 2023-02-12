@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_12_060519) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_12_073457) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -669,13 +669,13 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_12_060519) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "description"
-    t.integer "resource_image1_account_s3_image_id"
+    t.integer "image1_account_s3_image_id"
     t.integer "resource_type", default: 0
     t.boolean "is_show_reserve_page"
-    t.integer "resource_image2_account_s3_image_id"
-    t.integer "resource_image3_account_s3_image_id"
-    t.integer "resource_image4_account_s3_image_id"
-    t.integer "resource_image5_account_s3_image_id"
+    t.integer "image2_account_s3_image_id"
+    t.integer "image3_account_s3_image_id"
+    t.integer "image4_account_s3_image_id"
+    t.integer "image5_account_s3_image_id"
   end
 
   create_table "send_line_histories", force: :cascade do |t|
