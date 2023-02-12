@@ -2,7 +2,7 @@ include CalendarContent
 
 class ReserveFrame < ApplicationRecord
   include PublicIdModule
-  include AccountImage1Module
+  include AccountImageModule
 
   belongs_to :account
   has_one  :questionnaire_master, foreign_key: :id, primary_key: :questionnaire_master_id

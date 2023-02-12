@@ -1,6 +1,6 @@
 class Product < ApplicationRecord
   include PublicIdModule
-  include AccountImage1Module
+  include AccountImageModule
 
   belongs_to :account
   has_many :product_types, -> { order(:id) }

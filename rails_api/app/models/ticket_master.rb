@@ -1,6 +1,6 @@
 class TicketMaster < ApplicationRecord
   include PublicIdModule
-  include AccountImage1Module
+  include AccountImageModule
 
   belongs_to :account
   has_many :purchased_tickets

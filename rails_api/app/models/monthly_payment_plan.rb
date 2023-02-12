@@ -1,6 +1,6 @@
 class MonthlyPaymentPlan < ApplicationRecord
   include PublicIdModule
-  include AccountImage1Module
+  include AccountImageModule
 
   enum reserve_interval_unit: { Day: 0, Week: 1 }
   belongs_to :account
