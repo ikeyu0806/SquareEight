@@ -3,10 +3,9 @@ import React, { useState, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { Container, ListGroup, Row, Col, Table } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
-import GuideStripeAccountRegister from 'components/templates/GuideStripeAccountRegister'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
@@ -16,7 +15,6 @@ const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [monthlyPaymentPlans, setMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam[]>([])
-  const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const allowReadMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowReadMonthlyPaymentPlan)
   const allowUpdateMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateMonthlyPaymentPlan)
 
