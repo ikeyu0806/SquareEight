@@ -1,8 +1,40 @@
+import React, { useState } from 'react'
 import { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { Container, Table, Row, Col } from 'react-bootstrap'
+import axios from 'axios'
+import { alertChanged } from 'redux/alertSlice'
+import { useDispatch } from 'react-redux'
 
 const CsvImport: NextPage = () => {
+  const dispatch = useDispatch()
+  const [file, setFile] = useState<File>()
+
+  const fileUpload = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files !== null) {
+      setFile(e.target.files[0])
+    }
+  }
+
+  const onSubmit = () => {
+    const params = new FormData()
+    params.append('file', file || '')
+    axios.post(`${process.env.GOOCOID_BACKEND_URL}/api/internal/customers/csv_import`, params,
+    {
+      headers: {
+
+      },
+    })
+    .then(function (response) {
+      dispatch(alertChanged({message: name + '取り込み完了しました。', show: true}))
+    })
+    .catch(error => {
+      console.log(error)
+      dispatch(alertChanged({message: '取り込みに失敗しました。', show: true, type: 'danger'}))
+    })
+  }
+
+
   return (
     <MerchantUserAdminLayout>
       <br />
@@ -73,13 +105,13 @@ const CsvImport: NextPage = () => {
                 className='form-control'
                 type='file'
                 id='formFile'
-                // onChange={fileUpload}
+                onChange={fileUpload}
                 ></input>
             </div>
             <div className='mt10'>
               <button
                 className='btn btn-primary mr10'
-                // onClick={onSubmit}
+                onClick={onSubmit}
                 >取り込み</button>
               <a className='btn btn-primary' href='/csv_sample/pharmacy_import.csv'>CSVフォーマットダウンロード</a>
             </div>

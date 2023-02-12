@@ -75,6 +75,8 @@ Rails.application.routes.draw do
       delete 'end_users/disconnect_google_auth', to: 'end_users#disconnect_google_auth'
       delete 'end_users/:public_id/cancel_subscription', to: 'end_users#cancel_subscription'
       get 'customers/:customer_public_id/questionnaire_answers', to: 'customers#questionnaire_answers'
+      csv_import
+      post 'customers/csv_import', to: 'customers#csv_import'
       post 'customers/:public_id/send_mail', to: 'customers#send_mail'
       post 'customers/:public_id/connect_line_user', to: 'customers#connect_line_user'
       post 'customers', to: 'customers#create'

@@ -81,6 +81,19 @@ class Api::Internal::CustomersController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def csv_import
+    CSV.foreach(params['file'], headers: true) do |row|
+      row = row.to_hash
+      # bulk insertだとvalidationが使えないのでとりあえず普通にinsertする実装
+      current_merchant_user.account.customers.create! row
+    end
+    render json: { status: 'success', errMessage: nil }
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', errMessage: error }, status: 500
+  end
+
+
   private
 
   def customer_params
