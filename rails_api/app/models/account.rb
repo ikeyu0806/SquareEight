@@ -118,6 +118,9 @@ class Account < ApplicationRecord
 
   def page_links
     result = []
+    self.shops.each do |s|
+      result.push({ text: s.name, value: '/shop/' + s.public_id, label: '店舗ページ', publish_status: '' })
+    end
     self.webpages.each do |w|
       result.push({ text: w.tag, value: '/webpages/' + w.public_id, label: 'Webページ', publish_status: w.publish_status })
     end
