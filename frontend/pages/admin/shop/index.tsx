@@ -54,7 +54,7 @@ const Index: NextPage = () => {
               return (
                 <tr key={i}>
                   <td>{shop.name}</td>
-                  <td>{shop.postal_code}</td>
+                  <td>{shop.postal_code}<br />{shop.state}{shop.city}{shop.line1}{shop.line2}</td>
                   {allowUpdateShop === 'Allow' &&
                   <td className='text-center'>
                     <a
