@@ -17,6 +17,10 @@ import { nameChanged,
          quantityChanged,
          descriptionChanged,
          resourceImage1PublicUrlChanged,
+         resourceImage2PublicUrlChanged,
+         resourceImage3PublicUrlChanged,
+         resourceImage4PublicUrlChanged,
+         resourceImage5PublicUrlChanged,
          resourceTypeChanged,
          selectedShopIdsChanged,
          selectableReserveFramesChanged,
@@ -39,6 +43,10 @@ const Index: NextPage = () => {
   const name = useSelector((state: RootState) => state.resource.name)
   const description = useSelector((state: RootState) => state.resource.description)
   const resourceImage1PublicUrl = useSelector((state: RootState) => state.resource.resourceImage1PublicUrl)
+  const resourceImage2PublicUrl = useSelector((state: RootState) => state.resource.resourceImage2PublicUrl)
+  const resourceImage3PublicUrl = useSelector((state: RootState) => state.resource.resourceImage3PublicUrl)
+  const resourceImage4PublicUrl = useSelector((state: RootState) => state.resource.resourceImage4PublicUrl)
+  const resourceImage5PublicUrl = useSelector((state: RootState) => state.resource.resourceImage5PublicUrl)
   const isShowReservePage = useSelector((state: RootState) => state.resource.isShowReservePage)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
   const resourceImage1File =  useSelector((state: RootState) => state.resource.resourceImage1File)
@@ -61,6 +69,10 @@ const Index: NextPage = () => {
         dispatch(descriptionChanged(response.data.resource.description))
         dispatch(quantityChanged(response.data.resource.quantity))
         dispatch(resourceImage1PublicUrlChanged(response.data.resource.image1_account_s3_image_public_url))
+        dispatch(resourceImage2PublicUrlChanged(response.data.resource.image2_account_s3_image_public_url))
+        dispatch(resourceImage3PublicUrlChanged(response.data.resource.image3_account_s3_image_public_url))
+        dispatch(resourceImage4PublicUrlChanged(response.data.resource.image4_account_s3_image_public_url))
+        dispatch(resourceImage5PublicUrlChanged(response.data.resource.image5_account_s3_image_public_url))
         dispatch(resourceTypeChanged(response.data.resource.resource_type))
         dispatch(selectedShopIdsChanged(response.data.resource.selected_shop_ids))
         dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
@@ -108,6 +120,32 @@ const Index: NextPage = () => {
                   </div>}
                 </div>
               </Col>
+            </Row>
+            <Row>
+              {resourceImage2PublicUrl && <Col>
+                <img
+                  className='d-block w-100 mt10 mb10'
+                  src={resourceImage2PublicUrl}
+                  alt='image2' />
+              </Col>}
+              {resourceImage3PublicUrl && <Col>
+                <img
+                  className='d-block w-100 mt10 mb10'
+                  src={resourceImage3PublicUrl}
+                  alt='image3' />
+              </Col>}
+              {resourceImage4PublicUrl && <Col>
+                <img
+                  className='d-block w-100 mt10 mb10'
+                  src={resourceImage4PublicUrl}
+                  alt='image4' />
+              </Col>}
+              {resourceImage5PublicUrl && <Col>
+                <img
+                  className='d-block w-100 mt10 mb10'
+                  src={resourceImage5PublicUrl}
+                  alt='image5' />
+              </Col>}
             </Row>
             {reserveFrameInfo.length > 0 && <>
               <hr />
