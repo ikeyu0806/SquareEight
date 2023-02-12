@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import GuideStripeAccountRegister from 'components/templates/GuideStripeAccountRegister'
 import React, { useEffect, useState } from 'react'
-import { Container, ListGroup, Row, Col } from 'react-bootstrap'
+import { Container, ListGroup, Row, Col, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
@@ -45,47 +45,48 @@ const Index: NextPage = () => {
     <>
       <MerchantUserAdminLayout>
         {allowReadTicketMaster === 'Allow' && <Container>
-          <Row>
-            <Col lg={3}></Col>
-            <Col lg={6}>
-            {stripeAccountEnable === 'Enable' && <>
-              <a className='btn btn-primary mt10 mb20' href='/admin/ticket/new'>回数券登録</a>
-              <h3>回数券一覧</h3>
-                <ListGroup>
-                  {ticketMasters.map((ticket, i) => {
-                    return(
-                      <ListGroup.Item key={i}>
-                      <Row>
-                        <Col>
-                          表示名 {ticket.name}
-                          <PublishStatusBadge publishStatus={ticket.publish_status} /><br/>
-                          発行枚数 {ticket.issue_number}枚<br/>
-                          値段 ￥{ticket.price}
-                        </Col>
-                        <Col>
-                          {allowUpdateTicketMaster === 'Allow' && <a href={`/admin/ticket/${ticket.public_id}/edit`}
-                            className='btn btn-primary btn-sm'>
-                            編集
-                          </a>}
-                          <br/>
-                          <a href={`/ticket/${ticket.public_id}/purchase`}
-                            className='btn btn-primary mt10 btn-sm'
-                            target='_blank'
-                            rel='noreferrer'>
-                            購入ページプレビュー
-                          </a>
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                    )
-                  })}
-                </ListGroup>
-              </>}
-              {ticketMasters.length === 0 &&
-                <div className='text-center font-size-20'>回数券が登録されていません。</div>}
-              {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
-            </Col>
-          </Row>
+          <a className='btn btn-primary mt10 mb20' href='/admin/ticket/new'>回数券登録</a>
+          <h4>回数券一覧</h4>
+          <Table bordered>
+            <thead>
+              <tr>
+                <th>回数券名</th>
+                <th>発行枚数</th>
+                <th>値段</th>
+                {allowUpdateTicketMaster === 'Allow' && <th>編集</th>}
+                <th>購入ページ</th>
+                <th>公開設定</th>
+              </tr>
+            </thead>
+            <tbody>
+              {ticketMasters.map((ticket, i) => {
+                return(
+                  <tr key={i}>
+                    <td>{ticket.name}</td>
+                    <td>{ticket.issue_number}枚</td>
+                    <td>{ticket.price}</td>
+                    {allowUpdateTicketMaster === 'Allow' && <td>
+                      <a href={`/admin/ticket/${ticket.public_id}/edit`}
+                        className='btn btn-primary btn-sm'>
+                        編集
+                      </a>
+                    </td>}
+                    <td>
+                      <a href={`/ticket/${ticket.public_id}/purchase`}
+                        className='btn btn-primary btn-sm'
+                        target='_blank'
+                        rel='noreferrer'>
+                        購入ページプレビュー
+                      </a>
+                    </td>
+                    <td>
+                      <PublishStatusBadge publishStatus={ticket.publish_status} />
+                    </td>
+                  </tr>
+                )
+              })}
+            </tbody>
+          </Table>
         </Container>}
         {allowReadTicketMaster === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
