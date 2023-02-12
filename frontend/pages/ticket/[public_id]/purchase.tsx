@@ -36,6 +36,10 @@ const Purchase: NextPage = () => {
   const dispatch = useDispatch()
   const router = useRouter()
   const [mainImagePublicUrl, setMainImagePublicUrl] = useState('')
+  const [image2PublicUrl, setImage2PublicUrl] = useState('')
+  const [image3PublicUrl, setImage3PublicUrl] = useState('')
+  const [image4PublicUrl, setImage4PublicUrl] = useState('')
+  const [image5PublicUrl, setImage5PublicUrl] = useState('')
   const name = useSelector((state: RootState) => state.ticketMaster.name)
   const issueNumber = useSelector((state: RootState) => state.ticketMaster.issueNumber)
   const price = useSelector((state: RootState) => state.ticketMaster.price)
@@ -65,7 +69,11 @@ const Purchase: NextPage = () => {
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
         dispatch(loginStatusChanged(response.data.login_status))
-        setMainImagePublicUrl(response.data.image1_account_s3_image_public_url)
+        setMainImagePublicUrl(response.data.ticket_master.image1_account_s3_image_public_url)
+        setImage2PublicUrl(response.data.ticket_master.image2_account_s3_image_public_url)
+        setImage3PublicUrl(response.data.ticket_master.image3_account_s3_image_public_url)
+        setImage4PublicUrl(response.data.ticket_master.image4_account_s3_image_public_url)
+        setImage5PublicUrl(response.data.ticket_master.image5_account_s3_image_public_url)
         // ヘッダ、フッタ
         dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
         dispatch((navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type)))
@@ -160,6 +168,36 @@ const Purchase: NextPage = () => {
                         className='d-block w-100 mt30 mb30'
                         src={mainImagePublicUrl}
                         alt='image' />}
+                      
+                    <Row>
+                      {image2PublicUrl && <Col>
+                        <img
+                          className='d-block w-100 mt10 mb10'
+                          src={image2PublicUrl}
+                          alt='image2' />
+                      </Col>}
+                      {image3PublicUrl && <Col>
+                        <img
+                          className='d-block w-100 mt10 mb10'
+                          src={image3PublicUrl}
+                          alt='image3' />
+                      </Col>}
+                    </Row>
+                    <Row>
+                      {image4PublicUrl && <Col>
+                        <img
+                          className='d-block w-100 mt10 mb10'
+                          src={image4PublicUrl}
+                          alt='image4' />
+                      </Col>}
+                      {image5PublicUrl && <Col>
+                        <img
+                          className='d-block w-100 mt10 mb10'
+                          src={image5PublicUrl}
+                          alt='image5' />
+                      </Col>}
+                    </Row>
+
                     <div className='mt10'>{issueNumber}枚</div>
                     <div className='mt10'>{price}円</div>
                     <div className='mt10'>有効期限: {effectiveMonth}ヶ月</div>

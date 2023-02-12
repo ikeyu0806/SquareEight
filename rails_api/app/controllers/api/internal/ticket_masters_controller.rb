@@ -32,9 +32,15 @@ class Api::Internal::TicketMastersController < ApplicationController
       payment_methods = []
       login_status = 'Logout'
     end
+    ticket_master = JSON.parse(ticket_master.to_json(
+      methods: [
+        :image1_account_s3_image_public_url,
+        :image2_account_s3_image_public_url,
+        :image3_account_s3_image_public_url,
+        :image4_account_s3_image_public_url,
+        :image5_account_s3_image_public_url,]))
     render json: { status: 'success',
                    shared_component: shared_component,
-                   image1_account_s3_image_public_url: image1_account_s3_image_public_url,
                    ticket_master: ticket_master,
                    payment_methods: payment_methods,
                    default_payment_method_id: default_payment_method_id,
