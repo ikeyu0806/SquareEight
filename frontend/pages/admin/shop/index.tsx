@@ -8,6 +8,7 @@ import { ShopParam } from 'interfaces/ShopParam'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import Unauthorized from 'components/templates/Unauthorized'
+import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -45,6 +46,7 @@ const Index: NextPage = () => {
               <th>住所</th>
               {allowUpdateShop === 'Allow' && <th>編集</th>}
               <th>店舗紹介ページ</th>
+              <th>公開設定</th>
             </tr>
           </thead>
           <tbody>
@@ -64,6 +66,9 @@ const Index: NextPage = () => {
                       href={`/shop/${shop.public_id}`}
                       className='btn btn-primary'
                       target='_blank' rel='noreferrer'>店舗紹介ページ</a>
+                  </td>
+                  <td className='text-center'>
+                    <PublishStatusBadge publishStatus={shop.publish_status} />
                   </td>
                 </tr>
               )

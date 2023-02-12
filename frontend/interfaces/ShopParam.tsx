@@ -12,6 +12,7 @@ export interface ShopParam {
   line2: string
   access_info: string
   remarks: string
+  publish_status: string
   shop_image1_public_url: string
   shop_image2_public_url: string
   shop_image3_public_url: string
