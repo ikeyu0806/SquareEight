@@ -242,6 +242,7 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
         <Col sm={8}>
         </Col>
         <Col>
+          <br />
           <Button variant='danger' size='sm' onClick={() => execDelete()}>店舗を削除</Button>
         </Col>
       </Row>}

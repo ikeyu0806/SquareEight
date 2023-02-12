@@ -96,6 +96,7 @@ class Api::Internal::ShopsController < ApplicationController
       shop.business_hours_text = params[:business_hours_text]
       shop.parking_lot_guidance = params[:parking_lot_guidance]
       shop.remarks = params[:remarks]
+      shop.publish_status = params[:publish_status]
       shop.save!
       if params[:shop_image1_file].present? && !params[:shop_image1_file].eql?("null")
         shop.register_s3_image(params[:shop_image1_file], "shop_image1_account_s3_image_id")
@@ -174,6 +175,7 @@ class Api::Internal::ShopsController < ApplicationController
       shop.business_hours_text = params[:business_hours_text]
       shop.parking_lot_guidance = params[:parking_lot_guidance]
       shop.remarks = params[:remarks]
+      shop.publish_status = params[:publish_status]
       shop.save!
       if params[:shop_image1_file].present? && !params[:shop_image1_file].eql?("null")
         shop.register_s3_image(params[:shop_image1_file], "shop_image1_account_s3_image_id")

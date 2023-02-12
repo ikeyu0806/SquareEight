@@ -28,6 +28,7 @@ import { nameChanged,
   parkingLotGuidanceChanged,
   businessHoursTextChanged,
   remarksChanged,
+  publishStatusChanged,
   shopImage1ImagePublicUrlChanged,
   shopImage2ImagePublicUrlChanged,
   shopImage3ImagePublicUrlChanged,
@@ -73,6 +74,7 @@ const Edit: NextPage = () => {
   const description5 = useSelector((state: RootState) => state.shop.description5)
   const description6 = useSelector((state: RootState) => state.shop.description6)
   const remarks = useSelector((state: RootState) => state.shop.remarks)
+  const publishStatus = useSelector((state: RootState) => state.shop.publishStatus)
   const postalCode = useSelector((state: RootState) => state.shop.postalCode)
   const state = useSelector((state: RootState) => state.shop.state)
   const city = useSelector((state: RootState) => state.shop.city)
@@ -124,6 +126,7 @@ const Edit: NextPage = () => {
         dispatch(parkingLotGuidanceChanged(response.data.shop.parking_lot_guidance))
         dispatch(businessHoursTextChanged(response.data.shop.business_hours_text))
         dispatch(remarksChanged(response.data.shop.remarks))
+        dispatch(publishStatusChanged(response.data.shop.publish_status))
         dispatch(shopImage1ImagePublicUrlChanged(response.data.shop.shop_image1_public_url))
         dispatch(shopImage2ImagePublicUrlChanged(response.data.shop.shop_image2_public_url))
         dispatch(shopImage3ImagePublicUrlChanged(response.data.shop.shop_image3_public_url))
@@ -181,6 +184,7 @@ const Edit: NextPage = () => {
     params.append('line2', line2)
     params.append('access_info', accessInfo)
     params.append('remarks', remarks)
+    params.append('publish_status', publishStatus)
     params.append('business_hours_text', businessHoursText)
     params.append('parking_lot_guidance', parkingLotGuidance)
     params.append('shop_image1_file', shopImage1File as Blob)
