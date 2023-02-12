@@ -939,7 +939,11 @@ ticket_masters = TicketMaster.create!(
       price: 19800,
       publish_status: "Publish",
       effective_month: 12,
-      image1_account_s3_image_id: tennis_image1.id
+      image1_account_s3_image_id: tennis_image1.id,
+      image2_account_s3_image_id: tennis_image1.id,
+      image3_account_s3_image_id: tennis_image1.id,
+      image4_account_s3_image_id: tennis_image1.id,
+      image5_account_s3_image_id: tennis_image1.id,
     },
     {
       account_id: account.id,
@@ -949,7 +953,11 @@ ticket_masters = TicketMaster.create!(
       price: 4980,
       publish_status: "Publish",
       effective_month: 12,
-      image1_account_s3_image_id: nail_image1.id
+      image1_account_s3_image_id: nail_image1.id,
+      image2_account_s3_image_id: nail_image1.id,
+      image3_account_s3_image_id: nail_image1.id,
+      image4_account_s3_image_id: nail_image1.id,
+      image5_account_s3_image_id: nail_image1.id,
     },
     {
       account_id: account.id,
@@ -959,7 +967,11 @@ ticket_masters = TicketMaster.create!(
       price: 29800,
       publish_status: "Publish",
       effective_month: 12,
-      image1_account_s3_image_id: spa_image1.id
+      image1_account_s3_image_id: spa_image1.id,
+      image2_account_s3_image_id: spa_image1.id,
+      image3_account_s3_image_id: spa_image1.id,
+      image4_account_s3_image_id: spa_image1.id,
+      image5_account_s3_image_id: spa_image1.id,
     },
     {
       account_id: account.id,
@@ -969,7 +981,11 @@ ticket_masters = TicketMaster.create!(
       price: 19800,
       publish_status: "Publish",
       effective_month: 12,
-      image1_account_s3_image_id: yoga_image1.id
+      image1_account_s3_image_id: yoga_image1.id,
+      image2_account_s3_image_id: yoga_image1.id,
+      image3_account_s3_image_id: yoga_image1.id,
+      image4_account_s3_image_id: yoga_image1.id,
+      image5_account_s3_image_id: yoga_image1.id,
     },
   ]
 )
@@ -1114,7 +1130,11 @@ products = Product.create!(
       tax_rate: 10,
       inventory: 100,
       publish_status: "Publish",
-      image1_account_s3_image_id: protain_image1.id
+      image1_account_s3_image_id: protain_image1.id,
+      image2_account_s3_image_id: protain_image1.id,
+      image3_account_s3_image_id: protain_image1.id,
+      image4_account_s3_image_id: protain_image1.id,
+      image5_account_s3_image_id: protain_image1.id,
     },
     {
       account_id: account.id,
@@ -1124,7 +1144,11 @@ products = Product.create!(
       tax_rate: 10,
       inventory: 30,
       publish_status: "Publish",
-      image1_account_s3_image_id: golf_goods_image1.id
+      image1_account_s3_image_id: golf_goods_image1.id,
+      image2_account_s3_image_id: golf_goods_image1.id,
+      image3_account_s3_image_id: golf_goods_image1.id,
+      image4_account_s3_image_id: golf_goods_image1.id,
+      image5_account_s3_image_id: golf_goods_image1.id,
     },
     {
       account_id: account.id,
