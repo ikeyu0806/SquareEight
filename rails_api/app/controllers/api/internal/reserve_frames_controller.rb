@@ -46,6 +46,10 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                                                     :local_payment_prices_with_number_of_people,
                                                                     :credit_card_payment_prices_with_number_of_people,
                                                                     :image1_account_s3_image_public_url,
+                                                                    :image2_account_s3_image_public_url,
+                                                                    :image3_account_s3_image_public_url,
+                                                                    :image4_account_s3_image_public_url,
+                                                                    :image5_account_s3_image_public_url,
                                                                     :display_staff,
                                                                     :display_equipment]))
     render json: {  status: 'success',

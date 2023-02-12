@@ -222,9 +222,37 @@ const Index: NextPage = () => {
                     <div className='new-line mt20'>{reserveFrame?.description}</div>
                     {mainImagePublicUrl
                     && <img
-                        className='d-block w-100 mt30 mb30'
+                        className='d-block w-100 mt10 mb10'
                         src={mainImagePublicUrl}
                         alt='image' />}
+                    <Row>
+                      {image2PublicUrl && <Col>
+                        <img
+                          className='d-block w-100 mt10 mb10'
+                          src={image2PublicUrl}
+                          alt='image2' />
+                      </Col>}
+                      {image3PublicUrl && <Col>
+                        <img
+                          className='d-block w-100 mt10 mb10'
+                          src={image3PublicUrl}
+                          alt='image3' />
+                      </Col>}
+                    </Row>
+                    <Row>
+                      {image4PublicUrl && <Col>
+                        <img
+                          className='d-block w-100 mt10 mb10'
+                          src={image4PublicUrl}
+                          alt='image4' />
+                      </Col>}
+                      {image5PublicUrl && <Col>
+                        <img
+                          className='d-block w-100 mt10 mb10'
+                          src={image5PublicUrl}
+                          alt='image5' />
+                      </Col>}
+                    </Row>
                     <hr />
 
                     {reserveFrame.display_staff.length !== 0 &&
