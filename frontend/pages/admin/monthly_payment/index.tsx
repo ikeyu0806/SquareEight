@@ -44,43 +44,43 @@ const Index: NextPage = () => {
       <MerchantUserAdminLayout>
         <br />
         {allowReadMonthlyPaymentPlan === 'Allow' && <Container>
-          <Row>
-            <Col lg={3}></Col>
-            <Col lg={6}>
-              {stripeAccountEnable === 'Enable' && 
-              <>
-              <a className='btn btn-primary mt10 mb20'
-              href='/admin/monthly_payment/new'>月額サブスクリプション登録</a>
-              <h3>月額サブスクリプション一覧</h3>
-              <ListGroup>
+          <a className='btn btn-primary mt10 mb20'
+             href='/admin/monthly_payment/new'>月額サブスクリプション登録</a>
+          <h4>月額サブスクリプション一覧</h4>
+          <Table bordered>
+            <thead>
+              <tr>
+                <th>プラン名</th>
+                <th>料金</th>
+                <th>予約受付設定</th>
+                {allowUpdateMonthlyPaymentPlan === 'Allow' && <th>編集</th>}
+                <th>購入ページ</th>
+                <th>公開設定</th>
+              </tr>
+            </thead>
+            <tbody>
               {monthlyPaymentPlans.map((plan, i) => {
                 return (
-                  <ListGroup.Item key={i}>
-                    <Row>
-                      <Col>
-                        プラン名 {plan.name}
-                        <PublishStatusBadge publishStatus={plan.publish_status} /><br/>
-                        料金 {plan.price}<br/>
-                        予約受付設定 {plan.reserve_is_unlimited ? '無制限' : String(plan.reserve_interval_number) + (plan.reserve_interval_unit === 'Day' ? '日に' : '週に') + String(plan.enable_reserve_count) + '回予約可能' }
-                      </Col>
-                      <Col>
-                        {allowUpdateMonthlyPaymentPlan === 'Allow' && <a className='btn btn-primary btn-sm' href={`/admin/monthly_payment/${plan.public_id}/edit`}>編集</a>}
-                        <br/>
-                        <a className='btn btn-primary mt10 btn-sm'
+                  <tr key={i}>
+                    <td>{plan.name}</td>
+                    <td>{plan.price}</td>
+                    <td>
+                      {plan.reserve_is_unlimited ? '無制限' : String(plan.reserve_interval_number) + (plan.reserve_interval_unit === 'Day' ? '日に' : '週に') + String(plan.enable_reserve_count) + '回予約可能' }
+                    </td>
+                    {allowUpdateMonthlyPaymentPlan === 'Allow' && <td><a className='btn btn-primary btn-sm' href={`/admin/monthly_payment/${plan.public_id}/edit`}>編集</a></td>}
+                    <td>
+                    <a className='btn btn-primary btn-sm'
                            target='_blank' rel='noreferrer'
-                           href={`/monthly_payment/${plan.public_id}/purchase`}>購入ページプレビュー</a>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
+                           href={`/monthly_payment/${plan.public_id}/purchase`}>プレビュー</a>
+                    </td>
+                    <td>
+                      <PublishStatusBadge publishStatus={plan.publish_status} />
+                    </td>
+                  </tr>
                 )
               })}
-              </ListGroup>
-              </>}
-              {stripeAccountEnable === 'Disable' && <GuideStripeAccountRegister></GuideStripeAccountRegister>}
-            </Col>
-            {monthlyPaymentPlans.length === 0 &&
-            <div className='text-center font-size-20'>月額サブスクリプションが登録されていません。</div>}
-          </Row>
+            </tbody>
+          </Table>
         </Container>}
         {allowReadMonthlyPaymentPlan === 'Forbid' && <Unauthorized />}
         
