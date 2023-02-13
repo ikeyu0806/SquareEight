@@ -11,7 +11,6 @@ import { QuestionnaireMasterParam } from 'interfaces/QuestionnaireMasterParam'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import { ReservableFrameTicketMasterParam } from 'interfaces/ReservableFrameTicketMasterParam'
-import { getBase64 } from 'functions/getBase64'
 import ReserveFrameRepeatSetting from './ReserveFrameRepeatSetting'
 import TrashIcon from 'components/atoms/TrashIcon'
 import RequireBadge from 'components/atoms/RequireBadge'
@@ -43,13 +42,17 @@ import {  startDateChanged,
           questionnaireMasterIdChanged,
           monthlyPaymentPlanIdsChanged,
           reservableFrameTicketMasterChanged,
-          base64ImageChanged,
           isSetPriceChanged,
           isAcceptCancelChanged,
           isAcceptCancelOnTheDayChanged,
           cancelReceptionDayBeforeChanged,
           cancelReceptionHourBeforeChanged,
-          lotteryConfirmedDayBeforeChanged } from 'redux/reserveFrameSlice'
+          lotteryConfirmedDayBeforeChanged,
+          reserveFrameImage1FileChanged,
+          reserveFrameImage2FileChanged,
+          reserveFrameImage3FileChanged,
+          reserveFrameImage4FileChanged,
+          reserveFrameImage5FileChanged, } from 'redux/reserveFrameSlice'
 
 const ReserveFrameForm = () => {
   const router = useRouter()
@@ -94,6 +97,11 @@ const ReserveFrameForm = () => {
   const cancelReceptionDayBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionDayBefore)
   const cancelReceptionHourBefore = useSelector((state: RootState) => state.reserveFrame.cancelReceptionHourBefore)
   const lotteryConfirmedDayBefore = useSelector((state: RootState) => state.reserveFrame.lotteryConfirmedDayBefore)
+  const reserveFrameImage1ImagePublicUrl = useSelector((state: RootState) => state.reserveFrame.reserveFrameImage1ImagePublicUrl)
+  const reserveFrameImage2ImagePublicUrl = useSelector((state: RootState) => state.reserveFrame.reserveFrameImage2ImagePublicUrl)
+  const reserveFrameImage3ImagePublicUrl = useSelector((state: RootState) => state.reserveFrame.reserveFrameImage3ImagePublicUrl)
+  const reserveFrameImage4ImagePublicUrl = useSelector((state: RootState) => state.reserveFrame.reserveFrameImage4ImagePublicUrl)
+  const reserveFrameImage5ImagePublicUrl = useSelector((state: RootState) => state.reserveFrame.reserveFrameImage5ImagePublicUrl)
 
   const [reserveFrameReceptionStartTime, setReserveFrameReceptionStartTime] = useState('')
   const [reserveFrameReceptionEndTime, setReserveFrameReceptionEndTime] = useState('')
@@ -130,12 +138,39 @@ const ReserveFrameForm = () => {
     fetchRelatedData()
   }, [router.query.public_id, cookies._square_eight_merchant_session])
 
-  const handleChangeFile = (e: any) => {
-    const { files } = e.target
-    setImage(window.URL.createObjectURL(files[0]))
-    getBase64(files[0]).then(
-      data => dispatch(base64ImageChanged(data))
-    )
+  const onChangeShopImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(reserveFrameImage1FileChanged(files[0]))
+    }
+  }
+
+  const onChangeShopImage2File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(reserveFrameImage2FileChanged(files[0]))
+    }
+  }
+
+  const onChangeShopImage3File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(reserveFrameImage3FileChanged(files[0]))
+    }
+  }
+
+  const onChangeShopImage4File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(reserveFrameImage4FileChanged(files[0]))
+    }
+  }
+
+  const onChangeShopImage5File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(reserveFrameImage5FileChanged(files[0]))
+    }
   }
 
   const addReserveFrameReceptionTimes = () => {
@@ -369,21 +404,51 @@ const ReserveFrameForm = () => {
             as='textarea'
             rows={20} />
         </Form.Group>
-
-        {image && <img
+        <Form.Label className='mt10'>店舗イメージ画像1</Form.Label>
+        <Form.Control
+          onChange={onChangeShopImage1File}
+          type='file' />
+        {reserveFrameImage1ImagePublicUrl && <img
           className='d-block w-100 mt30'
-          src={image}
-          alt='image'
+          src={reserveFrameImage1ImagePublicUrl}
+          alt='reserveFrameImage1File Image'
         />}
-        {s3ObjectPublicUrl && !image && <img
+        <Form.Label className='mt10'>店舗イメージ画像2</Form.Label>
+        <Form.Control
+          onChange={onChangeShopImage2File}
+          type='file' />
+        {reserveFrameImage2ImagePublicUrl && <img
           className='d-block w-100 mt30'
-          src={s3ObjectPublicUrl}
-          alt='image'
+          src={reserveFrameImage2ImagePublicUrl}
+          alt='reserveFrameImage2File Image'
         />}
-        <Form.Group className='mb-3'>
-          <Form.Label className='mt10'>イメージ画像</Form.Label>
-          <Form.Control type="file" onChange={handleChangeFile} />
-        </Form.Group>
+        <Form.Label className='mt10'>店舗イメージ画像3</Form.Label>
+        <Form.Control
+          onChange={onChangeShopImage3File}
+          type='file' />
+        {reserveFrameImage3ImagePublicUrl && <img
+          className='d-block w-100 mt30'
+          src={reserveFrameImage3ImagePublicUrl}
+          alt='reserveFrameImage3File Image'
+        />}
+        <Form.Label className='mt10'>店舗イメージ画像4</Form.Label>
+        <Form.Control
+          onChange={onChangeShopImage4File}
+          type='file' />
+        {reserveFrameImage4ImagePublicUrl && <img
+          className='d-block w-100 mt30'
+          src={reserveFrameImage4ImagePublicUrl}
+          alt='reserveFrameImage4File Image'
+        />}
+        <Form.Label className='mt10'>店舗イメージ画像5</Form.Label>
+        <Form.Control
+          onChange={onChangeShopImage5File}
+          type='file' />
+        {reserveFrameImage5ImagePublicUrl && <img
+          className='d-block w-100 mt30'
+          src={reserveFrameImage5ImagePublicUrl}
+          alt='reserveFrameImage5File Image'
+        />}
 
         <hr/>
 

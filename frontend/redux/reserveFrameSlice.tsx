@@ -45,7 +45,16 @@ export const reserveFrameSlice = createSlice({
     questionnaireMasterId: '',
     multiLocalPaymentPrices: [{name: '大人', price: 1000}, {name: '子供', price: 500}] as MultiPaymentMethod[],
     multiCreditCardPaymentPrices: [{name: '大人', price: 1000}, {name: '子供', price: 500}] as MultiPaymentMethod[],
-    base64Image: null,
+    reserveFrameImage1File: null as File | unknown,
+    reserveFrameImage2File:  null as File | unknown,
+    reserveFrameImage3File:  null as File | unknown,
+    reserveFrameImage4File:  null as File | unknown,
+    reserveFrameImage5File:  null as File | unknown,
+    reserveFrameImage1ImagePublicUrl: '',
+    reserveFrameImage2ImagePublicUrl: '',
+    reserveFrameImage3ImagePublicUrl: '',
+    reserveFrameImage4ImagePublicUrl: '',
+    reserveFrameImage5ImagePublicUrl: '',
     s3ObjectPublicUrl: '',
     isAcceptCancel: false,
     isAcceptCancelOnTheDay: false,
@@ -173,8 +182,35 @@ export const reserveFrameSlice = createSlice({
     isMonthlyPlanPaymentEnableChanged: (state, action: PayloadAction<boolean>) => {
       state.isMonthlyPlanPaymentEnable = action.payload
     },
-    base64ImageChanged: (state, action: PayloadAction<any>) => {
-      state.base64Image = action.payload
+    reserveFrameImage1FileChanged: (state, action: PayloadAction<File>) => {
+      state.reserveFrameImage1File = action.payload
+    },
+    reserveFrameImage2FileChanged: (state, action: PayloadAction<File>) => {
+      state.reserveFrameImage2File = action.payload
+    },
+    reserveFrameImage3FileChanged: (state, action: PayloadAction<File>) => {
+      state.reserveFrameImage3File = action.payload
+    },
+    reserveFrameImage4FileChanged: (state, action: PayloadAction<File>) => {
+      state.reserveFrameImage4File = action.payload
+    },
+    reserveFrameImage5FileChanged: (state, action: PayloadAction<File>) => {
+      state.reserveFrameImage5File = action.payload
+    },
+    reserveFrameImage1ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.reserveFrameImage1ImagePublicUrl = action.payload
+    },
+    reserveFrameImage2ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.reserveFrameImage2ImagePublicUrl = action.payload
+    },
+    reserveFrameImage3ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.reserveFrameImage3ImagePublicUrl = action.payload
+    },
+    reserveFrameImage4ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.reserveFrameImage4ImagePublicUrl = action.payload
+    },
+    reserveFrameImage5ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.reserveFrameImage5ImagePublicUrl = action.payload
     },
     s3ObjectPublicUrlChanged: (state, action: PayloadAction<any>) => {
       state.s3ObjectPublicUrl = action.payload
@@ -261,7 +297,16 @@ export const { isLocalPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isCreditCardPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isTicketPaymentEnableChanged } = reserveFrameSlice.actions
 export const { isMonthlyPlanPaymentEnableChanged } = reserveFrameSlice.actions
-export const { base64ImageChanged } = reserveFrameSlice.actions
+export const { reserveFrameImage1FileChanged } = reserveFrameSlice.actions
+export const { reserveFrameImage2FileChanged } = reserveFrameSlice.actions
+export const { reserveFrameImage3FileChanged } = reserveFrameSlice.actions
+export const { reserveFrameImage4FileChanged } = reserveFrameSlice.actions
+export const { reserveFrameImage5FileChanged } = reserveFrameSlice.actions
+export const { reserveFrameImage1ImagePublicUrlChanged } = reserveFrameSlice.actions
+export const { reserveFrameImage2ImagePublicUrlChanged } = reserveFrameSlice.actions
+export const { reserveFrameImage3ImagePublicUrlChanged } = reserveFrameSlice.actions
+export const { reserveFrameImage4ImagePublicUrlChanged } = reserveFrameSlice.actions
+export const { reserveFrameImage5ImagePublicUrlChanged } = reserveFrameSlice.actions
 export const { isAcceptCancelChanged } = reserveFrameSlice.actions
 export const { isAcceptCancelOnTheDayChanged } = reserveFrameSlice.actions
 export const { cancelReceptionDayBeforeChanged } = reserveFrameSlice.actions
