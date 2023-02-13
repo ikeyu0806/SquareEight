@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { Container, Row, Col, Form, FormControl, Button } from 'react-bootstrap'
 import { RootState } from '../../redux/store'
 import { useSelector, useDispatch } from 'react-redux'
-import { getBase64 } from '../../functions/getBase64'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import axios from 'axios'
 import { useRouter } from 'next/router'
@@ -14,8 +13,12 @@ import { nameChanged,
          effectiveMonthChanged,
          descriptionChanged,
          publishStatusChanged,
-         base64ImageChanged,
-         shopsChanged } from 'redux/ticketMasterSlice'
+         shopsChanged,
+         ticketMasterImage1FileChanged,
+         ticketMasterImage2FileChanged,
+         ticketMasterImage3FileChanged,
+         ticketMasterImage4FileChanged,
+         ticketMasterImage5FileChanged,  } from 'redux/ticketMasterSlice'
 
 interface Props {
   showDeleteButton?: boolean
@@ -36,6 +39,11 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const publishStatus = useSelector((state: RootState) => state.monthlyPaymentPlan.publishStatus)
   const selectedShopIds = useSelector((state: RootState) => state.product.selectedShopIds)
   const shops = useSelector((state: RootState) => state.account.shops)
+  const ticketMasterImage1ImagePublicUrl = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage1ImagePublicUrl)
+  const ticketMasterImage2ImagePublicUrl = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage2ImagePublicUrl)
+  const ticketMasterImage3ImagePublicUrl = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage3ImagePublicUrl)
+  const ticketMasterImage4ImagePublicUrl = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage4ImagePublicUrl)
+  const ticketMasterImage5ImagePublicUrl = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage5ImagePublicUrl)
 
   const execDelete = () => {
     swalWithBootstrapButtons.fire({
@@ -68,14 +76,6 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
     })
   }
 
-  const handleChangeFile = (e: any) => {
-    const { files } = e.target
-    setImage(window.URL.createObjectURL(files[0]))
-    getBase64(files[0]).then(
-      data => dispatch(base64ImageChanged(data))
-    )
-  }
-
   const updateShop = (shopRef: number) => {
     let updateShop: ShopParam
     let updateShops: ShopParam[]
@@ -90,6 +90,41 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
       }
     })
     dispatch(shopsChanged(updateShops))
+  }
+
+  const onChangeTicketMasterImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(ticketMasterImage1FileChanged(files[0]))
+    }
+  }
+
+  const onChangeTicketMasterImage2File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(ticketMasterImage2FileChanged(files[0]))
+    }
+  }
+
+  const onChangeTicketMasterImage3File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(ticketMasterImage3FileChanged(files[0]))
+    }
+  }
+
+  const onChangeTicketMasterImage4File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(ticketMasterImage4FileChanged(files[0]))
+    }
+  }
+
+  const onChangeTicketMasterImage5File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(ticketMasterImage5FileChanged(files[0]))
+    }
   }
 
   return (
@@ -170,11 +205,54 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
                 src={s3ObjectPublicUrl}
                 alt='image'
               />}
-              <Form.Group>
-                <Form.Label className='mt10'>イメージ画像</Form.Label>
-                <Form.Control type='file' onChange={handleChangeFile} />
-              </Form.Group>
-              <Form.Group className='mt10'>
+
+              <Form.Label className='mt10'>店舗イメージ画像1</Form.Label>
+              <Form.Control
+                onChange={onChangeTicketMasterImage1File}
+                type='file' />
+              {ticketMasterImage1ImagePublicUrl && <img
+                className='d-block w-100 mt30'
+                src={ticketMasterImage1ImagePublicUrl}
+                alt='ticketMasterImage1File Image'
+              />}
+              <Form.Label className='mt10'>店舗イメージ画像2</Form.Label>
+              <Form.Control
+                onChange={onChangeTicketMasterImage2File}
+                type='file' />
+              {ticketMasterImage2ImagePublicUrl && <img
+                className='d-block w-100 mt30'
+                src={ticketMasterImage2ImagePublicUrl}
+                alt='ticketMasterImage2File Image'
+              />}
+              <Form.Label className='mt10'>店舗イメージ画像3</Form.Label>
+              <Form.Control
+                onChange={onChangeTicketMasterImage3File}
+                type='file' />
+              {ticketMasterImage3ImagePublicUrl && <img
+                className='d-block w-100 mt30'
+                src={ticketMasterImage3ImagePublicUrl}
+                alt='ticketMasterImage3File Image'
+              />}
+              <Form.Label className='mt10'>店舗イメージ画像4</Form.Label>
+              <Form.Control
+                onChange={onChangeTicketMasterImage4File}
+                type='file' />
+              {ticketMasterImage4ImagePublicUrl && <img
+                className='d-block w-100 mt30'
+                src={ticketMasterImage4ImagePublicUrl}
+                alt='ticketMasterImage4File Image'
+              />}
+              <Form.Label className='mt10'>店舗イメージ画像5</Form.Label>
+              <Form.Control
+                onChange={onChangeTicketMasterImage5File}
+                type='file' />
+              {ticketMasterImage5ImagePublicUrl && <img
+                className='d-block w-100 mt30'
+                src={ticketMasterImage5ImagePublicUrl}
+                alt='ticketMasterImage5File Image'
+              />}
+  
+              <Form.Group className='mt20'>
                 <div>店舗設定</div>
                 <div className='mt5 mb5'>設定した店舗のページに商品ページへのリンクが表示されます。</div>
                   {shops.map((shop, i) => {
