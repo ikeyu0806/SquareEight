@@ -149,30 +149,22 @@ class Api::Internal::ReserveFramesController < ApplicationController
           reserve_frame.reserve_frame_reception_times.new(reception_start_time: reception_time[:reception_start_time], reception_end_time: reception_time[:reception_end_time])
         end
       end
-      if reserve_frame_params[:unreservable_frames].present?
-        reserve_frame.unreservable_frames.delete_all
+      reserve_frame.unreservable_frames.delete_all
         reserve_frame_params[:unreservable_frames].uniq.each do |frame|
-          reserve_frame.unreservable_frames.new(start_at: frame)
+          reserve_frame.unreservable_frames.new(start_at: DateTime.parse(frame))
         end
+      reserve_frame.out_of_range_frames.delete_all
+      reserve_frame_params[:out_of_range_frames].uniq.each do |frame|
+        reserve_frame.out_of_range_frames.new(start_at: DateTime.parse(frame))
       end
-      if reserve_frame_params[:out_of_range_frames].present?
-        reserve_frame.out_of_range_frames.delete_all
-        reserve_frame_params[:out_of_range_frames].uniq.each do |frame|
-          reserve_frame.out_of_range_frames.new(start_at: frame)
-        end
-      end
-      if reserve_frame_params[:resource_ids].present?
-        reserve_frame.reserve_frame_resources.delete_all
-        reserve_frame_params[:resource_ids].each do |resource_id|
-          reserve_frame.reserve_frame_resources.new(resource_id: resource_id)
-        end
+      reserve_frame.reserve_frame_resources.delete_all
+      reserve_frame_params[:resource_ids].each do |resource_id|
+        reserve_frame.reserve_frame_resources.new(resource_id: resource_id)
       end
       reserve_frame.save!
-      if reserve_frame_params[:shop_ids].present?
-        reserve_frame.shop_reserve_frames.destroy_all
-        reserve_frame_params[:shop_ids].each do |shop_id|
-          reserve_frame.shop_reserve_frames.new(shop_id: shop_id)
-        end
+      reserve_frame.shop_reserve_frames.destroy_all
+      reserve_frame_params[:shop_ids].each do |shop_id|
+        reserve_frame.shop_reserve_frames.new(shop_id: shop_id)
       end
       if reserve_frame.is_monthly_plan_payment_enable?
         reserve_frame.monthly_payment_plans.delete_all
@@ -186,14 +178,20 @@ class Api::Internal::ReserveFramesController < ApplicationController
           reserve_frame.reserve_frame_ticket_masters.new(ticket_master)
         end
       end
-      if reserve_frame_params[:base64_image].present?
-        file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = AccountS3Image.new
-        account_image.account = current_merchant_user.account
-        account_image.s3_object_public_url = put_s3_http_request_base64_data(reserve_frame_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
-        account_image.s3_object_name = file_name
-        account_image.save!
-        reserve_frame.image1_account_s3_image_id = account_image.id
+      if params[:reserve_frame_image1_file].present? && !params[:reserve_frame_image1_file].eql?("null")
+        reserve_frame.register_s3_image(params[:reserve_frame_image1_file], "image1_account_s3_image_id")
+      end
+      if params[:reserve_frame_image2_file].present? && !params[:reserve_frame_image2_file].eql?("null")
+        reserve_frame.register_s3_image(params[:reserve_frame_image2_file], "image2_account_s3_image_id")
+      end
+      if params[:reserve_frame_image3_file].present? && !params[:reserve_frame_image3_file].eql?("null")
+        reserve_frame.register_s3_image(params[:reserve_frame_image3_file], "image3_account_s3_image_id")
+      end
+      if params[:reserve_frame_image4_file].present? && !params[:reserve_frame_image4_file].eql?("null")
+        reserve_frame.register_s3_image(params[:reserve_frame_image4_file], "image4_account_s3_image_id")
+      end
+      if params[:reserve_frame_image5_file].present? && !params[:reserve_frame_image5_file].eql?("null")
+        reserve_frame.register_s3_image(params[:reserve_frame_image5_file], "image5_account_s3_image_id")
       end
       if reserve_frame_params[:repeat_wdays].present?
         reserve_frame.is_repeat_sun = true if reserve_frame_params[:repeat_wdays].include?("Sun")
