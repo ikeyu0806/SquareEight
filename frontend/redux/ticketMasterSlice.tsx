@@ -20,7 +20,6 @@ export const ticketMasterSlice = createSlice({
     ticketMasterImage3ImagePublicUrl: '',
     ticketMasterImage4ImagePublicUrl: '',
     ticketMasterImage5ImagePublicUrl: '',
-    s3ObjectPublicUrl: '',
     shops: [] as ShopParam[],
     selectedShopIds: [] as number[]
   },
@@ -73,9 +72,6 @@ export const ticketMasterSlice = createSlice({
     ticketMasterImage5ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
       state.ticketMasterImage5ImagePublicUrl = action.payload
     },
-    s3ObjectPublicUrlChanged: (state, action: PayloadAction<any>) => {
-      state.s3ObjectPublicUrl = action.payload
-    },
     shopsChanged: (state, action: PayloadAction<ShopParam[]>) => {
       state.shops = action.payload
     },
@@ -101,7 +97,6 @@ export const { ticketMasterImage2ImagePublicUrlChanged } = ticketMasterSlice.act
 export const { ticketMasterImage3ImagePublicUrlChanged } = ticketMasterSlice.actions
 export const { ticketMasterImage4ImagePublicUrlChanged } = ticketMasterSlice.actions
 export const { ticketMasterImage5ImagePublicUrlChanged } = ticketMasterSlice.actions
-export const { s3ObjectPublicUrlChanged } = ticketMasterSlice.actions
 export const { shopsChanged } = ticketMasterSlice.actions
 export const { selectedShopIdsChanged } = ticketMasterSlice.actions
 

@@ -12,8 +12,16 @@ export const monthlyPaymentPlanSlice = createSlice({
     enableReserveCount: 1,
     description: '',
     publishStatus: '',
-    base64Image: null,
-    s3ObjectPublicUrl: '',
+    monthlyPaymentPlanImage1File: null as File | unknown,
+    monthlyPaymentPlanImage2File:  null as File | unknown,
+    monthlyPaymentPlanImage3File:  null as File | unknown,
+    monthlyPaymentPlanImage4File:  null as File | unknown,
+    monthlyPaymentPlanImage5File:  null as File | unknown,
+    monthlyPaymentPlanImage1ImagePublicUrl: '',
+    monthlyPaymentPlanImage2ImagePublicUrl: '',
+    monthlyPaymentPlanImage3ImagePublicUrl: '',
+    monthlyPaymentPlanImage4ImagePublicUrl: '',
+    monthlyPaymentPlanImage5ImagePublicUrl: '',
     shops: [] as ShopParam[],
     selectedShopIds: [] as number[]
   },
@@ -42,11 +50,35 @@ export const monthlyPaymentPlanSlice = createSlice({
     publishStatusChanged: (state, action: PayloadAction<string>) => {
       state.publishStatus = action.payload
     },
-    base64ImageChanged: (state, action: PayloadAction<any>) => {
-      state.base64Image = action.payload
+    monthlyPaymentPlanImage1FileChanged: (state, action: PayloadAction<File>) => {
+      state.monthlyPaymentPlanImage1File = action.payload
     },
-    s3ObjectPublicUrlChanged: (state, action: PayloadAction<any>) => {
-      state.s3ObjectPublicUrl = action.payload
+    monthlyPaymentPlanImage2FileChanged: (state, action: PayloadAction<File>) => {
+      state.monthlyPaymentPlanImage2File = action.payload
+    },
+    monthlyPaymentPlanImage3FileChanged: (state, action: PayloadAction<File>) => {
+      state.monthlyPaymentPlanImage3File = action.payload
+    },
+    monthlyPaymentPlanImage4FileChanged: (state, action: PayloadAction<File>) => {
+      state.monthlyPaymentPlanImage4File = action.payload
+    },
+    monthlyPaymentPlanImage5FileChanged: (state, action: PayloadAction<File>) => {
+      state.monthlyPaymentPlanImage5File = action.payload
+    },
+    monthlyPaymentPlanImage1ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.monthlyPaymentPlanImage1ImagePublicUrl = action.payload
+    },
+    monthlyPaymentPlanImage2ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.monthlyPaymentPlanImage2ImagePublicUrl = action.payload
+    },
+    monthlyPaymentPlanImage3ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.monthlyPaymentPlanImage3ImagePublicUrl = action.payload
+    },
+    monthlyPaymentPlanImage4ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.monthlyPaymentPlanImage4ImagePublicUrl = action.payload
+    },
+    monthlyPaymentPlanImage5ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.monthlyPaymentPlanImage5ImagePublicUrl = action.payload
     },
     shopsChanged: (state, action: PayloadAction<ShopParam[]>) => {
       state.shops = action.payload
@@ -65,8 +97,16 @@ export const { reserveIntervalUnitChanged } = monthlyPaymentPlanSlice.actions
 export const { enableReserveCountChanged } = monthlyPaymentPlanSlice.actions
 export const { descriptionChanged } = monthlyPaymentPlanSlice.actions
 export const { publishStatusChanged } = monthlyPaymentPlanSlice.actions
-export const { base64ImageChanged } = monthlyPaymentPlanSlice.actions
-export const { s3ObjectPublicUrlChanged } = monthlyPaymentPlanSlice.actions
+export const { monthlyPaymentPlanImage1FileChanged } = monthlyPaymentPlanSlice.actions
+export const { monthlyPaymentPlanImage2FileChanged } = monthlyPaymentPlanSlice.actions
+export const { monthlyPaymentPlanImage3FileChanged } = monthlyPaymentPlanSlice.actions
+export const { monthlyPaymentPlanImage4FileChanged } = monthlyPaymentPlanSlice.actions
+export const { monthlyPaymentPlanImage5FileChanged } = monthlyPaymentPlanSlice.actions
+export const { monthlyPaymentPlanImage1ImagePublicUrlChanged } = monthlyPaymentPlanSlice.actions
+export const { monthlyPaymentPlanImage2ImagePublicUrlChanged } = monthlyPaymentPlanSlice.actions
+export const { monthlyPaymentPlanImage3ImagePublicUrlChanged } = monthlyPaymentPlanSlice.actions
+export const { monthlyPaymentPlanImage4ImagePublicUrlChanged } = monthlyPaymentPlanSlice.actions
+export const { monthlyPaymentPlanImage5ImagePublicUrlChanged } = monthlyPaymentPlanSlice.actions
 export const { shopsChanged } = monthlyPaymentPlanSlice.actions
 export const { selectedShopIdsChanged } = monthlyPaymentPlanSlice.actions
 
