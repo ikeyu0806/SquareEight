@@ -13,7 +13,6 @@ import { DeliveryCharge } from 'interfaces/DeliveryCharge'
 import { ShopParam } from 'interfaces/ShopParam'
 import { nameChanged,
          descriptionChanged,
-         base64ImageChanged,
          inventoryChanged,
          priceChanged,
          taxRateChanged,
@@ -26,7 +25,12 @@ import { nameChanged,
          showProductTypeFormChanged,
          deliveryDatetimeTargetFlgChanged,
          deliveryChargeWithOrderNumberChanged,
-         shopsChanged } from 'redux/productSlice'
+         shopsChanged,
+         productImage1FileChanged,
+         productImage2FileChanged,
+         productImage3FileChanged,
+         productImage4FileChanged,
+         productImage5FileChanged, } from 'redux/productSlice'
 
 interface Props {
   showDeleteButton?: boolean
@@ -42,7 +46,6 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const price = useSelector((state: RootState) => state.product.price)
   const description = useSelector((state: RootState) => state.product.description)
   const inventory = useSelector((state: RootState) => state.product.inventory)
-  const s3ObjectPublicUrl = useSelector((state: RootState) => state.product.s3ObjectPublicUrl)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
   const showProductTypeForm = useSelector((state: RootState) => state.product.showProductTypeForm)
   const productTypeNameRefs = useRef<any>([])
@@ -57,17 +60,15 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const publishStatus = useSelector((state: RootState) => state.product.publishStatus)
   const selectedShopIds = useSelector((state: RootState) => state.product.selectedShopIds)
   const shops = useSelector((state: RootState) => state.account.shops)
+  const productImage1ImagePublicUrl = useSelector((state: RootState) => state.product.productImage1ImagePublicUrl)
+  const productImage2ImagePublicUrl = useSelector((state: RootState) => state.product.productImage2ImagePublicUrl)
+  const productImage3ImagePublicUrl = useSelector((state: RootState) => state.product.productImage3ImagePublicUrl)
+  const productImage4ImagePublicUrl = useSelector((state: RootState) => state.product.productImage4ImagePublicUrl)
+  const productImage5ImagePublicUrl = useSelector((state: RootState) => state.product.productImage5ImagePublicUrl)
 
   const shopRefs = useRef<any>([])
   shopRefs.current = shops.map((_, i) => shopRefs.current[i] ?? createRef())
 
-  const handleChangeFile = (e: any) => {
-    const { files } = e.target
-    setImage(window.URL.createObjectURL(files[0]))
-    getBase64(files[0]).then(
-      data => dispatch(base64ImageChanged(data))
-    )
-  }
 
   const addProductTypeForm = () => {
     let updateProductTypes: ProductType[]
@@ -192,6 +193,41 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
     dispatch(shopsChanged(updateShops))
   }
 
+  const onChangeShopImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(productImage1FileChanged(files[0]))
+    }
+  }
+
+  const onChangeShopImage2File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(productImage2FileChanged(files[0]))
+    }
+  }
+
+  const onChangeShopImage3File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(productImage3FileChanged(files[0]))
+    }
+  }
+
+  const onChangeShopImage4File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(productImage4FileChanged(files[0]))
+    }
+  }
+
+  const onChangeShopImage5File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(productImage5FileChanged(files[0]))
+    }
+  }
+
   return (
     <>
       <Container>
@@ -225,20 +261,53 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
                   placeholder=''
                   aria-label='' />
               </Form.Group>
-              {image && <img
-                className='d-block w-100 mt30'
-                src={image}
-                alt='image'
-              />}
-              {s3ObjectPublicUrl && !image && <img
-                className='d-block w-100 mt30'
-                src={s3ObjectPublicUrl}
-                alt='image'
-              />}
-              <Form.Group className='mb-3'>
-                <Form.Label className='mt10'>イメージ画像</Form.Label>
-                <Form.Control type="file" onChange={handleChangeFile} />
-              </Form.Group>
+
+              <Form.Label className='mt10'>店舗イメージ画像1</Form.Label>
+        <Form.Control
+          onChange={onChangeShopImage1File}
+          type='file' />
+        {productImage1ImagePublicUrl && <img
+          className='d-block w-100 mt30'
+          src={productImage1ImagePublicUrl}
+          alt='productImage1File Image'
+        />}
+        <Form.Label className='mt10'>店舗イメージ画像2</Form.Label>
+        <Form.Control
+          onChange={onChangeShopImage2File}
+          type='file' />
+        {productImage2ImagePublicUrl && <img
+          className='d-block w-100 mt30'
+          src={productImage2ImagePublicUrl}
+          alt='productImage2File Image'
+        />}
+        <Form.Label className='mt10'>店舗イメージ画像3</Form.Label>
+        <Form.Control
+          onChange={onChangeShopImage3File}
+          type='file' />
+        {productImage3ImagePublicUrl && <img
+          className='d-block w-100 mt30'
+          src={productImage3ImagePublicUrl}
+          alt='productImage3File Image'
+        />}
+        <Form.Label className='mt10'>店舗イメージ画像4</Form.Label>
+        <Form.Control
+          onChange={onChangeShopImage4File}
+          type='file' />
+        {productImage4ImagePublicUrl && <img
+          className='d-block w-100 mt30'
+          src={productImage4ImagePublicUrl}
+          alt='productImage4File Image'
+        />}
+        <Form.Label className='mt10'>店舗イメージ画像5</Form.Label>
+        <Form.Control
+          onChange={onChangeShopImage5File}
+          type='file' />
+        {productImage5ImagePublicUrl && <img
+          className='d-block w-100 mt30'
+          src={productImage5ImagePublicUrl}
+          alt='productImage5File Image'
+        />}
+
               <Form.Group className='mb-3'>
                 <Form.Label>値段（税込）</Form.Label>
                 <Row>
