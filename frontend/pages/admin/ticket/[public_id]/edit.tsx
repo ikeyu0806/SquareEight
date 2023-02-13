@@ -13,7 +13,8 @@ import { alertChanged } from 'redux/alertSlice'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import Unauthorized from 'components/templates/Unauthorized'
 import {  nameChanged,
-  priceChanged,
+          priceChanged,
+          publishStatusChanged,
           issueNumberChanged,
           descriptionChanged,
           ticketMasterImage1ImagePublicUrlChanged,
@@ -57,6 +58,7 @@ const Edit: NextPage = () => {
         dispatch(priceChanged(ticketMasterResponse.price))
         dispatch(issueNumberChanged(ticketMasterResponse.issue_number))
         dispatch(descriptionChanged(ticketMasterResponse.description))
+        dispatch(publishStatusChanged(response.data.ticket_master.publish_status))
         dispatch(selectedShopIdsChanged(response.data.ticket_master.selected_shop_ids))
         dispatch(ticketMasterImage1ImagePublicUrlChanged(response.data.ticket_master.image1_account_s3_image_public_url))
         dispatch(ticketMasterImage2ImagePublicUrlChanged(response.data.ticket_master.image2_account_s3_image_public_url))

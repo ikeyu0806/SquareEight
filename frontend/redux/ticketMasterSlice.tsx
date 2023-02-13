@@ -2,7 +2,7 @@ import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ShopParam } from 'interfaces/ShopParam'
 
 export const ticketMasterSlice = createSlice({
-  name: 'alert',
+  name: 'ticketMaster',
   initialState: {
     name: '',
     price: 1000,

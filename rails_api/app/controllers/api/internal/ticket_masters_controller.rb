@@ -90,7 +90,6 @@ class Api::Internal::TicketMastersController < ApplicationController
     ActiveRecord::Base.transaction do
       ticket_master = TicketMaster.find_by(public_id: params[:public_id])
       ticket_master.attributes = (ticket_master_params.except(:shops))
-
       if params[:ticket_master_image1_file].present? && !params[:ticket_master_image1_file].eql?("null")
         file_name = "ticket_master_image1_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         ticket_master.register_s3_image(file_name, params[:ticket_master_image1_file], "image1_account_s3_image_id")
