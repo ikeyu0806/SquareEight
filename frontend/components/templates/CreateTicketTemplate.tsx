@@ -35,8 +35,7 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const price = useSelector((state: RootState) => state.ticketMaster.price)
   const effectiveMonth = useSelector((state: RootState) => state.ticketMaster.effectiveMonth)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
-  const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
-  const publishStatus = useSelector((state: RootState) => state.monthlyPaymentPlan.publishStatus)
+  const publishStatus = useSelector((state: RootState) => state.ticketMaster.publishStatus)
   const selectedShopIds = useSelector((state: RootState) => state.product.selectedShopIds)
   const shops = useSelector((state: RootState) => state.account.shops)
   const ticketMasterImage1ImagePublicUrl = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage1ImagePublicUrl)
@@ -182,7 +181,6 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
                   <Form.Group className='mb-3'>
                     <Form.Label>公開設定</Form.Label>
                     <Form.Select
-                      placeholder='メニュー名'
                       value={publishStatus || 'Unpublish'}
                       onChange={(e) => dispatch(publishStatusChanged(e.target.value))}>
                       <option value='Unpublish'>非公開</option>
@@ -195,16 +193,6 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
                 <Col>
                 </Col>
               </Row>
-              {image && <img
-                className='d-block w-100 mt30'
-                src={image}
-                alt='image'
-              />}
-              {s3ObjectPublicUrl && !image && <img
-                className='d-block w-100 mt30'
-                src={s3ObjectPublicUrl}
-                alt='image'
-              />}
 
               <Form.Label className='mt10'>店舗イメージ画像1</Form.Label>
               <Form.Control
