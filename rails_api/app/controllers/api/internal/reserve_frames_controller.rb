@@ -97,19 +97,24 @@ class Api::Internal::ReserveFramesController < ApplicationController
         end
       end
       if params[:reserve_frame_image1_file].present? && !params[:reserve_frame_image1_file].eql?("null")
-        reserve_frame.register_s3_image(params[:reserve_frame_image1_file], "image1_account_s3_image_id")
+        file_name = "reserve_frame_image1_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        reserve_frame.register_s3_image(file_name, params[:reserve_frame_image1_file], "image1_account_s3_image_id")
       end
       if params[:reserve_frame_image2_file].present? && !params[:reserve_frame_image2_file].eql?("null")
-        reserve_frame.register_s3_image(params[:reserve_frame_image2_file], "image2_account_s3_image_id")
+        file_name = "reserve_frame_image2_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        reserve_frame.register_s3_image(file_name, params[:reserve_frame_image2_file], "image2_account_s3_image_id")
       end
       if params[:reserve_frame_image3_file].present? && !params[:reserve_frame_image3_file].eql?("null")
-        reserve_frame.register_s3_image(params[:reserve_frame_image3_file], "image3_account_s3_image_id")
+        file_name = "reserve_frame_image3_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        reserve_frame.register_s3_image(file_name, params[:reserve_frame_image3_file], "image3_account_s3_image_id")
       end
       if params[:reserve_frame_image4_file].present? && !params[:reserve_frame_image4_file].eql?("null")
-        reserve_frame.register_s3_image(params[:reserve_frame_image4_file], "image4_account_s3_image_id")
+        file_name = "reserve_frame_image4_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        reserve_frame.register_s3_image(file_name, params[:reserve_frame_image4_file], "image4_account_s3_image_id")
       end
       if params[:reserve_frame_image5_file].present? && !params[:reserve_frame_image5_file].eql?("null")
-        reserve_frame.register_s3_image(params[:reserve_frame_image5_file], "image5_account_s3_image_id")
+        file_name = "reserve_frame_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        reserve_frame.register_s3_image(file_name, params[:reserve_frame_image5_file], "image5_account_s3_image_id")
       end
       if reserve_frame_params[:repeat_wdays].present?
         reserve_frame.is_repeat_sun = true if reserve_frame_params[:repeat_wdays].include?("Sun")
@@ -179,19 +184,24 @@ class Api::Internal::ReserveFramesController < ApplicationController
         end
       end
       if params[:reserve_frame_image1_file].present? && !params[:reserve_frame_image1_file].eql?("null")
-        reserve_frame.register_s3_image(params[:reserve_frame_image1_file], "image1_account_s3_image_id")
+        file_name = "reserve_frame_image1_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        reserve_frame.register_s3_image(file_name, params[:reserve_frame_image1_file], "image1_account_s3_image_id")
       end
       if params[:reserve_frame_image2_file].present? && !params[:reserve_frame_image2_file].eql?("null")
-        reserve_frame.register_s3_image(params[:reserve_frame_image2_file], "image2_account_s3_image_id")
+        file_name = "reserve_frame_image2_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        reserve_frame.register_s3_image(file_name, params[:reserve_frame_image2_file], "image2_account_s3_image_id")
       end
       if params[:reserve_frame_image3_file].present? && !params[:reserve_frame_image3_file].eql?("null")
-        reserve_frame.register_s3_image(params[:reserve_frame_image3_file], "image3_account_s3_image_id")
+        file_name = "reserve_frame_image3_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        reserve_frame.register_s3_image(file_name, params[:reserve_frame_image3_file], "image3_account_s3_image_id")
       end
       if params[:reserve_frame_image4_file].present? && !params[:reserve_frame_image4_file].eql?("null")
-        reserve_frame.register_s3_image(params[:reserve_frame_image4_file], "image4_account_s3_image_id")
+        file_name = "reserve_frame_image4_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        reserve_frame.register_s3_image(file_name, params[:reserve_frame_image4_file], "image4_account_s3_image_id")
       end
       if params[:reserve_frame_image5_file].present? && !params[:reserve_frame_image5_file].eql?("null")
-        reserve_frame.register_s3_image(params[:reserve_frame_image5_file], "image5_account_s3_image_id")
+        file_name = "reserve_frame_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        reserve_frame.register_s3_image(file_name, params[:reserve_frame_image5_file], "image5_account_s3_image_id")
       end
       if reserve_frame_params[:repeat_wdays].present?
         reserve_frame.is_repeat_sun = true if reserve_frame_params[:repeat_wdays].include?("Sun")

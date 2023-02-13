@@ -60,6 +60,26 @@ class Api::Internal::ProductsController < ApplicationController
           product.shop_products.create!(shop_id: shop.id)
         end
       end
+      if params[:product_image1_file].present? && !params[:product_image1_file].eql?("null")
+        file_name = "product_image1_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        product.register_s3_image(file_name, params[:product_image1_file], "image1_account_s3_image_id")
+      end
+      if params[:product_image2_file].present? && !params[:product_image2_file].eql?("null")
+        file_name = "product_image2_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        product.register_s3_image(file_name, params[:product_image2_file], "image2_account_s3_image_id")
+      end
+      if params[:product_image3_file].present? && !params[:product_image3_file].eql?("null")
+        file_name = "product_image3_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        product.register_s3_image(file_name, params[:product_image3_file], "image3_account_s3_image_id")
+      end
+      if params[:product_image4_file].present? && !params[:product_image4_file].eql?("null")
+        file_name = "product_image4_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        product.register_s3_image(file_name, params[:product_image4_file], "image4_account_s3_image_id")
+      end
+      if params[:product_image5_file].present? && !params[:product_image5_file].eql?("null")
+        file_name = "product_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        product.register_s3_image(file_name, params[:product_image5_file], "image5_account_s3_image_id")
+      end
       product.save!
       render json: { status: 'success' }, status: 200
     end
@@ -94,6 +114,26 @@ class Api::Internal::ProductsController < ApplicationController
       product_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])
         product.shop_products.create!(shop_id: shop.id)
+      end
+      if params[:product_image1_file].present? && !params[:product_image1_file].eql?("null")
+        file_name = "product_image1_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        product.register_s3_image(file_name, params[:product_image1_file], "image1_account_s3_image_id")
+      end
+      if params[:product_image2_file].present? && !params[:product_image2_file].eql?("null")
+        file_name = "product_image2_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        product.register_s3_image(file_name, params[:product_image2_file], "image2_account_s3_image_id")
+      end
+      if params[:product_image3_file].present? && !params[:product_image3_file].eql?("null")
+        file_name = "product_image3_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        product.register_s3_image(file_name, params[:product_image3_file], "image3_account_s3_image_id")
+      end
+      if params[:product_image4_file].present? && !params[:product_image4_file].eql?("null")
+        file_name = "product_image4_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        product.register_s3_image(file_name, params[:product_image4_file], "image4_account_s3_image_id")
+      end
+      if params[:product_image5_file].present? && !params[:product_image5_file].eql?("null")
+        file_name = "product_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        product.register_s3_image(file_name, params[:product_image5_file], "image5_account_s3_image_id")
       end
       product.save!
       render json: { status: 'success' }, status: 200
