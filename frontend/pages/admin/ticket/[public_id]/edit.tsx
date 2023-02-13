@@ -27,10 +27,15 @@ const Edit: NextPage = () => {
   const price = useSelector((state: RootState) => state.ticketMaster.price)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
   const publishStatus = useSelector((state: RootState) => state.ticketMaster.publishStatus)
-  const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
+  const effectiveMonth = useSelector((state: RootState) => state.ticketMaster.effectiveMonth)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const allowUpdateTicketMaster = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateTicketMaster)
   const shops = useSelector((state: RootState) => state.account.shops)
+  const ticketMasterImage1File = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage1File)
+  const ticketMasterImage2File = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage2File)
+  const ticketMasterImage3File = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage3File)
+  const ticketMasterImage4File = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage4File)
+  const ticketMasterImage5File = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage5File)
 
   useEffect(() => {
     const fetchTicketMasters = () => {
@@ -58,18 +63,30 @@ const Edit: NextPage = () => {
   }, [router.query.public_id, cookies._square_eight_merchant_session, dispatch])
 
   const createTicket = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters/${router.query.public_id}/update`,
-    {
-      ticket_master: {
-        name: name,
-        issue_number: issueNumber,
-        price: price,
-        description: description,
-        publish_status: publishStatus,
-        base64_image: base64Image,
-        shops: shops
+    const params = new FormData()
+    let ticketMasterParam = JSON.stringify(
+      {
+        ticket_master: {
+          name: name,
+          issue_number: issueNumber,
+          price: price,
+          effective_month: effectiveMonth,
+          description: description,
+          publish_status: publishStatus,
+          shops: shops
+        }
       }
-    },
+    )
+
+    params.append('ticket_master', ticketMasterParam)
+    params.append('ticket_master_image1_file', ticketMasterImage1File as Blob)
+    params.append('ticket_master_image2_file', ticketMasterImage2File as Blob)
+    params.append('ticket_master_image3_file', ticketMasterImage3File as Blob)
+    params.append('ticket_master_image4_file', ticketMasterImage4File as Blob)
+    params.append('ticket_master_image5_file', ticketMasterImage5File as Blob)
+
+    axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters/${router.query.public_id}/update`,
+    params,
     {
       headers: {
         'Session-Id': cookies._square_eight_merchant_session
