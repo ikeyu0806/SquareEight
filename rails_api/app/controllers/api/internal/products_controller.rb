@@ -20,7 +20,11 @@ class Api::Internal::ProductsController < ApplicationController
       :shipping_fee_per_regions,
       :delivery_charge_type,
       :selected_shop_ids,
-      :image1_account_s3_image_public_url]))
+      :image1_account_s3_image_public_url,
+      :image2_account_s3_image_public_url,
+      :image3_account_s3_image_public_url,
+      :image4_account_s3_image_public_url,
+      :image5_account_s3_image_public_url]))
     render json: { status: 'success', product: product }, status: 200
   rescue => error
     Rails.logger.error error

@@ -239,7 +239,6 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
             {showDeleteButton &&
             <Row>
               <Col sm={8}>
-              <h2 className='mt30'>物販商品を作成します</h2>
               </Col>
               <Col>
                 <Button variant='danger' size='sm' onClick={() => execDelete()}>商品を削除</Button>

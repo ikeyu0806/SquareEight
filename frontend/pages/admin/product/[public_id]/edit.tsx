@@ -68,6 +68,7 @@ const Edit: NextPage = () => {
         }
       )
       .then(function (response) {
+        console.log(response.data)
         dispatch(nameChanged(response.data.product.name))
         dispatch(priceChanged(response.data.product.price))
         dispatch(taxRateChanged(response.data.product.tax_rate))
@@ -151,6 +152,7 @@ const Edit: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
+        <br />
         {stripeAccountEnable === 'Enable' && allowUpdateProduct === 'Allow' &&
         <>
           <CreateProductTemplate showDeleteButton={true}></CreateProductTemplate>
