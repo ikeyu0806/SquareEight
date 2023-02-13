@@ -12,11 +12,16 @@ import { useRouter } from 'next/router'
 import { alertChanged } from 'redux/alertSlice'
 import { TicketMasterParam } from 'interfaces/TicketMasterParam'
 import Unauthorized from 'components/templates/Unauthorized'
-import { nameChanged, priceChanged,
-         issueNumberChanged,
-         descriptionChanged,
-         s3ObjectPublicUrlChanged,
-         selectedShopIdsChanged } from 'redux/ticketMasterSlice'
+import {  nameChanged,
+  priceChanged,
+          issueNumberChanged,
+          descriptionChanged,
+          ticketMasterImage1ImagePublicUrlChanged,
+          ticketMasterImage2ImagePublicUrlChanged,
+          ticketMasterImage3ImagePublicUrlChanged,
+          ticketMasterImage4ImagePublicUrlChanged,
+          ticketMasterImage5ImagePublicUrlChanged,
+          selectedShopIdsChanged } from 'redux/ticketMasterSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -52,8 +57,12 @@ const Edit: NextPage = () => {
         dispatch(priceChanged(ticketMasterResponse.price))
         dispatch(issueNumberChanged(ticketMasterResponse.issue_number))
         dispatch(descriptionChanged(ticketMasterResponse.description))
-        dispatch(s3ObjectPublicUrlChanged(ticketMasterResponse.image1_account_s3_image_public_url))
         dispatch(selectedShopIdsChanged(response.data.ticket_master.selected_shop_ids))
+        dispatch(ticketMasterImage1ImagePublicUrlChanged(response.data.ticket_master.image1_account_s3_image_public_url))
+        dispatch(ticketMasterImage2ImagePublicUrlChanged(response.data.ticket_master.image2_account_s3_image_public_url))
+        dispatch(ticketMasterImage3ImagePublicUrlChanged(response.data.ticket_master.image3_account_s3_image_public_url))
+        dispatch(ticketMasterImage4ImagePublicUrlChanged(response.data.ticket_master.image4_account_s3_image_public_url))
+        dispatch(ticketMasterImage5ImagePublicUrlChanged(response.data.ticket_master.image5_account_s3_image_public_url))
       })
       .catch(error => {
         console.log(error)

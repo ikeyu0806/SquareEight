@@ -5,7 +5,7 @@ class TicketMaster < ApplicationRecord
   belongs_to :account
   has_many :purchased_tickets
   has_many :cart_ticket_masters
-  has_many :shop_ticket_masters
+  has_many :shop_ticket_masters, dependent: :destroy
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
 
