@@ -97,8 +97,9 @@ const Edit: NextPage = () => {
         }
       })
     }
-    axios.post(`${process.env.BACKEND_URL}/api/internal/products/${router.query.public_id}/update`,
-    {
+
+    const params = new FormData()
+    let product_param = JSON.stringify({
       product: {
         name: name,
         price: price,
@@ -112,12 +113,16 @@ const Edit: NextPage = () => {
         delivery_charge_type: deliveryChargeType,
         flat_rate_delivery_charge: flatRateDeliveryCharge,
         delivery_charge_with_order_number: deliveryChargeWithOrderNumber,
-        delivery_datetime_target_flg: deliveryDatetimeTargetFlg,
         shops: shops
       }
-    },
+    })
+    params.append('product', product_param)
+  
+    axios.post(`${process.env.BACKEND_URL}/api/internal/products/${router.query.public_id}/update`,
+    params,
     {
       headers: {
+        'Content-Type': 'multipart/form-data',
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {

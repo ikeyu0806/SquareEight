@@ -193,39 +193,6 @@ class Api::Internal::ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product)
-          .permit(:id,
-                  :public_id,
-                  :name,
-                  :price,
-                  :tax_rate,
-                  :base64_image,
-                  :product_type_id,
-                  :inventory,
-                  :description,
-                  :image1_account_s3_image_public_url,
-                  :s3_object_name,
-                  :purchase_quantity,
-                  :is_registered_address,
-                  :first_name,
-                  :last_name,
-                  :postal_code,
-                  :state,
-                  :city,
-                  :town,
-                  :line1,
-                  :line2,
-                  :phone_number,
-                  :email,
-                  :publish_status,
-                  :delivery_charge_type,
-                  :flat_rate_delivery_charge,
-                  :delivery_charge_with_order_number,
-                  :delivery_datetime_target_flg,
-                  :target_type,
-                  :shipped_count,
-                  prefecture_delivery_charges: [:region, :shipping_fee],
-                  product_types: [:name, :inventory],
-                  shops: [:name, :public_id])
+    JSON.parse(params.require(:product), {symbolize_names: true})[:product]
   end
 end
