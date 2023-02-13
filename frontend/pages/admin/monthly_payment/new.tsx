@@ -27,33 +27,49 @@ const New: NextPage = () => {
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
   const publishStatus = useSelector((state: RootState) => state.monthlyPaymentPlan.publishStatus)
-  const base64Image = useSelector((state: RootState) => state.monthlyPaymentPlan.base64Image)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const allowCreateMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowCreateMonthlyPaymentPlan)
   const shops = useSelector((state: RootState) => state.account.shops)
+  const monthlyPaymentPlanImage1File = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage1File)
+  const monthlyPaymentPlanImage2File = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage2File)
+  const monthlyPaymentPlanImage3File = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage3File)
+  const monthlyPaymentPlanImage4File = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage4File)
+  const monthlyPaymentPlanImage5File = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage5File)
 
   useEffect(() => {
     dispatch(publishStatusChanged('Unpublish'))
   }, [dispatch])
 
   const onSubmit = () => {
-    axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans`,
-    {
-      monthly_payment_plans: {
-        name: name,
-        price: price,
-        reserve_is_unlimited: reserveIsUnlimited,
-        reserve_interval_number: reserveIntervalNumber,
-        reserve_interval_unit: reserveIntervalUnit,
-        enable_reserve_count: enableReserveCount,
-        description: description,
-        publish_status: publishStatus,
-        base64_image: base64Image,
-        shops: shops
+    const params = new FormData()
+    let ticketMasterParam = JSON.stringify(
+      {
+        monthly_payment_plans: {
+          name: name,
+          price: price,
+          reserve_is_unlimited: reserveIsUnlimited,
+          reserve_interval_number: reserveIntervalNumber,
+          reserve_interval_unit: reserveIntervalUnit,
+          enable_reserve_count: enableReserveCount,
+          description: description,
+          publish_status: publishStatus,
+          shops: shops
+        }
       }
-    },
+    )
+
+    params.append('ticket_master', ticketMasterParam)
+    params.append('monthly_payment_plan_image1_file', monthlyPaymentPlanImage1File as Blob)
+    params.append('monthly_payment_plan_image2_file', monthlyPaymentPlanImage2File as Blob)
+    params.append('monthly_payment_plan_image3_file', monthlyPaymentPlanImage3File as Blob)
+    params.append('monthly_payment_plan_image4_file', monthlyPaymentPlanImage4File as Blob)
+    params.append('monthly_payment_plan_image5_file', monthlyPaymentPlanImage5File as Blob)
+
+    axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans`,
+    params,
     {
       headers: {
+        'Content-Type': 'multipart/form-data',
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
