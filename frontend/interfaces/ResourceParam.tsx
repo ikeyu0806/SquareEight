@@ -4,7 +4,7 @@ export interface ResourceParam {
   name: string
   quantity: number
   description: string
-  resource_image1_public_url: string
+  image1_public_url: string
   resource_type_text: string
 }
 

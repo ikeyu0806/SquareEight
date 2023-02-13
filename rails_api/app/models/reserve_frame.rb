@@ -619,13 +619,25 @@ class ReserveFrame < ApplicationRecord
 
   def display_staff
     result = resources.Staff.where(is_show_reserve_page: true)
-    result = JSON.parse(result.to_json(methods: [:resource_image1_public_url]))
+    result = JSON.parse(result.to_json(methods: [:image1_account_s3_image_public_url]))
     result
   end
 
   def display_equipment
     result = resources.Equipment.where(is_show_reserve_page: true)
-    result = JSON.parse(result.to_json(methods: [:resource_image1_public_url]))
+    result = JSON.parse(result.to_json(methods: [:image1_account_s3_image_public_url]))
     result
+  end
+
+  def register_s3_image(image_file, account_image_id_column_name)
+    file_name = "reserve_frame_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+    image1_account_s3_image_public_url = put_s3_http_request_form_data(image_file, ENV["PRODUCT_IMAGE_BUCKET"], file_name)
+    account_image = AccountS3Image.new
+    account_image.account = self.account
+    account_image.s3_object_public_url = image1_account_s3_image_public_url
+    account_image.s3_object_name = file_name
+    account_image.save!
+    self.send(account_image_id_column_name + "=", account_image.id)
+    self.save!
   end
 end

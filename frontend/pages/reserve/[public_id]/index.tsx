@@ -264,11 +264,11 @@ const Index: NextPage = () => {
                         return (
                           <span key={i}>
                             <Row>
-                              {r.resource_image1_public_url &&
+                              {r.image1_public_url &&
                               <Col>
                                 <img
                                   className={reserveFrameStyles.resource_img}
-                                  src={r.resource_image1_public_url}
+                                  src={r.image1_public_url}
                                   alt='staffImage'
                                   />
                               </Col>}
@@ -292,11 +292,11 @@ const Index: NextPage = () => {
                         return (
                           <span key={i}>
                             <Row>
-                              {r.resource_image1_public_url &&
+                              {r.image1_public_url &&
                               <Col>
                                 <img
                                   className={reserveFrameStyles.resource_img}
-                                  src={r.resource_image1_public_url}
+                                  src={r.image1_public_url}
                                   alt='equipmentImage'
                                   />
                               </Col>}

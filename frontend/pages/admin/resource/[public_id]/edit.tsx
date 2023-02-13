@@ -51,7 +51,7 @@ const Edit: NextPage = () => {
         dispatch(nameChanged(response.data.resource.name))
         dispatch(descriptionChanged(response.data.resource.description))
         dispatch(quantityChanged(response.data.resource.quantity))
-        dispatch(resourceImage1PublicUrlChanged(response.data.resource.resource_image1_public_url))
+        dispatch(resourceImage1PublicUrlChanged(response.data.resource.image1_public_url))
         dispatch(resourceTypeChanged(response.data.resource.resource_type))
         dispatch(selectedShopIdsChanged(response.data.resource.selected_shop_ids))
         dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))

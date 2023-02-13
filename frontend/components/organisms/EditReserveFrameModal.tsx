@@ -49,7 +49,12 @@ import {
   isAcceptCancelChanged,
   isAcceptCancelOnTheDayChanged,
   cancelReceptionDayBeforeChanged,
-  cancelReceptionHourBeforeChanged } from 'redux/reserveFrameSlice'
+  cancelReceptionHourBeforeChanged,
+  reserveFrameImage1ImagePublicUrlChanged,
+  reserveFrameImage2ImagePublicUrlChanged,
+  reserveFrameImage3ImagePublicUrlChanged,
+  reserveFrameImage4ImagePublicUrlChanged,
+  reserveFrameImage5ImagePublicUrlChanged, } from 'redux/reserveFrameSlice'
 
 const EditReserveFrameModal = (): JSX.Element => {
   const showEditReserveFrameModal = useSelector((state: RootState) => state.reserveFrame.showEditReserveFrameModal)
@@ -93,9 +98,15 @@ const EditReserveFrameModal = (): JSX.Element => {
   const questionnaireMasterId = useSelector((state: RootState) => state.reserveFrame.questionnaireMasterId)
   const monthlyPaymentPlanIds = useSelector((state: RootState) => state.reserveFrame.monthlyPaymentPlanIds)
   const reservableFrameTicketMaster = useSelector((state: RootState) => state.reserveFrame.reservableFrameTicketMaster)
-  const base64Image = useSelector((state: RootState) => state.reserveFrame.base64Image)
+  const reserveFrameImage1File = useSelector((state: RootState) => state.reserveFrame.reserveFrameImage1File)
+  const reserveFrameImage2File = useSelector((state: RootState) => state.reserveFrame.reserveFrameImage2File)
+  const reserveFrameImage3File = useSelector((state: RootState) => state.reserveFrame.reserveFrameImage3File)
+  const reserveFrameImage4File = useSelector((state: RootState) => state.reserveFrame.reserveFrameImage4File)
+  const reserveFrameImage5File = useSelector((state: RootState) => state.reserveFrame.reserveFrameImage5File)
   const receptionDeadlineHourBefore = useSelector((state: RootState) => state.reserveFrame.receptionDeadlineHourBefore)
   const receptionDeadlineDayBefore = useSelector((state: RootState) => state.reserveFrame.receptionDeadlineDayBefore)
+  const multiLocalPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiLocalPaymentPrices)
+  const multiCreditCardPaymentPrices = useSelector((state: RootState) => state.reserveFrame.multiCreditCardPaymentPrices)
   const isSetPrice = useSelector((state: RootState) => state.reserveFrame.isSetPrice)
   const applyMultiLocalPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiLocalPaymentPrice)
   const applyMultiCreditCardPaymentPrice = useSelector((state: RootState) => state.reserveFrame.applyMultiCreditCardPaymentPrice)
@@ -134,57 +145,66 @@ const EditReserveFrameModal = (): JSX.Element => {
   }
 
   const updateReserveFrame = () => {
+    const params = new FormData()
+    let reserve_frame_param = JSON.stringify({ reserve_frame: {
+      title: title,
+      description: description,
+      capacity: capacity,
+      start_at: startDate,
+      is_repeat: isRepeat,
+      repeat_interval_type: repeatIntervalType,
+      repeat_interval_number_day: repeatIntervalNumberDay,
+      repeat_interval_number_week: repeatIntervalNumberWeek,
+      repeat_interval_number_month: repeatIntervalNumberMonth,
+      repeat_interval_month_date: repeatIntervalMonthDate,
+      repeat_end_date: repeatEndDate,
+      repeat_wdays: repeatWDays,
+      is_every_day_repeat: isEveryDayRepeat,
+      is_every_week_repeat: isEveryWeekRepeat,
+      is_every_month_repeat: isEveryMonthRepeat,
+      local_payment_price: localPaymentPrice,
+      credit_card_payment_price: creditCardPaymentPrice,
+      publish_status: publishStatus,
+      reception_type: receptionType,
+      reception_start_day_before: receptionStartDayBefore,
+      reception_phone_number: receptionPhoneNumber,
+      reception_deadline: receptionDeadline,
+      reserve_frame_reception_times: reserveFrameReceptionTimes,
+      out_of_range_frames: outOfRangeFrames,
+      unreservable_frames: unreservableFrames,
+      questionnaire_master_id: questionnaireMasterId,
+      resource_ids: resourceIds,
+      shop_ids: shopIds,
+      is_set_price: isSetPrice,
+      is_local_payment_enable: isLocalPaymentEnable,
+      is_credit_card_payment_enable: isCreditCardPaymentEnable,
+      is_ticket_payment_enable: isTicketPaymentEnable,
+      is_monthly_plan_payment_enable: isMonthlyPlanPaymentEnable,
+      monthly_payment_plan_ids: monthlyPaymentPlanIds,
+      reservable_frame_ticket_master: reservableFrameTicketMaster,
+      reception_deadline_hour_before: receptionDeadlineHourBefore,
+      reception_deadline_day_before: receptionDeadlineDayBefore,
+      multi_local_payment_prices: multiLocalPaymentPrices,
+      multi_credit_card_payment_prices: multiCreditCardPaymentPrices,
+      apply_multi_local_payment_price: applyMultiLocalPaymentPrice,
+      apply_multi_credit_card_payment_price: applyMultiCreditCardPaymentPrice,
+      is_accept_cancel: isAcceptCancel,
+      is_accept_cancel_on_the_day: isAcceptCancelOnTheDay,
+      cancel_reception_hour_before: cancelReceptionHourBefore,
+      cancel_reception_day_before: cancelReceptionDayBefore,
+      lottery_confirmed_day_before: lotteryConfirmedDayBefore
+    }})
+    params.append('reserve_frame', reserve_frame_param)
+    params.append('reserve_frame_image1_file', reserveFrameImage1File as Blob)
+    params.append('reserve_frame_image2_file', reserveFrameImage2File as Blob)
+    params.append('reserve_frame_image3_file', reserveFrameImage3File as Blob)
+    params.append('reserve_frame_image4_file', reserveFrameImage4File as Blob)
+    params.append('reserve_frame_image5_file', reserveFrameImage5File as Blob)
     axios.post(`${process.env.BACKEND_URL}/api/internal/reserve_frames/${publicId}`,
-    {
-      reserve_frame: {
-        title: title,
-        description: description,
-        base64_image: base64Image,
-        capacity: capacity,
-        start_at: startDate,
-        is_repeat: isRepeat,
-        repeat_interval_type: repeatIntervalType,
-        repeat_interval_number_day: repeatIntervalNumberDay,
-        repeat_interval_number_week: repeatIntervalNumberWeek,
-        repeat_interval_number_month: repeatIntervalNumberMonth,
-        repeat_interval_month_date: repeatIntervalMonthDate,
-        repeat_end_date: repeatEndDate,
-        repeat_wdays: repeatWDays,
-        is_every_day_repeat: isEveryDayRepeat,
-        is_every_week_repeat: isEveryWeekRepeat,
-        is_every_month_repeat: isEveryMonthRepeat,
-        local_payment_price: localPaymentPrice,
-        credit_card_payment_price: creditCardPaymentPrice,
-        publish_status: publishStatus,
-        reception_type: receptionType,
-        reception_start_day_before: receptionStartDayBefore,
-        reception_deadline: receptionDeadline,
-        reserve_frame_reception_times: reserveFrameReceptionTimes,
-        unreservable_frames: unreservableFrames,
-        out_of_range_frames: outOfRangeFrames,
-        shop_ids: shopIds,
-        resource_ids: resourceIds,
-        questionnaire_master_id: questionnaireMasterId,
-        is_local_payment_enable: isLocalPaymentEnable,
-        is_credit_card_payment_enable: isCreditCardPaymentEnable,
-        is_ticket_payment_enable: isTicketPaymentEnable,
-        is_monthly_plan_payment_enable: isMonthlyPlanPaymentEnable,
-        monthly_payment_plan_ids: monthlyPaymentPlanIds,
-        reservable_frame_ticket_master: reservableFrameTicketMaster,
-        reception_deadline_hour_before: receptionDeadlineHourBefore,
-        reception_deadline_day_before: receptionDeadlineDayBefore,
-        is_set_price: isSetPrice,
-        apply_multi_local_payment_price: applyMultiLocalPaymentPrice,
-        apply_multi_credit_card_payment_price: applyMultiCreditCardPaymentPrice,
-        is_accept_cancel: isAcceptCancel,
-        is_accept_cancel_on_the_day: isAcceptCancelOnTheDay,
-        cancel_reception_hour_before: cancelReceptionHourBefore,
-        cancel_reception_day_before: cancelReceptionDayBefore,
-        lottery_confirmed_day_before: lotteryConfirmedDayBefore
-      },
-    },
+    params,
     {
       headers: { 
+        'Content-Type': 'multipart/form-data',
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then(response => {
@@ -286,6 +306,11 @@ const EditReserveFrameModal = (): JSX.Element => {
         dispatch(isAcceptCancelOnTheDayChanged(response.data.reserve_frame.is_accept_cancel_on_the_day))
         dispatch(cancelReceptionDayBeforeChanged(response.data.reserve_frame.cancel_reception_day_before))
         dispatch(cancelReceptionHourBeforeChanged(response.data.reserve_frame.cancel_reception_hour_before))
+        dispatch(reserveFrameImage1ImagePublicUrlChanged(response.data.reserve_frame.image1_account_s3_image_public_url))
+        dispatch(reserveFrameImage2ImagePublicUrlChanged(response.data.reserve_frame.image2_account_s3_image_public_url))
+        dispatch(reserveFrameImage3ImagePublicUrlChanged(response.data.reserve_frame.image3_account_s3_image_public_url))
+        dispatch(reserveFrameImage4ImagePublicUrlChanged(response.data.reserve_frame.image4_account_s3_image_public_url))
+        dispatch(reserveFrameImage5ImagePublicUrlChanged(response.data.reserve_frame.image5_account_s3_image_public_url))
       })
       .catch(error => {
         console.log(error)
