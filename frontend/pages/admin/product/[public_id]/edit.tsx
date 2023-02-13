@@ -17,7 +17,6 @@ import {  nameChanged,
           inventoryChanged,
           descriptionChanged,
           productTypesChanged,
-          s3ObjectPublicUrlChanged,
           deliveryChargeTypeChanged,
           flatRateDeliveryChargeChange,
           publishStatusChanged,
@@ -25,7 +24,12 @@ import {  nameChanged,
           deliveryChargeWithOrderNumberChanged,
           deliveryDatetimeTargetFlgChanged,
           showProductTypeFormChanged,
-          selectedShopIdsChanged } from 'redux/productSlice'
+          selectedShopIdsChanged,
+          productImage1ImagePublicUrlChanged,
+          productImage2ImagePublicUrlChanged,
+          productImage3ImagePublicUrlChanged,
+          productImage4ImagePublicUrlChanged,
+          productImage5ImagePublicUrlChanged, } from 'redux/productSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -37,7 +41,6 @@ const Edit: NextPage = () => {
   const description = useSelector((state: RootState) => state.product.description)
   const taxRate = useSelector((state: RootState) => state.product.taxRate)
   const inventory = useSelector((state: RootState) => state.product.inventory)
-  const base64Image = useSelector((state: RootState) => state.product.base64Image)
   const publishStatus = useSelector((state: RootState) => state.product.publishStatus)
   const applyProductType = useSelector((state: RootState) => state.product.applyProductType)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
@@ -49,6 +52,11 @@ const Edit: NextPage = () => {
   const allowUpdateProduct = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateProduct)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const shops = useSelector((state: RootState) => state.account.shops)
+  const productImage1File = useSelector((state: RootState) => state.product.productImage1File)
+  const productImage2File = useSelector((state: RootState) => state.product.productImage2File)
+  const productImage3File = useSelector((state: RootState) => state.product.productImage3File)
+  const productImage4File = useSelector((state: RootState) => state.product.productImage4File)
+  const productImage5File = useSelector((state: RootState) => state.product.productImage5File)
 
   useEffect(() => {
     const fetchProduct = () => {
@@ -65,7 +73,6 @@ const Edit: NextPage = () => {
         dispatch(taxRateChanged(response.data.product.tax_rate))
         dispatch(inventoryChanged(response.data.product.inventory))
         dispatch(descriptionChanged(response.data.product.description))
-        dispatch(s3ObjectPublicUrlChanged(response.data.product.image1_account_s3_image_public_url))
         dispatch(productTypesChanged(response.data.product.product_types))
         dispatch(showProductTypeFormChanged(response.data.product.show_product_type_form))
         dispatch(deliveryChargeTypeChanged(response.data.product.delivery_charge_type))
@@ -75,6 +82,11 @@ const Edit: NextPage = () => {
         dispatch(deliveryChargeWithOrderNumberChanged(response.data.product.delivery_charge_with_order_number))
         dispatch(deliveryDatetimeTargetFlgChanged(response.data.product.delivery_datetime_target_flg))
         dispatch(selectedShopIdsChanged(response.data.product.selected_shop_ids))
+        dispatch(productImage1ImagePublicUrlChanged(response.data.product.image1_account_s3_image_public_url))
+        dispatch(productImage2ImagePublicUrlChanged(response.data.product.image2_account_s3_image_public_url))
+        dispatch(productImage3ImagePublicUrlChanged(response.data.product.image3_account_s3_image_public_url))
+        dispatch(productImage4ImagePublicUrlChanged(response.data.product.image4_account_s3_image_public_url))
+        dispatch(productImage5ImagePublicUrlChanged(response.data.product.image5_account_s3_image_public_url))
       })
       .catch(error => {
         console.log(error)
@@ -107,7 +119,6 @@ const Edit: NextPage = () => {
         tax_rate: taxRate,
         inventory: inventory,
         publish_status: publishStatus,
-        base64_image: base64Image,
         product_types: applyProductType ? productTypes : [],
         prefecture_delivery_charges: prefectureDeliveryCharges,
         delivery_charge_type: deliveryChargeType,
@@ -117,6 +128,11 @@ const Edit: NextPage = () => {
       }
     })
     params.append('product', product_param)
+    params.append('product_image1_file', productImage1File as Blob)
+    params.append('product_image2_file', productImage2File as Blob)
+    params.append('product_image3_file', productImage3File as Blob)
+    params.append('product_image4_file', productImage4File as Blob)
+    params.append('product_image5_file', productImage5File as Blob)
   
     axios.post(`${process.env.BACKEND_URL}/api/internal/products/${router.query.public_id}/update`,
     params,

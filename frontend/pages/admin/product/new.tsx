@@ -25,7 +25,6 @@ const New: NextPage = () => {
   const taxRate = useSelector((state: RootState) => state.product.taxRate)
   const inventory = useSelector((state: RootState) => state.product.inventory)
   const publishStatus = useSelector((state: RootState) => state.product.publishStatus)
-  const base64Image = useSelector((state: RootState) => state.product.base64Image)
   const applyProductType = useSelector((state: RootState) => state.product.applyProductType)
   const productTypes = useSelector((state: RootState) => state.product.productTypes)
   const prefectureDeliveryCharges = useSelector((state: RootState) => state.product.prefectureDeliveryCharges)
@@ -35,6 +34,11 @@ const New: NextPage = () => {
   const allowCreateProduct = useSelector((state: RootState) => state.merchantUserPermission.allowCreateProduct)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const shops = useSelector((state: RootState) => state.account.shops)
+  const productImage1File = useSelector((state: RootState) => state.product.productImage1File)
+  const productImage2File = useSelector((state: RootState) => state.product.productImage2File)
+  const productImage3File = useSelector((state: RootState) => state.product.productImage3File)
+  const productImage4File = useSelector((state: RootState) => state.product.productImage4File)
+  const productImage5File = useSelector((state: RootState) => state.product.productImage5File)
 
   useEffect(() => {
     dispatch(publishStatusChanged('Unpublish'))
@@ -63,7 +67,6 @@ const New: NextPage = () => {
         tax_rate: taxRate,
         inventory: inventory,
         publish_status: publishStatus,
-        base64_image: base64Image,
         product_types: applyProductType ? productTypes : [],
         prefecture_delivery_charges: prefectureDeliveryCharges,
         delivery_charge_type: deliveryChargeType,
@@ -73,6 +76,11 @@ const New: NextPage = () => {
       }
     })
     params.append('product', product_param)
+    params.append('product_image1_file', productImage1File as Blob)
+    params.append('product_image2_file', productImage2File as Blob)
+    params.append('product_image3_file', productImage3File as Blob)
+    params.append('product_image4_file', productImage4File as Blob)
+    params.append('product_image5_file', productImage5File as Blob)
 
     axios.post(`${process.env.BACKEND_URL}/api/internal/products`,
     params,

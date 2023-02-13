@@ -14,8 +14,16 @@ export const productSlice = createSlice({
     inventory: 1,
     description: '',
     publishStatus: '',
-    base64Image: null,
-    s3ObjectPublicUrl: '',
+    productImage1File: null as File | unknown,
+    productImage2File:  null as File | unknown,
+    productImage3File:  null as File | unknown,
+    productImage4File:  null as File | unknown,
+    productImage5File:  null as File | unknown,
+    productImage1ImagePublicUrl: '',
+    productImage2ImagePublicUrl: '',
+    productImage3ImagePublicUrl: '',
+    productImage4ImagePublicUrl: '',
+    productImage5ImagePublicUrl: '',
     applyProductType: false,
     showProductTypeForm: false,
     productTypes: [{name: '', inventory: 1}, {name: '', inventory: 1}] as ProductType[],
@@ -44,11 +52,35 @@ export const productSlice = createSlice({
     publishStatusChanged: (state, action: PayloadAction<string>) => {
       state.publishStatus = action.payload
     },
-    base64ImageChanged: (state, action: PayloadAction<any>) => {
-      state.base64Image = action.payload
+    productImage1FileChanged: (state, action: PayloadAction<File>) => {
+      state.productImage1File = action.payload
     },
-    s3ObjectPublicUrlChanged: (state, action: PayloadAction<any>) => {
-      state.s3ObjectPublicUrl = action.payload
+    productImage2FileChanged: (state, action: PayloadAction<File>) => {
+      state.productImage2File = action.payload
+    },
+    productImage3FileChanged: (state, action: PayloadAction<File>) => {
+      state.productImage3File = action.payload
+    },
+    productImage4FileChanged: (state, action: PayloadAction<File>) => {
+      state.productImage4File = action.payload
+    },
+    productImage5FileChanged: (state, action: PayloadAction<File>) => {
+      state.productImage5File = action.payload
+    },
+    productImage1ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.productImage1ImagePublicUrl = action.payload
+    },
+    productImage2ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.productImage2ImagePublicUrl = action.payload
+    },
+    productImage3ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.productImage3ImagePublicUrl = action.payload
+    },
+    productImage4ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.productImage4ImagePublicUrl = action.payload
+    },
+    productImage5ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.productImage5ImagePublicUrl = action.payload
     },
     inventoryChanged: (state, action: PayloadAction<number>) => {
       state.inventory = action.payload
@@ -107,8 +139,16 @@ export const productSlice = createSlice({
 export const { publicIdChanged } = productSlice.actions
 export const { nameChanged } = productSlice.actions
 export const { descriptionChanged } = productSlice.actions
-export const { base64ImageChanged } = productSlice.actions
-export const { s3ObjectPublicUrlChanged } = productSlice.actions
+export const { productImage1FileChanged } = productSlice.actions
+export const { productImage2FileChanged } = productSlice.actions
+export const { productImage3FileChanged } = productSlice.actions
+export const { productImage4FileChanged } = productSlice.actions
+export const { productImage5FileChanged } = productSlice.actions
+export const { productImage1ImagePublicUrlChanged } = productSlice.actions
+export const { productImage2ImagePublicUrlChanged } = productSlice.actions
+export const { productImage3ImagePublicUrlChanged } = productSlice.actions
+export const { productImage4ImagePublicUrlChanged } = productSlice.actions
+export const { productImage5ImagePublicUrlChanged } = productSlice.actions
 export const { priceChanged } = productSlice.actions
 export const { taxRateChanged } = productSlice.actions
 export const { inventoryChanged } = productSlice.actions
