@@ -52,15 +52,26 @@ class Api::Internal::TicketMastersController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      ticket_master = current_merchant_user.account.ticket_masters.new(ticket_master_params.except(:base64_image, :shops))
-      if ticket_master_params[:base64_image].present?
-        file_name = "ticket_master_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = AccountS3Image.new
-        account_image.account = current_merchant_user.account
-        account_image.s3_object_public_url = put_s3_http_request_base64_data(ticket_master_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
-        account_image.s3_object_name = file_name
-        account_image.save!
-        ticket_master.image1_account_s3_image_id = account_image.id
+      ticket_master = current_merchant_user.account.ticket_masters.new(ticket_master_params.except(:shops))
+      if params[:ticket_master_image1_file].present? && !params[:ticket_master_image1_file].eql?("null")
+        file_name = "ticket_master_image1_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        ticket_master.register_s3_image(file_name, params[:ticket_master_image1_file], "image1_account_s3_image_id")
+      end
+      if params[:ticket_master_image2_file].present? && !params[:ticket_master_image2_file].eql?("null")
+        file_name = "ticket_master_image2_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        ticket_master.register_s3_image(file_name, params[:ticket_master_image2_file], "image2_account_s3_image_id")
+      end
+      if params[:ticket_master_image3_file].present? && !params[:ticket_master_image3_file].eql?("null")
+        file_name = "ticket_master_image3_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        ticket_master.register_s3_image(file_name, params[:ticket_master_image3_file], "image3_account_s3_image_id")
+      end
+      if params[:ticket_master_image4_file].present? && !params[:ticket_master_image4_file].eql?("null")
+        file_name = "ticket_master_image4_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        ticket_master.register_s3_image(file_name, params[:ticket_master_image4_file], "image4_account_s3_image_id")
+      end
+      if params[:ticket_master_image5_file].present? && !params[:ticket_master_image5_file].eql?("null")
+        file_name = "ticket_master_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        ticket_master.register_s3_image(file_name, params[:ticket_master_image5_file], "image5_account_s3_image_id")
       end
       ticket_master.save!
       ticket_master_params[:shops].each do |s|
@@ -78,21 +89,33 @@ class Api::Internal::TicketMastersController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       ticket_master = TicketMaster.find_by(public_id: params[:public_id])
-      ticket_master.attributes = (ticket_master_params.except(:base64_image, :shops))
-      if (ticket_master_params[:base64_image].present?)
-        file_name = "ticket_master_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = AccountS3Image.new
-        account_image.account = current_merchant_user.account
-        account_image.s3_object_public_url = put_s3_http_request_base64_data(ticket_master_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
-        account_image.s3_object_name = file_name
-        account_image.save!
-        ticket_master.image1_account_s3_image_id = account_image.id
-      end
+      ticket_master.attributes = (ticket_master_params.except(:shops))
+
       ticket_master.save!
       ticket_master.shop_ticket_masters.delete_all
       ticket_master_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])
         ticket_master.shop_ticket_masters.create!(shop_id: shop.id)
+      end
+      if params[:ticket_master_image1_file].present? && !params[:ticket_master_image1_file].eql?("null")
+        file_name = "ticket_master_image1_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        ticket_master.register_s3_image(file_name, params[:ticket_master_image1_file], "image1_account_s3_image_id")
+      end
+      if params[:ticket_master_image2_file].present? && !params[:ticket_master_image2_file].eql?("null")
+        file_name = "ticket_master_image2_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        ticket_master.register_s3_image(file_name, params[:ticket_master_image2_file], "image2_account_s3_image_id")
+      end
+      if params[:ticket_master_image3_file].present? && !params[:ticket_master_image3_file].eql?("null")
+        file_name = "ticket_master_image3_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        ticket_master.register_s3_image(file_name, params[:ticket_master_image3_file], "image3_account_s3_image_id")
+      end
+      if params[:ticket_master_image4_file].present? && !params[:ticket_master_image4_file].eql?("null")
+        file_name = "ticket_master_image4_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        ticket_master.register_s3_image(file_name, params[:ticket_master_image4_file], "image4_account_s3_image_id")
+      end
+      if params[:ticket_master_image5_file].present? && !params[:ticket_master_image5_file].eql?("null")
+        file_name = "ticket_master_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        ticket_master.register_s3_image(file_name, params[:ticket_master_image5_file], "image5_account_s3_image_id")
       end
       ticket_master.save!
       render json: { status: 'success' }, status: 200
@@ -128,17 +151,6 @@ class Api::Internal::TicketMastersController < ApplicationController
   private
 
   def ticket_master_params
-    params.require(:ticket_master)
-          .permit(:id,
-                  :public_id,
-                  :name,
-                  :issue_number,
-                  :price,
-                  :effective_month,
-                  :description,
-                  :publish_status,
-                  :base64_image,
-                  :purchase_quantity,
-                  shops: [:name, :public_id])
+    JSON.parse(params.require(:ticket_master), {symbolize_names: true})[:ticket_master]
   end
 end
