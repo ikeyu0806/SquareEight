@@ -169,13 +169,13 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def insert_cart
     ActiveRecord::Base.transaction do
-      monthly_payment_plan = MonthlyPaymentPlan.enabled.find_by(public_id: cart_params[:public_id])
+      monthly_payment_plan = MonthlyPaymentPlan.enabled.find_by(public_id: json_type_params[:public_id])
       # 既にカートに入っていたら追加しない
       raise "既にカートに入っています" if monthly_payment_plan.cart_monthly_payment_plans.find_by(end_user_id: current_end_user.id).present?
       monthly_payment_plan.cart_monthly_payment_plans.create!(
         end_user_id: current_end_user.id,
         account_id: monthly_payment_plan.account_id,
-        quantity: cart_params[:purchase_quantity])
+        quantity: json_type_params[:purchase_quantity])
       render json: { status: 'success' }, status: 200
     end
   rescue => error
@@ -198,7 +198,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     JSON.parse(params.require(:monthly_payment_plans), {symbolize_names: true})[:monthly_payment_plans]
   end
 
-  def cart_params
+  def json_type_params
     params.require(:monthly_payment_plans).permit(:id,
                                                   :public_id,
                                                   :name,

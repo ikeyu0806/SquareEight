@@ -33,20 +33,20 @@ class Api::Internal::ProductsController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      product = current_merchant_user.account.products.new(form_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
-      if form_params[:product_types].present?
-        form_params[:product_types].each do |product_type|
+      product = current_merchant_user.account.products.new(form_type_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
+      if form_type_params[:product_types].present?
+        form_type_params[:product_types].each do |product_type|
           product.product_types.new(name: product_type[:name], inventory: product_type[:inventory])
         end
       end
-      if form_params[:prefecture_delivery_charges].present?
-        form_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
+      if form_type_params[:prefecture_delivery_charges].present?
+        form_type_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
           product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
         end
       end
       product.save!
-      if form_params[:shops].present?
-        form_params[:shops].each do |s|
+      if form_type_params[:shops].present?
+        form_type_params[:shops].each do |s|
           shop = Shop.find_by(public_id: s[:public_id])
           product.shop_products.create!(shop_id: shop.id)
         end
@@ -82,18 +82,18 @@ class Api::Internal::ProductsController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       product = Product.find_by(public_id: params[:public_id])
-      product.attributes = (form_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
+      product.attributes = (form_type_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
       product.product_types.delete_all
-      form_params[:product_types].each do |product_type|
+      form_type_params[:product_types].each do |product_type|
         product.product_types.new(name: product_type[:name], inventory: product_type[:inventory])
       end
       product.shipping_fee_per_regions.delete_all
-      form_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
+      form_type_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
         product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
       end
       product.save!
       product.shop_products.destroy_all
-      form_params[:shops].each do |s|
+      form_type_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])
         product.shop_products.create!(shop_id: shop.id)
       end
@@ -163,26 +163,26 @@ class Api::Internal::ProductsController < ApplicationController
 
   def insert_cart
     ActiveRecord::Base.transaction do
-      product = Product.enabled.find_by(public_id: cart_params[:public_id])
+      product = Product.enabled.find_by(public_id: json_type_params[:public_id])
       product.cart_products.create!(
         end_user_id: current_end_user.id,
         account_id: product.account_id,
-        quantity: cart_params[:purchase_quantity],
-        product_type_id: cart_params[:product_type_id]
+        quantity: json_type_params[:purchase_quantity],
+        product_type_id: json_type_params[:product_type_id]
       )
-      if (cart_params[:is_registered_address] == false)
+      if (json_type_params[:is_registered_address] == false)
         delivery_target = current_end_user
                           .delivery_targets
-                          .new( first_name: cart_params[:first_name],
-                                last_name: cart_params[:last_name],
-                                postal_code: cart_params[:postal_code],
-                                state: cart_params[:state],
-                                city: cart_params[:city],
-                                town: cart_params[:town],
-                                line1: cart_params[:line1],
-                                line2: cart_params[:line2],
-                                phone_number: cart_params[:phone_number],
-                                email: cart_params[:email])
+                          .new( first_name: json_type_params[:first_name],
+                                last_name: json_type_params[:last_name],
+                                postal_code: json_type_params[:postal_code],
+                                state: json_type_params[:state],
+                                city: json_type_params[:city],
+                                town: json_type_params[:town],
+                                line1: json_type_params[:line1],
+                                line2: json_type_params[:line2],
+                                phone_number: json_type_params[:phone_number],
+                                email: json_type_params[:email])
         delivery_target.is_default = true
         delivery_target.save!
       end
@@ -203,12 +203,12 @@ class Api::Internal::ProductsController < ApplicationController
   end
 
   def inventory_replenishment
-    if form_params[:target_type] == 'Product'
+    if form_type_params[:target_type] == 'Product'
       product = Product.find_by(public_id: params[:public_id])
-      product.update!(inventory: form_params[:inventory])
+      product.update!(inventory: form_type_params[:inventory])
     else
       product_type = ProductType.find_by(public_id: params[:public_id])
-      product_type.update!(inventory: form_params[:inventory])
+      product_type.update!(inventory: form_type_params[:inventory])
     end
     render json: { status: 'success' }, status: 200
   rescue => error
@@ -218,11 +218,11 @@ class Api::Internal::ProductsController < ApplicationController
 
   private
 
-  def form_params
+  def form_type_params
     JSON.parse(params.require(:product), {symbolize_names: true})[:product]
   end
 
-  def cart_params
+  def json_type_params
     params.require(:product)
           .permit(:id,
                   :public_id,
