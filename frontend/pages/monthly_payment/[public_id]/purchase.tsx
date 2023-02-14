@@ -19,8 +19,7 @@ import { priceChanged,
          reserveIntervalUnitChanged,
          enableReserveCountChanged,
          descriptionChanged,
-         publishStatusChanged,
-         s3ObjectPublicUrlChanged } from 'redux/monthlyPaymentPlanSlice'
+         publishStatusChanged } from 'redux/monthlyPaymentPlanSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -67,7 +66,6 @@ const Purchase: NextPage = () => {
         dispatch(reserveIntervalUnitChanged(monthlyPaymentPlanResponse.reserve_interval_unit))
         dispatch(enableReserveCountChanged(monthlyPaymentPlanResponse.enable_reserve_count))
         dispatch(descriptionChanged(monthlyPaymentPlanResponse.description))
-        dispatch(s3ObjectPublicUrlChanged(monthlyPaymentPlanResponse.image1_account_s3_image_public_url))
         dispatch(publishStatusChanged(monthlyPaymentPlanResponse.publish_status))
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
