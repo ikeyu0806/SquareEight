@@ -62,6 +62,7 @@ const Edit: NextPage = () => {
         }
       )
       .then(function (response) {
+        console.log(response.data)
         dispatch(nameChanged(response.data.monthly_payment_plan.name))
         dispatch(priceChanged(response.data.monthly_payment_plan.price))
         dispatch(reserveIsUnlimitedChanged(response.data.monthly_payment_plan.reserve_is_unlimited))
@@ -77,7 +78,7 @@ const Edit: NextPage = () => {
         dispatch(monthlyPaymentPlanImage4ImagePublicUrlChanged(response.data.monthly_payment_plan.image4_account_s3_image_public_url))
         dispatch(monthlyPaymentPlanImage5ImagePublicUrlChanged(response.data.monthly_payment_plan.image5_account_s3_image_public_url))
         dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
-        dispatch(selectedReserveFrameIdsChanged(response.data.resource.selected_reserve_frame_ids))
+        dispatch(selectedReserveFrameIdsChanged(response.data.monthly_payment_plan.selected_reserve_frame_ids))
       })
       .catch(error => {
         console.log(error)

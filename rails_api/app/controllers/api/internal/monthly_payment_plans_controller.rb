@@ -13,7 +13,8 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   end
 
   def show
-    monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.enabled.find_by(public_id: params[:public_id])
+    monthly_payment_plan = MonthlyPaymentPlan.enabled.find_by(public_id: params[:public_id])
+    selectable_reserve_frames = monthly_payment_plan.account.reserve_frames.enabled
     monthly_payment_plan = JSON.parse(monthly_payment_plan.to_json(methods: [
       :selected_shop_ids, 
       :selected_reserve_frame_ids,
@@ -22,7 +23,6 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       :image3_account_s3_image_public_url,
       :image4_account_s3_image_public_url,
       :image5_account_s3_image_public_url,]))
-    selectable_reserve_frames = monthly_payment_plan.account.reserve_frames.enabled
     render json: { status: 'success',
                    selectable_reserve_frames: selectable_reserve_frames,
                    monthly_payment_plan: monthly_payment_plan }, status: 200

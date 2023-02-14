@@ -69,7 +69,7 @@ const Edit: NextPage = () => {
         dispatch(ticketMasterImage4ImagePublicUrlChanged(response.data.ticket_master.image4_account_s3_image_public_url))
         dispatch(ticketMasterImage5ImagePublicUrlChanged(response.data.ticket_master.image5_account_s3_image_public_url))
         dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
-        dispatch(selectedReserveFrameIdsChanged(response.data.resource.selected_reserve_frame_ids))
+        dispatch(selectedReserveFrameIdsChanged(response.data.ticket_master.selected_reserve_frame_ids))
       })
       .catch(error => {
         console.log(error)
