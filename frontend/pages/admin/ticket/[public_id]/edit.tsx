@@ -44,6 +44,7 @@ const Edit: NextPage = () => {
   const ticketMasterImage3File = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage3File)
   const ticketMasterImage4File = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage4File)
   const ticketMasterImage5File = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage5File)
+  const selectedReserveFrameIds = useSelector((state: RootState) => state.ticketMaster.selectedReserveFrameIds)
 
   useEffect(() => {
     const fetchTicketMasters = () => {
@@ -99,7 +100,9 @@ const Edit: NextPage = () => {
     params.append('ticket_master_image3_file', ticketMasterImage3File as Blob)
     params.append('ticket_master_image4_file', ticketMasterImage4File as Blob)
     params.append('ticket_master_image5_file', ticketMasterImage5File as Blob)
-
+    selectedReserveFrameIds.forEach((id, i) => {
+      params.append('reserve_frame_ids' + '[]', String(id))
+    })
     axios.post(`${process.env.BACKEND_URL}/api/internal/ticket_masters/${router.query.public_id}/update`,
     params,
     {

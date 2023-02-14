@@ -35,6 +35,7 @@ const New: NextPage = () => {
   const monthlyPaymentPlanImage3File = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage3File)
   const monthlyPaymentPlanImage4File = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage4File)
   const monthlyPaymentPlanImage5File = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage5File)
+  const selectedReserveFrameIds = useSelector((state: RootState) => state.monthlyPaymentPlan.selectedReserveFrameIds)
 
   useEffect(() => {
     dispatch(publishStatusChanged('Unpublish'))
@@ -82,6 +83,9 @@ const New: NextPage = () => {
     params.append('monthly_payment_plan_image3_file', monthlyPaymentPlanImage3File as Blob)
     params.append('monthly_payment_plan_image4_file', monthlyPaymentPlanImage4File as Blob)
     params.append('monthly_payment_plan_image5_file', monthlyPaymentPlanImage5File as Blob)
+    selectedReserveFrameIds.forEach((id, i) => {
+      params.append('reserve_frame_ids' + '[]', String(id))
+    })
 
     axios.post(`${process.env.BACKEND_URL}/api/internal/monthly_payment_plans`,
     params,

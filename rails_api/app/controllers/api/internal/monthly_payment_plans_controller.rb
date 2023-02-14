@@ -107,6 +107,11 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       })
       monthly_payment_plan.stripe_plan_id = stripe_plan.id
       monthly_payment_plan.save!
+      if params["reserve_frame_ids"].present?
+        params["reserve_frame_ids"].each do |reserve_frame_id|
+          monthly_payment_plan.reserve_frame_monthly_payment_plans.create!(reserve_frame_id: reserve_frame_id)
+        end
+      end
       monthly_payment_plan_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])
         monthly_payment_plan.shop_monthly_payment_plans.create!(shop_id: shop.id)
@@ -141,6 +146,12 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     if params[:monthly_payment_plan_image5_file].present? && !params[:monthly_payment_plan_image5_file].eql?("null")
       file_name = "monthly_payment_plan_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
       monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image5_file], "image5_account_s3_image_id")
+    end
+    monthly_payment_plan.reserve_frame_monthly_payment_plans.destroy_all
+    if params["reserve_frame_ids"].present?
+      params["reserve_frame_ids"].each do |reserve_frame_id|
+        monthly_payment_plan.reserve_frame_monthly_payment_plans.create!(reserve_frame_id: reserve_frame_id)
+      end
     end
     monthly_payment_plan.save!
     monthly_payment_plan.shop_monthly_payment_plans.delete_all

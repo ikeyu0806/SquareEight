@@ -95,6 +95,11 @@ class Api::Internal::TicketMastersController < ApplicationController
         file_name = "ticket_master_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         ticket_master.register_s3_image(file_name, params[:ticket_master_image5_file], "image5_account_s3_image_id")
       end
+      if params["reserve_frame_ids"].present?
+        params["reserve_frame_ids"].each do |reserve_frame_id|
+          ticket_master.reserve_frame_ticket_masters.create!(reserve_frame_id: reserve_frame_id)
+        end
+      end
       ticket_master.save!
       ticket_master_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])
@@ -131,6 +136,12 @@ class Api::Internal::TicketMastersController < ApplicationController
       if params[:ticket_master_image5_file].present? && !params[:ticket_master_image5_file].eql?("null")
         file_name = "ticket_master_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         ticket_master.register_s3_image(file_name, params[:ticket_master_image5_file], "image5_account_s3_image_id")
+      end
+      ticket_master.reserve_frame_ticket_masters.destroy_all
+      if params["reserve_frame_ids"].present?
+        params["reserve_frame_ids"].each do |reserve_frame_id|
+          ticket_master.reserve_frame_ticket_masters.create!(reserve_frame_id: reserve_frame_id)
+        end
       end
       ticket_master.shop_ticket_masters.destroy_all
       ticket_master.save!
