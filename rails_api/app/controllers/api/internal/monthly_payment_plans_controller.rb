@@ -14,7 +14,13 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def show
     monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.enabled.find_by(public_id: params[:public_id])
-    monthly_payment_plan = JSON.parse(monthly_payment_plan.to_json(methods: [:selected_shop_ids, :image1_account_s3_image_public_url]))
+    monthly_payment_plan = JSON.parse(monthly_payment_plan.to_json(methods: [
+      :selected_shop_ids, 
+      :image1_account_s3_image_public_url,
+      :image2_account_s3_image_public_url,
+      :image3_account_s3_image_public_url,
+      :image4_account_s3_image_public_url,
+      :image5_account_s3_image_public_url,]))
     render json: { status: 'success', monthly_payment_plan: monthly_payment_plan }, status: 200
   rescue => error
     Rails.logger.error error
@@ -53,14 +59,25 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.new(monthly_payment_plan_params.except(:base64_image, :shops))
-      if monthly_payment_plan_params[:base64_image].present?
-        file_name = "ticket_master_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-        account_image = AccountS3Image.new
-        account_image.account = current_merchant_user.account
-        account_image.s3_object_public_url = put_s3_http_request_base64_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
-        account_image.s3_object_name = file_name
-        account_image.save!
-        monthly_payment_plan.image1_account_s3_image_id = account_image.id
+      if params[:monthly_payment_plan_image1_file].present? && !params[:monthly_payment_plan_image1_file].eql?("null")
+        file_name = "monthly_payment_plan_image1_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image1_file], "image1_account_s3_image_id")
+      end
+      if params[:monthly_payment_plan_image2_file].present? && !params[:monthly_payment_plan_image2_file].eql?("null")
+        file_name = "monthly_payment_plan_image2_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image2_file], "image2_account_s3_image_id")
+      end
+      if params[:monthly_payment_plan_image3_file].present? && !params[:monthly_payment_plan_image3_file].eql?("null")
+        file_name = "monthly_payment_plan_image3_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image3_file], "image3_account_s3_image_id")
+      end
+      if params[:monthly_payment_plan_image4_file].present? && !params[:monthly_payment_plan_image4_file].eql?("null")
+        file_name = "monthly_payment_plan_image4_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image4_file], "image4_account_s3_image_id")
+      end
+      if params[:monthly_payment_plan_image5_file].present? && !params[:monthly_payment_plan_image5_file].eql?("null")
+        file_name = "monthly_payment_plan_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image5_file], "image5_account_s3_image_id")
       end
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
       Stripe.api_version = '2022-08-01'
@@ -91,14 +108,25 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   def update
     monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find_by(public_id: params[:public_id])
     monthly_payment_plan.attributes = monthly_payment_plan_params.except(:base64_image, :shops)
-    if (monthly_payment_plan_params[:base64_image].present?)
-      file_name = "ticket_master_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
-      account_image = AccountS3Image.new
-      account_image.account = current_merchant_user.account
-      account_image.s3_object_public_url = put_s3_http_request_base64_data(monthly_payment_plan_params[:base64_image], ENV["PRODUCT_IMAGE_BUCKET"], file_name)
-      account_image.s3_object_name = file_name
-      account_image.save!
-      monthly_payment_plan.image1_account_s3_image_id = account_image.id
+    if params[:monthly_payment_plan_image1_file].present? && !params[:monthly_payment_plan_image1_file].eql?("null")
+      file_name = "monthly_payment_plan_image1_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+      monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image1_file], "image1_account_s3_image_id")
+    end
+    if params[:monthly_payment_plan_image2_file].present? && !params[:monthly_payment_plan_image2_file].eql?("null")
+      file_name = "monthly_payment_plan_image2_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+      monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image2_file], "image2_account_s3_image_id")
+    end
+    if params[:monthly_payment_plan_image3_file].present? && !params[:monthly_payment_plan_image3_file].eql?("null")
+      file_name = "monthly_payment_plan_image3_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+      monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image3_file], "image3_account_s3_image_id")
+    end
+    if params[:monthly_payment_plan_image4_file].present? && !params[:monthly_payment_plan_image4_file].eql?("null")
+      file_name = "monthly_payment_plan_image4_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+      monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image4_file], "image4_account_s3_image_id")
+    end
+    if params[:monthly_payment_plan_image5_file].present? && !params[:monthly_payment_plan_image5_file].eql?("null")
+      file_name = "monthly_payment_plan_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+      monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image5_file], "image5_account_s3_image_id")
     end
     monthly_payment_plan.save!
     monthly_payment_plan.shop_monthly_payment_plans.delete_all
@@ -141,18 +169,6 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
   private
 
   def monthly_payment_plan_params
-    params.require(:monthly_payment_plans).permit(:id,
-                                                  :public_id,
-                                                  :name,
-                                                  :price,
-                                                  :description,
-                                                  :reserve_is_unlimited,
-                                                  :reserve_interval_number,
-                                                  :reserve_interval_unit,
-                                                  :enable_reserve_count,
-                                                  :publish_status,
-                                                  :base64_image,
-                                                  :purchase_quantity,
-                                                  shops: [:name, :public_id])
+    JSON.parse(params.require(:monthly_payment_plans), {symbolize_names: true})[:monthly_payment_plans]
   end
 end

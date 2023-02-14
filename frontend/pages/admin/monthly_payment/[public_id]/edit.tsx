@@ -83,7 +83,7 @@ const Edit: NextPage = () => {
 
   const onSubmit = () => {
     const params = new FormData()
-    let ticketMasterParam = JSON.stringify(
+    let monthlyPaymentPlanParam = JSON.stringify(
       {
         monthly_payment_plans: {
           name: name,
@@ -99,7 +99,7 @@ const Edit: NextPage = () => {
       }
     )
 
-    params.append('ticket_master', ticketMasterParam)
+    params.append('monthly_payment_plans', monthlyPaymentPlanParam)
     params.append('monthly_payment_plan_image1_file', monthlyPaymentPlanImage1File as Blob)
     params.append('monthly_payment_plan_image2_file', monthlyPaymentPlanImage2File as Blob)
     params.append('monthly_payment_plan_image3_file', monthlyPaymentPlanImage3File as Blob)
