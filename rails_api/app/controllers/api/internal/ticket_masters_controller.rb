@@ -74,7 +74,7 @@ class Api::Internal::TicketMastersController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      ticket_master = current_merchant_user.account.ticket_masters.new(ticket_master_params.except(:shops))
+      ticket_master = current_merchant_user.account.ticket_masters.new(form_type_params.except(:shops))
       if params[:ticket_master_image1_file].present? && !params[:ticket_master_image1_file].eql?("null")
         file_name = "ticket_master_image1_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         ticket_master.register_s3_image(file_name, params[:ticket_master_image1_file], "image1_account_s3_image_id")
@@ -101,7 +101,7 @@ class Api::Internal::TicketMastersController < ApplicationController
         end
       end
       ticket_master.save!
-      ticket_master_params[:shops].each do |s|
+      form_type_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])
         ticket_master.shop_ticket_masters.create!(shop_id: shop.id)
       end
@@ -116,7 +116,7 @@ class Api::Internal::TicketMastersController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       ticket_master = TicketMaster.find_by(public_id: params[:public_id])
-      ticket_master.attributes = (ticket_master_params.except(:shops))
+      ticket_master.attributes = (form_type_params.except(:shops))
       if params[:ticket_master_image1_file].present? && !params[:ticket_master_image1_file].eql?("null")
         file_name = "ticket_master_image1_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         ticket_master.register_s3_image(file_name, params[:ticket_master_image1_file], "image1_account_s3_image_id")
@@ -145,7 +145,7 @@ class Api::Internal::TicketMastersController < ApplicationController
       end
       ticket_master.shop_ticket_masters.destroy_all
       ticket_master.save!
-      ticket_master_params[:shops].each do |s|
+      form_type_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])
         ticket_master.shop_ticket_masters.create!(shop_id: shop.id)
       end
@@ -159,11 +159,11 @@ class Api::Internal::TicketMastersController < ApplicationController
 
   def insert_cart
     ActiveRecord::Base.transaction do
-      ticket_master = TicketMaster.find_by(public_id: ticket_master_params[:public_id])
+      ticket_master = TicketMaster.find_by(public_id: json_type_params[:public_id])
       ticket_master.cart_ticket_masters.create!(
         end_user_id: current_end_user.id,
         account_id: ticket_master.account_id,
-        quantity: ticket_master_params[:purchase_quantity])
+        quantity: json_type_params[:purchase_quantity])
       render json: { status: 'success' }, status: 200
     end
   rescue => error
@@ -182,7 +182,22 @@ class Api::Internal::TicketMastersController < ApplicationController
 
   private
 
-  def ticket_master_params
+  def form_type_params
     JSON.parse(params.require(:ticket_master), {symbolize_names: true})[:ticket_master]
+  end
+
+  def json_type_params
+    params.require(:ticket_master)
+          .permit(:id,
+                  :public_id,
+                  :name,
+                  :issue_number,
+                  :price,
+                  :effective_month,
+                  :description,
+                  :publish_status,
+                  :base64_image,
+                  :purchase_quantity,
+                  shops: [:name, :public_id])
   end
 end
