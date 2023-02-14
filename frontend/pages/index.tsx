@@ -383,8 +383,8 @@ const Home: NextPage = () => {
             <span className={homeStyles.section_headline}>料金プラン</span>
           </p>
             <div className='mt30 mb30'>
-            <p><span className={homeStyles.section_description}>基本プラン</span></p>
-            <p><span className={homeStyles.section_description}>初期費用無料</span></p>
+            <p><span className='font-size-25'>基本プラン</span></p>
+            <p><span className={homeStyles.section_description}>初期費用無料。登録後1週間無料でプレミアムプラントライアル。</span></p>
             </div>
             <div className={homeStyles.table_scroll}>
               <Table bordered className={homeStyles.plan_table_parent}>
