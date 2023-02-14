@@ -2,7 +2,8 @@ import { NextPage } from 'next'
 import { useEffect } from 'react'
 import ShopPageTemplate from 'components/templates/ShopPageTemplate'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
+import { RootState } from 'redux/store'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
@@ -24,6 +25,7 @@ import { nameChanged,
          parkingLotGuidanceChanged,
          businessHoursTextChanged,
          remarksChanged,
+         publishStatusChanged,
          shopImage1ImagePublicUrlChanged,
          shopImage2ImagePublicUrlChanged,
          shopImage3ImagePublicUrlChanged,
@@ -50,6 +52,7 @@ const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const dispatch = useDispatch()
+  const publishStatus = useSelector((state: RootState) => state.shop.publishStatus)
 
   useEffect(() => {
     const fetchShop = () => {
@@ -80,6 +83,7 @@ const Index: NextPage = () => {
         dispatch(parkingLotGuidanceChanged(response.data.shop.parking_lot_guidance))
         dispatch(businessHoursTextChanged(response.data.shop.business_hours_text))
         dispatch(remarksChanged(response.data.shop.remarks))
+        dispatch(publishStatusChanged(response.data.shop.publish_status))
         dispatch(shopImage1ImagePublicUrlChanged(response.data.shop.shop_image1_public_url))
         dispatch(shopImage2ImagePublicUrlChanged(response.data.shop.shop_image2_public_url))
         dispatch(shopImage3ImagePublicUrlChanged(response.data.shop.shop_image3_public_url))
@@ -112,7 +116,8 @@ const Index: NextPage = () => {
 
   return (
     <MerchantCustomLayout>
-      <ShopPageTemplate></ShopPageTemplate>
+      {publishStatus === 'Publish' && <ShopPageTemplate></ShopPageTemplate>}
+      {publishStatus === 'Unpublish' && <div className='text-center mt30'>非公開です</div>}
     </MerchantCustomLayout>
   )
 }
