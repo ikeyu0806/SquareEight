@@ -3,7 +3,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import { Container, FormControl, Row, Col, Form, Button } from 'react-bootstrap'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
-import { getBase64 } from 'functions/getBase64'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
@@ -16,7 +15,11 @@ import { priceChanged,
          enableReserveCountChanged,
          descriptionChanged,
          publishStatusChanged,
-         base64ImageChanged,
+         monthlyPaymentPlanImage1FileChanged,
+         monthlyPaymentPlanImage2FileChanged,
+         monthlyPaymentPlanImage3FileChanged,
+         monthlyPaymentPlanImage4FileChanged,
+         monthlyPaymentPlanImage5FileChanged,
          shopsChanged } from 'redux/monthlyPaymentPlanSlice'
 
 interface Props {
@@ -35,20 +38,51 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
   const reserveIntervalNumber = useSelector((state: RootState) => state.monthlyPaymentPlan.reserveIntervalNumber)
   const enableReserveCount = useSelector((state: RootState) => state.monthlyPaymentPlan.enableReserveCount)
   const description = useSelector((state: RootState) => state.monthlyPaymentPlan.description)
-  const s3ObjectPublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.s3ObjectPublicUrl)
   const publishStatus = useSelector((state: RootState) => state.monthlyPaymentPlan.publishStatus)
   const selectedShopIds = useSelector((state: RootState) => state.product.selectedShopIds)
   const shops = useSelector((state: RootState) => state.account.shops)
+  const monthlyPaymentPlanImage1ImagePublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage1ImagePublicUrl)
+  const monthlyPaymentPlanImage2ImagePublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage2ImagePublicUrl)
+  const monthlyPaymentPlanImage3ImagePublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage3ImagePublicUrl)
+  const monthlyPaymentPlanImage4ImagePublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage4ImagePublicUrl)
+  const monthlyPaymentPlanImage5ImagePublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage5ImagePublicUrl)
 
   const shopRefs = useRef<any>([])
   shopRefs.current = shops.map((_, i) => shopRefs.current[i] ?? createRef())
 
-  const handleChangeFile = (e: any) => {
-    const { files } = e.target
-    setImage(window.URL.createObjectURL(files[0]))
-    getBase64(files[0]).then(
-      data => dispatch(base64ImageChanged(data))
-    )
+  const onChangeTicketMasterImage1File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(monthlyPaymentPlanImage1FileChanged(files[0]))
+    }
+  }
+
+  const onChangeTicketMasterImage2File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(monthlyPaymentPlanImage2FileChanged(files[0]))
+    }
+  }
+
+  const onChangeTicketMasterImage3File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(monthlyPaymentPlanImage3FileChanged(files[0]))
+    }
+  }
+
+  const onChangeTicketMasterImage4File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(monthlyPaymentPlanImage4FileChanged(files[0]))
+    }
+  }
+
+  const onChangeTicketMasterImage5File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(monthlyPaymentPlanImage5FileChanged(files[0]))
+    }
   }
 
   const execDelete = () => {
@@ -107,7 +141,7 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
           <div className='mt20 mb20'></div>
             <Row>
               <Col sm={8}>
-                <h2 className='mt30'>月額サブスクリプション作成</h2>
+                <h4 className='mt30'>月額サブスクリプション作成</h4>
               </Col>
               {showDeleteButton &&<Col>
                 <Button variant='danger' size='sm' onClick={() => execDelete()}>月額サブスクリプションを削除</Button>
@@ -186,20 +220,53 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
             <Col>
             </Col>
           </Row>
-          {image && <img
+
+          <Form.Label className='mt10'>回数券イメージ画像1</Form.Label>
+          <Form.Control
+            onChange={onChangeTicketMasterImage1File}
+            type='file' />
+          {monthlyPaymentPlanImage1ImagePublicUrl && <img
             className='d-block w-100 mt30'
-            src={image}
-            alt='image'
+            src={monthlyPaymentPlanImage1ImagePublicUrl}
+            alt='monthlyPaymentPlanImage1File Image'
           />}
-          {s3ObjectPublicUrl && !image && <img
+          <Form.Label className='mt10'>回数券イメージ画像2</Form.Label>
+          <Form.Control
+            onChange={onChangeTicketMasterImage2File}
+            type='file' />
+          {monthlyPaymentPlanImage2ImagePublicUrl && <img
             className='d-block w-100 mt30'
-            src={s3ObjectPublicUrl}
-            alt='image'
+            src={monthlyPaymentPlanImage2ImagePublicUrl}
+            alt='monthlyPaymentPlanImage2File Image'
           />}
-          <Form.Group>
-            <Form.Label className='mt10'>イメージ画像</Form.Label>
-            <Form.Control type="file" onChange={handleChangeFile} />
-          </Form.Group>
+          <Form.Label className='mt10'>回数券イメージ画像3</Form.Label>
+          <Form.Control
+            onChange={onChangeTicketMasterImage3File}
+            type='file' />
+          {monthlyPaymentPlanImage3ImagePublicUrl && <img
+            className='d-block w-100 mt30'
+            src={monthlyPaymentPlanImage3ImagePublicUrl}
+            alt='monthlyPaymentPlanImage3File Image'
+          />}
+          <Form.Label className='mt10'>回数券イメージ画像4</Form.Label>
+          <Form.Control
+            onChange={onChangeTicketMasterImage4File}
+            type='file' />
+          {monthlyPaymentPlanImage4ImagePublicUrl && <img
+            className='d-block w-100 mt30'
+            src={monthlyPaymentPlanImage4ImagePublicUrl}
+            alt='monthlyPaymentPlanImage4File Image'
+          />}
+          <Form.Label className='mt10'>回数券イメージ画像5</Form.Label>
+          <Form.Control
+            onChange={onChangeTicketMasterImage5File}
+            type='file' />
+          {monthlyPaymentPlanImage5ImagePublicUrl && <img
+            className='d-block w-100 mt30'
+            src={monthlyPaymentPlanImage5ImagePublicUrl}
+            alt='monthlyPaymentPlanImage5File Image'
+          />}
+
           <Form.Group className='mt10'>
             <div>店舗設定</div>
             <div className='mt5 mb5'>設定した店舗のページに商品ページへのリンクが表示されます。</div>

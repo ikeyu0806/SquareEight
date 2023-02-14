@@ -194,7 +194,7 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
                 </Col>
               </Row>
 
-              <Form.Label className='mt10'>店舗イメージ画像1</Form.Label>
+              <Form.Label className='mt10'>回数券イメージ画像1</Form.Label>
               <Form.Control
                 onChange={onChangeTicketMasterImage1File}
                 type='file' />
@@ -203,7 +203,7 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
                 src={ticketMasterImage1ImagePublicUrl}
                 alt='ticketMasterImage1File Image'
               />}
-              <Form.Label className='mt10'>店舗イメージ画像2</Form.Label>
+              <Form.Label className='mt10'>回数券イメージ画像2</Form.Label>
               <Form.Control
                 onChange={onChangeTicketMasterImage2File}
                 type='file' />
@@ -212,7 +212,7 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
                 src={ticketMasterImage2ImagePublicUrl}
                 alt='ticketMasterImage2File Image'
               />}
-              <Form.Label className='mt10'>店舗イメージ画像3</Form.Label>
+              <Form.Label className='mt10'>回数券イメージ画像3</Form.Label>
               <Form.Control
                 onChange={onChangeTicketMasterImage3File}
                 type='file' />
@@ -221,7 +221,7 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
                 src={ticketMasterImage3ImagePublicUrl}
                 alt='ticketMasterImage3File Image'
               />}
-              <Form.Label className='mt10'>店舗イメージ画像4</Form.Label>
+              <Form.Label className='mt10'>回数券イメージ画像4</Form.Label>
               <Form.Control
                 onChange={onChangeTicketMasterImage4File}
                 type='file' />
@@ -230,7 +230,7 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
                 src={ticketMasterImage4ImagePublicUrl}
                 alt='ticketMasterImage4File Image'
               />}
-              <Form.Label className='mt10'>店舗イメージ画像5</Form.Label>
+              <Form.Label className='mt10'>回数券イメージ画像5</Form.Label>
               <Form.Control
                 onChange={onChangeTicketMasterImage5File}
                 type='file' />
