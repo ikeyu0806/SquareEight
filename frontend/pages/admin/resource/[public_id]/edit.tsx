@@ -16,6 +16,10 @@ import { nameChanged,
          quantityChanged,
          descriptionChanged,
          resourceImage1PublicUrlChanged,
+         resourceImage2PublicUrlChanged,
+         resourceImage3PublicUrlChanged,
+         resourceImage4PublicUrlChanged,
+         resourceImage5PublicUrlChanged,
          resourceTypeChanged,
          selectedShopIdsChanged,
          selectableReserveFramesChanged,
@@ -32,6 +36,10 @@ const Edit: NextPage = () => {
   const isShowReservePage = useSelector((state: RootState) => state.resource.isShowReservePage)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
   const resourceImage1File =  useSelector((state: RootState) => state.resource.resourceImage1File)
+  const resourceImage2File =  useSelector((state: RootState) => state.resource.resourceImage2File)
+  const resourceImage3File =  useSelector((state: RootState) => state.resource.resourceImage3File)
+  const resourceImage4File =  useSelector((state: RootState) => state.resource.resourceImage4File)
+  const resourceImage5File =  useSelector((state: RootState) => state.resource.resourceImage5File)
   const selectedShopIds = useSelector((state: RootState) => state.resource.selectedShopIds)
   const selectedReserveFrameIds = useSelector((state: RootState) => state.resource.selectedReserveFrameIds)
 
@@ -52,6 +60,10 @@ const Edit: NextPage = () => {
         dispatch(descriptionChanged(response.data.resource.description))
         dispatch(quantityChanged(response.data.resource.quantity))
         dispatch(resourceImage1PublicUrlChanged(response.data.resource.image1_public_url))
+        dispatch(resourceImage2PublicUrlChanged(response.data.resource.image2_public_url))
+        dispatch(resourceImage3PublicUrlChanged(response.data.resource.image3_public_url))
+        dispatch(resourceImage4PublicUrlChanged(response.data.resource.image4_public_url))
+        dispatch(resourceImage5PublicUrlChanged(response.data.resource.image5_public_url))
         dispatch(resourceTypeChanged(response.data.resource.resource_type))
         dispatch(selectedShopIdsChanged(response.data.resource.selected_shop_ids))
         dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
@@ -71,6 +83,10 @@ const Edit: NextPage = () => {
     params.append('resource_type', resourceType)
     params.append('quantity', String(quantity))
     params.append('resource_image1_file', resourceImage1File as Blob)
+    params.append('resource_image2_file', resourceImage2File as Blob)
+    params.append('resource_image3_file', resourceImage3File as Blob)
+    params.append('resource_image4_file', resourceImage4File as Blob)
+    params.append('resource_image5_file', resourceImage5File as Blob)
     params.append('is_show_reserve_page', String(isShowReservePage))
     selectedShopIds.forEach((id, i) => {
       params.append('shop_ids' + '[]', String(id))

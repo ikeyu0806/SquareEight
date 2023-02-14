@@ -24,6 +24,10 @@ const New: NextPage = () => {
   const isShowReservePage = useSelector((state: RootState) => state.resource.isShowReservePage)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
   const resourceImage1File =  useSelector((state: RootState) => state.resource.resourceImage1File)
+  const resourceImage2File =  useSelector((state: RootState) => state.resource.resourceImage2File)
+  const resourceImage3File =  useSelector((state: RootState) => state.resource.resourceImage3File)
+  const resourceImage4File =  useSelector((state: RootState) => state.resource.resourceImage4File)
+  const resourceImage5File =  useSelector((state: RootState) => state.resource.resourceImage5File)
   const selectedShopIds = useSelector((state: RootState) => state.resource.selectedShopIds)
 
   const allowCreateResource = useSelector((state: RootState) => state.merchantUserPermission.allowCreateResource)
@@ -56,6 +60,10 @@ const New: NextPage = () => {
     params.append('resource_type', resourceType)
     params.append('quantity', String(quantity))
     params.append('resource_image1_file', resourceImage1File as Blob)
+    params.append('resource_image2_file', resourceImage2File as Blob)
+    params.append('resource_image3_file', resourceImage3File as Blob)
+    params.append('resource_image4_file', resourceImage4File as Blob)
+    params.append('resource_image5_file', resourceImage5File as Blob)
     params.append('is_show_reserve_page', String(isShowReservePage))
     selectedShopIds.forEach((id, i) => {
       params.append('shop_ids' + '[]', String(id))
