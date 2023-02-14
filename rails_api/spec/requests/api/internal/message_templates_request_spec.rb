@@ -5,7 +5,7 @@ RSpec.describe 'Api::Internal::MessageTemplatesController', type: :request do
   let(:merchant_user) {
     create(:merchant_user, account: account)
   }
-  let(:customer) { create(:customer, account_id: account.id) }
+  let!(:customer) { create(:customer, account_id: account.id) }
   let(:customer_group) { create(:customer_group, account_id: account.id) }
   let!(:customer_group_relation) { create(:customer_group_relation, customer_id: customer.id, customer_group_id: customer_group.id) }
   let(:message_template) { create(:message_template, account_id: account.id) }
@@ -81,16 +81,14 @@ RSpec.describe 'Api::Internal::MessageTemplatesController', type: :request do
     end
   end
 
-  describe 'POST /api/internal/message_templates/:public_id_send_mail' do
+  describe 'POST /api/internal/message_templates/:public_id/send_mail' do
     context 'login as merchant_user' do
       context 'target_type is Customer' do
         let(:params) {
           {
             message_template: {
               target_type: 'customer',
-              target_customers: [customer],
-              title: 'update_demo_title',
-              content: 'update_demo_content'
+              target_customers: {"email": customer.email}
             }
           }
         }
@@ -106,15 +104,13 @@ RSpec.describe 'Api::Internal::MessageTemplatesController', type: :request do
           {
             message_template: {
               target_type: 'customerGroup',
-              target_customer_groups: [customer_group],
-              title: 'update_demo_title',
-              content: 'update_demo_content'
+              target_customer_groups: customer_group,
             }
           }
         }
         it 'should return 200' do
           allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
-          post '/api/internal/message_templates/send_mail', params: params
+          post "/api/internal/message_templates/#{message_template.public_id}/send_mail", params: params
           expect(response.status).to eq 200
         end
       end
@@ -125,9 +121,7 @@ RSpec.describe 'Api::Internal::MessageTemplatesController', type: :request do
         {
           message_template: {
             target_type: 'Customer',
-            target_customers: [customer],
-            title: 'update_demo_title',
-            content: 'update_demo_content'
+            target_customers: [customer]
           }
         }
       }
