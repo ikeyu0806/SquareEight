@@ -20,6 +20,7 @@ import { priceChanged,
          reserveIntervalUnitChanged,
          enableReserveCountChanged,
          descriptionChanged,
+         publishStatusChanged,
          monthlyPaymentPlanImage1ImagePublicUrlChanged,
          monthlyPaymentPlanImage2ImagePublicUrlChanged,
          monthlyPaymentPlanImage3ImagePublicUrlChanged,
@@ -59,15 +60,15 @@ const Edit: NextPage = () => {
         }
       )
       .then(function (response) {
-        const monthlyPaymentPlanResponse: MonthlyPaymentPlanParam = response.data.monthly_payment_plan
-        dispatch(nameChanged(monthlyPaymentPlanResponse.name))
-        dispatch(priceChanged(monthlyPaymentPlanResponse.price))
-        dispatch(reserveIsUnlimitedChanged(monthlyPaymentPlanResponse.reserve_is_unlimited))
-        dispatch(reserveIntervalNumberChanged(monthlyPaymentPlanResponse.reserve_interval_number))
-        dispatch(reserveIntervalUnitChanged(monthlyPaymentPlanResponse.reserve_interval_unit))
-        dispatch(enableReserveCountChanged(monthlyPaymentPlanResponse.enable_reserve_count))
-        dispatch(descriptionChanged(monthlyPaymentPlanResponse.description))
+        dispatch(nameChanged(response.data.monthly_payment_plan.name))
+        dispatch(priceChanged(response.data.monthly_payment_plan.price))
+        dispatch(reserveIsUnlimitedChanged(response.data.monthly_payment_plan.reserve_is_unlimited))
+        dispatch(reserveIntervalNumberChanged(response.data.monthly_payment_plan.reserve_interval_number))
+        dispatch(reserveIntervalUnitChanged(response.data.monthly_payment_plan.reserve_interval_unit))
+        dispatch(enableReserveCountChanged(response.data.monthly_payment_plan.enable_reserve_count))
+        dispatch(descriptionChanged(response.data.monthly_payment_plan.description))
         dispatch(selectedShopIdsChanged(response.data.monthly_payment_plan.selected_shop_ids))
+        dispatch(publishStatusChanged(response.data.monthly_payment_plan.publish_status))
         dispatch(monthlyPaymentPlanImage1ImagePublicUrlChanged(response.data.monthly_payment_plan.image1_account_s3_image_public_url))
         dispatch(monthlyPaymentPlanImage2ImagePublicUrlChanged(response.data.monthly_payment_plan.image2_account_s3_image_public_url))
         dispatch(monthlyPaymentPlanImage3ImagePublicUrlChanged(response.data.monthly_payment_plan.image3_account_s3_image_public_url))

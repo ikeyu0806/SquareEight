@@ -205,7 +205,7 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
             aria-label='' />
           <Row>
             <Col>
-              <Form.Group className='mb-3'>
+              <Form.Group className='mt10'>
                 <Form.Label>公開設定</Form.Label>
                 <Form.Select placeholder='メニュー名'
                   value={publishStatus || 'Unpublish'}
