@@ -96,6 +96,7 @@
 }
 
 .section_headline {
+  font-weight: bold;
   font-size: 35px;
   background: linear-gradient(transparent 70%, #B2384E 50%);
 }
