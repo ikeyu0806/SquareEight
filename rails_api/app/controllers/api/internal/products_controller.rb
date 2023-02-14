@@ -163,26 +163,26 @@ class Api::Internal::ProductsController < ApplicationController
 
   def insert_cart
     ActiveRecord::Base.transaction do
-      product = Product.enabled.find_by(public_id: product_params[:public_id])
+      product = Product.enabled.find_by(public_id: cart_params[:public_id])
       product.cart_products.create!(
         end_user_id: current_end_user.id,
         account_id: product.account_id,
-        quantity: product_params[:purchase_quantity],
-        product_type_id: product_params[:product_type_id]
+        quantity: cart_params[:purchase_quantity],
+        product_type_id: cart_params[:product_type_id]
       )
-      if (product_params[:is_registered_address] == false)
+      if (cart_params[:is_registered_address] == false)
         delivery_target = current_end_user
                           .delivery_targets
-                          .new( first_name: product_params[:first_name],
-                                last_name: product_params[:last_name],
-                                postal_code: product_params[:postal_code],
-                                state: product_params[:state],
-                                city: product_params[:city],
-                                town: product_params[:town],
-                                line1: product_params[:line1],
-                                line2: product_params[:line2],
-                                phone_number: product_params[:phone_number],
-                                email: product_params[:email])
+                          .new( first_name: cart_params[:first_name],
+                                last_name: cart_params[:last_name],
+                                postal_code: cart_params[:postal_code],
+                                state: cart_params[:state],
+                                city: cart_params[:city],
+                                town: cart_params[:town],
+                                line1: cart_params[:line1],
+                                line2: cart_params[:line2],
+                                phone_number: cart_params[:phone_number],
+                                email: cart_params[:email])
         delivery_target.is_default = true
         delivery_target.save!
       end
@@ -220,5 +220,38 @@ class Api::Internal::ProductsController < ApplicationController
 
   def product_params
     JSON.parse(params.require(:product), {symbolize_names: true})[:product]
+  end
+
+  def cart_params
+    params.require(:product)
+          .permit(:id,
+                  :public_id,
+                  :name,
+                  :price,
+                  :tax_rate,
+                  :product_type_id,
+                  :inventory,
+                  :description,
+                  :image1_account_s3_image_public_url,
+                  :s3_object_name,
+                  :purchase_quantity,
+                  :is_registered_address,
+                  :first_name,
+                  :last_name,
+                  :postal_code,
+                  :state,
+                  :city,
+                  :town,
+                  :line1,
+                  :line2,
+                  :phone_number,
+                  :email,
+                  :publish_status,
+                  :delivery_charge_type,
+                  :flat_rate_delivery_charge,
+                  :delivery_charge_with_order_number,
+                  :delivery_datetime_target_flg,
+                  :target_type,
+                  :shipped_count)
   end
 end
