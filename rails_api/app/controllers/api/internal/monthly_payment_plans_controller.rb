@@ -72,7 +72,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.new(monthly_payment_plan_params.except(:base64_image, :shops))
+      monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.new(form_type_params.except(:base64_image, :shops))
       if params[:monthly_payment_plan_image1_file].present? && !params[:monthly_payment_plan_image1_file].eql?("null")
         file_name = "monthly_payment_plan_image1_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image1_file], "image1_account_s3_image_id")
@@ -96,13 +96,13 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
       Stripe.api_version = '2022-08-01'
       product = Stripe::Product.create({
-        name: monthly_payment_plan_params[:name]
+        name: form_type_params[:name]
       })
       stripe_plan = Stripe::Plan.create({
-        amount: monthly_payment_plan_params[:price],
+        amount: form_type_params[:price],
         currency: 'jpy',
         interval: 'month',
-        nickname: monthly_payment_plan_params[:name],
+        nickname: form_type_params[:name],
         product: product.id,
       })
       monthly_payment_plan.stripe_plan_id = stripe_plan.id
@@ -112,7 +112,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
           monthly_payment_plan.reserve_frame_monthly_payment_plans.create!(reserve_frame_id: reserve_frame_id)
         end
       end
-      monthly_payment_plan_params[:shops].each do |s|
+      form_type_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])
         monthly_payment_plan.shop_monthly_payment_plans.create!(shop_id: shop.id)
       end
@@ -126,7 +126,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def update
     monthly_payment_plan = current_merchant_user.account.monthly_payment_plans.find_by(public_id: params[:public_id])
-    monthly_payment_plan.attributes = monthly_payment_plan_params.except(:base64_image, :shops)
+    monthly_payment_plan.attributes = form_type_params.except(:base64_image, :shops)
     if params[:monthly_payment_plan_image1_file].present? && !params[:monthly_payment_plan_image1_file].eql?("null")
       file_name = "monthly_payment_plan_image1_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
       monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image1_file], "image1_account_s3_image_id")
@@ -156,7 +156,7 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     end
     monthly_payment_plan.save!
     monthly_payment_plan.shop_monthly_payment_plans.destroy_all
-    monthly_payment_plan_params[:shops].each do |s|
+    form_type_params[:shops].each do |s|
       shop = Shop.find_by(public_id: s[:public_id])
       monthly_payment_plan.shop_monthly_payment_plans.create!(shop_id: shop.id)
     end
@@ -169,13 +169,13 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def insert_cart
     ActiveRecord::Base.transaction do
-      monthly_payment_plan = MonthlyPaymentPlan.enabled.find_by(public_id: monthly_payment_plan_params[:public_id])
+      monthly_payment_plan = MonthlyPaymentPlan.enabled.find_by(public_id: cart_params[:public_id])
       # 既にカートに入っていたら追加しない
       raise "既にカートに入っています" if monthly_payment_plan.cart_monthly_payment_plans.find_by(end_user_id: current_end_user.id).present?
       monthly_payment_plan.cart_monthly_payment_plans.create!(
         end_user_id: current_end_user.id,
         account_id: monthly_payment_plan.account_id,
-        quantity: monthly_payment_plan_params[:purchase_quantity])
+        quantity: cart_params[:purchase_quantity])
       render json: { status: 'success' }, status: 200
     end
   rescue => error
@@ -194,7 +194,23 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   private
 
-  def monthly_payment_plan_params
+  def form_type_params
     JSON.parse(params.require(:monthly_payment_plans), {symbolize_names: true})[:monthly_payment_plans]
+  end
+
+  def cart_params
+    params.require(:monthly_payment_plans).permit(:id,
+                                                  :public_id,
+                                                  :name,
+                                                  :price,
+                                                  :description,
+                                                  :reserve_is_unlimited,
+                                                  :reserve_interval_number,
+                                                  :reserve_interval_unit,
+                                                  :enable_reserve_count,
+                                                  :publish_status,
+                                                  :base64_image,
+                                                  :purchase_quantity,
+                                                  shops: [:name, :public_id])
   end
 end
