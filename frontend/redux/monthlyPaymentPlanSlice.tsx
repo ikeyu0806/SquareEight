@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ShopParam } from 'interfaces/ShopParam'
+import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 
 export const monthlyPaymentPlanSlice = createSlice({
   name: 'alert',
@@ -23,7 +24,9 @@ export const monthlyPaymentPlanSlice = createSlice({
     monthlyPaymentPlanImage4ImagePublicUrl: '',
     monthlyPaymentPlanImage5ImagePublicUrl: '',
     shops: [] as ShopParam[],
-    selectedShopIds: [] as number[]
+    selectedShopIds: [] as number[],
+    selectableReserveFrames: []  as ReserveFrameParam[],
+    selectedReserveFrameIds: [] as number[],
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -86,6 +89,12 @@ export const monthlyPaymentPlanSlice = createSlice({
     selectedShopIdsChanged: (state, action: PayloadAction<number[]>) => {
       state.selectedShopIds = action.payload
     },
+    selectableReserveFramesChanged: (state, action: PayloadAction<ReserveFrameParam[]>) => {
+      state.selectableReserveFrames = action.payload
+    },
+    selectedReserveFrameIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.selectedReserveFrameIds = action.payload
+    },
   },
 })
 
@@ -109,5 +118,7 @@ export const { monthlyPaymentPlanImage4ImagePublicUrlChanged } = monthlyPaymentP
 export const { monthlyPaymentPlanImage5ImagePublicUrlChanged } = monthlyPaymentPlanSlice.actions
 export const { shopsChanged } = monthlyPaymentPlanSlice.actions
 export const { selectedShopIdsChanged } = monthlyPaymentPlanSlice.actions
+export const { selectedReserveFrameIdsChanged } = monthlyPaymentPlanSlice.actions
+export const { selectableReserveFramesChanged } = monthlyPaymentPlanSlice.actions
 
 export default monthlyPaymentPlanSlice.reducer

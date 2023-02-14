@@ -1,5 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { ShopParam } from 'interfaces/ShopParam'
+import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 
 export const ticketMasterSlice = createSlice({
   name: 'ticketMaster',
@@ -21,7 +22,9 @@ export const ticketMasterSlice = createSlice({
     ticketMasterImage4ImagePublicUrl: '',
     ticketMasterImage5ImagePublicUrl: '',
     shops: [] as ShopParam[],
-    selectedShopIds: [] as number[]
+    selectedShopIds: [] as number[],
+    selectableReserveFrames: []  as ReserveFrameParam[],
+    selectedReserveFrameIds: [] as number[],
   },
   reducers: {
     nameChanged: (state, action: PayloadAction<string>) => {
@@ -78,6 +81,12 @@ export const ticketMasterSlice = createSlice({
     selectedShopIdsChanged: (state, action: PayloadAction<number[]>) => {
       state.selectedShopIds = action.payload
     },
+    selectableReserveFramesChanged: (state, action: PayloadAction<ReserveFrameParam[]>) => {
+      state.selectableReserveFrames = action.payload
+    },
+    selectedReserveFrameIdsChanged: (state, action: PayloadAction<number[]>) => {
+      state.selectedReserveFrameIds = action.payload
+    },
   },
 })
 
@@ -99,5 +108,7 @@ export const { ticketMasterImage4ImagePublicUrlChanged } = ticketMasterSlice.act
 export const { ticketMasterImage5ImagePublicUrlChanged } = ticketMasterSlice.actions
 export const { shopsChanged } = ticketMasterSlice.actions
 export const { selectedShopIdsChanged } = ticketMasterSlice.actions
+export const { selectedReserveFrameIdsChanged } = ticketMasterSlice.actions
+export const { selectableReserveFramesChanged } = ticketMasterSlice.actions
 
 export default ticketMasterSlice.reducer
