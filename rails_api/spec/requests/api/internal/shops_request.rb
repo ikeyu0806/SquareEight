@@ -44,11 +44,9 @@ RSpec.describe 'Api::Internal::ShopsController', type: :request do
   describe 'POST /api/internal/shops' do
     let(:params) {
       {
-        shops: {
-          name: "テスト店舗",
-          phone_number: "09011112222",
-          business_hours_text: "07:00～22:00。不定休"
-        }
+        name: "テスト店舗",
+        phone_number: "09011112222",
+        business_hours_text: "07:00～22:00。不定休"
       }
     }
 
@@ -71,11 +69,9 @@ RSpec.describe 'Api::Internal::ShopsController', type: :request do
   describe 'POST /api/internal/shops/:public_id/update' do
     let(:params) {
       {
-        shops: {
-          name: "テスト店舗",
-          phone_number: "09011112222",
-          business_hours_text: "07:00～22:00。不定休"
-        }
+        name: "テスト店舗",
+        phone_number: "09011112222",
+        business_hours_text: "07:00～22:00。不定休"
       }
     }
 
