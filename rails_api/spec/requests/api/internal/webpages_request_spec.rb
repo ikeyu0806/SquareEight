@@ -55,7 +55,8 @@ RSpec.describe 'Api::Internal::webpagesRequestController', type: :request do
                 ]
               }
             ]
-          }
+          },
+          shops: []
         }
       }
     }
@@ -95,7 +96,8 @@ RSpec.describe 'Api::Internal::webpagesRequestController', type: :request do
                 ]
               }
             ]
-          }
+          },
+          shops: []
         }
       }
     }
