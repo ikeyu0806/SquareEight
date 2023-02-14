@@ -9,6 +9,10 @@ import { nameChanged,
          selectedShopIdsChanged,
          selectedReserveFrameIdsChanged,
          resourceImage1FileChanged,
+         resourceImage2FileChanged,
+         resourceImage3FileChanged,
+         resourceImage4FileChanged,
+         resourceImage5FileChanged,
          isShowReservePageChanged,
          resourceTypeChanged } from 'redux/resourceSlice'
 import { ShopParam } from 'interfaces/ShopParam'
@@ -19,6 +23,14 @@ const CreateResource = (): JSX.Element => {
   const description = useSelector((state: RootState) => state.resource.description)
   const resourceImage1File = useSelector((state: RootState) => state.resource.resourceImage1File)
   const resourceImage1PublicUrl = useSelector((state: RootState) => state.resource.resourceImage1PublicUrl)
+  const resourceImage2File = useSelector((state: RootState) => state.resource.resourceImage2File)
+  const resourceImage2PublicUrl = useSelector((state: RootState) => state.resource.resourceImage2PublicUrl)
+  const resourceImage3File = useSelector((state: RootState) => state.resource.resourceImage3File)
+  const resourceImage3PublicUrl = useSelector((state: RootState) => state.resource.resourceImage3PublicUrl)
+  const resourceImage4File = useSelector((state: RootState) => state.resource.resourceImage4File)
+  const resourceImage4PublicUrl = useSelector((state: RootState) => state.resource.resourceImage4PublicUrl)
+  const resourceImage5File = useSelector((state: RootState) => state.resource.resourceImage5File)
+  const resourceImage5PublicUrl = useSelector((state: RootState) => state.resource.resourceImage5PublicUrl)
   const quantity = useSelector((state: RootState) => state.resource.quantity)
   const resourceType =  useSelector((state: RootState) => state.resource.resourceType)
   const selectedShopIds =  useSelector((state: RootState) => state.resource.selectedShopIds)
@@ -31,6 +43,34 @@ const CreateResource = (): JSX.Element => {
     const files = e.target.files
     if (files && files[0]) {
       dispatch(resourceImage1FileChanged(files[0]))
+    }
+  }
+
+  const onChangeImage2File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(resourceImage2FileChanged(files[0]))
+    }
+  }
+
+  const onChangeImage3File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(resourceImage3FileChanged(files[0]))
+    }
+  }
+
+  const onChangeImage4File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(resourceImage4FileChanged(files[0]))
+    }
+  }
+
+  const onChangeImage5File = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(resourceImage5FileChanged(files[0]))
     }
   }
 
@@ -71,13 +111,48 @@ const CreateResource = (): JSX.Element => {
         as='textarea'
         rows={10}
         onChange={(e) => dispatch(descriptionChanged(e.target.value))}></Form.Control>
-      <Form.Label className='mt10'>イメージ画像</Form.Label>
+
+      <Form.Label className='mt10'>イメージ画像1</Form.Label>
       {resourceImage1PublicUrl && <img
         className='d-block w-100 mt30'
         src={resourceImage1PublicUrl}
         alt='resourceImage1File Image'
       />}
       <Form.Control type='file' onChange={onChangeImage1File} />
+    
+      <Form.Label className='mt10'>イメージ画像2</Form.Label>
+      {resourceImage2PublicUrl && <img
+        className='d-block w-100 mt30'
+        src={resourceImage2PublicUrl}
+        alt='resourceImage2File Image'
+      />}
+      <Form.Control type='file' onChange={onChangeImage2File} />
+    
+      <Form.Label className='mt10'>イメージ画像3</Form.Label>
+      {resourceImage3PublicUrl && <img
+        className='d-block w-100 mt30'
+        src={resourceImage3PublicUrl}
+        alt='resourceImage3File Image'
+      />}
+      <Form.Control type='file' onChange={onChangeImage3File} />
+  
+      <Form.Label className='mt10'>イメージ画像4</Form.Label>
+      {resourceImage4PublicUrl && <img
+        className='d-block w-100 mt30'
+        src={resourceImage4PublicUrl}
+        alt='resourceImage4File Image'
+      />}
+      <Form.Control type='file' onChange={onChangeImage4File} />
+    
+      <Form.Label className='mt10'>イメージ画像5</Form.Label>
+      {resourceImage5PublicUrl && <img
+        className='d-block w-100 mt30'
+        src={resourceImage5PublicUrl}
+        alt='resourceImage5File Image'
+      />}
+      <Form.Control type='file' onChange={onChangeImage5File} />
+
+
       <Form.Label className='mt10'>予約受付数</Form.Label>
       <FormControl
         value={quantity}
