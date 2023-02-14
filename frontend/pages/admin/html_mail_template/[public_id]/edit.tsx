@@ -79,7 +79,7 @@ const Edit: NextPage = () => {
             <Form.Control
               value={name}
               onChange={(e) => dispatch(nameChanged(e.target.value))}></Form.Control>
-            <div className='mb10'>メールタイトル<RequireBadge /></div>
+            <div className='mt10 mb10'>メールタイトル<RequireBadge /></div>
             <Form.Control
               value={mailTitle}
               onChange={(e) => dispatch(mailTitleChanged(e.target.value))}></Form.Control>

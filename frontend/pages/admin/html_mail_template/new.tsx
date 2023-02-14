@@ -68,7 +68,7 @@ const New: NextPage = () => {
             <div className='mb10'>テンプレート名<RequireBadge /></div>
             <Form.Control
               onChange={(e) => dispatch(nameChanged(e.target.value))}></Form.Control>
-            <div className='mb10'>メールタイトル<RequireBadge /></div>
+            <div className='mt10 mb10'>メールタイトル<RequireBadge /></div>
             <Form.Control
               onChange={(e) => dispatch(mailTitleChanged(e.target.value))}></Form.Control>
             {htmlMailTemplate.content?.length !== 0 && <hr />}
