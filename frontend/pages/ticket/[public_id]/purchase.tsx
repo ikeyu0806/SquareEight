@@ -17,8 +17,7 @@ import { nameChanged,
          priceChanged,
          issueNumberChanged,
          descriptionChanged,
-         publishStatusChanged,
-         s3ObjectPublicUrlChanged } from 'redux/ticketMasterSlice'
+         publishStatusChanged, } from 'redux/ticketMasterSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
@@ -46,7 +45,6 @@ const Purchase: NextPage = () => {
   const effectiveMonth = useSelector((state: RootState) => state.ticketMaster.effectiveMonth)
   const description = useSelector((state: RootState) => state.ticketMaster.description)
   const publishStatus = useSelector((state: RootState) => state.ticketMaster.publishStatus)
-  const s3ObjectPublicUrl = useSelector((state: RootState) => state.ticketMaster.s3ObjectPublicUrl)
   const [purchaseQuantitity, setPurchaseQuantitity] = useState(1)
 
   useEffect(() => {
@@ -64,7 +62,6 @@ const Purchase: NextPage = () => {
         dispatch(priceChanged(ticketMasterResponse.price))
         dispatch(issueNumberChanged(ticketMasterResponse.issue_number))
         dispatch(descriptionChanged(ticketMasterResponse.description))
-        dispatch(s3ObjectPublicUrlChanged(ticketMasterResponse.image1_account_s3_image_public_url))
         dispatch(publishStatusChanged(ticketMasterResponse.publish_status))
         dispatch(defaultPaymentMethodIdChanged(response.data.default_payment_method_id))
         dispatch(paymentMethodsChanged(response.data.payment_methods))
