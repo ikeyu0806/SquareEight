@@ -65,11 +65,14 @@ RSpec.describe 'Api::Internal::ProductsRequestController', type: :request do
     let(:params) {
       {
         product: {
-          name: 'demo_update_product',
-          price: 2000,
-          product_types: [],
-          prefecture_delivery_charges: []
-        }
+          product: {
+            name: 'demo_update_product',
+            price: 2000,
+            product_types: [],
+            prefecture_delivery_charges: [],
+            shops: []
+          }
+        }.to_json
       }
     }
     context 'login as merchant_user' do
