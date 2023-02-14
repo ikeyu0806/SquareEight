@@ -10,7 +10,6 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
-import { ResourceParam } from 'interfaces/ResourceParam'
 import Unauthorized from 'components/templates/Unauthorized'
 import { nameChanged,
          quantityChanged,
@@ -59,11 +58,11 @@ const Edit: NextPage = () => {
         dispatch(nameChanged(response.data.resource.name))
         dispatch(descriptionChanged(response.data.resource.description))
         dispatch(quantityChanged(response.data.resource.quantity))
-        dispatch(resourceImage1PublicUrlChanged(response.data.resource.image1_public_url))
-        dispatch(resourceImage2PublicUrlChanged(response.data.resource.image2_public_url))
-        dispatch(resourceImage3PublicUrlChanged(response.data.resource.image3_public_url))
-        dispatch(resourceImage4PublicUrlChanged(response.data.resource.image4_public_url))
-        dispatch(resourceImage5PublicUrlChanged(response.data.resource.image5_public_url))
+        dispatch(resourceImage1PublicUrlChanged(response.data.resource.image1_account_s3_image_public_url))
+        dispatch(resourceImage2PublicUrlChanged(response.data.resource.image2_account_s3_image_public_url))
+        dispatch(resourceImage3PublicUrlChanged(response.data.resource.image3_account_s3_image_public_url))
+        dispatch(resourceImage4PublicUrlChanged(response.data.resource.image4_account_s3_image_public_url))
+        dispatch(resourceImage5PublicUrlChanged(response.data.resource.image5_account_s3_image_public_url))
         dispatch(resourceTypeChanged(response.data.resource.resource_type))
         dispatch(selectedShopIdsChanged(response.data.resource.selected_shop_ids))
         dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
