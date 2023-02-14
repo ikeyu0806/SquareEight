@@ -12,7 +12,6 @@ class Api::Internal::ShopsController < ApplicationController
   def show
     shop = Shop
            .find_by(public_id: params[:public_id])
-
     account = shop.account
     products = account.products.enabled
     ticket_masters = account.ticket_masters.enabled
