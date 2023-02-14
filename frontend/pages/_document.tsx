@@ -18,7 +18,7 @@ const MyDocument = () => {
         <meta property='og:url' content={url} />
         <meta property='og:description' content={description} />
         <meta property='og:site_name' content={title} />
-        <meta property='og:image' content={`${url}/ogp.png`} />
+        <meta property='og:image' content='/images/square_eight_top_image.png' />
         <meta name='twitter:card' content='summary_large_image' />
         <meta name='format-detection' content='telephone=no' />
         <link rel='icon' href='/favicons/s-alphabet-icon.svg' />
