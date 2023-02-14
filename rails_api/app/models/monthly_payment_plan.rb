@@ -6,6 +6,7 @@ class MonthlyPaymentPlan < ApplicationRecord
   belongs_to :account
   has_many :cart_monthly_payment_plans
   has_many :shop_monthly_payment_plans, class_name: 'ShopMonthlyPaymentPlan'
+  has_many :reserve_frame_monthly_payment_plans, dependent: :destroy
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
 
@@ -47,5 +48,9 @@ class MonthlyPaymentPlan < ApplicationRecord
 
   def selected_shop_ids
     shop_monthly_payment_plans.pluck(:shop_id)
+  end
+
+  def selected_reserve_frame_ids
+    reserve_frame_monthly_payment_plans.pluck(:reserve_frame_id)
   end
 end

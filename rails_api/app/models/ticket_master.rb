@@ -6,6 +6,7 @@ class TicketMaster < ApplicationRecord
   has_many :purchased_tickets
   has_many :cart_ticket_masters
   has_many :shop_ticket_masters, dependent: :destroy
+  has_many :reserve_frame_ticket_masters, dependent: :destroy
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
 
@@ -28,5 +29,9 @@ class TicketMaster < ApplicationRecord
 
   def selected_shop_ids
     shop_ticket_masters.pluck(:shop_id)
+  end
+
+  def selected_reserve_frame_ids
+    reserve_frame_ticket_masters.pluck(:reserve_frame_id)
   end
 end

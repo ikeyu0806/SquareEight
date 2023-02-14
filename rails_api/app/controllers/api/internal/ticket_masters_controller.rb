@@ -15,6 +15,7 @@ class Api::Internal::TicketMastersController < ApplicationController
     ticket_master = TicketMaster.find_by(public_id: params[:public_id])
     ticket_master = JSON.parse(ticket_master.to_json(methods: [
       :selected_shop_ids,
+      :selected_reserve_frame_ids,
       :image1_account_s3_image_public_url,
       :image2_account_s3_image_public_url,
       :image3_account_s3_image_public_url,
