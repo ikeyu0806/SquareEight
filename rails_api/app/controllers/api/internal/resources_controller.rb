@@ -56,6 +56,18 @@ class Api::Internal::ResourcesController < ApplicationController
       if params[:resource_image1_file].present? && !params[:resource_image1_file].eql?("null")
         resource.register_s3_image(params[:resource_image1_file], "image1_account_s3_image_id")
       end
+      if params[:resource_image2_file].present? && !params[:resource_image2_file].eql?("null")
+        resource.register_s3_image(params[:resource_image2_file], "image2_account_s3_image_id")
+      end
+      if params[:resource_image3_file].present? && !params[:resource_image3_file].eql?("null")
+        resource.register_s3_image(params[:resource_image3_file], "image3_account_s3_image_id")
+      end
+      if params[:resource_image4_file].present? && !params[:resource_image4_file].eql?("null")
+        resource.register_s3_image(params[:resource_image4_file], "image4_account_s3_image_id")
+      end
+      if params[:resource_image5_file].present? && !params[:resource_image5_file].eql?("null")
+        resource.register_s3_image(params[:resource_image5_file], "image5_account_s3_image_id")
+      end
       if params["shop_ids"].present?
         params["shop_ids"].each do |shop_id|
           resource.shop_resources.create!(shop_id: shop_id)
@@ -84,6 +96,18 @@ class Api::Internal::ResourcesController < ApplicationController
       resource.is_show_reserve_page = params[:is_show_reserve_page].eql?('true') ? true : false
       if params[:resource_image1_file].present? && !params[:resource_image1_file].eql?("null")
         resource.register_s3_image(params[:resource_image1_file], "image1_account_s3_image_id")
+      end
+      if params[:resource_image2_file].present? && !params[:resource_image2_file].eql?("null")
+        resource.register_s3_image(params[:resource_image2_file], "image2_account_s3_image_id")
+      end
+      if params[:resource_image3_file].present? && !params[:resource_image3_file].eql?("null")
+        resource.register_s3_image(params[:resource_image3_file], "image3_account_s3_image_id")
+      end
+      if params[:resource_image4_file].present? && !params[:resource_image4_file].eql?("null")
+        resource.register_s3_image(params[:resource_image4_file], "image4_account_s3_image_id")
+      end
+      if params[:resource_image5_file].present? && !params[:resource_image5_file].eql?("null")
+        resource.register_s3_image(params[:resource_image5_file], "image5_account_s3_image_id")
       end
       resource.shop_resources.destroy_all
       if params["shop_ids"].present?
