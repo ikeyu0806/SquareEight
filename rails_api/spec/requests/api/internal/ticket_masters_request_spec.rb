@@ -46,11 +46,14 @@ RSpec.describe 'Api::Internal::ticket_mastersRequestController', type: :request 
     let(:params) {
       {
         ticket_master: {
-          name: 'demo_ticket_master',
-          price: 1000,
-          issue_number: 100,
-          effective_month: 12
-        }
+          ticket_master: {
+            name: 'demo_ticket_master',
+            price: 1000,
+            issue_number: 100,
+            effective_month: 12,
+            shops: []
+          }
+        }.to_json
       }
     }
     context 'login as merchant_user' do
@@ -73,11 +76,14 @@ RSpec.describe 'Api::Internal::ticket_mastersRequestController', type: :request 
     let(:params) {
       {
         ticket_master: {
-          name: 'demo_ticket_master',
-          price: 1000,
-          issue_number: 100,
-          effective_month: 12
-        }
+          ticket_master: {
+            name: 'demo_ticket_master',
+            price: 1000,
+            issue_number: 100,
+            effective_month: 12,
+            shops: []
+          }
+        }.to_json
       }
     }
     context 'login as merchant_user' do
