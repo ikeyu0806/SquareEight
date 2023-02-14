@@ -22,7 +22,10 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
       :image3_account_s3_image_public_url,
       :image4_account_s3_image_public_url,
       :image5_account_s3_image_public_url,]))
-    render json: { status: 'success', monthly_payment_plan: monthly_payment_plan }, status: 200
+    selectable_reserve_frames = monthly_payment_plan.account.reserve_frames.enabled
+    render json: { status: 'success',
+                   selectable_reserve_frames: selectable_reserve_frames,
+                   monthly_payment_plan: monthly_payment_plan }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

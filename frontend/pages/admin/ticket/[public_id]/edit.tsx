@@ -22,7 +22,9 @@ import {  nameChanged,
           ticketMasterImage3ImagePublicUrlChanged,
           ticketMasterImage4ImagePublicUrlChanged,
           ticketMasterImage5ImagePublicUrlChanged,
-          selectedShopIdsChanged } from 'redux/ticketMasterSlice'
+          selectedShopIdsChanged,
+          selectableReserveFramesChanged,
+          selectedReserveFrameIdsChanged } from 'redux/ticketMasterSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -65,6 +67,8 @@ const Edit: NextPage = () => {
         dispatch(ticketMasterImage3ImagePublicUrlChanged(response.data.ticket_master.image3_account_s3_image_public_url))
         dispatch(ticketMasterImage4ImagePublicUrlChanged(response.data.ticket_master.image4_account_s3_image_public_url))
         dispatch(ticketMasterImage5ImagePublicUrlChanged(response.data.ticket_master.image5_account_s3_image_public_url))
+        dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
+        dispatch(selectedReserveFrameIdsChanged(response.data.resource.selected_reserve_frame_ids))
       })
       .catch(error => {
         console.log(error)

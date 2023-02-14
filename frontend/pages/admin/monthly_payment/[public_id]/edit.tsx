@@ -10,7 +10,6 @@ import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
-import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import GuideStripeAccountRegister from 'components/templates/GuideStripeAccountRegister'
 import Unauthorized from 'components/templates/Unauthorized'
 import { priceChanged,
@@ -26,7 +25,9 @@ import { priceChanged,
          monthlyPaymentPlanImage3ImagePublicUrlChanged,
          monthlyPaymentPlanImage4ImagePublicUrlChanged,
          monthlyPaymentPlanImage5ImagePublicUrlChanged,
-         selectedShopIdsChanged } from 'redux/monthlyPaymentPlanSlice'
+         selectedShopIdsChanged,
+         selectableReserveFramesChanged,
+         selectedReserveFrameIdsChanged } from 'redux/monthlyPaymentPlanSlice'
 
 const Edit: NextPage = () => {
   const dispatch = useDispatch()
@@ -74,6 +75,8 @@ const Edit: NextPage = () => {
         dispatch(monthlyPaymentPlanImage3ImagePublicUrlChanged(response.data.monthly_payment_plan.image3_account_s3_image_public_url))
         dispatch(monthlyPaymentPlanImage4ImagePublicUrlChanged(response.data.monthly_payment_plan.image4_account_s3_image_public_url))
         dispatch(monthlyPaymentPlanImage5ImagePublicUrlChanged(response.data.monthly_payment_plan.image5_account_s3_image_public_url))
+        dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
+        dispatch(selectedReserveFrameIdsChanged(response.data.resource.selected_reserve_frame_ids))
       })
       .catch(error => {
         console.log(error)

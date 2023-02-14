@@ -13,6 +13,7 @@ class Api::Internal::TicketMastersController < ApplicationController
 
   def show
     ticket_master = TicketMaster.find_by(public_id: params[:public_id])
+    account = ticket_master.account
     ticket_master = JSON.parse(ticket_master.to_json(methods: [
       :selected_shop_ids,
       :selected_reserve_frame_ids,
@@ -22,7 +23,10 @@ class Api::Internal::TicketMastersController < ApplicationController
       :image4_account_s3_image_public_url,
       :image5_account_s3_image_public_url,
     ]))
-    render json: { status: 'success', ticket_master: ticket_master }, status: 200
+    selectable_reserve_frames = account.reserve_frames.enabled
+    render json: { status: 'success',
+                   selectable_reserve_frames: selectable_reserve_frames,
+                   ticket_master: ticket_master }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

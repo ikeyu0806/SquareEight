@@ -20,7 +20,8 @@ import { priceChanged,
          monthlyPaymentPlanImage3FileChanged,
          monthlyPaymentPlanImage4FileChanged,
          monthlyPaymentPlanImage5FileChanged,
-         shopsChanged } from 'redux/monthlyPaymentPlanSlice'
+         shopsChanged,
+         selectedReserveFrameIdsChanged } from 'redux/monthlyPaymentPlanSlice'
 
 interface Props {
   showDeleteButton?: boolean
@@ -46,6 +47,8 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
   const monthlyPaymentPlanImage3ImagePublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage3ImagePublicUrl)
   const monthlyPaymentPlanImage4ImagePublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage4ImagePublicUrl)
   const monthlyPaymentPlanImage5ImagePublicUrl = useSelector((state: RootState) => state.monthlyPaymentPlan.monthlyPaymentPlanImage5ImagePublicUrl)
+  const selectableReserveFrames =  useSelector((state: RootState) => state.monthlyPaymentPlan.selectableReserveFrames)
+  const selectedReserveFrameIds =  useSelector((state: RootState) => state.monthlyPaymentPlan.selectedReserveFrameIds)
 
   const shopRefs = useRef<any>([])
   shopRefs.current = shops.map((_, i) => shopRefs.current[i] ?? createRef())
@@ -130,6 +133,16 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
       }
     })
     dispatch(shopsChanged(updateShops))
+  }
+
+  const updateReserveFrameIds = (reserveFrameId: number) => {
+    let filterReserveFrameIds: number[]
+    if (selectedReserveFrameIds.includes(reserveFrameId)) {
+      filterReserveFrameIds = selectedReserveFrameIds.filter((id) => id !== reserveFrameId)
+    } else {
+      filterReserveFrameIds = [...selectedReserveFrameIds, reserveFrameId]
+    }
+    dispatch(selectedReserveFrameIdsChanged(filterReserveFrameIds))
   }
 
   return (
@@ -282,6 +295,25 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
               )
             })}
           </Form.Group>
+
+          {selectableReserveFrames.length !== 0 && <>
+            <hr />
+            <Form.Group className='mt10'>
+              <div>予約メニュー設定</div>
+              <div className='mt5 mb5'>選択した予約メニューに月額サブスクリプション支払いが設定されます。</div>
+              {selectableReserveFrames.map((reserveFrame, i) => {
+                return (
+                  <Form.Check
+                    label={reserveFrame.title}
+                    id={'reserve_frame_' + reserveFrame.public_id}
+                    name={'reserve_frame_check'}
+                    onChange={() => updateReserveFrameIds(Number(reserveFrame.id))}
+                    defaultChecked={selectedReserveFrameIds.includes(Number(reserveFrame.id))}
+                    key={i} />
+                )
+              })}
+            </Form.Group>
+          </>}
           </Col>
         </Row>
       </Container>

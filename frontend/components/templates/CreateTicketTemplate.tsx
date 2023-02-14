@@ -18,7 +18,8 @@ import { nameChanged,
          ticketMasterImage2FileChanged,
          ticketMasterImage3FileChanged,
          ticketMasterImage4FileChanged,
-         ticketMasterImage5FileChanged,  } from 'redux/ticketMasterSlice'
+         ticketMasterImage5FileChanged,
+         selectedReserveFrameIdsChanged } from 'redux/ticketMasterSlice'
 
 interface Props {
   showDeleteButton?: boolean
@@ -43,6 +44,8 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const ticketMasterImage3ImagePublicUrl = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage3ImagePublicUrl)
   const ticketMasterImage4ImagePublicUrl = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage4ImagePublicUrl)
   const ticketMasterImage5ImagePublicUrl = useSelector((state: RootState) => state.ticketMaster.ticketMasterImage5ImagePublicUrl)
+  const selectableReserveFrames =  useSelector((state: RootState) => state.ticketMaster.selectableReserveFrames)
+  const selectedReserveFrameIds =  useSelector((state: RootState) => state.ticketMaster.selectedReserveFrameIds)
 
   const execDelete = () => {
     swalWithBootstrapButtons.fire({
@@ -124,6 +127,16 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
     if (files && files[0]) {
       dispatch(ticketMasterImage5FileChanged(files[0]))
     }
+  }
+
+  const updateReserveFrameIds = (reserveFrameId: number) => {
+    let filterReserveFrameIds: number[]
+    if (selectedReserveFrameIds.includes(reserveFrameId)) {
+      filterReserveFrameIds = selectedReserveFrameIds.filter((id) => id !== reserveFrameId)
+    } else {
+      filterReserveFrameIds = [...selectedReserveFrameIds, reserveFrameId]
+    }
+    dispatch(selectedReserveFrameIdsChanged(filterReserveFrameIds))
   }
 
   return (
@@ -254,7 +267,25 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
                         key={i} />
                     )
                   })}
+              </Form.Group>
+              {selectableReserveFrames.length !== 0 && <>
+                <hr />
+                <Form.Group className='mt10'>
+                  <div>予約メニュー設定</div>
+                  <div className='mt5 mb5'>選択した予約メニューに回数券支払いが設定されます。</div>
+                  {selectableReserveFrames.map((reserveFrame, i) => {
+                    return (
+                      <Form.Check
+                        label={reserveFrame.title}
+                        id={'reserve_frame_' + reserveFrame.public_id}
+                        name={'reserve_frame_check'}
+                        onChange={() => updateReserveFrameIds(Number(reserveFrame.id))}
+                        defaultChecked={selectedReserveFrameIds.includes(Number(reserveFrame.id))}
+                        key={i} />
+                    )
+                  })}
                 </Form.Group>
+              </>}
             </div>
           </Col>
           <Col>
