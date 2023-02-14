@@ -5,7 +5,7 @@ class MonthlyPaymentPlan < ApplicationRecord
   enum reserve_interval_unit: { Day: 0, Week: 1 }
   belongs_to :account
   has_many :cart_monthly_payment_plans
-  has_many :shop_monthly_payment_plans, class_name: 'ShopMonthlyPaymentPlan'
+  has_many :shop_monthly_payment_plans, class_name: 'ShopMonthlyPaymentPlan', dependent: :destroy
   has_many :reserve_frame_monthly_payment_plans, dependent: :destroy
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
