@@ -104,7 +104,7 @@ RSpec.describe 'Api::Internal::MessageTemplatesController', type: :request do
           {
             message_template: {
               target_type: 'customerGroup',
-              target_customer_groups: customer_group,
+              target_customer_groups: {"id": customer_group.id},
             }
           }
         }
