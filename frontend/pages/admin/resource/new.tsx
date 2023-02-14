@@ -33,7 +33,7 @@ const New: NextPage = () => {
   const allowCreateResource = useSelector((state: RootState) => state.merchantUserPermission.allowCreateResource)
 
   useEffect(() => {
-    const fetchResource = () => {
+    const fetchRelatedData = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/resources/related_data`, {
           headers: { 
@@ -49,9 +49,8 @@ const New: NextPage = () => {
         console.log(error)
       })
     }
-    fetchResource()
+    fetchRelatedData()
   }, [router.query.public_id, cookies._square_eight_merchant_session, dispatch])
-
 
   const onSubmit = () => {
     const params = new FormData()

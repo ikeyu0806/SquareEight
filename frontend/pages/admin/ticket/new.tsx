@@ -10,7 +10,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import { alertChanged } from 'redux/alertSlice'
-import { publishStatusChanged } from 'redux/ticketMasterSlice'
+import { publishStatusChanged, selectableReserveFramesChanged } from 'redux/ticketMasterSlice'
 import Unauthorized from 'components/templates/Unauthorized'
 
 const New: NextPage = () => {
@@ -34,7 +34,24 @@ const New: NextPage = () => {
 
   useEffect(() => {
     dispatch(publishStatusChanged('Unpublish'))
-  }, [dispatch])
+    const fetchRelatedData = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/ticket_masters/related_data`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response.data)
+        dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchRelatedData()
+  }, [router.query.public_id, cookies._square_eight_merchant_session, dispatch])
 
   const createTicket = () => {
     const params = new FormData()

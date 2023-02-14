@@ -10,7 +10,7 @@ import { RootState } from 'redux/store'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
-import { publishStatusChanged } from 'redux/monthlyPaymentPlanSlice'
+import { publishStatusChanged, selectableReserveFramesChanged } from 'redux/monthlyPaymentPlanSlice'
 import { alertChanged } from 'redux/alertSlice'
 import Unauthorized from 'components/templates/Unauthorized'
 
@@ -38,7 +38,25 @@ const New: NextPage = () => {
 
   useEffect(() => {
     dispatch(publishStatusChanged('Unpublish'))
-  }, [dispatch])
+    const fetchRelatedData = () => {
+      axios.get(
+        `${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/related_data`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          },
+        }
+      )
+      .then(function (response) {
+        console.log(response.data)
+        dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
+      })
+      .catch(error => {
+        console.log(error)
+      })
+    }
+    fetchRelatedData()
+  }, [router.query.public_id, cookies._square_eight_merchant_session, dispatch])
+
 
   const onSubmit = () => {
     const params = new FormData()

@@ -32,6 +32,16 @@ class Api::Internal::TicketMastersController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def related_data
+    account = current_merchant_user.account
+    selectable_reserve_frames = account.reserve_frames.enabled
+    render json: { status: 'success',
+                   selectable_reserve_frames: selectable_reserve_frames }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   def purchase_info
     ticket_master = TicketMaster.find_by(public_id: params[:public_id])
     image1_account_s3_image_public_url = ticket_master.image1_account_s3_image_public_url
