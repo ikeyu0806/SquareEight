@@ -64,35 +64,35 @@ class Api::Internal::ReserveFramesController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       reserve_frame = current_merchant_user.account.reserve_frames
-                      .new(reserve_frame_instance_attribute_params)                   
-      reserve_frame_params[:reserve_frame_reception_times].uniq.each do |reception_time|
+                      .new(json_type_params)                   
+      form_type_params[:reserve_frame_reception_times].uniq.each do |reception_time|
         reserve_frame.reserve_frame_reception_times.new(reception_start_time: reception_time[:reception_start_time], reception_end_time: reception_time[:reception_end_time])
       end
-      reserve_frame_params[:out_of_range_frames].uniq.each do |frame|
+      form_type_params[:out_of_range_frames].uniq.each do |frame|
         reserve_frame.out_of_range_frames.new(start_at: DateTime.parse(frame))
       end
-      reserve_frame_params[:unreservable_frames].uniq.each do |frame|
+      form_type_params[:unreservable_frames].uniq.each do |frame|
         reserve_frame.unreservable_frames.new(start_at: DateTime.parse(frame))
       end
-      if reserve_frame_params[:resource_ids].present?
+      if form_type_params[:resource_ids].present?
         reserve_frame.reserve_frame_resources.delete_all
-        reserve_frame_params[:resource_ids].each do |resource_id|
+        form_type_params[:resource_ids].each do |resource_id|
           reserve_frame.reserve_frame_resources.new(resource_id: resource_id)
         end
       end
       reserve_frame.save!
-      if reserve_frame_params[:shop_ids].present?
-        reserve_frame_params[:shop_ids].each do |shop_id|
+      if form_type_params[:shop_ids].present?
+        form_type_params[:shop_ids].each do |shop_id|
           reserve_frame.shop_reserve_frames.new(shop_id: shop_id)
         end
       end
       if reserve_frame.is_monthly_plan_payment_enable?
-        reserve_frame_params[:monthly_payment_plan_ids].each do |plan_id|
+        form_type_params[:monthly_payment_plan_ids].each do |plan_id|
           reserve_frame.reserve_frame_monthly_payment_plans.new(monthly_payment_plan_id: plan_id)
         end
       end
       if reserve_frame.is_ticket_payment_enable?
-        reserve_frame_params[:reservable_frame_ticket_master].each do |ticket_master|
+        form_type_params[:reservable_frame_ticket_master].each do |ticket_master|
           reserve_frame.reserve_frame_ticket_masters.new(ticket_master)
         end
       end
@@ -116,22 +116,22 @@ class Api::Internal::ReserveFramesController < ApplicationController
         file_name = "reserve_frame_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         reserve_frame.register_s3_image(file_name, params[:reserve_frame_image5_file], "image5_account_s3_image_id")
       end
-      if reserve_frame_params[:repeat_wdays].present?
-        reserve_frame.is_repeat_sun = true if reserve_frame_params[:repeat_wdays].include?("Sun")
-        reserve_frame.is_repeat_mon = true if reserve_frame_params[:repeat_wdays].include?("Mon")
-        reserve_frame.is_repeat_tue = true if reserve_frame_params[:repeat_wdays].include?("Tue")
-        reserve_frame.is_repeat_wed = true if reserve_frame_params[:repeat_wdays].include?("Wed")
-        reserve_frame.is_repeat_thu = true if reserve_frame_params[:repeat_wdays].include?("Thu")
-        reserve_frame.is_repeat_fri = true if reserve_frame_params[:repeat_wdays].include?("Fri")
-        reserve_frame.is_repeat_sat = true if reserve_frame_params[:repeat_wdays].include?("Sat")
+      if form_type_params[:repeat_wdays].present?
+        reserve_frame.is_repeat_sun = true if form_type_params[:repeat_wdays].include?("Sun")
+        reserve_frame.is_repeat_mon = true if form_type_params[:repeat_wdays].include?("Mon")
+        reserve_frame.is_repeat_tue = true if form_type_params[:repeat_wdays].include?("Tue")
+        reserve_frame.is_repeat_wed = true if form_type_params[:repeat_wdays].include?("Wed")
+        reserve_frame.is_repeat_thu = true if form_type_params[:repeat_wdays].include?("Thu")
+        reserve_frame.is_repeat_fri = true if form_type_params[:repeat_wdays].include?("Fri")
+        reserve_frame.is_repeat_sat = true if form_type_params[:repeat_wdays].include?("Sat")
       end
-      if reserve_frame_params[:apply_multi_local_payment_price]
-        reserve_frame_params[:multi_local_payment_prices].each do |local_payment|
+      if form_type_params[:apply_multi_local_payment_price]
+        form_type_params[:multi_local_payment_prices].each do |local_payment|
           reserve_frame.reserve_frame_local_payment_prices.new(name: local_payment[:name], price: local_payment[:price])
         end
       end
-      if reserve_frame_params[:apply_multi_credit_card_payment_price]
-        reserve_frame_params[:multi_credit_card_payment_prices].each do |credit_card_payment|
+      if form_type_params[:apply_multi_credit_card_payment_price]
+        form_type_params[:multi_credit_card_payment_prices].each do |credit_card_payment|
           reserve_frame.reserve_frame_credit_card_payment_prices.new(name: credit_card_payment[:name], price: credit_card_payment[:price])
         end
       end
@@ -146,40 +146,40 @@ class Api::Internal::ReserveFramesController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       reserve_frame = ReserveFrame.find_by(public_id: params[:public_id])
-      reserve_frame.attributes = reserve_frame_instance_attribute_params
+      reserve_frame.attributes = json_type_params
 
-      if reserve_frame_params[:reserve_frame_reception_times].present?
+      if form_type_params[:reserve_frame_reception_times].present?
         reserve_frame.reserve_frame_reception_times.delete_all
-        reserve_frame_params[:reserve_frame_reception_times].uniq.each do |reception_time|
+        form_type_params[:reserve_frame_reception_times].uniq.each do |reception_time|
           reserve_frame.reserve_frame_reception_times.new(reception_start_time: reception_time[:reception_start_time], reception_end_time: reception_time[:reception_end_time])
         end
       end
       reserve_frame.unreservable_frames.delete_all
-        reserve_frame_params[:unreservable_frames].uniq.each do |frame|
+        form_type_params[:unreservable_frames].uniq.each do |frame|
           reserve_frame.unreservable_frames.new(start_at: DateTime.parse(frame))
         end
       reserve_frame.out_of_range_frames.delete_all
-      reserve_frame_params[:out_of_range_frames].uniq.each do |frame|
+      form_type_params[:out_of_range_frames].uniq.each do |frame|
         reserve_frame.out_of_range_frames.new(start_at: DateTime.parse(frame))
       end
       reserve_frame.reserve_frame_resources.delete_all
-      reserve_frame_params[:resource_ids].each do |resource_id|
+      form_type_params[:resource_ids].each do |resource_id|
         reserve_frame.reserve_frame_resources.new(resource_id: resource_id)
       end
       reserve_frame.save!
       reserve_frame.shop_reserve_frames.destroy_all
-      reserve_frame_params[:shop_ids].each do |shop_id|
+      form_type_params[:shop_ids].each do |shop_id|
         reserve_frame.shop_reserve_frames.new(shop_id: shop_id)
       end
       if reserve_frame.is_monthly_plan_payment_enable?
         reserve_frame.monthly_payment_plans.delete_all
-        reserve_frame_params[:monthly_payment_plan_ids].uniq.each do |plan_id|
+        form_type_params[:monthly_payment_plan_ids].uniq.each do |plan_id|
           reserve_frame.reserve_frame_monthly_payment_plans.new(monthly_payment_plan_id: plan_id)
         end
       end
       if reserve_frame.is_ticket_payment_enable?
         reserve_frame.reserve_frame_ticket_masters.delete_all
-        reserve_frame_params[:reservable_frame_ticket_master].each do |ticket_master|
+        form_type_params[:reservable_frame_ticket_master].each do |ticket_master|
           reserve_frame.reserve_frame_ticket_masters.new(ticket_master)
         end
       end
@@ -203,14 +203,14 @@ class Api::Internal::ReserveFramesController < ApplicationController
         file_name = "reserve_frame_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         reserve_frame.register_s3_image(file_name, params[:reserve_frame_image5_file], "image5_account_s3_image_id")
       end
-      if reserve_frame_params[:repeat_wdays].present?
-        reserve_frame.is_repeat_sun = true if reserve_frame_params[:repeat_wdays].include?("Sun")
-        reserve_frame.is_repeat_mon = true if reserve_frame_params[:repeat_wdays].include?("Mon")
-        reserve_frame.is_repeat_tue = true if reserve_frame_params[:repeat_wdays].include?("Tue")
-        reserve_frame.is_repeat_wed = true if reserve_frame_params[:repeat_wdays].include?("Wed")
-        reserve_frame.is_repeat_thu = true if reserve_frame_params[:repeat_wdays].include?("Thu")
-        reserve_frame.is_repeat_fri = true if reserve_frame_params[:repeat_wdays].include?("Fri")
-        reserve_frame.is_repeat_sat = true if reserve_frame_params[:repeat_wdays].include?("Sat")
+      if form_type_params[:repeat_wdays].present?
+        reserve_frame.is_repeat_sun = true if form_type_params[:repeat_wdays].include?("Sun")
+        reserve_frame.is_repeat_mon = true if form_type_params[:repeat_wdays].include?("Mon")
+        reserve_frame.is_repeat_tue = true if form_type_params[:repeat_wdays].include?("Tue")
+        reserve_frame.is_repeat_wed = true if form_type_params[:repeat_wdays].include?("Wed")
+        reserve_frame.is_repeat_thu = true if form_type_params[:repeat_wdays].include?("Thu")
+        reserve_frame.is_repeat_fri = true if form_type_params[:repeat_wdays].include?("Fri")
+        reserve_frame.is_repeat_sat = true if form_type_params[:repeat_wdays].include?("Sat")
       end
       reserve_frame.save!
       render json: { status: 'success' }, status: 200
@@ -249,12 +249,12 @@ class Api::Internal::ReserveFramesController < ApplicationController
 
   private
 
-  def reserve_frame_params
+  def form_type_params
     JSON.parse(params.require(:reserve_frame), {symbolize_names: true})[:reserve_frame]
   end
 
-  def reserve_frame_instance_attribute_params
-    reserve_frame_params.except(:unreservable_frames,
+  def json_type_params
+    form_type_params.except(:unreservable_frames,
                                 :out_of_range_frames,
                                 :reserve_frame_reception_times,
                                 :repeat_interval_number_month_date,
