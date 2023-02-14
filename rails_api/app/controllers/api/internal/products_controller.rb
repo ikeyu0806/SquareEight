@@ -33,20 +33,20 @@ class Api::Internal::ProductsController < ApplicationController
 
   def create
     ActiveRecord::Base.transaction do
-      product = current_merchant_user.account.products.new(product_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
-      if product_params[:product_types].present?
-        product_params[:product_types].each do |product_type|
+      product = current_merchant_user.account.products.new(form_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
+      if form_params[:product_types].present?
+        form_params[:product_types].each do |product_type|
           product.product_types.new(name: product_type[:name], inventory: product_type[:inventory])
         end
       end
-      if product_params[:prefecture_delivery_charges].present?
-        product_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
+      if form_params[:prefecture_delivery_charges].present?
+        form_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
           product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
         end
       end
       product.save!
-      if product_params[:shops].present?
-        product_params[:shops].each do |s|
+      if form_params[:shops].present?
+        form_params[:shops].each do |s|
           shop = Shop.find_by(public_id: s[:public_id])
           product.shop_products.create!(shop_id: shop.id)
         end
@@ -82,18 +82,18 @@ class Api::Internal::ProductsController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       product = Product.find_by(public_id: params[:public_id])
-      product.attributes = (product_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
+      product.attributes = (form_params.except(:base64_image, :product_types, :prefecture_delivery_charges, :shops))
       product.product_types.delete_all
-      product_params[:product_types].each do |product_type|
+      form_params[:product_types].each do |product_type|
         product.product_types.new(name: product_type[:name], inventory: product_type[:inventory])
       end
       product.shipping_fee_per_regions.delete_all
-      product_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
+      form_params[:prefecture_delivery_charges].each do |prefecture_delivery_charge|
         product.shipping_fee_per_regions.new(region: prefecture_delivery_charge[:region], shipping_fee: prefecture_delivery_charge[:shipping_fee])
       end
       product.save!
       product.shop_products.destroy_all
-      product_params[:shops].each do |s|
+      form_params[:shops].each do |s|
         shop = Shop.find_by(public_id: s[:public_id])
         product.shop_products.create!(shop_id: shop.id)
       end
@@ -203,12 +203,12 @@ class Api::Internal::ProductsController < ApplicationController
   end
 
   def inventory_replenishment
-    if product_params[:target_type] == 'Product'
+    if form_params[:target_type] == 'Product'
       product = Product.find_by(public_id: params[:public_id])
-      product.update!(inventory: product_params[:inventory])
+      product.update!(inventory: form_params[:inventory])
     else
       product_type = ProductType.find_by(public_id: params[:public_id])
-      product_type.update!(inventory: product_params[:inventory])
+      product_type.update!(inventory: form_params[:inventory])
     end
     render json: { status: 'success' }, status: 200
   rescue => error
@@ -218,7 +218,7 @@ class Api::Internal::ProductsController < ApplicationController
 
   private
 
-  def product_params
+  def form_params
     JSON.parse(params.require(:product), {symbolize_names: true})[:product]
   end
 
