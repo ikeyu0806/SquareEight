@@ -174,7 +174,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
         <div className='text-center'>
           <div>ビジネスアカウントへのご登録ありがとうございます。</div>
           {stripeAccountEnable === 'Disable'
-          && <div>事業情報の登録が完了していないためクレジットカード決済機能が有効になっておりません。<a href='/admin/sales_transfer'>登録はこちら</a></div>}
+          && <div>事業情報の登録が完了していないためオンライン決済機能が有効になっておりません。<a href='/admin/sales_transfer'>登録はこちら</a></div>}
           {isShopsExists === 'Disable'
           && <div>店舗情報が登録されていません。<a href='/admin/shop/new'>登録はこちら</a></div>}
          </div>
