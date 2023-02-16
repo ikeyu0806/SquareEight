@@ -157,8 +157,9 @@ const StripeCompanyAccountForm = (): JSX.Element => {
 
       <Form.Group controlId='formFile' className='mt10'>
         <Form.Label>
-          法人確認書類。{verificationDocumentFront && <span className='ml10 badge bg-info'>提出済み</span>}<br />
-          必須ではありませんがStripeの承認に必要な場合があります。<br/><br/>
+          法人確認書類{verificationDocumentFront && <span className='ml10 badge bg-info'>提出済み</span>}
+          <StripeFileRequirement />
+          <div className='mt20 mb20'>必須ではありませんがStripeの承認に必要な場合があります。</div>
           以下のいずれかをアップロードしてください<br/>
           &emsp;1. 登記謄本 (Touki)<br/>
           &emsp;2. 印鑑登録証明書 (Seal registration certificate)
@@ -167,12 +168,10 @@ const StripeCompanyAccountForm = (): JSX.Element => {
         <Form.Control type='file' onChange={handleCompanyFile} />
       </Form.Group>
 
-      <StripeFileRequirement />
-
       <hr />
   
       <div className='mt20 mb30'>以下ビジネスアカウントの主たる代表者の情報を入力してください</div>
-      {/* <StripePersonForm></StripePersonForm> */}
+      <StripePersonForm></StripePersonForm>
     </Form>
   )
 }

@@ -211,8 +211,9 @@ const StripePersonForm = () => {
         <hr />
           <Form.Group controlId='formFile' className='mt20'>
             <Form.Label>
-              本人確認書類。{representativeVerificationStatus === 'verified' && <span className='ml10 badge bg-info'>提出済み</span>}<br/>
-              以下のいずれかをアップロードしてください<br/>
+              本人確認書類{representativeVerificationStatus === 'verified' && <span className='ml10 badge bg-info'>提出済み</span>}<br/>
+              <StripeFileRequirement></StripeFileRequirement>
+              <div className='mt20 mb20'>以下のいずれかをアップロードしてください</div>
               &emsp;1. 運転免許書<br/>
               &emsp;2. パスポート<br/>
               &emsp;3. 外国国籍を持つ方の場合は在留カード<br/>
@@ -222,8 +223,6 @@ const StripePersonForm = () => {
             {isImageSizeOver && <div className='color-red'>画像のサイズが10MBを超えています</div>}
             <Form.Control type='file' onChange={handleChangeFile} />
           </Form.Group>
-
-          <StripeFileRequirement></StripeFileRequirement>
           <hr />
         </>
     </>
