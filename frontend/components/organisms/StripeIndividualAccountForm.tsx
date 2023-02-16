@@ -197,8 +197,11 @@ const StripeIndividualAccountForm = (): JSX.Element => {
       <hr />          
 
       <Form.Group controlId='formFile' className='mt10'>
-        <Form.Label>
-          本人確認書類{individualDocumentFront && <span className='ml10 badge bg-info'>提出済み</span>}<br/><br/>
+        <div>
+        本人確認書類{individualDocumentFront && <span className='ml10 badge bg-info'>提出済み</span>}<br/>
+        </div>
+        <StripeFileRequirement />
+        <Form.Label className='mt10'>
           以下のいずれかをアップロードしてください<RequireBadge></RequireBadge><br/>
           &emsp;1. 運転免許書<br/>
           &emsp;2. パスポート<br/>
@@ -220,8 +223,6 @@ const StripeIndividualAccountForm = (): JSX.Element => {
           {isAdditionalImageSizeOver && <div className='color-red'>画像のサイズが10MBを超えています</div>}
         <Form.Control type='file' onChange={handleAddiotionalFile} />
       </Form.Group>
-
-      <StripeFileRequirement />
     </Form>
   )
 }
