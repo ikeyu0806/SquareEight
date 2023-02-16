@@ -27,8 +27,7 @@ import {  nameChanged,
           deliveryChargeTypeChanged,
           flatRateDeliveryChargeChange,
           prefectureDeliveryChargesChange,
-          showPerPrefecturesChargeModalChanged,
-          s3ObjectPublicUrlChanged } from 'redux/productSlice'
+          showPerPrefecturesChargeModalChanged } from 'redux/productSlice'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
