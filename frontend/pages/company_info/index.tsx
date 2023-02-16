@@ -114,7 +114,10 @@ const Index: NextPage = () => {
                 src='/images/service_top_image.png'
                 alt='Saas Top Image' />
               <div className={companyStyles.service_description}>
-                Webページの作成から顧客フォローまでをサポートするオンラインビジネス運営クラウドサービス。
+                予約ページ作成やEC販売、オンラインアンケート作成をオールインワンで提供するオンラインビジネス運営クラウドサービス。
+              </div>
+              <div className='text-center'>
+                <a href='/' className='btn btn-primary btn-lg'>もっと見る</a>
               </div>
             </Col>
           </Row>
