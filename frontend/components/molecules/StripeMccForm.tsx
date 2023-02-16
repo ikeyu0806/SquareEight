@@ -30,7 +30,7 @@ const StripeMccForm = (): JSX.Element => {
           checked={mccType === 'retail'} />
         <Form.Check
           type='radio'
-          label='デジタル製品'
+          label='IT、ソフトウェア、デジタル製品'
           name='mccType'
           id='mccTypeDigital'
           onChange={() => dispatch(mccTypeChanged('digital'))}
