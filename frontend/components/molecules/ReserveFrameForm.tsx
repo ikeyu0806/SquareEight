@@ -764,7 +764,7 @@ const ReserveFrameForm = () => {
                 })}
               </>
             :
-              <div className='mt10 mb10'>受付時刻が設定されていません</div>
+              <div className='mt10 mb10 color-red'>受付時刻が設定されていません</div>
             }
         </Form.Group>
     
