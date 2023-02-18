@@ -199,7 +199,7 @@ class Api::Internal::AccountsController < ApplicationController
       end
 
       stripe_account.individual.gender = form_type_params[:individual_gender]
-      split_birth_date = form_type_params["individual_birth_day"].split("-")
+      split_birth_date = form_type_params[:individual_birth_day].split("-")
       stripe_account.individual.dob.year = split_birth_date[0]
       stripe_account.individual.dob.month = split_birth_date[1]
       stripe_account.individual.dob.day = split_birth_date[2]
@@ -209,7 +209,7 @@ class Api::Internal::AccountsController < ApplicationController
       # 画像登録の前に一旦save
       stripe_account.save
 
-      if form_type_params[:individual_identification_image].present?
+      if form_type_params[:individual_document_front_image_file].present?
         verification_document = Stripe::File.create(
           {
             purpose: 'identity_document',
@@ -223,7 +223,7 @@ class Api::Internal::AccountsController < ApplicationController
         stripe_account.save
       end
 
-      if form_type_params[:individual_additional_image].present?
+      if form_type_params[:individual_additional_document_front_image_file].present?
         verification_document = Stripe::File.create(
           {
             purpose: 'identity_document',
@@ -275,21 +275,11 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.save
 
       # 法人確認ドキュメント
-      if form_type_params[:company_verification_document_image].present?
-        image_data = form_type_params[:company_verification_document_image].gsub(/^data:\w+\/\w+;base64,/, "")
-        decode_image = Base64.decode64(image_data)
-        extension = form_type_params[:company_verification_document_image].split("/")[1].split(";")[0]
-        content_type = form_type_params[:company_verification_document_image].split(":")[1].split(";")[0]
-        obj_name =  "company_verification_document_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
-    
-        File.open(obj_name, 'wb') do |file|
-          file.write(decode_image)
-        end
-        company_verification_document_image_file = File.open(obj_name, "r")
+      if form_type_params[:company_verification_document_image_file].present?
         verification_document = Stripe::File.create(
           {
             purpose: 'identity_document',
-            file: company_verification_document_image_file
+            file: form_type_params[:company_verification_document_image_file]
           },
           {
             stripe_account: stripe_account.id
@@ -660,7 +650,7 @@ class Api::Internal::AccountsController < ApplicationController
   private
 
   def form_type_params
-    JSON.parse(params.require(:account))
+    JSON.parse(params.require(:account), {symbolize_names: true})
   end
 
   def json_type_params

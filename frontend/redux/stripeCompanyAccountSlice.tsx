@@ -53,7 +53,6 @@ export const stripeCompanyAccountSlice = createSlice({
     verificationDocumentImage: '',
     verificationDocumentFront: '',
     verificationDocumentImageFile:  null as File | unknown,
-    verificationDocumentImagePublicUrl: '',
   },
   reducers: {
     companyBusinessNameChanged: (state, action: PayloadAction<string>) => {
@@ -203,9 +202,6 @@ export const stripeCompanyAccountSlice = createSlice({
     verificationDocumentImageFileChanged: (state, action: PayloadAction<File>) => {
       state.verificationDocumentImageFile = action.payload
     },
-    verificationDocumentImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.verificationDocumentImagePublicUrl = action.payload
-    },
   },
 })
 
@@ -258,6 +254,5 @@ export const { relationshipTitleChanged } = stripeCompanyAccountSlice.actions
 export const { verificationDocumentImageChanged } = stripeCompanyAccountSlice.actions
 export const { verificationDocumentFrontChanged } = stripeCompanyAccountSlice.actions
 export const { verificationDocumentImageFileChanged } = stripeCompanyAccountSlice.actions
-export const { verificationDocumentImagePublicUrlChanged } = stripeCompanyAccountSlice.actions
 
 export default stripeCompanyAccountSlice.reducer

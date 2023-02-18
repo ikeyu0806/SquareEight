@@ -78,7 +78,6 @@ import {  companyBusinessNameChanged,
           isOwnerChanged,
           percentOwnershipChanged,
           relationshipTitleChanged,
-          verificationDocumentImageChanged,
           verificationDocumentFrontChanged,
           representativeVerificationStatusChanged } from 'redux/stripeCompanyAccountSlice'
 
@@ -164,7 +163,8 @@ const RegisterMerchantInfoForm = () => {
   const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
   const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.identificationImage)
   const isTermConfirmed = useSelector((state: RootState) => state.stripeAccount.isTermConfirmed)
-  const companyVerificationDocumentImage = useSelector((state: RootState) => state.stripeCompanyAccount.verificationDocumentImage)
+  const companyVerificationDocumentImage = useSelector((state: RootState) => state.stripeCompanyAccount.verificationDocumentImageFile)
+  
   // 業種
   const mccType = useSelector((state: RootState) => state.stripeBusinessInfo.mccType)
   const mcc = useSelector((state: RootState) => state.stripeBusinessInfo.mcc)
@@ -398,7 +398,8 @@ const RegisterMerchantInfoForm = () => {
       mcc: mcc,
       mcc_type: mccType,
       individual_document_front_image_file: individualDocumentFrontImageFile,
-      individual_additional_document_front_image_file: individualAdditionalDocumentFrontImageFile
+      individual_additional_document_front_image_file: individualAdditionalDocumentFrontImageFile,
+      company_verification_document_image_file: companyVerificationDocumentImage
     })
     params.append('account', account_param)
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
