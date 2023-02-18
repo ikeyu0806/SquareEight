@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Form, Card } from 'react-bootstrap'
+import { Form, Row, Col } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import { getBase64 } from 'functions/getBase64'
 import { RootState } from 'redux/store'
@@ -77,32 +77,56 @@ const StripeIndividualAccountForm = (): JSX.Element => {
 
   return (
     <Form>
-      <Form.Label className='mt10'>事業主様の姓（漢字）<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(individualLastNameKanjiChanged(e.target.value))}
-                    value={individualLastNameKanji}></Form.Control>
-      <Form.Label className='mt10'>事業主様のお名前（漢字）<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(individualFirstNameKanjiChanged(e.target.value))}
-                    value={individualFirstNameKanji}></Form.Control>
-      <Form.Label className='mt10'>事業主様の姓（カナ）<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(individualLastNameKanaChanged(e.target.value))}
-                    value={individualLastNameKana}></Form.Control>
-      <Form.Label className='mt10'>事業主様のお名前（カナ）<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(individualFirstNameKanaChanged(e.target.value))}
-                    value={individualFirstNameKana}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の生年月日<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control type='date' onChange={(e) => dispatch(individualBirthDayChanged(e.target.value))}
-                    value={individualBirthDay}></Form.Control>
-      <Form.Label className='mt10'>事業責任者の姓別<RequireBadge></RequireBadge></Form.Label>
-      <Form.Select onChange={(e) => dispatch(individualGenderChanged(e.target.value))}>
-        <option value='male'>男</option>
-        <option value='female'>女</option>
-      </Form.Select>
-      <Form.Label className='mt10'>事業責任者の電話番号<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(individualPhoneNumberChanged(e.target.value))}
-                    value={individualPhoneNumber}></Form.Control>
-      <Form.Label className='mt10'>事業責任者のメールアドレス<RequireBadge></RequireBadge></Form.Label>
-      <Form.Control onChange={(e) => dispatch(individualEmailChanged(e.target.value))}
-                    value={individualEmail}></Form.Control>
+      <Row>
+        <Col>
+          <Form.Label className='mt10'>事業主様の姓（漢字）<RequireBadge></RequireBadge></Form.Label>
+          <Form.Control onChange={(e) => dispatch(individualLastNameKanjiChanged(e.target.value))}
+                        value={individualLastNameKanji}></Form.Control>
+        </Col>
+        <Col>
+          <Form.Label className='mt10'>事業主様のお名前（漢字）<RequireBadge></RequireBadge></Form.Label>
+          <Form.Control onChange={(e) => dispatch(individualFirstNameKanjiChanged(e.target.value))}
+                        value={individualFirstNameKanji}></Form.Control>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Form.Label className='mt10'>事業主様の姓（カナ）<RequireBadge></RequireBadge></Form.Label>
+          <Form.Control onChange={(e) => dispatch(individualLastNameKanaChanged(e.target.value))}
+                        value={individualLastNameKana}></Form.Control>
+        </Col>
+        <Col>
+          <Form.Label className='mt10'>事業主様のお名前（カナ）<RequireBadge></RequireBadge></Form.Label>
+          <Form.Control onChange={(e) => dispatch(individualFirstNameKanaChanged(e.target.value))}
+                        value={individualFirstNameKana}></Form.Control>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Form.Label className='mt10'>事業責任者の生年月日<RequireBadge></RequireBadge></Form.Label>
+          <Form.Control type='date' onChange={(e) => dispatch(individualBirthDayChanged(e.target.value))}
+                        value={individualBirthDay}></Form.Control>
+        </Col>
+        <Col>
+          <Form.Label className='mt10'>事業責任者の姓別<RequireBadge></RequireBadge></Form.Label>
+          <Form.Select onChange={(e) => dispatch(individualGenderChanged(e.target.value))}>
+            <option value='male'>男</option>
+            <option value='female'>女</option>
+          </Form.Select>
+        </Col>
+      </Row>
+      <Row>
+        <Col>
+          <Form.Label className='mt10'>事業責任者の電話番号<RequireBadge></RequireBadge></Form.Label>
+          <Form.Control onChange={(e) => dispatch(individualPhoneNumberChanged(e.target.value))}
+                        value={individualPhoneNumber}></Form.Control>
+        </Col>
+        <Col>
+          <Form.Label className='mt10'>事業責任者のメールアドレス<RequireBadge></RequireBadge></Form.Label>
+          <Form.Control onChange={(e) => dispatch(individualEmailChanged(e.target.value))}
+                        value={individualEmail}></Form.Control>
+        </Col>
+      </Row>
       <hr />
       <StripeMccForm />
       <hr />
@@ -120,6 +144,7 @@ const StripeIndividualAccountForm = (): JSX.Element => {
                     value={individualProductDescription}
                     as='textarea'
                     rows={2}></Form.Control>
+      <hr />
       <Form.Label className='mt10'>郵便番号<RequireBadge></RequireBadge></Form.Label>
       <Form.Control onChange={(e) => dispatch(individualPostalCodeKanjiChanged(e.target.value))}
                     type='text'
@@ -129,6 +154,8 @@ const StripeIndividualAccountForm = (): JSX.Element => {
                     pattern='\d*'
                     autoComplete='postal-code'
                     value={individualPortalCodeKanji}></Form.Control>
+      <hr />
+      <div>住所（漢字）</div>
       <Form.Label className='mt10'>都道府県（漢字）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control name='state'
                     autoComplete='state'
@@ -158,6 +185,8 @@ const StripeIndividualAccountForm = (): JSX.Element => {
                     autoComplete='line2'
                     onChange={(e) => dispatch(individualLine2KanjiChanged(e.target.value))}
                     value={individualLine2Kanji || ''}></Form.Control>
+      <hr />
+      <div>住所（カナ）</div>
       <Form.Label className='mt10'>都道府県（カナ）<RequireBadge></RequireBadge></Form.Label>
       <Form.Control type='text'
                     name='stateKana'
