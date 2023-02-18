@@ -631,6 +631,20 @@ class Api::Internal::AccountsController < ApplicationController
       person.address_kana.line1 = form_type_params[:representative_address_line1_kana]
       person.address_kana.line2 = form_type_params[:representative_address_line2_kana] if json_type_params[:representative_address_line2_kana].present?
       person.save
+      # 本人確認ドキュメント
+      if params["representative_identification_image"].present? && !params["company_verification_document_image_file"].eql?("null")
+        verification_document = Stripe::File.create(
+          {
+            purpose: 'identity_document',
+            file: params["representative_identification_image"]
+          },
+          {
+            stripe_account: stripe_account_id
+          }
+        )
+        person.verification.document.front = verification_document
+        stripe_account.save
+      end
       render json: { status: 'success' }, status: 200
     end
   rescue => error

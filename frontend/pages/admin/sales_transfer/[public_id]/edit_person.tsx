@@ -87,7 +87,7 @@ const EditStripePerson: NextPage = () => {
   const representativeAddressLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kana)
   const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
   const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
-  const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.identificationImage)
+  const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.representativeIdentificationImage)
   const allowUpdateStripeBusinessInfo = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateStripeBusinessInfo)
 
   useEffect(() => {
@@ -135,38 +135,40 @@ const EditStripePerson: NextPage = () => {
 
   const onSubmit = () => {
     setIsLoading(true)
+    const params = new FormData()
+    let account_param = JSON.stringify({
+      representative_last_name_kanji: representativeLastNameKanji,
+      representative_first_name_kanji: representativeFirstNameKanji,
+      representative_last_name_kana: representativeLastNameKana,
+      representative_first_name_kana: representativeFirstNameKana,
+      representative_email: representativeEmail,
+      representative_phone_number: representativePhoneNumber,
+      representative_birth_day: representativeBirthDay,
+      representative_gender: representativeGender,
+      representative_address_postal_code: representativeAddressPostalCode,
+      representative_address_state_kanji: representativeAddressStateKanji,
+      representative_address_city_kanji: representativeAddressCityKanji,
+      representative_address_town_kanji: representativeAddressTownKanji,
+      representative_address_line1_kanji: representativeAddressLine1Kanji,
+      representative_address_line2_kanji: representativeAddressLine2Kanji,
+      representative_address_state_kana: representativeAddressStateKana,
+      representative_address_city_kana: representativeAddressCityKana,
+      representative_address_town_kana: representativeAddressTownKana,
+      representative_address_line1_kana: representativeAddressLine1Kana,
+      representative_address_line2_kana: representativeAddressLine2Kana,
+      representative_identification_image: representativeIdentificationImage,
+      is_director_register_complete: isDirectorRegisterComplete,
+      is_director: isDirector,
+      is_executive: isExecutive,
+      is_owner: isOwner,
+      is_representative: isRepresentative,
+      percent_ownership: percentOwnership,
+      relationship_title: relationshipTitle
+    })
+    params.append('account', account_param)
+    params.append('representative_identification_image', representativeIdentificationImage as Blob)
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_person`,
-    {
-      account: {
-        representative_last_name_kanji: representativeLastNameKanji,
-        representative_first_name_kanji: representativeFirstNameKanji,
-        representative_last_name_kana: representativeLastNameKana,
-        representative_first_name_kana: representativeFirstNameKana,
-        representative_email: representativeEmail,
-        representative_phone_number: representativePhoneNumber,
-        representative_birth_day: representativeBirthDay,
-        representative_gender: representativeGender,
-        representative_address_postal_code: representativeAddressPostalCode,
-        representative_address_state_kanji: representativeAddressStateKanji,
-        representative_address_city_kanji: representativeAddressCityKanji,
-        representative_address_town_kanji: representativeAddressTownKanji,
-        representative_address_line1_kanji: representativeAddressLine1Kanji,
-        representative_address_line2_kanji: representativeAddressLine2Kanji,
-        representative_address_state_kana: representativeAddressStateKana,
-        representative_address_city_kana: representativeAddressCityKana,
-        representative_address_town_kana: representativeAddressTownKana,
-        representative_address_line1_kana: representativeAddressLine1Kana,
-        representative_address_line2_kana: representativeAddressLine2Kana,
-        representative_identification_image: representativeIdentificationImage,
-        is_director_register_complete: isDirectorRegisterComplete,
-        is_director: isDirector,
-        is_executive: isExecutive,
-        is_owner: isOwner,
-        is_representative: isRepresentative,
-        percent_ownership: percentOwnership,
-        relationship_title: relationshipTitle
-      }
-    },
+    params,
     {
       headers: { 
         'Session-Id': cookies._square_eight_merchant_session
