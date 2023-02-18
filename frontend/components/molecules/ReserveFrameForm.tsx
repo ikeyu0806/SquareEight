@@ -404,7 +404,7 @@ const ReserveFrameForm = () => {
             as='textarea'
             rows={20} />
         </Form.Group>
-        <Form.Label className='mt10'>店舗イメージ画像1</Form.Label>
+        <Form.Label className='mt10'>予約メニューイメージ画像1</Form.Label>
         <Form.Control
           onChange={onChangeShopImage1File}
           type='file' />
@@ -413,7 +413,7 @@ const ReserveFrameForm = () => {
           src={reserveFrameImage1ImagePublicUrl}
           alt='reserveFrameImage1File Image'
         />}
-        <Form.Label className='mt10'>店舗イメージ画像2</Form.Label>
+        <Form.Label className='mt10'>予約メニューイメージ画像2</Form.Label>
         <Form.Control
           onChange={onChangeShopImage2File}
           type='file' />
@@ -422,7 +422,7 @@ const ReserveFrameForm = () => {
           src={reserveFrameImage2ImagePublicUrl}
           alt='reserveFrameImage2File Image'
         />}
-        <Form.Label className='mt10'>店舗イメージ画像3</Form.Label>
+        <Form.Label className='mt10'>予約メニューイメージ画像3</Form.Label>
         <Form.Control
           onChange={onChangeShopImage3File}
           type='file' />
@@ -431,7 +431,7 @@ const ReserveFrameForm = () => {
           src={reserveFrameImage3ImagePublicUrl}
           alt='reserveFrameImage3File Image'
         />}
-        <Form.Label className='mt10'>店舗イメージ画像4</Form.Label>
+        <Form.Label className='mt10'>予約メニューイメージ画像4</Form.Label>
         <Form.Control
           onChange={onChangeShopImage4File}
           type='file' />
@@ -440,7 +440,7 @@ const ReserveFrameForm = () => {
           src={reserveFrameImage4ImagePublicUrl}
           alt='reserveFrameImage4File Image'
         />}
-        <Form.Label className='mt10'>店舗イメージ画像5</Form.Label>
+        <Form.Label className='mt10'>予約メニューイメージ画像5</Form.Label>
         <Form.Control
           onChange={onChangeShopImage5File}
           type='file' />
