@@ -49,7 +49,7 @@ const Index: NextPage = () => {
                         </Col>
                         <Col>
                         <a className='btn btn-primary'
-                            href={`/customer_page/purchased_ticket/detail/${ticket.id}`}>
+                            href={`/customer_page/purchased_ticket/detail/${ticket.public_id}`}>
                           詳細</a>
                         </Col>
                       </Row>
