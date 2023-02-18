@@ -20,7 +20,7 @@ class StripePaymentIntent < ApplicationRecord
   def update_read_sales_status_unread
     if account.present?
       account.merchant_users.each do |user|
-        user.read_sales_UnreadExist!
+        user.read_orders_status_UnreadExist!
       end
     end
   end
