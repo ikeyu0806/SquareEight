@@ -209,11 +209,11 @@ class Api::Internal::AccountsController < ApplicationController
       # 画像登録の前に一旦save
       stripe_account.save
 
-      if form_type_params[:individual_document_front_image_file].present?
+      if params["individual_document_front_image_file"].present? && !params["individual_document_front_image_file"].eql?("null")
         verification_document = Stripe::File.create(
           {
             purpose: 'identity_document',
-            file: form_type_params[:individual_document_front_image_file]
+            file: params["individual_document_front_image_file"]
           },
           {
             stripe_account: stripe_account.id
@@ -223,11 +223,12 @@ class Api::Internal::AccountsController < ApplicationController
         stripe_account.save
       end
 
-      if form_type_params[:individual_additional_document_front_image_file].present?
+
+      if params["individual_additional_document_front_image_file"].present? && !params["individual_additional_document_front_image_file"].eql?("null")
         verification_document = Stripe::File.create(
           {
             purpose: 'identity_document',
-            file: form_type_params[:individual_additional_document_front_image_file]
+            file: params["individual_additional_document_front_image_file"]
           },
           {
             stripe_account: stripe_account.id
@@ -275,11 +276,11 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.save
 
       # 法人確認ドキュメント
-      if form_type_params[:company_verification_document_image_file].present?
+      if params["company_verification_document_image_file"].present? && !params["company_verification_document_image_file"].eql?("null")
         verification_document = Stripe::File.create(
           {
             purpose: 'identity_document',
-            file: form_type_params[:company_verification_document_image_file]
+            file: params["company_verification_document_image_file"]
           },
           {
             stripe_account: stripe_account.id

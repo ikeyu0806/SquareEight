@@ -397,11 +397,12 @@ const RegisterMerchantInfoForm = () => {
       relationship_title: relationshipTitle,
       mcc: mcc,
       mcc_type: mccType,
-      individual_document_front_image_file: individualDocumentFrontImageFile,
-      individual_additional_document_front_image_file: individualAdditionalDocumentFrontImageFile,
-      company_verification_document_image_file: companyVerificationDocumentImage
     })
     params.append('account', account_param)
+    params.append('individual_document_front_image_file', individualDocumentFrontImageFile as Blob)
+    params.append('individual_additional_document_front_image_file', individualAdditionalDocumentFrontImageFile as Blob)
+    params.append('company_verification_document_image_file', companyVerificationDocumentImage as Blob)
+  
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
     params,
     {

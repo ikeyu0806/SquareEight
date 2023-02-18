@@ -27,32 +27,11 @@ import {  individualFirstNameKanjiChanged,
           individualBusinessUrlChanged,
           individualProductDescriptionChanged,
           individualGenderChanged,
-          identificationImageChanged,
-          additionalImageChanged,
           individualDocumentFrontImageFileChanged,
           individualAdditionalDocumentFrontImageFileChanged } from 'redux/stripeIndividualAccountSlice'
 
 const StripeIndividualAccountForm = (): JSX.Element => {
   const dispatch = useDispatch()
-  const [image, setImage] = useState('')
-
-  const handleIdentificationFile = (e: any) => {
-    const { files } = e.target
-    if (files[0].size >= 10000000) { setIsIndividualImageSizeOver(true) }
-    setImage(window.URL.createObjectURL(files[0]))
-    getBase64(files[0]).then(
-      data => dispatch(identificationImageChanged(data))
-    )
-  }
-
-  const handleAddiotionalFile = (e: any) => {
-    const { files } = e.target
-    if (files[0].size >= 10000000) { setIsAdditionalImageSizeOver(true) }
-    setImage(window.URL.createObjectURL(files[0]))
-    getBase64(files[0]).then(
-      data => dispatch(additionalImageChanged(data))
-    )
-  }
 
   const onChangeIndividualDocumentFrontImageFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
