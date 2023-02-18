@@ -348,28 +348,18 @@ class Api::Internal::AccountsController < ApplicationController
       person.save
 
       # 本人確認ドキュメント
-      if form_type_params[:representative_identification_image].present?
-        image_data = form_type_params[:representative_identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
-        decode_image = Base64.decode64(image_data)
-        extension = form_type_params[:representative_identification_image].split("/")[1].split(";")[0]
-        content_type = form_type_params[:representative_identification_image].split(":")[1].split(";")[0]
-        obj_name =  "representative_identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
-    
-        File.open(obj_name, 'wb') do |file|
-          file.write(decode_image)
-        end
-        representative_identification_image_file = File.open(obj_name, "r")
+      if params["representative_identification_image"].present? && !params["company_verification_document_image_file"].eql?("null")
         verification_document = Stripe::File.create(
           {
             purpose: 'identity_document',
-            file: representative_identification_image_file
+            file: params["representative_identification_image"]
           },
           {
             stripe_account: stripe_account.id
           }
         )
         person.verification.document.front = verification_document
-        person.save
+        stripe_account.save
       end
     end
     render json: { status: 'success' }, status: 200

@@ -24,7 +24,7 @@ import {  representativeLastNameKanjiChanged,
           representativeAddressCityKanaChanged,
           representativeAddressLine1KanaChanged,
           representativeAddressLine2KanaChanged,
-          identificationImageChanged,
+          representativeIdentificationImageChanged,
           isDirectorChanged,
           isExecutiveChanged,
           isOwnerChanged,
@@ -64,14 +64,11 @@ const StripePersonForm = () => {
 
   const [image, setImage] = useState('')
   
-
-  const handleChangeFile = (e: any) => {
-    const { files } = e.target
-    if (files[0].size >= 10000000) { setIsImageSizeOver(true) }
-    setImage(window.URL.createObjectURL(files[0]))
-    getBase64(files[0]).then(
-      data => dispatch(identificationImageChanged(data))
-    )
+  const onChangeRepresentativeIdentificationImageFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(representativeIdentificationImageChanged(files[0]))
+    }
   }
 
   return (
@@ -276,7 +273,7 @@ const StripePersonForm = () => {
               &emsp;5. マイナンバーカード(顔写真入り)<br />
             </Form.Label>
             {isImageSizeOver && <div className='color-red'>画像のサイズが10MBを超えています</div>}
-            <Form.Control type='file' onChange={handleChangeFile} />
+            <Form.Control type='file' onChange={onChangeRepresentativeIdentificationImageFile} />
           </Form.Group>
           <hr />
         </>

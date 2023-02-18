@@ -161,7 +161,7 @@ const RegisterMerchantInfoForm = () => {
   const representativeAddressLine1Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine1Kana)
   const representativeAddressLine2Kana = useSelector((state: RootState) => state.stripeCompanyAccount.representativeAddressLine2Kana)
   const isDirectorRegisterComplete = useSelector((state: RootState) => state.stripeCompanyAccount.isDirectorRegisterComplete)
-  const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.identificationImage)
+  const representativeIdentificationImage = useSelector((state: RootState) => state.stripeCompanyAccount.representativeIdentificationImage)
   const isTermConfirmed = useSelector((state: RootState) => state.stripeAccount.isTermConfirmed)
   const companyVerificationDocumentImage = useSelector((state: RootState) => state.stripeCompanyAccount.verificationDocumentImageFile)
   
@@ -387,7 +387,6 @@ const RegisterMerchantInfoForm = () => {
       representative_address_town_kana: representativeAddressTownKana,
       representative_address_line1_kana: representativeAddressLine1Kana,
       representative_address_line2_kana: representativeAddressLine2Kana,
-      representative_identification_image: representativeIdentificationImage,
       is_director_register_complete: isDirectorRegisterComplete,
       is_director: isDirector,
       is_executive: isExecutive,
@@ -402,7 +401,8 @@ const RegisterMerchantInfoForm = () => {
     params.append('individual_document_front_image_file', individualDocumentFrontImageFile as Blob)
     params.append('individual_additional_document_front_image_file', individualAdditionalDocumentFrontImageFile as Blob)
     params.append('company_verification_document_image_file', companyVerificationDocumentImage as Blob)
-  
+    params.append('representative_identification_image', representativeIdentificationImage as Blob)
+
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,
     params,
     {
