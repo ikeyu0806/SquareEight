@@ -238,7 +238,7 @@ class Api::Internal::AccountsController < ApplicationController
         stripe_account.save
       end
     elsif form_type_params[:business_type] == "company"
-      stripe_account.business_profile.mcc = '5734' if Rails.env.development?
+      stripe_account.business_profile.mcc = form_type_params[:mcc]
       stripe_account.business_profile.url = form_type_params[:company_business_url]
       stripe_account.business_profile.product_description = form_type_params[:company_description]
       stripe_account.company.name = form_type_params[:business_profile_name]
