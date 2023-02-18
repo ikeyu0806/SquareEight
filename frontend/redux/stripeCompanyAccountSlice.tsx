@@ -22,7 +22,6 @@ export const stripeCompanyAccountSlice = createSlice({
     companyPhoneNumber: '',
     companyBusinessUrl: '',
     companyDescription: '',
-    identificationImage: '',
     representativeLastNameKanji: '',
     representativeFirstNameKanji: '',
     representativeLastNameKana: '',
@@ -53,7 +52,7 @@ export const stripeCompanyAccountSlice = createSlice({
     verificationDocumentImage: '',
     verificationDocumentFront: '',
     verificationDocumentImageFile:  null as File | unknown,
-    verificationDocumentImagePublicUrl: '',
+    representativeIdentificationImage: null as File | unknown,
   },
   reducers: {
     companyBusinessNameChanged: (state, action: PayloadAction<string>) => {
@@ -109,9 +108,6 @@ export const stripeCompanyAccountSlice = createSlice({
     },
     companyDescriptionChanged: (state, action: PayloadAction<string>) => {
       state.companyDescription = action.payload
-    },
-    identificationImageChanged: (state, action: PayloadAction<any>) => {
-      state.identificationImage = action.payload
     },
     representativeLastNameKanjiChanged: (state, action: PayloadAction<any>) => {
       state.representativeLastNameKanji = action.payload
@@ -203,8 +199,8 @@ export const stripeCompanyAccountSlice = createSlice({
     verificationDocumentImageFileChanged: (state, action: PayloadAction<File>) => {
       state.verificationDocumentImageFile = action.payload
     },
-    verificationDocumentImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.verificationDocumentImagePublicUrl = action.payload
+    representativeIdentificationImageChanged: (state, action: PayloadAction<File>) => {
+      state.representativeIdentificationImage = action.payload
     },
   },
 })
@@ -233,7 +229,6 @@ export const { representativeLastNameKanaChanged } = stripeCompanyAccountSlice.a
 export const { representativeFirstNameKanaChanged } = stripeCompanyAccountSlice.actions
 export const { representativeGenderChanged } = stripeCompanyAccountSlice.actions
 export const { representativeEmailChanged } = stripeCompanyAccountSlice.actions
-export const { identificationImageChanged } = stripeCompanyAccountSlice.actions
 export const { representativeBirthDayChanged } = stripeCompanyAccountSlice.actions
 export const { representativePhoneNumberChanged } = stripeCompanyAccountSlice.actions
 export const { representativeAddressPostalCodeChanged } = stripeCompanyAccountSlice.actions
@@ -258,6 +253,6 @@ export const { relationshipTitleChanged } = stripeCompanyAccountSlice.actions
 export const { verificationDocumentImageChanged } = stripeCompanyAccountSlice.actions
 export const { verificationDocumentFrontChanged } = stripeCompanyAccountSlice.actions
 export const { verificationDocumentImageFileChanged } = stripeCompanyAccountSlice.actions
-export const { verificationDocumentImagePublicUrlChanged } = stripeCompanyAccountSlice.actions
+export const { representativeIdentificationImageChanged } = stripeCompanyAccountSlice.actions
 
 export default stripeCompanyAccountSlice.reducer

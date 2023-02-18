@@ -101,7 +101,7 @@ const Index: NextPage = () => {
       }
     })
     let resultText = result.join('、') + 'が不足しています。'
-    if (waitMccFlg) { resultText = resultText + '業種はStripeによって自動で判定されますので入力後に時間をおいてから確認お願いします。'}
+    if (waitMccFlg) { resultText = resultText}
     return (resultText)
   }
 
