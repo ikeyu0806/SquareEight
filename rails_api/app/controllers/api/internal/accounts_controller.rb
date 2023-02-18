@@ -348,11 +348,13 @@ class Api::Internal::AccountsController < ApplicationController
       person.save
 
       # 本人確認ドキュメント
-      if params["representative_identification_image"].present? && !params["company_verification_document_image_file"].eql?("null")
+      if params["representative_identification_image"].present? && !params["representative_identification_image"].eql?("null")
+        image = Magick::Image.read(File.new(params["representative_identification_image"])).first
+        png_image = image.write("representative_identification_image_#{Time.zone.now.strftime('%Y%m%d%H%M%S%3N')}.png")
         verification_document = Stripe::File.create(
           {
             purpose: 'identity_document',
-            file: params["representative_identification_image"]
+            file: png_image
           },
           {
             stripe_account: stripe_account.id
