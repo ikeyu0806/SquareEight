@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export const stripeExternalAccountsSlice = createSlice({
-  name: 'alert',
+  name: 'stripeExternalAccounts',
   initialState: {
     businessProfileName: '',
     accountNumber: '',

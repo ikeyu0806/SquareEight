@@ -69,7 +69,6 @@ const CreateProductTemplate = ({showDeleteButton}: Props): JSX.Element => {
   const shopRefs = useRef<any>([])
   shopRefs.current = shops.map((_, i) => shopRefs.current[i] ?? createRef())
 
-
   const addProductTypeForm = () => {
     let updateProductTypes: ProductType[]
     updateProductTypes = []

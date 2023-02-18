@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 
 export const stripeBusinessInfoSlice = createSlice({
-  name: 'alert',
+  name: 'stripeBusinessInfo',
   initialState: {
     mccType: 'popular',
     mcc: '5734'
