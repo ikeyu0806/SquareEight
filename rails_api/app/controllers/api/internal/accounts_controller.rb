@@ -11,7 +11,7 @@ class Api::Internal::AccountsController < ApplicationController
 
   def update
     account = current_merchant_user.account
-    account.update!(business_name: account_params[:business_name])
+    account.update!(business_name: json_type_params[:business_name])
     render json: { status: 'success', account: account }, status: 200
   rescue => error
     Rails.logger.error error
@@ -118,18 +118,18 @@ class Api::Internal::AccountsController < ApplicationController
         })
         account.update!(stripe_customer_id: customer.id)
         Stripe::PaymentMethod.attach(
-          account_params[:payment_method_id],
+          json_type_params[:payment_method_id],
           {customer: account.stripe_customer_id},
         )
         Stripe::Customer.update(
           account.stripe_customer_id,
           invoice_settings: {
-            default_payment_method: account_params[:payment_method_id],
+            default_payment_method: json_type_params[:payment_method_id],
           },
         )
       else
         Stripe::PaymentMethod.attach(
-          account_params[:payment_method_id],
+          json_type_params[:payment_method_id],
           {customer: account.stripe_customer_id},
         )
       end
@@ -142,18 +142,17 @@ class Api::Internal::AccountsController < ApplicationController
 
   def register_stripe_business_info
     Rails.logger.info "EXEC register_stripe_business_info action"
-    Rails.logger.info "account_params"
-    Rails.logger.info account_params
 
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe.api_version = '2022-08-01'
+
     if current_merchant_user.account.stripe_account_id.blank?
       stripe_account = Stripe::Account.create({
         type: 'custom',
         country: 'JP',
         # ここでindividual適当に入れないとダメ？
-        individual: (account_params[:business_type] == "individual") ? {last_name_kanji: ""} : nil,
-        business_type: (account_params[:business_type] == "individual") ? "individual" : "company",
+        individual: (form_type_params[:business_type] == "individual") ? {last_name_kanji: ""} : nil,
+        business_type: (form_type_params[:business_type] == "individual") ? "individual" : "company",
         email: current_merchant_user.email,
         capabilities: {
           card_payments: {requested: true},
@@ -167,40 +166,40 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.save
     end
 
-    current_merchant_user.account.update!(mcc: account_params[:mcc].to_i, mcc_type: account_params[:mcc_type])
+    current_merchant_user.account.update!(mcc: form_type_params[:mcc].to_i, mcc_type: form_type_params[:mcc_type])
 
-    if account_params[:business_type] == "individual"
-      stripe_account.business_profile.mcc = account_params[:mcc]
-      stripe_account.business_profile.url = account_params[:individual_business_url]
-      stripe_account.business_profile.product_description = account_params[:individual_product_description]
-      # stripe_account.business_profile.name = account_params[:business_profile_name]
-      stripe_account.business_profile.support_email = account_params[:individual_email]
-      stripe_account.individual.email = account_params[:individual_email]
-      stripe_account.individual.last_name_kanji = account_params[:individual_last_name_kanji]
-      stripe_account.individual.last_name_kana = account_params[:individual_last_name_kana]
-      stripe_account.individual.first_name_kanji = account_params[:individual_first_name_kanji]
-      stripe_account.individual.first_name_kana = account_params[:individual_first_name_kana]
-      stripe_account.individual.address_kanji.postal_code = account_params[:individual_postal_code_kanji]
-      stripe_account.individual.address_kanji.state = account_params[:individual_state_kanji]
-      stripe_account.individual.address_kanji.city = account_params[:individual_city_kanji]
-      stripe_account.individual.address_kanji.town = account_params[:individual_town_kanji]
-      stripe_account.individual.address_kanji.line1 = account_params[:individual_line1_kanji]
-      stripe_account.individual.address_kanji.line2 = account_params[:individual_line2_kanji] if account_params[:individual_line2_kanji].present?
-      stripe_account.individual.address_kana.postal_code = account_params[:individual_postal_code_kanji]
-      stripe_account.individual.address_kana.state = account_params[:individual_state_kana]
-      stripe_account.individual.address_kana.city = account_params[:individual_city_kana]
-      stripe_account.individual.address_kana.town = account_params[:individual_town_kana]
-      stripe_account.individual.address_kana.line1 = account_params[:individual_line1_kana]
-      stripe_account.individual.address_kana.line2 = account_params[:individual_line2_kana] if account_params[:individual_line2_kana].present?
+    if form_type_params[:business_type] == "individual"
+      stripe_account.business_profile.mcc = form_type_params[:mcc]
+      stripe_account.business_profile.url = form_type_params[:individual_business_url]
+      stripe_account.business_profile.product_description = form_type_params[:individual_product_description]
+      # stripe_account.business_profile.name = form_type_params[:business_profile_name]
+      stripe_account.business_profile.support_email = form_type_params[:individual_email]
+      stripe_account.individual.email = form_type_params[:individual_email]
+      stripe_account.individual.last_name_kanji = form_type_params[:individual_last_name_kanji]
+      stripe_account.individual.last_name_kana = form_type_params[:individual_last_name_kana]
+      stripe_account.individual.first_name_kanji = form_type_params[:individual_first_name_kanji]
+      stripe_account.individual.first_name_kana = form_type_params[:individual_first_name_kana]
+      stripe_account.individual.address_kanji.postal_code = form_type_params[:individual_postal_code_kanji]
+      stripe_account.individual.address_kanji.state = form_type_params[:individual_state_kanji]
+      stripe_account.individual.address_kanji.city = form_type_params[:individual_city_kanji]
+      stripe_account.individual.address_kanji.town = form_type_params[:individual_town_kanji]
+      stripe_account.individual.address_kanji.line1 = form_type_params[:individual_line1_kanji]
+      stripe_account.individual.address_kanji.line2 = form_type_params[:individual_line2_kanji] if form_type_params[:individual_line2_kanji].present?
+      stripe_account.individual.address_kana.postal_code = form_type_params[:individual_postal_code_kanji]
+      stripe_account.individual.address_kana.state = form_type_params[:individual_state_kana]
+      stripe_account.individual.address_kana.city = form_type_params[:individual_city_kana]
+      stripe_account.individual.address_kana.town = form_type_params[:individual_town_kana]
+      stripe_account.individual.address_kana.line1 = form_type_params[:individual_line1_kana]
+      stripe_account.individual.address_kana.line2 = form_type_params[:individual_line2_kana] if form_type_params[:individual_line2_kana].present?
 
-      if account_params[:individual_phone_number].start_with?("+81")
-        stripe_account.individual.phone = account_params[:individual_phone_number]
+      if form_type_params[:individual_phone_number].start_with?("+81")
+        stripe_account.individual.phone = form_type_params[:individual_phone_number]
       else
-        stripe_account.individual.phone = '+81' + account_params[:individual_phone_number]
+        stripe_account.individual.phone = '+81' + form_type_params[:individual_phone_number]
       end
 
-      stripe_account.individual.gender = account_params[:individual_gender]
-      split_birth_date = account_params["individual_birth_day"].split("-")
+      stripe_account.individual.gender = form_type_params[:individual_gender]
+      split_birth_date = form_type_params["individual_birth_day"].split("-")
       stripe_account.individual.dob.year = split_birth_date[0]
       stripe_account.individual.dob.month = split_birth_date[1]
       stripe_account.individual.dob.day = split_birth_date[2]
@@ -210,11 +209,11 @@ class Api::Internal::AccountsController < ApplicationController
       # 画像登録の前に一旦save
       stripe_account.save
 
-      if account_params[:individual_identification_image].present?
-        image_data = account_params[:individual_identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
+      if form_type_params[:individual_identification_image].present?
+        image_data = form_type_params[:individual_identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
         decode_image = Base64.decode64(image_data)
-        extension = account_params[:individual_identification_image].split("/")[1].split(";")[0]
-        content_type = account_params[:individual_identification_image].split(":")[1].split(";")[0]
+        extension = form_type_params[:individual_identification_image].split("/")[1].split(";")[0]
+        content_type = form_type_params[:individual_identification_image].split(":")[1].split(";")[0]
         obj_name =  "individual_identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
 
         File.open(obj_name, 'wb') do |file|
@@ -234,11 +233,11 @@ class Api::Internal::AccountsController < ApplicationController
         stripe_account.save
       end
 
-      if account_params[:individual_additional_image].present?
-        image_data = account_params[:individual_additional_image].gsub(/^data:\w+\/\w+;base64,/, "")
+      if form_type_params[:individual_additional_image].present?
+        image_data = form_type_params[:individual_additional_image].gsub(/^data:\w+\/\w+;base64,/, "")
         decode_image = Base64.decode64(image_data)
-        extension = account_params[:individual_additional_image].split("/")[1].split(";")[0]
-        content_type = account_params[:individual_additional_image].split(":")[1].split(";")[0]
+        extension = form_type_params[:individual_additional_image].split("/")[1].split(";")[0]
+        content_type = form_type_params[:individual_additional_image].split(":")[1].split(";")[0]
         obj_name =  "individual_additional_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
 
         File.open(obj_name, 'wb') do |file|
@@ -257,35 +256,35 @@ class Api::Internal::AccountsController < ApplicationController
         stripe_account.individual.verification.additional_document.front = verification_document.id
         stripe_account.save
       end
-    elsif account_params[:business_type] == "company"
+    elsif form_type_params[:business_type] == "company"
       stripe_account.business_profile.mcc = '5734' if Rails.env.development?
-      stripe_account.business_profile.url = account_params[:company_business_url]
-      stripe_account.business_profile.product_description = account_params[:company_description]
-      stripe_account.company.name = account_params[:business_profile_name]
-      stripe_account.company.name_kanji = account_params[:business_profile_name]
-      stripe_account.company.name_kana = account_params[:company_business_name_kana] if account_params[:company_business_name_kana].present?
-      stripe_account.company.tax_id = account_params[:company_business_tax_id]
-      stripe_account.company.address_kanji.postal_code = account_params[:company_postal_code]
-      stripe_account.company.address_kanji.state = account_params[:company_state_kanji]
-      stripe_account.company.address_kanji.city = account_params[:company_city_kanji]
-      stripe_account.company.address_kanji.town = account_params[:company_town_kanji]
-      stripe_account.company.address_kanji.line1 = account_params[:company_line1_kanji]
-      stripe_account.company.address_kanji.line2 = account_params[:company_line2_kanji] if account_params[:company_line2_kanji].present?
-      stripe_account.company.address_kana.postal_code = account_params[:company_postal_code]
-      stripe_account.company.address_kana.state = account_params[:company_state_kana] if account_params[:company_state_kana].present?
-      stripe_account.company.address_kana.city = account_params[:company_city_kana] if account_params[:company_city_kana].present?
-      stripe_account.company.address_kana.town = account_params[:company_town_kana] if account_params[:company_town_kana].present?
-      stripe_account.company.address_kana.line1 = account_params[:company_line1_kana]if account_params[:company_line1_kana].present?
-      stripe_account.company.address_kana.line2 = account_params[:company_line2_kana] if account_params[:company_line2_kana].present?
+      stripe_account.business_profile.url = form_type_params[:company_business_url]
+      stripe_account.business_profile.product_description = form_type_params[:company_description]
+      stripe_account.company.name = form_type_params[:business_profile_name]
+      stripe_account.company.name_kanji = form_type_params[:business_profile_name]
+      stripe_account.company.name_kana = form_type_params[:company_business_name_kana] if form_type_params[:company_business_name_kana].present?
+      stripe_account.company.tax_id = form_type_params[:company_business_tax_id]
+      stripe_account.company.address_kanji.postal_code = form_type_params[:company_postal_code]
+      stripe_account.company.address_kanji.state = form_type_params[:company_state_kanji]
+      stripe_account.company.address_kanji.city = form_type_params[:company_city_kanji]
+      stripe_account.company.address_kanji.town = form_type_params[:company_town_kanji]
+      stripe_account.company.address_kanji.line1 = form_type_params[:company_line1_kanji]
+      stripe_account.company.address_kanji.line2 = form_type_params[:company_line2_kanji] if form_type_params[:company_line2_kanji].present?
+      stripe_account.company.address_kana.postal_code = form_type_params[:company_postal_code]
+      stripe_account.company.address_kana.state = form_type_params[:company_state_kana] if form_type_params[:company_state_kana].present?
+      stripe_account.company.address_kana.city = form_type_params[:company_city_kana] if form_type_params[:company_city_kana].present?
+      stripe_account.company.address_kana.town = form_type_params[:company_town_kana] if form_type_params[:company_town_kana].present?
+      stripe_account.company.address_kana.line1 = form_type_params[:company_line1_kana]if form_type_params[:company_line1_kana].present?
+      stripe_account.company.address_kana.line2 = form_type_params[:company_line2_kana] if form_type_params[:company_line2_kana].present?
 
-      if account_params[:company_phone_number].start_with?("+81")
-        stripe_account.company.phone = account_params[:company_phone_number]
+      if form_type_params[:company_phone_number].start_with?("+81")
+        stripe_account.company.phone = form_type_params[:company_phone_number]
       else
-        stripe_account.company.phone = '+81' + account_params[:company_phone_number]
+        stripe_account.company.phone = '+81' + form_type_params[:company_phone_number]
       end
 
       # 一旦trueにしてしまう。Stripeに求められそうなら実装
-      # if account_params[:is_director_register_complete] == true
+      # if form_type_params[:is_director_register_complete] == true
       #   stripe_account.company.directors_provided = true
       # end
       stripe_account.company.directors_provided = true
@@ -296,11 +295,11 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.save
 
       # 法人確認ドキュメント
-      if account_params[:company_verification_document_image].present?
-        image_data = account_params[:company_verification_document_image].gsub(/^data:\w+\/\w+;base64,/, "")
+      if form_type_params[:company_verification_document_image].present?
+        image_data = form_type_params[:company_verification_document_image].gsub(/^data:\w+\/\w+;base64,/, "")
         decode_image = Base64.decode64(image_data)
-        extension = account_params[:company_verification_document_image].split("/")[1].split(";")[0]
-        content_type = account_params[:company_verification_document_image].split(":")[1].split(";")[0]
+        extension = form_type_params[:company_verification_document_image].split("/")[1].split(";")[0]
+        content_type = form_type_params[:company_verification_document_image].split(":")[1].split(";")[0]
         obj_name =  "company_verification_document_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
     
         File.open(obj_name, 'wb') do |file|
@@ -334,55 +333,55 @@ class Api::Internal::AccountsController < ApplicationController
         # postgreにも登録
         current_merchant_user.account.stripe_persons.create!(
           stripe_person_id: person.id,
-          last_name: account_params[:representative_last_name_kanji],
-          first_name: account_params[:representative_first_name_kanji],
+          last_name: form_type_params[:representative_last_name_kanji],
+          first_name: form_type_params[:representative_first_name_kanji],
           is_representative: true
         )
       end
-      person.relationship.title = account_params[:relationship_title]
+      person.relationship.title = form_type_params[:relationship_title]
       # 以下optionalなので一旦コメントアウト。Stripeに怒られたら実装する
-      # person.relationship.owner = account_params[:is_owner]
-      # person.relationship.executive = account_params[:is_executive]
-      # person.relationship.director = account_params[:is_director]
-      # person.relationship.percent_ownership = account_params[:percent_ownership]
+      # person.relationship.owner = form_type_params[:is_owner]
+      # person.relationship.executive = form_type_params[:is_executive]
+      # person.relationship.director = form_type_params[:is_director]
+      # person.relationship.percent_ownership = form_type_params[:percent_ownership]
       current_merchant_user.account.update!(stripe_representative_person_id: person.id)
       person.save
-      person.first_name_kanji = account_params[:representative_first_name_kanji]
-      person.last_name_kanji = account_params[:representative_last_name_kanji]
-      person.first_name_kana = account_params[:representative_first_name_kana] if account_params[:representative_first_name_kana].present?
-      person.last_name_kana = account_params[:representative_last_name_kana] if account_params[:representative_last_name_kana].present?
-      person.email = account_params[:representative_email]
-      split_birth_date = account_params[:representative_birth_day].split("-")
+      person.first_name_kanji = form_type_params[:representative_first_name_kanji]
+      person.last_name_kanji = form_type_params[:representative_last_name_kanji]
+      person.first_name_kana = form_type_params[:representative_first_name_kana] if form_type_params[:representative_first_name_kana].present?
+      person.last_name_kana = form_type_params[:representative_last_name_kana] if form_type_params[:representative_last_name_kana].present?
+      person.email = form_type_params[:representative_email]
+      split_birth_date = form_type_params[:representative_birth_day].split("-")
       person.dob.year = split_birth_date[0]
       person.dob.month = split_birth_date[1]
       person.dob.day = split_birth_date[2]
-      person.gender = account_params[:representative_gender]
-      if account_params[:representative_phone_number].start_with?("+81")
-        person.phone = account_params[:representative_phone_number]
+      person.gender = form_type_params[:representative_gender]
+      if form_type_params[:representative_phone_number].start_with?("+81")
+        person.phone = form_type_params[:representative_phone_number]
       else
-        person.phone = '+81' + account_params[:representative_phone_number]
+        person.phone = '+81' + form_type_params[:representative_phone_number]
       end
-      person.address_kanji.postal_code = account_params[:representative_address_postal_code]
-      person.address_kanji.state = account_params[:representative_address_state_kanji]
-      person.address_kanji.city = account_params[:representative_address_city_kanji]
-      person.address_kanji.town = account_params[:representative_address_town_kanji]
-      person.address_kanji.line1 = account_params[:representative_address_line1_kanji]
-      person.address_kanji.line2 = account_params[:representative_address_line2_kanji] if account_params[:representative_address_line2_kanji].present?
+      person.address_kanji.postal_code = form_type_params[:representative_address_postal_code]
+      person.address_kanji.state = form_type_params[:representative_address_state_kanji]
+      person.address_kanji.city = form_type_params[:representative_address_city_kanji]
+      person.address_kanji.town = form_type_params[:representative_address_town_kanji]
+      person.address_kanji.line1 = form_type_params[:representative_address_line1_kanji]
+      person.address_kanji.line2 = form_type_params[:representative_address_line2_kanji] if form_type_params[:representative_address_line2_kanji].present?
 
-      person.address_kana.postal_code = account_params[:representative_address_postal_code]
-      person.address_kana.state = account_params[:representative_address_state_kana]
-      person.address_kana.city = account_params[:representative_address_city_kana]
-      person.address_kana.town = account_params[:representative_address_town_kana]
-      person.address_kana.line1 = account_params[:representative_address_line1_kana]
-      person.address_kana.line2 = account_params[:representative_address_line2_kana] if account_params[:representative_address_line2_kana].present?
+      person.address_kana.postal_code = form_type_params[:representative_address_postal_code]
+      person.address_kana.state = form_type_params[:representative_address_state_kana]
+      person.address_kana.city = form_type_params[:representative_address_city_kana]
+      person.address_kana.town = form_type_params[:representative_address_town_kana]
+      person.address_kana.line1 = form_type_params[:representative_address_line1_kana]
+      person.address_kana.line2 = form_type_params[:representative_address_line2_kana] if form_type_params[:representative_address_line2_kana].present?
       person.save
 
       # 本人確認ドキュメント
-      if account_params[:representative_identification_image].present?
-        image_data = account_params[:representative_identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
+      if form_type_params[:representative_identification_image].present?
+        image_data = form_type_params[:representative_identification_image].gsub(/^data:\w+\/\w+;base64,/, "")
         decode_image = Base64.decode64(image_data)
-        extension = account_params[:representative_identification_image].split("/")[1].split(";")[0]
-        content_type = account_params[:representative_identification_image].split(":")[1].split(";")[0]
+        extension = form_type_params[:representative_identification_image].split("/")[1].split(";")[0]
+        content_type = form_type_params[:representative_identification_image].split(":")[1].split(";")[0]
         obj_name =  "representative_identification_image" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N') + "." + extension
     
         File.open(obj_name, 'wb') do |file|
@@ -416,9 +415,9 @@ class Api::Internal::AccountsController < ApplicationController
       {
         external_account: {
           object: 'bank_account',
-          account_number: account_params[:account_number],
-          routing_number: account_params[:bank_code] + account_params[:branch_code],
-          account_holder_name: account_params[:account_holder_name],
+          account_number: json_type_params[:account_number],
+          routing_number: json_type_params[:bank_code] + json_type_params[:branch_code],
+          account_holder_name: json_type_params[:account_holder_name],
           currency:'jpy',
           country:'jp',
         },
@@ -434,7 +433,7 @@ class Api::Internal::AccountsController < ApplicationController
   end
 
   def update_selected_bank_account
-    current_merchant_user.account.update!(selected_external_account_id: account_params[:external_account_id])
+    current_merchant_user.account.update!(selected_external_account_id: json_type_params[:external_account_id])
     render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
@@ -526,10 +525,10 @@ class Api::Internal::AccountsController < ApplicationController
   def update_plan
     ActiveRecord::Base.transaction do
       account = current_merchant_user.account
-      account.update!(service_plan: account_params[:service_plan])
+      account.update!(service_plan: json_type_params[:service_plan])
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
       Stripe.api_version = '2022-08-01'
-      if account_params[:service_plan] == 'Free' && account.stripe_subscription_id.present?
+      if json_type_params[:service_plan] == 'Free' && account.stripe_subscription_id.present?
         Stripe::Subscription.cancel(
           account.stripe_subscription_id,
         )
@@ -550,7 +549,7 @@ class Api::Internal::AccountsController < ApplicationController
         })
         SystemStripeSubscription.create!(
           account_id: account.id,
-          service_plan: account_params[:service_plan],
+          service_plan: json_type_params[:service_plan],
           stripe_subscription_id: subscription.id
         )
         account.update!(stripe_subscription_id: subscription.id)
@@ -615,8 +614,8 @@ class Api::Internal::AccountsController < ApplicationController
     Stripe.api_version = '2022-08-01'
     ActiveRecord::Base.transaction do
       stripe_account_id = current_merchant_user.account.stripe_account_id
-      if account_params[:stripe_person_id].present?
-        postgre_person = current_merchant_user.account.stripe_persons.find(account_params[:stripe_person_id])
+      if form_type_params[:stripe_person_id].present?
+        postgre_person = current_merchant_user.account.stripe_persons.find(form_type_params[:stripe_person_id])
       end
       if postgre_person.present?
         person = Stripe::Account.retrieve_person(
@@ -630,46 +629,46 @@ class Api::Internal::AccountsController < ApplicationController
         # postgreにも登録
         current_merchant_user.account.stripe_persons.create!(
           stripe_person_id: person.id,
-          last_name: account_params[:representative_last_name_kanji],
-          first_name: account_params[:representative_first_name_kanji]
+          last_name: form_type_params[:representative_last_name_kanji],
+          first_name: form_type_params[:representative_first_name_kanji]
         )
       end
       person.relationship.representative = false
-      person.relationship.title = account_params[:relationship_title]
-      person.relationship.owner = account_params[:is_owner]
-      person.relationship.executive = account_params[:is_executive]
-      person.relationship.director = account_params[:is_director]
-      person.relationship.percent_ownership = account_params[:percent_ownership]
+      person.relationship.title = form_type_params[:relationship_title]
+      person.relationship.owner = form_type_params[:is_owner]
+      person.relationship.executive = form_type_params[:is_executive]
+      person.relationship.director = form_type_params[:is_director]
+      person.relationship.percent_ownership = form_type_params[:percent_ownership]
       current_merchant_user.account.update!(stripe_representative_person_id: person.id)
       person.save
-      person.first_name_kanji = account_params[:representative_first_name_kanji]
-      person.last_name_kanji = account_params[:representative_last_name_kanji]
-      person.first_name_kana = account_params[:representative_first_name_kana] if account_params[:representative_first_name_kana].present?
-      person.last_name_kana = account_params[:representative_last_name_kana] if account_params[:representative_last_name_kana].present?
-      person.email = account_params[:representative_email]
-      split_birth_date = account_params[:representative_birth_day].split("-")
+      person.first_name_kanji = form_type_params[:representative_first_name_kanji]
+      person.last_name_kanji = form_type_params[:representative_last_name_kanji]
+      person.first_name_kana = form_type_params[:representative_first_name_kana] if json_type_params[:representative_first_name_kana].present?
+      person.last_name_kana = form_type_params[:representative_last_name_kana] if json_type_params[:representative_last_name_kana].present?
+      person.email = form_type_params[:representative_email]
+      split_birth_date = form_type_params[:representative_birth_day].split("-")
       person.dob.year = split_birth_date[0]
       person.dob.month = split_birth_date[1]
       person.dob.day = split_birth_date[2]
-      person.gender = account_params[:representative_gender]
-      if account_params[:representative_phone_number].start_with?("+81")
-        person.phone = account_params[:representative_phone_number]
+      person.gender = form_type_params[:representative_gender]
+      if form_type_params[:representative_phone_number].start_with?("+81")
+        person.phone = form_type_params[:representative_phone_number]
       else
-        person.phone = '+81' + account_params[:representative_phone_number]
+        person.phone = '+81' + form_type_params[:representative_phone_number]
       end
-      person.address_kanji.postal_code = account_params[:representative_address_postal_code]
-      person.address_kanji.state = account_params[:representative_address_state_kanji]
-      person.address_kanji.city = account_params[:representative_address_city_kanji]
-      person.address_kanji.town = account_params[:representative_address_town_kanji]
-      person.address_kanji.line1 = account_params[:representative_address_line1_kanji]
-      person.address_kanji.line2 = account_params[:representative_address_line2_kanji] if account_params[:representative_address_line2_kanji].present?
+      person.address_kanji.postal_code = form_type_params[:representative_address_postal_code]
+      person.address_kanji.state = form_type_params[:representative_address_state_kanji]
+      person.address_kanji.city = form_type_params[:representative_address_city_kanji]
+      person.address_kanji.town = form_type_params[:representative_address_town_kanji]
+      person.address_kanji.line1 = form_type_params[:representative_address_line1_kanji]
+      person.address_kanji.line2 = form_type_params[:representative_address_line2_kanji] if json_type_params[:representative_address_line2_kanji].present?
 
-      person.address_kana.postal_code = account_params[:representative_address_postal_code]
-      person.address_kana.state = account_params[:representative_address_state_kana]
-      person.address_kana.city = account_params[:representative_address_city_kana]
-      person.address_kana.town = account_params[:representative_address_town_kana]
-      person.address_kana.line1 = account_params[:representative_address_line1_kana]
-      person.address_kana.line2 = account_params[:representative_address_line2_kana] if account_params[:representative_address_line2_kana].present?
+      person.address_kana.postal_code = form_type_params[:representative_address_postal_code]
+      person.address_kana.state = form_type_params[:representative_address_state_kana]
+      person.address_kana.city = form_type_params[:representative_address_city_kana]
+      person.address_kana.town = form_type_params[:representative_address_town_kana]
+      person.address_kana.line1 = form_type_params[:representative_address_line1_kana]
+      person.address_kana.line2 = form_type_params[:representative_address_line2_kana] if json_type_params[:representative_address_line2_kana].present?
       person.save
       render json: { status: 'success' }, status: 200
     end
@@ -680,7 +679,11 @@ class Api::Internal::AccountsController < ApplicationController
 
   private
 
-  def account_params
+  def form_type_params
+    JSON.parse(params.require(:account))
+  end
+
+  def json_type_params
     params.require(:account)
           .permit(:id,
                   :business_name,
