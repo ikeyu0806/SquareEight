@@ -28,7 +28,9 @@ import {  individualFirstNameKanjiChanged,
           individualProductDescriptionChanged,
           individualGenderChanged,
           identificationImageChanged,
-          additionalImageChanged } from 'redux/stripeIndividualAccountSlice'
+          additionalImageChanged,
+          individualDocumentFrontImageFileChanged,
+          individualAdditionalDocumentFrontImageFileChanged } from 'redux/stripeIndividualAccountSlice'
 
 const StripeIndividualAccountForm = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -50,6 +52,20 @@ const StripeIndividualAccountForm = (): JSX.Element => {
     getBase64(files[0]).then(
       data => dispatch(additionalImageChanged(data))
     )
+  }
+
+  const onChangeIndividualDocumentFrontImageFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(individualDocumentFrontImageFileChanged(files[0]))
+    }
+  }
+
+  const onChangeAdditionalIndividualDocumentFrontImageFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(individualAdditionalDocumentFrontImageFileChanged(files[0]))
+    }
   }
 
   const [isIndividualImageSizeOver, setIsIndividualImageSizeOver] = useState(false)
@@ -210,7 +226,7 @@ const StripeIndividualAccountForm = (): JSX.Element => {
           &emsp;5. マイナンバーカード(顔写真入り)<br/>
         </Form.Label>
         {isIndividualImageSizeOver && <div className='color-red'>画像のサイズが10MBを超えています</div>}
-        <Form.Control type='file' onChange={handleIdentificationFile} />
+        <Form.Control type='file' onChange={onChangeIndividualDocumentFrontImageFile} />
       </Form.Group>
 
       <hr />
@@ -221,7 +237,7 @@ const StripeIndividualAccountForm = (): JSX.Element => {
           必須ではありませんがStripeの審査に請求される場合があります。
           </Form.Label>
           {isAdditionalImageSizeOver && <div className='color-red'>画像のサイズが10MBを超えています</div>}
-        <Form.Control type='file' onChange={handleAddiotionalFile} />
+        <Form.Control type='file' onChange={onChangeAdditionalIndividualDocumentFrontImageFile} />
       </Form.Group>
     </Form>
   )

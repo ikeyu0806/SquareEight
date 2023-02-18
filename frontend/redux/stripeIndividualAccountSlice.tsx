@@ -30,7 +30,7 @@ export const stripeIndividualAccountSlice = createSlice({
     individualDocumentFront: '',
     individualAdditionalDocumentFront: '',
     individualDocumentFrontImageFile:  null as File | unknown,
-    individualDocumentFrontImagePublicUrl: '',
+    individualAdditionalDocumentFrontImageFile:  null as File | unknown,
   },
   reducers: {
     individualFirstNameKanjiChanged: (state, action: PayloadAction<string>) => {
@@ -114,8 +114,8 @@ export const stripeIndividualAccountSlice = createSlice({
     individualDocumentFrontImageFileChanged: (state, action: PayloadAction<File>) => {
       state.individualDocumentFrontImageFile = action.payload
     },
-    individualDocumentFrontImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
-      state.individualDocumentFrontImagePublicUrl = action.payload
+    individualAdditionalDocumentFrontImageFileChanged: (state, action: PayloadAction<File>) => {
+      state.individualAdditionalDocumentFrontImageFile = action.payload
     },
   },
 })
@@ -147,6 +147,6 @@ export const { additionalImageChanged } = stripeIndividualAccountSlice.actions
 export const { individualDocumentFrontChanged } = stripeIndividualAccountSlice.actions
 export const { individualAdditionalDocumentFrontChanged } = stripeIndividualAccountSlice.actions
 export const { individualDocumentFrontImageFileChanged } = stripeIndividualAccountSlice.actions
-export const { individualDocumentFrontImagePublicUrlChanged } = stripeIndividualAccountSlice.actions
+export const { individualAdditionalDocumentFrontImageFileChanged } = stripeIndividualAccountSlice.actions
 
 export default stripeIndividualAccountSlice.reducer

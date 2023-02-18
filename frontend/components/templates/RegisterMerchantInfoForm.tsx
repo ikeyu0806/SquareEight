@@ -115,6 +115,8 @@ const RegisterMerchantInfoForm = () => {
   const individualProductDescription = useSelector((state: RootState) => state.stripeIndividualAccount.individualProductDescription)
   const individualIdentificationImage = useSelector((state: RootState) => state.stripeIndividualAccount.identificationImage)
   const individualAdditionalImage = useSelector((state: RootState) => state.stripeIndividualAccount.additionalImage)
+  const individualDocumentFrontImageFile = useSelector((state: RootState) => state.stripeIndividualAccount.individualDocumentFrontImageFile)
+  const individualAdditionalDocumentFrontImageFile = useSelector((state: RootState) => state.stripeIndividualAccount.individualAdditionalDocumentFrontImageFile)
 
   // 企業情報
   const companyBusinessName = useSelector((state: RootState) => state.stripeCompanyAccount.companyBusinessName)
@@ -394,7 +396,9 @@ const RegisterMerchantInfoForm = () => {
       percent_ownership: percentOwnership,
       relationship_title: relationshipTitle,
       mcc: mcc,
-      mcc_type: mccType
+      mcc_type: mccType,
+      individual_document_front_image_file: individualDocumentFrontImageFile,
+      individual_additional_document_front_image_file: individualAdditionalDocumentFrontImageFile
     })
     params.append('account', account_param)
     axios.post(`${process.env.BACKEND_URL}/api/internal/accounts/register_stripe_business_info`,

@@ -23,7 +23,8 @@ import {  companyBusinessNameChanged,
           companyLine2KanaChanged,
           companyPhoneNumberChanged,
           companyBusinessUrlChanged,
-          verificationDocumentImageChanged
+          verificationDocumentImageChanged,
+          verificationDocumentImageFileChanged
         } from 'redux/stripeCompanyAccountSlice'
 
 const StripeCompanyAccountForm = (): JSX.Element => {
@@ -50,14 +51,13 @@ const StripeCompanyAccountForm = (): JSX.Element => {
   const companyDescription = useSelector((state: RootState) => state.stripeCompanyAccount.companyDescription)
   const verificationDocumentImage = useSelector((state: RootState) => state.stripeCompanyAccount.verificationDocumentImage)
   const verificationDocumentFront = useSelector((state: RootState) => state.stripeCompanyAccount.verificationDocumentFront)
+  const verificationDocumentImageFile = useSelector((state: RootState) => state.stripeCompanyAccount.verificationDocumentImageFile)
 
-  const handleCompanyFile = (e: any) => {
-    const { files } = e.target
-    if (files[0].size >= 10000000) { setIsImageSizeOver(true) }
-    setImage(window.URL.createObjectURL(files[0]))
-    getBase64(files[0]).then(
-      data => dispatch(verificationDocumentImageChanged(data))
-    )
+  const onChangeVerificationDocumentImageFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    if (files && files[0]) {
+      dispatch(verificationDocumentImageFileChanged(files[0]))
+    }
   }
 
   return (
@@ -165,7 +165,7 @@ const StripeCompanyAccountForm = (): JSX.Element => {
           &emsp;2. 印鑑登録証明書 (Seal registration certificate)
           </Form.Label>
           {isImageSizeOver && <div className='color-red'>画像のサイズが10MBを超えています</div>}
-        <Form.Control type='file' onChange={handleCompanyFile} />
+        <Form.Control type='file' onChange={onChangeVerificationDocumentImageFile} />
       </Form.Group>
 
       <hr />
