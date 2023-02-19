@@ -4,6 +4,7 @@ import RegularFooter from 'components/organisms/RegularFooter'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
+import LoginGuide from 'components/molecules/LoginGuide'
 import { useCookies } from 'react-cookie'
 import WithoutSessionLayout from './WithoutSessionLayout'
 import { shopsChanged } from 'redux/accountSlice'
@@ -215,7 +216,11 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
         ? <><AdminNavbarTemplate></AdminNavbarTemplate>{children}<RegularFooter></RegularFooter></>
         :
         merchantUserLoginStatus === 'Logout'
-          ? <WithoutSessionLayout><div className='text-center mt30 mb30'>ログインしてください</div></WithoutSessionLayout>
+          ? <WithoutSessionLayout>
+              <div className='mt20'>
+                <LoginGuide />
+              </div>
+           </WithoutSessionLayout>
           : <></>
       }
     </>
