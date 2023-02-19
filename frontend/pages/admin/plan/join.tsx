@@ -11,6 +11,7 @@ import { useSelector } from 'react-redux'
 import { alertChanged } from 'redux/alertSlice'
 import { useDispatch } from 'react-redux'
 import Unauthorized from 'components/templates/Unauthorized'
+import { lightPlanPrice, standardPlanPrice, premiumPlanPrice } from 'constants/systemPlanPrices'
 
 const Join: NextPage = () => {
   const dispatch = useDispatch()
@@ -59,9 +60,9 @@ const Join: NextPage = () => {
                 </h2>
                 <h3>
                   ご請求額: １ヶ月 ￥
-                  {router.query.plan === 'Light' && 980}
-                  {router.query.plan === 'Standard' && 1980}
-                  {router.query.plan === 'Premium' && 4980}
+                  {router.query.plan === 'Light' && <>{lightPlanPrice}</>}
+                  {router.query.plan === 'Standard' && <>{standardPlanPrice}</>}
+                  {router.query.plan === 'Premium' && <>{premiumPlanPrice}</>}
                   </h3>
                 <Button
                   disabled={!paymentMethods.length}

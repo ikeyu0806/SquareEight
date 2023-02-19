@@ -4,6 +4,7 @@ import cardStyles from 'styles/Card.module.css'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import CancelSystemPlanButton from 'components/atoms/CanelSystemPlanButton'
+import { lightPlanPrice } from 'constants/systemPlanPrices'
 
 interface Props {
   showJoinButton?: boolean
@@ -32,7 +33,7 @@ const LightPlanCard = ({showJoinButton}: Props): JSX.Element => {
         </Card.Header>
       }
       <Card.Body>
-        <h4 className={cardStyles.plan_price}>月額 1480円</h4>
+        <h4 className={cardStyles.plan_price}>月額 {lightPlanPrice}円</h4>
         <Row>
           <Col></Col>
           <Col xs={11}>
