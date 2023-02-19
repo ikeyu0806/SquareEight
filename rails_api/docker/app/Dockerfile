@@ -1,7 +1,7 @@
 FROM ruby:3.1.0
 
 RUN apt-get update
-RUN apt-get install -y vim
+RUN apt-get install -y vim libmagickwand-dev
 
 RUN mkdir -p /workdir
 ENV APP_ROOT /workdir
