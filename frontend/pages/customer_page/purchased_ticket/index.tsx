@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, ListGroup, Row, Col } from 'react-bootstrap'
+import { Container, ListGroup, Row, Col, Table } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -32,33 +32,39 @@ const Index: NextPage = () => {
       <EndUserLoginLayout>
         <Container className='mt20'>
           <Row>
-            <Col lg={3}></Col>
-            <Col lg={6}>
-              <ListGroup>
-                {purchasedTickets && purchasedTickets.map((ticket, i) => {
-                  return (
-                    <ListGroup.Item key={i}>
-                      <Row>
-                        <Col>
-                          <div>回数券名 {ticket.name}</div>
-                          <div>残り枚数 {ticket.remain_number}</div>
-                          <div>
-                            有効期限 {ticket.display_expired_at}
-                            {ticket.is_expired && <span className='ml10 badge bg-danger'>期限切れ</span>}
-                          </div>
-                        </Col>
-                        <Col>
-                        <a className='btn btn-primary'
+            <Col lg={2}></Col>
+            <Col>
+              <Table bordered>
+                <thead>
+                  <tr>
+                    <th>回数券名</th>
+                    <th>残り枚数</th>
+                    <th>有効期限</th>
+                    <th>詳細</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {purchasedTickets && purchasedTickets.map((ticket, i) => {
+                    return (
+                      <tr key={i}>
+                        <td>{ticket.name}</td>
+                        <td>{ticket.remain_number}</td>
+                        <td>
+                          {ticket.display_expired_at}
+                          {ticket.is_expired && <span className='badge bg-danger'>期限切れ</span>}
+                        </td>
+                        <td>
+                          <a className='btn btn-primary'
                             href={`/customer_page/purchased_ticket/detail/${ticket.public_id}`}>
-                          詳細</a>
-                        </Col>
-                      </Row>
-                      
-                    </ListGroup.Item>
-                  )
-                })}
-              </ListGroup>
+                            詳細</a>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </Table>
             </Col>
+            <Col lg={2}></Col>
           </Row>
         </Container>
       </EndUserLoginLayout>
