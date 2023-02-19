@@ -1,7 +1,7 @@
 class StripePaymentIntent < ApplicationRecord
   include PublicIdModule
 
-  before_create :update_read_sales_status_unread
+  before_create :update_read_orders_status_unread
 
   has_one :end_user, foreign_key: :id, primary_key: :end_user_id
   has_one :account, foreign_key: :id, primary_key: :account_id
@@ -17,8 +17,8 @@ class StripePaymentIntent < ApplicationRecord
                               SystemPlan: 4,
                               PaymentRequest: 5 }
 
-  def update_read_sales_status_unread
-    if account.present?
+  def update_read_orders_status_unread
+    if account.present? && !SystemPlan?
       account.merchant_users.each do |user|
         user.read_orders_status_UnreadExist!
       end
