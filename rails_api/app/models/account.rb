@@ -192,7 +192,7 @@ class Account < ApplicationRecord
   end
 
   def service_plan_status
-    return 'Trial' if (Time.zone.now < self.trial_end_datetime)
+    return 'Trial' if ((Time.zone.now < self.trial_end_datetime) && (self.service_plan.eql?('Free')))
     return service_plan
   end
 

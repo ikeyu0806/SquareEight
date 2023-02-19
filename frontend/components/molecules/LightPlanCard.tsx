@@ -26,7 +26,7 @@ const LightPlanCard = ({showJoinButton}: Props): JSX.Element => {
                 <a className='btn btn-primary' href='/admin/plan/join?plan=Light'>加入する</a>}
             </>
         </Card.Header>
-      :
+        :
         <Card.Header>
           <span className={cardStyles.plan_name}>ライト</span>
         </Card.Header>

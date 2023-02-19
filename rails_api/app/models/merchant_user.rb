@@ -295,8 +295,7 @@ class MerchantUser < ApplicationRecord
   end
 
   def service_plan_status
-    return 'Trial' if (Time.zone.now < self.account.trial_end_datetime)
-    return self.account.service_plan
+    return self.account.service_plan_status
   end
 
   def trial_end_datetime_text
