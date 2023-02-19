@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, ListGroup, Row, Col, Button } from 'react-bootstrap'
+import { Container, ListGroup, Row, Col, Button, Table } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -64,34 +64,42 @@ const Index: NextPage = () => {
       <EndUserLoginLayout>
         <Container className='mt20'>
           <Row>
-            <Col lg={3}></Col>
-            <Col lg={6}>
+            <Col lg={2}></Col>
+            <Col>
             <h3>加入中プラン</h3>
-              <ListGroup>
-              {stripeSubscriptions && stripeSubscriptions.map((subscription, i) => {
-                return (
-                  <ListGroup.Item key={i}>
-                    <Row>
-                      <Col>
-                        プラン名: {subscription.monthly_payment_plan_name}<br/>
-                        購入先: {subscription.account_business_name}
-                      </Col>
-                      <Col>
+              <Table bordered>
+                <thead>
+                  <tr>
+                    <th>サブスクリプション名</th>
+                    <th>購入先</th>
+                    <th>購入ページ</th>
+                    <th>解約</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {stripeSubscriptions && stripeSubscriptions.map((s, i) => {
+                  return (
+                      <tr key={i}>
+                        <td>{s.monthly_payment_plan_name}</td>
+                        <td>{s.account_business_name}</td>
+                        <td>
                         <a  className='btn btn-primary'
-                            href={`/monthly_payment/${subscription.public_id}/purchase`}
+                            href={`/monthly_payment/${s.public_id}/purchase`}
                             target='_blank'
                             rel='noreferrer'>購入ページ</a>
-                        <Button
-                          variant='danger'
-                          className='ml20'
-                          onClick={() => cancelSubscription(subscription)}>解約する</Button>
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                )
-              })}
-              </ListGroup>
+                        </td>
+                        <td>
+                          <Button
+                            variant='danger'
+                            onClick={() => cancelSubscription(s)}>解約する</Button>
+                        </td>
+                      </tr>
+                    )
+                  })}
+                </tbody>
+              </Table>
             </Col>
+            <Col lg={2}></Col>
           </Row>
         </Container>
       </EndUserLoginLayout>
