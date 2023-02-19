@@ -88,6 +88,7 @@ const Index: NextPage = () => {
               <th>購入者</th>
               <th>商品名</th>
               <th>購入数</th>
+              <th>料金</th>
               <th>配送日時指定</th>
               <th>配送先</th>
               <th>発送ステータス</th>
@@ -125,6 +126,9 @@ const Index: NextPage = () => {
                   </td>
                   <td>
                     {item.quantity}
+                  </td>
+                  <td>
+                    {item.price}
                   </td>
                   <td>
                     {item.delivery_date_text}
