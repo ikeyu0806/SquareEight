@@ -60,4 +60,8 @@ class OrderItem < ApplicationRecord
   def end_user_name
     order.end_user.full_name
   end
+
+  def customer_public_id
+    order.end_user.customer.public_id
+  end
 end

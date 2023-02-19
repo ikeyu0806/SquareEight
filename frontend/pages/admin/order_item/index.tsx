@@ -99,7 +99,7 @@ const Index: NextPage = () => {
               return (
                 <tr key={i}>
                   <td>
-                    {item.end_user_name}
+                    <a href={`/admin/customer/${item.customer_public_id}/order`}>{item.end_user_name}</a>
                   </td>
                   <td>
                     {item.product_name} <OrderItemTypeBadge itemType={item.item_type}/>

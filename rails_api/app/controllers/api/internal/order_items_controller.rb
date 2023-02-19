@@ -12,7 +12,8 @@ class Api::Internal::OrderItemsController < ApplicationController
                 :product_type_inventory,
                 :product_type_inventory_allocation,
                 :is_product_type_exists,
-                :end_user_name])
+                :end_user_name,
+                :customer_public_id])
     order_items = JSON.parse(order_items)
     render json: { status: 'success', order_items: order_items }, status: 200
   rescue => error
