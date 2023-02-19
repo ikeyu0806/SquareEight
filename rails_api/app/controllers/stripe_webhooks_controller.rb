@@ -1,5 +1,7 @@
 class StripeWebhooksController < ApplicationController
   def index
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
     ActiveRecord::Base.transaction do
       stripe_params = JSON.parse(params.to_json)
       if stripe_params["type"] == "account.updated"
