@@ -4,10 +4,12 @@ import RegularFooter from 'components/organisms/RegularFooter'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
+import LoginGuide from 'components/molecules/LoginGuide'
 import { useCookies } from 'react-cookie'
 import {  loginStatusChanged,
           todayReservationsCountChanged } from 'redux/currentEndUserSlice'
-import CommonNavbar from 'components/organisms/CommonNavbar'
+import WithoutSessionLayout from './WithoutSessionLayout'
+
 interface Props {
   children: ReactNode
 }
@@ -39,7 +41,13 @@ const EndUserLoginLayout = ({children}: Props): JSX.Element => {
         ? <><CustomerPageNavbar></CustomerPageNavbar>{children}</>
         :
         currentEndUserLogintStatus === 'Logout'
-          ? <><CommonNavbar></CommonNavbar><div className='text-center mt50 mb50'>ログインしてください</div></>
+          ? <>
+              <WithoutSessionLayout>
+                  <div className='mt20'>
+                    <LoginGuide />
+                  </div>
+              </WithoutSessionLayout>
+            </>
           : <></>
       }
       <RegularFooter></RegularFooter>
