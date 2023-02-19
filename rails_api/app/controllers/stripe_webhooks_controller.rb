@@ -43,7 +43,9 @@ class StripeWebhooksController < ApplicationController
           system_product_type = 'Product' if product_id.present?
           system_product_type = 'TicketMaster' if ticket_master_id.present?
           system_product_type = 'Reservation' if reserve_frame_id.present?
-          system_product_type = 'PaymentRequest' if payment_request_id.present?  
+          system_product_type = 'PaymentRequest' if payment_request_id.present?
+        else
+          system_product_type = stripe_payment_intent.system_product_type
         end
         purchase_product_name = stripe_params["data"]["object"]["metadata"]["purchase_product_name"]
         account_id = stripe_payment_intent.account_id.present? ? stripe_payment_intent.account_id : account&.id
@@ -83,7 +85,7 @@ class StripeWebhooksController < ApplicationController
         stripe_payment_intent.amount = stripe_params["data"]["object"]["lines"]["data"][0]["amount"]
         stripe_payment_intent.stripe_customer_id = stripe_customer_id
         stripe_payment_intent.order_date = stripe_payment_intent.order_date.present? ? stripe_payment_intent.order_date : current_date_text
-        if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["account_id"].present?
+        if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["account_id"].present? && stripe_payment_intent.account_id.blank?
           stripe_payment_intent.account_id = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["account_id"]
         end
         if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["product_type"] == "system_plan"
@@ -91,7 +93,6 @@ class StripeWebhooksController < ApplicationController
         end
         stripe_payment_intent.save!
       end
-    
       render json: { status: 'success' }, status: 200
     end
   rescue => error
