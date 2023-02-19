@@ -82,6 +82,7 @@ class StripeWebhooksController < ApplicationController
         stripe_payment_intent.system_product_type = "MonthlyPaymentPlan" if monthly_payment_plan_id.present?
         stripe_payment_intent.amount = stripe_params["data"]["object"]["lines"]["data"][0]["amount"]
         stripe_payment_intent.stripe_customer_id = stripe_customer_id
+        stripe_payment_intent.order_date = stripe_payment_intent.order_date.present? ? stripe_payment_intent.order_date : current_date_text
         if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["account_id"].present?
           stripe_payment_intent.account_id = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["account_id"]
         end
