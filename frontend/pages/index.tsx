@@ -6,6 +6,7 @@ import BrandColorButton from 'components/atoms/BrandColorButton'
 import { brandGrayRgb, brandGreenRgb } from 'constants/brandColors'
 import DownArrawIcon from 'components/atoms/DownArrawIcon'
 import { useRouter } from 'next/router'
+import { lightPlanPrice, standardPlanPrice, premiumPlanPrice } from 'constants/systemPlanPrices'
 import { Container,
          Navbar,
          Nav,
@@ -401,9 +402,9 @@ const Home: NextPage = () => {
                   <tr>
                     <td className={homeStyles.plan_table_text}>月額料金</td>
                     <td className={homeStyles.price_text}>￥0</td>
-                    <td className={homeStyles.price_text}>￥1,480</td>
-                    <td className={homeStyles.price_text}>￥2,980</td>
-                    <td className={homeStyles.price_text}>￥6,980</td>
+                    <td className={homeStyles.price_text}>￥{lightPlanPrice}</td>
+                    <td className={homeStyles.price_text}>￥{standardPlanPrice}</td>
+                    <td className={homeStyles.price_text}>￥{premiumPlanPrice}</td>
                   </tr>
                   <tr className={homeStyles.plan_table_text}>
                     <td>店舗登録数</td>
