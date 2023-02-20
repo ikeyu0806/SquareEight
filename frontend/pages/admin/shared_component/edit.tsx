@@ -63,20 +63,22 @@ const Edit: NextPage = () => {
   }, [cookies._square_eight_merchant_session, dispatch])
 
   const onSubmit = () => {
+    const params = new FormData()
+    let shared_component_param = JSON.stringify({
+      navbar_brand_text: navbarBrandText,
+      navbar_brand_type: navbarBrandType,
+      navbar_brand_image: navbarBrandImage,
+      nabvar_brand_image_width: navbarBrandImageWidth,
+      nabvar_brand_image_height: navbarBrandImageHeight,
+      navbar_brand_background_color: navbarBrandBackgroundColor,
+      navbar_brand_variant_color: navbarBrandVariantColor,
+      footer_copyright_text: footerCopyRightText,
+      is_update_navbar_brand_image: isUpdateNavbarBrandImage
+    })
+    params.append('shared_component', shared_component_param)
+
     axios.post(`${process.env.BACKEND_URL}/api/internal/shared_components/register`,
-    {
-      shared_component: {
-        navbar_brand_text: navbarBrandText,
-        navbar_brand_type: navbarBrandType,
-        navbar_brand_image: navbarBrandImage,
-        nabvar_brand_image_width: navbarBrandImageWidth,
-        nabvar_brand_image_height: navbarBrandImageHeight,
-        navbar_brand_background_color: navbarBrandBackgroundColor,
-        navbar_brand_variant_color: navbarBrandVariantColor,
-        footer_copyright_text: footerCopyRightText,
-        is_update_navbar_brand_image: isUpdateNavbarBrandImage
-      }
-    },
+    params,
     {
       headers: {
         'Session-Id': cookies._square_eight_merchant_session
@@ -101,7 +103,7 @@ const Edit: NextPage = () => {
       {allowUpdateSharedComponent === 'Allow' && <Container className='mb30'>
         <h3 className='mb30'>ページ共通部分編集</h3>
         <div>ページ共通のヘッダ、フッタを設定します。</div>
-        <div className='mb30'>ここで設定した内容はSquareEightで作成したWebページ、商品購入ページ、予約ページ、アンケートページに反映されます</div>
+        <div className='mb30'>ここで設定した内容はSquareEightで作成した店舗ページ、Webページ、商品購入ページ、予約ページ、アンケートページに反映されます</div>
         <hr/>
         
         <SharedComponentHeaderForm></SharedComponentHeaderForm>

@@ -6,7 +6,7 @@ import { useSelector } from 'react-redux'
 const MerchantCustomNavbar = () => {
   const navbarBrandType =  useSelector((state: RootState) => state.sharedComponent.navbarBrandType)
   const navbarBrandText =  useSelector((state: RootState) => state.sharedComponent.navbarBrandText)
-  const navbarBrandImage =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImage)
+  const navbarBrandImagePublicUrl =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImagePublicUrl)
   const navbarBrandImageWidth =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageWidth)
   const navbarBrandImageHeight =  useSelector((state: RootState) => state.sharedComponent.navbarBrandImageHeight)
   const navbarBrandBackgroundColor =  useSelector((state: RootState) => state.sharedComponent.navbarBrandBackgroundColor)
@@ -22,12 +22,12 @@ const MerchantCustomNavbar = () => {
               {navbarBrandText}
             </span>}
             {navbarBrandType === 'image' &&
-            navbarBrandImage &&
+            navbarBrandImagePublicUrl &&
             <img
               width={navbarBrandImageWidth}
               height={navbarBrandImageHeight}
               className='d-block w-100 mt30'
-              src={navbarBrandImage}
+              src={navbarBrandImagePublicUrl}
               alt='image'/>
             }
           </Navbar.Brand>
