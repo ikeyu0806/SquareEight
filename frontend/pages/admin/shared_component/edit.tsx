@@ -67,7 +67,6 @@ const Edit: NextPage = () => {
     let shared_component_param = JSON.stringify({
       navbar_brand_text: navbarBrandText,
       navbar_brand_type: navbarBrandType,
-      navbar_brand_image: navbarBrandImage,
       nabvar_brand_image_width: navbarBrandImageWidth,
       nabvar_brand_image_height: navbarBrandImageHeight,
       navbar_brand_background_color: navbarBrandBackgroundColor,
@@ -76,6 +75,7 @@ const Edit: NextPage = () => {
       is_update_navbar_brand_image: isUpdateNavbarBrandImage
     })
     params.append('shared_component', shared_component_param)
+    params.append('navbar_brand_image', navbarBrandImage as Blob)
 
     axios.post(`${process.env.BACKEND_URL}/api/internal/shared_components/register`,
     params,

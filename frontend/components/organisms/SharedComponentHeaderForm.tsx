@@ -31,6 +31,7 @@ const SharedComponentHeaderForm = (): JSX.Element => {
 
   const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files
+    console.log("handleChangeFile", files)
     if (files && files[0]) {
       dispatch(navbarBrandImageChanged(files[0]))
     }
