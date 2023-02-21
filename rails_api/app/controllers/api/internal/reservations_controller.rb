@@ -247,6 +247,7 @@ class Api::Internal::ReservationsController < ApplicationController
     reservation = Reservation.find_by(public_id: params[:reservation_public_id])
     reserve_frame = reservation.reserve_frame
     shared_component = reserve_frame.account.shared_component
+    shared_component = JSON.parse(shared_component.to_json(methods: [:navbar_image_account_s3_image_public_url]))
     if current_end_user.present? && current_end_user.stripe_customer_id.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
       purchased_ticket_ids = current_end_user.purchased_ticket_ids

@@ -128,6 +128,7 @@ class Api::Internal::ProductsController < ApplicationController
   def purchase_info
     product = Product.find_by(public_id: params[:public_id])
     shared_component = product.account.shared_component
+    shared_component = JSON.parse(shared_component.to_json(methods: [:navbar_image_account_s3_image_public_url]))
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
       delivery_targets = current_end_user.delivery_targets.order(:id)

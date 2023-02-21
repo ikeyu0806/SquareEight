@@ -29,6 +29,7 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
   def show
     questionnaire_master = QuestionnaireMaster.find_by(public_id: params[:public_id])
     shared_component = questionnaire_master.account.shared_component
+    shared_component = JSON.parse(shared_component.to_json(methods: [:navbar_image_account_s3_image_public_url]))
     questionnaire_master = JSON.parse(questionnaire_master.to_json(methods: [:parse_question_form_json]))
     render json: { status: 'success', questionnaire_master: questionnaire_master, shared_component: shared_component }, status: 200
   rescue => error

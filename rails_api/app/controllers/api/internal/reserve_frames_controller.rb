@@ -29,6 +29,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
   def show
     reserve_frame = ReserveFrame.enabled.find_by(public_id: params[:public_id])
     shared_component = reserve_frame.account.shared_component
+    shared_component = JSON.parse(shared_component.to_json(methods: [:navbar_image_account_s3_image_public_url]))
     login_status = current_end_user.present? ? 'Logout' : 'Login'
     reserve_frame_json = JSON.parse(reserve_frame.to_json(methods: [:payment_methods,
                                                                     :resource_ids,

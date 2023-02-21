@@ -18,7 +18,7 @@ class Api::Internal::SharedComponentsController < ApplicationController
       shared_component = SharedComponent.new(account: current_merchant_user.account) if shared_component.blank?
       # ブランドイメージはS3に登録
       shared_component.attributes = form_type_params.except(:navbar_brand_image, :is_update_navbar_brand_image)
-      if params[:navbar_brand_image].present? && !params[:navbar_brand_image].eql?("null")
+      if params[:navbar_brand_image].present? && !params[:navbar_brand_image].eql?("null") && !params[:navbar_brand_image].eql?("undefined")
         shared_component.register_navbar_image(params[:navbar_brand_image])
       end
       shared_component.save!

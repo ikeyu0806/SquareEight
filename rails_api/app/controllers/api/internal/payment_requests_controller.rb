@@ -14,6 +14,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
   def show
     payment_request = StripePaymentRequest.find_by(public_id: params[:public_id])
     shared_component = payment_request.account.shared_component
+    shared_component = JSON.parse(shared_component.to_json(methods: [:navbar_image_account_s3_image_public_url]))
     if current_end_user.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
       login_status = 'Login'

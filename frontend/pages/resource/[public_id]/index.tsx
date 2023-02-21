@@ -33,6 +33,7 @@ import {  navbarBrandTextChanged,
           navbarBrandImageHeightChanged,
           navbarBrandBackgroundColorChanged,
           navbarBrandVariantColorChanged,
+          navbarBrandImagePublicUrlChanged,
           footerCopyRightTextChanged } from 'redux/sharedComponentSlice'
 
 const Index: NextPage = () => {
@@ -73,6 +74,7 @@ const Index: NextPage = () => {
         dispatch(resourceImage3PublicUrlChanged(response.data.resource.image3_account_s3_image_public_url))
         dispatch(resourceImage4PublicUrlChanged(response.data.resource.image4_account_s3_image_public_url))
         dispatch(resourceImage5PublicUrlChanged(response.data.resource.image5_account_s3_image_public_url))
+        dispatch(navbarBrandImagePublicUrlChanged(response.data.shared_component.navbar_image_account_s3_image_public_url))
         dispatch(resourceTypeChanged(response.data.resource.resource_type))
         dispatch(selectedShopIdsChanged(response.data.resource.selected_shop_ids))
         dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))

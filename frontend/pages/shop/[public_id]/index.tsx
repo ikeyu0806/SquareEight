@@ -42,6 +42,7 @@ import { nameChanged,
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
+          navbarBrandImagePublicUrlChanged,
           navbarBrandImageWidthChanged,
           navbarBrandImageHeightChanged,
           navbarBrandBackgroundColorChanged,
@@ -64,7 +65,7 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
-        console.log(response.data)
+        console.log(response.data, "!!")
         dispatch(nameChanged(response.data.shop.name))
         dispatch(phoneNumberChanged(response.data.shop.phone_number))
         dispatch(description1Changed(response.data.shop.description1))
@@ -101,6 +102,7 @@ const Index: NextPage = () => {
         dispatch(navbarBrandTextChanged(response.data.shared_component.navbar_brand_text))
         dispatch(navbarBrandTypeChanged(response.data.shared_component.navbar_brand_type))
         dispatch(navbarBrandImageChanged(response.data.shared_component.navbar_brand_image_s3_object_public_url))
+        dispatch(navbarBrandImagePublicUrlChanged(response.data.shared_component.navbar_image_account_s3_image_public_url))
         dispatch(navbarBrandImageWidthChanged(response.data.shared_component.nabvar_brand_image_width))
         dispatch(navbarBrandImageHeightChanged(response.data.shared_component.nabvar_brand_image_height))
         dispatch(navbarBrandBackgroundColorChanged(response.data.shared_component.navbar_brand_background_color))
