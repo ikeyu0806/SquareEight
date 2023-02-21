@@ -92,12 +92,12 @@ const Home: NextPage = () => {
                 <div className={homeStyles.benefit_box}>
                   <div className='font-size-25'>
                     <div className={homeStyles.benefit_headline}>
-                      高機能、高価格な予約ページ作成
+                      高機能・高価格な予約ページ作成
                     </div>
                   </div>
                   <div className={homeStyles.benefit_text}>
                     <br />他社クラウドサービスではスタンダードプランで月額2万、予約1件につき￥3000など高額な運用費用がかかります。
-                    <br /><br />当サービスはスタンダードプラン2980円でご利用可能！
+                    <br /><br />当サービスはスタンダードプラン月額2980円でご利用可能！
                   </div>
                 </div>
               </Col>
@@ -109,7 +109,7 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className={homeStyles.benefit_text}>
-                    <br />お支払いに月額サブスクリプション・回数券を導入することにより売り上げを安定させることができます。
+                    <br />お支払いにクレジットカード決済の他、月額サブスクリプション・回数券を導入でき売り上げを安定させることができます。
                     <br /><br />新規ユーザの獲得にも効果的です。
                   </div>
                 </div>
@@ -121,7 +121,7 @@ const Home: NextPage = () => {
                 <div className={homeStyles.benefit_box}>
                   <div className='font-size-25'>
                     <div className={homeStyles.benefit_headline}>
-                      アンケート、メッセージ機能による顧客フォロー
+                      アンケート・メッセージ機能による顧客フォロー
                     </div>
                   </div>
                   <div className={homeStyles.benefit_text}>
