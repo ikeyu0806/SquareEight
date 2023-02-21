@@ -13,6 +13,7 @@ class Api::Internal::WebpagesController < ApplicationController
     webpage = Webpage.find_by(public_id: params[:public_id])
     webpage_json = JSON.parse(webpage.to_json(methods: [:block_contents, :max_sort_order, :selected_shop_ids]))
     shared_component = webpage.account.shared_component
+    shared_component = JSON.parse(shared_component.to_json(methods: [:navbar_image_account_s3_image_public_url]))
     render json: { status: 'success',
                    webpage: webpage_json, shared_component: shared_component }, status: 200
   rescue => error

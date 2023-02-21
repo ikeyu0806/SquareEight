@@ -29,12 +29,12 @@ const SharedComponentHeaderForm = (): JSX.Element => {
                         {label: 'Yellow', backgroundColor: 'warning', variant: 'light'},
                         {label: 'DarkGray', backgroundColor: 'secondary', variant: 'dark'} ]
 
-  const handleChangeFile = (e: any) => {
-    const { files } = e.target
-    setImage(window.URL.createObjectURL(files[0]))
-    getBase64(files[0]).then(
-      data => dispatch(navbarBrandImageChanged(data))
-    )
+  const handleChangeFile = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files
+    console.log("handleChangeFile", files)
+    if (files && files[0]) {
+      dispatch(navbarBrandImageChanged(files[0]))
+    }
   }
 
   return (
@@ -67,7 +67,7 @@ const SharedComponentHeaderForm = (): JSX.Element => {
           <Form.Control
             type='file'
             onChange={(e) => {
-              handleChangeFile(e)
+              handleChangeFile(e as any)
               dispatch(isUpdateNavbarBrandImageChanged(true))
             }} />
         </Form.Group>

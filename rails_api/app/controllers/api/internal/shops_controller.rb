@@ -21,6 +21,7 @@ class Api::Internal::ShopsController < ApplicationController
     resources = account.resources
   
     shared_component = shop.account.shared_component
+    shared_component = JSON.parse(shared_component.to_json(methods: [:navbar_image_account_s3_image_public_url]))
     shop = shop.to_json(methods: [  :shop_image1_public_url,
                                     :shop_image2_public_url,
                                     :shop_image3_public_url,

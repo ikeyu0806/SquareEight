@@ -23,6 +23,7 @@ import { priceChanged,
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
+          navbarBrandImagePublicUrlChanged,
           navbarBrandImageWidthChanged,
           navbarBrandImageHeightChanged,
           navbarBrandBackgroundColorChanged,
@@ -84,6 +85,7 @@ const Purchase: NextPage = () => {
         dispatch((navbarBrandBackgroundColorChanged(response.data.shared_component.navbar_brand_background_color)))
         dispatch((navbarBrandVariantColorChanged(response.data.shared_component.navbar_brand_variant_color)))
         dispatch((footerCopyRightTextChanged(response.data.shared_component.footer_copyright_text)))
+        dispatch(navbarBrandImagePublicUrlChanged(response.data.shared_component.navbar_image_account_s3_image_public_url))
       })
       .catch(error => {
         dispatch(loginStatusChanged('Logout'))

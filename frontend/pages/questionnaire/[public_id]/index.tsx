@@ -14,6 +14,7 @@ import { Card, Row, Col, Container, Button, Form } from 'react-bootstrap'
 import {  navbarBrandTextChanged,
           navbarBrandTypeChanged,
           navbarBrandImageChanged,
+          navbarBrandImagePublicUrlChanged,
           navbarBrandImageWidthChanged,
           navbarBrandImageHeightChanged,
           navbarBrandBackgroundColorChanged,
@@ -62,6 +63,7 @@ const Index: NextPage = () => {
       dispatch((navbarBrandImageHeightChanged(response.data.shared_component.nabvar_brand_image_height)))
       dispatch((navbarBrandBackgroundColorChanged(response.data.shared_component.navbar_brand_background_color)))
       dispatch((navbarBrandVariantColorChanged(response.data.shared_component.navbar_brand_variant_color)))
+      dispatch(navbarBrandImagePublicUrlChanged(response.data.shared_component.navbar_image_account_s3_image_public_url))
       dispatch((footerCopyRightTextChanged(response.data.shared_component.footer_copyright_text)))
     }).catch((error) => {
       console.log(error)

@@ -61,6 +61,7 @@ class Api::Internal::TicketMastersController < ApplicationController
         :image3_account_s3_image_public_url,
         :image4_account_s3_image_public_url,
         :image5_account_s3_image_public_url,]))
+    shared_component = JSON.parse(shared_component.to_json(methods: [:navbar_image_account_s3_image_public_url]))
     render json: { status: 'success',
                    shared_component: shared_component,
                    ticket_master: ticket_master,

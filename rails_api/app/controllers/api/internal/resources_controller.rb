@@ -14,6 +14,7 @@ class Api::Internal::ResourcesController < ApplicationController
     account = current_merchant_user.account
     resource = account.resources.find_by(public_id: params[:public_id])
     shared_component = resource.account.shared_component
+    shared_component = JSON.parse(shared_component.to_json(methods: [:navbar_image_account_s3_image_public_url]))
     resource = resource.to_json(methods: [
       :image1_account_s3_image_public_url,
       :image2_account_s3_image_public_url,
