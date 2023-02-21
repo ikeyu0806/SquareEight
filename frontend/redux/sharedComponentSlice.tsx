@@ -26,6 +26,9 @@ export const sharedComponentSlice = createSlice({
     navbarBrandImageWidthChanged: (state, action: PayloadAction<number>) => {
       state.navbarBrandImageWidth = action.payload
     },
+    navbarBrandImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
+      state.navbarBrandImagePublicUrl = action.payload
+    },
     navbarBrandImageHeightChanged: (state, action: PayloadAction<number>) => {
       state.navbarBrandImageHeight = action.payload
     },
@@ -52,6 +55,7 @@ export const sharedComponentSlice = createSlice({
 
 export const { navbarBrandTextChanged } = sharedComponentSlice.actions
 export const { navbarBrandImageChanged } = sharedComponentSlice.actions
+export const { navbarBrandImagePublicUrlChanged } = sharedComponentSlice.actions
 export const { navbarBrandImageWidthChanged } = sharedComponentSlice.actions
 export const { navbarBrandImageHeightChanged } = sharedComponentSlice.actions
 export const { navbarBrandTypeChanged } = sharedComponentSlice.actions
