@@ -21,6 +21,10 @@ class Api::Internal::SharedComponentsController < ApplicationController
         shared_component.navbar_brand_image_s3_object_public_url = put_s3_http_request_base64_data(form_type_params[:navbar_brand_image], ENV["SHARED_COMPONENT_IMAGE_BUCKET"], file_name)
         shared_component.nabvar_brand_image_s3_object_name = file_name
       end
+      if params[:navbar_brand_image].present? && !params[:product_image1_file].eql?("null")
+        file_name = "shared_component_image_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
+        product.register_s3_image(file_name, params[:navbar_brand_image], "image1_account_s3_image_id")
+      end
       shared_component.attributes = form_type_params.except(:navbar_brand_image, :is_update_navbar_brand_image)
       shared_component.save!
       render json: { status: 'success' }, status: 200

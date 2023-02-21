@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_12_073457) do
+ActiveRecord::Schema[7.0].define(version: 2023_02_21_000201) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -738,8 +738,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_12_073457) do
     t.integer "account_id"
     t.string "navbar_brand_text", default: "SquareEight"
     t.string "navbar_brand_type", default: "text"
-    t.string "navbar_brand_image_s3_object_public_url"
-    t.string "nabvar_brand_image_s3_object_name"
     t.string "nabvar_brand_image_height"
     t.string "nabvar_brand_image_width"
     t.string "navbar_brand_background_color", default: "light"
@@ -748,6 +746,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_12_073457) do
     t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "navbar_image_account_s3_image_id"
   end
 
   create_table "shipping_fee_per_regions", force: :cascade do |t|
