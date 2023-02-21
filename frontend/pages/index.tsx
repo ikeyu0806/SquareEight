@@ -96,7 +96,7 @@ const Home: NextPage = () => {
                     </div>
                   </div>
                   <div className={homeStyles.benefit_text}>
-                    <br />他社クラウドサービスではスタンダードプランで月額2万、予約1件につき￥3000など高額な運用費用がかかります。
+                    <br />他社予約サービスではスタンダードプランで月額2万、予約1件につき￥3000など高額な運用費用がかかります。
                     <br /><br />当サービスはスタンダードプラン月額2980円でご利用可能！
                   </div>
                 </div>
@@ -366,7 +366,7 @@ const Home: NextPage = () => {
                 <div className={homeStyles.function_content}>複数管理ユーザ登録</div>
               </Col>
               <Col lg={4} md={4}>
-                <div className={homeStyles.function_content}>ユーザの権限設定</div>
+                <div className={homeStyles.function_content}>管理ユーザへの権限設定</div>
               </Col>
               <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>LINE公式アカウント連携</div>
