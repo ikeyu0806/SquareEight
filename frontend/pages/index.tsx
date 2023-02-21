@@ -30,9 +30,9 @@ const Home: NextPage = () => {
           <Navbar.Toggle aria-controls='responsive-navbar-nav' />
           <Navbar.Collapse id='responsive-navbar-nav'>
             <Nav className='me-auto'>
-              <Nav.Link href='#benefit'>導入効果</Nav.Link>
+              <Nav.Link href='#benefit'>機能・導入効果</Nav.Link>
               <Nav.Link href='#about'>サービス概要</Nav.Link>
-              <Nav.Link href='#features'>機能</Nav.Link>
+              <Nav.Link href='#features'>機能一覧</Nav.Link>
               <Nav.Link href='#pricing'>料金</Nav.Link>
               <Nav.Link href='/inquiry'>お問い合わせ</Nav.Link>
               <Nav.Link href='/company_info'>運営会社</Nav.Link>
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
             <hr />
             <p className={homeStyles.section_headline_parent} id='benefit'>
               <span className={homeStyles.section_headline}>
-                導入効果
+                機能・ 導入効果
               </span>
             </p>
             <Row>
@@ -92,12 +92,12 @@ const Home: NextPage = () => {
                 <div className={homeStyles.benefit_box}>
                   <div className='font-size-25'>
                     <div className={homeStyles.benefit_headline}>
-                      予約システム運営費用削減
+                      高機能、高価格な予約ページ作成
                     </div>
                   </div>
                   <div className={homeStyles.benefit_text}>
                     <br />他社クラウドサービスではスタンダードプランで月額2万、予約1件につき￥3000など高額な運用費用がかかります。
-                    <br /><br />当サービスは全プラン月額¥6980以下でご利用可能！
+                    <br /><br />当サービスはスタンダードプラン2980円でご利用可能！
                   </div>
                 </div>
               </Col>
@@ -134,7 +134,7 @@ const Home: NextPage = () => {
                 <div className={homeStyles.benefit_box}>
                   <div className='font-size-25'>
                     <div className={homeStyles.benefit_headline}>
-                      システムの一元化
+                      予約・ECシステムの一元化
                     </div>
                   </div>
                   <div className={homeStyles.benefit_text}>
