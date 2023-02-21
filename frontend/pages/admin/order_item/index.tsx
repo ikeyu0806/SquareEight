@@ -86,7 +86,7 @@ const Index: NextPage = () => {
           <thead>
             <tr>
               <th>購入者</th>
-              <th>商品名</th>
+              <th style={{width: '30%'}}>商品名</th>
               <th>購入数</th>
               <th>料金</th>
               <th>配送日時指定</th>
@@ -146,7 +146,7 @@ const Index: NextPage = () => {
                         未発送
                       </div>
                       <div>
-                        <a className='btn btn-primary mt10'
+                        <a className='btn btn-primary btn-sm mt10'
                           onClick={() => updateToShipped(item.public_id)}>
                           発送済みに更新する
                         </a>
