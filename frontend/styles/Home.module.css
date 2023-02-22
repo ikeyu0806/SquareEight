@@ -275,6 +275,11 @@ img.customer_support_img {
 
 @media screen and (min-width : 320px) and (max-width: 479px) {
 	/* スマホ用 */
+  .section_headline_parent {
+    margin-top: 10px;
+    margin-bottom: 20px;
+  }
+
   .cover_img_parent .headline_service_name {
     top: 35%;
     left: 50%;

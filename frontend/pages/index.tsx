@@ -77,9 +77,11 @@ const Home: NextPage = () => {
               </p>
             </div>
             <p>
-              <span className={homeStyles.section_description}>
-              無料から使えて有料プランも￥1480~¥6980
-              </span>
+              <div>
+                <span className={homeStyles.section_description}>
+                無料から使えて有料プランも￥1480~¥6980
+                </span>
+              </div>
             </p>
             <hr />
             <p className={homeStyles.section_headline_parent} id='benefit'>
