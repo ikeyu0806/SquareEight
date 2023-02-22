@@ -7,6 +7,8 @@ import { useDispatch } from 'react-redux'
 import { useCookies } from 'react-cookie'
 import { MerchantStripeSubscription } from 'interfaces/MerchantStripeSubscription'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import SubscriptionDescribeModal from 'components/molecules/SubscriptionDescribeModal'
+import { showSubscriptionDescribeModalChanged } from 'redux/accountSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -67,6 +69,10 @@ const Index: NextPage = () => {
             <Col lg={1}></Col>
             <Col>
             <h3>加入中プラン</h3>
+              <Button
+                className='mt20 mb20 text-white'
+                variant='info'
+                onClick={() => dispatch(showSubscriptionDescribeModalChanged(true))}>サブスクリプションの請求と解約について</Button>
               <Table bordered>
                 <thead>
                   <tr>
@@ -102,6 +108,7 @@ const Index: NextPage = () => {
             <Col lg={1}></Col>
           </Row>
         </Container>
+        <SubscriptionDescribeModal/>
       </EndUserLoginLayout>
     </>
   )
