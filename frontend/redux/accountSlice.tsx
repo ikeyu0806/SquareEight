@@ -10,6 +10,7 @@ export const accountSlice = createSlice({
   initialState: {
     showLineOfficialAccountModal: false,
     showSubscriptionDescribeModal: false,
+    showSystemPlanDescribeModal: false,
     registeredCustomersCount: 0,
     lineOfficialAccounts: [] as LineOfficialAccountParam[],
     customers: [] as CustomerParam[],
@@ -23,6 +24,9 @@ export const accountSlice = createSlice({
     },
     showSubscriptionDescribeModalChanged: (state, action: PayloadAction<boolean>) => {
       state.showSubscriptionDescribeModal = action.payload
+    },
+    showshowSystemPlanDescribeModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showSystemPlanDescribeModal = action.payload
     },
     registeredCustomersCountChanged: (state, action: PayloadAction<number>) => {
       state.registeredCustomersCount = action.payload
@@ -47,6 +51,7 @@ export const accountSlice = createSlice({
 
 export const { showLineOfficialAccountModalChanged } = accountSlice.actions
 export const { showSubscriptionDescribeModalChanged } = accountSlice.actions
+export const { showshowSystemPlanDescribeModalChanged } = accountSlice.actions
 export const { registeredCustomersCountChanged } = accountSlice.actions
 export const { lineOfficialAccountsChanged } = accountSlice.actions
 export const { customersChanged } = accountSlice.actions
