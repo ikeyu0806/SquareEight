@@ -221,7 +221,8 @@ class Api::Internal::CashRegistersController < ApplicationController
           MerchantStripeSubscription.create!(
             monthly_payment_plan_id: monthly_payment_plan.id,
             end_user_id: current_end_user.id,
-            stripe_subscription_id: stripe_subscription.id
+            stripe_subscription_id: stripe_subscription.id,
+            billing_cycle_anchor_datetime: Time.at(JSON.parse(stripe_subscription.to_json)["billing_cycle_anchor"])
           )
           order.order_items.new(item_type: 'MonthlyPaymentPlan',
                                 monthly_payment_plan_id: monthly_payment_plan.id,
