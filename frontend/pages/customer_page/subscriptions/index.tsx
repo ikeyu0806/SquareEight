@@ -64,7 +64,7 @@ const Index: NextPage = () => {
       <EndUserLoginLayout>
         <Container className='mt20'>
           <Row>
-            <Col lg={2}></Col>
+            <Col lg={1}></Col>
             <Col>
             <h3>加入中プラン</h3>
               <Table bordered>
@@ -99,7 +99,7 @@ const Index: NextPage = () => {
                 </tbody>
               </Table>
             </Col>
-            <Col lg={2}></Col>
+            <Col lg={1}></Col>
           </Row>
         </Container>
       </EndUserLoginLayout>
