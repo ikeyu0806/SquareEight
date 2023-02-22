@@ -21,7 +21,10 @@ const SubscriptionDescribeModal = () => {
           月額サブスクリプションに加入した日が請求日として設定され毎月同じ日に金額が請求されます。
         </div>
         <div className='mt10'>
-          例）1月10日に加入した場合、2月10日。3月10に料金が請求されます。
+          請求日が存在しない場合、請求日の前日に請求されます。
+        </div>
+        <div className='mt10'>
+          例）1月31日に加入した場合、2月28日、3月31日に料金が請求されます。
         </div>
         <div className='font-weight-bold mt20'>解約について</div>
         <div className='mt10'>
