@@ -28,7 +28,7 @@ const SubscriptionDescribeModal = () => {
           解約した場合加入時間の比例配分で請求されます。
         </div>
         <div className='mt10'>
-          例えば1月10日に加入して1月25日に解約した場合月額料金の半額が請求されます。
+          例）1月10日に加入して1月25日に解約した場合、15日分の金額が請求されます。
         </div>
       </Modal.Body>
       <Modal.Footer>

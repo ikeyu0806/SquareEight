@@ -7,12 +7,15 @@ import { Container, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { RootState } from 'redux/store'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import Unauthorized from 'components/templates/Unauthorized'
+import SubscriptionDescribeModal from 'components/molecules/SubscriptionDescribeModal'
+import { showSubscriptionDescribeModalChanged } from 'redux/accountSlice'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
+  const dispatch = useDispatch()
   const router = useRouter()
   const [monthlyPaymentPlans, setMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam[]>([])
   const allowReadMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowReadMonthlyPaymentPlan)
@@ -42,8 +45,13 @@ const Index: NextPage = () => {
       <MerchantUserAdminLayout>
         <br />
         {allowReadMonthlyPaymentPlan === 'Allow' && <Container>
-          <a className='btn btn-primary mt10 mb20'
-             href='/admin/monthly_payment/new'>月額サブスクリプション登録</a>
+          <div className='mb20'>
+            <a className='btn btn-primary'
+              href='/admin/monthly_payment/new'>月額サブスクリプション登録</a>
+            <a
+              className='ml20 text-white btn btn-info'
+              onClick={() => dispatch(showSubscriptionDescribeModalChanged(true))}>サブスクリプションの請求と解約について</a>
+          </div>
           <h4>月額サブスクリプション一覧</h4>
           <Table bordered>
             <thead>
@@ -79,6 +87,7 @@ const Index: NextPage = () => {
               })}
             </tbody>
           </Table>
+          <SubscriptionDescribeModal/>
         </Container>}
         {allowReadMonthlyPaymentPlan === 'Forbid' && <Unauthorized />}
         
