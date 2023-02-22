@@ -500,11 +500,13 @@ class Api::Internal::AccountsController < ApplicationController
       if json_type_params[:service_plan] == 'Free' && account.stripe_subscription_id.present?
         Stripe::Subscription.cancel(
           account.stripe_subscription_id,
+          prorate: true
         )
       else
         if account.stripe_subscription_id.present?
           Stripe::Subscription.cancel(
             account.stripe_subscription_id,
+            prorate: true
           )
           system_stripe_subscription = SystemStripeSubscription.find_by(stripe_subscription_id: account.stripe_subscription_id)
           system_stripe_subscription.update!(canceled_at: Time.zone.now)
@@ -569,6 +571,7 @@ class Api::Internal::AccountsController < ApplicationController
         Stripe.api_version = '2022-08-01'
         Stripe::Subscription.cancel(
           account.stripe_subscription_id,
+          prorate: true
         )
       end
       account.merchant_users.destroy_all
