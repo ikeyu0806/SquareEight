@@ -49,7 +49,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
     else
       orders = []
     end
-    render json: { status: 'success', orders: orders }, status: 200
+    render json: { status: 'success', orders: orders, customer: customer }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
@@ -58,7 +58,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
   def charges
     customer = Customer.find_by(public_id: params[:customer_public_id])
     stripe_payment_intents = customer.end_user&.stripe_payment_intents
-    render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, status: 200
+    render json: { status: 'success', stripe_payment_intents: stripe_payment_intents, customer: customer }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

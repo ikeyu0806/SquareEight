@@ -9,12 +9,14 @@ import { OrderParam } from 'interfaces/OrderParam'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { RootState } from 'redux/store'
 import Unauthorized from 'components/templates/Unauthorized'
+import { CustomerParam } from 'interfaces/CustomerParam'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const [orders, setOrders] = useState<OrderParam[]>([])
+  const [customer, setCustomer] = useState<CustomerParam>()
   const allowReadCustomer = useSelector((state: RootState) => state.merchantUserPermission.allowReadCustomer)
 
   useEffect(() => {
@@ -29,6 +31,7 @@ const Index: NextPage = () => {
       .then(function (response) {
         console.log(response.data)
         setOrders(response.data.orders)
+        setCustomer(response.data.customer)
       })
       .catch(error => {
         console.log(error)
@@ -44,7 +47,7 @@ const Index: NextPage = () => {
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
-            <h3>注文一覧</h3>
+            <h3>{customer?.last_name}{customer?.first_name} 注文一覧</h3>
             <ListGroup>
               {orders && orders.map((order, i) => {
                 return (
