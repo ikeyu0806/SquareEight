@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
-import { Container, Row, Col, ListGroup } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
 import { useRouter } from 'next/router'
@@ -43,45 +43,42 @@ const Index: NextPage = () => {
   return (
     <MerchantUserAdminLayout>
       <br />
-      {allowReadCustomer === 'Allow' && <Container>
-        <Row>
-          <Col lg={3}></Col>
-          <Col lg={6}>
-            <h3>{customer?.last_name}{customer?.first_name} 注文一覧</h3>
-            <ListGroup>
-              {orders && orders.map((order, i) => {
-                return (
-                  <ListGroup.Item key={i}>
-                    <Row>
-                      <Col>
-                        {order.product_names.map((name, i) => {
-                          return (
-                            <>
-                              <span>{name}</span>
-                              <br />合計金額: ¥{order.total_price}
-                              <br />注文日: {order.order_date}
-                              <br />
-                              <a className='btn btn-primary btn-sm mt10' href={`/admin/order/${order.public_id}`}>
-                                詳細
-                              </a>
-                            </>
-                          )
-                        })}
-                      </Col>
-                      <Col>
-                        {order.include_product && <>
-                        <div>お届け先</div>
-                        <div>{order.name}</div>
-                        <div>{order.postal_code}</div>
-                        <div>{order.address}</div></>}
-                      </Col>
-                    </Row>
-                  </ListGroup.Item>
-                )
-              })}
-            </ListGroup> 
-          </Col>
-        </Row>
+      {allowReadCustomer === 'Allow' &&
+      <Container>
+        <h4>{customer?.last_name}{customer?.first_name} 注文一覧</h4>
+        <Table bordered>
+        <thead>
+          <tr>
+            <th>商品名</th>
+            <th>合計金額</th>
+            <th>注文日</th>
+            <th>お届け先</th>
+            <th>詳細</th>
+          </tr>
+        </thead>
+        <tbody>
+          {orders && orders.map((order, i) => {
+            return (
+              <tr key={i}>
+                <td>{order.name}</td>
+                <td>￥{order.total_price}</td>
+                <td>{order.order_date}</td>
+                <td>
+                  {order.include_product && <>
+                  <div>{order.name}</div>
+                  <div>{order.postal_code}</div>
+                  <div>{order.address}</div></>}
+                </td>
+                <td>
+                  <a className='btn btn-primary btn-sm mt10' href={`/admin/order/${order.public_id}`}>
+                    詳細
+                  </a>
+                </td>
+              </tr>
+            )
+          })}
+        </tbody>
+        </Table>
       </Container>}
       {allowReadCustomer === 'Forbid' && <Unauthorized />}
     </MerchantUserAdminLayout>
