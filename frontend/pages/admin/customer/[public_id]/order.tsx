@@ -60,7 +60,11 @@ const Index: NextPage = () => {
           {orders && orders.map((order, i) => {
             return (
               <tr key={i}>
-                <td>{order.name}</td>
+                <td>{order.product_names.map((p, i) => {
+                  return (
+                    <div key={i}>{p}</div>
+                  )
+                })}</td>
                 <td>￥{order.total_price}</td>
                 <td>{order.order_date}</td>
                 <td>
