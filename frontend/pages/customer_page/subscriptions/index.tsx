@@ -68,7 +68,7 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={1}></Col>
             <Col>
-            <h3>加入中プラン</h3>
+            <h3>加入中サブスクリプション</h3>
               <Button
                 className='mt20 mb20 text-white'
                 variant='info'

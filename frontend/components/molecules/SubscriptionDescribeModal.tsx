@@ -13,21 +13,21 @@ const SubscriptionDescribeModal = () => {
   }
 
   return (
-    <Modal show={showSubscriptionDescribeModal}>
+    <Modal show={showSubscriptionDescribeModal} size={'lg'}>
       <Modal.Header>月額サブスクリプションの請求日と解約について</Modal.Header>
       <Modal.Body>
         <div className='font-weight-bold'>請求日について</div>
-        <div>
+        <div className='mt10'>
           月額サブスクリプションに加入した日が請求日として設定され毎月同じ日に金額が請求されます。
         </div>
-        <div>
+        <div className='mt10'>
           例）1月10日に加入した場合、2月10日。3月10に料金が請求されます。
         </div>
-        <div className='font-weight-bold'>解約について</div>
-        <div>
+        <div className='font-weight-bold mt20'>解約について</div>
+        <div className='mt10'>
           解約した場合加入時間の比例配分で請求されます。
         </div>
-        <div>
+        <div className='mt10'>
           例えば1月10日に加入して1月25日に解約した場合月額料金の半額が請求されます。
         </div>
       </Modal.Body>
