@@ -7,10 +7,10 @@ const CanelSystemPlanButton = () => {
 
   const cancelSystemPlan = () => {
     swalWithBootstrapButtons.fire({
-      title: '解除します',
-      html: `プランを解除します。<br />よろしいですか？`,
+      title: '解約します',
+      html: `プランを解約します。<br />よろしいですか？`,
       icon: 'question',
-      confirmButtonText: '解除する',
+      confirmButtonText: '解約する',
       cancelButtonText: 'キャンセル',
       showCancelButton: true,
       showCloseButton: true
@@ -22,14 +22,14 @@ const CanelSystemPlanButton = () => {
           }
         }).then(response => {
           swalWithBootstrapButtons.fire({
-            title: '解除しました',
+            title: '解約しました',
             icon: 'info'
           }).then((result) => {
             location.reload()
           })
         }).catch(error => {
           swalWithBootstrapButtons.fire({
-            title: '解除失敗しました',
+            title: '解約失敗しました',
             icon: 'error'
           })
         })
@@ -38,7 +38,7 @@ const CanelSystemPlanButton = () => {
   }
 
   return (
-    <a className='btn btn-danger' onClick={() => cancelSystemPlan()}>解除する</a>
+    <a className='btn btn-danger' onClick={() => cancelSystemPlan()}>解約する</a>
   )
 }
 
