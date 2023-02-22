@@ -4,10 +4,9 @@ export const getZeroPaddingDate = ()  => {
 }
 
 export const getZeroPaddingDatePlusWeek = ()  => {
-  const date = new Date()
   let nextWeekDay = new Date()
   nextWeekDay.setDate(nextWeekDay.getDate() + 7)
-  return date.getFullYear() + '-' + ('0' + (date.getMonth() + 1)).slice(-2) + '-' + ('0' + nextWeekDay.getDate()).slice(-2)
+  return nextWeekDay.getFullYear() + '-' + ('0' + (nextWeekDay.getMonth() + 1)).slice(-2) + '-' + ('0' + nextWeekDay.getDate()).slice(-2)
 }
 
 export const getZeroPaddingTime = ()  => {
