@@ -542,6 +542,7 @@ class Api::Internal::AccountsController < ApplicationController
       system_stripe_subscription.update!(canceled_at: Time.zone.now)
       Stripe::Subscription.cancel(
         cancel_subscription_id,
+        prorate: true
       )
       render json: { status: 'success' }, status: 200
     end
