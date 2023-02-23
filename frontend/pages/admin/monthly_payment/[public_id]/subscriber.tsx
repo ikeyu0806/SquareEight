@@ -63,7 +63,9 @@ const Subscriber: NextPage = () => {
             {merchantStripeSubscriptions.map((s, i) => {
               return (
                 <tr key={i}>
-                  <td>{s.customer_full_name}</td>
+                  <td>
+                    <a href={`/admin/customer/${s.customer_public_id}/order`}>{s.customer_full_name}</a>
+                  </td>
                   <td>{s.joined_date_text}</td>
                   <td>{s.billing_cycle_anchor_day}</td>
                   <th>{s.canceled_at_text}</th>
