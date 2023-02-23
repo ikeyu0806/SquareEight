@@ -21,15 +21,15 @@ class MerchantStripeSubscription < ApplicationRecord
   end
 
   def billing_cycle_anchor_day
-    billing_cycle_anchor_datetime.day
+    "毎月#{billing_cycle_anchor_datetime&.day}日"
   end
 
   def canceled_at_text
     return nil if canceled_at.blank?
-    canceled_at.strftime("%Y%m%d")
+    canceled_at.strftime("%Y/%m/%d")
   end
 
   def joined_date_text
-    created_at.strftime("%Y%m%d")
+    created_at.strftime("%Y/%m/%d")
   end
 end

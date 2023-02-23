@@ -56,6 +56,13 @@ class MonthlyPaymentPlan < ApplicationRecord
   end
 
   def merchant_stripe_subscriptions_info
-    JSON.parse(merchant_stripe_subscriptions.to_json(methods: [:customer_full_name, :customer_public_id]))
+    JSON.parse(merchant_stripe_subscriptions.to_json(
+      methods: [
+        :customer_full_name,
+        :customer_public_id,
+        :billing_cycle_anchor_day,
+        :canceled_at_text,
+        :joined_date_text
+      ]))
   end
 end
