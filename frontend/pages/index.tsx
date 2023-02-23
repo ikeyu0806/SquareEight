@@ -71,17 +71,13 @@ const Home: NextPage = () => {
       <div className='mt10'>
         <Container>
           <div className='text-center'>
-            <div>
-              <p className={homeStyles.section_headline_parent}>
-                <span className={homeStyles.section_headline}>お店のシステム運用費用を最大90%削減</span>
-              </p>
-            </div>
+            <p className={homeStyles.section_headline_parent}>
+              <span className={homeStyles.section_headline}>お店のシステム運用費用を最大90%削減</span>
+            </p>
             <p>
-              <div>
-                <span className={homeStyles.section_description}>
-                無料から使えて有料プランも￥1480~¥6980
-                </span>
-              </div>
+              <span className={homeStyles.section_description}>
+              無料から使えて有料プランも￥1480~¥6980
+              </span>
             </p>
             <hr />
             <p className={homeStyles.section_headline_parent} id='benefit'>
