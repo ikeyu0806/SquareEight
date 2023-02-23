@@ -7,6 +7,7 @@ class MonthlyPaymentPlan < ApplicationRecord
   has_many :cart_monthly_payment_plans
   has_many :shop_monthly_payment_plans, class_name: 'ShopMonthlyPaymentPlan', dependent: :destroy
   has_many :reserve_frame_monthly_payment_plans, dependent: :destroy
+  has_many :merchant_stripe_subscriptions
 
   enum publish_status: { Unpublish: 0, Publish: 1 }
 
