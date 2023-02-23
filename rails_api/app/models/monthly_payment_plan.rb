@@ -54,4 +54,8 @@ class MonthlyPaymentPlan < ApplicationRecord
   def selected_reserve_frame_ids
     reserve_frame_monthly_payment_plans.pluck(:reserve_frame_id)
   end
+
+  def merchant_stripe_subscriptions_info
+    JSON.parse(merchant_stripe_subscriptions.to_json(methods: [:customer_full_name, :customer_public_id]))
+  end
 end
