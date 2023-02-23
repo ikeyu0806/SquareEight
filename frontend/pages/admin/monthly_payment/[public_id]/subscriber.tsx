@@ -6,6 +6,7 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import { Container, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
+import { MerchantStripeSubscriptionParam } from 'interfaces/MerchantStripeSubscriptionParam'
 import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
@@ -17,18 +18,25 @@ const Subscriber: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
   const router = useRouter()
+  const [monthlyPaymentPlans, setMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam>()
+  const [merchantStripeSubscriptions, setMerchantStripeSubscriptions] = useState<MerchantStripeSubscriptionParam[]>([])
   const allowReadMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowReadMonthlyPaymentPlan)
 
   useEffect(() => {
     const fetchMonthlyPaymentPlans = () => {
       axios.get(
-        `${process.env.BACKEND_URL}/api/internal/monthly_payment_plans`, {
+        `${process.env.BACKEND_URL}/api/internal/monthly_payment_plans/${router.query.public_id}/subscribers`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           },
         }
       )
       .then(function (response) {
+        console.log(response.data)
+        const montylyPaymentPlanResponse: MonthlyPaymentPlanParam = response.data.monthly_payment_plan
+        setMonthlyPaymentPlans(montylyPaymentPlanResponse)
+        const merchantStripeSubscriptionsResponse: MerchantStripeSubscriptionParam[] = response.data.merchant_stripe_subscriptions
+        setMerchantStripeSubscriptions(merchantStripeSubscriptionsResponse)
       })
       .catch(error => {
         console.log(error)
@@ -51,7 +59,16 @@ const Subscriber: NextPage = () => {
             </tr>
           </thead>
           <tbody>
-            
+            {merchantStripeSubscriptions.map((s, i) => {
+              return (
+                <tr key={i}>
+                  <td>{s.customer_full_name}</td>
+                  <td>{s.joined_date_text}</td>
+                  <td>{s.billing_cycle_anchor_day}</td>
+                  <th>{s.canceled_at_text}</th>
+                </tr>
+              )
+            })}
           </tbody>
         </Table>
       </Container>}

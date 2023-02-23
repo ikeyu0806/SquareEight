@@ -107,6 +107,7 @@ Rails.application.routes.draw do
       get 'purchased_tickets/:public_id', to: 'purchased_tickets#show'
       get 'monthly_payment_plans/related_data', to: 'monthly_payment_plans#related_data'
       get 'monthly_payment_plans/:public_id/purchase_info', to: 'monthly_payment_plans#purchase_info'
+      get 'monthly_payment_plans/:public_id/subscribers', to: 'monthly_payment_plans#subscribers'
       get 'monthly_payment_plans/:public_id', to: 'monthly_payment_plans#show'
       get 'monthly_payment_plans', to: 'monthly_payment_plans#index'
       post 'monthly_payment_plans/insert_cart', to: 'monthly_payment_plans#insert_cart'

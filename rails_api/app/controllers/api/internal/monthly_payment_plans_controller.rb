@@ -41,6 +41,17 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def subscribers
+    monthly_payment_plan = MonthlyPaymentPlan.enabled.find_by(public_id: params[:public_id])
+    merchant_stripe_subscriptions = monthly_payment_plan.merchant_stripe_subscriptions_info
+    render json: { status: 'success',
+                   merchant_stripe_subscriptions: merchant_stripe_subscriptions,
+                   monthly_payment_plan: monthly_payment_plan }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   def purchase_info
     monthly_payment_plan = MonthlyPaymentPlan.enabled.find_by(public_id: params[:public_id])
     shared_component = monthly_payment_plan.account.shared_component
