@@ -40,6 +40,7 @@ const Index: NextPage = () => {
     }
     fetchMonthlyPaymentPlans()
   }, [router.query.public_id, cookies._square_eight_merchant_session])
+
   return (
     <>
       <MerchantUserAdminLayout>
@@ -61,6 +62,7 @@ const Index: NextPage = () => {
                 <th>予約受付設定</th>
                 {allowUpdateMonthlyPaymentPlan === 'Allow' && <th>編集</th>}
                 <th>購入ページ</th>
+                <th>加入者一覧</th>
                 <th>公開設定</th>
               </tr>
             </thead>
