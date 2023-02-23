@@ -19,4 +19,17 @@ class MerchantStripeSubscription < ApplicationRecord
   def customer_public_id
     end_user.customer.public_id
   end
+
+  def billing_cycle_anchor_day
+    billing_cycle_anchor_datetime.day
+  end
+
+  def canceled_at_text
+    return nil if canceled_at.blank?
+    canceled_at.strftime("%Y%m%d")
+  end
+
+  def joined_date_text
+    created_at.strftime("%Y%m%d")
+  end
 end

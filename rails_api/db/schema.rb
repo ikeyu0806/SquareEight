@@ -914,3 +914,68 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_22_065737) do
     t.index ["email"], name: "index_system_admin_users_on_email", unique: true
   end
 
+  create_table "system_end_user_notifications", force: :cascade do |t|
+    t.string "title"
+    t.text "content"
+    t.string "public_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "system_stripe_subscriptions", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.integer "service_plan", null: false
+    t.string "stripe_subscription_id", null: false
+    t.datetime "canceled_at"
+    t.string "public_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "ticket_masters", force: :cascade do |t|
+    t.string "name"
+    t.integer "account_id"
+    t.integer "issue_number"
+    t.integer "price"
+    t.string "public_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.text "description"
+    t.boolean "is_expired"
+    t.integer "effective_month"
+    t.integer "publish_status", default: 0
+    t.datetime "deleted_at"
+    t.integer "image1_account_s3_image_id"
+    t.integer "image2_account_s3_image_id"
+    t.integer "image3_account_s3_image_id"
+    t.integer "image4_account_s3_image_id"
+    t.integer "image5_account_s3_image_id"
+  end
+
+  create_table "unreservable_frames", force: :cascade do |t|
+    t.integer "reserve_frame_id"
+    t.datetime "start_at"
+    t.string "public_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "webpage_blocks", force: :cascade do |t|
+    t.integer "webpage_id", null: false
+    t.text "content_json", null: false
+    t.integer "block_type"
+    t.string "public_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "webpages", force: :cascade do |t|
+    t.integer "account_id", null: false
+    t.string "tag", null: false
+    t.string "public_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.integer "publish_status", default: 0
+  end
+
+end
