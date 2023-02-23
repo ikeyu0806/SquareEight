@@ -47,9 +47,10 @@ const Subscriber: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowReadMonthlyPaymentPlan === 'Allow' && <Container>
         <h4>加入者一覧</h4>
-        <Table>
+        <Table bordered>
           <thead>
             <tr>
               <th>顧客名</th>

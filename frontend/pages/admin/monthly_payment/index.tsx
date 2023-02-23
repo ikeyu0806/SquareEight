@@ -82,6 +82,12 @@ const Index: NextPage = () => {
                            href={`/monthly_payment/${plan.public_id}/purchase`}>プレビュー</a>
                     </td>
                     <td>
+                    <a className='btn btn-primary btn-sm'
+                       href={`/admin/monthly_payment/${plan.public_id}/subscriber`}>
+                      加入者一覧
+                    </a>
+                    </td>
+                    <td>
                       <PublishStatusBadge publishStatus={plan.publish_status} />
                     </td>
                   </tr>
