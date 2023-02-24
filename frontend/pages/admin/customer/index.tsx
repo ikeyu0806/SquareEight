@@ -92,6 +92,7 @@ const Index: NextPage = () => {
         'Session-Id': cookies._square_eight_merchant_session
       }
     }).then((response) => {
+      console.log(response.data)
       dispatch(customersChanged(response.data.customers))
     }).catch((error) => {
       console.log(error)
@@ -107,7 +108,7 @@ const Index: NextPage = () => {
         {allowReadCustomer === 'Allow' &&
         <><br />
           <Container>
-          {customers.length > 1 && <>
+          {customers.length >= 1 && <>
             <Card className='mb20'>
               <Card.Header>絞り込み</Card.Header>
               <Card.Body>
