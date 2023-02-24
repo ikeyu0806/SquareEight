@@ -52,6 +52,7 @@ const LineUser: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowReadLineUser === 'Allow' &&
       <Container>
         <Row>
