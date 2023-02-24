@@ -301,4 +301,10 @@ class MerchantUser < ApplicationRecord
   def trial_end_datetime_text
     self.account.trial_end_datetime.strftime("%Y/%m/%d")
   end
+
+  def used_email
+    return email if email.present?
+    return google_auth_email if google_auth_email.present?
+    nil
+  end
 end

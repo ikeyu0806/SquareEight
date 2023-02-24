@@ -14,6 +14,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
   const email = useSelector((state: RootState) => state.currentMerchantUser.email)
+  const usedEmail = useSelector((state: RootState) => state.currentMerchantUser.usedEmail)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const isShopsExists = useSelector((state: RootState) => state.currentMerchantUser.isShopsExists)
   const readReservationsStatus = useSelector((state: RootState) => state.currentMerchantUser.readReservationsStatus)
@@ -160,7 +161,7 @@ const AdminNavbarTemplate = (): JSX.Element => {
                 <Col sm={3}>
                   <PlanLabel></PlanLabel>
                   <br />
-                  <div className='badge bg-primary ml10'>{email}</div>
+                  <div className='badge bg-primary ml10'>{usedEmail}</div>
                 </Col>
               </Row>
             </Nav>

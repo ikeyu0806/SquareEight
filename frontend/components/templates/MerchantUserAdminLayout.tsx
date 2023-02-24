@@ -11,6 +11,7 @@ import { shopsChanged } from 'redux/accountSlice'
 import { loginStatusChanged,
          servicePlanChanged,
          emailChanged,
+         usedEmailChanged,
          isRootUserChanged,
          stripeAccountEnableChanged,
          stripeCustomerEnableChanged,
@@ -119,6 +120,7 @@ const MerchantUserAdminLayout = ({children}: Props): JSX.Element => {
       dispatch(servicePlanChanged(response.data.user.service_plan_status))
       dispatch(trialEndDatetimeTextChanged(response.data.user.trial_end_datetime_text))
       dispatch(emailChanged(response.data.user.email))
+      dispatch(usedEmailChanged(response.data.user.used_email))
       dispatch(isRootUserChanged(response.data.user.is_root_user))
       dispatch(isShopsExistsChanged(response.data.user.is_shops_exist ? 'Enable' : 'Disable'))
       // 権限

@@ -9,6 +9,7 @@ export const currentMerchantUserSlice = createSlice({
     id: '',
     accountId: '',
     email: '',
+    usedEmail: '',
     servicePlan: '',
     defaultPaymentMethodId: '',
     isRootUser: false,
@@ -34,6 +35,9 @@ export const currentMerchantUserSlice = createSlice({
     },
     emailChanged: (state, action: PayloadAction<string>) => {
       state.email = action.payload
+    },
+    usedEmailChanged: (state, action: PayloadAction<string>) => {
+      state.usedEmail = action.payload
     },
     servicePlanChanged: (state, action: PayloadAction<string>) => {
       state.servicePlan = action.payload
@@ -86,6 +90,7 @@ export const currentMerchantUserSlice = createSlice({
 export const { idChanged } = currentMerchantUserSlice.actions
 export const { accountIdChanged } = currentMerchantUserSlice.actions
 export const { emailChanged } = currentMerchantUserSlice.actions
+export const { usedEmailChanged } = currentMerchantUserSlice.actions
 export const { servicePlanChanged } = currentMerchantUserSlice.actions
 export const { defaultPaymentMethodIdChanged } = currentMerchantUserSlice.actions
 export const { isRootUserChanged } = currentMerchantUserSlice.actions

@@ -9,7 +9,8 @@ class Api::Internal::Merchant::SessionsController < ApplicationController
                                          :today_reservations_count,
                                          :is_shops_exist,
                                          :service_plan_status,
-                                         :trial_end_datetime_text])) 
+                                         :trial_end_datetime_text,
+                                         :used_email])) 
     render json: { status: 'success',
                    user: user,
                    shops: shops }
