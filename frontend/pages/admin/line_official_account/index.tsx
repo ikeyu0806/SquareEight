@@ -40,7 +40,7 @@ const Index: NextPage = () => {
   }, [cookies._square_eight_merchant_session, dispatch])
 
   const copyWebhookUrl = (url: string) => {
-    navigator.clipboard.writeText(`${process.env.FRONTEND_URL}${url}`)
+    navigator.clipboard.writeText(`${url}`)
     .then(() => {
       swalWithBootstrapButtons.fire({
         title: 'コピーしました',
