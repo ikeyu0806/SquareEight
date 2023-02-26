@@ -6,11 +6,11 @@
   <body>
     <div></div>
     <div>[<%= @reservation.account.business_name %>]ご予約いただいた内容をお知らせします。</div>
-    <hr />
+    <div style="margin-top: 10px;">-------------------------------------------------------------</div>
     <div>[お申込内容]</div>
     <div><%= @reservation.reserve_frame.title %></div>
     <div>予約時間: <%= @reservation.display_reservation_datetime %></div>
-    <hr/>
-    <div>Copyright SquareEight</div>
+    <div>-------------------------------------------------------------</div>
+    <div style="margin-top: 10px;">Copyright SquareEight</div>
   </body>
 </html>
