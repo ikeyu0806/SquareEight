@@ -102,7 +102,7 @@ const New: NextPage = () => {
               {/* {['Standard', 'Premium'].includes(servicePlan) && */}
                 <>
                   <CreateResource></CreateResource>
-                  <ResouceLimitGuide></ResouceLimitGuide>
+                  {!enableCreateResource && <ResouceLimitGuide></ResouceLimitGuide>}
                   <div className='text-center'>
                     <Button
                       disabled={!enableCreateResource}
