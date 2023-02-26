@@ -29,7 +29,6 @@ const Edit: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
 
-  const [enableCreateResource, setEnableCreateResource] = useState(false)
   const name = useSelector((state: RootState) => state.resource.name)
   const description = useSelector((state: RootState) => state.resource.description)
   const resourceType = useSelector((state: RootState) => state.resource.resourceType)
@@ -68,7 +67,6 @@ const Edit: NextPage = () => {
         dispatch(selectedShopIdsChanged(response.data.resource.selected_shop_ids))
         dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
         dispatch(selectedReserveFrameIdsChanged(response.data.resource.selected_reserve_frame_ids))
-        setEnableCreateResource(response.data.enable_create_resource)
       })
       .catch(error => {
         console.log(error)
@@ -122,7 +120,6 @@ const Edit: NextPage = () => {
                   <CreateResource showDeleteButton={true}></CreateResource>
                   <div className='text-center'>
                     <Button
-                      disabled={!enableCreateResource}
                       onClick={onSubmit}
                       className='mt10'>登録する</Button>
                   </div>
