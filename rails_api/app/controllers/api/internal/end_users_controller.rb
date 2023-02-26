@@ -212,7 +212,7 @@ class Api::Internal::EndUsersController < ApplicationController
   end
 
   def stripe_payment_history
-    stripe_payment_intents = current_end_user.stripe_payment_intents
+    stripe_payment_intents = current_end_user.stripe_payment_intents.order(created_at: :desc)
     stripe_payment_intents = JSON.parse(stripe_payment_intents.to_json(methods: [:account_business_name, :purchase_product_name]))
     render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, status: 200
   rescue => error
