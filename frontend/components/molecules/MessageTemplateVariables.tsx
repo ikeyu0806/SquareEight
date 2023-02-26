@@ -21,19 +21,18 @@ const MessageTemplateVariables = (): JSX.Element => {
             <ListGroup.Item>
               <div>%customer_name</div>
               <div className='mt10'>顧客名に変換されます</div>
-              <div>顧客一覧、決済リクエスト作成画面からの送信時に反映されます</div>
               <Button size='sm' className='mt5' onClick={() => insertVariable('%customer_name')}>挿入</Button>
             </ListGroup.Item>
             <ListGroup.Item>
               <div>%price</div>
               <div className='mt10'>請求金額に変換されます</div>
-              <div>決済リクエスト作成画面からの送信時に反映されます</div>
+              <div>決済リクエスト送信時に反映されます</div>
               <Button size='sm' className='mt5' onClick={() => insertVariable('%price')}>挿入</Button>
             </ListGroup.Item>
             <ListGroup.Item>
               <div>%payment_request_url</div>
               <div className='mt10'>決済リクエスト作成画面URLに変換されます</div>
-              <div>決済リクエスト作成画面からの送信時に反映されます</div>
+              <div>決済リクエスト送信時に反映されます</div>
               <Button size='sm' className='mt5' onClick={() => insertVariable('%payment_request_url')}>挿入</Button>
             </ListGroup.Item>
           </ListGroup>
