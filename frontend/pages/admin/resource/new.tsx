@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { NextPage } from 'next'
 import CreateResource from 'components/templates/CreateResource'
 import { Container, Row, Col } from 'react-bootstrap'
@@ -19,6 +19,7 @@ const New: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
 
+  const [enableCreateResource, setEnableCreateResource] = useState(false)
   const name = useSelector((state: RootState) => state.resource.name)
   const description = useSelector((state: RootState) => state.resource.description)
   const resourceType = useSelector((state: RootState) => state.resource.resourceType)
@@ -46,6 +47,7 @@ const New: NextPage = () => {
       .then(function (response) {
         console.log(response.data)
         dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
+        setEnableCreateResource(response.data.enable_create_resource)
       })
       .catch(error => {
         console.log(error)
@@ -100,7 +102,10 @@ const New: NextPage = () => {
                 <>
                   <CreateResource></CreateResource>
                   <div className='text-center'>
-                    <Button onClick={onSubmit} className='mt10'>登録する</Button>
+                    <Button
+                      disabled={!enableCreateResource}
+                      onClick={onSubmit}
+                      className='mt10'>登録する</Button>
                   </div>
                 </>
               {/* } */}

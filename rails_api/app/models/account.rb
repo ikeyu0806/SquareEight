@@ -199,4 +199,8 @@ class Account < ApplicationRecord
   def registered_customers_count
     customers.count
   end
+
+  def enable_create_resource
+    resources.count < resource_limit
+  end
 end

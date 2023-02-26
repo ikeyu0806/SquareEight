@@ -1,5 +1,5 @@
 import { NextPage } from 'next'
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import CreateResource from 'components/templates/CreateResource'
 import { Container, Row, Col } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
@@ -29,6 +29,7 @@ const Edit: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
 
+  const [enableCreateResource, setEnableCreateResource] = useState(false)
   const name = useSelector((state: RootState) => state.resource.name)
   const description = useSelector((state: RootState) => state.resource.description)
   const resourceType = useSelector((state: RootState) => state.resource.resourceType)
@@ -67,6 +68,7 @@ const Edit: NextPage = () => {
         dispatch(selectedShopIdsChanged(response.data.resource.selected_shop_ids))
         dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
         dispatch(selectedReserveFrameIdsChanged(response.data.resource.selected_reserve_frame_ids))
+        setEnableCreateResource(response.data.enable_create_resource)
       })
       .catch(error => {
         console.log(error)
@@ -120,7 +122,10 @@ const Edit: NextPage = () => {
                   <CreateResource></CreateResource>
 
                   <div className='text-center'>
-                    <Button onClick={onSubmit} className='mt10'>登録する</Button>
+                    <Button
+                      disabled={!enableCreateResource}
+                      onClick={onSubmit}
+                      className='mt10'>登録する</Button>
                   </div>
                 </>
               {/* } */}

@@ -15,6 +15,7 @@ class Api::Internal::ResourcesController < ApplicationController
     resource = account.resources.find_by(public_id: params[:public_id])
     shared_component = resource.account.shared_component
     shared_component = JSON.parse(shared_component.to_json(methods: [:navbar_image_account_s3_image_public_url]))
+    enable_create_resource = account.enable_create_resource
     resource = resource.to_json(methods: [
       :image1_account_s3_image_public_url,
       :image2_account_s3_image_public_url,
@@ -28,6 +29,7 @@ class Api::Internal::ResourcesController < ApplicationController
     selectable_reserve_frames = account.reserve_frames.enabled
     render json: { status: 'success',
                    resource: resource,
+                   enable_create_resource: enable_create_resource,
                    shared_component: shared_component,
                    selectable_reserve_frames: selectable_reserve_frames }, status: 200
   rescue => error
@@ -38,7 +40,9 @@ class Api::Internal::ResourcesController < ApplicationController
   def related_data
     account = current_merchant_user.account
     selectable_reserve_frames = account.reserve_frames.enabled
+    enable_create_resource = account.enable_create_resource
     render json: { status: 'success',
+                   enable_create_resource: enable_create_resource,
                    selectable_reserve_frames: selectable_reserve_frames }, status: 200
   rescue => error
     Rails.logger.error error
