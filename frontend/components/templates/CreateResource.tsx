@@ -1,7 +1,11 @@
 import React from 'react'
-import { FormControl, Form } from 'react-bootstrap'
+import { FormControl, Form, Row, Col, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
+import axios from 'axios'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
+import { useCookies } from 'react-cookie'
+import { useRouter } from 'next/router'
 import { nameChanged,
          descriptionChanged,
          quantityChanged,
@@ -15,10 +19,14 @@ import { nameChanged,
          resourceImage5FileChanged,
          isShowReservePageChanged,
          resourceTypeChanged } from 'redux/resourceSlice'
-import { ShopParam } from 'interfaces/ShopParam'
+interface Props {
+  showDeleteButton?: boolean
+}
 
-const CreateResource = (): JSX.Element => {
+const CreateResource = ({showDeleteButton}: Props): JSX.Element => {
   const dispatch = useDispatch()
+  const router = useRouter()
+  const [cookies] = useCookies(['_square_eight_merchant_session'])
   const name = useSelector((state: RootState) => state.resource.name)
   const description = useSelector((state: RootState) => state.resource.description)
   const resourceImage1File = useSelector((state: RootState) => state.resource.resourceImage1File)
@@ -94,12 +102,51 @@ const CreateResource = (): JSX.Element => {
     dispatch(selectedReserveFrameIdsChanged(filterReserveFrameIds))
   }
 
+  const execDelete = () => {
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      html: `${name}を削除します。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/resources/${router.query.public_id}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '削除しました',
+            icon: 'info'
+          })
+          router.push('/admin/resource')
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '削除失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
+
   return (
     <>
       <div className='text-center mt20 mb20'>
         <h3 className='mb15'>リソース登録</h3>
         <span>スタッフや設備・備品を登録して予約者数を制限することができます。</span>
       </div>
+      {showDeleteButton &&
+      <Row>
+        <Col sm={8}>
+        </Col>
+        <Col>
+          <Button variant='danger' size='sm' onClick={() => execDelete()}>リソースを削除</Button>
+        </Col>
+      </Row>}
       <Form.Label>リソース名</Form.Label>
       <FormControl
         value={name}

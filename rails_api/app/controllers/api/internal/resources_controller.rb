@@ -134,6 +134,15 @@ class Api::Internal::ResourcesController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def destroy
+    resource = Resource.find_by(public_id: params[:public_id])
+    resource.destroy
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   private
 
   def resource_params

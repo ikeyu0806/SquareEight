@@ -119,6 +119,7 @@ Rails.application.routes.draw do
       get 'resources', to: 'resources#index'
       post 'resources', to: 'resources#create'
       post 'resources/:public_id/update', to: 'resources#update'
+      delete 'resources/:public_id', to: 'resources#destroy'
       post 'inquiry', to: 'inquiry#send_confirm_mail'
       post 'enterprise_inquiry', to: 'enterprise_inquiry#send_mail_to_admin'
       get 'reserve_frames/settable_relation_data', to: 'reserve_frames#settable_relation_data'
