@@ -7,8 +7,8 @@ const CreateResourceLimitAlert = () => {
 
   return (
     <>
-      {servicePlan === 'Free' && <Alert className='text-center'>フリープランではリソースは3件まで送信できます。</Alert>}
-      {servicePlan === 'Light' && <Alert className='text-center'>ライトプランではメールは10件まで送信できます。</Alert>}
+      {servicePlan === 'Free' && <Alert className='text-center'>フリープランではリソースは3件まで登録できます。</Alert>}
+      {servicePlan === 'Light' && <Alert className='text-center'>ライトプランではリソースは10件まで登録できます。</Alert>}
     </>
   )
 }

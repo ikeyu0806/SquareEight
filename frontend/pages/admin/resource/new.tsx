@@ -12,6 +12,7 @@ import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
 import Unauthorized from 'components/templates/Unauthorized'
 import { selectableReserveFramesChanged } from 'redux/resourceSlice'
+import CreateResourceLimitAlert from 'components/atoms/CreateResourceLimitAlert'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -88,6 +89,7 @@ const New: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
+        <CreateResourceLimitAlert />
         {allowCreateResource === 'Allow' &&<Container>
           <Row>
             <Col lg={3} md={3}></Col>
