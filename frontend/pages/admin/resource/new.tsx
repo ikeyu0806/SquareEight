@@ -13,6 +13,7 @@ import { alertChanged } from 'redux/alertSlice'
 import Unauthorized from 'components/templates/Unauthorized'
 import { selectableReserveFramesChanged } from 'redux/resourceSlice'
 import CreateResourceLimitAlert from 'components/atoms/CreateResourceLimitAlert'
+import ResouceLimitGuide from 'components/atoms/ResouceLimitGuide'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -101,6 +102,7 @@ const New: NextPage = () => {
               {/* {['Standard', 'Premium'].includes(servicePlan) && */}
                 <>
                   <CreateResource></CreateResource>
+                  <ResouceLimitGuide></ResouceLimitGuide>
                   <div className='text-center'>
                     <Button
                       disabled={!enableCreateResource}

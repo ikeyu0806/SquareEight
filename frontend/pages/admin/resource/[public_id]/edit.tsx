@@ -11,6 +11,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
 import Unauthorized from 'components/templates/Unauthorized'
+import ResouceLimitGuide from 'components/atoms/ResouceLimitGuide'
 import { nameChanged,
          quantityChanged,
          descriptionChanged,
@@ -121,12 +122,14 @@ const Edit: NextPage = () => {
                 <>
                   <CreateResource></CreateResource>
 
+                  <ResouceLimitGuide></ResouceLimitGuide>
                   <div className='text-center'>
                     <Button
                       disabled={!enableCreateResource}
                       onClick={onSubmit}
                       className='mt10'>登録する</Button>
                   </div>
+
                 </>
               {/* } */}
             </Col>
