@@ -252,6 +252,10 @@ const Index: NextPage = () => {
                                   <Col>
                                     {item.delivery_datetime_target_flg
                                     &&
+                                    item.shippable_date.length > 0
+                                    &&
+                                    item.shippable_time.length > 0
+                                    &&
                                     <>
                                       <div>配送日時</div>
                                       <Form.Check
