@@ -483,7 +483,7 @@ class Api::Internal::AccountsController < ApplicationController
   end
 
   def stripe_payment_history
-    stripe_payment_intents = current_merchant_user.account.stripe_payment_intents
+    stripe_payment_intents = current_merchant_user.account.stripe_payment_intents.order(id: :desc)
     stripe_payment_intents = JSON.parse(stripe_payment_intents.to_json(methods: [:customer_fullname]))
     render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, status: 200
   rescue => error
