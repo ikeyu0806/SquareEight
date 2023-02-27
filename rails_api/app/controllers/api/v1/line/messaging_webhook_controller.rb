@@ -26,11 +26,13 @@ class Api::V1::Line::MessagingWebhookController < ApplicationController
     events.each do |event|
       line_user_response = client.get_profile(event["source"]["userId"])
       line_user_response = JSON.parse(line_user_response.body)
-      line_user = line_account.line_users.find_or_initialize_by(line_user_id: event["source"]["userId"])
-      line_user.account = account
-      line_user.line_display_name = line_user_response["displayName"]
-      line_user.line_picture_url = line_user_response["pictureUrl"]
-      line_user.save!
+      if line_user_response.code,eql?("200")
+        line_user = line_account.line_users.find_or_initialize_by(line_user_id: event["source"]["userId"])
+        line_user.account = account
+        line_user.line_display_name = line_user_response["displayName"]
+        line_user.line_picture_url = line_user_response["pictureUrl"]
+        line_user.save!
+      end
       # case event
       # when Line::Bot::Event::Message
       #   case event.type
