@@ -43,6 +43,11 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
             message_template_type: send_mail_schedules_params[:message_template_type],
             html_template_type: html_template_type,
           )
+          stripe_payment_request = customer.stripe_payment_requests.create!(
+            name: send_mail_schedules_params[:payment_request_name],
+            price: send_mail_schedules_params[:payment_request_price],
+            account_id: account.id,
+          )
         end
       else
         customer = Customer.find_by(public_id: send_mail_schedules_params[:customer_public_id])
@@ -56,6 +61,11 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
           message_template_type: send_mail_schedules_params[:message_template_type],
           html_template_type: html_template_type,
         )
+        stripe_payment_request = customer.stripe_payment_requests.create!(
+          name: send_mail_schedules_params[:payment_request_name],
+          price: send_mail_schedules_params[:payment_request_price],
+          account_id: account.id,
+        )
       end
     when 'customerGroup'
       customer_group = CustomerGroup.find_by(public_id: send_mail_schedules_params[:customer_group_public_id])
@@ -68,8 +78,12 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
         mail_title: mail_title,
         message_body: message_body,
         message_template_type: send_mail_schedules_params[:message_template_type],
-        html_template_type: html_template_type,
-      )
+        html_template_type: html_template_type)
+
+        stripe_payment_request = customer.stripe_payment_requests.create!(
+          name: send_mail_schedules_params[:payment_request_name],
+          price: send_mail_schedules_params[:payment_request_price],
+          account_id: account.id)
       end
     else
       raise 'send_target_type is invalid'
@@ -99,8 +113,8 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
                   :mail_title,
                   :message_body,
                   :is_send_payment_request,
-                  :price,
                   :payment_request_name,
+                  :payment_request_price,
                   :message_template_public_id,
                   :message_template_type,
                   :send_target_type,

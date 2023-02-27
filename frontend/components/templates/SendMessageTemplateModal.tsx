@@ -12,6 +12,7 @@ import { showSendMailScheduleModalChanged } from 'redux/sendMailReservationSlice
 import SendMailScheduleModal from 'components/organisms/SendMailScheduleModal'
 import { customerPublicIdChanged } from 'redux/customerSlice'
 import { publicIdChanged } from 'redux/customerGroupSlice'
+import SendStripePaymentRequestForm from 'components/molecules/SendStripePaymentRequestForm'
 
 const SendMessageTemplateModal = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -23,6 +24,9 @@ const SendMessageTemplateModal = () => {
   const selectedCustomer =  useSelector((state: RootState) => state.sendMail.selectedCustomer)
   const selectedCustomerGroup =  useSelector((state: RootState) => state.sendMail.selectedCustomerGroup)
   const selectedMessageTemplate =  useSelector((state: RootState) => state.sendMail.selectedMessageTemplate)
+  const isSendPaymentRequest =  useSelector((state: RootState) => state.sendMail.isSendPaymentRequest)
+  const paymentRequestName =  useSelector((state: RootState) => state.sendMail.paymentRequestName)
+  const paymentRequestPrice =  useSelector((state: RootState) => state.sendMail.paymentRequestPrice)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/message_templates/${selectedMessageTemplate.public_id}/send_mail`,
@@ -30,7 +34,10 @@ const SendMessageTemplateModal = () => {
       message_template: {
         target_type: sendTargetType,
         target_customers: selectedCustomer,
-        target_customer_groups: selectedCustomerGroup
+        target_customer_groups: selectedCustomerGroup,
+        is_send_payment_request: isSendPaymentRequest,
+        payment_request_name: paymentRequestName,
+        payment_request_price: paymentRequestPrice
       }
     },
     {
@@ -50,54 +57,56 @@ const SendMessageTemplateModal = () => {
       <Modal show={showSendMessageTemplateModal}>
         <Modal.Header>送信先を選択してください</Modal.Header> 
         <Modal.Body>
-            <Form.Check
-              checked={sendTargetType === 'customer'}
-              onChange={() => dispatch(sendTargetTypeChanged('customer'))}
-              id='selectCustomer'
-              label='顧客'
-              type='radio'/>
-            <Form.Check
-              checked={sendTargetType === 'customerGroup'}
-              onChange={() => dispatch(sendTargetTypeChanged('customerGroup'))}
-              id='selectCustomerGroup'
-              label='顧客グループ'
-              type='radio'/>
-            {sendTargetType === 'customer' && 
-              customers.map((customer, i) => {
-                return(
-                  <Form.Check
-                    className='ml10'
-                    type='radio'
-                    name='selectCustomer'
-                    id={String(customer.id + i)}
-                    label={<>{customer.last_name}{customer.full_name}</>}
-                    key={i}
-                    onClick={() => {
-                      dispatch(customerPublicIdChanged(customer.public_id))
-                      dispatch(selectedCustomerChanged(customer))
-                    }}
-                  />
-                )
-              })
-            }
-            {sendTargetType === 'customerGroup' && 
-              customerGroups.map((group, i) => {
-                return(
-                  <Form.Check
-                    className='ml10'
-                    type='radio'
-                    name='selectCustomerGroup'
-                    id={String(group.id + i)}
-                    label={group.name}
-                    key={i}
-                    onClick={() => {
-                      dispatch(publicIdChanged(group.public_id))
-                      dispatch(selectedCustomerGroupChanged(group))
-                    }}
-                  />
-                )
-              })
-            }
+          <Form.Check
+            checked={sendTargetType === 'customer'}
+            onChange={() => dispatch(sendTargetTypeChanged('customer'))}
+            id='selectCustomer'
+            label='顧客'
+            type='radio'/>
+          <Form.Check
+            checked={sendTargetType === 'customerGroup'}
+            onChange={() => dispatch(sendTargetTypeChanged('customerGroup'))}
+            id='selectCustomerGroup'
+            label='顧客グループ'
+            type='radio'/>
+          {sendTargetType === 'customer' && 
+            customers.map((customer, i) => {
+              return(
+                <Form.Check
+                  className='ml10'
+                  type='radio'
+                  name='selectCustomer'
+                  id={String(customer.id + i)}
+                  label={<>{customer.last_name}{customer.full_name}</>}
+                  key={i}
+                  onClick={() => {
+                    dispatch(customerPublicIdChanged(customer.public_id))
+                    dispatch(selectedCustomerChanged(customer))
+                  }}
+                />
+              )
+            })
+          }
+          {sendTargetType === 'customerGroup' && 
+            customerGroups.map((group, i) => {
+              return(
+                <Form.Check
+                  className='ml10'
+                  type='radio'
+                  name='selectCustomerGroup'
+                  id={String(group.id + i)}
+                  label={group.name}
+                  key={i}
+                  onClick={() => {
+                    dispatch(publicIdChanged(group.public_id))
+                    dispatch(selectedCustomerGroupChanged(group))
+                  }}
+                />
+              )
+            })
+          }
+          <hr />
+          <SendStripePaymentRequestForm />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => dispatch(showSendMailScheduleModalChanged(true))}>
