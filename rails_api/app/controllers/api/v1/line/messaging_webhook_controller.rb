@@ -3,6 +3,7 @@ include LineClientModule
 class Api::V1::Line::MessagingWebhookController < ApplicationController
   def index
     line_account = LineOfficialAccount.find_by(public_id: params[:line_account_public_id])
+    return true unless (line_account.channel_id.present? && line_account.channel_secret.present? && line_account.channel_token.present?)
     client = line_messaging_client(line_account.channel_id, line_account.channel_secret, line_account.channel_token)
 
     account = line_account.account
@@ -21,12 +22,12 @@ class Api::V1::Line::MessagingWebhookController < ApplicationController
         
       }
     end
-  
+
     events = client.parse_events_from(body)
     events.each do |event|
       line_user_response = client.get_profile(event["source"]["userId"])
-      line_user_response = JSON.parse(line_user_response.body)
-      if line_user_response.code,eql?("200")
+      if line_user_response.code.eql?("200")
+        line_user_response = JSON.parse(line_user_response.body)
         line_user = line_account.line_users.find_or_initialize_by(line_user_id: event["source"]["userId"])
         line_user.account = account
         line_user.line_display_name = line_user_response["displayName"]
