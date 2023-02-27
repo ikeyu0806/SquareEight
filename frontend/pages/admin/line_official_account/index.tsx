@@ -80,16 +80,22 @@ const Index: NextPage = () => {
                            className='btn btn-primary mt10'>編集</a>
                       </Col>
                       <Col>
-                        <LineBrandColorButton text='友だち一覧' onClick={() => router.push(`/admin/line_official_account/${account.public_id}/line_user`)} />
-                        <div className='mt10'>
-                          <LineBrandColorButton
-                            text='友だち全員にメッセージを送信'
-                            onClick={() => {
-                              dispatch(showPushMessageModalChanged(true));
-                              dispatch(publicIdChanged(account.public_id))
-                              dispatch(selectedLineOfficialAccountPublicIdChanged(account.public_id))
-                            }}/>
-                        </div>
+                        {(account.channel_id && account.channel_secret && account.channel_token) &&
+                        <>
+                          <LineBrandColorButton text='友だち一覧' onClick={() => router.push(`/admin/line_official_account/${account.public_id}/line_user`)} />
+                          <div className='mt10'>
+                            <LineBrandColorButton
+                              text='友だち全員にメッセージを送信'
+                              onClick={() => {
+                                dispatch(showPushMessageModalChanged(true));
+                                dispatch(publicIdChanged(account.public_id))
+                                dispatch(selectedLineOfficialAccountPublicIdChanged(account.public_id))
+                              }}/>
+                          </div>
+                        </>}
+                        {!account.channel_id && <div className='color-red'>Channel IDが未登録です</div>}
+                        {!account.channel_secret && <div className='color-red'>Channel secretが未登録です</div>}
+                        {!account.channel_token && <div className='color-red'>Channel tokenが未登録です</div>}
                       </Col>
                     </Row>
                     <div className='mt10'>
