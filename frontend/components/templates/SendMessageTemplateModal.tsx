@@ -50,54 +50,60 @@ const SendMessageTemplateModal = () => {
       <Modal show={showSendMessageTemplateModal}>
         <Modal.Header>送信先を選択してください</Modal.Header> 
         <Modal.Body>
-            <Form.Check
-              checked={sendTargetType === 'customer'}
-              onChange={() => dispatch(sendTargetTypeChanged('customer'))}
-              id='selectCustomer'
-              label='顧客'
-              type='radio'/>
-            <Form.Check
-              checked={sendTargetType === 'customerGroup'}
-              onChange={() => dispatch(sendTargetTypeChanged('customerGroup'))}
-              id='selectCustomerGroup'
-              label='顧客グループ'
-              type='radio'/>
-            {sendTargetType === 'customer' && 
-              customers.map((customer, i) => {
-                return(
-                  <Form.Check
-                    className='ml10'
-                    type='radio'
-                    name='selectCustomer'
-                    id={String(customer.id + i)}
-                    label={<>{customer.last_name}{customer.full_name}</>}
-                    key={i}
-                    onClick={() => {
-                      dispatch(customerPublicIdChanged(customer.public_id))
-                      dispatch(selectedCustomerChanged(customer))
-                    }}
-                  />
-                )
-              })
-            }
-            {sendTargetType === 'customerGroup' && 
-              customerGroups.map((group, i) => {
-                return(
-                  <Form.Check
-                    className='ml10'
-                    type='radio'
-                    name='selectCustomerGroup'
-                    id={String(group.id + i)}
-                    label={group.name}
-                    key={i}
-                    onClick={() => {
-                      dispatch(publicIdChanged(group.public_id))
-                      dispatch(selectedCustomerGroupChanged(group))
-                    }}
-                  />
-                )
-              })
-            }
+          <Form.Check
+            checked={sendTargetType === 'customer'}
+            onChange={() => dispatch(sendTargetTypeChanged('customer'))}
+            id='selectCustomer'
+            label='顧客'
+            type='radio'/>
+          <Form.Check
+            checked={sendTargetType === 'customerGroup'}
+            onChange={() => dispatch(sendTargetTypeChanged('customerGroup'))}
+            id='selectCustomerGroup'
+            label='顧客グループ'
+            type='radio'/>
+          {sendTargetType === 'customer' && 
+            customers.map((customer, i) => {
+              return(
+                <Form.Check
+                  className='ml10'
+                  type='radio'
+                  name='selectCustomer'
+                  id={String(customer.id + i)}
+                  label={<>{customer.last_name}{customer.full_name}</>}
+                  key={i}
+                  onClick={() => {
+                    dispatch(customerPublicIdChanged(customer.public_id))
+                    dispatch(selectedCustomerChanged(customer))
+                  }}
+                />
+              )
+            })
+          }
+          {sendTargetType === 'customerGroup' && 
+            customerGroups.map((group, i) => {
+              return(
+                <Form.Check
+                  className='ml10'
+                  type='radio'
+                  name='selectCustomerGroup'
+                  id={String(group.id + i)}
+                  label={group.name}
+                  key={i}
+                  onClick={() => {
+                    dispatch(publicIdChanged(group.public_id))
+                    dispatch(selectedCustomerGroupChanged(group))
+                  }}
+                />
+              )
+            })
+          }
+          <hr />
+          <Form.Check
+            label='決済リクエストを送信する'
+            id='isSendPaymentRequest' />
+          <div className='mt10'>決済金額を入力してください（円）</div>
+          <Form.Control type='number' />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => dispatch(showSendMailScheduleModalChanged(true))}>
