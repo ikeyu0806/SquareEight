@@ -98,6 +98,7 @@ const Edit = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowUpdateLineOfficialAccount === 'Allow' &&
       <Container>
         <Row>
