@@ -34,12 +34,12 @@ class Api::Internal::CashRegistersController < ApplicationController
           product = Product.find(cart[:parent_product_id])
           if cart[:product_type_id].present? && cart[:product_type_id].positive?
             product_type = ProductType.find(cart[:product_type_id])
+            raise '在庫切れです' if product_type.inventory_allocation + cart[:quantity] > product_type.inventory
             product_type.inventory_allocation = product_type.inventory_allocation + cart[:quantity]
-            raise '在庫切れです' if product_type.inventory_allocation >= product_type.inventory
             product_type.save!
           else
+            raise '在庫切れです' if product.inventory_allocation + cart[:quantity] > product.inventory
             product.inventory_allocation = product.inventory_allocation + cart[:quantity]
-            raise '在庫切れです' if product.inventory_allocation >= product.inventory
           end
           stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
           default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
