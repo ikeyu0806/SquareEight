@@ -34,7 +34,9 @@ const SendMessageTemplateModal = () => {
       message_template: {
         target_type: sendTargetType,
         target_customers: selectedCustomer,
-        target_customer_groups: selectedCustomerGroup
+        target_customer_groups: selectedCustomerGroup,
+        is_send_payment_request: isSendPaymentRequest,
+        payment_request_price: paymentRequestPrice
       }
     },
     {

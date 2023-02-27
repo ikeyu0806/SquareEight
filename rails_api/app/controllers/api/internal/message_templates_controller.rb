@@ -83,6 +83,8 @@ class Api::Internal::MessageTemplatesController < ApplicationController
                   :name,
                   :title,
                   :content,
+                  :is_send_payment_request,
+                  :payment_request_price,
                   target_customers: [:id, :last_name, :first_name, :email, :phone_number],
                   target_customer_groups: [:id, :name])
   end
