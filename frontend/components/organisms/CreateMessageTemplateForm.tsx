@@ -44,7 +44,7 @@ const CreateMessageTemplateForm = (): JSX.Element => {
           <MessageTemplateVariables></MessageTemplateVariables>
         </Col>
         <Col md={4}>
-          <div className='mt10'>ページリンク一覧</div>
+          <div>ページリンク一覧</div>
           <div>
             <ListGroup>
               {pageLinks.map((link, i) => {
