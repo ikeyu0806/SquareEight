@@ -93,6 +93,8 @@ const Index: NextPage = () => {
                     </div>
                   )
                 })}
+                {reservations.length === 0 &&
+                <div className='text-center font-size-25'>予約履歴がありません</div>}
               </Col>
             </Row>
           </Container>
