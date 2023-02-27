@@ -19,13 +19,13 @@ const SendMailScheduleModal = (): JSX.Element => {
   const messageTemplatePublicId =  useSelector((state: RootState) => state.messageTemplate.publicId)
   const title = useSelector((state: RootState) => state.messageTemplate.title)
   const content = useSelector((state: RootState) => state.messageTemplate.content)
-  const price = useSelector((state: RootState) => state.paymentRequest.price)
-  const paymentRequestName = useSelector((state: RootState) => state.paymentRequest.name)
-  const isSendPaymentRequest = useSelector((state: RootState) => state.lineOfficialAccount.isSendPaymentRequest)
   const selectedHtmlMailTemplate = useSelector((state: RootState) => state.sendMail.selectedHtmlMailTemplate)
   const messageTemplateType = useSelector((state: RootState) => state.sendMail.messageTemplateType)
   const sendTargetType = useSelector((state: RootState) => state.sendMail.sendTargetType)
   const isSendMessageAllCustomers =  useSelector((state: RootState) => state.sendMail.isSendMessageAllCustomers)
+  const isSendPaymentRequest =  useSelector((state: RootState) => state.sendMail.isSendPaymentRequest)
+  const paymentRequestName =  useSelector((state: RootState) => state.sendMail.paymentRequestName)
+  const paymentRequestPrice =  useSelector((state: RootState) => state.sendMail.paymentRequestPrice)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/send_mail_schedules`,
@@ -38,8 +38,8 @@ const SendMailScheduleModal = (): JSX.Element => {
         mail_title: title,
         message_body: content,
         is_send_payment_request: isSendPaymentRequest,
-        price: price,
         payment_request_name: paymentRequestName,
+        payment_request_price: paymentRequestPrice,
         message_template_public_id: messageTemplatePublicId,
         selected_html_mail_template: selectedHtmlMailTemplate,
         message_template_type: messageTemplateType,
