@@ -7,14 +7,12 @@ import { useCookies } from 'react-cookie'
 import { sendTargetTypeChanged,
          showSendMessageTemplateModalChanged,
          selectedCustomerChanged,
-         selectedCustomerGroupChanged,
-         isSendPaymentRequestChanged,
-         paymentRequestNameChanged,
-         paymentRequestPriceChanged } from 'redux/sendMailSlice'
+         selectedCustomerGroupChanged } from 'redux/sendMailSlice'
 import { showSendMailScheduleModalChanged } from 'redux/sendMailReservationSlice'
 import SendMailScheduleModal from 'components/organisms/SendMailScheduleModal'
 import { customerPublicIdChanged } from 'redux/customerSlice'
 import { publicIdChanged } from 'redux/customerGroupSlice'
+import SendStripePaymentRequestForm from 'components/molecules/SendStripePaymentRequestForm'
 
 const SendMessageTemplateModal = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -108,24 +106,7 @@ const SendMessageTemplateModal = () => {
             })
           }
           <hr />
-          <Form.Check
-            checked={isSendPaymentRequest}
-            onChange={() => dispatch(isSendPaymentRequestChanged(!isSendPaymentRequest))}
-            label='決済リクエストを送信する'
-            id='isSendPaymentRequest' />
-          {isSendPaymentRequest &&
-          <>
-            <div className='mt10'>決済リクエスト名</div>
-            <div>商品名、サービス名などを入力してください</div>
-            <Form.Control
-              value={paymentRequestName}
-              onChange={(e) => dispatch(paymentRequestNameChanged(e.target.value))} />
-            <div className='mt10'>決済金額を入力してください（円）</div>
-            <Form.Control
-              value={paymentRequestPrice}
-              onChange={(e) => dispatch(paymentRequestPriceChanged(Number(e.target.value)))}
-              type='number' />
-          </>}
+          <SendStripePaymentRequestForm />
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => dispatch(showSendMailScheduleModalChanged(true))}>
