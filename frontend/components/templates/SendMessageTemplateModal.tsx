@@ -7,7 +7,9 @@ import { useCookies } from 'react-cookie'
 import { sendTargetTypeChanged,
          showSendMessageTemplateModalChanged,
          selectedCustomerChanged,
-         selectedCustomerGroupChanged } from 'redux/sendMailSlice'
+         selectedCustomerGroupChanged,
+         isSendPaymentRequestChanged,
+         paymentRequestPriceChanged } from 'redux/sendMailSlice'
 import { showSendMailScheduleModalChanged } from 'redux/sendMailReservationSlice'
 import SendMailScheduleModal from 'components/organisms/SendMailScheduleModal'
 import { customerPublicIdChanged } from 'redux/customerSlice'
@@ -23,6 +25,8 @@ const SendMessageTemplateModal = () => {
   const selectedCustomer =  useSelector((state: RootState) => state.sendMail.selectedCustomer)
   const selectedCustomerGroup =  useSelector((state: RootState) => state.sendMail.selectedCustomerGroup)
   const selectedMessageTemplate =  useSelector((state: RootState) => state.sendMail.selectedMessageTemplate)
+  const isSendPaymentRequest =  useSelector((state: RootState) => state.sendMail.isSendPaymentRequest)
+  const paymentRequestPrice =  useSelector((state: RootState) => state.sendMail.paymentRequestPrice)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/message_templates/${selectedMessageTemplate.public_id}/send_mail`,
@@ -100,10 +104,18 @@ const SendMessageTemplateModal = () => {
           }
           <hr />
           <Form.Check
+            checked={isSendPaymentRequest}
+            onChange={() => dispatch(isSendPaymentRequestChanged(!isSendPaymentRequest))}
             label='決済リクエストを送信する'
             id='isSendPaymentRequest' />
-          <div className='mt10'>決済金額を入力してください（円）</div>
-          <Form.Control type='number' />
+          {isSendPaymentRequest &&
+          <>
+            <div className='mt10'>決済金額を入力してください（円）</div>
+            <Form.Control
+              value={paymentRequestPrice}
+              onChange={(e) => dispatch(paymentRequestPriceChanged(Number(e.target.value)))}
+              type='number' />
+          </>}
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={() => dispatch(showSendMailScheduleModalChanged(true))}>
