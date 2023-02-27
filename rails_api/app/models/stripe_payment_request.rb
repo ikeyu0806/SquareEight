@@ -6,6 +6,7 @@ class StripePaymentRequest < ApplicationRecord
 
   belongs_to :account
   has_one :customer, foreign_key: :id, primary_key: :customer_id
+  has_one :end_user, foreign_key: :id, primary_key: :end_user_id
   has_one :line_user, foreign_key: :id, primary_key: :line_user_id
 
   def display_status

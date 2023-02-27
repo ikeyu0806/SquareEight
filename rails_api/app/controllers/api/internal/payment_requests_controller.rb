@@ -109,6 +109,7 @@ class Api::Internal::PaymentRequestsController < ApplicationController
       payment_request = StripePaymentRequest.find_by(public_id: payment_request_params[:public_id])
       account = payment_request.account
       customer = current_end_user.customer
+      payment_request.update!(end_user_id: current_end_user.id)
       if customer.blank?
         customer = Customer.create!(email: current_end_user.email,
                                     phone_number: current_end_user.phone_number,
