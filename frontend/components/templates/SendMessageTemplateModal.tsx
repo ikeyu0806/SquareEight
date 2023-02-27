@@ -9,6 +9,7 @@ import { sendTargetTypeChanged,
          selectedCustomerChanged,
          selectedCustomerGroupChanged,
          isSendPaymentRequestChanged,
+         paymentRequestNameChanged,
          paymentRequestPriceChanged } from 'redux/sendMailSlice'
 import { showSendMailScheduleModalChanged } from 'redux/sendMailReservationSlice'
 import SendMailScheduleModal from 'components/organisms/SendMailScheduleModal'
@@ -26,6 +27,7 @@ const SendMessageTemplateModal = () => {
   const selectedCustomerGroup =  useSelector((state: RootState) => state.sendMail.selectedCustomerGroup)
   const selectedMessageTemplate =  useSelector((state: RootState) => state.sendMail.selectedMessageTemplate)
   const isSendPaymentRequest =  useSelector((state: RootState) => state.sendMail.isSendPaymentRequest)
+  const paymentRequestName =  useSelector((state: RootState) => state.sendMail.paymentRequestName)
   const paymentRequestPrice =  useSelector((state: RootState) => state.sendMail.paymentRequestPrice)
 
   const onSubmit = () => {
@@ -36,6 +38,7 @@ const SendMessageTemplateModal = () => {
         target_customers: selectedCustomer,
         target_customer_groups: selectedCustomerGroup,
         is_send_payment_request: isSendPaymentRequest,
+        payment_request_name: paymentRequestName,
         payment_request_price: paymentRequestPrice
       }
     },
@@ -112,6 +115,11 @@ const SendMessageTemplateModal = () => {
             id='isSendPaymentRequest' />
           {isSendPaymentRequest &&
           <>
+            <div className='mt10'>決済リクエスト名</div>
+            <div>商品名、サービス名などを入力してください</div>
+            <Form.Control
+              value={paymentRequestName}
+              onChange={(e) => dispatch(paymentRequestNameChanged(e.target.value))} />
             <div className='mt10'>決済金額を入力してください（円）</div>
             <Form.Control
               value={paymentRequestPrice}

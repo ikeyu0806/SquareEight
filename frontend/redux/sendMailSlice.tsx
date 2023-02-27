@@ -15,6 +15,7 @@ export const sendMailSlice = createSlice({
     messageTemplateType: 'notUse',
     isSendMessageAllCustomers: false,
     isSendPaymentRequest: false,
+    paymentRequestName: '',
     paymentRequestPrice: 1000,
     selectedHtmlMailTemplate: {}  as HtmlMailTemplateParam,
     customers: [] as CustomerParam[],
@@ -42,6 +43,9 @@ export const sendMailSlice = createSlice({
     },
     isSendPaymentRequestChanged: (state, action: PayloadAction<boolean>) => {
       state.isSendPaymentRequest = action.payload
+    },
+    paymentRequestNameChanged: (state, action: PayloadAction<string>) => {
+      state.paymentRequestName = action.payload
     },
     paymentRequestPriceChanged: (state, action: PayloadAction<number>) => {
       state.paymentRequestPrice = action.payload
@@ -76,6 +80,7 @@ export const { sendTargetTypeChanged } = sendMailSlice.actions
 export const { messageTemplateTypeChanged } = sendMailSlice.actions
 export const { isSendMessageAllCustomersChanged } = sendMailSlice.actions
 export const { isSendPaymentRequestChanged } = sendMailSlice.actions
+export const { paymentRequestNameChanged } = sendMailSlice.actions
 export const { paymentRequestPriceChanged } = sendMailSlice.actions
 export const { selectedHtmlMailTemplateChanged } = sendMailSlice.actions
 export const { customersChanged } = sendMailSlice.actions

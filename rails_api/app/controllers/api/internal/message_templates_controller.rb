@@ -45,6 +45,7 @@ class Api::Internal::MessageTemplatesController < ApplicationController
       email = message_template_params[:target_customers][:email]
       customer = Customer.find(message_template_params[:target_customers][:id])
       stripe_payment_request = customer.stripe_payment_requests.create!(
+        name: message_template_params[:payment_request_name],
         price: message_template_params[:payment_request_price],
         account_id: account.id,
       )
@@ -56,6 +57,7 @@ class Api::Internal::MessageTemplatesController < ApplicationController
       customer_group.customers.each do |customer|
         email = customer.email
         stripe_payment_request = customer.stripe_payment_requests.create!(
+          name: message_template_params[:payment_request_name],
           price: message_template_params[:payment_request_price],
           account_id: account.id,
         )
@@ -93,6 +95,7 @@ class Api::Internal::MessageTemplatesController < ApplicationController
                   :title,
                   :content,
                   :is_send_payment_request,
+                  :payment_request_name,
                   :payment_request_price,
                   target_customers: [:id, :last_name, :first_name, :email, :phone_number],
                   target_customer_groups: [:id, :name])
