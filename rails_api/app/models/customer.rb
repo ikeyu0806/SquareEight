@@ -8,6 +8,7 @@ class Customer < ApplicationRecord
   has_many :questionnaire_answers
   has_many :customer_group_relations
   has_many :customer_groups, through: :customer_group_relations
+  has_many :stripe_payment_requests
 
   scope :search, -> (search_word) {
     if search_word.present?

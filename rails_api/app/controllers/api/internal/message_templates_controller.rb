@@ -43,6 +43,11 @@ class Api::Internal::MessageTemplatesController < ApplicationController
     content = message_template.content
     if message_template_params[:target_type] == 'customer'
       email = message_template_params[:target_customers][:email]
+      customer = Customer.find(message_template_params[:target_customers][:id])
+      stripe_payment_request = customer.stripe_payment_requests.create!(
+        price: message_template_params[:payment_request_price],
+        account_id: account.id,
+      )
       content = MessageTemplate.convert_content(content, message_template_params[:target_customers][:last_name], message_template_params[:target_customers][:first_name])
       MessageTemplateMailer.send_mail(email, title, content).deliver_now
     elsif message_template_params[:target_type] == 'customerGroup'
@@ -50,6 +55,10 @@ class Api::Internal::MessageTemplatesController < ApplicationController
       customer_group = CustomerGroup.find(group["id"])
       customer_group.customers.each do |customer|
         email = customer.email
+        stripe_payment_request = customer.stripe_payment_requests.create!(
+          price: message_template_params[:payment_request_price],
+          account_id: account.id,
+        )
         content = MessageTemplate.convert_content(content, customer.last_name, customer.first_name)
         MessageTemplateMailer.send_mail(email, title, content).deliver_now
       end
