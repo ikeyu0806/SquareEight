@@ -8,6 +8,7 @@ import { useCookies } from 'react-cookie'
 import {  loginStatusChanged,
           todayReservationsCountChanged } from 'redux/currentEndUserSlice'
 import WithoutSessionLayout from './WithoutSessionLayout'
+import RegularFooter from 'components/organisms/RegularFooter'
 
 interface Props {
   children: ReactNode
@@ -37,7 +38,11 @@ const EndUserLoginLayout = ({children}: Props): JSX.Element => {
   return (
     <>
       {currentEndUserLogintStatus === 'Login'
-        ? <><CustomerPageNavbar></CustomerPageNavbar>{children}</>
+        ? <>
+            <CustomerPageNavbar />
+              {children}
+            <RegularFooter />
+          </>
         :
         currentEndUserLogintStatus === 'Logout'
           ? <>
