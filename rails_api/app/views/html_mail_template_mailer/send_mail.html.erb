@@ -13,9 +13,11 @@
             alt='image'
           />
         <% end %>
-        <div style="white-space: pre-wrap; word-wrap: break-word;">
-          <%= content["text"] %>
-        </div>
+        <% if content["text"].present? %>
+          <div style="white-space: pre-wrap; word-wrap: break-word;">
+            <%= content["text"] %>
+          </div>
+        <% end %>
       <% end %>
     <% elsif @template_type == 'ImageWithTextList' %>
       <div style="display: inline-grid; grid-template-columns: 300px 300px;">
@@ -29,9 +31,11 @@
               />
             </div>
           <% end %>
-          <div style="white-space: pre-wrap; word-wrap: break-word;">
-            <%= content["text"] %>
-          </div>
+          <% if content["text"].present? %>
+            <div style="white-space: pre-wrap; word-wrap: break-word;">
+              <%= content["text"] %>
+            </div>
+          <% end %>
         <% end %>
       </div>
     <% end %>
