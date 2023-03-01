@@ -6,6 +6,8 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { Notification } from 'interfaces/Notification'
 import { useRouter } from 'next/router'
+import { urlRegex } from 'constants/urlRegex'
+import parse from 'html-react-parser'
 
 const Index: NextPage = () => {
   const [notifications, setNotifications] = useState<Notification[]>([])
@@ -44,8 +46,10 @@ const Index: NextPage = () => {
             <Card>
               <Card.Header>{title}</Card.Header>
               <Card.Body>
-                <div className='apply_new_line'>
-                  {content}
+              <div className='apply_new_line'>
+                {parse(
+                    content.replace(urlRegex, '<a href="$1">$1</a>')
+                  )}
                 </div>
               </Card.Body>
             </Card>
