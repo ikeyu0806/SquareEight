@@ -6,7 +6,7 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
   def index
     account = current_merchant_user.account
     html_mail_templates = account.html_mail_templates
-    customers = account.customers.order(:id)
+    customers = account.customers.where.not(email: nil, first_name: nil, last_name: nil).order(:id)
     customer_groups = account.customer_groups
     render json: {  status: 'success',
                     html_mail_templates: html_mail_templates,
