@@ -268,7 +268,8 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
                     )
                   })}
               </Form.Group>
-              {selectableReserveFrames.length !== 0 && <>
+              {/* useRefが親コンポーネントと共有できず消費枚数設定が面倒なので一旦disable */}
+              {/* {selectableReserveFrames.length !== 0 && <>
                 <hr />
                 <Form.Group className='mt10'>
                   <div>予約メニュー設定</div>
@@ -285,7 +286,7 @@ const CreateTicketTemplate = ({showDeleteButton}: Props): JSX.Element => {
                     )
                   })}
                 </Form.Group>
-              </>}
+              </>} */}
             </div>
           </Col>
           <Col>
