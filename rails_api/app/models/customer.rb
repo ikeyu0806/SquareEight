@@ -10,6 +10,7 @@ class Customer < ApplicationRecord
   has_many :customer_groups, through: :customer_group_relations
   has_many :stripe_payment_requests
 
+  scope :email_sendable, -> { where.not(email: nil, first_name: nil, last_name: nil) }
   scope :search, -> (search_word) {
     if search_word.present?
       where("first_name LIKE ?", "%#{search_word}%").
