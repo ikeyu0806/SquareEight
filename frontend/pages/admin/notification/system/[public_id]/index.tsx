@@ -36,13 +36,18 @@ const Index: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       <Container>
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
             <Card>
               <Card.Header>{title}</Card.Header>
-              <Card.Body>{content}</Card.Body>
+              <Card.Body>
+                <div className='apply_new_line'>
+                  {content}
+                </div>
+              </Card.Body>
             </Card>
           </Col>
         </Row>
