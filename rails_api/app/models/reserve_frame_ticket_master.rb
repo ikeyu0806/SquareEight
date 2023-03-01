@@ -3,4 +3,6 @@ class ReserveFrameTicketMaster < ApplicationRecord
 
   belongs_to :reserve_frame
   belongs_to :ticket_master
+
+  validates :consume_number, presence: true
 end
