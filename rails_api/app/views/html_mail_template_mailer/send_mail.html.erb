@@ -3,33 +3,16 @@
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
   </head>
-  <body>
-    <% if @template_type == 'ImageWithText' %>
-      <% @parsed_content.each do |content| %>
-        <% if content["image"].present? %>
-          <img
-            style='margin-top: 30px;width: 500px;'
-            src="<%= content["image"] %>"
-            alt='image'
-          />
-        <% end %>
-        <% if content["text"].present? %>
-          <div style="white-space: pre-wrap; word-wrap: break-word;">
-            <%= content["text"] %>
-          </div>
-        <% end %>
-      <% end %>
-    <% elsif @template_type == 'ImageWithTextList' %>
-      <div style="display: inline-grid; grid-template-columns: 300px 300px;">
+  <body style="background-color: #EEEEEE;">
+    <div style="background-color: white; padding: 10px; border-radius: 10px;">
+      <% if @template_type == 'ImageWithText' %>
         <% @parsed_content.each do |content| %>
           <% if content["image"].present? %>
-            <div style="margin-bottom: 10px; text-align: center;">
-              <img
-                style='width: 250px;'
-                src="<%= content["image"] %>"
-                alt='image'
-              />
-            </div>
+            <img
+              style='margin-top: 30px;width: 500px;'
+              src="<%= content["image"] %>"
+              alt='image'
+            />
           <% end %>
           <% if content["text"].present? %>
             <div style="white-space: pre-wrap; word-wrap: break-word;">
@@ -37,7 +20,26 @@
             </div>
           <% end %>
         <% end %>
-      </div>
-    <% end %>
+      <% elsif @template_type == 'ImageWithTextList' %>
+        <div style="display: inline-grid; grid-template-columns: 300px 300px;">
+          <% @parsed_content.each do |content| %>
+            <% if content["image"].present? %>
+              <div style="margin-bottom: 10px; text-align: center;">
+                <img
+                  style='width: 250px;'
+                  src="<%= content["image"] %>"
+                  alt='image'
+                />
+              </div>
+            <% end %>
+            <% if content["text"].present? %>
+              <div style="white-space: pre-wrap; word-wrap: break-word;">
+                <%= content["text"] %>
+              </div>
+            <% end %>
+          <% end %>
+        </div>
+      <% end %>
+    </div>
   </body>
 </html>
