@@ -70,7 +70,7 @@ const Index: NextPage = () => {
                       as='li'
                       key={i}
                       className='list-group-hover'
-                      onClick={() => router.push(`/customer_page/system_notification/${n.id}/`)}>
+                      onClick={() => router.push(`/customer_page/system_notification/${n.public_id}/`)}>
                       {n.title}
                     </ListGroup.Item>
                   )

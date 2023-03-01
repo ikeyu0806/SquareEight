@@ -8,4 +8,12 @@ class Api::Internal::EndUserNotificationsController < ApplicationController
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
   end
+
+  def show
+    end_user_notification = EndUserNotification.find_by(public_id: params[:public_id])
+    render json: { status: 'success', end_user_notification: end_user_notification }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
 end
