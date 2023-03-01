@@ -81,7 +81,7 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
     html_mail_template = HtmlMailTemplate.find_by(public_id: params[:public_id])
     if html_mail_template_params[:send_target_type] == 'customer'
       if html_mail_template_params[:is_send_message_all_customers]
-        account.customers.each do |customer|
+        account.customers.email_sendable.each do |customer|
           parsed_content = JSON.parse(html_mail_template.content)
           HtmlMailTemplateMailer.send_mail(customer.email, parsed_content, html_mail_template.mail_title, html_mail_template.template_type).deliver_now
           account.send_mail_histories.create!(
