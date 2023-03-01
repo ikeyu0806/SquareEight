@@ -9,6 +9,8 @@ class StripePaymentRequest < ApplicationRecord
   has_one :end_user, foreign_key: :id, primary_key: :end_user_id
   has_one :line_user, foreign_key: :id, primary_key: :line_user_id
 
+  validates :name, presence: true
+
   def display_status
     case status
     when 'Pending' then
