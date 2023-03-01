@@ -124,7 +124,7 @@ const MonthCalendar = (): JSX.Element => {
           <Col lg={2}></Col>
           <Col lg={8}>
             <Row>
-              <h2 className='mb50'>{reserveFrame && reserveFrame.title}</h2>
+              <p><span className='orange_highlighter font-size-25'>{reserveFrame?.title}</span></p>
               <Col>
                 <Button variant='outline-dark'
                         onClick={() => displayPrevMonth()}>
