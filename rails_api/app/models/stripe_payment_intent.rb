@@ -18,7 +18,7 @@ class StripePaymentIntent < ApplicationRecord
                               PaymentRequest: 5 }
 
   def update_read_orders_status_unread
-    if account.present? && !SystemPlan? && !PaymentRequest
+    if account.present? && !SystemPlan? && !PaymentRequest?
       account.merchant_users.each do |user|
         user.read_orders_status_UnreadExist!
       end
