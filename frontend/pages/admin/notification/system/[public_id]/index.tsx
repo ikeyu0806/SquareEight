@@ -46,8 +46,8 @@ const Index: NextPage = () => {
             <Card>
               <Card.Header>{title}</Card.Header>
               <Card.Body>
-              <div className='apply_new_line'>
-                {parse(
+                <div className='apply_new_line'>
+                  {parse(
                     content.replace(urlRegex, '<a href="$1">$1</a>')
                   )}
                 </div>
