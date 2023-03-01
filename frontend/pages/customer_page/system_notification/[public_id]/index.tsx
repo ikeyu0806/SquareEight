@@ -5,6 +5,8 @@ import { Container, Row, Col, Card } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { urlRegex } from 'constants/urlRegex'
+import parse from 'html-react-parser'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_end_user_session'])
@@ -40,7 +42,13 @@ const Index: NextPage = () => {
           <Col lg={6}>
             <Card>
               <Card.Header>{title}</Card.Header>
-              <Card.Body>{content}</Card.Body>
+              <Card.Body>
+                <div className='apply_new_line'>
+                  {parse(
+                    content.replace(urlRegex, '<a href="$1">$1</a>')
+                  )}
+                </div>
+              </Card.Body>
             </Card>
           </Col>
         </Row>
