@@ -106,13 +106,13 @@ EndUser.create!(
   email_authentication_status: "Enabled"
 )
 
-SystemAdminUser.create!(
-  name: "admin_user",
-  email: "system_admin@develop.com",
-  phone_number: "12312341234",
-  password: "Pass1234",
-  authentication_status: "Enabled"
-)
+# SystemAdminUser.create!(
+#   name: "admin_user",
+#   email: "system_admin@develop.com",
+#   phone_number: "12312341234",
+#   password: "Pass1234",
+#   authentication_status: "Enabled"
+# )
 
 fitness_image1 = AccountS3Image.create!(
   account_id: account.id,
