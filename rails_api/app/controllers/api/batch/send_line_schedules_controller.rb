@@ -12,7 +12,7 @@ class Api::Batch::SendLineSchedulesController < ApplicationController
       client = line_messaging_client(line_account.channel_id, line_account.channel_secret, line_account.channel_token)
       client.push_message(line_user.line_user_id, {
         type: 'text',
-        text: message
+        text: schedule.message
       })
       schedule.update!(send_status: 'Complete')
     end
