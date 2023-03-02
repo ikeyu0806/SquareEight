@@ -253,6 +253,9 @@ Rails.application.routes.draw do
         post 'sessions', to: 'sessions#create'
         delete 'sessions', to: 'sessions#destroy'
       end
+      namespace :system do
+        get 'accounts', to: 'accounts#index'
+      end
     end
   end
 

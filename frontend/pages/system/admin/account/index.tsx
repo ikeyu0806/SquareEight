@@ -11,7 +11,7 @@ const Index: NextPage = () => {
   const [accounts, setAccounts] = useState<AccountParam[]>([])
 
   useEffect(() => {
-    const fetchNotifications = () => {
+    const fetchAccounts = () => {
       axios.get(
         `${process.env.BACKEND_URL}/api/internal/system/accounts`,
         { headers: {
@@ -20,20 +20,22 @@ const Index: NextPage = () => {
         }
       )
       .then(function (response) {
-        setAccounts(response.data.system_account_notifications)
+        console.log(response.data)
+        setAccounts(response.data.accounts)
       })
       .catch(error => {
         console.log(error)
       })
     }
-    fetchNotifications()
+    fetchAccounts()
   }, [cookies._square_eight_system_admin_user_session])
 
   return (
     <SystemAdminLayoutTemplate>
+      <br />
       <Container>
         <h4>アカウント一覧</h4>
-        <Table>
+        <Table bordered>
           <thead>
             <tr>
               <th>public_id</th>

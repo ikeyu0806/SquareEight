@@ -30,6 +30,7 @@ const SystemAdminNavbar = () => {
           <Navbar.Brand href='/' className='font-weight-bold'>SquareEight</Navbar.Brand>
           <Nav className='me-auto'>
             <Nav.Link href='/system/admin/dashboard'>ダッシュボード</Nav.Link>
+            <Nav.Link href='/system/admin/account'>アカウント一覧</Nav.Link>
             <NavDropdown title='お知らせ' id='webpage-nav-dropdown'>
               <NavDropdown.Item href='/system/admin/notification/business'>ビジネスユーザ向けお知らせ一覧</NavDropdown.Item>
               <NavDropdown.Item href='/system/admin/notification/business/new'>ビジネスユーザ向けお知らせ新規作成</NavDropdown.Item>
