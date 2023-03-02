@@ -34,6 +34,15 @@ class Api::Internal::SystemAccountNotificationsController < ApplicationControlle
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  def destroy
+    notification = SystemEndUserNotification.find_by(public_id: params[:public_id])
+    notification.destroy
+    render json: { status: 'success' }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   private
 
   def notification_params
