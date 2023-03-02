@@ -41,7 +41,7 @@ const Index: NextPage = () => {
             <ListGroup>
               {notifications && notifications.map((notification, i) => {
                 return(
-                  <ListGroup.Item key={i} as='li' onClick={() => router.push(`/system/admin/notification/customer/${notification.id}/edit`)}>
+                  <ListGroup.Item key={i} as='li' onClick={() => router.push(`/system/admin/notification/customer/${notification.public_id}/edit`)}>
                     {notification.title}
                   </ListGroup.Item>
                 )
