@@ -1,5 +1,5 @@
 class Api::Internal::SystemAccountNotificationsController < ApplicationController
-  before_action :merchant_login_only!, only: [:index, :show]
+  before_action :merchant_or_system_admin_user_login_only!, only: [:index, :show]
   before_action :system_admin_user_login_only!, only: [:create, :update]
 
   def index

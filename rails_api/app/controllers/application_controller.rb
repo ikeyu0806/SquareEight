@@ -49,6 +49,16 @@ class ApplicationController < ActionController::Base
     true
   end
 
+  def merchant_or_system_admin_user_login_only!
+    render json: { errMessage: "ログインしてください" }, status: 401 and return if (current_merchant_user&.blank? && current_system_admin_user&.blank? )
+    true
+  end
+
+  def end_user_or_system_admin_user_login_only!
+    render json: { errMessage: "ログインしてください" }, status: 401 and return if (current_end_user&.blank? && current_system_admin_user&.blank? )
+    true
+  end
+
   def current_date_text
     Time.zone.now.strftime("%Y年%m月%d日")
   end
