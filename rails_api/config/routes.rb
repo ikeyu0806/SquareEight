@@ -254,6 +254,7 @@ Rails.application.routes.draw do
         delete 'sessions', to: 'sessions#destroy'
       end
       namespace :system do
+        get 'accounts/:public_id', to: 'accounts#show'
         get 'accounts', to: 'accounts#index'
       end
     end

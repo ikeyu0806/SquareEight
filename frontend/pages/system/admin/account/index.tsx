@@ -43,6 +43,7 @@ const Index: NextPage = () => {
               <th>service_plan</th>
               <th>stripe_account_id</th>
               <th>stripe_subscription_id</th>
+              <th>詳細</th>
             </tr>
           </thead>
           <tbody>
@@ -54,6 +55,11 @@ const Index: NextPage = () => {
                   <td>{a.service_plan}</td>
                   <td>{a.stripe_account_id}</td>
                   <td>{a.stripe_subscription_id}</td>
+                  <td>
+                    <a
+                      className='btn btn-primary'
+                      href={`/system/admin/account/${a.public_id}`}>詳細</a>
+                  </td>
                 </tr>
               )
             })}
