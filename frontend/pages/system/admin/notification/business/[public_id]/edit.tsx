@@ -7,6 +7,7 @@ import { useDispatch } from 'react-redux'
 import { alertChanged } from 'redux/alertSlice'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
@@ -55,6 +56,37 @@ const New: NextPage = () => {
     })
   }
 
+  const execDelete = () => {
+    swalWithBootstrapButtons.fire({
+      title: '削除します',
+      html: `削除します。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: '削除する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/system_account_notifications/${router.query.public_id}`, {
+          headers: { 
+            'Session-Id': cookies._square_eight_system_admin_user_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '削除しました',
+            icon: 'info'
+          })
+          router.push('/system/admin/notification/business')
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '削除失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
+
   return (
     <SystemAdminLayoutTemplate>
       <Container>
@@ -62,6 +94,13 @@ const New: NextPage = () => {
           <Col lg={3}></Col>
           <Col lg={6}>
             <h3 className='mt30'>ビジネスユーザ向けお知らせ編集</h3>
+            <Row>
+              <Col sm={8}>
+              </Col>
+              <Col>
+                <Button variant='danger' size='sm' onClick={() => execDelete()}>お知らせを削除</Button>
+              </Col>
+            </Row>
             <Form.Group className='mb-3'>
               <Form.Label>タイトル</Form.Label>
               <Form.Control onChange={(e) => setTitle(e.target.value)}

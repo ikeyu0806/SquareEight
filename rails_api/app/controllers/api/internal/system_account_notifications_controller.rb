@@ -35,7 +35,7 @@ class Api::Internal::SystemAccountNotificationsController < ApplicationControlle
   end
 
   def destroy
-    notification = SystemEndUserNotification.find_by(public_id: params[:public_id])
+    notification = SystemAccountNotification.find_by(public_id: params[:public_id])
     notification.destroy
     render json: { status: 'success' }, status: 200
   rescue => error
