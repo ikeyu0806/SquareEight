@@ -19,7 +19,7 @@ class Api::Batch::SendMailSchedulesController < ApplicationController
         end
         price = stripe_payment_request.present? ? stripe_payment_request.price : 0
         content = MessageTemplate.convert_content(schedule.message_body, customer.last_name, customer.first_name, price, payment_request_url)
-        MessageTemplateMailer.send_mail(customer.email, title, content).deliver_now
+        MessageTemplateMailer.send_mail(customer.email, schedule.mail_title, content).deliver_now
       end
       schedule.update!(send_status: 'Complete')
     end
