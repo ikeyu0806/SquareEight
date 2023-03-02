@@ -58,6 +58,7 @@ const Invitation: NextPage = () => {
 
   return (
     <MerchantUserAdminLayout>
+      <br />
       {allowCreateMerchantUser === 'Allow' && <Container>
         <Row>
           <Col lg={3}></Col>
