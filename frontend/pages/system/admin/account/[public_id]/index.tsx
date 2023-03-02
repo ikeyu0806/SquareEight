@@ -66,6 +66,38 @@ const Index: NextPage = () => {
               <Col><div>{account?.stripe_subscription_id}</div></Col>
             </Row>
             <hr />
+            <Row>
+              <Col>merchant_users</Col>
+              <Col>
+                <div>{account?.merchant_users.map((m, i) => {
+                  return (
+                    <div key={i}>
+                      <Row>
+                        <Col>name</Col>
+                        <Col><div>{m.last_name}{m.first_name}</div></Col>
+                      </Row>
+                      <hr />
+                      <Row>
+                        <Col>name_kana</Col>
+                        <Col><div>{m.last_name_kana}{m.first_name_kana}</div></Col>
+                      </Row>
+                      <hr />
+                      <Row>
+                        <Col>email</Col>
+                        <Col><div>{m.email}</div></Col>
+                      </Row>
+                      <hr />
+                      <Row>
+                        <Col>authority_category</Col>
+                        <Col><div>{m.authority_category}</div></Col>
+                      </Row>
+                    </div>
+
+                  )
+                })}</div>
+              </Col>
+            </Row>
+            <hr />
           </Col>
         </Row>
       </Container>

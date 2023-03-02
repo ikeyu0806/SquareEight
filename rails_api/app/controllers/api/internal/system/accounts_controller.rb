@@ -11,6 +11,7 @@ class Api::Internal::System::AccountsController < ApplicationController
 
   def show
     account = Account.find_by(public_id: params[:public_id])
+    account = JSON.parse(account.to_json(methods: [:merchant_users]))
     render json: { status: 'success', account: account }, status: 200
   rescue => error
     Rails.logger.error error
