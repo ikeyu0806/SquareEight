@@ -30,7 +30,6 @@ import {  navbarBrandTextChanged,
 const Index: NextPage = () => {
   const router = useRouter()
   const [isLoading, setIsLoading] = useState(false)
-  const [selectedDate, setSelectedDate] = useState(String(router.query.date).split('-'))
   const [lastName, setLastName] = useState('')
   const [firstName, setFirstName] = useState('')
   const [email, setEmail] = useState('')
