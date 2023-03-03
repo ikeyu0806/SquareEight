@@ -79,7 +79,7 @@ const Index: NextPage = () => {
     })
   }
 
-  const cancelReservation = (reservationId: string) => {
+  const cancelReservation = (reservationPublicId: string) => {
     swalWithBootstrapButtons.fire({
       title: 'キャンセルします',
       html: '予約キャンセルします。<br />よろしいですか？',
@@ -92,7 +92,7 @@ const Index: NextPage = () => {
       showCloseButton: true
     }).then((result) => {
       if (result.isConfirmed) {
-        axios.delete(`${process.env.BACKEND_URL}/api/internal/reservations/${reservationId}?send_mail=${result.value}`, {
+        axios.delete(`${process.env.BACKEND_URL}/api/internal/reservations/${reservationPublicId}?send_mail=${result.value}`, {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           }
@@ -217,7 +217,7 @@ const Index: NextPage = () => {
                             <Button
                               className='mt30'
                               variant='danger'
-                              onClick={() => cancelReservation(reservation.id)}
+                              onClick={() => cancelReservation(reservation.public_id)}
                               size='sm'>キャンセル</Button>}
                           {reservation.questionnaire_master_id &&
                             <>
