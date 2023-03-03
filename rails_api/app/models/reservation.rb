@@ -247,4 +247,8 @@ class Reservation < ApplicationRecord
   def ticket_master_public_id
     ticket_master&.public_id
   end
+
+  def monthly_payment_plan_public_id
+    monthly_payment_plan&.public_id
+  end
 end

@@ -44,7 +44,7 @@ const Index: NextPage = () => {
   const [price, setPrice] = useState(0)
   const [numberOfPeople, setNumberOfPeople] = useState(0)
   const [ticketMasterPublicId, setTicketMasterPublicId] = useState()
-  const [monthlyPaymentPlanId, setMonthlyPaymentPlanId] = useState()
+  const [monthlyPaymentPlanPublicId, setMonthlyPaymentPlanPublicId] = useState()
   const [isSetPrice, setIsSetPrice] = useState(false)
   const [isCompleteReservation, setIsCompleteReservation] = useState(false)
   const [consumeNumber, setConsumeNumber] = useState(0)
@@ -88,7 +88,7 @@ const Index: NextPage = () => {
       setPrice(response.data.reservation.price)
       setNumberOfPeople(response.data.reservation.number_of_people)
       setTicketMasterPublicId(response.data.reservation.ticket_master_public_id)
-      setMonthlyPaymentPlanId(response.data.reserve_frame.monthly_payment_plan_id)
+      setMonthlyPaymentPlanPublicId(response.data.reservation.monthly_payment_plan_public_id)
       setTitle(response.data.reserve_frame.title)
       setIsSetPrice(response.data.reserve_frame.is_set_price)
       setConsumeNumber(response.data.reservation.ticket_consume_number)
@@ -233,7 +233,7 @@ const Index: NextPage = () => {
                         {!isSubscribePlan
                         && (String(paymentMethod) === 'monthlyPaymentPlan')
                         && <div className='mt20 mb20'>プランに加入していません。
-                              <div><a href={`/monthly_payment/${monthlyPaymentPlanId}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
+                              <div><a href={`/monthly_payment/${monthlyPaymentPlanPublicId}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
                               から加入してください。</div></div>}
                         {!isPurchaseTicket
                         && (String(paymentMethod) === 'ticket')

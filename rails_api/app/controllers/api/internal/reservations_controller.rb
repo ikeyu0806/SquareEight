@@ -269,7 +269,13 @@ class Api::Internal::ReservationsController < ApplicationController
 
     payment_method = reservation.payment_method
     # ActiveRecordのインスタンスではなくなるので最後にJSONにする
-    reservation = JSON.parse(reservation.to_json(methods: [:reservation_local_payment_prices, :reservation_credit_card_payment_prices, :ticket_master_public_id]))
+    reservation = JSON.parse(reservation.to_json(
+      methods: [
+        :reservation_local_payment_prices,
+        :reservation_credit_card_payment_prices,
+        :ticket_master_public_id,
+        :monthly_payment_plan_public_id]
+      ))
     reserve_frame = JSON.parse(reserve_frame.to_json(methods: [:parse_question_form_json]))
     render json: { status: 'success',
                    end_user: end_user,
