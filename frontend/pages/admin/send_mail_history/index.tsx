@@ -41,6 +41,7 @@ const Index: NextPage = () => {
     <MerchantUserAdminLayout>
       <br />
       <Container>
+        <h4>メール送信履歴</h4>
         <Table bordered>
           <thead>
             <tr>

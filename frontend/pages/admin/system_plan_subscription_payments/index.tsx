@@ -33,6 +33,7 @@ const Index: NextPage = () => {
     <MerchantUserAdminLayout>
       <br />
       {allowReadSystemPlanSubscriptionPayments === 'Allow' && <Container>
+        <h4>お支払い履歴</h4>
         <Table bordered>
           <thead>
             <tr>

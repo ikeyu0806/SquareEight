@@ -38,13 +38,14 @@ const Index: NextPage = () => {
     <MerchantUserAdminLayout>
       <br />
       <Container>
+        <h4>LINE送信履歴</h4>
         <Table bordered>
           <thead>
             <tr>
               <th>送信元LINE公式アカウント</th>
               <th>対象LINEユーザ名</th>
               <th>本文</th>
-              <th>送信予定日時</th>
+              <th>送信日時</th>
             </tr>
           </thead>
           <tbody>

@@ -109,6 +109,7 @@ const Index: NextPage = () => {
         {allowReadCustomer === 'Allow' &&
         <><br />
           <Container>
+          <h4>顧客一覧</h4>
           {customers.length >= 1 && <>
             <Card className='mb20'>
               <Card.Header>絞り込み</Card.Header>

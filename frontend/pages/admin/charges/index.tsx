@@ -33,6 +33,7 @@ const Index: NextPage = () => {
     <MerchantUserAdminLayout>
       <br />
       {allowReadSales === 'Allow' && <Container>
+        <h4>売上一覧</h4>
         <Table bordered>
           <thead>
             <tr>
