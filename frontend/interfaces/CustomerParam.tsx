@@ -1,3 +1,4 @@
+import { LineUserParam } from './LineUserParam'
 export interface CustomerParam {
   public_id: string
   id: number
@@ -12,4 +13,5 @@ export interface CustomerParam {
   line_display_name: string
   line_picture_url: string
   line_user_public_id: string
+  line_user: LineUserParam
 }

@@ -20,6 +20,7 @@ import { showConnectLineUserModalChanged,
          customerPublicIdChanged,
          lineUsersChanged,
          showNotesModalChanged } from 'redux/customerSlice'
+import { selectedLineOfficialAccountPublicIdChanged, selectedLineUserChanged } from 'redux/sendLineScheduleSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import CreateCustomerModal from 'components/templates/CreateCustomerModal'
 import EditCustomerModal from 'components/templates/EditCustomerModal'
@@ -180,6 +181,7 @@ const Index: NextPage = () => {
                                 dispatch(showLineOfficialAccountModalChanged(true));
                                 dispatch(customerPublicIdChanged(customer.public_id));
                                 dispatch(lineUserPublicIdChanged(customer.line_user_public_id));
+                                dispatch(selectedLineUserChanged(customer.line_user))
                               }}
                               size={'sm'} />
                           </div>}

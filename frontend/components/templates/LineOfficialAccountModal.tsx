@@ -5,6 +5,7 @@ import { showLineOfficialAccountModalChanged } from 'redux/accountSlice'
 import LineBrandColorButton from 'components/atoms/LineBrandColorButton'
 import PushIndividualLineMessageModal from 'components/templates/PushIndividualLineMessageModal'
 import { showPushMessageModalChanged, publicIdChanged } from 'redux/lineOfficialAccountSlice'
+import { selectedLineOfficialAccountPublicIdChanged } from 'redux/sendLineScheduleSlice'
 
 const LineOfficialAccountModal = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -30,6 +31,7 @@ const LineOfficialAccountModal = (): JSX.Element => {
                         onClick={() => {
                           dispatch(publicIdChanged(account.public_id))
                           dispatch(showPushMessageModalChanged(true))
+                          dispatch(selectedLineOfficialAccountPublicIdChanged(account.public_id))
                         }}
                         text='選択する' />
                     </Col>

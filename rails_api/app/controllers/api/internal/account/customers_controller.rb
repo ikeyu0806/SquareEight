@@ -8,7 +8,7 @@ class Api::Internal::Account::CustomersController < ApplicationController
     line_official_accounts = current_merchant_user.account.line_official_accounts
     message_templates = current_merchant_user.account.message_templates
     html_mail_templates = current_merchant_user.account.html_mail_templates
-    customers = JSON.parse(customers.to_json(methods: [:line_display_name, :line_picture_url, :line_user_public_id]))
+    customers = JSON.parse(customers.to_json(methods: [:line_display_name, :line_picture_url, :line_user_public_id, :line_user]))
     html_template_content = html_mail_templates.present? ? JSON.parse(html_mail_templates.first.content) : ''
     registered_customers_count = current_merchant_user.account.registered_customers_count
     render json: { status: 'success',
