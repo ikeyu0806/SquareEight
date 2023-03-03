@@ -232,9 +232,9 @@ const Index: NextPage = () => {
                         </div>}
                         {!isSubscribePlan
                         && (String(paymentMethod) === 'monthlyPaymentPlan')
-                        && <div className='mt20 mb20'>プランに加入していません
-                              <a href={`/monthly_payment/${monthlyPaymentPlanId}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
-                              から加入してください</div>}
+                        && <div className='mt20 mb20'>プランに加入していません。
+                              <div><a href={`/monthly_payment/${monthlyPaymentPlanId}/purchase`} target='_blank' rel='noreferrer'>こちら</a>
+                              から加入してください。</div></div>}
                         {!isPurchaseTicket
                         && (String(paymentMethod) === 'ticket')
                         && <div className='mt20 mb20'>チケットを購入していません
