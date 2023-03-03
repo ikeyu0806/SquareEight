@@ -83,7 +83,7 @@ const CardList: NextPage = () => {
             'Session-Id': cookies._square_eight_merchant_session
           }
         })
-        router.push('/customer_page/payment_method')
+        router.push('/admin/payment_method')
       }
     })
   }
