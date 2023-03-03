@@ -14,9 +14,7 @@ import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import MerchantCustomLayout from 'components/templates/MerchantCustomLayout'
 import QuestionnaireItemAnswerForm from 'components/templates/QuestionnaireItemAnswerForm'
 import { hideShareButtonChanged } from 'redux/sharedComponentSlice'
-import { QuestionnaireMasterItem } from 'interfaces/QuestionnaireMasterItem'
 import { redirectEndUserLoginPath } from 'functions/redirectEndUserLoginPath'
-import { brandGreenRgb } from 'constants/brandColors'
 import {  questionnaireMasterItemsChanged,
           answerChangeDetectStateChanged } from 'redux/questionnaireMasterSlice'
 import {  navbarBrandTextChanged,

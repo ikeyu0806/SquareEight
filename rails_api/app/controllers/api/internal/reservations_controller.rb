@@ -251,8 +251,8 @@ class Api::Internal::ReservationsController < ApplicationController
     if current_end_user.present? && current_end_user.stripe_customer_id.present?
       default_payment_method_id, payment_methods = current_end_user.payment_methods
       purchased_ticket_ids = current_end_user.purchased_ticket_ids
-      is_subscribe_plan = current_end_user.monthly_payment_plans.pluck("id").include?(params[:monthly_payment_plan_id])
-      is_purchase_ticket = current_end_user.purchased_tickets.pluck(:ticket_master_id).include?(params[:ticket_id].to_i)
+      is_subscribe_plan = current_end_user.monthly_payment_plans.pluck(:id).include?(reservation.monthly_payment_plan_id)
+      is_purchase_ticket = current_end_user.purchased_tickets.pluck(:ticket_master_id).include?(reservation.ticket_master_id)
       subscribe_plan_ids = []
     else
       default_payment_method_id = nil
