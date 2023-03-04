@@ -174,14 +174,20 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
             onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
             placeholder='10000'
             aria-label='10000' />
+          <hr />
+          <div className='mt20'>
             <Row>
-              <Col>
+              <Col sm={2}>
+                <Form.Label className='mt10'>予約可能数{reserveIsUnlimited}</Form.Label>
               </Col>
               <Col>
-                <Button onClick={() => dispatch(showMonthlyPaymentReservationCountGuideModalChanged(true))}>月額サブスクリプションの予約可能数設定について</Button>
+                <Button
+                  variant='info'
+                  className='text-white'
+                  onClick={() => dispatch(showMonthlyPaymentReservationCountGuideModalChanged(true))}>予約可能数設定について</Button>
               </Col>
             </Row>
-          <Form.Label className='mt10'>予約可能数{reserveIsUnlimited}</Form.Label>
+          </div>
           <Form.Check 
             type='radio'
             id='unlimited'
@@ -217,6 +223,7 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
                 </Form.Label>
               </Form.Group>
             </Row>}
+            <hr />
           <Form.Label className='mt10'>プランの説明</Form.Label>
           <FormControl
             value={description}
