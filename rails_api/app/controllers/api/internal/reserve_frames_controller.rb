@@ -65,7 +65,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
   def create
     ActiveRecord::Base.transaction do
       reserve_frame = current_merchant_user.account.reserve_frames
-                      .new(json_type_params)                   
+                      .new(form_type_attr_params)
       form_type_params[:reserve_frame_reception_times].uniq.each do |reception_time|
         reserve_frame.reserve_frame_reception_times.new(reception_start_time: reception_time[:reception_start_time], reception_end_time: reception_time[:reception_end_time])
       end
@@ -147,7 +147,7 @@ class Api::Internal::ReserveFramesController < ApplicationController
   def update
     ActiveRecord::Base.transaction do
       reserve_frame = ReserveFrame.find_by(public_id: params[:public_id])
-      reserve_frame.attributes = json_type_params
+      reserve_frame.attributes = form_type_attr_params
 
       if form_type_params[:reserve_frame_reception_times].present?
         reserve_frame.reserve_frame_reception_times.delete_all
@@ -254,20 +254,20 @@ class Api::Internal::ReserveFramesController < ApplicationController
     JSON.parse(params.require(:reserve_frame), {symbolize_names: true})[:reserve_frame]
   end
 
-  def json_type_params
+  def form_type_attr_params
     form_type_params.except(:unreservable_frames,
-                                :out_of_range_frames,
-                                :reserve_frame_reception_times,
-                                :repeat_interval_number_month_date,
-                                :shop_ids,
-                                :resource_ids,
-                                :monthly_payment_plan_ids,
-                                :reservable_frame_ticket_master,
-                                :base64_image,
-                                :repeat_wdays,
-                                :multi_local_payment_prices,
-                                :multi_credit_card_payment_prices,
-                                :apply_multi_local_payment_price,
-                                :apply_multi_credit_card_payment_price)
+                            :out_of_range_frames,
+                            :reserve_frame_reception_times,
+                            :repeat_interval_number_month_date,
+                            :shop_ids,
+                            :resource_ids,
+                            :monthly_payment_plan_ids,
+                            :reservable_frame_ticket_master,
+                            :base64_image,
+                            :repeat_wdays,
+                            :multi_local_payment_prices,
+                            :multi_credit_card_payment_prices,
+                            :apply_multi_local_payment_price,
+                            :apply_multi_credit_card_payment_price)
   end
 end
