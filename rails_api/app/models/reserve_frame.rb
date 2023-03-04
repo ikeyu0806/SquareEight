@@ -562,13 +562,13 @@ class ReserveFrame < ApplicationRecord
       unless monthly_payment_plan.reserve_is_unlimited?
         if monthly_payment_plan.reserve_interval_unit == 'Day'
           target_day_reservation_count = self.reservations
-                                         .where(start_at: reservation.start_at.beginning_of_day..reservation.start_at.end_of_day)
+                                         .where(start_at: reservation.start_at..reservation.start_at.end_of_day)
                                          .where(status: 'confirm')
                                          .where(monthly_payment_plan_id: monthly_payment_plan.id).count
           raise 'プランの予約可能数を超えています' if target_day_reservation_count >= monthly_payment_plan.enable_reserve_count
         elsif monthly_payment_plan.reserve_interval_unit == 'Week'
           target_day_reservation_count = self.reservations
-                                         .where(start_at: (reservation.start_at - 1.week).beginning_of_day..reservation.start_at.end_of_day)
+                                         .where(start_at: (reservation.start_at - 1.week).end_of_week(:sunday)..reservation.start_at.end_of_week(:saturday))
                                          .where(status: 'confirm')
                                          .where(monthly_payment_plan_id: monthly_payment_plan.id).count
           raise 'プランの予約可能数を超えています' if target_day_reservation_count >= monthly_payment_plan.enable_reserve_count
