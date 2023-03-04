@@ -7,6 +7,7 @@ import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
 import axios from 'axios'
 import { ShopParam } from 'interfaces/ShopParam'
+import MonthlyPaymentReservationCountGuideModal from 'components/organisms/MonthlyPaymentReservationCountGuideModal'
 import { priceChanged,
          nameChanged,
          reserveIsUnlimitedChanged,
@@ -21,7 +22,8 @@ import { priceChanged,
          monthlyPaymentPlanImage4FileChanged,
          monthlyPaymentPlanImage5FileChanged,
          shopsChanged,
-         selectedReserveFrameIdsChanged } from 'redux/monthlyPaymentPlanSlice'
+         selectedReserveFrameIdsChanged,
+         showMonthlyPaymentReservationCountGuideModalChanged } from 'redux/monthlyPaymentPlanSlice'
 
 interface Props {
   showDeleteButton?: boolean
@@ -172,6 +174,13 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
             onChange={(e) => dispatch(priceChanged(Number(e.target.value)))}
             placeholder='10000'
             aria-label='10000' />
+            <Row>
+              <Col>
+              </Col>
+              <Col>
+                <Button onClick={() => dispatch(showMonthlyPaymentReservationCountGuideModalChanged(true))}>月額サブスクリプションの予約可能数設定について</Button>
+              </Col>
+            </Row>
           <Form.Label className='mt10'>予約可能数{reserveIsUnlimited}</Form.Label>
           <Form.Check 
             type='radio'
@@ -317,6 +326,7 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
           </Col>
         </Row>
       </Container>
+      <MonthlyPaymentReservationCountGuideModal />
     </>
   )
 }

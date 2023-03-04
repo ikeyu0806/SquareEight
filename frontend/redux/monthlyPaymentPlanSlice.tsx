@@ -3,7 +3,7 @@ import { ShopParam } from 'interfaces/ShopParam'
 import { ReserveFrameParam } from 'interfaces/ReserveFrameParam'
 
 export const monthlyPaymentPlanSlice = createSlice({
-  name: 'alert',
+  name: 'monthlyPaymentPlan',
   initialState: {
     name: '',
     price: 1000,
@@ -23,6 +23,7 @@ export const monthlyPaymentPlanSlice = createSlice({
     monthlyPaymentPlanImage3ImagePublicUrl: '',
     monthlyPaymentPlanImage4ImagePublicUrl: '',
     monthlyPaymentPlanImage5ImagePublicUrl: '',
+    showMonthlyPaymentReservationCountGuideModal: false,
     shops: [] as ShopParam[],
     selectedShopIds: [] as number[],
     selectableReserveFrames: []  as ReserveFrameParam[],
@@ -83,6 +84,9 @@ export const monthlyPaymentPlanSlice = createSlice({
     monthlyPaymentPlanImage5ImagePublicUrlChanged: (state, action: PayloadAction<string>) => {
       state.monthlyPaymentPlanImage5ImagePublicUrl = action.payload
     },
+    showMonthlyPaymentReservationCountGuideModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showMonthlyPaymentReservationCountGuideModal = action.payload
+    },
     shopsChanged: (state, action: PayloadAction<ShopParam[]>) => {
       state.shops = action.payload
     },
@@ -117,6 +121,7 @@ export const { monthlyPaymentPlanImage3ImagePublicUrlChanged } = monthlyPaymentP
 export const { monthlyPaymentPlanImage4ImagePublicUrlChanged } = monthlyPaymentPlanSlice.actions
 export const { monthlyPaymentPlanImage5ImagePublicUrlChanged } = monthlyPaymentPlanSlice.actions
 export const { shopsChanged } = monthlyPaymentPlanSlice.actions
+export const { showMonthlyPaymentReservationCountGuideModalChanged } = monthlyPaymentPlanSlice.actions
 export const { selectedShopIdsChanged } = monthlyPaymentPlanSlice.actions
 export const { selectedReserveFrameIdsChanged } = monthlyPaymentPlanSlice.actions
 export const { selectableReserveFramesChanged } = monthlyPaymentPlanSlice.actions
