@@ -57,7 +57,7 @@ const Home: NextPage = () => {
       <div className={homeStyles.cover_img_parent}>
         <img
           className={homeStyles.cover_img}
-          src='/images/top_cover.png'
+          src='/images/top_cover_min.png'
           alt='Top Cover' />
         <p className={homeStyles.headline_service_name}>
           SquareEight
