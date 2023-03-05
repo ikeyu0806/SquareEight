@@ -256,12 +256,7 @@ class ReserveFrame < ApplicationRecord
     # 受付開始日判定
     range_start_date = Date.new(year, month)
     # 開始日が昨日以前の場合
-    if Date.parse(self.start_at.to_s) < Date.today
-      loop_start_date =  Date.today
-    # 開始日が明日以降の場合
-    else
-      loop_start_date = Date.parse(self.start_at.to_s)
-    end
+    loop_start_date = Date.parse(self.start_at.to_s)
   
     # 受付締め切り考慮
     if reception_deadline == "PossibleBeforeTheDay"
