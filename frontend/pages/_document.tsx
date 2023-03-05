@@ -4,7 +4,7 @@ import parse from 'html-react-parser'
 const MyDocument = () => {
   const url = process.env.square_eight_FRONTEND_URL
   const title = 'square_eight'
-  const description = 'square_eight'
+  const description = 'オンラインショップ開設、予約システム、回数券発行、サブスクリプション支払い対応、オンラインアンケート機能、顧客管理をオールインワンで提供。'
 
   return (
     <Html lang='ja-JP'>
