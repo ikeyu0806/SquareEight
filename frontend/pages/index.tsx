@@ -656,16 +656,18 @@ const Home: NextPage = () => {
       </Container>
       <hr />
       <RegularFooter></RegularFooter>
-      <script
-        key='structured-data'
-        type='application/ld+json'
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(defaultJsonLdData) }}
-      />
-      <script
-        key='structured-data'
-        type='application/ld+json'
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(topPageBreadcrumbListJsonLdData) }}
-      />
+      {process.env.APP_ENV === 'main' && <>
+        <script
+          key='structured-data'
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(defaultJsonLdData) }}
+        />
+        <script
+          key='structured-data'
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(topPageBreadcrumbListJsonLdData) }}
+        />
+      </>}
     </>
 
   )

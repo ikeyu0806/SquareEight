@@ -10,7 +10,7 @@ export const corporationJsonLdData = {
   '@type': 'Organization',
   'name': 'SquareEight',
   'description': 'クラウドサービスSquareEightの運営会社',
-  'url': 'https://square-eight.net/',
+  'url': process.env.FRONTEND_URL,
   'address': {
     '@type': 'PostalAddress',
     'addressLocality': 'Shibuya-ku',
@@ -20,7 +20,7 @@ export const corporationJsonLdData = {
   },
 }
 
-export const topPageBreadcrumbList = {
+export const topPageBreadcrumbListJsonLdData = {
   '@context': 'http://schema.org',
   '@type': 'BreadcrumbList',
   'itemListElement': [
@@ -28,7 +28,7 @@ export const topPageBreadcrumbList = {
       '@type': 'ListItem',
       'position': 1,
       'item': {
-        '@id': 'https://square-eight.net/',
+        '@id': process.env.FRONTEND_URL,
         'name': 'トップページ'
       }
     },
