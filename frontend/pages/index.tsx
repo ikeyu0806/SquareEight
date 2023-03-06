@@ -656,7 +656,7 @@ const Home: NextPage = () => {
       </Container>
       <hr />
       <RegularFooter></RegularFooter>
-      {process.env.APP_ENV === 'main' && <>
+      <>
         <script
           key='structured-data'
           type='application/ld+json'
@@ -667,7 +667,7 @@ const Home: NextPage = () => {
           type='application/ld+json'
           dangerouslySetInnerHTML={{ __html: JSON.stringify(topPageBreadcrumbListJsonLdData) }}
         />
-      </>}
+      </>
     </>
 
   )
