@@ -34,3 +34,26 @@ export const topPageBreadcrumbListJsonLdData = {
     },
   ]
 }
+
+export const companyInfoPageBreadcrumbListJsonLdData = {
+  '@context': 'http://schema.org',
+  '@type': 'BreadcrumbList',
+  'itemListElement': [
+    {
+      '@type': 'ListItem',
+      'position': 1,
+      'item': {
+        '@id': process.env.FRONTEND_URL,
+        'name': 'トップページ'
+      }
+    },
+    {
+      '@type': 'ListItem',
+      'position': 2,
+      'item': {
+        '@id': `${process.env.FRONTEND_URL}/company_info`,
+        'name': '企業ページ'
+      }
+    },
+  ]
+}

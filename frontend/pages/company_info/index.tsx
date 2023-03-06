@@ -3,7 +3,7 @@ import React from 'react'
 import { Container, Navbar, Row, Col } from 'react-bootstrap'
 import companyStyles from 'styles/Company.module.css'
 import RegularFooter from 'components/organisms/RegularFooter'
-import { corporationJsonLdData } from 'constants/jsonLdData'
+import { corporationJsonLdData, companyInfoPageBreadcrumbListJsonLdData } from 'constants/jsonLdData'
 
 const Index: NextPage = () => {
   return (
@@ -126,11 +126,18 @@ const Index: NextPage = () => {
       </Container>
       <hr />
       <RegularFooter></RegularFooter>
-      <script
-        key='structured-data'
-        type='application/ld+json'
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(corporationJsonLdData) }}
-      />
+      {process.env.APP_ENV === 'main' && <>
+        <script
+          key='structured-data'
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(corporationJsonLdData) }}
+        />
+        <script
+          key='structured-data'
+          type='application/ld+json'
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(companyInfoPageBreadcrumbListJsonLdData) }}
+        />
+      </>}
     </>
   )
 }
