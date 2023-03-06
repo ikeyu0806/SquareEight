@@ -7,6 +7,7 @@ import { brandGrayRgb, brandGreenRgb } from 'constants/brandColors'
 import DownArrawIcon from 'components/atoms/DownArrawIcon'
 import { useRouter } from 'next/router'
 import { lightPlanPrice, standardPlanPrice, premiumPlanPrice } from 'constants/systemPlanPrices'
+import { defaultJsonLdData } from 'constants/jsonLdData'
 import { Container,
          Navbar,
          Nav,
@@ -18,13 +19,6 @@ import { Container,
 
 const Home: NextPage = () => {
   const router = useRouter()
-
-  const jsonLdData = {
-    '@context': 'http://schema.org',
-    '@type': 'Product',
-    'name': 'SquareEight',
-    'description': 'オンラインショップ開設、予約システム、回数券発行、サブスクリプション支払い対応、オンラインアンケート機能、顧客管理をオールインワンで提供。',
-  }
 
   return (
     <>
@@ -665,7 +659,7 @@ const Home: NextPage = () => {
       <script
         key='structured-data'
         type='application/ld+json'
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(defaultJsonLdData) }}
       />
     </>
 
