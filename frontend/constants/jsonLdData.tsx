@@ -4,3 +4,10 @@ export const defaultJsonLdData = {
   'name': 'SquareEight',
   'description': 'オンラインショップ開設、予約システム、回数券発行、サブスクリプション支払い対応、オンラインアンケート機能、顧客管理をオールインワンで提供。',
 }
+
+export const corporationJsonLdData = {
+  '@context': 'http://schema.org',
+  '@type': 'Organization',
+  'name': 'SquareEight',
+  'description': 'クラウドサービスSquareEightの運営会社',
+}
