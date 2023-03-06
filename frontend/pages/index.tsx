@@ -7,7 +7,7 @@ import { brandGrayRgb, brandGreenRgb } from 'constants/brandColors'
 import DownArrawIcon from 'components/atoms/DownArrawIcon'
 import { useRouter } from 'next/router'
 import { lightPlanPrice, standardPlanPrice, premiumPlanPrice } from 'constants/systemPlanPrices'
-import { defaultJsonLdData } from 'constants/jsonLdData'
+import { defaultJsonLdData, topPageBreadcrumbListJsonLdData } from 'constants/jsonLdData'
 import { Container,
          Navbar,
          Nav,
@@ -660,6 +660,11 @@ const Home: NextPage = () => {
         key='structured-data'
         type='application/ld+json'
         dangerouslySetInnerHTML={{ __html: JSON.stringify(defaultJsonLdData) }}
+      />
+      <script
+        key='structured-data'
+        type='application/ld+json'
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(topPageBreadcrumbListJsonLdData) }}
       />
     </>
 
