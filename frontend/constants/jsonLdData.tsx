@@ -10,4 +10,11 @@ export const corporationJsonLdData = {
   '@type': 'Organization',
   'name': 'SquareEight',
   'description': 'クラウドサービスSquareEightの運営会社',
+  'address': {
+    '@type': 'PostalAddress',
+    'addressLocality': 'Shibuya-ku',
+    'addressRegion': 'Tokyo',
+    'postalCode': '150-0043',
+    'streetAddress': '1-10-8 #2F-C'
+  },
 }
