@@ -20,10 +20,10 @@ const Home: NextPage = () => {
   const router = useRouter()
 
   const jsonLdData = {
-    "@context": "https://square-eight.net/",
-    "@type": "Product",
-    "name": "SquareEight",
-    "description": "オンラインショップ開設、予約システム、回数券発行、サブスクリプション支払い対応、オンラインアンケート機能、顧客管理をオールインワンで提供。",
+    '@context': 'http://schema.org',
+    '@type': 'Product',
+    'name': 'SquareEight',
+    'description': 'オンラインショップ開設、予約システム、回数券発行、サブスクリプション支払い対応、オンラインアンケート機能、顧客管理をオールインワンで提供。',
   }
 
   return (
@@ -663,8 +663,8 @@ const Home: NextPage = () => {
       <hr />
       <RegularFooter></RegularFooter>
       <script
-        key="structured-data"
-        type="application/ld+json"
+        key='structured-data'
+        type='application/ld+json'
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdData) }}
       />
     </>
