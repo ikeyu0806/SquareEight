@@ -84,7 +84,7 @@ class ReserveFrame < ApplicationRecord
         reserve_frame_credit_card_payment_prices.each do |credit_payment|
           multi_credir_payment_text.push(credit_payment.name + ": ￥" + credit_payment.price.to_s)
         end
-        result.push("クレジットカード払い: ¥" + multi_credir_payment_text.join(''))
+        result.push("クレジットカード払い: ¥" + multi_credir_payment_text.join(' '))
       else
         result.push("クレジットカード払い: ¥" + credit_card_payment_price.to_s)
       end
