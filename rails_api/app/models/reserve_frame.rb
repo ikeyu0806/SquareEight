@@ -557,21 +557,18 @@ class ReserveFrame < ApplicationRecord
       unless monthly_payment_plan.reserve_is_unlimited?
         # scope風methodに渡す予約日
         this_day = reservation.start_at
-        if reservation.monthly_payment_plan.enable_reserve_count == 1
-          target_day_reservation_count = self.reservations
-          .subscription_validate_scope(this_day, 0, nil, monthly_payment_plan.reserve_interval_unit, monthly_payment_plan.id)
+        # 2週間に1回予約なら前後1週間と比較。3週間に1回予約なら前後2週間と比較
+        front_and_back_num = monthly_payment_plan.reserve_interval_number - 1
+        target_day_reservation_count_before = self.reservations
+          .subscription_validate_scope(this_day, front_and_back_num, 'front', monthly_payment_plan.reserve_interval_unit, monthly_payment_plan.id)
           .count
-        else
-          front_and_back_num = reservation.enable_reserve_count - 1
-          target_day_reservation_count_before = self.reservations
-            .subscription_validate_scope(this_day, front_and_back_num, 'front', monthly_payment_plan.reserve_interval_unit, monthly_payment_plan.id)
-            .count
-          target_day_reservation_count_after = self.reservations
-            .subscription_validate_scope(this_day, front_and_back_num, 'back', monthly_payment_plan.reserve_interval_unit, monthly_payment_plan.id)
-            .count
-          target_day_reservation_count = target_day_reservation_count_before + target_day_reservation_count_after
+        target_day_reservation_count_after = self.reservations
+          .subscription_validate_scope(this_day, front_and_back_num, 'back', monthly_payment_plan.reserve_interval_unit, monthly_payment_plan.id)
+          .count
+        # 当日から前後の期間どちらかの予約可能数が超えていればraiseする
+        if (target_day_reservation_count_before >= monthly_payment_plan.enable_reserve_count) or (target_day_reservation_count_after >= monthly_payment_plan.enable_reserve_count)
+          raise 'プランの予約可能数を超えています' 
         end
-        raise 'プランの予約可能数を超えています' if target_day_reservation_count >= monthly_payment_plan.enable_reserve_count
       end
     end
     return { status: 'ok', error_message: nil }
