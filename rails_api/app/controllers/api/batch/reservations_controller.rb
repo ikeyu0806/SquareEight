@@ -33,6 +33,8 @@ class Api::Batch::ReservationsController < ApplicationController
           shuffle_candidate_reservations = candidate_reservations.shuffle(random: rng)
           shuffle_candidate_reservations.first(reserve_frame.capacity).each do |r|
             r.confirm!
+            # 支払い実行
+            r.exec_payment
             account.merchant_users.allow_read_reservation_Allow.each do |merchant_user|
               ReservationMailer.confirm_lottery_reservation_mail_to_merchant(r.id, merchant_user.id).deliver_now
             end
