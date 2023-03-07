@@ -30,7 +30,7 @@ const VerificationCode: NextPage = () => {
     .then(response => {
       console.log(response.data)
       setCookie('_square_eight_merchant_session', response.data.session_id.public_id, { path: '/'})
-      router.push('/admin/dashboard')
+      router.push('/merchant/signup_complete')
     })
     .catch(error => {
       console.log(error)
