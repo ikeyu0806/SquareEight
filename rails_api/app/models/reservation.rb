@@ -23,6 +23,10 @@ class Reservation < ApplicationRecord
                  waitingForLotteryConfirm: 4,
                  lostLottery: 5 }
 
+  scope :subscription_validate_target, -> {
+    where(status: ['confirm', 'waitingForLotteryConfirm'])
+  }
+
   def self.this_sunday_to_saturday(this_day, front_and_back_num=0, judgment_range=nil, reserve_interval_unit='Day')
     # 曜日判定: this_day = Time.zone.now
     # 日曜日: this_day.to_date - (this_day.wday - 0)
