@@ -559,7 +559,7 @@ class ReserveFrame < ApplicationRecord
         this_day = reservation.start_at
         if reservation.monthly_payment_plan.enable_reserve_count == 1
           target_day_reservation_count = self.reservations
-          .subscription_validate_scope(this_day, 0, 'front', monthly_payment_plan.reserve_interval_unit, monthly_payment_plan.id)
+          .subscription_validate_scope(this_day, 0, nil, monthly_payment_plan.reserve_interval_unit, monthly_payment_plan.id)
           .count
         else
           front_and_back_num = reservation.enable_reserve_count - 1
