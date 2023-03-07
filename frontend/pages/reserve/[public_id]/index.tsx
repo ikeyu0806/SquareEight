@@ -387,7 +387,9 @@ const Index: NextPage = () => {
                             setSelectedPaymentMethodType('creditCardPayment')
                             setSelectedPrice(Number(reserveFramePaymentMethod?.credit_card_payment_price))
                           }}
-                          label={`クレジットカード払い: ${reserveFramePaymentMethod?.credit_card_payment_price}円`}></Form.Check>
+                          label={multiCreditCardPaymentPrices.length !== 0 ?
+                            'クレジットカード払い' :
+                            `クレジットカード払い: ${reserveFramePaymentMethod?.credit_card_payment_price}円`}></Form.Check>
                         {((selectedPaymentMethodType === 'creditCardPayment') && (reserveFrame?.reserve_frame_credit_card_payment_prices.length !== 0)) &&
                           <>
                             &emsp;
