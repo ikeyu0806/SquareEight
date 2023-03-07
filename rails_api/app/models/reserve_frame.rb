@@ -566,11 +566,11 @@ class ReserveFrame < ApplicationRecord
           else
             front_and_back_num = reservation.monthly_payment_plan.enable_reserve_count - 1
             target_day_reservation_count_before = self.reservations
-              .where(start_at: (reservation.start_at - front_and_back_num.days)..(reservation.start_at.end_of_day))
+              .this_sunday_to_saturday(this_day, front_and_back_num, 'front', 'Day')
               .where(status: ['confirm', 'waitingForLotteryConfirm'])
               .where(monthly_payment_plan_id: monthly_payment_plan.id).count
             target_day_reservation_count_after = self.reservations
-              .where(start_at: (reservation.start_at)..(reservation.start_at.end_of_day + front_and_back_num.days))
+              .this_sunday_to_saturday(this_day, front_and_back_num, 'back', 'Day')
               .where(status: ['confirm', 'waitingForLotteryConfirm'])
               .where(monthly_payment_plan_id: monthly_payment_plan.id).count
             target_day_reservation_count = target_day_reservation_count_before + target_day_reservation_count_after
@@ -591,11 +591,11 @@ class ReserveFrame < ApplicationRecord
           else
             front_and_back_num = reservation.enable_reserve_count - 1
             target_day_reservation_count_before = self.reservations
-              .where(start_at: (reservation.start_at - front_and_back_num.week).end_of_week(:saturday).beginning_of_day..reservation.start_at.end_of_week(:sunday).end_of_day)
+              .this_sunday_to_saturday(this_day, front_and_back_num, 'front', 'Week')
               .where(status: ['confirm', 'waitingForLotteryConfirm'])
               .where(monthly_payment_plan_id: monthly_payment_plan.id).count
             target_day_reservation_count_after = self.reservations
-              .where(start_at: (reservation.start_at).end_of_week(:saturday).beginning_of_day..(reservation.start_at + front_and_back_num.week).end_of_week(:sunday).end_of_day)
+              .this_sunday_to_saturday(this_day, front_and_back_num, 'back', 'Week')
               .where(status: ['confirm', 'waitingForLotteryConfirm'])
               .where(monthly_payment_plan_id: monthly_payment_plan.id).count
             target_day_reservation_count = target_day_reservation_count_before + target_day_reservation_count_after
