@@ -560,16 +560,16 @@ class ReserveFrame < ApplicationRecord
         if monthly_payment_plan.reserve_interval_unit == 'Day'
           if reservation.monthly_payment_plan.enable_reserve_count == 1
             target_day_reservation_count = self.reservations
-              .where(start_at: reservation.start_at..reservation.start_at.end_of_day)
-              .where(monthly_payment_plan_id: monthly_payment_plan.id).count
+              .where(start_at: reservation.start_at..reservation.start_at.end_of_day, monthly_payment_plan.id)
+              .count
           else
             front_and_back_num = reservation.monthly_payment_plan.enable_reserve_count - 1
             target_day_reservation_count_before = self.reservations
-              .subscription_validate_scope(this_day, front_and_back_num, 'front', 'Day')
-              .where(monthly_payment_plan_id: monthly_payment_plan.id).count
+              .subscription_validate_scope(this_day, front_and_back_num, 'front', 'Day', monthly_payment_plan.id)
+              .count
             target_day_reservation_count_after = self.reservations
-              .subscription_validate_scope(this_day, front_and_back_num, 'back', 'Day')
-              .where(monthly_payment_plan_id: monthly_payment_plan.id).count
+              .subscription_validate_scope(this_day, front_and_back_num, 'back', 'Day', monthly_payment_plan.id)
+              .count
             target_day_reservation_count = target_day_reservation_count_before + target_day_reservation_count_after
           end
           raise 'プランの予約可能数を超えています' if target_day_reservation_count >= monthly_payment_plan.enable_reserve_count
@@ -582,16 +582,16 @@ class ReserveFrame < ApplicationRecord
           range_end_saturday = (this_day.to_date - (this_day.wday - 6)).end_of_day
           if reservation.monthly_payment_plan.enable_reserve_count == 1
             target_day_reservation_count = self.reservations
-              .where(start_at: range_start_sunday..range_end_saturdayrange_end_saturday)
-              .where(monthly_payment_plan_id: monthly_payment_plan.id).count
+              .where(start_at: range_start_sunday..range_end_saturdayrange_end_saturday, monthly_payment_plan.id)
+              .count
           else
             front_and_back_num = reservation.enable_reserve_count - 1
             target_day_reservation_count_before = self.reservations
-              .subscription_validate_scope(this_day, front_and_back_num, 'front', 'Week')
-              .where(monthly_payment_plan_id: monthly_payment_plan.id).count
+              .subscription_validate_scope(this_day, front_and_back_num, 'front', 'Week', monthly_payment_plan.id)
+              .count
             target_day_reservation_count_after = self.reservations
-              .subscription_validate_scope(this_day, front_and_back_num, 'back', 'Week')
-              .where(monthly_payment_plan_id: monthly_payment_plan.id).count
+              .subscription_validate_scope(this_day, front_and_back_num, 'back', 'Week', monthly_payment_plan.id)
+              .count
             target_day_reservation_count = target_day_reservation_count_before + target_day_reservation_count_after
           end
           raise 'プランの予約可能数を超えています' if target_day_reservation_count >= monthly_payment_plan.enable_reserve_count

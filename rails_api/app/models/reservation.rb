@@ -27,7 +27,7 @@ class Reservation < ApplicationRecord
     where(status: ['confirm', 'waitingForLotteryConfirm'])
   }
 
-  def self.subscription_validate_scope(this_day, front_and_back_num=0, judgment_range=nil, reserve_interval_unit='Day')
+  def self.subscription_validate_scope(this_day, front_and_back_num=0, judgment_range=nil, reserve_interval_unit='Day', monthly_payment_plan_id)
     # 曜日判定: this_day = Time.zone.now
     # 日曜日: this_day.to_date - (this_day.wday - 0)
     # 土曜日: this_day.to_date - (this_day.wday - 6)
@@ -37,23 +37,23 @@ class Reservation < ApplicationRecord
       case judgment_range
       # 1週間前から今週まで判定
       when 'front'
-        where(start_at: (reservation.start_at - front_and_back_num.days)..(reservation.start_at.end_of_day)).subscription_validate_target_status
+        where(start_at: (reservation.start_at - front_and_back_num.days)..(reservation.start_at.end_of_day)).subscription_validate_target_status.where(monthly_payment_plan_id: monthly_payment_plan.id)
       # 今週から1週間後まで判定
       when 'back'
-        where(start_at: (reservation.start_at)..(reservation.start_at.end_of_day + front_and_back_num.days)).subscription_validate_target_status
+        where(start_at: (reservation.start_at)..(reservation.start_at.end_of_day + front_and_back_num.days)).subscription_validate_target_status.where(monthly_payment_plan_id: monthly_payment_plan.id)
       else
-        where(start_at: range_start_sunday..range_end_saturday).subscription_validate_target_status
+        where(start_at: range_start_sunday..range_end_saturday).subscription_validate_target_status.where(monthly_payment_plan_id: monthly_payment_plan.id)
       end
     elsif reserve_interval_unit == 'Week'
       case judgment_range
       # 1週間前から今週まで判定
       when 'front'
-        where(start_at: (reservation.start_at - front_and_back_num.week)..(reservation.start_at.end_of_day)).subscription_validate_target_status
+        where(start_at: (reservation.start_at - front_and_back_num.week)..(reservation.start_at.end_of_day)).subscription_validate_target_status.where(monthly_payment_plan_id: monthly_payment_plan.id)
       # 今週から1週間後まで判定
       when 'back'
-        where(start_at: (reservation.start_at)..(reservation.start_at.end_of_day + front_and_back_num.week)).subscription_validate_target_status
+        where(start_at: (reservation.start_at)..(reservation.start_at.end_of_day + front_and_back_num.week)).subscription_validate_target_status.where(monthly_payment_plan_id: monthly_payment_plan.id)
       else
-        where(start_at: range_start_sunday..range_end_saturday).subscription_validate_target_status
+        where(start_at: range_start_sunday..range_end_saturday).subscription_validate_target_status.where(monthly_payment_plan_id: monthly_payment_plan.id)
       end
     end
   end
