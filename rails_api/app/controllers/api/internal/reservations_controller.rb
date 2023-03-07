@@ -176,7 +176,12 @@ class Api::Internal::ReservationsController < ApplicationController
   def update_status
     ActiveRecord::Base.transaction do
       reservation = Reservation.find_by(public_id: params[:public_id])
+      prev_status = reservation.status
       reservation.update!(status: reservation_params[:status])
+      # 予約確定待ちから確定に変更された場合支払い実行
+      if prev_status == 'pendingVerifivation' && reservation.confirm?
+        reservation.exec_payment
+      end
       if reservation.customer.email.present?
         display_number_of_people, total_price = reservation.display_multi_payment_method_with_number_of_people
         display_price = total_price.present? ? total_price : reservation.display_price

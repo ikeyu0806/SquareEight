@@ -209,7 +209,7 @@ class Reservation < ApplicationRecord
     # 支払い実行
     # StripeへのリクエストはActiveRecordのTransactionで取り消せないので最後に実行
     reserve_frame = self.reserve_frame
-    if reserve_frame.reception_type  == "Immediate" && reserve_frame.is_set_price?
+    if reserve_frame.is_set_price?
       case self.payment_method
       when 'creditCardPayment'
         raise 'ログインしてください' if end_user.blank?
