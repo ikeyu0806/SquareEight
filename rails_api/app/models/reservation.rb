@@ -23,11 +23,11 @@ class Reservation < ApplicationRecord
                  waitingForLotteryConfirm: 4,
                  lostLottery: 5 }
 
-  scope :subscription_validate_target, -> {
+  scope :subscription_validate_target_status, -> {
     where(status: ['confirm', 'waitingForLotteryConfirm'])
   }
 
-  def self.this_sunday_to_saturday(this_day, front_and_back_num=0, judgment_range=nil, reserve_interval_unit='Day')
+  def self.subscription_validate_scope(this_day, front_and_back_num=0, judgment_range=nil, reserve_interval_unit='Day')
     # 曜日判定: this_day = Time.zone.now
     # 日曜日: this_day.to_date - (this_day.wday - 0)
     # 土曜日: this_day.to_date - (this_day.wday - 6)
@@ -37,23 +37,23 @@ class Reservation < ApplicationRecord
       case judgment_range
       # 1週間前から今週まで判定
       when 'front'
-        where(start_at: (reservation.start_at - front_and_back_num.days)..(reservation.start_at.end_of_day))
+        where(start_at: (reservation.start_at - front_and_back_num.days)..(reservation.start_at.end_of_day)).subscription_validate_target_status
       # 今週から1週間後まで判定
       when 'back'
-        where(start_at: (reservation.start_at)..(reservation.start_at.end_of_day + front_and_back_num.days))
+        where(start_at: (reservation.start_at)..(reservation.start_at.end_of_day + front_and_back_num.days)).subscription_validate_target_status
       else
-        where(start_at: range_start_sunday..range_end_saturday)
+        where(start_at: range_start_sunday..range_end_saturday).subscription_validate_target_status
       end
     elsif reserve_interval_unit == 'Week'
       case judgment_range
       # 1週間前から今週まで判定
       when 'front'
-        where(start_at: (reservation.start_at - front_and_back_num.week)..(reservation.start_at.end_of_day))
+        where(start_at: (reservation.start_at - front_and_back_num.week)..(reservation.start_at.end_of_day)).subscription_validate_target_status
       # 今週から1週間後まで判定
       when 'back'
-        where(start_at: (reservation.start_at)..(reservation.start_at.end_of_day + front_and_back_num.week))
+        where(start_at: (reservation.start_at)..(reservation.start_at.end_of_day + front_and_back_num.week)).subscription_validate_target_status
       else
-        where(start_at: range_start_sunday..range_end_saturday)
+        where(start_at: range_start_sunday..range_end_saturday).subscription_validate_target_status
       end
     end
   end

@@ -561,17 +561,14 @@ class ReserveFrame < ApplicationRecord
           if reservation.monthly_payment_plan.enable_reserve_count == 1
             target_day_reservation_count = self.reservations
               .where(start_at: reservation.start_at..reservation.start_at.end_of_day)
-              .subscription_validate_target
               .where(monthly_payment_plan_id: monthly_payment_plan.id).count
           else
             front_and_back_num = reservation.monthly_payment_plan.enable_reserve_count - 1
             target_day_reservation_count_before = self.reservations
-              .this_sunday_to_saturday(this_day, front_and_back_num, 'front', 'Day')
-              .subscription_validate_target
+              .subscription_validate_scope(this_day, front_and_back_num, 'front', 'Day')
               .where(monthly_payment_plan_id: monthly_payment_plan.id).count
             target_day_reservation_count_after = self.reservations
-              .this_sunday_to_saturday(this_day, front_and_back_num, 'back', 'Day')
-              .subscription_validate_target
+              .subscription_validate_scope(this_day, front_and_back_num, 'back', 'Day')
               .where(monthly_payment_plan_id: monthly_payment_plan.id).count
             target_day_reservation_count = target_day_reservation_count_before + target_day_reservation_count_after
           end
@@ -586,17 +583,14 @@ class ReserveFrame < ApplicationRecord
           if reservation.monthly_payment_plan.enable_reserve_count == 1
             target_day_reservation_count = self.reservations
               .where(start_at: range_start_sunday..range_end_saturdayrange_end_saturday)
-              .subscription_validate_target
               .where(monthly_payment_plan_id: monthly_payment_plan.id).count
           else
             front_and_back_num = reservation.enable_reserve_count - 1
             target_day_reservation_count_before = self.reservations
-              .this_sunday_to_saturday(this_day, front_and_back_num, 'front', 'Week')
-              .subscription_validate_target
+              .subscription_validate_scope(this_day, front_and_back_num, 'front', 'Week')
               .where(monthly_payment_plan_id: monthly_payment_plan.id).count
             target_day_reservation_count_after = self.reservations
-              .this_sunday_to_saturday(this_day, front_and_back_num, 'back', 'Week')
-              .subscription_validate_target
+              .subscription_validate_scope(this_day, front_and_back_num, 'back', 'Week')
               .where(monthly_payment_plan_id: monthly_payment_plan.id).count
             target_day_reservation_count = target_day_reservation_count_before + target_day_reservation_count_after
           end
