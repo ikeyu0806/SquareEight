@@ -134,7 +134,9 @@ class Api::Internal::ReservationsController < ApplicationController
       .create!(title: account_notification_title, url: account_notification_url)
 
       # 支払い実行
-      reservation.exec_payment(current_end_user)
+      if reservation.confirm?
+        reservation.exec_payment(current_end_user)
+      end
       # 通知メール
       display_payment_method = reservation.display_payment_method
       display_reservation_datetime = reservation.display_reservation_datetime
