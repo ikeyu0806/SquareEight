@@ -135,7 +135,7 @@ class Api::Internal::ReservationsController < ApplicationController
 
       # 支払い実行
       if reservation.confirm?
-        reservation.exec_payment(current_end_user)
+        reservation.exec_payment
       end
       # 通知メール
       display_payment_method = reservation.display_payment_method

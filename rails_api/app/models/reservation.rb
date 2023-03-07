@@ -205,18 +205,18 @@ class Reservation < ApplicationRecord
     reserve_frame.questionnaire_master_id
   end
 
-  def exec_payment(current_end_user)
+  def exec_payment
     # 支払い実行
     # StripeへのリクエストはActiveRecordのTransactionで取り消せないので最後に実行
     reserve_frame = self.reserve_frame
     if reserve_frame.reception_type  == "Immediate" && reserve_frame.is_set_price?
       case self.payment_method
       when 'creditCardPayment'
-        raise 'ログインしてください' if current_end_user.blank?
+        raise 'ログインしてください' if end_user.blank?
         # 決済
         Stripe.api_key = Rails.configuration.stripe[:secret_key]
         Stripe.api_version = '2022-08-01'
-        stripe_customer = Stripe::Customer.retrieve(current_end_user.stripe_customer_id)
+        stripe_customer = Stripe::Customer.retrieve(end_user.stripe_customer_id)
         default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
         if self.reservation_credit_card_payment_prices.present?
           amount = self.reservation_credit_card_payment_prices.pluck(:price).inject {|result, item| result + item }
@@ -229,7 +229,7 @@ class Reservation < ApplicationRecord
           currency: 'jpy',
           payment_method_types: ['card'],
           payment_method: default_payment_method_id,
-          customer: current_end_user.stripe_customer_id,
+          customer: end_user.stripe_customer_id,
           application_fee_amount: commission,
           metadata: {
             'order_date': current_date_text,
@@ -248,7 +248,7 @@ class Reservation < ApplicationRecord
         )
         self.update!(stripe_payment_intent_id: payment_intent.id)
         # 注文データ作成
-        order = current_end_user.orders.new
+        order = end_user.orders.new
         order.order_items.new(item_type: 'Reservation',
                               account_id: reserve_frame.account.id,
                               reservation_id: self.id,
@@ -257,8 +257,8 @@ class Reservation < ApplicationRecord
                               commission: commission)
         order.save!
       when 'ticket'
-        raise 'ログインしてください' if current_end_user.blank?
-        purchased_tickets = current_end_user
+        raise 'ログインしてください' if end_user.blank?
+        purchased_tickets = end_user
                             .purchased_tickets
                             .where(ticket_master_id: ticket_master.id)
                             .expired
@@ -272,7 +272,7 @@ class Reservation < ApplicationRecord
           purchased_ticket.update!(remain_number: purchased_ticket.remain_number - 1)
         end
       when 'monthlyPaymentPlan'
-        is_subscribe_plan = current_end_user.search_stripe_subscriptions.pluck("metadata")&.pluck("monthly_payment_plan_id")
+        is_subscribe_plan = end_user.search_stripe_subscriptions.pluck("metadata")&.pluck("monthly_payment_plan_id")
         raise 'プランに加入していません' unless is_subscribe_plan
       else
       end
