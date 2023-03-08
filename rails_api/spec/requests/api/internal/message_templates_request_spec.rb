@@ -106,6 +106,8 @@ RSpec.describe 'Api::Internal::MessageTemplatesController', type: :request do
           {
             message_template: {
               target_type: 'customerGroup',
+              payment_request_name: 'demo',
+              payment_request_price: 3000,
               target_customer_groups: {"id": customer_group.id},
             }
           }
