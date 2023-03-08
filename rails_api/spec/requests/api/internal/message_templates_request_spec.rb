@@ -88,7 +88,9 @@ RSpec.describe 'Api::Internal::MessageTemplatesController', type: :request do
           {
             message_template: {
               target_type: 'customer',
-              target_customers: {"email": customer.email}
+              payment_request_name: 'demo',
+              payment_request_price: 3000,
+              target_customers: { "email": customer.email,  "id": customer.id }
             }
           }
         }
