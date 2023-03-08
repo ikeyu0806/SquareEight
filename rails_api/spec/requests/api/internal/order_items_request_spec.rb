@@ -5,6 +5,7 @@ RSpec.describe 'Api::Internal::OrderItemsController', type: :request do
   let(:merchant_user) {
     create(:merchant_user, account: account)
   }
+  let!(:customer) { create(:customer, account_id: account.id, end_user_id: end_user.id) }
   let(:end_user) { create(:end_user) }
   let(:product) { create(:product, account: account) }
   let(:order) { create(:order, end_user_id: end_user.id) }
