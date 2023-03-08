@@ -4,7 +4,13 @@ class Api::Internal::ReserveFramesController < ApplicationController
   before_action :merchant_login_only!, except: [:show]
 
   def index
-    reserve_frames = current_merchant_user.account.reserve_frames.enabled.order(:id)
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    reserve_frames = current_merchant_user.account.reserve_frames
+    last_page, remainder = reserve_frames.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    reserve_frames = reserve_frames.enabled
                      .order(:id)
                      .to_json(methods: [:payment_methods_text,
                                         :repeat_setting_text,
@@ -20,7 +26,8 @@ class Api::Internal::ReserveFramesController < ApplicationController
                                         :reception_deadline_text,
                                         :cancel_reception_text])
     reserve_frames = JSON.parse(reserve_frames)
-    render json: { status: 'success', reserve_frames: reserve_frames }, status: 200
+    reserve_frames = reserve_frames.first(current_page * display_count).last(display_count)
+    render json: { status: 'success', reserve_frames: reserve_frames, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
