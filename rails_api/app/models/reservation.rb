@@ -93,9 +93,9 @@ class Reservation < ApplicationRecord
     when 'creditCardPayment'
       return 'クレジットカード支払い'
     when 'ticket'
-      return '回数券支払い'
+      return '回数券支払い' + self.ticket_master_name + ' 消費枚数:' + ticket_consume_number.to_s + '枚'
     when 'monthlyPaymentPlan'
-      return '月額サブスクリプション'
+      return '月額サブスクリプション ' + self.monthly_payment_plan_name
     else
       return ''
     end
