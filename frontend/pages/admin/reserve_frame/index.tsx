@@ -80,7 +80,7 @@ const Index = (): JSX.Element => {
     setThirdPagenationNum(thirdNum)
 
     let forthNum = 4
-    if (currentPage === 1) {
+    if (currentPage === 1 || (currentPage === 2 && lastPage < 5)) {
       forthNum = 4
     } else if (currentPage === 2) {
       forthNum = 5
