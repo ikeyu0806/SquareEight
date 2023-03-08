@@ -22,6 +22,8 @@ export const Index = () => {
   const [lotteryConfirmedDayBeforeText, setLotteryConfirmedDayBeforeText] = useState(0)
   const [multiLocalPaymentPrices, setMultiLocalPaymentPrices] = useState<MultiPaymentMethod[]>([])
   const [multiCreditCardPaymentPrices, setMultiCreditCardPaymentPrices] = useState<MultiPaymentMethod[]>([])
+  const [monthlyPaymentPlanName, setMonthlyPaymentPlanName] = useState('')
+  const [ticketMasterName, setTicketMasterName] = useState('')
 
   useEffect(() => {
     const fetchReservation = () => {
@@ -41,6 +43,8 @@ export const Index = () => {
         setMultiLocalPaymentPrices(response.data.reservation.reservation_local_payment_prices)
         setMultiCreditCardPaymentPrices(response.data.reservation.reservation_credit_card_payment_prices)
         setLotteryConfirmedDayBeforeText(response.data.reservation.lottery_confirmed_day_before_text)
+        setMonthlyPaymentPlanName(response.data.reservation.monthly_payment_plan_name)
+        setTicketMasterName(response.data.reservation.ticket_master_name)
       })
       .catch(error => {
         console.log(error)
@@ -80,6 +84,10 @@ export const Index = () => {
                         <><div>料金: ￥{price}</div><hr/></>}
                         <div>
                           お支払い方法: {paymentMethodText} {paymentMethod === 'ticket' && <>消費枚数: {ticketConsumeNumber}枚</>}
+                          <>
+                            {monthlyPaymentPlanName && <span>{` ${monthlyPaymentPlanName}`}</span>}
+                            {ticketMasterName && <span>{` ${ticketMasterName}`}</span>}
+                          </>
                         </div>
                     </>
                     }

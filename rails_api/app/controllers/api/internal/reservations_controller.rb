@@ -166,7 +166,9 @@ class Api::Internal::ReservationsController < ApplicationController
                                                            :lottery_confirmed_day_before_text,
                                                            :display_reservation_datetime,
                                                            :reservation_local_payment_prices,
-                                                           :reservation_credit_card_payment_prices]))
+                                                           :reservation_credit_card_payment_prices,
+                                                           :monthly_payment_plan_name,
+                                                           :ticket_master_name]))
     render json: { status: 'success', reservation: reservation }, status: 200
   rescue => error
     Rails.logger.error error
