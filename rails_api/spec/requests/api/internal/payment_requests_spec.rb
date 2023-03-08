@@ -85,33 +85,6 @@ RSpec.describe 'Api::Internal::PaymentRequestsController', type: :request do
         end
       end
 
-      context 'target_type is newCustomer' do
-        let(:params) {
-          {
-            payment_request: {
-              target_customer_type: 'newCustomer',
-              target_emails: 'demoa@example.com,demob@example.com',
-              title: 'update_demo_title',
-              content: 'update_demo_content',
-              price: 1000
-            },
-            customer: {
-              first_name: 'デモ',
-              last_name: '太郎',
-              first_name_kana: 'デモ',
-              last_name_kana: 'タロウ',
-              email: 'demo@example.com',
-              phone_number: '11122223333',
-            }
-          }
-        }
-        it 'should return 200' do
-          allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
-          post '/api/internal/payment_requests/send_payment_request_mail', params: params
-          expect(response.status).to eq 200
-        end
-      end
-
       context 'target_type is customerGroup' do
         let(:params) {
           {

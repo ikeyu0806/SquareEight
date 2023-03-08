@@ -80,19 +80,6 @@ class Api::Internal::PaymentRequestsController < ApplicationController
           PaymentRequestMailer.payment_request_mail(customer.email, payment_request_params[:title], content).deliver_now
         end
       end
-    when 'newCustomer' then
-      email = customer_params[:email]
-      customer = account.customers.create!(customer_params)
-      stripe_payment_request = account.stripe_payment_requests.create!(price: payment_request_params[:price], customer_id: customer.id)
-      payment_request_url = ENV["FRONTEND_URL"] + '/payment_request/' + stripe_payment_request.public_id
-      content = MessageTemplate
-                .convert_content(
-                  payment_request_params[:content],
-                  customer.last_name,
-                  customer.first_name,
-                  payment_request_params[:price],
-                  payment_request_url)
-      PaymentRequestMailer.payment_request_mail(email, payment_request_params[:title], content).deliver_now
     else
       raise '不正なパラメータです'
     end
