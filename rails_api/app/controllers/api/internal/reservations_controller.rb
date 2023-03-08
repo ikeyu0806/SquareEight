@@ -281,9 +281,12 @@ class Api::Internal::ReservationsController < ApplicationController
         :reservation_local_payment_prices,
         :reservation_credit_card_payment_prices,
         :ticket_master_public_id,
-        :monthly_payment_plan_public_id]
+        :monthly_payment_plan_public_id,
+        :monthly_payment_plan_name,
+        :ticket_master_name]
       ))
     reserve_frame = JSON.parse(reserve_frame.to_json(methods: [:parse_question_form_json]))
+    monthly_payment_plan_name = 
     render json: { status: 'success',
                    end_user: end_user,
                    date: date,
