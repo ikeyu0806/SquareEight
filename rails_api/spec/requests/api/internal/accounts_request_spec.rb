@@ -140,7 +140,7 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
             business_type: 'individual',
             individual_phone_number: '09011112222',
             individual_birth_day: '2000-01-01'
-         }
+          }.to_json
         }
       }
       context 'login as merchant_user' do
