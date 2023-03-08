@@ -47,8 +47,7 @@ const Index: NextPage = () => {
   const [consumeNumber, setConsumeNumber] = useState(0)
   const [multiLocalPaymentPrices, setMultiLocalPaymentPrices] = useState<MultiPaymentMethod[]>([])
   const [multiCreditCardPaymentPrices, setMultiCreditCardPaymentPrices] = useState<MultiPaymentMethod[]>([])
-  const [monthlyPaymentPlanName, setMonthlyPaymentPlanName] = useState('')
-  const [ticketMasterName, setTicketMasterName] = useState('')
+  const [displayPaymentMethod, setDisplayPaymentMethod] = useState('')
 
   const endUserLoginStatus = useSelector((state: RootState) => state.currentEndUser.loginStatus)
   const answerChangeDetectState = useSelector((state: RootState) => state.questionnaireMaster.answerChangeDetectState)
@@ -97,8 +96,7 @@ const Index: NextPage = () => {
       setFirstName(response.data.end_user?.first_name || '')
       setEmail(response.data.end_user?.email || '')
       setPhoneNumber(response.data.end_user?.phone_number || '')
-      setMonthlyPaymentPlanName(response.data.reservation.monthly_payment_plan_name)
-      setTicketMasterName(response.data.reservation.ticket_master_name)
+      setDisplayPaymentMethod(response.data.reservation.display_payment_method)
       dispatch(questionnaireMasterItemsChanged(response.data.reserve_frame.parse_question_form_json))
       // ヘッダ、フッタ
       dispatch((navbarBrandTextChanged(response.data.shared_component.navbar_brand_text)))
@@ -227,11 +225,7 @@ const Index: NextPage = () => {
                     <>
                       {isSetPrice &&
                         <div>
-                          <span>お支払い方法: {paymentMethodText(String(paymentMethod), price, consumeNumber, numberOfPeople)}</span>
-                          <>
-                            {monthlyPaymentPlanName && <span>{` ${monthlyPaymentPlanName}`}</span>}
-                            {ticketMasterName && <span>{` ${ticketMasterName}`}</span>}
-                          </>
+                          <span>お支払い方法: {displayPaymentMethod}</span>
                           {(isSubscribePlan && String(paymentMethod) === 'monthlyPaymentPlan')
                           && <span className='badge bg-info ml10'>加入済み</span>}
                         </div>}
