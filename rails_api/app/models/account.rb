@@ -168,7 +168,7 @@ class Account < ApplicationRecord
     JSON.parse(result.to_json)["data"]
   end
 
-  def answer_contents
+  def answer_contents(current_page, display_count)
     result = []
     questionnaire_answers.order(created_at: :desc).each do |questionnaire_answer|
       result.push({answer: questionnaire_answer.parse_answer_json,

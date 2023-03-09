@@ -555,8 +555,20 @@ class Api::Internal::AccountsController < ApplicationController
 
   def questionnaire_answers
     account = current_merchant_user.account
-    answer_contents = account.answer_contents
-    render json: { status: 'success', answer_contents: answer_contents }, status: 200
+    questionnaire_answers = account.questionnaire_answers.order(created_at: :desc)
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    last_page, remainder = questionnaire_answers.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    answer_contents = []
+    questionnaire_answers.order(created_at: :desc).each do |questionnaire_answer|
+      answer_contents.push({answer: questionnaire_answer.parse_answer_json,
+                            customer_name: questionnaire_answer.customer.full_name,
+                            answer_datetime: questionnaire_answer.created_at.strftime("%Y年%m月%d日 %H時%M分")})
+    end
+    answer_contents = answer_contents.first(current_page * display_count).last(display_count)
+    render json: { status: 'success', answer_contents: answer_contents, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
