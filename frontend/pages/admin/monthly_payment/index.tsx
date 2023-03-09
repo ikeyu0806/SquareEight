@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
-import { Container, Table } from 'react-bootstrap'
+import { Container, Table, Pagination } from 'react-bootstrap'
 import axios from 'axios'
 import { MonthlyPaymentPlanParam } from 'interfaces/MonthlyPaymentPlanParam'
 import { RootState } from 'redux/store'
@@ -12,6 +12,7 @@ import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import Unauthorized from 'components/templates/Unauthorized'
 import SubscriptionDescribeModal from 'components/molecules/SubscriptionDescribeModal'
 import { showSubscriptionDescribeModalChanged } from 'redux/accountSlice'
+import { usePaginationNumber } from 'hooks/usePaginationNumber'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -20,6 +21,17 @@ const Index: NextPage = () => {
   const [monthlyPaymentPlans, setMonthlyPaymentPlans] = useState<MonthlyPaymentPlanParam[]>([])
   const allowReadMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowReadMonthlyPaymentPlan)
   const allowUpdateMonthlyPaymentPlan = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateMonthlyPaymentPlan)
+  // Pagination用
+  // 表示するレコード数
+  const displayCount = 10
+  const [currentPage, setCurrentPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1000)
+  let usePaginationNumberReturnVal = usePaginationNumber(currentPage, lastPage)
+  let firstPaginationNum: number = usePaginationNumberReturnVal[0]
+  let secondPaginationNum: number = usePaginationNumberReturnVal[1]
+  let thirdPaginationNum: number = usePaginationNumberReturnVal[2]
+  let forthPaginationNum: number = usePaginationNumberReturnVal[3]
+  let fifthPaginationNum: number = usePaginationNumberReturnVal[4]
 
   useEffect(() => {
     const fetchMonthlyPaymentPlans = () => {
@@ -28,18 +40,23 @@ const Index: NextPage = () => {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           },
+          params: {
+            current_page: currentPage,
+            display_count: displayCount
+          }
         }
       )
       .then(function (response) {
         const montylyPaymentPlanResponse: MonthlyPaymentPlanParam[] = response.data.monthly_payment_plans
         setMonthlyPaymentPlans(montylyPaymentPlanResponse)
+        setLastPage(response.data.last_page)
       })
       .catch(error => {
         console.log(error)
       })
     }
     fetchMonthlyPaymentPlans()
-  }, [router.query.public_id, cookies._square_eight_merchant_session])
+  }, [router.query.public_id, cookies._square_eight_merchant_session, currentPage, lastPage])
 
   return (
     <>
@@ -95,6 +112,29 @@ const Index: NextPage = () => {
               })}
             </tbody>
           </Table>
+          <Pagination>
+            <Pagination.First onClick={() => setCurrentPage(1)} />
+            {currentPage > 1 && <Pagination.Prev
+              onClick={() => setCurrentPage(currentPage - 1)} />}
+            <Pagination.Item
+              active={currentPage == firstPaginationNum}
+              onClick={() => setCurrentPage(firstPaginationNum)}>{firstPaginationNum}</Pagination.Item>
+            {lastPage > 1 && <Pagination.Item
+              active={currentPage == secondPaginationNum}
+              onClick={() => setCurrentPage(secondPaginationNum)}>{secondPaginationNum}</Pagination.Item>}
+            {lastPage > 2 && <Pagination.Item
+              active={currentPage == thirdPaginationNum}
+              onClick={() => setCurrentPage(thirdPaginationNum)}>{thirdPaginationNum}</Pagination.Item>}
+            {lastPage > 3 && currentPage < lastPage &&  <Pagination.Item
+              active={currentPage == forthPaginationNum}
+              onClick={() => setCurrentPage(forthPaginationNum)}>{forthPaginationNum}</Pagination.Item>}
+            {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
+              active={currentPage == fifthPaginationNum}
+              onClick={() => setCurrentPage(fifthPaginationNum)}>{fifthPaginationNum}</Pagination.Item>}
+            {currentPage !== lastPage && <Pagination.Next
+              onClick={() => setCurrentPage(currentPage + 1)} />}
+            <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
+          </Pagination>
           <SubscriptionDescribeModal/>
         </Container>}
         {allowReadMonthlyPaymentPlan === 'Forbid' && <Unauthorized />}

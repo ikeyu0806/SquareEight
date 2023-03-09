@@ -6,7 +6,15 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
 
   def index
     monthly_payment_plans = current_merchant_user.account.monthly_payment_plans.enabled.order(:id)
-    render json: { status: 'success', monthly_payment_plans: monthly_payment_plans }, status: 200
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    last_page, remainder = monthly_payment_plans.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    monthly_payment_plans = monthly_payment_plans.first(current_page * display_count).last(display_count)
+    render json: { status: 'success',
+                   monthly_payment_plans: monthly_payment_plans,
+                   last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
