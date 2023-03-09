@@ -26,7 +26,6 @@ export const usePagenationNumber = (currentPage: number, lastPage: number) => {
     setThirdPagenationNum(thirdNum)
 
     let forthNum = 4
-    console.log("!!!!currentPage", currentPage, currentPage === 1, currentPage === 1 || (currentPage === 2 && lastPage < 5))
     if (currentPage === 1 || (currentPage === 2 && lastPage < 5)) {
       forthNum = 4
     } else if (currentPage === 2) {
@@ -36,7 +35,6 @@ export const usePagenationNumber = (currentPage: number, lastPage: number) => {
     } else {
       forthNum = currentPage + 1
     }
-    console.log("!!forthNum", forthNum)
     setForthPagenationNum(forthNum)
 
     let fifthNum = 5

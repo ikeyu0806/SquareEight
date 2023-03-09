@@ -232,7 +232,6 @@ const Index = (): JSX.Element => {
                 </div>
               )
             })}
-            {/* {`currentPage: ${currentPage}, lastPage: ${lastPage}`} */}
             <Pagination>
               <Pagination.First onClick={() => setCurrentPage(1)} />
               <Pagination.Item
