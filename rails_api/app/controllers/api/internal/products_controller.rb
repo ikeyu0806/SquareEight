@@ -5,9 +5,14 @@ class Api::Internal::ProductsController < ApplicationController
   before_action :end_user_login_only!, only: [:insert_cart]
 
   def index
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
     products = current_merchant_user.account.products.enabled.order(:id)
-    products = JSON.parse(products.to_json(methods: [:product_types, :show_product_type_form]))
-    render json: { status: 'success', products: products }, status: 200
+    last_page, remainder = products.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    products = JSON.parse(products.first(current_page * display_count).last(display_count).to_json(methods: [:product_types, :show_product_type_form]))
+    render json: { status: 'success', products: products, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
