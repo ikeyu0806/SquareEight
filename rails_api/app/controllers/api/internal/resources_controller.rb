@@ -2,9 +2,15 @@ class Api::Internal::ResourcesController < ApplicationController
   before_action :merchant_login_only!
 
   def index
-    resources = current_merchant_user.account.resources
-    resources = JSON.parse(resources.to_json(methods: [:resource_type_text]))
-    render json: { status: 'success', resources: resources }, status: 200
+    resources = current_merchant_user.account.resources.order(:id)
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    resources = resources.order(:id)
+    last_page, remainder = resources.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    resources = JSON.parse(resources.first(current_page * display_count).last(display_count).to_json(methods: [:resource_type_text]))
+    render json: { status: 'success', resources: resources, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
