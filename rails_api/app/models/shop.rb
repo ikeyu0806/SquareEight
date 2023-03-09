@@ -2,6 +2,8 @@ class Shop < ApplicationRecord
   include PublicIdModule
   include Base64Image
 
+  validates :name, presence: true
+
   enum publish_status: { Unpublish: 0, Publish: 1 }
 
   belongs_to :account
