@@ -234,6 +234,8 @@ const Index = (): JSX.Element => {
             })}
             <Pagination>
               <Pagination.First onClick={() => setCurrentPage(1)} />
+              {currentPage > 1 && <Pagination.Prev
+                onClick={() => setCurrentPage(currentPage - 1)} />}
               <Pagination.Item
                 active={currentPage == firstPagenationNum}
                 onClick={() => setCurrentPage(firstPagenationNum)}>{firstPagenationNum}</Pagination.Item>
@@ -249,6 +251,8 @@ const Index = (): JSX.Element => {
               {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
                 active={currentPage == fifthPagenationNum}
                 onClick={() => setCurrentPage(fifthPagenationNum)}>{fifthPagenationNum}</Pagination.Item>}
+              {currentPage !== lastPage && <Pagination.Next
+                onClick={() => setCurrentPage(currentPage + 1)} />}
               <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
             </Pagination>
             {reserveFrames.length === 0 &&
