@@ -93,28 +93,28 @@ const Index: NextPage = () => {
             </tbody>
           </Table>}
           <Pagination>
-              <Pagination.First onClick={() => setCurrentPage(1)} />
-              {currentPage > 1 && <Pagination.Prev
-                onClick={() => setCurrentPage(currentPage - 1)} />}
-              <Pagination.Item
-                active={currentPage == firstPaginationNum}
-                onClick={() => setCurrentPage(firstPaginationNum)}>{firstPaginationNum}</Pagination.Item>
-              {lastPage > 1 && <Pagination.Item
-                active={currentPage == secondPaginationNum}
-                onClick={() => setCurrentPage(secondPaginationNum)}>{secondPaginationNum}</Pagination.Item>}
-              {lastPage > 2 && <Pagination.Item
-                active={currentPage == thirdPaginationNum}
-                onClick={() => setCurrentPage(thirdPaginationNum)}>{thirdPaginationNum}</Pagination.Item>}
-              {lastPage > 3 && currentPage < lastPage &&  <Pagination.Item
-                active={currentPage == forthPaginationNum}
-                onClick={() => setCurrentPage(forthPaginationNum)}>{forthPaginationNum}</Pagination.Item>}
-              {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
-                active={currentPage == fifthPaginationNum}
-                onClick={() => setCurrentPage(fifthPaginationNum)}>{fifthPaginationNum}</Pagination.Item>}
-              {currentPage !== lastPage && <Pagination.Next
-                onClick={() => setCurrentPage(currentPage + 1)} />}
-              <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
-            </Pagination>
+            <Pagination.First onClick={() => setCurrentPage(1)} />
+            {currentPage > 1 && <Pagination.Prev
+              onClick={() => setCurrentPage(currentPage - 1)} />}
+            <Pagination.Item
+              active={currentPage == firstPaginationNum}
+              onClick={() => setCurrentPage(firstPaginationNum)}>{firstPaginationNum}</Pagination.Item>
+            {lastPage > 1 && <Pagination.Item
+              active={currentPage == secondPaginationNum}
+              onClick={() => setCurrentPage(secondPaginationNum)}>{secondPaginationNum}</Pagination.Item>}
+            {lastPage > 2 && <Pagination.Item
+              active={currentPage == thirdPaginationNum}
+              onClick={() => setCurrentPage(thirdPaginationNum)}>{thirdPaginationNum}</Pagination.Item>}
+            {lastPage > 3 && currentPage < lastPage &&  <Pagination.Item
+              active={currentPage == forthPaginationNum}
+              onClick={() => setCurrentPage(forthPaginationNum)}>{forthPaginationNum}</Pagination.Item>}
+            {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
+              active={currentPage == fifthPaginationNum}
+              onClick={() => setCurrentPage(fifthPaginationNum)}>{fifthPaginationNum}</Pagination.Item>}
+            {currentPage !== lastPage && <Pagination.Next
+              onClick={() => setCurrentPage(currentPage + 1)} />}
+            <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
+          </Pagination>
           {resources.length === 0 &&
           <div className='text-center font-size-20'>リソースが登録されていません</div>}
         </Container>}

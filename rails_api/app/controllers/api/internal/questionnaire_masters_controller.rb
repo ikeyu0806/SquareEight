@@ -3,7 +3,16 @@ class Api::Internal::QuestionnaireMastersController < ApplicationController
 
   def index
     questionnaire_masters = current_merchant_user.account.questionnaire_masters.enabled.order(:id)
-    render json: { status: 'success', questionnaire_masters: questionnaire_masters }, status: 200
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    questionnaire_masters = questionnaire_masters.order(:id)
+    last_page, remainder = questionnaire_masters.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    questionnaire_masters = questionnaire_masters.first(current_page * display_count).last(display_count)
+    render json: { status: 'success',
+                   questionnaire_masters: questionnaire_masters,
+                   last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

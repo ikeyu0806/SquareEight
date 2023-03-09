@@ -3,11 +3,12 @@ import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayou
 import axios from 'axios'
 import { QuestionnaireMasterParam } from 'interfaces/QuestionnaireMasterParam'
 import { useCookies } from 'react-cookie'
-import { Container, Row, Col, Card, ListGroup, Table } from 'react-bootstrap'
+import { Container, Pagination, Table } from 'react-bootstrap'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import Unauthorized from 'components/templates/Unauthorized'
+import { usePaginationNumber } from 'hooks/usePaginationNumber'
 
 const Index = (): JSX.Element => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -15,19 +16,35 @@ const Index = (): JSX.Element => {
   const allowReadQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowReadQuestionnaireMaster)
   const allowCreateQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowCreateQuestionnaireMaster)
   const allowUpdateQuestionnaireMaster = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateQuestionnaireMaster)
+  // Pagination用
+  // 表示するレコード数
+  const displayCount = 10
+  const [currentPage, setCurrentPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1000)
+  let usePaginationNumberReturnVal = usePaginationNumber(currentPage, lastPage)
+  let firstPaginationNum: number = usePaginationNumberReturnVal[0]
+  let secondPaginationNum: number = usePaginationNumberReturnVal[1]
+  let thirdPaginationNum: number = usePaginationNumberReturnVal[2]
+  let forthPaginationNum: number = usePaginationNumberReturnVal[3]
+  let fifthPaginationNum: number = usePaginationNumberReturnVal[4]
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/questionnaire_masters`,
     {
       headers: {
         'Session-Id': cookies._square_eight_merchant_session
+      },
+      params: {
+        current_page: currentPage,
+        display_count: displayCount
       }
     }).then((response) => {
       setQuestionnaireMasters(response.data.questionnaire_masters)
+      setLastPage(response.data.last_page)
     }).catch((error) => {
       console.log(error)
     })
-  }, [cookies._square_eight_merchant_session])
+  }, [cookies._square_eight_merchant_session, currentPage, lastPage])
 
   return (
     <MerchantUserAdminLayout>
@@ -76,6 +93,29 @@ const Index = (): JSX.Element => {
           })}
           </tbody>
         </Table>
+        <Pagination>
+          <Pagination.First onClick={() => setCurrentPage(1)} />
+          {currentPage > 1 && <Pagination.Prev
+            onClick={() => setCurrentPage(currentPage - 1)} />}
+          <Pagination.Item
+            active={currentPage == firstPaginationNum}
+            onClick={() => setCurrentPage(firstPaginationNum)}>{firstPaginationNum}</Pagination.Item>
+          {lastPage > 1 && <Pagination.Item
+            active={currentPage == secondPaginationNum}
+            onClick={() => setCurrentPage(secondPaginationNum)}>{secondPaginationNum}</Pagination.Item>}
+          {lastPage > 2 && <Pagination.Item
+            active={currentPage == thirdPaginationNum}
+            onClick={() => setCurrentPage(thirdPaginationNum)}>{thirdPaginationNum}</Pagination.Item>}
+          {lastPage > 3 && currentPage < lastPage &&  <Pagination.Item
+            active={currentPage == forthPaginationNum}
+            onClick={() => setCurrentPage(forthPaginationNum)}>{forthPaginationNum}</Pagination.Item>}
+          {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
+            active={currentPage == fifthPaginationNum}
+            onClick={() => setCurrentPage(fifthPaginationNum)}>{fifthPaginationNum}</Pagination.Item>}
+          {currentPage !== lastPage && <Pagination.Next
+            onClick={() => setCurrentPage(currentPage + 1)} />}
+          <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
+        </Pagination>
       </Container>}
       {questionnaireMasters && questionnaireMasters.length === 0 &&
         <Container>
