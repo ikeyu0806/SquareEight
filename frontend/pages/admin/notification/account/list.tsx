@@ -8,7 +8,6 @@ import { Notification } from 'interfaces/Notification'
 import { useRouter } from 'next/router'
 import { usePaginationNumber } from 'hooks/usePaginationNumber'
 
-
 const Index: NextPage = () => {
   const [notifications, setNotifications] = useState<Notification[]>([])
   const [cookies] = useCookies(['_square_eight_merchant_session'])
