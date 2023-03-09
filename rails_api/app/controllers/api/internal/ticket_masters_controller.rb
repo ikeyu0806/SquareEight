@@ -5,7 +5,13 @@ class Api::Internal::TicketMastersController < ApplicationController
 
   def index
     ticket_masters = current_merchant_user.account.ticket_masters.enabled.order(:id)
-    render json: { status: 'success', ticket_masters: ticket_masters }, status: 200
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    last_page, remainder = ticket_masters.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    ticket_masters = ticket_masters.first(current_page * display_count).last(display_count)
+    render json: { status: 'success', ticket_masters: ticket_masters, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

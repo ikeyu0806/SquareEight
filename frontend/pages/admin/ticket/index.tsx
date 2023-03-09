@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import React, { useEffect, useState } from 'react'
-import { Container, Table } from 'react-bootstrap'
+import { Container, Table, Pagination } from 'react-bootstrap'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
@@ -10,6 +10,7 @@ import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import Unauthorized from 'components/templates/Unauthorized'
+import { usePaginationNumber } from 'hooks/usePaginationNumber'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
@@ -19,6 +20,18 @@ const Index: NextPage = () => {
   const allowReadTicketMaster = useSelector((state: RootState) => state.merchantUserPermission.allowReadTicketMaster)
   const allowUpdateTicketMaster = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateTicketMaster)
 
+  // Pagination用
+  // 表示するレコード数
+  const displayCount = 10
+  const [currentPage, setCurrentPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1000)
+  let usePaginationNumberReturnVal = usePaginationNumber(currentPage, lastPage)
+  let firstPaginationNum: number = usePaginationNumberReturnVal[0]
+  let secondPaginationNum: number = usePaginationNumberReturnVal[1]
+  let thirdPaginationNum: number = usePaginationNumberReturnVal[2]
+  let forthPaginationNum: number = usePaginationNumberReturnVal[3]
+  let fifthPaginationNum: number = usePaginationNumberReturnVal[4]
+
   useEffect(() => {
     const fetchTicketMasters = () => {
       axios.get(
@@ -26,18 +39,23 @@ const Index: NextPage = () => {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           },
+          params: {
+            current_page: currentPage,
+            display_count: displayCount
+          }
         }
       )
       .then(function (response) {
         const ticketMasterResponse: TicketMasterParam[] = response.data.ticket_masters
         setTicketMasters(ticketMasterResponse)
+        setLastPage(response.data.last_page)
       })
       .catch(error => {
         console.log(error)
       })
     }
     fetchTicketMasters()
-  }, [router.query.public_id, cookies._square_eight_merchant_session, router.query.website_id])
+  }, [router.query.public_id, cookies._square_eight_merchant_session, router.query.website_id, currentPage, lastPage])
 
   return (
     <>
@@ -85,6 +103,29 @@ const Index: NextPage = () => {
               })}
             </tbody>
           </Table>
+          <Pagination>
+            <Pagination.First onClick={() => setCurrentPage(1)} />
+            {currentPage > 1 && <Pagination.Prev
+              onClick={() => setCurrentPage(currentPage - 1)} />}
+            <Pagination.Item
+              active={currentPage == firstPaginationNum}
+              onClick={() => setCurrentPage(firstPaginationNum)}>{firstPaginationNum}</Pagination.Item>
+            {lastPage > 1 && <Pagination.Item
+              active={currentPage == secondPaginationNum}
+              onClick={() => setCurrentPage(secondPaginationNum)}>{secondPaginationNum}</Pagination.Item>}
+            {lastPage > 2 && <Pagination.Item
+              active={currentPage == thirdPaginationNum}
+              onClick={() => setCurrentPage(thirdPaginationNum)}>{thirdPaginationNum}</Pagination.Item>}
+            {lastPage > 3 && currentPage < lastPage &&  <Pagination.Item
+              active={currentPage == forthPaginationNum}
+              onClick={() => setCurrentPage(forthPaginationNum)}>{forthPaginationNum}</Pagination.Item>}
+            {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
+              active={currentPage == fifthPaginationNum}
+              onClick={() => setCurrentPage(fifthPaginationNum)}>{fifthPaginationNum}</Pagination.Item>}
+            {currentPage !== lastPage && <Pagination.Next
+              onClick={() => setCurrentPage(currentPage + 1)} />}
+            <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
+          </Pagination>
         </Container>}
         {allowReadTicketMaster === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
