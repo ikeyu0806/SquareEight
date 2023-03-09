@@ -3,6 +3,9 @@ class MonthlyPaymentPlan < ApplicationRecord
   include AccountImageModule
 
   enum reserve_interval_unit: { Day: 0, Week: 1 }
+
+  validates :name, presence: true
+
   belongs_to :account
   has_many :cart_monthly_payment_plans
   has_many :shop_monthly_payment_plans, class_name: 'ShopMonthlyPaymentPlan', dependent: :destroy

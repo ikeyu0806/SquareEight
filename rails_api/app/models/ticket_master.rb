@@ -12,6 +12,7 @@ class TicketMaster < ApplicationRecord
 
   scope :enabled, -> { where(deleted_at: nil) }
 
+  validates :name, presence: true
   validates :effective_month, presence: true
 
   def delete_s3_image

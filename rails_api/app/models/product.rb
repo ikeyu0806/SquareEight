@@ -2,6 +2,8 @@ class Product < ApplicationRecord
   include PublicIdModule
   include AccountImageModule
 
+  validates :name, presence: true
+
   belongs_to :account
   has_many :product_types, -> { order(:id) }
   has_many :cart_products, -> { order(:id) }
