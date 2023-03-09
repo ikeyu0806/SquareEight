@@ -15,6 +15,7 @@ import CreateReserveFrameModal from 'components/organisms/CreateReserveFrameModa
 import EditReserveFrameModal from 'components/organisms/EditReserveFrameModal'
 import { RootState } from 'redux/store'
 import Unauthorized from 'components/templates/Unauthorized'
+import { usePagenationNumber } from 'hooks/usePagenationNumber'
 
 const Index = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -24,16 +25,17 @@ const Index = (): JSX.Element => {
   const allowReadReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowReadReserveFrame)
   const allowCreateReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowCreateReserveFrame)
   const allowUpdateReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateReserveFrame)
+  // Pagenation用
   // 表示するレコード数
   const displayCount = 3
   const [currentPage, setCurrentPage] = useState(1)
   const [lastPage, setLastPage] = useState(1000)
-
-  const [firstPagenationNum, setFirstPagenationNum] = useState(1)
-  const [secondPagenationNum, setSecondPagenationNum] = useState(2)
-  const [thirdPagenationNum, setThirdPagenationNum] = useState(3)
-  const [forthPagenationNum, setForthPagenationNum] = useState(4)
-  const [fifthPagenationNum, setFifthPagenationNum] = useState(5)
+  let usePagenationNumberReturnVal = usePagenationNumber(currentPage, lastPage)
+  let firstPagenationNum: number = usePagenationNumberReturnVal[0]
+  let secondPagenationNum: number = usePagenationNumberReturnVal[1]
+  let thirdPagenationNum: number = usePagenationNumberReturnVal[2]
+  let forthPagenationNum: number = usePagenationNumberReturnVal[3]
+  let fifthPagenationNum: number = usePagenationNumberReturnVal[4]
 
   useEffect(() => {
     const fetchReserveFrames = () => {
@@ -61,50 +63,6 @@ const Index = (): JSX.Element => {
     fetchReserveFrames()
   }, [router.query.public_id, cookies._square_eight_merchant_session, currentPage, lastPage])
 
-  useEffect(() => {
-    setFirstPagenationNum(currentPage < 3 ? 1 : currentPage - 2)
-    setSecondPagenationNum(currentPage < 4 ? 2 : currentPage - 1)
-
-    let thirdNum = 3
-    if (currentPage === 1) {
-      thirdNum = currentPage + 2
-    } else if (currentPage === 2) {
-      thirdNum = currentPage + 1
-    } else if (currentPage === lastPage - 1) {
-      thirdNum = lastPage - 1
-    } else if (currentPage === lastPage) {
-      thirdNum = lastPage
-    } else {
-      thirdNum = currentPage
-    }
-    setThirdPagenationNum(thirdNum)
-
-    let forthNum = 4
-    if (currentPage === 1 || (currentPage === 2 && lastPage < 5)) {
-      forthNum = 4
-    } else if (currentPage === 2) {
-      forthNum = 5
-    } else if (currentPage === lastPage - 2) {
-      forthNum = lastPage - 1
-    } else {
-      forthNum = currentPage + 1
-    }
-    setForthPagenationNum(forthNum)
-
-    let fifthNum = 5
-    if (currentPage === 1) {
-      fifthNum = 5
-    } else if (currentPage === 2) {
-      fifthNum = 6
-    } else if (currentPage === lastPage) {
-      fifthNum = lastPage
-    } else {
-      fifthNum = currentPage + 2
-    }
-    setFifthPagenationNum(fifthNum)
-  }, [currentPage, lastPage])
-
-
   const repeatIntervalTypeText = (repeatIntervalType: string) => {
     switch (repeatIntervalType) {
       case 'Day':
@@ -117,6 +75,7 @@ const Index = (): JSX.Element => {
         return (<div>曜日ごと</div>)
     }
   }
+
   return (
     <>
       <MerchantUserAdminLayout>
@@ -275,6 +234,8 @@ const Index = (): JSX.Element => {
             })}
             <Pagination>
               <Pagination.First onClick={() => setCurrentPage(1)} />
+              {currentPage > 1 && <Pagination.Prev
+                onClick={() => setCurrentPage(currentPage - 1)} />}
               <Pagination.Item
                 active={currentPage == firstPagenationNum}
                 onClick={() => setCurrentPage(firstPagenationNum)}>{firstPagenationNum}</Pagination.Item>
@@ -290,6 +251,8 @@ const Index = (): JSX.Element => {
               {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
                 active={currentPage == fifthPagenationNum}
                 onClick={() => setCurrentPage(fifthPagenationNum)}>{fifthPagenationNum}</Pagination.Item>}
+              {currentPage !== lastPage && <Pagination.Next
+                onClick={() => setCurrentPage(currentPage + 1)} />}
               <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
             </Pagination>
             {reserveFrames.length === 0 &&
