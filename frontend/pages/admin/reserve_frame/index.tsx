@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
-import { Container, Button, Row, Col } from 'react-bootstrap'
+import { Container, Button, Row, Col, Pagination } from 'react-bootstrap'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import axios from 'axios'
@@ -24,6 +24,16 @@ const Index = (): JSX.Element => {
   const allowReadReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowReadReserveFrame)
   const allowCreateReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowCreateReserveFrame)
   const allowUpdateReserveFrame = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateReserveFrame)
+  // 表示するレコード数
+  const displayCount = 3
+  const [currentPage, setCurrentPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1000)
+
+  const [firstPagenationNum, setFirstPagenationNum] = useState(1)
+  const [secondPagenationNum, setSecondPagenationNum] = useState(2)
+  const [thirdPagenationNum, setThirdPagenationNum] = useState(3)
+  const [forthPagenationNum, setForthPagenationNum] = useState(4)
+  const [fifthPagenationNum, setFifthPagenationNum] = useState(5)
 
   useEffect(() => {
     const fetchReserveFrames = () => {
@@ -32,19 +42,68 @@ const Index = (): JSX.Element => {
           headers: {
             'Session-Id': cookies._square_eight_merchant_session
           },
+          params: {
+            current_page: currentPage,
+            display_count: displayCount
+          }
         }
       )
       .then(function (response) {
         const reserveFrameResponse: ReserveFrameParam[] = response.data.reserve_frames
         console.log(response.data)
         setReserveFrames(reserveFrameResponse)
+        setLastPage(response.data.last_page)
       })
       .catch(error => {
         console.log(error)
       })
     }
     fetchReserveFrames()
-  }, [router.query.public_id, cookies._square_eight_merchant_session])
+  }, [router.query.public_id, cookies._square_eight_merchant_session, currentPage, lastPage])
+
+  useEffect(() => {
+    setFirstPagenationNum(currentPage < 3 ? 1 : currentPage - 2)
+    setSecondPagenationNum(currentPage < 4 ? 2 : currentPage - 1)
+
+    let thirdNum = 3
+    if (currentPage === 1) {
+      thirdNum = currentPage + 2
+    } else if (currentPage === 2) {
+      thirdNum = currentPage + 1
+    } else if (currentPage === lastPage - 1) {
+      thirdNum = lastPage - 1
+    } else if (currentPage === lastPage) {
+      thirdNum = lastPage
+    } else {
+      thirdNum = currentPage
+    }
+    setThirdPagenationNum(thirdNum)
+
+    let forthNum = 4
+    if (currentPage === 1 || (currentPage === 2 && lastPage < 5)) {
+      forthNum = 4
+    } else if (currentPage === 2) {
+      forthNum = 5
+    } else if (currentPage === lastPage - 2) {
+      forthNum = lastPage - 1
+    } else {
+      forthNum = currentPage + 1
+    }
+    setForthPagenationNum(forthNum)
+
+    let fifthNum = 5
+    if (currentPage === 1) {
+      fifthNum = 5
+    } else if (currentPage === 2) {
+      fifthNum = 6
+    } else if (currentPage === lastPage) {
+      fifthNum = lastPage
+    } else {
+      fifthNum = currentPage + 2
+    }
+    setFifthPagenationNum(fifthNum)
+  }, [currentPage, lastPage])
+
 
   const repeatIntervalTypeText = (repeatIntervalType: string) => {
     switch (repeatIntervalType) {
@@ -214,6 +273,25 @@ const Index = (): JSX.Element => {
                 </div>
               )
             })}
+            <Pagination>
+              <Pagination.First onClick={() => setCurrentPage(1)} />
+              <Pagination.Item
+                active={currentPage == firstPagenationNum}
+                onClick={() => setCurrentPage(firstPagenationNum)}>{firstPagenationNum}</Pagination.Item>
+              {lastPage > 1 && <Pagination.Item
+                active={currentPage == secondPagenationNum}
+                onClick={() => setCurrentPage(secondPagenationNum)}>{secondPagenationNum}</Pagination.Item>}
+              {lastPage > 2 && <Pagination.Item
+                active={currentPage == thirdPagenationNum}
+                onClick={() => setCurrentPage(thirdPagenationNum)}>{thirdPagenationNum}</Pagination.Item>}
+              {lastPage > 3 && currentPage < lastPage &&  <Pagination.Item
+                active={currentPage == forthPagenationNum}
+                onClick={() => setCurrentPage(forthPagenationNum)}>{forthPagenationNum}</Pagination.Item>}
+              {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
+                active={currentPage == fifthPagenationNum}
+                onClick={() => setCurrentPage(fifthPagenationNum)}>{fifthPagenationNum}</Pagination.Item>}
+              <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
+            </Pagination>
             {reserveFrames.length === 0 &&
               <div className='text-center font-size-20'>
                 予約メニューが登録されていません。
