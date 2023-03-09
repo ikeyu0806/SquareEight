@@ -1,15 +1,15 @@
 import { useEffect, useState } from 'react'
 
-export const usePagenationNumber = (currentPage: number, lastPage: number) => {
-  const [firstPagenationNum, setFirstPagenationNum] = useState(1)
-  const [secondPagenationNum, setSecondPagenationNum] = useState(2)
-  const [thirdPagenationNum, setThirdPagenationNum] = useState(3)
-  const [forthPagenationNum, setForthPagenationNum] = useState(4)
-  const [fifthPagenationNum, setFifthPagenationNum] = useState(5)
+export const usePaginationNumber = (currentPage: number, lastPage: number) => {
+  const [firstPaginationNum, setFirstPaginationNum] = useState(1)
+  const [secondPaginationNum, setSecondPaginationNum] = useState(2)
+  const [thirdPaginationNum, setThirdPaginationNum] = useState(3)
+  const [forthPaginationNum, setForthPaginationNum] = useState(4)
+  const [fifthPaginationNum, setFifthPaginationNum] = useState(5)
 
   useEffect(() => {
-    setFirstPagenationNum(currentPage < 3 ? 1 : currentPage - 2)
-    setSecondPagenationNum(currentPage < 4 ? 2 : currentPage - 1)
+    setFirstPaginationNum(currentPage < 3 ? 1 : currentPage - 2)
+    setSecondPaginationNum(currentPage < 4 ? 2 : currentPage - 1)
 
     let thirdNum = 3
     if (currentPage === 1) {
@@ -23,7 +23,7 @@ export const usePagenationNumber = (currentPage: number, lastPage: number) => {
     } else {
       thirdNum = currentPage
     }
-    setThirdPagenationNum(thirdNum)
+    setThirdPaginationNum(thirdNum)
 
     let forthNum = 4
     if (currentPage === 1 || (currentPage === 2 && lastPage > 5)) {
@@ -35,7 +35,7 @@ export const usePagenationNumber = (currentPage: number, lastPage: number) => {
     } else {
       forthNum = currentPage + 1
     }
-    setForthPagenationNum(forthNum)
+    setForthPaginationNum(forthNum)
 
     let fifthNum = 5
     if (currentPage === 1 || (currentPage === 2 && lastPage > 5)) {
@@ -47,14 +47,14 @@ export const usePagenationNumber = (currentPage: number, lastPage: number) => {
     } else {
       fifthNum = currentPage + 2
     }
-    setFifthPagenationNum(fifthNum)
+    setFifthPaginationNum(fifthNum)
   }, [currentPage, lastPage])
 
   return [
-    firstPagenationNum,
-    secondPagenationNum,
-    thirdPagenationNum,
-    forthPagenationNum,
-    fifthPagenationNum
+    firstPaginationNum,
+    secondPaginationNum,
+    thirdPaginationNum,
+    forthPaginationNum,
+    fifthPaginationNum
   ]
 }

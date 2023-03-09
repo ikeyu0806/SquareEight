@@ -9,24 +9,24 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import Unauthorized from 'components/templates/Unauthorized'
 import PublishStatusBadge from 'components/atoms/PublishStatusBadge'
-import { usePagenationNumber } from 'hooks/usePagenationNumber'
+import { usePaginationNumber } from 'hooks/usePaginationNumber'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const [shops, setShops] = useState<ShopParam[]>([])
   const allowReadShop = useSelector((state: RootState) => state.merchantUserPermission.allowReadShop)
   const allowUpdateShop = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateShop)
-  // Pagenation用
+  // Pagination用
   // 表示するレコード数
   const displayCount = 10
   const [currentPage, setCurrentPage] = useState(1)
   const [lastPage, setLastPage] = useState(1000)
-  let usePagenationNumberReturnVal = usePagenationNumber(currentPage, lastPage)
-  let firstPagenationNum: number = usePagenationNumberReturnVal[0]
-  let secondPagenationNum: number = usePagenationNumberReturnVal[1]
-  let thirdPagenationNum: number = usePagenationNumberReturnVal[2]
-  let forthPagenationNum: number = usePagenationNumberReturnVal[3]
-  let fifthPagenationNum: number = usePagenationNumberReturnVal[4]
+  let usePaginationNumberReturnVal = usePaginationNumber(currentPage, lastPage)
+  let firstPaginationNum: number = usePaginationNumberReturnVal[0]
+  let secondPaginationNum: number = usePaginationNumberReturnVal[1]
+  let thirdPaginationNum: number = usePaginationNumberReturnVal[2]
+  let forthPaginationNum: number = usePaginationNumberReturnVal[3]
+  let fifthPaginationNum: number = usePaginationNumberReturnVal[4]
 
   useEffect(() => {
     const fetchResources = () => {
@@ -98,20 +98,20 @@ const Index: NextPage = () => {
           {currentPage > 1 && <Pagination.Prev
             onClick={() => setCurrentPage(currentPage - 1)} />}
           <Pagination.Item
-            active={currentPage == firstPagenationNum}
-            onClick={() => setCurrentPage(firstPagenationNum)}>{firstPagenationNum}</Pagination.Item>
+            active={currentPage == firstPaginationNum}
+            onClick={() => setCurrentPage(firstPaginationNum)}>{firstPaginationNum}</Pagination.Item>
           {lastPage > 1 && <Pagination.Item
-            active={currentPage == secondPagenationNum}
-            onClick={() => setCurrentPage(secondPagenationNum)}>{secondPagenationNum}</Pagination.Item>}
+            active={currentPage == secondPaginationNum}
+            onClick={() => setCurrentPage(secondPaginationNum)}>{secondPaginationNum}</Pagination.Item>}
           {lastPage > 2 && <Pagination.Item
-            active={currentPage == thirdPagenationNum}
-            onClick={() => setCurrentPage(thirdPagenationNum)}>{thirdPagenationNum}</Pagination.Item>}
+            active={currentPage == thirdPaginationNum}
+            onClick={() => setCurrentPage(thirdPaginationNum)}>{thirdPaginationNum}</Pagination.Item>}
           {lastPage > 3 && currentPage < lastPage &&  <Pagination.Item
-            active={currentPage == forthPagenationNum}
-            onClick={() => setCurrentPage(forthPagenationNum)}>{forthPagenationNum}</Pagination.Item>}
+            active={currentPage == forthPaginationNum}
+            onClick={() => setCurrentPage(forthPaginationNum)}>{forthPaginationNum}</Pagination.Item>}
           {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
-            active={currentPage == fifthPagenationNum}
-            onClick={() => setCurrentPage(fifthPagenationNum)}>{fifthPagenationNum}</Pagination.Item>}
+            active={currentPage == fifthPaginationNum}
+            onClick={() => setCurrentPage(fifthPaginationNum)}>{fifthPaginationNum}</Pagination.Item>}
           {currentPage !== lastPage && <Pagination.Next
             onClick={() => setCurrentPage(currentPage + 1)} />}
           <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
