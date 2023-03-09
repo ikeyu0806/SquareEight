@@ -2,8 +2,13 @@ class Api::Internal::ShopsController < ApplicationController
   before_action :merchant_login_only!, except: [:show]
 
   def index
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
     shops = current_merchant_user.account.shops
-    render json: { status: 'success', shops: shops }, status: 200
+    last_page, remainder = shops.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    shops = shops.first(current_page * display_count).last(display_count)
+    render json: { status: 'success', shops: shops, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
