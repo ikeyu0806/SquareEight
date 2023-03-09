@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Card, Button, Form, Table, Alert  } from 'react-bootstrap'
+import { Container, Row, Col, Card, Button, Form, Table, Alert, Pagination  } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { useCookies } from 'react-cookie'
 import { CustomerParam } from 'interfaces/CustomerParam'
@@ -20,7 +20,7 @@ import { showConnectLineUserModalChanged,
          customerPublicIdChanged,
          lineUsersChanged,
          showNotesModalChanged } from 'redux/customerSlice'
-import { selectedLineOfficialAccountPublicIdChanged, selectedLineUserChanged } from 'redux/sendLineScheduleSlice'
+import { selectedLineUserChanged } from 'redux/sendLineScheduleSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import CreateCustomerModal from 'components/templates/CreateCustomerModal'
 import EditCustomerModal from 'components/templates/EditCustomerModal'
@@ -35,6 +35,7 @@ import CustomerNotesModal from 'components/templates/CustomerNotesModal'
 import LineOfficialAccountModal from 'components/templates/LineOfficialAccountModal'
 import { htmlMailTemplateChanged as htmlMailTemplateStateContentChanged } from 'redux/htmlMailTemplateSlice'
 import { selectedHtmlMailTemplateChanged, sendTargetTypeChanged } from 'redux/sendMailSlice'
+import { usePaginationNumber } from 'hooks/usePaginationNumber'
 import { lineOfficialAccountsChanged,
          registeredCustomersCountChanged } from 'redux/accountSlice'
 
@@ -53,12 +54,27 @@ const Index: NextPage = () => {
   const allowConnectLineUser = useSelector((state: RootState) => state.merchantUserPermission.allowConnectLineUser)
   const allowReadLineUser = useSelector((state: RootState) => state.merchantUserPermission.allowReadLineUser)
   const allowSendLineMessage = useSelector((state: RootState) => state.merchantUserPermission.allowSendLineMessage)
+  // Pagination用
+  // 表示するレコード数
+  const displayCount = 10
+  const [currentPage, setCurrentPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1000)
+  let usePaginationNumberReturnVal = usePaginationNumber(currentPage, lastPage)
+  let firstPaginationNum: number = usePaginationNumberReturnVal[0]
+  let secondPaginationNum: number = usePaginationNumberReturnVal[1]
+  let thirdPaginationNum: number = usePaginationNumberReturnVal[2]
+  let forthPaginationNum: number = usePaginationNumberReturnVal[3]
+  let fifthPaginationNum: number = usePaginationNumberReturnVal[4]
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/account/customers`,
     {
       headers: {
         'Session-Id': cookies._square_eight_merchant_session
+      },
+      params: {
+        current_page: currentPage,
+        display_count: displayCount
       }
     }).then((response) => {
       console.log(response.data)
@@ -71,10 +87,11 @@ const Index: NextPage = () => {
       dispatch(lineOfficialAccountsChanged(response.data.line_official_accounts))
       dispatch(sendTargetTypeChanged('customer'))
       dispatch(registeredCustomersCountChanged(response.data.registered_customers_count))
+      setLastPage(response.data.last_page)
     }).catch((error) => {
       console.log(error)
     })
-  }, [cookies._square_eight_merchant_session, dispatch])
+  }, [cookies._square_eight_merchant_session, dispatch, currentPage, lastPage])
 
   const showEditModal = (customer: CustomerParam) => {
     dispatch(showEditCustomerModalChanged(true))
@@ -237,6 +254,29 @@ const Index: NextPage = () => {
               })}
               </tbody>
             </Table>
+            <Pagination>
+              <Pagination.First onClick={() => setCurrentPage(1)} />
+              {currentPage > 1 && <Pagination.Prev
+                onClick={() => setCurrentPage(currentPage - 1)} />}
+              <Pagination.Item
+                active={currentPage == firstPaginationNum}
+                onClick={() => setCurrentPage(firstPaginationNum)}>{firstPaginationNum}</Pagination.Item>
+              {lastPage > 1 && <Pagination.Item
+                active={currentPage == secondPaginationNum}
+                onClick={() => setCurrentPage(secondPaginationNum)}>{secondPaginationNum}</Pagination.Item>}
+              {lastPage > 2 && <Pagination.Item
+                active={currentPage == thirdPaginationNum}
+                onClick={() => setCurrentPage(thirdPaginationNum)}>{thirdPaginationNum}</Pagination.Item>}
+              {lastPage > 3 && currentPage < lastPage &&  <Pagination.Item
+                active={currentPage == forthPaginationNum}
+                onClick={() => setCurrentPage(forthPaginationNum)}>{forthPaginationNum}</Pagination.Item>}
+              {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
+                active={currentPage == fifthPaginationNum}
+                onClick={() => setCurrentPage(fifthPaginationNum)}>{fifthPaginationNum}</Pagination.Item>}
+              {currentPage !== lastPage && <Pagination.Next
+                onClick={() => setCurrentPage(currentPage + 1)} />}
+              <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
+            </Pagination>
           </>}
           {customers.length === 0 && <Container>
             {allowCreateCustomer === 'Allow' && <Button

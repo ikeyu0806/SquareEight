@@ -2,17 +2,22 @@ class Api::Internal::Account::CustomersController < ApplicationController
   before_action :merchant_login_only!
 
   def index
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
     customers = current_merchant_user.account.customers_with_limit.order(:id)
+    last_page, remainder = customers.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
     customers = customers.search(params[:search_word]) if params[:search_word].present?
     line_users = current_merchant_user.account.line_users
     line_official_accounts = current_merchant_user.account.line_official_accounts
     message_templates = current_merchant_user.account.message_templates
     html_mail_templates = current_merchant_user.account.html_mail_templates
-    customers = JSON.parse(customers.to_json(methods: [:line_display_name, :line_picture_url, :line_user_public_id, :line_user]))
+    customers = JSON.parse(customers.first(current_page * display_count).last(display_count).to_json(methods: [:line_display_name, :line_picture_url, :line_user_public_id, :line_user]))
     html_template_content = html_mail_templates.present? ? JSON.parse(html_mail_templates.first.content) : ''
     registered_customers_count = current_merchant_user.account.registered_customers_count
     render json: { status: 'success',
                    customers: customers,
+                   last_page: last_page,
                    line_users: line_users,
                    line_official_accounts: line_official_accounts,
                    message_templates: message_templates,
