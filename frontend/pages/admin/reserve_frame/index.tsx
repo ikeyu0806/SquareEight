@@ -34,8 +34,8 @@ const Index = (): JSX.Element => {
   let firstPagenationNum: number = usePagenationNumberReturnVal[0]
   let secondPagenationNum: number = usePagenationNumberReturnVal[1]
   let thirdPagenationNum: number = usePagenationNumberReturnVal[2]
-  let forthPagenationNum: number = usePagenationNumberReturnVal[4]
-  let fifthPagenationNum: number = usePagenationNumberReturnVal[5]
+  let forthPagenationNum: number = usePagenationNumberReturnVal[3]
+  let fifthPagenationNum: number = usePagenationNumberReturnVal[4]
 
   useEffect(() => {
     const fetchReserveFrames = () => {
@@ -62,6 +62,7 @@ const Index = (): JSX.Element => {
     }
     fetchReserveFrames()
   }, [router.query.public_id, cookies._square_eight_merchant_session, currentPage, lastPage])
+
   const repeatIntervalTypeText = (repeatIntervalType: string) => {
     switch (repeatIntervalType) {
       case 'Day':
@@ -74,6 +75,7 @@ const Index = (): JSX.Element => {
         return (<div>曜日ごと</div>)
     }
   }
+
   return (
     <>
       <MerchantUserAdminLayout>
@@ -230,6 +232,7 @@ const Index = (): JSX.Element => {
                 </div>
               )
             })}
+            {/* {`currentPage: ${currentPage}, lastPage: ${lastPage}`} */}
             <Pagination>
               <Pagination.First onClick={() => setCurrentPage(1)} />
               <Pagination.Item
