@@ -14,6 +14,7 @@ class TicketMaster < ApplicationRecord
 
   validates :name, presence: true
   validates :effective_month, presence: true
+  validates :price, presence: true
 
   def delete_s3_image
     client = Aws::S3::Client.new(

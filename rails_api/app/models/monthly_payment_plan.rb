@@ -5,6 +5,7 @@ class MonthlyPaymentPlan < ApplicationRecord
   enum reserve_interval_unit: { Day: 0, Week: 1 }
 
   validates :name, presence: true
+  validates :price, presence: true
 
   belongs_to :account
   has_many :cart_monthly_payment_plans
