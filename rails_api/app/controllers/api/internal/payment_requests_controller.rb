@@ -4,8 +4,14 @@ class Api::Internal::PaymentRequestsController < ApplicationController
 
   def index
     payment_requests = current_merchant_user.account.stripe_payment_requests.order(id: :desc)
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    last_page, remainder = payment_requests.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    payment_requests = payment_requests.first(current_page * display_count).last(display_count)
     payment_requests = JSON.parse(payment_requests.to_json(methods: [:display_status, :request_url, :billing_customer_name, :billing_customer_email, :line_display_name, :line_picture_url]))
-    render json: {  status: 'success', payment_requests: payment_requests }, status: 200
+    render json: {  status: 'success', payment_requests: payment_requests, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
