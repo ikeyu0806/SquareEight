@@ -68,10 +68,10 @@ const Index: NextPage = () => {
                 <td>{messageSendMethodText(request.send_method)}</td>
                 <td>{request.billing_customer_name}</td>
                 <td>
-                  <img
+                  {request.line_picture_url && <img
                     className={lineUserStyles.line_picture_url}
                     src={request.line_picture_url}
-                    alt='line_picture_url' />
+                    alt='line_picture_url' />}
                   <span className='ml10'>{request.line_display_name}</span>
                 </td>
                 <td>{request.billing_customer_email}</td>
