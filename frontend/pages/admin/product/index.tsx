@@ -10,7 +10,6 @@ import { RootState } from 'redux/store'
 import { useSelector, useDispatch } from 'react-redux'
 import axios from 'axios'
 import Unauthorized from 'components/templates/Unauthorized'
-import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import { inventoryChanged, publicIdChanged,
          showInventoryDescriptionModalChanged,
          showInventoryReplenishmentModalChanged,
@@ -165,28 +164,28 @@ const Index: NextPage = () => {
               </tbody>
             </Table>
             <Pagination>
-            <Pagination.First onClick={() => setCurrentPage(1)} />
-            {currentPage > 1 && <Pagination.Prev
-              onClick={() => setCurrentPage(currentPage - 1)} />}
-            <Pagination.Item
-              active={currentPage == firstPaginationNum}
-              onClick={() => setCurrentPage(firstPaginationNum)}>{firstPaginationNum}</Pagination.Item>
-            {lastPage > 1 && <Pagination.Item
-              active={currentPage == secondPaginationNum}
-              onClick={() => setCurrentPage(secondPaginationNum)}>{secondPaginationNum}</Pagination.Item>}
-            {lastPage > 2 && <Pagination.Item
-              active={currentPage == thirdPaginationNum}
-              onClick={() => setCurrentPage(thirdPaginationNum)}>{thirdPaginationNum}</Pagination.Item>}
-            {lastPage > 3 && currentPage < lastPage &&  <Pagination.Item
-              active={currentPage == forthPaginationNum}
-              onClick={() => setCurrentPage(forthPaginationNum)}>{forthPaginationNum}</Pagination.Item>}
-            {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
-              active={currentPage == fifthPaginationNum}
-              onClick={() => setCurrentPage(fifthPaginationNum)}>{fifthPaginationNum}</Pagination.Item>}
-            {currentPage !== lastPage && <Pagination.Next
-              onClick={() => setCurrentPage(currentPage + 1)} />}
-            <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
-          </Pagination>
+              <Pagination.First onClick={() => setCurrentPage(1)} />
+              {currentPage > 1 && <Pagination.Prev
+                onClick={() => setCurrentPage(currentPage - 1)} />}
+              <Pagination.Item
+                active={currentPage == firstPaginationNum}
+                onClick={() => setCurrentPage(firstPaginationNum)}>{firstPaginationNum}</Pagination.Item>
+              {lastPage > 1 && <Pagination.Item
+                active={currentPage == secondPaginationNum}
+                onClick={() => setCurrentPage(secondPaginationNum)}>{secondPaginationNum}</Pagination.Item>}
+              {lastPage > 2 && <Pagination.Item
+                active={currentPage == thirdPaginationNum}
+                onClick={() => setCurrentPage(thirdPaginationNum)}>{thirdPaginationNum}</Pagination.Item>}
+              {lastPage > 3 && currentPage < lastPage &&  <Pagination.Item
+                active={currentPage == forthPaginationNum}
+                onClick={() => setCurrentPage(forthPaginationNum)}>{forthPaginationNum}</Pagination.Item>}
+              {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
+                active={currentPage == fifthPaginationNum}
+                onClick={() => setCurrentPage(fifthPaginationNum)}>{fifthPaginationNum}</Pagination.Item>}
+              {currentPage !== lastPage && <Pagination.Next
+                onClick={() => setCurrentPage(currentPage + 1)} />}
+              <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
+            </Pagination>
           </>
         }
         {products.length === 0 &&

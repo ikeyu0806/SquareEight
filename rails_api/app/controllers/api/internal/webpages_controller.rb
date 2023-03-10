@@ -3,7 +3,12 @@ class Api::Internal::WebpagesController < ApplicationController
 
   def index
     webpages = current_merchant_user.account.webpages
-    render json: { status: 'success', webpages: webpages }, status: 200
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    last_page, remainder = webpages.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    webpages = webpages.first(current_page * display_count).last(display_count)
+    render json: { status: 'success', webpages: webpages, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
