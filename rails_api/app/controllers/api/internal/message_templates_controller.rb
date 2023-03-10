@@ -2,8 +2,14 @@ class Api::Internal::MessageTemplatesController < ApplicationController
   before_action :merchant_login_only!
 
   def index
+        # ページネーション
+        current_page = params[:current_page].to_i
+        display_count = params[:display_count].to_i
     account = current_merchant_user.account
     message_templates = account.message_templates.order(:id)
+    last_page, remainder = message_templates.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    message_templates = message_templates.first(current_page * display_count).last(display_count)
     customers = account.customers.order(:id)
     customer_groups = account.customer_groups
     page_links = account.page_links
@@ -11,7 +17,8 @@ class Api::Internal::MessageTemplatesController < ApplicationController
                    message_templates: message_templates,
                    customers: customers,
                    customer_groups: customer_groups,
-                   page_links: page_links }, status: 200
+                   page_links: page_links,
+                   last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
