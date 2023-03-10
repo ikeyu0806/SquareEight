@@ -4,14 +4,21 @@ class Api::Internal::HtmlMailTemplatesController < ApplicationController
   before_action :merchant_login_only!
 
   def index
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
     account = current_merchant_user.account
     html_mail_templates = account.html_mail_templates
+    last_page, remainder = html_mail_templates.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    html_mail_templates = html_mail_templates.first(current_page * display_count).last(display_count)
     customers = account.customers.email_sendable.order(:id)
     customer_groups = account.customer_groups
     render json: {  status: 'success',
                     html_mail_templates: html_mail_templates,
                     customers: customers,
-                    customer_groups: customer_groups }, status: 200
+                    customer_groups: customer_groups,
+                    last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

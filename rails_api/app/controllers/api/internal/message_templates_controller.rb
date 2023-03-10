@@ -2,9 +2,9 @@ class Api::Internal::MessageTemplatesController < ApplicationController
   before_action :merchant_login_only!
 
   def index
-        # ページネーション
-        current_page = params[:current_page].to_i
-        display_count = params[:display_count].to_i
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
     account = current_merchant_user.account
     message_templates = account.message_templates.order(:id)
     last_page, remainder = message_templates.count.divmod(display_count)
