@@ -10,7 +10,7 @@ import Unauthorized from 'components/templates/Unauthorized'
 import axios from 'axios'
 import { publicIdChanged, showCustomerGroupMailSendModalChanged } from 'redux/customerGroupSlice'
 import CustomerGroupMailSendModal from 'components/templates/CustomerGroupMailSendModal'
-import { htmlMailTemplateChanged } from 'redux/accountSlice'
+import { htmlMailTemplateChanged, messageTemplatesChanged } from 'redux/accountSlice'
 import { selectedHtmlMailTemplateChanged, sendTargetTypeChanged } from 'redux/sendMailSlice'
 import { usePaginationNumber } from 'hooks/usePaginationNumber'
 
@@ -49,6 +49,7 @@ const Index: NextPage = () => {
       .then(function (response) {
         dispatch(htmlMailTemplateChanged(response.data.html_mail_templates))
         dispatch(selectedHtmlMailTemplateChanged(response.data.selected_html_mail_template))
+        dispatch(messageTemplatesChanged(response.data.message_templates))
         setCustomerGroups(response.data.customer_groups)
         dispatch(sendTargetTypeChanged('customerGroup'))
         setLastPage(response.data.last_page)

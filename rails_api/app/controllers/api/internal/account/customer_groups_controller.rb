@@ -11,9 +11,11 @@ class Api::Internal::Account::CustomerGroupsController < ApplicationController
     customer_groups = customer_groups.first(current_page * display_count).last(display_count)
     html_mail_templates = current_merchant_user.account.html_mail_templates
     html_template_content = html_mail_templates.present? ? JSON.parse(html_mail_templates.first.content) : []
+    message_templates = current_merchant_user.account.message_templates
     render json: {  status: 'success',
                     customer_groups: customer_groups,
                     html_mail_templates: html_mail_templates,
+                    message_templates: message_templates,
                     selected_html_mail_template: html_mail_templates.first || {},
                     selected_html_template_content: html_template_content,
                     last_page: last_page  }, status: 200
