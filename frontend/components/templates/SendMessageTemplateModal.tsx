@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { Modal, Form, Button } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -17,6 +18,7 @@ import SendStripePaymentRequestForm from 'components/molecules/SendStripePayment
 const SendMessageTemplateModal = () => {
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const dispatch = useDispatch()
+
   const showSendMessageTemplateModal = useSelector((state: RootState) => state.sendMail.showSendMessageTemplateModal)
   const sendTargetType = useSelector((state: RootState) => state.sendMail.sendTargetType)
   const customers =  useSelector((state: RootState) => state.sendMail.customers)
@@ -27,6 +29,11 @@ const SendMessageTemplateModal = () => {
   const isSendPaymentRequest =  useSelector((state: RootState) => state.sendMail.isSendPaymentRequest)
   const paymentRequestName =  useSelector((state: RootState) => state.sendMail.paymentRequestName)
   const paymentRequestPrice =  useSelector((state: RootState) => state.sendMail.paymentRequestPrice)
+
+  const InitDisplayCustomerCount = 10
+  const InitDisplayCustomerGroupCount = 10
+  const [showCustomerCount, setShowCustomerCount] = useState(InitDisplayCustomerCount)
+  const [showCustomerGroupCount, setShowCustomerGroupCount] = useState(InitDisplayCustomerGroupCount)
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/message_templates/${selectedMessageTemplate.public_id}/send_mail`,
@@ -52,6 +59,14 @@ const SendMessageTemplateModal = () => {
     })
   }
 
+  const addCustomerShowCount = () => {
+    setShowCustomerCount(showCustomerCount + InitDisplayCustomerCount)
+  }
+
+  const addCustomerGroupShowCount = () => {
+    setShowCustomerGroupCount(showCustomerGroupCount + InitDisplayCustomerGroupCount)
+  }
+
   return (
     <>
       <Modal show={showSendMessageTemplateModal}>
@@ -70,40 +85,52 @@ const SendMessageTemplateModal = () => {
             label='顧客グループ'
             type='radio'/>
           {sendTargetType === 'customer' && 
-            customers.map((customer, i) => {
-              return(
-                <Form.Check
-                  className='ml10'
-                  type='radio'
-                  name='selectCustomer'
-                  id={String(customer.id + i)}
-                  label={<>{customer.last_name}{customer.full_name}</>}
-                  key={i}
-                  onClick={() => {
-                    dispatch(customerPublicIdChanged(customer.public_id))
-                    dispatch(selectedCustomerChanged(customer))
-                  }}
-                />
-              )
-            })
+            <>
+              {customers.slice(0, showCustomerCount).map((customer, i) => {
+                return(
+                  <Form.Check
+                    className='ml10'
+                    type='radio'
+                    name='selectCustomer'
+                    id={String(customer.id + i)}
+                    label={<>{customer.last_name}{customer.full_name}</>}
+                    key={i}
+                    onClick={() => {
+                      dispatch(customerPublicIdChanged(customer.public_id))
+                      dispatch(selectedCustomerChanged(customer))
+                    }}
+                  />
+                )
+              })}
+              {customers.length > showCustomerCount && <div>
+                <button className='btn btn-primary btn-sm mt10' onClick={addCustomerShowCount}>もっと表示 ▼</button>
+              </div>}
+            </>
           }
           {sendTargetType === 'customerGroup' && 
-            customerGroups.map((group, i) => {
-              return(
-                <Form.Check
-                  className='ml10'
-                  type='radio'
-                  name='selectCustomerGroup'
-                  id={String(group.id + i)}
-                  label={group.name}
-                  key={i}
-                  onClick={() => {
-                    dispatch(publicIdChanged(group.public_id))
-                    dispatch(selectedCustomerGroupChanged(group))
-                  }}
-                />
-              )
-            })
+            <>
+              {
+                customerGroups.slice(0, showCustomerGroupCount).map((group, i) => {
+                  return(
+                    <Form.Check
+                      className='ml10'
+                      type='radio'
+                      name='selectCustomerGroup'
+                      id={String(group.id + i)}
+                      label={group.name}
+                      key={i}
+                      onClick={() => {
+                        dispatch(publicIdChanged(group.public_id))
+                        dispatch(selectedCustomerGroupChanged(group))
+                      }}
+                    />
+                  )
+                })
+              }
+              {customerGroups.length > showCustomerGroupCount && <div>
+                <button className='btn btn-primary btn-sm mt10' onClick={addCustomerGroupShowCount}>もっと表示 ▼</button>
+              </div>}
+            </>
           }
           <hr />
           <SendStripePaymentRequestForm />
