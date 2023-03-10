@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
 import { useSelector, useDispatch} from 'react-redux'
 import { RootState } from 'redux/store'
-import { Container, Row, Col, ListGroup, Button } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup, Button, Pagination } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import { CustomerGroupParam } from 'interfaces/CustomerGroupParam'
 import Unauthorized from 'components/templates/Unauthorized'
@@ -12,6 +12,7 @@ import { publicIdChanged, showCustomerGroupMailSendModalChanged } from 'redux/cu
 import CustomerGroupMailSendModal from 'components/templates/CustomerGroupMailSendModal'
 import { htmlMailTemplateChanged } from 'redux/accountSlice'
 import { selectedHtmlMailTemplateChanged, sendTargetTypeChanged } from 'redux/sendMailSlice'
+import { usePaginationNumber } from 'hooks/usePaginationNumber'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -20,6 +21,17 @@ const Index: NextPage = () => {
   const allowReadCustomerGroup = useSelector((state: RootState) => state.merchantUserPermission.allowReadCustomerGroup)
   const allowCreateCustomerGroup = useSelector((state: RootState) => state.merchantUserPermission.allowCreateCustomerGroup)
   const allowUpdateCustomerGroup = useSelector((state: RootState) => state.merchantUserPermission.allowUpdateCustomerGroup)
+  // Pagination用
+  // 表示するレコード数
+  const displayCount = 10
+  const [currentPage, setCurrentPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1000)
+  let usePaginationNumberReturnVal = usePaginationNumber(currentPage, lastPage)
+  let firstPaginationNum: number = usePaginationNumberReturnVal[0]
+  let secondPaginationNum: number = usePaginationNumberReturnVal[1]
+  let thirdPaginationNum: number = usePaginationNumberReturnVal[2]
+  let forthPaginationNum: number = usePaginationNumberReturnVal[3]
+  let fifthPaginationNum: number = usePaginationNumberReturnVal[4]
 
   useEffect(() => {
     const fetchCustomerGroups = () => {
@@ -28,6 +40,10 @@ const Index: NextPage = () => {
           headers: { 
             'Session-Id': cookies._square_eight_merchant_session
           },
+          params: {
+            current_page: currentPage,
+            display_count: displayCount
+          }
         }
       )
       .then(function (response) {
@@ -35,13 +51,14 @@ const Index: NextPage = () => {
         dispatch(selectedHtmlMailTemplateChanged(response.data.selected_html_mail_template))
         setCustomerGroups(response.data.customer_groups)
         dispatch(sendTargetTypeChanged('customerGroup'))
+        setLastPage(response.data.last_page)
       })
       .catch(error => {
         console.log(error)
       })
     }
     fetchCustomerGroups()
-  }, [cookies._square_eight_merchant_session, dispatch])
+  }, [cookies._square_eight_merchant_session, dispatch, currentPage, lastPage])
   
   return (
     <MerchantUserAdminLayout>
@@ -83,6 +100,30 @@ const Index: NextPage = () => {
                 顧客グループが登録されていません
               </div>}
             </ListGroup>
+            <br />
+            <Pagination>
+              <Pagination.First onClick={() => setCurrentPage(1)} />
+              {currentPage > 1 && <Pagination.Prev
+                onClick={() => setCurrentPage(currentPage - 1)} />}
+              <Pagination.Item
+                active={currentPage == firstPaginationNum}
+                onClick={() => setCurrentPage(firstPaginationNum)}>{firstPaginationNum}</Pagination.Item>
+              {lastPage > 1 && <Pagination.Item
+                active={currentPage == secondPaginationNum}
+                onClick={() => setCurrentPage(secondPaginationNum)}>{secondPaginationNum}</Pagination.Item>}
+              {lastPage > 2 && <Pagination.Item
+                active={currentPage == thirdPaginationNum}
+                onClick={() => setCurrentPage(thirdPaginationNum)}>{thirdPaginationNum}</Pagination.Item>}
+              {lastPage > 3 && currentPage < lastPage &&  <Pagination.Item
+                active={currentPage == forthPaginationNum}
+                onClick={() => setCurrentPage(forthPaginationNum)}>{forthPaginationNum}</Pagination.Item>}
+              {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
+                active={currentPage == fifthPaginationNum}
+                onClick={() => setCurrentPage(fifthPaginationNum)}>{fifthPaginationNum}</Pagination.Item>}
+              {currentPage !== lastPage && <Pagination.Next
+                onClick={() => setCurrentPage(currentPage + 1)} />}
+              <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
+            </Pagination>
           </Col>
         </Row>
       </Container>}
