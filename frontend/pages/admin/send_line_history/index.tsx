@@ -49,7 +49,7 @@ const Index: NextPage = () => {
       })
     }
     fetchResources()
-  }, [cookies._square_eight_merchant_session])
+  }, [cookies._square_eight_merchant_session, currentPage, lastPage])
 
   return (
     <MerchantUserAdminLayout>
