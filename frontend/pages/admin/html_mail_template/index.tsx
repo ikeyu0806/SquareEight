@@ -15,8 +15,6 @@ import { showSendHtmlMessageModalChanged,
          selectedHtmlMailTemplatePublicIdChanged } from 'redux/sendMailSlice'
 import { useDispatch, useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
-import { customerPublicIdChanged } from 'redux/customerSlice'
-import { publicIdChanged } from 'redux/customerGroupSlice'
 import Unauthorized from 'components/templates/Unauthorized'
 import { usePaginationNumber } from 'hooks/usePaginationNumber'
 
