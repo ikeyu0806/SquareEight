@@ -3,8 +3,16 @@ class Api::Internal::SendLineSchedulesController < ApplicationController
 
   def index
     send_line_schedules = current_merchant_user.account.send_line_schedules.order(scheduled_datetime: :desc)
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    last_page, remainder = send_line_schedules.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    send_line_schedules = send_line_schedules.first(current_page * display_count).last(display_count)
     send_line_schedules = JSON.parse(send_line_schedules.to_json(methods: [:display_scheduled_datetime, :customer_fullname, :past_flg, :line_official_account_name, :line_user_display_name]))
-    render json: { status: 'success', send_line_schedules: send_line_schedules }, status: 200
+    render json: { status: 'success',
+                   send_line_schedules: send_line_schedules,
+                   last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
