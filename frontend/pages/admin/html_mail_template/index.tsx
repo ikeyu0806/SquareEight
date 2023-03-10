@@ -55,8 +55,6 @@ const Index: NextPage = () => {
       dispatch(messageTemplateTypeChanged('htmlMailTemplate'))
       dispatch(customersChanged(response.data.customers))
       dispatch(customerGroupsChanged(response.data.customer_groups))
-      dispatch(customerPublicIdChanged(response.data.customer[0].public_id))
-      dispatch(publicIdChanged(response.data.customer_groups[0].public_id))
     }).catch((error) => {
       console.log(error)
     })
