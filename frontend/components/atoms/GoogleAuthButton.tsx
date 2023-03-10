@@ -10,6 +10,7 @@ const GoogleAuthButton = ({buttonText, buttonHref, isMerchantUserSignUp}: Props)
   const router = useRouter()
 
   const onSubmit = () => {
+    // ビジネスアカウント登録時はコンバージョン計測
     isMerchantUserSignUp && (window as any).gtag("event", "business_account_signup_complete", {
       // event_category: "hoge",
       // event_label: "huga",
