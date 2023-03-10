@@ -12,8 +12,9 @@ const GoogleAuthButton = ({buttonText, buttonHref, isMerchantUserSignUp}: Props)
   const onSubmit = () => {
     // ビジネスアカウント登録時はコンバージョン計測
     isMerchantUserSignUp && (window as any).gtag("event", "business_account_signup_complete", {
-      // event_category: "hoge",
-      // event_label: "huga",
+      // 一応categoryとlabel追加
+      event_category: "Google Auth",
+      event_label: "Google Auth",
     })
     router.push(buttonHref)
   }
