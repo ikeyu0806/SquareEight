@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Form } from 'react-bootstrap'
 import { useSelector, useDispatch } from 'react-redux'
 import { RootState } from 'redux/store'
@@ -15,6 +15,19 @@ const SelectMessageTemplateForm = ({hideHtmlMailTemplate}: Props): JSX.Element =
   const selectedHtmlMailTemplate = useSelector((state: RootState) => state.sendMail.selectedHtmlMailTemplate)
   const messageTemplates = useSelector((state: RootState) => state.account.messageTemplates)
   const htmlMailTemplate = useSelector((state: RootState) => state.account.htmlMailTemplate)
+
+  const InitShowMessageTemplateCount = 10
+  const [showMessageTemplateCount, setShowMessageTemplateCount] = useState(InitShowMessageTemplateCount)
+  const InitShowHtmlMailTemplateCount = 10
+  const [showHtmlMailTemplateCount, setShowHtmlMailTemplateCount] = useState(InitShowHtmlMailTemplateCount)
+
+  const addShowMessageTemplatesCount = () => {
+    setShowMessageTemplateCount(showMessageTemplateCount + InitShowMessageTemplateCount)
+  }
+
+  const addShowHtmlMailTemplatesCount = () => {
+    setShowHtmlMailTemplateCount(showHtmlMailTemplateCount + InitShowHtmlMailTemplateCount)
+  }
 
   return (
     <>
@@ -39,8 +52,9 @@ const SelectMessageTemplateForm = ({hideHtmlMailTemplate}: Props): JSX.Element =
         label='HTMLメールテンプレートから送信'
         onChange={() => dispatch(messageTemplateTypeChanged('htmlMailTemplate'))}
         checked={messageTemplateType === 'htmlMailTemplate'} />}
-      {messageTemplateType === 'messageTemplate' && <div className='ml10'>
-        {messageTemplates.map((template, i) => {
+      {messageTemplateType === 'messageTemplate' &&
+      <div className='ml10'>
+        {messageTemplates.slice(0, showMessageTemplateCount).map((template, i) => {
           return (
             <Form.Check
               key={i}
@@ -56,9 +70,13 @@ const SelectMessageTemplateForm = ({hideHtmlMailTemplate}: Props): JSX.Element =
             />
           )
         })}
+        {messageTemplates.length > InitShowMessageTemplateCount && <div>
+          <button className='btn btn-primary btn-sm mt10' onClick={addShowMessageTemplatesCount}>もっと表示 ▼</button>
+        </div>}
       </div>}
-      {messageTemplateType === 'htmlMailTemplate' && <div className='ml10'>
-        {htmlMailTemplate.map((template, i) => {
+      {messageTemplateType === 'htmlMailTemplate' &&
+      <div className='ml10'>
+        {htmlMailTemplate.slice(0, showHtmlMailTemplateCount).map((template, i) => {
           return (
             <Form.Check
               key={i}
@@ -71,6 +89,9 @@ const SelectMessageTemplateForm = ({hideHtmlMailTemplate}: Props): JSX.Element =
             />
           )
         })}
+        {htmlMailTemplate.length > InitShowHtmlMailTemplateCount && <div>
+          <button className='btn btn-primary btn-sm mt10' onClick={addShowHtmlMailTemplatesCount}>もっと表示 ▼</button>
+        </div>}
       </div>
       }
     </>
