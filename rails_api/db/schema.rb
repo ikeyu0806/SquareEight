@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_02_22_065737) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_11_233127) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -554,6 +554,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_02_22_065737) do
     t.integer "monthly_payment_plan_id"
     t.string "stripe_payment_intent_id"
     t.integer "ticket_consume_number"
+    t.integer "purchased_ticket_id"
   end
 
   create_table "reserve_frame_credit_card_payment_prices", force: :cascade do |t|
