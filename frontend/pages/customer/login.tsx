@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
-import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Card, Row, Col, Form } from 'react-bootstrap'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
@@ -13,7 +13,6 @@ import Router from 'next/router'
 import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
 import { END_USER_GOOGLE_AUTH_URL } from 'constants/socialLogin'
 import { endUserLoginRedirect } from 'functions/endUserLoginRedirect'
-import { brandGreenRgb } from 'constants/brandColors'
 import BrandColorButton from 'components/atoms/BrandColorButton'
 import AuthStyles from 'styles/Auth.module.css'
 
@@ -90,7 +89,8 @@ const Login: NextPage = () => {
                       <hr />
                       <GoogleAuthButton
                         buttonText='Googleでログイン'
-                        buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
+                        buttonHref={END_USER_GOOGLE_AUTH_URL}
+                        isEndUserLogin={true}></GoogleAuthButton>
                       <div className='text-center mt30'>
                         <a href='/customer/signup'>新規登録はこちら</a>
                       </div>

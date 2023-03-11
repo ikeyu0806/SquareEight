@@ -5,16 +5,24 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
+import { useDispatch } from 'react-redux'
+import { alertChanged } from 'redux/alertSlice'
+import { getMerchantUserGoogleAuthLocalStorage,
+         removeMerchantUserGoogleAuthLocalStorage,
+         SIGNUP_CONSTANT,
+         LOGIN_CONSTANT } from 'functions/googleAuthLocalStorage'
 
 const Callback: NextPage = () => {
   const router = useRouter()
+  const dispatch = useDispatch()
   const [cookies, setCookie] = useCookies(['_square_eight_merchant_session'])
 
   const findOrCreateMerchantByGoogleAuth = (googleAuthId: string, GoogleAuthEmail: string) => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/merchant_users/find_or_create_by_google_auth`, {
       merchant_user: {
         google_auth_id: googleAuthId,
-        google_auth_email: GoogleAuthEmail
+        google_auth_email: GoogleAuthEmail,
+        google_merchant_user_auth_type: getMerchantUserGoogleAuthLocalStorage()
       }
     },
     {
@@ -24,9 +32,19 @@ const Callback: NextPage = () => {
     })
     .then(function (response) {
       createMerchantSesssionByGoogleAuth(googleAuthId)
+      removeMerchantUserGoogleAuthLocalStorage()
     })
     .catch(err => {
       console.log(err)
+      let google_auth_type = getMerchantUserGoogleAuthLocalStorage()
+      if (google_auth_type === SIGNUP_CONSTANT) {
+        router.push('/merchant/signup')
+      }
+      if (google_auth_type === LOGIN_CONSTANT) {
+        router.push('/merchant/login')
+      }
+      removeMerchantUserGoogleAuthLocalStorage()
+      dispatch(alertChanged({message: "認証失敗しました。ユーザが見つかりません", show: true, type: 'danger'}))
     })
   }
 
