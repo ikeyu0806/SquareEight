@@ -3,6 +3,9 @@ class PurchasedTicket < ApplicationRecord
 
   belongs_to :ticket_master
 
+  has_many :reservation_purchased_ticket_relations
+  has_many :reservations, through: :reservation_purchased_ticket_relations
+
   validates :expired_at, presence: true
   validates :remain_number, presence: true
 

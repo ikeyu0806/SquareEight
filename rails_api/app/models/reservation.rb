@@ -14,6 +14,8 @@ class Reservation < ApplicationRecord
   has_one :monthly_payment_plan, foreign_key: :id, primary_key: :monthly_payment_plan_id
   has_many :reservation_local_payment_prices
   has_many :reservation_credit_card_payment_prices
+  has_many :reservation_purchased_ticket_relations
+  has_many :purchased_tickets, through: :reservation_purchased_ticket_relations
 
   enum payment_method: { localPayment: 0, creditCardPayment: 1, ticket: 2, monthlyPaymentPlan: 3 }
   enum status: { pendingVerifivation: 0,
