@@ -31,6 +31,7 @@ const Index: NextPage = () => {
     <>
       <EndUserLoginLayout>
         <Container className='mt20'>
+          {stripePaymentIntents && stripePaymentIntents.length > 0 &&
           <Table bordered>
             <thead>
               <tr>
@@ -56,7 +57,9 @@ const Index: NextPage = () => {
                 )
               })}
             </tbody>
-          </Table>
+          </Table>}
+          {stripePaymentIntents && stripePaymentIntents.length === 0 &&
+            <div className='text-center font-size-25'>お支払い履歴がありません</div>}
         </Container>
       </EndUserLoginLayout>
     </>

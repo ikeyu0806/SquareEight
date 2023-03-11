@@ -40,6 +40,7 @@ const Index: NextPage = () => {
         <Row>
           <Col lg={3}></Col>
           <Col lg={6}>
+            {orders && orders.length > 0 &&
             <Card>
               <Card.Header>注文一覧</Card.Header>
               <ListGroup>
@@ -73,7 +74,9 @@ const Index: NextPage = () => {
                   )
                 })}
               </ListGroup>
-            </Card>
+            </Card>}
+            {orders && orders.length === 0 &&
+            <div className='text-center font-size-25'>注文履歴がありません</div>}
           </Col>
         </Row>
       </Container>
