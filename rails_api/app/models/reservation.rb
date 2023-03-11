@@ -259,17 +259,17 @@ class Reservation < ApplicationRecord
                               commission: commission)
         order.save!
       when 'ticket'
-        purchased_tickets = end_user
-                            .purchased_tickets
-                            .where(ticket_master_id: ticket_master.id)
-                            .expired
-                            .order(:expired_at)
+        end_user_purchased_tickets = end_user
+          .purchased_tickets
+          .where(ticket_master_id: ticket_master.id)
+          .expired
+          .order(:expired_at)
 
         consume_number = reserve_frame.reserve_frame_ticket_masters.find_by(ticket_master_id: self.ticket_master_id).consume_number
-        total_remain_number = purchased_tickets.sum(:remain_number)
+        total_remain_number = end_user_purchased_tickets.sum(:remain_number)
         raise 'チケットが足りません' if total_remain_number < consume_number
         consume_number.times do |count|
-          purchased_ticket = purchased_tickets.where("remain_number > ?", 0).first
+          purchased_ticket = end_user_purchased_tickets.where("remain_number > ?", 0).first
           purchased_ticket.update!(remain_number: purchased_ticket.remain_number - 1)
         end
       when 'monthlyPaymentPlan'

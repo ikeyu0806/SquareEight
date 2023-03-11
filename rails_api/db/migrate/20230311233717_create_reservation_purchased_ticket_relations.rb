@@ -4,6 +4,7 @@ class CreateReservationPurchasedTicketRelations < ActiveRecord::Migration[7.0]
       t.string :public_id, null: false
       t.integer :reservation_id, null: false
       t.integer :purchased_ticket_id, null: false
+      t.integer :consume_number, default: 1
 
       t.timestamps
     end
