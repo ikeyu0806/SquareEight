@@ -5,11 +5,16 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
+import { alertChanged } from 'redux/alertSlice'
+import { useDispatch } from 'react-redux'
 import { getEndUserGoogleAuthLocalStorage,
-         removeEndUserGoogleAuthLocalStorage } from 'functions/googleAuthLocalStorage'
+         removeEndUserGoogleAuthLocalStorage,
+         SIGNUP_CONSTANT,
+         LOGIN_CONSTANT } from 'functions/googleAuthLocalStorage'
 
 const Callback: NextPage = () => {
   const router = useRouter()
+  const dispatch = useDispatch()
   const [cookies, setCookie] = useCookies(['_square_eight_end_user_session'])
 
   const findOrCreateEndUserByGoogleAuth = (googleAuthId: string, GoogleAuthEmail: string) => {
@@ -31,6 +36,15 @@ const Callback: NextPage = () => {
     })
     .catch(err => {
       console.log(err)
+      let google_auth_type = getEndUserGoogleAuthLocalStorage()
+      if (google_auth_type === SIGNUP_CONSTANT) {
+        router.push('/customer/signup')
+      }
+      if (google_auth_type === LOGIN_CONSTANT) {
+        router.push('/customer/login')
+      }
+      removeEndUserGoogleAuthLocalStorage()
+      dispatch(alertChanged({message: "認証失敗しました。ユーザが見つかりません", show: true, type: 'danger'}))
     })
   }
 

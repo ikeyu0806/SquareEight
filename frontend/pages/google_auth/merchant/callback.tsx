@@ -5,11 +5,16 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
+import { useDispatch } from 'react-redux'
+import { alertChanged } from 'redux/alertSlice'
 import { getMerchantUserGoogleAuthLocalStorage,
-         removeMerchantUserGoogleAuthLocalStorage } from 'functions/googleAuthLocalStorage'
+         removeMerchantUserGoogleAuthLocalStorage,
+         SIGNUP_CONSTANT,
+         LOGIN_CONSTANT } from 'functions/googleAuthLocalStorage'
 
 const Callback: NextPage = () => {
   const router = useRouter()
+  const dispatch = useDispatch()
   const [cookies, setCookie] = useCookies(['_square_eight_merchant_session'])
 
   const findOrCreateMerchantByGoogleAuth = (googleAuthId: string, GoogleAuthEmail: string) => {
@@ -31,6 +36,15 @@ const Callback: NextPage = () => {
     })
     .catch(err => {
       console.log(err)
+      let google_auth_type = getMerchantUserGoogleAuthLocalStorage()
+      if (google_auth_type === SIGNUP_CONSTANT) {
+        router.push('/merchant/signup')
+      }
+      if (google_auth_type === LOGIN_CONSTANT) {
+        router.push('/merchant/login')
+      }
+      removeMerchantUserGoogleAuthLocalStorage()
+      dispatch(alertChanged({message: "認証失敗しました。ユーザが見つかりません", show: true, type: 'danger'}))
     })
   }
 

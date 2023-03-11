@@ -122,7 +122,7 @@ class Api::Internal::MerchantUsersController < ApplicationController
         # 未ログインであればfind_or_create
         merchant_user = MerchantUser.find_by(google_auth_id: merchant_user_params[:google_auth_id])
         if merchant_user.blank?
-          raise 'ユーザが見つかりません' unless google_merchant_user_auth_type == 'signup'
+          raise 'ユーザが見つかりません' unless merchant_user_params[:google_merchant_user_auth_type] == 'signup'
           merchant_user = MerchantUser.new
           merchant_user.google_auth_email = merchant_user_params[:google_auth_email]
           merchant_user.google_auth_id = merchant_user_params[:google_auth_id]

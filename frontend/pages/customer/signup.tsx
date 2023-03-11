@@ -138,7 +138,8 @@ const Signup: NextPage = () => {
                     <hr />
                     <GoogleAuthButton
                       buttonText='Googleでサインアップ'
-                      buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
+                      buttonHref={END_USER_GOOGLE_AUTH_URL}
+                      isEndUserSignUp={true}></GoogleAuthButton>
                   </Card.Body>
                 </Card>
               </Col>
