@@ -5,6 +5,8 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
+import { getMerchantUserGoogleAuthLocalStorage,
+         removeMerchantUserGoogleAuthLocalStorage } from 'functions/googleAuthLocalStorage'
 
 const Callback: NextPage = () => {
   const router = useRouter()
@@ -14,7 +16,8 @@ const Callback: NextPage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/merchant_users/find_or_create_by_google_auth`, {
       merchant_user: {
         google_auth_id: googleAuthId,
-        google_auth_email: GoogleAuthEmail
+        google_auth_email: GoogleAuthEmail,
+        google_merchant_user_auth_type: getMerchantUserGoogleAuthLocalStorage()
       }
     },
     {
@@ -24,6 +27,7 @@ const Callback: NextPage = () => {
     })
     .then(function (response) {
       createMerchantSesssionByGoogleAuth(googleAuthId)
+      removeMerchantUserGoogleAuthLocalStorage()
     })
     .catch(err => {
       console.log(err)

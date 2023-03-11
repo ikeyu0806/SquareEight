@@ -106,6 +106,7 @@ class Api::Internal::EndUsersController < ApplicationController
       else
         end_user = EndUser.find_by(google_auth_id: end_user_params[:google_auth_id])
         if end_user.blank?
+          raise 'ユーザが見つかりません' unless google_end_user_auth_type == 'signup'
           end_user = EndUser.new
           end_user.google_auth_email = end_user_params[:google_auth_email]
           end_user.google_auth_id = end_user_params[:google_auth_id]
@@ -296,6 +297,7 @@ class Api::Internal::EndUsersController < ApplicationController
                                      :payment_method_id,
                                      :google_auth_id,
                                      :google_auth_email,
+                                     :google_end_user_auth_type,
                                      :last_name,
                                      :first_name,
                                      :last_name_kana,

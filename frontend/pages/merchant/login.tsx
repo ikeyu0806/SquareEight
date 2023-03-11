@@ -89,7 +89,8 @@ const Login: NextPage = () => {
                       <hr />
                         <GoogleAuthButton
                           buttonText='Googleでログイン'
-                          buttonHref={MERCHANT_GOOGLE_AUTH_URL}></GoogleAuthButton>
+                          buttonHref={MERCHANT_GOOGLE_AUTH_URL}
+                          isMerchantUserLogin={true}></GoogleAuthButton>
                       <div className='text-center mt20'>
                         <a href='/merchant/signup'>新規登録はこちら</a>
                       </div>

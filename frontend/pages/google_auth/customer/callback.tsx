@@ -5,6 +5,8 @@ import { useEffect } from 'react'
 import axios from 'axios'
 import { useRouter } from 'next/router'
 import { useCookies } from 'react-cookie'
+import { getEndUserGoogleAuthLocalStorage,
+         removeEndUserGoogleAuthLocalStorage } from 'functions/googleAuthLocalStorage'
 
 const Callback: NextPage = () => {
   const router = useRouter()
@@ -14,7 +16,8 @@ const Callback: NextPage = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/end_users/find_or_create_by_google_auth`, {
       end_user: {
         google_auth_id: googleAuthId,
-        google_auth_email: GoogleAuthEmail
+        google_auth_email: GoogleAuthEmail,
+        google_end_user_auth_type: getEndUserGoogleAuthLocalStorage()
       }
     },
     {
@@ -24,6 +27,7 @@ const Callback: NextPage = () => {
     })
     .then(function (response) {
       createEndUserSesssionByGoogleAuth(googleAuthId)
+      removeEndUserGoogleAuthLocalStorage()
     })
     .catch(err => {
       console.log(err)

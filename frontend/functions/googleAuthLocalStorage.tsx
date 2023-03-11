@@ -10,7 +10,7 @@ export const setMerchantUserGoogleAuthLocalStorageLogin = () => {
 }
 
 export const getMerchantUserGoogleAuthLocalStorage = () => {
-  return localStorage.getItem(merchantUserGoogleAuthTypeKey)
+  return localStorage.getItem(merchantUserGoogleAuthTypeKey) || ''
 }
 
 export const removeMerchantUserGoogleAuthLocalStorage = () => {
@@ -28,7 +28,7 @@ export const setEndUserGoogleAuthLocalStorageLogin = () => {
 }
 
 export const getEndUserGoogleAuthLocalStorage = () => {
-  return localStorage.getItem(endUserGoogleAuthTypeKey)
+  return localStorage.getItem(endUserGoogleAuthTypeKey) || ''
 }
 
 export const removeEndUserGoogleAuthLocalStorage = () => {

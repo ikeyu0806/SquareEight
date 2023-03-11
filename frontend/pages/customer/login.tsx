@@ -90,7 +90,8 @@ const Login: NextPage = () => {
                       <hr />
                       <GoogleAuthButton
                         buttonText='Googleでログイン'
-                        buttonHref={END_USER_GOOGLE_AUTH_URL}></GoogleAuthButton>
+                        buttonHref={END_USER_GOOGLE_AUTH_URL}
+                        isEndUserLogin={true}></GoogleAuthButton>
                       <div className='text-center mt30'>
                         <a href='/customer/signup'>新規登録はこちら</a>
                       </div>
