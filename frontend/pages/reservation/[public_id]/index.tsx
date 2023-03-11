@@ -83,7 +83,7 @@ export const Index = () => {
                         {['localPayment', 'creditCardPayment'].includes(paymentMethod) &&
                         <><div>料金: ￥{price}</div><hr/></>}
                         <div>
-                          お支払い方法: {paymentMethodText} {paymentMethod === 'ticket' && <>消費枚数: {ticketConsumeNumber}枚</>}
+                          お支払い方法: {paymentMethodText}
                         </div>
                     </>
                     }

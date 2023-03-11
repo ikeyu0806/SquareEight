@@ -210,9 +210,9 @@ class Reservation < ApplicationRecord
     # StripeへのリクエストはActiveRecordのTransactionで取り消せないので最後に実行
     reserve_frame = self.reserve_frame
     if reserve_frame.is_set_price?
+      raise 'エンドユーザが存在しません' if end_user.blank?
       case self.payment_method
       when 'creditCardPayment'
-        raise 'ログインしてください' if end_user.blank?
         # 決済
         Stripe.api_key = Rails.configuration.stripe[:secret_key]
         Stripe.api_version = '2022-08-01'
@@ -257,7 +257,6 @@ class Reservation < ApplicationRecord
                               commission: commission)
         order.save!
       when 'ticket'
-        raise 'ログインしてください' if end_user.blank?
         purchased_tickets = end_user
                             .purchased_tickets
                             .where(ticket_master_id: ticket_master.id)
@@ -274,6 +273,22 @@ class Reservation < ApplicationRecord
       when 'monthlyPaymentPlan'
         is_subscribe_plan = end_user.search_stripe_subscriptions.pluck("metadata")&.pluck("monthly_payment_plan_id")
         raise 'プランに加入していません' unless is_subscribe_plan
+      else
+      end
+    end
+  end
+
+  def refund_paymnet
+    # 支払いの払い戻し
+    reserve_frame = self.reserve_frame
+    if reserve_frame.is_set_price?
+      case self.payment_method
+      when 'creditCardPayment'
+        raise 'エンドユーザが存在しません' if end_user.blank?
+        # 決済
+        Stripe.api_key = Rails.configuration.stripe[:secret_key]
+        Stripe.api_version = '2022-08-01'
+      when 'ticket'
       else
       end
     end

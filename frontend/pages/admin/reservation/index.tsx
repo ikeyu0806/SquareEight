@@ -15,7 +15,6 @@ import { getZeroPaddingDatePlusWeek } from 'functions/getZeroPaddingDatetime'
 import CreateReservationModal from 'components/templates/CreateReservationModal'
 import { useDispatch, useSelector } from 'react-redux'
 import { showRegisterReservationModalChanged } from 'redux/reservationSlice'
-import ReservationLimitAlerts from 'components/molecules/ReservationLimitAlerts'
 import { RootState } from 'redux/store'
 import Unauthorized from 'components/templates/Unauthorized'
 

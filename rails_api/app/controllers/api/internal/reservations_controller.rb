@@ -308,14 +308,21 @@ class Api::Internal::ReservationsController < ApplicationController
   end
 
   def cancel
-    reservation = Reservation.find_by(public_id: params[:public_id])
-    reservation.update!(status: 'cancel')
-    customer = reservation.customer
-    # swal2のcheckboxにチェックを入れると"1"になる
-    if params[:send_mail] == "1" && customer.email.present?
-      ReservationMailer.cancel_mail_to_customer(reservation.id, customer.id).deliver_now
+    ActiveRecord::Base.transaction do
+      reservation = Reservation.find_by(public_id: params[:public_id])
+      reservation_init_status = reservation.status
+      reservation.update!(status: 'cancel')
+      # 予約確定していた場合決済取り消し
+      if reservation_init_status == 'confirm'
+        reservation.refund_paymnet
+      end
+      customer = reservation.customer
+      # swal2のcheckboxにチェックを入れると"1"になる
+      if params[:send_mail] == "1" && customer.email.present?
+        ReservationMailer.cancel_mail_to_customer(reservation.id, customer.id).deliver_now
+      end
+      render json: { status: 'success' }, status: 200
     end
-    render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
