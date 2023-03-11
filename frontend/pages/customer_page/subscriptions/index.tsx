@@ -68,7 +68,9 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={1}></Col>
             <Col>
-            <h3>加入中サブスクリプション</h3>
+            {stripeSubscriptions && stripeSubscriptions.length > 0 &&
+            <>
+              <h3>加入中サブスクリプション</h3>
               <Button
                 className='mt20 mb20 text-white'
                 variant='info'
@@ -104,6 +106,9 @@ const Index: NextPage = () => {
                   })}
                 </tbody>
               </Table>
+            </>}
+            {stripeSubscriptions && stripeSubscriptions.length === 0 &&
+            <div className='text-center font-size-25'>加入しているサブスクリプションがありません</div>}
             </Col>
             <Col lg={1}></Col>
           </Row>

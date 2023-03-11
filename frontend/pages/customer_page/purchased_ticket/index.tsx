@@ -34,7 +34,7 @@ const Index: NextPage = () => {
           <Row>
             <Col lg={2}></Col>
             <Col>
-              <Table bordered>
+              {purchasedTickets && purchasedTickets.length > 0 && <Table bordered>
                 <thead>
                   <tr>
                     <th>回数券名</th>
@@ -44,7 +44,7 @@ const Index: NextPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {purchasedTickets && purchasedTickets.map((ticket, i) => {
+                  {purchasedTickets.map((ticket, i) => {
                     return (
                       <tr key={i}>
                         <td>{ticket.name}</td>
@@ -62,7 +62,10 @@ const Index: NextPage = () => {
                     )
                   })}
                 </tbody>
-              </Table>
+              </Table>}
+              {purchasedTickets && purchasedTickets.length === 0 &&
+                <div className='text-center font-size-25'>チケット購入履歴がありません</div>
+              }
             </Col>
             <Col lg={2}></Col>
           </Row>
