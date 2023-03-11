@@ -271,6 +271,7 @@ class Reservation < ApplicationRecord
         consume_number.times do |count|
           purchased_ticket = end_user_purchased_tickets.where("remain_number > ?", 0).first
           purchased_ticket.update!(remain_number: purchased_ticket.remain_number - 1)
+          self.reservation_purchased_ticket_relations.create!(purchased_ticket_id: purchased_ticket.id, consume_number: 1)
         end
       when 'monthlyPaymentPlan'
         is_subscribe_plan = end_user.search_stripe_subscriptions.pluck("metadata")&.pluck("monthly_payment_plan_id")
