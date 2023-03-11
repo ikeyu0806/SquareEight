@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
-import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Card, Row, Col, Form } from 'react-bootstrap'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
@@ -12,7 +12,6 @@ import { loginStatusChanged } from 'redux/currentMerchantUserSlice'
 import GoogleAuthButton from 'components/atoms/GoogleAuthButton'
 import { MERCHANT_GOOGLE_AUTH_URL } from 'constants/socialLogin'
 import BrandColorButton from 'components/atoms/BrandColorButton'
-import { brandGreenRgb } from 'constants/brandColors'
 import AuthStyles from 'styles/Auth.module.css'
 
 const Login: NextPage = () => {
