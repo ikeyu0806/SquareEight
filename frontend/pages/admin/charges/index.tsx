@@ -37,20 +37,26 @@ const Index: NextPage = () => {
         <Table bordered>
           <thead>
             <tr>
-              <th className='text-center'>商品名</th>
+              <th className='text-center'>商品・サービス名</th>
+              <th className='text-center'>種別</th>
               <th className='text-center'>購入者</th>
               <th className='text-center'>料金</th>
               <th className='text-center'>購入日</th>
+              <th className='text-center'>返金</th>
             </tr>
           </thead>
           <tbody>
             {stripePaymentIntents && stripePaymentIntents.map((payment, i) => {
               return (
                 <tr key={i}>
-                  <td className='text-center'>{payment.purchase_product_name}</td>
+                  <td className='text-cente'>{payment.purchase_product_name}</td>
+                  <td className='text-center'>
+                    <span className='badge bg-info text-white'>物販商品</span>
+                  </td>
                   <td className='text-center'>{payment.customer_fullname}</td>
                   <td className='text-center'>￥{payment.amount}</td>
                   <td className='text-center'>{payment.order_date}</td>
+                  <td className='text-center'><a className='btn btn-sm btn-danger'>返金</a></td>
                 </tr>
               )
             })}
