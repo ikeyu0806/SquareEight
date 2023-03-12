@@ -7,13 +7,11 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import PlanLabel from 'components/atoms/PlanLabel'
-import ServiceLogoV2 from 'components/atoms/ServiceLogoV2'
 
 const AdminNavbarTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
-  const email = useSelector((state: RootState) => state.currentMerchantUser.email)
   const usedEmail = useSelector((state: RootState) => state.currentMerchantUser.usedEmail)
   const stripeAccountEnable = useSelector((state: RootState) => state.currentMerchantUser.stripeAccountEnable)
   const isShopsExists = useSelector((state: RootState) => state.currentMerchantUser.isShopsExists)

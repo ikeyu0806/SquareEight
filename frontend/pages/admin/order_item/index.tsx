@@ -128,7 +128,7 @@ const Index: NextPage = () => {
                     {item.quantity}
                   </td>
                   <td>
-                    {item.price}
+                    ¥{item.price}
                   </td>
                   <td>
                     {item.delivery_date_text}
