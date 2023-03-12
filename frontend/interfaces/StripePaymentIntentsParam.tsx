@@ -1,4 +1,5 @@
 export interface StripePaymentIntentsParam {
+  public_id: string
   amount: number
   application_fee_amount: number
   purchase_product_name: string

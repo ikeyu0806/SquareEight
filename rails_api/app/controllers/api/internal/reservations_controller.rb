@@ -314,7 +314,7 @@ class Api::Internal::ReservationsController < ApplicationController
       reservation.update!(status: 'cancel')
       # 予約確定していた場合決済取り消し
       if reservation_init_status == 'confirm'
-        reservation.refund_paymnet
+        reservation.refund_payment
       end
       customer = reservation.customer
       # swal2のcheckboxにチェックを入れると"1"になる

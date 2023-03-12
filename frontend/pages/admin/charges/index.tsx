@@ -8,6 +8,7 @@ import { StripePaymentIntentsParam } from 'interfaces/StripePaymentIntentsParam'
 import { useCookies } from 'react-cookie'
 import { RootState } from 'redux/store'
 import Unauthorized from 'components/templates/Unauthorized'
+import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -28,6 +29,39 @@ const Index: NextPage = () => {
       console.log(error)
     })
   }, [dispatch, cookies._square_eight_merchant_session])
+
+  const execRefund = (publicId: string) => {
+    swalWithBootstrapButtons.fire({
+      title: '返金します',
+      html: `返金実行します。<br />よろしいですか？`,
+      icon: 'question',
+      confirmButtonText: '返金する',
+      cancelButtonText: 'キャンセル',
+      showCancelButton: true,
+      showCloseButton: true
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios.post(`${process.env.BACKEND_URL}/api/internal/payment_intents/${publicId}/refund_payment`,
+        {},
+        {
+          headers: {
+            'Session-Id': cookies._square_eight_merchant_session
+          }
+        }).then(response => {
+          swalWithBootstrapButtons.fire({
+            title: '返金しました',
+            icon: 'info'
+          })
+          location.reload!
+        }).catch(error => {
+          swalWithBootstrapButtons.fire({
+            title: '返金失敗しました',
+            icon: 'error'
+          })
+        })
+      }
+    })
+  }
 
   return (
     <MerchantUserAdminLayout>
@@ -56,7 +90,11 @@ const Index: NextPage = () => {
                   <td className='text-center'>{payment.customer_fullname}</td>
                   <td className='text-center'>￥{payment.amount}</td>
                   <td className='text-center'>{payment.order_date}</td>
-                  <td className='text-center'><a className='btn btn-sm btn-danger'>返金</a></td>
+                  <td className='text-center'>
+                    <a
+                      onClick={() => execRefund(payment.public_id)}
+                      className='btn btn-sm btn-danger'>返金</a>
+                  </td>
                 </tr>
               )
             })}

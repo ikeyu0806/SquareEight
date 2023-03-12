@@ -214,6 +214,7 @@ Rails.application.routes.draw do
       post 'shops/:public_id/update', to: 'shops#update'
       post 'shops', to: 'shops#create'
       delete 'shops/:public_id', to: 'shops#destroy'
+      post 'payment_intents/:public_id/refund_payment', to: 'payment_intents#refund_payment'
       namespace :merchant do
         get 'sessions', to: 'sessions#login_status'
         post 'sessions/create_by_google_auth', to: 'sessions#create_by_google_auth'

@@ -285,7 +285,7 @@ class Reservation < ApplicationRecord
     end
   end
 
-  def refund_paymnet
+  def refund_payment
     # 支払いの払い戻し
     reserve_frame = self.reserve_frame
     if reserve_frame.is_set_price?

@@ -38,4 +38,10 @@ class StripePaymentIntent < ApplicationRecord
     return '' if order_item.blank?
     order_item.product_label_text
   end
+
+  def refund_payment
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
+    Stripe::Refund.create({payment_intent: self.stripe_payment_intent_id})
+  end
 end
