@@ -296,6 +296,7 @@ class Reservation < ApplicationRecord
         Stripe.api_key = Rails.configuration.stripe[:secret_key]
         Stripe.api_version = '2022-08-01'
       when 'ticket'
+        self.reservation_purchased_ticket_relations.update_all(consume_number: 0)
       else
       end
     end
