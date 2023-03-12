@@ -52,7 +52,7 @@ const Index: NextPage = () => {
             title: '返金しました',
             icon: 'info'
           })
-          location.reload!
+          location.reload()
         }).catch(error => {
           swalWithBootstrapButtons.fire({
             title: '返金失敗しました',

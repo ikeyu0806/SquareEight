@@ -54,6 +54,6 @@ class StripePaymentIntent < ApplicationRecord
 
   def refund_at_text
     return '' if refund_at.nil?
-    refund_at.strftime("%Y年%M月%d日 %k時%m分")
+    refund_at.strftime("%Y年%m月%d日 %H時%m分")
   end
 end
