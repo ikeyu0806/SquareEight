@@ -38,8 +38,11 @@ class StripePaymentIntent < ApplicationRecord
   end
 
   def product_label_text
-    return '' if order_item.blank?
-    order_item.product_label_text
+    return '商品' if Product?
+    return '回数券' if TicketMaster?
+    return '月額サブスクリプション' if MonthlyPaymentPlan?
+    return '予約' if Reservation?
+    return '決済リクエスト' if PaymentRequest?
   end
 
   def refund_payment
