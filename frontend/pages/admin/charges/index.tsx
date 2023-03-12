@@ -68,6 +68,7 @@ const Index: NextPage = () => {
       <br />
       {allowReadSales === 'Allow' && <Container>
         <h4>売上一覧</h4>
+        <div className='mt10 mb10'>現地払いの売り上げは表示されません。</div>
         <Table bordered>
           <thead>
             <tr>
