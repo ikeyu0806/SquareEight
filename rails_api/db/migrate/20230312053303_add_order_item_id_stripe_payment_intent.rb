@@ -4,6 +4,6 @@ class AddOrderItemIdStripePaymentIntent < ActiveRecord::Migration[7.0]
   end
 
   def down
-    add_column :stripe_payment_intents, :order_item_id, :integer
+    remove_column :stripe_payment_intents, :order_item_id, :integer
   end
 end
