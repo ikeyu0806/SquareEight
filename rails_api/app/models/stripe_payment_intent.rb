@@ -56,4 +56,10 @@ class StripePaymentIntent < ApplicationRecord
     return '' if refund_at.nil?
     refund_at.strftime("%Y年%m月%d日 %H時%m分")
   end
+
+  def quantity
+    return '' if order_item.nil?
+    return '' if order_item.quantity.zero?
+    order_item.quantity.to_s
+  end
 end

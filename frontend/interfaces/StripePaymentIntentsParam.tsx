@@ -9,4 +9,5 @@ export interface StripePaymentIntentsParam {
   account_business_name: string
   product_label_text: string
   refund_at_text: string
+  quantity: string
 }

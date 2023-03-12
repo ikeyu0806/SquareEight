@@ -73,6 +73,7 @@ const Index: NextPage = () => {
           <thead>
             <tr>
               <th className='text-center'>商品・サービス名</th>
+              <th className='text-center'>購入数</th>
               <th className='text-center'>種別</th>
               <th className='text-center'>購入者</th>
               <th className='text-center'>料金</th>
@@ -85,6 +86,7 @@ const Index: NextPage = () => {
               return (
                 <tr key={i}>
                   <td className='text-cente'>{payment.purchase_product_name}</td>
+                  <td className='text-center'>{payment.quantity}</td>
                   <td className='text-center'>
                     <span className='badge bg-info text-white'>{payment.product_label_text}</span>
                   </td>
