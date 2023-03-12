@@ -140,7 +140,7 @@ class Api::Internal::CashRegistersController < ApplicationController
             payment_method_types: ['card'],
             payment_method: default_payment_method_id,
             customer: current_end_user.stripe_customer_id,
-            application_fee_amount: commission * cart[:quantity],
+            application_fee_amount: commission,
             metadata: {
               'order_date': current_date_text,
               'account_business_name': ticket_master.account.business_name,
