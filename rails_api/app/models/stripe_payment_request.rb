@@ -8,6 +8,7 @@ class StripePaymentRequest < ApplicationRecord
   has_one :customer, foreign_key: :id, primary_key: :customer_id
   has_one :end_user, foreign_key: :id, primary_key: :end_user_id
   has_one :line_user, foreign_key: :id, primary_key: :line_user_id
+  has_one :order_item, foreign_key: :id, primary_key: :order_item_id
 
   validates :name, presence: true
 

@@ -66,6 +66,19 @@ class Api::Internal::CashRegistersController < ApplicationController
           if product.delivery_charge_with_order_number == 'withOrderNumber'
             delivery_charge = delivery_charge * cart[:quantity]
           end
+          # 明細
+          product_type = ProductType.find(cart[:product_type_id]) if cart[:product_type_id].present?
+          order.save!
+          order_item = order.order_items.create!(item_type: 'Product',
+            product_id: product.id,
+            product_name: product.name,
+            product_type_id: product_type.present? ? product_type.id : nil,
+            price: product.price,
+            account_id: product.account.id,
+            commission: commission,
+            delivery_charge: delivery_charge,
+            quantity: cart[:quantity],
+            delivery_date_text: cash_register_params[:delivery_date_text])
           payment_intent = Stripe::PaymentIntent.create({
             amount: product.price * cart[:quantity] + delivery_charge,
             currency: 'jpy',
@@ -75,6 +88,7 @@ class Api::Internal::CashRegistersController < ApplicationController
             application_fee_amount: commission,
             metadata: {
               'order_date': current_date_text,
+              'order_item_id': order_item.id,
               'product_id': product.id,
               'account_business_name': product.account.business_name,
               'purchase_product_name': product.name,
@@ -93,18 +107,6 @@ class Api::Internal::CashRegistersController < ApplicationController
             payment_intent.id
           )
           total_delivery_charge += delivery_charge
-          # 明細
-          product_type = ProductType.find(cart[:product_type_id]) if cart[:product_type_id].present?
-          order.order_items.new(item_type: 'Product',
-                                product_id: product.id,
-                                product_name: product.name,
-                                product_type_id: product_type.present? ? product_type.id : nil,
-                                price: product.price,
-                                account_id: product.account.id,
-                                commission: commission,
-                                delivery_charge: delivery_charge,
-                                quantity: cart[:quantity],
-                                delivery_date_text: cash_register_params[:delivery_date_text])
           product.save!
           current_end_user.cart_products.where(product_id: product.id).delete_all
 

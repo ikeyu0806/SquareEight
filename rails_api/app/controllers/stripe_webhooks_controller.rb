@@ -31,6 +31,7 @@ class StripeWebhooksController < ApplicationController
         if stripe_params["data"]["object"]["transfer_data"].present?
           transfer_destination_account_id = stripe_params["data"]["object"]["transfer_data"]["destination"]
         end
+        order_item_id = stripe_params["data"]["object"]["metadata"]["order_item_id"]
         product_id = stripe_params["data"]["object"]["metadata"]["product_id"]
         ticket_master_id = stripe_params["data"]["object"]["metadata"]["ticket_master_id"]
         reserve_frame_id = stripe_params["data"]["object"]["metadata"]["reserve_frame_id"]
@@ -55,6 +56,7 @@ class StripeWebhooksController < ApplicationController
           amount: amount,
           stripe_customer_id: stripe_customer_id,
           application_fee_amount: application_fee_amount,
+          order_item_id: order_item_id,
           order_date: order_date,
           transfer_destination_account_id: transfer_destination_account_id,
           ticket_master_id: ticket_master_id,
