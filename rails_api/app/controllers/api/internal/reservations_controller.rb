@@ -168,7 +168,8 @@ class Api::Internal::ReservationsController < ApplicationController
                                                            :reservation_local_payment_prices,
                                                            :reservation_credit_card_payment_prices,
                                                            :monthly_payment_plan_name,
-                                                           :ticket_master_name]))
+                                                           :ticket_master_name,
+                                                           :ticket_consume_number]))
     render json: { status: 'success', reservation: reservation }, status: 200
   rescue => error
     Rails.logger.error error
