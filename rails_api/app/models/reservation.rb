@@ -159,6 +159,10 @@ class Reservation < ApplicationRecord
     total_price = reservation_credit_card_payment_prices.pluck(:price).inject {|result, item| result + item }
   end
 
+  def ticket_consume_number
+    reservation_purchased_ticket_relations.pluck(:consume_number).inject{ |consume_cumber, item| consume_cumber + item }
+  end
+
   def display_multi_payment_method_with_number_of_people
     text_array = []
     total_price = 0
