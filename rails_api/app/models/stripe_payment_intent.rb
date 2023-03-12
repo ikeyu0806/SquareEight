@@ -18,6 +18,9 @@ class StripePaymentIntent < ApplicationRecord
                               SystemPlan: 4,
                               PaymentRequest: 5 }
 
+  scope :not_refund, -> { where(refund_at: nil) }
+  scope :not_system_plan, -> { where.not(system_product_type: "SystemPlan") }
+
   def update_read_orders_status_unread
     if account.present? && !SystemPlan? && !PaymentRequest?
       account.merchant_users.each do |user|
