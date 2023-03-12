@@ -43,5 +43,11 @@ class StripePaymentIntent < ApplicationRecord
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe.api_version = '2022-08-01'
     Stripe::Refund.create({payment_intent: self.stripe_payment_intent_id})
+    self.update!(refund_at: Time.zone.now)
+  end
+
+  def refund_at_text
+    return '' if refund_at.nil?
+    refund_at.strftime("%Y年%M月%d日 %h時%m分")
   end
 end

@@ -91,9 +91,12 @@ const Index: NextPage = () => {
                   <td className='text-center'>￥{payment.amount}</td>
                   <td className='text-center'>{payment.order_date}</td>
                   <td className='text-center'>
+                    {payment.refund_at_text === '' ?
                     <a
                       onClick={() => execRefund(payment.public_id)}
                       className='btn btn-sm btn-danger'>返金</a>
+                    :
+                    <span>{payment.refund_at_text}</span>}
                   </td>
                 </tr>
               )
