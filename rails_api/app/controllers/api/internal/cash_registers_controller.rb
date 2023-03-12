@@ -96,7 +96,6 @@ class Api::Internal::CashRegistersController < ApplicationController
           # 明細
           product_type = ProductType.find(cart[:product_type_id]) if cart[:product_type_id].present?
           order.order_items.new(item_type: 'Product',
-                                payment_intent_id: payment_intent.id,
                                 product_id: product.id,
                                 product_name: product.name,
                                 product_type_id: product_type.present? ? product_type.id : nil,
@@ -161,7 +160,6 @@ class Api::Internal::CashRegistersController < ApplicationController
             payment_intent.id
           )
           order.order_items.new(item_type: 'TicketMaster',
-                                payment_intent_id: payment_intent.id,
                                 ticket_master_id: ticket_master.id,
                                 product_name: ticket_master.name,
                                 price: cart[:price],
@@ -227,7 +225,6 @@ class Api::Internal::CashRegistersController < ApplicationController
             billing_cycle_anchor_datetime: Time.at(JSON.parse(stripe_subscription.to_json)["billing_cycle_anchor"])
           )
           order.order_items.new(item_type: 'MonthlyPaymentPlan',
-                                payment_intent_id: payment_intent.id,
                                 monthly_payment_plan_id: monthly_payment_plan.id,
                                 product_name: monthly_payment_plan.name,
                                 price: monthly_payment_plan.price,
