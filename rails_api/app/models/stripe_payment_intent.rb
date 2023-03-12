@@ -33,4 +33,9 @@ class StripePaymentIntent < ApplicationRecord
   def account_business_name
     account.business_name
   end
+
+  def product_label_text
+    return '' if order_item.blank?
+    order_item.product_label_text
+  end
 end

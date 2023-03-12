@@ -64,4 +64,12 @@ class OrderItem < ApplicationRecord
   def customer_public_id
     order.end_user.customer.public_id
   end
+
+  def product_label_text
+    return '商品' if Product?
+    return '回数券' if TicketMaster?
+    return '月額サブスクリプション' if MonthlyPaymentPlan?
+    return '予約' if Reservation?
+    return '決済リクエスト' if PaymentRequest?
+  end
 end

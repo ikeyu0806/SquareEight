@@ -51,7 +51,7 @@ const Index: NextPage = () => {
                 <tr key={i}>
                   <td className='text-cente'>{payment.purchase_product_name}</td>
                   <td className='text-center'>
-                    <span className='badge bg-info text-white'>物販商品</span>
+                    <span className='badge bg-info text-white'>{payment.product_label_text}</span>
                   </td>
                   <td className='text-center'>{payment.customer_fullname}</td>
                   <td className='text-center'>￥{payment.amount}</td>
