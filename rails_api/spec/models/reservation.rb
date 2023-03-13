@@ -33,34 +33,85 @@ RSpec.describe Reservation, type: :model do
   let(:after_one_week_saturday) {  ((this_day + 1.weeks).to_date - (this_day.wday - 6)).beginning_of_day }
   let(:after_one_week_sunday) {  ((this_day + 1.weeks).to_date - (this_day.wday - 0)).beginning_of_day }
 
+  # 予約日時
+  # 今週
+  let(:this_monday_reservation_start_at) { this_monday + 14.hours}
+  let(:this_monday_reservation_end_at) { this_monday + 15.hours }
+  let(:this_tuesday_reservation_start_at) { this_tuesday + 14.hours }
+  let(:this_tuesday_reservation_end_at) { this_tuesday + 15.hours }
+  let(:this_wednesday_reservation_start_at) { this_wednesday + 14.hours}
+  let(:this_wednesday_reservation_end_at) { this_wednesday + 15.hours }
+  let(:this_thursday_reservation_start_at) { this_thursday + 14.hours }
+  let(:this_thursday_reservation_end_at) { this_thursday + 15.hours }
+  let(:this_friday_reservation_start_at) { this_friday + 14.hours }
+  let(:this_friday_reservation_end_at) { this_friday + 15.hours }
+  let(:this_saturday_reservation_start_at) { this_saturday + 14.hours }
+  let(:this_saturday_reservation_end_at) { this_saturday + 15.hours }
+  let(:this_sunday_reservation_start_at) { this_sunday + 14.hours }
+  let(:this_sunday_reservation_end_at) { this_sunday + 15.hours }
+
   # 指定範囲内の予約をselectするクエリメソッドのテスト
   # 支払いに使われる月額サブスクリプションの予約可能範囲内の予約をselectする
   describe 'subscription_validate_scope' do
     describe 'reserve_interval_unit is Day' do
-      describe 'reserve with three_times_every_two_week_reservable_plan' do
-        let(:three_times_every_two_week_reservable_plan) { create(:three_times_every_two_week_reservable_plan, account_id: account.id) }
-        let!(:reserve_frame_monthly_payment_plan) { create(:reserve_frame_monthly_payment_plan, reserve_frame_id: reserve_frame.id, monthly_payment_plan_id: three_times_every_two_week_reservable_plan.id) }
-        describe 'two reservation for this weeks exists' do
-          let(:this_monday_reservation_start_at) { this_monday + 14.hours}
-          let(:this_monday_reservation_end_at) { this_monday + 15.hours }
-          let(:this_tuesday_reservation_start_at) { this_tuesday + 14.hours }
-          let(:this_tuesday_reservation_end_at) { this_tuesday + 15.hours }
-          let!(:this_monday_reservation) {
-            create(:monthly_payment_reservation,
-                    reserve_frame: reserve_frame,
-                    start_at: this_monday_reservation_start_at,
-                    end_at: this_monday_reservation_end_at,
-                    monthly_payment_plan_id: three_times_every_two_week_reservable_plan.id)
-          }
-          let!(:this_tuesday_reservation) {
-            create(:monthly_payment_reservation,
-                    reserve_frame: reserve_frame,
-                    start_at: this_tuesday_reservation_start_at,
-                    end_at: this_tuesday_reservation_end_at,
-                    monthly_payment_plan_id: three_times_every_two_week_reservable_plan.id)
-          }
+
+    end
+
+    describe 'reserve_interval_unit is Week' do
+      let(:three_times_every_two_week_reservable_plan) { create(:three_times_every_two_week_reservable_plan, account_id: account.id) }
+      let!(:reserve_frame_monthly_payment_plan) { create(:reserve_frame_monthly_payment_plan, reserve_frame_id: reserve_frame.id, monthly_payment_plan_id: three_times_every_two_week_reservable_plan.id) }
+      describe 'two reservation(monday, tuesday) for this weeks exists' do
+        let!(:this_monday_reservation) {
+          create(:monthly_payment_reservation,
+                  reserve_frame: reserve_frame,
+                  start_at: this_monday_reservation_start_at,
+                  end_at: this_monday_reservation_end_at,
+                  monthly_payment_plan_id: three_times_every_two_week_reservable_plan.id)
+        }
+        let!(:this_tuesday_reservation) {
+          create(:monthly_payment_reservation,
+                  reserve_frame: reserve_frame,
+                  start_at: this_tuesday_reservation_start_at,
+                  end_at: this_tuesday_reservation_end_at,
+                  monthly_payment_plan_id: three_times_every_two_week_reservable_plan.id)
+        }
+        describe 'reserve this_wednesday, judgment_range is front' do
           it 'should return expect value' do
             expect(Reservation.subscription_validate_scope(this_wednesday, 1, 'front', 'Week', three_times_every_two_week_reservable_plan.id).count).to eq 2
+          end
+        end
+
+        describe 'reserve this_wednesday, judgment_range is back' do
+          it 'should return expect value' do
+            expect(Reservation.subscription_validate_scope(this_wednesday, 1, 'back', 'Week', three_times_every_two_week_reservable_plan.id).count).to eq 0
+          end
+        end
+      end
+
+      describe 'two reservation(friday, saturday) for this weeks exists' do
+        let!(:this_friday_reservation) {
+          create(:monthly_payment_reservation,
+                  reserve_frame: reserve_frame,
+                  start_at: this_friday_reservation_start_at,
+                  end_at: this_friday_reservation_end_at,
+                  monthly_payment_plan_id: three_times_every_two_week_reservable_plan.id)
+        }
+        let!(:this_saturday_reservation) {
+          create(:monthly_payment_reservation,
+                  reserve_frame: reserve_frame,
+                  start_at: this_saturday_reservation_start_at,
+                  end_at: this_saturday_reservation_end_at,
+                  monthly_payment_plan_id: three_times_every_two_week_reservable_plan.id)
+        }
+        describe 'reserve this_wednesday, judgment_range is front' do
+          it 'should return expect value' do
+            expect(Reservation.subscription_validate_scope(this_wednesday, 1, 'front', 'Week', three_times_every_two_week_reservable_plan.id).count).to eq 0
+          end
+        end
+
+        describe 'reserve this_wednesday, judgment_range is back' do
+          it 'should return expect value' do
+            expect(Reservation.subscription_validate_scope(this_wednesday, 1, 'back', 'Week', three_times_every_two_week_reservable_plan.id).count).to eq 2
           end
         end
       end
