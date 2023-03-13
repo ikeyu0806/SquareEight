@@ -483,9 +483,18 @@ class Api::Internal::AccountsController < ApplicationController
   end
 
   def stripe_payment_history
-    stripe_payment_intents = current_merchant_user.account.stripe_payment_intents.order(id: :desc)
+    # ページネーション
+    stripe_payment_intents = current_merchant_user.account.stripe_payment_intents
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    last_page, remainder = stripe_payment_intents.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    stripe_payment_intents = stripe_payment_intents
+      .order(id: :desc)
+      .first(current_page * display_count)
+      .last(display_count)
     stripe_payment_intents = JSON.parse(stripe_payment_intents.to_json(methods: [:customer_fullname, :product_label_text, :refund_at_text, :quantity]))
-    render json: { status: 'success', stripe_payment_intents: stripe_payment_intents }, status: 200
+    render json: { status: 'success', stripe_payment_intents: stripe_payment_intents, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
