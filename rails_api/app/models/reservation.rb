@@ -31,11 +31,12 @@ class Reservation < ApplicationRecord
 
   # 指定範囲内の予約selectするクエリメソッド。複雑なscopeみたいな感じ
   # 支払いに使われる月額サブスクリプションの予約可能範囲内の予約をselectする
-  def self.subscription_validate_scope(this_day, front_and_back_num=0, judgment_range=nil, monthly_payment_plan_id)
+  def self.subscription_validate_scope(this_day, judgment_range=nil, monthly_payment_plan_id)
     # 曜日判定: this_day = Time.zone.now
     # 日曜日: this_day.to_date - (this_day.wday - 0)
     # 土曜日: this_day.to_date - (this_day.wday - 6)
     monthly_payment_plan = MonthlyPaymentPlan.find(monthly_payment_plan_id)
+    front_and_back_num = monthly_payment_plan.reserve_interval_number - 1
     range_start_sunday = (this_day.to_date - (this_day.wday - 0)).beginning_of_day
     range_end_saturday = (this_day.to_date - (this_day.wday - 6)).end_of_day
     if monthly_payment_plan.reserve_interval_unit == 'Day'
