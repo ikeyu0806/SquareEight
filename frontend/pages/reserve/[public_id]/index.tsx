@@ -348,7 +348,10 @@ const Index: NextPage = () => {
                                 setSelectedPaymentMethodType('localPayment')
                                 setSelectedPrice(Number(reserveFramePaymentMethod?.local_payment_price))
                               }}
-                              label={`現地払い: ${reserveFramePaymentMethod?.local_payment_price}円`}></Form.Check>
+                              label={multiLocalPaymentPrices.length !== 0 ?
+                                '現地払い' :
+                                `現地払い: ${reserveFramePaymentMethod?.local_payment_price}円`
+                              }></Form.Check>
                           {((selectedPaymentMethodType === 'localPayment') && (reserveFrame?.reserve_frame_local_payment_prices.length !== 0)) &&
                           <>
                             &emsp;
