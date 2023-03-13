@@ -52,7 +52,7 @@ RSpec.describe Reservation, type: :model do
 
   # 指定範囲内の予約をselectするクエリメソッドのテスト
   # 支払いに使われる月額サブスクリプションの予約可能範囲内の予約をselectする
-  describe 'subscription_validate_scope' do
+  describe 'monthly_subscription_range_reservations' do
     describe 'reserve_interval_unit is Day' do
 
     end
@@ -77,13 +77,13 @@ RSpec.describe Reservation, type: :model do
         }
         describe 'reserve this_wednesday, judgment_range is front' do
           it 'should return expect value' do
-            expect(Reservation.subscription_validate_scope(this_wednesday, 'front', three_times_every_two_week_reservable_plan.id).count).to eq 2
+            expect(Reservation.monthly_subscription_range_reservations(this_wednesday, 'front', three_times_every_two_week_reservable_plan.id).count).to eq 2
           end
         end
 
         describe 'reserve this_wednesday, judgment_range is back' do
           it 'should return expect value' do
-            expect(Reservation.subscription_validate_scope(this_wednesday, 'back', three_times_every_two_week_reservable_plan.id).count).to eq 0
+            expect(Reservation.monthly_subscription_range_reservations(this_wednesday, 'back', three_times_every_two_week_reservable_plan.id).count).to eq 0
           end
         end
       end
@@ -105,13 +105,13 @@ RSpec.describe Reservation, type: :model do
         }
         describe 'reserve this_wednesday, judgment_range is front' do
           it 'should return expect value' do
-            expect(Reservation.subscription_validate_scope(this_wednesday, 'front', three_times_every_two_week_reservable_plan.id).count).to eq 0
+            expect(Reservation.monthly_subscription_range_reservations(this_wednesday, 'front', three_times_every_two_week_reservable_plan.id).count).to eq 0
           end
         end
 
         describe 'reserve this_wednesday, judgment_range is back' do
           it 'should return expect value' do
-            expect(Reservation.subscription_validate_scope(this_wednesday, 'back', three_times_every_two_week_reservable_plan.id).count).to eq 2
+            expect(Reservation.monthly_subscription_range_reservations(this_wednesday, 'back', three_times_every_two_week_reservable_plan.id).count).to eq 2
           end
         end
       end
