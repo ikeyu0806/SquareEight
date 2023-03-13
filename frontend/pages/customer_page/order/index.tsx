@@ -1,15 +1,13 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
-import { Container, Row, Col, ListGroup, Card, Table } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
 import { OrderParam } from 'interfaces/OrderParam'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 
 const Index: NextPage = () => {
-  const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const router = useRouter()
   const [orders, setOrders] = useState<OrderParam[]>([])
@@ -68,7 +66,7 @@ const Index: NextPage = () => {
                     <div>{order.address}</div>
                   </td>
                   <td>
-                    <a className='btn btn-primary btn-sm mt10' href={`/customer_page/order/${order.id}`}>
+                    <a className='btn btn-primary btn-sm mt10' href={`/customer_page/order/${order.public_id}`}>
                       詳細
                     </a>
                   </td>
