@@ -50,7 +50,7 @@ const Index: NextPage = () => {
   const execRefund = (publicId: string) => {
     swalWithBootstrapButtons.fire({
       title: '返金します',
-      html: `返金実行します。<br />よろしいですか？`,
+      html: `返金実行します。<br />手数料は返金されません。よろしいですか？`,
       icon: 'question',
       confirmButtonText: '返金する',
       cancelButtonText: 'キャンセル',
