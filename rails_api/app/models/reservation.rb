@@ -41,10 +41,10 @@ class Reservation < ApplicationRecord
     range_end_saturday = (this_day.to_date - (this_day.wday - 6)).end_of_day
     if monthly_payment_plan.reserve_interval_unit == 'Day'
       case judgment_range
-      # 1週間前から今週まで判定
+      # front_and_back_num日前から今週まで判定
       when 'front'
         where(start_at: (this_day - front_and_back_num.days)..(this_day.end_of_day)).subscription_validate_target_status.where(monthly_payment_plan_id: monthly_payment_plan_id)
-      # 今週から1週間後まで判定
+      # 今週からfront_and_back_num日後まで判定
       when 'back'
         where(start_at: (this_day)..(this_day.end_of_day + front_and_back_num.days)).subscription_validate_target_status.where(monthly_payment_plan_id: monthly_payment_plan_id)
       else
@@ -52,10 +52,10 @@ class Reservation < ApplicationRecord
       end
     elsif monthly_payment_plan.reserve_interval_unit == 'Week'
       case judgment_range
-      # 1週間前から今週まで判定
+      # front_and_back_num週間前から今週まで判定
       when 'front'
         where(start_at: (this_day - front_and_back_num.week)..(this_day.end_of_day)).subscription_validate_target_status.where(monthly_payment_plan_id: monthly_payment_plan_id)
-      # 今週から1週間後まで判定
+      # 今週からfront_and_back_num週間後まで判定
       when 'back'
         where(start_at: (this_day)..(this_day.end_of_day + front_and_back_num.week)).subscription_validate_target_status.where(monthly_payment_plan_id: monthly_payment_plan_id)
       else
