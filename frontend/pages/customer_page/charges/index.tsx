@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Table, Button } from 'react-bootstrap'
+import { Container, Table } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -31,6 +31,7 @@ const Index: NextPage = () => {
     <>
       <EndUserLoginLayout>
         <Container className='mt20'>
+          <h4>お支払い履歴</h4>
           {stripePaymentIntents && stripePaymentIntents.length > 0 &&
           <Table bordered>
             <thead>

@@ -65,6 +65,7 @@ const Index: NextPage = () => {
             <Row>
               <Col lg={3}></Col>
               <Col lg={6}>
+                <h4>予約一覧</h4>
                 {reservations && reservations.map((reservation, i) => {
                   return (
                     <div key={i} className='mb30 border-solid padding-20'>
