@@ -29,6 +29,8 @@ class Reservation < ApplicationRecord
     where(status: ['confirm', 'waitingForLotteryConfirm'])
   }
 
+  # 指定範囲内の予約selectするクエリメソッド。複雑なscopeみたいな感じ
+  # 支払いに使われる月額サブスクリプションの予約可能範囲内の予約をselectする
   def self.subscription_validate_scope(this_day, front_and_back_num=0, judgment_range=nil, reserve_interval_unit='Day', monthly_payment_plan_id)
     # 曜日判定: this_day = Time.zone.now
     # 日曜日: this_day.to_date - (this_day.wday - 0)
