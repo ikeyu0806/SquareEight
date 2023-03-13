@@ -14,14 +14,14 @@ RSpec.describe 'Api::Internal::MessageTemplatesController', type: :request do
     context 'login as merchant_user' do
       it 'should return 200' do
         allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
-        get '/api/internal/message_templates'
+        get '/api/internal/message_templates', params: { current_page: 1, display_count: 10 }
         expect(response.status).to eq 200
       end
     end
 
     context 'not login' do
       it 'should return 401' do
-        get '/api/internal/message_templates'
+        get '/api/internal/message_templates', params: { current_page: 1, display_count: 10 }
         expect(response.status).to eq 401
       end
     end

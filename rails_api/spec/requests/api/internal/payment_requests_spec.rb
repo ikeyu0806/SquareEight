@@ -18,14 +18,14 @@ RSpec.describe 'Api::Internal::PaymentRequestsController', type: :request do
     context 'login as merchant_user' do
       it 'should return 200' do
         allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
-        get '/api/internal/payment_requests'
+        get '/api/internal/payment_requests', params: { current_page: 1, display_count: 10 }
         expect(response.status).to eq 200
       end
     end
 
     context 'not login' do
       it 'should return 401' do
-        get '/api/internal/payment_requests'
+        get '/api/internal/payment_requests', params: { current_page: 1, display_count: 10 }
         expect(response.status).to eq 401
       end
     end
