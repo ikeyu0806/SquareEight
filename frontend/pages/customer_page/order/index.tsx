@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
 import { useCookies } from 'react-cookie'
-import { Container, Row, Col, ListGroup, Card } from 'react-bootstrap'
+import { Container, Row, Col, ListGroup, Card, Table } from 'react-bootstrap'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
 import { useRouter } from 'next/router'
@@ -37,48 +37,48 @@ const Index: NextPage = () => {
   return (
     <EndUserLoginLayout>
       <Container className='mt20'>
-        <Row>
-          <Col lg={3}></Col>
-          <Col lg={6}>
+        <h4>注文一覧</h4>
+        <Table bordered>
+          <thead>
+            <tr>
+              <th>商品・サービス名</th>
+              <th>合計金額</th>
+              <th>注文日</th>
+              <th>お届け先</th>
+              <th>詳細</th>
+            </tr>
+          </thead>
+          <tbody>
             {orders && orders.length > 0 &&
-            <Card>
-              <Card.Header>注文一覧</Card.Header>
-              <ListGroup>
-                {orders && orders.map((order, i) => {
-                  return (
-                    <ListGroup.Item key={i}>
-                      <Row>
-                        <Col>
-                          {order.product_names.map((name, i) => {
-                            return (
-                              <>
-                                <div>{name}</div>
-                                <div>合計金額: ¥{order.total_price}</div>
-                                <div>注文日: {order.order_date}</div>
-                                <a className='btn btn-primary btn-sm mt10' href={`/customer_page/order/${order.id}`}>
-                                  詳細
-                                </a>
-                              </>
-                            )
-                          })}
-                        </Col>
-                        <Col>
-                          {order.include_product && <>
-                          <div>お届け先</div>
-                          <div>{order.name}</div>
-                          <div>{order.postal_code}</div>
-                          <div>{order.address}</div></>}
-                        </Col>
-                      </Row>
-                    </ListGroup.Item>
-                  )
-                })}
-              </ListGroup>
-            </Card>}
-            {orders && orders.length === 0 &&
-            <div className='text-center font-size-25'>注文履歴がありません</div>}
-          </Col>
-        </Row>
+            orders.map((order, i) => {
+              return (
+                <tr key={i}>
+                  <td>
+                    {order.product_names.map((p, i) => {
+                      return(
+                        <div key={i + '_product_name'}>{p}</div>
+                      )
+                    })}
+                  </td>
+                  <td>¥{order.total_price}</td>
+                  <td>{order.order_date}</td>
+                  <td>
+                    <div>{order.name}</div>
+                    <div>{order.postal_code}</div>
+                    <div>{order.address}</div>
+                  </td>
+                  <td>
+                    <a className='btn btn-primary btn-sm mt10' href={`/customer_page/order/${order.id}`}>
+                      詳細
+                    </a>
+                  </td>
+                </tr>
+              )
+            })}
+          </tbody>
+        </Table>
+        {orders && orders.length === 0 &&
+        <div className='text-center font-size-25'>注文履歴がありません</div>}
       </Container>
     </EndUserLoginLayout>
   )
