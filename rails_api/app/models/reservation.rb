@@ -29,9 +29,9 @@ class Reservation < ApplicationRecord
     where(status: ['confirm', 'waitingForLotteryConfirm'])
   }
 
-  # 指定範囲内の予約selectするクエリメソッド。複雑なscopeみたいな感じ
+  # 指定範囲内の予約selectするクエリメソッド。
   # 支払いに使われる月額サブスクリプションの予約可能範囲内の予約をselectする
-  def self.monthly_subscription_range_reservations(this_day, judgment_range=nil, monthly_payment_plan_id)
+  scope :monthly_subscription_range_reservations, -> (this_day, judgment_range=nil, monthly_payment_plan_id) {
     # 曜日判定: this_day = Time.zone.now
     # 日曜日: this_day.to_date - (this_day.wday - 0)
     # 土曜日: this_day.to_date - (this_day.wday - 6)
@@ -62,7 +62,7 @@ class Reservation < ApplicationRecord
         where(start_at: range_start_sunday..range_end_saturday).subscription_validate_target_status.where(monthly_payment_plan_id: monthly_payment_plan_id)
       end
     end
-  end
+  }
 
   def update_read_reservations_status_unread
     if self.confirm? && self.status_changed?
