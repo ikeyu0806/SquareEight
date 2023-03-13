@@ -54,7 +54,35 @@ RSpec.describe Reservation, type: :model do
   # 支払いに使われる月額サブスクリプションの予約可能範囲内の予約をselectする
   describe 'monthly_subscription_range_reservations' do
     describe 'reserve_interval_unit is Day' do
+      let(:one_times_every_three_days_reservable_plan) { create(:one_times_every_three_days_reservable_plan, account_id: account.id) }
+      let!(:reserve_frame_monthly_payment_plan) { create(:reserve_frame_monthly_payment_plan, reserve_frame_id: reserve_frame.id, monthly_payment_plan_id: one_times_every_three_days_reservable_plan.id) }
+      describe 'two reservation(monday, tuesday) for this weeks exists' do
+        let!(:this_monday_reservation) {
+          create(:monthly_payment_reservation,
+                  reserve_frame: reserve_frame,
+                  start_at: this_monday_reservation_start_at,
+                  end_at: this_monday_reservation_end_at,
+                  monthly_payment_plan_id: one_times_every_three_days_reservable_plan.id)
+        }
+        let!(:this_tuesday_reservation) {
+          create(:monthly_payment_reservation,
+                  reserve_frame: reserve_frame,
+                  start_at: this_tuesday_reservation_start_at,
+                  end_at: this_tuesday_reservation_end_at,
+                  monthly_payment_plan_id: one_times_every_three_days_reservable_plan.id)
+        }
+        describe 'reserve this_wednesday, judgment_range is front' do
+          it 'should return expect value' do
+            expect(Reservation.monthly_subscription_range_reservations(this_wednesday, 'front', one_times_every_three_days_reservable_plan.id).count).to eq 2
+          end
+        end
 
+        describe 'reserve this_wednesday, judgment_range is back' do
+          it 'should return expect value' do
+            expect(Reservation.monthly_subscription_range_reservations(this_wednesday, 'back', one_times_every_three_days_reservable_plan.id).count).to eq 0
+          end
+        end
+      end
     end
 
     describe 'reserve_interval_unit is Week' do
