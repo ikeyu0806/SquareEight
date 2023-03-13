@@ -77,13 +77,13 @@ RSpec.describe Reservation, type: :model do
         }
         describe 'reserve this_wednesday, judgment_range is front' do
           it 'should return expect value' do
-            expect(Reservation.subscription_validate_scope(this_wednesday, 1, 'front', 'Week', three_times_every_two_week_reservable_plan.id).count).to eq 2
+            expect(Reservation.subscription_validate_scope(this_wednesday, 1, 'front', three_times_every_two_week_reservable_plan.id).count).to eq 2
           end
         end
 
         describe 'reserve this_wednesday, judgment_range is back' do
           it 'should return expect value' do
-            expect(Reservation.subscription_validate_scope(this_wednesday, 1, 'back', 'Week', three_times_every_two_week_reservable_plan.id).count).to eq 0
+            expect(Reservation.subscription_validate_scope(this_wednesday, 1, 'back', three_times_every_two_week_reservable_plan.id).count).to eq 0
           end
         end
       end
@@ -105,13 +105,13 @@ RSpec.describe Reservation, type: :model do
         }
         describe 'reserve this_wednesday, judgment_range is front' do
           it 'should return expect value' do
-            expect(Reservation.subscription_validate_scope(this_wednesday, 1, 'front', 'Week', three_times_every_two_week_reservable_plan.id).count).to eq 0
+            expect(Reservation.subscription_validate_scope(this_wednesday, 1, 'front', three_times_every_two_week_reservable_plan.id).count).to eq 0
           end
         end
 
         describe 'reserve this_wednesday, judgment_range is back' do
           it 'should return expect value' do
-            expect(Reservation.subscription_validate_scope(this_wednesday, 1, 'back', 'Week', three_times_every_two_week_reservable_plan.id).count).to eq 2
+            expect(Reservation.subscription_validate_scope(this_wednesday, 1, 'back', three_times_every_two_week_reservable_plan.id).count).to eq 2
           end
         end
       end
