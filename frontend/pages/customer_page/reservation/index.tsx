@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Button } from 'react-bootstrap'
+import { Container, Row, Col, Button, Table } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import { useCookies } from 'react-cookie'
 import { ReservationParam } from 'interfaces/ReservationParam'
@@ -62,42 +62,43 @@ const Index: NextPage = () => {
       <EndUserLoginLayout>
         <div className='mt20'>
           <Container>
-            <Row>
-              <Col lg={3}></Col>
-              <Col lg={6}>
-                <h4>予約一覧</h4>
-                {reservations && reservations.map((reservation, i) => {
-                  return (
-                    <div key={i} className='mb30 border-solid padding-20'>
-                      <div className='mb10'>{reservation.reserve_frame_title}</div>
-                      <span>{reservation.display_reservation_datetime}</span>
-                      <hr />
-                      <span>人数: {reservation.number_of_people}</span>
-                      <hr />
-                      <span>支払い方法: {paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</span>
-                      <hr />
-                      <span>
-                        {reservation.status === 'cofirm' && <>キャンセル: {reservation.cancel_reception_text}</>}
-                        {reservation.status === 'cancel' && <span className='badge bg-danger'>キャンセル済み</span>}
-                        {reservation.is_cancelable
-                        &&
+            <h4>予約一覧</h4>
+            <Table bordered>
+              <thead>
+                <tr>
+                  <th>予約メニュー</th>
+                  <th>予約日時</th>
+                  <th>人数</th>
+                  <th>お支払い方法</th>
+                  <th>キャンセル</th>
+                </tr>
+              </thead>
+              <tbody>
+              {reservations && reservations.map((reservation, i) => {
+                return (
+                  <tr key={i}>
+                    <td>{reservation.reserve_frame_title}</td>
+                    <td>{reservation.display_reservation_datetime}</td>
+                    <td>{reservation.number_of_people}</td>
+                    <td>{paymentMethodText(reservation.payment_method, reservation.price, reservation.ticket_consume_number, reservation.number_of_people)}</td>
+                    <td>
+                      {reservation.is_cancelable
+                        ?
                           <>
                             <Button
                               onClick={() => execCancel(reservation.public_id)}
                               size='sm'
                               variant='danger'
                               className='ml10'>キャンセルする</Button>
-                          </>}
-                        {reservation.status === 'waitingForLotteryConfirm' && <span>抽選結果待ち</span>}
-                        {reservation.status === 'lostLottery' && <span>抽選落選</span>}
-                      </span>
-                    </div>
-                  )
-                })}
-                {reservations.length === 0 &&
-                <div className='text-center font-size-25'>予約履歴がありません</div>}
-              </Col>
-            </Row>
+                          </>
+                        :
+                          <div>キャンセル不可</div>}
+                    </td>
+                  </tr>
+                )
+              })}
+              </tbody>
+            </Table>
           </Container>
         </div>
       </EndUserLoginLayout>
