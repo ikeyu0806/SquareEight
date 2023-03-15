@@ -30,7 +30,7 @@ const CustomerPageNavbar = (): JSX.Element => {
     <>
       <Navbar variant='dark' expand='lg' bg='dark'>
         <Container>
-          <Navbar.Brand href='/' className='font-weight-bold'>SquareEightID</Navbar.Brand>
+          <Navbar.Brand href='/customer_page' className='font-weight-bold'>SquareEightID</Navbar.Brand>
           <Navbar.Toggle />
             <Navbar.Collapse>
             <Nav className='me-auto'>
