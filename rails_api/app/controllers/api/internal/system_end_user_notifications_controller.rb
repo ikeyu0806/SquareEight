@@ -4,7 +4,13 @@ class Api::Internal::SystemEndUserNotificationsController < ApplicationControlle
 
   def index
     system_end_user_notifications = SystemEndUserNotification.all
-    render json: { status: 'success', system_end_user_notifications: system_end_user_notifications }, status: 200
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    last_page, remainder = system_end_user_notifications.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    system_end_user_notifications = system_end_user_notifications.first(current_page * display_count).last(display_count)
+    render json: { status: 'success', system_end_user_notifications: system_end_user_notifications, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
