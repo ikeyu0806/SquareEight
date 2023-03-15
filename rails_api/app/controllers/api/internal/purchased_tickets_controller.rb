@@ -2,8 +2,14 @@ class Api::Internal::PurchasedTicketsController < ApplicationController
   before_action :end_user_login_only!
 
   def index
-    purchased_tickets = JSON.parse(current_end_user.purchased_tickets.to_json(methods: [:name, :display_expired_at, :is_expired]))
-    render json: { status: 'success', purchased_tickets: purchased_tickets }, status: 200
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    purchased_tickets = current_end_user.purchased_tickets
+    last_page, remainder = purchased_tickets.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    purchased_tickets = JSON.parse(purchased_tickets.first(current_page * display_count).last(display_count).to_json(methods: [:name, :display_expired_at, :is_expired]))
+    render json: { status: 'success', purchased_tickets: purchased_tickets, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
