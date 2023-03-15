@@ -3,7 +3,7 @@ class Api::Internal::SystemEndUserNotificationsController < ApplicationControlle
   before_action :system_admin_user_login_only!, only: [:create, :update]
 
   def index
-    system_end_user_notifications = SystemEndUserNotification.all
+    system_end_user_notifications = SystemEndUserNotification.order(created_at: :desc)
     # ページネーション
     current_page = params[:current_page].to_i
     display_count = params[:display_count].to_i

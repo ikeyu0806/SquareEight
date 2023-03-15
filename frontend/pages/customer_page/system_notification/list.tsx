@@ -64,7 +64,7 @@ const List: NextPage = () => {
                 return (
                   <ListGroup.Item
                     as='li'
-                    key={i} onClick={() => router.push(`${n.url}`)}>
+                    key={i} onClick={() => router.push(`/customer_page/system_notification/${n.public_id}`)}>
                     {n.title}
                   </ListGroup.Item>
                 )
