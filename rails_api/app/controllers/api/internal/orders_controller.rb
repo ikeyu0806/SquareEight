@@ -2,8 +2,14 @@ class Api::Internal::OrdersController < ApplicationController
   before_action :end_user_login_only!
 
   def index
-    orders = JSON.parse(current_end_user.orders.order(created_at: :desc).to_json(methods: [:total_price, :total_commission, :product_names, :order_date, :include_product]))
-    render json: { status: 'success', orders: orders }, status: 200
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    orders = current_end_user.orders.order(created_at: :desc)
+    last_page, remainder = orders.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    orders = JSON.parse(orders.first(current_page * display_count).last(display_count).to_json(methods: [:total_price, :total_commission, :product_names, :order_date, :include_product]))
+    render json: { status: 'success', orders: orders, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
