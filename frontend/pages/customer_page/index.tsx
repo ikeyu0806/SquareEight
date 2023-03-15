@@ -58,6 +58,9 @@ const Index: NextPage = () => {
                   )
                 })}
               </ListGroup>
+              <div className='text-center mt10'>
+                <a className='btn btn-primary' href='/customer_page/notification/list'>もっと見る</a>
+              </div>
             </Col>
             <Col>
               <ListGroup as='ul'>
@@ -76,6 +79,9 @@ const Index: NextPage = () => {
                   )
                 })}
               </ListGroup>
+              <div className='text-center mt10'>
+                <a className='btn btn-primary' href='/customer_page/system_notification/list'>もっと見る</a>
+              </div>
             </Col>
           </Row>
         </Container>
