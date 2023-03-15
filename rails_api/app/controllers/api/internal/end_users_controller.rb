@@ -222,8 +222,14 @@ class Api::Internal::EndUsersController < ApplicationController
   end
 
   def subscription_lists
-    subscriptions = JSON.parse(current_end_user.merchant_stripe_subscriptions.where(canceled_at: nil).to_json(methods: [:monthly_payment_plan_name, :account_business_name]))
-    render json: { status: 'success', subscriptions: subscriptions }, status: 200
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    subscriptions = current_end_user.merchant_stripe_subscriptions
+    last_page, remainder = subscriptions.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    subscriptions = JSON.parse(subscriptions.where(canceled_at: nil).first(current_page * display_count).last(display_count).to_json(methods: [:monthly_payment_plan_name, :account_business_name]))
+    render json: { status: 'success', subscriptions: subscriptions, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

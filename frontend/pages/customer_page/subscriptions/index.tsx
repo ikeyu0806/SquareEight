@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, ListGroup, Row, Col, Button, Table } from 'react-bootstrap'
+import { Container, Pagination, Row, Col, Button, Table } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -9,25 +9,42 @@ import { MerchantStripeSubscription } from 'interfaces/MerchantStripeSubscriptio
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import SubscriptionDescribeModal from 'components/molecules/SubscriptionDescribeModal'
 import { showSubscriptionDescribeModalChanged } from 'redux/accountSlice'
+import { usePaginationNumber } from 'hooks/usePaginationNumber'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [stripeSubscriptions, setStripeSubscriptions] = useState<MerchantStripeSubscription[]>()
+  // Pagination用
+  // 表示するレコード数
+  const displayCount = 20
+  const [currentPage, setCurrentPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1000)
+  let usePaginationNumberReturnVal = usePaginationNumber(currentPage, lastPage)
+  let firstPaginationNum: number = usePaginationNumberReturnVal[0]
+  let secondPaginationNum: number = usePaginationNumberReturnVal[1]
+  let thirdPaginationNum: number = usePaginationNumberReturnVal[2]
+  let forthPaginationNum: number = usePaginationNumberReturnVal[3]
+  let fifthPaginationNum: number = usePaginationNumberReturnVal[4]
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_users/subscription_lists`,
     {
       headers: {
         'Session-Id': cookies._square_eight_end_user_session
+      },
+      params: {
+        current_page: currentPage,
+        display_count: displayCount
       }
     }).then((response) => {
       console.log(response.data)
       setStripeSubscriptions(response.data.subscriptions)
+      setLastPage(response.data.last_page)
     }).catch((error) => {
       console.log(error)
     })
-  }, [dispatch, cookies._square_eight_end_user_session])
+  }, [dispatch, cookies._square_eight_end_user_session, currentPage, lastPage])
 
   const cancelSubscription = (subscription: MerchantStripeSubscription) => {
     swalWithBootstrapButtons.fire({
@@ -109,6 +126,29 @@ const Index: NextPage = () => {
             </>}
             {stripeSubscriptions && stripeSubscriptions.length === 0 &&
             <div className='text-center font-size-25'>加入しているサブスクリプションがありません</div>}
+            <Pagination>
+              <Pagination.First onClick={() => setCurrentPage(1)} />
+              {currentPage > 1 && <Pagination.Prev
+                onClick={() => setCurrentPage(currentPage - 1)} />}
+              <Pagination.Item
+                active={currentPage == firstPaginationNum}
+                onClick={() => setCurrentPage(firstPaginationNum)}>{firstPaginationNum}</Pagination.Item>
+              {lastPage > 1 && <Pagination.Item
+                active={currentPage == secondPaginationNum}
+                onClick={() => setCurrentPage(secondPaginationNum)}>{secondPaginationNum}</Pagination.Item>}
+              {lastPage > 2 && <Pagination.Item
+                active={currentPage == thirdPaginationNum}
+                onClick={() => setCurrentPage(thirdPaginationNum)}>{thirdPaginationNum}</Pagination.Item>}
+              {lastPage > 3 && currentPage < lastPage &&  <Pagination.Item
+                active={currentPage == forthPaginationNum}
+                onClick={() => setCurrentPage(forthPaginationNum)}>{forthPaginationNum}</Pagination.Item>}
+              {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
+                active={currentPage == fifthPaginationNum}
+                onClick={() => setCurrentPage(fifthPaginationNum)}>{fifthPaginationNum}</Pagination.Item>}
+              {currentPage !== lastPage && <Pagination.Next
+                onClick={() => setCurrentPage(currentPage + 1)} />}
+              <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
+            </Pagination>
             </Col>
             <Col lg={1}></Col>
           </Row>
