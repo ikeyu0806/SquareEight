@@ -54,6 +54,7 @@ const Index: NextPage = () => {
                 <thead>
                   <tr>
                     <th>回数券名</th>
+                    <th>購入時枚数</th>
                     <th>残り枚数</th>
                     <th>有効期限</th>
                     <th>詳細</th>
@@ -64,6 +65,7 @@ const Index: NextPage = () => {
                     return (
                       <tr key={i}>
                         <td>{ticket.name}</td>
+                        <td>{ticket.purchased_number}</td>
                         <td>{ticket.remain_number}</td>
                         <td>
                           {ticket.display_expired_at}

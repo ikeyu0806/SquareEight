@@ -174,6 +174,7 @@ class Api::Internal::CashRegistersController < ApplicationController
                             .purchased_tickets
                             .new(ticket_master_id: ticket_master.id,
                                  expired_at: Time.zone.now + ticket_master.effective_month.month,
+                                 purchased_number: ticket_master.issue_number,
                                  remain_number: cart[:issue_number])
           purchased_ticket.save!
           current_end_user.cart_ticket_masters.where(ticket_master_id: ticket_master.id).delete_all
