@@ -1,30 +1,47 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col, Button, Table } from 'react-bootstrap'
+import { Container, Button, Table, Pagination } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import { useCookies } from 'react-cookie'
 import { ReservationParam } from 'interfaces/ReservationParam'
 import { paymentMethodText } from 'functions/paymentMethodText'
 import { swalWithBootstrapButtons } from 'constants/swalWithBootstrapButtons'
 import axios from 'axios'
+import { usePaginationNumber } from 'hooks/usePaginationNumber'
 
 const Index: NextPage = () => {
   const [cookies] = useCookies(['_square_eight_end_user_session'])
   const [reservations, setReservatons] = useState<ReservationParam[]>([])
+  // Pagination用
+  // 表示するレコード数
+  const displayCount = 20
+  const [currentPage, setCurrentPage] = useState(1)
+  const [lastPage, setLastPage] = useState(1000)
+  let usePaginationNumberReturnVal = usePaginationNumber(currentPage, lastPage)
+  let firstPaginationNum: number = usePaginationNumberReturnVal[0]
+  let secondPaginationNum: number = usePaginationNumberReturnVal[1]
+  let thirdPaginationNum: number = usePaginationNumberReturnVal[2]
+  let forthPaginationNum: number = usePaginationNumberReturnVal[3]
+  let fifthPaginationNum: number = usePaginationNumberReturnVal[4]
 
   useEffect(() => {
     axios.get(`${process.env.BACKEND_URL}/api/internal/end_user/reservations`,
     {
       headers: {
         'Session-Id': cookies._square_eight_end_user_session
+      },
+      params: {
+        current_page: currentPage,
+        display_count: displayCount
       }
     }).then((response) => {
       console.log(response.data)
       setReservatons(response.data.reservations)
+      setLastPage(response.data.last_page)
     }).catch((error) => {
       console.log(error)
     })
-  }, [cookies._square_eight_end_user_session])
+  }, [cookies._square_eight_end_user_session, currentPage, lastPage])
 
   const execCancel = (publicId: string) => {
     swalWithBootstrapButtons.fire({
@@ -99,6 +116,29 @@ const Index: NextPage = () => {
               })}
               </tbody>
             </Table>
+            <Pagination>
+              <Pagination.First onClick={() => setCurrentPage(1)} />
+              {currentPage > 1 && <Pagination.Prev
+                onClick={() => setCurrentPage(currentPage - 1)} />}
+              <Pagination.Item
+                active={currentPage == firstPaginationNum}
+                onClick={() => setCurrentPage(firstPaginationNum)}>{firstPaginationNum}</Pagination.Item>
+              {lastPage > 1 && <Pagination.Item
+                active={currentPage == secondPaginationNum}
+                onClick={() => setCurrentPage(secondPaginationNum)}>{secondPaginationNum}</Pagination.Item>}
+              {lastPage > 2 && <Pagination.Item
+                active={currentPage == thirdPaginationNum}
+                onClick={() => setCurrentPage(thirdPaginationNum)}>{thirdPaginationNum}</Pagination.Item>}
+              {lastPage > 3 && currentPage < lastPage &&  <Pagination.Item
+                active={currentPage == forthPaginationNum}
+                onClick={() => setCurrentPage(forthPaginationNum)}>{forthPaginationNum}</Pagination.Item>}
+              {lastPage > 4 && currentPage < lastPage - 1 && <Pagination.Item
+                active={currentPage == fifthPaginationNum}
+                onClick={() => setCurrentPage(fifthPaginationNum)}>{fifthPaginationNum}</Pagination.Item>}
+              {currentPage !== lastPage && <Pagination.Next
+                onClick={() => setCurrentPage(currentPage + 1)} />}
+              <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
+            </Pagination>
           </Container>
         </div>
       </EndUserLoginLayout>

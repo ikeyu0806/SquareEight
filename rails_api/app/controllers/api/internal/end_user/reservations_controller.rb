@@ -2,9 +2,14 @@ class Api::Internal::EndUser::ReservationsController < ApplicationController
   before_action :end_user_login_only!
 
   def index
-    reservations = current_end_user
-                   .reservations
-                   .order(id: :desc)
+    # ページネーション
+    current_page = params[:current_page].to_i
+    display_count = params[:display_count].to_i
+    reservations = current_end_user.reservations
+    last_page, remainder = reservations.count.divmod(display_count)
+    last_page += 1 if remainder.positive?
+    reservations = reservations.order(start_at: :desc).first(current_page * display_count).last(display_count)
+    reservations = reservations
                    .to_json(methods: [:reserve_frame_title,
                                       :display_reservation_datetime,
                                       :display_payment_method,
@@ -15,7 +20,7 @@ class Api::Internal::EndUser::ReservationsController < ApplicationController
                                       :ticket_consume_number,
                                       :cancel_reception_text])
     reservations = JSON.parse(reservations)
-    render json: { status: 'success', reservations: reservations }, status: 200
+    render json: { status: 'success', reservations: reservations, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
