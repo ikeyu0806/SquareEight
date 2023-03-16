@@ -76,6 +76,7 @@ const Index: NextPage = () => {
               })}
             </tbody>
           </Table>}
+          {stripePaymentIntents && stripePaymentIntents.length > 0 &&
           <Pagination>
             <Pagination.First onClick={() => setCurrentPage(1)} />
             {currentPage > 1 && <Pagination.Prev
@@ -98,7 +99,7 @@ const Index: NextPage = () => {
             {currentPage !== lastPage && <Pagination.Next
               onClick={() => setCurrentPage(currentPage + 1)} />}
             <Pagination.Last onClick={() => setCurrentPage(lastPage)} />
-          </Pagination>
+          </Pagination>}
           {stripePaymentIntents && stripePaymentIntents.length === 0 &&
             <div className='text-center font-size-25'>お支払い履歴がありません</div>}
         </Container>
