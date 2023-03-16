@@ -299,7 +299,10 @@ class Reservation < ApplicationRecord
         # 決済
         Stripe.api_key = Rails.configuration.stripe[:secret_key]
         Stripe.api_version = '2022-08-01'
-        Stripe::Refund.create({payment_intent: self.stripe_payment_intent_id})
+        Stripe::Refund.create({
+          payment_intent: self.stripe_payment_intent_id,
+          reverse_transfer: true
+        })
       when 'ticket'
         self.reservation_purchased_ticket_relations.update_all(consume_number: 0)
       else

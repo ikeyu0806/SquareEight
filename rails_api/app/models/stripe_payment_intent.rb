@@ -48,7 +48,10 @@ class StripePaymentIntent < ApplicationRecord
   def refund_payment
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe.api_version = '2022-08-01'
-    Stripe::Refund.create({payment_intent: self.stripe_payment_intent_id})
+    Stripe::Refund.create({
+      payment_intent: self.stripe_payment_intent_id,
+      reverse_transfer: true
+    })
     self.update!(refund_at: Time.zone.now)
   end
 
