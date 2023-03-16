@@ -184,4 +184,9 @@ class EndUser < ApplicationRecord
   def today_reservations_count
     reservations.where(start_at: Time.zone.now.beginning_of_day..Time.zone.now.end_of_day).count
   end
+
+  def create_first_notification
+    self.end_user_notifications.create!(title: "SquareEightへの要望・ご意見受け付けております", url: "/inquiry")
+    self.end_user_notifications.create!(title: "こちらのページからクレジットカード情報の登録・更新ができます。", url: "/customer_page/payment_method")
+  end
 end

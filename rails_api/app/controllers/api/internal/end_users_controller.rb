@@ -94,7 +94,6 @@ class Api::Internal::EndUsersController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
-
   def find_or_create_by_google_auth
     ActiveRecord::Base.transaction do
       if current_end_user.present?
@@ -121,14 +120,17 @@ class Api::Internal::EndUsersController < ApplicationController
   end
 
   def confirm_verification_code
-    email = Base64.urlsafe_decode64(end_user_params[:email])
-    end_user = EndUser.find_by(email: email)
-    render json: { errMessage: "不正な検証コードです" }, status: 401 and return if end_user.verification_code != end_user_params[:verification_code]
-    render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if end_user.verification_code_expired_at < Time.zone.now
-    end_user.update!(email_authentication_status: 'Enabled')
-    session['end_user_id'] = end_user.id
-    EndUserMailer.registration_complete(end_user.id).deliver_now
-    render json: { status: 'success', session_id: session.id, }, status: 200
+    ActiveRecord::Base.transaction do
+      email = Base64.urlsafe_decode64(end_user_params[:email])
+      end_user = EndUser.find_by(email: email)
+      render json: { errMessage: "不正な検証コードです" }, status: 401 and return if end_user.verification_code != end_user_params[:verification_code]
+      render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if end_user.verification_code_expired_at < Time.zone.now
+      end_user.update!(email_authentication_status: 'Enabled')
+      end_user.create_first_notification
+      session['end_user_id'] = end_user.id
+      EndUserMailer.registration_complete(end_user.id).deliver_now
+      render json: { status: 'success', session_id: session.id, }, status: 200
+    end
   rescue => error
     render json: { status: 'fail', error: error }, status: 500
   end
