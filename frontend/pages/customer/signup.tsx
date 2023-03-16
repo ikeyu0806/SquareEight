@@ -1,10 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
-import { Container, Card, Row, Col, Form, Button } from 'react-bootstrap'
+import { Container, Card, Row, Col, Form, Alert } from 'react-bootstrap'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
-import { alertChanged } from 'redux/alertSlice'
 import { loginStatusChanged } from 'redux/currentMerchantUserSlice'
 import { RootState } from 'redux/store'
 import { useCookies } from 'react-cookie'
@@ -133,7 +132,7 @@ const Signup: NextPage = () => {
                           disabled={!lastName || !firstName || !email || !password || (password !== confirmPassword)}
                           onClick={onSubmit}/>
                       </div>
-                      {alertText && <div className='mt10'>{alertText}</div>}
+                      {alertText && <Alert className='mt10'>{alertText}</Alert>}
                     </Form>
                     <hr />
                     <GoogleAuthButton

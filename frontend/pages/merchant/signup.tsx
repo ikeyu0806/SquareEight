@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import type { NextPage } from 'next'
-import { Container, Card, Row, Col, Form, Button, Alert } from 'react-bootstrap'
+import { Container, Card, Row, Col, Form, Alert } from 'react-bootstrap'
 import WithoutSessionLayout from 'components/templates/WithoutSessionLayout'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -129,7 +129,7 @@ const Signup: NextPage = () => {
                           buttonType='submit'
                           onClick={onSubmit}
                         />
-                        {alertText && <div className='mt10'>{alertText}</div>}
+                        {alertText && <Alert className='mt10'>{alertText}</Alert>}
                       </div>
                     </Form>
                     <hr />
