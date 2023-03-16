@@ -146,14 +146,17 @@ class Api::Internal::MerchantUsersController < ApplicationController
   end
 
   def confirm_verification_code
-    email = Base64.urlsafe_decode64(merchant_user_params[:email])
-    merchant_user = MerchantUser.find_by(email: email)
-    render json: { errMessage: "不正な検証コードです" }, status: 401 and return if merchant_user.verification_code != merchant_user_params[:verification_code]
-    render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if merchant_user.verification_code_expired_at < Time.zone.now
-    merchant_user.update!(email_authentication_status: 'Enabled')
-    session['merchant_user_id'] = merchant_user.id
-    MerchantUserMailer.registration_complete(merchant_user.email).deliver_now
-    render json: { status: 'success', session_id: session.id }, status: 200
+    ActiveRecord::Base.transaction do
+      email = Base64.urlsafe_decode64(merchant_user_params[:email])
+      merchant_user = MerchantUser.find_by(email: email)
+      render json: { errMessage: "不正な検証コードです" }, status: 401 and return if merchant_user.verification_code != merchant_user_params[:verification_code]
+      render json: { errMessage: "検証コードの期限が切れています" }, status: 401 and return if merchant_user.verification_code_expired_at < Time.zone.now
+      merchant_user.update!(email_authentication_status: 'Enabled')
+      session['merchant_user_id'] = merchant_user.id
+      MerchantUserMailer.registration_complete(merchant_user.email).deliver_now
+      merchant_user.account.create_first_notification
+      render json: { status: 'success', session_id: session.id }, status: 200
+    end
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
