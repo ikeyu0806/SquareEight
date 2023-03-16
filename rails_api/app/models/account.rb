@@ -206,6 +206,9 @@ class Account < ApplicationRecord
 
   def create_first_notification
     self.account_notifications.create!(title: "SquareEightへの要望・ご意見受け付けております", url: "/inquiry")
-    self.account_notifications.create!(title: "登録ありがとうございます。まずは店舗情報を登録してください。", url: "/admin/shop/new")
+    self.account_notifications.create!(title: "まずは店舗情報を登録してください。", url: "/admin/shop/new")
+    self.account_notifications.create!(title: "ナビゲーションバーの「プラン変更」からプランを変更できます。", url: "/admin/plan/choice")
+    self.account_notifications.create!(title: "事業所情報と振込先口座を登録してオンライン決済機能を有効化してください。", url: "/admin/sales_transfer")
+    self.account_notifications.create!(title: "SquareEightで作成したページのヘッダーにお店の名前を設定できます。", url: "/admin/shared_component/edit")
   end
 end
