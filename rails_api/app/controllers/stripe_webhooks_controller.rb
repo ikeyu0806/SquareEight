@@ -72,7 +72,7 @@ class StripeWebhooksController < ApplicationController
       end
   
       # invoice確定時。PaymentIntentで登録されていなかったデータを登録
-      if stripe_params["type"] == "invoice.finalized"
+      if stripe_params["type"] == "invoice.finalized" && stripe_params["data"]["object"]["payment_intent"].present?
         stripe_customer_id = stripe_params["data"]["object"]["customer"]
         stripe_payment_intent_id = stripe_params["data"]["object"]["payment_intent"]
         stripe_payment_intent = StripePaymentIntent.find_or_initialize_by(stripe_payment_intent_id: stripe_payment_intent_id)
