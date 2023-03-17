@@ -25,7 +25,7 @@ class MerchantStripeSubscription < ApplicationRecord
   end
 
   def canceled_at_text
-    return nil if canceled_at.blank?
+    return '' if canceled_at.blank?
     canceled_at.strftime("%Y/%m/%d")
   end
 

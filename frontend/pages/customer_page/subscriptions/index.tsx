@@ -87,7 +87,7 @@ const Index: NextPage = () => {
             <Col>
             {stripeSubscriptions && stripeSubscriptions.length > 0 &&
             <>
-              <h3>加入中サブスクリプション</h3>
+              <h3>加入サブスクリプション一覧</h3>
               <Button
                 className='mt20 mb20 text-white'
                 variant='info'
@@ -107,7 +107,10 @@ const Index: NextPage = () => {
                   {stripeSubscriptions && stripeSubscriptions.map((s, i) => {
                   return (
                       <tr key={i}>
-                        <td>{s.monthly_payment_plan_name}</td>
+                        <td>
+                          {s.monthly_payment_plan_name}
+                          {s.canceled_at_text === '' && <span className='ml10 badge bg-info'>加入中</span>}
+                        </td>
                         <td>{s.account_business_name}</td>
                         <td>{s.joined_date_text}</td>
                         <td>{s.billing_cycle_anchor_day}</td>
@@ -118,9 +121,13 @@ const Index: NextPage = () => {
                             rel='noreferrer'>購入ページ</a>
                         </td>
                         <td>
-                          <Button
-                            variant='danger'
-                            onClick={() => cancelSubscription(s)}>解約する</Button>
+                          {s.canceled_at_text === ''
+                          ?
+                            <Button
+                              variant='danger'
+                              onClick={() => cancelSubscription(s)}>解約する</Button>
+                          :
+                            <div>{s.canceled_at_text}に解約</div>}
                         </td>
                       </tr>
                     )

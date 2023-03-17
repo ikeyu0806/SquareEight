@@ -237,13 +237,13 @@ class Api::Internal::EndUsersController < ApplicationController
     last_page, remainder = subscriptions.count.divmod(display_count)
     last_page += 1 if remainder.positive?
     subscriptions = JSON.parse(subscriptions
-      .where(canceled_at: nil)
       .first(current_page * display_count).last(display_count)
       .to_json(methods: [
         :monthly_payment_plan_name,
         :account_business_name,
         :joined_date_text,
-        :billing_cycle_anchor_day]))
+        :billing_cycle_anchor_day,
+        :canceled_at_text]))
     render json: { status: 'success', subscriptions: subscriptions, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
