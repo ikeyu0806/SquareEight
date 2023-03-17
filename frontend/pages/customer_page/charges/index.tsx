@@ -7,6 +7,9 @@ import { useDispatch } from 'react-redux'
 import { StripePaymentIntentsParam } from 'interfaces/StripePaymentIntentsParam'
 import { useCookies } from 'react-cookie'
 import { usePaginationNumber } from 'hooks/usePaginationNumber'
+import PaymentIntentModal from 'components/templates/PaymentIntentModal'
+import { selectedStripePaymentIntentChanged,
+         showPaymentIntentModalChanged } from 'redux/stripePaymentIntentSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -69,7 +72,13 @@ const Index: NextPage = () => {
                     <td className='text-center'>￥{payment.amount}</td>
                     <td className='text-center'>{payment.order_date}</td>
                     <td className='text-center'>
-                      <Button variant='info' className='text-white'>領収書を表示</Button>
+                      <Button
+                        onClick={() => {
+                          dispatch(selectedStripePaymentIntentChanged(payment))
+                          dispatch(showPaymentIntentModalChanged(true))
+                        }}
+                        variant='info'
+                        className='text-white'>領収書を表示</Button>
                     </td>
                   </tr>
                 )
@@ -103,6 +112,7 @@ const Index: NextPage = () => {
           {stripePaymentIntents && stripePaymentIntents.length === 0 &&
             <div className='text-center font-size-25'>お支払い履歴がありません</div>}
         </Container>
+        <PaymentIntentModal />
       </EndUserLoginLayout>
     </>
   )
