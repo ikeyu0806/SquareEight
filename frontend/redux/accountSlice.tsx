@@ -16,7 +16,8 @@ export const accountSlice = createSlice({
     customers: [] as CustomerParam[],
     messageTemplates: [] as MessageTemplateParam[],
     htmlMailTemplate: [] as HtmlMailTemplateParam[],
-    shops: [] as ShopParam[]
+    shops: [] as ShopParam[],
+    showStripeSalesTransferGuideModal: false
   },
   reducers: {
     showLineOfficialAccountModalChanged: (state, action: PayloadAction<boolean>) => {
@@ -46,6 +47,9 @@ export const accountSlice = createSlice({
     shopsChanged: (state, action: PayloadAction<ShopParam[]>) => {
       state.shops = action.payload
     },
+    showStripeSalesTransferGuideModalChanged: (state, action: PayloadAction<boolean>) => {
+      state.showStripeSalesTransferGuideModal = action.payload
+    },
   },
 })
 
@@ -58,5 +62,6 @@ export const { customersChanged } = accountSlice.actions
 export const { messageTemplatesChanged } = accountSlice.actions
 export const { htmlMailTemplateChanged } = accountSlice.actions
 export const { shopsChanged } = accountSlice.actions
+export const { showStripeSalesTransferGuideModalChanged } = accountSlice.actions
 
 export default accountSlice.reducer

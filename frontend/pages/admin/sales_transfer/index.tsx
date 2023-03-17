@@ -12,6 +12,8 @@ import { StripePersonParam } from 'interfaces/StripePersonParam'
 import { ServiceStripePersonParam } from 'interfaces/ServiceStripePersonParam'
 import CheckIcon from 'components/atoms/CheckIcon'
 import Unauthorized from 'components/templates/Unauthorized'
+import StripeSalesTransferGuideModal from 'components/templates/StripeSalesTransferGuideModal'
+import { showStripeSalesTransferGuideModalChanged } from 'redux/accountSlice'
 
 const Index: NextPage = () => {
   const dispatch = useDispatch()
@@ -115,6 +117,12 @@ const Index: NextPage = () => {
                 <a href='/admin/sales_transfer/register_stripe_person'>代表者以外にも事業を所有する幹部, オーナー, 取締役が存在する場合こちらから登録してください</a>
               </Alert>
           } */}
+          <br />
+          <Button
+            onClick={() => dispatch(showStripeSalesTransferGuideModalChanged(true))}
+            className='text-white' variant='info'>
+            売り上げの入金タイミングについて
+          </Button>
           <Row>
             <Col>
               <Card className='mt20 mb20'>
@@ -279,6 +287,7 @@ const Index: NextPage = () => {
           </Row>
         </Container>}
         {allowReadStripeBusinessInfo === 'Forbid' && <Unauthorized />}
+        <StripeSalesTransferGuideModal />
       </MerchantUserAdminLayout>
     </>
   )
