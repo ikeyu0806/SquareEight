@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Table, Pagination } from 'react-bootstrap'
+import { Container, Table, Pagination, Button } from 'react-bootstrap'
 import EndUserLoginLayout from 'components/templates/EndUserLoginLayout'
 import axios from 'axios'
 import { useDispatch } from 'react-redux'
@@ -57,7 +57,7 @@ const Index: NextPage = () => {
                 <th className='text-center'>購入先</th>
                 <th className='text-center'>料金</th>
                 <th className='text-center'>購入日</th>
-                {/* <th className='text-center'>支払いのキャンセル</th> */}
+                <th className='text-center'>領収書</th>
               </tr>
             </thead>
             <tbody>
@@ -68,9 +68,9 @@ const Index: NextPage = () => {
                     <td className='text-center'>{payment.account_business_name}</td>
                     <td className='text-center'>￥{payment.amount}</td>
                     <td className='text-center'>{payment.order_date}</td>
-                    {/* <td className='text-center'>
-                      <Button size='sm' variant='danger'>キャンセル</Button>
-                    </td> */}
+                    <td className='text-center'>
+                      <Button variant='info' className='text-white'>領収書を表示</Button>
+                    </td>
                   </tr>
                 )
               })}
