@@ -97,6 +97,8 @@ const Index: NextPage = () => {
                   <tr>
                     <th>サブスクリプション名</th>
                     <th>購入先</th>
+                    <th>加入日</th>
+                    <th>請求日</th>
                     <th>購入ページ</th>
                     <th>解約</th>
                   </tr>
@@ -107,6 +109,8 @@ const Index: NextPage = () => {
                       <tr key={i}>
                         <td>{s.monthly_payment_plan_name}</td>
                         <td>{s.account_business_name}</td>
+                        <td>{s.joined_date_text}</td>
+                        <td>{s.billing_cycle_anchor_day}</td>
                         <td>
                         <a  className='btn btn-primary'
                             href={`/monthly_payment/${s.public_id}/purchase`}
