@@ -210,12 +210,14 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.save
 
       if params["individual_document_front_image_file"].present? && !params["individual_document_front_image_file"].eql?("null")
-        image = Magick::Image.read(File.new(params["individual_document_front_image_file"])).first
+        file = File.new(params["individual_document_front_image_file"])
+        image = Magick::Image.read(file).first
         png_image = image.write("individual_document_front_image_#{Time.zone.now.strftime('%Y%m%d%H%M%S%3N')}.png")
+        image = File.new(png_image.filename)
         verification_document = Stripe::File.create(
           {
             purpose: 'identity_document',
-            file: png_image
+            file: image
           },
           {
             stripe_account: stripe_account.id
