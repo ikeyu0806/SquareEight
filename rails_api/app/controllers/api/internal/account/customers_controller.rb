@@ -50,7 +50,8 @@ class Api::Internal::Account::CustomersController < ApplicationController
   def orders
     customer = Customer.find_by(public_id: params[:customer_public_id])
     if customer.end_user.present?
-      orders = JSON.parse(customer.end_user.orders.to_json(methods: [:total_price, :total_commission, :product_names, :order_date, :include_product]))
+      orders = customer.end_user.orders
+      orders = JSON.parse(orders.to_json(methods: [:total_price, :total_commission, :product_names, :order_date, :include_product]))
     else
       orders = []
     end
