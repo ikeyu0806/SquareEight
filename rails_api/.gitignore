@@ -34,3 +34,4 @@ docker/docker_*.env
 *identification_image*
 *company_verification_document_image*
 *.png
+*.jpeg
