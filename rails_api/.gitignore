@@ -33,3 +33,4 @@ docker/docker_*.env
 .DS_Store
 *identification_image*
 *company_verification_document_image*
+*.png
