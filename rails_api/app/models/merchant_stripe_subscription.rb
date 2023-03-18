@@ -32,4 +32,8 @@ class MerchantStripeSubscription < ApplicationRecord
   def joined_date_text
     created_at.strftime("%Y/%m/%d")
   end
+
+  def monthly_payment_plan_public_id
+    monthly_payment_plan.public_id
+  end
 end

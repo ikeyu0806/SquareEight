@@ -116,7 +116,7 @@ const Index: NextPage = () => {
                         <td>{s.billing_cycle_anchor_day}</td>
                         <td>
                         <a  className='btn btn-primary'
-                            href={`/monthly_payment/${s.public_id}/purchase`}
+                            href={`/monthly_payment/${s.monthly_payment_plan_public_id}/purchase`}
                             target='_blank'
                             rel='noreferrer'>購入ページ</a>
                         </td>

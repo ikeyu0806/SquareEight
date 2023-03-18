@@ -5,4 +5,5 @@ export interface MerchantStripeSubscriptionParam {
   billing_cycle_anchor_day: number
   canceled_at_text: string
   joined_date_text: string
+  monthly_payment_plan_public_id: string
 }

@@ -243,7 +243,8 @@ class Api::Internal::EndUsersController < ApplicationController
         :account_business_name,
         :joined_date_text,
         :billing_cycle_anchor_day,
-        :canceled_at_text]))
+        :canceled_at_text,
+        :monthly_payment_plan_public_id]))
     render json: { status: 'success', subscriptions: subscriptions, last_page: last_page }, status: 200
   rescue => error
     Rails.logger.error error
