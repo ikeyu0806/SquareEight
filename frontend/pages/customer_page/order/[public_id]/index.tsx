@@ -63,6 +63,7 @@ const Index: NextPage = () => {
                         <div>購入先: {item.business_name}</div>
                         <div>{item.product_name} ￥{item.price}</div>
                         {item.delivery_date_text && <div>指定配送日時: {item.delivery_date_text}</div>}
+                        <hr />
                       </span>
                     )
                   })}
