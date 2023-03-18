@@ -212,7 +212,7 @@ class Api::Internal::AccountsController < ApplicationController
       stripe_account.save
 
       if params["individual_document_front_image_file"].present? && !params["individual_document_front_image_file"].eql?("null")
-        png_image = convert_to_png(params["individual_document_front_image_file"], "individual_document_front_image_file")
+        png_image = convert_to_jpeg(params["individual_document_front_image_file"], "individual_document_front_image_file")
         verification_document = Stripe::File.create(
           {
             purpose: 'identity_document',
@@ -228,7 +228,7 @@ class Api::Internal::AccountsController < ApplicationController
 
 
       if params["individual_additional_document_front_image_file"].present? && !params["individual_additional_document_front_image_file"].eql?("null")
-        png_image = convert_to_png(params["individual_additional_document_front_image_file"], "individual_additional_document_front_image")
+        png_image = convert_to_jpeg(params["individual_additional_document_front_image_file"], "individual_additional_document_front_image")
         verification_document = Stripe::File.create(
           {
             purpose: 'identity_document',
@@ -281,7 +281,7 @@ class Api::Internal::AccountsController < ApplicationController
 
       # 法人確認ドキュメント
       if params["company_verification_document_image_file"].present? && !params["company_verification_document_image_file"].eql?("null")
-        png_file = convert_to_png(params["company_verification_document_image_file"], "company_verification_document_image")
+        png_file = convert_to_jpeg(params["company_verification_document_image_file"], "company_verification_document_image")
         verification_document = Stripe::File.create(
           {
             purpose: 'identity_document',
@@ -354,7 +354,7 @@ class Api::Internal::AccountsController < ApplicationController
 
       # 本人確認ドキュメント
       if params["representative_identification_image"].present? && !params["representative_identification_image"].eql?("null")
-        png_file = convert_to_png(params["representative_identification_image"], "representative_identification")
+        png_file = convert_to_jpeg(params["representative_identification_image"], "representative_identification")
         verification_document = Stripe::File.create(
           {
             purpose: 'identity_document',
