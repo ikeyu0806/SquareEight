@@ -389,6 +389,12 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
         <option value='Publish'>公開</option>
       </Form.Select>
 
+      {reserveFrames.length === 0 &&
+        <>
+          <div className='mt20'>予約メニューが登録されていません。</div>
+          <div>予約メニューへのリンクを店舗ページに表示することができます。</div>
+        </>
+      }
       {reserveFrames.length !== 0 &&
       <>
         <hr />
@@ -406,6 +412,12 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
           )
         })}
       </>}
+      {ticketMasters.length === 0 &&
+        <>
+          <div className='mt20'>回数券が登録されていません。</div>
+          <div>回数券購入ページへのリンクを店舗ページに表示することができます。</div>
+        </>
+      }
       {ticketMasters.length !== 0 &&
       <>
         <hr />
@@ -423,6 +435,12 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
           )
         })}
       </>}
+      {monthlyPaymentPlans.length === 0 &&
+        <>
+          <div className='mt20'>月額サブスクリプションが登録されていません。</div>
+          <div>月額サブスクリプション加入ページへのリンクを店舗ページに表示することができます。</div>
+        </>
+      }
       {monthlyPaymentPlans.length !== 0 &&
       <>
         <hr />
@@ -440,6 +458,12 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
           )
         })}
       </>}
+      {products.length === 0 &&
+        <>
+          <div className='mt20'>商品が登録されていません。</div>
+          <div>商品購入ページへのリンクを店舗ページに表示することができます。</div>
+        </>
+      }
       {products.length !== 0 &&
       <>
         <hr />
@@ -457,6 +481,12 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
           )
         })}
       </>}
+      {resources.length === 0 &&
+        <>
+          <div className='mt20'>リソースが登録されていません。</div>
+          <div>リソースページへのリンクを店舗ページに表示することができます。</div>
+        </>
+      }
       {resources.length !== 0 &&
       <>
         <hr />
@@ -474,6 +504,12 @@ const CreateShop = ({showDeleteButton}: Props): JSX.Element => {
           )
         })}
       </>}
+      {webpages.length === 0 &&
+        <>
+          <div className='mt20'>Webページが登録されていません。</div>
+          <div>Webページへのリンクを店舗ページに表示することができます。</div>
+        </>
+      }
       {webpages.length !== 0 &&
       <>
         <hr />
