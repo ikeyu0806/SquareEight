@@ -460,7 +460,7 @@ class Api::Internal::AccountsController < ApplicationController
     stripe_account_id = current_merchant_user.account.stripe_account_id
     if stripe_account_id.present?
       stripe_account = JSON.parse(Stripe::Account.retrieve(stripe_account_id).to_json)
-      stripe_persons = JSON.parse(Stripe::Account.list_persons('acct_1LVs6c2c71M0ULtv',{limit: 100},).to_json)["data"]
+      stripe_persons = JSON.parse(Stripe::Account.list_persons(stripe_account_id,{limit: 100},).to_json)["data"]
     else
       stripe_account = {}
     end
