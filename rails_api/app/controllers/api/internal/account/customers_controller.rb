@@ -48,14 +48,27 @@ class Api::Internal::Account::CustomersController < ApplicationController
   end
 
   def orders
-    customer = Customer.find_by(public_id: params[:customer_public_id])
-    if customer.end_user.present?
-      orders = customer.end_user.orders
-      orders = JSON.parse(orders.to_json(methods: [:total_price, :total_commission, :product_names, :order_date, :include_product]))
+    account = current_merchant_user.account
+    customer = account.customers.find_by(public_id: params[:customer_public_id])
+    end_user = customer.end_user
+    if end_user.present?
+      order_items = end_user.order_items.where(account_id: account.id)
+      order_items = order_items.to_json(
+        methods: [:address,
+                  :postal_code,
+                  :order_name,
+                  :product_inventory,
+                  :product_inventory_allocation,
+                  :product_type_inventory,
+                  :product_type_inventory_allocation,
+                  :is_product_type_exists,
+                  :end_user_name,
+                  :customer_public_id])
+      order_items = JSON.parse(order_items)
     else
-      orders = []
+      order_items = []
     end
-    render json: { status: 'success', orders: orders, customer: customer }, status: 200
+    render json: { status: 'success', order_items: order_items, customer: customer }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

@@ -8,6 +8,7 @@ class EndUser < ApplicationRecord
   has_secure_password(validations: false)
 
   has_many :orders
+  has_many :order_items, through: :orders
   has_many :purchased_tickets
   has_many :delivery_targets
   has_many :cart_products
