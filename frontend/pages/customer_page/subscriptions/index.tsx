@@ -95,7 +95,7 @@ const Index: NextPage = () => {
               <Table bordered>
                 <thead>
                   <tr>
-                    <th>サブスクリプション名</th>
+                    <th style={{width: '35%'}}>サブスクリプション名</th>
                     <th>購入先</th>
                     <th>加入日</th>
                     <th>請求日</th>
