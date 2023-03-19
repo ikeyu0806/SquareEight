@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   namespace :api do
     namespace :batch do
+      post 'merchant_subscriptions/exec_payment', to: 'merchant_subscriptions#exec_payment'
+      post 'system_subscriptions/exec_payment', to: 'system_subscriptions#exec_payment'
       post 'reservations/remind_tommorow_notifications', to: 'reservations#remind_tommorow_notifications'
       post 'reservations/confirm_lottery_reservations', to: 'reservations#confirm_lottery_reservations'
       post 'send_mail_schedules/send_same_hour_schedules', to: 'send_mail_schedules#send_same_hour_schedules'
