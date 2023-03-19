@@ -230,18 +230,20 @@ class Account < ApplicationRecord
       subscription.update!(
         canceled_at: Time.zone.now
       )
-      self.update!(service_plan: "Free")
-      # 日割りで請求
-      payment_intent = Stripe::PaymentIntent.create({
-        amount: self.plan_price,
-        currency: 'jpy',
-        payment_method_types: ['card'],
-        customer: self.stripe_customer_id,
-        metadata: self.stripe_serivice_plan_subscription_metadata
-      })
-      Stripe::PaymentIntent.confirm(
-        payment_intent.id
-      )
+      if subscription.service_plan !== "Free"
+        # 日割りで請求
+        payment_intent = Stripe::PaymentIntent.create({
+          amount: subscription.prorated_plan_price,
+          currency: 'jpy',
+          payment_method_types: ['card'],
+          customer: self.stripe_customer_id,
+          metadata: self.stripe_serivice_plan_subscription_metadata
+        })
+        Stripe::PaymentIntent.confirm(
+          payment_intent.id
+        )
+      end
     end
+    self.update!(service_plan: "Free")
   end
 end

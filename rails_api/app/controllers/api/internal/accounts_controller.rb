@@ -502,15 +502,7 @@ class Api::Internal::AccountsController < ApplicationController
     ActiveRecord::Base.transaction do
       account = current_merchant_user.account
       account.update!(service_plan: json_type_params[:service_plan])
-      if json_type_params[:service_plan] == 'Free' && account.stripe_subscription_id.present?
-        # キャンセル処理
-        account.cancel_system_subscription
-        SystemStripeSubscription.create!(
-          account_id: account.id,
-          service_plan: json_type_params[:service_plan],
-          billing_cycle_anchor_datetime: Time.zone.now
-        )
-      end
+      account.cancel_system_subscription
       SystemStripeSubscription.create!(
         account_id: account.id,
         service_plan: json_type_params[:service_plan],
