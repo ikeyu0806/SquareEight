@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_19_064003) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_19_065211) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -395,7 +395,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_19_064003) do
     t.datetime "updated_at", null: false
     t.integer "account_id"
     t.text "description"
-    t.string "stripe_plan_id"
     t.integer "publish_status", default: 0
     t.datetime "deleted_at"
     t.integer "image1_account_s3_image_id"
