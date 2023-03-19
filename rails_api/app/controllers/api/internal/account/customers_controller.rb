@@ -75,8 +75,9 @@ class Api::Internal::Account::CustomersController < ApplicationController
   end
 
   def charges
+    account = current_merchant_user.account
     customer = Customer.find_by(public_id: params[:customer_public_id])
-    stripe_payment_intents = customer.end_user&.stripe_payment_intents
+    stripe_payment_intents = account.stripe_payment_intents.where(end_user_id: customer&.end_user_id)
     render json: { status: 'success', stripe_payment_intents: stripe_payment_intents, customer: customer }, status: 200
   rescue => error
     Rails.logger.error error
