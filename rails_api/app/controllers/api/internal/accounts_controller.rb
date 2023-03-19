@@ -502,35 +502,14 @@ class Api::Internal::AccountsController < ApplicationController
     ActiveRecord::Base.transaction do
       account = current_merchant_user.account
       account.update!(service_plan: json_type_params[:service_plan])
-      Stripe.api_key = Rails.configuration.stripe[:secret_key]
-      Stripe.api_version = '2022-08-01'
       if json_type_params[:service_plan] == 'Free' && account.stripe_subscription_id.present?
-        Stripe::Subscription.cancel(
-          account.stripe_subscription_id,
-          prorate: true
-        )
+        # キャンセル処理
       else
         if account.stripe_subscription_id.present?
-          Stripe::Subscription.cancel(
-            account.stripe_subscription_id,
-            prorate: true
-          )
-          system_stripe_subscription = SystemStripeSubscription.find_by(stripe_subscription_id: account.stripe_subscription_id)
-          system_stripe_subscription.update!(canceled_at: Time.zone.now)
-          account.update!(stripe_subscription_id: nil)
-        end
-        subscription = Stripe::Subscription.create({
-          customer: account.stripe_customer_id,
-          description: 'to merchant subscription plan',
-          metadata: account.stripe_serivice_plan_subscription_metadata,
-          items: [{ plan: account.service_plan_stripe_id }]
-        })
         SystemStripeSubscription.create!(
           account_id: account.id,
           service_plan: json_type_params[:service_plan],
-          stripe_subscription_id: subscription.id
         )
-        account.update!(stripe_subscription_id: subscription.id)
       end
       render json: { status: 'success' }, status: 200
     end
