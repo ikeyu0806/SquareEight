@@ -97,6 +97,7 @@ const Index: NextPage = () => {
                   <tr>
                     <th style={{width: '35%'}}>サブスクリプション名</th>
                     <th>購入先</th>
+                    <th>月額料金</th>
                     <th>加入日</th>
                     <th>請求日</th>
                     <th>購入ページ</th>
@@ -112,6 +113,7 @@ const Index: NextPage = () => {
                           {s.canceled_at_text === '' && <span className='ml10 badge bg-info'>加入中</span>}
                         </td>
                         <td>{s.account_business_name}</td>
+                        <td>￥{s.price}</td>
                         <td>{s.joined_date_text}</td>
                         <td>{s.billing_cycle_anchor_day}</td>
                         <td>

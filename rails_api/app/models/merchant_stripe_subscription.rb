@@ -36,4 +36,8 @@ class MerchantStripeSubscription < ApplicationRecord
   def monthly_payment_plan_public_id
     monthly_payment_plan.public_id
   end
+
+  def price
+    monthly_payment_plan.price
+  end
 end

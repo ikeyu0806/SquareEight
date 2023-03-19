@@ -9,4 +9,5 @@ export interface MerchantStripeSubscription {
   canceled_at_text: string
   joined_date_text: string
   monthly_payment_plan_public_id: string
+  price: number
 }
