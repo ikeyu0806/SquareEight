@@ -65,8 +65,9 @@ class Api::Internal::CustomersController < ApplicationController
   end
 
   def questionnaire_answers
+    account = current_merchant_user.account
     customer = Customer.find_by(public_id: params[:customer_public_id])
-    answer_contents = customer.answer_contents
+    answer_contents = account.answer_contents_with_customer(customer.id)
     render json: { status: 'success', answer_contents: answer_contents }, status: 200
   rescue => error
     Rails.logger.error error

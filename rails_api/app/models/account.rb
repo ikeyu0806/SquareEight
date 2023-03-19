@@ -211,4 +211,14 @@ class Account < ApplicationRecord
     self.account_notifications.create!(title: "事業所情報と振込先口座を登録してオンライン決済機能を有効化してください。", url: "/admin/sales_transfer")
     self.account_notifications.create!(title: "SquareEightで作成したページのヘッダーにお店の名前を設定できます。", url: "/admin/shared_component/edit")
   end
+
+  def answer_contents_with_customer(customer_id)
+    result = []
+    questionnaire_answers.where(customer_id: customer_id).order(:id).each do |questionnaire_answer|
+      result.push({answer: questionnaire_answer.parse_answer_json,
+                   customer_name: questionnaire_answer.customer.full_name,
+                   answer_datetime: questionnaire_answer.created_at.strftime("%Y年%m月%d日 %H時%M分")})
+    end
+    result
+  end
 end
