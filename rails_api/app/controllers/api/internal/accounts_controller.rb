@@ -504,13 +504,18 @@ class Api::Internal::AccountsController < ApplicationController
       account.update!(service_plan: json_type_params[:service_plan])
       if json_type_params[:service_plan] == 'Free' && account.stripe_subscription_id.present?
         # キャンセル処理
-      else
-        if account.stripe_subscription_id.present?
+        account.cancel_system_subscription
         SystemStripeSubscription.create!(
           account_id: account.id,
           service_plan: json_type_params[:service_plan],
+          billing_cycle_anchor_datetime: Time.zone.now
         )
       end
+      SystemStripeSubscription.create!(
+        account_id: account.id,
+        service_plan: json_type_params[:service_plan],
+        billing_cycle_anchor_datetime: Time.zone.now
+      )
       render json: { status: 'success' }, status: 200
     end
   rescue => error
@@ -519,19 +524,8 @@ class Api::Internal::AccountsController < ApplicationController
   end
 
   def cancel_plan
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
-    Stripe.api_version = '2022-08-01'
     ActiveRecord::Base.transaction do
-      account = current_merchant_user.account
-      cancel_subscription_id = account.stripe_subscription_id
-      account.update!(stripe_subscription_id: nil)
-      account.update!(service_plan: "Free")
-      system_stripe_subscription = SystemStripeSubscription.find_by(stripe_subscription_id: cancel_subscription_id)
-      system_stripe_subscription.update!(canceled_at: Time.zone.now)
-      Stripe::Subscription.cancel(
-        cancel_subscription_id,
-        prorate: true
-      )
+      account.cancel_system_subscription
       render json: { status: 'success' }, status: 200
     end
   rescue => error

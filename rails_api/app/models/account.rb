@@ -26,6 +26,7 @@ class Account < ApplicationRecord
   has_many :html_mail_templates
   has_many :account_notifications
   has_many :stripe_payment_intents
+  has_many :system_stripe_subscriptions
   has_many :delivery_datetime_settings
   has_many :stripe_persons
   has_many :account_s3_images
@@ -220,5 +221,27 @@ class Account < ApplicationRecord
                    answer_datetime: questionnaire_answer.created_at.strftime("%Y年%m月%d日 %H時%M分")})
     end
     result
+  end
+
+  def cancel_system_subscription
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
+    system_stripe_subscriptions.where(canceled_at: nil).each do |subscription|
+      subscription.update!(
+        canceled_at: Time.zone.now
+      )
+      self.update!(service_plan: "Free")
+      # 日割りで請求
+      payment_intent = Stripe::PaymentIntent.create({
+        amount: self.plan_price,
+        currency: 'jpy',
+        payment_method_types: ['card'],
+        customer: self.stripe_customer_id,
+        metadata: self.stripe_serivice_plan_subscription_metadata
+      })
+      Stripe::PaymentIntent.confirm(
+        payment_intent.id
+      )
+    end
   end
 end
