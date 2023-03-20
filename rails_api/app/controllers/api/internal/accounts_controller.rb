@@ -506,7 +506,7 @@ class Api::Internal::AccountsController < ApplicationController
       SystemStripeSubscription.create!(
         account_id: account.id,
         service_plan: json_type_params[:service_plan],
-        billing_cycle_anchor_datetime: Time.zone.now
+        billing_cycle_anchor_day: Time.zone.now.day
       )
       render json: { status: 'success' }, status: 200
     end

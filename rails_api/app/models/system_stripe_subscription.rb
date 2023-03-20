@@ -24,7 +24,6 @@ class SystemStripeSubscription < ApplicationRecord
   def require_full_bill
     current_date = Time.zone.now
     current_day = current_date.day
-    billing_cycle_anchor_day = billing_cycle_anchor_datetime.day
     # 請求日と今日が同じ日にちならtrue
     return true if current_day.eql?(billing_cycle_anchor_day)
     # 今日が月末で先月末の日にちより小さければtrueを返す
