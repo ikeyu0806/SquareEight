@@ -46,12 +46,12 @@ RSpec.describe ReserveFrame, type: :model do
       end
       describe 'prorated_plan_price' do
         it 'should require split_price' do
-          expect(standard_plan_subscription.prorated_plan_price).to eq standard_plan_account.plan_price
+          expect(standard_plan_subscription.prorated_plan_price).to eq 1390
         end
       end
-      describe 'last_billing_to_today_days' do
+      describe 'last_paid_at_to_today_days' do
         it 'should return 14' do
-          expect(standard_plan_subscription.last_billing_to_today_days).to eq 14
+          expect(standard_plan_subscription.last_paid_at_to_today_days).to eq 14
         end
       end
     end

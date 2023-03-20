@@ -13,9 +13,9 @@ class SystemStripeSubscription < ApplicationRecord
     # 請求日と今日の日にちが一致。もしくは請求日が月末で今日も月末なら満額請求
     if require_full_bill
       prorated_price = plan_price
-    # それ以外なら前回の請求日から今月までの差分で割る
+    # それ以外なら前回の請求日から今日日付を30で割った数
     else
-      prorated_price = plan_price * last_billing_to_today_days / 30
+      prorated_price = plan_price * last_paid_at_to_today_days / 30
     end
     prorated_price
   end
@@ -50,7 +50,7 @@ class SystemStripeSubscription < ApplicationRecord
     return false
   end
 
-  def last_billing_to_today_days
+  def last_paid_at_to_today_days
     current_date = Time.zone.now
     # 支払いが一度もなければ加入日起点
     paid_date = last_paid_at.blank? ? created_at : last_paid_at
