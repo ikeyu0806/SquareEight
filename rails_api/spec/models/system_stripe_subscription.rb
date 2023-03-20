@@ -17,7 +17,7 @@ RSpec.describe ReserveFrame, type: :model do
       let!(:standard_plan_subscription) {
         create(:standard_plan_subscription,
                 account_id: standard_plan_account.id,
-                billing_cycle_anchor_datetime: Date.new(2023, 01, 31),
+                billing_cycle_anchor_day: 31,
                 last_paid_at: Date.new(2023, 01, 31))
       }
       describe 'require_full_bill' do
@@ -36,7 +36,7 @@ RSpec.describe ReserveFrame, type: :model do
       let!(:standard_plan_subscription) {
         create(:standard_plan_subscription,
                 account_id: standard_plan_account.id,
-                billing_cycle_anchor_datetime: Date.new(2023, 01, 31),
+                billing_cycle_anchor_day: 31,
                 last_paid_at: Date.new(2023, 02, 14))
       }
       describe 'require_full_bill' do
