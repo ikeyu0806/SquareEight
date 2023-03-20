@@ -22,14 +22,22 @@ class SystemStripeSubscription < ApplicationRecord
 
   # 満額請求か判定
   def require_full_bill
-    current_day = Time.zone.now.day
+    current_date = Time.zone.now
+    current_day = current_date.day
     billing_cycle_anchor_day = billing_cycle_anchor_datetime.day
     # 請求日と今日が同じ日にちならtrue
     return true if current_day.eql?(billing_cycle_anchor_day)
-    # 今日の日にちが先月末の日にちより大きければ満額請求
+    # 今日が月末で先月末の日にちより小さければtrueを返す
     last_month_date = Time.zone.now - 1.months
     last_month_day = last_month_date.day
-    return true if current_day > last_month_day
+    last_month_end_date = last_month_date.end_of_month
+    last_month_end_day = last_month_end_date.day
+    current_end_of_date = current_date.end_of_day
+    current_end_of_month_date = current_date.end_of_month
+    current_end_of_month_day = current_end_of_month_date.day
+    if current_end_of_date == current_end_of_month_date
+      return true if current_end_of_month_day < last_month_end_day
+    end
     # それ以外はfalse
     return false
   end
