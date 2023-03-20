@@ -1,7 +1,9 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::Batch::SystemSubscriptionsController', type: :request do
-
+  let(:standard_plan_account) {
+    create(:standard_plan_account)
+  }
   describe 'POST /api/batch/system_subscriptions/exec_payment' do
     describe 'current_datetime is 2023-2-28' do
       before do
@@ -17,13 +19,15 @@ RSpec.describe 'Api::Batch::SystemSubscriptionsController', type: :request do
                   billing_cycle_anchor_day: 31,
                   last_paid_at: Date.new(2023, 01, 31))
         }
-      end
-      it do
-        stripe_payment_intent_instance = double("stripe_payment_intent_instance")
-        allow(Stripe::PaymentIntent).to receive(:create).and_return(stripe_payment_intent_instance)
-        allow(Stripe::PaymentIntent).to receive(:confirm).and_return(true)
-        post "/api/batch/system_subscriptions/exec_payment"
-        expect(response.status).to eq 200
+        it do
+          stripe_payment_intent_instance = double("stripe_payment_intent_instance")
+          allow(Stripe::PaymentIntent).to receive(:create).and_return(stripe_payment_intent_instance)
+          allow(Stripe::PaymentIntent).to receive(:confirm).and_return(true)
+          allow(stripe_payment_intent_instance).to receive(:id).and_return("demo_id")
+          post "/api/batch/system_subscriptions/exec_payment"
+          expect(response.status).to eq 200
+          expect(JSON.parse(response.body)["target_payment_intents"].length).to eq 1
+        end
       end
     end
   end
