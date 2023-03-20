@@ -5,10 +5,10 @@ class Api::Batch::SystemSubscriptionsController < ApplicationController
     ActiveRecord::Base.transaction do
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
       Stripe.api_version = '2022-08-01'
-      SystemStripeSubscription.each do |subscription|
+      SystemStripeSubscription.where(billing_cycle_anchor_datetime: Time.zone.now.all_day).each do |subscription|
         account = subscription.account
         payment_intent = Stripe::PaymentIntent.create({
-          amount: account.plan_price,
+          amount: subscription.prorated_plan_price,
           currency: 'jpy',
           payment_method_types: ['card'],
           customer: account.stripe_customer_id,
