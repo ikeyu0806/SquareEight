@@ -35,8 +35,16 @@ class SystemStripeSubscription < ApplicationRecord
     current_end_of_date = current_date.end_of_day
     current_end_of_month_date = current_date.end_of_month
     current_end_of_month_day = current_end_of_month_date.day
-    if current_end_of_date == current_end_of_month_date
-      return true if current_end_of_month_day < last_month_end_day
+    # 支払い履歴がない（初回支払い）の場合
+    if last_paid_at.blank?
+      # 月末の場合の分岐
+      if current_end_of_date == current_end_of_month_date
+        return true if current_end_of_month_day < last_month_end_day
+      end
+    # 支払い履歴がある場合
+    # 前回の支払日が前月の月末と同じなら満額支払い
+    else
+      last_paid_at.end_of_day.eql?(last_month_date.end_of_day)
     end
     # それ以外はfalse
     return false
