@@ -44,7 +44,7 @@ class SystemStripeSubscription < ApplicationRecord
     # 支払い履歴がある場合
     # 前回の支払日が前月の月末と同じなら満額支払い
     else
-      last_paid_at.end_of_day.eql?(last_month_date.end_of_day)
+      return true if last_paid_at.end_of_day.eql?(last_month_end_date.end_of_day)
     end
     # それ以外はfalse
     return false

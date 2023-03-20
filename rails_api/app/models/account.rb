@@ -47,7 +47,7 @@ class Account < ApplicationRecord
   STRIPE_CHARGE_FEE = { "Free" => 80, "Light" => 70, "Standard" => 70, "Premium" => 50, "Trial" => 1000000000 }
   CUSTOMER_DISPLAY_LIMIT = { "Free" => 10, "Light" => 200, "Standard" => 500, "Premium" => 1000000000, "Trial" => 1000000000 }
   QUESTIONNAIRE_MASTER_LIMIT = { "Free" => 3, "Light" => 1000000000, "Standard" => 1000000000, "Premium" => 1000000000, "Trial" => 1000000000 }
-  PLAN_PRICE = { "Free" => 0, "Light" => 1480, "Standard" => 2980, "Premium" => 6980, "Trial" => "トライアル" }
+  PLAN_PRICE = { "Free" => 0, "Light" => 1480, "Standard" => 2980, "Premium" => 6980, "Trial" => 0 }
   STRIPE_APPLICATION_FEE_AMOUNT = { "Free" => 0.08, "Light" => 0.05, "Standard" => 0.05, "Premium" => 0.04, "Trial" => 0.04 }
   STRIPE_APPLICATION_FEE_PERCENT = { "Free" => 8, "Light" => 5, "Standard" => 5, "Premium" => 4, "Trial" => 4 }
 
