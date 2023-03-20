@@ -3,6 +3,7 @@ class Api::Batch::SystemSubscriptionsController < ApplicationController
 
   def exec_payment
     ActiveRecord::Base.transaction do
+      result = []
       Stripe.api_key = Rails.configuration.stripe[:secret_key]
       Stripe.api_version = '2022-08-01'
       SystemStripeSubscription.where(billing_cycle_anchor_day: Time.zone.now.day).each do |subscription|
@@ -17,8 +18,9 @@ class Api::Batch::SystemSubscriptionsController < ApplicationController
         Stripe::PaymentIntent.confirm(
           payment_intent.id
         )
+        result.push(payment_intent)
       end
-      render json: { status: 'success' }, status: 200
+      render json: { status: 'success', target_payment_intents: result }, status: 200
     end
   rescue => error
     Rails.logger.error error
