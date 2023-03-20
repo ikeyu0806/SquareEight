@@ -15,7 +15,7 @@ class SystemStripeSubscription < ApplicationRecord
       prorated_price = plan_price
     # それ以外なら前回の請求日から今月までの差分で割る
     else
-      prorated_price = plan_price / last_billing_to_today_days
+      prorated_price = plan_price * last_billing_to_today_days / 30
     end
     prorated_price
   end
@@ -54,7 +54,6 @@ class SystemStripeSubscription < ApplicationRecord
     current_date = Time.zone.now
     # 支払いが一度もなければ加入日起点
     paid_date = last_paid_at.blank? ? created_at : last_paid_at
-    days = (current_date - paid_date).to_i
-    days
+    (current_date.to_date - paid_date.to_date).to_i
   end
 end

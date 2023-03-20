@@ -5,6 +5,7 @@ RSpec.describe ReserveFrame, type: :model do
     create(:standard_plan_account)
   }
 
+  # irregular end_of_month test
   describe 'current_datetime is 2023-2-28' do
     before do
       travel_to(Date.new(2023,2,28))
@@ -46,6 +47,11 @@ RSpec.describe ReserveFrame, type: :model do
       describe 'prorated_plan_price' do
         it 'should require split_price' do
           expect(standard_plan_subscription.prorated_plan_price).to eq standard_plan_account.plan_price
+        end
+      end
+      describe 'last_billing_to_today_days' do
+        it 'should return 14' do
+          expect(standard_plan_subscription.last_billing_to_today_days).to eq 14
         end
       end
     end
