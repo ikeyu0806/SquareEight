@@ -1,5 +1,6 @@
 class MerchantStripeSubscription < ApplicationRecord
   include PublicIdModule
+  include SubscriptionProratedPrice
 
   belongs_to :monthly_payment_plan
   belongs_to :end_user
@@ -18,10 +19,6 @@ class MerchantStripeSubscription < ApplicationRecord
 
   def customer_public_id
     end_user.customer.public_id
-  end
-
-  def billing_cycle_anchor_day
-    "毎月#{billing_cycle_anchor_datetime&.day}日"
   end
 
   def canceled_at_text
