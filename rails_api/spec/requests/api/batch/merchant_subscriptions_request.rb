@@ -24,6 +24,7 @@ RSpec.describe 'Api::Batch::MerchantSubscriptionsController', type: :request do
         let(:monthly_payment_plan) {create(:monthly_payment_plan, account: standard_plan_account) }
         it do
           stripe_payment_intent_instance = double("stripe_payment_intent_instance")
+          allow(Stripe::Customer).to receive(:retrieve).and_return({"invoice_settings"=>{"default_payment_method"=>"pm_xxxx"}})
           allow(Stripe::PaymentIntent).to receive(:create).and_return(stripe_payment_intent_instance)
           allow(Stripe::PaymentIntent).to receive(:confirm).and_return(true)
           allow(stripe_payment_intent_instance).to receive(:id).and_return("demo_id")

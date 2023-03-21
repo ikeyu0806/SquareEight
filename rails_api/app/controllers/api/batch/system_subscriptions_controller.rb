@@ -9,7 +9,8 @@ class Api::Batch::SystemSubscriptionsController < ApplicationController
     Stripe.api_version = '2022-08-01'
     # 今日が月末の場合の判定。SubscriptionBillingModuleモジュールから呼び出し
     target_day = billing_target_day
-    SystemStripeSubscription.where(billing_cycle_anchor_day: target_day).where(canceled_at: nil).each do |subscription|
+    SystemStripeSubscription.billing_target(target_day).each do |subscription|
+      # 今日支払った場合は請求しない
       next if subscription.last_paid_at.end_of_day.eql?(Time.zone.now.end_of_day)
       account = subscription.account
       stripe_customer = Stripe::Customer.retrieve(account.stripe_customer_id)
