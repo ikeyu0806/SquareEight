@@ -47,6 +47,8 @@ module SubscriptionProratedPrice
 
   def last_paid_at_to_today_days
     current_date = Time.zone.now
+    # 当日に退会していたら1を返す
+    return 1 if current_date.end_of_day.eql?(created_at.end_of_day)
     # 支払いが一度もなければ加入日起点
     paid_date = last_paid_at.blank? ? created_at : last_paid_at
     (current_date.to_date - paid_date.to_date).to_i

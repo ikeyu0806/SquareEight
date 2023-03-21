@@ -233,7 +233,7 @@ class Account < ApplicationRecord
         canceled_at: Time.zone.now
       )
       amount = subscription.prorated_plan_price(self.plan_price)
-      if subscription.service_plan != "Free" && amount.positive?
+      if subscription.service_plan != "Free" && amount > 50
         # 日割りで請求
         payment_intent = Stripe::PaymentIntent.create({
           amount: amount,
