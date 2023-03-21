@@ -26,7 +26,9 @@ RSpec.describe 'Api::Batch::SystemSubscriptionsController', type: :request do
           allow(stripe_payment_intent_instance).to receive(:id).and_return("demo_id")
           post "/api/batch/system_subscriptions/exec_payment"
           expect(response.status).to eq 200
-          expect(JSON.parse(response.body)["target_payment_intents"].length).to eq 1
+          response_body = JSON.parse(response.body)
+          expect(response_body["target_payment_intents"].length).to eq 1
+          expect(response_body["target_payment_intents"][0]["amount"]).to eq standard_plan_account.plan_price
         end
       end
     end

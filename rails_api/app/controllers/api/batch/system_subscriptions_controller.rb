@@ -27,8 +27,9 @@ class Api::Batch::SystemSubscriptionsController < ApplicationController
     SystemStripeSubscription.where(billing_cycle_anchor_day: target_day).each do |subscription|
       next if subscription.last_paid_at.end_of_day.eql?(Time.zone.now.end_of_day)
       account = subscription.account
+      amount = subscription.prorated_plan_price
       payment_intent = Stripe::PaymentIntent.create({
-        amount: subscription.prorated_plan_price,
+        amount: amount,
         currency: 'jpy',
         payment_method_types: ['card'],
         customer: account.stripe_customer_id,
@@ -38,7 +39,14 @@ class Api::Batch::SystemSubscriptionsController < ApplicationController
         payment_intent.id
       )
       subscription.update!(last_paid_at: Time.zone.now)
-      target_payment_intents.push(payment_intent)
+      target_payment_intents.push(
+        {
+          payment_intent_id: payment_intent.id,
+          amount: amount,
+          account_id: account.id,
+          stripe_customer_id: account.stripe_customer_id
+        }
+      )
     end
     render json: { status: 'success', target_payment_intents: target_payment_intents }, status: 200
   rescue => error
