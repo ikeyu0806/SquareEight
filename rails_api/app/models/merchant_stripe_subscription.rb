@@ -58,23 +58,26 @@ class MerchantStripeSubscription < ApplicationRecord
     self.update!(
       canceled_at: Time.zone.now
     )
+    # 日割りで請求
     amount = prorated_plan_price(self.price)
     commission = (monthly_payment_plan.price * account.application_fee_amount).to_i
-    # 日割りで請求
-    payment_intent = Stripe::PaymentIntent.create({
-      amount: amount,
-      currency: 'jpy',
-      payment_method_types: ['card'],
-      payment_method: default_payment_method_id,
-      customer: end_user.stripe_customer_id,
-      metadata: stripe_merchant_subscription_metadata,
-      application_fee_amount: commission,
-      transfer_data: {
-        destination: account.stripe_account_id
-      }
-    })
-    Stripe::PaymentIntent.confirm(
-      payment_intent.id
-    )
+    if amount > 50
+      payment_intent = Stripe::PaymentIntent.create({
+        amount: amount,
+        currency: 'jpy',
+        payment_method_types: ['card'],
+        payment_method: default_payment_method_id,
+        customer: end_user.stripe_customer_id,
+        metadata: stripe_merchant_subscription_metadata,
+        application_fee_amount: commission,
+        transfer_data: {
+          destination: account.stripe_account_id
+        }
+      })
+      Stripe::PaymentIntent.confirm(
+        payment_intent.id
+      )
+      self.update!(last_paid_at: Time.zone.now)
+    end
   end
 end

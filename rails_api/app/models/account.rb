@@ -246,6 +246,7 @@ class Account < ApplicationRecord
         Stripe::PaymentIntent.confirm(
           payment_intent.id
         )
+        subscription.update!(last_paid_at: Time.zone.now)
       end
     end
     self.update!(service_plan: "Free")
