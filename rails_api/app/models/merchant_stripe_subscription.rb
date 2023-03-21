@@ -48,4 +48,33 @@ class MerchantStripeSubscription < ApplicationRecord
       'purchase_product_name': monthly_payment_plan.name
     }
   end
+
+  def cancel_subscription
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
+    stripe_customer = Stripe::Customer.retrieve(end_user.stripe_customer_id)
+    default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
+    account = monthly_payment_plan.account
+    self.update!(
+      canceled_at: Time.zone.now
+    )
+    amount = prorated_plan_price(self.price)
+    commission = (monthly_payment_plan.price * account.application_fee_amount).to_i
+    # 日割りで請求
+    payment_intent = Stripe::PaymentIntent.create({
+      amount: amount,
+      currency: 'jpy',
+      payment_method_types: ['card'],
+      payment_method: default_payment_method_id,
+      customer: end_user.stripe_customer_id,
+      metadata: stripe_merchant_subscription_metadata,
+      application_fee_amount: commission,
+      transfer_data: {
+        destination: account.stripe_account_id
+      }
+    })
+    Stripe::PaymentIntent.confirm(
+      payment_intent.id
+    )
+  end
 end
