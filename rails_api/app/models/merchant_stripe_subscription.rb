@@ -40,4 +40,15 @@ class MerchantStripeSubscription < ApplicationRecord
   def price
     monthly_payment_plan.price
   end
+
+  def stripe_merchant_subscription_metadata
+    {
+      'account_id': monthly_payment_plan.account_id
+      'end_user_id': end_user.id,
+      'monthly_payment_plan_id': monthly_payment_plan.id,
+      'price': monthly_payment_plan.price,
+      'product_type': 'monthly_payment_plan',
+      'purchase_product_name': monthly_payment_plan.name
+    }
+  end
 end
