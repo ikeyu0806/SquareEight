@@ -551,14 +551,7 @@ class Api::Internal::AccountsController < ApplicationController
     ActiveRecord::Base.transaction do
       account = current_merchant_user.account
       account.update!(deleted_at: Time.zone.now)
-      if account.stripe_subscription_id.present?
-        Stripe.api_key = Rails.configuration.stripe[:secret_key]
-        Stripe.api_version = '2022-08-01'
-        Stripe::Subscription.cancel(
-          account.stripe_subscription_id,
-          prorate: true
-        )
-      end
+      account.cancel_system_subscription
       account.merchant_users.destroy_all
       render json: { status: 'success' }, status: 200
     end

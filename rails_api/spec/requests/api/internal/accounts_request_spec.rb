@@ -391,10 +391,11 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
       context 'login as merchant_user' do
         it 'should return 200' do
           allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
-          allow(Stripe::Subscription).to receive(:cancel).and_return(true)
-          stripe_subscription_instance_double = double('stripe_subscription_instance_double')
-          allow(Stripe::Subscription).to receive(:create).and_return(stripe_subscription_instance_double)
-          allow(stripe_subscription_instance_double).to receive(:id).and_return(1)
+          stripe_payment_intent_instance = double("stripe_payment_intent_instance")
+          allow(Stripe::Customer).to receive(:retrieve).and_return({"invoice_settings"=>{"default_payment_method"=>"pm_xxxx"}})
+          allow(Stripe::PaymentIntent).to receive(:create).and_return(stripe_payment_intent_instance)
+          allow(Stripe::PaymentIntent).to receive(:confirm).and_return(true)
+          allow(stripe_payment_intent_instance).to receive(:id).and_return("demo_id")
           post '/api/internal/accounts/update_plan', params: params
           expect(response.status).to eq 200
         end
@@ -403,6 +404,11 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
       context 'without login' do
         it 'should return 401' do
           post '/api/internal/accounts/update_plan', params: params
+          stripe_payment_intent_instance = double("stripe_payment_intent_instance")
+          allow(Stripe::Customer).to receive(:retrieve).and_return({"invoice_settings"=>{"default_payment_method"=>"pm_xxxx"}})
+          allow(Stripe::PaymentIntent).to receive(:create).and_return(stripe_payment_intent_instance)
+          allow(Stripe::PaymentIntent).to receive(:confirm).and_return(true)
+          allow(stripe_payment_intent_instance).to receive(:id).and_return("demo_id")
           expect(response.status).to eq 401
         end
       end
@@ -412,7 +418,7 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
   describe 'DELETE /api/internal/accounts/cancel_plan' do
     context 'cancel Standard Plan' do
       let(:standard_plan_subscription) { create(:standard_plan_subscription, account_id: account.id) }
-      let(:standard_plan_account) { create(:business_account, stripe_subscription_id: standard_plan_subscription.stripe_subscription_id) }
+      let(:standard_plan_account) { create(:standard_plan_account) }
       let(:standard_plan_merchant_user) {
         create(:merchant_user, account: standard_plan_account)
       }
@@ -420,7 +426,11 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
       context 'login as merchant_user' do
         it 'should return 200' do
           allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(standard_plan_merchant_user)
-          allow( Stripe::Subscription).to receive(:cancel).and_return(true)
+          stripe_payment_intent_instance = double("stripe_payment_intent_instance")
+          allow(Stripe::Customer).to receive(:retrieve).and_return({"invoice_settings"=>{"default_payment_method"=>"pm_xxxx"}})
+          allow(Stripe::PaymentIntent).to receive(:create).and_return(stripe_payment_intent_instance)
+          allow(Stripe::PaymentIntent).to receive(:confirm).and_return(true)
+          allow(stripe_payment_intent_instance).to receive(:id).and_return("demo_id")
           delete '/api/internal/accounts/cancel_plan'
           expect(response.status).to eq 200
         end
@@ -464,7 +474,11 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
     context 'login as merchant_user' do
       it 'should return 200' do
         allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
-        allow_any_instance_of(Stripe::Subscription).to receive(:cancel).and_return(merchant_user)
+        stripe_payment_intent_instance = double("stripe_payment_intent_instance")
+        allow(Stripe::Customer).to receive(:retrieve).and_return({"invoice_settings"=>{"default_payment_method"=>"pm_xxxx"}})
+        allow(Stripe::PaymentIntent).to receive(:create).and_return(stripe_payment_intent_instance)
+        allow(Stripe::PaymentIntent).to receive(:confirm).and_return(true)
+        allow(stripe_payment_intent_instance).to receive(:id).and_return("demo_id")
         post '/api/internal/accounts/withdrawal', params: params
         expect(response.status).to eq 200
       end
@@ -473,6 +487,11 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
     context 'without login' do
       it 'should return 401' do
         post '/api/internal/accounts/withdrawal', params: params
+        stripe_payment_intent_instance = double("stripe_payment_intent_instance")
+        allow(Stripe::Customer).to receive(:retrieve).and_return({"invoice_settings"=>{"default_payment_method"=>"pm_xxxx"}})
+        allow(Stripe::PaymentIntent).to receive(:create).and_return(stripe_payment_intent_instance)
+        allow(Stripe::PaymentIntent).to receive(:confirm).and_return(true)
+        allow(stripe_payment_intent_instance).to receive(:id).and_return("demo_id")
         expect(response.status).to eq 401
       end
     end
