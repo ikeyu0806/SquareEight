@@ -57,6 +57,11 @@ class StripeWebhooksController < ApplicationController
         if system_product_type.blank?
           system_product_type = 'SystemPlan' if stripe_params["data"]["object"]["metadata"]["product_type"].eql?('system_plan')
         end
+        if stripe_params["data"]["object"]["metadata"]["system_plan_name"].present?
+          system_plan_name = stripe_params["data"]["object"]["metadata"]["system_plan_name"]
+        else
+          system_plan_name = ""
+        end
         order_date = stripe_payment_intent.order_date.present? ? stripe_payment_intent.order_date : current_date_text
         # DBに登録
         stripe_payment_intent.attributes = {
@@ -73,7 +78,8 @@ class StripeWebhooksController < ApplicationController
           payment_request_id: payment_request_id,
           system_product_type: system_product_type,
           end_user_id: end_user&.id,
-          account_id: account_id
+          account_id: account_id,
+          system_plan_name: system_plan_name
         }
         stripe_payment_intent.save!
       end
