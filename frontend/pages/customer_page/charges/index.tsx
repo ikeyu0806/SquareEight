@@ -56,7 +56,7 @@ const Index: NextPage = () => {
                 <th className='text-center'>商品名</th>
                 <th className='text-center'>購入先</th>
                 <th className='text-center'>料金</th>
-                <th className='text-center'>購入日</th>
+                <th className='text-center'>お支払い日</th>
                 {/* <th className='text-center'>支払いのキャンセル</th> */}
               </tr>
             </thead>
