@@ -38,17 +38,6 @@ class MerchantStripeSubscription < ApplicationRecord
     monthly_payment_plan.price
   end
 
-  def stripe_merchant_subscription_metadata
-    {
-      'account_id': monthly_payment_plan.account_id,
-      'end_user_id': end_user.id,
-      'monthly_payment_plan_id': monthly_payment_plan.id,
-      'price': monthly_payment_plan.price,
-      'product_type': 'monthly_payment_plan',
-      'purchase_product_name': monthly_payment_plan.name
-    }
-  end
-
   def cancel_subscription
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe.api_version = '2022-08-01'
@@ -79,5 +68,17 @@ class MerchantStripeSubscription < ApplicationRecord
       )
       self.update!(last_paid_at: Time.zone.now)
     end
+  end
+
+  def stripe_merchant_subscription_metadata
+    {
+      'account_id': monthly_payment_plan.account_id,
+      'end_user_id': end_user.id,
+      'monthly_payment_plan_id': monthly_payment_plan.id,
+      'price': monthly_payment_plan.price,
+      'product_type': 'monthly_payment_plan',
+      'purchase_product_name': monthly_payment_plan.name,
+      'merchant_stripe_subscription_id': self.id
+    }
   end
 end

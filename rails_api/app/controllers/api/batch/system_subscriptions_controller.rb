@@ -24,7 +24,7 @@ class Api::Batch::SystemSubscriptionsController < ApplicationController
         payment_method_types: ['card'],
         payment_method: default_payment_method_id,
         customer: account.stripe_customer_id,
-        metadata: account.stripe_serivice_plan_subscription_metadata
+        metadata: subscription.stripe_serivice_plan_subscription_metadata
       })
       Stripe::PaymentIntent.confirm(
         payment_intent.id

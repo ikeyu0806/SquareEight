@@ -9,4 +9,14 @@ class SystemStripeSubscription < ApplicationRecord
   scope :billing_target, -> (target_day) {
     where(billing_cycle_anchor_day: target_day).where(canceled_at: nil)
   }
+
+  def stripe_serivice_plan_subscription_metadata
+    {
+      'account_id': account.id,
+      'system_plan_name': account.plan_name,
+      'price': account.plan_price,
+      'product_type': 'system_plan',
+      'system_stripe_subscription_id': self.id
+    }
+  end
 end

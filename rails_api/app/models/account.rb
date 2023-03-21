@@ -241,7 +241,7 @@ class Account < ApplicationRecord
           payment_method_types: ['card'],
           payment_method: default_payment_method_id,
           customer: self.stripe_customer_id,
-          metadata: self.stripe_serivice_plan_subscription_metadata
+          metadata: subscription.stripe_serivice_plan_subscription_metadata
         })
         Stripe::PaymentIntent.confirm(
           payment_intent.id
