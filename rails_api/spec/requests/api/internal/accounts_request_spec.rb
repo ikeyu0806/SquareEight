@@ -511,6 +511,11 @@ RSpec.describe 'Api::Internal::AccountsController', type: :request do
       it 'should return 200' do
         allow_any_instance_of(ApplicationController).to receive(:current_merchant_user).and_return(merchant_user)
         stripe_person_instance_double = double('stripe_person_instance_double')
+        stripe_payment_intent_instance = double("stripe_payment_intent_instance")
+        allow(Stripe::Customer).to receive(:retrieve).and_return({"invoice_settings"=>{"default_payment_method"=>"pm_xxxx"}})
+        allow(Stripe::PaymentIntent).to receive(:create).and_return(stripe_payment_intent_instance)
+        allow(Stripe::PaymentIntent).to receive(:confirm).and_return(true)
+        allow(stripe_payment_intent_instance).to receive(:id).and_return("demo_id")
         allow(Stripe::Account).to receive(:retrieve_person).and_return(stripe_person_instance_double)
         allow(stripe_person_instance_double).to receive(:id).and_return('hoge')
         allow(stripe_person_instance_double).to receive(:gender).and_return(true)
