@@ -226,6 +226,8 @@ class Account < ApplicationRecord
   def cancel_system_subscription
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe.api_version = '2022-08-01'
+    stripe_customer = Stripe::Customer.retrieve(stripe_customer_id)
+    default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
     system_stripe_subscriptions.where(canceled_at: nil).each do |subscription|
       subscription.update!(
         canceled_at: Time.zone.now
@@ -236,6 +238,7 @@ class Account < ApplicationRecord
           amount: subscription.prorated_plan_price(self.plan_price),
           currency: 'jpy',
           payment_method_types: ['card'],
+          ayment_method: default_payment_method_id,
           customer: self.stripe_customer_id,
           metadata: self.stripe_serivice_plan_subscription_metadata
         })

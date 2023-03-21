@@ -12,6 +12,8 @@ class Api::Batch::MerchantSubscriptionsController < ApplicationController
     MerchantStripeSubscription.where(billing_cycle_anchor_day: target_day).where(canceled_at: nil).each do |subscription|
       next if subscription.last_paid_at.end_of_day.eql?(Time.zone.now.end_of_day)
       end_user = subscription.end_user
+      stripe_customer = Stripe::Customer.retrieve(end_user.stripe_customer_id)
+      default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
       monthly_payment_plan = subscription.monthly_payment_plan
       account = monthly_payment_plan.account
       amount = subscription.prorated_plan_price(monthly_payment_plan.price)
@@ -20,6 +22,7 @@ class Api::Batch::MerchantSubscriptionsController < ApplicationController
         amount: amount,
         currency: 'jpy',
         payment_method_types: ['card'],
+        payment_method: default_payment_method_id,
         customer: end_user.stripe_customer_id,
         metadata: subscription.stripe_merchant_subscription_metadata,
         application_fee_amount: commission,

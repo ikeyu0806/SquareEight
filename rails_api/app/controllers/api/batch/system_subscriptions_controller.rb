@@ -12,11 +12,14 @@ class Api::Batch::SystemSubscriptionsController < ApplicationController
     SystemStripeSubscription.where(billing_cycle_anchor_day: target_day).where(canceled_at: nil).each do |subscription|
       next if subscription.last_paid_at.end_of_day.eql?(Time.zone.now.end_of_day)
       account = subscription.account
+      stripe_customer = Stripe::Customer.retrieve(account.stripe_customer_id)
+      default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
       amount = subscription.prorated_plan_price(account.plan_price)
       payment_intent = Stripe::PaymentIntent.create({
         amount: amount,
         currency: 'jpy',
         payment_method_types: ['card'],
+        payment_method: default_payment_method_id,
         customer: account.stripe_customer_id,
         metadata: account.stripe_serivice_plan_subscription_metadata
       })
