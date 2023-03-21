@@ -10,7 +10,10 @@ class Api::Batch::MerchantSubscriptionsController < ApplicationController
     # 今日が月末の場合の判定。SubscriptionBillingModuleモジュールから呼び出し
     target_day = billing_target_day
     MerchantStripeSubscription.where(billing_cycle_anchor_day: target_day).where(canceled_at: nil).each do |subscription|
+      # 今日支払った場合は請求しない
       next if subscription.last_paid_at.end_of_day.eql?(Time.zone.now.end_of_day)
+      # 加入した当日の場合は請求しない
+      next if subscription.created_at.end_of_day.eql?(Time.zone.now.end_of_day)
       end_user = subscription.end_user
       stripe_customer = Stripe::Customer.retrieve(end_user.stripe_customer_id)
       default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
