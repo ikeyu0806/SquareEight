@@ -24,7 +24,7 @@ class Api::Batch::SystemSubscriptionsController < ApplicationController
     else
       target_day = Time.zone.now.day
     end
-    SystemStripeSubscription.where(billing_cycle_anchor_day: target_day).each do |subscription|
+    SystemStripeSubscription.where(billing_cycle_anchor_day: target_day).where(canceled_at: nil).each do |subscription|
       next if subscription.last_paid_at.end_of_day.eql?(Time.zone.now.end_of_day)
       account = subscription.account
       amount = subscription.prorated_plan_price
