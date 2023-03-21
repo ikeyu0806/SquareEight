@@ -4,7 +4,7 @@ class Api::Batch::SystemSubscriptionsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def exec_payment
-    target_payment_intents = []
+    target_subscriptions = []
     Stripe.api_key = Rails.configuration.stripe[:secret_key]
     Stripe.api_version = '2022-08-01'
     # 今日が月末の場合の判定。SubscriptionBillingModuleモジュールから呼び出し
@@ -24,7 +24,7 @@ class Api::Batch::SystemSubscriptionsController < ApplicationController
         payment_intent.id
       )
       subscription.update!(last_paid_at: Time.zone.now)
-      target_payment_intents.push(
+      target_subscriptions.push(
         {
           payment_intent_id: payment_intent.id,
           amount: amount,
@@ -33,7 +33,7 @@ class Api::Batch::SystemSubscriptionsController < ApplicationController
         }
       )
     end
-    render json: { status: 'success', target_payment_intents: target_payment_intents }, status: 200
+    render json: { status: 'success', target_subscriptions: target_subscriptions }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
