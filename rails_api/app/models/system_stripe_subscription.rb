@@ -28,7 +28,6 @@ class SystemStripeSubscription < ApplicationRecord
     return true if current_day.eql?(billing_cycle_anchor_day)
     # 今日が月末で先月末の日にちより小さければtrueを返す
     last_month_date = Time.zone.now - 1.months
-    last_month_day = last_month_date.day
     last_month_end_date = last_month_date.end_of_month
     last_month_end_day = last_month_end_date.day
     current_end_of_date = current_date.end_of_day
