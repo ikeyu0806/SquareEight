@@ -19,7 +19,8 @@ RSpec.describe 'Api::Batch::MerchantSubscriptionsController', type: :request do
                   monthly_payment_plan_id: monthly_payment_plan.id,
                   end_user_id: end_user.id,
                   billing_cycle_anchor_day: 31,
-                  last_paid_at: Date.new(2023, 01, 31))
+                  last_paid_at: Date.new(2023, 01, 31),
+                  created_at: Date.new(2023,1,31))
         }
         let(:monthly_payment_plan) {create(:monthly_payment_plan, account: standard_plan_account) }
         it do

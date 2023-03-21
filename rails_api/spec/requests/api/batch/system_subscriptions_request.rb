@@ -17,7 +17,8 @@ RSpec.describe 'Api::Batch::SystemSubscriptionsController', type: :request do
           create(:standard_plan_subscription,
                   account_id: standard_plan_account.id,
                   billing_cycle_anchor_day: 31,
-                  last_paid_at: Date.new(2023, 01, 31))
+                  last_paid_at: Date.new(2023, 01, 31),
+                  created_at: Date.new(2023,1,31))
         }
         it do
           stripe_payment_intent_instance = double("stripe_payment_intent_instance")
