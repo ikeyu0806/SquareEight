@@ -517,6 +517,7 @@ class Api::Internal::AccountsController < ApplicationController
 
   def cancel_plan
     ActiveRecord::Base.transaction do
+      account = current_merchant_user.account
       account.cancel_system_subscription
       render json: { status: 'success' }, status: 200
     end
