@@ -50,6 +50,13 @@ class StripeWebhooksController < ApplicationController
         end
         purchase_product_name = stripe_params["data"]["object"]["metadata"]["purchase_product_name"]
         account_id = stripe_payment_intent.account_id.present? ? stripe_payment_intent.account_id : account&.id
+        # システムプラン請求時の分岐
+        if account_id.blank? && stripe_params["data"]["object"]["metadata"]["account_id"].present?
+          account_id = stripe_params["data"]["object"]["metadata"]["account_id"].to_i
+        end
+        if system_product_type.blank?
+          system_product_type = 'SystemPlan' if stripe_params["data"]["object"]["metadata"]["product_type"].eql?('system_plan')
+        end
         order_date = stripe_payment_intent.order_date.present? ? stripe_payment_intent.order_date : current_date_text
         # DBに登録
         stripe_payment_intent.attributes = {
