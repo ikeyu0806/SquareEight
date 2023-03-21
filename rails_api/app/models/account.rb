@@ -233,7 +233,7 @@ class Account < ApplicationRecord
       if subscription.service_plan != "Free"
         # 日割りで請求
         payment_intent = Stripe::PaymentIntent.create({
-          amount: subscription.prorated_plan_price,
+          amount: subscription.prorated_plan_price(self.plan_price),
           currency: 'jpy',
           payment_method_types: ['card'],
           customer: self.stripe_customer_id,

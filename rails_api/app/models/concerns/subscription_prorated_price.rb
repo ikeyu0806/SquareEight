@@ -4,8 +4,7 @@ module SubscriptionProratedPrice
   # 請求する日を引数に取って前回の請求日からの日割りで請求金額を算出する
   # 最終支払い日付から現在の日付までを計算
   # 請求日が29~31日の場合は前月の月末日から今月の月末日を確認。
-  def prorated_plan_price
-    plan_price = account.plan_price
+  def prorated_plan_price(plan_price)
     # 請求日と今日の日にちが一致。もしくは請求日が月末で今日も月末なら満額請求
     if require_full_bill
       prorated_price = plan_price

@@ -14,7 +14,7 @@ class Api::Batch::MerchantSubscriptionsController < ApplicationController
       end_user = subscription.end_user
       monthly_payment_plan = subscription.monthly_payment_plan
       account = monthly_payment_plan.account
-      amount = subscription.prorated_plan_price
+      amount = subscription.prorated_plan_price(monthly_payment_plan.price)
       commission = (monthly_payment_plan.price * account.application_fee_amount).to_i
       payment_intent = Stripe::PaymentIntent.create({
         amount: amount,
