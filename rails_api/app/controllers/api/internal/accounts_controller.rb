@@ -501,13 +501,13 @@ class Api::Internal::AccountsController < ApplicationController
   def update_plan
     ActiveRecord::Base.transaction do
       account = current_merchant_user.account
-      account.update!(service_plan: json_type_params[:service_plan])
       account.cancel_system_subscription
       SystemStripeSubscription.create!(
         account_id: account.id,
         service_plan: json_type_params[:service_plan],
         billing_cycle_anchor_day: Time.zone.now.day
       )
+      account.update!(service_plan: json_type_params[:service_plan])
       render json: { status: 'success' }, status: 200
     end
   rescue => error
