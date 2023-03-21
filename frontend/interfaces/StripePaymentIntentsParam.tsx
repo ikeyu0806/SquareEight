@@ -10,4 +10,5 @@ export interface StripePaymentIntentsParam {
   product_label_text: string
   refund_at_text: string
   quantity: string
+  system_stripe_subscription_join_datetext: string
 }

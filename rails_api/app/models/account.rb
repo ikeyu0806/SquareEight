@@ -183,6 +183,12 @@ class Account < ApplicationRecord
     stripe_payment_intents.where(system_product_type: "SystemPlan")
   end
 
+  def system_plan_subscription_payments_page_contents
+    JSON.parse(system_plan_subscription_payments.order(id: :desc).to_json(methods: [
+      :system_stripe_subscription_join_datetext
+    ]))
+  end
+
   def stripe_account_names
     return [] if stripe_persons.blank?
     stripe_persons.map{|person| person.last_name + person.first_name}

@@ -2,7 +2,7 @@ class Api::Internal::Account::StripePaymentIntentsController < ApplicationContro
   before_action :merchant_login_only!
 
   def system_plan_subscription_payments
-    system_plan_subscription_payments = current_merchant_user.account.system_plan_subscription_payments.order(id: :desc)
+    system_plan_subscription_payments = current_merchant_user.account.system_plan_subscription_payments_page_contents
     render json: { status: 'success', system_plan_subscription_payments: system_plan_subscription_payments }, status: 200
   rescue => error
     Rails.logger.error error
