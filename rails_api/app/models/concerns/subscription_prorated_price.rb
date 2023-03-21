@@ -19,7 +19,9 @@ module SubscriptionProratedPrice
   def require_full_bill
     current_date = Time.zone.now
     current_day = current_date.day
-    # 請求日と今日が同じ日にちならtrue
+    # 請求日と加入日が同じならfalse
+    return false if current_date.end_of_day.eql?(created_at.end_of_day)
+    # 請求日と今日が別の月で同じ日にちならtrue
     return true if current_day.eql?(billing_cycle_anchor_day)
     # 今日が月末で先月末の日にちより小さければtrueを返す
     last_month_date = Time.zone.now - 1.months
