@@ -16,7 +16,7 @@ class Api::Batch::SendLineSchedulesController < ApplicationController
       })
       schedule.update!(send_status: 'Complete')
     end
-    render json: { status: 'success', account: account }, status: 200
+    render json: { status: 'success' }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
