@@ -113,19 +113,6 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
         file_name = "monthly_payment_plan_image5_" + Time.zone.now.strftime('%Y%m%d%H%M%S%3N')
         monthly_payment_plan.register_s3_image(file_name, params[:monthly_payment_plan_image5_file], "image5_account_s3_image_id")
       end
-      Stripe.api_key = Rails.configuration.stripe[:secret_key]
-      Stripe.api_version = '2022-08-01'
-      product = Stripe::Product.create({
-        name: form_type_params[:name]
-      })
-      stripe_plan = Stripe::Plan.create({
-        amount: form_type_params[:price],
-        currency: 'jpy',
-        interval: 'month',
-        nickname: form_type_params[:name],
-        product: product.id,
-      })
-      monthly_payment_plan.stripe_plan_id = stripe_plan.id
       monthly_payment_plan.save!
       if params["reserve_frame_ids"].present?
         params["reserve_frame_ids"].each do |reserve_frame_id|
@@ -136,7 +123,6 @@ class Api::Internal::MonthlyPaymentPlansController < ApplicationController
         shop = Shop.find_by(public_id: s[:public_id])
         monthly_payment_plan.shop_monthly_payment_plans.create!(shop_id: shop.id)
       end
-      monthly_payment_plan.save!
       render json: { status: 'success' }, status: 200
     end
   rescue => error

@@ -208,34 +208,11 @@ class Api::Internal::CashRegistersController < ApplicationController
             price: monthly_payment_plan.price,
             account_id: monthly_payment_plan.account.id,
             commission: (monthly_payment_plan.price * account.application_fee_amount).to_i)
-          stripe_subscription = Stripe::Subscription.create({
-            customer: current_end_user.stripe_customer_id,
-            application_fee_percent: account.application_fee_percent,
-            description: monthly_payment_plan.name,
-            metadata: {
-              'account_business_name': monthly_payment_plan.account.business_name,
-              'purchase_product_name': monthly_payment_plan.name,
-              'price': monthly_payment_plan.price,
-              'customer': current_end_user.stripe_customer_id,
-              'order_item_id': order_item.id,
-              'monthly_payment_plan_id': monthly_payment_plan.id,
-              'end_user_id': current_end_user.id,
-              'account_id': monthly_payment_plan.account_id,
-              'customer_id': customer.id,
-              'customer_fullname': customer.full_name,
-              'item_type': 'end_user_to_merchant_subscription',
-            },
-            items: [{ plan: monthly_payment_plan.stripe_plan_id }],
-            transfer_data:  {
-              destination: monthly_payment_plan.account.stripe_account_id
-            }
-          })
           # postgreにも登録
           MerchantStripeSubscription.create!(
             monthly_payment_plan_id: monthly_payment_plan.id,
             end_user_id: current_end_user.id,
-            stripe_subscription_id: stripe_subscription.id,
-            billing_cycle_anchor_datetime: Time.at(JSON.parse(stripe_subscription.to_json)["billing_cycle_anchor"])
+            billing_cycle_anchor_day: Time.zone.now.day
           )
           current_end_user.cart_monthly_payment_plans.where(monthly_payment_plan_id: monthly_payment_plan.id).delete_all
           # エンドユーザ通知

@@ -40,6 +40,7 @@ const Index: NextPage = () => {
               <th className='text-center'>プラン名</th>
               <th className='text-center'>お支払い金額</th>
               <th className='text-center'>加入日</th>
+              <th className='text-center'>お支払い日</th>
             </tr>
           </thead>
           <tbody>
@@ -48,6 +49,7 @@ const Index: NextPage = () => {
                 <tr key={i}>
                   <td className='text-center'>{payment.system_plan_name}</td>
                   <td className='text-center'>￥{payment.amount}</td>
+                  <td className='text-center'>{payment.system_stripe_subscription_join_datetext}</td>
                   <td className='text-center'>{payment.order_date}</td>
                 </tr>
               )

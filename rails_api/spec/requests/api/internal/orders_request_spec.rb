@@ -12,14 +12,14 @@ RSpec.describe 'Api::Internal::OrdersController', type: :request do
     context 'login as end_user' do
       it 'should return 200' do
         allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
-        get '/api/internal/orders'
+        get '/api/internal/orders', params: { current_page: 1, display_count: 10 }
         expect(response.status).to eq 200
       end
     end
 
     context 'not login' do
       it 'should return 401' do
-        get '/api/internal/orders'
+        get '/api/internal/orders', params: { current_page: 1, display_count: 10 }
         expect(response.status).to eq 401
       end
     end

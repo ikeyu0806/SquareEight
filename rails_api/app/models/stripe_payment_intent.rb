@@ -11,6 +11,7 @@ class StripePaymentIntent < ApplicationRecord
   has_one :monthly_payment_plan, foreign_key: :id, primary_key: :monthly_payment_plan_id
   has_one :reservation, foreign_key: :id, primary_key: :reservation_id
   has_one :customer, foreign_key: :stripe_customer_id, primary_key: :stripe_customer_id
+  has_one :system_stripe_subscription, foreign_key: :id, primary_key: :system_stripe_subscription_id
   enum system_product_type: { Product: 0,
                               MonthlyPaymentPlan: 1,
                               TicketMaster: 2,
@@ -64,5 +65,10 @@ class StripePaymentIntent < ApplicationRecord
     return '' if order_item.nil?
     return '' if order_item.quantity.zero?
     order_item.quantity.to_s
+  end
+
+  def system_stripe_subscription_join_datetext
+    return '' if system_stripe_subscription.blank?
+    system_stripe_subscription.created_at.strftime("%Y年%m月%d日")
   end
 end

@@ -1,5 +1,6 @@
 class MerchantStripeSubscription < ApplicationRecord
   include PublicIdModule
+  include SubscriptionProratedPrice
 
   belongs_to :monthly_payment_plan
   belongs_to :end_user
@@ -20,10 +21,6 @@ class MerchantStripeSubscription < ApplicationRecord
     end_user.customer.public_id
   end
 
-  def billing_cycle_anchor_day
-    "毎月#{billing_cycle_anchor_datetime&.day}日"
-  end
-
   def canceled_at_text
     return '' if canceled_at.blank?
     canceled_at.strftime("%Y/%m/%d")
@@ -39,5 +36,49 @@ class MerchantStripeSubscription < ApplicationRecord
 
   def price
     monthly_payment_plan.price
+  end
+
+  def cancel_subscription
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
+    stripe_customer = Stripe::Customer.retrieve(end_user.stripe_customer_id)
+    default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
+    account = monthly_payment_plan.account
+    self.update!(
+      canceled_at: Time.zone.now
+    )
+    # 日割りで請求
+    amount = prorated_plan_price(self.price)
+    commission = (monthly_payment_plan.price * account.application_fee_amount).to_i
+    if amount > 50
+      payment_intent = Stripe::PaymentIntent.create({
+        amount: amount,
+        currency: 'jpy',
+        payment_method_types: ['card'],
+        payment_method: default_payment_method_id,
+        customer: end_user.stripe_customer_id,
+        metadata: stripe_merchant_subscription_metadata,
+        application_fee_amount: commission,
+        transfer_data: {
+          destination: account.stripe_account_id
+        }
+      })
+      Stripe::PaymentIntent.confirm(
+        payment_intent.id
+      )
+      self.update!(last_paid_at: Time.zone.now)
+    end
+  end
+
+  def stripe_merchant_subscription_metadata
+    {
+      'account_id': monthly_payment_plan.account_id,
+      'end_user_id': end_user.id,
+      'monthly_payment_plan_id': monthly_payment_plan.id,
+      'price': monthly_payment_plan.price,
+      'product_type': 'monthly_payment_plan',
+      'purchase_product_name': monthly_payment_plan.name,
+      'merchant_stripe_subscription_id': self.id
+    }
   end
 end

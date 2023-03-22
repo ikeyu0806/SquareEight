@@ -26,6 +26,7 @@ class Account < ApplicationRecord
   has_many :html_mail_templates
   has_many :account_notifications
   has_many :stripe_payment_intents
+  has_many :system_stripe_subscriptions
   has_many :delivery_datetime_settings
   has_many :stripe_persons
   has_many :account_s3_images
@@ -46,7 +47,7 @@ class Account < ApplicationRecord
   STRIPE_CHARGE_FEE = { "Free" => 80, "Light" => 70, "Standard" => 70, "Premium" => 50, "Trial" => 1000000000 }
   CUSTOMER_DISPLAY_LIMIT = { "Free" => 10, "Light" => 200, "Standard" => 500, "Premium" => 1000000000, "Trial" => 1000000000 }
   QUESTIONNAIRE_MASTER_LIMIT = { "Free" => 3, "Light" => 1000000000, "Standard" => 1000000000, "Premium" => 1000000000, "Trial" => 1000000000 }
-  PLAN_PRICE = { "Free" => 0, "Light" => 1480, "Standard" => 2980, "Premium" => 6980, "Trial" => "トライアル" }
+  PLAN_PRICE = { "Free" => 0, "Light" => 1480, "Standard" => 2980, "Premium" => 6980, "Trial" => 0 }
   STRIPE_APPLICATION_FEE_AMOUNT = { "Free" => 0.08, "Light" => 0.05, "Standard" => 0.05, "Premium" => 0.04, "Trial" => 0.04 }
   STRIPE_APPLICATION_FEE_PERCENT = { "Free" => 8, "Light" => 5, "Standard" => 5, "Premium" => 4, "Trial" => 4 }
 
@@ -182,6 +183,12 @@ class Account < ApplicationRecord
     stripe_payment_intents.where(system_product_type: "SystemPlan")
   end
 
+  def system_plan_subscription_payments_page_contents
+    JSON.parse(system_plan_subscription_payments.order(id: :desc).to_json(methods: [
+      :system_stripe_subscription_join_datetext
+    ]))
+  end
+
   def stripe_account_names
     return [] if stripe_persons.blank?
     stripe_persons.map{|person| person.last_name + person.first_name}
@@ -220,5 +227,34 @@ class Account < ApplicationRecord
                    answer_datetime: questionnaire_answer.created_at.strftime("%Y年%m月%d日 %H時%M分")})
     end
     result
+  end
+
+  def cancel_system_subscription
+    Stripe.api_key = Rails.configuration.stripe[:secret_key]
+    Stripe.api_version = '2022-08-01'
+    stripe_customer = Stripe::Customer.retrieve(stripe_customer_id)
+    default_payment_method_id = stripe_customer["invoice_settings"]["default_payment_method"]
+    system_stripe_subscriptions.where(canceled_at: nil).each do |subscription|
+      subscription.update!(
+        canceled_at: Time.zone.now
+      )
+      amount = subscription.prorated_plan_price(self.plan_price)
+      if subscription.service_plan != "Free" && amount > 50
+        # 日割りで請求
+        payment_intent = Stripe::PaymentIntent.create({
+          amount: amount,
+          currency: 'jpy',
+          payment_method_types: ['card'],
+          payment_method: default_payment_method_id,
+          customer: self.stripe_customer_id,
+          metadata: subscription.stripe_serivice_plan_subscription_metadata
+        })
+        Stripe::PaymentIntent.confirm(
+          payment_intent.id
+        )
+        subscription.update!(last_paid_at: Time.zone.now)
+      end
+    end
+    self.update!(service_plan: "Free")
   end
 end

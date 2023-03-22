@@ -36,7 +36,8 @@ class StripeWebhooksController < ApplicationController
         ticket_master_id = stripe_params["data"]["object"]["metadata"]["ticket_master_id"]
         reserve_frame_id = stripe_params["data"]["object"]["metadata"]["reserve_frame_id"]
         payment_request_id = stripe_params["data"]["object"]["metadata"]["payment_request_id"]
-
+        merchant_stripe_subscription_id = stripe_params["data"]["object"]["metadata"]["merchant_stripe_subscription_id"]
+        system_stripe_subscription_id = stripe_params["data"]["object"]["metadata"]["system_stripe_subscription_id"]
         end_user = EndUser.find_by(stripe_customer_id: stripe_customer_id)
         account = Account.find_by(stripe_account_id: transfer_destination_account_id)
         stripe_payment_intent = StripePaymentIntent.find_or_initialize_by(stripe_payment_intent_id: stripe_payment_intent_id)
@@ -50,6 +51,18 @@ class StripeWebhooksController < ApplicationController
         end
         purchase_product_name = stripe_params["data"]["object"]["metadata"]["purchase_product_name"]
         account_id = stripe_payment_intent.account_id.present? ? stripe_payment_intent.account_id : account&.id
+        # システムプラン請求時の分岐
+        if account_id.blank? && stripe_params["data"]["object"]["metadata"]["account_id"].present?
+          account_id = stripe_params["data"]["object"]["metadata"]["account_id"].to_i
+        end
+        if system_product_type.blank?
+          system_product_type = 'SystemPlan' if stripe_params["data"]["object"]["metadata"]["product_type"].eql?('system_plan')
+        end
+        if stripe_params["data"]["object"]["metadata"]["system_plan_name"].present?
+          system_plan_name = stripe_params["data"]["object"]["metadata"]["system_plan_name"]
+        else
+          system_plan_name = ""
+        end
         order_date = stripe_payment_intent.order_date.present? ? stripe_payment_intent.order_date : current_date_text
         # DBに登録
         stripe_payment_intent.attributes = {
@@ -66,7 +79,10 @@ class StripeWebhooksController < ApplicationController
           payment_request_id: payment_request_id,
           system_product_type: system_product_type,
           end_user_id: end_user&.id,
-          account_id: account_id
+          account_id: account_id,
+          merchant_stripe_subscription_id: merchant_stripe_subscription_id,
+          system_stripe_subscription_id: system_stripe_subscription_id,
+          system_plan_name: system_plan_name
         }
         stripe_payment_intent.save!
       end

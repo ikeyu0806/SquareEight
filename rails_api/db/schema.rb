@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_15_064709) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_20_111055) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -259,12 +259,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_064709) do
   create_table "merchant_stripe_subscriptions", force: :cascade do |t|
     t.integer "end_user_id", null: false
     t.integer "monthly_payment_plan_id", null: false
-    t.string "stripe_subscription_id", null: false
     t.datetime "canceled_at"
     t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.datetime "billing_cycle_anchor_datetime"
+    t.datetime "last_paid_at"
+    t.integer "billing_cycle_anchor_day"
   end
 
   create_table "merchant_users", force: :cascade do |t|
@@ -396,7 +396,6 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_064709) do
     t.datetime "updated_at", null: false
     t.integer "account_id"
     t.text "description"
-    t.string "stripe_plan_id"
     t.integer "publish_status", default: 0
     t.datetime "deleted_at"
     t.integer "image1_account_s3_image_id"
@@ -874,6 +873,8 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_064709) do
     t.integer "payment_request_id"
     t.integer "order_item_id"
     t.datetime "refund_at"
+    t.integer "system_stripe_subscription_id"
+    t.integer "merchant_stripe_subscription_id"
   end
 
   create_table "stripe_payment_requests", force: :cascade do |t|
@@ -936,11 +937,12 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_15_064709) do
   create_table "system_stripe_subscriptions", force: :cascade do |t|
     t.integer "account_id", null: false
     t.integer "service_plan", null: false
-    t.string "stripe_subscription_id", null: false
     t.datetime "canceled_at"
     t.string "public_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "last_paid_at"
+    t.integer "billing_cycle_anchor_day"
   end
 
   create_table "ticket_masters", force: :cascade do |t|

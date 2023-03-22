@@ -295,11 +295,7 @@ class Api::Internal::EndUsersController < ApplicationController
   def cancel_subscription
     ActiveRecord::Base.transaction do
       merchant_stripe_subscription = MerchantStripeSubscription.find_by(public_id: params[:public_id])
-      Stripe::Subscription.cancel(
-        merchant_stripe_subscription.stripe_subscription_id,
-        prorate: true
-      )
-      merchant_stripe_subscription.update!(canceled_at: Time.zone.now)
+      merchant_stripe_subscription.cancel_subscription
       render json: { status: 'success' }, status: 200
     end
   rescue => error

@@ -250,7 +250,7 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
             </Col>
           </Row>
 
-          <Form.Label className='mt10'>回数券イメージ画像1</Form.Label>
+          <Form.Label className='mt10'>イメージ画像1</Form.Label>
           <Form.Control
             onChange={onChangeTicketMasterImage1File}
             type='file' />
@@ -259,7 +259,7 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
             src={monthlyPaymentPlanImage1ImagePublicUrl}
             alt='monthlyPaymentPlanImage1File Image'
           />}
-          <Form.Label className='mt10'>回数券イメージ画像2</Form.Label>
+          <Form.Label className='mt10'>イメージ画像2</Form.Label>
           <Form.Control
             onChange={onChangeTicketMasterImage2File}
             type='file' />
@@ -268,7 +268,7 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
             src={monthlyPaymentPlanImage2ImagePublicUrl}
             alt='monthlyPaymentPlanImage2File Image'
           />}
-          <Form.Label className='mt10'>回数券イメージ画像3</Form.Label>
+          <Form.Label className='mt10'>イメージ画像3</Form.Label>
           <Form.Control
             onChange={onChangeTicketMasterImage3File}
             type='file' />
@@ -277,7 +277,7 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
             src={monthlyPaymentPlanImage3ImagePublicUrl}
             alt='monthlyPaymentPlanImage3File Image'
           />}
-          <Form.Label className='mt10'>回数券イメージ画像4</Form.Label>
+          <Form.Label className='mt10'>イメージ画像4</Form.Label>
           <Form.Control
             onChange={onChangeTicketMasterImage4File}
             type='file' />
@@ -286,7 +286,7 @@ const CreateMonthlyPayment = ({showDeleteButton}: Props): JSX.Element => {
             src={monthlyPaymentPlanImage4ImagePublicUrl}
             alt='monthlyPaymentPlanImage4File Image'
           />}
-          <Form.Label className='mt10'>回数券イメージ画像5</Form.Label>
+          <Form.Label className='mt10'>イメージ画像5</Form.Label>
           <Form.Control
             onChange={onChangeTicketMasterImage5File}
             type='file' />
