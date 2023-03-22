@@ -277,7 +277,6 @@ RSpec.describe 'Api::Internal::EndUsersController', type: :request do
     context 'login as end_user' do      
       it 'should return 200' do
         allow_any_instance_of(ApplicationController).to receive(:current_end_user).and_return(end_user)
-        allow(Stripe::Subscription).to receive(:cancel).and_return(true)
         delete "/api/internal/end_users/#{merchant_stripe_subscription.public_id}/cancel_subscription"
         expect(response.status).to eq 200
       end
