@@ -28,10 +28,10 @@ const SystemPlanDescribeModal = () => {
         </div>
         <div className='font-weight-bold mt20'>解約について</div>
         <div className='mt10'>
-          解約した場合加入時間の比例配分で請求されます。
+          解約した場合、比例配で請求されます。
         </div>
         <div className='mt10'>
-          例）1月10日に加入して1月25日に解約した場合、15日分の金額が請求されます。
+          例）1月1日に加入して1月15日に解約した場合、15日分の金額が請求されます。
         </div>
       </Modal.Body>
       <Modal.Footer>
