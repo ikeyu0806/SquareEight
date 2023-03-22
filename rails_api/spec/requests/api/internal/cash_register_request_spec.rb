@@ -53,8 +53,6 @@ RSpec.describe 'Api::Internal::CashRegistersController', type: :request do
         allow(stripe_payment_intent_instance).to receive(:id).and_return("demo_id")
         allow(Stripe::PaymentIntent).to receive(:create).and_return(stripe_payment_intent_instance)
         allow(Stripe::PaymentIntent).to receive(:confirm).and_return(true)
-        allow(stripe_subscription_intent_instance).to receive(:id).and_return("demo_id")
-        allow(stripe_subscription_intent_instance).to receive(:to_json).and_return({"billing_cycle_anchor": Time.zone.now.to_i}.to_json)
         post '/api/internal/cash_registers/purchase', params: params
         expect(response.status).to eq 200
       end
