@@ -50,14 +50,6 @@ class EndUser < ApplicationRecord
     JSON.parse(result.to_json)["data"]
   end
 
-  def search_stripe_subscriptions
-    Stripe.api_key = Rails.configuration.stripe[:secret_key]
-    Stripe.api_version = '2022-08-01'
-    query = 'metadata["customer"]:' + "\'" + self.stripe_customer_id + "\'"
-    result = Stripe::Subscription.search({query: query, limit: 100})
-    JSON.parse(result.to_json)["data"]
-  end
-
   def default_delivery_target
     delivery_targets&.find_by(is_default: true)
   end

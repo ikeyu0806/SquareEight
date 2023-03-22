@@ -282,7 +282,7 @@ class Reservation < ApplicationRecord
           self.reservation_purchased_ticket_relations.create!(purchased_ticket_id: purchased_ticket.id, consume_number: 1)
         end
       when 'monthlyPaymentPlan'
-        is_subscribe_plan = end_user.search_stripe_subscriptions.pluck("metadata")&.pluck("monthly_payment_plan_id")
+        is_subscribe_plan = end_user.merchant_stripe_subscriptions.pluck("monthly_payment_plan_id").include?(self.monthly_payment_plan_id)
         raise 'プランに加入していません' unless is_subscribe_plan
       else
       end
