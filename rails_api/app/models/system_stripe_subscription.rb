@@ -4,6 +4,7 @@ class SystemStripeSubscription < ApplicationRecord
 
   belongs_to :account
 
+  # これ請求には使わないけど履歴、データ取得的に使っとく
   enum service_plan: { Free: 0, Light: 1, Standard: 2, Premium: 3 }
 
   scope :billing_target, -> (target_day) {

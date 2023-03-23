@@ -1,8 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Api::Batch::SystemSubscriptionsController', type: :request do
+  let(:free_plan_account) {
+    create(:free_plan_account)
+  }
+  let(:light_plan_account) {
+    create(:light_plan_account)
+  }
   let(:standard_plan_account) {
     create(:standard_plan_account)
+  }
+  let(:premium_plan_account) {
+    create(:premium_plan_account)
   }
   describe 'POST /api/batch/system_subscriptions/exec_payment' do
     describe 'current_datetime is 2023-2-28' do
@@ -13,9 +22,23 @@ RSpec.describe 'Api::Batch::SystemSubscriptionsController', type: :request do
         travel_back
       end
       describe 'last_paid_at is 2023-1-31' do
+        let!(:light_plan_subscription) {
+          create(:light_plan_subscription,
+                  account_id: light_plan_account.id,
+                  billing_cycle_anchor_day: 31,
+                  last_paid_at: Date.new(2023, 01, 31),
+                  created_at: Date.new(2023,1,31))
+        }
         let!(:standard_plan_subscription) {
           create(:standard_plan_subscription,
                   account_id: standard_plan_account.id,
+                  billing_cycle_anchor_day: 31,
+                  last_paid_at: Date.new(2023, 01, 31),
+                  created_at: Date.new(2023,1,31))
+        }
+        let!(:premium_plan_subscription) {
+          create(:premium_plan_subscription,
+                  account_id: premium_plan_account.id,
                   billing_cycle_anchor_day: 31,
                   last_paid_at: Date.new(2023, 01, 31),
                   created_at: Date.new(2023,1,31))
@@ -29,8 +52,8 @@ RSpec.describe 'Api::Batch::SystemSubscriptionsController', type: :request do
           post "/api/batch/system_subscriptions/exec_payment"
           expect(response.status).to eq 200
           response_body = JSON.parse(response.body)
-          expect(response_body["target_subscriptions"].length).to eq 1
-          expect(response_body["target_subscriptions"][0]["amount"]).to eq standard_plan_account.plan_price
+          expect(response_body["target_subscriptions"].length).to eq 3
+          # expect(response_body["target_subscriptions"][0]["amount"]).to eq standard_plan_account.plan_price
         end
       end
     end

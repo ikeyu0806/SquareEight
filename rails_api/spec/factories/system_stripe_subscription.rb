@@ -1,8 +1,4 @@
 FactoryBot.define do
-  factory :free_plan_subscription, class: SystemStripeSubscription do
-    service_plan { 'Free' }
-  end
-
   factory :light_plan_subscription, class: SystemStripeSubscription do
     service_plan { 'Light' }
   end

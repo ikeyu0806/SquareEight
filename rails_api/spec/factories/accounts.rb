@@ -3,6 +3,12 @@ FactoryBot.define do
     business_name { 'テストアカウント' }
   end
 
+  factory :free_account, class: Account do
+    business_name { 'テストアカウント' }
+    service_plan { 'Free' }
+    trial_end_datetime { Time.zone.now - 100.years }
+  end
+
   factory :light_plan_account, class: Account do
     business_name { 'テストアカウント' }
     service_plan { 'Light' }
@@ -19,5 +25,11 @@ FactoryBot.define do
     business_name { 'テストアカウント' }
     service_plan { 'Premium' }
     trial_end_datetime { Time.zone.now - 100.years }
+  end
+
+  factory :trial_account, class: Account do
+    business_name { 'テストアカウント' }
+    service_plan { 'Free' }
+    trial_end_datetime { Time.zone.now + 100.years }
   end
 end
