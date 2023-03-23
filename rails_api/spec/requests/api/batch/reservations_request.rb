@@ -12,7 +12,7 @@ RSpec.describe 'Api::Batch::ReservationsController', type: :request do
   }
   describe 'remind_tommorow_notifications' do
     let!(:credit_card_payment_reservation) {
-      create(:credit_card_payment_reservation,
+      create_list(:credit_card_payment_reservation, 5,
               :tomorrow_reservation,
               reserve_frame_id: reserve_frame.id,
               customer_id: customer.id)
@@ -20,6 +20,8 @@ RSpec.describe 'Api::Batch::ReservationsController', type: :request do
     it 'should remind tomorrow reservations' do
       post "/api/batch/reservations/remind_tommorow_notifications"
       expect(response.status).to eq 200
+      target_reservations_response = JSON.parse(response.body)["target_reservations"]
+      expect(target_reservations_response.length).to eq 5
     end
   end
 end
