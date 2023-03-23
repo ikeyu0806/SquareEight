@@ -52,8 +52,11 @@ RSpec.describe 'Api::Batch::SystemSubscriptionsController', type: :request do
           post "/api/batch/system_subscriptions/exec_payment"
           expect(response.status).to eq 200
           response_body = JSON.parse(response.body)
-          expect(response_body["target_subscriptions"].length).to eq 3
-          # expect(response_body["target_subscriptions"][0]["amount"]).to eq standard_plan_account.plan_price
+          target_subscription_response = response_body["target_subscriptions"]
+          expect(target_subscription_response.length).to eq 3
+          expect(target_subscription_response.find{|s| s["account_id"].eql?(light_plan_account.id)}["amount"]).to eq light_plan_account.plan_price
+          expect(target_subscription_response.find{|s| s["account_id"].eql?(standard_plan_account.id)}["amount"]).to eq standard_plan_account.plan_price
+          expect(target_subscription_response.find{|s| s["account_id"].eql?(premium_plan_account.id)}["amount"]).to eq premium_plan_account.plan_price
         end
       end
     end
