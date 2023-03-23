@@ -88,29 +88,29 @@ class StripeWebhooksController < ApplicationController
       end
   
       # invoice確定時。PaymentIntentで登録されていなかったデータを登録
-      if stripe_params["type"] == "invoice.finalized" && stripe_params["data"]["object"]["payment_intent"].present?
-        stripe_customer_id = stripe_params["data"]["object"]["customer"]
-        stripe_payment_intent_id = stripe_params["data"]["object"]["payment_intent"]
-        stripe_payment_intent = StripePaymentIntent.find_or_initialize_by(stripe_payment_intent_id: stripe_payment_intent_id)
-        monthly_payment_plan_id = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["monthly_payment_plan_id"]
-        if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["system_plan_name"].present?
-          stripe_payment_intent.system_plan_name = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["system_plan_name"]
-        end
-        stripe_customer_id = stripe_params["data"]["object"]["customer"]
-        stripe_payment_intent.monthly_payment_plan_id = monthly_payment_plan_id
-        stripe_payment_intent.purchase_product_name = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["purchase_product_name"]
-        stripe_payment_intent.system_product_type = "MonthlyPaymentPlan" if monthly_payment_plan_id.present?
-        stripe_payment_intent.amount = stripe_params["data"]["object"]["lines"]["data"][0]["amount"]
-        stripe_payment_intent.stripe_customer_id = stripe_customer_id
-        stripe_payment_intent.order_date = stripe_payment_intent.order_date.present? ? stripe_payment_intent.order_date : current_date_text
-        if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["account_id"].present? && stripe_payment_intent.account_id.blank?
-          stripe_payment_intent.account_id = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["account_id"]
-        end
-        if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["product_type"] == "system_plan"
-          stripe_payment_intent.system_product_type = "SystemPlan"
-        end
-        stripe_payment_intent.save!
-      end
+      # if stripe_params["type"] == "invoice.finalized" && stripe_params["data"]["object"]["payment_intent"].present?
+      #   stripe_customer_id = stripe_params["data"]["object"]["customer"]
+      #   stripe_payment_intent_id = stripe_params["data"]["object"]["payment_intent"]
+      #   stripe_payment_intent = StripePaymentIntent.find_or_initialize_by(stripe_payment_intent_id: stripe_payment_intent_id)
+      #   monthly_payment_plan_id = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["monthly_payment_plan_id"]
+      #   if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["system_plan_name"].present?
+      #     stripe_payment_intent.system_plan_name = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["system_plan_name"]
+      #   end
+      #   stripe_customer_id = stripe_params["data"]["object"]["customer"]
+      #   stripe_payment_intent.monthly_payment_plan_id = monthly_payment_plan_id
+      #   stripe_payment_intent.purchase_product_name = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["purchase_product_name"]
+      #   stripe_payment_intent.system_product_type = "MonthlyPaymentPlan" if monthly_payment_plan_id.present?
+      #   stripe_payment_intent.amount = stripe_params["data"]["object"]["lines"]["data"][0]["amount"]
+      #   stripe_payment_intent.stripe_customer_id = stripe_customer_id
+      #   stripe_payment_intent.order_date = stripe_payment_intent.order_date.present? ? stripe_payment_intent.order_date : current_date_text
+      #   if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["account_id"].present? && stripe_payment_intent.account_id.blank?
+      #     stripe_payment_intent.account_id = stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["account_id"]
+      #   end
+      #   if stripe_params["data"]["object"]["lines"]["data"][0]["metadata"]["product_type"] == "system_plan"
+      #     stripe_payment_intent.system_product_type = "SystemPlan"
+      #   end
+      #   stripe_payment_intent.save!
+      # end
       render json: { status: 'success' }, status: 200
     end
   rescue => error
