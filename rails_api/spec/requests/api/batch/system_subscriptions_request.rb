@@ -43,7 +43,23 @@ RSpec.describe 'Api::Batch::SystemSubscriptionsController', type: :request do
                   last_paid_at: Date.new(2023, 01, 31),
                   created_at: Date.new(2023,1,31))
         }
-        it do
+        let!(:canceled_standard_plan_subscription) {
+          create(:standard_plan_subscription,
+                  account_id: standard_plan_account.id,
+                  billing_cycle_anchor_day: 31,
+                  last_paid_at: Date.new(2023, 01, 31),
+                  created_at: Date.new(2023,1,31),
+                  canceled_at: Date.new(2023, 1,30))
+        }
+        let!(:joined_on_the_day_standard_plan_subscription) {
+          create(:standard_plan_subscription,
+                  account_id: standard_plan_account.id,
+                  billing_cycle_anchor_day: 28,
+                  created_at: Date.new(2023,2,28),
+                  last_paid_at: nil,
+                  canceled_at: nil)
+        }
+        it 'should bill full_price for joined plan, no charge for canceled_plan, joined on the day subscription' do
           stripe_payment_intent_instance = double("stripe_payment_intent_instance")
           allow(Stripe::Customer).to receive(:retrieve).and_return({"invoice_settings"=>{"default_payment_method"=>"pm_xxxx"}})
           allow(Stripe::PaymentIntent).to receive(:create).and_return(stripe_payment_intent_instance)
@@ -53,6 +69,7 @@ RSpec.describe 'Api::Batch::SystemSubscriptionsController', type: :request do
           expect(response.status).to eq 200
           response_body = JSON.parse(response.body)
           target_subscription_response = response_body["target_subscriptions"]
+          # キャンセル分は請求されないこと
           expect(target_subscription_response.length).to eq 3
           expect(target_subscription_response.find{|s| s["account_id"].eql?(light_plan_account.id)}["amount"]).to eq light_plan_account.plan_price
           expect(target_subscription_response.find{|s| s["account_id"].eql?(standard_plan_account.id)}["amount"]).to eq standard_plan_account.plan_price
