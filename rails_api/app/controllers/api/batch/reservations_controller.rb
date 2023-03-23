@@ -2,12 +2,14 @@ class Api::Batch::ReservationsController < ApplicationController
   skip_before_action :verify_authenticity_token
 
   def remind_tommorow_notifications
+    target_reservations = []
     tomorrow_day = Date.tomorrow
     reservations = Reservation.where(start_at: tomorrow_day.beginning_of_day..tomorrow_day.end_of_day)
     reservations.each do |reservation|
       ReservationMailer.remind_mail_to_customer(reservation.id).deliver_now
+      target_reservations.push(reservation)
     end
-    render json: { status: 'success' }, status: 200
+    render json: { status: 'success', target_reservations: target_reservations }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
@@ -15,6 +17,7 @@ class Api::Batch::ReservationsController < ApplicationController
 
   def confirm_lottery_reservations
     ActiveRecord::Base.transaction do
+      target_reservations = []
       rng = Random.new
       current_datetime = Time.zone.now.strftime("%Y%m%d%H")
       ReserveFrame.Lottery.each do |reserve_frame|
@@ -49,10 +52,11 @@ class Api::Batch::ReservationsController < ApplicationController
           shuffle_candidate_reservations.each do |r|
             r.lostLottery!
             ReservationMailer.confirm_lottery_reservation_mail_to_customer(r.id).deliver_now
+            target_reservations.push(r)
           end
         end
       end
-      render json: { status: 'success' }, status: 200
+      render json: { status: 'success', target_reservations: target_reservations }, status: 200
     end
   rescue => error
     Rails.logger.error error
