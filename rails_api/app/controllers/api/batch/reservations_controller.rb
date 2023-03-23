@@ -6,6 +6,8 @@ class Api::Batch::ReservationsController < ApplicationController
     tomorrow_day = Date.tomorrow
     reservations = Reservation.where(start_at: tomorrow_day.beginning_of_day..tomorrow_day.end_of_day)
     reservations.each do |reservation|
+      next if reservation.customer.blank?
+      next if reservation.customer.email.blank?
       ReservationMailer.remind_mail_to_customer(reservation.id).deliver_now
       target_reservations.push(reservation)
     end

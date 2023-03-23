@@ -10,12 +10,25 @@ RSpec.describe 'Api::Batch::ReservationsController', type: :request do
   let(:customer) {
     create(:customer, account_id: standard_plan_account.id)
   }
+  let(:no_email_customer) {
+    create(:customer,
+            email: nil,
+            account_id: standard_plan_account.id)
+  }
+
   describe 'remind_tommorow_notifications' do
     let!(:credit_card_payment_reservation) {
       create_list(:credit_card_payment_reservation, 5,
               :tomorrow_reservation,
               reserve_frame_id: reserve_frame.id,
               customer_id: customer.id)
+    }
+    # emailがないcustomerはskip
+    let!(:no_customer_reservation) {
+      create(:credit_card_payment_reservation,
+              :tomorrow_reservation,
+              reserve_frame_id: reserve_frame.id,
+              customer_id: no_email_customer.id)
     }
     it 'should remind tomorrow reservations' do
       post "/api/batch/reservations/remind_tommorow_notifications"
