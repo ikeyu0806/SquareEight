@@ -11,7 +11,7 @@ class Api::Batch::SystemSubscriptionsController < ApplicationController
     target_day = billing_target_day
     SystemStripeSubscription.billing_target(target_day).each do |subscription|
       # 今日支払った場合は請求しない
-      next if subscription.last_paid_at.end_of_day.eql?(Time.zone.now.end_of_day)
+      next if subscription.last_paid_at.present? && subscription.last_paid_at.end_of_day.eql?(Time.zone.now.end_of_day)
       # 加入した当日の場合は請求しない
       next if subscription.created_at.end_of_day.eql?(Time.zone.now.end_of_day)
       account = subscription.account
