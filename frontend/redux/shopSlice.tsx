@@ -33,7 +33,7 @@ export const shopSlice = createSlice({
     parkingLotGuidance: '',
     businessHoursText: '',
     remarks: '',
-    publishStatus: '',
+    publishStatus: 'Unpublish',
     brandImageFile: null as File | unknown,
     shopImage1File: null as File | unknown,
     shopImage2File:  null as File | unknown,
