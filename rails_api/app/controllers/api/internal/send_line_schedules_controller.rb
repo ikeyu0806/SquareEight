@@ -104,6 +104,8 @@ class Api::Internal::SendLineSchedulesController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  private
+
   def send_line_schedules_params
     params.require(:send_line_schedules)
           .permit(:id,

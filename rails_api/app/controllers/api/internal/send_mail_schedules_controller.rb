@@ -117,6 +117,8 @@ class Api::Internal::SendMailSchedulesController < ApplicationController
     render json: { status: 'fail', error: error }, status: 500
   end
 
+  private
+
   def send_mail_schedules_params
     params.require(:send_mail_schedules)
           .permit(:id,
