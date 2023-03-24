@@ -16,7 +16,7 @@ import { ATOM_TYPE } from 'constants/atomType'
 const EditImageSlideBlockAtomModal = (): JSX.Element => {
   const dispatch = useDispatch()
 
-  const [image, setImage] = useState('/images/noimage.jpeg')
+  const [image, setImage] = useState('/images/noimage.webp')
   const [base64Image, setBase64Image] = useState<any>('')
   const [title, setTitle] = useState('')
   const [text, setText] = useState('')

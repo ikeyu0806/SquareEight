@@ -27,7 +27,7 @@ const SelectImageSlideAtomModal = (): JSX.Element => {
               <Carousel.Item>
                 <img
                   className='d-block w-100'
-                  src='https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/girl_outdoor_image1.jpeg'
+                  src='https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/girl_outdoor_image1.webp'
                   alt='First slide'
                 />
                 <Carousel.Caption>
@@ -38,7 +38,7 @@ const SelectImageSlideAtomModal = (): JSX.Element => {
               <Carousel.Item>
                 <img
                   className='d-block w-100'
-                  src='https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/bouldering_image1.jpeg'
+                  src='https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/bouldering_image1.webp'
                   alt='Second slide'
                 />
 

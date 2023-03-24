@@ -133,6 +133,15 @@
   margin-bottom: 10px;
 }
 
+.business_type_content {
+  border-radius: 5px;
+  border: 1px solid;
+  border-top: 12px solid #5BA5BD;
+  padding: 20px 12px;
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
 .price_table table {
   border-collapse: collapse;
   border-spacing: 0;

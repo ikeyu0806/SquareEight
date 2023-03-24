@@ -21,7 +21,7 @@ const Index: NextPage = () => {
       <div className={companyStyles.cover_img_parent}>
         <img
           className={companyStyles.cover_img}
-          src='/images/company_info_cover.png'
+          src='/images/company_info_cover.webp'
           alt='Top Cover' />
         <p className={companyStyles.headline_service_name}>
           SquareEight.Inc
@@ -112,7 +112,7 @@ const Index: NextPage = () => {
             <Col md={6}>
               <img
                 className={companyStyles.service_top_image}
-                src='/images/service_top_image.png'
+                src='/images/service_top_image.webp'
                 alt='Saas Top Image' />
               <div className={companyStyles.service_description}>
                 予約ページ作成やEC販売、オンラインアンケート作成をオールインワンで提供するオンラインビジネス運営クラウドサービス。
