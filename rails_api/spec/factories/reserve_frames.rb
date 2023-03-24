@@ -34,5 +34,9 @@ FactoryBot.define do
     trait :cancel_possible_before_the_day do
       reception_deadline { 'PossibleBeforeTheDay' }
     end
+
+    trait :lottery_reception do
+      reception_type { 'Lottery' }
+    end
   end
 end

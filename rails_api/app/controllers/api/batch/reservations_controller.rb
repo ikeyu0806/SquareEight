@@ -19,14 +19,17 @@ class Api::Batch::ReservationsController < ApplicationController
 
   def confirm_lottery_reservations
     ActiveRecord::Base.transaction do
-      target_reservations = []
+      total_confirmed_reservations = {}
+      total_lottery_lost_reservations = {}
       rng = Random.new
       current_datetime = Time.zone.now.strftime("%Y%m%d%H")
       ReserveFrame.Lottery.each do |reserve_frame|
+        candidate_reservations = []
+        confirmed_reservations = []
+        lottery_lost_reservations = []
         account = reserve_frame.account
         account_notification_title = reserve_frame.title + 'の抽選を実行しました'
         account_notification_url = ENV['FRONTEND_URL'] + '/admin/reservation'
-        candidate_reservations = []
         reserve_frame.reservations.waitingForLotteryConfirm.each do |r|
           if r.lottery_confirmed_day_before_datetime.strftime("%Y%m%d%H") == current_datetime
             candidate_reservations.push(r)
@@ -36,29 +39,40 @@ class Api::Batch::ReservationsController < ApplicationController
           customer_notification_title = reserve_frame.title + 'の抽選結果'
           customer_notification_url = ENV['FRONTEND_URL'] + '/customer_page/reservation'
           shuffle_candidate_reservations = candidate_reservations.shuffle(random: rng)
-          shuffle_candidate_reservations.first(reserve_frame.capacity).each do |r|
-            r.confirm!
+          # 予約受付数
+          capacity = reserve_frame.capacity
+          confirm_reservation_capacity_count = 0
+          shuffle_candidate_reservations.each do |reservation|
+            confirm_reservation_capacity_count = confirm_reservation_capacity_count += reservation.number_of_people
+            reservation.confirm!
             # 支払い実行
-            r.exec_payment
+            reservation.exec_payment
             account.merchant_users.allow_read_reservation_Allow.each do |merchant_user|
-              ReservationMailer.confirm_lottery_reservation_mail_to_merchant(r.id, merchant_user.id).deliver_now
+              ReservationMailer.confirm_lottery_reservation_mail_to_merchant(reservation.id, merchant_user.id).deliver_now
             end
             account.account_notifications
             .create!(title: account_notification_title, url: account_notification_url)
-    
-            ReservationMailer.confirm_lottery_reservation_mail_to_customer(r.id).deliver_now
-            r.end_user.end_user_notifications
-            .create!(title: customer_notification_title, url: customer_notification_url)
-            shuffle_candidate_reservations.delete_at(0)
+            ReservationMailer.confirm_lottery_reservation_mail_to_customer(reservation.id).deliver_now
+            if reservation.end_user.present?
+              reservation.end_user.end_user_notifications
+              .create!(title: customer_notification_title, url: customer_notification_url)
+            end
+            confirmed_reservations.push(reservation)
+            shuffle_candidate_reservations.delete(reservation)
+            break if confirm_reservation_capacity_count >= reserve_frame.capacity
           end
-          shuffle_candidate_reservations.each do |r|
-            r.lostLottery!
-            ReservationMailer.confirm_lottery_reservation_mail_to_customer(r.id).deliver_now
-            target_reservations.push(r)
+          shuffle_candidate_reservations.each do |reservation|
+            reservation.lostLottery!
+            ReservationMailer.confirm_lottery_reservation_mail_to_customer(reservation.id).deliver_now
+            lottery_lost_reservations.push(reservation)
           end
+          total_confirmed_reservations[reserve_frame.id.to_s + '_confirmed_reservations'] = confirmed_reservations
+          total_lottery_lost_reservations[reserve_frame.id.to_s + '_lottery_lost_reservations'] = lottery_lost_reservations
         end
       end
-      render json: { status: 'success', target_reservations: target_reservations }, status: 200
+      render json: {  status: 'success',
+                      confirmed_reservations: total_confirmed_reservations,
+                      lottery_lost_reservations: total_lottery_lost_reservations }, status: 200
     end
   rescue => error
     Rails.logger.error error
