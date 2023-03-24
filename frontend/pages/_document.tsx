@@ -8,6 +8,7 @@ const MyDocument = () => {
 
   return (
     <Html lang='ja-JP'>
+      <title>SquareEight</title>
       <Head>
         <meta charSet='utf-8' />
         <meta name='description' content={description} />
