@@ -43,7 +43,7 @@ class Api::Batch::ReservationsController < ApplicationController
           capacity = reserve_frame.capacity
           confirm_reservation_capacity_count = 0
           # 予約申し込み数が定員より大きい場合は抽選
-          if shuffle_candidate_reservations.count > reserve_frame.capacity
+          if shuffle_candidate_reservations.pluck(:number_of_people).inject(:+) > reserve_frame.capacity
             shuffle_candidate_reservations.each do |reservation|
               confirm_reservation_capacity_count = confirm_reservation_capacity_count += reservation.number_of_people
               reservation.confirm!
