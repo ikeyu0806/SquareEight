@@ -58,7 +58,7 @@ const Home: NextPage = () => {
       <div className={homeStyles.cover_img_parent}>
         <img
           className={homeStyles.cover_img}
-          src='/images/top_cover_min.png'
+          src='/images/webp/top_cover_min.webp'
           alt='Top Cover' />
         <p className={homeStyles.headline_service_name}>
           SquareEight
@@ -271,25 +271,25 @@ const Home: NextPage = () => {
               <Col lg={3} md={6} className='mb20'>
                 <img
                   className={homeStyles.demo_page_img}
-                  src='/images/tablet_shop_page.png'
+                  src='/images/webp/tablet_shop_page.webp'
                   alt='Tablet Shop Page' />
               </Col>
               <Col lg={3} md={6} className='mb20'>
                 <img
                   className={homeStyles.demo_page_img}
-                  src='/images/tablet_reserve_page_image.png'
+                  src='/images/webp/tablet_reserve_page_image.webp'
                   alt='Tablet Reserve Page' />
               </Col>
               <Col lg={3} md={6} className='mb20'>
                 <img
                   className={homeStyles.demo_page_img}
-                  src='/images/top_page_yoga_ticket.png'
+                  src='/images/webp/top_page_yoga_ticket.webp'
                   alt='Yoga Ticket Page' />
               </Col>
               <Col lg={3} md={6} className='mb20'>
                 <img
                   className={homeStyles.demo_page_img}
-                  src='/images/top_page_shoes.png'
+                  src='/images/webp/top_page_shoes.webp'
                   alt='Tablet Shoes Page' />
               </Col>
             </Row>
@@ -304,13 +304,13 @@ const Home: NextPage = () => {
               <Col lg={6} md={12}>
                 <img
                   className={homeStyles.customer_support_img}
-                  src='/images/select_mail_template_screen.png'
+                  src='/images/webp/select_mail_template_screen.webp'
                   alt='Mail Template Screen' />
               </Col>
               <Col lg={6} md={12}>
                 <img
                   className={homeStyles.customer_support_img}
-                  src='/images/edit_message_template_screen.png'
+                  src='/images/webp/edit_message_template_screen.webp'
                   alt='Edit Message Template' />
               </Col>
             </Row>
