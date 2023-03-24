@@ -11,7 +11,7 @@ import UpdateHtmlMailBlockStateIcons from 'components/organisms/UpdateHtmlMailBl
 const CreateImageWithTextHtmlTemplate = (): JSX.Element => {
   const router = useRouter()
   const dispatch = useDispatch()
-  const [image, setImage] = useState('/images/noimage.jpeg')
+  const [image, setImage] = useState('/images/noimage.webp')
   const [base64Image, setBase64Image] = useState<any>('')
   const [draftText, setDraftText] = useState('')
   const htmlMailTemplate = useSelector((state: RootState) => state.htmlMailTemplate.htmlMailTemplate)

@@ -39,7 +39,7 @@ const New: NextPage = () => {
                     {selectedType === 'ImageWithText' && <CheckIcon width={20} height={20} fill={'#00ff00'}></CheckIcon>}
                   </Card.Header>
                   <Card.Body>                  
-                    <Card.Img variant='top' src='/images/desk_image.jpeg' />
+                    <Card.Img variant='top' src='/images/desk_image.webp' />
                     <div>
                       テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文テキスト本文
                     </div>
@@ -57,7 +57,7 @@ const New: NextPage = () => {
                   <Card.Body>
                     <Row>
                       <Col>
-                        <Card.Img variant='top' src='/images/desk_image.jpeg' />
+                        <Card.Img variant='top' src='/images/desk_image.webp' />
                       </Col>
                       <Col>
                         <div>
@@ -68,7 +68,7 @@ const New: NextPage = () => {
                     &nbsp;
                     <Row>
                       <Col>
-                        <Card.Img variant='top' src='/images/desk_image.jpeg' />
+                        <Card.Img variant='top' src='/images/desk_image.webp' />
                       </Col>
                       <Col>
                         <div>

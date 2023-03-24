@@ -25,7 +25,7 @@ const SelectImageAtomModal = (): JSX.Element => {
             <hr />
             <img
               className='d-block w-100'
-              src='https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/bouldering_image1.jpeg'
+              src='https://square-eight-demo-images.s3.ap-northeast-1.amazonaws.com/bouldering_image1.webp'
               alt='Demo Img'
             />
           </>}

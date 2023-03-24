@@ -131,7 +131,7 @@ const Edit: NextPage = () => {
                 </div>
               </Col>
               <Col>
-                <img src='/images/classroom.jpg' alt='sample' width='100%'></img>
+                <img src='/images/classroom.webp' alt='sample' width='100%'></img>
               </Col>
             </Row>
           </Container>
