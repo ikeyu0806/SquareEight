@@ -3,6 +3,7 @@ class Api::Batch::SendMailSchedulesController < ApplicationController
 
   def send_same_hour_schedules
     current_datetime = Time.zone.now.strftime("%Y%m%d%H")
+    send_mail_schedule_result = []
     send_mail_schedules = SendMailSchedule.where(send_status: 'Incomplete').select{|t| t.scheduled_datetime&.strftime("%Y%m%d%H") == current_datetime}
     send_mail_schedules.each do |schedule|
       customer = schedule.customer
@@ -22,8 +23,9 @@ class Api::Batch::SendMailSchedulesController < ApplicationController
         MessageTemplateMailer.send_mail(customer.email, schedule.mail_title, content).deliver_now
       end
       schedule.update!(send_status: 'Complete')
+      send_mail_schedule_result.push(schedule)
     end
-    render json: { status: 'success' }, status: 200
+    render json: { status: 'success', send_mail_schedule_result: send_mail_schedule_result }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500
