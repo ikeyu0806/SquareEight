@@ -5,6 +5,7 @@ class Api::Batch::SendLineSchedulesController < ApplicationController
 
   def send_same_hour_schedules
     current_datetime = Time.zone.now.strftime("%Y%m%d%H")
+    send_line_schedule_result = []
     send_line_schedules = SendLineSchedule.where(send_status: 'Incomplete').select{|t| t.scheduled_datetime&.strftime("%Y%m%d%H") == current_datetime}
     send_line_schedules.each do |schedule|
       line_account = schedule.line_official_account
@@ -15,8 +16,9 @@ class Api::Batch::SendLineSchedulesController < ApplicationController
         text: schedule.message
       })
       schedule.update!(send_status: 'Complete')
+      send_line_schedule_result.push(schedule)
     end
-    render json: { status: 'success' }, status: 200
+    render json: { status: 'success', send_line_schedule_result: send_line_schedule_result }, status: 200
   rescue => error
     Rails.logger.error error
     render json: { status: 'fail', error: error }, status: 500

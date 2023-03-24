@@ -27,6 +27,7 @@ RSpec.describe 'Api::Batch::SendLineSchedulesController', type: :request do
       allow(line_messaging_client_instance).to receive(:push_message).and_return(true)
       post "/api/batch/send_line_schedules/send_same_hour_schedules"
       expect(response.status).to eq 200
+      expect(JSON.parse(response.body)["send_line_schedule_result"].length).to eq 1
     end
   end
 end
