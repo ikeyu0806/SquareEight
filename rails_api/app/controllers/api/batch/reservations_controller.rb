@@ -42,32 +42,44 @@ class Api::Batch::ReservationsController < ApplicationController
           # 予約受付数
           capacity = reserve_frame.capacity
           confirm_reservation_capacity_count = 0
-          shuffle_candidate_reservations.each do |reservation|
-            confirm_reservation_capacity_count = confirm_reservation_capacity_count += reservation.number_of_people
-            reservation.confirm!
-            # 支払い実行
-            reservation.exec_payment
-            account.merchant_users.allow_read_reservation_Allow.each do |merchant_user|
-              ReservationMailer.confirm_lottery_reservation_mail_to_merchant(reservation.id, merchant_user.id).deliver_now
+          # 予約申し込み数が定員より大きい場合は抽選
+          if shuffle_candidate_reservations.count > reserve_frame.capacity
+            shuffle_candidate_reservations.each do |reservation|
+              confirm_reservation_capacity_count = confirm_reservation_capacity_count += reservation.number_of_people
+              reservation.confirm!
+              # 支払い実行
+              reservation.exec_payment
+              account.merchant_users.allow_read_reservation_Allow.each do |merchant_user|
+                ReservationMailer.confirm_lottery_reservation_mail_to_merchant(reservation.id, merchant_user.id).deliver_now
+              end
+              account.account_notifications
+              .create!(title: account_notification_title, url: account_notification_url)
+              ReservationMailer.confirm_lottery_reservation_mail_to_customer(reservation.id).deliver_now
+              if reservation.end_user.present?
+                reservation.end_user.end_user_notifications
+                .create!(title: customer_notification_title, url: customer_notification_url)
+              end
+              confirmed_reservations.push(reservation)
+              shuffle_candidate_reservations.delete(reservation)
+              break if confirm_reservation_capacity_count >= reserve_frame.capacity
             end
-            account.account_notifications
-            .create!(title: account_notification_title, url: account_notification_url)
-            ReservationMailer.confirm_lottery_reservation_mail_to_customer(reservation.id).deliver_now
-            if reservation.end_user.present?
-              reservation.end_user.end_user_notifications
-              .create!(title: customer_notification_title, url: customer_notification_url)
+            shuffle_candidate_reservations.each do |reservation|
+              reservation.lostLottery!
+              ReservationMailer.confirm_lottery_reservation_mail_to_customer(reservation.id).deliver_now
+              lottery_lost_reservations.push(reservation)
             end
-            confirmed_reservations.push(reservation)
-            shuffle_candidate_reservations.delete(reservation)
-            break if confirm_reservation_capacity_count >= reserve_frame.capacity
+            total_confirmed_reservations[reserve_frame.id.to_s + '_confirmed_reservations'] = confirmed_reservations
+            total_lottery_lost_reservations[reserve_frame.id.to_s + '_lottery_lost_reservations'] = lottery_lost_reservations
+          # 予約申し込み数が定員より小さい場合は全員当選
+          else
+            shuffle_candidate_reservations.each do |reservation|
+              reservation.confirm!
+              ReservationMailer.confirm_lottery_reservation_mail_to_customer(reservation.id).deliver_now
+              confirmed_reservations.push(reservation)
+            end
+            total_confirmed_reservations[reserve_frame.id.to_s + '_confirmed_reservations'] = confirmed_reservations
+            total_lottery_lost_reservations[reserve_frame.id.to_s + '_lottery_lost_reservations'] = []
           end
-          shuffle_candidate_reservations.each do |reservation|
-            reservation.lostLottery!
-            ReservationMailer.confirm_lottery_reservation_mail_to_customer(reservation.id).deliver_now
-            lottery_lost_reservations.push(reservation)
-          end
-          total_confirmed_reservations[reserve_frame.id.to_s + '_confirmed_reservations'] = confirmed_reservations
-          total_lottery_lost_reservations[reserve_frame.id.to_s + '_lottery_lost_reservations'] = lottery_lost_reservations
         end
       end
       render json: {  status: 'success',
