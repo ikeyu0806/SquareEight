@@ -67,8 +67,9 @@ const Login: NextPage = () => {
                   <div className='text-center'>
                     <div className={AuthStyles.service_name}>SquareEight</div>
                     <div className={AuthStyles.auth_screen_header_text}>SquareEightIDログイン</div>
+                    <div className='mt10'>サービス購入者向けのログインページです。</div>
                   </div>
-                  <Card className='mt30 mb30'>
+                  <Card className='mt20 mb30'>
                     <Card.Body>
                       <Form onSubmit={onSubmit}>
                         <Form.Group className='mb-3' controlId='formEmail'>
