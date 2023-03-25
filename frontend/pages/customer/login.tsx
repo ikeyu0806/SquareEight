@@ -52,7 +52,8 @@ const Login: NextPage = () => {
       dispatch(alertChanged({message: '', show: false}))
       endUserLoginRedirect()
     }).catch(error => {
-      dispatch(alertChanged({message: error.response.data.error, show: true, type: 'danger'}))
+      console.log(error.response.data.error)
+      dispatch(alertChanged({message: 'ログイン失敗しました。メールアドレス、パスワードを再確認してください。', show: true, type: 'danger'}))
     })
   }
 
