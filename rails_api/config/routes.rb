@@ -82,6 +82,7 @@ Rails.application.routes.draw do
       post 'customers/:public_id/connect_line_user', to: 'customers#connect_line_user'
       post 'customers', to: 'customers#create'
       post 'customer_groups/:public_id/send_mail', to: 'customer_groups#send_mail'
+      post 'customer_inquiry', to: 'customer_inquiry#send_confirm_mail'
       get 'webpages/edit', to: 'webpages#edit'
       get 'webpages/:public_id', to: 'webpages#show'
       get 'webpages', to: 'webpages#index'

@@ -14,7 +14,7 @@ const CustomerInquiryTemplate = (): JSX.Element => {
 
   const onSubmit = () => {
     axios.post(`${process.env.BACKEND_URL}/api/internal/customer_inquiry`, {
-      inquiry: {
+      customer_inquiry: {
         email: email,
         phone_number: phoneNumber,
         content: content,

@@ -1,0 +1,22 @@
+
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+      <p>以下の内容でお問い合わせを受け付けました</p>
+      <div style="margin-top: 10px;">メールアドレス: <%= @email %></div>
+      <div style="margin-top: 10px;">電話番号: <%= @phone_number %></div>
+      <div style="margin-top: 10px;">お問い合わせ種別: <%= @inquiry_type %></div>
+      <div style="margin-top: 10px;">お問い合わせ内容</div>
+      <div style="margin-top: 10px;white-space:pre-wrap; word-wrap:break-word;"><%= @content %></div>
+    <br/>
+    <%= simple_format(h("
+      -------------------------------------------------------------
+      ■  SquareEight
+      ※このメールは送信専用メールアドレスからシステムで自動的に配信されています。
+      ※ご返信いただいてもお応えいたしかねますのでご了承ください。
+    ")) %>
+  </body>
+</html>
