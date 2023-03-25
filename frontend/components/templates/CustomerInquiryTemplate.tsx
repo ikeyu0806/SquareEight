@@ -64,7 +64,6 @@ const CustomerInquiryTemplate = (): JSX.Element => {
                 <Form.Select onChange={(e) => setInquiryType(e.target.value)}>
                   <option>機能について</option>
                   <option>ご要望</option>
-                  <option>エンタープライズプランの見積もり依頼</option>
                   <option>その他のお問い合わせ</option>
                 </Form.Select>
                 <Form.Label className='mt20'>お問い合わせ内容<RequireBadge /></Form.Label>
