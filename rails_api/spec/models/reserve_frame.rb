@@ -114,7 +114,7 @@ RSpec.describe ReserveFrame, type: :model do
   describe 'unreservable_frames_dates_range' do
     it do
       unreservable_frames_dates_range = reserve_frame.unreservable_frames_dates_range
-      expect(unreservable_frames_dates_range).to eq [unreservable_frame.start_at..unreservable_frame.end_at]
+      expect(unreservable_frames_dates_range).to eq [unreservable_frame.start_at..unreservable_frame.start_at.end_of_day]
     end
   end
 
@@ -135,7 +135,7 @@ RSpec.describe ReserveFrame, type: :model do
   describe 'out_of_range_frames_dates_range' do
     it do
       out_of_range_frames_dates_range = reserve_frame.out_of_range_frames_dates_range
-      expect(out_of_range_frames_dates_range).to eq [out_of_range_frame.start_at..out_of_range_frame.end_at]
+      expect(out_of_range_frames_dates_range).to eq [out_of_range_frame.start_at..out_of_range_frame.start_at.end_of_day]
     end
   end
 
