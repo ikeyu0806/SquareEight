@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import React, { useEffect, useState } from 'react'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container, Row, Col, Card } from 'react-bootstrap'
 import MerchantUserAdminLayout from 'components/templates/MerchantUserAdminLayout'
 import axios from 'axios'
 import { useDispatch, useSelector } from 'react-redux'
@@ -39,12 +39,39 @@ const Index: NextPage = () => {
         {allowReadCustomer === 'Allow' &&
         <Container>
           <Row>
-            <Col>顧客名</Col>
-            <Col>
-              {customer &&
-              <>{customer.last_name}{customer.first_name}</>}
+            <Col lg={3} md={3}></Col>
+            <Col lg={6}>
+              <Card>
+                <Card.Header className='font-weight-bold'>顧客情報</Card.Header>
+                <Card.Body>
+                  <Row>
+                    <Col className='font-weight-bold'>お名前</Col>
+                    <Col>
+                      {customer &&
+                      <>{customer.last_name}{customer.first_name}</>}
+                    </Col>
+                  </Row>
+                  <hr />
+                  <Row>
+                    <Col className='font-weight-bold'>メールアドレス</Col>
+                    <Col>
+                      {customer &&
+                      <>{customer.email}</>}
+                    </Col>
+                  </Row>
+                  <hr />
+                  <Row>
+                    <Col className='font-weight-bold'>携帯電話番号</Col>
+                    <Col>
+                      {customer &&
+                      <>{customer.phone_number}</>}
+                    </Col>
+                  </Row>
+                </Card.Body>
+              </Card>
             </Col>
           </Row>
+          <Row></Row>
         </Container>}
         {allowReadCustomer === 'Forbid' && <Unauthorized />}
       </MerchantUserAdminLayout>
