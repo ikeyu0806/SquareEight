@@ -3,6 +3,15 @@ class Api::Internal::CustomersController < ApplicationController
 
   before_action :merchant_login_only!
 
+  def show
+    customer = Customer.find_by(public_id: params[:public_id])
+    customer = JSON.parse(customer.to_json(methods: [:line_display_name, :line_picture_url, :line_user_public_id, :line_user, :full_name]))
+    render json: { status: 'success', customer: customer }, status: 200
+  rescue => error
+    Rails.logger.error error
+    render json: { status: 'fail', error: error }, status: 500
+  end
+
   def create
     customer = Customer.new(customer_params)
     customer.account_id = current_merchant_user.account_id

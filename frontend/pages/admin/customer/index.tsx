@@ -156,6 +156,7 @@ const Index: NextPage = () => {
                   <th>アンケート</th>
                   <th>注文/お支払い</th>
                   <th>編集</th>
+                  <th>詳細</th>
                   <th>メモ</th>
                 </tr>
               </thead>
@@ -238,6 +239,13 @@ const Index: NextPage = () => {
                         <a onClick={() => showEditModal(customer)}
                         className='btn btn-primary btn-sm mb20'>
                         編集
+                      </a>}
+                    </td>
+                    <td>
+                      {allowReadCustomer === 'Allow' &&
+                        <a href={`/admin/customer/${customer.public_id}`}
+                        className='btn btn-primary btn-sm mb20'>
+                        詳細
                       </a>}
                     </td>
                     <td>
