@@ -73,6 +73,9 @@ class Api::Internal::ReserveFramesController < ApplicationController
     ActiveRecord::Base.transaction do
       reserve_frame = current_merchant_user.account.reserve_frames
                       .new(form_type_attr_params)
+      if form_type_params[:is_every_month_repeat] && form_type_params[:repeat_interval_type].eql?("Month")
+        reserve_frame.repeat_interval_month_date = form_type_params[:start_at].to_date.day
+      end
       form_type_params[:reserve_frame_reception_times].uniq.each do |reception_time|
         reserve_frame.reserve_frame_reception_times.new(reception_start_time: reception_time[:reception_start_time], reception_end_time: reception_time[:reception_end_time])
       end
@@ -155,7 +158,9 @@ class Api::Internal::ReserveFramesController < ApplicationController
     ActiveRecord::Base.transaction do
       reserve_frame = ReserveFrame.find_by(public_id: params[:public_id])
       reserve_frame.attributes = form_type_attr_params
-
+      if form_type_params[:is_every_month_repeat] && form_type_params[:repeat_interval_type].eql?("Month")
+        reserve_frame.repeat_interval_month_date = form_type_params[:start_at].to_date.day
+      end
       if form_type_params[:reserve_frame_reception_times].present?
         reserve_frame.reserve_frame_reception_times.delete_all
         form_type_params[:reserve_frame_reception_times].uniq.each do |reception_time|
