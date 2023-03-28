@@ -22,9 +22,10 @@ const WellnessLandingPageOverview = (): JSX.Element => {
                 <span className={homeStyles.description_brand_badge}>メール/LINE送信</span>
               </div>
             <div className={homeStyles.wellness_lp_service_overview_text}>
-              パーソナルトレーニング・ヨガ・ジム・スポーツスクール・リラク・整体ビジネスを最適化。<br />格安予約システム「SquareEight」
+              <div>パーソナルトレーニング・ヨガ・ジム・スポーツスクール・リラク・整体ビジネスを最適化。</div>
+              <div className='mt20'>格安予約システム「SquareEight」</div>
             </div>
-            <div className='text-center'>
+            <div className={homeStyles.text_center_with_sp}>
               <a href='/merchant/signup'><button
                 className={homeStyles.description_trial_button}>
                 無料でお試し。有料プランも{lightPlanPrice}円〜
