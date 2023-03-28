@@ -3,23 +3,33 @@ import React from 'react'
 import RegularFooter from 'components/organisms/RegularFooter'
 import LandingPageNavbar from 'components/organisms/LandingPageNavbar'
 import { Container, Row, Col } from 'react-bootstrap'
+import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
 import { defaultJsonLdData, topPageBreadcrumbListJsonLdData } from 'constants/jsonLdData'
+import homeStyles from 'styles/Home.module.css'
 
-const Fitness: NextPage = () => {
+const Wellness: NextPage = () => {
   return (
     <>
       <LandingPageNavbar />
       <Container>
+        <div className='mt20'></div>
         <Row>
           <Col>
-            <div className='mt20 font-size-20'>ウェルネスビジネスのサービス事業者様必見</div>
-            <div className='font-size-30 mt20'>パーソナルトレーニング・ヨガ・ジム・スポーツスクール・整体の格安予約システム</div>
+            <div className='font-size-20'>ウェルネスビジネスのサービス事業者様必見</div>
+            <div className='font-size-30 mt20'>
+              パーソナルトレーニング・ヨガ・ジム・スポーツスクール・整体ビジネスを最適化する格安予約システム「SquareEight」
+            </div>
           </Col>
           <Col>
+          <img
+            src='/images/lp/fitness_image.webp'
+            alt='Top Cover' />
           </Col>
         </Row>
       </Container>
+      <hr />
+      <LandingPageFunctionDescription />
       <hr />
       <Container>
         <LandingPagePlanPrice />
@@ -37,4 +47,4 @@ const Fitness: NextPage = () => {
   )
 }
 
-export default Fitness
+export default Wellness
