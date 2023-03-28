@@ -53,7 +53,9 @@ const Wellness: NextPage = () => {
       </Container>
       <RegularFooter></RegularFooter>
       <div className={homeStyles.position_under_fixed}>
-        <button className={homeStyles.position_under_fixed_trial_button}>無料でお試し</button>
+        <a href='/merchant/signup'>
+          <button className={homeStyles.position_under_fixed_trial_button}>無料でお試し</button>
+        </a>
       </div>
       <>
         <script
