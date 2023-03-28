@@ -23,6 +23,7 @@ const Wellness: NextPage = () => {
           </Col>
           <Col>
           <img
+            className={homeStyles.fitness_image}
             src='/images/lp/fitness_image.webp'
             alt='Top Cover' />
           </Col>

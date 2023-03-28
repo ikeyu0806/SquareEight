@@ -233,6 +233,10 @@ img.customer_support_img {
   object-position: 0 0;
 }
 
+.fitness_image {
+  border-radius: 35px;
+}
+
 /* タブレット用 */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
   .cover_img_parent .headline_service_name {
