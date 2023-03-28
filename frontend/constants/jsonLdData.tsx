@@ -5,6 +5,13 @@ export const defaultJsonLdData = {
   'description': 'オンラインショップ開設、予約システム、回数券発行、サブスクリプション支払い対応、オンラインアンケート機能、顧客管理をオールインワンで提供。',
 }
 
+export const wellnessLpJsonLdData = {
+  '@context': 'http://schema.org/',
+  '@type': 'Service',
+  'name': 'SquareEight',
+  'description': 'パーソナルトレーニング・ヨガ・ジム・スポーツスクール・リラク・整体ビジネスを最適化。格安予約システム「SquareEight」',
+}
+
 export const corporationJsonLdData = {
   '@context': 'http://schema.org/',
   '@type': 'Organization',
@@ -30,6 +37,29 @@ export const topPageBreadcrumbListJsonLdData = {
       'item': {
         '@id': process.env.FRONTEND_URL,
         'name': 'トップページ'
+      }
+    },
+  ]
+}
+
+export const wellnessLpBreadcrumbListJsonLdData = {
+  '@context': 'http://schema.org',
+  '@type': 'BreadcrumbList',
+  'itemListElement': [
+    {
+      '@type': 'ListItem',
+      'position': 1,
+      'item': {
+        '@id': process.env.FRONTEND_URL,
+        'name': 'トップページ'
+      }
+    },
+    {
+      '@type': 'ListItem',
+      'position': 2,
+      'item': {
+        '@id': `${process.env.FRONTEND_URL}/lp/wellness`,
+        'name': 'ウェルネスサービス提供者向けページ'
       }
     },
   ]
