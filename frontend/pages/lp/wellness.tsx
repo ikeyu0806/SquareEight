@@ -20,11 +20,21 @@ const Wellness: NextPage = () => {
             <p>
               <span className={homeStyles.wellness_lp_linear_gradient_blue}>ウェルネスビジネスのサービス事業者様必見</span>
             </p>
+            <div>
+              <span className={homeStyles.description_brand_badge}>予約システム</span>
+              <span className={homeStyles.description_brand_badge}>会員管理</span>
+              <span className={homeStyles.description_brand_badge}>月謝</span>
+              <span className={homeStyles.description_brand_badge}>回数券</span>
+              <span className={homeStyles.description_brand_badge}>物販</span>
+              <span className={homeStyles.description_brand_badge}>オンラインアンケート</span>
+              <span className={homeStyles.description_brand_badge}>メール送信</span>
+            </div>
             <div className='font-size-30 mt20 mb20'>
               パーソナルトレーニング・ヨガ・ジム・スポーツスクール・リラク・整体ビジネスを最適化。<br />格安予約システム「SquareEight」
             </div>
-            <BrandColorButton
-              buttonText='無料でお試し'></BrandColorButton>
+            <button className={homeStyles.description_trial_button}>
+              無料でお試し。有料プランも1480円〜
+            </button>
           </Col>
           <Col>
           <img

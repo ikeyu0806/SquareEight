@@ -243,6 +243,23 @@ img.customer_support_img {
   border-radius: 35px;
 }
 
+.description_trial_button {
+  background-color: #B2384E;
+  border-color: #B2384E;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.description_brand_badge {
+  font-size: 12px;
+  padding: 10px;
+  color: white;
+  background-color: gray;
+  border-radius: 10px;
+  margin-left: 5px;
+}
+
 /* タブレット用 */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
   .cover_img_parent .headline_service_name {
