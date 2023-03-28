@@ -1,26 +1,24 @@
 import { NextPage } from 'next'
 import React from 'react'
 import RegularFooter from 'components/organisms/RegularFooter'
-import LandingPageNavbar from 'components/organisms/LandingPageNavbar'
+import WellnessLandingPageNavbar from 'components/organisms/WellnessLandingPageNavbar'
 import { Container, Row, Col } from 'react-bootstrap'
 import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
-import BrandColorButton from 'components/atoms/BrandColorButton'
 import { defaultJsonLdData } from 'constants/jsonLdData'
 import homeStyles from 'styles/Home.module.css'
-import { lightPlanPrice, standardPlanPrice, premiumPlanPrice } from 'constants/systemPlanPrices'
 import WellnessLandingPageBenefit from 'components/organisms/WellnessLandingPageBenefit'
 import WellnessLandingPageOverview from 'components/organisms/WellnessLandingPageOverview'
 
 const Wellness: NextPage = () => {
   return (
     <>
-      <LandingPageNavbar />
+      <WellnessLandingPageNavbar />
       <Container>
         <div className='mt20'></div>
         <WellnessLandingPageOverview />
       <hr />
-      <div className='text-center font-size-30 font-weight-bold'>
+      <div className='text-center font-size-30 font-weight-bold' id='industry'>
         <p className={homeStyles.section_headline_parent}>
           <span className={homeStyles.section_headline}>対応業種</span>
         </p>

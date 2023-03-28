@@ -5,7 +5,7 @@ import { lightPlanPrice, standardPlanPrice, premiumPlanPrice } from 'constants/s
 const WellnessLandingPageBenefit = (): JSX.Element => {
   return (
     <>
-      <div className='text-center font-size-30 font-weight-bold'>
+      <div className='text-center font-size-30 font-weight-bold' id='benefit'>
         <p className={homeStyles.section_headline_parent}>
           <span className={homeStyles.section_headline}>導入効果</span>
         </p>
