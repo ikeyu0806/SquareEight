@@ -14,6 +14,7 @@ import LandingPageBenefit from 'components/organisms/LandingPageBenefit'
 import LandingPageServiceOverview from 'components/organisms/LandingPageServiceOverview'
 import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
+import LandingPageBusinessTypeSamples from 'components/organisms/LandingPageBusinessTypeSamples'
 import { Container,
          Navbar,
          Nav,
@@ -57,51 +58,7 @@ const Home: NextPage = () => {
         <hr />
         <LandingPagePlanPrice />
         <hr />
-        <div>
-          <div className='text-center' id='usecase'>
-          <p className={homeStyles.section_headline_parent}>
-            <span className={homeStyles.section_headline}>こんな場面でお使いになれます!</span>
-          </p>
-          <div className='text-center mt10'>
-            <p><span className={homeStyles.section_description}>全業種対応。特にウェルネスビジネスにおすすめ</span></p>
-          </div>
-          <Container>
-            <Row>
-              <Col lg={4} md={4}>
-                <div className={homeStyles.business_type_content}>フィットネスジム運営</div>
-              </Col>
-              <Col lg={4} md={4}>
-                <div className={homeStyles.business_type_content}>パーソナルトレーニング</div>
-              </Col>
-              <Col lg={4} md={4}>
-                <div className={homeStyles.business_type_content}>スポーツスクール運営</div>
-              </Col>
-            </Row>
-            <Row>
-              <Col lg={4} md={4}>
-                <div className={homeStyles.business_type_content}>説明会・イベントページ作成</div>
-              </Col>
-              <Col lg={4} md={4}>
-                <div className={homeStyles.business_type_content}>ヨガ、ピラティススタジオ運営</div>
-              </Col>
-              <Col lg={4} md={4}>
-                <div className={homeStyles.business_type_content}>美容室運営</div>
-              </Col>
-            </Row>
-            <Row>
-              <Col lg={4} md={4}>
-                <div className={homeStyles.business_type_content}>ネイルサロン運営</div>
-              </Col>
-              <Col lg={4} md={4}>
-                <div className={homeStyles.business_type_content}>アクティビティ・レジャービジネス</div>
-              </Col>
-              <Col lg={4} md={4}>
-                <div className={homeStyles.business_type_content}>オンラインサロン運営</div>
-              </Col>
-            </Row>
-          </Container>
-          </div>
-        </div>
+        <LandingPageBusinessTypeSamples />
       </Container>
       <hr />
       <RegularFooter></RegularFooter>
