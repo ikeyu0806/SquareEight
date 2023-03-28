@@ -1,6 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import homeStyles from 'styles/Home.module.css'
+import BrandColorButton from './BrandColorButton'
 
 const LpSightUpLinkButton = () => {
   const router = useRouter()
