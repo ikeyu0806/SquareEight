@@ -8,6 +8,7 @@ import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
 import BrandColorButton from 'components/atoms/BrandColorButton'
 import { defaultJsonLdData } from 'constants/jsonLdData'
 import homeStyles from 'styles/Home.module.css'
+import { lightPlanPrice, standardPlanPrice, premiumPlanPrice } from 'constants/systemPlanPrices'
 
 const Wellness: NextPage = () => {
   return (
@@ -34,7 +35,7 @@ const Wellness: NextPage = () => {
             </div>
             <a href='/merchant/signup'><button
               className={homeStyles.description_trial_button}>
-              無料でお試し。有料プランも1480円〜
+              無料でお試し。有料プランも{lightPlanPrice}円〜
             </button></a>
           </Col>
           <Col>
@@ -77,7 +78,12 @@ const Wellness: NextPage = () => {
         </p>
       </div>
       <Row>
-        <Col lg={6} className='mb20'>
+        <Col lg={3}>
+          <div className={homeStyles.border_circle}>
+            運営コスト削減
+          </div>
+        </Col>
+        <Col lg={9}>
           <div className={homeStyles.benefit_box}>
             <div className='font-size-25'>
               <div className={homeStyles.wellness_benefit_headline}>
@@ -85,21 +91,44 @@ const Wellness: NextPage = () => {
               </div>
             </div>
             <div className={homeStyles.benefit_text}>
-              <br />他社フィットネス向け予約サービスではスタンダードプランで月額料金数万以上と高額な運用費用がかかります。
-              <br /><br />当サービスはスタンダードプラン月額2980円でご利用可能！
+              <br />他社予約サービスではスタンダードプランで月額料金数万以上と高額な運用費用がかかります。
+              <br /><br />当サービスは有料プラン1480円〜ご利用可能！
             </div>
           </div>
         </Col>
-        <Col lg={6} className='mb20'>
+      </Row>
+      <br />
+      <Row>
+        <Col lg={3}></Col>
+        <Col lg={9}>
           <div className={homeStyles.benefit_box}>
             <div className='font-size-25'>
               <div className={homeStyles.wellness_benefit_headline}>
-              支払いの月額サブスクリプション・回数券対応
+                決済手数料の削減
               </div>
             </div>
             <div className={homeStyles.benefit_text}>
-              <br />お支払いにクレジットカード決済の他、月額サブスクリプション・回数券を導入でき売り上げを安定させることができます。
-              <br /><br />新規ユーザの獲得にも効果的です。
+              <br />月額{premiumPlanPrice}円のプレミアムプランでは決済手数料4%でご利用可能。
+              <br />
+              <br />例えば売り上げが100万円の場合、決済手数料8%のシステムに比べて7万円以上のコストが削減できます。
+            </div>
+          </div>
+        </Col>
+      </Row>
+      <br />
+      <Row>
+        <Col lg={3}></Col>
+        <Col lg={9}>
+          <div className={homeStyles.benefit_box}>
+            <div className='font-size-25'>
+              <div className={homeStyles.wellness_benefit_headline}>
+                スタッフの工数削減
+              </div>
+            </div>
+            <div className={homeStyles.benefit_text}>
+              <br />予約を24時間自動で受け付けることができます。
+              <br />
+              <br />日毎、週ごと、曜日ごとの繰り返し設定や特例休業日、営業日の設定も可能。
             </div>
           </div>
         </Col>
