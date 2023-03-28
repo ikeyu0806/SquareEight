@@ -247,6 +247,8 @@ img.customer_support_img {
 
 .fitness_image {
   border-radius: 35px;
+  width: 600px;
+  height: 400px;
 }
 
 .description_trial_button {
@@ -291,6 +293,12 @@ img.customer_support_img {
   right: 50px;
   bottom: 50px;
   text-align: center;
+}
+
+.wellness_lp_service_overview_text {
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
 }
 
 /* タブレット用 */
@@ -432,6 +440,23 @@ img.customer_support_img {
 
   .benefit_text {
     font-size: 15px;
+  }
+
+  .fitness_image {
+    border-radius: 35px;
+    width: 300px;
+    height: 200px;
+    margin-top: 10px;
+  }
+
+  .position_under_fixed_trial_button {
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 15px;
+  }
+
+  .wellness_lp_service_overview_text {
+    font-size: 20px;
   }
 }
 

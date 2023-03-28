@@ -33,7 +33,7 @@ const Wellness: NextPage = () => {
         <Col>
           <div className='text-center font-size-25 font-weight-bold text-center mb10'>スポーツスクール</div>
           <div className='text-center font-size-20'>
-            テニススクール / スイミングスクール / ダンススクール / ゴルフスクール / 格闘技 / サッカースクール / 野球スクール / バスケットスクール / その他スポーツスクール
+            テニススクール / スイミングスクール / ダンススクール / ゴルフスクール / 格闘技 / その他スポーツスクール
           </div>
         </Col>
         <Col>

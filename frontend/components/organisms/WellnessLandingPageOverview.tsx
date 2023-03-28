@@ -19,7 +19,7 @@ const WellnessLandingPageOverview = (): JSX.Element => {
               <span className={homeStyles.description_brand_badge}>オンラインアンケート</span>
               <span className={homeStyles.description_brand_badge}>メール/LINE送信</span>
             </div>
-            <div className='font-size-30 mt20 mb20'>
+            <div className={homeStyles.wellness_lp_service_overview_text}>
               パーソナルトレーニング・ヨガ・ジム・スポーツスクール・リラク・整体ビジネスを最適化。<br />格安予約システム「SquareEight」
             </div>
             <a href='/merchant/signup'><button
