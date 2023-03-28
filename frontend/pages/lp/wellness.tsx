@@ -5,6 +5,7 @@ import LandingPageNavbar from 'components/organisms/LandingPageNavbar'
 import { Container, Row, Col } from 'react-bootstrap'
 import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
+import LpSightUpLinkButton from 'components/atoms/LpSightUpLinkButton'
 import { defaultJsonLdData, topPageBreadcrumbListJsonLdData } from 'constants/jsonLdData'
 import homeStyles from 'styles/Home.module.css'
 

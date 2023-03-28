@@ -1,6 +1,7 @@
 import React from 'react'
 import { useRouter } from 'next/router'
 import homeStyles from 'styles/Home.module.css'
+import LpSightUpLinkButton from 'components/atoms/LpSightUpLinkButton'
 
 const LandingPageCover = (): JSX.Element => {
   const router = useRouter()
@@ -14,9 +15,7 @@ const LandingPageCover = (): JSX.Element => {
         SquareEight
       </p>
       <div className={homeStyles.service_description}>
-        <button
-          onClick={() => router.push('/merchant/signup')}
-          className={homeStyles.business_account_signup_btn}>無料でお試し</button>
+        <LpSightUpLinkButton />
       </div>
     </div>
   )
