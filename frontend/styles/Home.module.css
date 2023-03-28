@@ -130,6 +130,12 @@
   padding: 20px 12px;
 }
 
+.wellness_benefit_headline {
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
+}
+
 .function_content {
   border-radius: 5px;
   border: 1px solid;

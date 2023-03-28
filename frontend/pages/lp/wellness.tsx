@@ -27,14 +27,15 @@ const Wellness: NextPage = () => {
               <span className={homeStyles.description_brand_badge}>回数券</span>
               <span className={homeStyles.description_brand_badge}>物販</span>
               <span className={homeStyles.description_brand_badge}>オンラインアンケート</span>
-              <span className={homeStyles.description_brand_badge}>メール送信</span>
+              <span className={homeStyles.description_brand_badge}>メール/LINE送信</span>
             </div>
             <div className='font-size-30 mt20 mb20'>
               パーソナルトレーニング・ヨガ・ジム・スポーツスクール・リラク・整体ビジネスを最適化。<br />格安予約システム「SquareEight」
             </div>
-            <button className={homeStyles.description_trial_button}>
+            <a href='/merchant/signup'><button
+              className={homeStyles.description_trial_button}>
               無料でお試し。有料プランも1480円〜
-            </button>
+            </button></a>
           </Col>
           <Col>
           <img
@@ -66,6 +67,40 @@ const Wellness: NextPage = () => {
         <div className='text-center font-size-25 font-weight-bold text-center mb10'>リラク</div>
           <div className='text-center font-size-20'>
             整体 / マッサージ / サウナ / 整骨院 / 温浴施設 / その他リラクゼーション施設
+          </div>
+        </Col>
+      </Row>
+      <hr />
+      <div className='text-center font-size-30 font-weight-bold'>
+        <p className={homeStyles.section_headline_parent}>
+          <span className={homeStyles.section_headline}>導入効果</span>
+        </p>
+      </div>
+      <Row>
+        <Col lg={6} className='mb20'>
+          <div className={homeStyles.benefit_box}>
+            <div className='font-size-25'>
+              <div className={homeStyles.wellness_benefit_headline}>
+                格安で予約ページ作成
+              </div>
+            </div>
+            <div className={homeStyles.benefit_text}>
+              <br />他社フィットネス向け予約サービスではスタンダードプランで月額料金数万以上と高額な運用費用がかかります。
+              <br /><br />当サービスはスタンダードプラン月額2980円でご利用可能！
+            </div>
+          </div>
+        </Col>
+        <Col lg={6} className='mb20'>
+          <div className={homeStyles.benefit_box}>
+            <div className='font-size-25'>
+              <div className={homeStyles.wellness_benefit_headline}>
+              支払いの月額サブスクリプション・回数券対応
+              </div>
+            </div>
+            <div className={homeStyles.benefit_text}>
+              <br />お支払いにクレジットカード決済の他、月額サブスクリプション・回数券を導入でき売り上げを安定させることができます。
+              <br /><br />新規ユーザの獲得にも効果的です。
+            </div>
           </div>
         </Col>
       </Row>
