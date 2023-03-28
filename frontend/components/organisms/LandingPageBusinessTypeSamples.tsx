@@ -10,7 +10,7 @@ const LandingPageBusinessTypeSamples = (): JSX.Element => {
           <span className={homeStyles.section_headline}>こんな場面でお使いになれます!</span>
         </p>
         <div className='text-center mt10'>
-          <p><span className={homeStyles.section_description}>全業種対応。特にウェルネスビジネスにおすすめ</span></p>
+          <p><span className={homeStyles.section_description}>全業種対応。<a href='/lp/wellness'>特にウェルネスビジネスにおすすめ</a></span></p>
         </div>
         <Container>
           <Row>
