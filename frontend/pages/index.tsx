@@ -3,11 +3,6 @@ import React from 'react'
 import RegularFooter from 'components/organisms/RegularFooter'
 import LandingPageCover from 'components/organisms/LandingPageCover'
 import homeStyles from 'styles/Home.module.css'
-import BrandColorButton from 'components/atoms/BrandColorButton'
-import { brandGrayRgb, brandGreenRgb } from 'constants/brandColors'
-import DownArrawIcon from 'components/atoms/DownArrawIcon'
-import { useRouter } from 'next/router'
-import { lightPlanPrice, standardPlanPrice, premiumPlanPrice } from 'constants/systemPlanPrices'
 import { defaultJsonLdData, topPageBreadcrumbListJsonLdData } from 'constants/jsonLdData'
 import LandingPageNavbar from 'components/organisms/LandingPageNavbar'
 import LandingPageBenefit from 'components/organisms/LandingPageBenefit'
@@ -15,18 +10,9 @@ import LandingPageServiceOverview from 'components/organisms/LandingPageServiceO
 import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
 import LandingPageBusinessTypeSamples from 'components/organisms/LandingPageBusinessTypeSamples'
-import { Container,
-         Navbar,
-         Nav,
-         Alert,
-         Card,
-         Row,
-         Col,
-         Table } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 
 const Home: NextPage = () => {
-  const router = useRouter()
-
   return (
     <>
       <LandingPageNavbar />
