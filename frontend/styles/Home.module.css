@@ -348,6 +348,14 @@ img.customer_support_img {
     width: 600px;
     margin-bottom: 20px;
   }
+
+  .fitness_image {
+    margin-top: 20px;
+  }
+
+  .benefit_box {
+    margin-bottom: 20px;
+  }
 }
 
 @media screen and (min-width : 320px) and (max-width: 479px) {

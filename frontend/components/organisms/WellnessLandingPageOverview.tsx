@@ -10,15 +10,17 @@ const WellnessLandingPageOverview = (): JSX.Element => {
             <p>
               <span className={homeStyles.wellness_lp_linear_gradient_blue}>ウェルネスビジネスのサービス事業者様必見</span>
             </p>
-            <div>
-              <span className={homeStyles.description_brand_badge}>予約システム</span>
-              <span className={homeStyles.description_brand_badge}>会員管理</span>
-              <span className={homeStyles.description_brand_badge}>月謝</span>
-              <span className={homeStyles.description_brand_badge}>回数券</span>
-              <span className={homeStyles.description_brand_badge}>物販</span>
-              <span className={homeStyles.description_brand_badge}>オンラインアンケート</span>
-              <span className={homeStyles.description_brand_badge}>メール/LINE送信</span>
-            </div>
+              <div>
+                <span className={homeStyles.description_brand_badge}>予約システム</span>
+                <span className={homeStyles.description_brand_badge}>会員管理</span>
+                <span className={homeStyles.description_brand_badge}>月謝</span>
+                <span className={homeStyles.description_brand_badge}>回数券</span>
+              </div>
+              <div className='mt20'>
+                <span className={homeStyles.description_brand_badge}>物販</span>
+                <span className={homeStyles.description_brand_badge}>オンラインアンケート</span>
+                <span className={homeStyles.description_brand_badge}>メール/LINE送信</span>
+              </div>
             <div className={homeStyles.wellness_lp_service_overview_text}>
               パーソナルトレーニング・ヨガ・ジム・スポーツスクール・リラク・整体ビジネスを最適化。<br />格安予約システム「SquareEight」
             </div>
