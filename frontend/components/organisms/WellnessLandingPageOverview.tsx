@@ -6,7 +6,7 @@ const WellnessLandingPageOverview = (): JSX.Element => {
   return (
       <>
         <Row>
-          <Col>
+          <Col md={6}>
             <p>
               <span className={homeStyles.wellness_lp_linear_gradient_blue}>ウェルネスビジネスのサービス事業者様必見</span>
             </p>
@@ -24,16 +24,18 @@ const WellnessLandingPageOverview = (): JSX.Element => {
             <div className={homeStyles.wellness_lp_service_overview_text}>
               パーソナルトレーニング・ヨガ・ジム・スポーツスクール・リラク・整体ビジネスを最適化。<br />格安予約システム「SquareEight」
             </div>
-            <a href='/merchant/signup'><button
-              className={homeStyles.description_trial_button}>
-              無料でお試し。有料プランも{lightPlanPrice}円〜
-            </button></a>
+            <div className='text-center'>
+              <a href='/merchant/signup'><button
+                className={homeStyles.description_trial_button}>
+                無料でお試し。有料プランも{lightPlanPrice}円〜
+              </button></a>
+            </div>
           </Col>
-          <Col>
-          <img
-            className={homeStyles.fitness_image}
-            src='/images/lp/fitness_image.webp'
-            alt='Top Cover' />
+          <Col md={6}>
+            <img
+              className={homeStyles.fitness_image}
+              src='/images/lp/fitness_image.webp'
+              alt='Fitness Image' />
           </Col>
         </Row>
       </>

@@ -455,6 +455,7 @@ img.customer_support_img {
     width: 300px;
     height: 200px;
     margin-top: 10px;
+    display: none;
   }
 
   .position_under_fixed_trial_button {
@@ -465,6 +466,10 @@ img.customer_support_img {
 
   .wellness_lp_service_overview_text {
     font-size: 20px;
+  }
+
+  .benefit_box {
+    margin-bottom: 20px;
   }
 }
 
