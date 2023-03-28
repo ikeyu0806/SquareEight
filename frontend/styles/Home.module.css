@@ -107,6 +107,12 @@
   background: linear-gradient(transparent 70%, #5BA5BD 50%);
 }
 
+.wellness_lp_linear_gradient_blue {
+  font-size: 20px;
+  font-weight: bold;
+  background: linear-gradient(transparent 70%, #5BA5BD 50%);
+}
+
 .benefit_headline {
   font-size: 25px;
   font-weight: bold;
@@ -122,6 +128,12 @@
   border-top: 12px solid #5BA5BD;
   border: 1px solid black;
   padding: 20px 12px;
+}
+
+.wellness_benefit_headline {
+  font-size: 25px;
+  font-weight: bold;
+  text-align: center;
 }
 
 .function_content {
@@ -233,6 +245,62 @@ img.customer_support_img {
   object-position: 0 0;
 }
 
+.fitness_image {
+  border-radius: 35px;
+  width: 600px;
+  height: 400px;
+}
+
+.description_trial_button {
+  background-color: #B2384E;
+  border-color: #B2384E;
+  color: white;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.description_brand_badge {
+  font-size: 12px;
+  padding: 10px;
+  color: white;
+  background-color: gray;
+  border-radius: 10px;
+  margin-left: 5px;
+}
+
+.border_circle {
+  width: 200px;
+  height: 200px;
+  line-height: 200px;
+  background-color: orange;
+  border-radius: 50%;
+  color: #fff;
+  text-align: center;
+  font-size: 20px;
+}
+
+.position_under_fixed_trial_button {
+  background-color: #3F3F3f;
+  border-color: #3F3F3f;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 25px;
+}
+
+.position_under_fixed {
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  text-align: center;
+}
+
+.wellness_lp_service_overview_text {
+  font-size: 30px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
 /* タブレット用 */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
   .cover_img_parent .headline_service_name {
@@ -278,6 +346,14 @@ img.customer_support_img {
   img.customer_support_img {
     border: 1px #000000 solid;
     width: 600px;
+    margin-bottom: 20px;
+  }
+
+  .fitness_image {
+    margin-top: 20px;
+  }
+
+  .benefit_box {
     margin-bottom: 20px;
   }
 }
@@ -372,6 +448,23 @@ img.customer_support_img {
 
   .benefit_text {
     font-size: 15px;
+  }
+
+  .fitness_image {
+    border-radius: 35px;
+    width: 300px;
+    height: 200px;
+    margin-top: 10px;
+  }
+
+  .position_under_fixed_trial_button {
+    padding: 10px;
+    border-radius: 10px;
+    font-size: 15px;
+  }
+
+  .wellness_lp_service_overview_text {
+    font-size: 20px;
   }
 }
 

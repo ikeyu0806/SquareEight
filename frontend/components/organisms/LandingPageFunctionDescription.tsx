@@ -20,7 +20,7 @@ import { Container,
           <Container>
             <Row>
               <Col lg={4} md={4}>
-                <div className={homeStyles.function_content}>店舗ホームページ作成</div>
+                <div className={homeStyles.function_content}>店舗ミニページ作成</div>
               </Col>
               <Col lg={4} md={4}>
                 <div className={homeStyles.function_content}>予約メニュー作成</div>
