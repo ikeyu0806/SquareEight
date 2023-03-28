@@ -78,12 +78,7 @@ const Wellness: NextPage = () => {
         </p>
       </div>
       <Row>
-        <Col lg={3}>
-          <div className={homeStyles.border_circle}>
-            運営コスト削減
-          </div>
-        </Col>
-        <Col lg={9}>
+        <Col lg={6}>
           <div className={homeStyles.benefit_box}>
             <div className='font-size-25'>
               <div className={homeStyles.wellness_benefit_headline}>
@@ -96,11 +91,7 @@ const Wellness: NextPage = () => {
             </div>
           </div>
         </Col>
-      </Row>
-      <br />
-      <Row>
-        <Col lg={3}></Col>
-        <Col lg={9}>
+        <Col lg={6}>
           <div className={homeStyles.benefit_box}>
             <div className='font-size-25'>
               <div className={homeStyles.wellness_benefit_headline}>
@@ -110,15 +101,14 @@ const Wellness: NextPage = () => {
             <div className={homeStyles.benefit_text}>
               <br />月額{premiumPlanPrice}円のプレミアムプランでは決済手数料4%でご利用可能。
               <br />
-              <br />例えば売り上げが100万円の場合、決済手数料8%のシステムに比べて7万円以上のコストが削減できます。
+              <br />例えば売り上げが100万円の状態で決済手数料8%のシステムから乗り換えた場合、7万円以上のコストが削減できます。
             </div>
           </div>
         </Col>
       </Row>
       <br />
       <Row>
-        <Col lg={3}></Col>
-        <Col lg={9}>
+        <Col lg={6}>
           <div className={homeStyles.benefit_box}>
             <div className='font-size-25'>
               <div className={homeStyles.wellness_benefit_headline}>
@@ -132,8 +122,49 @@ const Wellness: NextPage = () => {
             </div>
           </div>
         </Col>
+        <Col lg={6}>
+          <div className={homeStyles.benefit_box}>
+            <div className='font-size-25'>
+              <div className={homeStyles.wellness_benefit_headline}>
+                月額サブスクリプション・回数券の導入
+              </div>
+            </div>
+            <div className={homeStyles.benefit_text}>
+              <br />予約のお支払いに月謝や回数券を導入することができます。
+              <br /><br />パーソナルトレーニングやジム、ヨガレッスン、スポーツスクールの売り上げ安定化に効果的です。
+            </div>
+          </div>
+        </Col>
       </Row>
-      <hr />
+      <br />
+      <Row>
+        <Col lg={6} className='mb20'>
+          <div className={homeStyles.benefit_box}>
+            <div className='font-size-25'>
+              <div className={homeStyles.wellness_benefit_headline}>
+                アンケート・メッセージ機能による会員フォロー
+              </div>
+            </div>
+            <div className={homeStyles.benefit_text}>
+              <br />クラブ、スクールの会員にアンケートやメルマガ、LINEメッセージでアフターフォローできます。
+              <br /><br /><br />
+            </div>
+          </div>
+        </Col>
+        <Col lg={6} className='mb20'>
+          <div className={homeStyles.benefit_box}>
+            <div className='font-size-25'>
+              <div className={homeStyles.wellness_benefit_headline}>
+                予約・ECシステムの一元化
+              </div>
+            </div>
+            <div className={homeStyles.benefit_text}>
+              <br />オンラインショップ開設サービス、予約システム、アンケートシステムと別々に契約されるケースが多いです。
+              <br />当サービスはそれら全ての機能をオールインワンで提供しており顧客情報も一元管理できます。
+            </div>
+          </div>
+        </Col>
+      </Row>
       <LandingPageFunctionDescription />
       <hr />
       <LandingPagePlanPrice />
