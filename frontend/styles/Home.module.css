@@ -277,6 +277,22 @@ img.customer_support_img {
   font-size: 20px;
 }
 
+.position_under_fixed_trial_button {
+  background-color: #3F3F3f;
+  border-color: #3F3F3f;
+  color: white;
+  padding: 20px;
+  border-radius: 10px;
+  font-size: 25px;
+}
+
+.position_under_fixed {
+  position: fixed;
+  right: 50px;
+  bottom: 50px;
+  text-align: center;
+}
+
 /* タブレット用 */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
   .cover_img_parent .headline_service_name {

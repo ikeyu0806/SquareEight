@@ -52,6 +52,9 @@ const Wellness: NextPage = () => {
       <hr />
       </Container>
       <RegularFooter></RegularFooter>
+      <div className={homeStyles.position_under_fixed}>
+        <button className={homeStyles.position_under_fixed_trial_button}>無料でお試し</button>
+      </div>
       <>
         <script
           key='structured-data'
