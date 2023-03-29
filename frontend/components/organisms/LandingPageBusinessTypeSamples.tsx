@@ -15,35 +15,28 @@ const LandingPageBusinessTypeSamples = (): JSX.Element => {
         <Container>
           <Row>
             <Col lg={4} md={4}>
-              <div className={homeStyles.business_type_content}>フィットネスジム運営</div>
+              <div className={homeStyles.business_type_content}>
+                <div>ウェルネスビジネス運営</div>
+                <a
+                  href='/lp/wellness'
+                  className='btn btn-info text-white mt20'>もっとみる</a>
+              </div>
             </Col>
             <Col lg={4} md={4}>
-              <div className={homeStyles.business_type_content}>パーソナルトレーニング</div>
+              <div className={homeStyles.business_type_content}>
+                <div>美容系ビジネス運営</div>
+                <a
+                  href='/lp/beauty'
+                  className='btn btn-info text-white mt20'>もっとみる</a>
+              </div>
             </Col>
             <Col lg={4} md={4}>
-              <div className={homeStyles.business_type_content}>スポーツスクール運営</div>
-            </Col>
-          </Row>
-          <Row>
-            <Col lg={4} md={4}>
-              <div className={homeStyles.business_type_content}>説明会・イベントページ作成</div>
-            </Col>
-            <Col lg={4} md={4}>
-              <div className={homeStyles.business_type_content}>ヨガ、ピラティススタジオ運営</div>
-            </Col>
-            <Col lg={4} md={4}>
-              <div className={homeStyles.business_type_content}>美容室運営</div>
-            </Col>
-          </Row>
-          <Row>
-            <Col lg={4} md={4}>
-              <div className={homeStyles.business_type_content}>ネイルサロン運営</div>
-            </Col>
-            <Col lg={4} md={4}>
-              <div className={homeStyles.business_type_content}>アクティビティ・レジャービジネス</div>
-            </Col>
-            <Col lg={4} md={4}>
-              <div className={homeStyles.business_type_content}>オンラインサロン運営</div>
+              <div className={homeStyles.business_type_content}>
+                <div>イベント・セミナー運営</div>
+                <a
+                  href='/lp/event'
+                  className='btn btn-info text-white mt20'>もっとみる</a>
+              </div>
             </Col>
           </Row>
         </Container>
