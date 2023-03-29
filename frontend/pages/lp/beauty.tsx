@@ -5,7 +5,7 @@ import BeautyLandingPageNavbar from 'components/organisms/BeautyLandingPageNavba
 import { Container, Row, Col } from 'react-bootstrap'
 import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
-import { wellnessLpJsonLdData, wellnessLpBreadcrumbListJsonLdData } from 'constants/jsonLdData'
+import { beautyLpJsonLdData, beautyLpBreadcrumbListJsonLdData } from 'constants/jsonLdData'
 import homeStyles from 'styles/Home.module.css'
 import BeautyLandingPageBenefit from 'components/organisms/BeautyLandingPageBenefit'
 import BeautyLandingPageOverview from 'components/organisms/BeautyLandingPageOverview'
@@ -35,12 +35,12 @@ const Beauty: NextPage = () => {
         <script
           key='structured-data'
           type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(wellnessLpJsonLdData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(beautyLpJsonLdData) }}
         />
         <script
           key='structured-data'
           type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(wellnessLpBreadcrumbListJsonLdData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(beautyLpBreadcrumbListJsonLdData) }}
         />
       </>
     </>
