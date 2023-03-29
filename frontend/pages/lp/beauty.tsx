@@ -1,22 +1,22 @@
 import { NextPage } from 'next'
 import React from 'react'
 import RegularFooter from 'components/organisms/RegularFooter'
-import WellnessLandingPageNavbar from 'components/organisms/WellnessLandingPageNavbar'
+import BeautyLandingPageNavbar from 'components/organisms/BeautyLandingPageNavbar'
 import { Container, Row, Col } from 'react-bootstrap'
 import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
 import { wellnessLpJsonLdData, wellnessLpBreadcrumbListJsonLdData } from 'constants/jsonLdData'
 import homeStyles from 'styles/Home.module.css'
 import WellnessLandingPageBenefit from 'components/organisms/WellnessLandingPageBenefit'
-import WellnessLandingPageOverview from 'components/organisms/WellnessLandingPageOverview'
+import BeautyLandingPageOverview from 'components/organisms/BeautyLandingPageOverview'
 
 const Beauty: NextPage = () => {
   return (
     <>
-      <WellnessLandingPageNavbar />
+      <BeautyLandingPageNavbar />
       <Container>
         <div className='mt20'></div>
-        <WellnessLandingPageOverview />
+        <BeautyLandingPageOverview />
       <hr />
       <div className='text-center font-size-30 font-weight-bold' id='industry'>
         <p className={homeStyles.section_headline_parent}>
