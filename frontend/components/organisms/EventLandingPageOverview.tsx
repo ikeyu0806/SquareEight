@@ -13,7 +13,7 @@ const EventLandingPageOverview = (): JSX.Element => {
               <div>
                 <span className={homeStyles.description_brand_badge}>予約システム</span>
                 <span className={homeStyles.description_brand_badge}>会員管理</span>
-                <span className={homeStyles.description_brand_badge}>月謝</span>
+                <span className={homeStyles.description_brand_badge}>定期課金</span>
                 <span className={homeStyles.description_brand_badge}>回数券</span>
               </div>
               <div className='mt20'>
@@ -22,7 +22,7 @@ const EventLandingPageOverview = (): JSX.Element => {
                 <span className={homeStyles.description_brand_badge}>メール/LINE送信</span>
               </div>
             <div className={homeStyles.wellness_lp_service_overview_text}>
-              <div>イベント・セミナー・体験会ビジネスを最適化。</div>
+              <div>イベント・セミナー・体験会のオンライン予約受付に。</div>
               <div className='mt20'>格安予約システム「SquareEight」</div>
             </div>
             <div className={homeStyles.text_center_with_sp}>

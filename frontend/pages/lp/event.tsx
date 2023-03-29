@@ -20,26 +20,20 @@ const Event: NextPage = () => {
       <hr />
       <div className='text-center font-size-30 font-weight-bold' id='industry'>
         <p className={homeStyles.section_headline_parent}>
-          <span className={homeStyles.section_headline}>対応業種</span>
+          <span className={homeStyles.section_headline}>活用例</span>
         </p>
       </div>
       <Row>
-        <Col lg={4} md={4}>
-          <div className='text-center font-size-25 font-weight-bold text-center mb10'>フィットネスクラブ</div>
+        <Col lg={6} md={6}>
+          <div className='text-center font-size-25 font-weight-bold text-center mb10'>イベント</div>
           <div className='text-center font-size-20'>
-            パーソナルトレーニング / ジム / ヨガスタジオ / ピラティス / フィットネスクラブ
+            まちおこしイベント / 留学イベント / サークルイベント / 体験型ゲーム / ショーイベント
           </div>
         </Col>
-        <Col lg={4} md={4}>
-          <div className='text-center font-size-25 font-weight-bold text-center mb10'>スポーツスクール</div>
+        <Col lg={6} md={6}>
+          <div className='text-center font-size-25 font-weight-bold text-center mb10'>セミナー・説明会</div>
           <div className='text-center font-size-20'>
-            テニススクール / スイミングスクール / ダンススクール / ゴルフスクール / 格闘技 / その他スポーツスクール
-          </div>
-        </Col>
-        <Col lg={4} md={4}>
-        <div className='text-center font-size-25 font-weight-bold text-center mb10'>リラク</div>
-          <div className='text-center font-size-20'>
-            整体 / マッサージ / サウナ / 整骨院 / 温浴施設 / その他リラクゼーション施設
+          会社説明会 / 採用説明会 / 講習会 / 教育講座 / 勉強会 / 研修 / 見学会
           </div>
         </Col>
       </Row>
