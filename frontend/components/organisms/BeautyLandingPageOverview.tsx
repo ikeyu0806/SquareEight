@@ -34,7 +34,7 @@ const BeautyLandingPageOverview = (): JSX.Element => {
           </Col>
           <Col md={6}>
             <img
-              className={homeStyles.fitness_image}
+              className={homeStyles.beauty_salon_image}
               src='/images/lp/beauty_salon.webp'
               alt='Beauty Salon Image' />
           </Col>
