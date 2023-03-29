@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_03_20_111055) do
+ActiveRecord::Schema[7.0].define(version: 2023_03_29_082232) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -448,6 +448,15 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_111055) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "product_reviews", force: :cascade do |t|
+    t.string "public_id", null: false
+    t.text "comment", null: false
+    t.integer "end_user_id", null: false
+    t.integer "product_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "product_types", force: :cascade do |t|
     t.integer "product_id"
     t.string "name"
@@ -480,6 +489,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_03_20_111055) do
     t.integer "image3_account_s3_image_id"
     t.integer "image4_account_s3_image_id"
     t.integer "image5_account_s3_image_id"
+    t.integer "is_accept_review", default: 0
   end
 
   create_table "purchased_tickets", force: :cascade do |t|
