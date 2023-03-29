@@ -251,6 +251,12 @@ img.customer_support_img {
   height: 400px;
 }
 
+.beauty_salon_image {
+  border-radius: 35px;
+  width: 600px;
+  height: 400px;
+}
+
 .description_trial_button {
   background-color: #B2384E;
   border-color: #B2384E;
@@ -353,6 +359,10 @@ img.customer_support_img {
     margin-top: 20px;
   }
 
+  .beauty_salon_image {
+    margin-top: 20px;
+  }
+
   .benefit_box {
     margin-bottom: 20px;
   }
@@ -451,6 +461,14 @@ img.customer_support_img {
   }
 
   .fitness_image {
+    border-radius: 35px;
+    width: 300px;
+    height: 200px;
+    margin-top: 10px;
+    display: none;
+  }
+
+  .beauty_salon_image {
     border-radius: 35px;
     width: 300px;
     height: 200px;
