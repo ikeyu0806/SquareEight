@@ -7,7 +7,7 @@ import LandingPageFunctionDescription from 'components/organisms/LandingPageFunc
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
 import { wellnessLpJsonLdData, wellnessLpBreadcrumbListJsonLdData } from 'constants/jsonLdData'
 import homeStyles from 'styles/Home.module.css'
-import WellnessLandingPageBenefit from 'components/organisms/WellnessLandingPageBenefit'
+import EventLandingPageBenefit from 'components/organisms/EventLandingPageBenefit'
 import EventLandingPageOverview from 'components/organisms/EventLandingPageOverview'
 
 const Event: NextPage = () => {
@@ -27,18 +27,18 @@ const Event: NextPage = () => {
         <Col lg={6} md={6}>
           <div className='text-center font-size-25 font-weight-bold text-center mb10'>イベント</div>
           <div className='text-center font-size-20'>
-            まちおこしイベント / 留学イベント / サークルイベント / 体験型ゲーム / ショーイベント
+            まちおこしイベント / 留学イベント / サークルイベント / 体験型ゲーム / ショーイベント / パーティー
           </div>
         </Col>
         <Col lg={6} md={6}>
           <div className='text-center font-size-25 font-weight-bold text-center mb10'>セミナー・説明会</div>
           <div className='text-center font-size-20'>
-          会社説明会 / 採用説明会 / 講習会 / 教育講座 / 勉強会 / 研修 / 見学会
+          会社説明会 / 採用説明会 / 講習会 / 教育講座 / 勉強会 / 研修 / 見学会 / 展示会 / 物産展
           </div>
         </Col>
       </Row>
       <hr />
-      <WellnessLandingPageBenefit />
+      <EventLandingPageBenefit />
       <hr />
       <LandingPageFunctionDescription />
       <hr />
