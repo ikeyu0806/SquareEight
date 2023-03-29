@@ -21,6 +21,7 @@ class EndUser < ApplicationRecord
   has_one :customer, foreign_key: :end_user_id, primary_key: :id
   has_many :merchant_stripe_subscriptions
   has_many :monthly_payment_plans, through: :merchant_stripe_subscriptions
+  has_many :product_reviews
 
   validates :password, password: true
 
