@@ -17,13 +17,13 @@ const Beauty: NextPage = () => {
       <Container>
         <div className='mt20'></div>
         <BeautyLandingPageOverview />
-      <hr />
-      <BeautyLandingPageBenefit />
-      <hr />
-      <LandingPageFunctionDescription />
-      <hr />
-      <LandingPagePlanPrice />
-      <hr />
+        <hr />
+        <BeautyLandingPageBenefit />
+        <hr />
+        <LandingPageFunctionDescription />
+        <hr />
+        <LandingPagePlanPrice />
+        <hr />
       </Container>
       <RegularFooter></RegularFooter>
       <div className={homeStyles.position_under_fixed}>
