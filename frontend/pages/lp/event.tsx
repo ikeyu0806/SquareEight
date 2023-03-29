@@ -1,7 +1,7 @@
 import { NextPage } from 'next'
 import React from 'react'
 import RegularFooter from 'components/organisms/RegularFooter'
-import WellnessLandingPageNavbar from 'components/organisms/WellnessLandingPageNavbar'
+import EventLandingPageNavbar from 'components/organisms/EventLandingPageNavbar'
 import { Container, Row, Col } from 'react-bootstrap'
 import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
@@ -13,7 +13,7 @@ import EventLandingPageOverview from 'components/organisms/EventLandingPageOverv
 const Event: NextPage = () => {
   return (
     <>
-      <WellnessLandingPageNavbar />
+      <EventLandingPageNavbar />
       <Container>
         <div className='mt20'></div>
         <EventLandingPageOverview />
