@@ -7,7 +7,7 @@ import LandingPageFunctionDescription from 'components/organisms/LandingPageFunc
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
 import { wellnessLpJsonLdData, wellnessLpBreadcrumbListJsonLdData } from 'constants/jsonLdData'
 import homeStyles from 'styles/Home.module.css'
-import WellnessLandingPageBenefit from 'components/organisms/WellnessLandingPageBenefit'
+import BeautyLandingPageBenefit from 'components/organisms/BeautyLandingPageBenefit'
 import BeautyLandingPageOverview from 'components/organisms/BeautyLandingPageOverview'
 
 const Beauty: NextPage = () => {
@@ -18,33 +18,7 @@ const Beauty: NextPage = () => {
         <div className='mt20'></div>
         <BeautyLandingPageOverview />
       <hr />
-      <div className='text-center font-size-30 font-weight-bold' id='industry'>
-        <p className={homeStyles.section_headline_parent}>
-          <span className={homeStyles.section_headline}>対応業種</span>
-        </p>
-      </div>
-      <Row>
-        <Col lg={4} md={4}>
-          <div className='text-center font-size-25 font-weight-bold text-center mb10'>美容室</div>
-          <div className='text-center font-size-20'>
-            美容室 / 美容院 / ヘアサロン
-          </div>
-        </Col>
-        <Col lg={4} md={4}>
-          <div className='text-center font-size-25 font-weight-bold text-center mb10'>リラクサロン運営</div>
-          <div className='text-center font-size-20'>
-            リラクゼーションサロン / エステサロン / ホテルスパ
-          </div>
-        </Col>
-        <Col lg={4} md={4}>
-        <div className='text-center font-size-25 font-weight-bold text-center mb10'>美容クリニック</div>
-          <div className='text-center font-size-20'>
-            美容医療 / 美容クリニック
-          </div>
-        </Col>
-      </Row>
-      <hr />
-      <WellnessLandingPageBenefit />
+      <BeautyLandingPageBenefit />
       <hr />
       <LandingPageFunctionDescription />
       <hr />
