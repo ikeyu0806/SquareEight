@@ -5,7 +5,7 @@ import EventLandingPageNavbar from 'components/organisms/EventLandingPageNavbar'
 import { Container, Row, Col } from 'react-bootstrap'
 import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
-import { wellnessLpJsonLdData, wellnessLpBreadcrumbListJsonLdData } from 'constants/jsonLdData'
+import { eventLpJsonLdData, eventLpBreadcrumbListJsonLdData } from 'constants/jsonLdData'
 import homeStyles from 'styles/Home.module.css'
 import EventLandingPageBenefit from 'components/organisms/EventLandingPageBenefit'
 import EventLandingPageOverview from 'components/organisms/EventLandingPageOverview'
@@ -55,12 +55,12 @@ const Event: NextPage = () => {
         <script
           key='structured-data'
           type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(wellnessLpJsonLdData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventLpJsonLdData) }}
         />
         <script
           key='structured-data'
           type='application/ld+json'
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(wellnessLpBreadcrumbListJsonLdData) }}
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(eventLpBreadcrumbListJsonLdData) }}
         />
       </>
     </>
