@@ -35,7 +35,7 @@ const EventLandingPageOverview = (): JSX.Element => {
           <Col md={6}>
             <img
               className={homeStyles.fitness_image}
-              src='/images/lp/fitness_image.webp'
+              src='/images/lp/board.webp'
               alt='Fitness Image' />
           </Col>
         </Row>
