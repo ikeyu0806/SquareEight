@@ -40,11 +40,11 @@ const StandardPlanCard = ({showJoinButton}: Props): JSX.Element => {
           <Col xs={11}>
             <Card.Text className={cardStyles.plan_description}>
               <TextWithCheckIcon text='ライトプランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
-              <TextWithCheckIcon text='月間予約件数2000件' fill={'darkblue'}></TextWithCheckIcon><br/>
+              <TextWithCheckIcon text='月間予約件数5000件' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='複数管理ユーザ登録' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='登録顧客を1000件まで表示' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='リソース登録数制限解除' fill={'darkblue'}></TextWithCheckIcon><br/>
-              <TextWithCheckIcon text='メール配信可能数 月間500件' fill={'darkblue'}></TextWithCheckIcon><br/>
+              <TextWithCheckIcon text='メール配信可能数 月間5000件' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='決済手数料5%' fill={'darkblue'}></TextWithCheckIcon><br/>
             </Card.Text>
           </Col>
