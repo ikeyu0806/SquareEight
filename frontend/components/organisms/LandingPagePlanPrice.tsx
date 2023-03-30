@@ -42,9 +42,9 @@ const LandingPagePlanPrice = (): JSX.Element => {
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>オンライン予約受付</td>
-                <td>月間10件</td>
                 <td>月間500件</td>
-                <td>月間2000件</td>
+                <td>月間1000件</td>
+                <td>月間5000件</td>
                 <td>無制限</td>
               </tr>
               <tr className={homeStyles.plan_table_text}>
@@ -70,8 +70,8 @@ const LandingPagePlanPrice = (): JSX.Element => {
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>顧客表示数</td>
-                <td>10人</td>
-                <td>500人</td>
+                <td>100人</td>
+                <td>300人</td>
                 <td>1000人</td>
                 <td>無制限</td>
               </tr>
@@ -105,9 +105,9 @@ const LandingPagePlanPrice = (): JSX.Element => {
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>メール配信可能数</td>
-                <td>10件</td>
                 <td>100件</td>
-                <td>500件</td>
+                <td>1000件</td>
+                <td>5000件</td>
                 <td>無制限</td>
               </tr>
               <tr className={homeStyles.plan_table_text}>
