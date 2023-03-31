@@ -1,6 +1,7 @@
 import homeStyles from 'styles/Home.module.css'
 import { lightPlanPrice, standardPlanPrice, premiumPlanPrice } from 'constants/systemPlanPrices'
-import { RESERVATION_LIMIT } from 'constants/systemPlanLimit'
+import { RESERVATION_LIMIT,
+         CUSTOMER_DISPLAY_LIMIT } from 'constants/systemPlanLimit'
 import { Card, Row, Col, Table } from 'react-bootstrap'
 import { brandGreenRgb } from 'constants/brandColors'
 
@@ -71,10 +72,10 @@ const LandingPagePlanPrice = (): JSX.Element => {
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>顧客表示数</td>
-                <td>100人</td>
-                <td>300人</td>
-                <td>1000人</td>
-                <td>無制限</td>
+                <td>{CUSTOMER_DISPLAY_LIMIT.Free}人</td>
+                <td>{CUSTOMER_DISPLAY_LIMIT.Light}人</td>
+                <td>{CUSTOMER_DISPLAY_LIMIT.Standard}人</td>
+                <td>{CUSTOMER_DISPLAY_LIMIT.Premium}</td>
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>ノーコードWebページ作成機能</td>
