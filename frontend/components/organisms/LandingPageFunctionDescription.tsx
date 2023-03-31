@@ -1,12 +1,5 @@
 import homeStyles from 'styles/Home.module.css'
-import { Container,
-  Navbar,
-  Nav,
-  Alert,
-  Card,
-  Row,
-  Col,
-  Table } from 'react-bootstrap'
+import { Container, Row, Col } from 'react-bootstrap'
   
   const LandingPageServiceOverview = (): JSX.Element => {
   return (

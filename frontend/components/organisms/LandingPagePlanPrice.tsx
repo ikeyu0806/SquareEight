@@ -1,5 +1,6 @@
 import homeStyles from 'styles/Home.module.css'
 import { lightPlanPrice, standardPlanPrice, premiumPlanPrice } from 'constants/systemPlanPrices'
+import { RESERVATION_LIMIT } from 'constants/systemPlanLimit'
 import { Card, Row, Col, Table } from 'react-bootstrap'
 import { brandGreenRgb } from 'constants/brandColors'
 
@@ -42,10 +43,10 @@ const LandingPagePlanPrice = (): JSX.Element => {
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>オンライン予約受付</td>
-                <td>月間500件</td>
-                <td>月間1000件</td>
-                <td>月間5000件</td>
-                <td>無制限</td>
+                <td>月間{RESERVATION_LIMIT.Free}件</td>
+                <td>月間{RESERVATION_LIMIT.Light}件</td>
+                <td>月間{RESERVATION_LIMIT.Standard}件</td>
+                <td>{RESERVATION_LIMIT.Premium}</td>
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>EC商品登録数</td>
