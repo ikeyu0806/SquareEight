@@ -20,3 +20,17 @@ export const QUESTIONNAIRE_MASTER_LIMIT = {
   Standard: '無制限',
   Premium: '無制限',
 } as const
+
+export const SEND_MAIL_LIMIT = {
+  Free: 100,
+  Light: 1000,
+  Standard: 5000,
+  Premium: '無制限',
+} as const
+
+export const STRIPE_APPLICATION_FEE_PERCENT = {
+  Free: 8,
+  Light: 5,
+  Standard: 5,
+  Premium: 4,
+} as const

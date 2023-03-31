@@ -2,7 +2,9 @@ import homeStyles from 'styles/Home.module.css'
 import { lightPlanPrice, standardPlanPrice, premiumPlanPrice } from 'constants/systemPlanPrices'
 import { RESERVATION_LIMIT,
          CUSTOMER_DISPLAY_LIMIT,
-         QUESTIONNAIRE_MASTER_LIMIT } from 'constants/systemPlanLimit'
+         QUESTIONNAIRE_MASTER_LIMIT,
+         SEND_MAIL_LIMIT,
+         STRIPE_APPLICATION_FEE_PERCENT } from 'constants/systemPlanLimit'
 import { Card, Row, Col, Table } from 'react-bootstrap'
 import { brandGreenRgb } from 'constants/brandColors'
 
@@ -108,10 +110,10 @@ const LandingPagePlanPrice = (): JSX.Element => {
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>メール配信可能数</td>
-                <td>100件</td>
-                <td>1000件</td>
-                <td>5000件</td>
-                <td>無制限</td>
+                <td>{SEND_MAIL_LIMIT.Free}件</td>
+                <td>{SEND_MAIL_LIMIT.Light}件</td>
+                <td>{SEND_MAIL_LIMIT.Standard}件</td>
+                <td>{SEND_MAIL_LIMIT.Premium}</td>
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>メッセージテンプレート登録</td>
@@ -149,10 +151,10 @@ const LandingPagePlanPrice = (): JSX.Element => {
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>決済手数料</td>
-                <td>8%</td>
-                <td>5%</td>
-                <td>5%</td>
-                <td>4%</td>
+                <td>{STRIPE_APPLICATION_FEE_PERCENT.Free}%</td>
+                <td>{STRIPE_APPLICATION_FEE_PERCENT.Light}%</td>
+                <td>{STRIPE_APPLICATION_FEE_PERCENT.Standard}%</td>
+                <td>{STRIPE_APPLICATION_FEE_PERCENT.Premium}%</td>
               </tr>
             </tbody>
           </Table>
