@@ -6,6 +6,7 @@ import {  RESERVATION_LIMIT,
           SEND_MAIL_LIMIT,
           STRIPE_APPLICATION_FEE_PERCENT,
           RESOURCE_REGISTER_LIMIT } from 'constants/systemPlanLimit'
+
 const FreePlanCard = (): JSX.Element => {
   return (
     <Card className={cardStyles.planCard}>
