@@ -13,3 +13,10 @@ export const CUSTOMER_DISPLAY_LIMIT = {
   Standard: 1000,
   Premium: '無制限',
 } as const
+
+export const QUESTIONNAIRE_MASTER_LIMIT = {
+  Free: '無制限',
+  Light: '無制限',
+  Standard: '無制限',
+  Premium: '無制限',
+} as const

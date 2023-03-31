@@ -1,7 +1,8 @@
 import homeStyles from 'styles/Home.module.css'
 import { lightPlanPrice, standardPlanPrice, premiumPlanPrice } from 'constants/systemPlanPrices'
 import { RESERVATION_LIMIT,
-         CUSTOMER_DISPLAY_LIMIT } from 'constants/systemPlanLimit'
+         CUSTOMER_DISPLAY_LIMIT,
+         QUESTIONNAIRE_MASTER_LIMIT } from 'constants/systemPlanLimit'
 import { Card, Row, Col, Table } from 'react-bootstrap'
 import { brandGreenRgb } from 'constants/brandColors'
 
@@ -86,17 +87,17 @@ const LandingPagePlanPrice = (): JSX.Element => {
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>オンラインアンケート作成</td>
-                <td>3件</td>
-                <td>無制限</td>
-                <td>無制限</td>
-                <td>無制限</td>
+                <td>{QUESTIONNAIRE_MASTER_LIMIT.Free}</td>
+                <td>{QUESTIONNAIRE_MASTER_LIMIT.Light}</td>
+                <td>{QUESTIONNAIRE_MASTER_LIMIT.Standard}</td>
+                <td>{QUESTIONNAIRE_MASTER_LIMIT.Premium}</td>
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>オンラインアンケート回答閲覧可能数</td>
-                <td>○</td>
-                <td>○</td>
-                <td>○</td>
-                <td>○</td>
+                <td>無制限</td>
+                <td>無制限</td>
+                <td>無制限</td>
+                <td>無制限</td>
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>スタッフや設備備品などのリソース登録</td>
