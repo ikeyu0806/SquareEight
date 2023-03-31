@@ -5,7 +5,11 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import CancelSystemPlanButton from 'components/atoms/CanelSystemPlanButton'
 import { standardPlanPrice } from 'constants/systemPlanPrices'
-
+import {  RESERVATION_LIMIT,
+          CUSTOMER_DISPLAY_LIMIT,
+          SEND_MAIL_LIMIT,
+          STRIPE_APPLICATION_FEE_PERCENT,
+          RESOURCE_REGISTER_LIMIT } from 'constants/systemPlanLimit'
 interface Props {
   showJoinButton?: boolean
 }
@@ -40,12 +44,12 @@ const StandardPlanCard = ({showJoinButton}: Props): JSX.Element => {
           <Col xs={11}>
             <Card.Text className={cardStyles.plan_description}>
               <TextWithCheckIcon text='ライトプランの全機能' fill={'darkblue'}></TextWithCheckIcon><br/>
-              <TextWithCheckIcon text='月間予約件数5000件' fill={'darkblue'}></TextWithCheckIcon><br/>
+              <TextWithCheckIcon text={`月間予約件数${RESERVATION_LIMIT.Standard}件`} fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='複数管理ユーザ登録' fill={'darkblue'}></TextWithCheckIcon><br/>
-              <TextWithCheckIcon text='登録顧客を1000件まで表示' fill={'darkblue'}></TextWithCheckIcon><br/>
+              <TextWithCheckIcon text={`登録顧客を${CUSTOMER_DISPLAY_LIMIT.Standard}件まで表示`} fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='リソース登録数制限解除' fill={'darkblue'}></TextWithCheckIcon><br/>
-              <TextWithCheckIcon text='メール配信可能数 月間5000件' fill={'darkblue'}></TextWithCheckIcon><br/>
-              <TextWithCheckIcon text='決済手数料5%' fill={'darkblue'}></TextWithCheckIcon><br/>
+              <TextWithCheckIcon text={`メール配信可能数 月間${SEND_MAIL_LIMIT.Standard}件`} fill={'darkblue'}></TextWithCheckIcon><br/>
+              <TextWithCheckIcon text={`決済手数料${STRIPE_APPLICATION_FEE_PERCENT.Standard}%`} fill={'darkblue'}></TextWithCheckIcon><br/>
             </Card.Text>
           </Col>
           <Col></Col>
