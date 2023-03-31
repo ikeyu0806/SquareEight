@@ -4,7 +4,8 @@ import { RESERVATION_LIMIT,
          CUSTOMER_DISPLAY_LIMIT,
          QUESTIONNAIRE_MASTER_LIMIT,
          SEND_MAIL_LIMIT,
-         STRIPE_APPLICATION_FEE_PERCENT } from 'constants/systemPlanLimit'
+         STRIPE_APPLICATION_FEE_PERCENT,
+         RESOURCE_REGISTER_LIMIT } from 'constants/systemPlanLimit'
 import { Card, Row, Col, Table } from 'react-bootstrap'
 import { brandGreenRgb } from 'constants/brandColors'
 
@@ -103,10 +104,10 @@ const LandingPagePlanPrice = (): JSX.Element => {
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>スタッフや設備備品などのリソース登録</td>
-                <td>3件</td>
-                <td>10件</td>
-                <td>無制限</td>
-                <td>無制限</td>
+                <td>{RESOURCE_REGISTER_LIMIT.Free}件</td>
+                <td>{RESOURCE_REGISTER_LIMIT.Light}件</td>
+                <td>{RESOURCE_REGISTER_LIMIT.Standard}</td>
+                <td>{RESOURCE_REGISTER_LIMIT.Premium}</td>
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>メール配信可能数</td>

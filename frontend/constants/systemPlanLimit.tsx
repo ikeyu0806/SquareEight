@@ -34,3 +34,10 @@ export const STRIPE_APPLICATION_FEE_PERCENT = {
   Standard: 5,
   Premium: 4,
 } as const
+
+export const RESOURCE_REGISTER_LIMIT = {
+  Free: 3,
+  Light: 10,
+  Standard: '無制限',
+  Premium: '無制限',
+} as const
