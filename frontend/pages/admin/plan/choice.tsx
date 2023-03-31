@@ -25,6 +25,11 @@ const Choice: NextPage = () => {
           <a
             className='mt20 text-white btn btn-info'
             onClick={() => dispatch(showshowSystemPlanDescribeModalChanged(true))}>プランの請求と解約について</a>
+          <a
+            className='mt20 ml10 text-white btn btn-info'
+            target='_blank'
+            rel='noreferrer'
+            href='/#pricing'>プランごとの機能制限について詳しくはこちら</a>
         </div>
         <Row>
           <Col>
