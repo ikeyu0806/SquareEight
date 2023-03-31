@@ -8,8 +8,7 @@ import { standardPlanPrice } from 'constants/systemPlanPrices'
 import {  RESERVATION_LIMIT,
           CUSTOMER_DISPLAY_LIMIT,
           SEND_MAIL_LIMIT,
-          STRIPE_APPLICATION_FEE_PERCENT,
-          RESOURCE_REGISTER_LIMIT } from 'constants/systemPlanLimit'
+          STRIPE_APPLICATION_FEE_PERCENT } from 'constants/systemPlanLimit'
 interface Props {
   showJoinButton?: boolean
 }

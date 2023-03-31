@@ -5,6 +5,10 @@ import { useSelector } from 'react-redux'
 import { RootState } from 'redux/store'
 import CancelSystemPlanButton from 'components/atoms/CanelSystemPlanButton'
 import { premiumPlanPrice } from 'constants/systemPlanPrices'
+import {  RESERVATION_LIMIT,
+          CUSTOMER_DISPLAY_LIMIT,
+          SEND_MAIL_LIMIT,
+          STRIPE_APPLICATION_FEE_PERCENT } from 'constants/systemPlanLimit'
 
 interface Props {
   showJoinButton?: boolean
@@ -46,7 +50,7 @@ const PremiumPlanCard = ({showJoinButton}: Props): JSX.Element => {
               <TextWithCheckIcon text='複数ビジネスアカウント登録機能' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='登録顧客の表示制限解除' fill={'darkblue'}></TextWithCheckIcon><br/>
               <TextWithCheckIcon text='月間予約件数制限解除' fill={'darkblue'}></TextWithCheckIcon><br/>
-              <TextWithCheckIcon text='決済手数料4%' fill={'darkblue'}></TextWithCheckIcon><br/>
+              <TextWithCheckIcon text={`決済手数料${STRIPE_APPLICATION_FEE_PERCENT.Premium}%`} fill={'darkblue'}></TextWithCheckIcon><br/>
             </Card.Text>
           </Col>
           <Col></Col>
