@@ -30,14 +30,14 @@ export const SEND_MAIL_LIMIT = {
 
 export const STRIPE_APPLICATION_FEE_PERCENT = {
   Free: 8,
-  Light: 5,
-  Standard: 5,
-  Premium: 4,
+  Light: 7,
+  Standard: 7,
+  Premium: 7,
 } as const
 
 export const RESOURCE_REGISTER_LIMIT = {
-  Free: 3,
-  Light: 10,
+  Free: '無制限',
+  Light: '無制限',
   Standard: '無制限',
   Premium: '無制限',
 } as const

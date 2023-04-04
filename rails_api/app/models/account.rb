@@ -42,14 +42,14 @@ class Account < ApplicationRecord
   # プランごとの設定
   PLAN_NAME =  { "Free" => "フリープラン", "Light" => "ライトプラン", "Standard" => "スタンダードプラン", "Premium" => "プレミアムプラン", "Trial" => 1000000000 }
   RESERVATION_LIMIT = { "Free" => 500, "Light" => 1000, "Standard" => 3000, "Premium" => 1000000000, "Trial" => 1000000000 }
-  RESOURCE_REGISTER_LIMIT = { "Free" => 3, "Light" => 10, "Standard" => 1000000000, "Premium" => 1000000000, "Trial" => 1000000000 }
+  RESOURCE_REGISTER_LIMIT = { "Free" => 1000000000, "Light" => 1000000000, "Standard" => 1000000000, "Premium" => 1000000000, "Trial" => 1000000000 }
   SEND_MAIL_LIMIT = { "Free" => 100, "Light" => 1000, "Standard" => 5000, "Premium" => 1000000000, "Trial" => 1000000000 }
   STRIPE_CHARGE_FEE = { "Free" => 80, "Light" => 70, "Standard" => 70, "Premium" => 50, "Trial" => 1000000000 }
   CUSTOMER_DISPLAY_LIMIT = { "Free" => 100, "Light" => 300, "Standard" => 1000, "Premium" => 1000000000, "Trial" => 1000000000 }
   QUESTIONNAIRE_MASTER_LIMIT = { "Free" => 1000000000, "Light" => 1000000000, "Standard" => 1000000000, "Premium" => 1000000000, "Trial" => 1000000000 }
   PLAN_PRICE = { "Free" => 0, "Light" => 1480, "Standard" => 2980, "Premium" => 6980, "Trial" => 0 }
-  STRIPE_APPLICATION_FEE_AMOUNT = { "Free" => 0.08, "Light" => 0.05, "Standard" => 0.05, "Premium" => 0.04, "Trial" => 0.04 }
-  STRIPE_APPLICATION_FEE_PERCENT = { "Free" => 8, "Light" => 5, "Standard" => 5, "Premium" => 4, "Trial" => 4 }
+  STRIPE_APPLICATION_FEE_AMOUNT = { "Free" => 0.08, "Light" => 0.07, "Standard" => 0.07, "Premium" => 0.07, "Trial" => 0.07 }
+  STRIPE_APPLICATION_FEE_PERCENT = { "Free" => 8, "Light" => 7, "Standard" => 7, "Premium" => 7, "Trial" => 7 }
 
   # キャンペーン
   # 無制限キャンペーン

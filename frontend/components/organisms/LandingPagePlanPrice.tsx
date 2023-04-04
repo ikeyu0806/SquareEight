@@ -104,8 +104,8 @@ const LandingPagePlanPrice = (): JSX.Element => {
               </tr>
               <tr className={homeStyles.plan_table_text}>
                 <td>スタッフや設備備品などのリソース登録</td>
-                <td>{RESOURCE_REGISTER_LIMIT.Free}件</td>
-                <td>{RESOURCE_REGISTER_LIMIT.Light}件</td>
+                <td>{RESOURCE_REGISTER_LIMIT.Free}</td>
+                <td>{RESOURCE_REGISTER_LIMIT.Light}</td>
                 <td>{RESOURCE_REGISTER_LIMIT.Standard}</td>
                 <td>{RESOURCE_REGISTER_LIMIT.Premium}</td>
               </tr>
