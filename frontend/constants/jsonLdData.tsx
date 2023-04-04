@@ -9,21 +9,21 @@ export const wellnessLpJsonLdData = {
   '@context': 'http://schema.org/',
   '@type': 'Service',
   'name': 'SquareEight',
-  'description': 'パーソナルトレーニング・ヨガ・ジム・スポーツスクール・リラク・整体ビジネスを最適化。格安予約システム「SquareEight」',
+  'description': 'パーソナルトレーニング・ヨガ・ジム・スポーツスクール・リラク・整体ビジネスを最適化。次世代予約システム「SquareEight」',
 }
 
 export const beautyLpJsonLdData = {
   '@context': 'http://schema.org/',
   '@type': 'Service',
   'name': 'SquareEight',
-  'description': '美容室・ヘアサロン・ネイルサロン・まつげサロン・メイクサロン・医療クリニックの運営を最適化。格安予約システム「SquareEight」',
+  'description': '美容室・ヘアサロン・ネイルサロン・まつげサロン・メイクサロン・医療クリニックの運営を最適化。次世代予約システム「SquareEight」',
 }
 
 export const eventLpJsonLdData = {
   '@context': 'http://schema.org/',
   '@type': 'Service',
   'name': 'SquareEight',
-  'description': 'イベント・セミナー・体験会のオンライン予約受付に。格安予約システム「SquareEight」',
+  'description': 'イベント・セミナー・体験会のオンライン予約受付に。次世代予約システム「SquareEight」',
 }
 
 export const corporationJsonLdData = {
