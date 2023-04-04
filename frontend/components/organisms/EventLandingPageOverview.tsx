@@ -23,7 +23,7 @@ const EventLandingPageOverview = (): JSX.Element => {
               </div>
             <div className={homeStyles.wellness_lp_service_overview_text}>
               <div>イベント・セミナー・体験会のオンライン予約受付に。</div>
-              <div className='mt20'>格安予約システム「SquareEight」</div>
+              <div className='mt20'>次世代予約システム「SquareEight」</div>
             </div>
             <div className={homeStyles.text_center_with_sp}>
               <a href='/merchant/signup'><button

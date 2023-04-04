@@ -15,7 +15,7 @@ const BeautyLandingPageBenefit = (): JSX.Element => {
           <div className={homeStyles.benefit_box}>
             <div className='font-size-25'>
               <div className={homeStyles.wellness_benefit_headline}>
-                格安で予約ページ作成
+                高機能・高価格予約フォーム作成機能
               </div>
             </div>
             <div className={homeStyles.benefit_text}>
