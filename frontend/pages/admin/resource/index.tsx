@@ -9,7 +9,6 @@ import { ResourceParam } from 'interfaces/ResourceParam'
 import { RootState } from 'redux/store'
 import { useSelector } from 'react-redux'
 import Unauthorized from 'components/templates/Unauthorized'
-import CreateResourceLimitAlert from 'components/atoms/CreateResourceLimitAlert'
 import { usePaginationNumber } from 'hooks/usePaginationNumber'
 
 const Index: NextPage = () => {
@@ -60,7 +59,6 @@ const Index: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <CreateResourceLimitAlert />
         <br />
         {allowReadResource === 'Allow' &&
         <Container>

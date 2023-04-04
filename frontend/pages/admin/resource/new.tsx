@@ -12,15 +12,12 @@ import { useCookies } from 'react-cookie'
 import { alertChanged } from 'redux/alertSlice'
 import Unauthorized from 'components/templates/Unauthorized'
 import { selectableReserveFramesChanged } from 'redux/resourceSlice'
-import CreateResourceLimitAlert from 'components/atoms/CreateResourceLimitAlert'
-import ResouceLimitGuide from 'components/atoms/ResouceLimitGuide'
 
 const New: NextPage = () => {
   const dispatch = useDispatch()
   const [cookies] = useCookies(['_square_eight_merchant_session'])
   const router = useRouter()
 
-  const [enableCreateResource, setEnableCreateResource] = useState(false)
   const name = useSelector((state: RootState) => state.resource.name)
   const description = useSelector((state: RootState) => state.resource.description)
   const resourceType = useSelector((state: RootState) => state.resource.resourceType)
@@ -48,7 +45,6 @@ const New: NextPage = () => {
       .then(function (response) {
         console.log(response.data)
         dispatch(selectableReserveFramesChanged(response.data.selectable_reserve_frames))
-        setEnableCreateResource(response.data.enable_create_resource)
       })
       .catch(error => {
         console.log(error)
@@ -92,25 +88,18 @@ const New: NextPage = () => {
   return (
     <>
       <MerchantUserAdminLayout>
-        <CreateResourceLimitAlert />
         {allowCreateResource === 'Allow' &&<Container>
           <Row>
             <Col lg={3} md={3}></Col>
             <Col lg={6} md={6}>
-              {/* TODO:お試し期間終わったら外す */}
-              {/* <ResourceLimitAlert /> */}
-              {/* {['Standard', 'Premium'].includes(servicePlan) && */}
-                <>
-                  <CreateResource></CreateResource>
-                  {!enableCreateResource && <ResouceLimitGuide></ResouceLimitGuide>}
-                  <div className='text-center'>
-                    <Button
-                      disabled={!enableCreateResource}
-                      onClick={onSubmit}
-                      className='mt10'>登録する</Button>
-                  </div>
-                </>
-              {/* } */}
+              <>
+                <CreateResource></CreateResource>
+                <div className='text-center'>
+                  <Button
+                    onClick={onSubmit}
+                    className='mt10'>登録する</Button>
+                </div>
+              </>
             </Col>
           </Row>
         </Container>}
