@@ -207,10 +207,6 @@ class Account < ApplicationRecord
     customers.count
   end
 
-  def enable_create_resource
-    resources.count < resource_limit
-  end
-
   def create_first_notification
     self.account_notifications.create!(title: "SquareEightへの要望・ご意見受け付けております", url: "/inquiry")
     self.account_notifications.create!(title: "まずは店舗情報を登録してください。", url: "/admin/shop/new")
