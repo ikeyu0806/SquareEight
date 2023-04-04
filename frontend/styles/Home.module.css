@@ -3,6 +3,11 @@
   font-weight: bold;
 }
 
+.top_copy {
+  font-size: 55px;
+  font-weight: bold;
+}
+
 .service_description {
   font-size: 200%;
   margin-top: 50px;
@@ -309,6 +314,10 @@ img.customer_support_img {
 
 /* タブレット用 */
 @media screen and (min-width : 719px) and (max-width : 1200px) {
+  .top_copy {
+    font-size: 40px;
+  }
+
   .cover_img_parent .headline_service_name {
     top: 35%;
     left: 50%;
@@ -369,6 +378,10 @@ img.customer_support_img {
 }
 
 @media screen and (min-width : 320px) and (max-width: 479px) {
+  .top_copy {
+    font-size: 20px;
+  }
+
 	/* スマホ用 */
   .section_headline_parent {
     margin-top: 10px;

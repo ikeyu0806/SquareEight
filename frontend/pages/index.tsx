@@ -20,14 +20,9 @@ const Home: NextPage = () => {
       <div className='mt10'>
         <Container>
           <div className='text-center'>
-            <p className={homeStyles.section_headline_parent}>
-              <span className={homeStyles.section_headline}>お店のシステム運用費用を最大90%削減</span>
-            </p>
-            <p>
-              <span className={homeStyles.section_description}>
-              無料から使えて有料プランも￥1480~¥6980
-              </span>
-            </p>
+            <div className={homeStyles.top_copy}>
+              ネットでサービス・商品を売るなら「SquareEight」
+            </div>
             <hr />
             <LandingPageBenefit />
             <hr />
