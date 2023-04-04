@@ -323,6 +323,10 @@ img.customer_support_img {
     font-size: 40px;
   }
 
+  .function_list {
+    font-size: 35px;
+  }
+
   .cover_img_parent .headline_service_name {
     top: 35%;
     left: 50%;
@@ -383,11 +387,15 @@ img.customer_support_img {
 }
 
 @media screen and (min-width : 320px) and (max-width: 479px) {
+	/* スマホ用 */
   .top_copy {
     font-size: 20px;
   }
 
-	/* スマホ用 */
+  .function_list {
+    font-size: 15px;
+  }
+
   .section_headline_parent {
     margin-top: 10px;
     margin-bottom: 20px;

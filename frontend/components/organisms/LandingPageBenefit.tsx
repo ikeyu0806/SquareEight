@@ -19,7 +19,7 @@ const LandingPageBenefit = (): JSX.Element => {
             </div>
             <div className={homeStyles.benefit_text}>
               <br />他社予約サービスではスタンダードプランで月額2万、予約1件につき￥3000など高額な運用費用がかかります。
-              <br /><br />当サービスはスタンダードプラン月額2980円でご利用可能！
+              <br /><br />当サービスは多機能予約システムを無料からご利用可能！
             </div>
           </div>
         </Col>

@@ -25,8 +25,8 @@ const Home: NextPage = () => {
             </div>
             <div className={homeStyles.function_list}>
               <Row>
-                <Col xs={2}></Col>
-                <Col xs={8}>
+                <Col lg={2}></Col>
+                <Col lg={8}>
                   <div>
                     高機能予約システム / オンラインショップ開設 / 店舗ミニページ / クレジットカード決済 / 顧客管理・会員管理 / 月謝・サブスクリプション支払い導入 / 回数券作成 / オンラインアンケート作成 / メールマガジン発行 / LINE公式アカウント連携
                   </div>
