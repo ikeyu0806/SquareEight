@@ -3,6 +3,7 @@ import React from 'react'
 import RegularFooter from 'components/organisms/RegularFooter'
 import EventLandingPageNavbar from 'components/organisms/EventLandingPageNavbar'
 import { Container, Row, Col } from 'react-bootstrap'
+import LandingPageReservationFunction from 'components/organisms/LandingPageReservationFunction'
 import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
 import { eventLpJsonLdData, eventLpBreadcrumbListJsonLdData } from 'constants/jsonLdData'
@@ -39,6 +40,8 @@ const Event: NextPage = () => {
       </Row>
       <hr />
       <EventLandingPageBenefit />
+      <hr />
+      <LandingPageReservationFunction />
       <hr />
       <LandingPageFunctionDescription />
       <hr />

@@ -2,8 +2,9 @@ import { NextPage } from 'next'
 import React from 'react'
 import RegularFooter from 'components/organisms/RegularFooter'
 import BeautyLandingPageNavbar from 'components/organisms/BeautyLandingPageNavbar'
-import { Container, Row, Col } from 'react-bootstrap'
+import { Container } from 'react-bootstrap'
 import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
+import LandingPageReservationFunction from 'components/organisms/LandingPageReservationFunction'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
 import { beautyLpJsonLdData, beautyLpBreadcrumbListJsonLdData } from 'constants/jsonLdData'
 import homeStyles from 'styles/Home.module.css'
@@ -19,6 +20,8 @@ const Beauty: NextPage = () => {
         <BeautyLandingPageOverview />
         <hr />
         <BeautyLandingPageBenefit />
+        <hr />
+        <LandingPageReservationFunction />
         <hr />
         <LandingPageFunctionDescription />
         <hr />

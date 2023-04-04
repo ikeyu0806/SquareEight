@@ -4,6 +4,7 @@ import RegularFooter from 'components/organisms/RegularFooter'
 import WellnessLandingPageNavbar from 'components/organisms/WellnessLandingPageNavbar'
 import { Container, Row, Col } from 'react-bootstrap'
 import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
+import LandingPageReservationFunction from 'components/organisms/LandingPageReservationFunction'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
 import { wellnessLpJsonLdData, wellnessLpBreadcrumbListJsonLdData } from 'constants/jsonLdData'
 import homeStyles from 'styles/Home.module.css'
@@ -45,6 +46,8 @@ const Wellness: NextPage = () => {
       </Row>
       <hr />
       <WellnessLandingPageBenefit />
+      <hr />
+      <LandingPageReservationFunction />
       <hr />
       <LandingPageFunctionDescription />
       <hr />
