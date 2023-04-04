@@ -6,6 +6,7 @@ import homeStyles from 'styles/Home.module.css'
 import { defaultJsonLdData, topPageBreadcrumbListJsonLdData } from 'constants/jsonLdData'
 import LandingPageNavbar from 'components/organisms/LandingPageNavbar'
 import LandingPageBenefit from 'components/organisms/LandingPageBenefit'
+import LandingPageReservationFunction from 'components/organisms/LandingPageReservationFunction'
 import LandingPageServiceOverview from 'components/organisms/LandingPageServiceOverview'
 import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
@@ -27,6 +28,8 @@ const Home: NextPage = () => {
             <LandingPageFunctionList />
             <hr />
             <LandingPageBenefit />
+            <hr />
+            <LandingPageReservationFunction />
             <hr />
             <LandingPageServiceOverview />
           </div>
