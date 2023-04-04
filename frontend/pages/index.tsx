@@ -10,7 +10,8 @@ import LandingPageServiceOverview from 'components/organisms/LandingPageServiceO
 import LandingPageFunctionDescription from 'components/organisms/LandingPageFunctionDescription'
 import LandingPagePlanPrice from 'components/organisms/LandingPagePlanPrice'
 import LandingPageBusinessTypeSamples from 'components/organisms/LandingPageBusinessTypeSamples'
-import { Container, Row, Col } from 'react-bootstrap'
+import LandingPageFunctionList from 'components/organisms/LandingPageFunctionList'
+import { Container } from 'react-bootstrap'
 
 const Home: NextPage = () => {
   return (
@@ -23,17 +24,7 @@ const Home: NextPage = () => {
             <div className={homeStyles.top_copy}>
               ネットでサービス・商品を売るなら「SquareEight」
             </div>
-            <div className={homeStyles.function_list}>
-              <Row>
-                <Col lg={2}></Col>
-                <Col lg={8}>
-                  <div>
-                    高機能予約システム / オンラインショップ開設 / 店舗ミニページ / クレジットカード決済 / 顧客管理・会員管理 / 月謝・サブスクリプション支払い導入 / 回数券作成 / オンラインアンケート作成 / メールマガジン発行 / LINE公式アカウント連携
-                  </div>
-                </Col>
-                <Col xs={2}></Col>
-              </Row>
-            </div>
+            <LandingPageFunctionList />
             <hr />
             <LandingPageBenefit />
             <hr />
