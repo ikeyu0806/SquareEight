@@ -8,6 +8,11 @@
   font-weight: bold;
 }
 
+.function_list {
+  font-size: 30px;
+  margin-top: 20px;
+}
+
 .service_description {
   font-size: 200%;
   margin-top: 50px;
