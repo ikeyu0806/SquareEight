@@ -1,5 +1,6 @@
 import React from 'react'
 import BrandColorButton from 'components/atoms/BrandColorButton'
+import navbarStyles from 'styles/Navbar.module.css'
 import { Container,
   Navbar,
   Nav } from 'react-bootstrap'
@@ -9,8 +10,10 @@ const LandingPageNavbar = (): JSX.Element => {
     <Navbar collapseOnSelect expand='lg' bg='light'>
     <Container>
       <Navbar.Brand href='/' className='font-weight-bold'>
-        {/* <ServiceLogoV2 width={22} height={22} /> */}
-        SquareEight
+        <img
+          alt='square-eight-logo'
+          className={navbarStyles.square_eight_logo_with_side_text}
+          src='/logos/square-eight-logo-with-side-text.png' />
       </Navbar.Brand>
       <Navbar.Toggle aria-controls='responsive-navbar-nav' />
       <Navbar.Collapse id='responsive-navbar-nav'>
