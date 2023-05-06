@@ -6,6 +6,7 @@ import { RootState } from '../../redux/store'
 import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
+import navbarStyles from 'styles/Navbar.module.css'
 
 const CustomerPageNavbar = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -28,9 +29,14 @@ const CustomerPageNavbar = (): JSX.Element => {
 
   return (
     <>
-      <Navbar variant='dark' expand='lg' bg='dark'>
+      <Navbar expand='lg'>
         <Container>
-          <Navbar.Brand href='/customer_page' className='font-weight-bold'>SquareEightID</Navbar.Brand>
+          <Navbar.Brand href='/customer_page' className='font-weight-bold'>
+          <img
+            alt='square-eight-logo'
+            className={navbarStyles.square_eight_logo_with_side_text}
+            src='/logos/square-eight-logo-with-side-text.png' />
+          </Navbar.Brand>
           <Navbar.Toggle />
             <Navbar.Collapse>
             <Nav className='me-auto'>

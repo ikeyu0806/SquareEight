@@ -7,6 +7,7 @@ import axios from 'axios'
 import { useCookies } from 'react-cookie'
 import { useRouter } from 'next/router'
 import PlanLabel from 'components/atoms/PlanLabel'
+import navbarStyles from 'styles/Navbar.module.css'
 
 const AdminNavbarTemplate = (): JSX.Element => {
   const dispatch = useDispatch()
@@ -35,12 +36,14 @@ const AdminNavbarTemplate = (): JSX.Element => {
 
   return (
     <>
-      <Navbar bg='dark' variant='dark' expand='lg'>
+      <Navbar expand='lg'>
         <Container>
           <Navbar.Brand href='/admin/dashboard'>
             <span className='font-weight-bold'>
-              {/* <ServiceLogoV2 width={25} height={25} /> */}
-              SquareEight
+            <img
+              alt='square-eight-logo'
+              className={navbarStyles.square_eight_logo_with_side_text}
+              src='/logos/square-eight-logo-with-side-text.png' />
             </span></Navbar.Brand>
           <Navbar.Toggle aria-controls='basic-navbar-nav' />
             <Navbar.Collapse id='basic-navbar-nav'>
