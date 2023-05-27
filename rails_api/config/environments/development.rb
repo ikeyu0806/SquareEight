@@ -69,6 +69,7 @@ Rails.application.configure do
   # config.action_cable.disable_request_forgery_protection = true
   config.hosts << "host.docker.internal"
   config.hosts << "localhost"
-  config.hosts << '.jp.ngrok.io'
+  config.hosts << "jp.ngrok.io"
+  config.hosts << "demo.square-eight.net"
   # config.hosts.clear
 end

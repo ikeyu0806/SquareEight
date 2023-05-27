@@ -1,0 +1,60 @@
+version: '3'
+
+services:
+  square_eight_frontend:
+    container_name: square_eight_frontend
+    environment:
+      - APP_ENV=demo
+    build:
+      context: frontend
+      dockerfile: docker/Dockerfile
+    volumes:
+      - ../frontend:/app/frontend
+    tty: true
+    ports:
+      - 80:3000
+    networks:
+      - square_eight_network
+  square_eight_rails_api:
+    container_name: square_eight_rails_api
+    build:
+      context: rails_api
+      dockerfile: docker/app/Dockerfile
+    env_file: ../rails_api/docker/docker_ec2_demo.env
+    command: bash -c "/workdir/docker/app/entrypoint_local.sh"
+    volumes:
+      - ../rails_api:/workdir
+    tty: true
+    stdin_open: true
+    ports:
+      - 3222:3000
+    depends_on:
+      - square_eight_postgresql
+    networks:
+      - square_eight_network
+  square_eight_postgresql:
+    container_name: square_eight_postgresql
+    build:
+      context: rails_api
+      dockerfile: docker/postgresql/Dockerfile
+    env_file: ../rails_api/docker/docker_local.env
+    volumes:
+      - ../rails_api/cache/postgres/data:/var/lib/postgresql/data
+    ports:
+      - "54321:5432"
+    networks:
+      - square_eight_network
+  square_eight_redis:
+    container_name: square_eight_redis
+    build:
+      context: ../rails_api
+      dockerfile: docker/redis/Dockerfile
+    volumes:
+      - ../rails_api/cache/redis/data:/data
+    ports:
+      - "26379:6379"
+    networks:
+      - square_eight_network
+
+networks:
+  square_eight_network:
