@@ -23,7 +23,6 @@ const EventLandingPageNavbar = (): JSX.Element => {
           <Nav.Link href='#features'>機能一覧</Nav.Link>
           <Nav.Link href='#pricing'>料金</Nav.Link>
           <Nav.Link href='/inquiry'>お問い合わせ</Nav.Link>
-          <Nav.Link href='/company_info'>運営会社</Nav.Link>
         </Nav>
         <Nav>
           <Nav.Link href='/customer/login'>
