@@ -13,7 +13,6 @@ Rails、React、Terraformの知見がある方はプログラミング初心者�
 まずはドキュメント関連のコントリビュートも歓迎します。
 
 # 機能
-
 - 予約ページ作成機能
 - 回数券作成機能
 - 月額サブスクリプション作成機能
@@ -47,12 +46,19 @@ Rails、React、Terraformの知見がある方はプログラミング初心者�
 
 ## envファイル設定
 
-ローカル開発ではまずenvのtemplateを元にdocker_local.envを作成して下さい。
+ローカル開発ではまずtemplateを元に環境変数を設定するenvとconfigを作成して下さい。
+
+rails_apiのローカルenv作成
 ```
-cp docker/template.env docker/docker_local.env
+cp rails_api/docker/template.env rails_api/docker/docker_local.env
 ```
 
-その後必要に応じてAWS、Stripe、LINEのキーを設定して下さい
+frontendのローカルdconfig作成
+```
+cp frontend/config/config_template.json frontend/config/local.json
+```
+
+その後必要に応じてAWS、Stripe、LINE、Googleのキーを設定して下さい
 
 ## サービス起動
 

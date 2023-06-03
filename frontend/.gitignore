@@ -34,3 +34,7 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 .DS_Store
+
+# config
+/config/local.json
+/config/main.json

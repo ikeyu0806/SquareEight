@@ -1,0 +1,11 @@
+{
+  "FRONTEND_URL": "http://localhost:3111",
+  "BACKEND_URL": "http://localhost:3222",
+  "GOOGLE_AUTH_END_USER_CLIENT_ID": "",
+  "GOOGLE_AUTH_END_USER_CLIENT_SECRET": "",
+  "GOOGLE_AUTH_END_USER_REDIRECT_URL": "http://localhost:3111/google_auth/customer/callback",
+  "GOOGLE_AUTH_MERCHANT_USER_CLIENT_ID": "",
+  "GOOGLE_AUTH_MERCHANT_USER_CLIENT_SECRET": "",
+  "GOOGLE_AUTH_MERCHANT_USER_REDIRECT_URL": "http://localhost:3111/google_auth/merchant/callback",
+  "STRIPE_PUBLISHABLE_KEY": ""
+}

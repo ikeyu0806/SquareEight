@@ -41,13 +41,19 @@ Contributions related to documentation are also welcome.
 # Local Development
 
 ## Setting up env file
-For local development, first create `docker_local.env` based on the template file `template.env` in the `docker` directory.
+For local development, first create an env and config file to set up the environment variables based on the template.
 
+Create the local env for rails_api
 ```shell
-cp docker/template.env docker/docker_local.env
+cp rails_api/docker/template.env rails_api/docker/docker_local.env
 ```
 
-Then, set the keys for AWS, Stripe, and LINE as needed.
+Create the local config for frontend
+```
+cp frontend/config/config_template.json frontend/config/local.json
+```
+
+Then, set the keys for AWS, Stripe, LINE, and Google as needed.
 
 ## Starting the service
 
