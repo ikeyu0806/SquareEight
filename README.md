@@ -1,5 +1,7 @@
 ![SquareEight-logo横組](https://github.com/ikeyu0806/SquareEight/assets/30525452/62461f86-b9bc-4ae8-b6c2-8be76035becc)
 
+[英語はこちら](README-en.md)
+
 # SquareEightについて
 SquareEightはオープンソースのオンラインビジネス運営Webサービスです。
 
