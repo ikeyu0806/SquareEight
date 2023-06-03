@@ -29,7 +29,10 @@
 /config/master.key
 cache/
 
-docker/docker_*.env
+docker/docker_local.env
+docker/docker_ecs_main.env
+docker/docker_ec2_demo.env
+
 .DS_Store
 *identification_image*
 *company_verification_document_image*

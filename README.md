@@ -43,6 +43,15 @@ Rails、React、Terraformの知見がある方はプログラミング初心者�
 
 # ローカル開発
 
+## envファイル設定
+
+ローカル開発ではまずenvのtemplateを元にdocker_local.envを作成して下さい。
+```
+cp docker/template.env docker/docker_local.env
+```
+
+その後必要に応じてAWS、Stripe、LINEのキーを設定して下さい
+
 ## サービス起動
 
 ```
@@ -62,6 +71,16 @@ brew install stripe/stripe-cli/stripe
 stripe login
 
 stripe listen --forward-to localhost:3222/stripe_webhooks
+```
+
+## LINE連携機能の活用
+LINE APIを使った機能はローカルをインターネット公開して開発可能です。
+
+ngrok
+
+```
+ngrok config add-authtoken xxxxxxxxxxxxxx
+ngrok http 3222
 ```
 
 # デプロイ
@@ -116,14 +135,11 @@ docker tag square-eight-main/nginx:latest xxxxxxxxxxx.dkr.ecr.ap-northeast-1.ama
 docker push xxxxxxxxxxx.dkr.ecr.ap-northeast-1.amazonaws.com/square-eight-main/nginx:latest
 ```
 
-## LINE連携機能の活用
-LINE APIを使った機能はローカルをインターネット公開して開発可能です。
-
-ngrok
+## env
+docker_ecs_{ブランチ名}.envという名前でenvを作成して下さい。
 
 ```
-ngrok config add-authtoken xxxxxxxxxxxxxx
-ngrok http 3222
+cp docker/template.env docker/docker_ecs_main.env
 ```
 
 ## 作者
