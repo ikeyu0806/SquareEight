@@ -1,4 +1,4 @@
-![SquareEight-logo横組](https://github.com/ikeyu0806/SquareEight/assets/30525452/62461f86-b9bc-4ae8-b6c2-8be76035becc)
+![margin square eight with_text2](https://github.com/ikeyu0806/SquareEight/assets/30525452/2dae5d06-216e-4977-971d-628443895bfa)
 
 [英語はこちら](README-en.md)
 
