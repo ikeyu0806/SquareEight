@@ -1,5 +1,3 @@
-version: '3'
-
 services:
   square_eight_frontend:
     container_name: square_eight_frontend
