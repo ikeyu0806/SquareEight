@@ -61,9 +61,13 @@ cp frontend/config/config_template.json frontend/config/local.json
 その後必要に応じてAWS、Stripe、LINE、Googleのキーを設定して下さい
 
 ## サービス起動
+```
+docker compose build
+docker compose run square_eight_frontend yarn install
+```
 
 ```
-docker-compose up
+docker compose up
 ```
 
 ## dockerのシェル操作
