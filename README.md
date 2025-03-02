@@ -70,6 +70,18 @@ docker compose run square_eight_frontend yarn install
 docker compose up
 ```
 
+## ローカルでビジネスアカウントログインするまで
+
+seedデータ登録~ログイン
+```
+docker compose run square_eight_rails_api rails db:seed
+```
+
+http://localhost:3111/merchant/login
+merchant_user@develop.com / Pass1234
+
+
+
 ## dockerのシェル操作
 
 ```
